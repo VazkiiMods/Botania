@@ -331,42 +331,6 @@ public class BlockstateProvider implements DataProvider {
 		log(remainingBlocks, livingwoodLogStrippedGlimmering, getBlockTexture(livingwoodLogStripped, "_top"), getBlockTexture(livingwoodLogStrippedGlimmering));
 		log(remainingBlocks, livingwoodStrippedGlimmering, getBlockTexture(livingwoodLogStrippedGlimmering), getBlockTexture(livingwoodLogStripped));
 
-		//dreamwood_log/1.png
-		//dreamwood_log/2.png
-		//dreamwood_log/3.png
-		//dreamwood_log/4.png
-		//dreamwood_log/5.png
-		//dreamwood_log/6.png
-		//stripped_dreamwood_log/1.png
-		//stripped_dreamwood_log/2.png
-		//stripped_dreamwood_log/3.png
-		//stripped_dreamwood_log/4.png
-		//stripped_dreamwood_log/5.png
-		//stripped_dreamwood_log/6.png
-		//glimmering_dreamwood_log/1.png
-		//glimmering_dreamwood_log/2.png
-		//glimmering_dreamwood_log/3.png
-		//glimmering_dreamwood_log/4.png
-		//glimmering_dreamwood_log/5.png
-		//glimmering_dreamwood_log/6.png
-		//glimmering_stripped_dreamwood_log/1.png
-		//glimmering_stripped_dreamwood_log/2.png
-		//glimmering_stripped_dreamwood_log/3.png
-		//glimmering_stripped_dreamwood_log/4.png
-		//glimmering_stripped_dreamwood_log/5.png
-		//glimmering_stripped_dreamwood_log/6.png
-		//
-		//dreamwood_log_top.png
-		//dreamwood_planks.png
-		//livingwood_log.png
-		//glimmering_livingwood_log.png
-		//livingwood_log_top.png
-		//livingwood_planks.png
-		//stripped_dreamwood_log_top.png
-		//stripped_livingwood_log.png
-		//glimmering_stripped_livingwood_log.png
-		//stripped_livingwood_log_top.png
-
 		wallBlock(ModFluffBlocks.dreamwoodWall, getBlockTexture(dreamwood));
 		wallBlock(ModFluffBlocks.livingrockWall, getBlockTexture(livingrock));
 		wallBlock(ModFluffBlocks.livingrockBrickWall, getBlockTexture(livingrockBrick));
@@ -709,9 +673,10 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	protected void log(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
-		ResourceLocation modelId = getModelLocation(block);
-		ResourceLocation topModel = ModelTemplates.CUBE_COLUMN.create(modelId, TextureMapping.column(side, top), this.modelOutput);
-		ResourceLocation sideModel = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelId, TextureMapping.column(side, top), this.modelOutput);
+		ResourceLocation modelIdTop = getModelLocation(block);
+		ResourceLocation modelIdSide = getModelLocation(block, "_horizontal");
+		ResourceLocation topModel = ModelTemplates.CUBE_COLUMN.create(modelIdTop, TextureMapping.column(side, top), this.modelOutput);
+		ResourceLocation sideModel = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelIdSide, TextureMapping.column(side, top), this.modelOutput);
 		logWithModels(blocks, block, new ResourceLocation[] { topModel }, new ResourceLocation[] { sideModel });
 	}
 
@@ -723,9 +688,10 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] topModels = new ResourceLocation[length];
 		ResourceLocation[] sideModels = new ResourceLocation[length];
 		for (int i = 0; i < length; i++) {
-			ResourceLocation modelId = getModelLocation(block, "_" + (i + 1));
-			topModels[i] = ModelTemplates.CUBE_COLUMN.create(modelId, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
-			sideModels[i] = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelId, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+			ResourceLocation modelIdTop = getModelLocation(block, "_" + (i + 1));
+			ResourceLocation modelIdSide = getModelLocation(block, "_horizontal_" + (i + 1));
+			topModels[i] = ModelTemplates.CUBE_COLUMN.create(modelIdTop, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+			sideModels[i] = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelIdSide, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
 		}
 		logWithModels(blocks, block, topModels, sideModels);
 	}

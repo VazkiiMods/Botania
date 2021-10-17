@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_column_horizontal",
+  "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "botania:block/stripped_livingwood_log_top",
     "side": "botania:block/glimmering_stripped_livingwood_log"

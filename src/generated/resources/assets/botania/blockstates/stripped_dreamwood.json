@@ -2,32 +2,32 @@
   "variants": {
     "axis=x": [
       {
-        "model": "botania:block/stripped_dreamwood_1",
+        "model": "botania:block/stripped_dreamwood_horizontal_1",
         "x": 90,
         "y": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_2",
+        "model": "botania:block/stripped_dreamwood_horizontal_2",
         "x": 90,
         "y": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_3",
+        "model": "botania:block/stripped_dreamwood_horizontal_3",
         "x": 90,
         "y": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_4",
+        "model": "botania:block/stripped_dreamwood_horizontal_4",
         "x": 90,
         "y": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_5",
+        "model": "botania:block/stripped_dreamwood_horizontal_5",
         "x": 90,
         "y": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_6",
+        "model": "botania:block/stripped_dreamwood_horizontal_6",
         "x": 90,
         "y": 90
       }
@@ -54,27 +54,27 @@
     ],
     "axis=z": [
       {
-        "model": "botania:block/stripped_dreamwood_1",
+        "model": "botania:block/stripped_dreamwood_horizontal_1",
         "x": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_2",
+        "model": "botania:block/stripped_dreamwood_horizontal_2",
         "x": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_3",
+        "model": "botania:block/stripped_dreamwood_horizontal_3",
         "x": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_4",
+        "model": "botania:block/stripped_dreamwood_horizontal_4",
         "x": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_5",
+        "model": "botania:block/stripped_dreamwood_horizontal_5",
         "x": 90
       },
       {
-        "model": "botania:block/stripped_dreamwood_6",
+        "model": "botania:block/stripped_dreamwood_horizontal_6",
         "x": 90
       }
     ]
