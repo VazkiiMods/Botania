@@ -95,6 +95,9 @@ public class RenderTileRedString<T extends TileRedString> implements BlockEntity
 		int r = (color >> 16) & 0xFF;
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
+		// TODO XXX this needs normals. The vanilla lines shader expects normals to work properly so not
+		//  supplying them here will lead to graphical weirdness.
+		//  Not sure what to pick, but anything pointing outwards from the vector should be fine?
 		buffer.vertex(ms.last().pose(), (float) x, (float) y, (float) z).color(r, g, b, a).endVertex();
 	}
 

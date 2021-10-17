@@ -13,10 +13,10 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -119,66 +119,25 @@ public final class BoundTileRenderer {
 		if (!list.isEmpty()) {
 			VertexConsumer buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
 			for (AABB axis : list) {
-				renderBlockOutline(ms.last().pose(), buffer, axis, color);
+				renderBlockOutline(ms, buffer, axis, color);
 			}
 
 			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
 			int alpha = 64;
 			color = (color & ~0xff000000) | (alpha << 24);
 			for (AABB axis : list) {
-				renderBlockOutline(ms.last().pose(), buffer, axis, color);
+				renderBlockOutline(ms, buffer, axis, color);
 			}
 		}
 
 		ms.popPose();
 	}
 
-	private static void renderBlockOutline(Matrix4f mat, VertexConsumer buffer, AABB aabb, int color) {
-		float ix = (float) aabb.minX;
-		float iy = (float) aabb.minY;
-		float iz = (float) aabb.minZ;
-		float ax = (float) aabb.maxX;
-		float ay = (float) aabb.maxY;
-		float az = (float) aabb.maxZ;
-		int a = (color >> 24) & 0xFF;
-		int r = (color >> 16) & 0xFF;
-		int g = (color >> 8) & 0xFF;
-		int b = color & 0xFF;
-
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
+	private static void renderBlockOutline(PoseStack pose, VertexConsumer buffer, AABB aabb, int color) {
+		float a = ((color >> 24) & 0xFF) / 255.0F;
+		float r = ((color >> 16) & 0xFF) / 255.0F;
+		float g = ((color >> 8) & 0xFF) / 255.0F;
+		float b = (color & 0xFF) / 255.F;
+		LevelRenderer.renderLineBox(pose, buffer, aabb, r, g, b, a);
 	}
 }
