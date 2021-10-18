@@ -8,10 +8,11 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -45,10 +46,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod {
-	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
+	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
 					{ "W", " ", " ", " ", "W" },
@@ -175,7 +177,7 @@ public class TileAlfPortal extends TileMod {
 				return true;
 			}
 		}
-		if (inputStack.getItem() == Items.BREAD) {
+		if (inputStack.is(Items.BREAD)) {
 			//Don't teleport bread. (See also: #2403)
 			explode = true;
 			breadPlayer = entity.getThrower();
@@ -189,43 +191,43 @@ public class TileAlfPortal extends TileMod {
 
 		// Pick one of the inner positions
 		switch (level.random.nextInt(9)) {
-		default:
-		case 0:
+		case 0 -> {
 			dh = 0;
 			dy = 1;
-			break;
-		case 1:
+		}
+		case 1 -> {
 			dh = 0;
 			dy = 2;
-			break;
-		case 2:
+		}
+		case 2 -> {
 			dh = 0;
 			dy = 3;
-			break;
-		case 3:
+		}
+		case 3 -> {
 			dh = -1;
 			dy = 1;
-			break;
-		case 4:
+		}
+		case 4 -> {
 			dh = -1;
 			dy = 2;
-			break;
-		case 5:
+		}
+		case 5 -> {
 			dh = -1;
 			dy = 3;
-			break;
-		case 6:
+		}
+		case 6 -> {
 			dh = 1;
 			dy = 1;
-			break;
-		case 7:
+		}
+		case 7 -> {
 			dh = 1;
 			dy = 2;
-			break;
-		case 8:
+		}
+		case 8 -> {
 			dh = 1;
 			dy = 3;
-			break;
+		}
+		default -> throw new AssertionError();
 		}
 		double dx = state == AlfPortalState.ON_X ? 0 : dh;
 		double dz = state == AlfPortalState.ON_Z ? 0 : dh;
@@ -276,10 +278,9 @@ public class TileAlfPortal extends TileMod {
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
 		for (Recipe<?> r : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (!(r instanceof IElvenTradeRecipe)) {
+			if (!(r instanceof IElvenTradeRecipe recipe)) {
 				continue;
 			}
-			IElvenTradeRecipe recipe = (IElvenTradeRecipe) r;
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
 				if (consumeMana(pylons, MANA_COST, false)) {
@@ -351,15 +352,10 @@ public class TileAlfPortal extends TileMod {
 		}
 
 		lightPylons();
-		switch (rot) {
-		default:
-		case NONE:
-		case CLOCKWISE_180:
-			return AlfPortalState.ON_Z;
-		case CLOCKWISE_90:
-		case COUNTERCLOCKWISE_90:
-			return AlfPortalState.ON_X;
-		}
+		return switch (rot) {
+		case NONE, CLOCKWISE_180 -> AlfPortalState.ON_Z;
+		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> AlfPortalState.ON_X;
+		};
 	}
 
 	public List<BlockPos> locatePylons() {
@@ -382,8 +378,7 @@ public class TileAlfPortal extends TileMod {
 		List<BlockPos> pylons = locatePylons();
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			if (tile instanceof TilePylon) {
-				TilePylon pylon = (TilePylon) tile;
+			if (tile instanceof TilePylon pylon) {
 				pylon.activated = true;
 				pylon.centerPos = getBlockPos();
 			}
@@ -408,16 +403,13 @@ public class TileAlfPortal extends TileMod {
 
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			if (tile instanceof TilePylon) {
-				TilePylon pylon = (TilePylon) tile;
+			if (tile instanceof TilePylon pylon) {
 				pylon.activated = true;
 				pylon.centerPos = getBlockPos();
 			}
 
 			tile = level.getBlockEntity(pos.below());
-			if (tile instanceof TilePool) {
-				TilePool pool = (TilePool) tile;
-
+			if (tile instanceof TilePool pool) {
 				if (pool.getCurrentMana() < costPer) {
 					closeNow = closeNow || close;
 					return false;

@@ -8,29 +8,31 @@
  */
 package vazkii.botania.api;
 
+import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.ItemStack;
 
 import org.apache.logging.log4j.LogManager;
 
-import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.block.IFloatingFlower;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Class for API calls that must be made clientside
  */
 @Environment(EnvType.CLIENT)
 public interface BotaniaAPIClient {
-	LazyLoadedValue<BotaniaAPIClient> INSTANCE = new LazyLoadedValue<>(() -> {
+	Supplier<BotaniaAPIClient> INSTANCE = Suppliers.memoize(() -> {
 		try {
-			return (BotaniaAPIClient) Class.forName("vazkii.botania.client.impl.BotaniaAPIClientImpl").newInstance();
+			return (BotaniaAPIClient) Class.forName("vazkii.botania.client.impl.BotaniaAPIClientImpl")
+					.getDeclaredConstructor().newInstance();
 		} catch (ReflectiveOperationException e) {
 			LogManager.getLogger().warn("Unable to find BotaniaAPIClientImpl, using a dummy");
 			return new BotaniaAPIClient() {};

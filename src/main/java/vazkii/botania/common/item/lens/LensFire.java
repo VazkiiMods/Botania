@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -27,34 +26,30 @@ public class LensFire extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
-		BlockPos coords = burst.getBurstSourceBlockPos();
 		Entity entity = burst.entity();
 
 		if (!entity.level.isClientSide && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
 			BlockHitResult brtr = (BlockHitResult) rtr;
 			BlockPos pos = brtr.getBlockPos();
-			if (!coords.equals(pos)) {
-				Direction dir = brtr.getDirection();
+			Direction dir = brtr.getDirection();
 
-				BlockPos offPos = pos.relative(dir);
+			BlockPos offPos = pos.relative(dir);
 
-				Block blockAt = entity.level.getBlockState(pos).getBlock();
-				BlockState stateAtOffset = entity.level.getBlockState(offPos);
-				Block blockAtOffset = stateAtOffset.getBlock();
+			BlockState stateAt = entity.level.getBlockState(pos);
+			BlockState stateAtOffset = entity.level.getBlockState(offPos);
 
-				if (blockAt == Blocks.NETHER_PORTAL) {
-					entity.level.removeBlock(pos, false);
-				}
-				if (blockAtOffset == Blocks.NETHER_PORTAL) {
-					entity.level.removeBlock(offPos, false);
-				} else if (blockAt == ModBlocks.incensePlate) {
-					TileIncensePlate plate = (TileIncensePlate) entity.level.getBlockEntity(pos);
-					plate.ignite();
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-				} else if (stateAtOffset.isAir()) {
-					entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
-				}
+			if (stateAt.is(Blocks.NETHER_PORTAL)) {
+				entity.level.removeBlock(pos, false);
+			}
+			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
+				entity.level.removeBlock(offPos, false);
+			} else if (stateAt.is(ModBlocks.incensePlate)) {
+				TileIncensePlate plate = (TileIncensePlate) entity.level.getBlockEntity(pos);
+				plate.ignite();
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
+			} else if (stateAtOffset.isAir()) {
+				entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
 			}
 		}
 

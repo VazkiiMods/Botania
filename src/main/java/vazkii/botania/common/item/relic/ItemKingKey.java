@@ -15,14 +15,16 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 
 import javax.annotation.Nonnull;
@@ -45,10 +47,9 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
-		player.startUsingItem(hand);
 		ItemStack stack = player.getItemInHand(hand);
 		setCharging(stack, true);
-		return InteractionResultHolder.consume(stack);
+		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override
@@ -65,31 +66,31 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 		int spawned = getWeaponsSpawned(stack);
 
 		if (count != getUseDuration(stack) && spawned < 20 && !world.isClientSide && (!(living instanceof Player) || ManaItemHandler.instance().requestManaExact(stack, (Player) living, 150, true))) {
-			Vector3 look = new Vector3(living.getLookAngle()).multiply(1, 0, 1);
+			Vec3 look = living.getLookAngle().multiply(1, 0, 1);
 
 			double playerRot = Math.toRadians(living.getYRot() + 90);
 			if (look.x == 0 && look.z == 0) {
-				look = new Vector3(Math.cos(playerRot), 0, Math.sin(playerRot));
+				look = new Vec3(Math.cos(playerRot), 0, Math.sin(playerRot));
 			}
 
-			look = look.normalize().multiply(-2);
+			look = look.normalize().scale(-2);
 
 			int div = spawned / 5;
 			int mod = spawned % 5;
 
-			Vector3 pl = look.add(Vector3.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
+			Vec3 pl = look.add(VecHelper.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
 
 			Random rand = world.random;
-			Vector3 axis = look.normalize().crossProduct(new Vector3(-1, 0, -1)).normalize();
+			Vec3 axis = look.normalize().cross(new Vec3(-1, 0, -1)).normalize();
 
 			double rot = mod * Math.PI / 4 - Math.PI / 2;
 
-			Vector3 axis1 = axis.multiply(div * 3.5 + 5).rotate(rot, look);
+			Vec3 axis1 = VecHelper.rotate(axis.scale(div * 3.5 + 5), rot, look);
 			if (axis1.y < 0) {
 				axis1 = axis1.multiply(1, -1, 1);
 			}
 
-			Vector3 end = pl.add(axis1);
+			Vec3 end = pl.add(axis1);
 
 			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living, world);
 			weapon.setPos(end.x, end.y, end.z);

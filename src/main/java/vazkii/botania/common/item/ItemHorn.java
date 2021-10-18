@@ -9,25 +9,27 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IHornHarvestable;
-import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
+import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
@@ -55,8 +57,7 @@ public class ItemHorn extends Item {
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
-		player.startUsingItem(hand);
-		return InteractionResultHolder.consume(player.getItemInHand(hand));
+		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override
@@ -65,17 +66,17 @@ public class ItemHorn extends Item {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
 				breakGrass(world, stack, player.blockPosition());
 			}
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.NOTE_BLOCK_BASS, SoundSource.BLOCKS, 1F, 0.001F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 
 	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos) {
 		EnumHornType type = null;
-		if (stack.getItem() == ModItems.grassHorn) {
+		if (stack.is(ModItems.grassHorn)) {
 			type = EnumHornType.WILD;
-		} else if (stack.getItem() == ModItems.leavesHorn) {
+		} else if (stack.is(ModItems.leavesHorn)) {
 			type = EnumHornType.CANOPY;
-		} else if (stack.getItem() == ModItems.snowHorn) {
+		} else if (stack.is(ModItems.snowHorn)) {
 			type = EnumHornType.COVERING;
 		}
 
@@ -86,14 +87,15 @@ public class ItemHorn extends Item {
 		for (BlockPos pos : BlockPos.betweenClosed(srcPos.offset(-range, -rangeY, -range),
 				srcPos.offset(range, rangeY, range))) {
 			BlockState state = world.getBlockState(pos);
-			Block block = world.getBlockState(pos).getBlock();
-			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
+			Block block = state.getBlock();
+			BlockEntity be = world.getBlockEntity(pos);
+			IHornHarvestable harvestable = IHornHarvestable.API.find(world, pos, state, be, Unit.INSTANCE);
 
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && state.is(BlockTags.LEAVES)
-							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
+							|| type == EnumHornType.COVERING && state.is(Blocks.SNOW)) {
 				coords.add(pos.immutable());
 			}
 		}
@@ -104,8 +106,8 @@ public class ItemHorn extends Item {
 		for (int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
-			Block block = state.getBlock();
-			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
+			BlockEntity be = world.getBlockEntity(currCoords);
+			IHornHarvestable harvestable = IHornHarvestable.API.find(world, currCoords, state, be, Unit.INSTANCE);
 
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type);

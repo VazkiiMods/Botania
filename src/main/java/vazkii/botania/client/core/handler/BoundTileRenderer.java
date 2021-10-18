@@ -13,10 +13,10 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -25,22 +25,18 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
-import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public final class BoundTileRenderer {
 	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(() -> {
@@ -90,8 +86,7 @@ public final class BoundTileRenderer {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stackInSlot = inv.getItem(i);
 
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
-				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider provider) {
 				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
 				for (BlockPos coords : coordsList) {
 					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
@@ -115,87 +110,34 @@ public final class BoundTileRenderer {
 		double renderPosZ = Minecraft.getInstance().getEntityRenderDispatcher().camera.getPosition().z();
 
 		ms.pushPose();
-		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
+		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ);
 
 		Level world = Minecraft.getInstance().level;
 		BlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		List<AABB> list;
-
-		if (block instanceof IWireframeAABBProvider) {
-			list = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
-		} else {
-			VoxelShape shape = state.getShape(world, pos);
-			list = shape.toAabbs().stream().map(b -> b.move(pos)).collect(Collectors.toList());
-		}
+		List<AABB> list = state.getShape(world, pos).toAabbs();
 
 		if (!list.isEmpty()) {
-			ms.scale(1F, 1F, 1F);
-
 			VertexConsumer buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
 			for (AABB axis : list) {
-				axis = axis.move(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
-				renderBlockOutline(ms.last().pose(), buffer, axis, color);
+				renderBlockOutline(ms, buffer, axis, color);
 			}
 
 			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
 			int alpha = 64;
 			color = (color & ~0xff000000) | (alpha << 24);
 			for (AABB axis : list) {
-				axis = axis.move(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
-				renderBlockOutline(ms.last().pose(), buffer, axis, color);
+				renderBlockOutline(ms, buffer, axis, color);
 			}
 		}
 
 		ms.popPose();
 	}
 
-	private static void renderBlockOutline(Matrix4f mat, VertexConsumer buffer, AABB aabb, int color) {
-		float ix = (float) aabb.minX;
-		float iy = (float) aabb.minY;
-		float iz = (float) aabb.minZ;
-		float ax = (float) aabb.maxX;
-		float ay = (float) aabb.maxY;
-		float az = (float) aabb.maxZ;
-		int a = (color >> 24) & 0xFF;
-		int r = (color >> 16) & 0xFF;
-		int g = (color >> 8) & 0xFF;
-		int b = color & 0xFF;
-
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).endVertex();
-
-		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).endVertex();
+	private static void renderBlockOutline(PoseStack pose, VertexConsumer buffer, AABB aabb, int color) {
+		float a = ((color >> 24) & 0xFF) / 255.0F;
+		float r = ((color >> 16) & 0xFF) / 255.0F;
+		float g = ((color >> 8) & 0xFF) / 255.0F;
+		float b = (color & 0xFF) / 255.F;
+		LevelRenderer.renderLineBox(pose, buffer, aabb, r, g, b, a);
 	}
 }

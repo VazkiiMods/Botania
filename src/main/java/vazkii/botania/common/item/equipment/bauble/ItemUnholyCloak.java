@@ -40,14 +40,13 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	public boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
+	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
 		if (!src.isBypassArmor()) {
 			int range = 6;
 			@SuppressWarnings("unchecked")
 			List<Enemy> mobs = (List<Enemy>) (List<?>) player.level.getEntitiesOfClass(Entity.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(Enemy.class));
 			for (Enemy mob : mobs) {
-				if (mob instanceof LivingEntity) {
-					LivingEntity entity = (LivingEntity) mob;
+				if (mob instanceof LivingEntity entity) {
 					entity.hurt(DamageSource.playerAttack(player), amount.getValue());
 				}
 			}

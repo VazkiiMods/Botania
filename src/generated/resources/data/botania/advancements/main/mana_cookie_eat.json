@@ -1,0 +1,35 @@
+{
+  "parent": "botania:main/mana_pool_pickup",
+  "display": {
+    "icon": {
+      "item": "botania:mana_cookie"
+    },
+    "title": {
+      "translate": "advancement.botania:manaCookieEat"
+    },
+    "description": {
+      "translate": "advancement.botania:manaCookieEat.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cookie": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "botania:mana_cookie"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "cookie"
+    ]
+  ]
+}

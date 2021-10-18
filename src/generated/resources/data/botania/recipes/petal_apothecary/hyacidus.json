@@ -20,10 +20,10 @@
       "tag": "botania:petals/green"
     },
     {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     {
-      "tag": "botania:runes/autumn"
+      "item": "botania:rune_autumn"
     },
     {
       "item": "botania:redstone_root"

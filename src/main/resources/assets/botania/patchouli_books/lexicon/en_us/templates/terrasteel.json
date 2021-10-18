@@ -1,0 +1,93 @@
+{
+  "processor": "vazkii.botania.client.patchouli.processor.TerraPlateProcessor",
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "botania:textures/gui/terrasteel_overlay.png",
+      "x": 50,
+      "y": 22,
+      "width": 15,
+      "height": 29,
+      "u": 65,
+      "v": 48
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input1",
+      "x": 50,
+      "y": 54
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input2",
+      "x": 31,
+      "y": 60
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input3",
+      "x": 69,
+      "y": 60
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input4",
+      "x": 12,
+      "y": 70
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input5",
+      "x": 88,
+      "y": 70
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input6",
+      "x": 12,
+      "y": 88
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input7",
+      "x": 88,
+      "y": 88
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input8",
+      "x": 30,
+      "y": 98
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input9",
+      "x": 70,
+      "y": 98
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input10",
+      "x": 50,
+      "y": 105
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "link_recipe": true,
+      "x": 50,
+      "y": 4
+    },
+    {
+      "type": "patchouli:custom",
+      "class": "vazkii.botania.client.patchouli.component.TerraPlateComponent",
+      "x": 36,
+      "y": 72
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "y": 120
+    }
+  ]
+}

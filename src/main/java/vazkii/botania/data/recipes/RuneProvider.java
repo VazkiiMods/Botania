@@ -59,10 +59,10 @@ public class RuneProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(new FinishedRecipe(idFor("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.of(ItemTags.CARPETS), Ingredient.of(Items.FEATHER), Ingredient.of(Items.STRING)));
 
-		Ingredient fire = Ingredient.of(ModTags.Items.RUNES_FIRE);
-		Ingredient water = Ingredient.of(ModTags.Items.RUNES_WATER);
-		Ingredient earth = Ingredient.of(ModTags.Items.RUNES_EARTH);
-		Ingredient air = Ingredient.of(ModTags.Items.RUNES_AIR);
+		Ingredient fire = Ingredient.of(ModItems.runeFire);
+		Ingredient water = Ingredient.of(ModItems.runeWater);
+		Ingredient earth = Ingredient.of(ModItems.runeEarth);
+		Ingredient air = Ingredient.of(ModItems.runeAir);
 
 		Ingredient sapling = Ingredient.of(ItemTags.SAPLINGS);
 		Ingredient leaves = Ingredient.of(ItemTags.LEAVES);
@@ -73,10 +73,10 @@ public class RuneProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(new FinishedRecipe(idFor("winter"), new ItemStack(ModItems.runeWinter), costTier2, water, earth, Ingredient.of(Blocks.SNOW_BLOCK), Ingredient.of(Blocks.SNOW_BLOCK), Ingredient.of(ItemTags.WOOL), Ingredient.of(Blocks.CAKE)));
 
-		Ingredient spring = Ingredient.of(ModTags.Items.RUNES_SPRING);
-		Ingredient summer = Ingredient.of(ModTags.Items.RUNES_SUMMER);
-		Ingredient autumn = Ingredient.of(ModTags.Items.RUNES_AUTUMN);
-		Ingredient winter = Ingredient.of(ModTags.Items.RUNES_WINTER);
+		Ingredient spring = Ingredient.of(ModItems.runeSpring);
+		Ingredient summer = Ingredient.of(ModItems.runeSummer);
+		Ingredient autumn = Ingredient.of(ModItems.runeAutumn);
+		Ingredient winter = Ingredient.of(ModItems.runeWinter);
 
 		consumer.accept(new FinishedRecipe(idFor("mana"), new ItemStack(ModItems.runeMana), costTier2, manaSteel, manaSteel, manaSteel, manaSteel, manaSteel, Ingredient.of(ModItems.manaPearl)));
 
@@ -95,13 +95,13 @@ public class RuneProvider extends BotaniaRecipeProvider {
 		return prefix("runic_altar/" + s);
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final ItemStack output;
 		private final int mana;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
+		protected FinishedRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
 			this.id = id;
 			this.output = output;
 			this.mana = mana;

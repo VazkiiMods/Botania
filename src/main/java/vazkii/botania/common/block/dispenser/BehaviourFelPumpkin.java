@@ -30,8 +30,8 @@ public class BehaviourFelPumpkin extends OptionalDispenseItemBehavior {
 		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
 		Block blockcarvedpumpkin = ModBlocks.felPumpkin;
 		this.setSuccess(false);
-		if (world.isEmptyBlock(blockpos) && world.getBlockState(blockpos.below()).getBlock() == Blocks.IRON_BARS
-				&& world.getBlockState(blockpos.below(2)).getBlock() == Blocks.IRON_BARS) // Botania - Check for iron bars
+		if (world.isEmptyBlock(blockpos) && world.getBlockState(blockpos.below()).is(Blocks.IRON_BARS)
+				&& world.getBlockState(blockpos.below(2)).is(Blocks.IRON_BARS)) // Botania - Check for iron bars
 		{
 			this.setSuccess(true);
 			if (!world.isClientSide) {

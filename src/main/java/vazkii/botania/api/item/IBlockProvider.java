@@ -8,16 +8,24 @@
  */
 package vazkii.botania.api.item;
 
+import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.BotaniaAPI;
+
 /**
- * An Item that implements this can provide blocks to other items that use them.
- * For example, the Black Hole Talisman implements this in order to allow for
+ * An Item that has this capability can provide blocks to other items that use them.
+ * For example, the Black Hole Talisman uses this in order to allow for
  * the Rod of the Shifting Crust to pull blocks from it.
+ *
+ * Mutations to objects of this type propagate directly to the underlying stack it was retrieved from.
  */
 public interface IBlockProvider {
+	ItemApiLookup<IBlockProvider, Unit> API = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "block_provider"), IBlockProvider.class, Unit.class);
 
 	/**
 	 * Provides the requested item. The doit paremeter specifies whether this is
@@ -25,7 +33,7 @@ public interface IBlockProvider {
 	 * If you need to use calls to ManaItemHandler.requestMana[Exact], use
 	 * the requestor as the ItemStack passed in.
 	 */
-	boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit);
+	boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit);
 
 	/**
 	 * Gets the amount of blocks of the type passed stored in this item. You must
@@ -33,6 +41,6 @@ public interface IBlockProvider {
 	 * -1 states that the item can provide infinite of the item passed in (for example,
 	 * the Rod of the Lands would return -1 if the block is dirt).
 	 */
-	int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block);
+	int getBlockCount(Player player, ItemStack requestor, Block block);
 
 }

@@ -29,8 +29,7 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int pos, boolean equipped) {
 		super.inventoryTick(stack, world, entity, pos, equipped);
 
-		if (!world.isClientSide && entity instanceof Player && !equipped) {
-			Player player = (Player) entity;
+		if (!world.isClientSide && entity instanceof Player player && !equipped) {
 
 			for (int i = 1; i < SEGMENTS; i++) {
 				tryCraft(player, stack, i, false);

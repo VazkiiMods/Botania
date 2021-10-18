@@ -51,9 +51,7 @@ public class TilePrism extends TileExposedSimpleInventory {
 				burst.setMinManaLoss(properties.ticksBeforeManaLoss);
 				burst.setManaLossPerTick(properties.manaLossPerTick);
 				burst.setGravity(properties.gravity);
-				burst.setBurstMotion(burstEntity.getDeltaMovement().x() * properties.motionModifier,
-						burstEntity.getDeltaMovement().y() * properties.motionModifier,
-						burstEntity.getDeltaMovement().z() * properties.motionModifier);
+				burstEntity.setDeltaMovement(burstEntity.getDeltaMovement().scale(properties.motionModifier));
 			}
 		}
 	}
@@ -65,6 +63,11 @@ public class TilePrism extends TileExposedSimpleInventory {
 			public boolean canPlaceItem(int index, ItemStack stack) {
 				return !stack.isEmpty() && stack.getItem() instanceof ILens;
 			}
+
+			@Override
+			public int getMaxStackSize() {
+				return 1;
+			}
 		};
 	}
 
@@ -75,8 +78,8 @@ public class TilePrism extends TileExposedSimpleInventory {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			BlockState state = getBlockState();
 			boolean hasLens = !getItemHandler().getItem(0).isEmpty();
-			if (state.getBlock() != ModBlocks.prism || state.getValue(BotaniaStateProps.HAS_LENS) != hasLens) {
-				BlockState base = state.getBlock() == ModBlocks.prism ? state : ModBlocks.prism.defaultBlockState();
+			if (!state.is(ModBlocks.prism) || state.getValue(BotaniaStateProps.HAS_LENS) != hasLens) {
+				BlockState base = state.is(ModBlocks.prism) ? state : ModBlocks.prism.defaultBlockState();
 				level.setBlockAndUpdate(worldPosition, base.setValue(BotaniaStateProps.HAS_LENS, hasLens));
 			}
 		}

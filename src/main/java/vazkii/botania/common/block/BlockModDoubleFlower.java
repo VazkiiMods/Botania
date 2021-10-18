@@ -41,7 +41,7 @@ public class BlockModDoubleFlower extends TallFlowerBlock {
 	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
 		if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
 			BlockState lower = world.getBlockState(pos.below());
-			if (lower.getBlock() == this && lower.getValue(HALF) == DoubleBlockHalf.LOWER) {
+			if (lower.is(this) && lower.getValue(HALF) == DoubleBlockHalf.LOWER) {
 				lower.getBlock().playerWillDestroy(world, pos.below(), lower, player);
 			}
 		}

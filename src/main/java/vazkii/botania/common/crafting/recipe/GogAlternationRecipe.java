@@ -14,7 +14,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -27,13 +26,12 @@ public class GogAlternationRecipe {
 	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new Serializer();
 
 	private static class Serializer implements RecipeSerializer<Recipe<?>> {
-		@SuppressWarnings("unchecked")
 		@Nonnull
 		@Override
 		public Recipe<?> fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
 			// just select the recipe here
-			Recipe<Container> gog = (Recipe<Container>) RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "gog"));
-			Recipe<Container> base = (Recipe<Container>) RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "base"));
+			Recipe<?> gog = RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "gog"));
+			Recipe<?> base = RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "base"));
 
 			if (gog.getType() != base.getType()) {
 				throw new IllegalArgumentException("Subrecipes must have matching types");

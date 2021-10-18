@@ -1,1 +1,7 @@
-{"flower":"botania:block/clayconia"}
+{
+  "parent": "minecraft:block/block",
+  "loader": "botania:floating_flower",
+  "flower": {
+    "parent": "botania:block/clayconia"
+  }
+}

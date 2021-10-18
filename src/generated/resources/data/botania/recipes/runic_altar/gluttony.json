@@ -12,10 +12,10 @@
       "tag": "botania:mana_diamond_gems"
     },
     {
-      "tag": "botania:runes/winter"
+      "item": "botania:rune_winter"
     },
     {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     }
   ]
 }

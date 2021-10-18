@@ -51,8 +51,8 @@ public class BlockGhostRail extends BaseRailBlock {
 		BlockState state = cart.level.getBlockState(entPos);
 		boolean air = state.isAir();
 
-		if (state.getBlock() == ModBlocks.dreamwood
-				|| (state.getBlock() != ModBlocks.ghostRail && state.is(BlockTags.RAILS))) {
+		if (state.is(ModBlocks.dreamwood)
+				|| (!state.is(ModBlocks.ghostRail) && state.is(BlockTags.RAILS))) {
 			cart.level.levelEvent(2003, entPos, 0);
 			persistentData.floatTicks = 0;
 		} else {

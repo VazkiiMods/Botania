@@ -50,7 +50,6 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		existingFlowers.remove(this);
 	}
 
-	// todo seems expensive when we have lots of sounds cache maybe?
 	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z) {
 		int count = 0;
 		SubTileBergamute tile = null;

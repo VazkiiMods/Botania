@@ -30,6 +30,7 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -58,8 +59,7 @@ public class ItemCacophonium extends Item {
 
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-		if (entity instanceof Mob) {
-			Mob living = (Mob) entity;
+		if (entity instanceof Mob living) {
 			SoundEvent sound = null;
 
 			if (living instanceof Creeper) {
@@ -124,9 +124,9 @@ public class ItemCacophonium extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getSound(stack) != null) {
-			player.startUsingItem(hand);
+			return ItemUtils.startUsingInstantly(world, player, hand);
 		}
-		return InteractionResultHolder.consume(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 	@Override

@@ -194,10 +194,9 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 
 	public int getManaCost() {
 		ItemStack stack = getItemHandler().getItem(0);
-		if (recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer)) {
+		if (recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer container)) {
 			return 0;
 		}
-		IBrewContainer container = (IBrewContainer) stack.getItem();
 		return container.getManaCost(recipe.getBrew(), stack);
 	}
 

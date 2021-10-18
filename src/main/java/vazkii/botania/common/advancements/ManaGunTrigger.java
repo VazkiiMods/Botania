@@ -10,11 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +38,8 @@ public class ManaGunTrigger extends SimpleCriterionTrigger<ManaGunTrigger.Instan
 	@Override
 	public ManaGunTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		Boolean desu = json.get("desu") == null ? null : json.get("desu").getAsBoolean();
-		return new ManaGunTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")), EntityPredicate.fromJson(json.get("user")), desu);
+		return new ManaGunTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")),
+				EntityPredicate.fromJson(json.get("user")), desu);
 	}
 
 	public void trigger(ServerPlayer player, ItemStack stack) {
@@ -71,6 +68,21 @@ public class ManaGunTrigger extends SimpleCriterionTrigger<ManaGunTrigger.Instan
 		boolean test(ItemStack stack, ServerPlayer entity) {
 			return this.item.matches(stack) && this.user.matches(entity, entity)
 					&& (desu == null || desu == ItemManaGun.isSugoiKawaiiDesuNe(stack));
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject json = super.serializeToJson(context);
+			if (item != ItemPredicate.ANY) {
+				json.add("item", item.serializeToJson());
+			}
+			if (user != EntityPredicate.ANY) {
+				json.add("user", user.serializeToJson());
+			}
+			if (desu != null) {
+				json.addProperty("desu", desu);
+			}
+			return json;
 		}
 
 		public ItemPredicate getItem() {

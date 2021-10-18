@@ -8,12 +8,9 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -38,7 +35,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -49,7 +45,6 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)
 public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSupplier {
 	private static final ResourceLocation GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
 
@@ -132,7 +127,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
 				pos.offset(range, rangeY, range))) {
 			BlockState state = level.getBlockState(bPos);
-			if (state.getBlock() == Blocks.STONE) {
+			if (state.is(Blocks.STONE)) {
 				possibleCoords.add(bPos.immutable());
 			}
 		}
@@ -144,12 +139,6 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 
 	@Override
 	protected void defineSynchedData() {}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
-	}
 
 	@Nonnull
 	@Override

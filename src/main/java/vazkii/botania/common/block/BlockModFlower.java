@@ -41,41 +41,24 @@ public class BlockModFlower extends FlowerBlock implements BonemealableBlock {
 	}
 
 	private static MobEffect effectForFlower(DyeColor color) {
-		switch (color) {
-		case WHITE:
-			return MobEffects.MOVEMENT_SPEED;
-		case ORANGE:
-			return MobEffects.FIRE_RESISTANCE;
-		case MAGENTA:
-			return MobEffects.DIG_SLOWDOWN;
-		case LIGHT_BLUE:
-			return MobEffects.JUMP;
-		case YELLOW:
-			return MobEffects.ABSORPTION;
-		case LIME:
-			return MobEffects.POISON;
-		case PINK:
-			return MobEffects.REGENERATION;
-		case GRAY:
-			return MobEffects.DAMAGE_RESISTANCE;
-		case LIGHT_GRAY:
-			return MobEffects.WEAKNESS;
-		case CYAN:
-			return MobEffects.WATER_BREATHING;
-		case PURPLE:
-			return MobEffects.CONFUSION;
-		case BLUE:
-			return MobEffects.NIGHT_VISION;
-		case BROWN:
-			return MobEffects.WITHER;
-		case GREEN:
-			return MobEffects.HUNGER;
-		case RED:
-			return MobEffects.DAMAGE_BOOST;
-		case BLACK:
-			return MobEffects.BLINDNESS;
-		}
-		return MobEffects.REGENERATION;
+		return switch (color) {
+		case WHITE -> MobEffects.MOVEMENT_SPEED;
+		case ORANGE -> MobEffects.FIRE_RESISTANCE;
+		case MAGENTA -> MobEffects.DIG_SLOWDOWN;
+		case LIGHT_BLUE -> MobEffects.JUMP;
+		case YELLOW -> MobEffects.ABSORPTION;
+		case LIME -> MobEffects.POISON;
+		case PINK -> MobEffects.REGENERATION;
+		case GRAY -> MobEffects.DAMAGE_RESISTANCE;
+		case LIGHT_GRAY -> MobEffects.WEAKNESS;
+		case CYAN -> MobEffects.WATER_BREATHING;
+		case PURPLE -> MobEffects.CONFUSION;
+		case BLUE -> MobEffects.NIGHT_VISION;
+		case BROWN -> MobEffects.WITHER;
+		case GREEN -> MobEffects.HUNGER;
+		case RED -> MobEffects.DAMAGE_BOOST;
+		case BLACK -> MobEffects.BLINDNESS;
+		};
 	}
 
 	@Environment(EnvType.CLIENT)

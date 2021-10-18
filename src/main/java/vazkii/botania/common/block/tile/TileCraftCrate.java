@@ -8,9 +8,13 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
@@ -35,13 +39,34 @@ import javax.annotation.Nonnull;
 
 import java.util.*;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
+
+	private static int recipeEpoch = 0;
+
 	private int signal = 0;
 	private ItemStack craftResult = ItemStack.EMPTY;
 
 	private final Queue<ResourceLocation> lastRecipes = new ArrayDeque<>();
 	private boolean dirty;
+	private boolean matchFailed;
+	private int lastRecipeEpoch = recipeEpoch;
+
+	public static void registerListener() {
+		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+			@Override
+			public ResourceLocation getFabricId() {
+				return prefix("craft_crate_epoch_counter");
+			}
+
+			@Override
+			public void onResourceManagerReload(ResourceManager resourceManager) {
+				recipeEpoch++;
+			}
+		});
+	}
 
 	public TileCraftCrate(BlockPos pos, BlockState state) {
 		super(ModTiles.CRAFT_CRATE, pos, state);
@@ -64,7 +89,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	public CratePattern getPattern() {
 		BlockState state = getBlockState();
-		if (state.getBlock() != ModBlocks.craftCrate) {
+		if (!state.is(ModBlocks.craftCrate)) {
 			return CratePattern.NONE;
 		}
 		return state.getValue(BotaniaStateProps.CRATE_PATTERN);
@@ -87,7 +112,12 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileCraftCrate self) {
-		if (self.canEject() && self.isFull() && self.craft(true)) {
+		if (recipeEpoch != self.lastRecipeEpoch) {
+			self.lastRecipeEpoch = recipeEpoch;
+			self.matchFailed = false;
+		}
+
+		if (!self.matchFailed && self.canEject() && self.isFull() && self.craft(true)) {
 			self.ejectAll();
 		}
 
@@ -125,7 +155,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		for (int i = 0; i < craft.getContainerSize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
 
-			if (stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder) {
+			if (stack.isEmpty() || isLocked(i) || stack.is(ModItems.placeholder)) {
 				continue;
 			}
 
@@ -143,12 +173,15 @@ public class TileCraftCrate extends TileOpenCrate {
 				ItemStack s = remainders.get(i);
 				ItemStack inSlot = handler.getItem(i);
 				if ((inSlot.isEmpty() && s.isEmpty())
-						|| (!inSlot.isEmpty() && inSlot.getItem() == ModItems.placeholder)) {
+						|| (!inSlot.isEmpty() && inSlot.is(ModItems.placeholder))) {
 					continue;
 				}
 				handler.setItem(i, s);
 			}
 		});
+		if (!matchingRecipe.isPresent()) {
+			matchFailed = true;
+		}
 
 		level.getProfiler().pop();
 		return matchingRecipe.isPresent();
@@ -211,6 +244,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		super.setChanged();
 		if (level != null && !level.isClientSide) {
 			this.dirty = true;
+			this.matchFailed = false;
 		}
 	}
 

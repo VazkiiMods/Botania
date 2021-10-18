@@ -52,7 +52,6 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.StringObfuscator;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -131,50 +130,42 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 						int variant = getVariant(tiara);
 						switch (variant) {
-						case 2: {
+						case 2 -> {
 							r = 0.1F;
 							g = 0.1F;
 							b = 0.1F;
-							break;
 						}
-						case 3: {
+						case 3 -> {
 							r = 0F;
 							g = 0.6F;
-							break;
 						}
-						case 4: {
+						case 4 -> {
 							g = 0.3F;
 							b = 0.3F;
-							break;
 						}
-						case 5: {
+						case 5 -> {
 							r = 0.6F;
 							g = 0F;
 							b = 0.6F;
-							break;
 						}
-						case 6: {
+						case 6 -> {
 							r = 0.4F;
 							g = 0F;
 							b = 0F;
-							break;
 						}
-						case 7: {
+						case 7 -> {
 							r = 0.2F;
 							g = 0.6F;
 							b = 0.2F;
-							break;
 						}
-						case 8: {
+						case 8 -> {
 							r = 0.85F;
 							g = 0.85F;
 							b = 0F;
-							break;
 						}
-						case 9: {
+						case 9 -> {
 							r = 0F;
 							b = 0F;
-							break;
 						}
 						}
 
@@ -240,8 +231,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof Player) {
-			Player p = (Player) player;
+		if (player instanceof Player p) {
 			boolean flying = p.getAbilities().flying;
 
 			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
@@ -252,7 +242,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 			int newTime = time;
-			Vector3 look = new Vector3(p.getLookAngle()).multiply(1, 0, 1).normalize();
+			Vec3 look = p.getLookAngle().multiply(1, 0, 1).normalize();
 
 			if (flying) {
 				if (time > 0 && !p.isSpectator() && !p.isCreative()
@@ -497,10 +487,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		ms.scale(0.75F, -0.75F, -0.75F);
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.HALO);
 		Matrix4f mat = ms.last().pose();
-		buffer.vertex(mat, -1F, 0, -1F).uv(0, 0).endVertex();
-		buffer.vertex(mat, 1F, 0, -1F).uv(1, 0).endVertex();
-		buffer.vertex(mat, 1F, 0, 1F).uv(1, 1).endVertex();
-		buffer.vertex(mat, -1F, 0, 1F).uv(0, 1).endVertex();
+		buffer.vertex(mat, -1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 0).endVertex();
+		buffer.vertex(mat, 1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 0).endVertex();
+		buffer.vertex(mat, 1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 1).endVertex();
+		buffer.vertex(mat, -1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 1).endVertex();
 	}
 
 	@Environment(EnvType.CLIENT)

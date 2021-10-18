@@ -14,6 +14,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
@@ -23,7 +24,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.mixin.AccessorItemEntity;
 
@@ -83,7 +83,7 @@ public class ItemMagnetRing extends ItemBauble {
 							break;
 						}
 
-						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
+						MathHelper.setEntityMotionFromVector(item, new Vec3(x, y, z), 0.45F);
 						if (living.level.isClientSide) {
 							boolean red = living.level.random.nextBoolean();
 							float r = red ? 1F : 0F;

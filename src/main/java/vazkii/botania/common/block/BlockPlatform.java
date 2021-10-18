@@ -37,8 +37,8 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.mana.IManaCollisionGhost;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;
 
 import javax.annotation.Nonnull;
@@ -135,8 +135,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		ItemStack currentStack = player.getItemInHand(hand);
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
-				&& tile instanceof TilePlatform) {
-			TilePlatform camo = (TilePlatform) tile;
+				&& tile instanceof TilePlatform camo) {
 			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 

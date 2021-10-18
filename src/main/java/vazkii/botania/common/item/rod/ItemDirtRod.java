@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -35,7 +35,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 
-public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider, IAvatarWieldable {
+public class ItemDirtRod extends Item implements IManaUsingItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
 
@@ -43,6 +43,8 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 
 	public ItemDirtRod(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(stack), this);
+		IAvatarWieldable.API.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -86,41 +88,51 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 		return true;
 	}
 
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if (block == Blocks.DIRT) {
-			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
-					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
+	protected static class BlockProvider implements IBlockProvider {
+		private final ItemStack stack;
+
+		protected BlockProvider(ItemStack stack) {
+			this.stack = stack;
 		}
-		return false;
+
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			if (block == Blocks.DIRT) {
+				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
+						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
+			}
+			return false;
+		}
+
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			if (block == Blocks.DIRT) {
+				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
+			}
+			return 0;
+		}
 	}
 
-	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		if (block == Blocks.DIRT) {
-			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
-		}
-		return 0;
-	}
-
-	@Override
-	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = tile.tileEntity();
-		Level world = te.getLevel();
-		if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
-			BlockPos pos = ((BlockEntity) tile).getBlockPos().relative(tile.getAvatarFacing());
-			BlockState state = world.getBlockState(pos);
-			if (state.isAir()) {
-				world.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
-				world.levelEvent(2001, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
-				tile.receiveMana(-COST);
+	protected static class AvatarBehavior implements IAvatarWieldable {
+		@Override
+		public void onAvatarUpdate(IAvatarTile tile) {
+			BlockEntity te = tile.tileEntity();
+			Level world = te.getLevel();
+			if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
+				BlockPos pos = ((BlockEntity) tile).getBlockPos().relative(tile.getAvatarFacing());
+				BlockState state = world.getBlockState(pos);
+				if (state.isAir()) {
+					world.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
+					world.levelEvent(2001, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
+					tile.receiveMana(-COST);
+				}
 			}
 		}
-	}
 
-	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
-		return avatarOverlay;
+		@Override
+		public ResourceLocation getOverlayResource(IAvatarTile tile) {
+			return avatarOverlay;
+		}
 	}
 
 }

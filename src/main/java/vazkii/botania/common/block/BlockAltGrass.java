@@ -59,12 +59,12 @@ public class BlockAltGrass extends BlockMod {
 
 	@Override
 	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
-		if (!world.isClientSide && state.getBlock() == this && world.getMaxLocalRawBrightness(pos.above()) >= 9) {
+		if (!world.isClientSide && state.is(this) && world.getMaxLocalRawBrightness(pos.above()) >= 9) {
 			for (int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.offset(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 				BlockPos pos1up = pos1.above();
 
-				if (world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getMaxLocalRawBrightness(pos1up) >= 4 && world.getBlockState(pos1up).getLightBlock(world, pos1up) <= 2) {
+				if (world.getBlockState(pos1).is(Blocks.DIRT) && world.getMaxLocalRawBrightness(pos1up) >= 4 && world.getBlockState(pos1up).getLightBlock(world, pos1up) <= 2) {
 					world.setBlockAndUpdate(pos1, defaultBlockState());
 				}
 			}

@@ -31,7 +31,7 @@ public abstract class EquipmentHandler {
 	public static EquipmentHandler instance;
 
 	public static void init() {
-		if (false && Botania.trinketsLoaded) {
+		if (Botania.trinketsLoaded) {
 			instance = new TrinketsIntegration();
 			TrinketsIntegration.init();
 		} else {
@@ -117,7 +117,7 @@ public abstract class EquipmentHandler {
 				Inventory inv = ((Player) living).getInventory();
 				for (int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getItem(i);
-					if (stack.getItem() == item && canEquip(stack, living)) {
+					if (stack.is(item) && canEquip(stack, living)) {
 						return stack;
 					}
 				}

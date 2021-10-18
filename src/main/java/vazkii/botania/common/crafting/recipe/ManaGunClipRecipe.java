@@ -38,7 +38,7 @@ public class ManaGunClipRecipe extends CustomRecipe {
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ItemManaGun && !ItemManaGun.hasClip(stack)) {
 					foundGun = true;
-				} else if (stack.getItem() == ModItems.clip) {
+				} else if (stack.is(ModItems.clip)) {
 					foundClip = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

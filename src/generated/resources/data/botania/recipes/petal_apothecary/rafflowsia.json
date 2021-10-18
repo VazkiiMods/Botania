@@ -20,10 +20,10 @@
       "tag": "botania:petals/black"
     },
     {
-      "tag": "botania:runes/earth"
+      "item": "botania:rune_earth"
     },
     {
-      "tag": "botania:runes/pride"
+      "item": "botania:rune_pride"
     },
     {
       "item": "botania:pixie_dust"

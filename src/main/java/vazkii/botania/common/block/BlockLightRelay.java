@@ -33,10 +33,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.LuminizerVariant;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileLightRelay;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
@@ -67,13 +69,22 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (player.getItemInHand(hand).getItem() != Items.ENDER_PEARL) {
-			BlockEntity te = world.getBlockEntity(pos);
-			if (te instanceof TileLightRelay) {
-				((TileLightRelay) te).mountEntity(player);
+		ItemStack stack = player.getItemInHand(hand);
+		BlockEntity te = world.getBlockEntity(pos);
+		if (te instanceof TileLightRelay relay) {
+			if (stack.is(ModItems.phantomInk) && relay.isNoParticle()) {
+				if (!world.isClientSide) {
+					stack.shrink(1);
+					relay.setNoParticle();
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(relay);
+				}
+				return InteractionResult.SUCCESS;
+			} else if (!stack.is(Items.ENDER_PEARL)) {
+				relay.mountEntity(player);
 				return InteractionResult.SUCCESS;
 			}
 		}
+
 		return InteractionResult.PASS;
 	}
 

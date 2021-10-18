@@ -7,7 +7,7 @@
   ],
   "key": {
     "S": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     "O": {
       "item": "minecraft:obsidian"

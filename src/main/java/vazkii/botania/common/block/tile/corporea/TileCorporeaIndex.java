@@ -256,7 +256,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		});
 	}
 
-	public int ticks = 0;
 	public int ticksWithCloseby = 0;
 	public float closeby = 0F;
 	public boolean hasCloseby;
@@ -280,7 +279,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 
 		float step = 0.2F;
-		self.ticks++;
 		if (self.hasCloseby) {
 			self.ticksWithCloseby++;
 			if (self.closeby < 1F) {
@@ -300,6 +298,15 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		super.setRemoved();
 		removeIndex(this);
 	}
+
+	/* TODO 1.17
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		//The tile entity renderer can draw pink stars fairly far away from the index itself, this helps it not get culled too early.
+		return new AxisAlignedBB(pos.add(-2, 0, -2), pos.add(3, 1, 3));
+	}
+	*/
 
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {

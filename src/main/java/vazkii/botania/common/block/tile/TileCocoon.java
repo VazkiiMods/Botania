@@ -68,7 +68,7 @@ public class TileCocoon extends TileMod {
 			for (Direction d : Direction.values()) {
 				BlockPos blockPos = (d == Direction.UP) ? worldPosition : worldPosition.relative(d);
 				if (level.hasChunkAt(blockPos)
-						&& level.getBlockState(blockPos).getBlock() == Blocks.WATER) {
+						&& level.getBlockState(blockPos).is(Blocks.WATER)) {
 					validWater.add(blockPos);
 				}
 			}

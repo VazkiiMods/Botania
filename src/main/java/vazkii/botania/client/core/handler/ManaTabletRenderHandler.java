@@ -45,7 +45,7 @@ public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPla
 		boolean renderedOne = false;
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stack = player.getInventory().getItem(i);
-			if (!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
+			if (!stack.isEmpty() && stack.is(ModItems.manaTablet)) {
 				ms.pushPose();
 				boolean armor = !player.getItemBySlot(EquipmentSlot.LEGS).isEmpty();
 

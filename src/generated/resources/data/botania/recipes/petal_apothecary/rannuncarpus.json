@@ -14,7 +14,7 @@
       "tag": "botania:petals/yellow"
     },
     {
-      "tag": "botania:runes/earth"
+      "item": "botania:rune_earth"
     },
     {
       "item": "botania:redstone_root"

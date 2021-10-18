@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.capability;
 
-import vazkii.botania.api.item.IExoflameHeatable;
+import vazkii.botania.api.block.IExoflameHeatable;
 
 public class NoopExoflameHeatable implements IExoflameHeatable {
 	@Override

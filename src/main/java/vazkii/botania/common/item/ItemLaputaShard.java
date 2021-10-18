@@ -183,14 +183,14 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					CompoundTag cmp = new CompoundTag();
 					if (tile != null) {
 						cmp = tile.save(cmp);
-						// Reset the TE so e.g. chests don't spawn their drops
+						// Reset the block entity so e.g. chests don't spawn their drops
 						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(pos_, state);
 						world.setBlockEntity(newTile);
 					}
 
 					// This can fail from e.g. permissions plugins or event cancellations
 					if (!world.removeBlock(pos_, false)) {
-						// put the original TE back
+						// put the original block entity back
 						if (tile != null) {
 							world.setBlockEntity(tile);
 						}
@@ -250,7 +250,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		burst.setMinManaLoss(0);
 		burst.setManaLossPerTick(0F);
 		burst.setGravity(0F);
-		burst.setBurstMotion(0, 0.5, 0);
+		burst.setDeltaMovement(0, 0.5, 0);
 
 		burst.setSourceLens(stack);
 		return burst;
@@ -279,10 +279,10 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 			if (burst.getTicksExisted() == spawnTicks) {
 				int x = ItemNBTHelper.getInt(lens, TAG_X, 0);
-				int y = ItemNBTHelper.getInt(lens, TAG_Y, -1);
+				int y = ItemNBTHelper.getInt(lens, TAG_Y, Integer.MIN_VALUE);
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
-				if (y != -1) {
+				if (y != Integer.MIN_VALUE) {
 					spawnNextBurst(entity.level, new BlockPos(x, y, z), lens);
 				}
 			} else if (burst.getTicksExisted() == placeTicks) {

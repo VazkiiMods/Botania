@@ -29,8 +29,8 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.ItemFlagsComponent;
+import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	public static final String TAG_TELEPORTED = "botania:teleported";
 
-	private BlockPos bindPos = new BlockPos(0, -1, 0);
+	private BlockPos bindPos = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	public SubTileSpectranthemum(BlockPos pos, BlockState state) {
 		super(ModSubtiles.SPECTRANTHEMUM, pos, state);
@@ -61,32 +61,28 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 			boolean did = false;
 
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-RANGE, -RANGE, -RANGE), pos.offset(RANGE + 1, RANGE + 1, RANGE + 1)));
-			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
 				ItemFlagsComponent flags = EntityComponents.INTERNAL_ITEM.get(item);
-				int age = ((AccessorItemEntity) item).getAge();
-				if (age < 60 + slowdown || !item.isAlive() || flags.spectranthemumTeleported) {
+				if (!DelayHelper.canInteractWith(this, item) || flags.spectranthemumTeleported) {
 					continue;
 				}
 
 				ItemStack stack = item.getItem();
-				if (!stack.isEmpty()) {
-					Item sitem = stack.getItem();
-					if (sitem instanceof IManaItem) {
-						continue;
-					}
+				Item sitem = stack.getItem();
+				if (sitem instanceof IManaItem) {
+					continue;
+				}
 
-					int cost = stack.getCount() * COST;
-					if (getMana() >= cost) {
-						spawnExplosionParticles(item, 10);
-						item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
-						flags.spectranthemumTeleported = true;
-						item.setDeltaMovement(Vec3.ZERO);
-						spawnExplosionParticles(item, 10);
-						addMana(-cost);
-						did = true;
-					}
+				int cost = stack.getCount() * COST;
+				if (getMana() >= cost) {
+					spawnExplosionParticles(item, 10);
+					item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
+					flags.spectranthemumTeleported = true;
+					item.setDeltaMovement(Vec3.ZERO);
+					spawnExplosionParticles(item, 10);
+					addMana(-cost);
+					did = true;
 				}
 			}
 
@@ -160,7 +156,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getInstance().player.isShiftKeyDown() && bindPos.getY() != -1 ? bindPos : super.getBinding();
+		return Minecraft.getInstance().player.isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
 	}
 
 }

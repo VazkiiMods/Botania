@@ -15,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -32,13 +31,11 @@ public class LensWeight extends Lens {
 			int harvestLevel = ConfigHandler.COMMON.harvestLevelWeight.getValue();
 
 			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
-			Block block = entity.level.getBlockState(bPos).getBlock();
 			BlockState state = entity.level.getBlockState(bPos);
-			int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 
 			if (FallingBlock.isFree(entity.level.getBlockState(bPos.below()))
 					&& state.getDestroySpeed(entity.level, bPos) != -1
-					&& neededHarvestLevel <= harvestLevel
+					&& LensMine.canHarvest(harvestLevel, state)
 					&& entity.level.getBlockEntity(bPos) == null) {
 				FallingBlockEntity falling = new FallingBlockEntity(entity.level, bPos.getX() + 0.5, bPos.getY(), bPos.getZ() + 0.5, state);
 				falling.time = 1;

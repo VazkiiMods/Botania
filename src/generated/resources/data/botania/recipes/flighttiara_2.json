@@ -1,16 +1,19 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "botania:flight_tiara_wings",
-  "ingredients": [
-    {
+  "type": "botania:nbt_output_wrapper",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "group": "botania:flight_tiara_wings",
+    "ingredients": [
+      {
+        "item": "botania:flight_tiara"
+      },
+      {
+        "item": "botania:quartz_dark"
+      }
+    ],
+    "result": {
       "item": "botania:flight_tiara"
-    },
-    {
-      "item": "botania:quartz_dark"
     }
-  ],
-  "result": {
-    "item": "botania:flight_tiara",
-    "nbt": "{variant:2}"
-  }
+  },
+  "nbt": "{variant:2}"
 }

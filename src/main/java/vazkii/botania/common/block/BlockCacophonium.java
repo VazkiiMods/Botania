@@ -51,7 +51,7 @@ public class BlockCacophonium extends BlockMod implements EntityBlock {
 
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity te = world.getBlockEntity(pos);
 			if (te instanceof TileCacophonium) {
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), ((TileCacophonium) te).stack);

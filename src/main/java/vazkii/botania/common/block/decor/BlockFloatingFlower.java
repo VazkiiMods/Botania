@@ -10,6 +10,7 @@ package vazkii.botania.common.block.decor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,10 +28,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.api.block.IFloatingFlower.IslandType;
+import vazkii.botania.api.block.IFloatingFlowerProvider;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.item.IFloatingFlower.IslandType;
-import vazkii.botania.api.item.IFloatingFlowerProvider;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
@@ -61,6 +62,9 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 	@Nonnull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
+			return RenderShape.ENTITYBLOCK_ANIMATED;
+		}
 		return ConfigHandler.CLIENT.staticFloaters.getValue() ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
@@ -85,7 +89,7 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 		if (!stack.isEmpty() && te instanceof IFloatingFlowerProvider && ((IFloatingFlowerProvider) te).getFloatingData() != null) {
 			IFloatingFlower flower = ((IFloatingFlowerProvider) te).getFloatingData();
 			IslandType type = null;
-			if (stack.getItem() == Items.SNOWBALL) {
+			if (stack.is(Items.SNOWBALL)) {
 				type = IslandType.SNOW;
 			} else if (stack.getItem() instanceof IFloatingFlowerVariant) {
 				IslandType newType = ((IFloatingFlowerVariant) stack.getItem()).getIslandType(stack);

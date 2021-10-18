@@ -19,7 +19,6 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
@@ -36,6 +35,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.core.handler.TooltipHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
@@ -71,7 +71,7 @@ public class ItemDice extends ItemRelic {
 				return InteractionResultHolder.success(stack);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.diceOfFate, SoundSource.PLAYERS, 1F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
 			List<Integer> possible = new ArrayList<>();
 			for (int i = 0; i < 6; i++) {
@@ -130,11 +130,10 @@ public class ItemDice extends ItemRelic {
 	}
 
 	private boolean hasRelicAlready(Player player, int relic) {
-		if (relic < 0 || relic > 6 || !(player instanceof ServerPlayer)) {
+		if (relic < 0 || relic > 6 || !(player instanceof ServerPlayer mpPlayer)) {
 			return true;
 		}
 
-		ServerPlayer mpPlayer = (ServerPlayer) player;
 		Item item = getRelics()[relic];
 		ResourceLocation advId = ((IRelic) item).getAdvancement();
 

@@ -7,13 +7,13 @@
   ],
   "key": {
     "A": {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     "S": {
       "tag": "botania:manasteel_ingots"
     },
     "E": {
-      "tag": "botania:runes/earth"
+      "item": "botania:rune_earth"
     },
     "L": {
       "item": "minecraft:leather"

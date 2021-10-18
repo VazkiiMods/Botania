@@ -37,7 +37,7 @@ public class TileEnderEye extends TileMod {
 		boolean looking = false;
 		for (Player player : players) {
 			ItemStack helm = player.getItemBySlot(EquipmentSlot.HEAD);
-			if (!helm.isEmpty() && helm.getItem() == Blocks.PUMPKIN.asItem()) {
+			if (!helm.isEmpty() && helm.is(Blocks.CARVED_PUMPKIN.asItem())) {
 				continue;
 			}
 

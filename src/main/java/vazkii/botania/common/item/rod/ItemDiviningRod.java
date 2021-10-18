@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -30,12 +30,13 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWieldable {
+public class ItemDiviningRod extends Item implements IManaUsingItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIVINING);
 
@@ -43,6 +44,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 
 	public ItemDiviningRod(Properties props) {
 		super(props);
+		IAvatarWieldable.API.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -63,13 +65,13 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 		return InteractionResultHolder.pass(stack);
 	}
 
-	private void doHighlight(Level world, BlockPos pos, int range, long seedxor) {
+	private static void doHighlight(Level world, BlockPos pos, int range, long seedxor) {
 		for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
 				pos.offset(range, range, range))) {
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
-			if (false /* todo 1.16-fabric Tags.Blocks.ORES.contains(block) */) {
+			if (state.is(ModTags.Blocks.ORES)) {
 				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.random.nextFloat(),
@@ -85,18 +87,20 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 		return true;
 	}
 
-	@Override
-	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = (BlockEntity) tile;
-		Level world = te.getLevel();
-		if (tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
-			doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
-			tile.receiveMana(-COST);
+	protected static class AvatarBehavior implements IAvatarWieldable {
+		@Override
+		public void onAvatarUpdate(IAvatarTile tile) {
+			BlockEntity te = (BlockEntity) tile;
+			Level world = te.getLevel();
+			if (tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
+				ItemDiviningRod.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
+				tile.receiveMana(-COST);
+			}
 		}
-	}
 
-	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
-		return avatarOverlay;
+		@Override
+		public ResourceLocation getOverlayResource(IAvatarTile tile) {
+			return avatarOverlay;
+		}
 	}
 }

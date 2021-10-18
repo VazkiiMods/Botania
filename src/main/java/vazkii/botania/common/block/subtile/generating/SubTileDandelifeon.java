@@ -10,7 +10,6 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -173,12 +172,11 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	void setBlockForGeneration(BlockPos pos, int gen, int prevGen) {
 		Level world = getLevel();
 		BlockState stateAt = world.getBlockState(pos);
-		Block blockAt = stateAt.getBlock();
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (gen == -2) {
 			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
 			addMana(val);
-		} else if (blockAt == ModBlocks.cellBlock) {
+		} else if (stateAt.is(ModBlocks.cellBlock)) {
 			if (gen < 0) {
 				world.removeBlock(pos, false);
 			} else {

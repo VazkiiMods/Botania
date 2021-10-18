@@ -17,16 +17,16 @@
       "tag": "botania:petals/green"
     },
     {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     {
-      "tag": "botania:runes/earth"
+      "item": "botania:rune_earth"
     },
     {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     },
     {
       "item": "botania:life_essence"

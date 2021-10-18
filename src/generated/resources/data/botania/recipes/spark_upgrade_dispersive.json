@@ -9,7 +9,7 @@
       "tag": "botania:manasteel_ingots"
     },
     {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     }
   ],
   "result": {

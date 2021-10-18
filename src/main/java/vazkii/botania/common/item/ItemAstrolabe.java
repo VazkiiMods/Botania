@@ -17,7 +17,6 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -37,6 +36,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
@@ -84,7 +84,7 @@ public class ItemAstrolabe extends Item {
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @Nonnull InteractionHand hand) {
 		ItemStack stack = playerIn.getItemInHand(hand);
 		if (playerIn.isShiftKeyDown()) {
-			playerIn.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.5F, 1F);
+			playerIn.playSound(ModSounds.astrolabeConfigure, 1F, 1F);
 			if (!worldIn.isClientSide) {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;
@@ -133,24 +133,25 @@ public class ItemAstrolabe extends Item {
 			return;
 		}
 
-		List<ItemStack> stacksToCheck = new ArrayList<>();
+		List<IBlockProvider> providers = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == blockToPlace.getItem()) {
+			if (!stackInSlot.isEmpty() && stackInSlot.is(blockToPlace.getItem())) {
 				stackInSlot.shrink(1);
 				return;
 			}
 
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider) {
-				stacksToCheck.add(stackInSlot);
+			if (!stackInSlot.isEmpty()) {
+				var provider = IBlockProvider.API.find(stackInSlot, Unit.INSTANCE);
+				if (provider != null) {
+					providers.add(provider);
+				}
 			}
 		}
 
-		for (ItemStack providerStack : stacksToCheck) {
-			IBlockProvider prov = (IBlockProvider) providerStack.getItem();
-
-			if (prov.provideBlock(player, requestor, providerStack, block, false)) {
-				prov.provideBlock(player, requestor, providerStack, block, true);
+		for (IBlockProvider prov : providers) {
+			if (prov.provideBlock(player, requestor, block, false)) {
+				prov.provideBlock(player, requestor, block, true);
 				return;
 			}
 		}
@@ -166,23 +167,25 @@ public class ItemAstrolabe extends Item {
 
 		int required = blocks.size();
 		int current = 0;
-		List<ItemStack> stacksToCheck = new ArrayList<>();
+		List<IBlockProvider> providersToCheck = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == reqStack.getItem()) {
+			if (!stackInSlot.isEmpty() && stackInSlot.is(reqStack.getItem())) {
 				current += stackInSlot.getCount();
 				if (current >= required) {
 					return true;
 				}
 			}
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider) {
-				stacksToCheck.add(stackInSlot);
+			if (!stackInSlot.isEmpty()) {
+				var provider = IBlockProvider.API.find(stackInSlot, Unit.INSTANCE);
+				if (provider != null) {
+					providersToCheck.add(provider);
+				}
 			}
 		}
 
-		for (ItemStack providerStack : stacksToCheck) {
-			IBlockProvider prov = (IBlockProvider) providerStack.getItem();
-			int count = prov.getBlockCount(player, stack, providerStack, block);
+		for (IBlockProvider prov : providersToCheck) {
+			int count = prov.getBlockCount(player, stack, block);
 			if (count == -1) {
 				return true;
 			}

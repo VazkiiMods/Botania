@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 
 public class ItemSpellCloth extends Item {
@@ -16,11 +17,8 @@ public class ItemSpellCloth extends Item {
 		super(builder);
 	}
 
-	/* todo 1.16-fabric
-	@Override
-	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-		return false;
+	public static boolean shouldDenyAnvil(Container inputSlots) {
+		return inputSlots.getItem(0).getItem() instanceof ItemSpellCloth
+				&& !(inputSlots.getItem(1).getItem() instanceof ItemSpellCloth);
 	}
-	*/
-
 }

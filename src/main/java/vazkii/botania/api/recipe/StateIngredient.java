@@ -11,15 +11,14 @@ package vazkii.botania.api.recipe;
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
 /**
  * A basic interface for inputs and outputs for in-world blocks.
@@ -34,16 +33,12 @@ public interface StateIngredient extends Predicate<BlockState> {
 
 	void write(FriendlyByteBuf buffer);
 
-	List<BlockState> getDisplayed();
+	List<ItemStack> getDisplayedStacks();
 
-	/**
-	 * Resolves tag ingredients, returning null if their tag doesn't exist.
-	 * Then filters the ingredient down to contents returned by the operator.
-	 * The operator must return a list of contents that passed the filter, or null if unchanged.
-	 * Used to filter ores deprioritized with the orechid config.
-	 */
-	@Nullable
-	default StateIngredient resolveAndFilter(UnaryOperator<List<Block>> operator) {
-		return this;
+	/** A description tooltip to display in areas like JEI recipes. */
+	default List<Component> descriptionTooltip() {
+		return Collections.emptyList();
 	}
+
+	List<BlockState> getDisplayed();
 }

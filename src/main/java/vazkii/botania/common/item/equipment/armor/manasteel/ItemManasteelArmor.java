@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
+import com.google.common.base.Suppliers;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -17,7 +19,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,6 +45,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPhantomInkable {
 
@@ -135,7 +137,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		}
 	}
 
-	private static final LazyLoadedValue<ItemStack[]> armorSet = new LazyLoadedValue<>(() -> new ItemStack[] {
+	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
 			new ItemStack(ModItems.manasteelHelm),
 			new ItemStack(ModItems.manasteelChest),
 			new ItemStack(ModItems.manasteelLegs),
@@ -160,18 +162,14 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.getItem() == ModItems.manasteelHelm;
-		case CHEST:
-			return stack.getItem() == ModItems.manasteelChest;
-		case LEGS:
-			return stack.getItem() == ModItems.manasteelLegs;
-		case FEET:
-			return stack.getItem() == ModItems.manasteelBoots;
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.manasteelHelm);
+		case CHEST -> stack.is(ModItems.manasteelChest);
+		case LEGS -> stack.is(ModItems.manasteelLegs);
+		case FEET -> stack.is(ModItems.manasteelBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	private int getSetPiecesEquipped(Player player) {

@@ -84,8 +84,7 @@ public class TileCorporeaRetainer extends TileMod {
 		ICorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(level, requestPos);
 		if (spark != null) {
 			BlockEntity te = spark.getSparkNode().getWorld().getBlockEntity(spark.getSparkNode().getPos());
-			if (te instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) te;
+			if (te instanceof ICorporeaRequestor requestor) {
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
 				request = null;

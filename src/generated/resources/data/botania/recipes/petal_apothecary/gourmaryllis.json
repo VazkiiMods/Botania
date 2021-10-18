@@ -20,10 +20,10 @@
       "tag": "botania:petals/red"
     },
     {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     {
-      "tag": "botania:runes/summer"
+      "item": "botania:rune_summer"
     }
   ]
 }

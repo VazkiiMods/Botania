@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.ToolManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -21,12 +23,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class LensMine extends Lens {
 	@Override
@@ -43,9 +45,9 @@ public class LensMine extends Lens {
 		Block block = state.getBlock();
 
 		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
-		boolean warp = !composite.isEmpty() && composite.getItem() == ModItems.lensWarp;
+		boolean warp = !composite.isEmpty() && composite.is(ModItems.lensWarp);
 
-		if (warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.MOVING_PISTON || block == Blocks.PISTON_HEAD)) {
+		if (warp && (state.is(ModBlocks.pistonRelay) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
 			return false;
 		}
 
@@ -54,13 +56,11 @@ public class LensMine extends Lens {
 		BlockEntity tile = world.getBlockEntity(collidePos);
 
 		float hardness = state.getDestroySpeed(world, collidePos);
-		int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 		int mana = burst.getMana();
 
 		BlockPos source = burst.getBurstSourceBlockPos();
-		if (!source.equals(collidePos)
-				&& !(tile instanceof IManaBlock)
-				&& neededHarvestLevel <= harvestLevel
+		if (!isManaBlock
+				&& canHarvest(harvestLevel, state)
 				&& hardness != -1 && hardness < 50F
 				&& (burst.isFake() || mana >= 24)) {
 			if (!burst.hasAlreadyCollidedAt(collidePos)) {
@@ -72,8 +72,8 @@ public class LensMine extends Lens {
 						world.levelEvent(2001, collidePos, Block.getId(state));
 					}
 
-					boolean offBounds = source.getY() < 0;
-					boolean doWarp = warp && !offBounds;
+					boolean sourceless = source.equals(IManaBurst.NO_SOURCE);
+					boolean doWarp = warp && !sourceless;
 					BlockPos dropCoord = doWarp ? source : collidePos;
 
 					for (ItemStack stack_ : items) {
@@ -90,4 +90,11 @@ public class LensMine extends Lens {
 		return dead;
 	}
 
+	private static final List<ItemStack> HARVEST_TOOLS = Stream.of(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE,
+			Items.IRON_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE)
+			.map(ItemStack::new).toList();
+
+	public static boolean canHarvest(int harvestLevel, BlockState state) {
+		return !state.requiresCorrectToolForDrops() || ToolManager.handleIsEffectiveOn(state, HARVEST_TOOLS.get(harvestLevel), null);
+	}
 }

@@ -17,10 +17,10 @@
       "tag": "botania:petals/red"
     },
     {
-      "tag": "botania:runes/earth"
+      "item": "botania:rune_earth"
     },
     {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     {
       "item": "botania:redstone_root"

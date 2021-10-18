@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.common.components.EntityComponents;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -66,7 +66,7 @@ public class TileOpenCrate extends TileExposedSimpleInventory {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, ejectY, worldPosition.getZ() + 0.5, stack);
 		item.setDeltaMovement(Vec3.ZERO);
 		if (redstone) {
-			((AccessorItemEntity) item).setAge(-200);
+			EntityComponents.INTERNAL_ITEM.get(item).timeCounter = -200;
 		}
 
 		getItemHandler().setItem(0, ItemStack.EMPTY);

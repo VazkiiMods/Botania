@@ -29,7 +29,7 @@ public class LensMagnet extends Lens {
 		int range = 3;
 
 		BlockPos source = burst.getBurstSourceBlockPos();
-		final boolean sourceless = source.getY() == -1;
+		final boolean sourceless = source.equals(IManaBurst.NO_SOURCE);
 
 		Predicate<BlockEntity> predicate = tile -> tile instanceof IManaReceiver
 				&& (sourceless || tile.getBlockPos().distSqr(source) > 9)
@@ -75,7 +75,7 @@ public class LensMagnet extends Lens {
 			burst.setMagnetizePos(tile.getBlockPos());
 		}
 
-		burst.setBurstMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);
+		entity.setDeltaMovement(finalMotionVec);
 	}
 
 }

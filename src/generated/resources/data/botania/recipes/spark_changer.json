@@ -9,7 +9,7 @@
       "item": "minecraft:redstone"
     },
     "S": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     "E": {
       "tag": "botania:elementium_ingots"

@@ -57,7 +57,7 @@ public class BlockManaDetector extends BlockMod implements IManaTrigger, IManaCo
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
-		if (!world.isClientSide) {
+		if (!world.isClientSide && !burst.isFake()) {
 			BlockState state = world.getBlockState(pos);
 			if (!state.getValue(BlockStateProperties.POWERED) && !world.getBlockTicks().hasScheduledTick(pos, this)) {
 				world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));

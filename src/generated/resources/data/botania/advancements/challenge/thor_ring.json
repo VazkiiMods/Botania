@@ -1,0 +1,35 @@
+{
+  "parent": "botania:challenge/gaia_guardian_hardmode",
+  "display": {
+    "icon": {
+      "item": "botania:thor_ring"
+    },
+    "title": {
+      "translate": "advancement.botania:thorRing"
+    },
+    "description": {
+      "translate": "advancement.botania:thorRing.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ring": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "items": [
+            "botania:thor_ring"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ring"
+    ]
+  ]
+}

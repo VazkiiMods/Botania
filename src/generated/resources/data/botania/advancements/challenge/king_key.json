@@ -1,0 +1,35 @@
+{
+  "parent": "botania:challenge/gaia_guardian_hardmode",
+  "display": {
+    "icon": {
+      "item": "botania:king_key"
+    },
+    "title": {
+      "translate": "advancement.botania:kingKey"
+    },
+    "description": {
+      "translate": "advancement.botania:kingKey.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "key": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "items": [
+            "botania:king_key"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "key"
+    ]
+  ]
+}

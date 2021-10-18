@@ -5,7 +5,7 @@
       "item": "minecraft:crafting_table"
     },
     {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     }
   ],
   "result": {

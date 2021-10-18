@@ -47,7 +47,7 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem, I
 
 	@Override
 	public boolean isValidRepairItem(ItemStack shears, ItemStack material) {
-		return material.getItem() == ModItems.manaSteel || super.isValidRepairItem(shears, material);
+		return material.is(ModItems.manaSteel) || super.isValidRepairItem(shears, material);
 	}
 
 	@Override

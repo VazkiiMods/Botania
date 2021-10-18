@@ -1,0 +1,22 @@
+{
+  "parent": "botania:main/flower_pickup",
+  "criteria": {
+    "lexicon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:runic_altar"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "lexicon"
+    ]
+  ]
+}

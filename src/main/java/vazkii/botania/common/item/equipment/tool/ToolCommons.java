@@ -23,7 +23,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -31,24 +30,20 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 
 public final class ToolCommons {
 
-	public static final List<Material> materialsAxe = Arrays.asList(Material.LEAVES, Material.PLANT, Material.WOOD, Material.NETHER_WOOD, Material.VEGETABLE);
 	private static boolean recCall = false;
 
 	/**
 	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
 	 */
 	public static int damageItemIfPossible(ItemStack stack, int amount, LivingEntity entity, int manaPerDamage) {
-		if (!(entity instanceof Player)) {
+		if (!(entity instanceof Player player)) {
 			return amount;
 		}
 
-		Player player = (Player) entity;
 		while (amount > 0) {
 			if (ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true)) {
 				amount--;
@@ -110,11 +105,10 @@ public final class ToolCommons {
 		}
 
 		Item item = stack.getItem();
-		if (!(item instanceof DiggerItem)) {
+		if (!(item instanceof DiggerItem tool)) {
 			return 0;
 		}
 
-		DiggerItem tool = (DiggerItem) item;
 		Tier material = tool.getTier();
 		int materialLevel = 0;
 		if (material == BotaniaAPI.instance().getManasteelItemTier()) {
@@ -128,7 +122,7 @@ public final class ToolCommons {
 		}
 
 		int modifier = 0;
-		if (item == ModItems.terraPick) {
+		if (stack.is(ModItems.terraPick)) {
 			modifier = ItemTerraPick.getLevel(stack);
 		}
 

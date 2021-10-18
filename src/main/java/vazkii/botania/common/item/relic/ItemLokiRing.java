@@ -86,7 +86,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		if (stack.isEmpty() && hand == InteractionHand.MAIN_HAND) {
 			BlockPos originCoords = getBindingCenter(lokiRing);
 			if (!world.isClientSide) {
-				if (originCoords.getY() == -1) {
+				if (originCoords.getY() == Integer.MIN_VALUE) {
 					// Initiate a new pending list of positions
 					setBindingCenter(lokiRing, hit);
 					setCursorList(lokiRing, null);
@@ -145,7 +145,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
 		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof ISequentialBreaker)) {
+		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof ISequentialBreaker breaker)) {
 			return;
 		}
 
@@ -155,7 +155,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		recCall = true;
 
 		List<BlockPos> cursors = getCursorList(lokiRing);
-		ISequentialBreaker breaker = (ISequentialBreaker) item;
 
 		try {
 			for (BlockPos offset : cursors) {
@@ -163,7 +162,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				BlockState state = player.level.getBlockState(coords);
 				breaker.breakOtherBlock(player, stack, coords, pos, side);
 				ToolCommons.removeBlockWithDrops(player, stack, player.level, coords,
-						s -> s.getBlock() == state.getBlock() && s.getMaterial() == state.getMaterial());
+						s -> s.is(state.getBlock()) && s.getMaterial() == state.getMaterial());
 			}
 		} finally {
 			recCall = false;
@@ -203,7 +202,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			BlockPos origin = getBindingCenter(stack);
 
 			for (int i = 0; i < list.size(); i++) {
-				if (origin.getY() != -1) {
+				if (origin.getY() != Integer.MIN_VALUE) {
 					list.set(i, list.get(i).offset(origin));
 				} else {
 					list.set(i, list.get(i).offset(((BlockHitResult) lookPos).getBlockPos()));
@@ -222,7 +221,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		Minecraft mc = Minecraft.getInstance();
 		if (getLokiRing(player) == stack) {
 			BlockPos currentBuildCenter = getBindingCenter(stack);
-			if (currentBuildCenter.getY() != -1) {
+			if (currentBuildCenter.getY() != Integer.MIN_VALUE) {
 				return currentBuildCenter;
 			} else if (mc.hitResult instanceof BlockHitResult
 					&& mc.hitResult.getType() == HitResult.Type.BLOCK
@@ -240,13 +239,13 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	private static BlockPos getBindingCenter(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_X_ORIGIN, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_Y_ORIGIN, -1);
+		int y = ItemNBTHelper.getInt(stack, TAG_Y_ORIGIN, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z_ORIGIN, 0);
 		return new BlockPos(x, y, z);
 	}
 
 	private static void exitBindingMode(ItemStack stack) {
-		setBindingCenter(stack, new BlockPos(0, -1, 0));
+		setBindingCenter(stack, new BlockPos(0, Integer.MIN_VALUE, 0));
 	}
 
 	private static void setBindingCenter(ItemStack stack, BlockPos pos) {

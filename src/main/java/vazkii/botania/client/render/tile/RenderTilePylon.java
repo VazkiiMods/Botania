@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.tile;
 
+import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -21,7 +22,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
@@ -37,6 +37,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
 public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 
@@ -48,7 +49,7 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 	private final ModelPylonNatura naturaModel;
 	private final ModelPylonGaia gaiaModel;
 
-	// Overrides for when we call this TESR without an actual pylon
+	// Overrides for when we call this without an actual pylon
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 	private static ItemTransforms.TransformType forceTransform = ItemTransforms.TransformType.NONE;
 
@@ -71,24 +72,20 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 		ResourceLocation texture;
 		RenderType shaderLayer;
 		switch (type) {
-		default:
-		case MANA: {
+		default -> {
 			model = manaModel;
 			texture = MANA_TEXTURE;
 			shaderLayer = direct ? RenderHelper.MANA_PYLON_GLOW_DIRECT : RenderHelper.MANA_PYLON_GLOW;
-			break;
 		}
-		case NATURA: {
+		case NATURA -> {
 			model = naturaModel;
 			texture = NATURA_TEXTURE;
 			shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
-			break;
 		}
-		case GAIA: {
+		case GAIA -> {
 			model = gaiaModel;
 			texture = GAIA_TEXTURE;
 			shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;
-			break;
 		}
 		}
 
@@ -135,7 +132,7 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 	}
 
 	public static class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
-		private static final LazyLoadedValue<TilePylon> DUMMY = new LazyLoadedValue<>(() -> new TilePylon(new BlockPos(0, Integer.MIN_VALUE, 0), ModBlocks.manaPylon.defaultBlockState()));
+		private static final Supplier<TilePylon> DUMMY = Suppliers.memoize(() -> new TilePylon(new BlockPos(0, Integer.MIN_VALUE, 0), ModBlocks.manaPylon.defaultBlockState()));
 
 		@Override
 		public void render(ItemStack stack, ItemTransforms.TransformType type, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

@@ -50,8 +50,7 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 
 		if (mobs.size() > 1 && getMana() >= COST) {
 			for (Enemy mob : mobs) {
-				if (mob instanceof Mob) {
-					Mob entity = (Mob) mob;
+				if (mob instanceof Mob entity) {
 					if (brainwashEntity(entity, mobs)) {
 						addMana(-COST);
 						sync();
@@ -72,10 +71,10 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 				newTarget = mobs.get(entity.level.random.nextInt(mobs.size()));
 			} while (newTarget == entity);
 
-			if (newTarget instanceof Mob) {
+			if (newTarget instanceof Mob mob) {
 				entity.setTarget(null);
 
-				// Move any EntityAIHurtByTarget to highest priority
+				// Move any HurtByTargetGoal to highest priority
 				GoalSelector targetSelector = ((AccessorMob) entity).getTargetSelector();
 				for (WrappedGoal entry : ((AccessorGoalSelector) targetSelector).getAvailableGoals()) {
 					if (entry.getGoal() instanceof HurtByTargetGoal) {
@@ -86,8 +85,8 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 					}
 				}
 
-				// Now set revenge target, which EntityAIHurtByTarget will pick up
-				entity.setLastHurtByMob((Mob) newTarget);
+				// Now set last hurt by, which HurtByTargetGoal will pick up
+				entity.setLastHurtByMob(mob);
 				did = true;
 			}
 		}

@@ -38,7 +38,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 
 	@Override
 	public boolean isFoil(ItemStack stack) {
-		return stack.getItem() == ModItems.blackerLotus;
+		return super.isFoil(stack) || stack.is(ModItems.blackerLotus);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 		}
 
 		BlockPos pos = pool.tileEntity().getBlockPos();
-		boolean t2 = stack.getItem() == ModItems.blackerLotus;
+		boolean t2 = stack.is(ModItems.blackerLotus);
 
 		if (!item.level.isClientSide) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
@@ -56,7 +56,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 			PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ());
 		}
 
-		item.playSound(ModSounds.blackLotus, 0.5F, t2 ? 0.1F : 1F);
+		item.playSound(ModSounds.blackLotus, 1F, t2 ? 0.1F : 1F);
 	}
 
 	@Environment(EnvType.CLIENT)

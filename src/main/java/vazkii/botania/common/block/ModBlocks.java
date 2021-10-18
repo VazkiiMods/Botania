@@ -8,9 +8,7 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -41,8 +39,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IPetalApothecary;
+import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -55,11 +52,9 @@ import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.entity.EntityVineBall;
-import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
-import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.AccessorDispenserBlock;
@@ -125,8 +120,7 @@ public final class ModBlocks {
 	public static final Block redBuriedPetals = new BlockBuriedPetals(DyeColor.RED, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 	public static final Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 
-	public static final BlockBehaviour.Properties FLOATING_PROPS = FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15))
-			.breakByTool(FabricToolTags.SHOVELS);
+	public static final BlockBehaviour.Properties FLOATING_PROPS = BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15);
 	public static final Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, FLOATING_PROPS);
 	public static final Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, FLOATING_PROPS);
 	public static final Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, FLOATING_PROPS);
@@ -196,6 +190,7 @@ public final class ModBlocks {
 	public static final Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, BlockBehaviour.Properties.copy(doubleFlowerWhite));
 
 	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE)
+			.requiresCorrectToolForDrops()
 			.lightLevel(s -> s.getValue(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
 	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, BlockBehaviour.Properties.copy(defaultAltar));
 	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, BlockBehaviour.Properties.copy(defaultAltar));
@@ -207,7 +202,7 @@ public final class ModBlocks {
 	public static final Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA, BlockBehaviour.Properties.copy(defaultAltar));
 	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY, BlockBehaviour.Properties.copy(defaultAltar));
 
-	public static final Block livingrock = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE));
+	public static final Block livingrock = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block livingrockBrick = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickChiseled = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickCracked = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
@@ -240,7 +235,7 @@ public final class ModBlocks {
 	public static final Block alchemyCatalyst = new BlockAlchemyCatalyst(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block conjurationCatalyst = new BlockConjurationCatalyst(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block manasteelBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL));
+	public static final Block manasteelBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block terrasteelBlock = new BlockMod(BlockBehaviour.Properties.copy(manasteelBlock));
 	public static final Block elementiumBlock = new BlockMod(BlockBehaviour.Properties.copy(manasteelBlock));
 	public static final Block manaDiamondBlock = new BlockMod(BlockBehaviour.Properties.copy(manasteelBlock));
@@ -253,27 +248,27 @@ public final class ModBlocks {
 	public static final Block bifrostPerm = new BlockBifrostPerm(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F)
 			.lightLevel(s -> 15).sound(SoundType.GLASS).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
 
-	public static final Block runeAltar = new BlockRuneAltar(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block runeAltar = new BlockRuneAltar(BlockBehaviour.Properties.copy(livingrock).requiresCorrectToolForDrops());
 	public static final Block enchanter = new BlockEnchanter(BlockBehaviour.Properties.of(Material.STONE).strength(3, 5).lightLevel(s -> 15).sound(SoundType.STONE));
 	public static final Block brewery = new BlockBrewery(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block terraPlate = new BlockTerraPlate(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL));
+	public static final Block terraPlate = new BlockTerraPlate(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block alfPortal = new BlockAlfPortal(BlockBehaviour.Properties.of(Material.WOOD).strength(10).sound(SoundType.WOOD)
 			.lightLevel(s -> s.getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
 
-	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).lightLevel(s -> 7));
+	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).lightLevel(s -> 7).requiresCorrectToolForDrops());
 	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, BlockBehaviour.Properties.copy(manaPylon));
 	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, BlockBehaviour.Properties.copy(manaPylon));
 
-	public static final Block distributor = new BlockDistributor(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE));
-	public static final Block manaVoid = new BlockManaVoid(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE));
+	public static final Block distributor = new BlockDistributor(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
+	public static final Block manaVoid = new BlockManaVoid(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block manaDetector = new BlockManaDetector(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block pistonRelay = new BlockPistonRelay(BlockBehaviour.Properties.of(Material.VEGETABLE).strength(2, 10).sound(SoundType.METAL).isValidSpawn(NO_SPAWN));
 	public static final Block turntable = new BlockTurntable(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block tinyPlanet = new BlockTinyPlanet(BlockBehaviour.Properties.of(Material.STONE).strength(20, 100).sound(SoundType.STONE));
+	public static final Block tinyPlanet = new BlockTinyPlanet(BlockBehaviour.Properties.of(Material.STONE).strength(20, 100).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, BlockBehaviour.Properties.copy(livingwood));
 	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, BlockBehaviour.Properties.copy(livingwood));
 	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, BlockBehaviour.Properties.copy(livingwood));
-	public static final Block spawnerClaw = new BlockSpawnerClaw(BlockBehaviour.Properties.of(Material.METAL).strength(3));
+	public static final Block spawnerClaw = new BlockSpawnerClaw(BlockBehaviour.Properties.of(Material.METAL).strength(3).requiresCorrectToolForDrops());
 	public static final Block rfGenerator = new BlockRFGenerator(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block prism = new BlockPrism(BlockBehaviour.Properties.copy(elfGlass).noCollission());
 	public static final Block pump = new BlockPump(BlockBehaviour.Properties.copy(livingrock));
@@ -283,11 +278,11 @@ public final class ModBlocks {
 
 	public static final Block openCrate = new BlockOpenCrate(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block craftCrate = new BlockCraftyCrate(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block forestEye = new BlockForestEye(BlockBehaviour.Properties.of(Material.METAL).strength(5, 10).sound(SoundType.METAL));
+	public static final Block forestEye = new BlockForestEye(BlockBehaviour.Properties.of(Material.METAL).strength(5, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block solidVines = new BlockSolidVines(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).strength(0.2F).sound(SoundType.GRASS).noOcclusion());
-	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, BlockBehaviour.Properties.of(Material.WOOD).strength(2, 5).sound(SoundType.WOOD));
+	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, BlockBehaviour.Properties.of(Material.WOOD).strength(2, 5).sound(SoundType.WOOD).isValidSpawn(NO_SPAWN).noOcclusion());
 	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, BlockBehaviour.Properties.copy(abstrusePlatform));
-	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, BlockBehaviour.Properties.of(Material.WOOD).strength(-1, Float.MAX_VALUE).sound(SoundType.WOOD));
+	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, BlockBehaviour.Properties.of(Material.WOOD).strength(-1, Float.MAX_VALUE).sound(SoundType.WOOD).isValidSpawn(NO_SPAWN).noOcclusion());
 	public static final Block tinyPotato = new BlockTinyPotato(BlockBehaviour.Properties.of(Material.WOOL).strength(0.25F));
 	public static final Block enderEye = new BlockEnderEye(BlockBehaviour.Properties.copy(manasteelBlock));
 	public static final Block redStringContainer = new BlockRedStringContainer(BlockBehaviour.Properties.copy(livingrock));
@@ -297,13 +292,13 @@ public final class ModBlocks {
 	public static final Block redStringRelay = new BlockRedStringRelay(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block redStringInterceptor = new BlockRedStringInterceptor(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block corporeaIndex = new BlockCorporeaIndex(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).noOcclusion());
-	public static final Block corporeaFunnel = new BlockCorporeaFunnel(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL));
-	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL));
+	public static final Block corporeaIndex = new BlockCorporeaIndex(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops());
+	public static final Block corporeaFunnel = new BlockCorporeaFunnel(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
+	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(BlockBehaviour.Properties.copy(corporeaInterceptor));
 	public static final Block corporeaRetainer = new BlockCorporeaRetainer(BlockBehaviour.Properties.copy(corporeaInterceptor));
 
-	public static final Block corporeaBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL));
+	public static final Block corporeaBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block corporeaBrick = new BlockMod(BlockBehaviour.Properties.copy(corporeaBlock));
 	public static final SlabBlock corporeaSlab = new SlabBlock(BlockBehaviour.Properties.copy(corporeaBlock));
 	public static final StairBlock corporeaStairs = new BlockModStairs(corporeaBlock.defaultBlockState(), BlockBehaviour.Properties.copy(corporeaBlock));
@@ -331,7 +326,7 @@ public final class ModBlocks {
 	public static final Block animatedTorch = new BlockAnimatedTorch(BlockBehaviour.Properties.of(Material.DECORATION).lightLevel(s -> 7).noOcclusion());
 	public static final Block starfield = new BlockStarfield(BlockBehaviour.Properties.of(Material.METAL).strength(5, 2000).sound(SoundType.METAL));
 
-	public static final Block azulejo0 = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 5).sound(SoundType.STONE));
+	public static final Block azulejo0 = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 5).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block azulejo1 = new BlockMod(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo2 = new BlockMod(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo3 = new BlockMod(BlockBehaviour.Properties.copy(azulejo0));
@@ -353,7 +348,7 @@ public final class ModBlocks {
 	public static final Block gaiaHead = new BlockGaiaHead(BlockBehaviour.Properties.of(Material.DECORATION).strength(1));
 	public static final Block shimmerrock = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block shimmerwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.GRASS).strength(0.6F).randomTicks().sound(SoundType.GRASS)).breakByTool(FabricToolTags.SHOVELS));
+	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, BlockBehaviour.Properties.of(Material.GRASS).strength(0.6F).randomTicks().sound(SoundType.GRASS));
 	public static final Block goldenGrass = new BlockAltGrass(BlockAltGrass.Variant.GOLDEN, BlockBehaviour.Properties.copy(dryGrass));
 	public static final Block vividGrass = new BlockAltGrass(BlockAltGrass.Variant.VIVID, BlockBehaviour.Properties.copy(dryGrass));
 	public static final Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED, BlockBehaviour.Properties.copy(dryGrass));
@@ -625,40 +620,6 @@ public final class ModBlocks {
 		register(r, LibBlockNames.MOTIF_DAYBLOOM, motifDaybloom);
 		register(r, LibBlockNames.MOTIF_NIGHTSHADE, motifNightshade);
 		register(r, LibBlockNames.MOTIF_HYDROANGEAS, motifHydroangeas);
-
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(whiteShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(orangeShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(magentaShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(lightBlueShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(yellowShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(limeShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(pinkShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(grayShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(lightGrayShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(cyanShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(purpleShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(blueShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(brownShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(greenShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(redShinyFlower), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(blackShinyFlower), DefaultHornHarvestable.INSTANCE);
-
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(whiteMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(orangeMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(magentaMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(lightBlueMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(yellowMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(limeMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(pinkMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(grayMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(lightGrayMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(cyanMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(purpleMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(blueMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(brownMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(greenMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(redMushroom), DefaultHornHarvestable.INSTANCE);
-		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getKey(blackShinyFlower), DefaultHornHarvestable.INSTANCE);
 	}
 
 	public static void registerItemBlocks() {
@@ -791,10 +752,10 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(redstoneSpreader), new BlockItem(redstoneSpreader, props));
 		register(r, Registry.BLOCK.getKey(elvenSpreader), new BlockItem(elvenSpreader, props));
 		register(r, Registry.BLOCK.getKey(gaiaSpreader), new BlockItem(gaiaSpreader, props));
-		register(r, Registry.BLOCK.getKey(manaPool), new ItemBlockPool(manaPool, props));
-		register(r, Registry.BLOCK.getKey(creativePool), new ItemBlockPool(creativePool, ModItems.defaultBuilder().rarity(Rarity.EPIC)));
-		register(r, Registry.BLOCK.getKey(dilutedPool), new ItemBlockPool(dilutedPool, props));
-		register(r, Registry.BLOCK.getKey(fabulousPool), new ItemBlockPool(fabulousPool, props));
+		register(r, Registry.BLOCK.getKey(manaPool), new BlockItem(manaPool, props));
+		register(r, Registry.BLOCK.getKey(creativePool), new BlockItem(creativePool, ModItems.defaultBuilder().rarity(Rarity.EPIC)));
+		register(r, Registry.BLOCK.getKey(dilutedPool), new BlockItem(dilutedPool, props));
+		register(r, Registry.BLOCK.getKey(fabulousPool), new BlockItem(fabulousPool, props));
 		register(r, Registry.BLOCK.getKey(alchemyCatalyst), new BlockItem(alchemyCatalyst, props));
 		register(r, Registry.BLOCK.getKey(conjurationCatalyst), new BlockItem(conjurationCatalyst, props));
 		register(r, Registry.BLOCK.getKey(manasteelBlock), new BlockItem(manasteelBlock, props));
@@ -921,7 +882,7 @@ public final class ModBlocks {
 		DispenserBlock.registerBehavior(ModItems.obedienceStick, new BehaviourStick());
 		DispenserBlock.registerBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
-		DispenserBlock.registerBehavior(ModItems.spark, new BehaviourSpark());
+		DispenserBlock.registerBehavior(ModItems.spark, new BehaviourManaSpark());
 		DispenserBlock.registerBehavior(ModBlocks.gaiaHead, new OptionalDispenseItemBehavior() {
 			@Nonnull
 			@Override
@@ -959,268 +920,149 @@ public final class ModBlocks {
 	}
 
 	public static Block getFlower(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whiteFlower;
-		case ORANGE:
-			return orangeFlower;
-		case MAGENTA:
-			return magentaFlower;
-		case LIGHT_BLUE:
-			return lightBlueFlower;
-		case YELLOW:
-			return yellowFlower;
-		case LIME:
-			return limeFlower;
-		case PINK:
-			return pinkFlower;
-		case GRAY:
-			return grayFlower;
-		case LIGHT_GRAY:
-			return lightGrayFlower;
-		case CYAN:
-			return cyanFlower;
-		case PURPLE:
-			return purpleFlower;
-		case BLUE:
-			return blueFlower;
-		case BROWN:
-			return brownFlower;
-		case GREEN:
-			return greenFlower;
-		case RED:
-			return redFlower;
-		case BLACK:
-			return blackFlower;
-		}
+		return switch (color) {
+		case WHITE -> whiteFlower;
+		case ORANGE -> orangeFlower;
+		case MAGENTA -> magentaFlower;
+		case LIGHT_BLUE -> lightBlueFlower;
+		case YELLOW -> yellowFlower;
+		case LIME -> limeFlower;
+		case PINK -> pinkFlower;
+		case GRAY -> grayFlower;
+		case LIGHT_GRAY -> lightGrayFlower;
+		case CYAN -> cyanFlower;
+		case PURPLE -> purpleFlower;
+		case BLUE -> blueFlower;
+		case BROWN -> brownFlower;
+		case GREEN -> greenFlower;
+		case RED -> redFlower;
+		case BLACK -> blackFlower;
+		};
 	}
 
 	public static Block getMushroom(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whiteMushroom;
-		case ORANGE:
-			return orangeMushroom;
-		case MAGENTA:
-			return magentaMushroom;
-		case LIGHT_BLUE:
-			return lightBlueMushroom;
-		case YELLOW:
-			return yellowMushroom;
-		case LIME:
-			return limeMushroom;
-		case PINK:
-			return pinkMushroom;
-		case GRAY:
-			return grayMushroom;
-		case LIGHT_GRAY:
-			return lightGrayMushroom;
-		case CYAN:
-			return cyanMushroom;
-		case PURPLE:
-			return purpleMushroom;
-		case BLUE:
-			return blueMushroom;
-		case BROWN:
-			return brownMushroom;
-		case GREEN:
-			return greenMushroom;
-		case RED:
-			return redMushroom;
-		case BLACK:
-			return blackMushroom;
-		}
+		return switch (color) {
+		case WHITE -> whiteMushroom;
+		case ORANGE -> orangeMushroom;
+		case MAGENTA -> magentaMushroom;
+		case LIGHT_BLUE -> lightBlueMushroom;
+		case YELLOW -> yellowMushroom;
+		case LIME -> limeMushroom;
+		case PINK -> pinkMushroom;
+		case GRAY -> grayMushroom;
+		case LIGHT_GRAY -> lightGrayMushroom;
+		case CYAN -> cyanMushroom;
+		case PURPLE -> purpleMushroom;
+		case BLUE -> blueMushroom;
+		case BROWN -> brownMushroom;
+		case GREEN -> greenMushroom;
+		case RED -> redMushroom;
+		case BLACK -> blackMushroom;
+		};
 	}
 
 	public static Block getBuriedPetal(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whiteBuriedPetals;
-		case ORANGE:
-			return orangeBuriedPetals;
-		case MAGENTA:
-			return magentaBuriedPetals;
-		case LIGHT_BLUE:
-			return lightBlueBuriedPetals;
-		case YELLOW:
-			return yellowBuriedPetals;
-		case LIME:
-			return limeBuriedPetals;
-		case PINK:
-			return pinkBuriedPetals;
-		case GRAY:
-			return grayBuriedPetals;
-		case LIGHT_GRAY:
-			return lightGrayBuriedPetals;
-		case CYAN:
-			return cyanBuriedPetals;
-		case PURPLE:
-			return purpleBuriedPetals;
-		case BLUE:
-			return blueBuriedPetals;
-		case BROWN:
-			return brownBuriedPetals;
-		case GREEN:
-			return greenBuriedPetals;
-		case RED:
-			return redBuriedPetals;
-		case BLACK:
-			return blackBuriedPetals;
-		}
+		return switch (color) {
+		case WHITE -> whiteBuriedPetals;
+		case ORANGE -> orangeBuriedPetals;
+		case MAGENTA -> magentaBuriedPetals;
+		case LIGHT_BLUE -> lightBlueBuriedPetals;
+		case YELLOW -> yellowBuriedPetals;
+		case LIME -> limeBuriedPetals;
+		case PINK -> pinkBuriedPetals;
+		case GRAY -> grayBuriedPetals;
+		case LIGHT_GRAY -> lightGrayBuriedPetals;
+		case CYAN -> cyanBuriedPetals;
+		case PURPLE -> purpleBuriedPetals;
+		case BLUE -> blueBuriedPetals;
+		case BROWN -> brownBuriedPetals;
+		case GREEN -> greenBuriedPetals;
+		case RED -> redBuriedPetals;
+		case BLACK -> blackBuriedPetals;
+		};
 	}
 
 	public static Block getShinyFlower(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whiteShinyFlower;
-		case ORANGE:
-			return orangeShinyFlower;
-		case MAGENTA:
-			return magentaShinyFlower;
-		case LIGHT_BLUE:
-			return lightBlueShinyFlower;
-		case YELLOW:
-			return yellowShinyFlower;
-		case LIME:
-			return limeShinyFlower;
-		case PINK:
-			return pinkShinyFlower;
-		case GRAY:
-			return grayShinyFlower;
-		case LIGHT_GRAY:
-			return lightGrayShinyFlower;
-		case CYAN:
-			return cyanShinyFlower;
-		case PURPLE:
-			return purpleShinyFlower;
-		case BLUE:
-			return blueShinyFlower;
-		case BROWN:
-			return brownShinyFlower;
-		case GREEN:
-			return greenShinyFlower;
-		case RED:
-			return redShinyFlower;
-		case BLACK:
-			return blackShinyFlower;
-		}
+		return switch (color) {
+		case WHITE -> whiteShinyFlower;
+		case ORANGE -> orangeShinyFlower;
+		case MAGENTA -> magentaShinyFlower;
+		case LIGHT_BLUE -> lightBlueShinyFlower;
+		case YELLOW -> yellowShinyFlower;
+		case LIME -> limeShinyFlower;
+		case PINK -> pinkShinyFlower;
+		case GRAY -> grayShinyFlower;
+		case LIGHT_GRAY -> lightGrayShinyFlower;
+		case CYAN -> cyanShinyFlower;
+		case PURPLE -> purpleShinyFlower;
+		case BLUE -> blueShinyFlower;
+		case BROWN -> brownShinyFlower;
+		case GREEN -> greenShinyFlower;
+		case RED -> redShinyFlower;
+		case BLACK -> blackShinyFlower;
+		};
 	}
 
 	public static Block getFloatingFlower(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whiteFloatingFlower;
-		case ORANGE:
-			return orangeFloatingFlower;
-		case MAGENTA:
-			return magentaFloatingFlower;
-		case LIGHT_BLUE:
-			return lightBlueFloatingFlower;
-		case YELLOW:
-			return yellowFloatingFlower;
-		case LIME:
-			return limeFloatingFlower;
-		case PINK:
-			return pinkFloatingFlower;
-		case GRAY:
-			return grayFloatingFlower;
-		case LIGHT_GRAY:
-			return lightGrayFloatingFlower;
-		case CYAN:
-			return cyanFloatingFlower;
-		case PURPLE:
-			return purpleFloatingFlower;
-		case BLUE:
-			return blueFloatingFlower;
-		case BROWN:
-			return brownFloatingFlower;
-		case GREEN:
-			return greenFloatingFlower;
-		case RED:
-			return redFloatingFlower;
-		case BLACK:
-			return blackFloatingFlower;
-		}
+		return switch (color) {
+		case WHITE -> whiteFloatingFlower;
+		case ORANGE -> orangeFloatingFlower;
+		case MAGENTA -> magentaFloatingFlower;
+		case LIGHT_BLUE -> lightBlueFloatingFlower;
+		case YELLOW -> yellowFloatingFlower;
+		case LIME -> limeFloatingFlower;
+		case PINK -> pinkFloatingFlower;
+		case GRAY -> grayFloatingFlower;
+		case LIGHT_GRAY -> lightGrayFloatingFlower;
+		case CYAN -> cyanFloatingFlower;
+		case PURPLE -> purpleFloatingFlower;
+		case BLUE -> blueFloatingFlower;
+		case BROWN -> brownFloatingFlower;
+		case GREEN -> greenFloatingFlower;
+		case RED -> redFloatingFlower;
+		case BLACK -> blackFloatingFlower;
+		};
 	}
 
 	public static Block getDoubleFlower(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return doubleFlowerWhite;
-		case ORANGE:
-			return doubleFlowerOrange;
-		case MAGENTA:
-			return doubleFlowerMagenta;
-		case LIGHT_BLUE:
-			return doubleFlowerLightBlue;
-		case YELLOW:
-			return doubleFlowerYellow;
-		case LIME:
-			return doubleFlowerLime;
-		case PINK:
-			return doubleFlowerPink;
-		case GRAY:
-			return doubleFlowerGray;
-		case LIGHT_GRAY:
-			return doubleFlowerLightGray;
-		case CYAN:
-			return doubleFlowerCyan;
-		case PURPLE:
-			return doubleFlowerPurple;
-		case BLUE:
-			return doubleFlowerBlue;
-		case BROWN:
-			return doubleFlowerBrown;
-		case GREEN:
-			return doubleFlowerGreen;
-		case RED:
-			return doubleFlowerRed;
-		case BLACK:
-			return doubleFlowerBlack;
-		}
+		return switch (color) {
+		case WHITE -> doubleFlowerWhite;
+		case ORANGE -> doubleFlowerOrange;
+		case MAGENTA -> doubleFlowerMagenta;
+		case LIGHT_BLUE -> doubleFlowerLightBlue;
+		case YELLOW -> doubleFlowerYellow;
+		case LIME -> doubleFlowerLime;
+		case PINK -> doubleFlowerPink;
+		case GRAY -> doubleFlowerGray;
+		case LIGHT_GRAY -> doubleFlowerLightGray;
+		case CYAN -> doubleFlowerCyan;
+		case PURPLE -> doubleFlowerPurple;
+		case BLUE -> doubleFlowerBlue;
+		case BROWN -> doubleFlowerBrown;
+		case GREEN -> doubleFlowerGreen;
+		case RED -> doubleFlowerRed;
+		case BLACK -> doubleFlowerBlack;
+		};
 	}
 
 	public static Block getPetalBlock(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return petalBlockWhite;
-		case ORANGE:
-			return petalBlockOrange;
-		case MAGENTA:
-			return petalBlockMagenta;
-		case LIGHT_BLUE:
-			return petalBlockLightBlue;
-		case YELLOW:
-			return petalBlockYellow;
-		case LIME:
-			return petalBlockLime;
-		case PINK:
-			return petalBlockPink;
-		case GRAY:
-			return petalBlockGray;
-		case LIGHT_GRAY:
-			return petalBlockSilver;
-		case CYAN:
-			return petalBlockCyan;
-		case PURPLE:
-			return petalBlockPurple;
-		case BLUE:
-			return petalBlockBlue;
-		case BROWN:
-			return petalBlockBrown;
-		case GREEN:
-			return petalBlockGreen;
-		case RED:
-			return petalBlockRed;
-		case BLACK:
-			return petalBlockBlack;
-		}
+		return switch (color) {
+		case WHITE -> petalBlockWhite;
+		case ORANGE -> petalBlockOrange;
+		case MAGENTA -> petalBlockMagenta;
+		case LIGHT_BLUE -> petalBlockLightBlue;
+		case YELLOW -> petalBlockYellow;
+		case LIME -> petalBlockLime;
+		case PINK -> petalBlockPink;
+		case GRAY -> petalBlockGray;
+		case LIGHT_GRAY -> petalBlockSilver;
+		case CYAN -> petalBlockCyan;
+		case PURPLE -> petalBlockPurple;
+		case BLUE -> petalBlockBlue;
+		case BROWN -> petalBlockBrown;
+		case GREEN -> petalBlockGreen;
+		case RED -> petalBlockRed;
+		case BLACK -> petalBlockBlack;
+		};
 	}
 }

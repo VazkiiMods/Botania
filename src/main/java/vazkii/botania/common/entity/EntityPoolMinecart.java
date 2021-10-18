@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,8 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.HitResult;
@@ -36,7 +33,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,12 +54,6 @@ public class EntityPoolMinecart extends AbstractMinecart implements EntityPickIn
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		entityData.define(MANA, 0);
-	}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	@Nonnull
@@ -131,17 +121,14 @@ public class EntityPoolMinecart extends AbstractMinecart implements EntityPickIn
 		super.moveAlongTrack(pos, state);
 
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
-			BlockPos posP = pos.relative(dir);
-			Block block = level.getBlockState(posP).getBlock();
-			if (block == ModBlocks.pump) {
-				BlockPos posP_ = posP.relative(dir);
-				BlockEntity tile = level.getBlockEntity(posP_);
-				BlockEntity tile_ = level.getBlockEntity(posP);
-				TilePump pump = (TilePump) tile_;
+			BlockPos pumpPos = pos.relative(dir);
+			BlockState pumpState = level.getBlockState(pumpPos);
+			if (pumpState.is(ModBlocks.pump)) {
+				BlockPos poolPos = pumpPos.relative(dir);
+				TilePump pump = (TilePump) level.getBlockEntity(pumpPos);
 
-				if (tile instanceof IManaPool) {
-					IManaPool pool = (IManaPool) tile;
-					Direction pumpDir = level.getBlockState(posP).getValue(BlockStateProperties.HORIZONTAL_FACING);
+				if (level.getBlockEntity(poolPos) instanceof IManaPool pool) {
+					Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
 					boolean did = false;
 					boolean can = false;
 
@@ -200,12 +187,9 @@ public class EntityPoolMinecart extends AbstractMinecart implements EntityPickIn
 		setMana(cmp.getInt(TAG_MANA));
 	}
 
-	/* todo 1.16-fabric
-	@Override
 	public int getComparatorLevel() {
 		return TilePool.calculateComparatorLevel(getMana(), TilePool.MAX_MANA);
 	}
-	*/
 
 	public int getMana() {
 		return entityData.get(MANA);

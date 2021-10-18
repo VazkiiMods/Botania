@@ -1,0 +1,35 @@
+{
+  "parent": "botania:main/root",
+  "display": {
+    "icon": {
+      "item": "botania:lexicon"
+    },
+    "title": {
+      "translate": "advancement.botania:lexiconUse"
+    },
+    "description": {
+      "translate": "advancement.botania:lexiconUse.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_lexicon": {
+      "trigger": "botania:use_item_success",
+      "conditions": {
+        "item": {
+          "items": [
+            "botania:lexicon"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "use_lexicon"
+    ]
+  ]
+}

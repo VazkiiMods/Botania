@@ -47,9 +47,9 @@ public class DataGenerators {
 						gatherData(p);
 						ctx.getSource().sendSuccess(new TextComponent("Done"), false);
 						return Command.SINGLE_SUCCESS;
-					} catch (IOException e) {
+					} catch (Exception e) {
 						Botania.LOGGER.error("Failed to generate data", e);
-						ctx.getSource().sendFailure(new TextComponent("Failed, see logs"));
+						ctx.getSource().sendFailure(new TextComponent("Failed to generate data, see logs"));
 						return 0;
 					}
 				}))
@@ -86,7 +86,7 @@ public class DataGenerators {
 		generator.addProvider(new BlockstateProvider(generator));
 		generator.addProvider(new FloatingFlowerModelProvider(generator));
 		generator.addProvider(new ItemModelProvider(generator));
-		// generator.install(new TinyPotatoModelProvider(generator, evt.getExistingFileHelper()));
+		generator.addProvider(new AdvancementProvider(generator));
 		generator.run();
 	}
 

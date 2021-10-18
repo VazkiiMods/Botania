@@ -67,7 +67,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 					&& !plateStack.isEmpty()
 					&& !plate.burning
 					&& !stack.isEmpty()
-					&& stack.getItem() == Items.FLINT_AND_STEEL) {
+					&& stack.is(Items.FLINT_AND_STEEL)) {
 				plate.spawnSmokeParticles();
 			}
 			return InteractionResult.SUCCESS;
@@ -78,7 +78,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 			stack.shrink(1);
 			did = true;
 		} else if (!plateStack.isEmpty() && !plate.burning) {
-			if (!stack.isEmpty() && stack.getItem() == Items.FLINT_AND_STEEL) {
+			if (!stack.isEmpty() && stack.is(Items.FLINT_AND_STEEL)) {
 				plate.ignite();
 				stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
 				did = true;
@@ -136,7 +136,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity plate = world.getBlockEntity(pos);
 			if (plate instanceof TileIncensePlate && !((TileIncensePlate) plate).burning) {
 				Containers.dropContents(world, pos, ((TileIncensePlate) plate).getItemHandler());

@@ -32,7 +32,7 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	public boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
+	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
 		if (!src.isMagic()) {
 			amount.setValue(amount.getValue() / 2);
 

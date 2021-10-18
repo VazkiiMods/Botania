@@ -81,7 +81,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 
 			for (int i = 0; i < inventorySize(); i++) {
 				ItemStack stackAt = getItemHandler().getItem(i);
-				if (!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
+				if (!stackAt.isEmpty() && stackAt.is(ModBlocks.tinyPotato.asItem())) {
 					player.sendMessage(new TextComponent("Don't talk to me or my son ever again."), Util.NIL_UUID);
 					return;
 				}

@@ -11,20 +11,15 @@ package vazkii.botania.common.compat.rei;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.world.level.block.Block;
-
-import java.util.Map;
-
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.impl.ClientInternals;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public interface CategoryUtils {
@@ -54,17 +49,5 @@ public interface CategoryUtils {
 		double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
 		return new Point((int) newX, (int) newY);
-	}
-
-	static boolean doesOreExist(ResourceLocation tagId) {
-		Tag<Block> tag = BlockTags.getAllTags().getTag(tagId);
-		return tag != null && !tag.getValues().isEmpty();
-	}
-
-	static float getTotalOreWeight(Map<ResourceLocation, Integer> weights, int myWeight) {
-		return (weights.entrySet().stream()
-				.filter(e -> doesOreExist(e.getKey()))
-				.map(Map.Entry::getValue)
-				.reduce(Integer::sum)).orElse(myWeight * 64 * 64);
 	}
 }

@@ -1,0 +1,9 @@
+{
+  "type": "botania:orechid",
+  "input": "minecraft:deepslate",
+  "output": {
+    "type": "block",
+    "block": "minecraft:deepslate_emerald_ore"
+  },
+  "weight": 1239
+}

@@ -18,11 +18,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.IFloatingFlower.IslandType;
+import vazkii.botania.api.block.IFloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -63,7 +62,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		BlockState state = world.getBlockState(pos);
 		ItemStack stack = ctx.getItemInHand();
 
-		if (state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS_BLOCK && type != IslandType.GRASS) {
+		if (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK) && type != IslandType.GRASS) {
 			if (!world.isClientSide) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
 				world.setBlockAndUpdate(pos, swapper.stateToSet);
@@ -253,7 +252,6 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		 */
 		public boolean isValidSwapPosition(BlockPos pos) {
 			BlockState state = world.getBlockState(pos);
-			Block block = state.getBlock();
 
 			// Valid blocks to spread to are either dirt or grass, and do not
 			// have blocks which block grass growth.
@@ -262,7 +260,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 			// The major rule is that a block which reduces light
 			// levels by 2 or more blocks grass growth.
 
-			return (block == Blocks.DIRT || block == Blocks.GRASS_BLOCK)
+			return (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK))
 					&& world.getBlockState(pos.above()).getLightBlock(world, pos.above()) <= 1;
 		}
 	}

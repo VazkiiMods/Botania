@@ -36,12 +36,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
@@ -109,21 +109,24 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof TilePrism)) {
+		if (!(tile instanceof TilePrism prism)) {
 			return InteractionResult.PASS;
 		}
 
-		TilePrism prism = (TilePrism) tile;
 		ItemStack lens = prism.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
 		if (lens.isEmpty() && isHeldItemLens) {
+			ItemStack toInsert;
 			if (!player.getAbilities().instabuild) {
-				player.setItemInHand(hand, ItemStack.EMPTY);
+				toInsert = heldItem.split(1);
+			} else {
+				toInsert = heldItem.copy();
+				toInsert.setCount(1);
 			}
 
-			prism.getItemHandler().setItem(0, heldItem.copy());
+			prism.getItemHandler().setItem(0, toInsert);
 		} else if (!lens.isEmpty()) {
 			player.getInventory().placeItemBackInInventory(lens);
 			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
@@ -156,7 +159,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
 				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());

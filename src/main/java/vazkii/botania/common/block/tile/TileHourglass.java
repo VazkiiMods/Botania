@@ -18,6 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.StringUtil;
+import net.minecraft.util.Unit;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -25,8 +26,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import vazkii.botania.api.block.IHourglassTrigger;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.common.item.ModItems;
 
 public class TileHourglass extends TileExposedSimpleInventory {
@@ -51,7 +52,7 @@ public class TileHourglass extends TileExposedSimpleInventory {
 
 	private boolean isDust() {
 		ItemStack stack = getItemHandler().getItem(0);
-		return !stack.isEmpty() && stack.getItem() == ModItems.manaPowder;
+		return !stack.isEmpty() && stack.is(ModItems.manaPowder);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileHourglass self) {
@@ -74,9 +75,10 @@ public class TileHourglass extends TileExposedSimpleInventory {
 
 				for (Direction facing : Direction.values()) {
 					BlockPos pos = worldPosition.relative(facing);
-					BlockState neighbor = level.getBlockState(pos);
-					if (neighbor.getBlock() instanceof IHourglassTrigger) {
-						((IHourglassTrigger) neighbor.getBlock()).onTriggeredByHourglass(level, pos, self);
+					var trigger = IHourglassTrigger.API.find(level, pos,
+							level.getBlockState(pos), level.getBlockEntity(pos), Unit.INSTANCE);
+					if (trigger != null) {
+						trigger.onTriggeredByHourglass(self);
 					}
 				}
 			}
@@ -118,16 +120,16 @@ public class TileHourglass extends TileExposedSimpleInventory {
 		if (stack.isEmpty()) {
 			return 0;
 		}
-		if (stack.getItem() == Blocks.SAND.asItem()) {
+		if (stack.is(Blocks.SAND.asItem())) {
 			return 20;
 		}
-		if (stack.getItem() == Blocks.RED_SAND.asItem()) {
+		if (stack.is(Blocks.RED_SAND.asItem())) {
 			return 200;
 		}
-		if (stack.getItem() == Blocks.SOUL_SAND.asItem()) {
+		if (stack.is(Blocks.SOUL_SAND.asItem())) {
 			return 1200;
 		}
-		if (stack.getItem() == ModItems.manaPowder) {
+		if (stack.is(ModItems.manaPowder)) {
 			return 1;
 		}
 		return 0;
@@ -138,16 +140,16 @@ public class TileHourglass extends TileExposedSimpleInventory {
 		if (stack.isEmpty()) {
 			return 0;
 		}
-		if (stack.getItem() == Blocks.SAND.asItem()) {
+		if (stack.is(Blocks.SAND.asItem())) {
 			return 0xFFEC49;
 		}
-		if (stack.getItem() == Blocks.RED_SAND.asItem()) {
+		if (stack.is(Blocks.RED_SAND.asItem())) {
 			return 0xE95800;
 		}
-		if (stack.getItem() == Blocks.SOUL_SAND.asItem()) {
+		if (stack.is(Blocks.SOUL_SAND.asItem())) {
 			return 0x5A412f;
 		}
-		if (stack.getItem() == ModItems.manaPowder) {
+		if (stack.is(ModItems.manaPowder)) {
 			return 0x03abff;
 		}
 
@@ -159,10 +161,10 @@ public class TileHourglass extends TileExposedSimpleInventory {
 		return new SimpleContainer(1) {
 			@Override
 			public boolean canPlaceItem(int index, ItemStack stack) {
-				return !stack.isEmpty() && (stack.getItem() == Blocks.SAND.asItem()
-						|| stack.getItem() == Blocks.RED_SAND.asItem()
-						|| stack.getItem() == Blocks.SOUL_SAND.asItem()
-						|| stack.getItem() == ModItems.manaPowder);
+				return !stack.isEmpty() && (stack.is(Blocks.SAND.asItem())
+						|| stack.is(Blocks.RED_SAND.asItem())
+						|| stack.is(Blocks.SOUL_SAND.asItem())
+						|| stack.is(ModItems.manaPowder));
 			}
 		};
 	}

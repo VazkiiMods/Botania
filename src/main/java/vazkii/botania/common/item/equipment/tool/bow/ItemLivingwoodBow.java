@@ -60,8 +60,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	// [VanillaCopy] super
 	@Override
 	public void releaseUsing(@Nonnull ItemStack stack, @Nonnull Level worldIn, LivingEntity entityLiving, int timeLeft) {
-		if (entityLiving instanceof Player) {
-			Player playerentity = (Player) entityLiving;
+		if (entityLiving instanceof Player playerentity) {
 			boolean flag = canFire(stack, playerentity); // Botania - custom check
 			ItemStack itemstack = playerentity.getProjectile(stack);
 
@@ -77,7 +76,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 				float f = getPowerForTime(i);
 				if (!((double) f < 0.1D)) {
-					boolean flag1 = playerentity.getAbilities().instabuild || itemstack.getItem() == Items.ARROW;
+					boolean flag1 = playerentity.getAbilities().instabuild || itemstack.is(Items.ARROW);
 					if (!worldIn.isClientSide) {
 						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
 						AbstractArrow abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
@@ -105,7 +104,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 						stack.hurtAndBreak(1, playerentity, (p_220009_1_) -> {
 							p_220009_1_.broadcastBreakEvent(playerentity.getUsedItemHand());
 						});
-						if (flag1 || playerentity.getAbilities().instabuild && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
+						if (flag1 || playerentity.getAbilities().instabuild && (itemstack.is(Items.SPECTRAL_ARROW) || itemstack.is(Items.TIPPED_ARROW))) {
 							abstractarrowentity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 						}
 
@@ -149,7 +148,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 	@Override
 	public boolean isValidRepairItem(ItemStack bow, ItemStack material) {
-		return material.getItem() == ModItems.livingwoodTwig || super.isValidRepairItem(bow, material);
+		return material.is(ModItems.livingwoodTwig) || super.isValidRepairItem(bow, material);
 	}
 
 	@Override

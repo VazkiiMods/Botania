@@ -22,7 +22,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -34,10 +33,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,7 +48,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
 
-	protected BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
+	public BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
 		super(stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 	}
@@ -63,8 +62,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-		return state.getBlock() == ModBlocks.redStringRelay
-				|| state.getBlock() == Blocks.MYCELIUM
+		return state.is(ModBlocks.redStringRelay)
 				|| super.mayPlaceOn(state, worldIn, pos);
 	}
 
@@ -111,8 +109,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 
 	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, Random rand) {
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TileEntityFunctionalFlower && rand.nextBoolean()) {
-			TileEntityFunctionalFlower flower = (TileEntityFunctionalFlower) te;
+		if (te instanceof TileEntityFunctionalFlower flower && rand.nextBoolean()) {
 			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
 				VoxelShape shape = state.getShape(world, pos);
 				if (!shape.isEmpty()) {

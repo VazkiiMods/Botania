@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -17,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -29,7 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -43,11 +41,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.api.wand.ITileBound;
-import vazkii.botania.api.wand.IWandBindable;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
@@ -58,13 +56,11 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -77,7 +73,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	private static final String TAG_BOUND_TILE_Y = "boundTileY";
 	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 	private static final String TAG_BIND_MODE = "bindMode";
-	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
+	private static final BlockPos UNBOUND_POS = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
@@ -108,7 +104,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		if (axis != null) {
 			if (!world.isClientSide) {
 				world.setBlockAndUpdate(pos, ModBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
-				world.playSound(null, pos, ModSounds.enchanterForm, SoundSource.BLOCKS, 0.5F, 0.6F);
+				world.playSound(null, pos, ModSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
 			} else {
 				for (int i = 0; i < 50; i++) {
@@ -188,7 +184,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			}
 		}
 
-		if (block == Blocks.LAPIS_BLOCK && ConfigHandler.COMMON.enchanterEnabled.getValue() && tryFormEnchanter(ctx)) {
+		if (state.is(Blocks.LAPIS_BLOCK) && ConfigHandler.COMMON.enchanterEnabled.getValue() && tryFormEnchanter(ctx)) {
 			return InteractionResult.SUCCESS;
 		}
 
@@ -241,71 +237,51 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	private static Direction rotateAround(Direction old, Direction.Axis axis) {
-		switch (axis) {
-		case X: {
-			switch (old) {
-			case DOWN:
-				return Direction.SOUTH;
-			case SOUTH:
-				return Direction.UP;
-			case UP:
-				return Direction.NORTH;
-			case NORTH:
-				return Direction.DOWN;
-			}
-			break;
-		}
-		case Y: {
-			switch (old) {
-			case NORTH:
-				return Direction.EAST;
-			case EAST:
-				return Direction.SOUTH;
-			case SOUTH:
-				return Direction.WEST;
-			case WEST:
-				return Direction.NORTH;
-			}
-			break;
-		}
-		case Z: {
-			switch (old) {
-			case DOWN:
-				return Direction.WEST;
-			case WEST:
-				return Direction.UP;
-			case UP:
-				return Direction.EAST;
-			case EAST:
-				return Direction.DOWN;
-			}
-			break;
-		}
-		}
-
-		return old;
+		return switch (axis) {
+		case X -> switch (old) {
+			case DOWN -> Direction.SOUTH;
+			case SOUTH -> Direction.UP;
+			case UP -> Direction.NORTH;
+			case NORTH -> Direction.DOWN;
+			default -> old;
+			};
+		case Y -> switch (old) {
+			case NORTH -> Direction.EAST;
+			case EAST -> Direction.SOUTH;
+			case SOUTH -> Direction.WEST;
+			case WEST -> Direction.NORTH;
+			default -> old;
+			};
+		case Z -> switch (old) {
+			case DOWN -> Direction.WEST;
+			case WEST -> Direction.UP;
+			case UP -> Direction.EAST;
+			case EAST -> Direction.DOWN;
+			default -> old;
+			};
+		};
 	}
 
 	public static void doParticleBeamWithOffset(Level world, BlockPos orig, BlockPos end) {
 		Vec3 origOffset = world.getBlockState(orig).getOffset(world, orig);
-		Vector3 vorig = new Vector3(orig.getX() + origOffset.x() + 0.5, orig.getY() + origOffset.y() + 0.5, orig.getZ() + origOffset.z() + 0.5);
+		Vec3 vorig = new Vec3(orig.getX() + origOffset.x() + 0.5, orig.getY() + origOffset.y() + 0.5, orig.getZ() + origOffset.z() + 0.5);
 		Vec3 endOffset = world.getBlockState(end).getOffset(world, end);
-		Vector3 vend = new Vector3(end.getX() + endOffset.x() + 0.5, end.getY() + endOffset.y() + 0.5, end.getZ() + endOffset.z() + 0.5);
+		Vec3 vend = new Vec3(end.getX() + endOffset.x() + 0.5, end.getY() + endOffset.y() + 0.5, end.getZ() + endOffset.z() + 0.5);
 		doParticleBeam(world, vorig, vend);
 	}
 
-	public static void doParticleBeam(Level world, Vector3 orig, Vector3 end) {
+	public static void doParticleBeam(Level world, Vec3 orig, Vec3 end) {
 		if (!world.isClientSide) {
 			return;
 		}
 
-		Vector3 diff = end.subtract(orig);
-		Vector3 movement = diff.normalize().multiply(0.05);
-		int iters = (int) (diff.mag() / movement.mag());
+		Vec3 diff = end.subtract(orig);
+		Vec3 movement = diff.normalize().scale(0.05);
+		int iters = (int) (diff.length() / movement.length());
 		float huePer = 1F / iters;
 		float hueSum = (float) Math.random();
 
-		Vector3 currentPos = orig;
+		Vec3 currentPos = orig;
 		for (int i = 0; i < iters; i++) {
 			float hue = i * huePer + hueSum;
 			int color = Mth.hsvToRgb(Mth.frac(hue), 1F, 1F);
@@ -353,21 +329,13 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		list.add(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.GRAY));
-	}
-
-	/* todo 1.16-fabric
-	@Override
-	public Text getHighlightTip(ItemStack stack, Text displayName) {
-		Text mode = new LiteralText(" (")
-				.append(new TranslatableText(getModeString(stack)).formatted(Formatting.DARK_GREEN))
+	public Component getName(@Nonnull ItemStack stack) {
+		Component mode = new TextComponent(" (")
+				.append(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.DARK_GREEN))
 				.append(")");
-		return displayName.shallowCopy().append(mode);
+		return super.getName(stack).plainCopy().append(mode);
 	}
-	*/
 
 	public static ItemStack forColors(int color1, int color2) {
 		ItemStack stack = new ItemStack(ModItems.twigWand);

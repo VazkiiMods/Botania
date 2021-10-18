@@ -23,10 +23,10 @@
       "tag": "botania:petals/white"
     },
     {
-      "tag": "botania:runes/wrath"
+      "item": "botania:rune_wrath"
     },
     {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     }
   ]
 }

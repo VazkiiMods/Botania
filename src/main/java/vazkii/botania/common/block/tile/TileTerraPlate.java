@@ -9,11 +9,11 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
+import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -26,8 +26,8 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
-import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.block.ModBlocks;
@@ -41,9 +41,10 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable {
-	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
+	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{
 							"___",
@@ -80,7 +81,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			ITerraPlateRecipe recipe = self.getCurrentRecipe(inv);
 			if (recipe != null) {
 				removeMana = false;
-				ISparkEntity spark = self.getAttachedSpark();
+				IManaSpark spark = self.getAttachedSpark();
 				if (spark != null) {
 					SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
 							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedTile() instanceof IManaPool)
@@ -100,7 +101,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 					ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5, recipe.assemble(inv));
 					item.setDeltaMovement(Vec3.ZERO);
 					level.addFreshEntity(item);
-					level.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundSource.BLOCKS, 1, 1);
+					level.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
 					self.mana = 0;
 					level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
@@ -180,14 +181,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void attachSpark(ISparkEntity entity) {}
-
-	@Override
-	public ISparkEntity getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
+	public IManaSpark getAttachedSpark() {
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(IManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
-			return (ISparkEntity) e;
+			return (IManaSpark) e;
 		}
 
 		return null;

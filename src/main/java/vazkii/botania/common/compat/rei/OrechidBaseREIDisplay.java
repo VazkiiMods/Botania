@@ -8,55 +8,39 @@
  */
 package vazkii.botania.common.compat.rei;
 
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.common.core.handler.OrechidManager;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import me.shedaniel.rei.api.common.display.Display;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.util.EntryStacks;
-
 @Environment(EnvType.CLIENT)
-public abstract class OrechidBaseREIDisplay implements Display {
-	protected List<EntryIngredient> stone;
+public abstract class OrechidBaseREIDisplay<T extends IOrechidRecipe> implements Display {
+	private final List<EntryIngredient> stone;
 	private final List<EntryIngredient> ores;
 
-	public OrechidBaseREIDisplay(OrechidRecipeWrapper recipe) {
-		final int myWeight = recipe.entry.getValue();
-		final int amount = 0; // todo fix this Math.max(1, Math.round((float) (myWeight * 64) / CategoryUtils.getTotalOreWeight(getOreWeights(), myWeight)));
+	public OrechidBaseREIDisplay(T recipe) {
+		final int myWeight = recipe.getWeight();
+		final int amount = Math.max(1, Math.round((float) (myWeight * 64) / OrechidManager.getBaseTotalWeight(recipe)));
 
-		// Shouldn't ever return an empty list since the ore weight
-		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = BlockTags.getAllTags().getTagOrEmpty(recipe.entry.getKey())
-				.getValues()
-				.stream()
-				.filter(s -> s.asItem() != Items.AIR)
-				.map(ItemStack::new)
-				.collect(Collectors.toList());
-
+		List<ItemStack> stackList = recipe.getOutput().getDisplayedStacks();
 		for (ItemStack stack : stackList) {
 			stack.setCount(amount);
 		}
+		stone = Collections.singletonList(EntryIngredient.of(EntryStacks.of(recipe.getInput(), 64)));
 		ores = Collections.singletonList(EntryIngredient.of(stackList.stream().map(EntryStacks::of).collect(Collectors.toList())));
 	}
-
-	public static float getTotalOreWeight(List<OrechidOutput> weights, int myWeight) {
-		return (weights.stream()
-				.map(OrechidOutput::getWeight)
-				.reduce(Integer::sum)).orElse(myWeight * 64 * 64);
-	}
-
-	protected abstract List<OrechidOutput> getOreWeights();
 
 	@Override
 	public @NotNull List<EntryIngredient> getInputEntries() {

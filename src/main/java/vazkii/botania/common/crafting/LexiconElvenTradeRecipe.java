@@ -35,7 +35,7 @@ public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
 
 	@Override
 	public boolean containsItem(ItemStack stack) {
-		return stack.getItem() == ModItems.lexicon && !ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false);
+		return stack.is(ModItems.lexicon) && !ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false);
 	}
 
 	@Nonnull

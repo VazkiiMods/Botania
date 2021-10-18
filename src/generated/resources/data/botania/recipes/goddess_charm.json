@@ -10,10 +10,10 @@
       "tag": "botania:petals/pink"
     },
     "A": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     "S": {
-      "tag": "botania:runes/spring"
+      "item": "botania:rune_spring"
     },
     "D": {
       "tag": "botania:mana_diamond_gems"

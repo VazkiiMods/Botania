@@ -13,7 +13,7 @@
       "tag": "botania:terrasteel_ingots"
     },
     "R": {
-      "tag": "botania:runes/autumn"
+      "item": "botania:rune_autumn"
     },
     "A": {
       "item": "botania:manasteel_leggings"

@@ -1,0 +1,38 @@
+{
+  "parent": "botania:challenge/root",
+  "display": {
+    "icon": {
+      "item": "botania:laputa_shard"
+    },
+    "title": {
+      "translate": "advancement.botania:l20ShardUse"
+    },
+    "description": {
+      "translate": "advancement.botania:l20ShardUse.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_l20_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:laputa_shard"
+            ],
+            "nbt": "{level:19}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "use_l20_shard"
+    ]
+  ]
+}

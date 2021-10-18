@@ -1,0 +1,35 @@
+{
+  "parent": "botania:main/root",
+  "display": {
+    "icon": {
+      "item": "botania:pink_mystical_flower"
+    },
+    "title": {
+      "translate": "advancement.botania:flowerPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:flowerPickup.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "flower": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "botania:mystical_flowers"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "flower"
+    ]
+  ]
+}

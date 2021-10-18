@@ -68,11 +68,10 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 			}
 		}
 
-		if (!(attachableItem.getItem() instanceof ICosmeticAttachable)) {
+		if (!(attachableItem.getItem() instanceof ICosmeticAttachable attachable)) {
 			return ItemStack.EMPTY;
 		}
 
-		ICosmeticAttachable attachable = (ICosmeticAttachable) attachableItem.getItem();
 		if (!attachable.getCosmeticItem(attachableItem).isEmpty()) {
 			return ItemStack.EMPTY;
 		}

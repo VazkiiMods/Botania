@@ -74,7 +74,7 @@ public class RenderLexicon {
 	public static boolean renderHand(ItemStack stack, boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light) {
 		if (!ConfigHandler.CLIENT.lexicon3dModel.getValue()
 				|| stack.isEmpty()
-				|| stack.getItem() != ModItems.lexicon) {
+				|| !stack.is(ModItems.lexicon)) {
 			return false;
 		}
 		try {

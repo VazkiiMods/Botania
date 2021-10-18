@@ -21,7 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import org.apache.commons.lang3.mutable.MutableFloat;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -106,19 +105,19 @@ public abstract class MixinPlayer extends LivingEntity {
 	private void onHurt(Args args) {
 		Player self = (Player) (Object) this;
 		DamageSource src = args.get(0);
-		MutableFloat amount = new MutableFloat((float) args.get(1));
+		float amount = args.get(1);
 		Container worn = EquipmentHandler.getAllWorn(self);
 		for (int i = 0; i < worn.getContainerSize(); i++) {
 			ItemStack stack = worn.getItem(i);
-			if (stack.getItem() instanceof ItemHolyCloak) {
-				((ItemHolyCloak) stack.getItem()).effectOnDamage(src, amount, self, stack);
+			if (stack.getItem() instanceof ItemHolyCloak cloak) {
+				amount = cloak.onPlayerDamage(self, src, amount);
 			}
 		}
 
 		// Should really make a separate inject for this, but putting it here works too
 		PixieHandler.onDamageTaken(self, src);
 
-		args.set(1, amount.getValue());
+		args.set(1, amount);
 	}
 
 	/**

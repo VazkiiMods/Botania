@@ -189,12 +189,11 @@ public final class ConfigHandler {
 		public final PropertyMirror<Boolean> relicsEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> invertMagnetRing = PropertyMirror.create(BOOLEAN);
 
-		public final PropertyMirror<Integer> harvestLevelWeight = PropertyMirror.create(NATURAL);
-		public final PropertyMirror<Integer> harvestLevelBore = PropertyMirror.create(NATURAL);
+		public final PropertyMirror<Integer> harvestLevelWeight = PropertyMirror.create(NATURAL.withMinimum(0).withMaximum(4));
+		public final PropertyMirror<Integer> harvestLevelBore = PropertyMirror.create(NATURAL.withMinimum(0).withMaximum(4));
 
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
-		public final PropertyMirror<List<String>> orechidPriorityMods = PropertyMirror.create(ConfigTypes.makeList(STRING));
 		public final PropertyMirror<Boolean> worldgenEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<List<String>> rannuncarpusItemBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
 		public final PropertyMirror<List<String>> rannuncarpusModBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
@@ -250,10 +249,6 @@ public final class ConfigHandler {
 					.withComment("Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.")
 					.finishValue(enchanterEnabled::mirror)
 
-					.beginValue("manaFluxfield", BOOLEAN, true)
-					.withComment("Set this to false to disable the Mana Fluxfield (generates FE from mana). This only disables the entry and creation. Old ones that are already in the world will stay.")
-					.finishValue(fluxfieldEnabled::mirror)
-
 					.beginValue("relics", BOOLEAN, true)
 					.withComment("Set this to false to disable the Relic System. This only disables the entries, drops and achievements. Old ones that are already in the world will stay.")
 					.finishValue(relicsEnabled::mirror)
@@ -272,13 +267,6 @@ public final class ConfigHandler {
 							"By default, the scale is 8, putting each island on points separated by 2048 blocks.\n" +
 							"Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.")
 					.finishValue(gogIslandScaleMultiplier::mirror)
-
-					.beginValue("orechidPriorityMods", ConfigTypes.makeList(STRING), Collections.emptyList())
-					.withComment("List of modids to prioritize when choosing a random ore from the tag.\n" +
-							"By default, the chosen ore is randomly picked from all ores in the ore's tag.\n" +
-							"Ores from mods present on this list will be picked over mods listed lower or not listed at all.\n" +
-							"Applying changes at runtime requires /reload afterwards.")
-					.finishValue(orechidPriorityMods::mirror)
 
 					.beginValue("rannuncarpusItemBlackList", ConfigTypes.makeList(STRING), Collections.emptyList())
 					.withComment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
@@ -303,7 +291,6 @@ public final class ConfigHandler {
 
 		PatchouliAPI.get().setConfigFlag("botania:relics", COMMON.relicsEnabled.getValue());
 		PatchouliAPI.get().setConfigFlag("botania:enchanter", COMMON.enchanterEnabled.getValue());
-		PatchouliAPI.get().setConfigFlag("botania:fluxfield", COMMON.fluxfieldEnabled.getValue());
 		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", COMMON.enderPickpocketEnabled.getValue());
 
 		Botania.configLoaded = true;

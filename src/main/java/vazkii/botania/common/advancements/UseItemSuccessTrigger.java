@@ -10,12 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -71,6 +66,18 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 
 		public ItemPredicate getItem() {
 			return this.item;
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext serializationContext) {
+			JsonObject json = super.serializeToJson(serializationContext);
+			if (item != ItemPredicate.ANY) {
+				json.add("item", item.serializeToJson());
+			}
+			if (location != LocationPredicate.ANY) {
+				json.add("location", location.serializeToJson());
+			}
+			return json;
 		}
 
 		public LocationPredicate getLocation() {

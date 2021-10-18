@@ -23,10 +23,10 @@
       "tag": "botania:petals/blue"
     },
     {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     {
-      "tag": "botania:runes/summer"
+      "item": "botania:rune_summer"
     },
     {
       "item": "botania:pixie_dust"

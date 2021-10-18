@@ -30,7 +30,7 @@ public class LensRedirect extends Lens {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide && pos.getType() == HitResult.Type.BLOCK
-				&& coords.getY() != -1
+				&& coords.getY() != Integer.MIN_VALUE
 				&& !((BlockHitResult) pos).getBlockPos().equals(coords)) {
 			BlockEntity tile = entity.level.getBlockEntity(((BlockHitResult) pos).getBlockPos());
 			if (tile instanceof IDirectioned) {

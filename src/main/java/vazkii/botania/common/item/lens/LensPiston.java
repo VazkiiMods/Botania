@@ -27,25 +27,22 @@ public class LensPiston extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
-		BlockPos coords = burst.getBurstSourceBlockPos();
 		if (!entity.level.isClientSide
 				&& pos.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake()
 				&& !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
-			if (!coords.equals(rtr.getBlockPos())) {
-				BlockPos pos_ = rtr.getBlockPos().relative(rtr.getDirection().getOpposite());
+			BlockPos pos_ = rtr.getBlockPos().relative(rtr.getDirection().getOpposite());
 
-				if (entity.level.isEmptyBlock(pos_) || entity.level.getBlockState(pos_).getMaterial().isReplaceable()) {
-					BlockState state = entity.level.getBlockState(rtr.getBlockPos());
-					BlockEntity tile = entity.level.getBlockEntity(rtr.getBlockPos());
+			if (entity.level.isEmptyBlock(pos_) || entity.level.getBlockState(pos_).getMaterial().isReplaceable()) {
+				BlockState state = entity.level.getBlockState(rtr.getBlockPos());
+				BlockEntity tile = entity.level.getBlockEntity(rtr.getBlockPos());
 
-					if (state.getPistonPushReaction() == PushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN
-							&& state.getDestroySpeed(entity.level, pos_) >= 0 && tile == null) {
-						entity.level.levelEvent(2001, rtr.getBlockPos(), Block.getId(state));
-						entity.level.setBlockAndUpdate(rtr.getBlockPos(), Blocks.AIR.defaultBlockState());
-						entity.level.setBlockAndUpdate(pos_, unWaterlog(state));
-					}
+				if (state.getPistonPushReaction() == PushReaction.NORMAL && !state.is(Blocks.OBSIDIAN)
+						&& state.getDestroySpeed(entity.level, pos_) >= 0 && tile == null) {
+					entity.level.levelEvent(2001, rtr.getBlockPos(), Block.getId(state));
+					entity.level.setBlockAndUpdate(rtr.getBlockPos(), Blocks.AIR.defaultBlockState());
+					entity.level.setBlockAndUpdate(pos_, unWaterlog(state));
 				}
 			}
 		}

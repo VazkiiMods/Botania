@@ -25,8 +25,8 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
@@ -132,31 +132,31 @@ public final class ModItems {
 	public static final Item elfQuartz = new Item(defaultBuilder());
 	public static final Item sunnyQuartz = new Item(defaultBuilder());
 
-	public static final Item lensNormal = new ItemLens(unstackable(), new Lens(), ItemLens.PROP_NONE);
-	public static final Item lensSpeed = new ItemLens(unstackable(), new LensSpeed(), ItemLens.PROP_NONE);
-	public static final Item lensPower = new ItemLens(unstackable(), new LensPower(), ItemLens.PROP_POWER);
-	public static final Item lensTime = new ItemLens(unstackable(), new LensTime(), ItemLens.PROP_NONE);
-	public static final Item lensEfficiency = new ItemLens(unstackable(), new LensEfficiency(), ItemLens.PROP_NONE);
-	public static final Item lensBounce = new ItemLens(unstackable(), new LensBounce(), ItemLens.PROP_TOUCH);
-	public static final Item lensGravity = new ItemLens(unstackable(), new LensGravity(), ItemLens.PROP_ORIENTATION);
-	public static final Item lensMine = new ItemLens(unstackable(), new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensDamage = new ItemLens(unstackable(), new LensDamage(), ItemLens.PROP_DAMAGE);
-	public static final Item lensPhantom = new ItemLens(unstackable(), new LensPhantom(), ItemLens.PROP_TOUCH);
-	public static final Item lensMagnet = new ItemLens(unstackable(), new LensMagnet(), ItemLens.PROP_ORIENTATION);
-	public static final Item lensExplosive = new ItemLens(unstackable(), new LensExplosive(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensInfluence = new ItemLens(unstackable(), new LensInfluence(), ItemLens.PROP_NONE);
-	public static final Item lensWeight = new ItemLens(unstackable(), new LensWeight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensPaint = new ItemLens(unstackable(), new LensPaint(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensFire = new ItemLens(unstackable(), new LensFire(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensPiston = new ItemLens(unstackable(), new LensPiston(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensLight = new ItemLens(unstackable(), new LensLight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensWarp = new ItemLens(unstackable(), new LensWarp(), ItemLens.PROP_NONE);
-	public static final Item lensRedirect = new ItemLens(unstackable(), new LensRedirect(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensFirework = new ItemLens(unstackable(), new LensFirework(), ItemLens.PROP_TOUCH);
-	public static final Item lensFlare = new ItemLens(unstackable(), new LensFlare(), ItemLens.PROP_CONTROL);
-	public static final Item lensMessenger = new ItemLens(unstackable(), new LensMessenger(), ItemLens.PROP_POWER);
-	public static final Item lensTripwire = new ItemLens(unstackable(), new LensTripwire(), ItemLens.PROP_CONTROL);
-	public static final Item lensStorm = new ItemLens(unstackable().rarity(Rarity.EPIC), new LensStorm(), ItemLens.PROP_NONE);
+	public static final Item lensNormal = new ItemLens(stackTo16(), new Lens(), ItemLens.PROP_NONE);
+	public static final Item lensSpeed = new ItemLens(stackTo16(), new LensSpeed(), ItemLens.PROP_NONE);
+	public static final Item lensPower = new ItemLens(stackTo16(), new LensPower(), ItemLens.PROP_POWER);
+	public static final Item lensTime = new ItemLens(stackTo16(), new LensTime(), ItemLens.PROP_NONE);
+	public static final Item lensEfficiency = new ItemLens(stackTo16(), new LensEfficiency(), ItemLens.PROP_NONE);
+	public static final Item lensBounce = new ItemLens(stackTo16(), new LensBounce(), ItemLens.PROP_TOUCH);
+	public static final Item lensGravity = new ItemLens(stackTo16(), new LensGravity(), ItemLens.PROP_ORIENTATION);
+	public static final Item lensMine = new ItemLens(stackTo16(), new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensDamage = new ItemLens(stackTo16(), new LensDamage(), ItemLens.PROP_DAMAGE);
+	public static final Item lensPhantom = new ItemLens(stackTo16(), new LensPhantom(), ItemLens.PROP_TOUCH);
+	public static final Item lensMagnet = new ItemLens(stackTo16(), new LensMagnet(), ItemLens.PROP_ORIENTATION);
+	public static final Item lensExplosive = new ItemLens(stackTo16(), new LensExplosive(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensInfluence = new ItemLens(stackTo16(), new LensInfluence(), ItemLens.PROP_NONE);
+	public static final Item lensWeight = new ItemLens(stackTo16(), new LensWeight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensPaint = new ItemLens(stackTo16(), new LensPaint(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensFire = new ItemLens(stackTo16(), new LensFire(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensPiston = new ItemLens(stackTo16(), new LensPiston(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensLight = new ItemLens(stackTo16(), new LensLight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensWarp = new ItemLens(stackTo16(), new LensWarp(), ItemLens.PROP_NONE);
+	public static final Item lensRedirect = new ItemLens(stackTo16(), new LensRedirect(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensFirework = new ItemLens(stackTo16(), new LensFirework(), ItemLens.PROP_TOUCH);
+	public static final Item lensFlare = new ItemLens(stackTo16(), new LensFlare(), ItemLens.PROP_CONTROL);
+	public static final Item lensMessenger = new ItemLens(stackTo16(), new LensMessenger(), ItemLens.PROP_POWER);
+	public static final Item lensTripwire = new ItemLens(stackTo16(), new LensTripwire(), ItemLens.PROP_CONTROL);
+	public static final Item lensStorm = new ItemLens(stackTo16().rarity(Rarity.EPIC), new LensStorm(), ItemLens.PROP_NONE);
 
 	public static final Item runeWater = new ItemRune(defaultBuilder());
 	public static final Item runeFire = new ItemRune(defaultBuilder());
@@ -306,7 +306,7 @@ public final class ModItems {
 	public static final Item laputaShard = new ItemLaputaShard(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
 	public static final Item nullVirus = new ItemVirus(defaultBuilder());
-	public static final Item spark = new ItemSpark(defaultBuilder());
+	public static final Item spark = new ItemManaSpark(defaultBuilder());
 	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE);
 	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT);
 	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE);
@@ -408,6 +408,11 @@ public final class ModItems {
 
 	public static FabricItemSettings defaultBuilder() {
 		return new FabricItemSettings().group(BotaniaCreativeTab.INSTANCE);
+	}
+
+	private static FabricItemSettings stackTo16() {
+		return defaultBuilder().maxCount(16);
+
 	}
 
 	private static FabricItemSettings unstackable() {
@@ -727,6 +732,7 @@ public final class ModItems {
 		register(r, "composite_lens", CompositeLensRecipe.SERIALIZER);
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
 		register(r, "cosmetic_remove", CosmeticRemoveRecipe.SERIALIZER);
+		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
 		register(r, "keep_ivy", KeepIvyRecipe.SERIALIZER);
 		register(r, "laputa_shard_upgrade", LaputaShardUpgradeRecipe.SERIALIZER);
 		register(r, "lens_dye", LensDyeingRecipe.SERIALIZER);
@@ -736,14 +742,15 @@ public final class ModItems {
 		register(r, "mana_upgrade", ManaUpgradeRecipe.SERIALIZER);
 		register(r, "mana_upgrade_shapeless", ShapelessManaUpgradeRecipe.SERIALIZER);
 		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
+		register(r, "nbt_output_wrapper", NbtOutputRecipe.SERIALIZER);
 		register(r, "phantom_ink_apply", PhantomInkRecipe.SERIALIZER);
 		register(r, "spell_cloth_apply", SpellClothRecipe.SERIALIZER);
 		register(r, "split_lens", SplitLensRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
-		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
+		register(r, "water_bottle_matching_shaped", WaterBottleMatchingRecipe.SERIALIZER);
 
-		// todo 1.16-fabric replace with nbtcrafting CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
+		ModBanners.init();
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -753,41 +760,29 @@ public final class ModItems {
 	}
 
 	public static Item getPetal(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whitePetal;
-		case ORANGE:
-			return orangePetal;
-		case MAGENTA:
-			return magentaPetal;
-		case LIGHT_BLUE:
-			return lightBluePetal;
-		case YELLOW:
-			return yellowPetal;
-		case LIME:
-			return limePetal;
-		case PINK:
-			return pinkPetal;
-		case GRAY:
-			return grayPetal;
-		case LIGHT_GRAY:
-			return lightGrayPetal;
-		case CYAN:
-			return cyanPetal;
-		case PURPLE:
-			return purplePetal;
-		case BLUE:
-			return bluePetal;
-		case BROWN:
-			return brownPetal;
-		case GREEN:
-			return greenPetal;
-		case RED:
-			return redPetal;
-		case BLACK:
-			return blackPetal;
-		}
+		return switch (color) {
+		case WHITE -> whitePetal;
+		case ORANGE -> orangePetal;
+		case MAGENTA -> magentaPetal;
+		case LIGHT_BLUE -> lightBluePetal;
+		case YELLOW -> yellowPetal;
+		case LIME -> limePetal;
+		case PINK -> pinkPetal;
+		case GRAY -> grayPetal;
+		case LIGHT_GRAY -> lightGrayPetal;
+		case CYAN -> cyanPetal;
+		case PURPLE -> purplePetal;
+		case BLUE -> bluePetal;
+		case BROWN -> brownPetal;
+		case GREEN -> greenPetal;
+		case RED -> redPetal;
+		case BLACK -> blackPetal;
+		};
+	}
+
+	public static boolean isNoDespawn(Item item) {
+		return item instanceof ItemManaTablet || item instanceof ItemManaRing || item instanceof ItemTerraPick
+				|| item instanceof ItemRelic || item instanceof ItemRelicBauble;
 	}
 
 }

@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class TileRFGenerator extends TileMod implements IManaReceiver {
 	private static final int MANA_TO_FE = 10;
@@ -37,7 +36,6 @@ public class TileRFGenerator extends TileMod implements IManaReceiver {
 			return MAX_ENERGY;
 		}
 	
-		// todo allow pulling?
 		@Override
 		public boolean canExtract() {
 			return false;
@@ -66,11 +64,9 @@ public class TileRFGenerator extends TileMod implements IManaReceiver {
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, TileRFGenerator self) {
-		if (ConfigHandler.COMMON.fluxfieldEnabled.getValue()) {
-			int transfer = Math.min(self.energy, 160 * MANA_TO_FE);
-			self.energy -= transfer;
-			self.energy += self.transmitEnergy(transfer);
-		}
+		int transfer = Math.min(self.energy, 160 * MANA_TO_FE);
+		self.energy -= transfer;
+		self.energy += self.transmitEnergy(transfer);
 	}
 
 	private int transmitEnergy(int energy) {
@@ -124,7 +120,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver {
 
 	@Override
 	public boolean canReceiveManaFromBursts() {
-		return ConfigHandler.COMMON.fluxfieldEnabled.getValue();
+		return true;
 	}
 
 	@Override

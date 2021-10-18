@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
+import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
@@ -39,8 +40,8 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
-import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -59,6 +60,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class TileEnchanter extends TileMod implements ISparkAttachable {
@@ -101,12 +103,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			}
 	};
 
-	private static final LazyLoadedValue<IStateMatcher> OBSIDIAN_MATCHER = new LazyLoadedValue<>(() -> PatchouliAPI.get().predicateMatcher(
+	private static final Supplier<IStateMatcher> OBSIDIAN_MATCHER = Suppliers.memoize(() -> PatchouliAPI.get().predicateMatcher(
 			Blocks.OBSIDIAN,
 			state -> state.is(Blocks.OBSIDIAN) || state.is(Blocks.CRYING_OBSIDIAN)
 	));
 
-	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
+	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', Blocks.LAPIS_BLOCK,
@@ -115,7 +117,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			'F', PatchouliAPI.get().predicateMatcher(ModBlocks.whiteFlower, state -> state.is(ModTags.Blocks.ENCHANTER_FLOWERS))
 	));
 
-	private static final LazyLoadedValue<IMultiblock> FORMED_MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
+	private static final Supplier<IMultiblock> FORMED_MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', ModBlocks.enchanter,
@@ -157,7 +159,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		if (count > 0 && !level.isClientSide) {
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
-				if (item.getItem() == Items.ENCHANTED_BOOK) {
+				if (item.is(Items.ENCHANTED_BOOK)) {
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if (enchants.size() > 0) {
 						Enchantment enchant = enchants.keySet().iterator().next();
@@ -178,7 +180,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
-				if (item.getItem() == Items.ENCHANTED_BOOK) {
+				if (item.is(Items.ENCHANTED_BOOK)) {
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if (enchants.size() > 0) {
 						Map.Entry<Enchantment, Integer> e = enchants.entrySet().iterator().next();
@@ -226,7 +228,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 			advanceStage();
 		} else {
-			ISparkEntity spark = getAttachedSpark();
+			IManaSpark spark = getAttachedSpark();
 			if (spark != null) {
 				SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
 						.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedTile() instanceof IManaPool)
@@ -263,17 +265,13 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
 			PacketBotaniaEffect.sendNearby(level, worldPosition, PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
 					worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
-			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 0.5F, 10F);
+			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
 		}
 
 		switch (self.stage) {
-		case GATHER_ENCHANTS:
-			self.gatherEnchants();
-			break;
-		case GATHER_MANA:
-			self.gatherMana(axis);
-			break;
-		case DO_ENCHANT: { // Enchant
+		case GATHER_ENCHANTS -> self.gatherEnchants();
+		case GATHER_MANA -> self.gatherMana(axis);
+		case DO_ENCHANT -> { // Enchant
 			if (self.stageTicks >= 100) {
 				for (EnchantmentInstance data : self.enchants) {
 					if (EnchantmentHelper.getItemEnchantmentLevel(data.enchantment, self.itemToEnchant) == 0) {
@@ -288,40 +286,29 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				level.blockEvent(worldPosition, ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
 				self.advanceStage();
 			}
-			break;
 		}
-		case RESET: { // Reset
+		case RESET -> { // Reset
 			if (self.stageTicks >= 20) {
 				self.advanceStage();
 			}
 
-			break;
 		}
-		default:
-			break;
+		default -> {}
 		}
 	}
 
 	private void advanceStage() {
 		switch (stage) {
-		case IDLE:
-			stage = State.GATHER_ENCHANTS;
-			break;
-		case GATHER_ENCHANTS:
-			stage = State.GATHER_MANA;
-			break;
-		case GATHER_MANA:
-			stage = State.DO_ENCHANT;
-			break;
-		case DO_ENCHANT: {
+		case IDLE -> stage = State.GATHER_ENCHANTS;
+		case GATHER_ENCHANTS -> stage = State.GATHER_MANA;
+		case GATHER_MANA -> stage = State.DO_ENCHANT;
+		case DO_ENCHANT -> {
 			stage = State.RESET;
 			stage3EndTicks = stageTicks;
-			break;
 		}
-		case RESET: {
+		case RESET -> {
 			stage = State.IDLE;
 			stage3EndTicks = 0;
-			break;
 		}
 		}
 
@@ -453,15 +440,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			return null;
 		}
 
-		switch (rot) {
-		default:
-		case NONE:
-		case CLOCKWISE_180:
-			return Direction.Axis.Z;
-		case CLOCKWISE_90:
-		case COUNTERCLOCKWISE_90:
-			return Direction.Axis.X;
-		}
+		return switch (rot) {
+		case NONE, CLOCKWISE_180 -> Direction.Axis.Z;
+		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> Direction.Axis.X;
+		};
 	}
 
 	@Override
@@ -470,14 +452,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Override
-	public void attachSpark(ISparkEntity entity) {}
-
-	@Override
-	public ISparkEntity getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1), Predicates.instanceOf(ISparkEntity.class));
+	public IManaSpark getAttachedSpark() {
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1), Predicates.instanceOf(IManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
-			return (ISparkEntity) e;
+			return (IManaSpark) e;
 		}
 
 		return null;

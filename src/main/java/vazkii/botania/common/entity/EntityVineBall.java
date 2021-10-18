@@ -12,12 +12,10 @@ import com.google.common.collect.ImmutableMap;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,13 +34,11 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
 import java.util.Map;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)
 public class EntityVineBall extends ThrowableProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(EntityVineBall.class, EntityDataSerializers.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,
@@ -65,12 +61,6 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 	@Override
 	protected void defineSynchedData() {
 		entityData.define(GRAVITY, 0F);
-	}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	@Environment(EnvType.CLIENT)

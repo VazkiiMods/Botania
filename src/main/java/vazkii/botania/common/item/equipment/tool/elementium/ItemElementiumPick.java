@@ -25,8 +25,8 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	}
 
 	public static boolean shouldFilterOut(Entity e, ItemStack tool, ItemStack drop) {
-		if (!tool.isEmpty() && (tool.getItem() == ModItems.elementiumPick
-				|| tool.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(tool))) {
+		if (!tool.isEmpty() && (tool.is(ModItems.elementiumPick)
+				|| tool.is(ModItems.terraPick) && ItemTerraPick.isTipped(tool))) {
 			return !drop.isEmpty() && (isDisposable(drop) || isSemiDisposable(drop) && !e.isShiftKeyDown());
 		}
 		return false;

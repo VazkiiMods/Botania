@@ -1,12 +1,6 @@
 Pending 1.17 gameplay changes:
-- Mana Detector no longer a BE/handles collisions more smartly (on a branch)
 - Turntable can face any direction and rotates about that axis
 - Turntable entities? (when facing up)
 - Spark traversal rewrite?
-- stackable lenses?
-- cacophonium copper
 - new pure daisy recipes
-- infusion ring tuff -> calcite -> deepslate
 - antioxidizing flower? or some way to reverse oxidation (pure daisy?)
-- no therma nerf (because dispensers cannot extract from cauldrons)
-- refine "left owner" detection for mana bursts

@@ -16,10 +16,10 @@
       "item": "minecraft:tnt"
     },
     "W": {
-      "tag": "botania:livingwood"
+      "item": "botania:livingwood"
     },
     "M": {
-      "tag": "botania:runes/mana"
+      "item": "botania:rune_mana"
     }
   },
   "result": {

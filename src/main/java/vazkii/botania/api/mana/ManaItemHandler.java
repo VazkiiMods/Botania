@@ -8,7 +8,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.util.LazyLoadedValue;
+import com.google.common.base.Suppliers;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -16,11 +17,13 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
 
 public interface ManaItemHandler {
-	LazyLoadedValue<ManaItemHandler> INSTANCE = new LazyLoadedValue<>(() -> {
+	Supplier<ManaItemHandler> INSTANCE = Suppliers.memoize(() -> {
 		try {
-			return (ManaItemHandler) Class.forName("vazkii.botania.common.impl.mana.ManaItemHandlerImpl").newInstance();
+			return (ManaItemHandler) Class.forName("vazkii.botania.common.impl.mana.ManaItemHandlerImpl")
+					.getDeclaredConstructor().newInstance();
 		} catch (ReflectiveOperationException e) {
 			LogManager.getLogger().warn("Unable to find ManaItemHandlerImpl, using a dummy");
 			return new ManaItemHandler() {};

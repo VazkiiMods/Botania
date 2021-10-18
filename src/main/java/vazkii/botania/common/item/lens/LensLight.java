@@ -11,7 +11,6 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -26,24 +25,21 @@ public class LensLight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
-		BlockPos coords = burst.getBurstSourceBlockPos();
 		if (!entity.level.isClientSide && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
-			if (!coords.equals(rtr.getBlockPos())) {
-				BlockPos neighborPos = rtr.getBlockPos().relative(rtr.getDirection());
+			BlockPos neighborPos = rtr.getBlockPos().relative(rtr.getDirection());
 
-				Block blockAt = entity.level.getBlockState(rtr.getBlockPos()).getBlock();
-				BlockState neighbor = entity.level.getBlockState(neighborPos);
+			BlockState stateAt = entity.level.getBlockState(rtr.getBlockPos());
+			BlockState neighbor = entity.level.getBlockState(neighborPos);
 
-				if (blockAt == ModBlocks.manaFlame) {
-					entity.level.removeBlock(rtr.getBlockPos(), false);
-				} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
-					entity.level.setBlockAndUpdate(neighborPos, ModBlocks.manaFlame.defaultBlockState());
-					BlockEntity tile = entity.level.getBlockEntity(neighborPos);
+			if (stateAt.is(ModBlocks.manaFlame)) {
+				entity.level.removeBlock(rtr.getBlockPos(), false);
+			} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
+				entity.level.setBlockAndUpdate(neighborPos, ModBlocks.manaFlame.defaultBlockState());
+				BlockEntity tile = entity.level.getBlockEntity(neighborPos);
 
-					if (tile instanceof TileManaFlame) {
-						((TileManaFlame) tile).setColor(burst.getColor());
-					}
+				if (tile instanceof TileManaFlame) {
+					((TileManaFlame) tile).setColor(burst.getColor());
 				}
 			}
 		}

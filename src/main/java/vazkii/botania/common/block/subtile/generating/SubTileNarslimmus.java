@@ -11,7 +11,6 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Slime;
@@ -25,6 +24,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.core.handler.ModSounds;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 					int mana = 1200 * mul;
 					if (!slime.level.isClientSide) {
 						slime.discard();
-						slime.playSound(size > 1 ? SoundEvents.SLIME_SQUISH : SoundEvents.SLIME_SQUISH_SMALL, 1, 0.02F);
+						slime.playSound(size > 1 ? ModSounds.narslimmusEatBig : ModSounds.narslimmusEatSmall, 1F, 1F);
 						addMana(mana);
 						sync();
 					}

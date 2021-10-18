@@ -20,11 +20,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketDodge;
 
@@ -109,10 +109,10 @@ public class ItemDodgeRing extends ItemBauble {
 			x = Mth.cos(-yaw * 0.017453292F);
 			z = Mth.sin(yaw * 0.017453292F);
 		}
-		Vector3 lookVec = new Vector3(x, 0, z);
-		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, dir == Direction.WEST || dir == Direction.NORTH ? 1 : (dir == Direction.EAST || dir == Direction.SOUTH ? -1 : 0), 0)).multiply(1.25);
+		Vec3 lookVec = new Vec3(x, 0, z);
+		Vec3 sideVec = lookVec.cross(new Vec3(0, dir == Direction.WEST || dir == Direction.NORTH ? 1 : (dir == Direction.EAST || dir == Direction.SOUTH ? -1 : 0), 0)).scale(1.25);
 
-		player.setDeltaMovement(sideVec.toVector3d());
+		player.setDeltaMovement(sideVec);
 
 		PacketDodge.send();
 	}

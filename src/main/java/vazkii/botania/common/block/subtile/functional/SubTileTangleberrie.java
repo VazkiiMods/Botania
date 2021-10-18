@@ -14,13 +14,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 				float distance = MathHelper.pointDistanceSpace(x1, y1, z1, x2, y2, z2);
 
 				if (distance > maxDist && distance < range) {
-					MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity(entity));
+					MathHelper.setEntityMotionFromVector(entity, new Vec3(x1, y1, z1), getMotionVelocity(entity));
 					if (getLevel().random.nextInt(3) == 0) {
 						level.addParticle(data, x2 + Math.random() * entity.getBbWidth(), y2 + Math.random() * entity.getBbHeight(), z2 + Math.random() * entity.getBbWidth(), 0, 0, 0);
 					}

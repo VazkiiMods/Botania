@@ -1,0 +1,13 @@
+{
+  "type": "botania:marimorphosis",
+  "input": "minecraft:stone",
+  "output": {
+    "type": "block",
+    "block": "botania:metamorphic_swamp_stone"
+  },
+  "weight": 1,
+  "biomes": [
+    "swamp"
+  ],
+  "biome_bonus": 11
+}

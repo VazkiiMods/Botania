@@ -27,16 +27,16 @@ public class LensFlare extends Lens {
 	@Override
 	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		if (!redstone) {
-			emitParticles(stack, spreader, redstone);
+			emitParticles(stack, spreader);
 		}
 	}
 
 	@Override
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		emitParticles(stack, spreader, redstone);
+	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader) {
+		emitParticles(stack, spreader);
 	}
 
-	private void emitParticles(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+	private void emitParticles(ItemStack stack, IManaSpreader spreader) {
 		float rotationYaw = -(spreader.getRotationX() + 90F);
 		float rotationPitch = spreader.getRotationY();
 

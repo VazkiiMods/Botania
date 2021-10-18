@@ -43,7 +43,7 @@ public class TilePylon extends BlockEntity {
 		BlockPylon.Variant variant = ((BlockPylon) state.getBlock()).variant;
 
 		if (self.activated && level.isClientSide) {
-			if (level.getBlockState(self.centerPos).getBlock() != variant.getTargetBlock()
+			if (!level.getBlockState(self.centerPos).is(variant.getTargetBlock())
 					|| variant == BlockPylon.Variant.NATURA && (self.portalOff() || !(level.getBlockState(worldPosition.below()).getBlock() instanceof BlockPool))) {
 				self.activated = false;
 				return;
@@ -105,7 +105,7 @@ public class TilePylon extends BlockEntity {
 	}
 
 	private boolean portalOff() {
-		return level.getBlockState(centerPos).getBlock() != ModBlocks.alfPortal
+		return !level.getBlockState(centerPos).is(ModBlocks.alfPortal)
 				|| level.getBlockState(centerPos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
 	}
 

@@ -81,7 +81,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 			avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(stackOnAvatar);
 			return InteractionResult.SUCCESS;
-		} else if (!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
+		} else if (!stackOnPlayer.isEmpty() && IAvatarWieldable.API.find(stackOnPlayer, Unit.INSTANCE) != null) {
 			avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
 			return InteractionResult.SUCCESS;
 		}
@@ -91,7 +91,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
-		if (state.getBlock() != newstate.getBlock()) {
+		if (!state.is(newstate.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
 				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());

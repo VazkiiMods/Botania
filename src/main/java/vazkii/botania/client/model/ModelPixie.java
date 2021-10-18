@@ -20,9 +20,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
-import vazkii.botania.client.render.entity.RenderPixie;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityPixie;
 
 public class ModelPixie extends EntityModel<EntityPixie> {
@@ -35,10 +33,8 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 	private static boolean evil = false;
 
 	private static RenderType pixieLayer(ResourceLocation texture) {
-		RenderType normal = RenderType.entityCutoutNoCull(texture);
-		return evil && ShaderHelper.useShaders()
-				? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderPixie.SHADER_CALLBACK, normal)
-				: normal;
+		return evil ? RenderHelper.getDopplegangerLayer(texture)
+				: RenderType.entityCutoutNoCull(texture);
 	}
 
 	public ModelPixie(ModelPart root) {

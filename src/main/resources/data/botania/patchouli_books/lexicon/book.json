@@ -10,7 +10,7 @@
   "dont_generate_book": true,
   "custom_book_item": "botania:lexicon",
   "advancements_tab": "botania:main/root",
-  "advancement_namespaces": [ "botania" ],
+  "use_resource_pack": true,
   "i18n": true,
   "macros": {
     "$(item)": "$(1)",

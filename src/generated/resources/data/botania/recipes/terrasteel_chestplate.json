@@ -13,7 +13,7 @@
       "tag": "botania:terrasteel_ingots"
     },
     "R": {
-      "tag": "botania:runes/summer"
+      "item": "botania:rune_summer"
     },
     "A": {
       "item": "botania:manasteel_chestplate"

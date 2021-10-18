@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.equipment.armor.elementium;
 
+import com.google.common.base.Suppliers;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -16,7 +18,6 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -30,6 +31,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
@@ -52,7 +54,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 		return LibResources.MODEL_ELEMENTIUM_NEW;
 	}
 
-	private static final LazyLoadedValue<ItemStack[]> armorSet = new LazyLoadedValue<>(() -> new ItemStack[] {
+	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
 			new ItemStack(ModItems.elementiumHelm),
 			new ItemStack(ModItems.elementiumChest),
 			new ItemStack(ModItems.elementiumLegs),
@@ -75,18 +77,14 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.getItem() == ModItems.elementiumHelm;
-		case CHEST:
-			return stack.getItem() == ModItems.elementiumChest;
-		case LEGS:
-			return stack.getItem() == ModItems.elementiumLegs;
-		case FEET:
-			return stack.getItem() == ModItems.elementiumBoots;
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.elementiumHelm);
+		case CHEST -> stack.is(ModItems.elementiumChest);
+		case LEGS -> stack.is(ModItems.elementiumLegs);
+		case FEET -> stack.is(ModItems.elementiumBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	@Override

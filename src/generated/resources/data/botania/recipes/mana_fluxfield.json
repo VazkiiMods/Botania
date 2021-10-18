@@ -10,7 +10,7 @@
       "item": "minecraft:redstone_block"
     },
     "S": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     "M": {
       "tag": "botania:manasteel_ingots"

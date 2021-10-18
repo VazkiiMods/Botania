@@ -1,7 +1,8 @@
 plugins {
-    id 'fabric-loom' version '0.8-SNAPSHOT'
+    id 'fabric-loom' version '0.9-SNAPSHOT'
     id 'maven-publish'
     id "com.diffplug.spotless" version "5.7.0"
+    id 'io.github.juuxel.loom-quiltflower' version '1.3.0'
 }
 
 apply plugin: 'pmd'
@@ -19,10 +20,10 @@ if (System.getenv().RELEASE_MODE == null) {
 group = "vazkii.botania"
 archivesBaseName = "${ext.config.mod_name}"
 
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
+compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial"// << "-Werror" TODO reenable when Gradle fixes wrapping annotation processor
 
-minecraft {
-    accessWidener "src/main/resources/botania.accesswidener"
+loom {
+    accessWidenerPath = file("src/main/resources/botania.accesswidener")
 }
 
 sourceSets.main.resources {
@@ -57,9 +58,6 @@ repositories {
         url "https://jitpack.io" // for step height eam
     }
     maven {
-        url "https://maven.siphalor.de" // for nbt crafting
-    }
-    maven {
         url "https://maven.shedaniel.me/" // for rei
     }
     maven {
@@ -72,12 +70,16 @@ test {
 }
 
 dependencies {
+    minecraft "com.mojang:minecraft:${mc_version}"
+    mappings loom.officialMojangMappings()
+
+    modImplementation "net.fabricmc:fabric-loader:0.11.6"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.40.0+1.17"
+
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.17.1-55-FABRIC-SNAPSHOT"
+    modImplementation "vazkii.patchouli:Patchouli:1.17.1-56-FABRIC"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:6.0.268-alpha"
-
-    modImplementation "alexiil.mc.lib:libblockattributes-all:0.9.0"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
@@ -91,25 +93,16 @@ dependencies {
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation "dev.emi:trinkets:3.0.2"
+    modImplementation "dev.emi:trinkets:3.0.3"
 
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
     include "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
-
+    
     modImplementation 'io.github.fablabsmc:bannerpp:2.0.3+mc.1.17-rc1'
     include 'io.github.fablabsmc:bannerpp:2.0.3+mc.1.17-rc1'
-
-    // modImplementation "de.siphalor:nbtcrafting-1.16:2+"
-
-    minecraft "com.mojang:minecraft:${mc_version}"
-    mappings minecraft.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.11.6"
-
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.37.2+1.17"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
@@ -149,6 +142,10 @@ processResources {
 
     // Exclude datagenerator .cache directory
     exclude '.cache'
+
+    // Exclude Forge-specific metadata on Fabric only
+    exclude 'META-INF/mods.toml'
+    exclude 'META-INF/accesstransformer.cfg'
 
     filesMatching('data/botania/patchouli_books/lexicon/book.json') {
         filter {

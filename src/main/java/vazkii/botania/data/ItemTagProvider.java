@@ -8,7 +8,7 @@
  */
 package vazkii.botania.data;
 
-import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -30,11 +30,7 @@ import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemTagProvider extends ItemTagsProvider {
 	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {
@@ -98,8 +94,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.BLOCKS_QUARTZ, ModTags.Items.BLOCKS_QUARTZ);
 		this.copy(ModTags.Blocks.BLOCKS_TERRASTEEL, ModTags.Items.BLOCKS_TERRASTEEL);
 		// todo 1.16-fabric this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
-		this.copy(ModTags.Blocks.LIVINGWOOD, ModTags.Items.LIVINGWOOD);
-		this.copy(ModTags.Blocks.LIVINGROCK, ModTags.Items.LIVINGROCK);
 
 		this.tag(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
 		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
@@ -109,18 +103,12 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addOptional(new ResourceLocation("quark", "marble"))
 				.addOptional(new ResourceLocation("quark", "slate"));
 
-		List<Tag.Named<Item>> runes = Arrays.asList(
-				ModTags.Items.RUNES_WATER, ModTags.Items.RUNES_FIRE, ModTags.Items.RUNES_EARTH, ModTags.Items.RUNES_AIR,
-				ModTags.Items.RUNES_SPRING, ModTags.Items.RUNES_SUMMER, ModTags.Items.RUNES_AUTUMN, ModTags.Items.RUNES_WINTER,
-				ModTags.Items.RUNES_MANA, ModTags.Items.RUNES_LUST, ModTags.Items.RUNES_GLUTTONY, ModTags.Items.RUNES_GREED,
-				ModTags.Items.RUNES_SLOTH, ModTags.Items.RUNES_WRATH, ModTags.Items.RUNES_ENVY, ModTags.Items.RUNES_PRIDE
+		this.tag(ModTags.Items.RUNES).add(
+				ModItems.runeWater, ModItems.runeFire, ModItems.runeEarth, ModItems.runeAir,
+				ModItems.runeSpring, ModItems.runeSummer, ModItems.runeAutumn, ModItems.runeWinter,
+				ModItems.runeMana, ModItems.runeLust, ModItems.runeGluttony, ModItems.runeGreed,
+				ModItems.runeSloth, ModItems.runeWrath, ModItems.runeEnvy, ModItems.runePride
 		);
-		TagAppender<Item> allRunes = this.tag(ModTags.Items.RUNES);
-		for (Tag.Named<Item> item : runes) {
-			this.tag(item).add(registry.get(
-					prefix("rune_" + item.getName().getPath().split("/")[1])));
-			allRunes.addTag(item);
-		}
 
 		TagAppender<Item> allPetals = this.tag(ModTags.Items.PETALS);
 		for (DyeColor color : DyeColor.values()) {
@@ -200,11 +188,30 @@ public class ItemTagProvider extends ItemTagsProvider {
 				ModItems.superTravelBelt,
 				ModItems.travelBelt
 		);
+		this.tag(accessory("all")).add(
+				ModItems.blackBowtie, ModItems.blackTie,
+				ModItems.redGlasses, ModItems.puffyScarf,
+				ModItems.engineerGoggles, ModItems.eyepatch,
+				ModItems.wickedEyepatch, ModItems.redRibbons,
+				ModItems.pinkFlowerBud, ModItems.polkaDottedBows,
+				ModItems.blueButterfly, ModItems.catEars,
+				ModItems.witchPin, ModItems.devilTail,
+				ModItems.kamuiEye, ModItems.googlyEyes,
+				ModItems.fourLeafClover, ModItems.clockEye,
+				ModItems.unicornHorn, ModItems.devilHorns,
+				ModItems.hyperPlus, ModItems.botanistEmblem,
+				ModItems.ancientMask, ModItems.eerieMask,
+				ModItems.alienAntenna, ModItems.anaglyphGlasses,
+				ModItems.orangeShades, ModItems.grouchoGlasses,
+				ModItems.thickEyebrows, ModItems.lusitanicShield,
+				ModItems.tinyPotatoMask, ModItems.questgiverMark,
+				ModItems.thinkingHand
+		);
 
 	}
 
 	private static Tag.Named<Item> accessory(String name) {
-		return TagRegistry.create(new ResourceLocation("trinkets", name), ItemTags::getAllTags);
+		return TagFactory.ITEM.create(new ResourceLocation("trinkets", name));
 	}
 
 	@Nonnull

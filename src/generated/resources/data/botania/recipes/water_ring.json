@@ -16,7 +16,7 @@
       "item": "minecraft:heart_of_the_sea"
     },
     "W": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     "M": {
       "tag": "botania:manasteel_ingots"

@@ -1,0 +1,37 @@
+{
+  "parent": "botania:main/elf_portal_open",
+  "display": {
+    "icon": {
+      "item": "botania:kekimurus"
+    },
+    "title": {
+      "translate": "advancement.botania:kekimurusPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:kekimurusPickup.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kekimurus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:kekimurus"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kekimurus"
+    ]
+  ]
+}

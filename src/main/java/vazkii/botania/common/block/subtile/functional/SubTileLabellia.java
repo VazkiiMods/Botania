@@ -27,7 +27,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 import java.util.List;
 
@@ -64,30 +64,28 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 					new AABB(x - PICKUP_RANGE, y, z - PICKUP_RANGE,
 							x + PICKUP_RANGE + 1, y + 1, z + PICKUP_RANGE + 1),
 					EntitySelector.ENTITY_STILL_ALIVE)) {
-				ItemStack nameTag = nameTagEnt.getItem();
-				int age = ((AccessorItemEntity) nameTagEnt).getAge();
-				if (age < 60 + getSlowdownFactor() || nameTag.isEmpty()) {
+				if (!DelayHelper.canInteractWith(this, nameTagEnt)) {
 					continue;
 				}
 
-				if (nameTag.getItem() == Items.NAME_TAG && nameTag.hasCustomHoverName()) {
+				ItemStack nameTag = nameTagEnt.getItem();
+				if (nameTag.is(Items.NAME_TAG) && nameTag.hasCustomHoverName()) {
 					AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
 					Component name = nameTag.getHoverName();
 					List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,
 							EntitySelector.ENTITY_STILL_ALIVE.and(e -> !name.equals(e.getCustomName()) && !(e instanceof Player)));
 
 					List<ItemEntity> nameableItems = level.getEntitiesOfClass(ItemEntity.class, renameArea,
-							i -> {
-								int iAge = ((AccessorItemEntity) i).getAge();
-								return i.isAlive() && i != nameTagEnt && iAge >= 60 + getSlowdownFactor() && !name.equals(i.getItem().getHoverName());
-							});
+							i -> DelayHelper.canInteractWith(this, i)
+									&& i != nameTagEnt
+									&& !name.equals(i.getItem().getHoverName()));
 
 					if (!nameableItems.isEmpty() || !nameableEntities.isEmpty()) {
 						for (LivingEntity e : nameableEntities) {
-							// [VanillaCopy] from net.minecraft.item.NameTagItem
+							// [VanillaCopy] from NameTagItem
 							e.setCustomName(name);
-							if (e instanceof Mob) {
-								((Mob) e).setPersistenceRequired();
+							if (e instanceof Mob mob) {
+								mob.setPersistenceRequired();
 							}
 						}
 						for (ItemEntity i : nameableItems) {
@@ -100,8 +98,7 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 						}
 						addMana(-COST);
 						nameTag.shrink(1);
-						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia,
-								SoundSource.BLOCKS, 1, 1);
+						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
 						break;
 					}
 				}

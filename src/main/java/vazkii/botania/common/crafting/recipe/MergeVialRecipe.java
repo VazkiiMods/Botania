@@ -42,11 +42,9 @@ public class MergeVialRecipe extends CustomRecipe {
 				continue;
 			}
 
-			if (!(stack.getItem() instanceof ItemBrewBase)) {
+			if (!(stack.getItem() instanceof ItemBrewBase vial)) {
 				return false;
 			}
-
-			ItemBrewBase vial = (ItemBrewBase) stack.getItem();
 
 			if (brew == null) {
 				brew = vial.getBrew(stack);

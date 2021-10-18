@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
+import com.google.common.base.Suppliers;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -17,7 +19,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,6 +37,7 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor {
 
@@ -69,7 +71,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		return name;
 	}
 
-	private static final LazyLoadedValue<ItemStack[]> armorSet = new LazyLoadedValue<>(() -> new ItemStack[] {
+	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
 			new ItemStack(ModItems.manaweaveHelm),
 			new ItemStack(ModItems.manaweaveChest),
 			new ItemStack(ModItems.manaweaveLegs),
@@ -92,18 +94,14 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.getItem() == ModItems.manaweaveHelm;
-		case CHEST:
-			return stack.getItem() == ModItems.manaweaveChest;
-		case LEGS:
-			return stack.getItem() == ModItems.manaweaveLegs;
-		case FEET:
-			return stack.getItem() == ModItems.manaweaveBoots;
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.manaweaveHelm);
+		case CHEST -> stack.is(ModItems.manaweaveChest);
+		case LEGS -> stack.is(ModItems.manaweaveLegs);
+		case FEET -> stack.is(ModItems.manaweaveBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	@Override

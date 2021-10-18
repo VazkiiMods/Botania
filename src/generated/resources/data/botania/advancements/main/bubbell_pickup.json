@@ -1,0 +1,37 @@
+{
+  "parent": "botania:main/elf_portal_open",
+  "display": {
+    "icon": {
+      "item": "botania:bubbell"
+    },
+    "title": {
+      "translate": "advancement.botania:bubbellPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:bubbellPickup.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "bubbell": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:bubbell"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bubbell"
+    ]
+  ]
+}

@@ -17,11 +17,11 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
@@ -51,25 +51,27 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.fx.FXLightning;
+import vazkii.botania.client.fx.BoltEffect;
+import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.client.render.entity.RenderMagicLandmine;
+import vazkii.botania.client.render.entity.RenderManaSpark;
 import vazkii.botania.client.render.entity.RenderManaStorm;
 import vazkii.botania.client.render.entity.RenderNoop;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
-import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -78,7 +80,6 @@ import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
@@ -103,11 +104,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.SortedMap;
-import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -138,16 +136,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
-
-		boolean contestOngoing = ZonedDateTime.now().isBefore(
-				ZonedDateTime.of(
-						LocalDateTime.of(2021, Month.JULY, 11, 23, 0), // Stop showing 1 hour before contest ends
-						ZoneOffset.UTC
-				)
-		);
-		PatchouliAPI.get().setConfigFlag("botania:contest_2021_ongoing", contestOngoing);
-		PersistentVariableHelper.init();
-		PersistentVariableHelper.save();
 
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
 			LocalDateTime now = LocalDateTime.now();
@@ -197,7 +185,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.blackHoleTalisman, prefix("active"),
 				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
-				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack)); // todo 1.17 not clamped
+				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
 
 		ResourceLocation vuvuzelaId = prefix("vuvuzela");
 		ClampedItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
@@ -230,7 +218,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
 			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
-			return item.getSwigs() - item.getSwigsLeft(stack); // todo 1.17 not clamped
+			return item.getSwigs() - item.getSwigsLeft(stack);
 		};
 		registerPropertyGetter(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
 		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
@@ -269,7 +257,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
 				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F; // todo 1.17 make sure this is sufficiently clamped or apply more clamping if needed
+						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
 			}
 		};
 		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
@@ -303,11 +291,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderType.translucent());
 
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderType.cutoutMipped());
-		/* todo 1.16-fabric
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, t -> true);
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, t -> true);
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, t -> true);
-		*/
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, RenderType.translucent());
 
 		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
@@ -319,25 +305,25 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private static void registerEntityRenderers() {
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_BURST, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.FLAME_RING, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.FALLING_STAR, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PIXIE, RenderPixie::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.SPARK, RenderSpark::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PINK_WITHER, RenderPinkWither::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_STORM, RenderManaStorm::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
+		EntityRendererRegistry.register(ModEntities.MANA_BURST, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.FLAME_RING, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
+		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.FALLING_STAR, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntities.PIXIE, RenderPixie::new);
+		EntityRendererRegistry.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
+		EntityRendererRegistry.register(ModEntities.SPARK, RenderManaSpark::new);
+		EntityRendererRegistry.register(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
+		EntityRendererRegistry.register(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
+		EntityRendererRegistry.register(ModEntities.PINK_WITHER, RenderPinkWither::new);
+		EntityRendererRegistry.register(ModEntities.MANA_STORM, RenderManaStorm::new);
+		EntityRendererRegistry.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
 
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, ThrownItemRenderer::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.VINE_BALL, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
 	}
 
 	private static void registerEntityModels() {
@@ -362,11 +348,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public boolean isTheClientPlayer(LivingEntity entity) {
-		return entity == Minecraft.getInstance().player;
-	}
-
-	@Override
 	public Player getClientPlayer() {
 		return Minecraft.getInstance().player;
 	}
@@ -382,8 +363,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getInstance().particleEngine.add(new FXLightning(Minecraft.getInstance().level, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+		// todo wip, params are ignored
+		BoltRenderer.INSTANCE.add(new BoltEffect(vectorStart, vectorEnd).size(0.08F), ClientTickHandler.partialTicks);
 	}
 
 	@Override
@@ -425,10 +407,5 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.get().clearMultiblock();
 		}
-	}
-
-	@Override
-	public void runOnClient(Supplier<Runnable> thing) {
-		thing.get().run();
 	}
 }

@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     },
     "T": {
       "item": "botania:livingwood_twig"

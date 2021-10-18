@@ -8,16 +8,27 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
+import javax.annotation.Nullable;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class StateIngredientBlockState implements StateIngredient {
@@ -48,6 +59,33 @@ public class StateIngredientBlockState implements StateIngredient {
 	public void write(FriendlyByteBuf buffer) {
 		buffer.writeVarInt(2);
 		buffer.writeVarInt(Block.getId(state));
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedStacks() {
+		Block block = state.getBlock();
+		if (block.asItem() == Items.AIR) {
+			return Collections.emptyList();
+		}
+		return Collections.singletonList(new ItemStack(block));
+	}
+
+	@Nullable
+	@Override
+	public List<Component> descriptionTooltip() {
+		ImmutableMap<Property<?>, Comparable<?>> map = state.getValues();
+		if (map.isEmpty()) {
+			return StateIngredient.super.descriptionTooltip();
+		}
+		List<Component> tooltip = new ArrayList<>(map.size());
+		for (Map.Entry<Property<?>, Comparable<?>> entry : map.entrySet()) {
+			Property<?> key = entry.getKey();
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			String name = ((Property) key).getName(entry.getValue());
+
+			tooltip.add(new TextComponent(key.getName() + " = " + name).withStyle(ChatFormatting.GRAY));
+		}
+		return tooltip;
 	}
 
 	@Override

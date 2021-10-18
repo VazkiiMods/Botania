@@ -20,10 +20,10 @@
       "tag": "botania:petals/orange"
     },
     {
-      "tag": "botania:runes/lust"
+      "item": "botania:rune_lust"
     },
     {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     }
   ]
 }

@@ -87,7 +87,7 @@ public final class SkyblockWorldEvents {
 
 					return InteractionResult.SUCCESS;
 				}
-			} else if (!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
+			} else if (!equipped.isEmpty() && equipped.is(Items.BOWL)) {
 				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 4.5F, true);
 				if (rtr.getType() == HitResult.Type.BLOCK) {
 					BlockPos pos = rtr.getBlockPos();
@@ -114,8 +114,7 @@ public final class SkyblockWorldEvents {
 		BlockPos pos = islandPos.getCenter();
 		createSkyblock(player.level, pos);
 
-		if (player instanceof ServerPlayer) {
-			ServerPlayer pmp = (ServerPlayer) player;
+		if (player instanceof ServerPlayer pmp) {
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setRespawnPosition(pmp.level.dimension(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.getValue()) {

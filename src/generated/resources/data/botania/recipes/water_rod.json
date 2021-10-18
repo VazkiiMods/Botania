@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "botania:water_bottle_matching_shaped",
   "pattern": [
     "  B",
     " T ",
@@ -10,7 +10,7 @@
       "item": "minecraft:potion"
     },
     "R": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     "T": {
       "item": "botania:livingwood_twig"

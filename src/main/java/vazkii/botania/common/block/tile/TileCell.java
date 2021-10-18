@@ -26,8 +26,8 @@ public class TileCell extends TileMod {
 
 	private int generation;
 	private boolean ticked;
-	private BlockPos flowerCoords = new BlockPos(0, -1, 0);
-	private BlockPos validCoords = new BlockPos(0, -1, 0);
+	private BlockPos flowerCoords = new BlockPos(0, Integer.MIN_VALUE, 0);
+	private BlockPos validCoords = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	public TileCell(BlockPos pos, BlockState state) {
 		super(ModTiles.CELL_BLOCK, pos, state);

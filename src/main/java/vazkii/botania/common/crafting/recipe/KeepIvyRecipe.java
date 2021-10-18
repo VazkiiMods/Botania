@@ -37,7 +37,7 @@ public class KeepIvyRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() == ModItems.keepIvy) {
+				if (stack.is(ModItems.keepIvy)) {
 					foundIvy = true;
 				} else if (!foundItem
 						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false))
@@ -59,7 +59,7 @@ public class KeepIvyRecipe extends CustomRecipe {
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.getItem() != ModItems.keepIvy) {
+			if (!stack.isEmpty() && !stack.is(ModItems.keepIvy)) {
 				item = stack;
 			}
 		}

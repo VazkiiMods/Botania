@@ -44,15 +44,15 @@ public class PlatformModel extends ForwardingBakedModel {
 
 		Object data = ((RenderAttachedBlockView) blockView).getBlockEntityRenderAttachment(pos);
 		if (data instanceof TilePlatform.PlatformData) {
-			BlockPos heldPos = ((TilePlatform.PlatformData) data).pos;
-			BlockState heldState = ((TilePlatform.PlatformData) data).state;
+			BlockPos heldPos = ((TilePlatform.PlatformData) data).pos();
+			BlockState heldState = ((TilePlatform.PlatformData) data).state();
 
 			if (heldState == null) {
 				// No camo
 				super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 			} else {
 				// Some people used this to get an invisible block in the past, accommodate that.
-				if (heldState.getBlock() == ModBlocks.manaGlass) {
+				if (heldState.is(ModBlocks.manaGlass)) {
 					return;
 				}
 

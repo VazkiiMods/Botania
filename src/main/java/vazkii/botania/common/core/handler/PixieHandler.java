@@ -69,7 +69,7 @@ public final class PixieHandler {
 	public static void onDamageTaken(Player player, DamageSource source) {
 		if (!player.level.isClientSide && source.getEntity() instanceof LivingEntity) {
 			double chance = player.getAttributeValue(PIXIE_SPAWN_CHANCE);
-			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
+			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(ModItems.elementiumSword));
 
 			if (Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.level);

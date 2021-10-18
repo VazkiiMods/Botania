@@ -37,7 +37,6 @@ public class ModFeatures {
 			.configured(new MysticalMushroomConfig(40))
 			.decorated(FeatureDecorator.NOPE.configured(DecoratorConfiguration.NONE));
 
-	// todo 1.16.2 blacklist, this is about the closest to the old one?
 	public static final Set<Biome.BiomeCategory> TYPE_BLACKLIST = ImmutableSet.of(
 			Biome.BiomeCategory.NETHER,
 			Biome.BiomeCategory.THEEND,

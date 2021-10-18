@@ -8,11 +8,8 @@
  */
 package vazkii.botania.common.lib;
 
-import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
@@ -71,8 +68,6 @@ public class ModTags {
 		public static final Tag.Named<Item> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
 
 		public static final Tag.Named<Item> LENS = tag("lens");
-		public static final Tag.Named<Item> LIVINGROCK = tag("livingrock");
-		public static final Tag.Named<Item> LIVINGWOOD = tag("livingwood");
 
 		public static final Tag.Named<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 		public static final Tag.Named<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
@@ -100,72 +95,38 @@ public class ModTags {
 
 		public static final Tag.Named<Item> RUNES = tag("runes");
 
-		public static final Tag.Named<Item> RUNES_AIR = tag("runes/air");
-		public static final Tag.Named<Item> RUNES_AUTUMN = tag("runes/autumn");
-		public static final Tag.Named<Item> RUNES_EARTH = tag("runes/earth");
-		public static final Tag.Named<Item> RUNES_ENVY = tag("runes/envy");
-		public static final Tag.Named<Item> RUNES_FIRE = tag("runes/fire");
-		public static final Tag.Named<Item> RUNES_GLUTTONY = tag("runes/gluttony");
-		public static final Tag.Named<Item> RUNES_GREED = tag("runes/greed");
-		public static final Tag.Named<Item> RUNES_LUST = tag("runes/lust");
-		public static final Tag.Named<Item> RUNES_MANA = tag("runes/mana");
-		public static final Tag.Named<Item> RUNES_PRIDE = tag("runes/pride");
-		public static final Tag.Named<Item> RUNES_SLOTH = tag("runes/sloth");
-		public static final Tag.Named<Item> RUNES_SPRING = tag("runes/spring");
-		public static final Tag.Named<Item> RUNES_SUMMER = tag("runes/summer");
-		public static final Tag.Named<Item> RUNES_WATER = tag("runes/water");
-		public static final Tag.Named<Item> RUNES_WINTER = tag("runes/winter");
-		public static final Tag.Named<Item> RUNES_WRATH = tag("runes/wrath");
-
 		public static final Tag.Named<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 		public static final Tag.Named<Item> MUSHROOMS = commonTag("mushrooms");
 		public static final Tag.Named<Item> RODS = tag("rods");
 
 		public static Tag.Named<Item> getPetalTag(DyeColor color) {
-			switch (color) {
-			default:
-			case WHITE:
-				return PETALS_WHITE;
-			case ORANGE:
-				return PETALS_ORANGE;
-			case MAGENTA:
-				return PETALS_MAGENTA;
-			case LIGHT_BLUE:
-				return PETALS_LIGHT_BLUE;
-			case YELLOW:
-				return PETALS_YELLOW;
-			case LIME:
-				return PETALS_LIME;
-			case PINK:
-				return PETALS_PINK;
-			case GRAY:
-				return PETALS_GRAY;
-			case LIGHT_GRAY:
-				return PETALS_LIGHT_GRAY;
-			case CYAN:
-				return PETALS_CYAN;
-			case PURPLE:
-				return PETALS_PURPLE;
-			case BLUE:
-				return PETALS_BLUE;
-			case BROWN:
-				return PETALS_BROWN;
-			case GREEN:
-				return PETALS_GREEN;
-			case RED:
-				return PETALS_RED;
-			case BLACK:
-				return PETALS_BLACK;
-			}
+			return switch (color) {
+			case WHITE -> PETALS_WHITE;
+			case ORANGE -> PETALS_ORANGE;
+			case MAGENTA -> PETALS_MAGENTA;
+			case LIGHT_BLUE -> PETALS_LIGHT_BLUE;
+			case YELLOW -> PETALS_YELLOW;
+			case LIME -> PETALS_LIME;
+			case PINK -> PETALS_PINK;
+			case GRAY -> PETALS_GRAY;
+			case LIGHT_GRAY -> PETALS_LIGHT_GRAY;
+			case CYAN -> PETALS_CYAN;
+			case PURPLE -> PETALS_PURPLE;
+			case BLUE -> PETALS_BLUE;
+			case BROWN -> PETALS_BROWN;
+			case GREEN -> PETALS_GREEN;
+			case RED -> PETALS_RED;
+			case BLACK -> PETALS_BLACK;
+			};
 		}
 
 		private static Tag.Named<Item> tag(String name) {
-			return TagRegistry.create(prefix(name), ItemTags::getAllTags);
+			return TagFactory.ITEM.create(prefix(name));
 		}
 
 		private static Tag.Named<Item> commonTag(String name) {
-			return TagRegistry.create(new ResourceLocation("c", name), ItemTags::getAllTags);
+			return TagFactory.ITEM.create(new ResourceLocation("c", name));
 		}
 	}
 
@@ -186,9 +147,6 @@ public class ModTags {
 
 		public static final Tag.Named<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
 
-		public static final Tag.Named<Block> LIVINGROCK = tag("livingrock");
-		public static final Tag.Named<Block> LIVINGWOOD = tag("livingwood");
-
 		public static final Tag.Named<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
 		public static final Tag.Named<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
 		public static final Tag.Named<Block> BLOCKS_QUARTZ = commonTag("quartz_blocks");
@@ -204,21 +162,15 @@ public class ModTags {
 
 		public static final Tag.Named<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
 
-		public static final Tag.Named<Block> COAL_ORES = commonTag("coal_ores");
-		public static final Tag.Named<Block> IRON_ORES = commonTag("iron_ores");
-		public static final Tag.Named<Block> GOLD_ORES = commonTag("gold_ores");
-		public static final Tag.Named<Block> LAPIS_ORES = commonTag("lapis_ores");
-		public static final Tag.Named<Block> REDSTONE_ORES = commonTag("redstone_ores");
-		public static final Tag.Named<Block> DIAMOND_ORES = commonTag("diamond_ores");
-		public static final Tag.Named<Block> EMERALD_ORES = commonTag("emerald_ores");
+		public static final Tag.Named<Block> ORES = commonTag("ores");
 		public static final Tag.Named<Block> MUSHROOMS = commonTag("mushrooms");
 
 		private static Tag.Named<Block> tag(String name) {
-			return TagRegistry.create(prefix(name), BlockTags::getAllTags);
+			return TagFactory.BLOCK.create(prefix(name));
 		}
 
 		private static Tag.Named<Block> commonTag(String name) {
-			return TagRegistry.create(new ResourceLocation("c", name), BlockTags::getAllTags);
+			return TagFactory.BLOCK.create(new ResourceLocation("c", name));
 		}
 	}
 
@@ -231,7 +183,7 @@ public class ModTags {
 		public static final Tag.Named<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
 		private static Tag.Named<EntityType<?>> tag(String name) {
-			return TagRegistry.create(prefix(name), EntityTypeTags::getAllTags);
+			return TagFactory.ENTITY_TYPE.create(prefix(name));
 		}
 	}
 }

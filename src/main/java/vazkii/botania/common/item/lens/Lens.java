@@ -32,7 +32,7 @@ public class Lens {
 
 	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {}
 
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {}
+	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader) {}
 
 	public int getManaToTransfer(IManaBurst burst, ItemStack stack, IManaReceiver receiver) {
 		return burst.getMana();

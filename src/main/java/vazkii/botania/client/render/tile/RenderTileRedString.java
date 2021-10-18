@@ -17,13 +17,14 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.Random;
@@ -59,43 +60,70 @@ public class RenderTileRedString<T extends TileRedString> implements BlockEntity
 		if (bind != null) {
 			ms.pushPose();
 			ms.translate(0.5, 0.5, 0.5);
-			Vector3 vecOrig = new Vector3(bind.getX() - tile.getBlockPos().getX(), bind.getY() - tile.getBlockPos().getY(), bind.getZ() - tile.getBlockPos().getZ());
-			Vector3 vecNorm = vecOrig.normalize();
-			Vector3 vecMag = vecNorm.multiply(0.025);
-			Vector3 vecApply = vecMag;
+			Vec3 span = new Vec3(bind.getX() - tile.getBlockPos().getX(), bind.getY() - tile.getBlockPos().getY(), bind.getZ() - tile.getBlockPos().getZ());
+			Vec3 step = span.normalize().scale(0.025);
+			Vec3 cur = step;
 
-			int stages = (int) (vecOrig.mag() / vecMag.mag());
+			int stepCount = (int) (span.length() / step.length());
 
 			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getBlockPos().hashCode()).nextInt(10000);
-			double add = vecMag.mag();
+			double add = step.length();
 			double rand = Math.random() - 0.5;
-			VertexConsumer buffer = buffers.getBuffer(RenderHelper.LINE_1);
-			for (int i = 0; i < stages; i++) {
-				addVertexAtWithTranslation(ms, buffer, color, dir, vecApply.x, vecApply.y, vecApply.z, rand, len);
+			VertexConsumer buffer = buffers.getBuffer(RenderHelper.RED_STRING);
+			for (int i = 0; i < stepCount; i++) {
+				vertex(ms, buffer, color, dir, cur.x, cur.y, cur.z, rand, len);
 				rand = Math.random() - 0.5;
-				vecApply = vecApply.add(vecMag);
+				cur = cur.add(step);
 				len += add;
-				addVertexAtWithTranslation(ms, buffer, color, dir, vecApply.x, vecApply.y, vecApply.z, rand, len);
+				vertex(ms, buffer, color, dir, cur.x, cur.y, cur.z, rand, len);
 			}
 
 			ms.popPose();
 		}
 	}
 
-	private static void addVertexAtWithTranslation(PoseStack ms, VertexConsumer buffer, int color, Direction dir, double xpos, double ypos, double zpos, double rand, double l) {
-		double freq = 20;
+	/**
+	 * Add a vertex at the given position, but spiraled out perpendicular to {@code dir}
+	 */
+	private static void vertex(PoseStack ms, VertexConsumer buffer, int color, Direction dir,
+			double xpos, double ypos, double zpos,
+			double rand, double l) {
 		float sizeAlpha = transparency / 10.0F;
-		double ampl = (0.15 * (Math.sin(l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
-		double randMul = 0.05;
-		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.getStepX()) - 1) + rand * randMul;
-		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getStepY()) - 1) + rand * randMul;
-		double z = zpos + (dir.getStepY() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getStepZ()) - 1) + rand * randMul;
+		float ampl = (float) (0.15 * (Mth.sin((float) l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
+
+		float trigInput = (float) (l * 20.0);
+		float sin = Mth.sin(trigInput);
+		float cos = Mth.cos(trigInput);
+		float lastTerm = (float) (rand * 0.05);
+
+		float x = (float) xpos
+				+ sin * ampl * killNonZero(dir.getStepX())
+				+ lastTerm;
+		float y = (float) ypos
+				+ cos * ampl * killNonZero(dir.getStepY())
+				+ lastTerm;
+		float z = (float) zpos
+				+ (dir.getStepY() == 0 ? sin : cos) * ampl * killNonZero(dir.getStepZ())
+				+ lastTerm;
 
 		int a = (color >> 24) & 0xFF;
 		int r = (color >> 16) & 0xFF;
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
-		buffer.vertex(ms.last().pose(), (float) x, (float) y, (float) z).color(r, g, b, a).endVertex();
+		buffer.vertex(ms.last().pose(), x, y, z).color(r, g, b, a);
+		switch (dir.getAxis().getPlane()) {
+		case HORIZONTAL -> buffer.normal(ms.last().normal(), 0, 1, 0);
+		case VERTICAL -> buffer.normal(ms.last().normal(), 1, 0, 0);
+		}
+		buffer.endVertex();
+	}
+
+	private static int killNonZero(int diff) {
+		if (diff != 0) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 
 }

@@ -28,10 +28,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 
@@ -91,8 +91,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD, IWanda
 	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof TileCraftCrate) {
-			TileCraftCrate craft = (TileCraftCrate) tile;
+		if (tile instanceof TileCraftCrate craft) {
 
 			int width = 52;
 			int height = 52;

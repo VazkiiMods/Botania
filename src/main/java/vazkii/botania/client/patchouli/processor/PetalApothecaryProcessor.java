@@ -31,14 +31,11 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 		if (recipe == null) {
 			return null;
 		}
-		switch (key) {
-		case "recipe":
-			return IVariable.wrap(recipe.getId().toString());
-		case "output":
-			return IVariable.from(recipe.getResultItem());
-		case "heading":
-			return IVariable.from(recipe.getResultItem().getHoverName());
-		}
-		return null;
+		return switch (key) {
+		case "recipe" -> IVariable.wrap(recipe.getId().toString());
+		case "output" -> IVariable.from(recipe.getResultItem());
+		case "heading" -> IVariable.from(recipe.getResultItem().getHoverName());
+		default -> null;
+		};
 	}
 }

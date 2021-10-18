@@ -13,7 +13,7 @@
       "item": "minecraft:brewing_stand"
     },
     "S": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     "G": {
       "item": "minecraft:gold_ingot"

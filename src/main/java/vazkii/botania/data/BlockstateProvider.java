@@ -312,12 +312,12 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.remove(livingwoodFence);
 		remainingBlocks.remove(livingwoodFenceGate);
 
-		// TESRs with only particles
+		// block entities with only particles
 		particleOnly(remainingBlocks, animatedTorch, getBlockTexture(Blocks.REDSTONE_TORCH));
 		particleOnly(remainingBlocks, avatar, getBlockTexture(livingwood));
 		particleOnly(remainingBlocks, bellows, getBlockTexture(livingwood));
 		particleOnly(remainingBlocks, brewery, getBlockTexture(livingrock));
-		particleOnly(remainingBlocks, corporeaIndex, getBlockTexture(elementiumBlock));
+		particleOnly(remainingBlocks, corporeaIndex, getBlockTexture(corporeaBlock));
 		particleOnly(remainingBlocks, lightRelayDetector, getBlockTexture(lightRelayDetector));
 		singleVariantBlockState(fakeAir, new ModelTemplate(Optional.empty(), Optional.empty()).create(fakeAir, new TextureMapping(), this.modelOutput));
 		remainingBlocks.remove(fakeAir);
@@ -587,12 +587,12 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.forEach(this::cubeAll);
 	}
 
-	private void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
+	protected void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
 		singleVariantBlockState(b, ModelTemplates.PARTICLE_ONLY.create(b, TextureMapping.particle(particle), this.modelOutput));
 		blocks.remove(b);
 	}
 
-	private void manualModel(Set<Block> blocks, Block b) {
+	protected void manualModel(Set<Block> blocks, Block b) {
 		singleVariantBlockState(b, getModelLocation(b));
 		blocks.remove(b);
 	}
@@ -667,7 +667,7 @@ public class BlockstateProvider implements DataProvider {
 		return ret;
 	}
 
-	private void wallBlock(Block block, ResourceLocation tex) {
+	protected void wallBlock(Block block, ResourceLocation tex) {
 		var mapping = new TextureMapping().put(TextureSlot.WALL, tex);
 		var postModel = ModelTemplates.WALL_POST.create(block, mapping, this.modelOutput);
 		var lowModel = ModelTemplates.WALL_LOW_SIDE.create(block, mapping, this.modelOutput);
@@ -675,7 +675,7 @@ public class BlockstateProvider implements DataProvider {
 		this.blockstates.add(AccessorBlockModelGenerators.makeWallState(block, postModel, lowModel, tallModel));
 	}
 
-	private void redStringBlock(Block b) {
+	protected void redStringBlock(Block b) {
 		ResourceLocation selfName = getBlockTexture(b);
 		ResourceLocation front = prefix("block/red_string_sender");
 		var model = ModelTemplates.CUBE_ORIENTABLE.create(b, new TextureMapping()

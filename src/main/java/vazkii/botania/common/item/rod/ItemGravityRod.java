@@ -21,6 +21,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -28,7 +30,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -57,7 +59,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	/* todo fabric
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
-		return newStack.getItem() != this;
+		return !newStack.is(this);
 	}
 	*/
 
@@ -87,10 +89,9 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	}
 
 	public static void onEntitySwing(LivingEntity entity) {
-		if (!(entity instanceof Player)) {
+		if (!(entity instanceof Player player)) {
 			return;
 		}
-		Player player = (Player) entity;
 		leftClick(player);
 	}
 
@@ -116,12 +117,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vector3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -134,12 +135,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 			}
 
 			if (target == null) {
-				Vector3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 				}
 
@@ -162,16 +163,15 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						((ItemEntity) target).setPickUpDelay(5);
 					}
 
-					if (target instanceof LivingEntity) {
-						LivingEntity targetEntity = (LivingEntity) target;
+					if (target instanceof LivingEntity targetEntity) {
 						targetEntity.fallDistance = 0.0F;
 						if (targetEntity.getEffect(MobEffects.MOVEMENT_SLOWDOWN) == null) {
 							targetEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 3, true, true));
 						}
 					}
 
-					Vector3 target3 = Vector3.fromEntityCenter(player)
-							.add(new Vector3(player.getLookAngle()).multiply(length)).add(0, 0.5, 0);
+					Vec3 target3 = VecHelper.fromEntityCenter(player)
+							.add(player.getLookAngle().scale(length)).add(0, 0.5, 0);
 					if (target instanceof ItemEntity) {
 						target3 = target3.add(0, 0.25, 0);
 					}
@@ -208,7 +208,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 
 	private static void leftClick(Player player) {
 		ItemStack stack = player.getMainHandItem();
-		if (!stack.isEmpty() && stack.getItem() == ModItems.gravityRod) {
+		if (!stack.isEmpty() && stack.is(ModItems.gravityRod)) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item;
@@ -217,12 +217,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vector3 target = Vector3.fromEntityCenter(player);
+				Vec3 target = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					target = target.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, target.boxForRange(RANGE), CAN_TARGET);
+					target = target.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, new AABB(target.subtract(RANGE, RANGE, RANGE), target.add(RANGE, RANGE, RANGE)), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -233,7 +233,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 					item = taritem;
 					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
 					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
-					Vector3 moveVector = new Vector3(player.getLookAngle().normalize());
+					Vec3 moveVector = player.getLookAngle().normalize();
 					if (item instanceof ItemEntity) {
 						((ItemEntity) item).setPickUpDelay(20);
 						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
@@ -244,7 +244,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						}
 						item.discard();
 					} else {
-						item.setDeltaMovement(moveVector.multiply(3, 1.5, 3).toVector3d());
+						item.setDeltaMovement(moveVector.multiply(3, 1.5, 3));
 					}
 					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}

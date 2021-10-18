@@ -7,10 +7,13 @@
   "description": "Botania is a tech mod themed around natural magic",
   "authors": [
     "Vazkii",
-    "williewillus"
+    "williewillus",
+    "Hubry"
   ],
   "contact": {
-    "sources": "https://github.com/Vazkii/Botania"
+    "homepage": "https://botaniamod.net",
+    "sources": "https://github.com/VazkiiMods/Botania",
+    "issues": "https://github.com/VazkiiMods/Botania/issues"
   },
 
   "license": "Botania license",
@@ -41,9 +44,8 @@
 
   "depends": {
     "fabricloader": ">=0.8",
-    "fabric": ">=0.29",
+    "fabric": ">=0.40",
     "minecraft": ">=1.17.1",
-    "libblockattributes": ">=0.8.4",
     "trinkets" : ">=3",
     "patchouli": "*"
   },
@@ -56,6 +58,7 @@
       "botania:kept_items",
       "botania:loonium_drop",
       "botania:narslimmus",
+      "botania:tigerseye_pacified",
       "botania:tnt_ethical"
     ]
   }

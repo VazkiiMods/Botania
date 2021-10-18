@@ -47,7 +47,7 @@ public class ItemCloudPendant extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		Botania.proxy.runOnClient(() -> () -> {
+		Botania.runOnClient.accept(() -> () -> {
 			if (player == Minecraft.getInstance().player) {
 				LocalPlayer playerSp = (LocalPlayer) player;
 
@@ -88,7 +88,7 @@ public class ItemCloudPendant extends ItemBauble {
 		ms.translate(-0.3, 0.4, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 
-		BakedModel model = stack.getItem() == ModItems.superCloudPendant
+		BakedModel model = stack.is(ModItems.superCloudPendant)
 				? MiscellaneousIcons.INSTANCE.nimbusGem
 				: MiscellaneousIcons.INSTANCE.cirrusGem;
 		VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());

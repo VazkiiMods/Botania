@@ -26,15 +26,15 @@ public final class MathHelper {
 		return (float) Math.hypot(x1 - x2, y1 - y2);
 	}
 
-	public static void setEntityMotionFromVector(Entity entity, Vector3 originalPosVector, float modifier) {
-		Vector3 entityVector = Vector3.fromEntityCenter(entity);
-		Vector3 finalVector = originalPosVector.subtract(entityVector);
+	public static void setEntityMotionFromVector(Entity entity, Vec3 originalPosVector, float modifier) {
+		Vec3 entityVector = VecHelper.fromEntityCenter(entity);
+		Vec3 finalVector = originalPosVector.subtract(entityVector);
 
-		if (finalVector.mag() > 1) {
+		if (finalVector.length() > 1) {
 			finalVector = finalVector.normalize();
 		}
 
-		entity.setDeltaMovement(finalVector.multiply(modifier).toVector3d());
+		entity.setDeltaMovement(finalVector.scale(modifier));
 	}
 
 	public static int multiplyColor(int c1, int c2) {

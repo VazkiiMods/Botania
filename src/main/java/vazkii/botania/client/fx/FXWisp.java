@@ -104,6 +104,7 @@ public class FXWisp extends TextureSheetParticle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
+		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
@@ -128,6 +129,7 @@ public class FXWisp extends TextureSheetParticle {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
+			RenderSystem.enableDepthTest();
 		}
 
 		@Override

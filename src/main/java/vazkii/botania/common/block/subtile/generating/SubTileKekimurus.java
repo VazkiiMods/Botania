@@ -52,6 +52,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 							}
 
 							getLevel().levelEvent(2001, pos, Block.getId(state));
+							//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
 							getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							addMana(mana);
 							sync();

@@ -25,10 +25,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
@@ -36,8 +36,8 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
-import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -48,14 +48,13 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
@@ -82,7 +81,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	private boolean outputting = false;
 
-	public DyeColor color = DyeColor.WHITE;
+	private DyeColor color = DyeColor.WHITE;
 	private int mana;
 
 	public int manaCap = -1;
@@ -105,8 +104,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public boolean isFull() {
-		Block blockBelow = level.getBlockState(worldPosition.below()).getBlock();
-		return blockBelow != ModBlocks.manaVoid && getCurrentMana() >= manaCap;
+		BlockState stateBelow = level.getBlockState(worldPosition.below());
+		return !stateBelow.is(ModBlocks.manaVoid) && getCurrentMana() >= manaCap;
 	}
 
 	@Override
@@ -169,8 +168,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
 		}
 
-		int age = ((AccessorItemEntity) item).getAge();
-		if (age > 100 && age < 130) {
+		if (EntityComponents.INTERNAL_ITEM.get(item).getManaInfusionCooldown() > 0) {
 			return false;
 		}
 
@@ -186,7 +184,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				((AccessorItemEntity) outputItem).setAge(105);
+				EntityComponents.INTERNAL_ITEM.get(outputItem).markNewlyInfused();
 				level.addFreshEntity(outputItem);
 
 				craftingFanciness();
@@ -199,7 +197,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	private void craftingFanciness() {
 		if (soundTicks == 0) {
-			level.playSound(null, worldPosition, ModSounds.manaPoolCraft, SoundSource.BLOCKS, 0.4F, 4F);
+			level.playSound(null, worldPosition, ModSounds.manaPoolCraft, SoundSource.BLOCKS, 1F, 1F);
 			soundTicks = 6;
 		}
 
@@ -226,8 +224,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			if (level.isClientSide) {
 				if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue()) {
 					boolean outputting = param == 1;
-					Vector3 itemVec = Vector3.fromBlockPos(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-					Vector3 tileVec = Vector3.fromBlockPos(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+					Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+					Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
 					Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
 							outputting ? itemVec : tileVec, 80, level.random.nextLong(), 0x4400799c, 0x4400C6FF);
 				}
@@ -281,8 +279,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			}
 
 			ItemStack stack = item.getItem();
-			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
-				IManaItem mana = (IManaItem) stack.getItem();
+			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem mana) {
 				if (self.outputting && mana.canReceiveManaFromPool(stack, self) || !self.outputting && mana.canExportManaToPool(stack, self)) {
 					boolean didSomething = false;
 
@@ -452,14 +449,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void attachSpark(ISparkEntity entity) {}
-
-	@Override
-	public ISparkEntity getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
+	public IManaSpark getAttachedSpark() {
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(IManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
-			return (ISparkEntity) e;
+			return (IManaSpark) e;
 		}
 
 		return null;
@@ -475,7 +469,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		int space = Math.max(0, manaCap - getCurrentMana());
 		if (space > 0) {
 			return space;
-		} else if (level.getBlockState(worldPosition.below()).getBlock() == ModBlocks.manaVoid) {
+		} else if (level.getBlockState(worldPosition.below()).is(ModBlocks.manaVoid)) {
 			return manaCap;
 		} else {
 			return 0;

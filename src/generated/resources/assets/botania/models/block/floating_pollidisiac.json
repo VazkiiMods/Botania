@@ -1,1 +1,7 @@
-{"flower":"botania:block/pollidisiac"}
+{
+  "parent": "minecraft:block/block",
+  "loader": "botania:floating_flower",
+  "flower": {
+    "parent": "botania:block/pollidisiac"
+  }
+}

@@ -20,8 +20,6 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
-import java.util.UUID;
-
 public final class ItemNBTHelper {
 
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
@@ -73,10 +71,6 @@ public final class ItemNBTHelper {
 
 	public static void setString(ItemStack stack, String tag, String s) {
 		stack.getOrCreateTag().putString(tag, s);
-	}
-
-	public static void setUuid(ItemStack stack, String tag, UUID value) {
-		stack.getOrCreateTag().putUUID(tag, value);
 	}
 
 	public static void setList(ItemStack stack, String tag, ListTag list) {
@@ -142,17 +136,12 @@ public final class ItemNBTHelper {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getString(tag) : defaultExpected;
 	}
 
-	@Nullable
-	public static UUID getUuid(ItemStack stack, String tag) {
-		return verifyExistance(stack, tag + "Most") && verifyExistance(stack, tag + "Least") ? stack.getOrCreateTag().getUUID(tag) : null;
-	}
-
 	public static ListTag getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new ListTag();
 	}
 
 	/**
-	 * Serializes the given stack such that {@link net.minecraft.item.crafting.ShapedRecipe#deserializeItem}
+	 * Serializes the given stack such that {@link net.minecraft.world.item.crafting.ShapedRecipe#itemStackFromJson}
 	 * would be able to read the result back
 	 */
 	public static JsonObject serializeStack(ItemStack stack) {

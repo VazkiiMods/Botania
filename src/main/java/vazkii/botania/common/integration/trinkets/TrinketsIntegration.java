@@ -11,6 +11,14 @@ package vazkii.botania.common.integration.trinkets;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketEnums;
+import dev.emi.trinkets.api.TrinketsApi;
+import dev.emi.trinkets.api.client.TrinketRenderer;
+import dev.emi.trinkets.api.client.TrinketRendererRegistry;
+import dev.emi.trinkets.api.event.TrinketDropCallback;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -34,14 +42,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
-
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.Trinket;
-import dev.emi.trinkets.api.TrinketEnums;
-import dev.emi.trinkets.api.TrinketsApi;
-import dev.emi.trinkets.api.client.TrinketRenderer;
-import dev.emi.trinkets.api.client.TrinketRendererRegistry;
-import dev.emi.trinkets.api.event.TrinketDropCallback;
 
 public class TrinketsIntegration extends EquipmentHandler {
 	public static void init() {
@@ -98,7 +98,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 	@Override
 	protected void registerComponentEvent(Item item) {
 		TrinketsApi.registerTrinket(item, WRAPPER);
-		Botania.proxy.runOnClient(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
+		Botania.runOnClient.accept(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
 	}
 
 	public static final Trinket WRAPPER = new Trinket() {
@@ -108,32 +108,40 @@ public class TrinketsIntegration extends EquipmentHandler {
 
 		@Override
 		public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			getItem(stack).onWornTick(stack, entity);
+			if (!stack.isEmpty()) {
+				getItem(stack).onWornTick(stack, entity);
+			}
 		}
 
 		@Override
 		public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			getItem(stack).onEquipped(stack, entity);
+			if (!stack.isEmpty()) {
+				getItem(stack).onEquipped(stack, entity);
+			}
 		}
 
 		@Override
 		public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			getItem(stack).onUnequipped(stack, entity);
+			if (!stack.isEmpty()) {
+				getItem(stack).onUnequipped(stack, entity);
+			}
 		}
 
 		@Override
 		public boolean canEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			return getItem(stack).canEquip(stack, entity);
+			if (!stack.isEmpty()) {
+				return getItem(stack).canEquip(stack, entity);
+			}
+			return false;
 		}
 
 		@Override
 		public Multimap<Attribute, AttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
-			return getItem(stack).getEquippedAttributeModifiers(stack);
-		}
-
-		@Override
-		public TrinketEnums.DropRule getDropRule(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			return Trinket.super.getDropRule(stack, slot, entity);
+			var ret = Trinket.super.getModifiers(stack, slot, entity, uuid);
+			if (!stack.isEmpty()) {
+				ret.putAll(getItem(stack).getEquippedAttributeModifiers(stack));
+			}
+			return ret;
 		}
 	};
 

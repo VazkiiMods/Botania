@@ -38,7 +38,6 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
@@ -71,11 +70,11 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon) {
+		if (cooldown > 0 || stack.is(ModItems.twigWand) || stack.is(ModItems.lexicon)) {
 			return false;
 		}
 
-		if (stack.getItem() == ModBlocks.livingrock.asItem()) {
+		if (stack.is(ModBlocks.livingrock.asItem())) {
 			if (!level.isClientSide) {
 				ItemStack toSpawn = player != null && player.getAbilities().instabuild ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5, toSpawn);
@@ -133,7 +132,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
 					level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
-				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.runeAltarCraft, SoundSource.BLOCKS, 1, 1, false);
+				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.runeAltarCraft, SoundSource.BLOCKS, 1F, 1F, false);
 			}
 			return true;
 		}
@@ -158,7 +157,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		if (self.manaToGet == 0) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != ModBlocks.livingrock.asItem()) {
+				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(ModBlocks.livingrock.asItem())) {
 					ItemStack stack = item.getItem();
 					self.addItem(null, stack, null);
 				}
@@ -184,8 +183,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, TileRuneAltar self) {
 		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.random.nextInt(20) == 0) {
-			Vector3 vec = Vector3.fromTileEntityCenter(self);
-			Vector3 endVec = vec.add(0, 2.5, 0);
+			Vec3 vec = Vec3.atCenterOf(self.getBlockPos());
+			Vec3 endVec = vec.add(0, 2.5, 0);
 			Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
 		}
 
@@ -208,7 +207,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		}
 
 		if (manaToGet != this.manaToGet) {
-			level.playSound(null, worldPosition, ModSounds.runeAltarStart, SoundSource.BLOCKS, 1, 1);
+			level.playSound(null, worldPosition, ModSounds.runeAltarStart, SoundSource.BLOCKS, 1F, 1F);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
@@ -253,7 +252,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
 			ItemEntity livingrock = null;
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == ModBlocks.livingrock.asItem()) {
+				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().is(ModBlocks.livingrock.asItem())) {
 					livingrock = item;
 					break;
 				}

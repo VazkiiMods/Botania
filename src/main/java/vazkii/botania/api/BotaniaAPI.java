@@ -8,13 +8,14 @@
  */
 package vazkii.botania.api;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -35,24 +36,22 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.internal.OrechidOutput;
-import vazkii.botania.api.item.IHornHarvestable;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public interface BotaniaAPI {
 	String MODID = "botania";
 	String GOG_MODID = "gardenofglass";
 
-	LazyLoadedValue<BotaniaAPI> INSTANCE = new LazyLoadedValue<>(() -> {
+	Supplier<BotaniaAPI> INSTANCE = Suppliers.memoize(() -> {
 		try {
-			return (BotaniaAPI) Class.forName("vazkii.botania.common.impl.BotaniaAPIImpl").newInstance();
+			return (BotaniaAPI) Class.forName("vazkii.botania.common.impl.BotaniaAPIImpl")
+					.getDeclaredConstructor().newInstance();
 		} catch (ReflectiveOperationException e) {
 			LogManager.getLogger().warn("Unable to find BotaniaAPIImpl, using a dummy");
 			return new BotaniaAPI() {};
@@ -79,20 +78,6 @@ public interface BotaniaAPI {
 		return null;
 	}
 
-	/**
-	 * Get an unmodifiable list of outputs for the orechid.
-	 */
-	default List<OrechidOutput> getOrechidWeights() {
-		return Collections.emptyList();
-	}
-
-	/**
-	 * Get an unmodifiable list of outputs for the orechid ignem.
-	 */
-	default List<OrechidOutput> getNetherOrechidWeights() {
-		return Collections.emptyList();
-	}
-
 	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}
@@ -109,20 +94,6 @@ public interface BotaniaAPI {
 	 * @param transformer Function from color to a new block
 	 */
 	default void registerPaintableBlock(ResourceLocation blockId, Function<DyeColor, Block> transformer) {
-
-	}
-
-	default Optional<IHornHarvestable> getHornHarvestable(Block block) {
-		return Optional.empty();
-	}
-
-	/**
-	 * Make Botania recognize a Block as IHornHarvestable without explicitly implementing the interface
-	 *
-	 * @param blockId     The block ID
-	 * @param harvestable The harvestable
-	 */
-	default void registerHornHarvestableBlock(ResourceLocation blockId, IHornHarvestable harvestable) {
 
 	}
 

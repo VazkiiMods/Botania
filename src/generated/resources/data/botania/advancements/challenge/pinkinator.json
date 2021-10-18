@@ -1,0 +1,35 @@
+{
+  "parent": "botania:challenge/gaia_guardian_hardmode",
+  "display": {
+    "icon": {
+      "item": "botania:pinkinator"
+    },
+    "title": {
+      "translate": "advancement.botania:pinkinator"
+    },
+    "description": {
+      "translate": "advancement.botania:pinkinator.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use_pinkinator": {
+      "trigger": "botania:use_item_success",
+      "conditions": {
+        "item": {
+          "items": [
+            "botania:pinkinator"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "use_pinkinator"
+    ]
+  ]
+}

@@ -44,7 +44,7 @@ public class TerraPickTippingRecipe extends CustomRecipe {
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ItemTerraPick && !ItemTerraPick.isTipped(stack)) {
 					foundTerraPick = true;
-				} else if (stack.getItem() == ModItems.elementiumPick) {
+				} else if (stack.is(ModItems.elementiumPick)) {
 					foundElementiumPick = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

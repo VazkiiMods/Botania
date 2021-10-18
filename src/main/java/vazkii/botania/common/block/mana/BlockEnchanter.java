@@ -33,9 +33,9 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -71,12 +71,12 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
+		if (!stack.isEmpty() && stack.is(ModItems.twigWand)) {
 			return InteractionResult.PASS;
 		}
 
 		boolean stackEnchantable = !stack.isEmpty()
-				&& stack.getItem() != Items.BOOK
+				&& !stack.is(Items.BOOK)
 				&& stack.isEnchantable()
 				&& stack.getCount() == 1;
 
@@ -99,11 +99,10 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 
-			if (tile instanceof TileEnchanter) {
-				TileEnchanter enchanter = (TileEnchanter) tile;
+			if (tile instanceof TileEnchanter enchanter) {
 
 				if (!enchanter.itemToEnchant.isEmpty()) {
 					world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));

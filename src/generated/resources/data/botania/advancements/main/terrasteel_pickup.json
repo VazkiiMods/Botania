@@ -1,0 +1,37 @@
+{
+  "parent": "botania:main/rune_pickup",
+  "display": {
+    "icon": {
+      "item": "botania:terrasteel_ingot"
+    },
+    "title": {
+      "translate": "advancement.botania:terrasteelPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:terrasteelPickup.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "terrasteel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:terrasteel_ingot"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "terrasteel"
+    ]
+  ]
+}

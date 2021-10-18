@@ -36,7 +36,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 import java.util.function.Predicate;
 
@@ -66,16 +66,15 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		var sheeps = getLevel().getEntitiesOfClass(Sheep.class, new AABB(getEffectivePos()), Entity::isAlive);
 
 		AABB itemAABB = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
-		int slowdown = getSlowdownFactor();
-		Predicate<Entity> selector = e -> (e.isAlive() && ((AccessorItemEntity) e).getAge() >= slowdown);
+		Predicate<ItemEntity> selector = e -> DelayHelper.canInteractWithImmediate(this, e);
 		var items = getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector);
 
 		for (Entity target : Iterables.concat(sheeps, items)) {
-			if (target instanceof Sheep) {
-				Sheep sheep = (Sheep) target;
+			if (target instanceof Sheep sheep) {
 				if (!sheep.isSheared() && sheep.getColor() == nextColor) {
 					addManaAndCycle(sheep.isBaby() ? BABY_SHEEP_GEN : SHEEP_GEN);
 					float pitch = sheep.isBaby() ? (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.5F : (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F;
+					//Usage of vanilla sound event: this sheep do be dying though. And generic sounds are meant to be reused.
 					sheep.playSound(SoundEvents.SHEEP_DEATH, 0.9F, pitch);
 					sheep.playSound(SoundEvents.GENERIC_EAT, 1, 1);
 

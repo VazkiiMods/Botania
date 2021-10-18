@@ -113,7 +113,7 @@ public class FXSparkle extends TextureSheetParticle {
 		gravity = value;
 	}
 
-	// [VanillaCopy] Entity.pushOutOfBlocks with tweaks
+	// [VanillaCopy] Entity.moveTowardClosestSpace with tweaks
 	private void wiggleAround(double x, double y, double z) {
 		BlockPos blockpos = new BlockPos(x, y, z);
 		Vec3 Vector3d = new Vec3(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
@@ -155,6 +155,8 @@ public class FXSparkle extends TextureSheetParticle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder buffer, TextureManager textureManager) {
+		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
+		RenderSystem.enableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);

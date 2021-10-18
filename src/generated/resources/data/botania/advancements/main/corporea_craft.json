@@ -1,0 +1,41 @@
+{
+  "parent": "botania:main/ender_air_make",
+  "display": {
+    "icon": {
+      "item": "botania:corporea_crystal_cube"
+    },
+    "title": {
+      "translate": "advancement.botania:corporeaCraft"
+    },
+    "description": {
+      "translate": "advancement.botania:corporeaCraft.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pickup": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:corporea_crystal_cube",
+              "botania:corporea_funnel",
+              "botania:corporea_index",
+              "botania:corporea_interceptor",
+              "botania:corporea_retainer"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickup"
+    ]
+  ]
+}

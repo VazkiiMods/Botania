@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
-import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 
@@ -39,9 +39,8 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 		List<ISparkAttachable> attachables = new ArrayList<>();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-			if (tile instanceof ISparkAttachable) {
-				ISparkAttachable attach = (ISparkAttachable) tile;
-				ISparkEntity spark = attach.getAttachedSpark();
+			if (tile instanceof ISparkAttachable attach) {
+				IManaSpark spark = attach.getAttachedSpark();
 				if (spark != null) {
 					SparkUpgradeType upg = spark.getUpgrade();
 					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((ItemSparkUpgrade) changeStack.getItem()).type;
@@ -54,12 +53,12 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 
 		if (attachables.size() > 0) {
 			ISparkAttachable attach = attachables.get(level.random.nextInt(attachables.size()));
-			ISparkEntity spark = attach.getAttachedSpark();
+			IManaSpark spark = attach.getAttachedSpark();
 			SparkUpgradeType upg = spark.getUpgrade();
 			ItemStack sparkStack = ItemSparkUpgrade.getByType(upg);
 			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((ItemSparkUpgrade) changeStack.getItem()).type;
 			spark.setUpgrade(newUpg);
-			Collection<ISparkEntity> transfers = spark.getTransfers();
+			Collection<IManaSpark> transfers = spark.getTransfers();
 			if (transfers != null) {
 				transfers.clear();
 			}

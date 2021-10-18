@@ -18,7 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.common.components.EntityComponents;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -27,21 +27,21 @@ import io.netty.buffer.Unpooled;
 public class PacketItemAge {
 	public static final ResourceLocation ID = prefix("ia");
 
-	public static void send(ServerPlayer player, int entityId, int age) {
+	public static void send(ServerPlayer player, int entityId, int counter) {
 		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
 		buf.writeVarInt(entityId);
-		buf.writeVarInt(age);
+		buf.writeVarInt(counter);
 		ServerPlayNetworking.send(player, ID, buf);
 	}
 
 	public static class Handler {
 		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 			int entityId = buf.readVarInt();
-			int age = buf.readVarInt();
+			int counter = buf.readVarInt();
 			client.execute(() -> {
 				Entity e = Minecraft.getInstance().level.getEntity(entityId);
 				if (e instanceof ItemEntity) {
-					((AccessorItemEntity) e).setAge(age);
+					EntityComponents.INTERNAL_ITEM.get(e).timeCounter = counter;
 				}
 			});
 		}

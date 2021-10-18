@@ -14,7 +14,7 @@
       "tag": "botania:petals/green"
     },
     {
-      "tag": "botania:runes/spring"
+      "item": "botania:rune_spring"
     },
     {
       "item": "botania:redstone_root"

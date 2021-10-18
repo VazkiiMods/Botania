@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay, IDurabilityExtension {
+public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
 
 	public static final int MAX_MANA = 500000;
 
@@ -139,17 +139,17 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return !isStackCreative(stack);
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - getManaFractionForDisplay(stack);
+	public int getBarWidth(ItemStack stack) {
+		return Math.round(13 * getManaFractionForDisplay(stack));
 	}
 
 	@Override
-	public int getDurabilityColor(ItemStack stack) {
+	public int getBarColor(ItemStack stack) {
 		return Mth.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 }

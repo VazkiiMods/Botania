@@ -70,7 +70,7 @@ public class BrewProvider extends BotaniaRecipeProvider {
 		return prefix("brew/" + s);
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final Brew brew;
 		private final Ingredient[] inputs;

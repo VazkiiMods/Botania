@@ -53,31 +53,27 @@ public class ItemBottledMana extends Item {
 
 	public void effect(ItemStack stack, LivingEntity living, int id) {
 		switch (id) {
-		case 0: { // Random motion
+		case 0 -> { // Random motion
 			living.setDeltaMovement((Math.random() - 0.5) * 3, living.getDeltaMovement().y(),
 					(Math.random() - 0.5) * 3);
-			break;
 		}
-		case 1: { // Water
+		case 1 -> { // Water
 			if (!living.level.isClientSide && !living.level.dimensionType().ultraWarm()) {
 				living.level.setBlockAndUpdate(living.blockPosition(), Blocks.WATER.defaultBlockState());
 			}
-			break;
 		}
-		case 2: { // Set on Fire
+		case 2 -> { // Set on Fire
 			if (!living.level.isClientSide) {
 				living.setSecondsOnFire(4);
 			}
-			break;
 		}
-		case 3: { // Mini Explosion
+		case 3 -> { // Mini Explosion
 			if (!living.level.isClientSide) {
 				living.level.explode(null, living.getX(), living.getY(),
 						living.getZ(), 0.25F, Explosion.BlockInteraction.NONE);
 			}
-			break;
 		}
-		case 4: { // Mega Jump
+		case 4 -> { // Mega Jump
 			if (!living.level.dimensionType().ultraWarm()) {
 				if (!living.level.isClientSide) {
 					living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 5));
@@ -85,23 +81,19 @@ public class ItemBottledMana extends Item {
 				living.setDeltaMovement(living.getDeltaMovement().x(), 6, living.getDeltaMovement().z());
 			}
 
-			break;
 		}
-		case 5: { // Randomly set HP
+		case 5 -> { // Randomly set HP
 			if (!living.level.isClientSide) {
 				living.setHealth(living.level.random.nextInt(19) + 1);
 			}
-			break;
 		}
-		case 6: { // Lots O' Hearts
+		case 6 -> { // Lots O' Hearts
 			if (!living.level.isClientSide) {
 				living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
 			}
-			break;
 		}
-		case 7: { // All your inventory is belong to us
-			if (!living.level.isClientSide && living instanceof Player) {
-				Player player = (Player) living;
+		case 7 -> { // All your inventory is belong to us
+			if (!living.level.isClientSide && living instanceof Player player) {
 				for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 					ItemStack stackAt = player.getInventory().getItem(i);
 					if (stackAt != stack) {
@@ -113,73 +105,62 @@ public class ItemBottledMana extends Item {
 				}
 			}
 
-			break;
 		}
-		case 8: { // Break your neck
+		case 8 -> { // Break your neck
 			living.setXRot((float) Math.random() * 360F);
 			living.setYRot((float) Math.random() * 180F);
 
-			break;
 		}
-		case 9: { // Highest Possible
+		case 9 -> { // Highest Possible
 			int x = Mth.floor(living.getX());
 			int z = Mth.floor(living.getZ());
 			for (int i = 256; i > 0; i--) {
 				BlockState state = living.level.getBlockState(new BlockPos(x, i, z));
 				if (!state.isAir()) {
-					if (living instanceof ServerPlayer) {
-						ServerPlayer mp = (ServerPlayer) living;
+					if (living instanceof ServerPlayer mp) {
 						mp.connection.teleport(living.getX(), i, living.getZ(), living.getYRot(), living.getXRot());
 					}
 					break;
 				}
 			}
 
-			break;
 		}
-		case 10: { // HYPERSPEEEEEED
+		case 10 -> { // HYPERSPEEEEEED
 			if (!living.level.isClientSide) {
 				living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 200));
 			}
-			break;
 		}
-		case 11: { // Night Vision
+		case 11 -> { // Night Vision
 			if (!living.level.isClientSide) {
 				living.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0));
 			}
-			break;
 		}
-		case 12: { // ???
+		case 12 -> { // ???
 			if (!living.level.isClientSide) {
 				// todo 1.16 pick something new
 			}
-
-			break;
 		}
-		case 13: { // Pixie Friend
+		case 13 -> { // Pixie Friend
 			if (!living.level.isClientSide) {
 				EntityPixie pixie = new EntityPixie(living.level);
 				pixie.setPos(living.getX(), living.getY() + 1.5, living.getZ());
 				living.level.addFreshEntity(pixie);
 			}
-			break;
 		}
-		case 14: { // Nausea + Blindness :3
+		case 14 -> { // Nausea + Blindness :3
 			if (!living.level.isClientSide) {
 				living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160, 3));
 				living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 160, 0));
 			}
 
-			break;
 		}
-		case 15: { // Drop own Head
+		case 15 -> { // Drop own Head
 			if (!living.level.isClientSide && living instanceof Player) {
 				living.hurt(DamageSource.MAGIC, living.getHealth() - 1);
 				ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
 				ItemNBTHelper.setString(skull, "SkullOwner", ((Player) living).getGameProfile().getName());
 				living.spawnAtLocation(skull, 0);
 			}
-			break;
 		}
 		}
 	}

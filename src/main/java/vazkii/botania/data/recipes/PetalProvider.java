@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import static vazkii.botania.common.lib.ModTags.Items.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalProvider extends BotaniaRecipeProvider {
@@ -63,22 +64,22 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		Ingredient green = tagIngr("petals/green");
 		Ingredient red = tagIngr("petals/red");
 		Ingredient black = tagIngr("petals/black");
-		Ingredient runeWater = tagIngr("runes/water");
-		Ingredient runeFire = tagIngr("runes/fire");
-		Ingredient runeEarth = tagIngr("runes/earth");
-		Ingredient runeAir = tagIngr("runes/air");
-		Ingredient runeSpring = tagIngr("runes/spring");
-		Ingredient runeSummer = tagIngr("runes/summer");
-		Ingredient runeAutumn = tagIngr("runes/autumn");
-		Ingredient runeWinter = tagIngr("runes/winter");
-		Ingredient runeMana = tagIngr("runes/mana");
-		Ingredient runeLust = tagIngr("runes/lust");
-		Ingredient runeGluttony = tagIngr("runes/gluttony");
-		Ingredient runeGreed = tagIngr("runes/greed");
-		Ingredient runeSloth = tagIngr("runes/sloth");
-		Ingredient runeWrath = tagIngr("runes/wrath");
-		Ingredient runeEnvy = tagIngr("runes/envy");
-		Ingredient runePride = tagIngr("runes/pride");
+		Ingredient runeWater = Ingredient.of(ModItems.runeWater);
+		Ingredient runeFire = Ingredient.of(ModItems.runeFire);
+		Ingredient runeEarth = Ingredient.of(ModItems.runeEarth);
+		Ingredient runeAir = Ingredient.of(ModItems.runeAir);
+		Ingredient runeSpring = Ingredient.of(ModItems.runeSpring);
+		Ingredient runeSummer = Ingredient.of(ModItems.runeSummer);
+		Ingredient runeAutumn = Ingredient.of(ModItems.runeAutumn);
+		Ingredient runeWinter = Ingredient.of(ModItems.runeWinter);
+		Ingredient runeMana = Ingredient.of(ModItems.runeMana);
+		Ingredient runeLust = Ingredient.of(ModItems.runeLust);
+		Ingredient runeGluttony = Ingredient.of(ModItems.runeGluttony);
+		Ingredient runeGreed = Ingredient.of(ModItems.runeGreed);
+		Ingredient runeSloth = Ingredient.of(ModItems.runeSloth);
+		Ingredient runeWrath = Ingredient.of(ModItems.runeWrath);
+		Ingredient runeEnvy = Ingredient.of(ModItems.runeEnvy);
+		Ingredient runePride = Ingredient.of(ModItems.runePride);
 
 		Ingredient redstoneRoot = Ingredient.of(ModItems.redstoneRoot);
 		Ingredient pixieDust = Ingredient.of(ModItems.pixieDust);
@@ -140,22 +141,22 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		consumer.accept(new FinishedRecipe(idFor(prefix("vazkii_head")), stack, inputs));
+		consumer.accept(new NbtOutputResult(new FinishedRecipe(idFor(prefix("vazkii_head")), stack, inputs), stack.getTag()));
 	}
 
-	private static Ingredient tagIngr(String tag) {
+	protected static Ingredient tagIngr(String tag) {
 		return Ingredient.of(new TagDelegate<>(prefix(tag), ItemTags::getAllTags));
 	}
 
-	private static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {
+	protected static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {
 		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())), new ItemStack(item), ingredients);
 	}
 
-	private static ResourceLocation idFor(ResourceLocation name) {
+	protected static ResourceLocation idFor(ResourceLocation name) {
 		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final ItemStack output;
 		private final Ingredient[] inputs;

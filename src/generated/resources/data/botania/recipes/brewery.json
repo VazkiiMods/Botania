@@ -7,10 +7,10 @@
   ],
   "key": {
     "A": {
-      "tag": "botania:runes/mana"
+      "item": "botania:rune_mana"
     },
     "R": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     "S": {
       "item": "minecraft:brewing_stand"

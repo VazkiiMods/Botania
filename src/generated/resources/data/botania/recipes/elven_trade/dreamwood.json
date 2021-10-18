@@ -2,7 +2,7 @@
   "type": "botania:elven_trade",
   "ingredients": [
     {
-      "tag": "botania:livingwood"
+      "item": "botania:livingwood"
     }
   ],
   "output": [

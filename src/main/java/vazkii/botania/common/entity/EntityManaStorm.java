@@ -10,15 +10,15 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -79,8 +79,8 @@ public class EntityManaStorm extends Entity {
 
 		burst.setSourceLens(new ItemStack(ModItems.lensStorm));
 
-		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
-		burst.setBurstMotion(motion.x, motion.y, motion.z);
+		Vec3 motion = new Vec3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().scale(motionModifier);
+		burst.setDeltaMovement(motion);
 		level.addFreshEntity(burst);
 	}
 
@@ -103,7 +103,7 @@ public class EntityManaStorm extends Entity {
 	@Nonnull
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
+		return new ClientboundAddEntityPacket(this);
 	}
 
 }

@@ -28,6 +28,6 @@ public interface ILensControl extends ILens {
 	/**
 	 * Used for when a redstone spreader gets a pulse.
 	 */
-	void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone);
+	void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader);
 
 }

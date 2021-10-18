@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.item.IExoflameHeatable;
+import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 
@@ -82,7 +82,8 @@ public class ExoflameFurnaceHandler {
 		@Override
 		public void boostCookTime() {
 			int cookTime = ((AccessorAbstractFurnaceBlockEntity) furnace).getCookingProgress();
-			((AccessorAbstractFurnaceBlockEntity) furnace).setCookingProgress(Math.min(currentRecipe.getCookingTime() - 1, cookTime + 1));
+			int cookTimeTotal = ((AccessorAbstractFurnaceBlockEntity) furnace).getCookingTotalTime();
+			((AccessorAbstractFurnaceBlockEntity) furnace).setCookingProgress(Math.min(cookTimeTotal - 1, cookTime + 1));
 		}
 	}
 }

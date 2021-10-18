@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.api.block.IWandable;
 
 import javax.annotation.Nonnull;
 

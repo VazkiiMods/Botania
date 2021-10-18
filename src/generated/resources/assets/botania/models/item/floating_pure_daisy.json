@@ -1,3 +1,7 @@
 {
-  "parent": "botania:block/floating_pure_daisy"
+  "parent": "minecraft:block/block",
+  "loader": "botania:floating_flower",
+  "flower": {
+    "parent": "botania:block/pure_daisy"
+  }
 }

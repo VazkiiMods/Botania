@@ -39,10 +39,10 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 			if (stack.isEmpty()) {
 				continue;
 			}
-			if (stack.getItem() == ModItems.laputaShard && !foundShard
+			if (stack.is(ModItems.laputaShard) && !foundShard
 					&& ItemLaputaShard.getShardLevel(stack) < 19) {
 				foundShard = true;
-			} else if (stack.getItem() == ModItems.lifeEssence && !foundSpirit) {
+			} else if (stack.is(ModItems.lifeEssence) && !foundSpirit) {
 				foundSpirit = true;
 			} else {
 				return false;
@@ -70,7 +70,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	public ItemStack assemble(@Nonnull CraftingContainer inv) {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (stack.getItem() == ModItems.laputaShard) {
+			if (stack.is(ModItems.laputaShard)) {
 				ItemStack result = stack.copy();
 				result.getOrCreateTag().putInt(ItemLaputaShard.TAG_LEVEL, ItemLaputaShard.getShardLevel(stack) + 1);
 				return result;

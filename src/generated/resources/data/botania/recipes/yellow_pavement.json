@@ -3,7 +3,7 @@
   "group": "botania:pavement",
   "ingredients": [
     {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     {
       "item": "minecraft:cobblestone"

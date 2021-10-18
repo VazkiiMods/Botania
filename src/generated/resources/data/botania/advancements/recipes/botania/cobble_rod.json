@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "botania:runes/fire"
+            "items": [
+              "botania:rune_fire"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "botania:runes/water"
+            "items": [
+              "botania:rune_water"
+            ]
           }
         ]
       }

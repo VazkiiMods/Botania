@@ -10,11 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DamageSourcePredicate;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -40,7 +36,10 @@ public class DopplegangerNoArmorTrigger extends SimpleCriterionTrigger<Dopplegan
 	@Nonnull
 	@Override
 	public DopplegangerNoArmorTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
-		return new DopplegangerNoArmorTrigger.Instance(playerPred, EntityPredicate.fromJson(json.get("guardian")), DamageSourcePredicate.fromJson(json.get("killing_blow")));
+		return new DopplegangerNoArmorTrigger.Instance(playerPred,
+				EntityPredicate.fromJson(json.get("guardian")),
+				DamageSourcePredicate.fromJson(json.get("killing_blow"))
+		);
 	}
 
 	public void trigger(ServerPlayer player, EntityDoppleganger guardian, DamageSource src) {
@@ -65,6 +64,18 @@ public class DopplegangerNoArmorTrigger extends SimpleCriterionTrigger<Dopplegan
 
 		boolean test(ServerPlayer player, EntityDoppleganger guardian, DamageSource src) {
 			return this.guardian.matches(player, guardian) && this.killingBlow.matches(player, src);
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject json = super.serializeToJson(context);
+			if (guardian != EntityPredicate.ANY) {
+				json.add("guardian", guardian.serializeToJson());
+			}
+			if (killingBlow != DamageSourcePredicate.ANY) {
+				json.add("killing_blow", killingBlow.serializeToJson());
+			}
+			return json;
 		}
 
 		public EntityPredicate getGuardian() {

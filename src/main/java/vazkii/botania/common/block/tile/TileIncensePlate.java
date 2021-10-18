@@ -160,7 +160,7 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements Worl
 	}
 
 	public boolean acceptsItem(ItemStack stack) {
-		return !stack.isEmpty() && stack.getItem() == ModItems.incenseStick && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != ModBrews.fallbackBrew;
+		return !stack.isEmpty() && stack.is(ModItems.incenseStick) && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != ModBrews.fallbackBrew;
 	}
 
 	@Override

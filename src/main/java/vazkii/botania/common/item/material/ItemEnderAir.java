@@ -22,6 +22,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ModItems;
 
@@ -37,7 +38,7 @@ public class ItemEnderAir extends Item {
 	public static InteractionResultHolder<ItemStack> onPlayerInteract(Player player, Level world, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.dimension() == Level.END) {
+		if (!stack.isEmpty() && stack.is(Items.GLASS_BOTTLE) && world.dimension() == Level.END) {
 			if (!isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5D))) {
 				return InteractionResultHolder.pass(stack);
 			}
@@ -70,7 +71,7 @@ public class ItemEnderAir extends Item {
 			stack.shrink(1);
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.enderAirThrow, SoundSource.PLAYERS, 1F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isClientSide) {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);

@@ -11,10 +11,12 @@ package vazkii.botania.common.item.block;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.Tag;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +24,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.ModTags;
@@ -64,20 +68,29 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		}
 	}
 
-	/* todo 1.16-fabric
 	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		CompoundTag tag = stack.getSubTag("BlockEntityTag");
+	public boolean isBarVisible(ItemStack stack) {
+		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		return tag != null && tag.contains(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS);
 	}
-	
+
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		CompoundTag tag = stack.getSubTag("BlockEntityTag");
+	public int getBarWidth(ItemStack stack) {
+		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		if (tag != null) {
-			return tag.getInt(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS) / (double) BotaniaAPI.instance().getPassiveFlowerDecay();
+			float frac = 1 - tag.getInt(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS) / (float) BotaniaAPI.instance().getPassiveFlowerDecay();
+			return Math.round(13F * frac);
 		}
 		return 0;
 	}
-	*/
+
+	@Override
+	public int getBarColor(ItemStack stack) {
+		CompoundTag tag = stack.getTagElement("BlockEntityTag");
+		if (tag != null) {
+			float frac = 1 - tag.getInt(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS) / (float) BotaniaAPI.instance().getPassiveFlowerDecay();
+			return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
+		}
+		return 0;
+	}
 }

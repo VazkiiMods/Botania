@@ -42,7 +42,7 @@ public class ItemCorporeaSpark extends Item {
 
 	public static boolean attachSpark(Level world, BlockPos pos, ItemStack stack) {
 		EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);
-		if (stack.getItem() == ModItems.corporeaSparkMaster) {
+		if (stack.is(ModItems.corporeaSparkMaster)) {
 			spark.setMaster(true);
 		}
 		spark.setPos(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);

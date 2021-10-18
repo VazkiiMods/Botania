@@ -9,6 +9,7 @@
 package vazkii.botania.data;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -21,6 +22,7 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -53,15 +55,21 @@ public class FloatingFlowerModelProvider implements DataProvider {
 				}
 
 				JsonObject obj = new JsonObject();
-				obj.addProperty("flower", LibResources.PREFIX_MOD + "block/" + nonFloat);
-				jsons.add(new Tuple<>("block/" + name, obj));
+				obj.addProperty("parent", "minecraft:block/block");
+				obj.addProperty("loader", FloatingFlowerModel.MAGIC_STRING);
+				JsonObject flower = new JsonObject();
+				flower.addProperty("parent", LibResources.PREFIX_MOD + "block/" + nonFloat);
+				obj.add("flower", flower);
+				jsons.add(new Tuple<>(name, obj));
 			}
 		}
 
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		for (Tuple<String, JsonElement> pair : jsons) {
-			Path p = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/" + pair.getA() + ".json");
-			DataProvider.save(gson, cache, pair.getB(), p);
+			Path blockPath = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/block/" + pair.getA() + ".json");
+			Path itemPath = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/item/" + pair.getA() + ".json");
+			DataProvider.save(gson, cache, pair.getB(), blockPath);
+			DataProvider.save(gson, cache, pair.getB(), itemPath);
 		}
 	}
 

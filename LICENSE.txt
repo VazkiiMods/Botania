@@ -28,6 +28,8 @@ If you want to Feature Botania
 
 If you want to Use Botania Code or Assets
 Usage of code or assets falls under the Extensive Clause.
+- External Clause
+  Certain parts of the codebase are indicated to be licensed under alternative licenses. You must obey those licenses.
 - Attribution Clause
   You must give appropriate credit to Vazkii as the creator of Botania or the parts of it you're using. If you do any alterations the fact that you do so should also be indicated. A link back is optional but it would be cool if you would do so.
 - Copyleft Clause

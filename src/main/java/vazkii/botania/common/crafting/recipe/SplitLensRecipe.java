@@ -40,7 +40,7 @@ public class SplitLensRecipe extends CustomRecipe {
 		ItemStack found = ItemStack.EMPTY;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack candidate = inv.getItem(i);
-			if (candidate.isEmpty()) {
+			if (candidate.isEmpty() || candidate.getCount() > 1) {
 				continue;
 			}
 			if (!found.isEmpty() || (found = getComposite(candidate)).isEmpty()) {
@@ -64,9 +64,8 @@ public class SplitLensRecipe extends CustomRecipe {
 		NonNullList<ItemStack> remaining = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack candidate = inv.getItem(i);
-			if (candidate.getItem() instanceof ILens) {
+			if (candidate.getItem() instanceof ILens lens) {
 				ItemStack newLens = candidate.copy();
-				ILens lens = (ILens) candidate.getItem();
 				lens.setCompositeLens(newLens, ItemStack.EMPTY);
 				remaining.set(i, newLens);
 			}

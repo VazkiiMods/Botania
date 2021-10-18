@@ -35,8 +35,10 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.components.ItemFlagsComponent;
+import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,11 +75,16 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		BlockPos pos = getEffectivePos();
 
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)));
-		int slowdown = getSlowdownFactor();
 
 		for (ItemEntity item : items) {
-			int age = ((AccessorItemEntity) item).getAge();
-			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getItem().isEmpty()) {
+			if (!DelayHelper.canInteractWith(this, item)) {
+				continue;
+			}
+
+			// Hopperhocks additionally don't pick up items that have been newly infused (5 ticks),
+			// to facilitate multiple infusions
+			if (EntityComponents.INTERNAL_ITEM.get(item).getManaInfusionCooldown()
+					> ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5) {
 				continue;
 			}
 
@@ -120,7 +127,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				HopperBlockEntity.addItem(null, invToPutItemIn, stack.split(amountToPutIn), direction);
-				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
+				item.setItem(stack); // Just in case someone subclasses ItemEntity and changes something important.
 				pulledAny = true;
 			}
 		}
@@ -168,8 +175,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			return false;
 		}
 
-		if (item instanceof IManaItem) {
-			IManaItem manaItem = (IManaItem) item;
+		if (item instanceof IManaItem manaItem) {
 			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
 		} else {
 			return ItemStack.tagMatches(filter, stack);
@@ -196,7 +202,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 				ChestType type = chest.getValue(ChestBlock.TYPE);
 				if (type != ChestType.SINGLE) {
 					BlockPos other = pos.relative(ChestBlock.getConnectedDirection(chest));
-					if (getLevel().getBlockState(other).getBlock() == chest.getBlock()) {
+					if (getLevel().getBlockState(other).is(chest.getBlock())) {
 						filter.addAll(getFilterForInventory(other, false));
 					}
 				}

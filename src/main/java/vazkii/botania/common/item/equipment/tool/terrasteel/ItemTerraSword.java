@@ -60,12 +60,12 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	public void trySpawnBurst(Player player) {
 		if (!player.getMainHandItem().isEmpty()
-				&& player.getMainHandItem().getItem() == this
+				&& player.getMainHandItem().is(this)
 				&& player.getAttackStrengthScale(0) == 1) {
 			EntityManaBurst burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);
 			player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 0.4F, 1.4F);
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 
@@ -85,8 +85,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		burst.setMinManaLoss(40);
 		burst.setManaLossPerTick(4F);
 		burst.setGravity(0F);
-		burst.setBurstMotion(burst.getDeltaMovement().x() * motionModifier,
-				burst.getDeltaMovement().y() * motionModifier, burst.getDeltaMovement().z() * motionModifier);
+		burst.setDeltaMovement(burst.getDeltaMovement().scale(motionModifier));
 
 		burst.setSourceLens(stack.copy());
 		return burst;

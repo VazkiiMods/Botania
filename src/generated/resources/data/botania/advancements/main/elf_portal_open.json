@@ -1,0 +1,29 @@
+{
+  "parent": "botania:main/terrasteel_pickup",
+  "display": {
+    "icon": {
+      "item": "botania:alfheim_portal"
+    },
+    "title": {
+      "translate": "advancement.botania:elfPortalOpen"
+    },
+    "description": {
+      "translate": "advancement.botania:elfPortalOpen.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "portal": {
+      "trigger": "botania:open_elf_portal",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "portal"
+    ]
+  ]
+}

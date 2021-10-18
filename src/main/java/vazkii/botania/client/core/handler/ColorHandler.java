@@ -61,8 +61,8 @@ public final class ColorHandler {
 					int color = ColorHelper.getColorValue(DyeColor.WHITE);
 					if (world != null && pos != null) {
 						BlockEntity te = world.getBlockEntity(pos);
-						if (te instanceof TilePool) {
-							color = ColorHelper.getColorValue(((TilePool) te).color);
+						if (te instanceof TilePool pool) {
+							color = ColorHelper.getColorValue(pool.getColor());
 						}
 					}
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
@@ -97,8 +97,7 @@ public final class ColorHandler {
 				(state, world, pos, tintIndex) -> {
 					if (world != null && pos != null) {
 						BlockEntity tile = world.getBlockEntity(pos);
-						if (tile instanceof TilePlatform) {
-							TilePlatform camo = (TilePlatform) tile;
+						if (tile instanceof TilePlatform camo) {
 							BlockState camoState = camo.getCamoState();
 							if (camoState != null) {
 								return camoState.getBlock() instanceof BlockPlatform
@@ -149,7 +148,7 @@ public final class ColorHandler {
 			}
 
 			int color = brew.getColor(s);
-			double speed = s.getItem() == ModItems.brewFlask || s.getItem() == ModItems.brewVial ? 0.1 : 0.2;
+			double speed = s.is(ModItems.brewFlask) || s.is(ModItems.brewVial) ? 0.1 : 0.2;
 			int add = (int) (Math.sin(ClientTickHandler.ticksInGame * speed) * 24);
 
 			int r = Math.max(0, Math.min(255, (color >> 16 & 0xFF) + add));
@@ -190,11 +189,13 @@ public final class ColorHandler {
 		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
 		ItemColor lensHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
-		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime, ModItems.lensEfficiency, ModItems.lensBounce,
-				ModItems.lensGravity, ModItems.lensMine, ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet,
-				ModItems.lensExplosive, ModItems.lensWeight, ModItems.lensPaint, ModItems.lensFire, ModItems.lensPiston,
-				ModItems.lensLight, ModItems.lensWarp, ModItems.lensRedirect, ModItems.lensFirework, ModItems.lensFlare,
-				ModItems.lensMessenger, ModItems.lensTripwire, ModItems.lensStorm);
+		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime,
+				ModItems.lensEfficiency, ModItems.lensBounce, ModItems.lensGravity, ModItems.lensMine,
+				ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet, ModItems.lensExplosive,
+				ModItems.lensInfluence, ModItems.lensWeight, ModItems.lensPaint, ModItems.lensFire,
+				ModItems.lensPiston, ModItems.lensLight, ModItems.lensWarp, ModItems.lensRedirect,
+				ModItems.lensFirework, ModItems.lensFlare, ModItems.lensMessenger, ModItems.lensTripwire,
+				ModItems.lensStorm);
 	}
 
 	private ColorHandler() {}

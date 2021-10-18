@@ -8,29 +8,15 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.common.crafting.RecipeOrechidIgnem;
 
-import java.util.Collections;
-import java.util.List;
-
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
-
-public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
-	public OrechidIgnemREIDisplay(OrechidRecipeWrapper recipe) {
+public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay<RecipeOrechidIgnem> {
+	public OrechidIgnemREIDisplay(RecipeOrechidIgnem recipe) {
 		super(recipe);
-		this.stone = Collections.singletonList(EntryIngredients.of(new ItemStack(Blocks.NETHERRACK, 64)));
-	}
-
-	@Override
-	protected List<OrechidOutput> getOreWeights() {
-		return BotaniaAPI.instance().getNetherOrechidWeights();
 	}
 
 	@Override
