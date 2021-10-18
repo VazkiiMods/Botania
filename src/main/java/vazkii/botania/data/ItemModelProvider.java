@@ -60,6 +60,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static vazkii.botania.common.item.ModItems.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -421,6 +422,18 @@ public class ItemModelProvider implements DataProvider {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(prefix("item/petal")), consumer);
 		});
 
+		takeAll(itemBlocks, Stream.of(ModBlocks.dreamwoodLog, ModBlocks.dreamwood, ModBlocks.dreamwoodLogStripped,
+				ModBlocks.dreamwoodStripped, ModBlocks.dreamwoodLogGlimmering, ModBlocks.dreamwoodGlimmering,
+				ModBlocks.dreamwoodLogStrippedGlimmering, ModBlocks.dreamwoodStrippedGlimmering)
+				.map(Block::asItem)
+				.map(i -> (BlockItem) i)
+				.toArray(BlockItem[]::new))
+						.forEach(i -> {
+							var defaultId = ModelLocationUtils.getModelLocation(i.getBlock());
+							var variantId = new ResourceLocation(defaultId.getNamespace(), defaultId.getPath() + "_1");
+							consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(variantId));
+						});
+
 		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(ModFluffBlocks.dreamwoodFence.asItem()),
 				TextureMapping.defaultTexture(ModBlocks.dreamwoodPlanks), consumer);
 		itemBlocks.remove(ModFluffBlocks.dreamwoodFence.asItem());
@@ -440,38 +453,39 @@ public class ItemModelProvider implements DataProvider {
 	// [VanillaCopy] item/chest.json
 	// Scuffed af.....but it works :wacko:
 	private static final String BUILTIN_ENTITY_DISPLAY_STR =
-			"{\n" +
-					"        \"gui\": {\n" +
-					"            \"rotation\": [ 30, 45, 0 ],\n" +
-					"            \"translation\": [ 0, 0, 0],\n" +
-					"            \"scale\":[ 0.625, 0.625, 0.625 ]\n" +
-					"        },\n" +
-					"        \"ground\": {\n" +
-					"            \"rotation\": [ 0, 0, 0 ],\n" +
-					"            \"translation\": [ 0, 3, 0],\n" +
-					"            \"scale\":[ 0.25, 0.25, 0.25 ]\n" +
-					"        },\n" +
-					"        \"head\": {\n" +
-					"            \"rotation\": [ 0, 180, 0 ],\n" +
-					"            \"translation\": [ 0, 0, 0],\n" +
-					"            \"scale\":[ 1, 1, 1]\n" +
-					"        },\n" +
-					"        \"fixed\": {\n" +
-					"            \"rotation\": [ 0, 180, 0 ],\n" +
-					"            \"translation\": [ 0, 0, 0],\n" +
-					"            \"scale\":[ 0.5, 0.5, 0.5 ]\n" +
-					"        },\n" +
-					"        \"thirdperson_righthand\": {\n" +
-					"            \"rotation\": [ 75, 315, 0 ],\n" +
-					"            \"translation\": [ 0, 2.5, 0],\n" +
-					"            \"scale\": [ 0.375, 0.375, 0.375 ]\n" +
-					"        },\n" +
-					"        \"firstperson_righthand\": {\n" +
-					"            \"rotation\": [ 0, 315, 0 ],\n" +
-					"            \"translation\": [ 0, 0, 0],\n" +
-					"            \"scale\": [ 0.4, 0.4, 0.4 ]\n" +
-					"        }\n" +
-					"    }";
+			"""
+					{
+						"gui": {
+							"rotation": [30, 45, 0],
+							"translation": [0, 0, 0],
+							"scale": [0.625, 0.625, 0.625]
+						},
+						"ground": {
+							"rotation": [0, 0, 0],
+							"translation": [0, 3, 0],
+							"scale": [0.25, 0.25, 0.25]
+						},
+						"head": {
+							"rotation": [0, 180, 0],
+							"translation": [0, 0, 0],
+							"scale": [1, 1, 1]
+						},
+						"fixed": {
+							"rotation": [0, 180, 0],
+							"translation": [0, 0, 0],
+							"scale": [0.5, 0.5, 0.5]
+						},
+						"thirdperson_righthand": {
+							"rotation": [75, 315, 0],
+							"translation": [0, 2.5, 0],
+							"scale": [0.375, 0.375, 0.375]
+						},
+						"firstperson_righthand": {
+							"rotation": [0, 315, 0],
+							"translation": [0, 0, 0],
+							"scale": [0.4, 0.4, 0.4]
+						}
+					}""";
 	private static final JsonElement BUILTIN_ENTITY_DISPLAY = GSON.fromJson(BUILTIN_ENTITY_DISPLAY_STR, JsonElement.class);
 
 	protected void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
