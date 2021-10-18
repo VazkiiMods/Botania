@@ -7,10 +7,13 @@
   "description": "Botania is a tech mod themed around natural magic",
   "authors": [
     "Vazkii",
-    "williewillus"
+    "williewillus",
+    "Hubry"
   ],
   "contact": {
-    "sources": "https://github.com/Vazkii/Botania"
+    "homepage": "https://botaniamod.net",
+    "sources": "https://github.com/VazkiiMods/Botania",
+    "issues": "https://github.com/VazkiiMods/Botania/issues"
   },
 
   "license": "Botania license",

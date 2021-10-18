@@ -137,6 +137,10 @@ processResources {
     // Exclude datagenerator .cache directory
     exclude '.cache'
 
+    // Exclude Forge-specific metadata on Fabric only
+    exclude 'META-INF/mods.toml'
+    exclude 'META-INF/accesstransformer.cfg'
+
     filesMatching('data/botania/patchouli_books/lexicon/book.json') {
         filter {
             it.replaceAll("buildNumber", config.build_number)
