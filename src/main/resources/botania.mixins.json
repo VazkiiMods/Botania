@@ -37,6 +37,7 @@
     "MixinBaseSpawner",
     "MixinBee",
     "MixinBushBlock",
+    "MixinCreeper",
     "MixinDetectorRailBlock",
     "MixinEnderMan",
     "MixinEntity",

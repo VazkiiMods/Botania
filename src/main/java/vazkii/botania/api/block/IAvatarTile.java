@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * A TileEntity that implements this is considered an Avatar.
+ * Base interface for the Avatar Block Entity
  */
 public interface IAvatarTile extends IManaReceiver {
 
