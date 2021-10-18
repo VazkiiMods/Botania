@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 
+import dev.architectury.platform.Mod;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -387,6 +388,19 @@ public class ItemModelProvider implements DataProvider {
 			OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(prefix("full"), 1.0));
 			consumer.accept(ModelLocationUtils.getModelLocation(i),
 					new SimpleModelSupplierWithOverrides(ModelLocationUtils.getModelLocation(i.getBlock()), overrides));
+		});
+		takeAll(itemBlocks, Stream.of(ModFluffBlocks.livingwoodWall, ModFluffBlocks.livingwoodStrippedWall,
+				ModFluffBlocks.dreamwoodWall, ModFluffBlocks.dreamwoodStrippedWall)
+				.map(b -> (BlockItem) b.asItem())
+				.toArray(BlockItem[]::new)).forEach(i -> {
+
+			String name = Registry.ITEM.getKey(i).getPath();
+			String baseName = name.substring(0, name.length() - "_wall".length()) + "_log";
+			if (baseName.contains("dreamwood")) {
+				baseName += "/1";
+			}
+			ModelTemplates.WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(i),
+					new TextureMapping().put(TextureSlot.WALL, prefix("block/" + baseName)), consumer);
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof WallBlock).forEach(i -> {

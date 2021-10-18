@@ -4,7 +4,7 @@
       "model": "botania:block/stripped_dreamwood_slab"
     },
     "type=double": {
-      "model": "botania:block/stripped_dreamwood"
+      "model": "botania:block/stripped_dreamwood_1"
     },
     "type=top": {
       "model": "botania:block/stripped_dreamwood_slab_top"

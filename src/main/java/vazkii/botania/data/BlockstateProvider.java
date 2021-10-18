@@ -298,9 +298,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] sideTexs = new ResourceLocation[6];
 		ResourceLocation[] topStrippedTexs = new ResourceLocation[6];
 		ResourceLocation[] sideStrippedTexs = new ResourceLocation[6];
-		ResourceLocation[] topGlimmeringTexs = new ResourceLocation[6];
 		ResourceLocation[] sideGlimmeringTexs = new ResourceLocation[6];
-		ResourceLocation[] topGlimmeringStrippedTexs = new ResourceLocation[6];
 		ResourceLocation[] sideGlimmeringStrippedTexs = new ResourceLocation[6];
 
 		for (int i = 0; i < 6; i++) {
@@ -322,6 +320,15 @@ public class BlockstateProvider implements DataProvider {
 		logWithVariants(remainingBlocks, dreamwoodLogStrippedGlimmering, topStrippedTexs, sideGlimmeringStrippedTexs);
 		logWithVariants(remainingBlocks, dreamwoodStrippedGlimmering, sideGlimmeringStrippedTexs, sideGlimmeringStrippedTexs);
 
+		// TODO: generate full range of variants here. The vanilla method for this is absurdly long
+		stairsBlock(dreamwoodStairs, sideTexs[0], sideTexs[0], sideTexs[0]);
+		stairsBlock(dreamwoodStrippedStairs, sideStrippedTexs[0], sideStrippedTexs[0], sideStrippedTexs[0]);
+		slabBlock(dreamwoodSlab, getModelLocation(dreamwood, "_1"), sideTexs[0], sideTexs[0], sideTexs[0]);
+		slabBlock(dreamwoodStrippedSlab, getModelLocation(dreamwoodStripped, "_1"), sideStrippedTexs[0], sideStrippedTexs[0], sideStrippedTexs[0]);
+		wallBlock(dreamwoodWall, sideTexs[0]);
+		wallBlock(dreamwoodStrippedWall, sideStrippedTexs[0]);
+		remainingBlocks.removeAll(List.of(dreamwoodStairs, dreamwoodStrippedStairs, dreamwoodSlab, dreamwoodStrippedSlab, dreamwoodWall, dreamwoodStrippedWall));
+
 		log(remainingBlocks, livingwoodLog, getBlockTexture(livingwoodLog, "_top"), getBlockTexture(livingwoodLog));
 		log(remainingBlocks, livingwood, getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog));
 		log(remainingBlocks, livingwoodLogStripped, getBlockTexture(livingwoodLogStripped, "_top"), getBlockTexture(livingwoodLogStripped));
@@ -331,16 +338,20 @@ public class BlockstateProvider implements DataProvider {
 		log(remainingBlocks, livingwoodLogStrippedGlimmering, getBlockTexture(livingwoodLogStripped, "_top"), getBlockTexture(livingwoodLogStrippedGlimmering));
 		log(remainingBlocks, livingwoodStrippedGlimmering, getBlockTexture(livingwoodLogStrippedGlimmering), getBlockTexture(livingwoodLogStrippedGlimmering));
 
-		wallBlock(ModFluffBlocks.dreamwoodWall, getBlockTexture(dreamwood));
+		stairsBlock(livingwoodStairs, getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog));
+		stairsBlock(livingwoodStrippedStairs, getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped));
+		slabBlock(livingwoodSlab, getModelLocation(livingwood), getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog));
+		slabBlock(livingwoodStrippedSlab, getModelLocation(livingwoodStripped), getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped));
+		wallBlock(livingwoodWall, getBlockTexture(livingwoodLog));
+		wallBlock(livingwoodStrippedWall, getBlockTexture(livingwoodLogStripped));
+		remainingBlocks.removeAll(List.of(livingwoodStairs, livingwoodStrippedStairs, livingwoodSlab, livingwoodStrippedSlab, livingwoodWall, livingwoodStrippedWall));
+
 		wallBlock(ModFluffBlocks.livingrockWall, getBlockTexture(livingrock));
 		wallBlock(ModFluffBlocks.livingrockBrickWall, getBlockTexture(livingrockBrick));
 		wallBlock(ModFluffBlocks.livingrockBrickMossyWall, getBlockTexture(livingrockBrickMossy));
-		wallBlock(ModFluffBlocks.livingwoodWall, getBlockTexture(livingwood));
-		remainingBlocks.remove(ModFluffBlocks.dreamwoodWall);
 		remainingBlocks.remove(ModFluffBlocks.livingrockWall);
 		remainingBlocks.remove(ModFluffBlocks.livingrockBrickWall);
 		remainingBlocks.remove(ModFluffBlocks.livingrockBrickMossyWall);
-		remainingBlocks.remove(ModFluffBlocks.livingwoodWall);
 
 		fenceBlock(dreamwoodFence, getBlockTexture(dreamwoodPlanks));
 		fenceGateBlock(dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
@@ -596,30 +607,21 @@ public class BlockstateProvider implements DataProvider {
 			}
 		});
 
-		takeAll(remainingBlocks, b -> b instanceof SlabBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+		takeAll(remainingBlocks, b -> b instanceof SlabBlock).forEach(slabBlock -> {
+			String name = Registry.BLOCK.getKey(slabBlock).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
 			Block base = Registry.BLOCK.getOptional(prefix(baseName)).get();
 			boolean quartz = name.contains("quartz");
 			if (quartz) {
-				var mapping = new TextureMapping()
-						.put(TextureSlot.SIDE, getBlockTexture(base, "_side"))
-						.put(TextureSlot.BOTTOM, getBlockTexture(base, "_bottom"))
-						.put(TextureSlot.TOP, getBlockTexture(base, "_top"));
-				var bottomModel = ModelTemplates.SLAB_BOTTOM.create(b, mapping, this.modelOutput);
-				var topModel = ModelTemplates.SLAB_TOP.create(b, mapping, this.modelOutput);
+				var side = getBlockTexture(base, "_side");
+				var bottom = getBlockTexture(base, "_bottom");
+				var top = getBlockTexture(base, "_top");
 				var doubleModel = getModelLocation(base);
-				this.blockstates.add(AccessorBlockModelGenerators.makeSlabState(b, bottomModel, topModel, doubleModel));
+				slabBlock(slabBlock, doubleModel, side, bottom, top);
 			} else {
 				var baseTex = getBlockTexture(base);
-				var mapping = new TextureMapping()
-						.put(TextureSlot.SIDE, baseTex)
-						.put(TextureSlot.BOTTOM, baseTex)
-						.put(TextureSlot.TOP, baseTex);
-				var bottomModel = ModelTemplates.SLAB_BOTTOM.create(b, mapping, this.modelOutput);
-				var topModel = ModelTemplates.SLAB_TOP.create(b, mapping, this.modelOutput);
 				var doubleModel = getModelLocation(base);
-				this.blockstates.add(AccessorBlockModelGenerators.makeSlabState(b, bottomModel, topModel, doubleModel));
+				slabBlock(slabBlock, doubleModel, baseTex, baseTex, baseTex);
 			}
 		});
 
@@ -645,6 +647,16 @@ public class BlockstateProvider implements DataProvider {
 		var straightModel = ModelTemplates.STAIRS_STRAIGHT.create(block, mapping, this.modelOutput);
 		var outsideModel = ModelTemplates.STAIRS_OUTER.create(block, mapping, this.modelOutput);
 		this.blockstates.add(AccessorBlockModelGenerators.makeStairState(block, insideModel, straightModel, outsideModel));
+	}
+
+	private void slabBlock(Block block, ResourceLocation doubleModel, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+		var mapping = new TextureMapping()
+				.put(TextureSlot.SIDE, side)
+				.put(TextureSlot.BOTTOM, bottom)
+				.put(TextureSlot.TOP, top);
+		var bottomModel = ModelTemplates.SLAB_BOTTOM.create(block, mapping, this.modelOutput);
+		var topModel = ModelTemplates.SLAB_TOP.create(block, mapping, this.modelOutput);
+		this.blockstates.add(AccessorBlockModelGenerators.makeSlabState(block, bottomModel, topModel, doubleModel));
 	}
 
 	private void fenceBlock(Block block, ResourceLocation tex) {

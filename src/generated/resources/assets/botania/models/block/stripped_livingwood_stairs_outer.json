@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "botania:block/stripped_livingwood",
-    "top": "botania:block/stripped_livingwood",
-    "side": "botania:block/stripped_livingwood"
+    "bottom": "botania:block/stripped_livingwood_log",
+    "top": "botania:block/stripped_livingwood_log",
+    "side": "botania:block/stripped_livingwood_log"
   }
 }

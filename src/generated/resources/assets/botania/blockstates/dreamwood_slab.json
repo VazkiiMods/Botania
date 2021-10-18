@@ -4,7 +4,7 @@
       "model": "botania:block/dreamwood_slab"
     },
     "type=double": {
-      "model": "botania:block/dreamwood"
+      "model": "botania:block/dreamwood_1"
     },
     "type=top": {
       "model": "botania:block/dreamwood_slab_top"
