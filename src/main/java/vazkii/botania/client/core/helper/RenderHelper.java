@@ -56,7 +56,7 @@ public final class RenderHelper extends RenderType {
 	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
-	public static final RenderType LINE_1;
+	public static final RenderType RED_STRING;
 	public static final RenderType LINE_1_NO_DEPTH;
 	public static final RenderType LINE_4_NO_DEPTH;
 	public static final RenderType LINE_5_NO_DEPTH;
@@ -110,7 +110,7 @@ public final class RenderHelper extends RenderType {
 		RECTANGLE = makeLayer(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
 		CIRCLE = makeLayer(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, 256, false, false, glState);
 
-		LINE_1 = makeLayer(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 128, lineState(1, false, false));
+		RED_STRING = makeLayer(LibResources.PREFIX_MOD + "red_string", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 128, lineState(1, false, false));
 		LINE_1_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 128, lineState(1, true, true));
 		LINE_4_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 128, lineState(4, true, true));
 		LINE_5_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 64, lineState(5, true, true));
