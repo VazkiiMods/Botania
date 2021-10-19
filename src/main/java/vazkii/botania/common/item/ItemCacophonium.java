@@ -125,12 +125,7 @@ public class ItemCacophonium extends Item {
 		}
 		return InteractionResultHolder.pass(stack);
 	}
-
-	@Override
-	public UseAnim getUseAnimation(ItemStack itemStack) {
-		return getSound(itemStack) == null ? UseAnim.NONE : UseAnim.BOW;
-	}
-
+	
 	@Override
 	public void onUseTick(Level world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int count) {
 		if (!world.isClientSide && count % (isDOIT(stack) ? 20 : 6) == 0) {
