@@ -11,6 +11,9 @@ package vazkii.botania.common.compat.rei;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
@@ -26,9 +29,13 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.*;
@@ -113,11 +120,28 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipeElvenTrade.class, pred, ElvenTradeREIDisplay::new);
 		helper.registerFiller(LexiconElvenTradeRecipe.class, ElvenTradeREIDisplay::new);
 		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
-		helper.registerRecipeFiller(RecipeOrechid.class, ModRecipeTypes.ORECHID_TYPE, OrechidREIDisplay::new);
-		helper.registerRecipeFiller(RecipeOrechidIgnem.class, ModRecipeTypes.ORECHID_IGNEM_TYPE, OrechidIgnemREIDisplay::new);
-		helper.registerRecipeFiller(RecipeMarimorphosis.class, ModRecipeTypes.MARIMORPHOSIS_TYPE, MarimorphosisREIDisplay::new);
 		helper.registerFiller(RecipePureDaisy.class, PureDaisyREIDisplay::new);
 		helper.registerFiller(RecipeRuneAltar.class, RunicAltarREIDisplay::new);
+
+		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(RecipeOrechid.class, ModRecipeTypes.ORECHID_TYPE,
+				r -> new OrechidREIDisplay(r, weights.getInt(r.getInput())));
+
+		Object2IntMap<Block> weightsIgnem = getWeights(ModRecipeTypes.ORECHID_IGNEM_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(RecipeOrechidIgnem.class, ModRecipeTypes.ORECHID_IGNEM_TYPE,
+				r -> new OrechidIgnemREIDisplay(r, weightsIgnem.getInt(r.getInput())));
+
+		Object2IntMap<Block> weightsMarim = getWeights(ModRecipeTypes.MARIMORPHOSIS_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(RecipeMarimorphosis.class, ModRecipeTypes.MARIMORPHOSIS_TYPE,
+				r -> new MarimorphosisREIDisplay(r, weightsMarim.getInt(r.getInput())));
+	}
+
+	public static Object2IntMap<Block> getWeights(RecipeType<IOrechidRecipe> type, RecipeManager manager) {
+		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
+		for (IOrechidRecipe recipe : manager.getAllRecipesFor(type)) {
+			map.addTo(recipe.getInput(), recipe.getWeight());
+		}
+		return map;
 	}
 
 	void registerAncientWillRecipeWrapper(DisplayRegistry helper) {
