@@ -35,6 +35,7 @@
     "MixinAbstractMinecart",
     "MixinAnvilMenu",
     "MixinBaseSpawner",
+    "MixinBeaconBlockEntity",
     "MixinBee",
     "MixinBushBlock",
     "MixinCreeper",
