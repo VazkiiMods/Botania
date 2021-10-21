@@ -46,6 +46,8 @@
     "MixinFarmBlock",
     "MixinItem",
     "MixinItemEntity",
+    "MixinItemPredicate",
+    "MixinItemStack",
     "MixinLivingEntity",
     "MixinLootTable",
     "MixinNaturalSpawner",
