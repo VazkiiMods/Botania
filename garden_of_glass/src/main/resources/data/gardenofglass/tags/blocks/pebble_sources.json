@@ -1,0 +1,7 @@
+{
+  "__comment": "Blocks in this tag provide pebbles in Garden of Glass mode",
+  "replace": false,
+  "values": [
+    "#minecraft:dirt"
+  ]
+}
