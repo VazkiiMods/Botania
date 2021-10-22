@@ -43,7 +43,7 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final ResourceLocation PEBBLE_SOURCES = new ResourceLocation("gardenofglass:pebble_sources");
+	private static final ResourceLocation PEBBLE_SOURCES = new ResourceLocation("minecraft:dirt");
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level);
