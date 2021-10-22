@@ -9,12 +9,20 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.tileentity.TileEntityType;
 
 import vazkii.botania.common.block.ModSubtiles;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
+	private static final double RANGE = 8;
+	private static final double RANGE_MINI = 3;
+
+	public SubTileJiyuulia(TileEntityType<?> type) {
+		super(type);
+	}
+
 	public SubTileJiyuulia() {
-		super(ModSubtiles.JIYUULIA);
+		this(ModSubtiles.JIYUULIA);
 	}
 
 	@Override
@@ -24,7 +32,7 @@ public class SubTileJiyuulia extends SubTileTangleberrie {
 
 	@Override
 	double getRange() {
-		return 8;
+		return RANGE;
 	}
 
 	@Override
@@ -37,4 +45,14 @@ public class SubTileJiyuulia extends SubTileTangleberrie {
 		return 0xBD9ACA;
 	}
 
+	public static class Mini extends SubTileJiyuulia {
+		public Mini() {
+			super(ModSubtiles.JIYUULIA_CHIBI);
+		}
+
+		@Override
+		public double getRange() {
+			return RANGE_MINI;
+		}
+	}
 }
