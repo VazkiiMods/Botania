@@ -7,5 +7,8 @@
     "item": "minecraft:heart_of_the_sea"
   },
   "mana": 20000,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
+  }
 }
