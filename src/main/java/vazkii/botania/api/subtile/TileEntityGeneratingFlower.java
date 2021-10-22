@@ -214,9 +214,8 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		int y = cmp.getInt(TAG_COLLECTOR_Y);
 		int z = cmp.getInt(TAG_COLLECTOR_Z);
 
-		BlockPos old = cachedCollectorCoordinates;
 		cachedCollectorCoordinates = y < 0 ? null : new BlockPos(x, y, z);
-		if (!Objects.equals(old, cachedCollectorCoordinates)) {
+		if (linkedCollector != null && !Objects.equals(linkedCollector.getBlockPos(), cachedCollectorCoordinates)) {
 			linkedCollector = null; //Force a refresh of the linked collector
 		}
 	}
