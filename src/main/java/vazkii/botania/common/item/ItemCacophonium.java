@@ -28,10 +28,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -72,7 +69,7 @@ public class ItemCacophonium extends Item {
 
 			if (sound != null) {
 				if (!player.level.isClientSide) {
-					ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getResourceKey(sound).toString());
+					ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getKey(sound).toString());
 					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getDescriptionId());
 					player.setItemInHand(hand, stack);
 				}

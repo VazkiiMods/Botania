@@ -16,8 +16,8 @@ import vazkii.botania.common.crafting.RecipeOrechid;
 
 public class OrechidREIDisplay extends OrechidBaseREIDisplay<RecipeOrechid> {
 
-	public OrechidREIDisplay(RecipeOrechid recipe) {
-		super(recipe);
+	public OrechidREIDisplay(RecipeOrechid recipe, int totalWeight) {
+		super(recipe, totalWeight);
 	}
 
 	@Override

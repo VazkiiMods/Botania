@@ -20,7 +20,7 @@ if (System.getenv().RELEASE_MODE == null) {
 group = "vazkii.botania"
 archivesBaseName = "${ext.config.mod_name}"
 
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial"// << "-Werror" TODO reenable when Gradle fixes wrapping annotation processor
+compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial"// << "-Werror" TODO reenable when loom mixin AP is fixed
 
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")
@@ -71,7 +71,7 @@ dependencies {
     mappings loom.officialMojangMappings()
 
     modImplementation "net.fabricmc:fabric-loader:0.11.6"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.40.0+1.17"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.41.0+1.17"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
@@ -136,6 +136,10 @@ processResources {
 
     // Exclude datagenerator .cache directory
     exclude '.cache'
+
+    // Exclude Forge-specific metadata on Fabric only
+    exclude 'META-INF/mods.toml'
+    exclude 'META-INF/accesstransformer.cfg'
 
     filesMatching('data/botania/patchouli_books/lexicon/book.json') {
         filter {

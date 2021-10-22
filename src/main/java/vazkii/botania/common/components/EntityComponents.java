@@ -37,6 +37,7 @@ public class EntityComponents implements EntityComponentInitializer {
 	public static final ComponentKey<ItemFlagsComponent> INTERNAL_ITEM = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("iitem"), ItemFlagsComponent.class);
 	public static final ComponentKey<GhostRailComponent> GHOST_RAIL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("ghost_rail"), GhostRailComponent.class);
 	public static final ComponentKey<KeptItemsComponent> KEPT_ITEMS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("kept_items"), KeptItemsComponent.class);
+	public static final ComponentKey<TigerseyeComponent> TIGERSEYE = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("tigerseye_pacified"), TigerseyeComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -54,6 +55,7 @@ public class EntityComponents implements EntityComponentInitializer {
 		registry.registerFor(Slime.class, NARSLIMMUS, NarslimmusComponent::new);
 		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new ItemFlagsComponent());
 		registry.registerFor(AbstractMinecart.class, GHOST_RAIL, e -> new GhostRailComponent());
+		registry.registerFor(Creeper.class, TIGERSEYE, creeper -> new TigerseyeComponent());
 		// Never copy as we handle it ourselves in ItemKeepIvy.onPlayerRespawn
 		registry.registerForPlayers(KEPT_ITEMS, e -> new KeptItemsComponent(), RespawnCopyStrategy.NEVER_COPY);
 	}

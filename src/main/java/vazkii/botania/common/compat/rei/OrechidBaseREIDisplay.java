@@ -19,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.IOrechidRecipe;
-import vazkii.botania.common.core.handler.OrechidManager;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,9 +29,9 @@ public abstract class OrechidBaseREIDisplay<T extends IOrechidRecipe> implements
 	private final List<EntryIngredient> stone;
 	private final List<EntryIngredient> ores;
 
-	public OrechidBaseREIDisplay(T recipe) {
+	public OrechidBaseREIDisplay(T recipe, int totalWeight) {
 		final int myWeight = recipe.getWeight();
-		final int amount = Math.max(1, Math.round((float) (myWeight * 64) / OrechidManager.getBaseTotalWeight(recipe)));
+		final int amount = Math.max(1, Math.round((float) (myWeight * 64) / totalWeight));
 
 		List<ItemStack> stackList = recipe.getOutput().getDisplayedStacks();
 		for (ItemStack stack : stackList) {

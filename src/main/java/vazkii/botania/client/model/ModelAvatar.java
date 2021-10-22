@@ -51,7 +51,7 @@ public class ModelAvatar extends Model {
 				PartPose.offsetAndRotation(3.0F, 15.0F, -1.0F, 0.0F, -0.0F, -0.0873F));
 		root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 20)
 				.addBox(-2.0F, -1.0F, -1.0F, 2, 6, 3),
-				PartPose.offsetAndRotation(-3.0F, 15.0F, -1.0F, 0.0F, -0.0F, -0.0873F));
+				PartPose.offsetAndRotation(-3.0F, 15.0F, -1.0F, 0.0F, -0.0F, 0.0873F));
 		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 20).mirror()
 				.addBox(-1.5F, 0.0F, -1.5F, 3, 6, 3),
 				PartPose.offset(1.5F, 18.0F, -0.5F));

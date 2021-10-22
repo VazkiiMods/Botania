@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.block.IAvatarTile;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IAvatarWieldable;
 
 import java.util.HashMap;
@@ -101,6 +102,14 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 				return 1;
 			}
 		};
+	}
+
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (level != null && !level.isClientSide) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	@Override
