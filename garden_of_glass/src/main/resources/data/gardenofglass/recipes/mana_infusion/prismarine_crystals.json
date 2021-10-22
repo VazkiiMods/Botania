@@ -7,5 +7,8 @@
     "item": "minecraft:prismarine_crystals"
   },
   "mana": 500,
-  "catalyst": "botania:alchemy_catalyst"
+  "catalyst": {
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
+  }
 }
