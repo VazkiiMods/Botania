@@ -28,7 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -40,7 +39,7 @@ import vazkii.botania.mixin.AccessorEntity;
 
 import java.util.List;
 
-public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
+public class ItemDivaCharm extends ItemBauble {
 
 	public ItemDivaCharm(Properties props) {
 		super(props);
@@ -76,11 +75,6 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -36,7 +35,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class ItemDiviningRod extends Item implements IManaUsingItem {
+public class ItemDiviningRod extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIVINING);
 
@@ -80,11 +79,6 @@ public class ItemDiviningRod extends Item implements IManaUsingItem {
 						0, 0, 0);
 			}
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class AvatarBehavior implements IAvatarWieldable {

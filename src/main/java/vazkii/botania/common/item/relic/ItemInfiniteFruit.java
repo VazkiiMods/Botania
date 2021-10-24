@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.AccessorLivingEntity;
 
@@ -28,7 +27,7 @@ import java.util.Locale;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
+public class ItemInfiniteFruit extends ItemRelic {
 
 	public ItemInfiniteFruit(Properties props) {
 		super(props);
@@ -76,11 +75,6 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	public static boolean isBoot(ItemStack stack) {
 		String name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

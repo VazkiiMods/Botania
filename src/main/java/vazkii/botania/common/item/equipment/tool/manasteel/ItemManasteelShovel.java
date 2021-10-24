@@ -19,13 +19,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, ISortableTool {
+public class ItemManasteelShovel extends ShovelItem implements ISortableTool {
 
 	private static final int MANA_PER_DAMAGE = 60;
 
@@ -51,11 +50,6 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		if (!world.isClientSide && player instanceof Player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (Player) player, getManaPerDamage() * 2, true)) {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

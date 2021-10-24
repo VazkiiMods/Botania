@@ -35,7 +35,6 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.advancements.LokiPlaceTrigger;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -51,7 +50,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, IManaUsingItem {
+public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
 	private static final String TAG_CURSOR_PREFIX = "cursor";
@@ -291,11 +290,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		cmp.putInt(TAG_Y_OFFSET, pos.getY());
 		cmp.putInt(TAG_Z_OFFSET, pos.getZ());
 		return cmp;
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

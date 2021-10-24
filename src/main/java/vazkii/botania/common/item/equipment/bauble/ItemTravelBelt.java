@@ -28,7 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -36,7 +35,7 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import java.util.UUID;
 
-public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
+public class ItemTravelBelt extends ItemBauble {
 
 	private static final UUID STEP_BOOST_UUID = UUID.fromString("8511cd62-2650-4078-8d69-9ebe80b21eb5");
 	private static final AttributeModifier STEP_BOOST = new AttributeModifier(
@@ -165,11 +164,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
 		model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 }

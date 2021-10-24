@@ -17,13 +17,12 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
+public class ItemManasteelSword extends SwordItem {
 
 	public static final int MANA_PER_DAMAGE = 60;
 
@@ -53,10 +52,5 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 }

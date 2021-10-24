@@ -37,7 +37,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -59,6 +58,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.List;
 
@@ -179,10 +179,7 @@ public final class HUDHandler {
 				ItemStack stack = inv.getItem(i - (useAccessories ? invSize : 0));
 
 				if (!stack.isEmpty()) {
-					Item item = stack.getItem();
-					if (item instanceof IManaUsingItem) {
-						anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
-					}
+					anyRequest = anyRequest || stack.is(ModTags.Items.MANA_USING_ITEMS);
 				}
 			}
 

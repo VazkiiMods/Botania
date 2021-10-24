@@ -24,13 +24,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 
 import javax.annotation.Nonnull;
 
-public class ItemWaterRod extends Item implements IManaUsingItem {
+public class ItemWaterRod extends Item {
 
 	public static final int COST = 75;
 
@@ -80,11 +79,6 @@ public class ItemWaterRod extends Item implements IManaUsingItem {
 				return InteractionResultHolder.fail(itemStack);
 			}
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 }

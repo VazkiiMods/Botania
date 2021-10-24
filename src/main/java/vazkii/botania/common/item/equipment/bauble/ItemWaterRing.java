@@ -15,12 +15,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
 
-public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
+public class ItemWaterRing extends ItemBauble {
 
 	private static final int COST = 3;
 
@@ -56,11 +55,6 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			MobEffectInstance neweffect = new MobEffectInstance(effect, 100, 0, true, true);
 			living.addEffect(neweffect);
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 }

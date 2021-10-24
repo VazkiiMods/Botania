@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -34,7 +33,7 @@ import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
-public class ItemMissileRod extends Item implements IManaUsingItem {
+public class ItemMissileRod extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_MISSILE);
 
@@ -97,11 +96,6 @@ public class ItemMissileRod extends Item implements IManaUsingItem {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class AvatarBehavior implements IAvatarWieldable {

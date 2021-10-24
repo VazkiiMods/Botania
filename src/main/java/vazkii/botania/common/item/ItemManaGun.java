@@ -34,7 +34,6 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
@@ -48,7 +47,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemManaGun extends Item implements IManaUsingItem {
+public class ItemManaGun extends Item {
 
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";
@@ -322,10 +321,5 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	private void setCooldown(ItemStack stack, int cooldown) {
 		CompoundTag tag = stack.getOrCreateTag();
 		tag.putInt(TAG_COOLDOWN, cooldown);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 }

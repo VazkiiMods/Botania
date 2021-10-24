@@ -27,7 +27,6 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -35,7 +34,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 
-public class ItemDirtRod extends Item implements IManaUsingItem {
+public class ItemDirtRod extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
 
@@ -81,11 +80,6 @@ public class ItemDirtRod extends Item implements IManaUsingItem {
 		}
 
 		return InteractionResult.PASS;
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class BlockProvider implements IBlockProvider {

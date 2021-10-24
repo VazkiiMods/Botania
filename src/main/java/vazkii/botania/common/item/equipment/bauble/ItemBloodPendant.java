@@ -41,7 +41,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.brew.ModBrews;
@@ -49,7 +48,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.List;
 
-public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem {
+public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 
@@ -166,10 +165,4 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	public int getManaCost(Brew brew, ItemStack stack) {
 		return brew.getManaCost() * 10;
 	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return getBrew(stack) != ModBrews.fallbackBrew;
-	}
-
 }

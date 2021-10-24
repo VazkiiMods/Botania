@@ -19,14 +19,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.ISortableTool;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelShears extends ShearsItem implements IManaUsingItem, ISortableTool {
+public class ItemManasteelShears extends ShearsItem implements ISortableTool {
 
 	public static final int MANA_PER_DAMAGE = 30;
 
@@ -48,11 +47,6 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem, I
 	@Override
 	public boolean isValidRepairItem(ItemStack shears, ItemStack material) {
 		return material.is(ModItems.manaSteel) || super.isValidRepairItem(shears, material);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

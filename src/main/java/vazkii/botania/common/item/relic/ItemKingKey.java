@@ -20,7 +20,6 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -33,7 +32,7 @@ import java.util.Random;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemKingKey extends ItemRelic implements IManaUsingItem {
+public class ItemKingKey extends ItemRelic {
 
 	private static final String TAG_WEAPONS_SPAWNED = "weaponsSpawned";
 	private static final String TAG_CHARGING = "charging";
@@ -130,11 +129,6 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	public static void setWeaponsSpawned(ItemStack stack, int count) {
 		ItemNBTHelper.setInt(stack, TAG_WEAPONS_SPAWNED, count);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override
