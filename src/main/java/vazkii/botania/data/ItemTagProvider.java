@@ -23,7 +23,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
@@ -31,6 +30,8 @@ import vazkii.botania.common.lib.ModTags;
 import javax.annotation.Nonnull;
 
 import java.util.Comparator;
+
+import static vazkii.botania.common.item.ModItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
 	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {
@@ -45,7 +46,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.FENCES, ItemTags.FENCES);
 
-		this.tag((Tag.Named<Item>) FabricToolTags.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
+		this.tag((Tag.Named<Item>) FabricToolTags.SHEARS).add(elementiumShears, manasteelShears);
 
 		this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
@@ -65,29 +66,29 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.tag(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
 
-		this.tag(ModTags.Items.BURST_VIEWERS).add(ModItems.monocle);
-		this.tag(ModTags.Items.TERRA_PICK_BLACKLIST).add(ModItems.auraRing, ModItems.auraRingGreater, ModItems.terrasteelHelm, ModItems.spark);
+		this.tag(ModTags.Items.BURST_VIEWERS).add(monocle);
+		this.tag(ModTags.Items.TERRA_PICK_BLACKLIST).add(auraRing, auraRingGreater, terrasteelHelm, spark);
 		TagsProvider.TagAppender<Item> builder = this.tag(ModTags.Items.LENS);
 		Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(builder::add);
 
-		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
-				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModItems.monocle);
-		this.tag(ItemTags.MUSIC_DISCS).add(ModItems.recordGaia1, ModItems.recordGaia2);
+		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), cacophonium, divaCharm,
+				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), monocle);
+		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
 
-		this.tag(ModTags.Items.DUSTS_MANA).add(ModItems.manaPowder);
+		this.tag(ModTags.Items.DUSTS_MANA).add(manaPowder);
 
-		this.tag(ModTags.Items.GEMS_DRAGONSTONE).add(ModItems.dragonstone);
-		this.tag(ModTags.Items.GEMS_MANA_DIAMOND).add(ModItems.manaDiamond);
+		this.tag(ModTags.Items.GEMS_DRAGONSTONE).add(dragonstone);
+		this.tag(ModTags.Items.GEMS_MANA_DIAMOND).add(manaDiamond);
 
-		this.tag(ModTags.Items.INGOTS_ELEMENTIUM).add(ModItems.elementium);
-		this.tag(ModTags.Items.INGOTS_MANASTEEL).add(ModItems.manaSteel);
-		this.tag(ModTags.Items.INGOTS_TERRASTEEL).add(ModItems.terrasteel);
+		this.tag(ModTags.Items.INGOTS_ELEMENTIUM).add(elementium);
+		this.tag(ModTags.Items.INGOTS_MANASTEEL).add(manaSteel);
+		this.tag(ModTags.Items.INGOTS_TERRASTEEL).add(terrasteel);
 
-		this.tag(ModTags.Items.NUGGETS_ELEMENTIUM).add(ModItems.elementiumNugget);
-		this.tag(ModTags.Items.NUGGETS_MANASTEEL).add(ModItems.manasteelNugget);
-		this.tag(ModTags.Items.NUGGETS_TERRASTEEL).add(ModItems.terrasteelNugget);
+		this.tag(ModTags.Items.NUGGETS_ELEMENTIUM).add(elementiumNugget);
+		this.tag(ModTags.Items.NUGGETS_MANASTEEL).add(manasteelNugget);
+		this.tag(ModTags.Items.NUGGETS_TERRASTEEL).add(terrasteelNugget);
 
 		this.copy(ModTags.Blocks.BLOCKS_ELEMENTIUM, ModTags.Items.BLOCKS_ELEMENTIUM);
 		this.copy(ModTags.Blocks.BLOCKS_MANASTEEL, ModTags.Items.BLOCKS_MANASTEEL);
@@ -104,108 +105,108 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addOptional(new ResourceLocation("quark", "slate"));
 
 		this.tag(ModTags.Items.RUNES).add(
-				ModItems.runeWater, ModItems.runeFire, ModItems.runeEarth, ModItems.runeAir,
-				ModItems.runeSpring, ModItems.runeSummer, ModItems.runeAutumn, ModItems.runeWinter,
-				ModItems.runeMana, ModItems.runeLust, ModItems.runeGluttony, ModItems.runeGreed,
-				ModItems.runeSloth, ModItems.runeWrath, ModItems.runeEnvy, ModItems.runePride
+				runeWater, runeFire, runeEarth, runeAir,
+				runeSpring, runeSummer, runeAutumn, runeWinter,
+				runeMana, runeLust, runeGluttony, runeGreed,
+				runeSloth, runeWrath, runeEnvy, runePride
 		);
 
 		TagAppender<Item> allPetals = this.tag(ModTags.Items.PETALS);
 		for (DyeColor color : DyeColor.values()) {
 			Tag.Named<Item> petalTag = ModTags.Items.getPetalTag(color);
-			this.tag(petalTag).add(ModItems.getPetal(color), ModBlocks.getMushroom(color).asItem());
+			this.tag(petalTag).add(getPetal(color), ModBlocks.getMushroom(color).asItem());
 			this.tag(ModTags.Items.MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 
-		this.tag(ModTags.Items.LOONIUM_BLACKLIST).add(ModItems.lexicon, ModItems.overgrowthSeed,
-				ModItems.blackLotus, ModItems.blackerLotus).addTag(ItemTags.MUSIC_DISCS);
+		this.tag(ModTags.Items.LOONIUM_BLACKLIST).add(lexicon, overgrowthSeed,
+				blackLotus, blackerLotus).addTag(ItemTags.MUSIC_DISCS);
 		this.tag(ModTags.Items.MAGNET_RING_BLACKLIST);
 		this.tag(ModTags.Items.RODS).add(
-				ModItems.dirtRod,
-				ModItems.skyDirtRod,
-				ModItems.terraformRod,
-				ModItems.cobbleRod,
-				ModItems.waterRod,
-				ModItems.tornadoRod,
-				ModItems.fireRod,
-				ModItems.diviningRod,
-				ModItems.smeltRod,
-				ModItems.exchangeRod,
-				ModItems.rainbowRod,
-				ModItems.gravityRod,
-				ModItems.missileRod);
+				dirtRod,
+				skyDirtRod,
+				terraformRod,
+				cobbleRod,
+				waterRod,
+				tornadoRod,
+				fireRod,
+				diviningRod,
+				smeltRod,
+				exchangeRod,
+				rainbowRod,
+				gravityRod,
+				missileRod);
 
 		this.generateAccessoryTags();
 	}
 
 	private void generateAccessoryTags() {
 		this.tag(accessory("chest/cape")).add(
-				ModItems.balanceCloak,
-				ModItems.holyCloak,
-				ModItems.invisibilityCloak,
-				ModItems.unholyCloak
+				balanceCloak,
+				holyCloak,
+				invisibilityCloak,
+				unholyCloak
 		);
 		this.tag(accessory("chest/necklace")).add(
-				ModItems.bloodPendant,
-				ModItems.cloudPendant,
-				ModItems.divaCharm,
-				ModItems.goddessCharm,
-				ModItems.icePendant,
-				ModItems.lavaPendant,
-				ModItems.superCloudPendant,
-				ModItems.superLavaPendant,
-				ModItems.thirdEye
+				bloodPendant,
+				cloudPendant,
+				divaCharm,
+				goddessCharm,
+				icePendant,
+				lavaPendant,
+				superCloudPendant,
+				superLavaPendant,
+				thirdEye
 		);
 		this.tag(accessory("hand/ring")).add(
-				ModItems.auraRing,
-				ModItems.auraRingGreater,
-				ModItems.dodgeRing,
-				ModItems.lokiRing,
-				ModItems.magnetRing,
-				ModItems.magnetRingGreater,
-				ModItems.manaRing,
-				ModItems.manaRingGreater,
-				ModItems.miningRing,
-				ModItems.odinRing,
-				ModItems.pixieRing,
-				ModItems.reachRing,
-				ModItems.swapRing,
-				ModItems.thorRing,
-				ModItems.waterRing
+				auraRing,
+				auraRingGreater,
+				dodgeRing,
+				lokiRing,
+				magnetRing,
+				magnetRingGreater,
+				manaRing,
+				manaRingGreater,
+				miningRing,
+				odinRing,
+				pixieRing,
+				reachRing,
+				swapRing,
+				thorRing,
+				waterRing
 		);
 		this.tag(accessory("head/face")).add(
-				ModItems.itemFinder,
-				ModItems.monocle,
-				ModItems.tinyPlanet
+				itemFinder,
+				monocle,
+				tinyPlanet
 		);
 		this.tag(accessory("head/hat")).add(
-				ModItems.flightTiara
+				flightTiara
 		);
 		this.tag(accessory("legs/belt")).add(
-				ModItems.knockbackBelt,
-				ModItems.speedUpBelt,
-				ModItems.superTravelBelt,
-				ModItems.travelBelt
+				knockbackBelt,
+				speedUpBelt,
+				superTravelBelt,
+				travelBelt
 		);
 		this.tag(accessory("all")).add(
-				ModItems.blackBowtie, ModItems.blackTie,
-				ModItems.redGlasses, ModItems.puffyScarf,
-				ModItems.engineerGoggles, ModItems.eyepatch,
-				ModItems.wickedEyepatch, ModItems.redRibbons,
-				ModItems.pinkFlowerBud, ModItems.polkaDottedBows,
-				ModItems.blueButterfly, ModItems.catEars,
-				ModItems.witchPin, ModItems.devilTail,
-				ModItems.kamuiEye, ModItems.googlyEyes,
-				ModItems.fourLeafClover, ModItems.clockEye,
-				ModItems.unicornHorn, ModItems.devilHorns,
-				ModItems.hyperPlus, ModItems.botanistEmblem,
-				ModItems.ancientMask, ModItems.eerieMask,
-				ModItems.alienAntenna, ModItems.anaglyphGlasses,
-				ModItems.orangeShades, ModItems.grouchoGlasses,
-				ModItems.thickEyebrows, ModItems.lusitanicShield,
-				ModItems.tinyPotatoMask, ModItems.questgiverMark,
-				ModItems.thinkingHand
+				blackBowtie, blackTie,
+				redGlasses, puffyScarf,
+				engineerGoggles, eyepatch,
+				wickedEyepatch, redRibbons,
+				pinkFlowerBud, polkaDottedBows,
+				blueButterfly, catEars,
+				witchPin, devilTail,
+				kamuiEye, googlyEyes,
+				fourLeafClover, clockEye,
+				unicornHorn, devilHorns,
+				hyperPlus, botanistEmblem,
+				ancientMask, eerieMask,
+				alienAntenna, anaglyphGlasses,
+				orangeShades, grouchoGlasses,
+				thickEyebrows, lusitanicShield,
+				tinyPotatoMask, questgiverMark,
+				thinkingHand
 		);
 
 	}
