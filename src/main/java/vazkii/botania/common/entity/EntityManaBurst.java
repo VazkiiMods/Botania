@@ -682,8 +682,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void ping() {
 		BlockEntity tile = getShooter();
-		if (tile instanceof IPingable pingable) {
-			pingable.pingback(this, getShooterUUID());
+		if (tile instanceof IManaSpreader spreader) {
+			spreader.pingback(this, getShooterUUID());
 		}
 	}
 
