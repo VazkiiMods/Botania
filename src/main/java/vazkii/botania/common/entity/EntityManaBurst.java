@@ -39,6 +39,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
