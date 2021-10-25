@@ -73,7 +73,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private static final String TAG_MANA_CAP = "manaCap";
 	private static final String TAG_CAN_ACCEPT = "canAccept";
 	private static final String TAG_CAN_SPARE = "canSpare";
-	private static final String TAG_FRAGILE = "fragile";
 	private static final String TAG_INPUT_KEY = "inputKey";
 	private static final String TAG_OUTPUT_KEY = "outputKey";
 	private static final int CRAFT_EFFECT_EVENT = 0;
@@ -88,7 +87,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private int soundTicks = 0;
 	private boolean canAccept = true;
 	private boolean canSpare = true;
-	public boolean fragile = false;
 	boolean isDoingTransfer = false;
 	int ticksDoingTransfer = 0;
 
@@ -347,7 +345,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		cmp.putInt(TAG_MANA_CAP, manaCap);
 		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
 		cmp.putBoolean(TAG_CAN_SPARE, canSpare);
-		cmp.putBoolean(TAG_FRAGILE, fragile);
 
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
@@ -368,7 +365,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if (cmp.contains(TAG_CAN_SPARE)) {
 			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
 		}
-		fragile = cmp.getBoolean(TAG_FRAGILE);
 
 		if (cmp.contains(TAG_INPUT_KEY)) {
 			inputKey = cmp.getString(TAG_INPUT_KEY);

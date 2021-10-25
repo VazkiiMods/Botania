@@ -35,8 +35,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -55,7 +53,6 @@ import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
 
-import java.util.Collections;
 import java.util.List;
 
 public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWandHUD, IWandable {
@@ -97,16 +94,6 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWa
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return REAL_SHAPE;
-	}
-
-	@Override
-	public List<ItemStack> getDrops(@Nonnull BlockState state, LootContext.Builder builder) {
-		if (builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof TilePool
-				&& ((TilePool) builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY)).fragile) {
-			return Collections.emptyList();
-		} else {
-			return super.getDrops(state, builder);
-		}
 	}
 
 	@Nonnull
