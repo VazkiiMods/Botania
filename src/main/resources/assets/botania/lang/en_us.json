@@ -3023,8 +3023,9 @@
 
   "botania.entry.icePendant": "Snowflake Pendant",
   "botania.tagline.icePendant": "Frost Walker: Necklace Edition",
-  "botania.page.icePendant0": "The $(item)Snowflake Pendant$(0) is a $(thing)Trinket$(0) that's saturated with freezing energies. Any nearby still $(item)Water$(0) blocks near its wearer's feet will be temporarily frozen into $(item)Ice$(0); said $(item)Ice$(0) will melt shortly after the wearer leaves the area (as if the wearer had $(thing)Frost Walker$(0) boots). A trail of $(item)Snow Layers$(0) is also left in its wearer's path. This charm will cease its freeze if its wearer is sneaking or fully submerged.",
-  "botania.page.icePendant1": "Do you want to build a snowman?",
+  "botania.page.icePendant0": "The $(item)Snowflake Pendant$(0) is a $(thing)Trinket$(0) that's saturated with freezing energies. Any nearby still $(item)Water$(0) blocks near its wearer's feet will be temporarily frozen into $(item)Ice$(0); said $(item)Ice$(0) will melt shortly after the wearer leaves the area (as if the wearer had $(thing)Frost Walker$(0) boots). A trail of $(item)Snow Layers$(0) is also left in its wearer's path.",
+  "botania.page.icePendant1": "This charm will cease its freeze if its wearer is sneaking or fully submerged, and also makes its wearer immune to the effects of $(thing)Powder Snow$().",
+  "botania.page.icePendant2": "Do you want to build a snowman?",
 
   "botania.entry.lavaPendant": "Pyroclast Pendant",
   "botania.tagline.lavaPendant": "Snuffs some fires",

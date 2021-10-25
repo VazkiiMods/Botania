@@ -202,6 +202,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				waterRing,
 				waterRod
 		);
+		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant);
 
 		this.generateAccessoryTags();
 	}

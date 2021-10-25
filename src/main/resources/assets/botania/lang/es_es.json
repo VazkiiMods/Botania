@@ -2243,7 +2243,7 @@
 
   "botania.entry.icePendant": "Colgante de copo de nieve",
   "botania.page.icePendant0": "El $(item)colgante de copo de nieve$(0) es un $(thing)ornamento$(0) que resuena con energía congelante que, mientras se lleva puesto, convierte bloques de $(thing)agua$(0) quieta a ras de los pies en $(item)hielo$(0).$(p)El $(item)hielo$(0) se derretirá al poco de que el portador abandone el área. El amuleto no congela si el portador está en sigilo o sumergido por completo.",
-  "botania.page.icePendant1": "Hazme un muñeco de nieve....",
+  "botania.page.icePendant2": "Hazme un muñeco de nieve....",
 
   "botania.entry.lavaPendant": "Colgante piroclástico",
   "botania.page.lavaPendant0": "El $(item)colgante piroclástico$(0) es un $(thing)ornamento$(0) que absorbe algo el calor mientras se lleva puesto. Si el portador se prende en llamas y no está sobre un $(item)fuego$(0), $(item)lava$(0) o cualquier cosa incendiaria, las llamas serán apagadas.",
