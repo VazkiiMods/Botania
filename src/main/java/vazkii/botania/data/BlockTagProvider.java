@@ -158,6 +158,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
 		tag(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
+		tag(ModTags.Blocks.LAPUTA_IMMOBILE);
 
 		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 
