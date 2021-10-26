@@ -188,28 +188,26 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			return InteractionResult.SUCCESS;
 		}
 
-		if (block instanceof IWandable) {
-			BlockEntity tile = world.getBlockEntity(pos);
-			boolean bindable = tile instanceof IWandBindable;
+		BlockEntity tile = world.getBlockEntity(pos);
+		boolean bindable = tile instanceof IWandBindable;
 
-			boolean wanded;
-			if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
-				if (boundPos.filter(pos::equals).isPresent()) {
-					setBindingAttempt(stack, UNBOUND_POS);
-				} else {
-					setBindingAttempt(stack, pos);
-				}
-
-				if (world.isClientSide) {
-					player.playSound(ModSounds.ding, 0.11F, 1F);
-				}
-
-				wanded = true;
+		if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
+			if (boundPos.filter(pos::equals).isPresent()) {
+				setBindingAttempt(stack, UNBOUND_POS);
 			} else {
-				wanded = ((IWandable) block).onUsedByWand(player, stack, world, pos, side);
+				setBindingAttempt(stack, pos);
 			}
 
-			return wanded ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+			if (world.isClientSide) {
+				player.playSound(ModSounds.ding, 0.11F, 1F);
+			}
+
+			return InteractionResult.SUCCESS;
+		} else {
+			var wandable = IWandable.API.find(world, pos, state, tile, Unit.INSTANCE);
+			if (wandable != null) {
+				return wandable.onUsedByWand(player, stack, side) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+			}
 		}
 
 		if (!world.isClientSide && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {

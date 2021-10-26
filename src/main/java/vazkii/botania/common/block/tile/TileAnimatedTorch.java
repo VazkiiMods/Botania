@@ -20,11 +20,13 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -33,7 +35,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod {
+public class TileAnimatedTorch extends TileMod implements IWandable {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -85,11 +87,13 @@ public class TileAnimatedTorch extends TileMod {
 		}
 	}
 
-	public void onWanded() {
+	@Override
+	public boolean onUsedByWand(Player player, ItemStack stack, Direction side) {
 		int modeOrdinal = torchMode.ordinal();
 		TorchMode[] modes = TorchMode.values();
 
 		torchMode = modes[(modeOrdinal + 1) % modes.length];
+		return true;
 	}
 
 	@Override

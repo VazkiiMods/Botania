@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
@@ -36,12 +38,13 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorRecipeManager;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileCraftCrate extends TileOpenCrate {
+public class TileCraftCrate extends TileOpenCrate implements IWandable {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
 
 	private static int recipeEpoch = 0;
@@ -231,8 +234,9 @@ public class TileCraftCrate extends TileOpenCrate {
 		}
 	}
 
-	public boolean onWanded(Level world) {
-		if (!world.isClientSide && canEject()) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
+		if (!getLevel().isClientSide && canEject()) {
 			craft(false);
 			ejectAll();
 		}

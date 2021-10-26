@@ -154,17 +154,6 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		setChanged();
 	}
 
-	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
-		if (player == null) {
-			return false;
-		}
-
-		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
-
-		return super.onWanded(player, wand);
-	}
-
 	public int getMaxMana() {
 		return 20;
 	}

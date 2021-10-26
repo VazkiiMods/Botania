@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
@@ -48,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver {
+public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, IWandable {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
@@ -232,9 +234,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		}
 	}
 
-	public void onWanded(Player player, ItemStack wand) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (level.isClientSide) {
-			return;
+			return true;
 		}
 
 		IRuneAltarRecipe recipe = null;
@@ -284,6 +287,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				livingrock.getItem().shrink(1);
 			}
 		}
+
+		return true;
 	}
 
 	public boolean isEmpty() {

@@ -15,7 +15,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -45,7 +44,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -55,7 +53,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWandHUD, IWandable {
+public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWandHUD {
 	private static final VoxelShape REAL_SHAPE;
 	private static final VoxelShape BURST_SHAPE;
 	static {
@@ -170,11 +168,5 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWa
 	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		((TilePool) world.getBlockEntity(pos)).renderHUD(ms, mc);
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		((TilePool) world.getBlockEntity(pos)).onWanded(player);
-		return true;
 	}
 }

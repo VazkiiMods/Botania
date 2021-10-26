@@ -45,7 +45,7 @@ import javax.annotation.Nonnull;
 
 import java.util.*;
 
-public class BlockPistonRelay extends BlockMod implements IWandable {
+public class BlockPistonRelay extends BlockMod {
 
 	// Currently active binding attempts
 	public final Map<UUID, GlobalPos> activeBindingAttempts = new HashMap<>();
@@ -57,6 +57,10 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	public BlockPistonRelay(Properties builder) {
 		super(builder);
 		ServerTickEvents.END_SERVER_TICK.register(this::tickEnd);
+		IWandable.API.registerForBlocks(
+				(world, pos, state, blockEntity, context) -> (player, stack, side) -> onUsedByWand(player, stack, world, pos),
+				this
+		);
 	}
 
 	@Override
@@ -95,8 +99,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		return null;
 	}
 
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
+	private boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos) {
 		if (world.isClientSide) {
 			return false;
 		}

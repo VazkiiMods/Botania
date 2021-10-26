@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.*;
@@ -598,5 +599,9 @@ public class ModSubtiles {
 		register(r, getId(solegnoliaChibi), SOLEGNOLIA_CHIBI);
 		register(r, getId(orechidIgnem), ORECHID_IGNEM);
 		register(r, getId(labellia), LABELLIA);
+
+		IWandable.API.registerSelf(
+				DAFFOMILL, HOPPERHOCK, HOPPERHOCK_CHIBI, RANNUNCARPUS, RANNUNCARPUS_CHIBI
+		);
 	}
 }

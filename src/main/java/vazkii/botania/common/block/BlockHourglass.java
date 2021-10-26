@@ -41,9 +41,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileHourglass;
@@ -54,7 +52,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, EntityBlock, IWandable, IWandHUD {
+public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, EntityBlock, IWandHUD {
 
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 18.4, 12);
 
@@ -156,16 +154,6 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 			TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
 			tile.onManaCollide();
 		}
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
-		tile.lock = !tile.lock;
-		if (!world.isClientSide) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-		}
-		return true;
 	}
 
 	@Environment(EnvType.CLIENT)

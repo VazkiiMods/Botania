@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
@@ -29,9 +30,11 @@ import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.network.PacketItemAge;
 
+import javax.annotation.Nullable;
+
 import java.util.List;
 
-public class SubTileDaffomill extends TileEntityFunctionalFlower {
+public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWandable {
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
 	private static final String TAG_POWERED = "powered";
@@ -106,21 +109,17 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
-		if (player == null) {
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
+		if (player == null || !player.isShiftKeyDown()) {
 			return false;
 		}
 
-		if (player.isShiftKeyDown()) {
-			if (!player.level.isClientSide) {
-				orientation = orientation.getClockWise();
-				sync();
-			}
-
-			return true;
-		} else {
-			return super.onWanded(player, wand);
+		if (!player.level.isClientSide) {
+			orientation = orientation.getClockWise();
+			sync();
 		}
+
+		return true;
 	}
 
 	@Override

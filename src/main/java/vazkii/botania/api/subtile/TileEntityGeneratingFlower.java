@@ -181,20 +181,22 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		return 1;
 	}
 
+	/* todo restore or eliminate
 	@Override
 	public boolean onWanded(Player player, ItemStack wand) {
 		if (player == null) {
 			return false;
 		}
-
+	
 		if (!player.level.isClientSide) {
 			sync();
 		}
-
+	
 		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
-
+	
 		return super.onWanded(player, wand);
 	}
+	*/
 
 	public int getMaxMana() {
 		return 20;

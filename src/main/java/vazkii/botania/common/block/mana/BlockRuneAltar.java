@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,7 +30,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -41,7 +39,7 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockRuneAltar extends BlockModWaterloggable implements EntityBlock, IWandable {
+public class BlockRuneAltar extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape TOP = Block.box(0, 6, 0, 16, 12, 16);
 	private static final VoxelShape BOTTOM = Block.box(2, 0, 2, 14, 6, 14);
@@ -121,12 +119,6 @@ public class BlockRuneAltar extends BlockModWaterloggable implements EntityBlock
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		TileRuneAltar altar = (TileRuneAltar) world.getBlockEntity(pos);
 		return altar.signal;
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		((TileRuneAltar) world.getBlockEntity(pos)).onWanded(player, stack);
-		return true;
 	}
 
 }

@@ -14,11 +14,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -34,7 +32,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
@@ -44,7 +41,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWandable, IWandHUD {
+public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWandHUD {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
 
@@ -83,11 +80,6 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return BlockMod.createTickerHelper(type, blockEntityType.get(), TileEntitySpecialFlower::commonTick);
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		return ((TileEntitySpecialFlower) world.getBlockEntity(pos)).onWanded(player, stack);
 	}
 
 	@Override

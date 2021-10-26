@@ -38,6 +38,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -50,7 +51,7 @@ import javax.annotation.Nullable;
 
 import java.util.*;
 
-public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
+public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements IWandable {
 	private static final int PICKUP_RANGE = 2;
 	private static final int PICKUP_RANGE_Y = 3;
 	private static final int RANGE_PLACE_MANA = 8;
@@ -181,14 +182,14 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
 			stateSensitive = !stateSensitive;
 			setChanged();
 			sync();
 			return true;
 		}
-		return super.onWanded(player, wand);
+		return false;
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -36,7 +36,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -48,7 +47,7 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockSpreader extends BlockModWaterloggable implements EntityBlock, IWandable, IWandHUD {
+public class BlockSpreader extends BlockModWaterloggable implements EntityBlock, IWandHUD {
 	public static final VoxelShape RENDER_SHAPE = box(1, 1, 1, 15, 15, 15);
 
 	public enum Variant {
@@ -203,12 +202,6 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 
 			super.onRemove(state, world, pos, newState, isMoving);
 		}
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		((TileSpreader) world.getBlockEntity(pos)).onWanded(player, stack);
-		return true;
 	}
 
 	@Nonnull
