@@ -11,6 +11,7 @@ package vazkii.botania.common.world;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,6 +27,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -38,6 +41,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.network.PacketGogWorld;
 import vazkii.botania.mixin.AccessorSoundType;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class SkyblockWorldEvents {
 
@@ -53,12 +58,12 @@ public final class SkyblockWorldEvents {
 	}
 
 	public static void onPlayerJoin(ServerPlayer player) {
-		Level world = player.level;
+		ServerLevel world = player.getLevel();
 		if (SkyblockChunkGenerator.isWorldSkyblock(world)) {
-			SkyblockSavedData data = SkyblockSavedData.get((ServerLevel) world);
+			SkyblockSavedData data = SkyblockSavedData.get(world);
 			if (!data.skyblocks.containsValue(Util.NIL_UUID)) {
 				IslandPos islandPos = data.getSpawn();
-				((ServerLevel) world).setDefaultSpawnPos(islandPos.getCenter(), 0);
+				world.setDefaultSpawnPos(islandPos.getCenter(), 0);
 				spawnPlayer(player, islandPos);
 				Botania.LOGGER.info("Created the spawn GoG island");
 			}
@@ -112,9 +117,9 @@ public final class SkyblockWorldEvents {
 
 	public static void spawnPlayer(Player player, IslandPos islandPos) {
 		BlockPos pos = islandPos.getCenter();
-		createSkyblock(player.level, pos);
 
 		if (player instanceof ServerPlayer pmp) {
+			createSkyblock(pmp.getLevel(), pos);
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setRespawnPosition(pmp.level.dimension(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.getValue()) {
@@ -123,40 +128,42 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public static void createSkyblock(Level world, BlockPos pos) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 4; j++) {
-				for (int k = 0; k < 3; k++) {
-					world.setBlockAndUpdate(pos.offset(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS_BLOCK.defaultBlockState() : Blocks.DIRT.defaultBlockState());
+	public static void createSkyblock(ServerLevel level, BlockPos pos) {
+		var manager = level.getStructureManager();
+		var template = manager.get(prefix("gog_island")).orElseThrow();
+		var structureBlockInfos = template.filterBlocks(pos, new StructurePlaceSettings(), Blocks.STRUCTURE_BLOCK, false);
+		structureBlockInfos.removeIf(info -> info.nbt == null);
+
+		BlockPos offset;
+		var infoOptional = structureBlockInfos.stream()
+				.filter(info -> "spawn_point".equals(info.nbt.getString("metadata")))
+				.findFirst();
+		if (infoOptional.isPresent()) {
+			offset = infoOptional.get().pos;
+		} else {
+			Botania.LOGGER.error("Structure botania:gog_island has no spawn_point data marker block, trying to offset it somewhat in the center");
+			Vec3i size = template.getSize();
+			offset = new BlockPos(size.getX() / 2, size.getY(), size.getZ() / 2);
+		}
+		BlockPos startPoint = pos.subtract(offset);
+
+		template.placeInWorld(level,
+				startPoint,
+				startPoint,
+				new StructurePlaceSettings().addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK),
+				level.random,
+				Block.UPDATE_ALL);
+		for (var info : structureBlockInfos) {
+			if ("light".equals(info.nbt.getString("metadata"))) {
+				BlockPos lightPos = startPoint.offset(info.pos);
+				if (level.setBlockAndUpdate(lightPos, ModBlocks.manaFlame.defaultBlockState())) {
+					int r = 70 + level.random.nextInt(185);
+					int g = 70 + level.random.nextInt(185);
+					int b = 70 + level.random.nextInt(185);
+					int color = r << 16 | g << 8 | b;
+					((TileManaFlame) level.getBlockEntity(lightPos)).setColor(color);
 				}
 			}
 		}
-		world.setBlockAndUpdate(pos.offset(-1, -2, 0), Blocks.WATER.defaultBlockState());
-		world.setBlockAndUpdate(pos.offset(1, 2, 1), ModBlocks.manaFlame.defaultBlockState());
-		int r = 70 + world.random.nextInt(185);
-		int g = 70 + world.random.nextInt(185);
-		int b = 70 + world.random.nextInt(185);
-		int color = r << 16 | g << 8 | b;
-		((TileManaFlame) world.getBlockEntity(pos.offset(1, 2, 1))).setColor(color);
-
-		int[][] rootPositions = new int[][] {
-				{ -1, -3, -1 },
-				{ -2, -4, -1 },
-				{ -2, -4, -2 },
-				{ +1, -4, -1 },
-				{ +1, -5, -1 },
-				{ +2, -5, -1 },
-				{ +2, -6, +0 },
-				{ +0, -4, +2 },
-				{ +0, -5, +2 },
-				{ +0, -5, +3 },
-				{ +0, -6, +3 },
-		};
-		for (int[] root : rootPositions) {
-			world.setBlockAndUpdate(pos.offset(root[0], root[1], root[2]), ModBlocks.root.defaultBlockState());
-		}
-
-		world.setBlockAndUpdate(pos.below(4), Blocks.BEDROCK.defaultBlockState());
 	}
-
 }
