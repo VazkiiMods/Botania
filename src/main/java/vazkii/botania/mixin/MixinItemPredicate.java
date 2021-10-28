@@ -8,6 +8,7 @@
  */
 package vazkii.botania.mixin;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -29,6 +30,7 @@ public abstract class MixinItemPredicate {
 			set = new HashSet<>(set);
 			set.add(ModItems.manasteelShears);
 			set.add(ModItems.elementiumShears);
+			set = ImmutableSet.copyOf(set);
 		}
 		return set;
 	}
