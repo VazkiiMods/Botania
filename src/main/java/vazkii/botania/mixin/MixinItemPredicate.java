@@ -9,6 +9,7 @@
 package vazkii.botania.mixin;
 
 import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
