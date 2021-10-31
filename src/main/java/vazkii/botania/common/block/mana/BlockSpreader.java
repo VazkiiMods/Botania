@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.block.IWandHUD;
@@ -49,7 +50,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockSpreader extends BlockModWaterloggable implements EntityBlock, IWandable, IWandHUD {
-	public static final VoxelShape RENDER_SHAPE = box(1, 1, 1, 15, 15, 15);
+	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 
 	public enum Variant {
 		MANA(160, 1000, 0x20FF20, 0x00FF00, 60, 4f, 1f),
@@ -85,8 +86,14 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 
 	@Nonnull
 	@Override
+	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+		return SHAPE;
+	}
+
+	@Nonnull
+	@Override
 	public VoxelShape getOcclusionShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos) {
-		return RENDER_SHAPE;
+		return SHAPE;
 	}
 
 	@Override

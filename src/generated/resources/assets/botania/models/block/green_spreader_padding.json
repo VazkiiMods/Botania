@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/spreader_padding",
+  "textures": {
+    "all": "minecraft:block/green_wool"
+  }
+}

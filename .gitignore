@@ -63,3 +63,6 @@ Temporary Items
 
 # CraftTweaker generated docs
 /docsOut
+
+# Aseprite working files
+*.ase

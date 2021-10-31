@@ -75,9 +75,9 @@ public class ItemModelProvider implements DataProvider {
 	private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
 	private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
 	private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
-	private static final TextureSlot MATERIAL = AccessorTextureSlot.make("material");
-	private static final TextureSlot INSIDE = AccessorTextureSlot.make("inside");
-	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, MATERIAL, INSIDE);
+	private static final TextureSlot OUTSIDE = AccessorTextureSlot.make("outside");
+	private static final TextureSlot CORE = AccessorTextureSlot.make("core");
+	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
 	private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0);
 	private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0, LAYER1);
 	private static final ModelWithOverrides HANDHELD_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/handheld"), TextureSlot.LAYER0);
@@ -411,18 +411,29 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockSpreader).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
-			String material;
+			String outside;
 			if (i.getBlock() == ModBlocks.elvenSpreader) {
-				material = "dreamwood";
+				outside = "dreamwood_log/4";
 			} else if (i.getBlock() == ModBlocks.gaiaSpreader) {
-				material = name + "_material";
+				outside = name + "_outside";
 			} else {
-				material = "livingwood";
+				outside = "livingwood_log";
+			}
+			String inside;
+			if (i.getBlock() == ModBlocks.elvenSpreader) {
+				inside = "stripped_dreamwood_log/4";
+			} else if (i.getBlock() == ModBlocks.gaiaSpreader) {
+				inside = name + "_inside";
+			} else {
+				inside = "stripped_livingwood_log";
 			}
 			SPREADER.create(ModelLocationUtils.getModelLocation(i),
-					new TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(i.getBlock(), "_side"))
-							.put(MATERIAL, prefix("block/" + material))
-							.put(INSIDE, TextureMapping.getBlockTexture(i.getBlock(), "_inside")),
+					new TextureMapping()
+							.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(i.getBlock(), "_side"))
+							.put(OUTSIDE, prefix("block/" + outside))
+							.put(TextureSlot.BACK, TextureMapping.getBlockTexture(i.getBlock(), "_back"))
+							.put(TextureSlot.INSIDE, prefix("block/" + inside))
+							.put(CORE, TextureMapping.getBlockTexture(i.getBlock(), "_core")),
 					consumer);
 		});
 

@@ -21,14 +21,13 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
-import vazkii.botania.common.core.helper.ColorHelper;
 
 import javax.annotation.Nonnull;
 
@@ -54,94 +53,62 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 
 		float r = 1, g = 1, b = 1;
 		if (spreader.getVariant() == BlockSpreader.Variant.GAIA) {
-			int color = Mth.hsvToRgb((float) ((time * 5 + new Random(spreader.getBlockPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			int color = Mth.hsvToRgb((float) ((time * 2 + new Random(spreader.getBlockPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			r = (color >> 16 & 0xFF) / 255F;
 			g = (color >> 8 & 0xFF) / 255F;
 			b = (color & 0xFF) / 255F;
 		}
 
 		VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(spreader.getBlockState(), false));
-		BakedModel bakedModel = Minecraft.getInstance().getBlockRenderer().getBlockModel(spreader.getBlockState());
+		BakedModel spreaderModel = Minecraft.getInstance().getBlockRenderer().getBlockModel(spreader.getBlockState());
 		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 				.renderModel(ms.last(), buffer, spreader.getBlockState(),
-						bakedModel, r, g, b, light, overlay);
+						spreaderModel, r, g, b, light, overlay);
 
 		ms.pushPose();
 		ms.translate(0.5, 0.5, 0.5);
 		ms.mulPose(Vector3f.YP.rotationDegrees((float) time % 360));
 		ms.translate(-0.5, -0.5, -0.5);
 		ms.translate(0F, (float) Math.sin(time / 20.0) * 0.05F, 0F);
-		BakedModel cube = getInsideModel(spreader);
+		BakedModel core = getCoreModel(spreader);
 		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 				.renderModel(ms.last(), buffer, spreader.getBlockState(),
-						cube, 1, 1, 1, light, overlay);
+						core, 1, 1, 1, light, overlay);
 		ms.popPose();
 
-		ms.translate(0.5, 1.5, 0.5);
 		ItemStack stack = spreader.getItemHandler().getItem(0);
-
 		if (!stack.isEmpty()) {
 			ms.pushPose();
-			ms.translate(0.0F, -1F, -0.4675F);
+			ms.translate(0.5F, 0.5F, 0.094F);
 			ms.mulPose(Vector3f.ZP.rotationDegrees(180));
 			ms.mulPose(Vector3f.XP.rotationDegrees(180));
-			ms.scale(1.0F, 1.0F, 1.0F);
+			// Prevents z-fighting. Otherwise not noticeable.
+			ms.scale(0.999F, 0.999F, 1F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
 					light, overlay, ms, buffers, 0);
 			ms.popPose();
 		}
 
 		if (spreader.paddingColor != null) {
-			BlockState carpet = ColorHelper.CARPET_MAP.apply(spreader.paddingColor).defaultBlockState();
-			BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(carpet);
-			buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(carpet, false));
-
-			float f = 1 / 16F;
-
-			// back
-			ms.pushPose();
-			ms.mulPose(Vector3f.XP.rotationDegrees(90));
-			ms.translate(-0.5F, 0.5F - f, 0.5F);
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.popPose();
-
-			// left
-			ms.pushPose();
-			ms.mulPose(Vector3f.ZP.rotationDegrees(-90));
-			ms.translate(0.5F, 0.5F, -0.5F - f);
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.popPose();
-
-			// right
-			ms.pushPose();
-			ms.mulPose(Vector3f.ZP.rotationDegrees(90));
-			ms.translate(-1.5F, 0.5F, -0.5F - f);
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.popPose();
-
-			// top
-			ms.pushPose();
-			ms.translate(-0.5F, -0.5F, -0.5F - f);
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.popPose();
-
-			// bottom
-			ms.pushPose();
-			ms.mulPose(Vector3f.YP.rotationDegrees(180));
-			ms.translate(-0.5F, -1.5F - f, -0.5F + f);
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, carpet, model, 1, 1, 1, light, overlay);
-			ms.popPose();
+			BakedModel model = getPaddingModel(spreader.paddingColor);
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+					.renderModel(ms.last(), buffer, spreader.getBlockState(),
+							model, r, g, b, light, overlay);
 		}
 
 		ms.popPose();
 	}
 
-	private BakedModel getInsideModel(TileSpreader tile) {
+	private BakedModel getCoreModel(TileSpreader tile) {
 		return switch (tile.getVariant()) {
-		case GAIA -> MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
-		case REDSTONE -> MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
-		case ELVEN -> MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
-		case MANA -> MiscellaneousIcons.INSTANCE.manaSpreaderInside;
+		case GAIA -> MiscellaneousIcons.INSTANCE.gaiaSpreaderCore;
+		case REDSTONE -> MiscellaneousIcons.INSTANCE.redstoneSpreaderCore;
+		case ELVEN -> MiscellaneousIcons.INSTANCE.elvenSpreaderCore;
+		case MANA -> MiscellaneousIcons.INSTANCE.manaSpreaderCore;
 		};
+	}
+
+	private BakedModel getPaddingModel(DyeColor color) {
+		return MiscellaneousIcons.INSTANCE.spreaderPaddings.get(color);
 	}
 }

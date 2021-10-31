@@ -49,6 +49,7 @@ import vazkii.botania.common.block.decor.BlockMotifFlower;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.string.BlockRedString;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorBlockModelGenerators;
@@ -413,27 +414,45 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput));
 		});
 
-		var materialSlot = AccessorTextureSlot.make("material");
-		var insideSlot = AccessorTextureSlot.make("inside");
+		var outsideSlot = AccessorTextureSlot.make("outside");
+		var coreSlot = AccessorTextureSlot.make("core");
 		var spreaderTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader")), Optional.empty(),
-				TextureSlot.SIDE, materialSlot);
-		var spreaderInsideTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_inside")), Optional.of("_inside"),
-				insideSlot);
+				TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, outsideSlot);
+		var spreaderCoreTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_core")), Optional.of("_core"),
+				coreSlot);
+		var spreaderPaddingTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_padding")),
+				Optional.empty(), TextureSlot.ALL);
 		takeAll(remainingBlocks, manaSpreader, redstoneSpreader, gaiaSpreader, elvenSpreader).forEach(b -> {
-			ResourceLocation material;
-			if (b == elvenSpreader) {
-				material = getBlockTexture(dreamwood);
-			} else if (b == gaiaSpreader) {
-				material = getBlockTexture(b, "_material");
+			ResourceLocation outside;
+			if (b == redstoneSpreader || b == manaSpreader) {
+				outside = getBlockTexture(livingwoodLog);
+			} else if (b == elvenSpreader) {
+				outside = getBlockTexture(dreamwoodLog, "/4");
 			} else {
-				material = getBlockTexture(livingwood);
+				outside = getBlockTexture(b, "_outside");
+			}
+			ResourceLocation inside;
+			if (b == redstoneSpreader || b == manaSpreader) {
+				inside = getBlockTexture(livingwoodLogStripped);
+			} else if (b == elvenSpreader) {
+				inside = getBlockTexture(dreamwoodLogStripped, "/4");
+			} else {
+				inside = getBlockTexture(b, "_inside");
 			}
 			singleVariantBlockState(b, spreaderTemplate.create(b, new TextureMapping()
 					.put(TextureSlot.SIDE, getBlockTexture(b, "_side"))
-					.put(materialSlot, material), this.modelOutput));
-			spreaderInsideTemplate.create(b, new TextureMapping()
-					.put(insideSlot, getBlockTexture(b, "_inside")), this.modelOutput);
+					.put(TextureSlot.BACK, getBlockTexture(b, "_back"))
+					.put(TextureSlot.INSIDE, inside)
+					.put(outsideSlot, outside), this.modelOutput));
+			spreaderCoreTemplate.create(b, new TextureMapping()
+					.put(coreSlot, getBlockTexture(b, "_core")), this.modelOutput);
 		});
+		for (DyeColor color : DyeColor.values()) {
+			Block wool = ColorHelper.WOOL_MAP.apply(color);
+			spreaderPaddingTemplate.create(prefix("block/" + color.getName() + "_spreader_padding"),
+					new TextureMapping().put(TextureSlot.ALL, getBlockTexture(wool)), this.modelOutput
+			);
+		}
 
 		var liquidSlot = AccessorTextureSlot.make("liquid");
 		var poolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/pool")), Optional.empty(), TextureSlot.ALL);

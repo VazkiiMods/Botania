@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.DyeColor;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IFloatingFlower;
@@ -42,10 +43,13 @@ public final class ModelHandler {
 		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
 		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
 		consumer.accept(prefix("block/pump_head"));
-		consumer.accept(prefix("block/elven_spreader_inside"));
-		consumer.accept(prefix("block/gaia_spreader_inside"));
-		consumer.accept(prefix("block/mana_spreader_inside"));
-		consumer.accept(prefix("block/redstone_spreader_inside"));
+		consumer.accept(prefix("block/elven_spreader_core"));
+		consumer.accept(prefix("block/gaia_spreader_core"));
+		consumer.accept(prefix("block/mana_spreader_core"));
+		consumer.accept(prefix("block/redstone_spreader_core"));
+		for (DyeColor color : DyeColor.values()) {
+			consumer.accept(prefix("block/" + color.toString() + "_spreader_padding"));
+		}
 
 		registerIslands();
 		registerTaters(rm, consumer);

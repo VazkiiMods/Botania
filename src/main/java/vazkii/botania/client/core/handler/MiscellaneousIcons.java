@@ -16,6 +16,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.client.model.GunModel;
@@ -30,6 +31,7 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorModelBakery;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -76,10 +78,12 @@ public class MiscellaneousIcons {
 			cirrusGem,
 			nimbusGem,
 			terrasteelHelmWillModel,
-			elvenSpreaderInside,
-			gaiaSpreaderInside,
-			manaSpreaderInside,
-			redstoneSpreaderInside;
+			elvenSpreaderCore,
+			gaiaSpreaderCore,
+			manaSpreaderCore,
+			redstoneSpreaderCore;
+
+	public HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
@@ -153,10 +157,15 @@ public class MiscellaneousIcons {
 
 		RenderTileCorporeaCrystalCube.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
 		RenderTilePump.headModel = map.get(prefix("block/pump_head"));
-		elvenSpreaderInside = map.get(prefix("block/elven_spreader_inside"));
-		gaiaSpreaderInside = map.get(prefix("block/gaia_spreader_inside"));
-		manaSpreaderInside = map.get(prefix("block/mana_spreader_inside"));
-		redstoneSpreaderInside = map.get(prefix("block/redstone_spreader_inside"));
+
+		// Spreader cores and paddings
+		elvenSpreaderCore = map.get(prefix("block/elven_spreader_core"));
+		gaiaSpreaderCore = map.get(prefix("block/gaia_spreader_core"));
+		manaSpreaderCore = map.get(prefix("block/mana_spreader_core"));
+		redstoneSpreaderCore = map.get(prefix("block/redstone_spreader_core"));
+		for (DyeColor color : DyeColor.values()) {
+			spreaderPaddings.put(color, map.get(prefix("block/" + color.getName() + "_spreader_padding")));
+		}
 
 		// Icons
 		goldfishModel = map.get(prefix("icon/goldfish"));
