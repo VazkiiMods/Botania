@@ -9,8 +9,12 @@
       "text": "botania.page.icePendant0"
     },
     {
+      "type": "text",
+      "text": "botania.page.icePendant1"
+    },
+    {
       "type": "crafting",
-      "text": "botania.page.icePendant1",
+      "text": "botania.page.icePendant2",
       "recipe": "botania:ice_pendant"
     }
   ]

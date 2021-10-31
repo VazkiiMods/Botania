@@ -17,12 +17,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ItemCobbleRod extends Item implements IManaUsingItem {
+public class ItemCobbleRod extends Item {
 
 	static final int COST = 150;
 
@@ -35,11 +34,6 @@ public class ItemCobbleRod extends Item implements IManaUsingItem {
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		return ItemDirtRod.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class BlockProvider implements IBlockProvider {

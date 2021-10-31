@@ -19,8 +19,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IDirectioned;
-import vazkii.botania.api.mana.IThrottledPacket;
+import vazkii.botania.api.mana.IManaSpreader;
+import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.core.helper.MathHelper;
 
 public class LensRedirect extends Lens {
@@ -33,9 +33,8 @@ public class LensRedirect extends Lens {
 				&& coords.getY() != Integer.MIN_VALUE
 				&& !((BlockHitResult) pos).getBlockPos().equals(coords)) {
 			BlockEntity tile = entity.level.getBlockEntity(((BlockHitResult) pos).getBlockPos());
-			if (tile instanceof IDirectioned) {
+			if (tile instanceof IManaSpreader spreader) {
 				if (!burst.isFake()) {
-					IDirectioned redir = (IDirectioned) tile;
 					Vec3 tileVec = Vec3.atCenterOf(tile.getBlockPos());
 					Vec3 sourceVec = Vec3.atCenterOf(coords);
 
@@ -60,18 +59,18 @@ public class LensRedirect extends Lens {
 						angle = -angle;
 					}
 
-					redir.setRotationX((float) angle + 90F);
+					spreader.setRotationX((float) angle + 90F);
 
 					rotVec = new Vec3(diffVec.x, 0, diffVec.z);
 					angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
 					if (sourceVec.y < tileVec.y) {
 						angle = -angle;
 					}
-					redir.setRotationY((float) angle);
+					spreader.setRotationY((float) angle);
 
-					redir.commitRedirection();
-					if (redir instanceof IThrottledPacket) {
-						((IThrottledPacket) redir).markDispatchable();
+					spreader.commitRedirection();
+					if (spreader instanceof IThrottledPacket pkt) {
+						pkt.markDispatchable();
 					}
 				}
 			}

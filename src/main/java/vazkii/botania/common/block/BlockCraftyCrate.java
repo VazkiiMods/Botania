@@ -15,8 +15,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -29,7 +27,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -37,7 +34,7 @@ import vazkii.botania.common.block.tile.TileCraftCrate;
 
 import javax.annotation.Nonnull;
 
-public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD, IWandable {
+public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
 	public BlockCraftyCrate(Properties builder) {
 		super(builder);
@@ -76,15 +73,6 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD, IWanda
 			return createTickerHelper(type, ModTiles.CRAFT_CRATE, TileCraftCrate::serverTick);
 		}
 		return null;
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		BlockEntity crate = world.getBlockEntity(pos);
-		if (crate instanceof TileCraftCrate) {
-			return ((TileCraftCrate) crate).onWanded(world);
-		}
-		return false;
 	}
 
 	@Environment(EnvType.CLIENT)

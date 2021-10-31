@@ -8,21 +8,28 @@
  */
 package vazkii.botania.api.block;
 
-import net.minecraft.core.BlockPos;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+
+import vazkii.botania.api.BotaniaAPI;
+
+import javax.annotation.Nullable;
 
 /**
- * Any block that implements this can be used with the Wand for the Forest for some purpose.
+ * Any block with this component can be used with the Wand for the Forest for some purpose.
  */
 public interface IWandable {
+	BlockApiLookup<IWandable, Unit> API = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "wandable"), IWandable.class, Unit.class);
 
 	/**
-	 * Called when the block is used by a wand. Note that the player parameter can be null
-	 * if this function is called from a dispenser.
+	 * Called when the block is used by a wand.
+	 * 
+	 * @param player Null if the block is being wanded by a dispenser
 	 */
-	boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side);
+	boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side);
 
 }

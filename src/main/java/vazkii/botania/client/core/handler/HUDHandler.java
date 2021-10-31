@@ -35,9 +35,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -59,6 +57,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.List;
 
@@ -165,7 +164,6 @@ public final class HUDHandler {
 			int totalMana = 0;
 			int totalMaxMana = 0;
 			boolean anyRequest = false;
-			boolean creative = false;
 
 			Container mainInv = player.getInventory();
 			Container accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
@@ -179,10 +177,7 @@ public final class HUDHandler {
 				ItemStack stack = inv.getItem(i - (useAccessories ? invSize : 0));
 
 				if (!stack.isEmpty()) {
-					Item item = stack.getItem();
-					if (item instanceof IManaUsingItem) {
-						anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
-					}
+					anyRequest = anyRequest || stack.is(ModTags.Items.MANA_USING_ITEMS);
 				}
 			}
 
@@ -193,9 +188,6 @@ public final class HUDHandler {
 					totalMana += ((IManaItem) item).getMana(stack);
 					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
 				}
-				if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
-					creative = true;
-				}
 			}
 
 			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
@@ -205,13 +197,10 @@ public final class HUDHandler {
 					totalMana += ((IManaItem) item).getMana(stack);
 					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
 				}
-				if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
-					creative = true;
-				}
 			}
 
 			if (anyRequest) {
-				renderManaInvBar(ms, creative, totalMana, totalMaxMana);
+				renderManaInvBar(ms, totalMana, totalMaxMana);
 			}
 		}
 
@@ -223,18 +212,16 @@ public final class HUDHandler {
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
-	private static void renderManaInvBar(PoseStack ms, boolean hasCreative, int totalMana, int totalMaxMana) {
+	private static void renderManaInvBar(PoseStack ms, int totalMana, int totalMaxMana) {
 		Minecraft mc = Minecraft.getInstance();
 		int width = 182;
 		int x = mc.getWindow().getGuiScaledWidth() / 2 - width / 2;
 		int y = mc.getWindow().getGuiScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.getValue();
 
-		if (!hasCreative) {
-			if (totalMaxMana == 0) {
-				width = 0;
-			} else {
-				width *= (double) totalMana / (double) totalMaxMana;
-			}
+		if (totalMaxMana == 0) {
+			width = 0;
+		} else {
+			width *= (double) totalMana / (double) totalMaxMana;
 		}
 
 		if (width == 0) {

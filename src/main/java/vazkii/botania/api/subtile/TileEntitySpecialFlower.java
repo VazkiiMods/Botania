@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.FloatingFlowerImpl;
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.block.IFloatingFlowerProvider;
@@ -48,7 +47,6 @@ import javax.annotation.Nullable;
  * Common superclass of all magical flower block entities
  */
 public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
-	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation(BotaniaAPI.MODID, "ding");
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -218,14 +216,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	@Override
 	public void sync() {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-	}
-
-	/**
-	 * Called when a Wand of the Forest is used on this sub tile. Note that the
-	 * player parameter can be null if this is called from a dispenser.
-	 */
-	public boolean onWanded(Player player, ItemStack wand) {
-		return false;
 	}
 
 	/**

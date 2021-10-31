@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.IManaSpark;
@@ -63,7 +64,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements ISparkAttachable {
+public class TileEnchanter extends TileMod implements ISparkAttachable, IWandable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -148,9 +149,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		super(ModTiles.ENCHANTER, pos, state);
 	}
 
-	public void onWanded(Player player, ItemStack wand) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (stage != State.IDLE || itemToEnchant.isEmpty() || !itemToEnchant.isEnchantable()) {
-			return;
+			return false;
 		}
 
 		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX() - 2, worldPosition.getY(), worldPosition.getZ() - 2, worldPosition.getX() + 3, worldPosition.getY() + 1, worldPosition.getZ() + 3));
@@ -165,12 +167,13 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 						Enchantment enchant = enchants.keySet().iterator().next();
 						if (isEnchantmentValid(enchant)) {
 							advanceStage();
-							return;
+							return true;
 						}
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 	private void gatherEnchants() {

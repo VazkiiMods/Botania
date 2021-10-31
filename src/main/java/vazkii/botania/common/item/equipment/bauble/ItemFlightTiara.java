@@ -41,7 +41,6 @@ import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -61,7 +60,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
+public class ItemFlightTiara extends ItemBauble {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
 	public static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
@@ -212,11 +211,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public static int getCost(ItemStack stack, int timeLeft) {
 		return timeLeft <= 0 ? COST_OVERKILL : COST;
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

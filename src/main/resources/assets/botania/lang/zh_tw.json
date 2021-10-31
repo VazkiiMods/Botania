@@ -2896,7 +2896,7 @@
   "botania.entry.icePendant": "雪花項鏈",
   "botania.tagline.icePendant": "行於水面,以冰為徑",
   "botania.page.icePendant0": "$(item)雪花項鏈$(0)是一個蘊含著凍結 能量的$(thing)飾品$(0),穿戴時它會將所 站高度周圍一切靜止的$(item)水$(0)方 塊凍為$(item)冰$(0).$(p)$(item)冰$(0)會在裝備者離開後快速融 化.最後,這個項鏈不會在穿 戴者潛行或是完全沒入水中 時生效.",
-  "botania.page.icePendant1": "你想堆個雪人麼?",
+  "botania.page.icePendant2": "你想堆個雪人麼?",
 
   "botania.entry.lavaPendant": "火石項鏈",
   "botania.tagline.lavaPendant": "抵抗火焰...稍微的",

@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
@@ -26,36 +27,36 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModRecipeTypes {
-	public static final net.minecraft.world.item.crafting.RecipeType<IManaInfusionRecipe> MANA_INFUSION_TYPE = new RecipeType<>();
+	public static final RecipeType<IManaInfusionRecipe> MANA_INFUSION_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeManaInfusion> MANA_INFUSION_SERIALIZER = new RecipeManaInfusion.Serializer();
 
-	public static final net.minecraft.world.item.crafting.RecipeType<IElvenTradeRecipe> ELVEN_TRADE_TYPE = new RecipeType<>();
+	public static final RecipeType<IElvenTradeRecipe> ELVEN_TRADE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeElvenTrade> ELVEN_TRADE_SERIALIZER = new RecipeElvenTrade.Serializer();
 	public static final SimpleRecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new SimpleRecipeSerializer<>(LexiconElvenTradeRecipe::new);
 
-	public static final net.minecraft.world.item.crafting.RecipeType<IPureDaisyRecipe> PURE_DAISY_TYPE = new RecipeType<>();
+	public static final RecipeType<IPureDaisyRecipe> PURE_DAISY_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipePureDaisy> PURE_DAISY_SERIALIZER = new RecipePureDaisy.Serializer();
 
-	public static final net.minecraft.world.item.crafting.RecipeType<IBrewRecipe> BREW_TYPE = new RecipeType<>();
+	public static final RecipeType<IBrewRecipe> BREW_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeBrew> BREW_SERIALIZER = new RecipeBrew.Serializer();
 
-	public static final net.minecraft.world.item.crafting.RecipeType<IPetalRecipe> PETAL_TYPE = new RecipeType<>();
+	public static final RecipeType<IPetalRecipe> PETAL_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipePetals> PETAL_SERIALIZER = new RecipePetals.Serializer();
 
-	public static final net.minecraft.world.item.crafting.RecipeType<IRuneAltarRecipe> RUNE_TYPE = new RecipeType<>();
+	public static final RecipeType<IRuneAltarRecipe> RUNE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final RecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
-	public static final RecipeType<ITerraPlateRecipe> TERRA_PLATE_TYPE = new RecipeType<>();
+	public static final RecipeType<ITerraPlateRecipe> TERRA_PLATE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeTerraPlate> TERRA_PLATE_SERIALIZER = new RecipeTerraPlate.Serializer();
 
-	public static final RecipeType<IOrechidRecipe> ORECHID_TYPE = new RecipeType<>();
+	public static final RecipeType<IOrechidRecipe> ORECHID_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeOrechid> ORECHID_SERIALIZER = new RecipeOrechid.Serializer();
 
-	public static final RecipeType<IOrechidRecipe> ORECHID_IGNEM_TYPE = new RecipeType<>();
+	public static final RecipeType<IOrechidRecipe> ORECHID_IGNEM_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeOrechidIgnem> ORECHID_IGNEM_SERIALIZER = new RecipeOrechidIgnem.Serializer();
 
-	public static final RecipeType<IOrechidRecipe> MARIMORPHOSIS_TYPE = new RecipeType<>();
+	public static final RecipeType<IOrechidRecipe> MARIMORPHOSIS_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeMarimorphosis> MARIMORPHOSIS_SERIALIZER = new RecipeMarimorphosis.Serializer();
 
 	public static void registerRecipeTypes() {
@@ -103,14 +104,14 @@ public class ModRecipeTypes {
 		register(r, id, MARIMORPHOSIS_SERIALIZER);
 	}
 
-	private static class RecipeType<T extends Recipe<?>> implements net.minecraft.world.item.crafting.RecipeType<T> {
+	private static class ModRecipeType<T extends Recipe<?>> implements RecipeType<T> {
 		@Override
 		public String toString() {
 			return Registry.RECIPE_TYPE.getKey(this).toString();
 		}
 	}
 
-	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(Level world, net.minecraft.world.item.crafting.RecipeType<T> type) {
+	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(Level world, RecipeType<T> type) {
 		return ((AccessorRecipeManager) world.getRecipeManager()).botania_getAll(type);
 	}
 }

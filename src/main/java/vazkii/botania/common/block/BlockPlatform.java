@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -37,7 +36,6 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.block.tile.TilePlatform;
 
@@ -47,7 +45,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, EntityBlock {
+public class BlockPlatform extends BlockMod implements IManaCollisionGhost, EntityBlock {
 
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
@@ -103,12 +101,6 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new TilePlatform(pos, state);
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		TilePlatform tile = (TilePlatform) world.getBlockEntity(pos);
-		return tile.onWanded(player);
 	}
 
 	@Override

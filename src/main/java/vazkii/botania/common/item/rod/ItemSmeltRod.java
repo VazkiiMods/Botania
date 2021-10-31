@@ -28,19 +28,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.rod.ItemSmeltRod.SmeltData;
 
 import javax.annotation.Nonnull;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ItemSmeltRod extends Item implements IManaUsingItem {
+public class ItemSmeltRod extends Item {
 
 	private static final int TIME = 10;
 	private static final int COST = 300;
@@ -136,11 +134,6 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 						}
 					});
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	static class SmeltData {

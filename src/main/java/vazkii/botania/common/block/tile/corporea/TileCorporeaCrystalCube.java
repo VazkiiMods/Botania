@@ -9,12 +9,17 @@
 package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
@@ -24,7 +29,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, IWandable {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";
@@ -154,5 +159,17 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 				setCount(getItemCount() - sum);
 			}
 		}
+	}
+
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
+		if (player == null || player.isShiftKeyDown()) {
+			this.locked = !this.locked;
+			if (!level.isClientSide) {
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			}
+			return true;
+		}
+		return false;
 	}
 }

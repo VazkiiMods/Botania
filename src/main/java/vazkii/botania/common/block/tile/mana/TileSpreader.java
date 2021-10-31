@@ -38,6 +38,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
@@ -57,7 +58,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned {
+public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -366,9 +367,10 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		return mana;
 	}
 
-	public void onWanded(Player player, ItemStack wand) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (player == null) {
-			return;
+			return false;
 		}
 
 		if (!player.isShiftKeyDown()) {
@@ -399,6 +401,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
+		return true;
 	}
 
 	private boolean needsNewBurstSimulation() {

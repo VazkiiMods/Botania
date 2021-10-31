@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,8 +28,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
@@ -39,7 +36,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements EntityBlock, IWandable {
+public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(3.0, 0, 3.0, 13.0, 16, 13.0);
 
@@ -79,19 +76,6 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		if (player == null || player.isShiftKeyDown()) {
-			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
-			cube.locked = !cube.locked;
-			if (!world.isClientSide) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(cube);
-			}
-			return true;
-		}
-		return false;
 	}
 
 	@Nonnull

@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.*;
@@ -118,10 +119,14 @@ public class ModSubtiles {
 	public static final Block hopperhockChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, () -> ModSubtiles.HOPPERHOCK_CHIBI);
 
 	public static final Block tangleberrie = new BlockSpecialFlower(ModPotions.bloodthrst, 120, FLOWER_PROPS, () -> ModSubtiles.TANGLEBERRIE);
+	public static final Block tangleberrieChibi = new BlockSpecialFlower(ModPotions.bloodthrst, 120, FLOWER_PROPS, () -> ModSubtiles.TANGLEBERRIE_CHIBI);
 	public static final Block tangleberrieFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, () -> ModSubtiles.TANGLEBERRIE);
+	public static final Block tangleberrieChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, () -> ModSubtiles.TANGLEBERRIE_CHIBI);
 
 	public static final Block jiyuulia = new BlockSpecialFlower(ModPotions.emptiness, 120, FLOWER_PROPS, () -> ModSubtiles.JIYUULIA);
+	public static final Block jiyuuliaChibi = new BlockSpecialFlower(ModPotions.emptiness, 120, FLOWER_PROPS, () -> ModSubtiles.JIYUULIA_CHIBI);
 	public static final Block jiyuuliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, () -> ModSubtiles.JIYUULIA);
+	public static final Block jiyuuliaChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, () -> ModSubtiles.JIYUULIA_CHIBI);
 
 	public static final Block rannuncarpus = new BlockSpecialFlower(MobEffects.JUMP, 30, FLOWER_PROPS, () -> ModSubtiles.RANNUNCARPUS);
 	public static final Block rannuncarpusChibi = new BlockSpecialFlower(MobEffects.JUMP, 30, FLOWER_PROPS, () -> ModSubtiles.RANNUNCARPUS_CHIBI);
@@ -205,7 +210,9 @@ public class ModSubtiles {
 	public static final BlockEntityType<SubTileHopperhock> HOPPERHOCK = FabricBlockEntityTypeBuilder.create(SubTileHopperhock::new, hopperhock, hopperhockFloating).build(null);
 	public static final BlockEntityType<SubTileHopperhock.Mini> HOPPERHOCK_CHIBI = FabricBlockEntityTypeBuilder.create(SubTileHopperhock.Mini::new, hopperhockChibi, hopperhockChibiFloating).build(null);
 	public static final BlockEntityType<SubTileTangleberrie> TANGLEBERRIE = FabricBlockEntityTypeBuilder.create(SubTileTangleberrie::new, tangleberrie, tangleberrieFloating).build(null);
+	public static final BlockEntityType<SubTileTangleberrie.Mini> TANGLEBERRIE_CHIBI = FabricBlockEntityTypeBuilder.create(SubTileTangleberrie.Mini::new, tangleberrieChibi, tangleberrieChibiFloating).build(null);
 	public static final BlockEntityType<SubTileJiyuulia> JIYUULIA = FabricBlockEntityTypeBuilder.create(SubTileJiyuulia::new, jiyuulia, jiyuuliaFloating).build(null);
+	public static final BlockEntityType<SubTileJiyuulia.Mini> JIYUULIA_CHIBI = FabricBlockEntityTypeBuilder.create(SubTileJiyuulia.Mini::new, jiyuuliaChibi, jiyuuliaChibiFloating).build(null);
 	public static final BlockEntityType<SubTileRannuncarpus> RANNUNCARPUS = FabricBlockEntityTypeBuilder.create(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating).build(null);
 	public static final BlockEntityType<SubTileRannuncarpus.Mini> RANNUNCARPUS_CHIBI = FabricBlockEntityTypeBuilder.create(SubTileRannuncarpus.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating).build(null);
 	public static final BlockEntityType<SubTileHyacidus> HYACIDUS = FabricBlockEntityTypeBuilder.create(SubTileHyacidus::new, hyacidus, hyacidusFloating).build(null);
@@ -325,10 +332,14 @@ public class ModSubtiles {
 		register(r, chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)), hopperhockChibiFloating);
 
 		register(r, LibBlockNames.SUBTILE_TANGLEBERRIE, tangleberrie);
+		register(r, chibi(LibBlockNames.SUBTILE_TANGLEBERRIE), tangleberrieChibi);
 		register(r, floating(LibBlockNames.SUBTILE_TANGLEBERRIE), tangleberrieFloating);
+		register(r, chibi(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)), tangleberrieChibiFloating);
 
 		register(r, LibBlockNames.SUBTILE_JIYUULIA, jiyuulia);
+		register(r, chibi(LibBlockNames.SUBTILE_JIYUULIA), jiyuuliaChibi);
 		register(r, floating(LibBlockNames.SUBTILE_JIYUULIA), jiyuuliaFloating);
+		register(r, chibi(floating(LibBlockNames.SUBTILE_JIYUULIA)), jiyuuliaChibiFloating);
 
 		register(r, LibBlockNames.SUBTILE_RANNUNCARPUS, rannuncarpus);
 		register(r, chibi(LibBlockNames.SUBTILE_RANNUNCARPUS), rannuncarpusChibi);
@@ -472,10 +483,14 @@ public class ModSubtiles {
 		register(r, getId(hopperhockChibiFloating), new ItemBlockSpecialFlower(hopperhockChibiFloating, props));
 
 		register(r, getId(tangleberrie), new ItemBlockSpecialFlower(tangleberrie, props));
+		register(r, getId(tangleberrieChibi), new ItemBlockSpecialFlower(tangleberrieChibi, props));
 		register(r, getId(tangleberrieFloating), new ItemBlockSpecialFlower(tangleberrieFloating, props));
+		register(r, getId(tangleberrieChibiFloating), new ItemBlockSpecialFlower(tangleberrieChibiFloating, props));
 
 		register(r, getId(jiyuulia), new ItemBlockSpecialFlower(jiyuulia, props));
+		register(r, getId(jiyuuliaChibi), new ItemBlockSpecialFlower(jiyuuliaChibi, props));
 		register(r, getId(jiyuuliaFloating), new ItemBlockSpecialFlower(jiyuuliaFloating, props));
+		register(r, getId(jiyuuliaChibiFloating), new ItemBlockSpecialFlower(jiyuuliaChibiFloating, props));
 
 		register(r, getId(rannuncarpus), new ItemBlockSpecialFlower(rannuncarpus, props));
 		register(r, getId(rannuncarpusChibi), new ItemBlockSpecialFlower(rannuncarpusChibi, props));
@@ -562,7 +577,9 @@ public class ModSubtiles {
 		register(r, getId(hopperhock), HOPPERHOCK);
 		register(r, getId(hopperhockChibi), HOPPERHOCK_CHIBI);
 		register(r, getId(tangleberrie), TANGLEBERRIE);
+		register(r, getId(tangleberrieChibi), TANGLEBERRIE_CHIBI);
 		register(r, getId(jiyuulia), JIYUULIA);
+		register(r, getId(jiyuuliaChibi), JIYUULIA_CHIBI);
 		register(r, getId(rannuncarpus), RANNUNCARPUS);
 		register(r, getId(rannuncarpusChibi), RANNUNCARPUS_CHIBI);
 		register(r, getId(hyacidus), HYACIDUS);
@@ -582,5 +599,9 @@ public class ModSubtiles {
 		register(r, getId(solegnoliaChibi), SOLEGNOLIA_CHIBI);
 		register(r, getId(orechidIgnem), ORECHID_IGNEM);
 		register(r, getId(labellia), LABELLIA);
+
+		IWandable.API.registerSelf(
+				DAFFOMILL, HOPPERHOCK, HOPPERHOCK_CHIBI, RANNUNCARPUS, RANNUNCARPUS_CHIBI
+		);
 	}
 }

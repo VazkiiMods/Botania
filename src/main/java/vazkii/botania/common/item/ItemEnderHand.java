@@ -22,14 +22,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 
 import javax.annotation.Nonnull;
 
-public class ItemEnderHand extends Item implements IManaUsingItem {
+public class ItemEnderHand extends Item {
 
 	private static final int COST_PROVIDE = 5;
 	private static final int COST_SELF = 250;
@@ -72,11 +71,6 @@ public class ItemEnderHand extends Item implements IManaUsingItem {
 		}
 
 		return InteractionResult.PASS;
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class BlockProvider implements IBlockProvider {

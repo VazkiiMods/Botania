@@ -26,7 +26,6 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
@@ -38,7 +37,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem {
+public class ItemRainbowRod extends ItemSelfReturning {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_RAINBOW);
 
@@ -134,11 +133,6 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem 
 			}
 		}
 		return placed;
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class AvatarBehavior implements IAvatarWieldable {

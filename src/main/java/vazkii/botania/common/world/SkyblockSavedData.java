@@ -41,7 +41,11 @@ public class SkyblockSavedData extends SavedData {
 			map.put(IslandPos.fromTag(tag), tag.getUUID("Player"));
 		}
 		this.skyblocks = map;
-		this.spiral = Spiral.fromArray(nbt.getIntArray("SpiralState"));
+		if (nbt.contains("SpiralState", Tag.TAG_INT_ARRAY)) {
+			this.spiral = Spiral.fromArray(nbt.getIntArray("SpiralState"));
+		} else {
+			this.spiral = new Spiral();
+		}
 	}
 
 	public static SkyblockSavedData get(ServerLevel world) {

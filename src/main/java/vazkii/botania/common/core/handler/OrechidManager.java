@@ -11,9 +11,6 @@ package vazkii.botania.common.core.handler;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +30,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class OrechidManager implements SimpleSynchronousResourceReloadListener {
 	private static final Map<RecipeType<? extends IOrechidRecipe>, Multimap<Block, ? extends IOrechidRecipe>> DATA = new HashMap<>();
-	private static final Map<RecipeType<? extends IOrechidRecipe>, Object2IntMap<Block>> WEIGHTS = new HashMap<>();
 
 	public static void registerListener() {
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new OrechidManager());
@@ -42,7 +38,6 @@ public class OrechidManager implements SimpleSynchronousResourceReloadListener {
 	@Override
 	public void onResourceManagerReload(@Nonnull ResourceManager manager) {
 		DATA.clear();
-		WEIGHTS.clear();
 	}
 
 	public static Multimap<Block, ? extends IOrechidRecipe> getFor(RecipeType<? extends IOrechidRecipe> type) {
@@ -56,17 +51,6 @@ public class OrechidManager implements SimpleSynchronousResourceReloadListener {
 			}
 			return map;
 		});
-	}
-
-	public static int getBaseTotalWeight(IOrechidRecipe recipe) {
-		@SuppressWarnings("unchecked")
-		var type = (RecipeType<? extends IOrechidRecipe>) recipe.getType();
-		var block = recipe.getInput();
-
-		return WEIGHTS.computeIfAbsent(type, k -> new Object2IntOpenHashMap<>())
-				.computeIntIfAbsent(block, b -> getFor(type).get(block).stream()
-						.mapToInt(IOrechidRecipe::getWeight)
-						.sum());
 	}
 
 	@Override

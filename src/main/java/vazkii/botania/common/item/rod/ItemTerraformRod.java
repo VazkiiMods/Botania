@@ -11,7 +11,6 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -40,7 +38,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemTerraformRod extends Item implements IManaUsingItem {
+public class ItemTerraformRod extends Item {
 	private static final int COST_PER = 55;
 
 	public ItemTerraformRod(Properties props) {
@@ -146,11 +144,6 @@ public class ItemTerraformRod extends Item implements IManaUsingItem {
 			this.block = block;
 		}
 
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class BlockProvider implements IBlockProvider {

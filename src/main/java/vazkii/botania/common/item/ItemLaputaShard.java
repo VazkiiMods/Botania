@@ -42,7 +42,6 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -51,6 +50,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -144,7 +144,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		return !state.isAir()
 				&& !isFlowingFluid
 				&& !(block instanceof FallingBlock)
-				&& (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos))
+				&& !state.is(ModTags.Blocks.LAPUTA_IMMOBILE)
 				&& state.getDestroySpeed(world, pos) != -1;
 	}
 

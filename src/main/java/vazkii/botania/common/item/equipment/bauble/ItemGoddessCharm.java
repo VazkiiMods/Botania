@@ -26,14 +26,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 
-public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
+public class ItemGoddessCharm extends ItemBauble {
 
 	public static final int COST = 1000;
 
@@ -62,11 +61,6 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 		ms.scale(0.55F, -0.55F, -0.55F);
 		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
 				light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 }

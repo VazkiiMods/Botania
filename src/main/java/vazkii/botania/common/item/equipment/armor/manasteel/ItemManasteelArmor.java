@@ -31,7 +31,6 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -47,7 +46,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPhantomInkable {
+public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
@@ -107,11 +106,6 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 				? ModModelLayers.MANASTEEL_INNER_ARMOR
 				: ModModelLayers.MANASTEEL_OUTER_ARMOR);
 		return new ModelArmor(root, slot);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Environment(EnvType.CLIENT)

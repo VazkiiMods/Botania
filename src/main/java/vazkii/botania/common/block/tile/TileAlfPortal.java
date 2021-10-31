@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
@@ -32,6 +34,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
+import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -49,7 +52,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileAlfPortal extends TileMod {
+public class TileAlfPortal extends TileMod implements IWandable {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
@@ -237,12 +240,16 @@ public class TileAlfPortal extends TileMod {
 		level.addParticle(data, getBlockPos().getX() + dx, getBlockPos().getY() + dy, getBlockPos().getZ() + dz, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
 	}
 
-	public boolean onWanded() {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		AlfPortalState state = getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		if (state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if (newState != AlfPortalState.OFF) {
 				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
+				if (player instanceof ServerPlayer serverPlayer) {
+					AlfPortalTrigger.INSTANCE.trigger(serverPlayer, serverPlayer.getLevel(), getBlockPos(), stack);
+				}
 				return true;
 			}
 		}

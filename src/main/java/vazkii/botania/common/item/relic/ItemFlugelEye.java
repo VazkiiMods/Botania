@@ -33,7 +33,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -49,7 +48,7 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
+public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
 
 	public ItemFlugelEye(Properties props) {
 		super(props);
@@ -185,11 +184,6 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 			tooltip.add(new TranslatableComponent("botaniamisc.flugelBound", bindingText, worldText).withStyle(ChatFormatting.GRAY));
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

@@ -33,7 +33,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -44,7 +43,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockLightRelay extends BlockModWaterloggable implements EntityBlock, IWandable {
+public class BlockLightRelay extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(5, 5, 5, 11, 11, 11);
 	public final LuminizerVariant variant;
@@ -131,11 +130,6 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.LIGHT_RELAY, level.isClientSide ? TileLightRelay::clientTick : TileLightRelay::serverTick);
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		return false;
 	}
 
 }

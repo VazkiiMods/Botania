@@ -33,6 +33,7 @@ import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.*;
@@ -57,12 +58,13 @@ import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, IWandable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -73,7 +75,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private static final String TAG_MANA_CAP = "manaCap";
 	private static final String TAG_CAN_ACCEPT = "canAccept";
 	private static final String TAG_CAN_SPARE = "canSpare";
-	private static final String TAG_FRAGILE = "fragile";
 	private static final String TAG_INPUT_KEY = "inputKey";
 	private static final String TAG_OUTPUT_KEY = "outputKey";
 	private static final int CRAFT_EFFECT_EVENT = 0;
@@ -88,7 +89,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private int soundTicks = 0;
 	private boolean canAccept = true;
 	private boolean canSpare = true;
-	public boolean fragile = false;
 	boolean isDoingTransfer = false;
 	int ticksDoingTransfer = 0;
 
@@ -347,7 +347,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		cmp.putInt(TAG_MANA_CAP, manaCap);
 		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
 		cmp.putBoolean(TAG_CAN_SPARE, canSpare);
-		cmp.putBoolean(TAG_FRAGILE, fragile);
 
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
@@ -368,7 +367,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if (cmp.contains(TAG_CAN_SPARE)) {
 			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
 		}
-		fragile = cmp.getBoolean(TAG_FRAGILE);
 
 		if (cmp.contains(TAG_INPUT_KEY)) {
 			inputKey = cmp.getString(TAG_INPUT_KEY);
@@ -379,11 +377,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	}
 
-	public void onWanded(Player player) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
 			outputting = !outputting;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
+		return true;
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.mana;
+package vazkii.botania.common.block.tile.mana;
 
 /**
  * A TileEntity that will only send a few packets rather than one per every entity collision.

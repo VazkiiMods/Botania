@@ -39,6 +39,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
@@ -682,8 +683,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void ping() {
 		BlockEntity tile = getShooter();
-		if (tile instanceof IPingable pingable) {
-			pingable.pingback(this, getShooterUUID());
+		if (tile instanceof IManaSpreader spreader) {
+			spreader.pingback(this, getShooterUUID());
 		}
 	}
 

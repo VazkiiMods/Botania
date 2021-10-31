@@ -14,9 +14,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -27,13 +24,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaRetainer extends BlockMod implements EntityBlock, IWandable, IWandHUD {
+public class BlockCorporeaRetainer extends BlockMod implements EntityBlock, IWandHUD {
 
 	public BlockCorporeaRetainer(BlockBehaviour.Properties builder) {
 		super(builder);
@@ -81,11 +77,5 @@ public class BlockCorporeaRetainer extends BlockMod implements EntityBlock, IWan
 		if (te instanceof TileCorporeaRetainer) {
 			((TileCorporeaRetainer) te).renderHUD(ms, mc);
 		}
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		BlockEntity te = world.getBlockEntity(pos);
-		return te instanceof TileCorporeaRetainer && ((TileCorporeaRetainer) te).onUsedByWand();
 	}
 }

@@ -23,11 +23,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileTurntable extends TileMod {
+import javax.annotation.Nullable;
+
+public class TileTurntable extends TileMod implements IWandable {
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
 
@@ -65,13 +68,15 @@ public class TileTurntable extends TileMod {
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}
 
-	public void onWanded(Player player, ItemStack wand, Direction side) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if ((player != null && player.isShiftKeyDown()) || (player == null && side == Direction.DOWN)) {
 			backwards = !backwards;
 		} else {
 			speed = speed == 6 ? 1 : speed + 1;
 		}
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		return true;
 	}
 
 	@Environment(EnvType.CLIENT)

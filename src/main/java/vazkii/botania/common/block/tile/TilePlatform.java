@@ -15,12 +15,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandable;
+
 import javax.annotation.Nullable;
 
-public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity {
+public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity, IWandable {
 	private static final String TAG_CAMO = "camo";
 
 	@Nullable
@@ -30,7 +33,8 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		super(ModTiles.PLATFORM, pos, state);
 	}
 
-	public boolean onWanded(Player player) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player != null) {
 			if (getCamoState() == null || player.isShiftKeyDown()) {
 				swapSelfAndPass(this, true);

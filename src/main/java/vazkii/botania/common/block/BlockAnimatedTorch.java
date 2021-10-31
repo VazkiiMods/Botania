@@ -34,7 +34,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -43,7 +42,7 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IWandable, IManaTrigger, IWandHUD {
+public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IManaTrigger, IWandHUD {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
@@ -71,12 +70,6 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 		if (!burst.isFake()) {
 			((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
 		}
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		((TileAnimatedTorch) world.getBlockEntity(pos)).onWanded();
-		return true;
 	}
 
 	@Override

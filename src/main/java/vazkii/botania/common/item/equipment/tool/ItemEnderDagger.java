@@ -43,9 +43,4 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {}
 
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return false;
-	}
-
 }

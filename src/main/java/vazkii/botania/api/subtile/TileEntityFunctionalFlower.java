@@ -154,17 +154,6 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		setChanged();
 	}
 
-	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
-		if (player == null) {
-			return false;
-		}
-
-		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
-
-		return super.onWanded(player, wand);
-	}
-
 	public int getMaxMana() {
 		return 20;
 	}
@@ -182,9 +171,8 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		int y = cmp.getInt(TAG_POOL_Y);
 		int z = cmp.getInt(TAG_POOL_Z);
 
-		BlockPos old = cachedPoolCoordinates;
 		cachedPoolCoordinates = y < 0 ? null : new BlockPos(x, y, z);
-		if (!Objects.equals(old, cachedPoolCoordinates)) {
+		if (linkedPool != null && !Objects.equals(linkedPool.getBlockPos(), cachedPoolCoordinates)) {
 			linkedPool = null; //Force a refresh of the linked pool
 		}
 	}

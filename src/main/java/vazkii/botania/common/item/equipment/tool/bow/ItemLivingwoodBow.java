@@ -11,7 +11,6 @@ package vazkii.botania.common.item.equipment.tool.bow;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -26,7 +25,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -35,7 +33,7 @@ import javax.annotation.Nonnull;
 
 import java.util.function.Consumer;
 
-public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
+public class ItemLivingwoodBow extends BowItem {
 	public static final int MANA_PER_DAMAGE = 40;
 
 	public ItemLivingwoodBow(Properties builder) {
@@ -149,11 +147,6 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	@Override
 	public boolean isValidRepairItem(ItemStack bow, ItemStack material) {
 		return material.is(ModItems.livingwoodTwig) || super.isValidRepairItem(bow, material);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {

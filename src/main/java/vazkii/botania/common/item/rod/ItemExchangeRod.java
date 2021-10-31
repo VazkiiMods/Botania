@@ -53,7 +53,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.BlockPlatform;
@@ -66,7 +65,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeCoordinateListProvider {
+public class ItemExchangeRod extends Item implements IWireframeCoordinateListProvider {
 
 	private static final int RANGE = 3;
 	private static final int COST = 40;
@@ -396,11 +395,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			int count = getInventoryItemCount(player, stack, item);
 			ItemsRemainingRenderHandler.send(player, new ItemStack(item), count);
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	private void setItemToPlace(ItemStack stack, Item item) {

@@ -27,7 +27,6 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -43,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class ItemTornadoRod extends Item implements IManaUsingItem {
+public class ItemTornadoRod extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_TORNADO);
 
@@ -151,11 +150,6 @@ public class ItemTornadoRod extends Item implements IManaUsingItem {
 
 	private void setFlyCounter(ItemStack stack, int counter) {
 		stack.getOrCreateTag().putInt(TAG_FLYCOUNTER, counter);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	protected static class AvatarBehavior implements IAvatarWieldable {

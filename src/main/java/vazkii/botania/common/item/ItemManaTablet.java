@@ -23,7 +23,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -32,7 +31,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
+public class ItemManaTablet extends Item implements IManaItem, IManaTooltipDisplay {
 
 	public static final int MAX_MANA = 500000;
 
@@ -63,7 +62,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	@Nonnull
 	@Override
 	public Rarity getRarity(@Nonnull ItemStack stack) {
-		return isCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
+		return isStackCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -88,6 +87,9 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public int getMana(ItemStack stack) {
+		if (isStackCreative(stack)) {
+			return getMaxMana(stack);
+		}
 		return ItemNBTHelper.getInt(stack, TAG_MANA, 0) * stack.getCount();
 	}
 
@@ -110,7 +112,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return !isCreative(stack);
+		return !isStackCreative(stack);
 	}
 
 	@Override
@@ -126,11 +128,6 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	@Override
 	public boolean isNoExport(ItemStack stack) {
 		return false;
-	}
-
-	@Override
-	public boolean isCreative(ItemStack stack) {
-		return isStackCreative(stack);
 	}
 
 	@Override

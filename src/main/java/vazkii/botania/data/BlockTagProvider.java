@@ -111,9 +111,9 @@ public class BlockTagProvider extends BlockTagsProvider {
 				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
 				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
-				jiyuulia, labellia, loonium, marimorphosis, marimorphosisChibi,
+				jiyuulia, jiyuuliaChibi, labellia, loonium, marimorphosis, marimorphosisChibi,
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
-				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
+				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tangleberrieChibi, tigerseye, vinculotus
 		);
 		tag(ModTags.Blocks.SPECIAL_FLOWERS).addTag(ModTags.Blocks.MISC_SPECIAL_FLOWERS)
 				.addTag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
@@ -158,6 +158,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
 		tag(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
+		tag(ModTags.Blocks.LAPUTA_IMMOBILE);
 
 		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 

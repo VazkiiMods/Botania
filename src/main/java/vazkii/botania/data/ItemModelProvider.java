@@ -40,7 +40,7 @@ import vazkii.botania.common.block.decor.BlockMotifFlower;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.lens.*;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.ModelWithOverrides;
@@ -113,10 +113,17 @@ public class ItemModelProvider implements DataProvider {
 		// Written manually
 		items.remove(manaGun);
 
-		takeAll(items, i -> i instanceof ItemLens).forEach(i -> GENERATED_1.create(ModelLocationUtils.getModelLocation(i),
-				TextureMapping.layer0(prefix("item/lens"))
-						.put(LAYER1, TextureMapping.getItemTexture(i)),
-				consumer));
+		takeAll(items, i -> i instanceof ItemLens).forEach(i -> {
+			ResourceLocation lens;
+			if (i == lensTime || i == lensWarp || i == lensFire) {
+				// To avoid z-fighting
+				lens = prefix("item/lens_small");
+			} else {
+				lens = prefix("item/lens");
+			}
+			GENERATED_1.create(ModelLocationUtils.getModelLocation(i),
+					TextureMapping.layer0(lens).put(LAYER1, TextureMapping.getItemTexture(i)), consumer);
+		});
 
 		GENERATED_1.create(ModelLocationUtils.getModelLocation(bloodPendant),
 				TextureMapping.layer0(TextureMapping.getItemTexture(bloodPendant))

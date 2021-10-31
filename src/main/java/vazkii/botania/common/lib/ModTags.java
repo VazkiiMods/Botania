@@ -99,6 +99,7 @@ public class ModTags {
 		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 		public static final Tag.Named<Item> MUSHROOMS = commonTag("mushrooms");
 		public static final Tag.Named<Item> RODS = tag("rods");
+		public static final Tag.Named<Item> MANA_USING_ITEMS = tag("mana_using_items");
 
 		public static Tag.Named<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
@@ -154,6 +155,7 @@ public class ModTags {
 
 		public static final Tag.Named<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
 		public static final Tag.Named<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
+		public static final Tag.Named<Block> LAPUTA_IMMOBILE = tag("laputa_immobile");
 
 		public static final Tag.Named<Block> TERRAFORMABLE = tag("terraformable");
 
