@@ -42,9 +42,13 @@ public class ItemTagProvider extends ItemTagsProvider {
 	protected void addTags() {
 		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
+		this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
+		this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
+		this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.FENCES, ItemTags.FENCES);
+		this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
 
 		this.tag((Tag.Named<Item>) FabricToolTags.SHEARS).add(elementiumShears, manasteelShears);
 
@@ -95,6 +99,12 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.BLOCKS_QUARTZ, ModTags.Items.BLOCKS_QUARTZ);
 		this.copy(ModTags.Blocks.BLOCKS_TERRASTEEL, ModTags.Items.BLOCKS_TERRASTEEL);
 		// todo 1.16-fabric this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+
+		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+		this.copy(ModTags.Blocks.LIVINGWOOD_LOGS, ModTags.Items.LIVINGWOOD_LOGS);
+		this.copy(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, ModTags.Items.LIVINGWOOD_LOGS_GLIMMERING);
+		this.copy(ModTags.Blocks.DREAMWOOD_LOGS, ModTags.Items.DREAMWOOD_LOGS);
+		this.copy(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING, ModTags.Items.DREAMWOOD_LOGS_GLIMMERING);
 
 		this.tag(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
 		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)

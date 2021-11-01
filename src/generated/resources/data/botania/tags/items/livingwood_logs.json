@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "botania:livingwood_log",
+    "botania:livingwood",
+    "botania:stripped_livingwood_log",
+    "botania:stripped_livingwood"
+  ]
+}

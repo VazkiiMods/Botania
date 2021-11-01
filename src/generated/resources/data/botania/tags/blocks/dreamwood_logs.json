@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "botania:dreamwood_log",
+    "botania:dreamwood",
+    "botania:stripped_dreamwood_log",
+    "botania:stripped_dreamwood"
+  ]
+}

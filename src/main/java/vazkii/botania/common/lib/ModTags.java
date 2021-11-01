@@ -95,6 +95,11 @@ public class ModTags {
 
 		public static final Tag.Named<Item> RUNES = tag("runes");
 
+		public static final Tag.Named<Item> LIVINGWOOD_LOGS = tag("livingwood_logs");
+		public static final Tag.Named<Item> DREAMWOOD_LOGS = tag("dreamwood_logs");
+		public static final Tag.Named<Item> LIVINGWOOD_LOGS_GLIMMERING = tag("glimmering_livingwood_logs");
+		public static final Tag.Named<Item> DREAMWOOD_LOGS_GLIMMERING = tag("glimmering_dreamwood_logs");
+
 		public static final Tag.Named<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 		public static final Tag.Named<Item> MUSHROOMS = commonTag("mushrooms");
@@ -148,6 +153,11 @@ public class ModTags {
 
 		public static final Tag.Named<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
 
+		public static final Tag.Named<Block> LIVINGWOOD_LOGS = tag("livingwood_logs");
+		public static final Tag.Named<Block> DREAMWOOD_LOGS = tag("dreamwood_logs");
+		public static final Tag.Named<Block> LIVINGWOOD_LOGS_GLIMMERING = tag("glimmering_livingwood_logs");
+		public static final Tag.Named<Block> DREAMWOOD_LOGS_GLIMMERING = tag("glimmering_dreamwood_logs");
+
 		public static final Tag.Named<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
 		public static final Tag.Named<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
 		public static final Tag.Named<Block> BLOCKS_QUARTZ = commonTag("quartz_blocks");
@@ -161,6 +171,7 @@ public class ModTags {
 
 		public static final Tag.Named<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 		public static final Tag.Named<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
+		public static final Tag.Named<Block> GHOST_RAIL_BARRIER = tag("ghost_rail_barrier");
 
 		public static final Tag.Named<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
 

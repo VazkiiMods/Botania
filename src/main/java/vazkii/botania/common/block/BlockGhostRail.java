@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.GhostRailComponent;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -51,7 +52,7 @@ public class BlockGhostRail extends BaseRailBlock {
 		BlockState state = cart.level.getBlockState(entPos);
 		boolean air = state.isAir();
 
-		if (state.is(ModBlocks.dreamwood)
+		if (state.is(ModTags.Blocks.GHOST_RAIL_BARRIER)
 				|| (!state.is(ModBlocks.ghostRail) && state.is(BlockTags.RAILS))) {
 			cart.level.levelEvent(2003, entPos, 0);
 			persistentData.floatTicks = 0;
