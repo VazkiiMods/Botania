@@ -33,6 +33,7 @@
     "AccessorWitherEntity",
     "MixinAbstractMinecart",
     "MixinAnvilMenu",
+    "MixinAxeItem",
     "MixinBaseSpawner",
     "MixinBeaconBlockEntity",
     "MixinBee",

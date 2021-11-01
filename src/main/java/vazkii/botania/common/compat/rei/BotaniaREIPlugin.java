@@ -21,6 +21,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.plugin.common.displays.DefaultStrippingDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.fabricmc.api.EnvType;
@@ -36,6 +37,7 @@ import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.*;
@@ -122,6 +124,14 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
 		helper.registerFiller(RecipePureDaisy.class, PureDaisyREIDisplay::new);
 		helper.registerFiller(RecipeRuneAltar.class, RunicAltarREIDisplay::new);
+
+		try {
+			for (var entry : ModBlocks.getCustomStripping().entrySet()) {
+				helper.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
+			}
+		} catch (Exception e) {
+			Botania.LOGGER.error("Error adding strippable entry to REI", e);
+		}
 
 		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
 		helper.registerRecipeFiller(RecipeOrechid.class, ModRecipeTypes.ORECHID_TYPE,
