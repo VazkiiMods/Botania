@@ -99,6 +99,8 @@ public class ModTags {
 		public static final Tag.Named<Item> DREAMWOOD_LOGS = tag("dreamwood_logs");
 		public static final Tag.Named<Item> LIVINGWOOD_LOGS_GLIMMERING = tag("glimmering_livingwood_logs");
 		public static final Tag.Named<Item> DREAMWOOD_LOGS_GLIMMERING = tag("glimmering_dreamwood_logs");
+		public static final Tag.Named<Item> LIVINGWOOD_LOGS_WITH_BARK = tag("livingwood_logs_with_bark");
+		public static final Tag.Named<Item> DREAMWOOD_LOGS_WITH_BARK = tag("dreamwood_logs_with_bark");
 
 		public static final Tag.Named<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
