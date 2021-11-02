@@ -123,22 +123,22 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		MutableObject<FinishedRecipe> gog = new MutableObject<>();
 		ShapedRecipeBuilder.shaped(ModBlocks.manaSpreader)
 				.define('P', ModTags.Items.PETALS)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.define('G', Items.GOLD_INGOT)
 				.pattern("WWW")
 				.pattern("GP ")
 				.pattern("WWW")
 				.group("botania:spreader")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS))
 				.save(base::setValue);
 		ShapedRecipeBuilder.shaped(ModBlocks.manaSpreader)
 				.define('P', ModTags.Items.PETALS)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.pattern("WWW")
 				.pattern("WP ")
 				.pattern("WWW")
 				.group("botania:spreader")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS))
 				.save(gog::setValue);
 		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
 		ShapelessRecipeBuilder.shapeless(ModBlocks.redstoneSpreader)
@@ -150,13 +150,13 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(ModBlocks.elvenSpreader)
 				.define('P', ModTags.Items.PETALS)
 				.define('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.define('W', ModTags.Items.DREAMWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.DREAMWOOD_LOGS)
 				.pattern("WWW")
 				.pattern("EP ")
 				.pattern("WWW")
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
-				.unlockedBy("has_alt_item", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_alt_item", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModBlocks.gaiaSpreader)
 				.requires(ModBlocks.elvenSpreader)
@@ -259,11 +259,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.turntable)
 				.define('P', Items.STICKY_PISTON)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.pattern("WWW")
 				.pattern("WPW")
 				.pattern("WWW")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.STICKY_PISTON))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.tinyPlanet)
@@ -311,7 +311,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.wildDrum)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.define('H', ModItems.grassHorn)
 				.define('L', Items.LEATHER)
 				.pattern("WLW")
@@ -321,16 +321,16 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.gatheringDrum)
 				.define('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.define('W', ModTags.Items.DREAMWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.DREAMWOOD_LOGS)
 				.define('L', Items.LEATHER)
 				.pattern("WLW")
 				.pattern("WEW")
 				.pattern("WLW")
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
-				.unlockedBy("has_alt_item", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_alt_item", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.canopyDrum)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.define('H', ModItems.leavesHorn)
 				.define('L', Items.LEATHER)
 				.pattern("WLW")
@@ -339,7 +339,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(ModItems.leavesHorn))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.abstrusePlatform, 2)
-				.define('0', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('0', ModTags.Items.LIVINGWOOD_LOGS)
 				.define('P', ModItems.manaPearl)
 				.define('3', ModBlocks.livingwoodFramed)
 				.define('4', ModBlocks.livingwoodPatternFramed)
@@ -348,7 +348,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(ModItems.manaPearl))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.spectralPlatform, 2)
-				.define('0', ModTags.Items.DREAMWOOD_LOGS_WITH_BARK)
+				.define('0', ModTags.Items.DREAMWOOD_LOGS)
 				.define('3', ModBlocks.dreamwoodFramed)
 				.define('4', ModBlocks.dreamwoodPatternFramed)
 				.define('D', ModItems.pixieDust)
@@ -358,7 +358,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.alfPortal)
 				.define('T', ModTags.Items.NUGGETS_TERRASTEEL)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.pattern("WTW")
 				.pattern("WTW")
 				.pattern("WTW")
@@ -459,9 +459,9 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.incensePlate)
 				.define('S', ModFluffBlocks.livingwoodSlab)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.pattern("WSS")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.hourglass)
 				.define('R', Items.REDSTONE)
@@ -541,7 +541,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.lightRelayDefault))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.lightLauncher)
-				.define('D', ModTags.Items.DREAMWOOD_LOGS_WITH_BARK)
+				.define('D', ModTags.Items.DREAMWOOD_LOGS)
 				.define('L', ModBlocks.lightRelayDefault)
 				.pattern("DDD")
 				.pattern("DLD")
@@ -550,7 +550,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(ModBlocks.manaBomb)
 				.define('T', Items.TNT)
 				.define('G', ModItems.lifeEssence)
-				.define('L', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('L', ModTags.Items.LIVINGWOOD_LOGS)
 				.pattern("LTL")
 				.pattern("TGT")
 				.pattern("LTL")
@@ -587,7 +587,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.avatar)
 				.define('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.pattern(" W ")
 				.pattern("WDW")
 				.pattern("W W")
@@ -990,11 +990,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 		ShapedRecipeBuilder.shaped(ModItems.grassHorn)
 				.define('S', ModItems.grassSeeds)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.pattern(" W ")
 				.pattern("WSW")
 				.pattern("WW ")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD_LOGS))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModItems.leavesHorn)
 				.requires(ModItems.grassHorn)
@@ -1159,7 +1159,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(ModItems.placeholder, 32)
 				.requires(Items.CRAFTING_TABLE)
 				.requires(ModBlocks.livingrock)
-				.unlockedBy("has_dreamwood", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_dreamwood", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS))
 				.unlockedBy("has_crafty_crate", conditionsFromItem(ModBlocks.craftCrate))
 				.save(consumer);
 
@@ -1194,7 +1194,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.define('S', ModBlocks.redstoneSpreader)
 				.define('D', ModTags.Items.GEMS_MANA_DIAMOND)
 				.define('T', Items.TNT)
-				.define('W', ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
 				.define('M', ModItems.runeMana)
 				.pattern("SMD")
 				.pattern(" WT")
@@ -1349,11 +1349,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(ModItems.manaPearl))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModItems.clip)
-				.define('D', ModTags.Items.DREAMWOOD_LOGS_WITH_BARK)
+				.define('D', ModTags.Items.DREAMWOOD_LOGS)
 				.pattern(" D ")
 				.pattern("D D")
 				.pattern("DD ")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS_WITH_BARK))
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.DREAMWOOD_LOGS))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModItems.spellCloth)
 				.define('P', ModItems.manaPearl)
@@ -1442,7 +1442,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModItems.astrolabe)
-				.define('D', ModTags.Items.DREAMWOOD_LOGS_WITH_BARK)
+				.define('D', ModTags.Items.DREAMWOOD_LOGS)
 				.define('E', ModTags.Items.INGOTS_ELEMENTIUM)
 				.define('G', ModItems.lifeEssence)
 				.pattern(" EG")
@@ -1828,7 +1828,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(ModBlocks.corporeaCrystalCube)
 				.define('C', ModItems.corporeaSpark)
 				.define('G', ModBlocks.elfGlass)
-				.define('W', ModTags.Items.DREAMWOOD_LOGS_WITH_BARK)
+				.define('W', ModTags.Items.DREAMWOOD_LOGS)
 				.pattern("C")
 				.pattern("G")
 				.pattern("W")
@@ -1998,7 +1998,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModItems.lensRedirect)
 				.requires(ModItems.lensNormal)
-				.requires(ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK)
+				.requires(ModTags.Items.LIVINGWOOD_LOGS)
 				.requires(ModTags.Items.INGOTS_ELEMENTIUM)
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
 				.save(consumer);
@@ -2474,11 +2474,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 		ShapelessRecipeBuilder.shapeless(planks, 4).requires(tag).group("planks")
 				.unlockedBy("has_item", conditionsFromTag(tag)).save(consumer);
-		ShapedRecipeBuilder.shaped(bark, 4).group("bark").unlockedBy("has_log", conditionsFromItem(log))
+		ShapedRecipeBuilder.shaped(bark, 3).group("bark").unlockedBy("has_log", conditionsFromItem(log))
 				.define('#', log)
 				.pattern("##")
 				.pattern("##").save(consumer);
-		ShapedRecipeBuilder.shaped(strippedBark, 4).group("bark").unlockedBy("has_log", conditionsFromItem(strippedLog))
+		ShapedRecipeBuilder.shaped(strippedBark, 3).group("bark").unlockedBy("has_log", conditionsFromItem(strippedLog))
 				.define('#', strippedLog)
 				.pattern("##")
 				.pattern("##").save(consumer);
@@ -2502,12 +2502,12 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromItem(strippedBark))
 				.save(consumer);
-		ShapedRecipeBuilder.shaped(glimmeringBark, 4).group("botania:glimmering_" + variant)
+		ShapedRecipeBuilder.shaped(glimmeringBark, 3).group("botania:glimmering_" + variant)
 				.unlockedBy("has_log", conditionsFromItem(glimmeringLog))
 				.define('#', glimmeringLog)
 				.pattern("##")
 				.pattern("##").save(consumer, prefix("glimmering_" + variant + "_alt"));
-		ShapedRecipeBuilder.shaped(glimmeringStrippedBark, 4).group("botania:glimmering_" + variant)
+		ShapedRecipeBuilder.shaped(glimmeringStrippedBark, 3).group("botania:glimmering_" + variant)
 				.unlockedBy("has_log", conditionsFromItem(glimmeringStrippedLog))
 				.define('#', glimmeringStrippedLog)
 				.pattern("##")

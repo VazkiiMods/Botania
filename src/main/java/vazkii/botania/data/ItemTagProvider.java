@@ -105,8 +105,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, ModTags.Items.LIVINGWOOD_LOGS_GLIMMERING);
 		this.copy(ModTags.Blocks.DREAMWOOD_LOGS, ModTags.Items.DREAMWOOD_LOGS);
 		this.copy(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING, ModTags.Items.DREAMWOOD_LOGS_GLIMMERING);
-		this.tag(ModTags.Items.LIVINGWOOD_LOGS_WITH_BARK).add(ModBlocks.livingwoodLog.asItem(), ModBlocks.livingwood.asItem());
-		this.tag(ModTags.Items.DREAMWOOD_LOGS_WITH_BARK).add(ModBlocks.dreamwoodLog.asItem(), ModBlocks.dreamwood.asItem());
 
 		this.tag(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
 		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
