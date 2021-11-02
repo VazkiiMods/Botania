@@ -21,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:dreamwood"
-            ]
+            "tag": "botania:dreamwood_logs_with_bark"
           }
         ]
       }

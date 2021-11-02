@@ -14,7 +14,7 @@
       "tag": "botania:elementium_ingots"
     },
     "W": {
-      "item": "botania:dreamwood"
+      "tag": "botania:dreamwood_logs_with_bark"
     }
   },
   "result": {

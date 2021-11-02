@@ -13,7 +13,7 @@
       "item": "botania:elf_glass"
     },
     "W": {
-      "item": "botania:dreamwood"
+      "tag": "botania:dreamwood_logs_with_bark"
     }
   },
   "result": {

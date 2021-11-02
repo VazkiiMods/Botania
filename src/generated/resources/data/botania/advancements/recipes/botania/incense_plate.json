@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:livingwood"
-            ]
+            "tag": "botania:livingwood_logs_with_bark"
           }
         ]
       }
