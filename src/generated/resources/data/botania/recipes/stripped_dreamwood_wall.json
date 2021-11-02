@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:stripped_dreamwood"
+    }
+  },
+  "result": {
+    "item": "botania:stripped_dreamwood_wall",
+    "count": 6
+  }
+}

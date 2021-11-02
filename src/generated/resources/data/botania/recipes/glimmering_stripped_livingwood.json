@@ -3,13 +3,13 @@
   "group": "botania:glimmering_livingwood",
   "ingredients": [
     {
-      "item": "botania:livingwood"
+      "item": "botania:stripped_livingwood"
     },
     {
       "item": "minecraft:glowstone_dust"
     }
   ],
   "result": {
-    "item": "botania:glimmering_livingwood"
+    "item": "botania:glimmering_stripped_livingwood"
   }
 }

@@ -2,16 +2,18 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:livingwood_planks"
+      "botania:glimmering_livingwood_alt"
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_log": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "botania:livingwood_logs"
+            "items": [
+              "botania:glimmering_livingwood_log"
+            ]
           }
         ]
       }
@@ -19,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:livingwood_planks"
+        "recipe": "botania:glimmering_livingwood_alt"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_log",
       "has_the_recipe"
     ]
   ]

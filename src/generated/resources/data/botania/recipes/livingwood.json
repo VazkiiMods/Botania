@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "botania:livingwood_log"
+    }
+  },
+  "result": {
+    "item": "botania:livingwood",
+    "count": 4
+  }
+}

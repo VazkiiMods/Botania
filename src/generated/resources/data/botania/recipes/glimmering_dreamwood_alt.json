@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:glimmering_dreamwood",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "botania:glimmering_dreamwood_log"
+    }
+  },
+  "result": {
+    "item": "botania:glimmering_dreamwood",
+    "count": 4
+  }
+}

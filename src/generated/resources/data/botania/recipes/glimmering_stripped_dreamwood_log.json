@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "botania:glimmering_livingwood",
+  "group": "botania:glimmering_dreamwood",
   "ingredients": [
     {
-      "item": "botania:livingwood"
+      "item": "botania:stripped_dreamwood_log"
     },
     {
       "item": "minecraft:glowstone_dust"
     }
   ],
   "result": {
-    "item": "botania:glimmering_livingwood"
+    "item": "botania:glimmering_stripped_dreamwood_log"
   }
 }

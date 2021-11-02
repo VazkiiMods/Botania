@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:livingwood_planks"
+      "botania:stripped_livingwood_slab"
     ]
   },
   "criteria": {
@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "botania:livingwood_logs"
+            "items": [
+              "botania:stripped_livingwood"
+            ]
           }
         ]
       }
@@ -19,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:livingwood_planks"
+        "recipe": "botania:stripped_livingwood_slab"
       }
     }
   },
