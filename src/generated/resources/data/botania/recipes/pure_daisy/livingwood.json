@@ -5,12 +5,12 @@
     "tag": "minecraft:logs",
     "exclude": [
       {
-        "type": "tag",
-        "tag": "botania:livingwood_logs"
+        "type": "block",
+        "block": "botania:livingwood_log"
       },
       {
-        "type": "tag",
-        "tag": "botania:dreamwood_logs"
+        "type": "block",
+        "block": "botania:livingwood"
       }
     ]
   },
