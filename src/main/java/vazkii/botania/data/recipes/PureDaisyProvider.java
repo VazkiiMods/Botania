@@ -24,6 +24,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nullable;
 
@@ -40,7 +41,11 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 
 		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Blocks.STONE), ModBlocks.livingrock.defaultBlockState()));
-		consumer.accept(new StateCopyingRecipe(id("livingwood"), StateIngredientHelper.of(BlockTags.LOGS), ModBlocks.livingwoodLog));
+		consumer.accept(new StateCopyingRecipe(id("livingwood"),
+				StateIngredientHelper.tagExcluding(BlockTags.LOGS,
+						StateIngredientHelper.of(ModTags.Blocks.LIVINGWOOD_LOGS),
+						StateIngredientHelper.of(ModTags.Blocks.DREAMWOOD_LOGS)),
+				ModBlocks.livingwoodLog));
 
 		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredientHelper.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState()));
 		consumer.accept(new FinishedRecipe(id("sand"), StateIngredientHelper.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState()));

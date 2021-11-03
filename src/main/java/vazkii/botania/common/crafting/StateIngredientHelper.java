@@ -60,6 +60,10 @@ public class StateIngredientHelper {
 		return new StateIngredientBlocks(blocks);
 	}
 
+	public static StateIngredient tagExcluding(Tag.Named<Block> tag, StateIngredient... excluded) {
+		return new StateIngredientTagExcluding(tag.getName(), List.of(excluded));
+	}
+
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (GsonHelper.getAsString(object, "type")) {
 		case "tag":
@@ -74,6 +78,13 @@ public class StateIngredientHelper {
 				blocks.add(Registry.BLOCK.get(new ResourceLocation(element.getAsString())));
 			}
 			return new StateIngredientBlocks(blocks);
+		case "tag_excluding":
+			ResourceLocation tag = new ResourceLocation(GsonHelper.getAsString(object, "tag"));
+			List<StateIngredient> ingr = new ArrayList<>();
+			for (JsonElement element : GsonHelper.getAsJsonArray(object, "exclude")) {
+				ingr.add(deserialize(GsonHelper.convertToJsonObject(element, "exclude entry")));
+			}
+			return new StateIngredientTagExcluding(tag, ingr);
 		default:
 			throw new JsonParseException("Unknown type!");
 		}
