@@ -20,6 +20,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -101,9 +102,10 @@ public final class HUDHandler {
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-					if (block instanceof IWandHUD) {
+					var hud = IWandHUD.API.find(mc.level, bpos, state, tile, Unit.INSTANCE);
+					if (hud != null) {
 						profiler.push("wandItem");
-						((IWandHUD) block).renderHUD(ms, mc, mc.level, bpos);
+						hud.renderHUD(ms, mc);
 						profiler.pop();
 					}
 				}

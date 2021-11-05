@@ -10,6 +10,8 @@ package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -24,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -42,7 +45,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
+public class TileBrewery extends TileSimpleInventory implements IManaReceiver, IWandHUD {
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
@@ -244,6 +247,8 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		return !isFull();
 	}
 
+	@Environment(EnvType.CLIENT)
+	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc) {
 		int manaToGet = getManaCost();
 		if (manaToGet > 0) {

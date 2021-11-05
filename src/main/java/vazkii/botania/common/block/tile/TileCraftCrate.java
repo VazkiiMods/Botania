@@ -8,8 +8,14 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -29,6 +35,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -44,7 +51,7 @@ import java.util.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileCraftCrate extends TileOpenCrate implements IWandable {
+public class TileCraftCrate extends TileOpenCrate implements IWandable, IWandHUD {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
 
 	private static int recipeEpoch = 0;
@@ -256,4 +263,33 @@ public class TileCraftCrate extends TileOpenCrate implements IWandable {
 		return signal;
 	}
 
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void renderHUD(PoseStack ms, Minecraft mc) {
+		int width = 52;
+		int height = 52;
+		int xc = mc.getWindow().getGuiScaledWidth() / 2 + 20;
+		int yc = mc.getWindow().getGuiScaledHeight() / 2 - height / 2;
+
+		GuiComponent.fill(ms, xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
+		GuiComponent.fill(ms, xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				int index = i * 3 + j;
+				int xp = xc + j * 18;
+				int yp = yc + i * 18;
+
+				boolean enabled = true;
+				if (getPattern() != CratePattern.NONE) {
+					enabled = getPattern().openSlots.get(index);
+				}
+
+				GuiComponent.fill(ms, xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
+
+				ItemStack item = getItemHandler().getItem(index);
+				mc.getItemRenderer().renderAndDecorateItem(item, xp, yp);
+			}
+		}
+	}
 }

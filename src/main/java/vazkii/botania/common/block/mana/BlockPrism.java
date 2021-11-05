@@ -8,14 +8,10 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -36,7 +32,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -51,7 +46,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IManaTrigger, IManaCollisionGhost, IWandHUD {
+public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IManaTrigger, IManaCollisionGhost {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
 	public BlockPrism(Properties builder) {
@@ -185,23 +180,5 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 	@Override
 	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
 		return true;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TilePrism) {
-			ItemStack lens = ((TilePrism) te).getItem(0);
-			if (!lens.isEmpty()) {
-				Component lensName = lens.getHoverName();
-				int width = 16 + mc.font.width(lensName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2;
-
-				mc.font.drawShadow(ms, lensName, x + 20, y + 5, -1);
-				mc.getItemRenderer().renderAndDecorateItem(lens, x, y);
-			}
-		}
 	}
 }

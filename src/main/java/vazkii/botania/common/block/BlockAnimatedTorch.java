@@ -8,11 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +28,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -42,7 +36,7 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IManaTrigger, IWandHUD {
+public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IManaTrigger {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
@@ -70,12 +64,6 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 		if (!burst.isFake()) {
 			((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
 		}
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		((TileAnimatedTorch) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

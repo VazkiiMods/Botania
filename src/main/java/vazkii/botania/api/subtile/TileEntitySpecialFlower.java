@@ -29,10 +29,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.FloatingFlowerImpl;
-import vazkii.botania.api.block.IFloatingFlower;
-import vazkii.botania.api.block.IFloatingFlowerProvider;
-import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -46,7 +43,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower block entities
  */
-public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
+public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable, IWandHUD {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -271,8 +268,10 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	/**
 	 * Called on the client when the block being pointed at is the one with this sub tile.
 	 * Used to render a HUD portraying some data from this sub tile.
+	 * Note: This will not be called unless you register your block entity type to the API.
 	 */
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc) {}
 
 	/**
