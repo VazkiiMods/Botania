@@ -108,17 +108,17 @@ public final class HUDHandler {
 						profiler.pop();
 					}
 				}
-				if (tile instanceof TilePool && !mc.player.getMainHandItem().isEmpty()) {
-					renderPoolRecipeHUD(ms, (TilePool) tile, mc.player.getMainHandItem());
+				if (tile instanceof TilePool pool && !mc.player.getMainHandItem().isEmpty()) {
+					renderPoolRecipeHUD(ms, pool, mc.player.getMainHandItem());
 				}
 			}
 			if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
-				if (tile instanceof TileAltar) {
-					((TileAltar) tile).renderHUD(ms, mc);
-				} else if (tile instanceof TileRuneAltar) {
-					((TileRuneAltar) tile).renderHUD(ms, mc);
-				} else if (tile instanceof TileCorporeaCrystalCube) {
-					renderCrystalCubeHUD(ms, (TileCorporeaCrystalCube) tile);
+				if (tile instanceof TileAltar altar) {
+					altar.renderHUD(ms, mc);
+				} else if (tile instanceof TileRuneAltar runeAltar) {
+					runeAltar.renderHUD(ms, mc);
+				} else if (tile instanceof TileCorporeaCrystalCube cube) {
+					renderCrystalCubeHUD(ms, cube);
 				}
 			}
 		}
