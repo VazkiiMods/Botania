@@ -26,7 +26,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -94,11 +93,11 @@ public final class HUDHandler {
 
 		HitResult pos = mc.hitResult;
 
-		if (pos != null) {
-			BlockPos bpos = pos.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) pos).getBlockPos() : null;
-			BlockState state = bpos != null ? mc.level.getBlockState(bpos) : null;
-			Block block = state == null ? null : state.getBlock();
-			BlockEntity tile = bpos != null ? mc.level.getBlockEntity(bpos) : null;
+		if (pos instanceof BlockHitResult result) {
+			BlockPos bpos = result.getBlockPos();
+
+			BlockState state = mc.level.getBlockState(bpos);
+			BlockEntity tile = mc.level.getBlockEntity(bpos);
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
