@@ -147,7 +147,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void tick() {
 		setTicksExisted(getTicksExisted() + 1);
-		if (!level.isClientSide
+		if ((!level.isClientSide || fake)
 				&& !hasLeftSource()
 				&& !blockPosition().equals(getBurstSourceBlockPos())) {
 			// XXX: Should this check by bounding box instead of simply blockPosition()?
