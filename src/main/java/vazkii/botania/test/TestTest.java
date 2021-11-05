@@ -19,6 +19,6 @@ public class TestTest {
 	@GameTest(template = FabricGameTest.EMPTY_STRUCTURE)
 	public void testTest1(GameTestHelper helper) {
 		helper.setBlock(BlockPos.ZERO, ModBlocks.whiteFlower.defaultBlockState());
-		helper.succeedIf(() -> helper.assertBlockPresent(ModBlocks.orangeFloatingFlower, BlockPos.ZERO));
+		helper.succeedIf(() -> helper.assertBlockPresent(ModBlocks.whiteFlower, BlockPos.ZERO));
 	}
 }
