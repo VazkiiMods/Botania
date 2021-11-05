@@ -21,4 +21,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew pmdMain spotlessJavaCheck build
     - name: Run GameTests
-      run: ./gradlew runGameTests
+      run: ./gradlew runGameTest
