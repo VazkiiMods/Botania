@@ -27,6 +27,9 @@
     "client": [
       "vazkii.botania.client.core.proxy.ClientProxy"
     ],
+    "fabric-gametest": [
+      "vazkii.botania.test.TestTest"
+    ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
     ],
