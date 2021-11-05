@@ -84,7 +84,7 @@ public final class ItemNBTHelper {
 	// GETTERS ///////////////////////////////////////////////////////////////////
 
 	public static boolean verifyExistance(ItemStack stack, String tag) {
-		return !stack.isEmpty() && stack.getOrCreateTag().contains(tag);
+		return !stack.isEmpty() && stack.hasTag() && stack.getOrCreateTag().contains(tag);
 	}
 
 	@Nullable
