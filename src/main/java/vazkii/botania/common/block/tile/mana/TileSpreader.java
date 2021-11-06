@@ -29,6 +29,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -691,21 +693,13 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		rotationY = rot;
 	}
 
-	/* TODO 1.17 these are just gone. mojang why
-	@Override
-	public void rotate(Rotation rotationIn) {
-		switch (rotationIn) {
-		case CLOCKWISE_90:
-			rotationX += 270F;
-			break;
-		case CLOCKWISE_180:
-			rotationX += 180F;
-			break;
-		case COUNTERCLOCKWISE_90:
-			rotationX += 90F;
-			break;
-		default:
-			break;
+	public void rotate(Rotation rotation) {
+		switch (rotation) {
+		case CLOCKWISE_90 -> rotationX += 270F;
+		case CLOCKWISE_180 -> rotationX += 180F;
+		case COUNTERCLOCKWISE_90 -> rotationX += 90F;
+		case NONE -> {
+		}
 		}
 	
 		if (rotationX >= 360F) {
@@ -713,24 +707,18 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		}
 	}
 	
-	@Override
-	public void mirror(Mirror mirrorIn) {
-		switch (mirrorIn) {
-		case LEFT_RIGHT:
-			rotationX = 360F - rotationX;
-			break;
-		case FRONT_BACK:
-			rotationX = 180F - rotationX;
-			break;
-		default:
-			break;
+	public void mirror(Mirror mirror) {
+		switch (mirror) {
+		case LEFT_RIGHT -> rotationX = 360F - rotationX;
+		case FRONT_BACK -> rotationX = 180F - rotationX;
+		case NONE -> {
+		}
 		}
 	
 		if (rotationX < 0F) {
 			rotationX += 360F;
 		}
 	}
-	*/
 
 	@Override
 	public void commitRedirection() {
