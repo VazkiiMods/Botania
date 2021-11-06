@@ -698,23 +698,21 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		case CLOCKWISE_90 -> rotationX += 270F;
 		case CLOCKWISE_180 -> rotationX += 180F;
 		case COUNTERCLOCKWISE_90 -> rotationX += 90F;
-		case NONE -> {
+		case NONE -> {}
 		}
-		}
-	
+
 		if (rotationX >= 360F) {
 			rotationX -= 360F;
 		}
 	}
-	
+
 	public void mirror(Mirror mirror) {
 		switch (mirror) {
 		case LEFT_RIGHT -> rotationX = 360F - rotationX;
 		case FRONT_BACK -> rotationX = 180F - rotationX;
-		case NONE -> {
+		case NONE -> {}
 		}
-		}
-	
+
 		if (rotationX < 0F) {
 			rotationX += 360F;
 		}
