@@ -74,6 +74,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 
 	@Override
 	protected void onHitBlock(@Nonnull BlockHitResult result) {
+		super.onHitBlock(result);
 		if (level.isClientSide) {
 			return;
 		}
@@ -83,6 +84,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 
 	@Override
 	protected void onHitEntity(@Nonnull EntityHitResult result) {
+		super.onHitEntity(result);
 		if (level.isClientSide) {
 			return;
 		}
@@ -92,7 +94,8 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 			DamageSource source = DamageSource.thrown(this, getOwner());
 			entity.hurt(source, 0);
 
-			// Ghasts always appear to be aligned horizontally - but the look doesn't always match, correct for that
+			// Ghasts render as if they are looking straight ahead, but the look y component
+			// can actually be nonzero, correct for that
 			Vec3 lookVec = entity.getLookAngle();
 			Vec3 vec = new Vec3(lookVec.x(), 0, lookVec.z()).normalize();
 
