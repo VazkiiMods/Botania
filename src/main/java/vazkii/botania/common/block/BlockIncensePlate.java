@@ -14,6 +14,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -145,4 +146,15 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 		super.onRemove(state, world, pos, newState, isMoving);
 	}
 
+	@Override
+	public void onProjectileHit(@Nonnull Level level, @Nonnull BlockState blockState,
+			@Nonnull BlockHitResult hit, @Nonnull Projectile projectile) {
+		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos())
+			&& projectile.isOnFire()) {
+			if (level.getBlockEntity(hit.getBlockPos()) instanceof TileIncensePlate plate) {
+				plate.ignite();
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
+			}
+		}
+	}
 }
