@@ -23,6 +23,13 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 public class LensFire extends Lens {
+	@Override
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		Entity entity = burst.entity();
+		if (!entity.level.isClientSide) {
+			entity.setSecondsOnFire(3);
+		}
+	}
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
