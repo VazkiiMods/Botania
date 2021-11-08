@@ -413,7 +413,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	protected void onHit(@Nonnull HitResult rtr) {
 		BlockPos collidePos = null;
-		boolean dead = false;
+		boolean shouldKill = false;
 
 		if (rtr.getType() == HitResult.Type.BLOCK) {
 			collidePos = ((BlockHitResult) rtr).getBlockPos();
@@ -453,21 +453,21 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			if (block instanceof IManaCollisionGhost) {
 				return;
 			} else {
-				dead = true;
+				shouldKill = true;
 			}
 		}
 
 		ILensEffect lens = getLensInstance();
 		if (lens != null) {
-			dead = lens.collideBurst(this, rtr, collidedTile instanceof IManaReceiver receiver
-					&& receiver.canReceiveManaFromBursts(), dead, getSourceLens());
+			shouldKill = lens.collideBurst(this, rtr, collidedTile instanceof IManaReceiver receiver
+					&& receiver.canReceiveManaFromBursts(), shouldKill, getSourceLens());
 		}
 
 		if (collidePos != null && !hasAlreadyCollidedAt(collidePos)) {
 			alreadyCollidedAt.add(collidePos);
 		}
 
-		if (dead && isAlive()) {
+		if (shouldKill && isAlive()) {
 			if (!fake && level.isClientSide) {
 				int color = getColor();
 				float r = (color >> 16 & 0xFF) / 255F;

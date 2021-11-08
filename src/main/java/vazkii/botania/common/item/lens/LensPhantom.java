@@ -16,13 +16,13 @@ import vazkii.botania.api.internal.IManaBurst;
 public class LensPhantom extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		if (!isManaBlock) {
-			dead = false;
+			shouldKill = false;
 			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 }

@@ -18,7 +18,7 @@ import vazkii.botania.api.internal.IManaBurst;
 public class LensExplosive extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
 		if (!entity.level.isClientSide && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			if (!isManaBlock) {
@@ -26,10 +26,10 @@ public class LensExplosive extends Lens {
 						burst.getMana() / 50F, Explosion.BlockInteraction.BREAK);
 			}
 		} else {
-			dead = false;
+			shouldKill = false;
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 }

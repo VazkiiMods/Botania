@@ -22,7 +22,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class LensFirework extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide && !burst.isFake()) {
 			if (pos.getType() == HitResult.Type.BLOCK && !isManaBlock) {
@@ -32,10 +32,10 @@ public class LensFirework extends Lens {
 				entity.level.addFreshEntity(rocket);
 			}
 		} else {
-			dead = false;
+			shouldKill = false;
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 	private ItemStack generateFirework(int color) {

@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 
 public class LensMine extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		Level world = entity.level;
 
@@ -84,10 +84,10 @@ public class LensMine extends Lens {
 				}
 			}
 
-			dead = false;
+			shouldKill = false;
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 	private static final List<ItemStack> HARVEST_TOOLS = Stream.of(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE,
