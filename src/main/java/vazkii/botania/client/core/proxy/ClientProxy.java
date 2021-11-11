@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
@@ -60,6 +61,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.BoltEffect;
 import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
@@ -133,6 +135,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
+		TooltipComponentCallback.EVENT.register(ManaBarTooltipComponent::tryConvert);
 
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
 			LocalDateTime now = LocalDateTime.now();
