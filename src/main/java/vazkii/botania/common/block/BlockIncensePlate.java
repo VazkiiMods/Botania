@@ -150,7 +150,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 	public void onProjectileHit(@Nonnull Level level, @Nonnull BlockState blockState,
 			@Nonnull BlockHitResult hit, @Nonnull Projectile projectile) {
 		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos())
-			&& projectile.isOnFire()) {
+				&& projectile.isOnFire()) {
 			if (level.getBlockEntity(hit.getBlockPos()) instanceof TileIncensePlate plate) {
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
