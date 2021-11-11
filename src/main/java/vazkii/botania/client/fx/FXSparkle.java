@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.ExtendedTexture;
-import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.CoreShaders;
 
 import javax.annotation.Nonnull;
 
@@ -198,13 +198,12 @@ public class FXSparkle extends TextureSheetParticle {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.FILM_GRAIN);
+			RenderSystem.setShader(CoreShaders::filmGrainParticle);
 		}
 
 		@Override
 		public void end(Tesselator tessellator) {
 			tessellator.end();
-			ShaderHelper.releaseShader();
 			endRenderCommon();
 		}
 

@@ -47,7 +47,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public final class ShaderHelper {
 	public enum BotaniaShader {
 		DOPPLEGANGER_BAR(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_DOPLLEGANGER_BAR_FRAG),
-		FILM_GRAIN(LibResources.SHADER_PASSTHROUGH_VERT, LibResources.SHADER_FILM_GRAIN_FRAG),
 		;
 
 		public final String vertexShaderPath;
