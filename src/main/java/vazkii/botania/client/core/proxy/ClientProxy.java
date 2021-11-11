@@ -57,7 +57,6 @@ import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.BoltEffect;
 import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.fx.ModParticles;
@@ -120,8 +119,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	public void onInitializeClient() {
 		Botania.proxy = this;
 		PacketHandler.initClient();
-
-		ShaderHelper.initShaders();
 
 		ModItems.registerGuis();
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);

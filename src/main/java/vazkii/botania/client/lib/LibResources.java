@@ -79,8 +79,4 @@ public final class LibResources {
 	public static final String MISC_SKYBOX = PREFIX_MISC + "skybox.png";
 	public static final String MISC_RAINBOW = PREFIX_MISC + "rainbow.png";
 	public static final String MISC_PLANET = PREFIX_MISC + "planet";
-
-	public static final String SHADER_DOPLLEGANGER_BAR_FRAG = PREFIX_SHADER + "doppleganger_bar.frag";
-	public static final String SHADER_PASSTHROUGH_VERT = PREFIX_SHADER + "passthrough.vert";
-
 }

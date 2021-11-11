@@ -72,7 +72,6 @@ public final class ConfigHandler {
 	}
 
 	public static class Client {
-		public final PropertyMirror<Boolean> useShaders = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> lexiconRotatingItems = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> subtlePowerSystem = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> staticWandBeam = PropertyMirror.create(BOOLEAN);
@@ -94,10 +93,6 @@ public final class ConfigHandler {
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("rendering")
-					.beginValue("shaders", BOOLEAN, true)
-					.withComment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
-					.finishValue(useShaders::mirror)
-
 					.beginValue("boundBlockWireframe", BOOLEAN, true)
 					.withComment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")
 					.finishValue(boundBlockWireframe::mirror)

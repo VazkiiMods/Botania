@@ -92,8 +92,6 @@ public final class RenderHelper extends RenderType {
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
-		boolean useShaders = ShaderHelper.useShaders();
-
 		RenderType.CompositeState glState = RenderType.CompositeState.builder()
 				.setShaderState(POSITION_COLOR_SHADER)
 				.setWriteMaskState(COLOR_WRITE)
