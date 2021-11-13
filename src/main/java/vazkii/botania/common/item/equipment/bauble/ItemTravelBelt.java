@@ -152,9 +152,8 @@ public class ItemTravelBelt extends ItemBauble {
 	@Environment(EnvType.CLIENT)
 	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
-		ms.translate(0F, 0.2F, 0F);
 
-		float s = 0.85F;
+		float s = 1.15F;
 		ms.scale(s, s, s);
 		if (model == null) {
 			model = new HumanoidModel<>(Minecraft.getInstance()
