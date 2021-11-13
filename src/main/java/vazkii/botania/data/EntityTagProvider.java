@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data;
 
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -41,5 +42,8 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				EntityType.ITEM_FRAME, EntityType.END_CRYSTAL, EntityType.PAINTING, ModEntities.CORPOREA_SPARK,
 				ModEntities.DOPPLEGANGER, ModEntities.FLAME_RING, ModEntities.MAGIC_LANDMINE, ModEntities.MAGIC_MISSILE,
 				ModEntities.MANA_BURST, ModEntities.PINK_WITHER, ModEntities.SPARK, ModEntities.PLAYER_MOVER);
+
+		tag(TagFactory.ENTITY_TYPE.create(new ResourceLocation("c", "bosses")))
+				.add(ModEntities.DOPPLEGANGER);
 	}
 }
