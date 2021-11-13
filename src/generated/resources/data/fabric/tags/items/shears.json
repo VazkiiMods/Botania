@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "botania:elementium_shears",
-    "botania:manasteel_shears"
+    "botania:manasteel_shears",
+    "botania:elementium_shears"
   ]
 }
