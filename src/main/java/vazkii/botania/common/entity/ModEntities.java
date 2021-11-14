@@ -138,6 +138,12 @@ public final class ModEntities {
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(true)
 			.build();
+	public static final EntityType<EntityEnderAir> ENDER_AIR = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityEnderAir::new)
+			.fireImmune()
+			.dimensions(EntityDimensions.fixed(1, 1))
+			.trackRangeChunks(4)
+			.trackedUpdateRate(Integer.MAX_VALUE)
+			.build();
 
 	public static void registerEntities() {
 		Registry<EntityType<?>> r = Registry.ENTITY_TYPE;
@@ -159,6 +165,7 @@ public final class ModEntities {
 		register(r, LibEntityNames.MANA_STORM, MANA_STORM);
 		register(r, LibEntityNames.BABYLON_WEAPON, BABYLON_WEAPON);
 		register(r, LibEntityNames.FALLING_STAR, FALLING_STAR);
+		register(r, LibEntityNames.ENDER_AIR, ENDER_AIR);
 	}
 
 	public static void registerAttributes() {

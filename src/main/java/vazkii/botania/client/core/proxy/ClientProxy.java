@@ -311,6 +311,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		EntityRendererRegistry.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
 		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
 		EntityRendererRegistry.register(ModEntities.FALLING_STAR, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.ENDER_AIR, RenderNoop::new);
 		EntityRendererRegistry.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntities.PIXIE, RenderPixie::new);
 		EntityRendererRegistry.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
