@@ -55,7 +55,7 @@ import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.fx.BoltEffect;
+import vazkii.botania.client.fx.BoltParticleOptions;
 import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
@@ -362,7 +362,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	@Override
 	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		// todo wip, params are ignored
-		BoltRenderer.INSTANCE.add(new BoltEffect(vectorStart, vectorEnd).size(0.08F), ClientTickHandler.partialTicks);
+		BoltRenderer.INSTANCE.add(new BoltParticleOptions(vectorStart, vectorEnd).size(0.08F), ClientTickHandler.partialTicks);
 	}
 
 	@Override

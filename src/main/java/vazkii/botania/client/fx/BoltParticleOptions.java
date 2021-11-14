@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-public class BoltEffect {
+public class BoltParticleOptions {
 
 	private final Random random = new Random();
 
@@ -47,15 +47,15 @@ public class BoltEffect {
 	private SpawnFunction spawnFunction = SpawnFunction.delay(60);
 	private FadeFunction fadeFunction = FadeFunction.fade(0.5F);
 
-	public BoltEffect(Vec3 start, Vec3 end) {
+	public BoltParticleOptions(Vec3 start, Vec3 end) {
 		this(BoltRenderInfo.DEFAULT, start, end);
 	}
 
-	public BoltEffect(BoltRenderInfo info, Vec3 start, Vec3 end) {
+	public BoltParticleOptions(BoltRenderInfo info, Vec3 start, Vec3 end) {
 		this(info, start, end, (int) (Math.sqrt(start.distanceTo(end) * 100)));
 	}
 
-	public BoltEffect(BoltRenderInfo info, Vec3 start, Vec3 end, int segments) {
+	public BoltParticleOptions(BoltRenderInfo info, Vec3 start, Vec3 end, int segments) {
 		this.renderInfo = info;
 		this.start = start;
 		this.end = end;
@@ -69,7 +69,7 @@ public class BoltEffect {
 	 *
 	 * @return this
 	 */
-	public BoltEffect count(int count) {
+	public BoltParticleOptions count(int count) {
 		this.count = count;
 		return this;
 	}
@@ -81,7 +81,7 @@ public class BoltEffect {
 	 *
 	 * @return this
 	 */
-	public BoltEffect size(float size) {
+	public BoltParticleOptions size(float size) {
 		this.size = size;
 		return this;
 	}
@@ -93,7 +93,7 @@ public class BoltEffect {
 	 *
 	 * @return this
 	 */
-	public BoltEffect spawn(SpawnFunction spawnFunction) {
+	public BoltParticleOptions spawn(SpawnFunction spawnFunction) {
 		this.spawnFunction = spawnFunction;
 		return this;
 	}
@@ -105,7 +105,7 @@ public class BoltEffect {
 	 *
 	 * @return this
 	 */
-	public BoltEffect fade(FadeFunction fadeFunction) {
+	public BoltParticleOptions fade(FadeFunction fadeFunction) {
 		this.fadeFunction = fadeFunction;
 		return this;
 	}
@@ -117,7 +117,7 @@ public class BoltEffect {
 	 *
 	 * @return this
 	 */
-	public BoltEffect lifespan(int lifespan) {
+	public BoltParticleOptions lifespan(int lifespan) {
 		this.lifespan = lifespan;
 		return this;
 	}

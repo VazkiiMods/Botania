@@ -81,7 +81,7 @@ public class BoltRenderer {
 		}
 	}
 
-	public void add(BoltEffect newBoltData, float partialTicks) {
+	public void add(BoltParticleOptions newBoltData, float partialTicks) {
 		if (minecraft.level == null) {
 			return;
 		}
@@ -101,7 +101,7 @@ public class BoltRenderer {
 	public class BoltOwnerData {
 
 		private final Set<BoltInstance> bolts = new ObjectOpenHashSet<>();
-		private BoltEffect lastBolt;
+		private BoltParticleOptions lastBolt;
 		private Timestamp lastBoltTimestamp = Timestamp.ZERO;
 		private Timestamp lastUpdateTimestamp = Timestamp.ZERO;
 		private double lastBoltDelay;
@@ -130,11 +130,11 @@ public class BoltRenderer {
 
 	private static class BoltInstance {
 
-		private final BoltEffect bolt;
-		private final List<BoltEffect.BoltQuads> renderQuads;
+		private final BoltParticleOptions bolt;
+		private final List<BoltParticleOptions.BoltQuads> renderQuads;
 		private final Timestamp createdTimestamp;
 
-		public BoltInstance(BoltEffect bolt, Timestamp timestamp) {
+		public BoltInstance(BoltParticleOptions bolt, Timestamp timestamp) {
 			this.bolt = bolt;
 			this.renderQuads = bolt.generate();
 			this.createdTimestamp = timestamp;
