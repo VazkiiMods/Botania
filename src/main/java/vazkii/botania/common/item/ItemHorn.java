@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
+import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
@@ -88,6 +89,9 @@ public class ItemHorn extends Item {
 			Block block = world.getBlockState(pos).getBlock();
 			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 
+			if (SubTileBergamute.isBergamuteNearby(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
+				continue;
+			}
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)

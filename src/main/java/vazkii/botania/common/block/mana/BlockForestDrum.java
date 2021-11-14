@@ -34,6 +34,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 
@@ -100,7 +101,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		} else {
 			int range = 10;
-			List<MobEntity> entities = world.getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+			List<MobEntity> entities = world.getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(e.getPosX(), e.getPosY(), e.getPosZ()));
 			List<MobEntity> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
