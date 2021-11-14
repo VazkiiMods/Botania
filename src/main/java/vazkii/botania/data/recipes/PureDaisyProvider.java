@@ -41,6 +41,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(id("livingwood"), StateIngredientHelper.of(BlockTags.LOGS), ModBlocks.livingwood.defaultBlockState()));
 
 		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredientHelper.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState()));
+		consumer.accept(new FinishedRecipe(id("end_stone_to_cobblestone"), StateIngredientHelper.of(Blocks.END_STONE), Blocks.COBBLESTONE.defaultBlockState(), FinishedRecipe.DEFAULT_TIME, prefix("ender_air_release")));
 		consumer.accept(new FinishedRecipe(id("sand"), StateIngredientHelper.of(Blocks.SOUL_SAND), Blocks.SAND.defaultBlockState()));
 		consumer.accept(new FinishedRecipe(id("packed_ice"), StateIngredientHelper.of(Blocks.ICE), Blocks.PACKED_ICE.defaultBlockState()));
 		consumer.accept(new FinishedRecipe(id("blue_ice"), StateIngredientHelper.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.defaultBlockState()));
@@ -64,17 +65,24 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		private final StateIngredient input;
 		private final BlockState outputState;
 		private final int time;
+		@Nullable
+		private final ResourceLocation function;
 
 		public FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state) {
 			this(id, input, state, DEFAULT_TIME);
 		}
 
 		public FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time) {
+			this(id, input, state, time, null);
+		}
+
+		public FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time, @Nullable ResourceLocation function) {
 			Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 			this.id = id;
 			this.input = input;
 			this.outputState = state;
 			this.time = time;
+			this.function = function;
 		}
 
 		@Override
@@ -83,6 +91,9 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 			json.add("output", StateIngredientHelper.serializeBlockState(outputState));
 			if (time != DEFAULT_TIME) {
 				json.addProperty("time", time);
+			}
+			if (function != null) {
+				json.addProperty("success_function", function.toString());
 			}
 		}
 
