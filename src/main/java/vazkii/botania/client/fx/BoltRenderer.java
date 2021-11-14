@@ -69,21 +69,12 @@ public class BoltRenderer {
 			refreshTimestamp = timestamp;
 		}
 
-		// todo XXX there is NO reason this should be needed as we always call add on the same thread as render and there is no reentrancy from render to add
-		// figure out why we get Comodification errors
+		// todo XXX see other synchronize block
 		synchronized (boltOwners) {
 			for (Iterator<BoltOwnerData> iter = boltOwners.iterator(); iter.hasNext();) {
 				BoltOwnerData data = iter.next();
-				// tick our bolts based on the refresh rate, removing if they're now finished
-				if (refresh) {
-					data.bolts.removeIf(bolt -> bolt.tick(timestamp));
-				}
-				if (data.bolts.isEmpty() && data.lastBolt != null && data.lastBolt.getSpawnFunction().isConsecutive()) {
-					data.addBolt(new BoltInstance(data.lastBolt, timestamp), timestamp);
-				}
-				data.bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
-
-				if (data.bolts.isEmpty() && timestamp.isPassed(data.lastUpdateTimestamp, MAX_OWNER_TRACK_TIME)) {
+				data.renderTick(timestamp, refresh, matrix, buffer);
+				if (data.shouldRemove(timestamp)) {
 					iter.remove();
 				}
 			}
@@ -101,8 +92,7 @@ public class BoltRenderer {
 			data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
 		}
 		data.lastUpdateTimestamp = timestamp;
-		// todo XXX there is NO reason this should be needed as we always call add on the same thread as render and there is no reentrancy from render to add
-		// figure out why we get Comodification errors
+		// todo XXX ItemThunderSword calls this method from logical server in SP, don't do that.
 		synchronized (boltOwners) {
 			boltOwners.add(data);
 		}
@@ -120,6 +110,21 @@ public class BoltRenderer {
 			bolts.add(instance);
 			lastBoltDelay = instance.bolt.getSpawnFunction().getSpawnDelay(random);
 			lastBoltTimestamp = timestamp;
+		}
+
+		public void renderTick(Timestamp timestamp, boolean refresh, Matrix4f matrix, VertexConsumer buffer) {
+			// tick our bolts based on the refresh rate, removing if they're now finished
+			if (refresh) {
+				bolts.removeIf(bolt -> bolt.tick(timestamp));
+			}
+			if (bolts.isEmpty() && lastBolt != null && lastBolt.getSpawnFunction().isConsecutive()) {
+				addBolt(new BoltInstance(lastBolt, timestamp), timestamp);
+			}
+			bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
+		}
+
+		public boolean shouldRemove(Timestamp timestamp) {
+			return bolts.isEmpty() && timestamp.isPassed(lastUpdateTimestamp, MAX_OWNER_TRACK_TIME);
 		}
 	}
 
