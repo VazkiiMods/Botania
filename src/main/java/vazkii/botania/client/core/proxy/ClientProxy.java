@@ -28,10 +28,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemEntityRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -69,7 +66,6 @@ import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.client.render.entity.RenderMagicLandmine;
 import vazkii.botania.client.render.entity.RenderManaSpark;
 import vazkii.botania.client.render.entity.RenderManaStorm;
-import vazkii.botania.client.render.entity.RenderNoop;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
@@ -305,13 +301,13 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private static void registerEntityRenderers() {
-		EntityRendererRegistry.register(ModEntities.MANA_BURST, RenderNoop::new);
-		EntityRendererRegistry.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
-		EntityRendererRegistry.register(ModEntities.FLAME_RING, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.MANA_BURST, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.PLAYER_MOVER, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.FLAME_RING, NoopRenderer::new);
 		EntityRendererRegistry.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
-		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
-		EntityRendererRegistry.register(ModEntities.FALLING_STAR, RenderNoop::new);
-		EntityRendererRegistry.register(ModEntities.ENDER_AIR, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.FALLING_STAR, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.ENDER_AIR, NoopRenderer::new);
 		EntityRendererRegistry.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntities.PIXIE, RenderPixie::new);
 		EntityRendererRegistry.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
