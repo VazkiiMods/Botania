@@ -125,8 +125,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 
 	public void forceRare() {
 		gaiaSpiritGiven = true;
-//		timePassed = Math.max(timePassed, TOTAL_TIME / 2);
-		timePassed = TOTAL_TIME;
+		timePassed = Math.max(timePassed, TOTAL_TIME / 2);
 	}
 
 	private MobEntity random(ITag<EntityType<?>> tag) {
