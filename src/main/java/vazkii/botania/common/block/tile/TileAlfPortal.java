@@ -27,7 +27,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
-import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -38,7 +37,6 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.item.ItemLexicon;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -111,24 +109,15 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 					}
 
 					ItemStack stack = item.getItem();
-					boolean consume;
 					if (item.getPersistentData().contains(TAG_PORTAL_FLAG)) {
-						consume = false;
-					} else if (stack.getItem() instanceof ItemLexicon) {
-						consume = true;
-					} else if ((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack))) {
-						consume = true;
-					} else {
-						consume = false;
+						continue;
 					}
 
-					if (consume) {
-						item.remove();
-						if (validateItemUsage(item)) {
-							addItem(stack);
-						}
-						ticksSinceLastItem = 0;
+					item.remove();
+					if (validateItemUsage(item)) {
+						addItem(stack);
 					}
+					ticksSinceLastItem = 0;
 				}
 			}
 
