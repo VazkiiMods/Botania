@@ -2169,8 +2169,9 @@
 
   "botania.entry.bergamute": "Bergamute",
   "botania.tagline.bergamute": "Absorbs sound",
-  "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such a din.$(p)It absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly. The absorption itself needs no $(thing)Mana$(0) to occur.",
-  "botania.page.bergamute1": "Deaf to All but the Song",
+  "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such dins.",
+  "botania.page.bergamute1": "The $(item)Bergamute$(0) absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly.$(p)Additionally, $(l:tools/grass_horn)$(item)Horns$(0)$(/l) or $(l:devices/forest_drum)$(item)Drums$(0)$(/l) will not break blocks within its range.",
+  "botania.page.bergamute2": "Deaf to All but the Song",
 
   "botania.entry.gIntro": "Generating Flora",
   "botania.tagline.gIntro": "Flowers that consume resources to make mana",
