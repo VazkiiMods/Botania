@@ -122,7 +122,7 @@ public class RenderLexicon {
 		var model = getModel();
 		model.setupAnim(ClientTickHandler.total, Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
-		Material mat = ModItems.lexicon.isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
+		Material mat = ItemLexicon.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.buffer(buffers, RenderType::entitySolid);
 		model.renderToBuffer(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 

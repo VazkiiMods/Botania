@@ -193,7 +193,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
 
-		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living, seed) -> ModItems.lexicon.isElvenItem(stack) ? 1 : 0);
+		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living, seed) -> ItemLexicon.isElven(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaCookie, prefix("totalbiscuit"),
 				(stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.slimeBottle, prefix("active"),
