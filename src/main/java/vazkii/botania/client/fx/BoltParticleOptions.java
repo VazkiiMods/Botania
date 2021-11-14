@@ -30,8 +30,6 @@ import java.util.Random;
 
 public class BoltParticleOptions {
 
-	private final Random random = new Random();
-
 	private final BoltRenderInfo renderInfo;
 
 	private final Vec3 start;
@@ -39,13 +37,13 @@ public class BoltParticleOptions {
 
 	private final int segments;
 
-	private int count = 1;
-	private float size = 0.1F;
+	private final int count;
+	private final float size;
 
-	private int lifespan = 30;
+	private final int lifespan;
 
-	private SpawnFunction spawnFunction = SpawnFunction.delay(60);
-	private FadeFunction fadeFunction = FadeFunction.fade(0.5F);
+	private final SpawnFunction spawnFunction;
+	private final FadeFunction fadeFunction;
 
 	public BoltParticleOptions(Vec3 start, Vec3 end) {
 		this(BoltRenderInfo.DEFAULT, start, end);
@@ -56,70 +54,83 @@ public class BoltParticleOptions {
 	}
 
 	public BoltParticleOptions(BoltRenderInfo info, Vec3 start, Vec3 end, int segments) {
+		this(info, start, end, segments, 1, 0.1F, 30, SpawnFunction.delay(60), FadeFunction.fade(0.5F));
+	}
+
+	public BoltParticleOptions(BoltRenderInfo info, Vec3 start, Vec3 end, int segments,
+			int count,
+			float size,
+			int lifespan,
+			SpawnFunction spawnFunction,
+			FadeFunction fadeFunction) {
 		this.renderInfo = info;
 		this.start = start;
 		this.end = end;
 		this.segments = segments;
+		this.count = count;
+		this.size = size;
+		this.lifespan = lifespan;
+		this.spawnFunction = spawnFunction;
+		this.fadeFunction = fadeFunction;
 	}
 
 	/**
-	 * Set the amount of bolts to render for this single bolt instance.
-	 *
 	 * @param count amount of bolts to render
-	 *
-	 * @return this
 	 */
 	public BoltParticleOptions count(int count) {
-		this.count = count;
-		return this;
+		return new BoltParticleOptions(
+				this.renderInfo, this.start, this.end, this.segments,
+				count,
+				this.size, this.lifespan, this.spawnFunction, this.fadeFunction);
 	}
 
 	/**
 	 * Set the starting size (or width) of bolt segments.
-	 *
+	 * 
 	 * @param size starting size of bolt segments
-	 *
-	 * @return this
 	 */
 	public BoltParticleOptions size(float size) {
-		this.size = size;
-		return this;
+		return new BoltParticleOptions(
+				this.renderInfo, this.start, this.end, this.segments, this.count,
+				size,
+				this.lifespan, this.spawnFunction, this.fadeFunction);
 	}
 
 	/**
 	 * Define the {@link SpawnFunction} for this bolt effect.
 	 *
 	 * @param spawnFunction spawn function to use
-	 *
-	 * @return this
 	 */
 	public BoltParticleOptions spawn(SpawnFunction spawnFunction) {
-		this.spawnFunction = spawnFunction;
-		return this;
+		return new BoltParticleOptions(
+				this.renderInfo, this.start, this.end, this.segments, this.count,
+				this.size, this.lifespan,
+				spawnFunction,
+				this.fadeFunction);
 	}
 
 	/**
 	 * Define the {@link FadeFunction} for this bolt effect.
 	 *
 	 * @param fadeFunction fade function to use
-	 *
-	 * @return this
 	 */
 	public BoltParticleOptions fade(FadeFunction fadeFunction) {
-		this.fadeFunction = fadeFunction;
-		return this;
+		return new BoltParticleOptions(
+				this.renderInfo, this.start, this.end, this.segments, this.count,
+				this.size, this.lifespan, this.spawnFunction,
+				fadeFunction);
 	}
 
 	/**
 	 * Define the lifespan (in ticks) of this bolt, at the end of which the bolt will expire.
 	 *
 	 * @param lifespan lifespan to use in ticks
-	 *
-	 * @return this
 	 */
 	public BoltParticleOptions lifespan(int lifespan) {
-		this.lifespan = lifespan;
-		return this;
+		return new BoltParticleOptions(
+				this.renderInfo, this.start, this.end, this.segments, this.count, this.size,
+				lifespan,
+				this.spawnFunction, this.fadeFunction);
 	}
 
 	public int getLifespan() {
@@ -139,6 +150,7 @@ public class BoltParticleOptions {
 	}
 
 	public List<BoltQuads> generate() {
+		Random random = new Random();
 		List<BoltQuads> quads = new ArrayList<>();
 		Vec3 diff = end.subtract(start);
 		float totalDistance = (float) diff.length();
