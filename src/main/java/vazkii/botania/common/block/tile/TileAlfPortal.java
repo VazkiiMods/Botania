@@ -28,7 +28,6 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
-import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -41,7 +40,6 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.item.ItemLexicon;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -114,24 +112,15 @@ public class TileAlfPortal extends TileMod implements IWandable {
 					}
 
 					ItemStack stack = item.getItem();
-					boolean consume;
 					if (EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned) {
-						consume = false;
-					} else if (stack.getItem() instanceof ItemLexicon) {
-						consume = true;
-					} else if ((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack))) {
-						consume = true;
-					} else {
-						consume = false;
+						continue;
 					}
 
-					if (consume) {
-						item.discard();
-						if (self.validateItemUsage(item)) {
-							self.addItem(stack);
-						}
-						self.ticksSinceLastItem = 0;
+					item.discard();
+					if (self.validateItemUsage(item)) {
+						self.addItem(stack);
 					}
+					self.ticksSinceLastItem = 0;
 				}
 			}
 
