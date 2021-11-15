@@ -11,9 +11,15 @@
       }
     },
     {
-      "type": "botania:petal_apothecary",
+      "type": "text",
       "text": {
         "translate": "botania.page.bergamute1"
+      }
+    },
+    {
+      "type": "botania:petal_apothecary",
+      "text": {
+        "translate": "botania.page.bergamute2"
       },
       "recipe": "botania:petal_apothecary/bergamute"
     }
