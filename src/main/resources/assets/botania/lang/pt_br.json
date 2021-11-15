@@ -1756,7 +1756,7 @@
   "botania.entry.bergamute": "Bergamute",
   "botania.tagline.bergamute": "Absorve sons",
   "botania.page.bergamute0": "Qualquer um que tenha trabalhado em uma fazenda sabe a dor da cacofonia causada pelos animais.$(p)A $(item)Bergamute$(0) absorve ondas sonoras ao redor dela, as convertendo em minúsculas quantidades de mana e emitindo-a ao ambiente. A absorção em si precisa não precisa $(thing)mana$(0) para acontecer.",
-  "botania.page.bergamute1": "Surdo para tudo, menos para a música",
+  "botania.page.bergamute2": "Surdo para tudo, menos para a música",
 
   "botania.entry.gIntro": "Uma introdução a Geração",
   "botania.tagline.gIntro": "Flores que consomem recursos e produzem Mana",

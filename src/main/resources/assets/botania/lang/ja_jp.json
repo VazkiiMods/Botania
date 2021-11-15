@@ -1251,7 +1251,7 @@
   "botania.entry.bergamute": "ベルガミュート",
   "botania.tagline.bergamute": "音を吸収する",
   "botania.page.bergamute0": "牧場主の役割を担ったこと がある誰もが、動物の群れ から生じる耳障りな騒音の 痛みを知っている。$(p)$(item)ベルガミュート$(0)は自身の近 くで放出された音エネルギ ーを吸収し、僅かなマナに 変換して、周囲へ放出する 。吸収自体は$(thing)マナ$(0)を必要と しない。",
-  "botania.page.bergamute1": "もう歌しか聞こえない",
+  "botania.page.bergamute2": "もう歌しか聞こえない",
 
   "botania.entry.gIntro": "マナの生成について",
   "botania.tagline.gIntro": "資源を消費してマナを生み出す花",

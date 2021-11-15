@@ -2138,7 +2138,7 @@
   "botania.entry.bergamute": "消音柑",
   "botania.tagline.bergamute": "吸收音波",
   "botania.page.bergamute0": "一个人若是有当牧场主的经历， 他就一定不会忘记动物们发出 的那刺耳的声音 - 那是，痛 苦的回忆。而这$(item)消音柑$(0)，则可以 吸收附近的声音，并转化成数 量基本可以无视魔力。吸收声 音的过程不需要消耗$(thing)魔力$(0)。",
-  "botania.page.bergamute1": "もう歌しか聞こえない",
+  "botania.page.bergamute2": "もう歌しか聞こえない",
 
   "botania.entry.gIntro": "产能的介绍",
   "botania.tagline.gIntro": "消耗资源产生魔力",
