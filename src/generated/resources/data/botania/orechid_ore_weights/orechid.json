@@ -192,6 +192,11 @@
     },
     {
       "type": "tag",
+      "tag": "forge:ores/niter",
+      "weight": 1105
+    },
+    {
+      "type": "tag",
       "tag": "forge:ores/adamantium",
       "weight": 1469
     },

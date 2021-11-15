@@ -17,6 +17,8 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.server.ServerWorld;
 
 import vazkii.botania.common.lib.ModTags;
@@ -98,6 +100,17 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 			}
 
 			if (entity != null) {
+				if (world.rand.nextFloat() < 0.01) {
+					// gonna make modded minecraft items into a gacha game
+					// and somehow find a way to add jeanne d'arc to it
+					// - Vazkii 2021
+					StringTextComponent name = new StringTextComponent("Jeanne d'");
+					name.append(entity.getName());
+					name.append(new StringTextComponent(" [SSR]"));
+					entity.setCustomName(name.mergeStyle(TextFormatting.GOLD));
+					entity.setCustomNameVisible(true);
+				}
+
 				entity.setPosition(placePos.getX() + 0.5, placePos.getY() + 0.5, placePos.getZ() + 0.5);
 				if (entity instanceof AgeableEntity) {
 					((AgeableEntity) entity).setGrowingAge(-24000);

@@ -147,6 +147,8 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(mini(ModSubtiles.bellethornChibi, ModSubtiles.bellethorn));
 		consumer.accept(mini(ModSubtiles.bubbellChibi, ModSubtiles.bubbell));
 		consumer.accept(mini(ModSubtiles.hopperhockChibi, ModSubtiles.hopperhock));
+		consumer.accept(mini(ModSubtiles.jiyuuliaChibi, ModSubtiles.jiyuulia));
+		consumer.accept(mini(ModSubtiles.tangleberrieChibi, ModSubtiles.tangleberrie));
 		consumer.accept(mini(ModSubtiles.marimorphosisChibi, ModSubtiles.marimorphosis));
 		consumer.accept(mini(ModSubtiles.rannuncarpusChibi, ModSubtiles.rannuncarpus));
 		consumer.accept(mini(ModSubtiles.solegnoliaChibi, ModSubtiles.solegnolia));
@@ -172,7 +174,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(FinishedRecipe.conjuration(id("grass"), new ItemStack(Blocks.GRASS, 2), ingr(Blocks.GRASS), 800));
 	}
 
-	private static void cycle(Consumer<IFinishedRecipe> consumer, int cost, String group, IItemProvider... items) {
+	protected void cycle(Consumer<IFinishedRecipe> consumer, int cost, String group, IItemProvider... items) {
 		for (int i = 0; i < items.length; i++) {
 			Ingredient in = ingr(items[i]);
 			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
@@ -181,19 +183,19 @@ public class ManaInfusionProvider extends RecipeProvider {
 		}
 	}
 
-	private static FinishedRecipe mini(IItemProvider mini, IItemProvider full) {
+	protected FinishedRecipe mini(IItemProvider mini, IItemProvider full) {
 		return FinishedRecipe.alchemy(id(Registry.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
 	}
 
-	private static ResourceLocation id(String s) {
+	protected ResourceLocation id(String s) {
 		return prefix("mana_infusion/" + s);
 	}
 
-	private static Ingredient ingr(IItemProvider i) {
+	protected static Ingredient ingr(IItemProvider i) {
 		return Ingredient.fromItems(i);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
+	protected static class FinishedRecipe implements IFinishedRecipe {
 		private static final StateIngredient CONJURATION = StateIngredientHelper.of(ModBlocks.conjurationCatalyst);
 		private static final StateIngredient ALCHEMY = StateIngredientHelper.of(ModBlocks.alchemyCatalyst);
 

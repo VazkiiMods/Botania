@@ -139,15 +139,15 @@ public class BlockLootProvider implements IDataProvider {
 		}
 	}
 
-	private static Path getPath(Path root, ResourceLocation id) {
+	protected static Path getPath(Path root, ResourceLocation id) {
 		return root.resolve("data/" + id.getNamespace() + "/loot_tables/blocks/" + id.getPath() + ".json");
 	}
 
-	private static LootTable.Builder empty(Block b) {
+	protected static LootTable.Builder empty(Block b) {
 		return LootTable.builder();
 	}
 
-	private static LootTable.Builder genCopyNbt(Block b, String... tags) {
+	protected static LootTable.Builder genCopyNbt(Block b, String... tags) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b);
 		CopyNbt.Builder func = CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY);
 		for (String tag : tags) {
@@ -159,7 +159,7 @@ public class BlockLootProvider implements IDataProvider {
 		return LootTable.builder().addLootPool(pool);
 	}
 
-	private static LootTable.Builder genCellBlock(Block b) {
+	protected static LootTable.Builder genCellBlock(Block b) {
 		ItemPredicate.Builder silkPred = ItemPredicate.Builder.create()
 				.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)));
 		LootEntry.Builder<?> silk = ItemLootEntry.builder(b)
@@ -167,7 +167,7 @@ public class BlockLootProvider implements IDataProvider {
 		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(silk));
 	}
 
-	private static LootTable.Builder genTinyPotato(Block b) {
+	protected static LootTable.Builder genTinyPotato(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
 				.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY));
 		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
@@ -175,13 +175,13 @@ public class BlockLootProvider implements IDataProvider {
 		return LootTable.builder().addLootPool(pool);
 	}
 
-	private static LootTable.Builder genMetamorphicStone(Block b) {
+	protected static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
 		Block cobble = Registry.BLOCK.getOptional(prefix(cobbleName)).get();
 		return genSilkDrop(b, cobble);
 	}
 
-	private static LootTable.Builder genSilkDrop(IItemProvider silkDrop, IItemProvider normalDrop) {
+	protected static LootTable.Builder genSilkDrop(IItemProvider silkDrop, IItemProvider normalDrop) {
 		LootEntry.Builder<?> cobbleDrop = ItemLootEntry.builder(normalDrop).acceptCondition(SurvivesExplosion.builder());
 		LootEntry.Builder<?> stoneDrop = ItemLootEntry.builder(silkDrop).acceptCondition(SILK_TOUCH);
 
@@ -190,19 +190,19 @@ public class BlockLootProvider implements IDataProvider {
 						.addEntry(stoneDrop.alternatively(cobbleDrop)));
 	}
 
-	private static LootTable.Builder genSolidVine(Block b) {
+	protected static LootTable.Builder genSolidVine(Block b) {
 		LootEntry.Builder<?> entry = TableLootEntry.builder(new ResourceLocation("blocks/vine"));
 		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
 	}
 
-	private static LootTable.Builder genRoot(Block b) {
+	protected static LootTable.Builder genRoot(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(ModItems.livingroot)
 				.acceptFunction(SetCount.builder(RandomValueRange.of(2, 4)))
 				.acceptFunction(ExplosionDecay.builder());
 		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
 	}
 
-	private static LootTable.Builder genSlab(Block b) {
+	protected static LootTable.Builder genSlab(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
 				.acceptFunction(SetCount.builder(ConstantRange.of(2))
 						.acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(SlabBlock.TYPE, SlabType.DOUBLE))))
@@ -210,7 +210,7 @@ public class BlockLootProvider implements IDataProvider {
 		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
 	}
 
-	private static LootTable.Builder genDoubleFlower(Block b) {
+	protected static LootTable.Builder genDoubleFlower(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
 				.acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
 				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().tag(Tags.Items.SHEARS)));
@@ -219,7 +219,7 @@ public class BlockLootProvider implements IDataProvider {
 		return LootTable.builder().addLootPool(pool);
 	}
 
-	private static LootTable.Builder genAltGrass(Block b) {
+	protected static LootTable.Builder genAltGrass(Block b) {
 		LootEntry.Builder<?> silk = ItemLootEntry.builder(b)
 				.acceptCondition(SILK_TOUCH);
 		LootEntry.Builder<?> dirt = ItemLootEntry.builder(Blocks.DIRT)
@@ -229,7 +229,7 @@ public class BlockLootProvider implements IDataProvider {
 		return LootTable.builder().addLootPool(pool);
 	}
 
-	private static LootTable.Builder genRegular(Block b) {
+	protected static LootTable.Builder genRegular(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b);
 		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
 				.acceptCondition(SurvivesExplosion.builder());

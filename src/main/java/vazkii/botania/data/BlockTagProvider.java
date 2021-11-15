@@ -96,9 +96,9 @@ public class BlockTagProvider extends BlockTagsProvider {
 				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
 				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
-				jiyuulia, labellia, loonium, marimorphosis, marimorphosisChibi,
+				jiyuulia, jiyuuliaChibi, labellia, loonium, marimorphosis, marimorphosisChibi,
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
-				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
+				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tangleberrieChibi, tigerseye, vinculotus
 		);
 		getOrCreateBuilder(ModTags.Blocks.SPECIAL_FLOWERS).addTag(ModTags.Blocks.MISC_SPECIAL_FLOWERS)
 				.addTag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
@@ -156,6 +156,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 		for (DyeColor color : DyeColor.values()) {
 			this.getOrCreateBuilder(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
 		}
+
+		getOrCreateBuilder(BlockTags.makeWrapperTag("buzzier_bees:flower_blacklist"))
+				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(ModTags.Blocks.SPECIAL_FLOWERS);
 	}
 
 	@Nonnull

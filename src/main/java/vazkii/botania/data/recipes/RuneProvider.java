@@ -98,13 +98,13 @@ public class RuneProvider extends RecipeProvider {
 		return prefix("runic_altar/" + s);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
+	protected static class FinishedRecipe implements IFinishedRecipe {
 		private final ResourceLocation id;
 		private final ItemStack output;
 		private final int mana;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
+		protected FinishedRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
 			this.id = id;
 			this.output = output;
 			this.mana = mana;

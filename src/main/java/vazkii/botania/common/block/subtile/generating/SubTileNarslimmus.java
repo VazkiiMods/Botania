@@ -32,6 +32,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 
 	private static final int RANGE = 2;
+	private static final int MAX_MANA = manaForSize(4);
 
 	public SubTileNarslimmus() {
 		super(ModSubtiles.NARSLIMMUS);
@@ -46,16 +47,15 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 			for (SlimeEntity slime : slimes) {
 				if (slime.getPersistentData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
 					int size = slime.getSlimeSize();
-					int mul = (int) Math.pow(2, size);
-					int mana = 1200 * mul;
 					if (!slime.world.isRemote) {
 						slime.remove();
 						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH_SMALL, 1, 0.02F);
-						addMana(mana);
+						addMana(manaForSize(size));
 						sync();
 					}
 
-					for (int j = 0; j < mul * 8; ++j) {
+					int times = 8 * (int) Math.pow(2, size);
+					for (int j = 0; j < times; ++j) {
 						float f = slime.world.rand.nextFloat() * (float) Math.PI * 2.0F;
 						float f1 = slime.world.rand.nextFloat() * 0.5F + 0.5F;
 						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
@@ -69,6 +69,11 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		}
 	}
 
+	private static int manaForSize(int size) {
+		size = Math.min(size, 4);
+		return 1200 * (int) Math.pow(2, size);
+	}
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
@@ -76,7 +81,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getMaxMana() {
-		return 12000;
+		return MAX_MANA;
 	}
 
 	@Override

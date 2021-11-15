@@ -23,6 +23,11 @@ import vazkii.botania.common.core.helper.Vector3;
 import java.util.List;
 
 public class SubTileTangleberrie extends TileEntityFunctionalFlower {
+	private static final double RANGE = 7;
+	private static final double MAXDISTANCE = 6;
+	private static final double RANGE_MINI = 3;
+	private static final double MAXDISTANCE_MINI = 2;
+
 	public SubTileTangleberrie(TileEntityType<?> type) {
 		super(type);
 	}
@@ -74,11 +79,11 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 	}
 
 	double getMaxDistance() {
-		return 6;
+		return MAXDISTANCE;
 	}
 
 	double getRange() {
-		return 7;
+		return RANGE;
 	}
 
 	float getMotionVelocity(LivingEntity entity) {
@@ -108,4 +113,19 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 		return 20;
 	}
 
+	public static class Mini extends SubTileTangleberrie {
+		public Mini() {
+			super(ModSubtiles.TANGLEBERRIE_CHIBI);
+		}
+
+		@Override
+		public double getMaxDistance() {
+			return MAXDISTANCE_MINI;
+		}
+
+		@Override
+		public double getRange() {
+			return RANGE_MINI;
+		}
+	}
 }

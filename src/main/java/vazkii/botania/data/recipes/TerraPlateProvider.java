@@ -51,13 +51,13 @@ public class TerraPlateProvider extends RecipeProvider {
 		return prefix("terra_plate/" + s);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
+	protected static class FinishedRecipe implements IFinishedRecipe {
 		private final ResourceLocation id;
 		private final int mana;
 		private final ItemStack output;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, int mana, ItemStack output, Ingredient... inputs) {
+		public FinishedRecipe(ResourceLocation id, int mana, ItemStack output, Ingredient... inputs) {
 			this.id = id;
 			this.mana = mana;
 			this.output = output;

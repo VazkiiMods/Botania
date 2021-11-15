@@ -72,7 +72,7 @@ public class BrewProvider extends RecipeProvider {
 		return prefix("brew/" + s);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
+	protected static class FinishedRecipe implements IFinishedRecipe {
 		private final ResourceLocation id;
 		private final Brew brew;
 		private final Ingredient[] inputs;

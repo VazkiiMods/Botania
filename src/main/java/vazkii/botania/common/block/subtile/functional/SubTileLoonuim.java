@@ -96,7 +96,9 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			} else if (world.rand.nextInt(10) == 0) {
 				entity = new CreeperEntity(EntityType.CREEPER, world);
 				if (world.rand.nextInt(200) == 0) {
-					entity.func_241841_a((ServerWorld) world, null);
+					CompoundNBT charged = new CompoundNBT();
+					charged.putBoolean("powered", true);
+					entity.readAdditional(charged);
 				}
 			} else {
 				switch (world.rand.nextInt(3)) {

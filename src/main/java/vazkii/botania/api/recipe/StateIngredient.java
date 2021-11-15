@@ -12,10 +12,13 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -33,6 +36,13 @@ public interface StateIngredient extends Predicate<BlockState> {
 	JsonObject serialize();
 
 	void write(PacketBuffer buffer);
+
+	List<ItemStack> getDisplayedStacks();
+
+	/** A description tooltip to display in areas like JEI recipes. */
+	default List<ITextComponent> descriptionTooltip() {
+		return Collections.emptyList();
+	}
 
 	List<BlockState> getDisplayed();
 

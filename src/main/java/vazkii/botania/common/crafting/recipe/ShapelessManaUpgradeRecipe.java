@@ -31,6 +31,10 @@ public class ShapelessManaUpgradeRecipe implements ICraftingRecipe {
 		this.compose = compose;
 	}
 
+	public ShapelessRecipe getCompose() {
+		return compose;
+	}
+
 	@Override
 	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
 		return compose.matches(inv, world);

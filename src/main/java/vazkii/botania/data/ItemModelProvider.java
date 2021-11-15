@@ -55,28 +55,28 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		registerItems(items);
 	}
 
-	private static String name(Item i) {
+	protected static String name(Item i) {
 		return Registry.ITEM.getKey(i).getPath();
 	}
 
-	private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
-	private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
+	protected static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
+	protected static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
 
-	private ItemModelBuilder handheldItem(String name) {
+	protected ItemModelBuilder handheldItem(String name) {
 		return withExistingParent(name, HANDHELD)
 				.texture("layer0", prefix("item/" + name));
 	}
 
-	private ItemModelBuilder handheldItem(Item i) {
+	protected ItemModelBuilder handheldItem(Item i) {
 		return handheldItem(name(i));
 	}
 
-	private ItemModelBuilder generatedItem(String name) {
+	protected ItemModelBuilder generatedItem(String name) {
 		return withExistingParent(name, GENERATED)
 				.texture("layer0", prefix("item/" + name));
 	}
 
-	private ItemModelBuilder generatedItem(Item i) {
+	protected ItemModelBuilder generatedItem(Item i) {
 		return generatedItem(name(i));
 	}
 
@@ -396,7 +396,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		});
 	}
 
-	private void builtinEntity(Item i) {
+	protected void builtinEntity(Item i) {
 		// [VanillaCopy] from item/chest.json
 		String name = Registry.ITEM.getKey(i).getPath();
 		getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/entity"))

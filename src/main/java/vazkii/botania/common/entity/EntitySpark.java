@@ -325,6 +325,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 			ISparkAttachable atile = spark.getAttachedTile();
 
 			if (spark == this
+					|| !((Entity) spark).isAlive()
 					|| spark.areIncomingTransfersDone()
 					|| getNetwork() != spark.getNetwork()
 					|| atile == null

@@ -13,7 +13,11 @@ import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
+import com.blamejared.crafttweaker.api.recipes.IRecipeHandler;
+import com.blamejared.crafttweaker.api.recipes.IReplacementRule;
+import com.blamejared.crafttweaker.api.util.StringUtils;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker.impl_native.blocks.ExpandBlockState;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 
 import net.minecraft.block.BlockState;
@@ -28,13 +32,19 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipePureDaisy;
 import vazkii.botania.common.integration.crafttweaker.actions.ActionRemovePureDaisyRecipe;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.StringJoiner;
+import java.util.function.Function;
+
 /**
  * @docParam this <recipetype:botania:pure_daisy>
  */
 @Document("mods/Botania/PureDaisy")
 @ZenRegister
+@IRecipeHandler.For(RecipePureDaisy.class)
 @ZenCodeType.Name("mods.botania.PureDaisy")
-public class PureDaisyRecipeManager implements IRecipeManager {
+public class PureDaisyRecipeManager implements IRecipeManager, IRecipeHandler<RecipePureDaisy> {
 
 	/**
 	 * Adds a Pure Daisy conversion recipe.
@@ -83,5 +93,23 @@ public class PureDaisyRecipeManager implements IRecipeManager {
 	@Override
 	public IRecipeType<IPureDaisyRecipe> getRecipeType() {
 		return ModRecipeTypes.PURE_DAISY_TYPE;
+	}
+
+	@Override
+	public String dumpToCommandString(IRecipeManager manager, RecipePureDaisy recipe) {
+		StringJoiner s = new StringJoiner(", ", manager.getCommandString() + ".addRecipe(", ");");
+
+		s.add(StringUtils.quoteAndEscape(recipe.getId()));
+		s.add(ExpandBlockState.getCommandString(recipe.getOutputState()));
+		s.add(CTIntegration.ingredientToCommandString(recipe.getInput()));
+		if (recipe.getTime() != RecipePureDaisy.DEFAULT_TIME) {
+			s.add(String.valueOf(recipe.getTime()));
+		}
+		return s.toString();
+	}
+
+	@Override
+	public Optional<Function<ResourceLocation, RecipePureDaisy>> replaceIngredients(IRecipeManager manager, RecipePureDaisy recipe, List<IReplacementRule> rules) {
+		return Optional.empty(); // Not supported by CT at the moment
 	}
 }

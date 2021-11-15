@@ -8,10 +8,7 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -20,14 +17,12 @@ import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MultiCraftingProcessor implements IComponentProcessor {
@@ -38,13 +33,12 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		Map<ResourceLocation, IRecipe<CraftingInventory>> recipeMap = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, IRecipeType.CRAFTING);
 		List<String> names = variables.get("recipes").asStream().map(IVariable::asString).collect(Collectors.toList());
 		this.recipes = new ArrayList<>();
 		for (String name : names) {
-			IRecipe<?> recipe = recipeMap.get(new ResourceLocation(name));
+			ICraftingRecipe recipe = PatchouliUtils.getRecipe(IRecipeType.CRAFTING, new ResourceLocation(name));
 			if (recipe != null) {
-				recipes.add((ICraftingRecipe) recipe);
+				recipes.add(recipe);
 				if (shapeless) {
 					shapeless = !(recipe instanceof IShapedRecipe);
 				}

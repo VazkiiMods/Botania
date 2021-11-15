@@ -33,8 +33,11 @@ public interface AccessorAbstractFurnaceTileEntity {
 	@Accessor
 	void setBurnTime(int burnTime);
 
+	@Accessor("cookTime")
+	int getCurrentCookTime();
+
 	@Accessor
-	int getCookTime();
+	int getCookTimeTotal();
 
 	@Accessor
 	void setCookTime(int cookTime);

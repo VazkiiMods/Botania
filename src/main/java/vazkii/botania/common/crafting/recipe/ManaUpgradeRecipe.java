@@ -34,6 +34,10 @@ public class ManaUpgradeRecipe implements ICraftingRecipe {
 		this.compose = compose;
 	}
 
+	public ShapedRecipe getCompose() {
+		return compose;
+	}
+
 	public static ItemStack output(ItemStack output, IInventory inv) {
 		ItemStack out = output.copy();
 		if (!(out.getItem() instanceof IManaItem)) {

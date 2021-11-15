@@ -22,13 +22,14 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import javax.annotation.Nonnull;
 
@@ -92,9 +93,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 		builder.add(Arrays.asList(recipe.getIngredients().get(0).getMatchingStacks()));
 
 		if (recipe.getRecipeCatalyst() != null) {
-			builder.add(ImmutableList.copyOf(
-					StateIngredientHelper.toStackList(recipe.getRecipeCatalyst()))
-			);
+			builder.add(ImmutableList.copyOf(recipe.getRecipeCatalyst().getDisplayedStacks()));
 		}
 
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
@@ -133,5 +132,17 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 		recipeLayout.getItemStacks().init(index, false, 93, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+
+		StateIngredient catalyst = recipe.getRecipeCatalyst();
+		if (catalyst != null) {
+			List<ITextComponent> description = catalyst.descriptionTooltip();
+			if (!description.isEmpty()) {
+				recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+					if (slotIndex == 1) {
+						tooltip.addAll(description);
+					}
+				});
+			}
+		}
 	}
 }

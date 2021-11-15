@@ -46,7 +46,7 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				ModEntities.MANA_BURST, ModEntities.PINK_WITHER, ModEntities.SPARK, ModEntities.PLAYER_MOVER);
 	}
 
-	private static ITag.OptionalItemEntry quark(String path) {
+	protected static ITag.OptionalItemEntry quark(String path) {
 		return new ITag.OptionalItemEntry(new ResourceLocation("quark", path));
 	}
 }

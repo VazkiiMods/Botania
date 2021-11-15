@@ -40,6 +40,10 @@ public class TwigWandRecipe implements ICraftingRecipe {
 		this.compose = compose;
 	}
 
+	public ShapedRecipe getCompose() {
+		return compose;
+	}
+
 	@Override
 	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World worldIn) {
 		return compose.matches(inv, worldIn);

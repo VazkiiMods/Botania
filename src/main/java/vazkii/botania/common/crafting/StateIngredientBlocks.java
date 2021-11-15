@@ -14,6 +14,8 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -67,6 +69,14 @@ public class StateIngredientBlocks implements StateIngredient {
 		for (Block block : blocks) {
 			buffer.writeRegistryIdUnsafe(ForgeRegistries.BLOCKS, block);
 		}
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedStacks() {
+		return blocks.stream()
+				.filter(b -> b.asItem() != Items.AIR)
+				.map(ItemStack::new)
+				.collect(Collectors.toList());
 	}
 
 	@Override

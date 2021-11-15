@@ -72,7 +72,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		}
 
 		ICorporeaSpark spark = getSpark();
-		if (spark != null && spark.getMaster() != null && requestTarget != null) {
+		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
 			int count = fullStack ? requestTarget.getMaxStackSize() : 1;
 			doCorporeaRequest(CorporeaHelper.instance().createMatcher(requestTarget, true), count, spark);
 		}
@@ -85,7 +85,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 		int sum = 0;
 		ICorporeaSpark spark = getSpark();
-		if (spark != null && spark.getMaster() != null && requestTarget != null) {
+		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
 			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).getStacks();
 			for (ItemStack stack : stacks) {
 				sum += stack.getCount();
@@ -135,21 +135,23 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
-		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
-		spark.onItemsRequested(stacks);
-		boolean did = false;
-		int sum = 0;
-		for (ItemStack reqStack : stacks) {
-			if (requestTarget != null) {
+		if (!requestTarget.isEmpty()) {
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
+			spark.onItemsRequested(stacks);
+			boolean did = false;
+			int sum = 0;
+			for (ItemStack reqStack : stacks) {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				world.addEntity(item);
-				sum += reqStack.getCount();
-				did = true;
+				if (requestTarget.isItemEqual(reqStack)) {
+					sum += reqStack.getCount();
+					did = true;
+				}
 			}
-		}
 
-		if (did) {
-			setCount(getItemCount() - sum);
+			if (did) {
+				setCount(getItemCount() - sum);
+			}
 		}
 	}
 }

@@ -20,8 +20,10 @@ import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.event.AddReloadListenerEvent;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -36,11 +38,20 @@ import java.util.*;
 
 public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
+
+	private static int recipeEpoch = 0;
+
 	private int signal = 0;
 	private ItemStack craftResult = ItemStack.EMPTY;
 
 	private final Queue<ResourceLocation> lastRecipes = new ArrayDeque<>();
 	private boolean dirty;
+	private boolean matchFailed;
+	private int lastRecipeEpoch = recipeEpoch;
+
+	public static void registerListener(AddReloadListenerEvent event) {
+		event.addListener((IResourceManagerReloadListener) mgr -> recipeEpoch++);
+	}
 
 	public TileCraftCrate() {
 		super(ModTiles.CRAFT_CRATE);
@@ -91,7 +102,12 @@ public class TileCraftCrate extends TileOpenCrate {
 			return;
 		}
 
-		if (canEject() && isFull() && craft(true)) {
+		if (recipeEpoch != lastRecipeEpoch) {
+			lastRecipeEpoch = recipeEpoch;
+			matchFailed = false;
+		}
+
+		if (!matchFailed && canEject() && isFull() && craft(true)) {
 			ejectAll();
 		}
 
@@ -153,6 +169,9 @@ public class TileCraftCrate extends TileOpenCrate {
 				handler.setInventorySlotContents(i, s);
 			}
 		});
+		if (!matchingRecipe.isPresent()) {
+			matchFailed = true;
+		}
 
 		world.getProfiler().endSection();
 		return matchingRecipe.isPresent();
@@ -215,6 +234,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		super.markDirty();
 		if (world != null && !world.isRemote) {
 			this.dirty = true;
+			this.matchFailed = false;
 		}
 	}
 

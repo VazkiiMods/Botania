@@ -147,7 +147,8 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 		TileEntity te = tile.tileEntity();
 		World world = te.getWorld();
 
-		if (world.isRemote || tile.getCurrentMana() < MANA_COST_AVATAR * 25 || !tile.isEnabled()) {
+		if (world.isRemote || tile.getCurrentMana() < MANA_COST_AVATAR * 25
+				|| !tile.isEnabled() || World.isYOutOfBounds(te.getPos().getY() - 1)) {
 			return;
 		}
 
@@ -192,10 +193,11 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 					BlockPos pos = new BlockPos(ex, py, ez);
 					Block block = world.getBlockState(pos).getBlock();
 					if (block.isAir(world.getBlockState(pos), world, pos)) {
-						world.setBlockState(pos, ModBlocks.bifrost.getDefaultState());
-						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(pos);
-						tileBifrost.ticks = 10;
-						tile.receiveMana(-MANA_COST_AVATAR);
+						if (world.setBlockState(pos, ModBlocks.bifrost.getDefaultState())) {
+							TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(pos);
+							tileBifrost.ticks = 10;
+							tile.receiveMana(-MANA_COST_AVATAR);
+						}
 					} else if (block == ModBlocks.bifrost) {
 						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(pos);
 						if (tileBifrost.ticks < 2) {

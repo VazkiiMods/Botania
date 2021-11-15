@@ -76,11 +76,10 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 				AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) tile;
 				Pair<AbstractCookingRecipe, Boolean> p = canSmelt(furnace);
 				if (p != null) {
-					AbstractCookingRecipe recipe = p.getFirst();
 					boolean canSmelt = p.getSecond();
 					if (canSmelt) {
 						AccessorAbstractFurnaceTileEntity mFurnace = (AccessorAbstractFurnaceTileEntity) furnace;
-						mFurnace.setCookTime(Math.min(recipe.getCookTime() - 1, mFurnace.getCookTime() + 20));
+						mFurnace.setCookTime(Math.min(mFurnace.getCookTimeTotal() - 1, mFurnace.getCurrentCookTime() + 20));
 						mFurnace.setBurnTime(Math.max(0, mFurnace.getBurnTime() - 10));
 					}
 

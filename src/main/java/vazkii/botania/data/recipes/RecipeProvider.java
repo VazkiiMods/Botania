@@ -42,16 +42,12 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
-import javax.annotation.Nullable;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	public RecipeProvider(DataGenerator generator) {
@@ -87,6 +83,11 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		registerFloatingFlowers(consumer);
 		registerConversions(consumer);
 		registerDecor(consumer);
+	}
+
+	/** Addons: override this to return your modid */
+	protected ResourceLocation prefix(String path) {
+		return ResourceLocationHelper.prefix(path);
 	}
 
 	private void registerMain(Consumer<IFinishedRecipe> consumer) {
@@ -2007,8 +2008,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				ModSubtiles.bellethornChibi, ModSubtiles.bergamute, ModSubtiles.dreadthorn, ModSubtiles.heiseiDream,
 				ModSubtiles.tigerseye, ModSubtiles.jadedAmaranthus, ModSubtiles.orechid, ModSubtiles.fallenKanade,
 				ModSubtiles.exoflame, ModSubtiles.agricarnation, ModSubtiles.agricarnationChibi, ModSubtiles.hopperhock,
-				ModSubtiles.hopperhockChibi, ModSubtiles.tangleberrie, ModSubtiles.jiyuulia, ModSubtiles.rannuncarpus,
-				ModSubtiles.rannuncarpusChibi, ModSubtiles.hyacidus, ModSubtiles.pollidisiac, ModSubtiles.clayconia,
+				ModSubtiles.hopperhockChibi, ModSubtiles.tangleberrie, ModSubtiles.tangleberrieChibi,
+				ModSubtiles.jiyuulia, ModSubtiles.jiyuuliaChibi, ModSubtiles.rannuncarpus, ModSubtiles.rannuncarpusChibi,
+				ModSubtiles.hyacidus, ModSubtiles.pollidisiac, ModSubtiles.clayconia,
 				ModSubtiles.clayconiaChibi, ModSubtiles.loonium, ModSubtiles.daffomill, ModSubtiles.vinculotus,
 				ModSubtiles.spectranthemum, ModSubtiles.medumone, ModSubtiles.marimorphosis, ModSubtiles.marimorphosisChibi,
 				ModSubtiles.bubbell, ModSubtiles.bubbellChibi, ModSubtiles.solegnolia, ModSubtiles.solegnoliaChibi,
@@ -2286,7 +2288,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		cosmeticBauble(consumer, ModItems.thinkingHand, ModBlocks.tinyPotato);
 	}
 
-	private void registerSimpleArmorSet(Consumer<IFinishedRecipe> consumer, Ingredient item, String variant,
+	protected void registerSimpleArmorSet(Consumer<IFinishedRecipe> consumer, Ingredient item, String variant,
 			ICriterionInstance criterion) {
 		Item helmet = Registry.ITEM.getOptional(prefix(variant + "_helmet")).get();
 		Item chestplate = Registry.ITEM.getOptional(prefix(variant + "_chestplate")).get();
@@ -2320,7 +2322,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 	}
 
-	private void registerToolSetRecipes(Consumer<IFinishedRecipe> consumer, Ingredient item, Ingredient stick,
+	protected void registerToolSetRecipes(Consumer<IFinishedRecipe> consumer, Ingredient item, Ingredient stick,
 			ICriterionInstance criterion, IItemProvider sword, IItemProvider pickaxe,
 			IItemProvider axe, IItemProvider hoe, IItemProvider shovel, IItemProvider shears) {
 		ShapedRecipeBuilder.shapedRecipe(pickaxe)
@@ -2372,7 +2374,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	}
 
-	private void registerTerrasteelUpgradeRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider output,
+	protected void registerTerrasteelUpgradeRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider output,
 			IItemProvider upgradedInput, ITag<Item> runeInput) {
 		ShapedRecipeBuilder.shapedRecipe(output)
 				.key('T', ModItems.livingwoodTwig)
@@ -2387,7 +2389,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, consumer));
 	}
 
-	private void registerRedStringBlock(Consumer<IFinishedRecipe> consumer, IItemProvider output, Ingredient input, ICriterionInstance criterion) {
+	protected void registerRedStringBlock(Consumer<IFinishedRecipe> consumer, IItemProvider output, Ingredient input, ICriterionInstance criterion) {
 		ShapedRecipeBuilder.shapedRecipe(output)
 				.key('R', ModTags.Items.LIVINGROCK)
 				.key('S', ModItems.redString)
@@ -2400,7 +2402,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 	}
 
-	private void createFloatingFlowerRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider input) {
+	protected void createFloatingFlowerRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider input) {
 		ResourceLocation inputName = Registry.ITEM.getKey(input.asItem());
 		Item output = Registry.ITEM.getOptional(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath())).get();
 		ShapelessRecipeBuilder.shapelessRecipe(output)
@@ -2410,28 +2412,28 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 	}
 
-	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input, String name) {
+	protected void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input, String name) {
 		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
 				.addCriterion("has_item", hasItem(output))
 				.addIngredient(input)
 				.build(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, ITag<Item> input, String name) {
+	protected void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, ITag<Item> input, String name) {
 		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
 				.addCriterion("has_item", hasItem(output))
 				.addIngredient(input)
 				.build(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstructPetalBlock(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input) {
+	protected void deconstructPetalBlock(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input) {
 		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
 				.addCriterion("has_item", hasItem(output))
 				.addIngredient(input).setGroup("botania:petal_block_deconstruct")
 				.build(consumer, prefix("conversions/" + Registry.ITEM.getKey(input.asItem()).getPath() + "_deconstruct"));
 	}
 
-	private void recombineSlab(Consumer<IFinishedRecipe> consumer, IItemProvider fullBlock, IItemProvider slab) {
+	protected void recombineSlab(Consumer<IFinishedRecipe> consumer, IItemProvider fullBlock, IItemProvider slab) {
 		ShapedRecipeBuilder.shapedRecipe(fullBlock)
 				.key('Q', slab)
 				.patternLine("Q")
@@ -2440,7 +2442,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer, prefix("slab_recombine/" + Registry.ITEM.getKey(fullBlock.asItem()).getPath()));
 	}
 
-	private void registerForQuartz(Consumer<IFinishedRecipe> consumer, String variant, IItemProvider baseItem) {
+	protected void registerForQuartz(Consumer<IFinishedRecipe> consumer, String variant, IItemProvider baseItem) {
 		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
 		Block stairs = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
@@ -2459,7 +2461,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		chiseled(chiseled, slab).addCriterion("has_base_item", hasItem(base)).build(consumer);
 	}
 
-	private void registerForWood(Consumer<IFinishedRecipe> consumer, String variant) {
+	protected void registerForWood(Consumer<IFinishedRecipe> consumer, String variant) {
 		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
 		Block planks = Registry.BLOCK.getOptional(prefix(variant + "_planks")).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
@@ -2477,7 +2479,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		fenceGate(fenceGate, planks).build(consumer);
 	}
 
-	private void registerForPavement(Consumer<IFinishedRecipe> consumer, String color, @Nullable Item mainInput) {
+	private void registerForPavement(Consumer<IFinishedRecipe> consumer, String color, Item mainInput) {
 		String baseName = color + LibBlockNames.PAVEMENT_SUFFIX;
 		Block base = Registry.BLOCK.getOptional(prefix(baseName)).get();
 		Block stair = Registry.BLOCK.getOptional(prefix(baseName + LibBlockNames.STAIR_SUFFIX)).get();
@@ -2537,7 +2539,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_flower_item", marimorphosis).build(consumer);
 	}
 
-	private ShapedRecipeBuilder compression(IItemProvider output, ITag<Item> input) {
+	protected ShapedRecipeBuilder compression(IItemProvider output, ITag<Item> input) {
 		return ShapedRecipeBuilder.shapedRecipe(output)
 				.key('I', input)
 				.patternLine("III")
@@ -2546,7 +2548,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(input));
 	}
 
-	private ShapedRecipeBuilder brick(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder brick(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output, 4)
 				.addCriterion("has_item", hasItem(input))
 				.key('Q', input)
@@ -2554,7 +2556,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("QQ");
 	}
 
-	private ShapedRecipeBuilder stairs(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder stairs(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output, 4)
 				.addCriterion("has_item", hasItem(input))
 				.key('Q', input)
@@ -2563,14 +2565,14 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("QQQ");
 	}
 
-	private ShapedRecipeBuilder slabShape(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder slabShape(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output, 6)
 				.addCriterion("has_item", hasItem(input))
 				.key('Q', input)
 				.patternLine("QQQ");
 	}
 
-	private ShapedRecipeBuilder pillar(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder pillar(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output, 2)
 				.addCriterion("has_item", hasItem(input))
 				.key('Q', input)
@@ -2578,7 +2580,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("Q");
 	}
 
-	private ShapedRecipeBuilder chiseled(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder chiseled(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output)
 				.addCriterion("has_item", hasItem(input))
 				.key('Q', input)
@@ -2586,7 +2588,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("Q");
 	}
 
-	private ShapedRecipeBuilder wallShape(IItemProvider output, IItemProvider input, int amount) {
+	protected ShapedRecipeBuilder wallShape(IItemProvider output, IItemProvider input, int amount) {
 		return ShapedRecipeBuilder.shapedRecipe(output, amount)
 				.addCriterion("has_item", hasItem(input))
 				.key('B', input)
@@ -2594,7 +2596,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("BBB");
 	}
 
-	private ShapedRecipeBuilder fence(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder fence(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output, 3)
 				.addCriterion("has_item", hasItem(input))
 				.key('B', input)
@@ -2603,7 +2605,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("BSB");
 	}
 
-	private ShapedRecipeBuilder fenceGate(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder fenceGate(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output)
 				.addCriterion("has_item", hasItem(input))
 				.key('B', input)
@@ -2612,7 +2614,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("SBS");
 	}
 
-	private ShapedRecipeBuilder ringShape(IItemProvider output, IItemProvider input) {
+	protected ShapedRecipeBuilder ringShape(IItemProvider output, IItemProvider input) {
 		return ShapedRecipeBuilder.shapedRecipe(output, 4)
 				.key('W', input)
 				.patternLine(" W ")
@@ -2621,7 +2623,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(input));
 	}
 
-	private void cosmeticBauble(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input) {
+	protected void cosmeticBauble(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input) {
 		ShapedRecipeBuilder.shapedRecipe(output)
 				.key('P', input)
 				.key('S', ModItems.manaString)
@@ -2633,7 +2635,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 	}
 
-	private void specialRecipe(Consumer<IFinishedRecipe> consumer, SpecialRecipeSerializer<?> serializer) {
+	protected void specialRecipe(Consumer<IFinishedRecipe> consumer, SpecialRecipeSerializer<?> serializer) {
 		ResourceLocation name = Registry.RECIPE_SERIALIZER.getKey(serializer);
 		CustomRecipeBuilder.customRecipe(serializer).build(consumer, prefix("dynamic/" + name.getPath()).toString());
 	}

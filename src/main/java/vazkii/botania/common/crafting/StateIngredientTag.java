@@ -13,6 +13,8 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.ResourceLocation;
@@ -60,6 +62,14 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		object.addProperty("type", "tag");
 		object.addProperty("tag", tag.toString());
 		return object;
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedStacks() {
+		return resolve().getAllElements().stream()
+				.filter(b -> b.asItem() != Items.AIR)
+				.map(ItemStack::new)
+				.collect(Collectors.toList());
 	}
 
 	@Nonnull

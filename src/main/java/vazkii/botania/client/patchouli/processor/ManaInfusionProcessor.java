@@ -18,7 +18,6 @@ import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -75,7 +74,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 						if (ingr == null) {
 							return Stream.of(ItemStack.EMPTY);
 						}
-						return StateIngredientHelper.toStackList(ingr).stream();
+						return ingr.getDisplayedStacks().stream();
 					})
 					.map(IVariable::from)
 					.collect(Collectors.toList()));

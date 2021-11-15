@@ -13,7 +13,12 @@ import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
+import com.blamejared.crafttweaker.api.recipes.IRecipeHandler;
+import com.blamejared.crafttweaker.api.recipes.IReplacementRule;
+import com.blamejared.crafttweaker.api.recipes.ReplacementHandlerHelper;
+import com.blamejared.crafttweaker.api.util.StringUtils;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker.impl.item.MCItemStackMutable;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 
 import net.minecraft.item.crafting.IRecipeType;
@@ -27,14 +32,19 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeRuneAltar;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.StringJoiner;
+import java.util.function.Function;
 
 /**
  * @docParam this <recipetype:botania:runic_altar>
  */
 @Document("mods/Botania/RunicAltar")
 @ZenRegister
+@IRecipeHandler.For(RecipeRuneAltar.class)
 @ZenCodeType.Name("mods.botania.RuneAltar")
-public class RuneAltarRecipeManager implements IRecipeManager {
+public class RuneAltarRecipeManager implements IRecipeManager, IRecipeHandler<RecipeRuneAltar> {
 
 	/**
 	 * Adds the specified runic altar recipe.
@@ -64,5 +74,26 @@ public class RuneAltarRecipeManager implements IRecipeManager {
 	@Override
 	public IRecipeType<IRuneAltarRecipe> getRecipeType() {
 		return ModRecipeTypes.RUNE_TYPE;
+	}
+
+	@Override
+	public String dumpToCommandString(IRecipeManager manager, RecipeRuneAltar recipe) {
+		StringJoiner s = new StringJoiner(", ", manager.getCommandString() + ".addRecipe(", ");");
+
+		s.add(StringUtils.quoteAndEscape(recipe.getId()));
+		s.add(new MCItemStackMutable(recipe.getRecipeOutput()).getCommandString());
+		s.add(String.valueOf(recipe.getManaUsage()));
+		recipe.getIngredients().stream()
+				.map(IIngredient::fromIngredient)
+				.map(IIngredient::getCommandString)
+				.forEach(s::add);
+		return s.toString();
+	}
+
+	@Override
+	public Optional<Function<ResourceLocation, RecipeRuneAltar>> replaceIngredients(IRecipeManager manager, RecipeRuneAltar recipe, List<IReplacementRule> rules) {
+		return ReplacementHandlerHelper.replaceNonNullIngredientList(recipe.getIngredients(),
+				Ingredient.class, recipe, rules,
+				ingr -> id -> new RecipeRuneAltar(id, recipe.getRecipeOutput(), recipe.getManaUsage(), ingr.toArray(new Ingredient[0])));
 	}
 }
