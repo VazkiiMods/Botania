@@ -42,7 +42,7 @@ public class BindingTest {
 
 	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
 	public void generatingFlowerAutoBindTest(GameTestHelper helper) {
-		autobindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 7);
+		autobindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
 
 	private void autobindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
@@ -68,7 +68,7 @@ public class BindingTest {
 
 	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
 	public void generatingFlowerManualBindTest(GameTestHelper helper) {
-		manualBindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 7);
+		manualBindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
 
 	private void manualBindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
@@ -99,7 +99,7 @@ public class BindingTest {
 
 	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
 	public void generatingFlowerObedienceStick(GameTestHelper helper) {
-		obedienceStickTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 7);
+		obedienceStickTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
 
 	private void obedienceStickTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
