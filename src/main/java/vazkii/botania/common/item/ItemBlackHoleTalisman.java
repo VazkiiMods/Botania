@@ -19,14 +19,15 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,12 +35,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 
@@ -48,13 +51,14 @@ import javax.annotation.Nullable;
 
 import java.util.List;
 
-public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
+public class ItemBlackHoleTalisman extends Item {
 	public static final String TAG_ACTIVE = "active";
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_COUNT = "blockCount";
 
 	public ItemBlackHoleTalisman(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(stack), this);
 	}
 
 	@Nonnull
@@ -63,7 +67,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getBlock(stack) != null && player.isShiftKeyDown()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-			player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
+			player.playSound(ModSounds.blackHoleTalismanConfigure, 1F, 1F);
 			return InteractionResultHolder.success(stack);
 		}
 
@@ -123,8 +127,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Override
 	public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof Player) {
-			Player player = (Player) entity;
+		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof Player player) {
 
 			int highest = -1;
 			int[] counts = new int[player.getInventory().getContainerSize() - player.getInventory().armor.size()];
@@ -194,7 +197,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return cand;
 	}
 
-	private boolean setBlock(ItemStack stack, Block block) {
+	private static boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
 			return true;
@@ -202,7 +205,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return false;
 	}
 
-	private void add(ItemStack stack, int count) {
+	private static void add(ItemStack stack, int count) {
 		int current = getBlockCount(stack);
 		setCount(stack, current + count);
 	}
@@ -251,29 +254,82 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return ItemNBTHelper.getInt(stack, TAG_BLOCK_COUNT, 0);
 	}
 
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		Block stored = getBlock(stack);
-		if (stored == block) {
-			int count = getBlockCount(stack);
-			if (count > 0) {
-				if (doit) {
-					setCount(stack, count - 1);
-				}
-				return true;
-			}
+	protected static class BlockProvider implements IBlockProvider {
+		private final ItemStack stack;
+
+		protected BlockProvider(ItemStack stack) {
+			this.stack = stack;
 		}
 
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			Block stored = getBlock(stack);
+			if (stored == block) {
+				int count = ItemBlackHoleTalisman.getBlockCount(stack);
+				if (count > 0) {
+					if (doit) {
+						setCount(stack, count - 1);
+					}
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			Block stored = getBlock(stack);
+			if (stored == block) {
+				return ItemBlackHoleTalisman.getBlockCount(stack);
+			}
+			return 0;
+		}
+	}
+
+	@Override
+	public boolean overrideStackedOnOther(@Nonnull ItemStack talisman, @Nonnull Slot slot,
+			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+		if (clickAction == ClickAction.SECONDARY) {
+			ItemStack toInsert = slot.getItem();
+			Block blockToInsert = Block.byItem(toInsert.getItem());
+			if (blockToInsert != Blocks.AIR) {
+				Block existingBlock = getBlock(talisman);
+				if (existingBlock == null || existingBlock == blockToInsert) {
+					ItemStack taken = slot.safeTake(toInsert.getCount(), Integer.MAX_VALUE, player);
+					if (existingBlock == null) {
+						setBlock(talisman, blockToInsert);
+						setCount(talisman, taken.getCount());
+					} else {
+						add(talisman, taken.getCount());
+					}
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
 	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		Block stored = getBlock(stack);
-		if (stored == block) {
-			return getBlockCount(stack);
+	public boolean overrideOtherStackedOnMe(
+			@Nonnull ItemStack talisman, @Nonnull ItemStack toInsert, @Nonnull Slot slot,
+			@Nonnull ClickAction clickAction, @Nonnull Player player, @Nonnull SlotAccess cursorAccess) {
+		if (clickAction == ClickAction.SECONDARY) {
+			Block blockToInsert = Block.byItem(toInsert.getItem());
+			if (blockToInsert != Blocks.AIR) {
+				Block existingBlock = getBlock(talisman);
+				if (existingBlock == null || existingBlock == blockToInsert) {
+					if (existingBlock == null) {
+						setBlock(talisman, blockToInsert);
+						setCount(talisman, toInsert.getCount());
+					} else {
+						add(talisman, toInsert.getCount());
+					}
+					cursorAccess.set(ItemStack.EMPTY);
+					return true;
+				}
+			}
 		}
-		return 0;
+		return false;
 	}
-
 }

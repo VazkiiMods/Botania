@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -70,13 +71,6 @@ public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	/* todo 1.16-fabric
-	@Override
-	public float getEnchantPowerBonus(BlockState state, WorldView world, BlockPos pos) {
-		return variant.enchantPowerBonus;
-	}
-	*/
-
 	@Nonnull
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
@@ -87,5 +81,9 @@ public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.PYLON, TilePylon::commonTick);
+	}
+
+	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
+		return variant.enchantPowerBonus;
 	}
 }

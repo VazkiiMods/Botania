@@ -27,7 +27,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
-import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -36,7 +35,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ItemLexicon extends Item implements IElvenItem {
+public class ItemLexicon extends Item {
 
 	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
@@ -69,8 +68,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack stack = playerIn.getItemInHand(handIn);
 
-		if (playerIn instanceof ServerPlayer) {
-			ServerPlayer player = (ServerPlayer) playerIn;
+		if (playerIn instanceof ServerPlayer player) {
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getLevel(), player.getX(), player.getY(), player.getZ());
 			PatchouliAPI.get().openBookGUI((ServerPlayer) playerIn, Registry.ITEM.getKey(this));
 			playerIn.playSound(ModSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
@@ -94,8 +92,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		return title;
 	}
 
-	@Override
-	public boolean isElvenItem(ItemStack stack) {
+	public static boolean isElven(ItemStack stack) {
 		return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
 	}
 

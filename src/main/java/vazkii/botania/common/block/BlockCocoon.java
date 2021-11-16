@@ -62,8 +62,7 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity e) {
-		if (!world.isClientSide && e instanceof ItemEntity) {
-			ItemEntity item = (ItemEntity) e;
+		if (!world.isClientSide && e instanceof ItemEntity item) {
 			ItemStack stack = item.getItem();
 			addStack(world, pos, stack, false);
 

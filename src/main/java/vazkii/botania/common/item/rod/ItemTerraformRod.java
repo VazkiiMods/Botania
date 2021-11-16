@@ -10,9 +10,7 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,9 +28,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
@@ -40,11 +38,12 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProvider {
+public class ItemTerraformRod extends Item {
 	private static final int COST_PER = 55;
 
 	public ItemTerraformRod(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(), this);
 	}
 
 	@Nonnull
@@ -127,9 +126,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 			}
 
 			if (!blocks.isEmpty()) {
-				for (int i = 0; i < 10; i++) {
-					world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.SAND_STEP, SoundSource.BLOCKS, 1F, 0.4F);
-				}
+				world.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraformRod, SoundSource.BLOCKS, 1F, 1F);
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
 				for (int i = 0; i < 120; i++) {
 					world.addParticle(data, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0, 0, 0);
@@ -149,25 +146,22 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 	}
 
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if (block == Blocks.DIRT) {
-			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, true)) ||
-					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, false));
+	protected static class BlockProvider implements IBlockProvider {
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			if (block == Blocks.DIRT) {
+				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, true)) ||
+						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, false));
+			}
+			return false;
 		}
-		return false;
-	}
 
-	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		if (block == Blocks.DIRT) {
-			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, ItemDirtRod.COST);
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			if (block == Blocks.DIRT) {
+				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, ItemDirtRod.COST);
+			}
+			return 0;
 		}
-		return 0;
 	}
 }

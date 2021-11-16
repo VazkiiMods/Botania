@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -103,7 +103,7 @@ public class EntityManaStorm extends Entity {
 	@Nonnull
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
+		return new ClientboundAddEntityPacket(this);
 	}
 
 }

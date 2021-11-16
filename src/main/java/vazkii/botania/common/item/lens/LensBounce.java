@@ -20,7 +20,7 @@ import vazkii.botania.api.internal.IManaBurst;
 public class LensBounce extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
 		if (!isManaBlock && pos.getType() == HitResult.Type.BLOCK) {
 			BlockHitResult rtr = (BlockHitResult) pos;
@@ -30,10 +30,10 @@ public class LensBounce extends Lens {
 			Vec3 movementVec = normalVector.scale(-2 * currentMovementVec.dot(normalVector)).add(currentMovementVec);
 
 			entity.setDeltaMovement(movementVec);
-			dead = false;
+			shouldKill = false;
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 }

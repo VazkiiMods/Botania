@@ -11,6 +11,8 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
+import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -26,7 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -34,9 +35,7 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import java.util.UUID;
 
-import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
-
-public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
+public class ItemTravelBelt extends ItemBauble {
 
 	private static final UUID STEP_BOOST_UUID = UUID.fromString("8511cd62-2650-4078-8d69-9ebe80b21eb5");
 	private static final AttributeModifier STEP_BOOST = new AttributeModifier(
@@ -130,8 +129,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public void onNotMovingTick(ItemStack stack, Player player) {}
 
 	public static void onPlayerJump(LivingEntity living) {
-		if (living instanceof Player) {
-			Player player = (Player) living;
+		if (living instanceof Player player) {
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if (!belt.isEmpty() && ManaItemHandler.instance().requestManaExact(belt, player, COST, false)) {
@@ -154,9 +152,8 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	@Environment(EnvType.CLIENT)
 	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
-		ms.translate(0F, 0.2F, 0F);
 
-		float s = 0.85F;
+		float s = 1.15F;
 		ms.scale(s, s, s);
 		if (model == null) {
 			model = new HumanoidModel<>(Minecraft.getInstance()
@@ -166,11 +163,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
 		model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 }

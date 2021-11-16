@@ -24,8 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.client.core.handler.AstrolabePreviewHandler;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
-import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.helper.CoreShaders;
+import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.render.entity.RenderMagicLandmine;
 import vazkii.botania.common.item.ItemCraftingHalo;
 
@@ -60,8 +60,9 @@ public class MixinGameRenderer {
 		method = "renderLevel"
 	)
 	private void renderWorldLast(float tickDelta, long limitTime, PoseStack matrix, CallbackInfo ci) {
+		// todo 1.17 these don't work in fabulous, need a better injection site
+		BoltRenderer.onWorldRenderLast(tickDelta, matrix);
 		ItemCraftingHalo.onRenderWorldLast(tickDelta, matrix);
-		LightningHandler.onRenderWorldLast(tickDelta, matrix);
 		BoundTileRenderer.onWorldRenderLast(matrix);
 		AstrolabePreviewHandler.onWorldRenderLast(matrix);
 		RenderMagicLandmine.onWorldRenderLast();

@@ -28,12 +28,10 @@ public final class PacketHandler {
 	public static void initClient() {
 		ClientPlayNetworking.registerGlobalReceiver(PacketBotaniaEffect.ID, PacketBotaniaEffect.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketItemAge.ID, PacketItemAge.Handler::handle);
-		ClientPlayNetworking.registerGlobalReceiver(PacketSpawnEntity.ID, PacketSpawnEntity.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketGogWorld.ID, PacketGogWorld.Handler::handle);
-		ClientPlayNetworking.registerGlobalReceiver(PacketOrechidData.ID, PacketOrechidData::handle);
-		ClientPlayNetworking.registerGlobalReceiver(PacketAvatarTornadoRod.ID, PacketAvatarTornadoRod::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketAvatarTornadoRod.ID, PacketAvatarTornadoRod.Handler::handle);
 	}
 
 	private PacketHandler() {}

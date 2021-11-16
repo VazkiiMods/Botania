@@ -21,8 +21,11 @@ import vazkii.botania.common.block.tile.TileSpawnerClaw;
 
 @Mixin(BaseSpawner.class)
 public class MixinBaseSpawner {
-	@Inject(at = @At("HEAD"), method = "isNearPlayer", cancellable = true)
+	@Inject(at = @At("RETURN"), method = "isNearPlayer", cancellable = true)
 	private void injectNearPlayer(Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		TileSpawnerClaw.onSpawnerNearPlayer((BaseSpawner) (Object) this, level, pos, cir);
+		// If vanilla is out of range, then we do our work
+		if (!cir.getReturnValueZ()) {
+			TileSpawnerClaw.onSpawnerNearPlayer(level, pos, cir);
+		}
 	}
 }

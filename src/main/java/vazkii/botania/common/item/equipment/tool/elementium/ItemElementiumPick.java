@@ -10,7 +10,6 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.ModItems;
@@ -30,10 +29,6 @@ public class ItemElementiumPick extends ItemManasteelPick {
 			return !drop.isEmpty() && (isDisposable(drop) || isSemiDisposable(drop) && !e.isShiftKeyDown());
 		}
 		return false;
-	}
-
-	public static boolean isDisposable(Block block) {
-		return ModTags.Items.DISPOSABLE.contains(block.asItem());
 	}
 
 	private static boolean isDisposable(ItemStack stack) {

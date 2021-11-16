@@ -9,15 +9,12 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.common.block.ModSubtiles;
-
-import java.util.List;
-import java.util.function.Predicate;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
 	private static final int COST = 20000;
@@ -32,13 +29,8 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 	}
 
 	@Override
-	public List<OrechidOutput> getOreList() {
-		return BotaniaAPI.instance().getNetherOrechidWeights();
-	}
-
-	@Override
-	public Predicate<BlockState> getReplaceMatcher() {
-		return state -> state.is(Blocks.NETHERRACK);
+	public RecipeType<? extends IOrechidRecipe> getRecipeType() {
+		return ModRecipeTypes.ORECHID_IGNEM_TYPE;
 	}
 
 	@Override

@@ -11,10 +11,10 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -27,17 +27,15 @@ import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -65,12 +63,6 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		entityData.define(RETURN_TO, -1);
 	}
 
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
-	}
-
 	@Override
 	public boolean ignoreExplosion() {
 		return true;
@@ -94,7 +86,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		if (isReturning()) {
 			Entity thrower = getOwner();
 			if (thrower != null) {
-				Vec3 motion = Vector3.fromEntityCenterVanilla(thrower).subtract(Vector3.fromEntityCenterVanilla(this)).normalize();
+				Vec3 motion = VecHelper.fromEntityCenter(thrower).subtract(VecHelper.fromEntityCenter(this)).normalize();
 				setDeltaMovement(motion);
 			}
 		}
@@ -137,57 +129,52 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 
 	@Override
 	protected void onHit(@Nonnull HitResult pos) {
-		if (isReturning()) {
+		if (!isReturning()) {
+			super.onHit(pos);
+		}
+	}
+
+	@Override
+	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+		super.onHitBlock(hit);
+		BlockState state = level.getBlockState(hit.getBlockPos());
+		if (state.getBlock() instanceof BushBlock || state.is(BlockTags.LEAVES)) {
 			return;
 		}
 
-		switch (pos.getType()) {
-		case BLOCK: {
-			BlockHitResult rtr = (BlockHitResult) pos;
-			Block block = level.getBlockState(rtr.getBlockPos()).getBlock();
-			if (block instanceof BushBlock || block instanceof LeavesBlock) {
-				return;
+		int bounces = getTimesBounced();
+		if (bounces < MAX_BOUNCES) {
+			Vec3 currentMovementVec = getDeltaMovement();
+			Direction dir = hit.getDirection();
+			Vec3 normalVector = new Vec3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).normalize();
+			Vec3 movementVec = normalVector.scale(-2 * currentMovementVec.dot(normalVector)).add(currentMovementVec);
+
+			setDeltaMovement(movementVec);
+			bounced = true;
+
+			if (!level.isClientSide) {
+				setTimesBounced(getTimesBounced() + 1);
 			}
-
-			int bounces = getTimesBounced();
-			if (bounces < MAX_BOUNCES) {
-				Vec3 currentMovementVec = getDeltaMovement();
-				Direction dir = rtr.getDirection();
-				Vec3 normalVector = new Vec3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).normalize();
-				Vec3 movementVec = normalVector.scale(-2 * currentMovementVec.dot(normalVector)).add(currentMovementVec);
-
-				setDeltaMovement(movementVec);
-				bounced = true;
-
-				if (!level.isClientSide) {
-					setTimesBounced(getTimesBounced() + 1);
-				}
-			}
-
-			break;
 		}
-		case ENTITY: {
-			EntityHitResult rtr = (EntityHitResult) pos;
-			if (!level.isClientSide && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getOwner()) {
-				Entity thrower = getOwner();
-				DamageSource src = DamageSource.GENERIC;
-				if (thrower instanceof Player) {
-					src = DamageSource.thrown(this, thrower);
-				} else if (thrower instanceof LivingEntity) {
-					src = DamageSource.mobAttack((LivingEntity) thrower);
-				}
-				rtr.getEntity().hurt(src, 12);
-				if (isFire()) {
-					rtr.getEntity().setSecondsOnFire(5);
-				} else if (level.random.nextInt(3) == 0) {
-					((LivingEntity) rtr.getEntity()).addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
-				}
-			}
+	}
 
-			break;
-		}
-		default:
-			break;
+	@Override
+	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+		super.onHitEntity(hit);
+		if (!level.isClientSide && hit.getEntity() instanceof LivingEntity && hit.getEntity() != getOwner()) {
+			Entity thrower = getOwner();
+			DamageSource src = DamageSource.GENERIC;
+			if (thrower instanceof Player) {
+				src = DamageSource.thrown(this, thrower);
+			} else if (thrower instanceof LivingEntity) {
+				src = DamageSource.mobAttack((LivingEntity) thrower);
+			}
+			hit.getEntity().hurt(src, 12);
+			if (isFire()) {
+				hit.getEntity().setSecondsOnFire(5);
+			} else if (level.random.nextInt(3) == 0) {
+				((LivingEntity) hit.getEntity()).addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
+			}
 		}
 	}
 

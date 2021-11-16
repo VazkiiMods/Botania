@@ -56,7 +56,7 @@ public final class RenderHelper extends RenderType {
 	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
-	public static final RenderType LINE_1;
+	public static final RenderType RED_STRING;
 	public static final RenderType LINE_1_NO_DEPTH;
 	public static final RenderType LINE_4_NO_DEPTH;
 	public static final RenderType LINE_5_NO_DEPTH;
@@ -76,8 +76,9 @@ public final class RenderHelper extends RenderType {
 	public static final RenderType NATURA_PYLON_GLOW_DIRECT = getPylonGlowDirect("natura_pylon_glow_direct", RenderTilePylon.NATURA_TEXTURE);
 	public static final RenderType GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
 
-	public static final RenderType ASTROLABE_PREVIEW;
+	public static final RenderType ASTROLABE_PREVIEW = new AstrolabeLayer();
 	public static final RenderType STARFIELD;
+	public static final RenderType LIGHTNING;
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
@@ -91,8 +92,6 @@ public final class RenderHelper extends RenderType {
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
-		boolean useShaders = ShaderHelper.useShaders();
-
 		RenderType.CompositeState glState = RenderType.CompositeState.builder()
 				.setShaderState(POSITION_COLOR_SHADER)
 				.setWriteMaskState(COLOR_WRITE)
@@ -109,11 +108,11 @@ public final class RenderHelper extends RenderType {
 		RECTANGLE = makeLayer(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
 		CIRCLE = makeLayer(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, 256, false, false, glState);
 
-		LINE_1 = makeLayer(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, false, false));
-		LINE_1_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, true, true));
-		LINE_4_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(4, true, true));
-		LINE_5_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(5, true, true));
-		LINE_8_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(8, true, true));
+		RED_STRING = makeLayer(LibResources.PREFIX_MOD + "red_string", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 128, lineState(1, false, false));
+		LINE_1_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 128, lineState(1, true, true));
+		LINE_4_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 128, lineState(4, true, true));
+		LINE_5_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 64, lineState(5, true, true));
+		LINE_8_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormat.POSITION_COLOR_NORMAL, VertexFormat.Mode.LINES, 64, lineState(8, true, true));
 
 		glState = RenderType.CompositeState.builder()
 				.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
@@ -175,11 +174,6 @@ public final class RenderHelper extends RenderType {
 				.createCompositeState(true);
 		HALO = makeLayer(LibResources.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
 
-		// TODO 1.17 needs a wrapper for alpha to 0.4
-		glState = RenderType.CompositeState.builder().setDepthTestState(new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS)).setTextureState(new RenderStateShard.TextureStateShard(InventoryMenu.BLOCK_ATLAS, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setOverlayState(OVERLAY).createCompositeState(true);
-		RenderType astrolabePreview = makeLayer(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
-		ASTROLABE_PREVIEW = astrolabePreview;
-
 		// [VanillaCopy] End portal, with own shader
 		glState = RenderType.CompositeState.builder()
 				.setShaderState(new ShaderStateShard(CoreShaders::starfield))
@@ -188,6 +182,11 @@ public final class RenderHelper extends RenderType {
 						.add(TheEndPortalRenderer.END_PORTAL_LOCATION, false, false).build())
 				.createCompositeState(false);
 		STARFIELD = makeLayer(LibResources.PREFIX_MOD + "starfield", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, glState);
+		glState = RenderType.CompositeState.builder()
+				.setShaderState(POSITION_COLOR_SHADER)
+				.setTransparencyState(LIGHTNING_TRANSPARENCY)
+				.createCompositeState(false);
+		LIGHTNING = makeLayer(LibResources.PREFIX_MOD + "lightning", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
 	}
 
 	private RenderHelper(String string, VertexFormat vertexFormat, VertexFormat.Mode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {
@@ -422,5 +421,18 @@ public final class RenderHelper extends RenderType {
 			// todo 1.16-fabric buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}
 
+	}
+
+	private static class AstrolabeLayer extends RenderType {
+		public AstrolabeLayer() {
+			super(LibResources.PREFIX_MOD + "astrolabe", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true,
+					() -> {
+						Sheets.translucentCullBlockSheet().setupRenderState();
+						RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.4F);
+					}, () -> {
+						Sheets.translucentCullBlockSheet().clearRenderState();
+						RenderType.entityTranslucent(InventoryMenu.BLOCK_ATLAS).clearRenderState();
+					});
+		}
 	}
 }

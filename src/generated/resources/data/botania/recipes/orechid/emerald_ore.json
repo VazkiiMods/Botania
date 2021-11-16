@@ -1,0 +1,9 @@
+{
+  "type": "botania:orechid",
+  "input": "minecraft:stone",
+  "output": {
+    "type": "block",
+    "block": "minecraft:emerald_ore"
+  },
+  "weight": 1239
+}

@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
@@ -38,7 +40,6 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
@@ -49,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver {
+public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, IWandable {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
@@ -133,7 +134,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
 					level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
-				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.runeAltarCraft, SoundSource.BLOCKS, 1, 1, false);
+				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.runeAltarCraft, SoundSource.BLOCKS, 1F, 1F, false);
 			}
 			return true;
 		}
@@ -184,8 +185,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, TileRuneAltar self) {
 		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.random.nextInt(20) == 0) {
-			Vector3 vec = Vector3.fromTileEntityCenter(self);
-			Vector3 endVec = vec.add(0, 2.5, 0);
+			Vec3 vec = Vec3.atCenterOf(self.getBlockPos());
+			Vec3 endVec = vec.add(0, 2.5, 0);
 			Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
 		}
 
@@ -208,7 +209,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		}
 
 		if (manaToGet != this.manaToGet) {
-			level.playSound(null, worldPosition, ModSounds.runeAltarStart, SoundSource.BLOCKS, 1, 1);
+			level.playSound(null, worldPosition, ModSounds.runeAltarStart, SoundSource.BLOCKS, 1F, 1F);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
@@ -233,9 +234,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		}
 	}
 
-	public void onWanded(Player player, ItemStack wand) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (level.isClientSide) {
-			return;
+			return true;
 		}
 
 		IRuneAltarRecipe recipe = null;
@@ -285,6 +287,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				livingrock.getItem().shrink(1);
 			}
 		}
+
+		return true;
 	}
 
 	public boolean isEmpty() {

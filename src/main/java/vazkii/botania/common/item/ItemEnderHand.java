@@ -22,14 +22,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 
 import javax.annotation.Nonnull;
 
-public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvider {
+public class ItemEnderHand extends Item {
 
 	private static final int COST_PROVIDE = 5;
 	private static final int COST_SELF = 250;
@@ -37,6 +36,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	public ItemEnderHand(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(stack), this);
 	}
 
 	@Nonnull
@@ -73,40 +73,43 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 		return InteractionResult.PASS;
 	}
 
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
+	protected static class BlockProvider implements IBlockProvider {
+		private final ItemStack stack;
 
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if (!requestor.isEmpty() && requestor.is(this)) {
+		protected BlockProvider(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			if (!requestor.isEmpty() && requestor.is(stack.getItem())) {
+				return false;
+			}
+
+			ItemStack istack = ItemExchangeRod.removeFromInventory(player, player.getEnderChestInventory(), stack, block.asItem(), false);
+			if (!istack.isEmpty()) {
+				boolean mana = ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, false);
+				if (mana) {
+					if (doit) {
+						ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, true);
+						ItemExchangeRod.removeFromInventory(player, player.getEnderChestInventory(), stack, block.asItem(), true);
+					}
+
+					return true;
+				}
+			}
+
 			return false;
 		}
 
-		ItemStack istack = ItemExchangeRod.removeFromInventory(player, player.getEnderChestInventory(), stack, block.asItem(), false);
-		if (!istack.isEmpty()) {
-			boolean mana = ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, false);
-			if (mana) {
-				if (doit) {
-					ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, true);
-					ItemExchangeRod.removeFromInventory(player, player.getEnderChestInventory(), stack, block.asItem(), true);
-				}
-
-				return true;
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			if (!requestor.isEmpty() && requestor.is(stack.getItem())) {
+				return 0;
 			}
+
+			return ItemExchangeRod.getInventoryItemCount(player, player.getEnderChestInventory(), stack, block.asItem());
 		}
-
-		return false;
-	}
-
-	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		if (!requestor.isEmpty() && requestor.is(this)) {
-			return 0;
-		}
-
-		return ItemExchangeRod.getInventoryItemCount(player, player.getEnderChestInventory(), stack, block.asItem());
 	}
 
 }

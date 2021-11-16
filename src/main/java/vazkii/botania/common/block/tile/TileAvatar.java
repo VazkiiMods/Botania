@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.block.IAvatarTile;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IAvatarWieldable;
 
 import java.util.HashMap;
@@ -48,8 +50,11 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 		self.enabled = !level.hasNeighborSignal(worldPosition);
 
 		ItemStack stack = self.getItemHandler().getItem(0);
-		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable wieldable) {
-			wieldable.onAvatarUpdate(self, stack);
+		if (!stack.isEmpty()) {
+			var wieldable = IAvatarWieldable.API.find(stack, Unit.INSTANCE);
+			if (wieldable != null) {
+				wieldable.onAvatarUpdate(self);
+			}
 		}
 
 		if (self.enabled) {
@@ -97,6 +102,14 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 				return 1;
 			}
 		};
+	}
+
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		if (level != null && !level.isClientSide) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	@Override

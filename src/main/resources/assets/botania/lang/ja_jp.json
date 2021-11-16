@@ -1251,7 +1251,7 @@
   "botania.entry.bergamute": "ベルガミュート",
   "botania.tagline.bergamute": "音を吸収する",
   "botania.page.bergamute0": "牧場主の役割を担ったこと がある誰もが、動物の群れ から生じる耳障りな騒音の 痛みを知っている。$(p)$(item)ベルガミュート$(0)は自身の近 くで放出された音エネルギ ーを吸収し、僅かなマナに 変換して、周囲へ放出する 。吸収自体は$(thing)マナ$(0)を必要と しない。",
-  "botania.page.bergamute1": "もう歌しか聞こえない",
+  "botania.page.bergamute2": "もう歌しか聞こえない",
 
   "botania.entry.gIntro": "マナの生成について",
   "botania.tagline.gIntro": "資源を消費してマナを生み出す花",
@@ -1399,7 +1399,7 @@
   "botania.entry.icePendant": "雪片のペンダント",
   "botania.tagline.icePendant": "氷を張って水面を歩く",
   "botania.page.icePendant0": "$(item)雪片のペンダント$(0)は、凍結 エネルギーと共鳴する$(thing)装飾 品$(0)で、着用している間、足 下の高さの静止した$(item)水$(0)ブロ ックが$(item)氷$(0)に変換される。$(p)$(item)氷$(0)は、着用者がその場所を 離れるとすぐに溶けてしま う。最後に、このお守りは 着用者がスニーク中か、完 全に水没している場合、何 も凍らせない。",
-  "botania.page.icePendant1": "雪だるまつくろう？",
+  "botania.page.icePendant2": "雪だるまつくろう？",
 
   "botania.entry.lavaPendant": "火砕物のペンダント",
   "botania.tagline.lavaPendant": "多少の火炎耐性",

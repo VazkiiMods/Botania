@@ -26,6 +26,7 @@ public class CoreShaders {
 	private static ShaderInstance enchanter;
 	private static ShaderInstance pylon;
 	private static ShaderInstance halo;
+	private static ShaderInstance filmGrainParticle;
 
 	public static void init(ResourceManager resourceManager,
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
@@ -57,6 +58,10 @@ public class CoreShaders {
 				new ShaderInstance(resourceManager, "botania__halo", DefaultVertexFormat.POSITION_COLOR_TEX),
 				inst -> halo = inst)
 		);
+		registrations.add(Pair.of(
+				new ShaderInstance(resourceManager, "botania__film_grain_particle", DefaultVertexFormat.PARTICLE),
+				inst -> filmGrainParticle = inst)
+		);
 	}
 
 	public static ShaderInstance starfield() {
@@ -85,5 +90,9 @@ public class CoreShaders {
 
 	public static ShaderInstance halo() {
 		return halo;
+	}
+
+	public static ShaderInstance filmGrainParticle() {
+		return filmGrainParticle;
 	}
 }

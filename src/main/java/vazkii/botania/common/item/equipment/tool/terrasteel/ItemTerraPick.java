@@ -19,12 +19,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -39,6 +39,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -51,6 +52,7 @@ import vazkii.botania.common.lib.ModTags;
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -112,7 +114,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if (level != 0) {
 			setEnabled(stack, !isEnabled(stack));
 			if (!world.isClientSide) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
 			}
 		}
 
@@ -138,6 +140,16 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 				addMana(stack, -level);
 			}
 		}
+	}
+
+	@Override
+	public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+		int level = getLevel(stack);
+		int max = LEVELS[Math.min(LEVELS.length - 1, level + 1)];
+		int curr = getMana_(stack);
+		float percent = level == 0 ? 0F : (float) curr / (float) max;
+
+		return Optional.of(new ManaBarTooltip(percent, level));
 	}
 
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {

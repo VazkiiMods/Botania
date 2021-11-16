@@ -19,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;
@@ -51,7 +51,7 @@ public class ItemThunderSword extends ItemManasteelSword {
 			LivingEntity lightningSource = entity;
 			int hops = entity.level.isThundering() ? 10 : 4;
 			for (int i = 0; i < hops; i++) {
-				List<Entity> entities = entity.level.getEntities(lightningSource, new AABB(lightningSource.getX() - range, lightningSource.getY() - range, lightningSource.getZ() - range, lightningSource.getX() + range, lightningSource.getY() + range, lightningSource.getZ() + range), selector::test);
+				List<Entity> entities = entity.level.getEntities(lightningSource, new AABB(lightningSource.getX() - range, lightningSource.getY() - range, lightningSource.getZ() - range, lightningSource.getX() + range, lightningSource.getY() + range, lightningSource.getZ() + range), selector);
 				if (entities.isEmpty()) {
 					break;
 				}
@@ -63,7 +63,7 @@ public class ItemThunderSword extends ItemManasteelSword {
 					target.hurt(DamageSource.mobAttack(attacker), dmg);
 				}
 
-				Botania.proxy.lightningFX(Vector3.fromEntityCenter(lightningSource), Vector3.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
+				Botania.proxy.lightningFX(VecHelper.fromEntityCenter(lightningSource), VecHelper.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
 
 				alreadyTargetedEntities.add(target);
 				lightningSource = target;

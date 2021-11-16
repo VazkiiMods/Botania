@@ -36,8 +36,7 @@ public class ItemStarSword extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
-		if (entity instanceof Player) {
-			Player player = (Player) entity;
+		if (entity instanceof Player player) {
 			MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
@@ -65,7 +64,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					}
 
 					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 0.4F, 1.4F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
 				}
 			}
 		}

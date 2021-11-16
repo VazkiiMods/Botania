@@ -2800,7 +2800,7 @@
   "botania.entry.icePendant": "Sneeuwvlok Hanger",
   "botania.tagline.icePendant": "Loop op water door ijs te maken",
   "botania.page.icePendant0": "De $(item)Sneeuwvlok Hanger$(0) is een $(thing)Bauble$(0) die ijskoude energie ademt. Wanneer gedragen, zal elk stilstaand $(item)Water$(0) in de buurt op voet niveau veranderd worden in $(item)Ijs$(0).$(p)Het $(item)Ijs$(0) zal smelten kort nadat de drager uit de buurt is. De hanger zal geen water bevriezen als de drager sluipt of volledig onder water is.",
-  "botania.page.icePendant1": "Sneeuwpop maken?",
+  "botania.page.icePendant2": "Sneeuwpop maken?",
 
   "botania.entry.lavaPendant": "Pyroclastische Hanger",
   "botania.tagline.lavaPendant": "Beperkte vuurbestendigheid",

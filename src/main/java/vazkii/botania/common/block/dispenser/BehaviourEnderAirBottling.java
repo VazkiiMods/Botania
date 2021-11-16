@@ -14,12 +14,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.common.entity.EntityEnderAir;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemEnderAir;
 
@@ -47,14 +49,27 @@ public class BehaviourEnderAirBottling extends OptionalDispenseItemBehavior {
 		}
 	}
 
+	private boolean pickupInEnd(Level world, BlockPos facingPos) {
+		return world.dimension() == Level.END
+				&& world.isEmptyBlock(facingPos) && world.isEmptyBlock(facingPos.above())
+				&& ItemEnderAir.isClearFromDragonBreath(world, new AABB(facingPos).inflate(2.0D));
+	}
+
+	private boolean pickupFromEntity(Level level, BlockPos facingPos) {
+		var entities = level.getEntitiesOfClass(EntityEnderAir.class, new AABB(facingPos), EntitySelector.ENTITY_STILL_ALIVE);
+		if (!entities.isEmpty()) {
+			entities.get(0).discard();
+			return true;
+		}
+		return false;
+	}
+
 	@Nonnull
 	@Override
 	protected ItemStack execute(BlockSource source, @Nonnull ItemStack stack) {
 		Level world = source.getLevel();
 		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-		if (world.dimension() == Level.END
-				&& world.isEmptyBlock(blockpos) && world.isEmptyBlock(blockpos.above())
-				&& ItemEnderAir.isClearFromDragonBreath(world, new AABB(blockpos).inflate(2.0D))) {
+		if (pickupInEnd(world, blockpos) || pickupFromEntity(world, blockpos)) {
 			this.setSuccess(true);
 			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
 		}

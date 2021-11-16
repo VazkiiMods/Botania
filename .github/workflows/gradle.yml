@@ -19,4 +19,6 @@ jobs:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle') }}
     - name: Build with Gradle
-      run: ./gradlew pmdMain spotlessJavaCheck build --no-daemon --max-workers 1
+      run: ./gradlew pmdMain spotlessJavaCheck build
+    - name: Run GameTests
+      run: ./gradlew runGameTest

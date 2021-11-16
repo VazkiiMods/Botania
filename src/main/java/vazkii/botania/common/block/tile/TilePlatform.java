@@ -15,12 +15,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandable;
+
 import javax.annotation.Nullable;
 
-public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity {
+public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity, IWandable {
 	private static final String TAG_CAMO = "camo";
 
 	@Nullable
@@ -30,7 +33,8 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		super(ModTiles.PLATFORM, pos, state);
 	}
 
-	public boolean onWanded(Player player) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player != null) {
 			if (getCamoState() == null || player.isShiftKeyDown()) {
 				swapSelfAndPass(this, true);
@@ -68,8 +72,7 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getBlockPos().relative(dir);
 			BlockEntity tileAt = level.getBlockEntity(pos);
-			if (tileAt instanceof TilePlatform) {
-				TilePlatform platform = (TilePlatform) tileAt;
+			if (tileAt instanceof TilePlatform platform) {
 				if (empty == (platform.getCamoState() != null)) {
 					swapSelfAndPass(platform, empty);
 				}
@@ -107,18 +110,9 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 
 	@Override
 	public Object getRenderAttachmentData() {
-		return new PlatformData(getBlockPos(), camoState);
+		return new PlatformData(getBlockPos().immutable(), camoState);
 	}
 
-	public static class PlatformData {
-		public final BlockPos pos;
-
-		@Nullable
-		public final BlockState state;
-
-		public PlatformData(BlockPos pos, @Nullable BlockState state) {
-			this.pos = pos.immutable();
-			this.state = state;
-		}
+	public record PlatformData(BlockPos pos, @Nullable BlockState state) {
 	}
 }

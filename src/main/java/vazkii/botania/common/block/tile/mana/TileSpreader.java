@@ -29,6 +29,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -37,10 +39,12 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
@@ -57,7 +61,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned {
+public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable, IWandHUD {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -366,9 +370,10 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		return mana;
 	}
 
-	public void onWanded(Player player, ItemStack wand) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (player == null) {
-			return;
+			return false;
 		}
 
 		if (!player.isShiftKeyDown()) {
@@ -399,6 +404,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
+		return true;
 	}
 
 	private boolean needsNewBurstSimulation() {
@@ -526,6 +532,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	}
 
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getHoverName().getString();
 		int color = getVariant().hudColor;
@@ -686,46 +693,30 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		rotationY = rot;
 	}
 
-	/* TODO 1.17 these are just gone. mojang why
-	@Override
-	public void rotate(Rotation rotationIn) {
-		switch (rotationIn) {
-		case CLOCKWISE_90:
-			rotationX += 270F;
-			break;
-		case CLOCKWISE_180:
-			rotationX += 180F;
-			break;
-		case COUNTERCLOCKWISE_90:
-			rotationX += 90F;
-			break;
-		default:
-			break;
+	public void rotate(Rotation rotation) {
+		switch (rotation) {
+		case CLOCKWISE_90 -> rotationX += 270F;
+		case CLOCKWISE_180 -> rotationX += 180F;
+		case COUNTERCLOCKWISE_90 -> rotationX += 90F;
+		case NONE -> {}
 		}
-	
+
 		if (rotationX >= 360F) {
 			rotationX -= 360F;
 		}
 	}
-	
-	@Override
-	public void mirror(Mirror mirrorIn) {
-		switch (mirrorIn) {
-		case LEFT_RIGHT:
-			rotationX = 360F - rotationX;
-			break;
-		case FRONT_BACK:
-			rotationX = 180F - rotationX;
-			break;
-		default:
-			break;
+
+	public void mirror(Mirror mirror) {
+		switch (mirror) {
+		case LEFT_RIGHT -> rotationX = 360F - rotationX;
+		case FRONT_BACK -> rotationX = 180F - rotationX;
+		case NONE -> {}
 		}
-	
+
 		if (rotationX < 0F) {
 			rotationX += 360F;
 		}
 	}
-	*/
 
 	@Override
 	public void commitRedirection() {

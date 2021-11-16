@@ -1,0 +1,15 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "minecraft:azalea_leaves"
+  },
+  "output": {
+    "item": "minecraft:azalea_leaves",
+    "count": 2
+  },
+  "mana": 2000,
+  "catalyst": {
+    "type": "block",
+    "block": "botania:conjuration_catalyst"
+  }
+}

@@ -41,11 +41,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.api.wand.ITileBound;
-import vazkii.botania.api.wand.IWandBindable;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
@@ -104,7 +104,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		if (axis != null) {
 			if (!world.isClientSide) {
 				world.setBlockAndUpdate(pos, ModBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
-				world.playSound(null, pos, ModSounds.enchanterForm, SoundSource.BLOCKS, 0.5F, 0.6F);
+				world.playSound(null, pos, ModSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
 			} else {
 				for (int i = 0; i < 50; i++) {
@@ -188,28 +188,26 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			return InteractionResult.SUCCESS;
 		}
 
-		if (block instanceof IWandable) {
-			BlockEntity tile = world.getBlockEntity(pos);
-			boolean bindable = tile instanceof IWandBindable;
+		BlockEntity tile = world.getBlockEntity(pos);
+		boolean bindable = tile instanceof IWandBindable;
 
-			boolean wanded;
-			if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
-				if (boundPos.filter(pos::equals).isPresent()) {
-					setBindingAttempt(stack, UNBOUND_POS);
-				} else {
-					setBindingAttempt(stack, pos);
-				}
-
-				if (world.isClientSide) {
-					player.playSound(ModSounds.ding, 0.11F, 1F);
-				}
-
-				wanded = true;
+		if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
+			if (boundPos.filter(pos::equals).isPresent()) {
+				setBindingAttempt(stack, UNBOUND_POS);
 			} else {
-				wanded = ((IWandable) block).onUsedByWand(player, stack, world, pos, side);
+				setBindingAttempt(stack, pos);
 			}
 
-			return wanded ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+			if (world.isClientSide) {
+				player.playSound(ModSounds.ding, 0.11F, 1F);
+			}
+
+			return InteractionResult.SUCCESS;
+		} else {
+			var wandable = IWandable.API.find(world, pos, state, tile, Unit.INSTANCE);
+			if (wandable != null) {
+				return wandable.onUsedByWand(player, stack, side) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
+			}
 		}
 
 		if (!world.isClientSide && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {
@@ -237,49 +235,29 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	private static Direction rotateAround(Direction old, Direction.Axis axis) {
-		switch (axis) {
-		case X: {
-			switch (old) {
-			case DOWN:
-				return Direction.SOUTH;
-			case SOUTH:
-				return Direction.UP;
-			case UP:
-				return Direction.NORTH;
-			case NORTH:
-				return Direction.DOWN;
-			}
-			break;
-		}
-		case Y: {
-			switch (old) {
-			case NORTH:
-				return Direction.EAST;
-			case EAST:
-				return Direction.SOUTH;
-			case SOUTH:
-				return Direction.WEST;
-			case WEST:
-				return Direction.NORTH;
-			}
-			break;
-		}
-		case Z: {
-			switch (old) {
-			case DOWN:
-				return Direction.WEST;
-			case WEST:
-				return Direction.UP;
-			case UP:
-				return Direction.EAST;
-			case EAST:
-				return Direction.DOWN;
-			}
-			break;
-		}
-		}
-
-		return old;
+		return switch (axis) {
+		case X -> switch (old) {
+			case DOWN -> Direction.SOUTH;
+			case SOUTH -> Direction.UP;
+			case UP -> Direction.NORTH;
+			case NORTH -> Direction.DOWN;
+			default -> old;
+			};
+		case Y -> switch (old) {
+			case NORTH -> Direction.EAST;
+			case EAST -> Direction.SOUTH;
+			case SOUTH -> Direction.WEST;
+			case WEST -> Direction.NORTH;
+			default -> old;
+			};
+		case Z -> switch (old) {
+			case DOWN -> Direction.WEST;
+			case WEST -> Direction.UP;
+			case UP -> Direction.EAST;
+			case EAST -> Direction.DOWN;
+			default -> old;
+			};
+		};
 	}
 
 	public static void doParticleBeamWithOffset(Level world, BlockPos orig, BlockPos end) {

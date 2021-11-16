@@ -71,8 +71,7 @@ public class BlockLightLauncher extends BlockModWaterloggable {
 		List<TileLightRelay> relays = new ArrayList<>();
 		for (Direction dir : Direction.values()) {
 			BlockEntity tile = world.getBlockEntity(pos.relative(dir));
-			if (tile instanceof TileLightRelay) {
-				TileLightRelay relay = (TileLightRelay) tile;
+			if (tile instanceof TileLightRelay relay) {
 				if (relay.getNextDestination() != null) {
 					relays.add(relay);
 				}

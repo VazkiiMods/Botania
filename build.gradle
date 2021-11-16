@@ -20,10 +20,16 @@ if (System.getenv().RELEASE_MODE == null) {
 group = "vazkii.botania"
 archivesBaseName = "${ext.config.mod_name}"
 
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial"// << "-Werror" TODO reenable when Gradle fixes wrapping annotation processor
+compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial"// << "-Werror" TODO reenable when loom mixin AP is fixed
 
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")
+    runs {
+        create("GameTest") {
+            server()
+            vmArg "-Dfabric-api.gametest=1"
+        }
+    }
 }
 
 sourceSets.main.resources {
@@ -58,9 +64,6 @@ repositories {
         url "https://jitpack.io" // for step height eam
     }
     maven {
-        url "https://maven.siphalor.de" // for nbt crafting
-    }
-    maven {
         url "https://maven.shedaniel.me/" // for rei
     }
 }
@@ -74,11 +77,11 @@ dependencies {
     mappings loom.officialMojangMappings()
 
     modImplementation "net.fabricmc:fabric-loader:0.11.6"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.40.0+1.17"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.41.0+1.17"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.17.1-55-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.17.1-56-FABRIC"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:6.0.268-alpha"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
@@ -100,8 +103,6 @@ dependencies {
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
-
-    // modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
@@ -141,6 +142,10 @@ processResources {
 
     // Exclude datagenerator .cache directory
     exclude '.cache'
+
+    // Exclude Forge-specific metadata on Fabric only
+    exclude 'META-INF/mods.toml'
+    exclude 'META-INF/accesstransformer.cfg'
 
     filesMatching('data/botania/patchouli_books/lexicon/book.json') {
         filter {

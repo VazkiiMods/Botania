@@ -28,10 +28,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.*;
@@ -51,18 +54,19 @@ import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable,
+		IThrottledPacket, IWandable, IWandHUD {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -73,7 +77,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private static final String TAG_MANA_CAP = "manaCap";
 	private static final String TAG_CAN_ACCEPT = "canAccept";
 	private static final String TAG_CAN_SPARE = "canSpare";
-	private static final String TAG_FRAGILE = "fragile";
 	private static final String TAG_INPUT_KEY = "inputKey";
 	private static final String TAG_OUTPUT_KEY = "outputKey";
 	private static final int CRAFT_EFFECT_EVENT = 0;
@@ -88,7 +91,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private int soundTicks = 0;
 	private boolean canAccept = true;
 	private boolean canSpare = true;
-	public boolean fragile = false;
 	boolean isDoingTransfer = false;
 	int ticksDoingTransfer = 0;
 
@@ -197,7 +199,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	private void craftingFanciness() {
 		if (soundTicks == 0) {
-			level.playSound(null, worldPosition, ModSounds.manaPoolCraft, SoundSource.BLOCKS, 0.4F, 4F);
+			level.playSound(null, worldPosition, ModSounds.manaPoolCraft, SoundSource.BLOCKS, 1F, 1F);
 			soundTicks = 6;
 		}
 
@@ -224,8 +226,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			if (level.isClientSide) {
 				if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue()) {
 					boolean outputting = param == 1;
-					Vector3 itemVec = Vector3.fromBlockPos(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-					Vector3 tileVec = Vector3.fromBlockPos(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+					Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+					Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
 					Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
 							outputting ? itemVec : tileVec, 80, level.random.nextLong(), 0x4400799c, 0x4400C6FF);
 				}
@@ -279,8 +281,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			}
 
 			ItemStack stack = item.getItem();
-			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
-				IManaItem mana = (IManaItem) stack.getItem();
+			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem mana) {
 				if (self.outputting && mana.canReceiveManaFromPool(stack, self) || !self.outputting && mana.canExportManaToPool(stack, self)) {
 					boolean didSomething = false;
 
@@ -348,7 +349,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		cmp.putInt(TAG_MANA_CAP, manaCap);
 		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
 		cmp.putBoolean(TAG_CAN_SPARE, canSpare);
-		cmp.putBoolean(TAG_FRAGILE, fragile);
 
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
@@ -369,7 +369,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if (cmp.contains(TAG_CAN_SPARE)) {
 			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
 		}
-		fragile = cmp.getBoolean(TAG_FRAGILE);
 
 		if (cmp.contains(TAG_INPUT_KEY)) {
 			inputKey = cmp.getString(TAG_INPUT_KEY);
@@ -380,14 +379,17 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	}
 
-	public void onWanded(Player player) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
 			outputting = !outputting;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
+		return true;
 	}
 
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc) {
 		ItemStack pool = new ItemStack(getBlockState().getBlock());
 		String name = pool.getHoverName().getString();

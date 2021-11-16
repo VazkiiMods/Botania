@@ -8,15 +8,7 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,8 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.BlockOpenCrate;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -37,7 +27,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockTurntable extends BlockMod implements EntityBlock, IWandable, IWandHUD {
+public class BlockTurntable extends BlockMod implements EntityBlock {
 
 	public BlockTurntable(Properties builder) {
 		super(builder);
@@ -53,18 +43,6 @@ public class BlockTurntable extends BlockMod implements EntityBlock, IWandable, 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.TURNTABLE, TileTurntable::commonTick);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		((TileTurntable) world.getBlockEntity(pos)).renderHUD(ms, mc);
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		((TileTurntable) world.getBlockEntity(pos)).onWanded(player, stack, side);
-		return true;
 	}
 
 	@Override

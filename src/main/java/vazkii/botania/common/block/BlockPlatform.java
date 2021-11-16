@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -38,7 +37,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.mana.IManaCollisionGhost;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;
 
 import javax.annotation.Nonnull;
@@ -47,7 +45,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, EntityBlock {
+public class BlockPlatform extends BlockMod implements IManaCollisionGhost, EntityBlock {
 
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
@@ -106,12 +104,6 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	}
 
 	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		TilePlatform tile = (TilePlatform) world.getBlockEntity(pos);
-		return tile.onWanded(player);
-	}
-
-	@Override
 	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
 		return true;
 	}
@@ -135,8 +127,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		ItemStack currentStack = player.getItemInHand(hand);
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
-				&& tile instanceof TilePlatform) {
-			TilePlatform camo = (TilePlatform) tile;
+				&& tile instanceof TilePlatform camo) {
 			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 

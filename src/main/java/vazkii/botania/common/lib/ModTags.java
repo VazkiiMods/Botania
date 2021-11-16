@@ -16,24 +16,9 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-import java.util.List;
-import java.util.function.Function;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModTags {
-	private static <T> Tag.Named<T> getOrRegister(List<? extends Tag.Named<T>> list,
-			Function<ResourceLocation, Tag.Named<T>> register,
-			ResourceLocation loc) {
-		for (Tag.Named<T> existing : list) {
-			if (existing.getName().equals(loc)) {
-				return existing;
-			}
-		}
-
-		return register.apply(loc);
-	}
-
 	public static class Items {
 		public static final Tag.Named<Item> DUSTS_MANA = tag("mana_dusts");
 
@@ -56,6 +41,9 @@ public class ModTags {
 		public static final Tag.Named<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final Tag.Named<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
+		/**
+		 * Items in this tag can be specified as contributor headflowers
+		 */
 		public static final Tag.Named<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
 		public static final Tag.Named<Item> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final Tag.Named<Item> MINI_FLOWERS = tag("mini_flowers");
@@ -69,10 +57,22 @@ public class ModTags {
 
 		public static final Tag.Named<Item> LENS = tag("lens");
 
+		/**
+		 * Items in this tag cannot be pulled by the magnet rings
+		 */
 		public static final Tag.Named<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
+		/**
+		 * Items in this tag cannot be rolled by Looniums
+		 */
 		public static final Tag.Named<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
 
+		/**
+		 * Items in this tag are voided by the Elementium Pick
+		 */
 		public static final Tag.Named<Item> DISPOSABLE = tag("disposable");
+		/**
+		 * Items in this tag are voided by the Elementium Pick when not shifting
+		 */
 		public static final Tag.Named<Item> SEMI_DISPOSABLE = tag("semi_disposable");
 
 		public static final Tag.Named<Item> PETALS = tag("petals");
@@ -95,47 +95,40 @@ public class ModTags {
 
 		public static final Tag.Named<Item> RUNES = tag("runes");
 
+		/**
+		 * Items in this tag allow wearing players to see bursts through walls and flower radii
+		 */
 		public static final Tag.Named<Item> BURST_VIEWERS = tag("burst_viewers");
+		/**
+		 * Items in this tag cannot give mana to the terra pick
+		 */
 		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 		public static final Tag.Named<Item> MUSHROOMS = commonTag("mushrooms");
 		public static final Tag.Named<Item> RODS = tag("rods");
+		/**
+		 * Items in this tag may consume mana
+		 */
+		public static final Tag.Named<Item> MANA_USING_ITEMS = tag("mana_using_items");
 
 		public static Tag.Named<Item> getPetalTag(DyeColor color) {
-			switch (color) {
-			default:
-			case WHITE:
-				return PETALS_WHITE;
-			case ORANGE:
-				return PETALS_ORANGE;
-			case MAGENTA:
-				return PETALS_MAGENTA;
-			case LIGHT_BLUE:
-				return PETALS_LIGHT_BLUE;
-			case YELLOW:
-				return PETALS_YELLOW;
-			case LIME:
-				return PETALS_LIME;
-			case PINK:
-				return PETALS_PINK;
-			case GRAY:
-				return PETALS_GRAY;
-			case LIGHT_GRAY:
-				return PETALS_LIGHT_GRAY;
-			case CYAN:
-				return PETALS_CYAN;
-			case PURPLE:
-				return PETALS_PURPLE;
-			case BLUE:
-				return PETALS_BLUE;
-			case BROWN:
-				return PETALS_BROWN;
-			case GREEN:
-				return PETALS_GREEN;
-			case RED:
-				return PETALS_RED;
-			case BLACK:
-				return PETALS_BLACK;
-			}
+			return switch (color) {
+			case WHITE -> PETALS_WHITE;
+			case ORANGE -> PETALS_ORANGE;
+			case MAGENTA -> PETALS_MAGENTA;
+			case LIGHT_BLUE -> PETALS_LIGHT_BLUE;
+			case YELLOW -> PETALS_YELLOW;
+			case LIME -> PETALS_LIME;
+			case PINK -> PETALS_PINK;
+			case GRAY -> PETALS_GRAY;
+			case LIGHT_GRAY -> PETALS_LIGHT_GRAY;
+			case CYAN -> PETALS_CYAN;
+			case PURPLE -> PETALS_PURPLE;
+			case BLUE -> PETALS_BLUE;
+			case BROWN -> PETALS_BROWN;
+			case GREEN -> PETALS_GREEN;
+			case RED -> PETALS_RED;
+			case BLACK -> PETALS_BLACK;
+			};
 		}
 
 		private static Tag.Named<Item> tag(String name) {
@@ -162,6 +155,9 @@ public class ModTags {
 		public static final Tag.Named<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
 		public static final Tag.Named<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
 
+		/**
+		 * Blocks in this tag can be used in the Enchanter multiblock
+		 */
 		public static final Tag.Named<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
 
 		public static final Tag.Named<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
@@ -169,12 +165,31 @@ public class ModTags {
 		public static final Tag.Named<Block> BLOCKS_QUARTZ = commonTag("quartz_blocks");
 		public static final Tag.Named<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
 
+		/**
+		 * Blocks in this tag are exempt from the Gaia Guardian's block smash attack
+		 */
 		public static final Tag.Named<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
+		/**
+		 * Items resting on blocks in this tag cannot be pulled by magnet rings
+		 */
 		public static final Tag.Named<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
+		/**
+		 * Blocks in this tag cannot be moved by the Laputa Shard
+		 */
+		public static final Tag.Named<Block> LAPUTA_IMMOBILE = tag("laputa_immobile");
 
+		/**
+		 * Blocks in this tag can be removed by the Rod of Terra Firma
+		 */
 		public static final Tag.Named<Block> TERRAFORMABLE = tag("terraformable");
 
+		/**
+		 * Blocks in this tag can have corporea sparks placed on them even though they have no inventory
+		 */
 		public static final Tag.Named<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
+		/**
+		 * Blocks in this tag can sub for livingrock in the terra plate multiblock
+		 */
 		public static final Tag.Named<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
 		public static final Tag.Named<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
@@ -192,6 +207,9 @@ public class ModTags {
 	}
 
 	public static class Entities {
+		/**
+		 * Entities in this tag cannot be picked up by the Rod of the Shaded Mesa
+		 */
 		public static final Tag.Named<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
 		public static final Tag.Named<EntityType<?>> COCOON_COMMON = tag("cocoon/common");

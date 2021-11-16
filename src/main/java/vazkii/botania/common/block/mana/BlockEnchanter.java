@@ -8,11 +8,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -34,8 +29,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -43,7 +36,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, IWandHUD {
+public class BlockEnchanter extends BlockMod implements EntityBlock {
 
 	public BlockEnchanter(Properties builder) {
 		super(builder);
@@ -102,8 +95,7 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 
-			if (tile instanceof TileEnchanter) {
-				TileEnchanter enchanter = (TileEnchanter) tile;
+			if (tile instanceof TileEnchanter enchanter) {
 
 				if (!enchanter.itemToEnchant.isEmpty()) {
 					world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
@@ -112,17 +104,5 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 
 			super.onRemove(state, world, pos, newState, isMoving);
 		}
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		((TileEnchanter) world.getBlockEntity(pos)).onWanded(player, stack);
-		return true;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		((TileEnchanter) world.getBlockEntity(pos)).renderHUD(ms);
 	}
 }

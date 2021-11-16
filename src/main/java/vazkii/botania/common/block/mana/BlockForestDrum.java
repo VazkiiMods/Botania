@@ -10,7 +10,6 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -33,6 +32,8 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 
@@ -99,7 +100,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		} else {
 			int range = 10;
-			List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)));
+			List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(e.getX(), e.getY(), e.getZ()));
 			List<Mob> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
@@ -131,7 +132,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		}
 
 		for (int i = 0; i < 10; i++) {
-			world.playSound(null, pos, SoundEvents.NOTE_BLOCK_BASEDRUM, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(null, pos, ModSounds.drum, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 }

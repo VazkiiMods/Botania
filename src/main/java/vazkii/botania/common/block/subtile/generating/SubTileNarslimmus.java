@@ -11,7 +11,6 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Slime;
@@ -25,12 +24,14 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.core.handler.ModSounds;
 
 import java.util.List;
 
 public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 
 	private static final int RANGE = 2;
+	private static final int MAX_MANA = manaForSize(4);
 
 	public SubTileNarslimmus(BlockPos pos, BlockState state) {
 		super(ModSubtiles.NARSLIMMUS, pos, state);
@@ -45,16 +46,15 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 			for (Slime slime : slimes) {
 				if (slime.isAlive() && EntityComponents.NARSLIMMUS.get(slime).isNaturalSpawned()) {
 					int size = slime.getSize();
-					int mul = (int) Math.pow(2, size);
-					int mana = 1200 * mul;
 					if (!slime.level.isClientSide) {
 						slime.discard();
-						slime.playSound(size > 1 ? SoundEvents.SLIME_SQUISH : SoundEvents.SLIME_SQUISH_SMALL, 1, 0.02F);
-						addMana(mana);
+						slime.playSound(size > 1 ? ModSounds.narslimmusEatBig : ModSounds.narslimmusEatSmall, 1F, 1F);
+						addMana(manaForSize(size));
 						sync();
 					}
 
-					for (int j = 0; j < mul * 8; ++j) {
+					int times = 8 * (int) Math.pow(2, size);
+					for (int j = 0; j < times; ++j) {
 						float f = slime.level.random.nextFloat() * (float) Math.PI * 2.0F;
 						float f1 = slime.level.random.nextFloat() * 0.5F + 0.5F;
 						float f2 = Mth.sin(f) * size * 0.5F * f1;
@@ -68,6 +68,11 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		}
 	}
 
+	private static int manaForSize(int size) {
+		size = Math.min(size, 4);
+		return 1200 * (int) Math.pow(2, size);
+	}
+
 	@Override
 	public RadiusDescriptor getRadius() {
 		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
@@ -75,7 +80,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getMaxMana() {
-		return 12000;
+		return MAX_MANA;
 	}
 
 	@Override

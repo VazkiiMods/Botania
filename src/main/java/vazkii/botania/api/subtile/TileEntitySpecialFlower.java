@@ -29,12 +29,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.capability.FloatingFlowerImpl;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.item.IFloatingFlowerProvider;
-import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -45,10 +41,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Common superclass of all magical flower TE's
+ * Common superclass of all magical flower block entities
  */
-public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
-	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation(BotaniaAPI.MODID, "ding");
+public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable, IWandHUD {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -221,14 +216,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	}
 
 	/**
-	 * Called when a Wand of the Forest is used on this sub tile. Note that the
-	 * player parameter can be null if this is called from a dispenser.
-	 */
-	public boolean onWanded(Player player, ItemStack wand) {
-		return false;
-	}
-
-	/**
 	 * Called when this sub tile is placed in the world (by an entity).
 	 */
 	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {}
@@ -281,8 +268,10 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	/**
 	 * Called on the client when the block being pointed at is the one with this sub tile.
 	 * Used to render a HUD portraying some data from this sub tile.
+	 * Note: This will not be called unless you register your block entity type to the API.
 	 */
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc) {}
 
 	/**

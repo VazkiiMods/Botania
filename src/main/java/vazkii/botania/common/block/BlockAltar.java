@@ -43,8 +43,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.IPetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IPetalApothecary.State;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.ModTiles;

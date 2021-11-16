@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -32,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
-public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortableTool {
+public class ItemManasteelAxe extends AxeItem implements ISortableTool {
 
 	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 
@@ -82,11 +81,6 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 		if (!world.isClientSide && player instanceof Player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (Player) player, getManaPerDamage() * 2, true)) {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

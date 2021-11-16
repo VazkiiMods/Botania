@@ -25,12 +25,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -41,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ItemGravityRod extends Item implements IManaUsingItem {
+public class ItemGravityRod extends Item {
 	private static final Tag.Named<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
@@ -89,10 +88,9 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	}
 
 	public static void onEntitySwing(LivingEntity entity) {
-		if (!(entity instanceof Player)) {
+		if (!(entity instanceof Player player)) {
 			return;
 		}
-		Player player = (Player) entity;
 		leftClick(player);
 	}
 
@@ -118,12 +116,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vector3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -136,12 +134,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 			}
 
 			if (target == null) {
-				Vector3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 				}
 
@@ -164,15 +162,14 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						((ItemEntity) target).setPickUpDelay(5);
 					}
 
-					if (target instanceof LivingEntity) {
-						LivingEntity targetEntity = (LivingEntity) target;
+					if (target instanceof LivingEntity targetEntity) {
 						targetEntity.fallDistance = 0.0F;
 						if (targetEntity.getEffect(MobEffects.MOVEMENT_SLOWDOWN) == null) {
 							targetEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 3, true, true));
 						}
 					}
 
-					Vec3 target3 = Vector3.fromEntityCenterVanilla(player)
+					Vec3 target3 = VecHelper.fromEntityCenter(player)
 							.add(player.getLookAngle().scale(length)).add(0, 0.5, 0);
 					if (target instanceof ItemEntity) {
 						target3 = target3.add(0, 0.25, 0);
@@ -203,11 +200,6 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 		return InteractionResultHolder.pass(stack);
 	}
 
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
-
 	private static void leftClick(Player player) {
 		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty() && stack.is(ModItems.gravityRod)) {
@@ -219,7 +211,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vec3 target = Vector3.fromEntityCenterVanilla(player);
+				Vec3 target = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {

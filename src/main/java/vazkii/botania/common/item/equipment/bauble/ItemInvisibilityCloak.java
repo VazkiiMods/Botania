@@ -14,10 +14,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
-public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem {
+public class ItemInvisibilityCloak extends ItemBauble {
 
 	public ItemInvisibilityCloak(Properties props) {
 		super(props);
@@ -46,10 +45,5 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 				player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
 			}
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 }

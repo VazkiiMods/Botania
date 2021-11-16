@@ -41,8 +41,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;

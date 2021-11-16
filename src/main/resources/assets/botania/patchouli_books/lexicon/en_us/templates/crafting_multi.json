@@ -2,13 +2,13 @@
   "processor": "vazkii.botania.client.patchouli.processor.MultiCraftingProcessor",
   "components": [
     {
-      "type": "header",
+      "type": "patchouli:header",
       "text": "#heading",
       "x": -1,
       "y": -6
     },
     {
-      "type": "image",
+      "type": "patchouli:image",
       "image": "patchouli:textures/gui/crafting.png",
       "x": 7,
       "y": 2,
@@ -20,7 +20,7 @@
       "height": 62
     },
     {
-      "type": "image",
+      "type": "patchouli:image",
       "image": "patchouli:textures/gui/crafting.png",
       "guard": "#shapeless",
       "x": 71,
@@ -33,7 +33,7 @@
       "height": 11
     },
     {
-      "type": "tooltip",
+      "type": "patchouli:tooltip",
       "guard": "#shapeless",
       "tooltip": [
         "patchouli.gui.lexicon.shapeless->i18n"
@@ -44,68 +44,68 @@
       "height": 11
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input1",
       "x": 12,
       "y": 7
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input2",
       "x": 31,
       "y": 7
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input3",
       "x": 50,
       "y": 7
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input4",
       "x": 12,
       "y": 26
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input5",
       "x": 31,
       "y": 26
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input6",
       "x": 50,
       "y": 26
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input7",
       "x": 12,
       "y": 45
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input8",
       "x": 31,
       "y": 45
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input9",
       "x": 50,
       "y": 45
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#output",
       "link_recipe": true,
       "x": 88,
       "y": 26
     },
     {
-      "type": "text",
+      "type": "patchouli:text",
       "text": "#text",
       "y": 69
     }

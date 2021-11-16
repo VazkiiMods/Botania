@@ -413,12 +413,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SRS")
 				.unlockedBy("has_item", conditionsFromItem(Items.REDSTONE_BLOCK))
 				.unlockedBy("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
-				.save(/* todo 1.16-fabricWrapperResult.transformJson(consumer, json -> {
-							JsonArray array = new JsonArray();
-							array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
-							json.add("conditions", array);
-							}
-							)*/ consumer);
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.brewery)
 				.define('A', ModItems.runeMana)
 				.define('R', ModBlocks.livingrock)
@@ -1230,7 +1225,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
 				.save(consumer);
 
-		// todo 1.16-fabric fuzzynbt for water bottle
 		ShapedRecipeBuilder.shaped(ModItems.waterRod)
 				.define('B', Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
 				.define('R', ModItems.runeWater)
@@ -1239,7 +1233,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern("R  ")
 				.unlockedBy("has_item", conditionsFromItem(ModItems.runeWater))
-				.save(consumer);
+				.save(WrapperResult.ofType(WaterBottleMatchingRecipe.SERIALIZER, consumer));
 
 		ShapedRecipeBuilder.shaped(ModItems.rainbowRod)
 				.define('P', ModItems.pixieDust)
@@ -2037,8 +2031,9 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				ModSubtiles.bellethornChibi, ModSubtiles.bergamute, ModSubtiles.dreadthorn, ModSubtiles.heiseiDream,
 				ModSubtiles.tigerseye, ModSubtiles.jadedAmaranthus, ModSubtiles.orechid, ModSubtiles.fallenKanade,
 				ModSubtiles.exoflame, ModSubtiles.agricarnation, ModSubtiles.agricarnationChibi, ModSubtiles.hopperhock,
-				ModSubtiles.hopperhockChibi, ModSubtiles.tangleberrie, ModSubtiles.jiyuulia, ModSubtiles.rannuncarpus,
-				ModSubtiles.rannuncarpusChibi, ModSubtiles.hyacidus, ModSubtiles.pollidisiac, ModSubtiles.clayconia,
+				ModSubtiles.hopperhockChibi, ModSubtiles.tangleberrie, ModSubtiles.tangleberrieChibi,
+				ModSubtiles.jiyuulia, ModSubtiles.jiyuuliaChibi, ModSubtiles.rannuncarpus, ModSubtiles.rannuncarpusChibi,
+				ModSubtiles.hyacidus, ModSubtiles.pollidisiac, ModSubtiles.clayconia,
 				ModSubtiles.clayconiaChibi, ModSubtiles.loonium, ModSubtiles.daffomill, ModSubtiles.vinculotus,
 				ModSubtiles.spectranthemum, ModSubtiles.medumone, ModSubtiles.marimorphosis, ModSubtiles.marimorphosisChibi,
 				ModSubtiles.bubbell, ModSubtiles.bubbellChibi, ModSubtiles.solegnolia, ModSubtiles.solegnoliaChibi,

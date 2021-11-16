@@ -22,13 +22,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.recipe.StateIngredient;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class StateIngredientBlocks implements StateIngredient {
@@ -81,16 +79,6 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public List<BlockState> getDisplayed() {
 		return blocks.stream().map(Block::defaultBlockState).collect(Collectors.toList());
-	}
-
-	@Nullable
-	@Override
-	public StateIngredient resolveAndFilter(UnaryOperator<List<Block>> operator) {
-		List<Block> list = operator.apply(this.getBlocks());
-		if (list != null) {
-			return list.isEmpty() ? null : StateIngredientHelper.of(list);
-		}
-		return this;
 	}
 
 	@Nonnull

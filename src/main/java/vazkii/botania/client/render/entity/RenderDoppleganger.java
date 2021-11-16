@@ -8,8 +8,6 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
@@ -26,8 +24,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderCallback;
-import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
@@ -36,20 +32,6 @@ public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, 
 
 	public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	public static final float DEFAULT_DISFIGURATION = 0.025F;
-
-	public static final ShaderCallback defaultCallback = shader -> {
-		// Frag Uniforms
-		int disfigurationUniform = GlStateManager._glGetUniformLocation(shader, "disfiguration");
-		ShaderHelper.FLOAT_BUF.position(0);
-		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_DISFIGURATION);
-		RenderSystem.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
-
-		// Vert Uniforms
-		int grainIntensityUniform = GlStateManager._glGetUniformLocation(shader, "grainIntensity");
-		ShaderHelper.FLOAT_BUF.position(0);
-		ShaderHelper.FLOAT_BUF.put(0, DEFAULT_GRAIN_INTENSITY);
-		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
-	};
 
 	private final Model normalModel;
 	private final Model slimModel;

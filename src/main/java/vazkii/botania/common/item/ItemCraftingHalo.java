@@ -114,10 +114,9 @@ public class ItemCraftingHalo extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int pos, boolean equipped) {
-		if (!(entity instanceof LivingEntity)) {
+		if (!(entity instanceof LivingEntity living)) {
 			return;
 		}
-		LivingEntity living = (LivingEntity) entity;
 
 		boolean eqLastTick = wasEquipped(stack);
 

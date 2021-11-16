@@ -16,11 +16,16 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -32,7 +37,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class TileCorporeaRetainer extends TileMod {
+public class TileCorporeaRetainer extends TileMod implements IWandable, IWandHUD {
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
 	private static final String TAG_REQUEST_Z = "requestZ";
@@ -84,8 +89,7 @@ public class TileCorporeaRetainer extends TileMod {
 		ICorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(level, requestPos);
 		if (spark != null) {
 			BlockEntity te = spark.getSparkNode().getWorld().getBlockEntity(spark.getSparkNode().getPos());
-			if (te instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) te;
+			if (te instanceof ICorporeaRequestor requestor) {
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
 				request = null;
@@ -139,6 +143,7 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc) {
 		String mode = I18n.get("botaniamisc.retainer." + (retainMissing ? "retain_missing" : "retain_all"));
 		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
@@ -147,7 +152,8 @@ public class TileCorporeaRetainer extends TileMod {
 		mc.font.drawShadow(ms, mode, x, y, ChatFormatting.GRAY.getColor());
 	}
 
-	public boolean onUsedByWand() {
+	@Override
+	public boolean onUsedByWand(Player player, ItemStack stack, Direction side) {
 		if (!level.isClientSide) {
 			retainMissing = !retainMissing;
 			setChanged();

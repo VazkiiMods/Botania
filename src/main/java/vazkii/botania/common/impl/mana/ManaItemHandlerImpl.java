@@ -10,6 +10,9 @@ package vazkii.botania.common.impl.mana;
 
 import com.google.common.collect.Iterables;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,9 +22,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ManaItemHandlerImpl implements ManaItemHandler {
 	@Override
@@ -71,6 +72,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 
 		List<ItemStack> items = getManaItems(player);
 		List<ItemStack> acc = getManaAccesories(player);
+		int manaReceived = 0;
 		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if (stackInSlot == stack) {
 				continue;
@@ -81,17 +83,21 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 					continue;
 				}
 
-				int mana = Math.min(manaToGet, manaItem.getMana(stackInSlot));
+				int mana = Math.min(manaToGet - manaReceived, manaItem.getMana(stackInSlot));
 
 				if (remove) {
 					manaItem.addMana(stackInSlot, -mana);
 				}
 
-				return mana;
+				manaReceived += mana;
+
+				if (manaReceived >= manaToGet) {
+					break;
+				}
 			}
 		}
 
-		return 0;
+		return manaReceived;
 	}
 
 	@Override
@@ -102,22 +108,37 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 
 		List<ItemStack> items = getManaItems(player);
 		List<ItemStack> acc = getManaAccesories(player);
+		int manaReceived = 0;
+		Object2IntMap<ItemStack> manaToRemove = new Object2IntOpenHashMap<>();
 		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if (stackInSlot == stack) {
 				continue;
 			}
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			if (manaItemSlot.canExportManaToItem(stackInSlot, stack) && manaItemSlot.getMana(stackInSlot) > manaToGet) {
+			if (manaItemSlot.canExportManaToItem(stackInSlot, stack)) {
 				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot)) {
 					continue;
 				}
 
+				int mana = Math.min(manaToGet - manaReceived, manaItemSlot.getMana(stackInSlot));
+
 				if (remove) {
-					manaItemSlot.addMana(stackInSlot, -manaToGet);
+					manaToRemove.put(stackInSlot, mana);
 				}
 
-				return true;
+				manaReceived += mana;
+
+				if (manaReceived >= manaToGet) {
+					break;
+				}
 			}
+		}
+
+		if (manaReceived == manaToGet) {
+			for (Object2IntMap.Entry<ItemStack> entry : manaToRemove.object2IntEntrySet()) {
+				((IManaItem) entry.getKey().getItem()).addMana(entry.getKey(), -entry.getIntValue());
+			}
+			return true;
 		}
 
 		return false;

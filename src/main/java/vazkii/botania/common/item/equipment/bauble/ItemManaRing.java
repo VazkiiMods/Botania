@@ -10,17 +10,20 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaTooltipDisplay;
+import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 
-public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipDisplay {
+import java.util.Optional;
+
+public class ItemManaRing extends ItemBauble implements IManaItem {
 
 	protected static final int MAX_MANA = 500000;
 
@@ -39,6 +42,11 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 			setMana(full, getMaxMana(full));
 			stacks.add(full);
 		}
+	}
+
+	@Override
+	public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+		return Optional.of(ManaBarTooltip.fromManaItem(stack));
 	}
 
 	public static void setMana(ItemStack stack, int mana) {
@@ -86,22 +94,17 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public float getManaFractionForDisplay(ItemStack stack) {
-		return (float) getMana(stack) / (float) getMaxMana(stack);
-	}
-
-	@Override
 	public boolean isBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		return Math.round(13 * getManaFractionForDisplay(stack));
+		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(this, stack));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		return Mth.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
+		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(this, stack) / 3.0F, 1.0F, 1.0F);
 	}
 }

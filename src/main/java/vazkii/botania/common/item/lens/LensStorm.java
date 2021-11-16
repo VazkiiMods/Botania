@@ -18,17 +18,17 @@ import vazkii.botania.api.internal.IManaBurst;
 public class LensStorm extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide && !burst.isFake()) {
 			if (pos.getType() == HitResult.Type.BLOCK && !isManaBlock) {
 				entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Explosion.BlockInteraction.DESTROY);
 			}
 		} else {
-			dead = false;
+			shouldKill = false;
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 }

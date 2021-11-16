@@ -15,6 +15,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,16 +24,16 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaTooltipDisplay;
+import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.Optional;
 
-public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
+public class ItemManaTablet extends Item implements IManaItem {
 
 	public static final int MAX_MANA = 500000;
 
@@ -63,7 +64,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	@Nonnull
 	@Override
 	public Rarity getRarity(@Nonnull ItemStack stack) {
-		return isCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
+		return isStackCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -72,6 +73,11 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 		if (isStackCreative(stack)) {
 			stacks.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
+	}
+
+	@Override
+	public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+		return Optional.of(ManaBarTooltip.fromManaItem(stack));
 	}
 
 	public static void setMana(ItemStack stack, int mana) {
@@ -88,6 +94,9 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public int getMana(ItemStack stack) {
+		if (isStackCreative(stack)) {
+			return getMaxMana(stack);
+		}
 		return ItemNBTHelper.getInt(stack, TAG_MANA, 0) * stack.getCount();
 	}
 
@@ -110,7 +119,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return !isCreative(stack);
+		return !isStackCreative(stack);
 	}
 
 	@Override
@@ -129,27 +138,17 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	}
 
 	@Override
-	public boolean isCreative(ItemStack stack) {
-		return isStackCreative(stack);
-	}
-
-	@Override
-	public float getManaFractionForDisplay(ItemStack stack) {
-		return (float) getMana(stack) / (float) getMaxMana(stack);
-	}
-
-	@Override
 	public boolean isBarVisible(ItemStack stack) {
 		return !isStackCreative(stack);
 	}
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		return Math.round(13 * getManaFractionForDisplay(stack));
+		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(this, stack));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		return Mth.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
+		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(this, stack) / 3.0F, 1.0F, 1.0F);
 	}
 }

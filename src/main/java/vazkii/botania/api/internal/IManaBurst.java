@@ -16,9 +16,6 @@ import javax.annotation.Nullable;
 
 import java.util.UUID;
 
-/**
- * Interface for the Mana Burst entity. This can safely be casted to EntityThrowable.
- */
 public interface IManaBurst {
 	static BlockPos NO_SOURCE = new BlockPos(0, Integer.MIN_VALUE, 0);
 
@@ -105,9 +102,6 @@ public interface IManaBurst {
 	 */
 	boolean hasLeftSource();
 
-	/**
-	 * @return this Mana Burst as an ThrowableEntity
-	 */
 	default ThrowableProjectile entity() {
 		return (ThrowableProjectile) this;
 	}

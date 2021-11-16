@@ -8,15 +8,14 @@
  */
 package vazkii.botania.common.compat.rei;
 
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.RecipePetals;
-
-
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 @Environment(EnvType.CLIENT)
 public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals> {

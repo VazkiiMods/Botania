@@ -28,7 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -40,18 +39,17 @@ import vazkii.botania.mixin.AccessorEntity;
 
 import java.util.List;
 
-public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
+public class ItemDivaCharm extends ItemBauble {
 
 	public ItemDivaCharm(Properties props) {
 		super(props);
 	}
 
 	public static void onEntityDamaged(Player player, Entity entity) {
-		if (entity instanceof Mob
+		if (entity instanceof Mob target
 				&& !entity.level.isClientSide
 				&& entity.canChangeDimensions()
 				&& Math.random() < 0.6F) {
-			Mob target = (Mob) entity;
 			ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
 			if (!amulet.isEmpty()) {
@@ -77,11 +75,6 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

@@ -8,6 +8,10 @@
  */
 package vazkii.botania.common.compat.rei;
 
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.world.item.ItemStack;
@@ -20,10 +24,6 @@ import vazkii.botania.common.item.ModItems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 @Environment(EnvType.CLIENT)
 public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {

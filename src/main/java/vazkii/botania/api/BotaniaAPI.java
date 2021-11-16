@@ -16,7 +16,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -37,15 +36,11 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.internal.OrechidOutput;
-import vazkii.botania.api.item.IHornHarvestable;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -83,20 +78,6 @@ public interface BotaniaAPI {
 		return null;
 	}
 
-	/**
-	 * Get an unmodifiable list of outputs for the orechid.
-	 */
-	default List<OrechidOutput> getOrechidWeights() {
-		return Collections.emptyList();
-	}
-
-	/**
-	 * Get an unmodifiable list of outputs for the orechid ignem.
-	 */
-	default List<OrechidOutput> getNetherOrechidWeights() {
-		return Collections.emptyList();
-	}
-
 	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}
@@ -113,20 +94,6 @@ public interface BotaniaAPI {
 	 * @param transformer Function from color to a new block
 	 */
 	default void registerPaintableBlock(ResourceLocation blockId, Function<DyeColor, Block> transformer) {
-
-	}
-
-	default Optional<IHornHarvestable> getHornHarvestable(Block block) {
-		return Optional.empty();
-	}
-
-	/**
-	 * Make Botania recognize a Block as IHornHarvestable without explicitly implementing the interface
-	 *
-	 * @param blockId     The block ID
-	 * @param harvestable The harvestable
-	 */
-	default void registerHornHarvestableBlock(ResourceLocation blockId, IHornHarvestable harvestable) {
 
 	}
 

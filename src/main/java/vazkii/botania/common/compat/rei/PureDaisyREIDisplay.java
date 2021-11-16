@@ -10,6 +10,12 @@ package vazkii.botania.common.compat.rei;
 
 import com.google.common.collect.ImmutableList;
 
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
@@ -17,12 +23,6 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.crafting.RecipePureDaisy;
 
 import java.util.Collections;
-
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.entry.EntryStack;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
-import me.shedaniel.rei.api.common.util.EntryStacks;
 
 public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
 

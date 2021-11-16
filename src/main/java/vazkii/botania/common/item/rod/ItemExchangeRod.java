@@ -15,6 +15,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -23,9 +24,11 @@ import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -50,7 +53,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.BlockPlatform;
@@ -63,7 +65,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeCoordinateListProvider {
+public class ItemExchangeRod extends Item implements IWireframeCoordinateListProvider {
 
 	private static final int RANGE = 3;
 	private static final int COST = 40;
@@ -127,24 +129,41 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	private InteractionResult onLeftClick(Player player, Level world, InteractionHand hand, BlockPos pos, Direction side) {
+		if (player.isSpectator()) {
+			return InteractionResult.PASS;
+		}
+
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.is(this) && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-			int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
-			if (cost > 0) {
-				ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
+		if (!stack.isEmpty() && stack.is(this)) {
+			// Returning SUCCESS or FAIL from this callback prevents vanilla from sending the C2S packet for block
+			// breaking. Returning PASS does a bunch of things we don't want, like creative block breaking and action
+			// acknowledgements, so send a packet directly to trigger this event on the server.
+			if (world.isClientSide()) {
+				if (!(player instanceof LocalPlayer localPlayer)) {
+					return InteractionResult.PASS; // impossible
+				}
+				localPlayer.connection.send(new ServerboundPlayerActionPacket(ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK, pos, side));
 				return InteractionResult.SUCCESS;
 			}
+
+			if (canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+				int exchange = exchange(world, player, pos, stack, getItemToPlace(stack));
+				if (exchange > 0) {
+					ManaItemHandler.instance().requestManaExactForTool(stack, player, exchange, true);
+				}
+			}
+			// Always return SUCCESS with rod in hand to prevent any vanilla block breaking, esp. on second packet
+			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
+
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean equipped) {
-		if (!canExchange(stack) || !(entity instanceof Player)) {
+		if (!canExchange(stack) || !(entity instanceof Player player)) {
 			return;
 		}
-
-		Player player = (Player) entity;
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
 		int extraRangeNew = IManaProficiencyArmor.hasProficiency(player, stack) ? 3 : 1;
@@ -241,7 +260,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		ItemStack placeStack = removeFromInventory(player, rod, replacement, false);
 		if (!placeStack.isEmpty()) {
 			BlockState stateAt = world.getBlockState(pos);
-			Block blockAt = stateAt.getBlock();
 			if (!stateAt.isAir() && stateAt.getDestroyProgress(player, world, pos) > 0
 					&& stateAt.getBlock().asItem() != replacement) {
 				float hardness = stateAt.getDestroySpeed(world, pos);
@@ -274,7 +292,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public static ItemStack removeFromInventory(Player player, Container inv, ItemStack tool, Item requested, boolean doit) {
-		List<ItemStack> providers = new ArrayList<>();
+		List<IBlockProvider> providers = new ArrayList<>();
 		for (int i = inv.getContainerSize() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getItem(i);
 			if (invStack.isEmpty()) {
@@ -293,16 +311,16 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				return ret;
 			}
 
-			if (item instanceof IBlockProvider) {
-				providers.add(invStack);
+			var provider = IBlockProvider.API.find(invStack, Unit.INSTANCE);
+			if (provider != null) {
+				providers.add(provider);
 			}
 		}
 
 		if (requested instanceof BlockItem) {
 			Block block = ((BlockItem) requested).getBlock();
-			for (ItemStack provStack : providers) {
-				IBlockProvider prov = (IBlockProvider) provStack.getItem();
-				if (prov.provideBlock(player, tool, provStack, block, doit)) {
+			for (IBlockProvider prov : providers) {
+				if (prov.provideBlock(player, tool, block, doit)) {
 					return new ItemStack(requested);
 				}
 			}
@@ -358,9 +376,9 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				count += invStack.getCount();
 			}
 
-			if (item instanceof IBlockProvider && requested instanceof BlockItem) {
-				IBlockProvider prov = (IBlockProvider) item;
-				int provCount = prov.getBlockCount(player, stack, invStack, ((BlockItem) requested).getBlock());
+			var prov = IBlockProvider.API.find(invStack, Unit.INSTANCE);
+			if (prov != null && requested instanceof BlockItem) {
+				int provCount = prov.getBlockCount(player, stack, ((BlockItem) requested).getBlock());
 				if (provCount == -1) {
 					return -1;
 				}
@@ -379,17 +397,12 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		}
 	}
 
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
-
 	private void setItemToPlace(ItemStack stack, Item item) {
-		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getResourceKey(item).toString());
+		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getKey(item).toString());
 	}
 
 	private Item getItemToPlace(ItemStack stack) {
-		return Registry.ITEM.get(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
+		return Registry.ITEM.get(ResourceLocation.tryParse(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
 	}
 
 	private void setHitPos(ItemStack stack, Vec3 vec) {

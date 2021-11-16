@@ -140,7 +140,7 @@ public class BlockstateProvider implements DataProvider {
 		var alfPortalModel = ModelTemplates.CUBE_ALL.create(getModelLocation(alfPortal), TextureMapping.cube(alfPortal), this.modelOutput);
 		var alfPortalActivatedModel = ModelTemplates.CUBE_ALL.create(getModelLocation(alfPortal, "_activated"), TextureMapping.cube(getModelLocation(alfPortal, "_activated")), this.modelOutput);
 		this.blockstates.add(
-				MultiVariantGenerator.multiVariant(alfPortal, Variant.variant()).with(
+				MultiVariantGenerator.multiVariant(alfPortal).with(
 						PropertyDispatch.property(BotaniaStateProps.ALFPORTAL_STATE)
 								.select(AlfPortalState.OFF, Variant.variant().with(VariantProperties.MODEL, alfPortalModel))
 								.select(AlfPortalState.ON_X, Variant.variant().with(VariantProperties.MODEL, alfPortalActivatedModel))
@@ -163,14 +163,16 @@ public class BlockstateProvider implements DataProvider {
 		var crateTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/crate")), Optional.empty(),
 				TextureSlot.BOTTOM, TextureSlot.SIDE);
 		var craftCrateBottomTex = getBlockTexture(craftCrate, "_bottom");
-		this.blockstates.add(MultiVariantGenerator.multiVariant(craftCrate, Arrays.stream(CratePattern.values()).map(pat -> {
-			String suffix = pat == CratePattern.NONE ? "" : "_" + pat.getSerializedName().substring("crafty_".length());
+		var crateDispatch = PropertyDispatch.property(BotaniaStateProps.CRATE_PATTERN);
+		for (var pattern : CratePattern.values()) {
+			String suffix = pattern == CratePattern.NONE ? "" : "_" + pattern.getSerializedName().substring("crafty_".length());
 			var model = crateTemplate.create(getModelLocation(craftCrate, suffix),
 					new TextureMapping().put(TextureSlot.BOTTOM, craftCrateBottomTex)
 							.put(TextureSlot.SIDE, getBlockTexture(craftCrate, suffix)),
 					this.modelOutput);
-			return Variant.variant().with(VariantProperties.MODEL, model);
-		}).toArray(Variant[]::new)));
+			crateDispatch = crateDispatch.select(pattern, Variant.variant().with(VariantProperties.MODEL, model));
+		}
+		this.blockstates.add(MultiVariantGenerator.multiVariant(craftCrate).with(crateDispatch));
 		remainingBlocks.remove(craftCrate);
 
 		ResourceLocation corpSlabSide = prefix("block/corporea_slab_side");
@@ -312,7 +314,7 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.remove(livingwoodFence);
 		remainingBlocks.remove(livingwoodFenceGate);
 
-		// TESRs with only particles
+		// block entities with only particles
 		particleOnly(remainingBlocks, animatedTorch, getBlockTexture(Blocks.REDSTONE_TORCH));
 		particleOnly(remainingBlocks, avatar, getBlockTexture(livingwood));
 		particleOnly(remainingBlocks, bellows, getBlockTexture(livingwood));
@@ -404,7 +406,7 @@ public class BlockstateProvider implements DataProvider {
 			var offModel = ModelTemplates.CUBE_ALL.create(b, TextureMapping.cube(b), this.modelOutput);
 			var onModel = ModelTemplates.CUBE_ALL.create(getModelLocation(b, "_powered"),
 					TextureMapping.cube(getBlockTexture(b, "_powered")), this.modelOutput);
-			this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant()).with(
+			this.blockstates.add(MultiVariantGenerator.multiVariant(b).with(
 					PropertyDispatch.property(BlockStateProperties.POWERED)
 							.select(false, Variant.variant().with(VariantProperties.MODEL, offModel))
 							.select(true, Variant.variant().with(VariantProperties.MODEL, onModel))
@@ -431,7 +433,7 @@ public class BlockstateProvider implements DataProvider {
 			var bottom = ModelTemplates.CROSS.create(b, TextureMapping.cross(b), this.modelOutput);
 			var top = ModelTemplates.CROSS.create(getModelLocation(b, "_top"), TextureMapping.cross(getBlockTexture(b, "_top")), this.modelOutput);
 			this.blockstates.add(
-					MultiVariantGenerator.multiVariant(b, Variant.variant())
+					MultiVariantGenerator.multiVariant(b)
 							.with(PropertyDispatch.property(TallFlowerBlock.HALF)
 									.select(DoubleBlockHalf.LOWER, Variant.variant().with(VariantProperties.MODEL, bottom))
 									.select(DoubleBlockHalf.UPPER, Variant.variant().with(VariantProperties.MODEL, top))

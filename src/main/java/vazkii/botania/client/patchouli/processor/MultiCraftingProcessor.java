@@ -8,26 +8,21 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MultiCraftingProcessor implements IComponentProcessor {
@@ -38,13 +33,12 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		Map<ResourceLocation, Recipe<CraftingContainer>> recipeMap = ModRecipeTypes.getRecipes(Minecraft.getInstance().level, RecipeType.CRAFTING);
 		List<String> names = variables.get("recipes").asStream().map(IVariable::asString).collect(Collectors.toList());
 		this.recipes = new ArrayList<>();
 		for (String name : names) {
-			Recipe<?> recipe = recipeMap.get(new ResourceLocation(name));
+			CraftingRecipe recipe = PatchouliUtils.getRecipe(RecipeType.CRAFTING, new ResourceLocation(name));
 			if (recipe != null) {
-				recipes.add((CraftingRecipe) recipe);
+				recipes.add(recipe);
 				if (shapeless) {
 					shapeless = !(recipe instanceof ShapedRecipe);
 				}
@@ -78,8 +72,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			int shapedY = index / 3;
 			List<Ingredient> ingredients = new ArrayList<>();
 			for (CraftingRecipe recipe : recipes) {
-				if (recipe instanceof ShapedRecipe) {
-					ShapedRecipe shaped = (ShapedRecipe) recipe;
+				if (recipe instanceof ShapedRecipe shaped) {
 					if (shaped.getWidth() < shapedX + 1) {
 						ingredients.add(Ingredient.EMPTY);
 					} else {

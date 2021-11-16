@@ -9,11 +9,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -27,14 +22,12 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
 
-public class BlockAlfPortal extends BlockMod implements EntityBlock, IWandable {
+public class BlockAlfPortal extends BlockMod implements EntityBlock {
 
 	public BlockAlfPortal(Properties builder) {
 		super(builder);
@@ -56,17 +49,5 @@ public class BlockAlfPortal extends BlockMod implements EntityBlock, IWandable {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.ALF_PORTAL, TileAlfPortal::commonTick);
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		if (!world.isClientSide) {
-			boolean did = ((TileAlfPortal) world.getBlockEntity(pos)).onWanded();
-			if (did && player instanceof ServerPlayer) {
-				AlfPortalTrigger.INSTANCE.trigger((ServerPlayer) player, (ServerLevel) world, pos, stack);
-			}
-			return did;
-		}
-		return true;
 	}
 }

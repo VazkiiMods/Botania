@@ -10,7 +10,6 @@ package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
@@ -39,8 +38,6 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -48,15 +45,15 @@ import vazkii.botania.common.core.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorModelManager;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato> {
 	public static final String DEFAULT = "default";
@@ -77,21 +74,11 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	}
 
 	public static BakedModel getModelFromDisplayName(Component displayName) {
-		return getModel(stripShaderName(displayName.getString().trim().toLowerCase(Locale.ROOT)).getSecond());
-	}
-
-	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
-		if (matches(name, "gaia")) {
-			return Pair.of(ShaderHelper.BotaniaShader.DOPPLEGANGER, removeFromFront(name, "gaia"));
-		} else if (matches(name, "hot")) {
-			return Pair.of(ShaderHelper.BotaniaShader.HALO, removeFromFront(name, "hot"));
-		} else if (matches(name, "magic")) {
-			return Pair.of(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, removeFromFront(name, "magic"));
-		} else if (matches(name, "snoop")) {
-			return Pair.of(ShaderHelper.BotaniaShader.TERRA_PLATE, removeFromFront(name, "snoop"));
-		} else {
-			return Pair.of(null, name);
+		var name = displayName.getString().trim().toLowerCase(Locale.ROOT);
+		if (matches(name, "enchanted")) {
+			name = removeFromFront(name, "enchanted");
 		}
+		return getModel(name);
 	}
 
 	private static BakedModel getModel(String name) {
@@ -111,16 +98,11 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	}
 
 	private static ResourceLocation taterLocation(String name) {
-		return new ResourceLocation(LibMisc.MOD_ID, LibResources.PREFIX_TINY_POTATO + "/" + normalizeName(name));
+		return prefix(LibResources.PREFIX_TINY_POTATO + "/" + normalizeName(name));
 	}
 
 	private static String normalizeName(String name) {
 		return ESCAPED.matcher(name).replaceAll("_");
-	}
-
-	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader) {
-		RenderType base = Sheets.translucentCullBlockSheet();
-		return shader == null || !ShaderHelper.useShaders() ? base : new ShaderWrappedRenderLayer(shader, null, base);
 	}
 
 	@Override
@@ -128,14 +110,11 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		ms.pushPose();
 
 		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
-		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
-		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
-		name = shaderStrippedName.getSecond();
 		boolean enchanted = matches(name, "enchanted");
 		if (enchanted) {
 			name = removeFromFront(name, "enchanted");
 		}
-		RenderType layer = getRenderLayer(shader);
+		RenderType layer = Sheets.translucentCullBlockSheet();
 		BakedModel model = getModel(name);
 
 		ms.translate(0.5F, 0F, 0.5F);
@@ -250,39 +229,39 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 			boolean mySon = stack.getItem() instanceof ItemBlockTinyPotato;
 
 			switch (side) {
-			case UP:
+			case UP -> {
 				if (mySon) {
 					ms.translate(0F, 0.6F, 0.5F);
 				} else if (block) {
 					ms.translate(0F, 0.3F, 0.5F);
 				}
 				ms.translate(0F, -0.5F, -0.4F);
-				break;
-			case DOWN:
+			}
+			case DOWN -> {
 				ms.translate(0, -2.3F, -0.88F);
 				if (mySon) {
 					ms.translate(0, .65F, 0.6F);
 				} else if (block) {
 					ms.translate(0, 1, 0.6F);
 				}
-				break;
-			case NORTH:
+			}
+			case NORTH -> {
 				ms.translate(0, -1.9F, 0.02F);
 				if (mySon) {
 					ms.translate(0, 1, 0.6F);
 				} else if (block) {
 					ms.translate(0, 1, 0.6F);
 				}
-				break;
-			case SOUTH:
+			}
+			case SOUTH -> {
 				ms.translate(0, -1.6F, -0.89F);
 				if (mySon) {
 					ms.translate(0, 1.4F, 0.5F);
 				} else if (block) {
 					ms.translate(0, 1.0F, 0.5F);
 				}
-				break;
-			case EAST:
+			}
+			case EAST -> {
 				if (mySon) {
 					ms.translate(-0.4F, 0.65F, 0F);
 				} else if (block) {
@@ -291,8 +270,8 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 				}
 				ms.translate(-0.3F, -1.9F, 0.04F);
-				break;
-			case WEST:
+			}
+			case WEST -> {
 				if (mySon) {
 					ms.translate(1F, 0.65F, 1F);
 				} else if (block) {
@@ -301,7 +280,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 				}
 				ms.translate(-0.3F, -1.9F, -0.92F);
-				break;
+			}
 			}
 
 			if (mySon) {
@@ -325,15 +304,13 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 			ms.translate(0F, 1F, 0F);
 			ms.scale(scale, scale, scale);
 			switch (name) {
-			case "phi":
-			case "vazkii":
+			case "phi", "vazkii" -> {
 				ms.pushPose();
 				ms.translate(-0.15, 0.1, 0.4);
 				ms.mulPose(Vector3f.YP.rotationDegrees(90F));
 				ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(20));
 				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
 				ms.popPose();
-
 				if (name.equals("vazkii")) {
 					ms.scale(1.25F, 1.25F, 1.25F);
 					ms.mulPose(Vector3f.XP.rotationDegrees(180F));
@@ -341,28 +318,27 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					ms.translate(0.2, -1.25, 0);
 					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
 				}
-				break;
-			case "haighyorkie":
+			}
+			case "haighyorkie" -> {
 				ms.scale(1.25F, 1.25F, 1.25F);
 				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 				ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 				ms.translate(-0.5F, -1.2F, -0.075F);
 				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
-				break;
-			case "martysgames":
-			case "marty":
+			}
+			case "martysgames", "marty" -> {
 				ms.scale(0.7F, 0.7F, 0.7F);
 				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 				ms.translate(-0.3F, -2.7F, -1.2F);
 				ms.mulPose(Vector3f.ZP.rotationDegrees(15F));
 				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setHoverName(new TextComponent("das boot")));
-				break;
-			case "jibril":
+			}
+			case "jibril" -> {
 				ms.scale(1.5F, 1.5F, 1.5F);
 				ms.translate(0F, 0.8F, 0F);
 				ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
-				break;
-			case "kingdaddydmac":
+			}
+			case "kingdaddydmac" -> {
 				ms.scale(0.5F, 0.5F, 0.5F);
 				ms.mulPose(Vector3f.ZP.rotationDegrees(180));
 				ms.mulPose(Vector3f.YP.rotationDegrees(90));
@@ -373,11 +349,10 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 				ms.translate(0F, 0F, -4F);
 				renderItem(ms, buffers, light, overlay, ring);
 				ms.popPose();
-
 				ms.translate(1.5, -4, -2.5);
 				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
-				break;
-			default:
+			}
+			default -> {
 				ItemStack icon = ContributorList.getFlower(name);
 				if (!icon.isEmpty()) {
 					ms.mulPose(Vector3f.XP.rotationDegrees(180));
@@ -386,7 +361,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemTransforms.TransformType.HEAD,
 							light, overlay, ms, buffers, 0);
 				}
-				break;
+			}
 			}
 		}
 		ms.popPose();

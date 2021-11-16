@@ -28,7 +28,7 @@ public final class MathHelper {
 	}
 
 	public static void setEntityMotionFromVector(Entity entity, Vec3 originalPosVector, float modifier) {
-		Vec3 entityVector = Vector3.fromEntityCenterVanilla(entity);
+		Vec3 entityVector = VecHelper.fromEntityCenter(entity);
 		Vec3 finalVector = originalPosVector.subtract(entityVector);
 
 		if (finalVector.length() > 1) {

@@ -11,7 +11,6 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -26,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.handler.ModSounds;
 
 import java.util.List;
 
@@ -59,9 +59,9 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 						target.discard();
 						shulker.discard();
 
-						for (int i = 0; i < 10; i++) // so it's really loud >_>
-						{
-							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.SHULKER_DEATH, SoundSource.BLOCKS, 10F, 0.1F);
+						for (int i = 0; i < 10; i++) {
+							// so it's really loud >_>
+							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
 						}
 						particles(world, pos, target);
 						particles(world, pos, shulker);
@@ -75,8 +75,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	}
 
 	private void particles(Level world, BlockPos pos, Entity entity) {
-		if (world instanceof ServerLevel) {
-			ServerLevel ws = (ServerLevel) world;
+		if (world instanceof ServerLevel ws) {
 			ws.sendParticles(ParticleTypes.EXPLOSION,
 					entity.getX() + entity.getBbWidth() / 2,
 					entity.getY() + entity.getBbHeight() / 2,

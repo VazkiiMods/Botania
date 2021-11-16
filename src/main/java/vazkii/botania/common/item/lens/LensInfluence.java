@@ -15,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
@@ -35,10 +36,11 @@ public class LensInfluence extends Lens {
 			var expOrbs = entity.level.getEntitiesOfClass(ExperienceOrb.class, bounds);
 			var arrows = entity.level.getEntitiesOfClass(AbstractArrow.class, bounds);
 			var fallingBlocks = entity.level.getEntitiesOfClass(FallingBlockEntity.class, bounds);
+			var primedTnt = entity.level.getEntitiesOfClass(PrimedTnt.class, bounds);
 			var bursts = entity.level.getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(IManaBurst.class));
 
 			@SuppressWarnings("unchecked")
-			var concat = Iterables.concat(items, expOrbs, arrows, fallingBlocks, bursts);
+			var concat = Iterables.concat(items, expOrbs, arrows, fallingBlocks, primedTnt, bursts);
 			for (Entity movable : concat) {
 				if (movable == burst) {
 					continue;
@@ -49,11 +51,8 @@ public class LensInfluence extends Lens {
 					if (!lens.isEmpty() && lens.is(ModItems.lensInfluence)) {
 						continue;
 					}
-
-					movable.setDeltaMovement(entity.getDeltaMovement());
-				} else {
-					movable.setDeltaMovement(entity.getDeltaMovement());
 				}
+				movable.setDeltaMovement(entity.getDeltaMovement());
 			}
 		}
 	}

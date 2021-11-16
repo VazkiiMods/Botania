@@ -73,25 +73,26 @@ public class SkyblockSkyRenderer {
 			tessellator.end();
 
 			switch (p) {
-			case 0:
+			case 0 -> {
 				ms.mulPose(Vector3f.XP.rotationDegrees(70));
 				scale = 12F;
-				break;
-			case 1:
+			}
+			case 1 -> {
 				ms.mulPose(Vector3f.ZP.rotationDegrees(120));
 				scale = 15F;
-				break;
-			case 2:
+			}
+			case 2 -> {
 				ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(80));
 				scale = 25F;
-				break;
-			case 3:
+			}
+			case 3 -> {
 				ms.mulPose(Vector3f.ZP.rotationDegrees(100));
 				scale = 10F;
-				break;
-			case 4:
+			}
+			case 4 -> {
 				ms.mulPose(new Vector3f(1, 0, 0.5F).rotationDegrees(-60));
 				scale = 40F;
+			}
 			}
 		}
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
@@ -146,18 +147,18 @@ public class SkyblockSkyRenderer {
 			tessellator.end();
 
 			switch (p) {
-			case 0:
+			case 0 -> {
 				ms.mulPose(Vector3f.XP.rotationDegrees(20));
 				RenderSystem.setShaderColor(1F, 0.4F, 0.4F, a);
 				fuzzPer = Math.PI * 14 / angles;
 				rotSpeed = 0.2F;
-				break;
-			case 1:
+			}
+			case 1 -> {
 				ms.mulPose(Vector3f.XP.rotationDegrees(50));
 				RenderSystem.setShaderColor(0.4F, 1F, 0.7F, a);
 				fuzzPer = Math.PI * 6 / angles;
 				rotSpeed = 2F;
-				break;
+			}
 			}
 		}
 		ms.popPose();

@@ -14,10 +14,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
-public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
+public class ItemMiningRing extends ItemBauble {
 
 	public ItemMiningRing(Properties props) {
 		super(props);
@@ -50,11 +49,6 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 		if (effect != null && effect.getAmplifier() == 1) {
 			player.removeEffect(MobEffects.DIG_SPEED);
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 }

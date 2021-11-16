@@ -41,7 +41,6 @@ import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -61,7 +60,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
+public class ItemFlightTiara extends ItemBauble {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
 	public static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
@@ -130,50 +129,42 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 						int variant = getVariant(tiara);
 						switch (variant) {
-						case 2: {
+						case 2 -> {
 							r = 0.1F;
 							g = 0.1F;
 							b = 0.1F;
-							break;
 						}
-						case 3: {
+						case 3 -> {
 							r = 0F;
 							g = 0.6F;
-							break;
 						}
-						case 4: {
+						case 4 -> {
 							g = 0.3F;
 							b = 0.3F;
-							break;
 						}
-						case 5: {
+						case 5 -> {
 							r = 0.6F;
 							g = 0F;
 							b = 0.6F;
-							break;
 						}
-						case 6: {
+						case 6 -> {
 							r = 0.4F;
 							g = 0F;
 							b = 0F;
-							break;
 						}
-						case 7: {
+						case 7 -> {
 							r = 0.2F;
 							g = 0.6F;
 							b = 0.2F;
-							break;
 						}
-						case 8: {
+						case 8 -> {
 							r = 0.85F;
 							g = 0.85F;
 							b = 0F;
-							break;
 						}
-						case 9: {
+						case 9 -> {
 							r = 0F;
 							b = 0F;
-							break;
 						}
 						}
 
@@ -223,11 +214,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
-
-	@Override
 	public void onEquipped(ItemStack stack, LivingEntity living) {
 		super.onEquipped(stack, living);
 		int variant = getVariant(stack);
@@ -239,8 +225,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof Player) {
-			Player p = (Player) player;
+		if (player instanceof Player p) {
 			boolean flying = p.getAbilities().flying;
 
 			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);

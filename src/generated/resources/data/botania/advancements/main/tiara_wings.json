@@ -17,14 +17,106 @@
     "hidden": false
   },
   "criteria": {
-    "tiara": {
+    "tiara_1": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
               "botania:flight_tiara"
-            ]
+            ],
+            "nbt": "{variant:1}"
+          }
+        ]
+      }
+    },
+    "tiara_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:flight_tiara"
+            ],
+            "nbt": "{variant:2}"
+          }
+        ]
+      }
+    },
+    "tiara_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:flight_tiara"
+            ],
+            "nbt": "{variant:3}"
+          }
+        ]
+      }
+    },
+    "tiara_4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:flight_tiara"
+            ],
+            "nbt": "{variant:4}"
+          }
+        ]
+      }
+    },
+    "tiara_5": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:flight_tiara"
+            ],
+            "nbt": "{variant:5}"
+          }
+        ]
+      }
+    },
+    "tiara_6": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:flight_tiara"
+            ],
+            "nbt": "{variant:6}"
+          }
+        ]
+      }
+    },
+    "tiara_7": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:flight_tiara"
+            ],
+            "nbt": "{variant:7}"
+          }
+        ]
+      }
+    },
+    "tiara_8": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:flight_tiara"
+            ],
+            "nbt": "{variant:8}"
           }
         ]
       }
@@ -32,7 +124,14 @@
   },
   "requirements": [
     [
-      "tiara"
+      "tiara_1",
+      "tiara_2",
+      "tiara_3",
+      "tiara_4",
+      "tiara_5",
+      "tiara_6",
+      "tiara_7",
+      "tiara_8"
     ]
   ]
 }

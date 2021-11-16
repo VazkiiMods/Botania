@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModBlocks;
@@ -117,7 +117,9 @@ public final class ModelHandler {
 		BlockEntityRendererRegistry.register(ModSubtiles.HOPPERHOCK, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.register(ModSubtiles.HOPPERHOCK_CHIBI, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.register(ModSubtiles.TANGLEBERRIE, RenderTileSpecialFlower::new);
+		BlockEntityRendererRegistry.register(ModSubtiles.TANGLEBERRIE_CHIBI, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.register(ModSubtiles.JIYUULIA, RenderTileSpecialFlower::new);
+		BlockEntityRendererRegistry.register(ModSubtiles.JIYUULIA_CHIBI, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.register(ModSubtiles.RANNUNCARPUS, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.register(ModSubtiles.RANNUNCARPUS_CHIBI, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.register(ModSubtiles.HYACIDUS, RenderTileSpecialFlower::new);

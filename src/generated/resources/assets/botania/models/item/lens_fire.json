@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:item/lens",
+    "layer0": "botania:item/lens_small",
     "layer1": "botania:item/lens_fire"
   }
 }

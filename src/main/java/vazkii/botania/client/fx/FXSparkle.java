@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.ExtendedTexture;
-import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.CoreShaders;
 
 import javax.annotation.Nonnull;
 
@@ -113,7 +113,7 @@ public class FXSparkle extends TextureSheetParticle {
 		gravity = value;
 	}
 
-	// [VanillaCopy] Entity.pushOutOfBlocks with tweaks
+	// [VanillaCopy] Entity.moveTowardClosestSpace with tweaks
 	private void wiggleAround(double x, double y, double z) {
 		BlockPos blockpos = new BlockPos(x, y, z);
 		Vec3 Vector3d = new Vec3(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
@@ -155,6 +155,8 @@ public class FXSparkle extends TextureSheetParticle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder buffer, TextureManager textureManager) {
+		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
+		RenderSystem.enableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
@@ -196,13 +198,12 @@ public class FXSparkle extends TextureSheetParticle {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
-			ShaderHelper.useShader(ShaderHelper.BotaniaShader.FILM_GRAIN);
+			RenderSystem.setShader(CoreShaders::filmGrainParticle);
 		}
 
 		@Override
 		public void end(Tesselator tessellator) {
 			tessellator.end();
-			ShaderHelper.releaseShader();
 			endRenderCommon();
 		}
 

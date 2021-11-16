@@ -31,7 +31,6 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -47,7 +46,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPhantomInkable {
+public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
@@ -109,11 +108,6 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		return new ModelArmor(root, slot);
 	}
 
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
-
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
@@ -162,18 +156,14 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.is(ModItems.manasteelHelm);
-		case CHEST:
-			return stack.is(ModItems.manasteelChest);
-		case LEGS:
-			return stack.is(ModItems.manasteelLegs);
-		case FEET:
-			return stack.is(ModItems.manasteelBoots);
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.manasteelHelm);
+		case CHEST -> stack.is(ModItems.manasteelChest);
+		case LEGS -> stack.is(ModItems.manasteelLegs);
+		case FEET -> stack.is(ModItems.manasteelBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	private int getSetPiecesEquipped(Player player) {

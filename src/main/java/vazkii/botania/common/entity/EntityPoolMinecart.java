@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,7 +33,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,12 +54,6 @@ public class EntityPoolMinecart extends AbstractMinecart implements EntityPickIn
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		entityData.define(MANA, 0);
-	}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	@Nonnull

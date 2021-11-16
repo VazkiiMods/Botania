@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -40,8 +40,8 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -148,7 +148,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void tick() {
 		setTicksExisted(getTicksExisted() + 1);
-		if (!level.isClientSide
+		if ((!level.isClientSide || fake)
 				&& !hasLeftSource()
 				&& !blockPosition().equals(getBurstSourceBlockPos())) {
 			// XXX: Should this check by bounding box instead of simply blockPosition()?
@@ -412,63 +412,67 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	@Override
-	protected void onHit(@Nonnull HitResult rtr) {
-		BlockPos collidePos = null;
-		boolean dead = false;
+	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+		super.onHitBlock(hit);
+		BlockPos collidePos = hit.getBlockPos();
+		if (collidePos.equals(lastCollision)) {
+			return;
+		}
+		lastCollision = collidePos.immutable();
+		BlockEntity tile = level.getBlockEntity(collidePos);
+		BlockState state = level.getBlockState(collidePos);
+		Block block = state.getBlock();
 
-		if (rtr.getType() == HitResult.Type.BLOCK) {
-			collidePos = ((BlockHitResult) rtr).getBlockPos();
-			if (collidePos.equals(lastCollision)) {
-				return;
-			}
-			lastCollision = collidePos.immutable();
-			BlockEntity tile = level.getBlockEntity(collidePos);
-			BlockState state = level.getBlockState(collidePos);
-			Block block = state.getBlock();
-
-			if (block instanceof IManaCollisionGhost ghost
-					&& ghost.isGhost(state, level, collidePos)
-					&& !(block instanceof IManaTrigger)
-					|| block instanceof BushBlock
-					|| block instanceof LeavesBlock) {
-				return;
-			}
-
-			BlockPos sourcePos = getBurstSourceBlockPos();
-			if (!hasLeftSource() && collidePos.equals(sourcePos)) {
-				return;
-			}
-
-			collidedTile = tile;
-
-			if (!fake && !noParticles && !level.isClientSide
-					&& tile instanceof IManaReceiver receiver
-					&& receiver.canReceiveManaFromBursts()) {
-				onReceiverImpact(receiver);
-			}
-
-			if (block instanceof IManaTrigger trigger) {
-				trigger.onBurstCollision(this, level, collidePos);
-			}
-
-			if (block instanceof IManaCollisionGhost) {
-				return;
-			} else {
-				dead = true;
-			}
+		if (block instanceof IManaCollisionGhost ghost
+				&& ghost.isGhost(state, level, collidePos)
+				&& !(block instanceof IManaTrigger)
+				|| block instanceof BushBlock
+				|| block instanceof LeavesBlock) {
+			return;
 		}
 
-		ILensEffect lens = getLensInstance();
-		if (lens != null) {
-			dead = lens.collideBurst(this, rtr, collidedTile instanceof IManaReceiver receiver
-					&& receiver.canReceiveManaFromBursts(), dead, getSourceLens());
+		BlockPos sourcePos = getBurstSourceBlockPos();
+		if (!hasLeftSource() && collidePos.equals(sourcePos)) {
+			return;
 		}
 
-		if (collidePos != null && !hasAlreadyCollidedAt(collidePos)) {
+		collidedTile = tile;
+
+		if (!fake && !noParticles && !level.isClientSide
+				&& tile instanceof IManaReceiver receiver
+				&& receiver.canReceiveManaFromBursts()) {
+			onReceiverImpact(receiver);
+		}
+
+		if (block instanceof IManaTrigger trigger) {
+			trigger.onBurstCollision(this, level, collidePos);
+		}
+
+		if (block instanceof IManaCollisionGhost) {
+			return;
+		}
+
+		onHitCommon(hit, true);
+
+		if (!hasAlreadyCollidedAt(collidePos)) {
 			alreadyCollidedAt.add(collidePos);
 		}
+	}
 
-		if (dead && isAlive()) {
+	@Override
+	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+		super.onHitEntity(hit);
+		onHitCommon(hit, false);
+	}
+
+	private void onHitCommon(HitResult hit, boolean shouldKill) {
+		ILensEffect lens = getLensInstance();
+		if (lens != null) {
+			shouldKill = lens.collideBurst(this, hit, collidedTile instanceof IManaReceiver receiver
+					&& receiver.canReceiveManaFromBursts(), shouldKill, getSourceLens());
+		}
+
+		if (shouldKill && isAlive()) {
 			if (!fake && level.isClientSide) {
 				int color = getColor();
 				float r = (color >> 16 & 0xFF) / 255F;
@@ -684,8 +688,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void ping() {
 		BlockEntity tile = getShooter();
-		if (tile instanceof IPingable pingable) {
-			pingable.pingback(this, getShooterUUID());
+		if (tile instanceof IManaSpreader spreader) {
+			spreader.pingback(this, getShooterUUID());
 		}
 	}
 
@@ -728,12 +732,6 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void setMagnetizePos(@Nullable BlockPos pos) {
 		this.magnetizePos = pos;
-	}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	protected boolean shouldDoFakeParticles() {

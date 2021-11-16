@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -29,18 +28,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.rod.ItemSmeltRod.SmeltData;
 
 import javax.annotation.Nonnull;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ItemSmeltRod extends Item implements IManaUsingItem {
+public class ItemSmeltRod extends Item {
 
 	private static final int TIME = 10;
 	private static final int COST = 300;
@@ -71,10 +69,9 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 
 	@Override
 	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int time) {
-		if (!(living instanceof Player)) {
+		if (!(living instanceof Player p)) {
 			return;
 		}
-		Player p = (Player) living;
 		Container dummyInv = new SimpleContainer(1);
 
 		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, false)) {
@@ -102,8 +99,8 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 								if (data.progress <= 0) {
 									if (!world.isClientSide) {
 										world.setBlockAndUpdate(pos.getBlockPos(), Block.byItem(result.getItem()).defaultBlockState());
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 0.6F, 1F);
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.PLAYERS, 1F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRod, SoundSource.PLAYERS, 1F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRod2, SoundSource.PLAYERS, 1F, 1F);
 
 										ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
 										playerData.remove(p);
@@ -132,16 +129,11 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 								world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
 							}
 							if (time % 10 == 0) {
-								world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+								world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRodSimmer, SoundSource.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 							}
 						}
 					});
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	static class SmeltData {

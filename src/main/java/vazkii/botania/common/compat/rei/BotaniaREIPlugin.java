@@ -11,17 +11,31 @@ package vazkii.botania.common.compat.rei;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
+import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
+import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
+import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.*;
@@ -37,15 +51,6 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
-import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
-import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.entry.EntryStack;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
-import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
-
 @Environment(EnvType.CLIENT)
 public class BotaniaREIPlugin implements REIClientPlugin {
 	@Override
@@ -58,7 +63,8 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new ElvenTradeREICategory(),
 				new ManaPoolREICategory(),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, ModSubtiles.orechid),
-				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, ModSubtiles.orechidIgnem)
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, ModSubtiles.orechidIgnem),
+				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, ModSubtiles.marimorphosis)
 		));
 		Set<ItemLike> apothecaries = ImmutableSet.of(
 				ModBlocks.defaultAltar,
@@ -86,6 +92,8 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		}
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(ModSubtiles.orechid), EntryStacks.of(ModSubtiles.orechidFloating));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, EntryStacks.of(ModSubtiles.orechidIgnem), EntryStacks.of(ModSubtiles.orechidIgnemFloating));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, EntryStacks.of(ModSubtiles.marimorphosis), EntryStacks.of(ModSubtiles.marimorphosisFloating),
+				EntryStacks.of(ModSubtiles.marimorphosisChibi), EntryStacks.of(ModSubtiles.marimorphosisChibiFloating));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY, EntryStacks.of(ModSubtiles.pureDaisy), EntryStacks.of(ModSubtiles.pureDaisyFloating));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR, EntryStacks.of(ModBlocks.runeAltar));
 
@@ -95,6 +103,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.MANA_INFUSION);
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.ORECHID);
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.ORECHID_IGNEM);
+		helper.removePlusButton(BotaniaREICategoryIdentifiers.MARIMORPHOSIS);
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.PURE_DAISY);
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.RUNE_ALTAR);
 	}
@@ -111,10 +120,28 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipeElvenTrade.class, pred, ElvenTradeREIDisplay::new);
 		helper.registerFiller(LexiconElvenTradeRecipe.class, ElvenTradeREIDisplay::new);
 		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
-		registerOrechidRecipes(helper, false);
-		registerOrechidRecipes(helper, true);
 		helper.registerFiller(RecipePureDaisy.class, PureDaisyREIDisplay::new);
 		helper.registerFiller(RecipeRuneAltar.class, RunicAltarREIDisplay::new);
+
+		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(RecipeOrechid.class, ModRecipeTypes.ORECHID_TYPE,
+				r -> new OrechidREIDisplay(r, weights.getInt(r.getInput())));
+
+		Object2IntMap<Block> weightsIgnem = getWeights(ModRecipeTypes.ORECHID_IGNEM_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(RecipeOrechidIgnem.class, ModRecipeTypes.ORECHID_IGNEM_TYPE,
+				r -> new OrechidIgnemREIDisplay(r, weightsIgnem.getInt(r.getInput())));
+
+		Object2IntMap<Block> weightsMarim = getWeights(ModRecipeTypes.MARIMORPHOSIS_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(RecipeMarimorphosis.class, ModRecipeTypes.MARIMORPHOSIS_TYPE,
+				r -> new MarimorphosisREIDisplay(r, weightsMarim.getInt(r.getInput())));
+	}
+
+	public static Object2IntMap<Block> getWeights(RecipeType<IOrechidRecipe> type, RecipeManager manager) {
+		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
+		for (IOrechidRecipe recipe : manager.getAllRecipesFor(type)) {
+			map.addTo(recipe.getInput(), recipe.getWeight());
+		}
+		return map;
 	}
 
 	void registerAncientWillRecipeWrapper(DisplayRegistry helper) {
@@ -175,17 +202,5 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		ItemTerraPick.setTipped(output);
 
 		helper.add(new DefaultCustomDisplay(null, inputs, Collections.singletonList(EntryIngredients.of(output))));
-	}
-
-	void registerOrechidRecipes(DisplayRegistry helper, boolean isIgnem) {
-		var oreWeights = isIgnem ? BotaniaAPI.instance().getNetherOrechidWeights() : BotaniaAPI.instance().getOrechidWeights();
-		int totalWeight = oreWeights.stream().mapToInt(OrechidOutput::getWeight).sum();
-		for (OrechidOutput recipe : oreWeights) {
-			if (isIgnem) {
-				helper.add(new OrechidIgnemREIDisplay(recipe, totalWeight));
-			} else {
-				helper.add(new OrechidREIDisplay(recipe, totalWeight));
-			}
-		}
 	}
 }

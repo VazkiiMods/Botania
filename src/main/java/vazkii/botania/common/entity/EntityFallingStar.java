@@ -9,7 +9,6 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -21,11 +20,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.network.PacketSpawnEntity;
+
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -40,11 +39,6 @@ public class EntityFallingStar extends EntityThrowableCopy {
 
 	@Override
 	protected void defineSynchedData() {}
-
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
-	}
 
 	@Override
 	public void tick() {
@@ -81,31 +75,31 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void onHit(HitResult pos) {
-		if (level.isClientSide) {
-			return;
-		}
-
-		Entity thrower = getOwner();
-		if (pos.getType() == HitResult.Type.ENTITY && thrower != null) {
-			Entity e = ((EntityHitResult) pos).getEntity();
-			if (e != thrower && e.isAlive()) {
-				if (thrower instanceof Player) {
-					e.hurt(DamageSource.playerAttack((Player) thrower), Math.random() < 0.25 ? 10 : 5);
+	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+		super.onHitEntity(hit);
+		Entity e = hit.getEntity();
+		if (!level.isClientSide) {
+			if (e != getOwner() && e.isAlive()) {
+				if (getOwner() instanceof Player player) {
+					e.hurt(DamageSource.playerAttack(player), Math.random() < 0.25 ? 10 : 5);
 				} else {
 					e.hurt(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 				}
 			}
+			discard();
 		}
+	}
 
-		if (pos.getType() == HitResult.Type.BLOCK) {
-			BlockPos bpos = ((BlockHitResult) pos).getBlockPos();
+	@Override
+	protected void onHitBlock(BlockHitResult hit) {
+		super.onHitBlock(hit);
+		if (!level.isClientSide) {
+			BlockPos bpos = hit.getBlockPos();
 			BlockState state = level.getBlockState(bpos);
 			if (ConfigHandler.COMMON.blockBreakParticles.getValue() && !state.isAir()) {
 				level.levelEvent(2001, bpos, Block.getId(state));
 			}
+			discard();
 		}
-
-		discard();
 	}
 }

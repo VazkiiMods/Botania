@@ -54,8 +54,7 @@ public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay>
 
 		Minecraft mc = Minecraft.getInstance();
 
-		if (mc.getCameraEntity() instanceof LivingEntity) {
-			LivingEntity view = (LivingEntity) mc.getCameraEntity();
+		if (mc.getCameraEntity() instanceof LivingEntity view) {
 			if (ItemMonocle.hasMonocle(view) && RenderTileSpecialFlower.hasBindingAttempt(view, tile.getBlockPos())) {
 				RenderTileSpecialFlower.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), TileLightRelay.MAX_DIST));
 			}

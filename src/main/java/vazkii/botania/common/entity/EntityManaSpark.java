@@ -10,7 +10,6 @@ package vazkii.botania.common.entity;
 
 import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -38,7 +37,6 @@ import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -92,7 +90,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 		Collection<IManaSpark> transfers = getTransfers();
 
 		switch (upgrade) {
-		case DISPERSIVE: {
+		case DISPERSIVE -> {
 			List<Player> players = SparkHelper.getEntitiesAround(Player.class, level, getX(), getY() + (getBbHeight() / 2.0), getZ());
 
 			Map<Player, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
@@ -109,11 +107,10 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 				}
 
 				for (ItemStack stack : stacks) {
-					if (stack.isEmpty() || !(stack.getItem() instanceof IManaItem)) {
+					if (stack.isEmpty() || !(stack.getItem() instanceof IManaItem manaItem)) {
 						continue;
 					}
 
-					IManaItem manaItem = (IManaItem) stack.getItem();
 					if (manaItem.canReceiveManaFromItem(stack, input)) {
 						Map<ItemStack, Integer> receivingStacks;
 						boolean add = false;
@@ -149,9 +146,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 				particlesTowards(player);
 			}
 
-			break;
 		}
-		case DOMINANT: {
+		case DOMINANT -> {
 			List<IManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
@@ -162,9 +158,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 				validSparks.get(level.random.nextInt(validSparks.size())).registerTransfer(this);
 			}
 
-			break;
 		}
-		case RECESSIVE: {
+		case RECESSIVE -> {
 			SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
@@ -174,11 +169,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 								&& otherUpgrade != SparkUpgradeType.ISOLATED;
 					})
 					.forEach(transfers::add);
-			break;
 		}
-		case NONE:
-		default:
-			break;
+		default -> {}
 		}
 
 		if (!transfers.isEmpty()) {
@@ -279,12 +271,6 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 		}
 
 		return InteractionResult.PASS;
-	}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	@Override

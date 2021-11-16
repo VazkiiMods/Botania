@@ -10,7 +10,6 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.block.Blocks;
@@ -28,6 +27,7 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.core.handler.ModSounds;
 
 import java.util.List;
 
@@ -89,7 +89,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 				FluidState fluid = getLevel().getFluidState(tnt.blockPosition());
 				if (tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {
 					boolean unethical = EntityComponents.TNT_ETHICAL.get(tnt).unethical;
-					tnt.playSound(unethical ? SoundEvents.GENERIC_EXTINGUISH_FIRE : SoundEvents.GENERIC_EXPLODE, 0.2F, (1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
+					tnt.playSound(unethical ? ModSounds.entropinnyumAngry : ModSounds.entropinnyumHappy, 1F, (1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
 					tnt.discard();
 					addMana(unethical ? 3 : getMaxMana());
 					sync();

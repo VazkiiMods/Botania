@@ -11,6 +11,14 @@ package vazkii.botania.common.integration.trinkets;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.Trinket;
+import dev.emi.trinkets.api.TrinketEnums;
+import dev.emi.trinkets.api.TrinketsApi;
+import dev.emi.trinkets.api.client.TrinketRenderer;
+import dev.emi.trinkets.api.client.TrinketRendererRegistry;
+import dev.emi.trinkets.api.event.TrinketDropCallback;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -34,14 +42,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
-
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.Trinket;
-import dev.emi.trinkets.api.TrinketEnums;
-import dev.emi.trinkets.api.TrinketsApi;
-import dev.emi.trinkets.api.client.TrinketRenderer;
-import dev.emi.trinkets.api.client.TrinketRendererRegistry;
-import dev.emi.trinkets.api.event.TrinketDropCallback;
 
 public class TrinketsIntegration extends EquipmentHandler {
 	public static void init() {

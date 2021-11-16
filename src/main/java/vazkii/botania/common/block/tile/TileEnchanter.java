@@ -22,7 +22,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -38,6 +37,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.IManaSpark;
@@ -63,7 +64,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements ISparkAttachable {
+public class TileEnchanter extends TileMod implements ISparkAttachable, IWandable, IWandHUD {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -148,9 +149,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		super(ModTiles.ENCHANTER, pos, state);
 	}
 
-	public void onWanded(Player player, ItemStack wand) {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (stage != State.IDLE || itemToEnchant.isEmpty() || !itemToEnchant.isEnchantable()) {
-			return;
+			return false;
 		}
 
 		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX() - 2, worldPosition.getY(), worldPosition.getZ() - 2, worldPosition.getX() + 3, worldPosition.getY() + 1, worldPosition.getZ() + 3));
@@ -165,12 +167,13 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 						Enchantment enchant = enchants.keySet().iterator().next();
 						if (isEnchantmentValid(enchant)) {
 							advanceStage();
-							return;
+							return true;
 						}
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 	private void gatherEnchants() {
@@ -265,17 +268,13 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
 			PacketBotaniaEffect.sendNearby(level, worldPosition, PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
 					worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
-			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 0.5F, 10F);
+			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
 		}
 
 		switch (self.stage) {
-		case GATHER_ENCHANTS:
-			self.gatherEnchants();
-			break;
-		case GATHER_MANA:
-			self.gatherMana(axis);
-			break;
-		case DO_ENCHANT: { // Enchant
+		case GATHER_ENCHANTS -> self.gatherEnchants();
+		case GATHER_MANA -> self.gatherMana(axis);
+		case DO_ENCHANT -> { // Enchant
 			if (self.stageTicks >= 100) {
 				for (EnchantmentInstance data : self.enchants) {
 					if (EnchantmentHelper.getItemEnchantmentLevel(data.enchantment, self.itemToEnchant) == 0) {
@@ -290,40 +289,29 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				level.blockEvent(worldPosition, ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
 				self.advanceStage();
 			}
-			break;
 		}
-		case RESET: { // Reset
+		case RESET -> { // Reset
 			if (self.stageTicks >= 20) {
 				self.advanceStage();
 			}
 
-			break;
 		}
-		default:
-			break;
+		default -> {}
 		}
 	}
 
 	private void advanceStage() {
 		switch (stage) {
-		case IDLE:
-			stage = State.GATHER_ENCHANTS;
-			break;
-		case GATHER_ENCHANTS:
-			stage = State.GATHER_MANA;
-			break;
-		case GATHER_MANA:
-			stage = State.DO_ENCHANT;
-			break;
-		case DO_ENCHANT: {
+		case IDLE -> stage = State.GATHER_ENCHANTS;
+		case GATHER_ENCHANTS -> stage = State.GATHER_MANA;
+		case GATHER_MANA -> stage = State.DO_ENCHANT;
+		case DO_ENCHANT -> {
 			stage = State.RESET;
 			stage3EndTicks = stageTicks;
-			break;
 		}
-		case RESET: {
+		case RESET -> {
 			stage = State.IDLE;
 			stage3EndTicks = 0;
-			break;
 		}
 		}
 
@@ -455,15 +443,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			return null;
 		}
 
-		switch (rot) {
-		default:
-		case NONE:
-		case CLOCKWISE_180:
-			return Direction.Axis.Z;
-		case CLOCKWISE_90:
-		case COUNTERCLOCKWISE_90:
-			return Direction.Axis.X;
-		}
+		return switch (rot) {
+		case NONE, CLOCKWISE_180 -> Direction.Axis.Z;
+		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> Direction.Axis.X;
+		};
 	}
 
 	@Override
@@ -493,10 +476,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(PoseStack ms) {
+	@Override
+	public void renderHUD(PoseStack ms, Minecraft mc) {
 		if (manaRequired > 0 && !itemToEnchant.isEmpty()) {
-			int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 20;
-			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - 8;
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 20;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
 
 			RenderHelper.renderProgressPie(ms, x, y, (float) mana / (float) manaRequired, itemToEnchant);
 		}

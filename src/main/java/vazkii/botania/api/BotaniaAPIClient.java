@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.apache.logging.log4j.LogManager;
 
-import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.block.IFloatingFlower;
 
 import java.util.Collections;
 import java.util.Map;

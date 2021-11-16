@@ -2138,7 +2138,7 @@
   "botania.entry.bergamute": "消音柑",
   "botania.tagline.bergamute": "吸收音波",
   "botania.page.bergamute0": "一个人若是有当牧场主的经历， 他就一定不会忘记动物们发出 的那刺耳的声音 - 那是，痛 苦的回忆。而这$(item)消音柑$(0)，则可以 吸收附近的声音，并转化成数 量基本可以无视魔力。吸收声 音的过程不需要消耗$(thing)魔力$(0)。",
-  "botania.page.bergamute1": "もう歌しか聞こえない",
+  "botania.page.bergamute2": "もう歌しか聞こえない",
 
   "botania.entry.gIntro": "产能的介绍",
   "botania.tagline.gIntro": "消耗资源产生魔力",
@@ -2983,7 +2983,7 @@
   "botania.entry.icePendant": "雪花项链",
   "botania.tagline.icePendant": "行于水面,以冰为径",
   "botania.page.icePendant0": "$(item)雪花项链$(0)是一个蕴含着冻结 能量的$(thing)饰品$(0),穿戴时它会将所 站高度周围一切静止的$(item)水$(0)方 块冻为$(item)冰$(0).$(p)$(item)冰$(0)会在装备者离开后快速融 化.最后,这个项链不会在穿 戴者潜行或是完全没入水中 时生效.",
-  "botania.page.icePendant1": "你想堆个雪人么?",
+  "botania.page.icePendant2": "你想堆个雪人么?",
 
   "botania.entry.lavaPendant": "火石项链",
   "botania.tagline.lavaPendant": "抵抗火焰...稍微的",

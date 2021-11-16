@@ -25,7 +25,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class LensWeight extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			int harvestLevel = ConfigHandler.COMMON.harvestLevelWeight.getValue();
@@ -45,7 +45,7 @@ public class LensWeight extends Lens {
 			}
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 }

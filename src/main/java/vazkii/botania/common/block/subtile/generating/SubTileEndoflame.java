@@ -72,7 +72,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								stack.shrink(1);
-								getLevel().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundSource.BLOCKS, 0.2F, 1F);
+								getLevel().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
 								getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
 								sync();
 

@@ -8,11 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -34,17 +29,14 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IWandable, IManaTrigger, IHourglassTrigger, IWandHUD {
+public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IManaTrigger {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
@@ -72,23 +64,6 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 		if (!burst.isFake()) {
 			((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
 		}
-	}
-
-	@Override
-	public void onTriggeredByHourglass(Level world, BlockPos pos, BlockEntity hourglass) {
-		((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
-	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		((TileAnimatedTorch) world.getBlockEntity(pos)).onWanded();
-		return true;
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		((TileAnimatedTorch) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override
@@ -141,7 +116,7 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 
 	@Override
 	public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
-		// TE is already gone so best we can do is just notify everyone
+		// Block entity is already gone so best we can do is just notify everyone
 		world.blockUpdated(pos, this);
 		super.destroy(world, pos, state);
 	}

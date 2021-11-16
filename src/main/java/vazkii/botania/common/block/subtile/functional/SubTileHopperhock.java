@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -40,10 +41,12 @@ import vazkii.botania.common.components.ItemFlagsComponent;
 import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
 
+import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubTileHopperhock extends TileEntityFunctionalFlower {
+public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWandable {
 	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
 	private static final int RANGE = 6;
@@ -127,7 +130,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				HopperBlockEntity.addItem(null, invToPutItemIn, stack.split(amountToPutIn), direction);
-				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
+				item.setItem(stack); // Just in case someone subclasses ItemEntity and changes something important.
 				pulledAny = true;
 			}
 		}
@@ -175,8 +178,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			return false;
 		}
 
-		if (item instanceof IManaItem) {
-			IManaItem manaItem = (IManaItem) item;
+		if (item instanceof IManaItem manaItem) {
 			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
 		} else {
 			return ItemStack.tagMatches(filter, stack);
@@ -229,15 +231,14 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
 		if (player == null || player.isShiftKeyDown()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			sync();
 
 			return true;
-		} else {
-			return super.onWanded(player, wand);
 		}
+		return false;
 	}
 
 	@Override

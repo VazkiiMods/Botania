@@ -22,15 +22,13 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemEntityRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -51,14 +49,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.fx.FXLightning;
+import vazkii.botania.client.fx.BoltParticleOptions;
+import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
@@ -66,7 +66,6 @@ import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.client.render.entity.RenderMagicLandmine;
 import vazkii.botania.client.render.entity.RenderManaSpark;
 import vazkii.botania.client.render.entity.RenderManaStorm;
-import vazkii.botania.client.render.entity.RenderNoop;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
@@ -78,7 +77,6 @@ import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
@@ -120,8 +118,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		Botania.proxy = this;
 		PacketHandler.initClient();
 
-		ShaderHelper.initShaders();
-
 		ModItems.registerGuis();
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
@@ -135,6 +131,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
+		TooltipComponentCallback.EVENT.register(ManaBarTooltipComponent::tryConvert);
 
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
 			LocalDateTime now = LocalDateTime.now();
@@ -192,7 +189,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
 
-		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living, seed) -> ModItems.lexicon.isElvenItem(stack) ? 1 : 0);
+		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living, seed) -> ItemLexicon.isElven(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaCookie, prefix("totalbiscuit"),
 				(stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.slimeBottle, prefix("active"),
@@ -290,11 +287,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderType.translucent());
 
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderType.cutoutMipped());
-		/* todo 1.16-fabric
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, t -> true);
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, t -> true);
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, t -> true);
-		*/
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, RenderType.translucent());
 
 		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
@@ -306,12 +301,13 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private static void registerEntityRenderers() {
-		EntityRendererRegistry.register(ModEntities.MANA_BURST, RenderNoop::new);
-		EntityRendererRegistry.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
-		EntityRendererRegistry.register(ModEntities.FLAME_RING, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.MANA_BURST, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.PLAYER_MOVER, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.FLAME_RING, NoopRenderer::new);
 		EntityRendererRegistry.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
-		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
-		EntityRendererRegistry.register(ModEntities.FALLING_STAR, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.FALLING_STAR, NoopRenderer::new);
+		EntityRendererRegistry.register(ModEntities.ENDER_AIR, NoopRenderer::new);
 		EntityRendererRegistry.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntities.PIXIE, RenderPixie::new);
 		EntityRendererRegistry.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
@@ -349,11 +345,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public boolean isTheClientPlayer(LivingEntity entity) {
-		return entity == Minecraft.getInstance().player;
-	}
-
-	@Override
 	public Player getClientPlayer() {
 		return Minecraft.getInstance().player;
 	}
@@ -369,8 +360,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getInstance().particleEngine.add(new FXLightning(Minecraft.getInstance().level, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+		// todo wip, params are ignored
+		BoltRenderer.INSTANCE.add(new BoltParticleOptions(vectorStart, vectorEnd).size(0.08F), ClientTickHandler.partialTicks);
 	}
 
 	@Override

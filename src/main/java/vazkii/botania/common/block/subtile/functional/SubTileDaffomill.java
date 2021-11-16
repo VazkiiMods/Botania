@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
@@ -29,9 +30,11 @@ import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.network.PacketItemAge;
 
+import javax.annotation.Nullable;
+
 import java.util.List;
 
-public class SubTileDaffomill extends TileEntityFunctionalFlower {
+public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWandable {
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
 	private static final String TAG_POWERED = "powered";
@@ -40,7 +43,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	private Direction orientation = Direction.NORTH;
 
 	// On some occasions the client's redstone state is not the same as the server (eg. comparators,
-	// which can return 0 power on the client as their TE state is often not synced at all)
+	// which can return 0 power on the client as their block entity state is often not synced at all)
 	private boolean redstonePowered;
 
 	public SubTileDaffomill(BlockPos pos, BlockState state) {
@@ -91,19 +94,11 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 
 		AABB axis = null;
 		switch (orientation) {
-		case NORTH:
-			axis = new AABB(x - w, y - h, z - l, x + w + 1, y + h, z);
-			break;
-		case SOUTH:
-			axis = new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
-			break;
-		case WEST:
-			axis = new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
-			break;
-		case EAST:
-			axis = new AABB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
-			break;
-		default:
+		case NORTH -> axis = new AABB(x - w, y - h, z - l, x + w + 1, y + h, z);
+		case SOUTH -> axis = new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+		case WEST -> axis = new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
+		case EAST -> axis = new AABB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+		default -> {}
 		}
 		return axis;
 	}
@@ -114,21 +109,17 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
-		if (player == null) {
+	public boolean onUsedByWand(@Nullable Player player, ItemStack wand, Direction side) {
+		if (player == null || !player.isShiftKeyDown()) {
 			return false;
 		}
 
-		if (player.isShiftKeyDown()) {
-			if (!player.level.isClientSide) {
-				orientation = orientation.getClockWise();
-				sync();
-			}
-
-			return true;
-		} else {
-			return super.onWanded(player, wand);
+		if (!player.level.isClientSide) {
+			orientation = orientation.getClockWise();
+			sync();
 		}
+
+		return true;
 	}
 
 	@Override

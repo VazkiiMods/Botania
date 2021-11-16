@@ -58,9 +58,8 @@ public class ItemBlockTinyPotato extends BlockItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity e, int t, boolean idunno) {
-		if (!world.isClientSide && e instanceof Player && e.tickCount % 30 == 0
+		if (!world.isClientSide && e instanceof Player player && e.tickCount % 30 == 0
 				&& TYPOS.matcher(stack.getHoverName().getString()).matches()) {
-			Player player = (Player) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if (ticks < NOT_MY_NAME.length) {
 				player.sendMessage(new TextComponent(NOT_MY_NAME[ticks]).withStyle(ChatFormatting.RED), Util.NIL_UUID);

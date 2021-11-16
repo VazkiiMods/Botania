@@ -18,9 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -34,10 +32,10 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.IManaUsingItem;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.network.PacketBotaniaEffect;
@@ -50,7 +48,7 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
+public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
 
 	public ItemFlugelEye(Properties props) {
 		super(props);
@@ -78,7 +76,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemStack stack = ctx.getItemInHand();
 				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location().toString(), nbt);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 5F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
 			}
 
 			return InteractionResult.SUCCESS;
@@ -135,7 +133,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	private static void moveParticlesAndSound(Entity entity) {
 		PacketBotaniaEffect.sendNearby(entity, PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getId());
-		entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
+		entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
 	}
 
 	@Override
@@ -186,11 +184,6 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 			tooltip.add(new TranslatableComponent("botaniamisc.flugelBound", bindingText, worldText).withStyle(ChatFormatting.GRAY));
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 	@Override

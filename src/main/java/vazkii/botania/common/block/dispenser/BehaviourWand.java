@@ -12,12 +12,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.api.block.IWandable;
 
 import javax.annotation.Nonnull;
 
@@ -29,12 +30,9 @@ public class BehaviourWand extends OptionalDispenseItemBehavior {
 		Level world = source.getLevel();
 		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
 		BlockPos pos = source.getPos().relative(facing);
-		Block block = world.getBlockState(pos).getBlock();
-		boolean wandable = block instanceof IWandable;
-		setSuccess(wandable);
-		if (wandable) {
-			((IWandable) block).onUsedByWand(null, stack, world, pos, facing.getOpposite());
-		}
+		BlockState state = world.getBlockState(pos);
+		IWandable wandable = IWandable.API.find(world, pos, state, world.getBlockEntity(pos), Unit.INSTANCE);
+		setSuccess(wandable != null && wandable.onUsedByWand(null, stack, facing.getOpposite()));
 		return stack;
 	}
 

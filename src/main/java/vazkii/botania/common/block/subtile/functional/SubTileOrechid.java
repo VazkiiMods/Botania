@@ -11,19 +11,20 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.WeighedRandom;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.handler.OrechidManager;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 
 import javax.annotation.Nullable;
 
@@ -59,13 +60,13 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		if (getMana() >= cost && ticksExisted % getDelay() == 0) {
 			BlockPos coords = getCoordsToPut();
 			if (coords != null) {
-				BlockState state = getOreToPut();
+				BlockState state = getOreToPut(coords, getLevel().getBlockState(coords));
 				if (state != null) {
 					getLevel().setBlockAndUpdate(coords, state);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						getLevel().levelEvent(2001, coords, Block.getId(state));
 					}
-					getLevel().playSound(null, coords, ModSounds.orechid, SoundSource.BLOCKS, 2F, 1F);
+					playSound(coords);
 
 					addMana(-cost);
 					sync();
@@ -74,21 +75,40 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		}
 	}
 
+	protected void playSound(BlockPos coords) {
+		getLevel().playSound(null, coords, ModSounds.orechid, SoundSource.BLOCKS, 1F, 1F);
+	}
+
 	@Nullable
-	private BlockState getOreToPut() {
-		List<OrechidOutput> values = getOreList();
-		return WeighedRandom.getRandomItem(getLevel().random, values).map(oo -> {
-			return oo.getOutput().pick(getLevel().getRandom());
-		}).orElse(null);
+	private BlockState getOreToPut(BlockPos coords, BlockState state) {
+		List<Output> values = new ArrayList<>();
+		for (IOrechidRecipe recipe : OrechidManager.getFor(getRecipeType())
+				.get(state.getBlock())) {
+			Output output = new Output(recipe, recipe.getWeight(getLevel(), coords));
+			values.add(output);
+		}
+		return WeighedRandom.getRandomItem(getLevel().random, values)
+				.map(oo -> oo.recipe.getOutput(getLevel(), coords)
+						.pick(getLevel().getRandom()))
+				.orElse(null);
+	}
+
+	private static class Output extends WeighedRandom.WeighedRandomItem {
+		private final IOrechidRecipe recipe;
+
+		public Output(IOrechidRecipe recipe, int weight) {
+			super(weight);
+			this.recipe = recipe;
+		}
 	}
 
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
-
-		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-RANGE, -RANGE_Y, -RANGE),
-				getEffectivePos().offset(RANGE, RANGE_Y, RANGE))) {
+		var matcher = getReplaceMatcher();
+		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-getRange(), -getRangeY(), -getRange()),
+				getEffectivePos().offset(getRange(), getRangeY(), getRange()))) {
 			BlockState state = getLevel().getBlockState(pos);
-			if (getReplaceMatcher().test(state)) {
+			if (matcher.test(state)) {
 				possibleCoords.add(pos.immutable());
 			}
 		}
@@ -103,12 +123,13 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		return true;
 	}
 
-	public List<OrechidOutput> getOreList() {
-		return BotaniaAPI.instance().getOrechidWeights();
+	public RecipeType<? extends IOrechidRecipe> getRecipeType() {
+		return ModRecipeTypes.ORECHID_TYPE;
 	}
 
 	public Predicate<BlockState> getReplaceMatcher() {
-		return state -> state.is(Blocks.STONE);
+		var map = OrechidManager.getFor(getRecipeType());
+		return state -> map.containsKey(state.getBlock());
 	}
 
 	public int getCost() {
@@ -121,12 +142,20 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
 	@Override
 	public boolean acceptsRedstone() {
 		return true;
+	}
+
+	public int getRange() {
+		return RANGE;
+	}
+
+	public int getRangeY() {
+		return RANGE_Y;
 	}
 
 	@Override

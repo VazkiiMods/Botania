@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -31,11 +30,10 @@ import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.EntityHitResult;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -65,12 +63,6 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 		entityData.define(GRAVITY, 0F);
 	}
 
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
-	}
-
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void handleEntityEvent(byte id) {
@@ -81,38 +73,46 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 		}
 	}
 
+	private void effectAndDie() {
+		this.level.broadcastEntityEvent(this, (byte) 3);
+		discard();
+	}
+
 	@Override
-	protected void onHit(@Nonnull HitResult rtr) {
+	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+		super.onHitEntity(hit);
 		if (!level.isClientSide) {
-			if (rtr.getType() == HitResult.Type.BLOCK) {
-				Direction dir = ((BlockHitResult) rtr).getDirection();
+			effectAndDie();
+		}
+	}
 
-				if (dir.getAxis() != Direction.Axis.Y) {
-					BlockPos pos = ((BlockHitResult) rtr).getBlockPos().relative(dir);
-					boolean first = true;
-					while (pos.getY() > 0) {
-						BlockState state = level.getBlockState(pos);
-						if (state.isAir()) {
-							BlockState stateSet = ModBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
+	@Override
+	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+		if (!level.isClientSide) {
+			Direction dir = hit.getDirection();
 
-							if (first && !stateSet.canSurvive(level, pos)) {
-								break;
-							}
-							first = false;
+			if (dir.getAxis() != Direction.Axis.Y) {
+				BlockPos pos = hit.getBlockPos().relative(dir);
+				boolean first = true;
+				while (pos.getY() > 0) {
+					BlockState state = level.getBlockState(pos);
+					if (state.isAir()) {
+						BlockState stateSet = ModBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
 
-							level.setBlockAndUpdate(pos, stateSet);
-							level.levelEvent(2001, pos, Block.getId(stateSet));
-							pos = pos.below();
-						} else {
+						if (first && !stateSet.canSurvive(level, pos)) {
 							break;
 						}
+						first = false;
+
+						level.setBlockAndUpdate(pos, stateSet);
+						level.levelEvent(2001, pos, Block.getId(stateSet));
+						pos = pos.below();
+					} else {
+						break;
 					}
 				}
-
 			}
-
-			this.level.broadcastEntityEvent(this, (byte) 3);
-			discard();
+			effectAndDie();
 		}
 	}
 

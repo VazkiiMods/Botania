@@ -16,10 +16,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -27,6 +30,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -82,5 +86,26 @@ public class ItemBaubleBox extends Item {
 				.filter(s -> !s.isEmpty());
 		ItemUtils.onContainerDestroyed(entity, stream);
 		container.clearContent();
+	}
+
+	@Override
+	public boolean overrideStackedOnOther(
+			@Nonnull ItemStack box, @Nonnull Slot slot,
+			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+		return InventoryHelper.overrideStackedOnOther(
+				ItemBaubleBox::getInventory,
+				player.containerMenu instanceof ContainerBaubleBox,
+				box, slot, clickAction, player);
+	}
+
+	@Override
+	public boolean overrideOtherStackedOnMe(
+			@Nonnull ItemStack box, @Nonnull ItemStack toInsert,
+			@Nonnull Slot slot, @Nonnull ClickAction clickAction,
+			@Nonnull Player player, @Nonnull SlotAccess cursorAccess) {
+		return InventoryHelper.overrideOtherStackedOnMe(
+				ItemBaubleBox::getInventory,
+				player.containerMenu instanceof ContainerBaubleBox,
+				box, toInsert, clickAction, cursorAccess);
 	}
 }

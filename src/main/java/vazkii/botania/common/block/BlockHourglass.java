@@ -8,12 +8,7 @@
  */
 package vazkii.botania.common.block;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -41,10 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -54,7 +46,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, EntityBlock, IWandable, IWandHUD {
+public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, EntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 18.4, 12);
 
@@ -157,22 +149,4 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 			tile.onManaCollide();
 		}
 	}
-
-	@Override
-	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
-		TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
-		tile.lock = !tile.lock;
-		if (!world.isClientSide) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-		}
-		return true;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
-		tile.renderHUD(ms);
-	}
-
 }

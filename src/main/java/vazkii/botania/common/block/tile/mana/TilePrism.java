@@ -8,13 +8,20 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
@@ -25,7 +32,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 
-public class TilePrism extends TileExposedSimpleInventory {
+public class TilePrism extends TileExposedSimpleInventory implements IWandHUD {
 	public TilePrism(BlockPos pos, BlockState state) {
 		super(ModTiles.PRISM, pos, state);
 	}
@@ -82,6 +89,21 @@ public class TilePrism extends TileExposedSimpleInventory {
 				BlockState base = state.is(ModBlocks.prism) ? state : ModBlocks.prism.defaultBlockState();
 				level.setBlockAndUpdate(worldPosition, base.setValue(BotaniaStateProps.HAS_LENS, hasLens));
 			}
+		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void renderHUD(PoseStack ms, Minecraft mc) {
+		ItemStack lens = getItem(0);
+		if (!lens.isEmpty()) {
+			Component lensName = lens.getHoverName();
+			int width = 16 + mc.font.width(lensName) / 2;
+			int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+			int y = mc.getWindow().getGuiScaledHeight() / 2;
+
+			mc.font.drawShadow(ms, lensName, x + 20, y + 5, -1);
+			mc.getItemRenderer().renderAndDecorateItem(lens, x, y);
 		}
 	}
 

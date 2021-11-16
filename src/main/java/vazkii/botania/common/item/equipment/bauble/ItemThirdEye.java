@@ -27,7 +27,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -35,7 +34,7 @@ import vazkii.botania.common.entity.EntityMagicMissile;
 
 import java.util.List;
 
-public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
+public class ItemThirdEye extends ItemBauble {
 
 	private static final int COST = 2;
 
@@ -45,10 +44,9 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if (!(living instanceof Player)) {
+		if (!(living instanceof Player eplayer)) {
 			return;
 		}
-		Player eplayer = (Player) living;
 
 		double range = 24;
 		AABB aabb = new AABB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).inflate(range);
@@ -95,11 +93,6 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 			ms.popPose();
 		}
-	}
-
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
 	}
 
 }

@@ -117,10 +117,9 @@ public class RecipeBrew implements IBrewRecipe {
 
 	@Override
 	public ItemStack getOutput(ItemStack stack) {
-		if (stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer)) {
+		if (stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer container)) {
 			return new ItemStack(Items.GLASS_BOTTLE); // Fallback...
 		}
-		IBrewContainer container = (IBrewContainer) stack.getItem();
 
 		return container.getItemForBrew(brew, stack);
 	}

@@ -33,11 +33,13 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.mixin.AccessorAdvancementProvider;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -200,7 +202,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(simple(ModItems.terraSword, "terrasteelWeaponCraft", FrameType.TASK))
 				.parent(terrasteelPickup)
-				.addCriterion("terrablade", onPickup(ModItems.terraSword)) // should it also accept chakrams?
+				.addCriterion("terrablade", onPickup(ModItems.terraSword, ModItems.thornChakram))
 				.save(consumer, mainId("terrasteel_weapon_craft"));
 
 		// Parent: elven portal
@@ -229,11 +231,25 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("spawner_mover_use"));
 		DisplayInfo tiaraWings = simple(ModItems.flightTiara, "tiaraWings", FrameType.TASK);
 		tiaraWings.getIcon().getOrCreateTag().putInt("variant", 1);
-		Advancement.Builder.advancement()
+		InventoryChangeTrigger.TriggerInstance[] variants = IntStream.range(1, ItemFlightTiara.WING_TYPES)
+				.mapToObj(i -> {
+					CompoundTag tag = new CompoundTag();
+					tag.putInt("variant", i);
+					return tag;
+				})
+				.map(nbt -> ItemPredicate.Builder.item().of(ModItems.flightTiara).hasNbt(nbt).build())
+				.map(InventoryChangeTrigger.TriggerInstance::hasItems)
+				.toArray(InventoryChangeTrigger.TriggerInstance[]::new);
+		var builder = Advancement.Builder.advancement()
 				.display(tiaraWings)
 				.parent(gaiaGuardianKill)
-				.addCriterion("tiara", onPickup(ModItems.flightTiara)) // TODO match nbt
-				.save(consumer, mainId("tiara_wings"));
+				.requirements(RequirementsStrategy.OR);
+		for (int i = 0; i < variants.length; i++) {
+			var variant = variants[i];
+			builder.addCriterion("tiara_" + (i + 1), variant);
+		}
+		builder.save(consumer, mainId("tiara_wings"));
+
 		Advancement.Builder.advancement()
 				.display(simple(ModSubtiles.dandelifeon, "dandelifeonPickup", FrameType.TASK))
 				.parent(gaiaGuardianKill)
@@ -333,8 +349,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(hidden(ModBlocks.motifDaybloom, "old_flower_pickup", FrameType.CHALLENGE))
 				.parent(root)
-				.addCriterion("daybloom", onPickup(ModBlocks.motifDaybloom))
-				.addCriterion("nightshade", onPickup(ModBlocks.motifNightshade))
+				.addCriterion("flower", onPickup(ModBlocks.motifDaybloom, ModBlocks.motifNightshade))
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, challengeId("old_flower_pickup"));
 		DisplayInfo desuGun = simple(ModItems.manaGun, "desuGun", FrameType.CHALLENGE);

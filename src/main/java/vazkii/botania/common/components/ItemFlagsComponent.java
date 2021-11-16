@@ -8,14 +8,13 @@
  */
 package vazkii.botania.common.components;
 
+import dev.onyxstudios.cca.api.v3.component.Component;
+
 import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
-
-
-import dev.onyxstudios.cca.api.v3.component.Component;
 
 // Component for misc internal Botania flags
 public class ItemFlagsComponent implements Component {

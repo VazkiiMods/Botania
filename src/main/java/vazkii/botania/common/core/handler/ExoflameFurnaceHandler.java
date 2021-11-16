@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.item.IExoflameHeatable;
+import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 

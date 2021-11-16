@@ -18,14 +18,18 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TileIncensePlate;
 
 public class LensFire extends Lens {
+	@Override
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		Entity entity = burst.entity();
+		if (!entity.level.isClientSide) {
+			entity.setSecondsOnFire(3);
+		}
+	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 
 		if (!entity.level.isClientSide && rtr.getType() == HitResult.Type.BLOCK
@@ -44,16 +48,12 @@ public class LensFire extends Lens {
 			}
 			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
 				entity.level.removeBlock(offPos, false);
-			} else if (stateAt.is(ModBlocks.incensePlate)) {
-				TileIncensePlate plate = (TileIncensePlate) entity.level.getBlockEntity(pos);
-				plate.ignite();
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 			} else if (stateAtOffset.isAir()) {
 				entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
 			}
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 }

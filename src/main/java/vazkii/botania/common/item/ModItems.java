@@ -25,8 +25,8 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
@@ -106,9 +106,9 @@ public final class ModItems {
 	public static final Item terrasteel = new ItemManaResource(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item lifeEssence = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item redstoneRoot = new Item(defaultBuilder());
-	public static final Item elementium = new ItemElven(defaultBuilder());
-	public static final Item pixieDust = new ItemElven(defaultBuilder());
-	public static final Item dragonstone = new ItemElven(defaultBuilder());
+	public static final Item elementium = new Item(defaultBuilder());
+	public static final Item pixieDust = new Item(defaultBuilder());
+	public static final Item dragonstone = new Item(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
 	public static final Item dreamwoodTwig = new Item(defaultBuilder());
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder().rarity(Rarity.RARE));
@@ -711,6 +711,7 @@ public final class ModItems {
 		register(r, "composite_lens", CompositeLensRecipe.SERIALIZER);
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
 		register(r, "cosmetic_remove", CosmeticRemoveRecipe.SERIALIZER);
+		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
 		register(r, "keep_ivy", KeepIvyRecipe.SERIALIZER);
 		register(r, "laputa_shard_upgrade", LaputaShardUpgradeRecipe.SERIALIZER);
 		register(r, "lens_dye", LensDyeingRecipe.SERIALIZER);
@@ -720,15 +721,13 @@ public final class ModItems {
 		register(r, "mana_upgrade", ManaUpgradeRecipe.SERIALIZER);
 		register(r, "mana_upgrade_shapeless", ShapelessManaUpgradeRecipe.SERIALIZER);
 		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
+		register(r, "nbt_output_wrapper", NbtOutputRecipe.SERIALIZER);
 		register(r, "phantom_ink_apply", PhantomInkRecipe.SERIALIZER);
 		register(r, "spell_cloth_apply", SpellClothRecipe.SERIALIZER);
 		register(r, "split_lens", SplitLensRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
-		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
-		register(r, "nbt_output_wrapper", NbtOutputRecipe.SERIALIZER);
-
-		// todo 1.16-fabric replace with nbtcrafting CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
+		register(r, "water_bottle_matching_shaped", WaterBottleMatchingRecipe.SERIALIZER);
 
 		ModBanners.init();
 	}
@@ -740,41 +739,24 @@ public final class ModItems {
 	}
 
 	public static Item getPetal(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whitePetal;
-		case ORANGE:
-			return orangePetal;
-		case MAGENTA:
-			return magentaPetal;
-		case LIGHT_BLUE:
-			return lightBluePetal;
-		case YELLOW:
-			return yellowPetal;
-		case LIME:
-			return limePetal;
-		case PINK:
-			return pinkPetal;
-		case GRAY:
-			return grayPetal;
-		case LIGHT_GRAY:
-			return lightGrayPetal;
-		case CYAN:
-			return cyanPetal;
-		case PURPLE:
-			return purplePetal;
-		case BLUE:
-			return bluePetal;
-		case BROWN:
-			return brownPetal;
-		case GREEN:
-			return greenPetal;
-		case RED:
-			return redPetal;
-		case BLACK:
-			return blackPetal;
-		}
+		return switch (color) {
+		case WHITE -> whitePetal;
+		case ORANGE -> orangePetal;
+		case MAGENTA -> magentaPetal;
+		case LIGHT_BLUE -> lightBluePetal;
+		case YELLOW -> yellowPetal;
+		case LIME -> limePetal;
+		case PINK -> pinkPetal;
+		case GRAY -> grayPetal;
+		case LIGHT_GRAY -> lightGrayPetal;
+		case CYAN -> cyanPetal;
+		case PURPLE -> purplePetal;
+		case BLUE -> bluePetal;
+		case BROWN -> brownPetal;
+		case GREEN -> greenPetal;
+		case RED -> redPetal;
+		case BLACK -> blackPetal;
+		};
 	}
 
 	public static boolean isNoDespawn(Item item) {

@@ -1,0 +1,15 @@
+{
+  "type": "botania:mana_infusion",
+  "input": {
+    "item": "botania:jiyuulia"
+  },
+  "output": {
+    "item": "botania:jiyuulia_chibi"
+  },
+  "mana": 2500,
+  "group": "botania:flower_shrinking",
+  "catalyst": {
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
+  }
+}

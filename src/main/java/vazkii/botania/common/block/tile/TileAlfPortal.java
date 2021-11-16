@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -25,20 +26,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
-import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
+import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.item.ItemLexicon;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -49,7 +50,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileAlfPortal extends TileMod {
+public class TileAlfPortal extends TileMod implements IWandable {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
@@ -111,24 +112,15 @@ public class TileAlfPortal extends TileMod {
 					}
 
 					ItemStack stack = item.getItem();
-					boolean consume;
 					if (EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned) {
-						consume = false;
-					} else if (stack.getItem() instanceof ItemLexicon) {
-						consume = true;
-					} else if ((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack))) {
-						consume = true;
-					} else {
-						consume = false;
+						continue;
 					}
 
-					if (consume) {
-						item.discard();
-						if (self.validateItemUsage(item)) {
-							self.addItem(stack);
-						}
-						self.ticksSinceLastItem = 0;
+					item.discard();
+					if (self.validateItemUsage(item)) {
+						self.addItem(stack);
 					}
+					self.ticksSinceLastItem = 0;
 				}
 			}
 
@@ -191,43 +183,43 @@ public class TileAlfPortal extends TileMod {
 
 		// Pick one of the inner positions
 		switch (level.random.nextInt(9)) {
-		default:
-		case 0:
+		case 0 -> {
 			dh = 0;
 			dy = 1;
-			break;
-		case 1:
+		}
+		case 1 -> {
 			dh = 0;
 			dy = 2;
-			break;
-		case 2:
+		}
+		case 2 -> {
 			dh = 0;
 			dy = 3;
-			break;
-		case 3:
+		}
+		case 3 -> {
 			dh = -1;
 			dy = 1;
-			break;
-		case 4:
+		}
+		case 4 -> {
 			dh = -1;
 			dy = 2;
-			break;
-		case 5:
+		}
+		case 5 -> {
 			dh = -1;
 			dy = 3;
-			break;
-		case 6:
+		}
+		case 6 -> {
 			dh = 1;
 			dy = 1;
-			break;
-		case 7:
+		}
+		case 7 -> {
 			dh = 1;
 			dy = 2;
-			break;
-		case 8:
+		}
+		case 8 -> {
 			dh = 1;
 			dy = 3;
-			break;
+		}
+		default -> throw new AssertionError();
 		}
 		double dx = state == AlfPortalState.ON_X ? 0 : dh;
 		double dz = state == AlfPortalState.ON_Z ? 0 : dh;
@@ -237,12 +229,16 @@ public class TileAlfPortal extends TileMod {
 		level.addParticle(data, getBlockPos().getX() + dx, getBlockPos().getY() + dy, getBlockPos().getZ() + dz, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
 	}
 
-	public boolean onWanded() {
+	@Override
+	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		AlfPortalState state = getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		if (state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if (newState != AlfPortalState.OFF) {
 				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
+				if (player instanceof ServerPlayer serverPlayer) {
+					AlfPortalTrigger.INSTANCE.trigger(serverPlayer, serverPlayer.getLevel(), getBlockPos(), stack);
+				}
 				return true;
 			}
 		}
@@ -278,10 +274,9 @@ public class TileAlfPortal extends TileMod {
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
 		for (Recipe<?> r : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (!(r instanceof IElvenTradeRecipe)) {
+			if (!(r instanceof IElvenTradeRecipe recipe)) {
 				continue;
 			}
-			IElvenTradeRecipe recipe = (IElvenTradeRecipe) r;
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
 				if (consumeMana(pylons, MANA_COST, false)) {
@@ -353,15 +348,10 @@ public class TileAlfPortal extends TileMod {
 		}
 
 		lightPylons();
-		switch (rot) {
-		default:
-		case NONE:
-		case CLOCKWISE_180:
-			return AlfPortalState.ON_Z;
-		case CLOCKWISE_90:
-		case COUNTERCLOCKWISE_90:
-			return AlfPortalState.ON_X;
-		}
+		return switch (rot) {
+		case NONE, CLOCKWISE_180 -> AlfPortalState.ON_Z;
+		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> AlfPortalState.ON_X;
+		};
 	}
 
 	public List<BlockPos> locatePylons() {
@@ -384,8 +374,7 @@ public class TileAlfPortal extends TileMod {
 		List<BlockPos> pylons = locatePylons();
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			if (tile instanceof TilePylon) {
-				TilePylon pylon = (TilePylon) tile;
+			if (tile instanceof TilePylon pylon) {
 				pylon.activated = true;
 				pylon.centerPos = getBlockPos();
 			}
@@ -410,16 +399,13 @@ public class TileAlfPortal extends TileMod {
 
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			if (tile instanceof TilePylon) {
-				TilePylon pylon = (TilePylon) tile;
+			if (tile instanceof TilePylon pylon) {
 				pylon.activated = true;
 				pylon.centerPos = getBlockPos();
 			}
 
 			tile = level.getBlockEntity(pos.below());
-			if (tile instanceof TilePool) {
-				TilePool pool = (TilePool) tile;
-
+			if (tile instanceof TilePool pool) {
 				if (pool.getCurrentMana() < costPer) {
 					closeNow = closeNow || close;
 					return false;

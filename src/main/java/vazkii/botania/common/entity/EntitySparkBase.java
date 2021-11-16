@@ -10,6 +10,8 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -68,5 +70,10 @@ public abstract class EntitySparkBase extends Entity implements ISparkEntity {
 	protected void addAdditionalSaveData(CompoundTag compound) {
 		compound.putBoolean(TAG_INVIS, isInvisible());
 		compound.putInt(TAG_NETWORK, getNetwork().getId());
+	}
+
+	@Override
+	public Packet<?> getAddEntityPacket() {
+		return new ClientboundAddEntityPacket(this);
 	}
 }

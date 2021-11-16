@@ -9,7 +9,6 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -31,11 +30,10 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -72,11 +70,6 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		entityData.define(LIVE_TICKS, 0);
 		entityData.define(DELAY, 0);
 		entityData.define(ROTATION, 0F);
-	}
-
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	@Override
@@ -132,7 +125,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 					playerLook = Vec3.atCenterOf(rtr.getBlockPos());
 				}
 
-				Vector3 thisVec = Vector3.fromEntityCenter(this);
+				Vec3 thisVec = VecHelper.fromEntityCenter(this);
 
 				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
 				level.playSound(null, getX(), getY(), getZ(), ModSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level.random.nextFloat() * 3F);
@@ -176,9 +169,21 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void onHit(HitResult pos) {
-		Entity thrower = getOwner();
-		if (pos.getType() != HitResult.Type.ENTITY || ((EntityHitResult) pos).getEntity() != thrower) {
+	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+		super.onHitBlock(hit);
+		explodeAndDie();
+	}
+
+	@Override
+	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+		super.onHitEntity(hit);
+		if (hit.getEntity() != getOwner()) {
+			explodeAndDie();
+		}
+	}
+
+	private void explodeAndDie() {
+		if (!level.isClientSide) {
 			level.explode(this, getX(), getY(), getZ(), 3F, Explosion.BlockInteraction.NONE);
 			discard();
 		}

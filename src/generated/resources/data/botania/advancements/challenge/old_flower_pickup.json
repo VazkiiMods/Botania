@@ -16,24 +16,13 @@
     "hidden": true
   },
   "criteria": {
-    "daybloom": {
+    "flower": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "botania:daybloom_motif"
-            ]
-          }
-        ]
-      }
-    },
-    "nightshade": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
+              "botania:daybloom_motif",
               "botania:nightshade_motif"
             ]
           }
@@ -43,8 +32,7 @@
   },
   "requirements": [
     [
-      "daybloom",
-      "nightshade"
+      "flower"
     ]
   ]
 }

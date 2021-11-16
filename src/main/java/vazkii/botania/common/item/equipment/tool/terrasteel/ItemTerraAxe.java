@@ -97,7 +97,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	@Override
 	public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
 		if (shouldBreak(player) && !tickingSwappers) {
-			addBlockSwapper(player.level, player, stack, pos, 32, true);
+			addBlockSwapper(player.level, player, stack, pos);
 		}
 	}
 
@@ -119,22 +119,19 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Block swappers are only added on the server, and a marker instance
 	 * which is not actually ticked but contains the proper passed in
 	 * information will be returned to the client.
-	 *
+	 * 
 	 * @param world      The world to add the swapper to.
 	 * @param player     The player who is responsible for this swapper.
 	 * @param stack      The Terra Truncator which caused this block swapper.
 	 * @param origCoords The original coordinates the swapper should start at.
-	 * @param steps      The range of the block swapper, in blocks.
-	 * @param leaves     If true, will treat leaves specially (see the BlockSwapper
-	 *                   documentation).
 	 */
-	private static void addBlockSwapper(Level world, Player player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
+	private static void addBlockSwapper(Level world, Player player, ItemStack stack, BlockPos origCoords) {
 		// Block swapper registration should only occur on the server
 		if (world.isClientSide) {
 			return;
 		}
 
-		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
+		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, ItemTerraAxe.BLOCK_RANGE);
 
 		ResourceKey<Level> dim = world.dimension();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
@@ -161,46 +158,20 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 */
 		public static final int SINGLE_BLOCK_RADIUS = 1;
 
-		/**
-		 * The world the block swapper is doing the swapping in.
-		 */
 		private final Level world;
-
-		/**
-		 * The player the swapper is swapping for.
-		 */
 		private final Player player;
-
-		/**
-		 * The Terra Truncator which created this swapper.
-		 */
 		private final ItemStack truncator;
-
-		/**
-		 * The origin of the swapper (eg, where it started).
-		 */
-		private final BlockPos origin;
-
-		/**
-		 * Denotes whether leaves should be treated specially.
-		 */
-		private final boolean treatLeavesSpecial;
-
-		/**
-		 * The initial range which this block swapper starts with.
-		 */
-		private final int range;
 
 		/**
 		 * The priority queue of all possible candidates for swapping.
 		 */
-		private final PriorityQueue<SwapCandidate> candidateQueue;
+		private final PriorityQueue<SwapCandidate> candidateQueue = new PriorityQueue<>();
 
 		/**
 		 * The set of already swaps coordinates which do not have
 		 * to be revisited.
 		 */
-		private final Set<BlockPos> completedCoords;
+		private final Set<BlockPos> completedCoords = new HashSet<>();
 
 		/**
 		 * Creates a new block swapper with the provided parameters.
@@ -210,30 +181,17 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * @param truncator  The Terra Truncator responsible for creating this swapper.
 		 * @param origCoords The original coordinates this swapper should start at.
 		 * @param range      The range this swapper should swap in.
-		 * @param leaves     If true, leaves will be treated specially and
-		 *                   severely reduce the radius of further spreading when encountered.
 		 */
-		public BlockSwapper(Level world, Player player, ItemStack truncator, BlockPos origCoords, int range, boolean leaves) {
+		public BlockSwapper(Level world, Player player, ItemStack truncator, BlockPos origCoords, int range) {
 			this.world = world;
 			this.player = player;
 			this.truncator = truncator;
-			origin = origCoords;
-			this.range = range;
-			treatLeavesSpecial = leaves;
-
-			candidateQueue = new PriorityQueue<>();
-			completedCoords = new HashSet<>();
 
 			// Add the origin to our candidate queue with the original range
-			candidateQueue.offer(new SwapCandidate(origin, this.range));
+			candidateQueue.offer(new SwapCandidate(origCoords, range));
 		}
 
 		/**
-		 * Ticks this Block Swapper, which allows it to swap BLOCK_SWAP_RATE
-		 * further blocks and expands the breadth first search. The return
-		 * value signifies whether or not the block swapper has more blocks
-		 * to swap, or if it has finished swapping.
-		 * 
 		 * @return True if the block swapper has more blocks to swap, false
 		 *         otherwise (implying it can be safely removed).
 		 */
@@ -259,10 +217,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				}
 
 				// Otherwise, perform the break and then look at the adjacent tiles.
-				// This is a ridiculous function call here.
 				ToolCommons.removeBlockWithDrops(player, truncator, world,
 						cand.coordinates,
-						state -> state.is(BlockTags.MINEABLE_WITH_AXE));
+						state -> state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.LEAVES));
 
 				remainingSwaps--;
 
@@ -281,10 +238,10 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 						continue;
 					}
 
-					// If we treat leaves specially and this is a leaf, it gets
+					// If this is a leaf, it gets
 					// the minimum of the leaf range and the current range - 1.
 					// Otherwise, it gets the standard range - 1.
-					int newRange = treatLeavesSpecial && isLeaf ? Math.min(LEAF_BLOCK_RANGE, cand.range - 1) : cand.range - 1;
+					int newRange = isLeaf ? Math.min(LEAF_BLOCK_RANGE, cand.range - 1) : cand.range - 1;
 
 					candidateQueue.offer(new SwapCandidate(adj, newRange));
 				}
@@ -320,50 +277,16 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * a priority queue, which is a min-heap internally, larger ranges
 		 * are considered "smaller" than smaller ranges (so they show up in the
 		 * min-heap first).
+		 *
+		 * @param coordinates The coordinates of this candidate.
+		 * @param range       The remaining range of this candidate.
 		 */
-		public static final class SwapCandidate implements Comparable<SwapCandidate> {
-			/**
-			 * The location of this swap candidate.
-			 */
-			public final BlockPos coordinates;
-
-			/**
-			 * The remaining range of this swap candidate.
-			 */
-			public final int range;
-
-			/**
-			 * Constructs a new Swap Candidate with the provided
-			 * coordinates and range.
-			 * 
-			 * @param coordinates The coordinates of this candidate.
-			 * @param range       The remaining range of this candidate.
-			 */
-			public SwapCandidate(BlockPos coordinates, int range) {
-				this.coordinates = coordinates;
-				this.range = range;
-			}
-
+		public record SwapCandidate(BlockPos coordinates, int range) implements Comparable<SwapCandidate> {
 			@Override
 			public int compareTo(@Nonnull SwapCandidate other) {
 				// Aka, a bigger range implies a smaller value, meaning
 				// bigger ranges will be preferred in a min-heap
 				return other.range - range;
-			}
-
-			@Override
-			public boolean equals(Object other) {
-				if (!(other instanceof SwapCandidate)) {
-					return false;
-				}
-
-				SwapCandidate cand = (SwapCandidate) other;
-				return coordinates.equals(cand.coordinates) && range == cand.range;
-			}
-
-			@Override
-			public int hashCode() {
-				return Objects.hash(coordinates, range);
 			}
 		}
 	}

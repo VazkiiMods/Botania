@@ -20,12 +20,12 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -34,12 +34,10 @@ import net.minecraft.world.phys.HitResult;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.mana.ICreativeManaProvider;
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
-import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
@@ -59,6 +57,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.List;
 
@@ -94,31 +93,32 @@ public final class HUDHandler {
 
 		HitResult pos = mc.hitResult;
 
-		if (pos != null) {
-			BlockPos bpos = pos.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) pos).getBlockPos() : null;
-			BlockState state = bpos != null ? mc.level.getBlockState(bpos) : null;
-			Block block = state == null ? null : state.getBlock();
-			BlockEntity tile = bpos != null ? mc.level.getBlockEntity(bpos) : null;
+		if (pos instanceof BlockHitResult result) {
+			BlockPos bpos = result.getBlockPos();
+
+			BlockState state = mc.level.getBlockState(bpos);
+			BlockEntity tile = mc.level.getBlockEntity(bpos);
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-					if (block instanceof IWandHUD) {
+					var hud = IWandHUD.API.find(mc.level, bpos, state, tile, Unit.INSTANCE);
+					if (hud != null) {
 						profiler.push("wandItem");
-						((IWandHUD) block).renderHUD(ms, mc, mc.level, bpos);
+						hud.renderHUD(ms, mc);
 						profiler.pop();
 					}
 				}
-				if (tile instanceof TilePool && !mc.player.getMainHandItem().isEmpty()) {
-					renderPoolRecipeHUD(ms, (TilePool) tile, mc.player.getMainHandItem());
+				if (tile instanceof TilePool pool && !mc.player.getMainHandItem().isEmpty()) {
+					renderPoolRecipeHUD(ms, pool, mc.player.getMainHandItem());
 				}
 			}
 			if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
-				if (tile instanceof TileAltar) {
-					((TileAltar) tile).renderHUD(ms, mc);
-				} else if (tile instanceof TileRuneAltar) {
-					((TileRuneAltar) tile).renderHUD(ms, mc);
-				} else if (tile instanceof TileCorporeaCrystalCube) {
-					renderCrystalCubeHUD(ms, (TileCorporeaCrystalCube) tile);
+				if (tile instanceof TileAltar altar) {
+					altar.renderHUD(ms, mc);
+				} else if (tile instanceof TileRuneAltar runeAltar) {
+					runeAltar.renderHUD(ms, mc);
+				} else if (tile instanceof TileCorporeaCrystalCube cube) {
+					renderCrystalCubeHUD(ms, cube);
 				}
 			}
 		}
@@ -165,7 +165,6 @@ public final class HUDHandler {
 			int totalMana = 0;
 			int totalMaxMana = 0;
 			boolean anyRequest = false;
-			boolean creative = false;
 
 			Container mainInv = player.getInventory();
 			Container accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
@@ -179,10 +178,7 @@ public final class HUDHandler {
 				ItemStack stack = inv.getItem(i - (useAccessories ? invSize : 0));
 
 				if (!stack.isEmpty()) {
-					Item item = stack.getItem();
-					if (item instanceof IManaUsingItem) {
-						anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
-					}
+					anyRequest = anyRequest || stack.is(ModTags.Items.MANA_USING_ITEMS);
 				}
 			}
 
@@ -193,9 +189,6 @@ public final class HUDHandler {
 					totalMana += ((IManaItem) item).getMana(stack);
 					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
 				}
-				if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
-					creative = true;
-				}
 			}
 
 			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
@@ -205,13 +198,10 @@ public final class HUDHandler {
 					totalMana += ((IManaItem) item).getMana(stack);
 					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
 				}
-				if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
-					creative = true;
-				}
 			}
 
 			if (anyRequest) {
-				renderManaInvBar(ms, creative, totalMana, totalMaxMana);
+				renderManaInvBar(ms, totalMana, totalMaxMana);
 			}
 		}
 
@@ -223,18 +213,16 @@ public final class HUDHandler {
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
-	private static void renderManaInvBar(PoseStack ms, boolean hasCreative, int totalMana, int totalMaxMana) {
+	private static void renderManaInvBar(PoseStack ms, int totalMana, int totalMaxMana) {
 		Minecraft mc = Minecraft.getInstance();
 		int width = 182;
 		int x = mc.getWindow().getGuiScaledWidth() / 2 - width / 2;
 		int y = mc.getWindow().getGuiScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.getValue();
 
-		if (!hasCreative) {
-			if (totalMaxMana == 0) {
-				width = 0;
-			} else {
-				width *= (double) totalMana / (double) totalMaxMana;
-			}
+		if (totalMaxMana == 0) {
+			width = 0;
+		} else {
+			width *= (double) totalMana / (double) totalMaxMana;
 		}
 
 		if (width == 0) {

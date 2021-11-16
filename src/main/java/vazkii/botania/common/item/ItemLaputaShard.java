@@ -42,7 +42,6 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -51,6 +50,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -144,7 +144,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		return !state.isAir()
 				&& !isFlowingFluid
 				&& !(block instanceof FallingBlock)
-				&& (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos))
+				&& !state.is(ModTags.Blocks.LAPUTA_IMMOBILE)
 				&& state.getDestroySpeed(world, pos) != -1;
 	}
 
@@ -183,14 +183,14 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					CompoundTag cmp = new CompoundTag();
 					if (tile != null) {
 						cmp = tile.save(cmp);
-						// Reset the TE so e.g. chests don't spawn their drops
+						// Reset the block entity so e.g. chests don't spawn their drops
 						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(pos_, state);
 						world.setBlockEntity(newTile);
 					}
 
 					// This can fail from e.g. permissions plugins or event cancellations
 					if (!world.removeBlock(pos_, false)) {
-						// put the original TE back
+						// put the original block entity back
 						if (tile != null) {
 							world.setBlockEntity(tile);
 						}
@@ -260,7 +260,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void apply(ItemStack stack, BurstProperties props) {}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		return false;
 	}
 

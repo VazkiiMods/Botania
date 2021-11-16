@@ -9,12 +9,12 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,9 +24,10 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.mixin.*;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 public class SubTileTigerseye extends TileEntityFunctionalFlower {
@@ -52,34 +53,46 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 			entity.setTarget(null);
 
 			if (getMana() >= COST) {
-				boolean did = false;
-
-				GoalSelector goalSelector = ((AccessorMob) entity).getGoalSelector();
-				Set<WrappedGoal> goals = ((AccessorGoalSelector) goalSelector).getAvailableGoals();
-				boolean hasRunAwayFromPlayerGoal = goals.stream()
-						.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToFleeFrom() == Player.class);
-				if (!hasRunAwayFromPlayerGoal) {
-					goalSelector.addGoal(3, new AvoidEntityGoal<>(entity, Player.class, 6, 1, 1.2));
-					did = true;
-				}
-
-				GoalSelector targetSelector = ((AccessorMob) entity).getTargetSelector();
-				for (WrappedGoal pg : new ArrayList<>(((AccessorGoalSelector) targetSelector).getAvailableGoals())) {
-					if (pg.getGoal() instanceof NearestAttackableTargetGoal
-							&& ((AccessorNearestAttackableTargetGoal) pg.getGoal()).getTargetClass() == Player.class) {
-						targetSelector.removeGoal(pg.getGoal());
-						did = true;
-					}
-				}
-
-				if (did) {
-					entity.playSound(SoundEvents.CREEPER_HURT, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
+				if (pacifyCreeper(entity)) {
+					EntityComponents.TIGERSEYE.get(entity).setPacified();
+					entity.playSound(ModSounds.tigerseyePacify, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
 					level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 					addMana(-COST);
 					sync();
 				}
 			}
 		}
+	}
+
+	public static void pacifyAfterLoad(Entity entity, ServerLevel level) {
+		if (entity instanceof Creeper creeper && EntityComponents.TIGERSEYE.get(creeper).isPacified()) {
+			pacifyCreeper(creeper);
+		}
+	}
+
+	private static boolean pacifyCreeper(Creeper creeper) {
+		boolean did = false;
+		GoalSelector goalSelector = ((AccessorMob) creeper).getGoalSelector();
+		Set<WrappedGoal> goals = ((AccessorGoalSelector) goalSelector).getAvailableGoals();
+		for (var goal : goals) {
+			Goal wrapped = goal.getGoal();
+			if (wrapped instanceof CreeperAvoidPlayerGoal playerGoal && !playerGoal.enabled) {
+				playerGoal.enable();
+				did = true;
+				break;
+			}
+		}
+
+		GoalSelector targetSelector = ((AccessorMob) creeper).getTargetSelector();
+		for (var iterator = ((AccessorGoalSelector) targetSelector).getAvailableGoals().iterator(); iterator.hasNext();) {
+			WrappedGoal pg = iterator.next();
+			if (pg.getGoal() instanceof AccessorNearestAttackableTargetGoal targetGoal
+					&& targetGoal.getTargetClass() == Player.class) {
+				iterator.remove();
+				did = true;
+			}
+		}
+		return did;
 	}
 
 	@Override
@@ -119,6 +132,27 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	@Override
 	public int getMaxMana() {
 		return 1000;
+	}
+
+	public static class CreeperAvoidPlayerGoal extends AvoidEntityGoal<Player> {
+		private boolean enabled = false;
+
+		public CreeperAvoidPlayerGoal(Creeper mob) {
+			this(mob, 6.0F, 1.0, 1.2);
+		}
+
+		private CreeperAvoidPlayerGoal(Creeper mob, float maxDist, double walkSpeedModifier, double sprintSpeedModifier) {
+			super(mob, Player.class, maxDist, walkSpeedModifier, sprintSpeedModifier);
+		}
+
+		public void enable() {
+			enabled = true;
+		}
+
+		@Override
+		public boolean canUse() {
+			return enabled && super.canUse();
+		}
 	}
 
 }

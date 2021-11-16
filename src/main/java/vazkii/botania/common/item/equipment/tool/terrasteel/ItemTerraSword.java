@@ -65,7 +65,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 			EntityManaBurst burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);
 			player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 0.4F, 1.4F);
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 
@@ -95,8 +95,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	public void apply(ItemStack stack, BurstProperties props) {}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		return dead;
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+		return shouldKill;
 	}
 
 	@Override

@@ -14,6 +14,9 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import vazkii.botania.api.block.IHourglassTrigger;
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.*;
 import vazkii.botania.common.block.tile.mana.*;
@@ -133,5 +136,17 @@ public class ModTiles {
 		register(r, LibBlockNames.TERU_TERU_BOZU, TERU_TERU_BOZU);
 		register(r, LibBlockNames.AVATAR, AVATAR);
 		register(r, LibBlockNames.ANIMATED_TORCH, ANIMATED_TORCH);
+
+		IHourglassTrigger.API.registerForBlockEntities((be, c) -> {
+			var torch = (TileAnimatedTorch) be;
+			return hourglass -> torch.toggle();
+		}, ANIMATED_TORCH);
+		IWandable.API.registerSelf(
+				ALF_PORTAL, ANIMATED_TORCH, CORPOREA_CRYSTAL_CUBE, CORPOREA_RETAINER,
+				CRAFT_CRATE, ENCHANTER, HOURGLASS, PLATFORM, POOL,
+				RUNE_ALTAR, SPREADER, TURNTABLE);
+		IWandHUD.API.registerSelf(ANIMATED_TORCH, BREWERY, CORPOREA_RETAINER, CRAFT_CRATE,
+				ENCHANTER, HOURGLASS, POOL, PRISM, SPREADER, TURNTABLE);
+
 	}
 }
