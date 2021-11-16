@@ -47,8 +47,8 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 	public abstract void bindToNearest();
 
 	@Override
-	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		if (world.isClientSide) {
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		if (level.isClientSide) {
 			return;
 		}
 

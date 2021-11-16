@@ -123,11 +123,11 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWan
 	}
 
 	@Override
-	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		if (entity != null) {
-			orientation = entity.getDirection();
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		if (placer != null) {
+			orientation = placer.getDirection();
 		}
-		super.onBlockPlacedBy(world, pos, state, entity, stack);
+		super.setPlacedBy(level, pos, state, placer, stack);
 	}
 
 	@Override

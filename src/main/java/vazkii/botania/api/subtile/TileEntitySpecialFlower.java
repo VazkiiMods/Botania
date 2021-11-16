@@ -218,7 +218,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	/**
 	 * Called when this sub tile is placed in the world (by an entity).
 	 */
-	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {}
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {}
 
 	/**
 	 * Gets the block coordinates this is bound to, for use with the wireframe render
