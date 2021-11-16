@@ -11,7 +11,6 @@ package vazkii.botania.test.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -20,10 +19,10 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.item.ItemCacophonium;
 import vazkii.botania.common.item.ModItems;
@@ -45,16 +44,14 @@ public class CacophoniumTest {
 
 		//Use the cacophonium on the cow.
 		player.interactOn(cow, InteractionHand.MAIN_HAND);
-		SoundEvent sound = ItemCacophonium.getSound(player.getMainHandItem());
-		TestingUtil.assertEquals(sound, SoundEvents.COW_AMBIENT);
+		TestingUtil.assertEquals(ItemCacophonium.getSound(player.getMainHandItem()), SoundEvents.COW_AMBIENT);
 
 		//Use the cacophonium on the note block.
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, noteBlockPos);
 		helper.assertBlockPresent(ModBlocks.cacophonium, noteBlockPos);
 
-		BlockEntity be = helper.getBlockEntity(noteBlockPos);
-		TestingUtil.assertThat(be instanceof TileCacophonium, "No cacophonium block entity?");
-		TestingUtil.assertEquals(ItemCacophonium.getSound(((TileCacophonium) be).stack), SoundEvents.COW_AMBIENT);
+		TileCacophonium cacophoniumBlock = TestingUtil.assertBlockEntity(helper, noteBlockPos, ModTiles.CACOPHONIUM);
+		TestingUtil.assertEqualsAt(helper, noteBlockPos, ItemCacophonium.getSound(cacophoniumBlock.stack), SoundEvents.COW_AMBIENT);
 
 		//Moo.
 		helper.setBlock(noteBlockPos.south(), Blocks.REDSTONE_BLOCK);

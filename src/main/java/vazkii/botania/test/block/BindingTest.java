@@ -1,133 +1,136 @@
 package vazkii.botania.test.block;
 
-import com.google.common.collect.Iterables;
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
-import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.Direction;
+import net.minecraft.gametest.framework.*;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import org.apache.commons.lang3.mutable.MutableObject;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.test.TestingUtil;
 
-import java.util.*;
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BindingTest {
-	private static final BlockState SHOULD_BIND = Blocks.GREEN_STAINED_GLASS.defaultBlockState();
-	private static final BlockState SHOULD_NOT_BIND = Blocks.PINK_STAINED_GLASS.defaultBlockState();
+	private static final String BATCH = LibMisc.MOD_ID + ":" + "binding";
 	
-	public static final String FLOWER_TO_POOL_ARENA_STRUCTURE = "botania:block/flower_to_pool_arena";
-	private static final String FLOWER_TO_POOL_BATCH = LibMisc.MOD_ID + ":" + "flower_to_pool_binding";
+	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena") //Empty 33x33x33 structure
+	public void functionalFlowerAutoBindTest(GameTestHelper helper) {
+		autobindTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
+	}
 	
-	private void flowerPoolSmokeTest(GameTestHelper helper) {
-		//Collect the positions of "should bind" / "shouldn't bind" blocks in the structure, and find the mana pool.
-		//These are "relative blockpos"es.
-		Set<BlockPos> shouldBind = new HashSet<>();
-		Set<BlockPos> shouldNotBind = new HashSet<>();
-		MutableObject<BlockPos> poolPosWrap = new MutableObject<>(null); //lambdas...
+	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	public void generatingFlowerAutoBindTest(GameTestHelper helper) {
+		autobindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 7);
+	}
+	
+	private void autobindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
+		BlockPos middle = new BlockPos(16, 16, 16);
+		helper.setBlock(middle, bindTargetBlock);
+		BlockPos absoluteBindTarget = TestingUtil.assertAnyBlockEntity(helper, middle).getBlockPos();
 		
-		helper.forEveryBlockInStructure(pos -> {
-			BlockState state = helper.getBlockState(pos);
-			if(state.equals(SHOULD_BIND)) {
-				shouldBind.add(pos.immutable());
-			} else if(state.equals(SHOULD_NOT_BIND)) {
-				shouldNotBind.add(pos.immutable());
-			} else if(state.getBlock() instanceof BlockPool) {
-				poolPosWrap.setValue(pos.immutable());
-			}
+		List<BlockPos> justCloseEnough = placeAxialFlowers(helper, middle, flower, maxDistance);
+		List<BlockPos> tooFarAway = placeAxialFlowers(helper, middle, flower, maxDistance + 1);
+		
+		//TODO: can remove 1 tick delay after my (quat's) PR, flowers bind on the same tick they're placed in my pr
+		helper.runAfterDelay(1L, () -> {
+			justCloseEnough.forEach(pos -> assertFlowerBoundTo(helper, pos, absoluteBindTarget));
+			tooFarAway.forEach(pos -> assertFlowerBoundTo(helper, pos, null));
+			helper.succeed();
 		});
+	}
+	
+	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	public void functionalFlowerManualBindTest(GameTestHelper helper) {
+		manualBindTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
+	}
+	
+	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	public void generatingFlowerManualBindTest(GameTestHelper helper) {
+		manualBindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 7);
+	}
+	
+	private void manualBindTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
+		BlockPos middle = new BlockPos(16, 16, 16);
 		
-		TestingUtil.assertThat(poolPosWrap.getValue() != null, "Didn't find mana pool in structure");
-		BlockPos absolutePoolPos = helper.absolutePos(poolPosWrap.getValue());
+		//Place flowers first so they can't automatically bind
+		List<BlockPos> justCloseEnough = placeAxialFlowers(helper, middle, flower, maxDistance);
+		List<BlockPos> tooFarAway = placeAxialFlowers(helper, middle, flower, maxDistance + 1);
 		
-		//Place floating flowers in all positions.
-		for(BlockPos pos : Iterables.concat(shouldBind, shouldNotBind)) {
-			helper.setBlock(pos, ModSubtiles.clayconiaFloating);
+		helper.setBlock(middle, bindTargetBlock);
+		BlockPos absoluteBindTarget = TestingUtil.assertAnyBlockEntity(helper, middle).getBlockPos();
+		
+		//Bind each flower with the Wand of the Forest. (before doing any assertions, so you can examine the result in-game)
+		justCloseEnough.forEach(pos -> TestingUtil.bindWithWandOfTheForest(helper, pos, middle));
+		tooFarAway.forEach(pos -> TestingUtil.bindWithWandOfTheForest(helper, pos, middle));
+		
+		//Close-enough ones should bind, far away ones should not.
+		justCloseEnough.forEach(pos -> assertFlowerBoundTo(helper, pos, absoluteBindTarget));
+		tooFarAway.forEach(pos -> assertFlowerBoundTo(helper, pos, null));
+		
+		helper.succeed();
+	}
+	
+	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	public void functionalFlowerObedienceStick(GameTestHelper helper) {
+		obedienceStickTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
+	}
+	
+	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	public void generatingFlowerObedienceStick(GameTestHelper helper) {
+		obedienceStickTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 7);
+	}
+	
+	private void obedienceStickTest(GameTestHelper helper, Block bindTargetBlock, Block flower, int maxDistance) {
+		BlockPos middle = new BlockPos(16, 16, 16);
+		
+		//Place flowers first so they can't automatically bind
+		List<BlockPos> justCloseEnough = placeAxialFlowers(helper, middle, flower, maxDistance);
+		List<BlockPos> tooFarAway = placeAxialFlowers(helper, middle, flower, maxDistance + 1);
+		
+		helper.setBlock(middle, bindTargetBlock);
+		BlockPos absoluteBindTarget = TestingUtil.assertAnyBlockEntity(helper, middle).getBlockPos();
+		
+		//Use a Floral Obedience Stick on the pool
+		Player player = helper.makeMockPlayer();
+		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.obedienceStick));
+		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, middle);
+		
+		//All close-enough flowers should bind, all far-away ones should not
+		justCloseEnough.forEach(pos -> assertFlowerBoundTo(helper, pos, absoluteBindTarget));
+		tooFarAway.forEach(pos -> assertFlowerBoundTo(helper, pos, null));
+		
+		helper.succeed();
+	}
+	
+	private static List<BlockPos> placeAxialFlowers(GameTestHelper helper, BlockPos center, Block flower, int distance) {
+		return Arrays.stream(Direction.values())
+			.map(dir -> center.relative(dir, distance))
+			.peek(pos -> helper.setBlock(pos, flower))
+			.collect(Collectors.toList());
+	}
+	
+	private static void assertFlowerBoundTo(GameTestHelper helper, BlockPos relativePos, @Nullable BlockPos absoluteBindTarget) {
+		String message = absoluteBindTarget == null ? "Flower should not have bound" : "Flower should have bound to " + absoluteBindTarget;
+		
+		BlockEntity be = TestingUtil.assertAnyBlockEntity(helper, relativePos);
+		if(be instanceof TileEntityGeneratingFlower tege) {
+			TestingUtil.assertEqualsAt(helper, relativePos, tege.getBinding(), absoluteBindTarget, () -> message);
+		} else if(be instanceof TileEntityFunctionalFlower tefe) {
+			TestingUtil.assertEqualsAt(helper, relativePos, tefe.getBinding(), absoluteBindTarget, () -> message);
+		} else {
+			TestingUtil.throwPositionedAssertion(helper, relativePos, () -> "Expected a flower here");
 		}
-		
-		//TODO: Remove this after https://github.com/VazkiiMods/Botania/pull/3831, flowers *should* bind on placement then
-		helper.runAfterDelay(1, () -> {
-			try {
-				List<BlockPos> shouldBindButDidNot = new ArrayList<>();
-				List<BlockPos> shouldNotBindButDid = new ArrayList<>();
-				
-				//Verify that all flowers have the correct binding
-				for(BlockPos pos : Iterables.concat(shouldBind, shouldNotBind)) {
-					BlockEntity be = helper.getBlockEntity(pos);
-					if(!(be instanceof TileEntityFunctionalFlower)) {
-						TestingUtil.throwPositionedAssertion(helper, pos, "Missing flower tile entity?");
-					}
-					TileEntityFunctionalFlower flower = (TileEntityFunctionalFlower) be;
-					
-					BlockPos binding = flower.getBinding();
-					boolean hasBinding = binding != null;
-					boolean correctBinding = hasBinding && binding.equals(absolutePoolPos);
-					
-					if(binding != null && !correctBinding) {
-						TestingUtil.throwPositionedAssertion(helper, pos, "Flower bound to something other than the pool, that's weird");
-						continue;
-					}
-					
-					//The flower is close enough to bind to the pool, but didn't.
-					if(shouldBind.contains(pos) && !correctBinding) {
-						shouldBindButDidNot.add(pos.immutable());
-					}
-					
-					//The flower is too far away to bind to the pool, but bound to something anyways.
-					if(shouldNotBind.contains(pos) && hasBinding) {
-						shouldNotBindButDid.add(pos.immutable());
-					}
-				}
-				
-				//Display results in the world
-				for(BlockPos pos : shouldBindButDidNot) {
-					helper.setBlock(pos, Blocks.GREEN_WOOL);
-				}
-				
-				for(BlockPos pos : shouldNotBindButDid) {
-					helper.setBlock(pos, Blocks.PINK_WOOL);
-				}
-				
-				//Assert that there are no screwed up flowers
-				TestingUtil.assertThat(shouldBindButDidNot.isEmpty(), "Flowers that should bind, but didn't: " + str(shouldBindButDidNot));
-				TestingUtil.assertThat(shouldNotBindButDid.isEmpty(), "Flowers that should not bind, but did: " + str(shouldNotBindButDid));
-			} finally {
-				//Clear out all the flowers (they're laggy!)
-				for(BlockPos pos : Iterables.concat(shouldBind, shouldNotBind)) {
-					if(helper.getBlockEntity(pos) instanceof TileEntityFunctionalFlower) {
-						helper.setBlock(pos, Blocks.AIR);
-					}
-				}
-			}
-		});
-	}
-	
-	private static String str(List<BlockPos> list) {
-		return list.stream().map(Objects::toString).collect(Collectors.joining(", "));
-	}
-	
-	@GameTest(template = FLOWER_TO_POOL_ARENA_STRUCTURE, batch = FLOWER_TO_POOL_BATCH)
-	public void flowerPoolSmokeTestA(GameTestHelper helper) {
-		flowerPoolSmokeTest(helper);
-	}
-	
-	@GameTest(template = FLOWER_TO_POOL_ARENA_STRUCTURE, rotationSteps = 1, batch = FLOWER_TO_POOL_BATCH)
-	public void flowerPoolSmokeTestB(GameTestHelper helper) {
-		flowerPoolSmokeTest(helper);
-	}
-	
-	@GameTest(template = FLOWER_TO_POOL_ARENA_STRUCTURE, rotationSteps = 2, batch = FLOWER_TO_POOL_BATCH)
-	public void flowerPoolSmokeTestC(GameTestHelper helper) {
-		flowerPoolSmokeTest(helper);
-	}
-	
-	@GameTest(template = FLOWER_TO_POOL_ARENA_STRUCTURE, rotationSteps = 3, batch = FLOWER_TO_POOL_BATCH)
-	public void flowerPoolSmokeTestD(GameTestHelper helper) {
-		flowerPoolSmokeTest(helper);
 	}
 }

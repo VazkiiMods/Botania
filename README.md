@@ -58,6 +58,10 @@ JVM argument to `true`.
 2. Create a class in `src/main/java/vazkii/botania/test`. Fill it with methods annotated with `@GameTest`, see the other tests for examples.
 3. List the class in the `fabric-gametest` entrypoint in Botania's `fabric.mod.json`.
 
+Tips:
+* Please keep 5 blocks of padding in the N/S/E/W directions of all tests that have mana pools, spreaders, or flowers in them. This prevents them interfering with the tests about seeing whether flowers bind to the closest spreader, if Gametest happens to put them next to each other.
+* If your test has a *lot* of air blocks in it, use structure voids to keep the filesize down. If you forget, run a regex find-and-replace on the `snbt` file, replacing `.*minecraft:air.*\n` with the empty string.
+
 To run tests in-game: open the game normally, make sure you're not standing near anything you care about, and use `/test runall`. (Gametest uses a default superflat with Generate Structures, doMobSpawning, and doWeatherCycle all disabled as its testing environment.)
 
 To run tests headlessly (all of these do the same thing):
@@ -65,4 +69,4 @@ To run tests headlessly (all of these do the same thing):
 * Launch the server with the argument `-Dfabric-api.gametest=1`.
 * Use `./gradlew runGameTest`. (Github Actions does this)
 
-After running tests headlessly, the testing world will be saved to `run/world`. Copy this directory into `run/saves` and it will appear as a save file in singleplayer 
+After running tests headlessly, the testing world will be saved to `run/world`. Copy this directory into `run/saves` and it will appear as a save file in singleplayer.

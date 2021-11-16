@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -93,26 +92,6 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock {
 	@Nonnull
 	@Override
 	public InteractionResult use(@Nonnull BlockState state, Level world, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-		for(int x = 0; x <= 11; x++) {
-			for(int y = -11; y <= 11; y++) {
-				for(int z = 0; z <= 11; z++) {
-					BlockPos here = pos;
-					BlockPos there = here.offset(x, y, z);
-					
-					long dx = here.getX() - there.getX();
-					long dy = here.getY() - there.getY();
-					long dz = here.getZ() - there.getZ();
-					
-					long distSqr = dx * dx + dy * dy + dz * dz;
-					if(distSqr > 10 * 10) {
-						world.setBlockAndUpdate(there.below(), Blocks.PINK_STAINED_GLASS.defaultBlockState());
-					} else {
-						world.setBlockAndUpdate(there.below(), Blocks.GREEN_STAINED_GLASS.defaultBlockState());
-					}
-				}
-			}
-		}
-		
 		BlockEntity te = world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.getItem() instanceof DyeItem && te instanceof TilePool) {
