@@ -29,7 +29,8 @@
     ],
     "fabric-gametest": [
       "vazkii.botania.test.block.OpenCrateTest",
-      "vazkii.botania.test.TestTest"
+      "vazkii.botania.test.TestTest",
+			"vazkii.botania.test.item.CacophoniumTest"
     ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
