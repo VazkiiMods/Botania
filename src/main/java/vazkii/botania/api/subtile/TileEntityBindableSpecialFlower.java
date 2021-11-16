@@ -10,7 +10,6 @@ package vazkii.botania.api.subtile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nullable;
@@ -126,21 +125,6 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 		}
 
 		return false;
-	}
-
-	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
-		if (player == null) {
-			return false;
-		}
-
-		if (!player.level.isClientSide) {
-			sync();
-		}
-
-		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
-
-		return super.onWanded(player, wand);
 	}
 
 	@Override
