@@ -11,6 +11,7 @@ package vazkii.botania.test;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestAssertException;
+import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -34,6 +35,11 @@ public class TestingUtil {
 
 	public static <T> void assertEquals(@Nullable T a, @Nullable T b) {
 		assertThat(Objects.equals(a, b), "Expected " + a + " to equal " + b);
+	}
+	
+	public static void throwPositionedAssertion(GameTestHelper helper, BlockPos relativePos, String msg) {
+		//A couple of GameTestHelper's assertion errors throw this exception, but it's inconvenient to throw if you're not using those helpers
+		throw new GameTestAssertPosException(msg, relativePos, helper.absolutePos(relativePos), helper.getTick());
 	}
 
 	public static InteractionResult useItemOn(GameTestHelper helper, Player player, InteractionHand hand, BlockPos pos) {
