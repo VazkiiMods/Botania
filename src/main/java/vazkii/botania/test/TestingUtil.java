@@ -15,7 +15,6 @@ import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -108,9 +107,12 @@ public class TestingUtil {
 		//Conjure a player with Wand of the Forest
 		Player player = helper.makeMockPlayer();
 		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.twigWand));
-		player.setPose(Pose.CROUCHING);
+		player.setShiftKeyDown(true);
 
+		//Move the player to each destination just to make sure they're in-range
+		player.setPos(Vec3.atCenterOf(first));
 		useItemOn(helper, player, InteractionHand.MAIN_HAND, first);
+		player.setPos(Vec3.atCenterOf(second));
 		useItemOn(helper, player, InteractionHand.MAIN_HAND, second);
 	}
 }
