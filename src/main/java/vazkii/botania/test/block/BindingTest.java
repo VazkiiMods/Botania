@@ -23,7 +23,6 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.test.TestingUtil;
 
 import javax.annotation.Nullable;
@@ -33,14 +32,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BindingTest {
-	private static final String BATCH = LibMisc.MOD_ID + ":" + "binding";
-
-	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena") //Empty 33x33x33 structure
+	@GameTest(template = "botania:block/flower_binding_arena") //Empty 33x33x33 structure
 	public void functionalFlowerAutoBindTest(GameTestHelper helper) {
 		autobindTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
 	}
 
-	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	@GameTest(template = "botania:block/flower_binding_arena")
 	public void generatingFlowerAutoBindTest(GameTestHelper helper) {
 		autobindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
@@ -60,12 +57,12 @@ public class BindingTest {
 		});
 	}
 
-	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	@GameTest(template = "botania:block/flower_binding_arena")
 	public void functionalFlowerManualBindTest(GameTestHelper helper) {
 		manualBindTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
 	}
 
-	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	@GameTest(template = "botania:block/flower_binding_arena")
 	public void generatingFlowerManualBindTest(GameTestHelper helper) {
 		manualBindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
@@ -91,12 +88,12 @@ public class BindingTest {
 		helper.succeed();
 	}
 
-	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	@GameTest(template = "botania:block/flower_binding_arena")
 	public void functionalFlowerObedienceStick(GameTestHelper helper) {
 		obedienceStickTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
 	}
 
-	@GameTest(batch = BATCH, template = "botania:block/flower_binding_arena")
+	@GameTest(template = "botania:block/flower_binding_arena")
 	public void generatingFlowerObedienceStick(GameTestHelper helper) {
 		obedienceStickTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
