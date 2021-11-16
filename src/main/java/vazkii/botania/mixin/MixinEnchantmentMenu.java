@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +25,14 @@ import vazkii.botania.common.block.BlockPylon;
 
 @Mixin(EnchantmentMenu.class)
 public class MixinEnchantmentMenu {
-	@ModifyVariable(method = "lambda$slotsChanged$0", at = @At(value = "STORE", ordinal = 0), ordinal = 0)
+	@Dynamic("method_17411: synthetic lambda body in slotsChanged")
+	@ModifyVariable(
+		method = { "lambda$slotsChanged$0", "method_17411" },
+		at = @At(value = "STORE", ordinal = 0),
+		remap = false,
+		ordinal = 0,
+		require = 0
+	)
 	private int botaniaPylonEnchanting(int obj, ItemStack stack, Level level, BlockPos pos) {
 		for (int x = -1; x <= 1; ++x) {
 			for (int z = -1; z <= 1; ++z) {
