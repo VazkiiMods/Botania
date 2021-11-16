@@ -12,10 +12,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,23 +42,28 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 	}
 
 	public abstract int getBindingRange();
+
+	//TODO: Implementations of this method are pretty much the only thing still using IManaNetwork.
+	// This function has room to be a little expensive, as it's only ever called once per flower.
+	// It could be replaced with a naive loop to find nearby TileEntities.
+	// Maybe PoIs if you wanna get fancy. After that, IManaNetwork can pretty much be removed.
 	public abstract void bindToNearest();
 
 	@Override
-	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		if (level.isClientSide) {
-			return;
-		}
+	protected void tickFlower() {
+		super.tickFlower();
 
-		//The flower might already have a binding, even on first placement, due to ctrl-pickblock or something.
-		//It would be nice to retain that binding, but only if it is valid, so you can't use ctrl-pick to place
-		//flowers with wacky out-of-range binding positions.
-		//Here is the only place that the binding is actually cleared if it's invalid. Might be worth changing.
-		if (bindingPos == null || !isValidBinding()) {
-			bindToNearest();
-
-			if (!isValidBinding()) {
-				setBindingPos(null);
+		//First time the flower has been placed. This is the best time to check it; /setblock and friends don't call
+		//the typical setPlacedBy method that player-placements do.
+		if (ticksExisted == 1 && !level.isClientSide) {
+			//Situations to consider:
+			// the flower has been placed in the void, and there is nothing for it to bind to;
+			// the flower has been placed next to a bind target, and I want to automatically bind to it;
+			// the flower already has a valid binding due to ctrl-pick placement, and I should keep it;
+			// the flower already has a binding from ctrl-pick placement, but it's invalid (out of range etc) and I should delete it.
+			if (bindingPos == null || !isValidBinding()) {
+				setBindingPos(null); //in case bindToNearest doesn't find any targets, don't keep invalid bindings around
+				bindToNearest();
 			}
 		}
 	}
@@ -95,7 +98,7 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 	}
 
 	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
-		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > getBindingRange() * getBindingRange()) {
+		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > (long) getBindingRange() * getBindingRange()) {
 			return false;
 		} else {
 			return findBindCandidateAt(pos) != null;
