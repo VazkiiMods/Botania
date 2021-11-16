@@ -39,6 +39,7 @@
     "MixinBushBlock",
     "MixinCreeper",
     "MixinDetectorRailBlock",
+    "MixinEnchantmentMenu",
     "MixinEnderMan",
     "MixinEntity",
     "MixinExplosion",
