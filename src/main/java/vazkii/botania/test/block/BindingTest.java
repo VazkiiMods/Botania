@@ -53,7 +53,6 @@ public class BindingTest {
 		List<BlockPos> justCloseEnough = placeAxialFlowers(helper, middle, flower, maxDistance);
 		List<BlockPos> tooFarAway = placeAxialFlowers(helper, middle, flower, maxDistance + 1);
 
-		//TODO: can remove 1 tick delay after my (quat's) PR, flowers bind on the same tick they're placed in my pr
 		helper.runAfterDelay(1L, () -> {
 			justCloseEnough.forEach(pos -> assertFlowerBoundTo(helper, pos, absoluteBindTarget));
 			tooFarAway.forEach(pos -> assertFlowerBoundTo(helper, pos, null));
