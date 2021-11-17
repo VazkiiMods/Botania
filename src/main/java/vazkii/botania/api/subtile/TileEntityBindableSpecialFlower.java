@@ -26,28 +26,30 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
- * Superclass of all flowers which are bound to something with the Wand of the Forest,
- * such as generating flowers to mana collectors, or mana-using functional flowers to pools.
- * Implements bindability logic common to both types of flower.
+ * Superclass of flowers that can be bound to some kind of target with the Wand of the Forest,
+ * such as generating flowers to mana collectors, or functional flowers to pools.
+ * Implements the bindability logic common to both types of flower.
  */
 public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpecialFlower implements IWandBindable {
-	protected @Nullable BlockPos bindingPos = null;
-	private final Class<T> tileClass;
+	/**
+	 * Superclass (or interface) of all BlockEntities that this flower is able to bind to.
+	 */
+	private final Class<T> bindClass;
 
+	protected @Nullable BlockPos bindingPos = null;
 	private static final String TAG_BINDING = "binding";
 
-	public TileEntityBindableSpecialFlower(BlockEntityType<?> type, BlockPos pos, BlockState state, Class<T> tileClass) {
+	public TileEntityBindableSpecialFlower(BlockEntityType<?> type, BlockPos pos, BlockState state, Class<T> bindClass) {
 		super(type, pos, state);
-		this.tileClass = tileClass;
+		this.bindClass = bindClass;
 	}
 
-	public abstract int getBindingRange();
+	public abstract int getBindingRadius();
 
-	//TODO: Implementations of this method are pretty much the only thing still using IManaNetwork.
-	// This function has room to be a little expensive, as it's only ever called once per flower.
-	// It could be replaced with a naive loop to find nearby TileEntities.
-	// Maybe PoIs if you wanna get fancy. After that, IManaNetwork can pretty much be removed.
-	public abstract void bindToNearest();
+	/**
+	 * Returns the BlockPos of the nearest target within the binding radius, or `null` if there aren't any.
+	 */
+	public abstract @Nullable BlockPos findClosestTarget();
 
 	@Override
 	protected void tickFlower() {
@@ -62,8 +64,7 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 			// the flower already has a valid binding due to ctrl-pick placement, and I should keep it;
 			// the flower already has a binding from ctrl-pick placement, but it's invalid (out of range etc) and I should delete it.
 			if (bindingPos == null || !isValidBinding()) {
-				setBindingPos(null); //in case bindToNearest doesn't find any targets, don't keep invalid bindings around
-				bindToNearest();
+				setBindingPos(findClosestTarget());
 			}
 		}
 	}
@@ -90,7 +91,7 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 		}
 
 		BlockEntity be = level.getBlockEntity(pos);
-		return be != null && tileClass.isAssignableFrom(be.getClass()) ? (T) be : null;
+		return be != null && bindClass.isAssignableFrom(be.getClass()) ? (T) be : null;
 	}
 
 	public @Nullable T findBoundTile() {
@@ -98,7 +99,7 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 	}
 
 	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
-		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > (long) getBindingRange() * getBindingRange()) {
+		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > (long) getBindingRadius() * getBindingRadius()) {
 			return false;
 		} else {
 			return findBindCandidateAt(pos) != null;

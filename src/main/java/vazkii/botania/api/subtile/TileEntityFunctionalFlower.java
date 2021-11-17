@@ -30,6 +30,8 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
 
+import javax.annotation.Nullable;
+
 /**
  * The basic class for a Functional Flower.
  */
@@ -80,17 +82,15 @@ public class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<
 	}
 
 	@Override
-	public int getBindingRange() {
+	public int getBindingRadius() {
 		return LINK_RANGE;
 	}
 
 	@Override
-	public void bindToNearest() {
+	public @Nullable BlockPos findClosestTarget() {
 		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-		BlockEntity closestPool = network.getClosestPool(getBlockPos(), getLevel(), LINK_RANGE);
-		if (closestPool instanceof IManaPool) {
-			setBindingPos(closestPool.getBlockPos());
-		}
+		BlockEntity closestPool = network.getClosestPool(getBlockPos(), getLevel(), getBindingRadius());
+		return closestPool == null ? null : closestPool.getBlockPos();
 	}
 
 	public void drawManaFromPool() {

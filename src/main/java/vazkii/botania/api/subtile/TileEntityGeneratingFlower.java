@@ -30,6 +30,8 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
+import javax.annotation.Nullable;
+
 /**
  * The basic class for a Generating Flower.
  */
@@ -91,17 +93,15 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 	}
 
 	@Override
-	public int getBindingRange() {
+	public int getBindingRadius() {
 		return LINK_RANGE;
 	}
 
 	@Override
-	public void bindToNearest() {
+	public @Nullable BlockPos findClosestTarget() {
 		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-		BlockEntity closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), LINK_RANGE);
-		if (closestCollector != null) {
-			setBindingPos(closestCollector.getBlockPos());
-		}
+		BlockEntity closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), getBindingRadius());
+		return closestCollector == null ? null : closestCollector.getBlockPos();
 	}
 
 	public void emptyManaIntoCollector() {
