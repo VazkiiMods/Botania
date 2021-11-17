@@ -65,7 +65,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		int effCd = COOLDOWN;
 		EffectInstance effect = player.getActivePotionEffect(Effects.HASTE);
 		if (effect != null) {
-			effCd -= (effect.getAmplifier() + 1) * 8;
+			effCd = Math.max(2, COOLDOWN - (effect.getAmplifier() + 1) * 8);
 		}
 
 		if (player.isSneaking() && hasClip(stack)) {
@@ -77,7 +77,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 				setCooldown(stack, effCd);
 			}
 			return ActionResult.func_233538_a_(stack, world.isRemote);
-		} else if (getCooldown(stack) == 0) {
+		} else if (getCooldown(stack) <= 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isRemote) {
