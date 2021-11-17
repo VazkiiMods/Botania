@@ -22,27 +22,27 @@ public interface ManaNetworkCallback {
 
 	void onNetworkChange(BlockEntity be, ManaBlockType type, Action action);
 
-	public static void addCollector(BlockEntity tile) {
+	static void addCollector(BlockEntity tile) {
 		EVENT.invoker().onNetworkChange(tile, ManaBlockType.COLLECTOR, Action.ADD);
 	}
 
-	public static void removeCollector(BlockEntity tile) {
+	static void removeCollector(BlockEntity tile) {
 		EVENT.invoker().onNetworkChange(tile, ManaBlockType.COLLECTOR, Action.REMOVE);
 	}
 
-	public static void addPool(BlockEntity tile) {
+	static void addPool(BlockEntity tile) {
 		EVENT.invoker().onNetworkChange(tile, ManaBlockType.POOL, Action.ADD);
 	}
 
-	public static void removePool(BlockEntity tile) {
+	static void removePool(BlockEntity tile) {
 		EVENT.invoker().onNetworkChange(tile, ManaBlockType.POOL, Action.REMOVE);
 	}
 
-	public enum ManaBlockType {
+	enum ManaBlockType {
 		POOL, COLLECTOR
 	}
 
-	public enum Action {
+	enum Action {
 		REMOVE, ADD
 	}
 }

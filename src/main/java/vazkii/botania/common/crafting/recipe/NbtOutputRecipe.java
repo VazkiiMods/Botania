@@ -41,7 +41,7 @@ public class NbtOutputRecipe {
 				CompoundTag tag = TagParser.parseTag(GsonHelper.convertToString(nbt, "nbt"));
 				recipe.getResultItem().setTag(tag);
 			} catch (CommandSyntaxException e) {
-				throw new JsonSyntaxException("Invalid nbt tag: " + e.getMessage());
+				throw new JsonSyntaxException("Invalid nbt tag: " + e.getMessage(), e);
 			}
 			return recipe;
 		}

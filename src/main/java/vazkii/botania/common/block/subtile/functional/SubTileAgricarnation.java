@@ -47,6 +47,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 		this(ModSubtiles.AGRICARNATION, pos, state);
 	}
 
+	@Override
 	public void tickFlower() {
 		super.tickFlower();
 
