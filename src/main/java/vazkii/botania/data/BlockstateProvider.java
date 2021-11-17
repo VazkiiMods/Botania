@@ -156,7 +156,7 @@ public class BlockstateProvider implements DataProvider {
 
 		singleVariantBlockState(cacophonium,
 				ModelTemplates.CUBE_TOP.create(cacophonium, (new TextureMapping())
-						.put(TextureSlot.SIDE, getBlockTexture(cacophonium))
+						.put(TextureSlot.SIDE, getBlockTexture(Blocks.NOTE_BLOCK))
 						.put(TextureSlot.TOP, getBlockTexture(cacophonium, "_top")), this.modelOutput));
 		remainingBlocks.remove(cacophonium);
 
