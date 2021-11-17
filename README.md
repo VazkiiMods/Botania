@@ -48,3 +48,25 @@ JVM argument to `true`.
 7. Go to [Jenkins](https://ci.blamejared.com/job/Botania/view/tags/) and wait for the tag you just pushed to be compiled and built
 8. Download the JAR and submit it to CurseForge
 9. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote username to ssh into the webserver, it'll take your current login name.
+
+## Working with GameTest
+1. If your want a structure for your test:
+   1. Build your structure in-game using a structure block. The tests are placed a couple blocks off the ground, so don't forget to add a floor.
+   2. Export the structure to an `.snbt` file (json NBT). Name the structure anything starting with `minecraft:`, save it, then stand close to the structure block and run `/test exportthis`. The namespace restriction is due to some bug or limitation with Mojang's `/test` command.
+   3. The command will print the location of the saved `.snbt` file. It is in `run/gameteststructures`.
+   4. Copy the file to somewhere under `src/main/resources/data/botania/gametest/structures`.
+2. Create a class in `src/main/java/vazkii/botania/test`. Fill it with methods annotated with `@GameTest`, see the other tests for examples.
+3. List the class in the `fabric-gametest` entrypoint in Botania's `fabric.mod.json`.
+
+Tips:
+* Please keep 5 blocks of padding in the N/S/E/W directions of all tests that have mana pools, spreaders, or flowers in them. This prevents them interfering with the tests about seeing whether flowers bind to the closest spreader, if Gametest happens to put them next to each other.
+* If your test has a *lot* of air blocks in it, use structure voids to keep the filesize down. If you forget, run a regex find-and-replace on the `snbt` file, replacing `.*minecraft:air.*\n` with the empty string.
+
+To run tests in-game: open the game normally, make sure you're not standing near anything you care about, and use `/test runall`. (Gametest uses a default superflat with Generate Structures, doMobSpawning, and doWeatherCycle all disabled as its testing environment.)
+
+To run tests headlessly (all of these do the same thing):
+* Use the `Minecraft Game Test` run configuration in your IDE.
+* Launch the server with the argument `-Dfabric-api.gametest=1`.
+* Use `./gradlew runGameTest`. (Github Actions does this)
+
+After running tests headlessly, the testing world will be saved to `run/world`. Copy this directory into `run/saves` and it will appear as a save file in singleplayer.

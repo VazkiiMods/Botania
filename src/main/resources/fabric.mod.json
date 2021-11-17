@@ -28,8 +28,10 @@
       "vazkii.botania.client.core.proxy.ClientProxy"
     ],
     "fabric-gametest": [
+      "vazkii.botania.test.TestTest",
       "vazkii.botania.test.block.OpenCrateTest",
-      "vazkii.botania.test.TestTest"
+			"vazkii.botania.test.block.BindingTest",
+      "vazkii.botania.test.item.CacophoniumTest"
     ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
