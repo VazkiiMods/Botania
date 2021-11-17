@@ -94,11 +94,12 @@ public class BlockstateProvider extends BlockStateProvider {
 		String bifrostPermName = Registry.BLOCK.getKey(bifrostPerm).getPath();
 		simpleBlock(bifrostPerm, models().cubeAll(bifrostPermName, prefix("block/bifrost")));
 		remainingBlocks.remove(bifrostPerm);
-
-		String cacophoniumName = Registry.BLOCK.getKey(cacophonium).getPath();
-		simpleBlock(cacophonium, models().cubeTop(cacophoniumName,
-				prefix("block/" + cacophoniumName),
-				prefix("block/" + cacophoniumName + "_top")));
+		
+		/* manual (cherry-picked from 1.17 where datagen is much different)
+		singleVariantBlockState(cacophonium,
+				ModelTemplates.CUBE_TOP.create(cacophonium, (new TextureMapping())
+						.put(TextureSlot.SIDE, getBlockTexture(Blocks.NOTE_BLOCK))
+						.put(TextureSlot.TOP, getBlockTexture(cacophonium, "_top")), this.modelOutput)); */
 		remainingBlocks.remove(cacophonium);
 
 		String craftCrateName = Registry.BLOCK.getKey(craftCrate).getPath();
