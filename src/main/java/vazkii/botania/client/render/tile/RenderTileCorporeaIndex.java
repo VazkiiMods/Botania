@@ -29,6 +29,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporeaIndex> {
@@ -53,6 +54,11 @@ public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporea
 				.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F),
 				PartPose.ZERO);
 		return mesh;
+	}
+
+	@Override
+	public boolean shouldRenderOffScreen(@Nonnull TileCorporeaIndex blockEntity) {
+		return true;
 	}
 
 	@Override
