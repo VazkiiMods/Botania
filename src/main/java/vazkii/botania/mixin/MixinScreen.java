@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import vazkii.botania.client.core.handler.TooltipAdditionDisplayHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 
 import java.util.List;
@@ -31,12 +30,11 @@ public class MixinScreen {
 	@Shadow
 	protected Font font;
 
-	@Inject(method = "renderTooltipInternal", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void renderManaBar(PoseStack poseStack, List<ClientTooltipComponent> list, int oldX, int oldY, CallbackInfo ci, int w, int h, int x, int y) {
+	@Inject(method = "renderTooltipInternal", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"), locals = LocalCapture.CAPTURE_FAILHARD)
+	private void renderManaBar(PoseStack poseStack, List<ClientTooltipComponent> list, int oldX, int oldY, CallbackInfo ci, int width, int height, int x, int y) {
 		for (ClientTooltipComponent component : list) {
 			if (component instanceof ManaBarTooltipComponent manaBar) {
-				TooltipAdditionDisplayHandler.onToolTipRender(poseStack, manaBar, w, x, y, font);
-				return;
+				manaBar.setContext(x, y, width);
 			}
 		}
 	}
