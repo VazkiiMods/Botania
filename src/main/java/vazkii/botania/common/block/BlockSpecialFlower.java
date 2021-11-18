@@ -79,8 +79,8 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 	}
 
 	@Override
-	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		((TileEntitySpecialFlower) world.getBlockEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		((TileEntitySpecialFlower) level.getBlockEntity(pos)).setPlacedBy(level, pos, state, placer, stack);
 	}
 
 	@Override

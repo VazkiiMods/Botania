@@ -45,7 +45,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		((TileEntitySpecialFlower) world.getBlockEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
+		((TileEntitySpecialFlower) world.getBlockEntity(pos)).setPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@Nonnull

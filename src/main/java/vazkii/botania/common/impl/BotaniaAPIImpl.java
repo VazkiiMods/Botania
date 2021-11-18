@@ -35,7 +35,6 @@ import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -255,11 +254,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	public void sparkleFX(Level world, double x, double y, double z, float r, float g, float b, float size, int m) {
 		SparkleParticleData data = SparkleParticleData.sparkle(size, r, g, b, m);
 		world.addParticle(data, x, y, z, 0, 0, 0);
-	}
-
-	@Override
-	public boolean shouldForceCheck() {
-		return ConfigHandler.COMMON.flowerForceCheck.getValue();
 	}
 
 	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
