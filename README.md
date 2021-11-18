@@ -50,15 +50,16 @@ JVM argument to `true`.
 9. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote username to ssh into the webserver, it'll take your current login name.
 
 ## Working with GameTest
-1. If your want a structure for your test:
-   1. Build your structure in-game using a structure block. The tests are placed a couple blocks off the ground, so don't forget to add a floor.
-   2. Export the structure to an `.snbt` file (json NBT). Name the structure anything starting with `minecraft:`, save it, then stand close to the structure block and run `/test exportthis`. The namespace restriction is due to some bug or limitation with Mojang's `/test` command.
-   3. The command will print the location of the saved `.snbt` file. It is in `run/gameteststructures`.
-   4. Copy the file to somewhere under `src/main/resources/data/botania/gametest/structures`.
+1. Create a structure if wanted:
+   1. Run /test create <size> to generate a test platform of the desired size. IMPORTANT: All tests should size themselves appropriately to ensure they don't interfere with other tests. E.g. a test testing a block with max radius 8 should leave at least 8 blocks of room on all sides.
+   2. Build the test setup then save the structure, *without a namespace*. Then run `/test export <thename>`.
+   3. The command will print the location of the saved `.snbt` file in `run/gameteststructures`.
+   4. Copy the file to `src/main/resources/data/botania/gametest/structures`.
 2. Create a class in `src/main/java/vazkii/botania/test`. Fill it with methods annotated with `@GameTest`, see the other tests for examples.
 3. List the class in the `fabric-gametest` entrypoint in Botania's `fabric.mod.json`.
 
 Tips:
+* The @GameTest annotation takes a `batch` argument. Any tests in the same batch run in parallel. Tests in different batches will not run together.
 * Please keep 5 blocks of padding in the N/S/E/W directions of all tests that have mana pools, spreaders, or flowers in them. This prevents them interfering with the tests about seeing whether flowers bind to the closest spreader, if Gametest happens to put them next to each other.
 * If your test has a *lot* of air blocks in it, use structure voids to keep the filesize down. If you forget, run a regex find-and-replace on the `snbt` file, replacing `.*minecraft:air.*\n` with the empty string.
 
