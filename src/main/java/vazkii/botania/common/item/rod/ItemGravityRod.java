@@ -237,7 +237,7 @@ public class ItemGravityRod extends Item {
 						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setDeltaMovement(moveVector.x * mot, moveVector.y, moveVector.z * mot);
 						if (!player.level.isClientSide) {
-							EntityThrownItem thrown = new EntityThrownItem(item.level, item.getX(), item.getY(), item.getZ(), (ItemEntity) item);
+							EntityThrownItem thrown = new EntityThrownItem(item.level, item.getX(), item.getY(), item.getZ(), item);
 							item.level.addFreshEntity(thrown);
 						}
 						item.discard();
