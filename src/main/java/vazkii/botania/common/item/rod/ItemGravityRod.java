@@ -10,6 +10,7 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -35,6 +37,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,13 +97,16 @@ public class ItemGravityRod extends Item {
 		leftClick(player);
 	}
 
-	/* todo fabric
 	// Prevent damaging the entity you just held with the rod
-	@Override
-	public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
-		return ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0;
+	public static InteractionResult onAttack(Player player, Level level, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.is(ModItems.gravityRod)) {
+			if (ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0) {
+				return InteractionResult.FAIL;
+			}
+		}
+		return InteractionResult.PASS;
 	}
-	*/
 
 	@Nonnull
 	@Override
