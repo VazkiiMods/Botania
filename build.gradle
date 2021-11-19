@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.9-SNAPSHOT'
     id 'maven-publish'
     id 'com.diffplug.spotless' version '5.8.2'
     id 'io.github.juuxel.loom-quiltflower-mini' version '1.1.0'
@@ -80,10 +80,7 @@ test {
 
 dependencies {
     minecraft "com.mojang:minecraft:${mc_version}"
-    mappings loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.17.1:2021.10.31@zip")
-    }
+    mappings loom.officialMojangMappings()
 
     modImplementation "net.fabricmc:fabric-loader:0.11.6"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.42.1+1.17"
