@@ -18,11 +18,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.common.block.ModPatterns;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.regex.Pattern;
 
-public class ItemBlockTinyPotato extends BlockItem {
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternProvider;
+
+public class ItemBlockTinyPotato extends BlockItem implements LoomPatternProvider {
 
 	private static final Pattern TYPOS = Pattern.compile(
 			"(?!^vazkii$)" // Do not match the properly spelled version 
@@ -54,6 +58,11 @@ public class ItemBlockTinyPotato extends BlockItem {
 
 	public ItemBlockTinyPotato(Block block, Properties props) {
 		super(block, props);
+	}
+
+	@Override
+	public LoomPattern getPattern() {
+		return ModPatterns.TINY_POTATO;
 	}
 
 	@Override
