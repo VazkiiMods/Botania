@@ -1,13 +1,64 @@
 {
   "variants": {
-    "type=bottom": {
-      "model": "botania:block/dreamwood_slab"
-    },
-    "type=double": {
-      "model": "botania:block/dreamwood_1"
-    },
-    "type=top": {
-      "model": "botania:block/dreamwood_slab_top"
-    }
+    "type=bottom": [
+      {
+        "model": "botania:block/dreamwood_slab_1"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_2"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_3"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_4"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_5"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_6"
+      }
+    ],
+    "type=double": [
+      {
+        "model": "botania:block/dreamwood_1"
+      },
+      {
+        "model": "botania:block/dreamwood_2"
+      },
+      {
+        "model": "botania:block/dreamwood_3"
+      },
+      {
+        "model": "botania:block/dreamwood_4"
+      },
+      {
+        "model": "botania:block/dreamwood_5"
+      },
+      {
+        "model": "botania:block/dreamwood_6"
+      }
+    ],
+    "type=top": [
+      {
+        "model": "botania:block/dreamwood_slab_top_1"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_top_2"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_top_3"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_top_4"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_top_5"
+      },
+      {
+        "model": "botania:block/dreamwood_slab_top_6"
+      }
+    ]
   }
 }
