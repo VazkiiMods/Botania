@@ -2801,7 +2801,7 @@
   "botania.entry.pistonRelay": "Force Relay",
   "botania.tagline.pistonRelay": "Remote piston extension",
   "botania.page.pistonRelay0": "It seems that $(item)Pistons$(0) and $(thing)Mana$(0) react in strange ways. The former, when infused with the latter, becomes a $(item)Force Relay$(0), a block that tears the fabric of space. When one of these is pushed by a $(item)Piston$(0), the block it's bound to is pushed the exact same way.$(p)To bind it to a block, right-click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l), then right-click on the block you want to bind it to.",
-  "botania.page.pistonRelay1": "To retrieve a $(item)Force Relay$(0), sneak-right click it, or use a $(item)Dispenser$(0) on it, with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); any other attempts to retrieve it (including $(thing)Silk Touch$(0)) will destroy it.$(p)Furthermore, this block is highly unstable, and may create uncanny effects; care should be taken with it. It ignores pushes and pulls from $(item)Sticky Pistons$(0) entirely, allowing for the building of piston \"frames.\"",
+  "botania.page.pistonRelay1": "This block is highly unstable and may cause uncanny effects; care should be taken with it. It cannot be pulled by $(item)Sticky Pistons$(0), and does not move its bound block either when pushed by one. This allows for the building of piston \"frames\" by combining a sticky and non-sticky piston.",
   "botania.page.pistonRelay2": "Infusing a $(item)Piston$(0) with $(thing)Mana$(0).",
 
   "botania.entry.enderHand": "Hand of Ender",
