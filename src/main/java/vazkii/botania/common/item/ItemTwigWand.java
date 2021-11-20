@@ -77,7 +77,7 @@ public class ItemTwigWand extends Item {
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
-		ICoordBoundItem.API.registerSelf(this);
+		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
