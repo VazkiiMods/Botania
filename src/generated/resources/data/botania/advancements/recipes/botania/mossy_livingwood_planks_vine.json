@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:pattern_framed_livingwood"
+      "botania:mossy_livingwood_planks_vine"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:pattern_framed_livingwood"
+        "recipe": "botania:mossy_livingwood_planks_vine"
       }
     }
   },

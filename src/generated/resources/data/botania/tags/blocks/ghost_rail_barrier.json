@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#botania:dreamwood_logs",
-    "#botania:glimmering_dreamwood_logs"
+    "#botania:dreamwood_logs"
   ]
 }

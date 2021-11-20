@@ -172,18 +172,23 @@ public class BlockTagProvider extends BlockTagsProvider {
 			this.tag(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
 		}
 
-		tag(BlockTags.PLANKS).add(livingwoodPlanks, livingwoodPlanksMossy, dreamwoodPlanks, dreamwoodPlanksMossy, shimmerwoodPlanks);
-
-		tag(ModTags.Blocks.LIVINGWOOD_LOGS).add(livingwoodLog, livingwood, livingwoodLogStripped, livingwoodStripped);
-		tag(ModTags.Blocks.DREAMWOOD_LOGS).add(dreamwoodLog, dreamwood, dreamwoodLogStripped, dreamwoodStripped);
-		tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.LIVINGWOOD_LOGS).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
+		tag(BlockTags.PLANKS).add(livingwoodPlanks, livingwoodPlanksMossy, livingwoodFramed, livingwoodPatternFramed,
+				dreamwoodPlanks, dreamwoodPlanksMossy, dreamwoodFramed, dreamwoodPatternFramed, shimmerwoodPlanks);
 
 		tag(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING).add(livingwoodGlimmering, livingwoodLogGlimmering,
 				livingwoodStrippedGlimmering, livingwoodLogStrippedGlimmering);
 		tag(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING).add(dreamwoodGlimmering, dreamwoodLogGlimmering,
 				dreamwoodStrippedGlimmering, dreamwoodLogStrippedGlimmering);
 
-		tag(ModTags.Blocks.GHOST_RAIL_BARRIER).addTag(ModTags.Blocks.DREAMWOOD_LOGS).addTag(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING);
+		tag(ModTags.Blocks.LIVINGWOOD_LOGS)
+				.add(livingwoodLog, livingwood, livingwoodLogStripped, livingwoodStripped)
+				.addTag(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING);
+		tag(ModTags.Blocks.DREAMWOOD_LOGS)
+				.add(dreamwoodLog, dreamwood, dreamwoodLogStripped, dreamwoodStripped)
+				.addTag(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING);
+		tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.LIVINGWOOD_LOGS).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
+
+		tag(ModTags.Blocks.GHOST_RAIL_BARRIER).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
 
 		tag(new TagDelegate<>(new ResourceLocation("buzzier_bees:flower_blacklist"), BlockTags::getAllTags))
 				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
