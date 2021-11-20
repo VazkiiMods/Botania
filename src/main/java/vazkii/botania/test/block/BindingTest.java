@@ -32,12 +32,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BindingTest {
-	@GameTest(template = "botania:block/flower_binding_arena") //Empty 33x33x33 structure
+	//Empty 33x33x33 structure
+	private static final String TEMPLATE = "botania:block/flower_binding_arena";
+
+	@GameTest(template = TEMPLATE)
 	public void functionalFlowerAutoBindTest(GameTestHelper helper) {
 		autobindTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
 	}
 
-	@GameTest(template = "botania:block/flower_binding_arena")
+	@GameTest(template = TEMPLATE)
 	public void generatingFlowerAutoBindTest(GameTestHelper helper) {
 		autobindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
@@ -57,12 +60,12 @@ public class BindingTest {
 		});
 	}
 
-	@GameTest(template = "botania:block/flower_binding_arena")
+	@GameTest(template = TEMPLATE)
 	public void functionalFlowerManualBindTest(GameTestHelper helper) {
 		manualBindTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
 	}
 
-	@GameTest(template = "botania:block/flower_binding_arena")
+	@GameTest(template = TEMPLATE)
 	public void generatingFlowerManualBindTest(GameTestHelper helper) {
 		manualBindTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
@@ -88,12 +91,12 @@ public class BindingTest {
 		helper.succeed();
 	}
 
-	@GameTest(template = "botania:block/flower_binding_arena")
+	@GameTest(template = TEMPLATE)
 	public void functionalFlowerObedienceStick(GameTestHelper helper) {
 		obedienceStickTest(helper, ModBlocks.creativePool, ModSubtiles.clayconiaFloating, 10);
 	}
 
-	@GameTest(template = "botania:block/flower_binding_arena")
+	@GameTest(template = TEMPLATE)
 	public void generatingFlowerObedienceStick(GameTestHelper helper) {
 		obedienceStickTest(helper, ModBlocks.manaSpreader, ModSubtiles.endoflameFloating, 6);
 	}
