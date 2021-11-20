@@ -31,5 +31,6 @@ public final class LibEntityNames {
 	public static final ResourceLocation MANA_STORM = prefix("mana_storm");
 	public static final ResourceLocation BABYLON_WEAPON = prefix("babylon_weapon");
 	public static final ResourceLocation FALLING_STAR = prefix("falling_star");
+	public static final ResourceLocation ENDER_AIR = prefix("ender_air");
 
 }

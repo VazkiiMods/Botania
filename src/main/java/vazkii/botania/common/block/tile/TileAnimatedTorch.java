@@ -26,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
@@ -35,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod implements IWandable {
+public class TileAnimatedTorch extends TileMod implements IWandable, IWandHUD {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -132,6 +133,7 @@ public class TileAnimatedTorch extends TileMod implements IWandable {
 	}
 
 	@Environment(EnvType.CLIENT)
+	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc) {
 		int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;

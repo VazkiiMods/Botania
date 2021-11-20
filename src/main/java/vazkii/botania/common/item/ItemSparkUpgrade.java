@@ -8,16 +8,18 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 
-public class ItemSparkUpgrade extends Item {
+
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
+
+public class ItemSparkUpgrade extends ItemModPattern {
 	public final SparkUpgradeType type;
 
-	public ItemSparkUpgrade(Properties builder, SparkUpgradeType type) {
-		super(builder);
+	public ItemSparkUpgrade(LoomPattern pattern, Properties builder, SparkUpgradeType type) {
+		super(pattern, builder);
 		this.type = type;
 	}
 

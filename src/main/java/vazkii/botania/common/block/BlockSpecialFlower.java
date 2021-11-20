@@ -8,11 +8,8 @@
  */
 package vazkii.botania.common.block;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.world.effect.MobEffect;
@@ -31,7 +28,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
@@ -41,7 +37,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWandHUD {
+public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
 
@@ -83,14 +79,8 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 	}
 
 	@Override
-	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		((TileEntitySpecialFlower) world.getBlockEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		((TileEntitySpecialFlower) world.getBlockEntity(pos)).renderHUD(ms, mc);
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		((TileEntitySpecialFlower) level.getBlockEntity(pos)).setPlacedBy(level, pos, state, placer, stack);
 	}
 
 	@Override

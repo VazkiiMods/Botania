@@ -1,3 +1,30 @@
+1.16.5-420
+* Haha: funny number
+* Add: tomater (Eutro)
+* Add: Spreader (de)wooling now makes sounds (quat)
+* Add: Support for CraftTweaker recipe replacing and printing
+* Add: Jiyuulia and Tangleberrie Petites (artemisSystem)
+* Add: Niter to Orechid (iTitus)
+* Change: Make Rannuncarpus wand operation consistent with other flowers
+* Change: Mana Enchanter now allows crying obsidian alongside obsidian
+* Change: Cache failed-to-match state of crafty crate, which improves lag of idle Crafty Crates that have an invalid recipe
+* Change: Blacklist special flowers from Buzzier Bees bonemeal duping
+* Change: Make Corporea Crystal Cube look better (better AO, break particle, item render) (quat)
+* Change: Remove data related to 2021 summer build contest (quat)
+* Change: Spreaders interact with right clicks more smartly (quat)
+* Change: API: ManaItemHandler.request/requestExact can now pull from multiple items to satisfy one request (noeppi)
+* Fix: Mana Enchanter's form and fade sound effect subtitles were swapped
+* Fix: Bifrost Rods breaking at y = 0
+* Fix: Rare crash when spawning charged creepers from Loonium
+* Fix: Floral Obedience Stick desyncs flowers when used from Dispenser
+* Fix: Improve performance of large corporea spark networks
+* Fix: Exoflame bugging out on modded furnaces sometimes by moving past the maximum cook time
+* Fix: Mobs spawning on platforms
+* Fix: Corporea Crystal Cube used null ItemStacks, precise effects unknown but definitely a bug :)
+* Fix: Village chest loot not spawning properly
+* Fix: Sparks sometimes kept acting as if they were still there after being removed
+* Fix: Incorrect logic check in TileExposedSimpleInventory.canInsertItem
+* Fix: Cirrus Pendant not firing jump events and thus breaking with mods that expect it (StrikerRocker)
 1.16.5-419
 * Add: eutrotater (Eutro)
 * Change: Buff bellethorne

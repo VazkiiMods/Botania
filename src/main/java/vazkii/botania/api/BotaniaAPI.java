@@ -233,13 +233,6 @@ public interface BotaniaAPI {
 
 	default void sparkleFX(Level world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
-	/**
-	 * See config value "flower.forceCheck" for more information
-	 */
-	default boolean shouldForceCheck() {
-		return false;
-	}
-
 	default void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
 
 	}

@@ -35,7 +35,7 @@ import java.util.function.Function;
 public class LensPaint extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		int storedColor = ItemLens.getStoredColor(stack);
 		if (!entity.level.isClientSide && !burst.isFake() && storedColor > -1 && storedColor < 17) {
@@ -52,7 +52,7 @@ public class LensPaint extends Lens {
 							other.setColor(DyeColor.byId(storedColor == 16 ? other.level.random.nextInt(16) : storedColor));
 						}
 					}
-					dead = true;
+					shouldKill = true;
 				} else if (collidedWith instanceof ISparkEntity) {
 					((ISparkEntity) collidedWith).setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level.random.nextInt(16) : storedColor));
 				}
@@ -97,7 +97,7 @@ public class LensPaint extends Lens {
 			}
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 }

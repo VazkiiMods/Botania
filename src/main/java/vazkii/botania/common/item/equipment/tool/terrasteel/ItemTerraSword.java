@@ -95,8 +95,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	public void apply(ItemStack stack, BurstProperties props) {}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		return dead;
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+		return shouldKill;
 	}
 
 	@Override

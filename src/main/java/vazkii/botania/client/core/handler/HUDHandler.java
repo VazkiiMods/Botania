@@ -20,12 +20,12 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -93,31 +93,32 @@ public final class HUDHandler {
 
 		HitResult pos = mc.hitResult;
 
-		if (pos != null) {
-			BlockPos bpos = pos.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) pos).getBlockPos() : null;
-			BlockState state = bpos != null ? mc.level.getBlockState(bpos) : null;
-			Block block = state == null ? null : state.getBlock();
-			BlockEntity tile = bpos != null ? mc.level.getBlockEntity(bpos) : null;
+		if (pos instanceof BlockHitResult result) {
+			BlockPos bpos = result.getBlockPos();
+
+			BlockState state = mc.level.getBlockState(bpos);
+			BlockEntity tile = mc.level.getBlockEntity(bpos);
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-					if (block instanceof IWandHUD) {
+					var hud = IWandHUD.API.find(mc.level, bpos, state, tile, Unit.INSTANCE);
+					if (hud != null) {
 						profiler.push("wandItem");
-						((IWandHUD) block).renderHUD(ms, mc, mc.level, bpos);
+						hud.renderHUD(ms, mc);
 						profiler.pop();
 					}
 				}
-				if (tile instanceof TilePool && !mc.player.getMainHandItem().isEmpty()) {
-					renderPoolRecipeHUD(ms, (TilePool) tile, mc.player.getMainHandItem());
+				if (tile instanceof TilePool pool && !mc.player.getMainHandItem().isEmpty()) {
+					renderPoolRecipeHUD(ms, pool, mc.player.getMainHandItem());
 				}
 			}
 			if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
-				if (tile instanceof TileAltar) {
-					((TileAltar) tile).renderHUD(ms, mc);
-				} else if (tile instanceof TileRuneAltar) {
-					((TileRuneAltar) tile).renderHUD(ms, mc);
-				} else if (tile instanceof TileCorporeaCrystalCube) {
-					renderCrystalCubeHUD(ms, (TileCorporeaCrystalCube) tile);
+				if (tile instanceof TileAltar altar) {
+					altar.renderHUD(ms, mc);
+				} else if (tile instanceof TileRuneAltar runeAltar) {
+					runeAltar.renderHUD(ms, mc);
+				} else if (tile instanceof TileCorporeaCrystalCube cube) {
+					renderCrystalCubeHUD(ms, cube);
 				}
 			}
 		}

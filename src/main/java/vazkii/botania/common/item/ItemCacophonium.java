@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -146,7 +148,8 @@ public class ItemCacophonium extends Item {
 	}
 
 	@Nullable
-	private static SoundEvent getSound(ItemStack stack) {
+	@VisibleForTesting
+	public static SoundEvent getSound(ItemStack stack) {
 		if (isDOIT(stack)) {
 			return ModSounds.doit;
 		} else {

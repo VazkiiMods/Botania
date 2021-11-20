@@ -59,7 +59,6 @@ public class MixinItemEntity {
 		}
 		Item item = ((ItemEntity) (Object) this).getItem().getItem();
 		if (ModItems.isNoDespawn(item)) {
-			// todo 1.17 this breaks the bobbing animations which uses age
 			age = 0;
 		}
 	}

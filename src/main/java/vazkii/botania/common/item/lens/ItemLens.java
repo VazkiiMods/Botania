@@ -98,15 +98,15 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		dead = getLens(stack).collideBurst(burst, pos, isManaBlock, dead, stack);
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+		shouldKill = getLens(stack).collideBurst(burst, pos, isManaBlock, shouldKill, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
 		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens) {
-			dead = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, dead, compositeLens);
+			shouldKill = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
 		}
 
-		return dead;
+		return shouldKill;
 	}
 
 	@Override

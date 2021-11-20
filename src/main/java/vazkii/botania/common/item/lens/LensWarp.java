@@ -21,10 +21,10 @@ import vazkii.botania.common.block.ModBlocks;
 public class LensWarp extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (entity.level.isClientSide || burst.isFake() || pos.getType() != HitResult.Type.BLOCK) {
-			return dead;
+			return shouldKill;
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
@@ -41,6 +41,6 @@ public class LensWarp extends Lens {
 				return false;
 			}
 		}
-		return dead;
+		return shouldKill;
 	}
 }

@@ -30,11 +30,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.IHourglassTrigger;
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
-public class TileHourglass extends TileExposedSimpleInventory implements IWandable {
+public class TileHourglass extends TileExposedSimpleInventory implements IWandable, IWandHUD {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -206,8 +207,8 @@ public class TileHourglass extends TileExposedSimpleInventory implements IWandab
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(PoseStack ms) {
-		Minecraft mc = Minecraft.getInstance();
+	@Override
+	public void renderHUD(PoseStack ms, Minecraft mc) {
 		int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
 
@@ -231,7 +232,6 @@ public class TileHourglass extends TileExposedSimpleInventory implements IWandab
 				mc.font.drawShadow(ms, I18n.get("botaniamisc." + status), x + 20, y + 12, getColor());
 			}
 		}
-
 	}
 
 	@Override

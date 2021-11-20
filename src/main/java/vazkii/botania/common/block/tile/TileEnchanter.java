@@ -22,7 +22,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -38,6 +37,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
@@ -64,7 +64,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements ISparkAttachable, IWandable {
+public class TileEnchanter extends TileMod implements ISparkAttachable, IWandable, IWandHUD {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -476,10 +476,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(PoseStack ms) {
+	@Override
+	public void renderHUD(PoseStack ms, Minecraft mc) {
 		if (manaRequired > 0 && !itemToEnchant.isEmpty()) {
-			int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 20;
-			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - 8;
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 20;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
 
 			RenderHelper.renderProgressPie(ms, x, y, (float) mana / (float) manaRequired, itemToEnchant);
 		}

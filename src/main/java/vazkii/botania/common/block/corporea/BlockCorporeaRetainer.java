@@ -8,11 +8,6 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -23,13 +18,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaRetainer extends BlockMod implements EntityBlock, IWandHUD {
+public class BlockCorporeaRetainer extends BlockMod implements EntityBlock {
 
 	public BlockCorporeaRetainer(BlockBehaviour.Properties builder) {
 		super(builder);
@@ -68,14 +62,5 @@ public class BlockCorporeaRetainer extends BlockMod implements EntityBlock, IWan
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new TileCorporeaRetainer(pos, state);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TileCorporeaRetainer) {
-			((TileCorporeaRetainer) te).renderHUD(ms, mc);
-		}
 	}
 }

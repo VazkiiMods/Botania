@@ -8,11 +8,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +28,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -42,7 +36,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockEnchanter extends BlockMod implements EntityBlock, IWandHUD {
+public class BlockEnchanter extends BlockMod implements EntityBlock {
 
 	public BlockEnchanter(Properties builder) {
 		super(builder);
@@ -110,11 +104,5 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandHUD {
 
 			super.onRemove(state, world, pos, newState, isMoving);
 		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		((TileEnchanter) world.getBlockEntity(pos)).renderHUD(ms);
 	}
 }

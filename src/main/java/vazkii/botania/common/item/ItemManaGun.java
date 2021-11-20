@@ -68,7 +68,7 @@ public class ItemManaGun extends Item {
 		int effCd = COOLDOWN;
 		MobEffectInstance effect = player.getEffect(MobEffects.DIG_SPEED);
 		if (effect != null) {
-			effCd -= (effect.getAmplifier() + 1) * 8;
+			effCd = Math.max(2, COOLDOWN - (effect.getAmplifier() + 1) * 8);
 		}
 
 		if (player.isShiftKeyDown() && hasClip(stack)) {
@@ -80,7 +80,7 @@ public class ItemManaGun extends Item {
 				setCooldown(stack, effCd);
 			}
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
-		} else if (getCooldown(stack) == 0) {
+		} else if (getCooldown(stack) <= 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isClientSide) {

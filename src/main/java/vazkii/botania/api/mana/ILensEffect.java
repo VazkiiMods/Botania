@@ -31,7 +31,7 @@ public interface ILensEffect {
 	 * 
 	 * @return True to kill the burst. False to keep it alive.
 	 */
-	boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack);
+	boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack);
 
 	/**
 	 * Called when a mana burst fired from a mana spreader with this focus is updated.

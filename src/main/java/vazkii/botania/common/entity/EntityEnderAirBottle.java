@@ -46,6 +46,7 @@ import java.util.stream.Collectors;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSupplier {
+	public static final int PARTICLE_COLOR = 0x000008;
 	private static final ResourceLocation GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
 
 	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, Level world) {
@@ -62,7 +63,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 
 	private void convertStone(@Nonnull BlockPos pos) {
 		List<BlockPos> coordsList = getCoordsToPut(pos);
-		level.levelEvent(2002, blockPosition(), 8);
+		level.levelEvent(2002, blockPosition(), PARTICLE_COLOR);
 
 		for (BlockPos coords : coordsList) {
 			level.setBlockAndUpdate(coords, Blocks.END_STONE.defaultBlockState());
@@ -74,6 +75,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 
 	@Override
 	protected void onHitBlock(@Nonnull BlockHitResult result) {
+		super.onHitBlock(result);
 		if (level.isClientSide) {
 			return;
 		}
@@ -83,16 +85,18 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 
 	@Override
 	protected void onHitEntity(@Nonnull EntityHitResult result) {
+		super.onHitEntity(result);
 		if (level.isClientSide) {
 			return;
 		}
 		Entity entity = result.getEntity();
 		if (entity.getType() == EntityType.GHAST && level.dimension() == Level.OVERWORLD) {
-			level.levelEvent(2002, blockPosition(), 8);
+			level.levelEvent(2002, blockPosition(), PARTICLE_COLOR);
 			DamageSource source = DamageSource.thrown(this, getOwner());
 			entity.hurt(source, 0);
 
-			// Ghasts always appear to be aligned horizontally - but the look doesn't always match, correct for that
+			// Ghasts render as if they are looking straight ahead, but the look y component
+			// can actually be nonzero, correct for that
 			Vec3 lookVec = entity.getLookAngle();
 			Vec3 vec = new Vec3(lookVec.x(), 0, lookVec.z()).normalize();
 

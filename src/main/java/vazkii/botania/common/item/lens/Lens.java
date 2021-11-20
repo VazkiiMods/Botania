@@ -20,8 +20,8 @@ public class Lens {
 
 	public void apply(ItemStack stack, BurstProperties props) {}
 
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		return dead;
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+		return shouldKill;
 	}
 
 	public void updateBurst(IManaBurst burst, ItemStack stack) {}

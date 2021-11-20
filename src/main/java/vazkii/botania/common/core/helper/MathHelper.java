@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.core.helper;
 
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
@@ -50,4 +51,12 @@ public final class MathHelper {
 		return c1 & ~0xFFFFFF | r << 16 | g << 8 | b;
 	}
 
+	public static long distSqr(Vec3i a, Vec3i b) {
+		//Vec3i#distSqr, while convenient, offsets the second argument by (0.5, 0.5, 0.5).
+		//Longs are used because "dx * dx" overflows with distances longer than about 46,300 blocks when using integers.
+		long dx = a.getX() - b.getX();
+		long dy = a.getY() - b.getY();
+		long dz = a.getZ() - b.getZ();
+		return dx * dx + dy * dy + dz * dz;
+	}
 }

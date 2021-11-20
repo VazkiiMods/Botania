@@ -72,7 +72,6 @@ public final class ConfigHandler {
 	}
 
 	public static class Client {
-		public final PropertyMirror<Boolean> useShaders = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> lexiconRotatingItems = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> subtlePowerSystem = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> staticWandBeam = PropertyMirror.create(BOOLEAN);
@@ -94,10 +93,6 @@ public final class ConfigHandler {
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("rendering")
-					.beginValue("shaders", BOOLEAN, true)
-					.withComment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
-					.finishValue(useShaders::mirror)
-
 					.beginValue("boundBlockWireframe", BOOLEAN, true)
 					.withComment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")
 					.finishValue(boundBlockWireframe::mirror)
@@ -181,7 +176,6 @@ public final class ConfigHandler {
 		public final PropertyMirror<Boolean> chargingAnimationEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> silentSpreaders = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> spreaderTraceTime = PropertyMirror.create(INTEGER);
-		public final PropertyMirror<Boolean> flowerForceCheck = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> enderPickpocketEnabled = PropertyMirror.create(BOOLEAN);
 
 		public final PropertyMirror<Boolean> enchanterEnabled = PropertyMirror.create(BOOLEAN);
@@ -236,10 +230,6 @@ public final class ConfigHandler {
 					.beginValue("chargeAnimation", BOOLEAN, true)
 					.withComment("Set this to false to disable the animation when an item is charging on top of a mana pool")
 					.finishValue(chargingAnimationEnabled::mirror)
-
-					.beginValue("flowerBindingForceCheck", BOOLEAN, true)
-					.withComment("Turn this off ONLY IF you're on an extremely large world with an exaggerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.")
-					.finishValue(flowerForceCheck::mirror)
 
 					.beginValue("enderPickpocket", BOOLEAN, true)
 					.withComment("Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests")

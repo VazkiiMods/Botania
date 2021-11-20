@@ -15,11 +15,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,40 +30,28 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
-import java.util.Objects;
+import javax.annotation.Nullable;
 
 /**
  * The basic class for a Generating Flower.
  */
-public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
+public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<IManaCollector> {
 	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
-
 	private static final String TAG_MANA = "mana";
-
-	private static final String TAG_COLLECTOR_X = "collectorX";
-	private static final String TAG_COLLECTOR_Y = "collectorY";
-	private static final String TAG_COLLECTOR_Z = "collectorZ";
 	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
 	private int mana;
-
-	int sizeLastCheck = -1;
-	protected BlockEntity linkedCollector = null;
 	public int passiveDecayTicks;
 
-	private BlockPos cachedCollectorCoordinates = null;
-
 	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+		super(type, pos, state, IManaCollector.class);
 	}
 
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
-
-		linkCollector();
 
 		if (!getLevel().isClientSide && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
@@ -106,44 +92,24 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void linkCollector() {
-		boolean needsNew = false;
-		if (linkedCollector == null) {
-			needsNew = true;
-
-			if (cachedCollectorCoordinates != null) {
-				needsNew = false;
-				if (getLevel().hasChunkAt(cachedCollectorCoordinates)) {
-					needsNew = true;
-					BlockEntity tileAt = getLevel().getBlockEntity(cachedCollectorCoordinates);
-					if (tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
-						linkedCollector = tileAt;
-						needsNew = false;
-					}
-					cachedCollectorCoordinates = null;
-				}
-			}
-		} else {
-			BlockEntity tileAt = getLevel().getBlockEntity(linkedCollector.getBlockPos());
-			if (tileAt instanceof IManaCollector) {
-				linkedCollector = tileAt;
-			}
-		}
-
-		if (needsNew && ticksExisted == 1) { // New flowers only
-			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			int size = network.getAllCollectorsInWorld(getLevel()).size();
-			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
-				linkedCollector = network.getClosestCollector(getBlockPos(), getLevel(), LINK_RANGE);
-				sizeLastCheck = size;
-			}
-		}
+	@Override
+	public int getBindingRadius() {
+		return LINK_RANGE;
 	}
 
-	public void linkToForcefully(BlockEntity collector) {
-		if (linkedCollector != collector) {
-			linkedCollector = collector;
-			setChanged();
+	@Override
+	public @Nullable BlockPos findClosestTarget() {
+		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+		BlockEntity closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), getBindingRadius());
+		return closestCollector == null ? null : closestCollector.getBlockPos();
+	}
+
+	public void emptyManaIntoCollector() {
+		IManaCollector collector = findBoundTile();
+		if (collector != null && !collector.isFull() && getMana() > 0) {
+			int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
+			addMana(-manaval);
+			collector.receiveMana(manaval);
 			sync();
 		}
 	}
@@ -153,16 +119,8 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		setChanged();
 	}
 
-	public void emptyManaIntoCollector() {
-		if (isValidBinding()) {
-			IManaCollector collector = (IManaCollector) linkedCollector;
-			if (!collector.isFull() && getMana() > 0) {
-				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
-				addMana(-manaval);
-				collector.receiveMana(manaval);
-				sync();
-			}
-		}
+	public int getMana() {
+		return mana;
 	}
 
 	public boolean isPassiveFlower() {
@@ -194,72 +152,13 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
-
-		int x = cmp.getInt(TAG_COLLECTOR_X);
-		int y = cmp.getInt(TAG_COLLECTOR_Y);
-		int z = cmp.getInt(TAG_COLLECTOR_Z);
-
-		cachedCollectorCoordinates = y < 0 ? null : new BlockPos(x, y, z);
-		if (linkedCollector != null && !Objects.equals(linkedCollector.getBlockPos(), cachedCollectorCoordinates)) {
-			linkedCollector = null; //Force a refresh of the linked collector
-		}
 	}
 
 	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, getMana());
-		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
-
-		if (cachedCollectorCoordinates != null) {
-			cmp.putInt(TAG_COLLECTOR_X, cachedCollectorCoordinates.getX());
-			cmp.putInt(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
-			cmp.putInt(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
-		} else {
-			int x = linkedCollector == null ? 0 : linkedCollector.getBlockPos().getX();
-			int y = linkedCollector == null ? -1 : linkedCollector.getBlockPos().getY();
-			int z = linkedCollector == null ? 0 : linkedCollector.getBlockPos().getZ();
-
-			cmp.putInt(TAG_COLLECTOR_X, x);
-			cmp.putInt(TAG_COLLECTOR_Y, y);
-			cmp.putInt(TAG_COLLECTOR_Z, z);
-		}
-	}
-
-	@Override
-	public BlockPos getBinding() {
-		if (linkedCollector == null) {
-			return null;
-		}
-		return linkedCollector.getBlockPos();
-	}
-
-	@Override
-	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return true;
-	}
-
-	@Override
-	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		int range = 6;
-		range *= range;
-
-		double dist = pos.distSqr(getBlockPos());
-		if (range >= dist) {
-			BlockEntity tile = player.level.getBlockEntity(pos);
-			if (tile instanceof IManaCollector) {
-				linkedCollector = tile;
-				sync();
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isRemoved() && getLevel().getBlockEntity(linkedCollector.getBlockPos()) == linkedCollector;
 	}
 
 	public ItemStack getHudIcon() {
@@ -277,9 +176,5 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	@Override
 	public boolean isOvergrowthAffected() {
 		return !isPassiveFlower();
-	}
-
-	public int getMana() {
-		return mana;
 	}
 }

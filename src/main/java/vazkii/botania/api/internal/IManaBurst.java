@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public interface IManaBurst {
-	static BlockPos NO_SOURCE = new BlockPos(0, Integer.MIN_VALUE, 0);
+	BlockPos NO_SOURCE = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	boolean isFake();
 

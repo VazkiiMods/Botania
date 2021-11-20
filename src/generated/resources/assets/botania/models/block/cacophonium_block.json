@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_top",
   "textures": {
     "top": "botania:block/cacophonium_block_top",
-    "side": "botania:block/cacophonium_block"
+    "side": "minecraft:block/note_block"
   }
 }

@@ -8,7 +8,7 @@
     <description>
         Botania PMD rules
     </description>
-    <!-- Rule descriptions: https://pmd.github.io/pmd-6.22.0/pmd_rules_java.html -->
+    <!-- Rule descriptions: https://pmd.github.io/pmd-6.37.0/pmd_rules_java.html -->
 
     <rule ref="category/java/bestpractices.xml/DoubleBraceInitialization" />
     <rule ref="category/java/bestpractices.xml/MissingOverride" />
@@ -24,5 +24,27 @@
     <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange" />
     <rule ref="category/java/errorprone.xml/UseCorrectExceptionLogging" />
     <rule ref="category/java/errorprone.xml/UseLocaleWithCaseConversions" />
+
+    <rule name="DoNotUseMixinDebug"
+          language="java"
+          message="Mixin annotated with @Debug"
+          class="net.sourceforge.pmd.lang.rule.XPathRule">
+        <description>
+            Debug annotation makes Mixin export the class
+            or output the bytecode to the game log,
+            and should not be left in committed code.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="version" value="2.0"/>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+//Annotation[pmd-java:typeIsExactly("org.spongepowered.asm.mixin.Debug")]
+]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
 
 </ruleset>

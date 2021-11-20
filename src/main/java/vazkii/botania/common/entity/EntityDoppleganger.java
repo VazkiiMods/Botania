@@ -9,8 +9,6 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
@@ -69,8 +67,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.BossBarHandler;
-import vazkii.botania.client.core.helper.ShaderCallback;
-import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
@@ -987,37 +983,39 @@ public class EntityDoppleganger extends Mob {
 		return bossInfoUUID;
 	}
 
+	/* TODO 1.17 fabric
 	@Environment(EnvType.CLIENT)
 	@Nullable
 	public ShaderHelper.BotaniaShader getBossBarShaderProgram(boolean background) {
 		return background ? null : ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR;
 	}
-
+	
 	@Environment(EnvType.CLIENT)
 	private ShaderCallback shaderCallback;
-
+	
 	@Environment(EnvType.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background) {
 		if (shaderCallback == null) {
 			shaderCallback = shader1 -> {
 				int grainIntensityUniform = GlStateManager._glGetUniformLocation(shader1, "grainIntensity");
 				int hpFractUniform = GlStateManager._glGetUniformLocation(shader1, "hpFract");
-
+	
 				float time = getInvulTime();
 				float grainIntensity = time > 20 ? 1F : Math.max(hardMode ? 0.5F : 0F, time / 20F);
-
+	
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
 				RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
-
+	
 				ShaderHelper.FLOAT_BUF.position(0);
 				ShaderHelper.FLOAT_BUF.put(0, getHealth() / getMaxHealth());
 				RenderSystem.glUniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
 			};
 		}
-
+	
 		return background ? null : shaderCallback;
 	}
+	*/
 
 	@Environment(EnvType.CLIENT)
 	public void readSpawnData(int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUUID) {

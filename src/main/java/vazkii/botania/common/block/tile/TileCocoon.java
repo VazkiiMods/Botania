@@ -8,9 +8,11 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.Villager;
@@ -98,6 +100,17 @@ public class TileCocoon extends TileMod {
 			}
 
 			if (entity != null) {
+				if (level.random.nextFloat() < 0.01) {
+					// gonna make modded minecraft items into a gacha game
+					// and somehow find a way to add jeanne d'arc to it
+					// - Vazkii 2021
+					TextComponent name = new TextComponent("Jeanne d'");
+					name.append(entity.getName());
+					name.append(new TextComponent(" [SSR]"));
+					entity.setCustomName(name.withStyle(ChatFormatting.GOLD));
+					entity.setCustomNameVisible(true);
+				}
+
 				entity.setPos(placePos.getX() + 0.5, placePos.getY() + 0.5, placePos.getZ() + 0.5);
 				if (entity instanceof AgeableMob ageable) {
 					ageable.setAge(-24000);

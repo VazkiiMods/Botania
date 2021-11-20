@@ -33,8 +33,8 @@ import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
-import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModPatterns;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.recipe.*;
@@ -102,15 +102,15 @@ public final class ModItems {
 	public static final Item manaSteel = new Item(defaultBuilder());
 	public static final Item manaPearl = new Item(defaultBuilder());
 	public static final Item manaDiamond = new Item(defaultBuilder());
-	public static final Item livingwoodTwig = new Item(defaultBuilder());
-	public static final Item terrasteel = new ItemManaResource(defaultBuilder().rarity(Rarity.UNCOMMON));
+	public static final Item livingwoodTwig = new ItemModPattern(ModPatterns.FLOWER, defaultBuilder());
+	public static final Item terrasteel = new ItemTerrasteel(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item lifeEssence = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item redstoneRoot = new Item(defaultBuilder());
-	public static final Item elementium = new ItemElven(defaultBuilder());
-	public static final Item pixieDust = new ItemElven(defaultBuilder());
-	public static final Item dragonstone = new ItemElven(defaultBuilder());
+	public static final Item elementium = new Item(defaultBuilder());
+	public static final Item pixieDust = new Item(defaultBuilder());
+	public static final Item dragonstone = new Item(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
-	public static final Item dreamwoodTwig = new Item(defaultBuilder());
+	public static final Item dreamwoodTwig = new ItemModPattern(ModPatterns.SAPLING, defaultBuilder());
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item enderAirBottle = new ItemEnderAir(defaultBuilder());
 	public static final Item manaString = new Item(defaultBuilder());
@@ -305,10 +305,10 @@ public final class ModItems {
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
 	public static final Item nullVirus = new ItemVirus(defaultBuilder());
 	public static final Item spark = new ItemManaSpark(defaultBuilder());
-	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE);
-	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT);
-	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE);
-	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED);
+	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(ModPatterns.SPARK_DISPERSIVE, defaultBuilder(), SparkUpgradeType.DISPERSIVE);
+	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(ModPatterns.SPARK_DOMINANT, defaultBuilder(), SparkUpgradeType.DOMINANT);
+	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(ModPatterns.SPARK_RECESSIVE, defaultBuilder(), SparkUpgradeType.RECESSIVE);
+	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(ModPatterns.SPARK_ISOLATED, defaultBuilder(), SparkUpgradeType.ISOLATED);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.RARE));
@@ -706,7 +706,6 @@ public final class ModItems {
 		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
 		register(r, "ancient_will_attach", AncientWillRecipe.SERIALIZER);
 		register(r, "armor_upgrade", ArmorUpgradeRecipe.SERIALIZER);
-		register(r, "banner_pattern_apply", BannerRecipe.SERIALIZER);
 		register(r, "black_hole_talisman_extract", BlackHoleTalismanExtractRecipe.SERIALIZER);
 		register(r, "composite_lens", CompositeLensRecipe.SERIALIZER);
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
@@ -729,7 +728,7 @@ public final class ModItems {
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
 		register(r, "water_bottle_matching_shaped", WaterBottleMatchingRecipe.SERIALIZER);
 
-		ModBanners.init();
+		ModPatterns.init();
 	}
 
 	@Environment(EnvType.CLIENT)

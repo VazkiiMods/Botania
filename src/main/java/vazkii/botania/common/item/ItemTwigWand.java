@@ -65,7 +65,7 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemTwigWand extends Item implements ICoordBoundItem {
+public class ItemTwigWand extends Item {
 
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
@@ -77,6 +77,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
+		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
@@ -359,9 +360,9 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	public static Optional<BlockPos> getBindingAttempt(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Y, -1);
+		int y = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Y, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Z, 0);
-		return y < 0 ? Optional.empty() : Optional.of(new BlockPos(x, y, z));
+		return y == Integer.MIN_VALUE ? Optional.empty() : Optional.of(new BlockPos(x, y, z));
 	}
 
 	public static boolean getBindMode(ItemStack stack) {
@@ -376,23 +377,31 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return "botaniamisc.wandMode." + (getBindMode(stack) ? "bind" : "function");
 	}
 
-	@Nullable
-	@Override
-	public BlockPos getBinding(Level world, ItemStack stack) {
-		Optional<BlockPos> bound = getBindingAttempt(stack);
-		if (bound.isPresent()) {
-			return bound.get();
+	protected static class CoordBoundItem implements ICoordBoundItem {
+		private final ItemStack stack;
+
+		public CoordBoundItem(ItemStack stack) {
+			this.stack = stack;
 		}
 
-		HitResult pos = Minecraft.getInstance().hitResult;
-		if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
-			BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
-			if (tile instanceof ITileBound) {
-				return ((ITileBound) tile).getBinding();
+		@Nullable
+		@Override
+		public BlockPos getBinding(Level world) {
+			Optional<BlockPos> bound = getBindingAttempt(stack);
+			if (bound.isPresent()) {
+				return bound.get();
 			}
-		}
 
-		return null;
+			HitResult pos = Minecraft.getInstance().hitResult;
+			if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
+				BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
+				if (tile instanceof ITileBound) {
+					return ((ITileBound) tile).getBinding();
+				}
+			}
+
+			return null;
+		}
 	}
 
 }

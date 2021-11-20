@@ -12,17 +12,21 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
+
+import vazkii.botania.api.BotaniaAPI;
 
 /**
  * Any block that implements this has a HUD rendered when being hovered
  * with a Wand of the Forest.
  */
 public interface IWandHUD {
+	BlockApiLookup<IWandHUD, Unit> API = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "wand_hud"), IWandHUD.class, Unit.class);
 
 	@Environment(EnvType.CLIENT)
-	void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos);
+	void renderHUD(PoseStack ms, Minecraft mc);
 
 }

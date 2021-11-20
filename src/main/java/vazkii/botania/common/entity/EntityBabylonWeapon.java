@@ -169,9 +169,21 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void onHit(HitResult pos) {
-		Entity thrower = getOwner();
-		if (pos.getType() != HitResult.Type.ENTITY || ((EntityHitResult) pos).getEntity() != thrower) {
+	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+		super.onHitBlock(hit);
+		explodeAndDie();
+	}
+
+	@Override
+	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+		super.onHitEntity(hit);
+		if (hit.getEntity() != getOwner()) {
+			explodeAndDie();
+		}
+	}
+
+	private void explodeAndDie() {
+		if (!level.isClientSide) {
 			level.explode(this, getX(), getY(), getZ(), 3F, Explosion.BlockInteraction.NONE);
 			discard();
 		}

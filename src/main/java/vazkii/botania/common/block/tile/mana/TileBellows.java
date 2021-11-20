@@ -79,7 +79,7 @@ public class TileBellows extends TileMod {
 					boolean canSmelt = p.getSecond();
 					if (canSmelt) {
 						AccessorAbstractFurnaceBlockEntity mFurnace = (AccessorAbstractFurnaceBlockEntity) furnace;
-						mFurnace.setCookingProgress(Math.min(mFurnace.getCookingTotalTime(), mFurnace.getCookingProgress() + 20));
+						mFurnace.setCookingProgress(Math.min(mFurnace.getCookingTotalTime() - 1, mFurnace.getCookingProgress() + 20));
 						mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
 					}
 

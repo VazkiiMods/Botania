@@ -8,11 +8,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -36,7 +31,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -48,7 +42,7 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockSpreader extends BlockModWaterloggable implements EntityBlock, IWandHUD {
+public class BlockSpreader extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 
 	public enum Variant {
@@ -221,11 +215,5 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.SPREADER, TileSpreader::commonTick);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
-		((TileSpreader) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 }

@@ -56,7 +56,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 			return;
 		}
 
-		if (linkedCollector != null) {
+		if (isValidBinding()) {
 			if (burnTime == 0) {
 				if (getMana() < getMaxMana()) {
 

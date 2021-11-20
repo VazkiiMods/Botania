@@ -19,6 +19,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.mana.IManaTooltipDisplay;
+import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -37,7 +38,9 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
+import java.util.Optional;
+
+public class ItemManaMirror extends Item implements IManaItem {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -47,6 +50,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	public ItemManaMirror(Properties props) {
 		super(props);
+		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	@Override
@@ -56,12 +60,12 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		return Math.round(13 * getManaFractionForDisplay(stack));
+		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(this, stack));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		return Mth.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
+		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(this, stack) / 3.0F, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -229,24 +233,32 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		return false;
 	}
 
-	@Nullable
-	@Override
-	public BlockPos getBinding(Level world, ItemStack stack) {
-		GlobalPos pos = getBoundPos(stack);
-		if (pos == null) {
+	protected static class CoordBoundItem implements ICoordBoundItem {
+		private final ItemStack stack;
+
+		public CoordBoundItem(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		@Nullable
+		@Override
+		public BlockPos getBinding(Level world) {
+			GlobalPos pos = getBoundPos(stack);
+			if (pos == null) {
+				return null;
+			}
+
+			if (pos.dimension() == world.dimension()) {
+				return pos.pos();
+			}
+
 			return null;
 		}
-
-		if (pos.dimension() == world.dimension()) {
-			return pos.pos();
-		}
-
-		return null;
 	}
 
 	@Override
-	public float getManaFractionForDisplay(ItemStack stack) {
-		return (float) getMana(stack) / (float) getMaxMana(stack);
+	public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+		return Optional.of(ManaBarTooltip.fromManaItem(stack));
 	}
 
 }

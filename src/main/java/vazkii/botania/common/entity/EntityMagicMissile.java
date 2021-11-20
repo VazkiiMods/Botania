@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -24,13 +25,11 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -227,20 +226,21 @@ public class EntityMagicMissile extends ThrowableProjectile {
 	}
 
 	@Override
-	protected void onHit(@Nonnull HitResult pos) {
-		switch (pos.getType()) {
-		case BLOCK -> {
-			Block block = level.getBlockState(((BlockHitResult) pos).getBlockPos()).getBlock();
-			if (!(block instanceof BushBlock) && !(block instanceof LeavesBlock)) {
-				discard();
-			}
+	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+		super.onHitBlock(hit);
+		BlockState state = level.getBlockState(hit.getBlockPos());
+		if (!level.isClientSide
+				&& !(state.getBlock() instanceof BushBlock)
+				&& !state.is(BlockTags.LEAVES)) {
+			discard();
 		}
-		case ENTITY -> {
-			if (((EntityHitResult) pos).getEntity() == getTargetEntity()) {
-				discard();
-			}
-		}
-		default -> discard();
+	}
+
+	@Override
+	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+		super.onHitEntity(hit);
+		if (!level.isClientSide && hit.getEntity() == getTargetEntity()) {
+			discard();
 		}
 	}
 

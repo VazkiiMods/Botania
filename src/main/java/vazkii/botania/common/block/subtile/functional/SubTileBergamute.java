@@ -50,7 +50,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		existingFlowers.remove(this);
 	}
 
-	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z) {
+	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z, int maxCount) {
 		int count = 0;
 		SubTileBergamute tile = null;
 
@@ -59,10 +59,8 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 				count++;
 				if (count == 1) {
 					tile = f;
-				} else if (count >= 8) {
-					// We halve the volume for each flower (see MixinSoundEngine)
-					// halving 8 times already brings the multiplier to near zero, so no
-					// need to keep going if we've seen more than 8.
+				}
+				if (count >= maxCount) {
 					break;
 				}
 			}
@@ -70,9 +68,16 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		return Pair.of(count, tile);
 	}
 
+	public static boolean isBergamuteNearby(double x, double y, double z) {
+		return getBergamutesNearby(x, y, z, 1).getFirst() > 0;
+	}
+
 	@Environment(EnvType.CLIENT)
 	public static int countFlowersAround(SoundInstance sound) {
-		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(sound.getX(), sound.getY(), sound.getZ());
+		// We halve the volume for each flower (see MixinSoundEngine)
+		// halving 8 times already brings the multiplier to near zero, so no
+		// need to keep going if we've seen more than 8.
+		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(sound.getX(), sound.getY(), sound.getZ(), 8);
 		int count = countAndBerg.getFirst();
 		if (count > 0) {
 			if (mutedSounds.add(sound) && Math.random() < 0.5) {

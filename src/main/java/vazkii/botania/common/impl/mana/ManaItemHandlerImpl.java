@@ -10,6 +10,9 @@ package vazkii.botania.common.impl.mana;
 
 import com.google.common.collect.Iterables;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -106,7 +109,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		List<ItemStack> items = getManaItems(player);
 		List<ItemStack> acc = getManaAccesories(player);
 		int manaReceived = 0;
-		Map<ItemStack, Integer> manaToRemove = new HashMap<>();
+		Object2IntMap<ItemStack> manaToRemove = new Object2IntOpenHashMap<>();
 		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if (stackInSlot == stack) {
 				continue;
@@ -132,8 +135,8 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		}
 
 		if (manaReceived == manaToGet) {
-			for (Map.Entry<ItemStack, Integer> entry : manaToRemove.entrySet()) {
-				((IManaItem) entry.getKey().getItem()).addMana(entry.getKey(), entry.getValue());
+			for (Object2IntMap.Entry<ItemStack> entry : manaToRemove.object2IntEntrySet()) {
+				((IManaItem) entry.getKey().getItem()).addMana(entry.getKey(), -entry.getIntValue());
 			}
 			return true;
 		}
