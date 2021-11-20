@@ -95,8 +95,7 @@ public class BlockPistonRelay extends BlockMod {
 		}
 
 		if (player == null || player.isShiftKeyDown()) {
-			popResource(world, pos, new ItemStack(this));
-			world.destroyBlock(pos, false);
+			world.destroyBlock(pos, true);
 		} else {
 			GlobalPos clicked = GlobalPos.of(world.dimension(), pos.immutable());
 			if (ItemTwigWand.getBindMode(stack)) {

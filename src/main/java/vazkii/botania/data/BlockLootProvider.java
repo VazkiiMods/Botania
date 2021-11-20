@@ -101,7 +101,6 @@ public class BlockLootProvider implements DataProvider {
 		functionTable.put(ModBlocks.cocoon, BlockLootProvider::empty);
 		functionTable.put(ModBlocks.fakeAir, BlockLootProvider::empty);
 		functionTable.put(ModBlocks.manaFlame, BlockLootProvider::empty);
-		functionTable.put(ModBlocks.pistonRelay, BlockLootProvider::empty);
 
 		// Redirects
 		functionTable.put(ModBlocks.cacophonium, b -> genRegular(Blocks.NOTE_BLOCK));
