@@ -218,43 +218,43 @@ public class TileAlfPortal extends TileMod implements IWandable {
 
 		// Pick one of the inner positions
 		switch (level.random.nextInt(9)) {
-		case 0 -> {
-			dh = 0;
-			dy = 1;
-		}
-		case 1 -> {
-			dh = 0;
-			dy = 2;
-		}
-		case 2 -> {
-			dh = 0;
-			dy = 3;
-		}
-		case 3 -> {
-			dh = -1;
-			dy = 1;
-		}
-		case 4 -> {
-			dh = -1;
-			dy = 2;
-		}
-		case 5 -> {
-			dh = -1;
-			dy = 3;
-		}
-		case 6 -> {
-			dh = 1;
-			dy = 1;
-		}
-		case 7 -> {
-			dh = 1;
-			dy = 2;
-		}
-		case 8 -> {
-			dh = 1;
-			dy = 3;
-		}
-		default -> throw new AssertionError();
+			case 0 -> {
+				dh = 0;
+				dy = 1;
+			}
+			case 1 -> {
+				dh = 0;
+				dy = 2;
+			}
+			case 2 -> {
+				dh = 0;
+				dy = 3;
+			}
+			case 3 -> {
+				dh = -1;
+				dy = 1;
+			}
+			case 4 -> {
+				dh = -1;
+				dy = 2;
+			}
+			case 5 -> {
+				dh = -1;
+				dy = 3;
+			}
+			case 6 -> {
+				dh = 1;
+				dy = 1;
+			}
+			case 7 -> {
+				dh = 1;
+				dy = 2;
+			}
+			case 8 -> {
+				dh = 1;
+				dy = 3;
+			}
+			default -> throw new AssertionError();
 		}
 		double dx = state == AlfPortalState.ON_X ? 0 : dh;
 		double dz = state == AlfPortalState.ON_Z ? 0 : dh;
@@ -384,8 +384,8 @@ public class TileAlfPortal extends TileMod implements IWandable {
 
 		lightPylons();
 		return switch (rot) {
-		case NONE, CLOCKWISE_180 -> AlfPortalState.ON_Z;
-		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> AlfPortalState.ON_X;
+			case NONE, CLOCKWISE_180 -> AlfPortalState.ON_Z;
+			case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> AlfPortalState.ON_X;
 		};
 	}
 

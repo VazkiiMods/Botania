@@ -111,29 +111,29 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 				}
 			} else {
 				switch (world.random.nextInt(3)) {
-				case 0:
-					if (world.random.nextInt(10) == 0) {
-						entity = new Husk(EntityType.HUSK, world);
-					} else if (world.random.nextInt(5) == 0) {
-						entity = new Drowned(EntityType.DROWNED, world);
-					} else {
-						entity = new Zombie(world);
-					}
-					break;
-				case 1:
-					if (world.random.nextInt(10) == 0) {
-						entity = new Stray(EntityType.STRAY, world);
-					} else {
-						entity = new Skeleton(EntityType.SKELETON, world);
-					}
-					break;
-				case 2:
-					if (world.random.nextInt(10) == 0) {
-						entity = new CaveSpider(EntityType.CAVE_SPIDER, world);
-					} else {
-						entity = new Spider(EntityType.SPIDER, world);
-					}
-					break;
+					case 0:
+						if (world.random.nextInt(10) == 0) {
+							entity = new Husk(EntityType.HUSK, world);
+						} else if (world.random.nextInt(5) == 0) {
+							entity = new Drowned(EntityType.DROWNED, world);
+						} else {
+							entity = new Zombie(world);
+						}
+						break;
+					case 1:
+						if (world.random.nextInt(10) == 0) {
+							entity = new Stray(EntityType.STRAY, world);
+						} else {
+							entity = new Skeleton(EntityType.SKELETON, world);
+						}
+						break;
+					case 2:
+						if (world.random.nextInt(10) == 0) {
+							entity = new CaveSpider(EntityType.CAVE_SPIDER, world);
+						} else {
+							entity = new Spider(EntityType.SPIDER, world);
+						}
+						break;
 				}
 			}
 

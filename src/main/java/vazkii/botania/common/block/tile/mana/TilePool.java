@@ -209,33 +209,33 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public boolean triggerEvent(int event, int param) {
 		switch (event) {
-		case CRAFT_EFFECT_EVENT: {
-			if (level.isClientSide) {
-				for (int i = 0; i < 25; i++) {
-					float red = (float) Math.random();
-					float green = (float) Math.random();
-					float blue = (float) Math.random();
-					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-					level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 0.75, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+			case CRAFT_EFFECT_EVENT: {
+				if (level.isClientSide) {
+					for (int i = 0; i < 25; i++) {
+						float red = (float) Math.random();
+						float green = (float) Math.random();
+						float blue = (float) Math.random();
+						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+						level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 0.75, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+					}
 				}
-			}
 
-			return true;
-		}
-		case CHARGE_EFFECT_EVENT: {
-			if (level.isClientSide) {
-				if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue()) {
-					boolean outputting = param == 1;
-					Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-					Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-					Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
-							outputting ? itemVec : tileVec, 80, level.random.nextLong(), 0x4400799c, 0x4400C6FF);
-				}
+				return true;
 			}
-			return true;
-		}
-		default:
-			return super.triggerEvent(event, param);
+			case CHARGE_EFFECT_EVENT: {
+				if (level.isClientSide) {
+					if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue()) {
+						boolean outputting = param == 1;
+						Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+						Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+						Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
+								outputting ? itemVec : tileVec, 80, level.random.nextLong(), 0x4400799c, 0x4400C6FF);
+					}
+				}
+				return true;
+			}
+			default:
+				return super.triggerEvent(event, param);
 		}
 	}
 

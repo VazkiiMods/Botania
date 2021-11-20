@@ -25,11 +25,11 @@ public class ItemSparkUpgrade extends ItemModPattern {
 
 	public static ItemStack getByType(SparkUpgradeType type) {
 		return switch (type) {
-		case DOMINANT -> new ItemStack(ModItems.sparkUpgradeDominant);
-		case RECESSIVE -> new ItemStack(ModItems.sparkUpgradeRecessive);
-		case DISPERSIVE -> new ItemStack(ModItems.sparkUpgradeDispersive);
-		case ISOLATED -> new ItemStack(ModItems.sparkUpgradeIsolated);
-		default -> ItemStack.EMPTY;
+			case DOMINANT -> new ItemStack(ModItems.sparkUpgradeDominant);
+			case RECESSIVE -> new ItemStack(ModItems.sparkUpgradeRecessive);
+			case DISPERSIVE -> new ItemStack(ModItems.sparkUpgradeDispersive);
+			case ISOLATED -> new ItemStack(ModItems.sparkUpgradeIsolated);
+			default -> ItemStack.EMPTY;
 		};
 	}
 

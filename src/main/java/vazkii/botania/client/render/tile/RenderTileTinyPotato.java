@@ -121,18 +121,18 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		Direction potatoFacing = potato.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
 		float rotY = 0;
 		switch (potatoFacing) {
-		default:
-		case SOUTH:
-			rotY = 180F;
-			break;
-		case NORTH:
-			break;
-		case EAST:
-			rotY = 90F;
-			break;
-		case WEST:
-			rotY = 270F;
-			break;
+			default:
+			case SOUTH:
+				rotY = 180F;
+				break;
+			case NORTH:
+				break;
+			case EAST:
+				rotY = 90F;
+				break;
+			case WEST:
+				rotY = 270F;
+				break;
 		}
 		ms.mulPose(Vector3f.YN.rotationDegrees(rotY));
 
@@ -229,58 +229,58 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 			boolean mySon = stack.getItem() instanceof ItemBlockTinyPotato;
 
 			switch (side) {
-			case UP -> {
-				if (mySon) {
-					ms.translate(0F, 0.6F, 0.5F);
-				} else if (block) {
-					ms.translate(0F, 0.3F, 0.5F);
+				case UP -> {
+					if (mySon) {
+						ms.translate(0F, 0.6F, 0.5F);
+					} else if (block) {
+						ms.translate(0F, 0.3F, 0.5F);
+					}
+					ms.translate(0F, -0.5F, -0.4F);
 				}
-				ms.translate(0F, -0.5F, -0.4F);
-			}
-			case DOWN -> {
-				ms.translate(0, -2.3F, -0.88F);
-				if (mySon) {
-					ms.translate(0, .65F, 0.6F);
-				} else if (block) {
-					ms.translate(0, 1, 0.6F);
+				case DOWN -> {
+					ms.translate(0, -2.3F, -0.88F);
+					if (mySon) {
+						ms.translate(0, .65F, 0.6F);
+					} else if (block) {
+						ms.translate(0, 1, 0.6F);
+					}
 				}
-			}
-			case NORTH -> {
-				ms.translate(0, -1.9F, 0.02F);
-				if (mySon) {
-					ms.translate(0, 1, 0.6F);
-				} else if (block) {
-					ms.translate(0, 1, 0.6F);
+				case NORTH -> {
+					ms.translate(0, -1.9F, 0.02F);
+					if (mySon) {
+						ms.translate(0, 1, 0.6F);
+					} else if (block) {
+						ms.translate(0, 1, 0.6F);
+					}
 				}
-			}
-			case SOUTH -> {
-				ms.translate(0, -1.6F, -0.89F);
-				if (mySon) {
-					ms.translate(0, 1.4F, 0.5F);
-				} else if (block) {
-					ms.translate(0, 1.0F, 0.5F);
+				case SOUTH -> {
+					ms.translate(0, -1.6F, -0.89F);
+					if (mySon) {
+						ms.translate(0, 1.4F, 0.5F);
+					} else if (block) {
+						ms.translate(0, 1.0F, 0.5F);
+					}
 				}
-			}
-			case EAST -> {
-				if (mySon) {
-					ms.translate(-0.4F, 0.65F, 0F);
-				} else if (block) {
-					ms.translate(-0.4F, 0.8F, 0F);
-				} else {
-					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+				case EAST -> {
+					if (mySon) {
+						ms.translate(-0.4F, 0.65F, 0F);
+					} else if (block) {
+						ms.translate(-0.4F, 0.8F, 0F);
+					} else {
+						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+					}
+					ms.translate(-0.3F, -1.9F, 0.04F);
 				}
-				ms.translate(-0.3F, -1.9F, 0.04F);
-			}
-			case WEST -> {
-				if (mySon) {
-					ms.translate(1F, 0.65F, 1F);
-				} else if (block) {
-					ms.translate(1F, 0.8F, 1F);
-				} else {
-					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+				case WEST -> {
+					if (mySon) {
+						ms.translate(1F, 0.65F, 1F);
+					} else if (block) {
+						ms.translate(1F, 0.8F, 1F);
+					} else {
+						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+					}
+					ms.translate(-0.3F, -1.9F, -0.92F);
 				}
-				ms.translate(-0.3F, -1.9F, -0.92F);
-			}
 			}
 
 			if (mySon) {
@@ -304,64 +304,64 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 			ms.translate(0F, 1F, 0F);
 			ms.scale(scale, scale, scale);
 			switch (name) {
-			case "phi", "vazkii" -> {
-				ms.pushPose();
-				ms.translate(-0.15, 0.1, 0.4);
-				ms.mulPose(Vector3f.YP.rotationDegrees(90F));
-				ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(20));
-				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
-				ms.popPose();
-				if (name.equals("vazkii")) {
+				case "phi", "vazkii" -> {
+					ms.pushPose();
+					ms.translate(-0.15, 0.1, 0.4);
+					ms.mulPose(Vector3f.YP.rotationDegrees(90F));
+					ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(20));
+					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
+					ms.popPose();
+					if (name.equals("vazkii")) {
+						ms.scale(1.25F, 1.25F, 1.25F);
+						ms.mulPose(Vector3f.XP.rotationDegrees(180F));
+						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.translate(0.2, -1.25, 0);
+						renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
+					}
+				}
+				case "haighyorkie" -> {
 					ms.scale(1.25F, 1.25F, 1.25F);
-					ms.mulPose(Vector3f.XP.rotationDegrees(180F));
+					ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
-					ms.translate(0.2, -1.25, 0);
-					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
+					ms.translate(-0.5F, -1.2F, -0.075F);
+					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
 				}
-			}
-			case "haighyorkie" -> {
-				ms.scale(1.25F, 1.25F, 1.25F);
-				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
-				ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
-				ms.translate(-0.5F, -1.2F, -0.075F);
-				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
-			}
-			case "martysgames", "marty" -> {
-				ms.scale(0.7F, 0.7F, 0.7F);
-				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
-				ms.translate(-0.3F, -2.7F, -1.2F);
-				ms.mulPose(Vector3f.ZP.rotationDegrees(15F));
-				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setHoverName(new TextComponent("das boot")));
-			}
-			case "jibril" -> {
-				ms.scale(1.5F, 1.5F, 1.5F);
-				ms.translate(0F, 0.8F, 0F);
-				ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
-			}
-			case "kingdaddydmac" -> {
-				ms.scale(0.5F, 0.5F, 0.5F);
-				ms.mulPose(Vector3f.ZP.rotationDegrees(180));
-				ms.mulPose(Vector3f.YP.rotationDegrees(90));
-				ms.pushPose();
-				ms.translate(0F, -2.5F, 0.65F);
-				ItemStack ring = new ItemStack(ModItems.manaRing);
-				renderItem(ms, buffers, light, overlay, ring);
-				ms.translate(0F, 0F, -4F);
-				renderItem(ms, buffers, light, overlay, ring);
-				ms.popPose();
-				ms.translate(1.5, -4, -2.5);
-				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
-			}
-			default -> {
-				ItemStack icon = ContributorList.getFlower(name);
-				if (!icon.isEmpty()) {
-					ms.mulPose(Vector3f.XP.rotationDegrees(180));
-					ms.mulPose(Vector3f.YP.rotationDegrees(180));
-					ms.translate(0, -0.75, -0.5);
-					Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemTransforms.TransformType.HEAD,
-							light, overlay, ms, buffers, 0);
+				case "martysgames", "marty" -> {
+					ms.scale(0.7F, 0.7F, 0.7F);
+					ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+					ms.translate(-0.3F, -2.7F, -1.2F);
+					ms.mulPose(Vector3f.ZP.rotationDegrees(15F));
+					renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setHoverName(new TextComponent("das boot")));
 				}
-			}
+				case "jibril" -> {
+					ms.scale(1.5F, 1.5F, 1.5F);
+					ms.translate(0F, 0.8F, 0F);
+					ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
+				}
+				case "kingdaddydmac" -> {
+					ms.scale(0.5F, 0.5F, 0.5F);
+					ms.mulPose(Vector3f.ZP.rotationDegrees(180));
+					ms.mulPose(Vector3f.YP.rotationDegrees(90));
+					ms.pushPose();
+					ms.translate(0F, -2.5F, 0.65F);
+					ItemStack ring = new ItemStack(ModItems.manaRing);
+					renderItem(ms, buffers, light, overlay, ring);
+					ms.translate(0F, 0F, -4F);
+					renderItem(ms, buffers, light, overlay, ring);
+					ms.popPose();
+					ms.translate(1.5, -4, -2.5);
+					renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
+				}
+				default -> {
+					ItemStack icon = ContributorList.getFlower(name);
+					if (!icon.isEmpty()) {
+						ms.mulPose(Vector3f.XP.rotationDegrees(180));
+						ms.mulPose(Vector3f.YP.rotationDegrees(180));
+						ms.translate(0, -0.75, -0.5);
+						Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemTransforms.TransformType.HEAD,
+								light, overlay, ms, buffers, 0);
+					}
+				}
 			}
 		}
 		ms.popPose();

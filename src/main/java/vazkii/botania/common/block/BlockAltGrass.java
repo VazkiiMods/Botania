@@ -75,34 +75,34 @@ public class BlockAltGrass extends BlockMod {
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random r) {
 		switch (variant) {
-		case DRY:
-			break;
-		case GOLDEN:
-			break;
-		case VIVID:
-			break;
-		case SCORCHED:
-			if (r.nextInt(80) == 0) {
-				world.addParticle(ParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
-			}
-			break;
-		case INFUSED:
-			if (r.nextInt(100) == 0) {
-				SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 0F, 1F, 1F, 5);
-				world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
-			}
-			break;
-		case MUTATED:
-			if (r.nextInt(100) == 0) {
-				if (r.nextInt(100) > 25) {
-					SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 0F, 1F, 5);
-					world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
-				} else {
-					SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 1F, 0F, 5);
+			case DRY:
+				break;
+			case GOLDEN:
+				break;
+			case VIVID:
+				break;
+			case SCORCHED:
+				if (r.nextInt(80) == 0) {
+					world.addParticle(ParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
+				}
+				break;
+			case INFUSED:
+				if (r.nextInt(100) == 0) {
+					SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 0F, 1F, 1F, 5);
 					world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
 				}
-			}
-			break;
+				break;
+			case MUTATED:
+				if (r.nextInt(100) == 0) {
+					if (r.nextInt(100) > 25) {
+						SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 0F, 1F, 5);
+						world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+					} else {
+						SparkleParticleData data = SparkleParticleData.sparkle(r.nextFloat() * 0.2F + 1F, 1F, 1F, 0F, 5);
+						world.addParticle(data, pos.getX() + r.nextFloat(), pos.getY() + 1.05, pos.getZ() + r.nextFloat(), 0, 0, 0);
+					}
+				}
+				break;
 		}
 	}
 }

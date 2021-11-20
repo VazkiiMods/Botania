@@ -272,47 +272,47 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 		}
 
 		switch (self.stage) {
-		case GATHER_ENCHANTS -> self.gatherEnchants();
-		case GATHER_MANA -> self.gatherMana(axis);
-		case DO_ENCHANT -> { // Enchant
-			if (self.stageTicks >= 100) {
-				for (EnchantmentInstance data : self.enchants) {
-					if (EnchantmentHelper.getItemEnchantmentLevel(data.enchantment, self.itemToEnchant) == 0) {
-						self.itemToEnchant.enchant(data.enchantment, data.level);
+			case GATHER_ENCHANTS -> self.gatherEnchants();
+			case GATHER_MANA -> self.gatherMana(axis);
+			case DO_ENCHANT -> { // Enchant
+				if (self.stageTicks >= 100) {
+					for (EnchantmentInstance data : self.enchants) {
+						if (EnchantmentHelper.getItemEnchantmentLevel(data.enchantment, self.itemToEnchant) == 0) {
+							self.itemToEnchant.enchant(data.enchantment, data.level);
+						}
 					}
+
+					self.enchants.clear();
+					self.manaRequired = -1;
+					self.mana = 0;
+
+					level.blockEvent(worldPosition, ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
+					self.advanceStage();
+				}
+			}
+			case RESET -> { // Reset
+				if (self.stageTicks >= 20) {
+					self.advanceStage();
 				}
 
-				self.enchants.clear();
-				self.manaRequired = -1;
-				self.mana = 0;
-
-				level.blockEvent(worldPosition, ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
-				self.advanceStage();
 			}
-		}
-		case RESET -> { // Reset
-			if (self.stageTicks >= 20) {
-				self.advanceStage();
-			}
-
-		}
-		default -> {}
+			default -> {}
 		}
 	}
 
 	private void advanceStage() {
 		switch (stage) {
-		case IDLE -> stage = State.GATHER_ENCHANTS;
-		case GATHER_ENCHANTS -> stage = State.GATHER_MANA;
-		case GATHER_MANA -> stage = State.DO_ENCHANT;
-		case DO_ENCHANT -> {
-			stage = State.RESET;
-			stage3EndTicks = stageTicks;
-		}
-		case RESET -> {
-			stage = State.IDLE;
-			stage3EndTicks = 0;
-		}
+			case IDLE -> stage = State.GATHER_ENCHANTS;
+			case GATHER_ENCHANTS -> stage = State.GATHER_MANA;
+			case GATHER_MANA -> stage = State.DO_ENCHANT;
+			case DO_ENCHANT -> {
+				stage = State.RESET;
+				stage3EndTicks = stageTicks;
+			}
+			case RESET -> {
+				stage = State.IDLE;
+				stage3EndTicks = 0;
+			}
 		}
 
 		stageTicks = 0;
@@ -322,21 +322,21 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 	@Override
 	public boolean triggerEvent(int event, int param) {
 		switch (event) {
-		case CRAFT_EFFECT_EVENT: {
-			if (level.isClientSide) {
-				for (int i = 0; i < 25; i++) {
-					float red = (float) Math.random();
-					float green = (float) Math.random();
-					float blue = (float) Math.random();
-					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-					level.addParticle(data, getBlockPos().getX() + Math.random() * 0.4 - 0.2, getBlockPos().getY(), getBlockPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
+			case CRAFT_EFFECT_EVENT: {
+				if (level.isClientSide) {
+					for (int i = 0; i < 25; i++) {
+						float red = (float) Math.random();
+						float green = (float) Math.random();
+						float blue = (float) Math.random();
+						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+						level.addParticle(data, getBlockPos().getX() + Math.random() * 0.4 - 0.2, getBlockPos().getY(), getBlockPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
+					}
+					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
 				}
-				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
+				return true;
 			}
-			return true;
-		}
-		default:
-			return super.triggerEvent(event, param);
+			default:
+				return super.triggerEvent(event, param);
 		}
 	}
 
@@ -444,8 +444,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 		}
 
 		return switch (rot) {
-		case NONE, CLOCKWISE_180 -> Direction.Axis.Z;
-		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> Direction.Axis.X;
+			case NONE, CLOCKWISE_180 -> Direction.Axis.Z;
+			case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> Direction.Axis.X;
 		};
 	}
 

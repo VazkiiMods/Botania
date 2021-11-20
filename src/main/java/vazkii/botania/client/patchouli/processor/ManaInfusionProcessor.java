@@ -63,34 +63,34 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			return null;
 		}
 		switch (key) {
-		case "heading":
-			if (!hasCustomHeading) {
-				return IVariable.from(recipes.get(0).getResultItem().getHoverName());
-			}
-			return null;
-		case "input":
-			return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
-		case "output":
-			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
-		case "catalyst":
-			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getRecipeCatalyst)
-					.flatMap(ingr -> {
-						if (ingr == null) {
-							return Stream.of(ItemStack.EMPTY);
-						}
-						return ingr.getDisplayedStacks().stream();
-					})
-					.map(IVariable::from)
-					.collect(Collectors.toList()));
-		case "mana":
-			return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
-		case "drop":
-			Component q = new TextComponent("(?)").withStyle(ChatFormatting.BOLD);
-			return IVariable.from(new TranslatableComponent("botaniamisc.drop").append(" ").append(q));
-		case "dropTip0":
-		case "dropTip1":
-			Component drop = new KeybindComponent("key.drop").withStyle(ChatFormatting.GREEN);
-			return IVariable.from(new TranslatableComponent("botaniamisc." + key, drop));
+			case "heading":
+				if (!hasCustomHeading) {
+					return IVariable.from(recipes.get(0).getResultItem().getHoverName());
+				}
+				return null;
+			case "input":
+				return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
+			case "output":
+				return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
+			case "catalyst":
+				return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getRecipeCatalyst)
+						.flatMap(ingr -> {
+							if (ingr == null) {
+								return Stream.of(ItemStack.EMPTY);
+							}
+							return ingr.getDisplayedStacks().stream();
+						})
+						.map(IVariable::from)
+						.collect(Collectors.toList()));
+			case "mana":
+				return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
+			case "drop":
+				Component q = new TextComponent("(?)").withStyle(ChatFormatting.BOLD);
+				return IVariable.from(new TranslatableComponent("botaniamisc.drop").append(" ").append(q));
+			case "dropTip0":
+			case "dropTip1":
+				Component drop = new KeybindComponent("key.drop").withStyle(ChatFormatting.GREEN);
+				return IVariable.from(new TranslatableComponent("botaniamisc." + key, drop));
 		}
 		return null;
 	}

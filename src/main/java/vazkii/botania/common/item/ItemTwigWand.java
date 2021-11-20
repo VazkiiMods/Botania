@@ -237,27 +237,27 @@ public class ItemTwigWand extends Item {
 
 	private static Direction rotateAround(Direction old, Direction.Axis axis) {
 		return switch (axis) {
-		case X -> switch (old) {
-			case DOWN -> Direction.SOUTH;
-			case SOUTH -> Direction.UP;
-			case UP -> Direction.NORTH;
-			case NORTH -> Direction.DOWN;
-			default -> old;
-			};
-		case Y -> switch (old) {
-			case NORTH -> Direction.EAST;
-			case EAST -> Direction.SOUTH;
-			case SOUTH -> Direction.WEST;
-			case WEST -> Direction.NORTH;
-			default -> old;
-			};
-		case Z -> switch (old) {
-			case DOWN -> Direction.WEST;
-			case WEST -> Direction.UP;
-			case UP -> Direction.EAST;
-			case EAST -> Direction.DOWN;
-			default -> old;
-			};
+			case X -> switch (old) {
+					case DOWN -> Direction.SOUTH;
+					case SOUTH -> Direction.UP;
+					case UP -> Direction.NORTH;
+					case NORTH -> Direction.DOWN;
+					default -> old;
+				};
+			case Y -> switch (old) {
+					case NORTH -> Direction.EAST;
+					case EAST -> Direction.SOUTH;
+					case SOUTH -> Direction.WEST;
+					case WEST -> Direction.NORTH;
+					default -> old;
+				};
+			case Z -> switch (old) {
+					case DOWN -> Direction.WEST;
+					case WEST -> Direction.UP;
+					case UP -> Direction.EAST;
+					case EAST -> Direction.DOWN;
+					default -> old;
+				};
 		};
 	}
 

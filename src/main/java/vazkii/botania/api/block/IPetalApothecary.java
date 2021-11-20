@@ -34,9 +34,9 @@ public interface IPetalApothecary {
 
 		public Fluid asVanilla() {
 			return switch (this) {
-			case EMPTY -> Fluids.EMPTY;
-			case WATER -> Fluids.WATER;
-			case LAVA -> Fluids.LAVA;
+				case EMPTY -> Fluids.EMPTY;
+				case WATER -> Fluids.WATER;
+				case LAVA -> Fluids.LAVA;
 			};
 		}
 	}

@@ -29,21 +29,21 @@ public final class LootHandler {
 		if (name.startsWith(prefix)) {
 			String file = name.substring(name.indexOf(prefix) + prefix.length());
 			switch (file) {
-			case "abandoned_mineshaft":
-			case "desert_pyramid":
-			case "jungle_temple":
-			case "simple_dungeon":
-			case "spawn_bonus_chest":
-			case "stronghold_corridor":
-				supplier.withPool(getInjectPool(file));
-				break;
-			case "village/village_temple":
-			case "village/village_toolsmith":
-			case "village/village_weaponsmith":
-				supplier.withPool(getInjectPool("village_chest"));
-				break;
-			default:
-				break;
+				case "abandoned_mineshaft":
+				case "desert_pyramid":
+				case "jungle_temple":
+				case "simple_dungeon":
+				case "spawn_bonus_chest":
+				case "stronghold_corridor":
+					supplier.withPool(getInjectPool(file));
+					break;
+				case "village/village_temple":
+				case "village/village_toolsmith":
+				case "village/village_weaponsmith":
+					supplier.withPool(getInjectPool("village_chest"));
+					break;
+				default:
+					break;
 			}
 		}
 	}

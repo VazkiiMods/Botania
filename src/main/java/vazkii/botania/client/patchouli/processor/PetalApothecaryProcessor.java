@@ -32,10 +32,10 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 			return null;
 		}
 		return switch (key) {
-		case "recipe" -> IVariable.wrap(recipe.getId().toString());
-		case "output" -> IVariable.from(recipe.getResultItem());
-		case "heading" -> IVariable.from(recipe.getResultItem().getHoverName());
-		default -> null;
+			case "recipe" -> IVariable.wrap(recipe.getId().toString());
+			case "output" -> IVariable.from(recipe.getResultItem());
+			case "heading" -> IVariable.from(recipe.getResultItem().getHoverName());
+			default -> null;
 		};
 	}
 }

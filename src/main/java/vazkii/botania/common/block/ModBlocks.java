@@ -989,148 +989,148 @@ public final class ModBlocks {
 
 	public static Block getFlower(DyeColor color) {
 		return switch (color) {
-		case WHITE -> whiteFlower;
-		case ORANGE -> orangeFlower;
-		case MAGENTA -> magentaFlower;
-		case LIGHT_BLUE -> lightBlueFlower;
-		case YELLOW -> yellowFlower;
-		case LIME -> limeFlower;
-		case PINK -> pinkFlower;
-		case GRAY -> grayFlower;
-		case LIGHT_GRAY -> lightGrayFlower;
-		case CYAN -> cyanFlower;
-		case PURPLE -> purpleFlower;
-		case BLUE -> blueFlower;
-		case BROWN -> brownFlower;
-		case GREEN -> greenFlower;
-		case RED -> redFlower;
-		case BLACK -> blackFlower;
+			case WHITE -> whiteFlower;
+			case ORANGE -> orangeFlower;
+			case MAGENTA -> magentaFlower;
+			case LIGHT_BLUE -> lightBlueFlower;
+			case YELLOW -> yellowFlower;
+			case LIME -> limeFlower;
+			case PINK -> pinkFlower;
+			case GRAY -> grayFlower;
+			case LIGHT_GRAY -> lightGrayFlower;
+			case CYAN -> cyanFlower;
+			case PURPLE -> purpleFlower;
+			case BLUE -> blueFlower;
+			case BROWN -> brownFlower;
+			case GREEN -> greenFlower;
+			case RED -> redFlower;
+			case BLACK -> blackFlower;
 		};
 	}
 
 	public static Block getMushroom(DyeColor color) {
 		return switch (color) {
-		case WHITE -> whiteMushroom;
-		case ORANGE -> orangeMushroom;
-		case MAGENTA -> magentaMushroom;
-		case LIGHT_BLUE -> lightBlueMushroom;
-		case YELLOW -> yellowMushroom;
-		case LIME -> limeMushroom;
-		case PINK -> pinkMushroom;
-		case GRAY -> grayMushroom;
-		case LIGHT_GRAY -> lightGrayMushroom;
-		case CYAN -> cyanMushroom;
-		case PURPLE -> purpleMushroom;
-		case BLUE -> blueMushroom;
-		case BROWN -> brownMushroom;
-		case GREEN -> greenMushroom;
-		case RED -> redMushroom;
-		case BLACK -> blackMushroom;
+			case WHITE -> whiteMushroom;
+			case ORANGE -> orangeMushroom;
+			case MAGENTA -> magentaMushroom;
+			case LIGHT_BLUE -> lightBlueMushroom;
+			case YELLOW -> yellowMushroom;
+			case LIME -> limeMushroom;
+			case PINK -> pinkMushroom;
+			case GRAY -> grayMushroom;
+			case LIGHT_GRAY -> lightGrayMushroom;
+			case CYAN -> cyanMushroom;
+			case PURPLE -> purpleMushroom;
+			case BLUE -> blueMushroom;
+			case BROWN -> brownMushroom;
+			case GREEN -> greenMushroom;
+			case RED -> redMushroom;
+			case BLACK -> blackMushroom;
 		};
 	}
 
 	public static Block getBuriedPetal(DyeColor color) {
 		return switch (color) {
-		case WHITE -> whiteBuriedPetals;
-		case ORANGE -> orangeBuriedPetals;
-		case MAGENTA -> magentaBuriedPetals;
-		case LIGHT_BLUE -> lightBlueBuriedPetals;
-		case YELLOW -> yellowBuriedPetals;
-		case LIME -> limeBuriedPetals;
-		case PINK -> pinkBuriedPetals;
-		case GRAY -> grayBuriedPetals;
-		case LIGHT_GRAY -> lightGrayBuriedPetals;
-		case CYAN -> cyanBuriedPetals;
-		case PURPLE -> purpleBuriedPetals;
-		case BLUE -> blueBuriedPetals;
-		case BROWN -> brownBuriedPetals;
-		case GREEN -> greenBuriedPetals;
-		case RED -> redBuriedPetals;
-		case BLACK -> blackBuriedPetals;
+			case WHITE -> whiteBuriedPetals;
+			case ORANGE -> orangeBuriedPetals;
+			case MAGENTA -> magentaBuriedPetals;
+			case LIGHT_BLUE -> lightBlueBuriedPetals;
+			case YELLOW -> yellowBuriedPetals;
+			case LIME -> limeBuriedPetals;
+			case PINK -> pinkBuriedPetals;
+			case GRAY -> grayBuriedPetals;
+			case LIGHT_GRAY -> lightGrayBuriedPetals;
+			case CYAN -> cyanBuriedPetals;
+			case PURPLE -> purpleBuriedPetals;
+			case BLUE -> blueBuriedPetals;
+			case BROWN -> brownBuriedPetals;
+			case GREEN -> greenBuriedPetals;
+			case RED -> redBuriedPetals;
+			case BLACK -> blackBuriedPetals;
 		};
 	}
 
 	public static Block getShinyFlower(DyeColor color) {
 		return switch (color) {
-		case WHITE -> whiteShinyFlower;
-		case ORANGE -> orangeShinyFlower;
-		case MAGENTA -> magentaShinyFlower;
-		case LIGHT_BLUE -> lightBlueShinyFlower;
-		case YELLOW -> yellowShinyFlower;
-		case LIME -> limeShinyFlower;
-		case PINK -> pinkShinyFlower;
-		case GRAY -> grayShinyFlower;
-		case LIGHT_GRAY -> lightGrayShinyFlower;
-		case CYAN -> cyanShinyFlower;
-		case PURPLE -> purpleShinyFlower;
-		case BLUE -> blueShinyFlower;
-		case BROWN -> brownShinyFlower;
-		case GREEN -> greenShinyFlower;
-		case RED -> redShinyFlower;
-		case BLACK -> blackShinyFlower;
+			case WHITE -> whiteShinyFlower;
+			case ORANGE -> orangeShinyFlower;
+			case MAGENTA -> magentaShinyFlower;
+			case LIGHT_BLUE -> lightBlueShinyFlower;
+			case YELLOW -> yellowShinyFlower;
+			case LIME -> limeShinyFlower;
+			case PINK -> pinkShinyFlower;
+			case GRAY -> grayShinyFlower;
+			case LIGHT_GRAY -> lightGrayShinyFlower;
+			case CYAN -> cyanShinyFlower;
+			case PURPLE -> purpleShinyFlower;
+			case BLUE -> blueShinyFlower;
+			case BROWN -> brownShinyFlower;
+			case GREEN -> greenShinyFlower;
+			case RED -> redShinyFlower;
+			case BLACK -> blackShinyFlower;
 		};
 	}
 
 	public static Block getFloatingFlower(DyeColor color) {
 		return switch (color) {
-		case WHITE -> whiteFloatingFlower;
-		case ORANGE -> orangeFloatingFlower;
-		case MAGENTA -> magentaFloatingFlower;
-		case LIGHT_BLUE -> lightBlueFloatingFlower;
-		case YELLOW -> yellowFloatingFlower;
-		case LIME -> limeFloatingFlower;
-		case PINK -> pinkFloatingFlower;
-		case GRAY -> grayFloatingFlower;
-		case LIGHT_GRAY -> lightGrayFloatingFlower;
-		case CYAN -> cyanFloatingFlower;
-		case PURPLE -> purpleFloatingFlower;
-		case BLUE -> blueFloatingFlower;
-		case BROWN -> brownFloatingFlower;
-		case GREEN -> greenFloatingFlower;
-		case RED -> redFloatingFlower;
-		case BLACK -> blackFloatingFlower;
+			case WHITE -> whiteFloatingFlower;
+			case ORANGE -> orangeFloatingFlower;
+			case MAGENTA -> magentaFloatingFlower;
+			case LIGHT_BLUE -> lightBlueFloatingFlower;
+			case YELLOW -> yellowFloatingFlower;
+			case LIME -> limeFloatingFlower;
+			case PINK -> pinkFloatingFlower;
+			case GRAY -> grayFloatingFlower;
+			case LIGHT_GRAY -> lightGrayFloatingFlower;
+			case CYAN -> cyanFloatingFlower;
+			case PURPLE -> purpleFloatingFlower;
+			case BLUE -> blueFloatingFlower;
+			case BROWN -> brownFloatingFlower;
+			case GREEN -> greenFloatingFlower;
+			case RED -> redFloatingFlower;
+			case BLACK -> blackFloatingFlower;
 		};
 	}
 
 	public static Block getDoubleFlower(DyeColor color) {
 		return switch (color) {
-		case WHITE -> doubleFlowerWhite;
-		case ORANGE -> doubleFlowerOrange;
-		case MAGENTA -> doubleFlowerMagenta;
-		case LIGHT_BLUE -> doubleFlowerLightBlue;
-		case YELLOW -> doubleFlowerYellow;
-		case LIME -> doubleFlowerLime;
-		case PINK -> doubleFlowerPink;
-		case GRAY -> doubleFlowerGray;
-		case LIGHT_GRAY -> doubleFlowerLightGray;
-		case CYAN -> doubleFlowerCyan;
-		case PURPLE -> doubleFlowerPurple;
-		case BLUE -> doubleFlowerBlue;
-		case BROWN -> doubleFlowerBrown;
-		case GREEN -> doubleFlowerGreen;
-		case RED -> doubleFlowerRed;
-		case BLACK -> doubleFlowerBlack;
+			case WHITE -> doubleFlowerWhite;
+			case ORANGE -> doubleFlowerOrange;
+			case MAGENTA -> doubleFlowerMagenta;
+			case LIGHT_BLUE -> doubleFlowerLightBlue;
+			case YELLOW -> doubleFlowerYellow;
+			case LIME -> doubleFlowerLime;
+			case PINK -> doubleFlowerPink;
+			case GRAY -> doubleFlowerGray;
+			case LIGHT_GRAY -> doubleFlowerLightGray;
+			case CYAN -> doubleFlowerCyan;
+			case PURPLE -> doubleFlowerPurple;
+			case BLUE -> doubleFlowerBlue;
+			case BROWN -> doubleFlowerBrown;
+			case GREEN -> doubleFlowerGreen;
+			case RED -> doubleFlowerRed;
+			case BLACK -> doubleFlowerBlack;
 		};
 	}
 
 	public static Block getPetalBlock(DyeColor color) {
 		return switch (color) {
-		case WHITE -> petalBlockWhite;
-		case ORANGE -> petalBlockOrange;
-		case MAGENTA -> petalBlockMagenta;
-		case LIGHT_BLUE -> petalBlockLightBlue;
-		case YELLOW -> petalBlockYellow;
-		case LIME -> petalBlockLime;
-		case PINK -> petalBlockPink;
-		case GRAY -> petalBlockGray;
-		case LIGHT_GRAY -> petalBlockSilver;
-		case CYAN -> petalBlockCyan;
-		case PURPLE -> petalBlockPurple;
-		case BLUE -> petalBlockBlue;
-		case BROWN -> petalBlockBrown;
-		case GREEN -> petalBlockGreen;
-		case RED -> petalBlockRed;
-		case BLACK -> petalBlockBlack;
+			case WHITE -> petalBlockWhite;
+			case ORANGE -> petalBlockOrange;
+			case MAGENTA -> petalBlockMagenta;
+			case LIGHT_BLUE -> petalBlockLightBlue;
+			case YELLOW -> petalBlockYellow;
+			case LIME -> petalBlockLime;
+			case PINK -> petalBlockPink;
+			case GRAY -> petalBlockGray;
+			case LIGHT_GRAY -> petalBlockSilver;
+			case CYAN -> petalBlockCyan;
+			case PURPLE -> petalBlockPurple;
+			case BLUE -> petalBlockBlue;
+			case BROWN -> petalBlockBrown;
+			case GREEN -> petalBlockGreen;
+			case RED -> petalBlockRed;
+			case BLACK -> petalBlockBlack;
 		};
 	}
 }

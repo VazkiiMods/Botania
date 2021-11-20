@@ -95,23 +95,23 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		TileSpreader spreader = (TileSpreader) world.getBlockEntity(pos);
 
 		switch (orientation) {
-		case DOWN:
-			spreader.rotationY = -90F;
-			break;
-		case UP:
-			spreader.rotationY = 90F;
-			break;
-		case NORTH:
-			spreader.rotationX = 270F;
-			break;
-		case SOUTH:
-			spreader.rotationX = 90F;
-			break;
-		case WEST:
-			break;
-		case EAST:
-			spreader.rotationX = 180F;
-			break;
+			case DOWN:
+				spreader.rotationY = -90F;
+				break;
+			case UP:
+				spreader.rotationY = 90F;
+				break;
+			case NORTH:
+				spreader.rotationX = 270F;
+				break;
+			case SOUTH:
+				spreader.rotationX = 90F;
+				break;
+			case WEST:
+				break;
+			case EAST:
+				spreader.rotationX = 180F;
+				break;
 		}
 	}
 

@@ -72,21 +72,21 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 		ResourceLocation texture;
 		RenderType shaderLayer;
 		switch (type) {
-		default -> {
-			model = manaModel;
-			texture = MANA_TEXTURE;
-			shaderLayer = direct ? RenderHelper.MANA_PYLON_GLOW_DIRECT : RenderHelper.MANA_PYLON_GLOW;
-		}
-		case NATURA -> {
-			model = naturaModel;
-			texture = NATURA_TEXTURE;
-			shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
-		}
-		case GAIA -> {
-			model = gaiaModel;
-			texture = GAIA_TEXTURE;
-			shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;
-		}
+			default -> {
+				model = manaModel;
+				texture = MANA_TEXTURE;
+				shaderLayer = direct ? RenderHelper.MANA_PYLON_GLOW_DIRECT : RenderHelper.MANA_PYLON_GLOW;
+			}
+			case NATURA -> {
+				model = naturaModel;
+				texture = NATURA_TEXTURE;
+				shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
+			}
+			case GAIA -> {
+				model = gaiaModel;
+				texture = GAIA_TEXTURE;
+				shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;
+			}
 		}
 
 		ms.pushPose();

@@ -101,10 +101,10 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 
 	private BakedModel getCoreModel(TileSpreader tile) {
 		return switch (tile.getVariant()) {
-		case GAIA -> MiscellaneousIcons.INSTANCE.gaiaSpreaderCore;
-		case REDSTONE -> MiscellaneousIcons.INSTANCE.redstoneSpreaderCore;
-		case ELVEN -> MiscellaneousIcons.INSTANCE.elvenSpreaderCore;
-		case MANA -> MiscellaneousIcons.INSTANCE.manaSpreaderCore;
+			case GAIA -> MiscellaneousIcons.INSTANCE.gaiaSpreaderCore;
+			case REDSTONE -> MiscellaneousIcons.INSTANCE.redstoneSpreaderCore;
+			case ELVEN -> MiscellaneousIcons.INSTANCE.elvenSpreaderCore;
+			case MANA -> MiscellaneousIcons.INSTANCE.manaSpreaderCore;
 		};
 	}
 

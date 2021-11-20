@@ -129,43 +129,43 @@ public class ItemFlightTiara extends ItemBauble {
 
 						int variant = getVariant(tiara);
 						switch (variant) {
-						case 2 -> {
-							r = 0.1F;
-							g = 0.1F;
-							b = 0.1F;
-						}
-						case 3 -> {
-							r = 0F;
-							g = 0.6F;
-						}
-						case 4 -> {
-							g = 0.3F;
-							b = 0.3F;
-						}
-						case 5 -> {
-							r = 0.6F;
-							g = 0F;
-							b = 0.6F;
-						}
-						case 6 -> {
-							r = 0.4F;
-							g = 0F;
-							b = 0F;
-						}
-						case 7 -> {
-							r = 0.2F;
-							g = 0.6F;
-							b = 0.2F;
-						}
-						case 8 -> {
-							r = 0.85F;
-							g = 0.85F;
-							b = 0F;
-						}
-						case 9 -> {
-							r = 0F;
-							b = 0F;
-						}
+							case 2 -> {
+								r = 0.1F;
+								g = 0.1F;
+								b = 0.1F;
+							}
+							case 3 -> {
+								r = 0F;
+								g = 0.6F;
+							}
+							case 4 -> {
+								g = 0.3F;
+								b = 0.3F;
+							}
+							case 5 -> {
+								r = 0.6F;
+								g = 0F;
+								b = 0.6F;
+							}
+							case 6 -> {
+								r = 0.4F;
+								g = 0F;
+								b = 0F;
+							}
+							case 7 -> {
+								r = 0.2F;
+								g = 0.6F;
+								b = 0.2F;
+							}
+							case 8 -> {
+								r = 0.85F;
+								g = 0.85F;
+								b = 0F;
+							}
+							case 9 -> {
+								r = 0F;
+								b = 0F;
+							}
 						}
 
 						for (int i = 0; i < 2; i++) {
@@ -427,39 +427,39 @@ public class ItemFlightTiara extends ItemBauble {
 		float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 
 		switch (meta) {
-		case 1:
-			renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
-			ms.pushPose();
-			renderHalo(bipedModel, living, ms, buffers, partialTicks);
-			ms.popPose();
-			break;
-		case 2:
-			renderSephiroth(bipedModel, model, stack, ms, buffers, light, flap);
-			break;
-		case 3:
-			renderCirno(bipedModel, model, stack, ms, buffers, light);
-			break;
-		case 4:
-			renderPhoenix(bipedModel, model, stack, ms, buffers, flap);
-			break;
-		case 5:
-			renderKuroyukihime(bipedModel, model, stack, ms, buffers, flap);
-			break;
-		case 6:
-		case 8:
-			renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
-			break;
-		case 7:
-			float alpha = 0.5F + (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.2F;
-			int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
-			renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
-			break;
-		case 9:
-			flap = -(float) ((Math.sin((double) (living.tickCount + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-			alpha = 0.5F + (flying ? (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
-			color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
-			renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
-			break;
+			case 1:
+				renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
+				ms.pushPose();
+				renderHalo(bipedModel, living, ms, buffers, partialTicks);
+				ms.popPose();
+				break;
+			case 2:
+				renderSephiroth(bipedModel, model, stack, ms, buffers, light, flap);
+				break;
+			case 3:
+				renderCirno(bipedModel, model, stack, ms, buffers, light);
+				break;
+			case 4:
+				renderPhoenix(bipedModel, model, stack, ms, buffers, flap);
+				break;
+			case 5:
+				renderKuroyukihime(bipedModel, model, stack, ms, buffers, flap);
+				break;
+			case 6:
+			case 8:
+				renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
+				break;
+			case 7:
+				float alpha = 0.5F + (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.2F;
+				int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
+				renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
+				break;
+			case 9:
+				flap = -(float) ((Math.sin((double) (living.tickCount + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
+				alpha = 0.5F + (flying ? (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
+				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
+				renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
+				break;
 		}
 	}
 

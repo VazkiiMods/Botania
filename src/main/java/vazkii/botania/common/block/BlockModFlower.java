@@ -42,22 +42,22 @@ public class BlockModFlower extends FlowerBlock implements BonemealableBlock {
 
 	private static MobEffect effectForFlower(DyeColor color) {
 		return switch (color) {
-		case WHITE -> MobEffects.MOVEMENT_SPEED;
-		case ORANGE -> MobEffects.FIRE_RESISTANCE;
-		case MAGENTA -> MobEffects.DIG_SLOWDOWN;
-		case LIGHT_BLUE -> MobEffects.JUMP;
-		case YELLOW -> MobEffects.ABSORPTION;
-		case LIME -> MobEffects.POISON;
-		case PINK -> MobEffects.REGENERATION;
-		case GRAY -> MobEffects.DAMAGE_RESISTANCE;
-		case LIGHT_GRAY -> MobEffects.WEAKNESS;
-		case CYAN -> MobEffects.WATER_BREATHING;
-		case PURPLE -> MobEffects.CONFUSION;
-		case BLUE -> MobEffects.NIGHT_VISION;
-		case BROWN -> MobEffects.WITHER;
-		case GREEN -> MobEffects.HUNGER;
-		case RED -> MobEffects.DAMAGE_BOOST;
-		case BLACK -> MobEffects.BLINDNESS;
+			case WHITE -> MobEffects.MOVEMENT_SPEED;
+			case ORANGE -> MobEffects.FIRE_RESISTANCE;
+			case MAGENTA -> MobEffects.DIG_SLOWDOWN;
+			case LIGHT_BLUE -> MobEffects.JUMP;
+			case YELLOW -> MobEffects.ABSORPTION;
+			case LIME -> MobEffects.POISON;
+			case PINK -> MobEffects.REGENERATION;
+			case GRAY -> MobEffects.DAMAGE_RESISTANCE;
+			case LIGHT_GRAY -> MobEffects.WEAKNESS;
+			case CYAN -> MobEffects.WATER_BREATHING;
+			case PURPLE -> MobEffects.CONFUSION;
+			case BLUE -> MobEffects.NIGHT_VISION;
+			case BROWN -> MobEffects.WITHER;
+			case GREEN -> MobEffects.HUNGER;
+			case RED -> MobEffects.DAMAGE_BOOST;
+			case BLACK -> MobEffects.BLINDNESS;
 		};
 	}
 

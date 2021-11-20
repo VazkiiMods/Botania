@@ -131,23 +131,23 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	@Override
 	public boolean triggerEvent(int type, int param) {
 		switch (type) {
-		case RECIPE_COMPLETE_EVENT: {
-			if (getLevel().isClientSide) {
-				BlockPos coords = getEffectivePos().offset(POSITIONS[param]);
-				for (int i = 0; i < 25; i++) {
-					double x = coords.getX() + Math.random();
-					double y = coords.getY() + Math.random() + 0.5;
-					double z = coords.getZ() + Math.random();
+			case RECIPE_COMPLETE_EVENT: {
+				if (getLevel().isClientSide) {
+					BlockPos coords = getEffectivePos().offset(POSITIONS[param]);
+					for (int i = 0; i < 25; i++) {
+						double x = coords.getX() + Math.random();
+						double y = coords.getY() + Math.random() + 0.5;
+						double z = coords.getZ() + Math.random();
 
-					WispParticleData data = WispParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
-					getLevel().addParticle(data, x, y, z, 0, 0, 0);
+						WispParticleData data = WispParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
+						getLevel().addParticle(data, x, y, z, 0, 0, 0);
+					}
 				}
-			}
 
-			return true;
-		}
-		default:
-			return super.triggerEvent(type, param);
+				return true;
+			}
+			default:
+				return super.triggerEvent(type, param);
 		}
 	}
 

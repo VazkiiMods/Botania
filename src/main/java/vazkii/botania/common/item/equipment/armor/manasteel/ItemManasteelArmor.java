@@ -157,11 +157,11 @@ public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
 		}
 
 		return switch (slot) {
-		case HEAD -> stack.is(ModItems.manasteelHelm);
-		case CHEST -> stack.is(ModItems.manasteelChest);
-		case LEGS -> stack.is(ModItems.manasteelLegs);
-		case FEET -> stack.is(ModItems.manasteelBoots);
-		default -> false;
+			case HEAD -> stack.is(ModItems.manasteelHelm);
+			case CHEST -> stack.is(ModItems.manasteelChest);
+			case LEGS -> stack.is(ModItems.manasteelLegs);
+			case FEET -> stack.is(ModItems.manasteelBoots);
+			default -> false;
 		};
 
 	}
