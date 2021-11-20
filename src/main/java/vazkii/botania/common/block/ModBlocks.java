@@ -260,7 +260,7 @@ public final class ModBlocks {
 	public static final Block distributor = new BlockDistributor(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block manaVoid = new BlockManaVoid(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block manaDetector = new BlockManaDetector(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block pistonRelay = new BlockPistonRelay(BlockBehaviour.Properties.of(Material.VEGETABLE).strength(2, 10).sound(SoundType.METAL).isValidSpawn(NO_SPAWN));
+	public static final Block pistonRelay = new BlockPistonRelay(BlockBehaviour.Properties.of(Material.METAL).strength(2, 10).sound(SoundType.METAL).isValidSpawn(NO_SPAWN));
 	public static final Block turntable = new BlockTurntable(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block tinyPlanet = new BlockTinyPlanet(BlockBehaviour.Properties.of(Material.STONE).strength(20, 100).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, BlockBehaviour.Properties.copy(livingwood));
