@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 
 import java.util.Optional;
 
-public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem {
+public class ItemManaMirror extends Item implements IManaItem {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -50,6 +50,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem {
 
 	public ItemManaMirror(Properties props) {
 		super(props);
+		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	@Override
@@ -232,19 +233,27 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem {
 		return false;
 	}
 
-	@Nullable
-	@Override
-	public BlockPos getBinding(Level world, ItemStack stack) {
-		GlobalPos pos = getBoundPos(stack);
-		if (pos == null) {
+	protected static class CoordBoundItem implements ICoordBoundItem {
+		private final ItemStack stack;
+
+		public CoordBoundItem(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		@Nullable
+		@Override
+		public BlockPos getBinding(Level world) {
+			GlobalPos pos = getBoundPos(stack);
+			if (pos == null) {
+				return null;
+			}
+
+			if (pos.dimension() == world.dimension()) {
+				return pos.pos();
+			}
+
 			return null;
 		}
-
-		if (pos.dimension() == world.dimension()) {
-			return pos.pos();
-		}
-
-		return null;
 	}
 
 	@Override

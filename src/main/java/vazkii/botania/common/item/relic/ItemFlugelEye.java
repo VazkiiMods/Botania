@@ -19,6 +19,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -48,10 +49,11 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
+public class ItemFlugelEye extends ItemRelic {
 
 	public ItemFlugelEye(Properties props) {
 		super(props);
+		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	private static final String TAG_TARGET_PREFIX = "target_";
@@ -147,16 +149,24 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
 		return UseAnim.BOW;
 	}
 
-	@Nullable
-	@Override
-	public BlockPos getBinding(Level world, ItemStack stack) {
-		String tag = TAG_TARGET_PREFIX + world.dimension().location().toString();
-		Tag nbt = ItemNBTHelper.get(stack, tag);
-		if (nbt != null) {
-			return BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result()
-					.orElse(null);
+	protected static class CoordBoundItem implements ICoordBoundItem {
+		private final ItemStack stack;
+
+		public CoordBoundItem(ItemStack stack) {
+			this.stack = stack;
 		}
-		return null;
+
+		@Nullable
+		@Override
+		public BlockPos getBinding(Level world) {
+			String tag = TAG_TARGET_PREFIX + world.dimension().location().toString();
+			Tag nbt = ItemNBTHelper.get(stack, tag);
+			if (nbt != null) {
+				return BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result()
+						.orElse(null);
+			}
+			return null;
+		}
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -168,7 +178,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem {
 			return;
 		}
 
-		BlockPos binding = getBinding(world, stack);
+		BlockPos binding = ICoordBoundItem.API.find(stack, Unit.INSTANCE).getBinding(world);
 		Component worldText = new TextComponent(world.dimension().location().toString()).withStyle(ChatFormatting.GREEN);
 
 		if (binding == null) {

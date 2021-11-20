@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -60,17 +61,23 @@ public final class BoundTileRenderer {
 		Player player = Minecraft.getInstance().player;
 		int color = 0xFF000000 | Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
-		if (!player.getMainHandItem().isEmpty() && player.getMainHandItem().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getMainHandItem().getItem()).getBinding(player.level, player.getMainHandItem());
-			if (coords != null) {
-				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+		if (!player.getMainHandItem().isEmpty()) {
+			var coordBoundItem = ICoordBoundItem.API.find(player.getMainHandItem(), Unit.INSTANCE);
+			if (coordBoundItem != null) {
+				BlockPos coords = coordBoundItem.getBinding(player.level);
+				if (coords != null) {
+					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+				}
 			}
 		}
 
-		if (!player.getOffhandItem().isEmpty() && player.getOffhandItem().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getOffhandItem().getItem()).getBinding(player.level, player.getOffhandItem());
-			if (coords != null) {
-				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+		if (!player.getOffhandItem().isEmpty()) {
+			var coordBoundItem = ICoordBoundItem.API.find(player.getOffhandItem(), Unit.INSTANCE);
+			if (coordBoundItem != null) {
+				BlockPos coords = coordBoundItem.getBinding(player.level);
+				if (coords != null) {
+					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+				}
 			}
 		}
 

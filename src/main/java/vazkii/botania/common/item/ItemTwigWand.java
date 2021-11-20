@@ -65,7 +65,7 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemTwigWand extends Item implements ICoordBoundItem {
+public class ItemTwigWand extends Item {
 
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
@@ -77,6 +77,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
+		ICoordBoundItem.API.registerSelf(this);
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
@@ -376,23 +377,31 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return "botaniamisc.wandMode." + (getBindMode(stack) ? "bind" : "function");
 	}
 
-	@Nullable
-	@Override
-	public BlockPos getBinding(Level world, ItemStack stack) {
-		Optional<BlockPos> bound = getBindingAttempt(stack);
-		if (bound.isPresent()) {
-			return bound.get();
+	protected static class CoordBoundItem implements ICoordBoundItem {
+		private final ItemStack stack;
+
+		public CoordBoundItem(ItemStack stack) {
+			this.stack = stack;
 		}
 
-		HitResult pos = Minecraft.getInstance().hitResult;
-		if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
-			BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
-			if (tile instanceof ITileBound) {
-				return ((ITileBound) tile).getBinding();
+		@Nullable
+		@Override
+		public BlockPos getBinding(Level world) {
+			Optional<BlockPos> bound = getBindingAttempt(stack);
+			if (bound.isPresent()) {
+				return bound.get();
 			}
-		}
 
-		return null;
+			HitResult pos = Minecraft.getInstance().hitResult;
+			if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
+				BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
+				if (tile instanceof ITileBound) {
+					return ((ITileBound) tile).getBinding();
+				}
+			}
+
+			return null;
+		}
 	}
 
 }
