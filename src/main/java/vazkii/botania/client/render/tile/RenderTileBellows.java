@@ -41,17 +41,17 @@ public class RenderTileBellows implements BlockEntityRenderer<TileBellows> {
 		float angle = 0;
 		if (bellows != null) {
 			switch (bellows.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-			case SOUTH:
-				break;
-			case NORTH:
-				angle = 180F;
-				break;
-			case EAST:
-				angle = 270F;
-				break;
-			case WEST:
-				angle = 90F;
-				break;
+				case SOUTH:
+					break;
+				case NORTH:
+					angle = 180F;
+					break;
+				case EAST:
+					angle = 270F;
+					break;
+				case WEST:
+					angle = 90F;
+					break;
 			}
 		}
 		ms.mulPose(Vector3f.YP.rotationDegrees(angle));

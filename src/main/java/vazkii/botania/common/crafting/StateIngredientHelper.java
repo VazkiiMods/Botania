@@ -62,20 +62,20 @@ public class StateIngredientHelper {
 
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (GsonHelper.getAsString(object, "type")) {
-		case "tag":
-			return new StateIngredientTag(new ResourceLocation(GsonHelper.getAsString(object, "tag")));
-		case "block":
-			return new StateIngredientBlock(Registry.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
-		case "state":
-			return new StateIngredientBlockState(readBlockState(object));
-		case "blocks":
-			List<Block> blocks = new ArrayList<>();
-			for (JsonElement element : GsonHelper.getAsJsonArray(object, "blocks")) {
-				blocks.add(Registry.BLOCK.get(new ResourceLocation(element.getAsString())));
-			}
-			return new StateIngredientBlocks(blocks);
-		default:
-			throw new JsonParseException("Unknown type!");
+			case "tag":
+				return new StateIngredientTag(new ResourceLocation(GsonHelper.getAsString(object, "tag")));
+			case "block":
+				return new StateIngredientBlock(Registry.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
+			case "state":
+				return new StateIngredientBlockState(readBlockState(object));
+			case "blocks":
+				List<Block> blocks = new ArrayList<>();
+				for (JsonElement element : GsonHelper.getAsJsonArray(object, "blocks")) {
+					blocks.add(Registry.BLOCK.get(new ResourceLocation(element.getAsString())));
+				}
+				return new StateIngredientBlocks(blocks);
+			default:
+				throw new JsonParseException("Unknown type!");
 		}
 	}
 
@@ -111,21 +111,21 @@ public class StateIngredientHelper {
 
 	public static StateIngredient read(FriendlyByteBuf buffer) {
 		switch (buffer.readVarInt()) {
-		case 0:
-			int count = buffer.readVarInt();
-			Set<Block> set = new HashSet<>();
-			for (int i = 0; i < count; i++) {
-				int id = buffer.readVarInt();
-				Block block = Registry.BLOCK.byId(id);
-				set.add(block);
-			}
-			return new StateIngredientBlocks(set);
-		case 1:
-			return new StateIngredientBlock(Registry.BLOCK.byId(buffer.readVarInt()));
-		case 2:
-			return new StateIngredientBlockState(Block.stateById(buffer.readVarInt()));
-		default:
-			throw new IllegalArgumentException("Unknown input discriminator!");
+			case 0:
+				int count = buffer.readVarInt();
+				Set<Block> set = new HashSet<>();
+				for (int i = 0; i < count; i++) {
+					int id = buffer.readVarInt();
+					Block block = Registry.BLOCK.byId(id);
+					set.add(block);
+				}
+				return new StateIngredientBlocks(set);
+			case 1:
+				return new StateIngredientBlock(Registry.BLOCK.byId(buffer.readVarInt()));
+			case 2:
+				return new StateIngredientBlockState(Block.stateById(buffer.readVarInt()));
+			default:
+				throw new IllegalArgumentException("Unknown input discriminator!");
 		}
 	}
 

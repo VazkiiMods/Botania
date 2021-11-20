@@ -94,11 +94,11 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWan
 
 		AABB axis = null;
 		switch (orientation) {
-		case NORTH -> axis = new AABB(x - w, y - h, z - l, x + w + 1, y + h, z);
-		case SOUTH -> axis = new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
-		case WEST -> axis = new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
-		case EAST -> axis = new AABB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
-		default -> {}
+			case NORTH -> axis = new AABB(x - w, y - h, z - l, x + w + 1, y + h, z);
+			case SOUTH -> axis = new AABB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+			case WEST -> axis = new AABB(x - l, y - h, z - w, x, y + h, z + w + 1);
+			case EAST -> axis = new AABB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+			default -> {}
 		}
 		return axis;
 	}

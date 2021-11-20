@@ -641,32 +641,32 @@ public class EntityDoppleganger extends Mob {
 		for (int pl = 0; pl < playerCount; pl++) {
 			for (int i = 0; i < 3 + level.random.nextInt(2); i++) {
 				Mob entity = switch (level.random.nextInt(3)) {
-				case 0 -> {
-					if (level.random.nextInt(hardMode ? 3 : 12) == 0) {
-						yield EntityType.WITCH.create(level);
-					}
-					yield EntityType.ZOMBIE.create(level);
-				}
-				case 1 -> {
-					if (level.random.nextInt(8) == 0) {
-						yield EntityType.WITHER_SKELETON.create(level);
-					}
-					yield EntityType.SKELETON.create(level);
-				}
-				case 2 -> {
-					if (!players.isEmpty()) {
-						for (int j = 0; j < 1 + level.random.nextInt(hardMode ? 8 : 5); j++) {
-							EntityPixie pixie = new EntityPixie(level);
-							pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
-							pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
-							pixie.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(pixie.blockPosition()),
-									MobSpawnType.MOB_SUMMONED, null, null);
-							level.addFreshEntity(pixie);
+					case 0 -> {
+						if (level.random.nextInt(hardMode ? 3 : 12) == 0) {
+							yield EntityType.WITCH.create(level);
 						}
+						yield EntityType.ZOMBIE.create(level);
 					}
-					yield null;
-				}
-				default -> null;
+					case 1 -> {
+						if (level.random.nextInt(8) == 0) {
+							yield EntityType.WITHER_SKELETON.create(level);
+						}
+						yield EntityType.SKELETON.create(level);
+					}
+					case 2 -> {
+						if (!players.isEmpty()) {
+							for (int j = 0; j < 1 + level.random.nextInt(hardMode ? 8 : 5); j++) {
+								EntityPixie pixie = new EntityPixie(level);
+								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
+								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
+								pixie.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(pixie.blockPosition()),
+										MobSpawnType.MOB_SUMMONED, null, null);
+								level.addFreshEntity(pixie);
+							}
+						}
+						yield null;
+					}
+					default -> null;
 				};
 
 				if (entity != null) {

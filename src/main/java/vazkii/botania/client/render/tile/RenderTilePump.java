@@ -36,18 +36,18 @@ public class RenderTilePump implements BlockEntityRenderer<TilePump> {
 		ms.translate(0.5, 0, 0.5);
 		float angle = 0;
 		switch (pump.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-		default:
-		case NORTH:
-			break;
-		case SOUTH:
-			angle = 180;
-			break;
-		case EAST:
-			angle = -90;
-			break;
-		case WEST:
-			angle = 90;
-			break;
+			default:
+			case NORTH:
+				break;
+			case SOUTH:
+				angle = 180;
+				break;
+			case EAST:
+				angle = -90;
+				break;
+			case WEST:
+				angle = 90;
+				break;
 		}
 		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
 		ms.translate(-0.5, 0, -0.5);

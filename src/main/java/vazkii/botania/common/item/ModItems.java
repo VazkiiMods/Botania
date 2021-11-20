@@ -739,22 +739,22 @@ public final class ModItems {
 
 	public static Item getPetal(DyeColor color) {
 		return switch (color) {
-		case WHITE -> whitePetal;
-		case ORANGE -> orangePetal;
-		case MAGENTA -> magentaPetal;
-		case LIGHT_BLUE -> lightBluePetal;
-		case YELLOW -> yellowPetal;
-		case LIME -> limePetal;
-		case PINK -> pinkPetal;
-		case GRAY -> grayPetal;
-		case LIGHT_GRAY -> lightGrayPetal;
-		case CYAN -> cyanPetal;
-		case PURPLE -> purplePetal;
-		case BLUE -> bluePetal;
-		case BROWN -> brownPetal;
-		case GREEN -> greenPetal;
-		case RED -> redPetal;
-		case BLACK -> blackPetal;
+			case WHITE -> whitePetal;
+			case ORANGE -> orangePetal;
+			case MAGENTA -> magentaPetal;
+			case LIGHT_BLUE -> lightBluePetal;
+			case YELLOW -> yellowPetal;
+			case LIME -> limePetal;
+			case PINK -> pinkPetal;
+			case GRAY -> grayPetal;
+			case LIGHT_GRAY -> lightGrayPetal;
+			case CYAN -> cyanPetal;
+			case PURPLE -> purplePetal;
+			case BLUE -> bluePetal;
+			case BROWN -> brownPetal;
+			case GREEN -> greenPetal;
+			case RED -> redPetal;
+			case BLACK -> blackPetal;
 		};
 	}
 

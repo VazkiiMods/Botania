@@ -150,25 +150,25 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 		}
 
 		switch (filterType) {
-		case 0: { // Accept items in frames only
-			boolean anyFilter = false;
-			for (ItemStack filterEntry : filter) {
-				if (filterEntry == null || filterEntry.isEmpty()) {
-					continue;
-				}
-				anyFilter = true;
+			case 0: { // Accept items in frames only
+				boolean anyFilter = false;
+				for (ItemStack filterEntry : filter) {
+					if (filterEntry == null || filterEntry.isEmpty()) {
+						continue;
+					}
+					anyFilter = true;
 
-				if (matches(stack, filterEntry)) {
-					return true;
+					if (matches(stack, filterEntry)) {
+						return true;
+					}
 				}
+
+				return !anyFilter;
 			}
-
-			return !anyFilter;
-		}
-		case 1:
-			return !canAcceptItem(stack, filter, 0); // Accept items not in frames only
-		default:
-			return true; // Accept all items
+			case 1:
+				return !canAcceptItem(stack, filter, 0); // Accept items not in frames only
+			default:
+				return true; // Accept all items
 		}
 	}
 

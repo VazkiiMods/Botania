@@ -119,27 +119,27 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	@Override
 	public boolean triggerEvent(int id, int param) {
 		switch (id) {
-		case SET_KEEP_TICKS_EVENT:
-			recipeKeepTicks = param;
-			return true;
-		case SET_COOLDOWN_EVENT:
-			cooldown = param;
-			return true;
-		case CRAFT_EFFECT_EVENT: {
-			if (level.isClientSide) {
-				for (int i = 0; i < 25; i++) {
-					float red = (float) Math.random();
-					float green = (float) Math.random();
-					float blue = (float) Math.random();
-					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-					level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+			case SET_KEEP_TICKS_EVENT:
+				recipeKeepTicks = param;
+				return true;
+			case SET_COOLDOWN_EVENT:
+				cooldown = param;
+				return true;
+			case CRAFT_EFFECT_EVENT: {
+				if (level.isClientSide) {
+					for (int i = 0; i < 25; i++) {
+						float red = (float) Math.random();
+						float green = (float) Math.random();
+						float blue = (float) Math.random();
+						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+						level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+					}
+					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.runeAltarCraft, SoundSource.BLOCKS, 1F, 1F, false);
 				}
-				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.runeAltarCraft, SoundSource.BLOCKS, 1F, 1F, false);
+				return true;
 			}
-			return true;
-		}
-		default:
-			return super.triggerEvent(id, param);
+			default:
+				return super.triggerEvent(id, param);
 		}
 	}
 

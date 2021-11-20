@@ -112,22 +112,22 @@ public class ModTags {
 
 		public static Tag.Named<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
-			case WHITE -> PETALS_WHITE;
-			case ORANGE -> PETALS_ORANGE;
-			case MAGENTA -> PETALS_MAGENTA;
-			case LIGHT_BLUE -> PETALS_LIGHT_BLUE;
-			case YELLOW -> PETALS_YELLOW;
-			case LIME -> PETALS_LIME;
-			case PINK -> PETALS_PINK;
-			case GRAY -> PETALS_GRAY;
-			case LIGHT_GRAY -> PETALS_LIGHT_GRAY;
-			case CYAN -> PETALS_CYAN;
-			case PURPLE -> PETALS_PURPLE;
-			case BLUE -> PETALS_BLUE;
-			case BROWN -> PETALS_BROWN;
-			case GREEN -> PETALS_GREEN;
-			case RED -> PETALS_RED;
-			case BLACK -> PETALS_BLACK;
+				case WHITE -> PETALS_WHITE;
+				case ORANGE -> PETALS_ORANGE;
+				case MAGENTA -> PETALS_MAGENTA;
+				case LIGHT_BLUE -> PETALS_LIGHT_BLUE;
+				case YELLOW -> PETALS_YELLOW;
+				case LIME -> PETALS_LIME;
+				case PINK -> PETALS_PINK;
+				case GRAY -> PETALS_GRAY;
+				case LIGHT_GRAY -> PETALS_LIGHT_GRAY;
+				case CYAN -> PETALS_CYAN;
+				case PURPLE -> PETALS_PURPLE;
+				case BLUE -> PETALS_BLUE;
+				case BROWN -> PETALS_BROWN;
+				case GREEN -> PETALS_GREEN;
+				case RED -> PETALS_RED;
+				case BLACK -> PETALS_BLACK;
 			};
 		}
 

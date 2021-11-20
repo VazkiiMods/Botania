@@ -90,87 +90,87 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 		Collection<IManaSpark> transfers = getTransfers();
 
 		switch (upgrade) {
-		case DISPERSIVE -> {
-			List<Player> players = SparkHelper.getEntitiesAround(Player.class, level, getX(), getY() + (getBbHeight() / 2.0), getZ());
+			case DISPERSIVE -> {
+				List<Player> players = SparkHelper.getEntitiesAround(Player.class, level, getX(), getY() + (getBbHeight() / 2.0), getZ());
 
-			Map<Player, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
+				Map<Player, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
 
-			ItemStack input = new ItemStack(ModItems.spark);
-			for (Player player : players) {
-				List<ItemStack> stacks = new ArrayList<>();
-				stacks.addAll(player.getInventory().items);
-				stacks.addAll(player.getInventory().armor);
+				ItemStack input = new ItemStack(ModItems.spark);
+				for (Player player : players) {
+					List<ItemStack> stacks = new ArrayList<>();
+					stacks.addAll(player.getInventory().items);
+					stacks.addAll(player.getInventory().armor);
 
-				Container inv = BotaniaAPI.instance().getAccessoriesInventory(player);
-				for (int i = 0; i < inv.getContainerSize(); i++) {
-					stacks.add(inv.getItem(i));
-				}
-
-				for (ItemStack stack : stacks) {
-					if (stack.isEmpty() || !(stack.getItem() instanceof IManaItem manaItem)) {
-						continue;
+					Container inv = BotaniaAPI.instance().getAccessoriesInventory(player);
+					for (int i = 0; i < inv.getContainerSize(); i++) {
+						stacks.add(inv.getItem(i));
 					}
 
-					if (manaItem.canReceiveManaFromItem(stack, input)) {
-						Map<ItemStack, Integer> receivingStacks;
-						boolean add = false;
-						if (!receivingPlayers.containsKey(player)) {
-							add = true;
-							receivingStacks = new HashMap<>();
-						} else {
-							receivingStacks = receivingPlayers.get(player);
+					for (ItemStack stack : stacks) {
+						if (stack.isEmpty() || !(stack.getItem() instanceof IManaItem manaItem)) {
+							continue;
 						}
 
-						int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
-						if (recv > 0) {
-							receivingStacks.put(stack, recv);
-							if (add) {
-								receivingPlayers.put(player, receivingStacks);
+						if (manaItem.canReceiveManaFromItem(stack, input)) {
+							Map<ItemStack, Integer> receivingStacks;
+							boolean add = false;
+							if (!receivingPlayers.containsKey(player)) {
+								add = true;
+								receivingStacks = new HashMap<>();
+							} else {
+								receivingStacks = receivingPlayers.get(player);
+							}
+
+							int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
+							if (recv > 0) {
+								receivingStacks.put(stack, recv);
+								if (add) {
+									receivingPlayers.put(player, receivingStacks);
+								}
 							}
 						}
 					}
 				}
+
+				if (!receivingPlayers.isEmpty()) {
+					List<Player> keys = new ArrayList<>(receivingPlayers.keySet());
+					Collections.shuffle(keys);
+					Player player = keys.iterator().next();
+
+					Map<ItemStack, Integer> items = receivingPlayers.get(player);
+					ItemStack stack = items.keySet().iterator().next();
+					int cost = items.get(stack);
+					int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);
+					((IManaItem) stack.getItem()).addMana(stack, manaToPut);
+					getAttachedTile().receiveMana(-manaToPut);
+					particlesTowards(player);
+				}
+
 			}
+			case DOMINANT -> {
+				List<IManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
+						.filter(s -> {
+							SparkUpgradeType otherUpgrade = s.getUpgrade();
+							return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedTile() instanceof IManaPool;
+						})
+						.collect(Collectors.toList());
+				if (validSparks.size() > 0) {
+					validSparks.get(level.random.nextInt(validSparks.size())).registerTransfer(this);
+				}
 
-			if (!receivingPlayers.isEmpty()) {
-				List<Player> keys = new ArrayList<>(receivingPlayers.keySet());
-				Collections.shuffle(keys);
-				Player player = keys.iterator().next();
-
-				Map<ItemStack, Integer> items = receivingPlayers.get(player);
-				ItemStack stack = items.keySet().iterator().next();
-				int cost = items.get(stack);
-				int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);
-				((IManaItem) stack.getItem()).addMana(stack, manaToPut);
-				getAttachedTile().receiveMana(-manaToPut);
-				particlesTowards(player);
 			}
-
-		}
-		case DOMINANT -> {
-			List<IManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
-					.filter(s -> {
-						SparkUpgradeType otherUpgrade = s.getUpgrade();
-						return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedTile() instanceof IManaPool;
-					})
-					.collect(Collectors.toList());
-			if (validSparks.size() > 0) {
-				validSparks.get(level.random.nextInt(validSparks.size())).registerTransfer(this);
+			case RECESSIVE -> {
+				SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
+						.filter(s -> {
+							SparkUpgradeType otherUpgrade = s.getUpgrade();
+							return s != this
+									&& otherUpgrade != SparkUpgradeType.DOMINANT
+									&& otherUpgrade != SparkUpgradeType.RECESSIVE
+									&& otherUpgrade != SparkUpgradeType.ISOLATED;
+						})
+						.forEach(transfers::add);
 			}
-
-		}
-		case RECESSIVE -> {
-			SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
-					.filter(s -> {
-						SparkUpgradeType otherUpgrade = s.getUpgrade();
-						return s != this
-								&& otherUpgrade != SparkUpgradeType.DOMINANT
-								&& otherUpgrade != SparkUpgradeType.RECESSIVE
-								&& otherUpgrade != SparkUpgradeType.ISOLATED;
-					})
-					.forEach(transfers::add);
-		}
-		default -> {}
+			default -> {}
 		}
 
 		if (!transfers.isEmpty()) {

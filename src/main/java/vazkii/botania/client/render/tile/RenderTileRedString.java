@@ -112,8 +112,8 @@ public class RenderTileRedString<T extends TileRedString> implements BlockEntity
 		int b = color & 0xFF;
 		buffer.vertex(ms.last().pose(), x, y, z).color(r, g, b, a);
 		switch (dir.getAxis().getPlane()) {
-		case HORIZONTAL -> buffer.normal(ms.last().normal(), 0, 1, 0);
-		case VERTICAL -> buffer.normal(ms.last().normal(), 1, 0, 0);
+			case HORIZONTAL -> buffer.normal(ms.last().normal(), 0, 1, 0);
+			case VERTICAL -> buffer.normal(ms.last().normal(), 1, 0, 0);
 		}
 		buffer.endVertex();
 	}

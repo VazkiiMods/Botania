@@ -70,19 +70,19 @@ public class ItemThirdEye extends ItemBauble {
 			bipedModel.body.translateAndRotate(ms);
 
 			switch (i) {
-			case 0:
-				break;
-			case 1:
-				double time = ClientTickHandler.total * 0.12;
-				double dist = 0.05;
-				ms.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
+				case 0:
+					break;
+				case 1:
+					double time = ClientTickHandler.total * 0.12;
+					double dist = 0.05;
+					ms.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
 
-				ms.scale(0.75F, 0.75F, 1F);
-				ms.translate(0, 0.1, -0.025);
-				break;
-			case 2:
-				ms.translate(0, 0, -0.05);
-				break;
+					ms.scale(0.75F, 0.75F, 1F);
+					ms.translate(0, 0.1, -0.025);
+					break;
+				case 2:
+					ms.translate(0, 0, -0.05);
+					break;
 			}
 
 			ms.translate(-0.3, 0.6, armor ? 0.10 : 0.15);

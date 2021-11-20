@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<profiles version="18">
-<profile kind="CodeFormatterProfile" name="Botania" version="18">
+<profiles version="21">
+<profile kind="CodeFormatterProfile" name="Botania-2" version="21">
 <setting id="org.eclipse.jdt.core.formatter.align_assignment_statements_on_columns" value="false"/>
 <setting id="org.eclipse.jdt.core.formatter.align_fields_grouping_blank_lines" value="2147483647"/>
 <setting id="org.eclipse.jdt.core.formatter.align_type_members_on_columns" value="false"/>
@@ -106,7 +106,7 @@
 <setting id="org.eclipse.jdt.core.formatter.indent_statements_compare_to_block" value="true"/>
 <setting id="org.eclipse.jdt.core.formatter.indent_statements_compare_to_body" value="true"/>
 <setting id="org.eclipse.jdt.core.formatter.indent_switchstatements_compare_to_cases" value="true"/>
-<setting id="org.eclipse.jdt.core.formatter.indent_switchstatements_compare_to_switch" value="false"/>
+<setting id="org.eclipse.jdt.core.formatter.indent_switchstatements_compare_to_switch" value="true"/>
 <setting id="org.eclipse.jdt.core.formatter.indentation.size" value="4"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_enum_constant" value="insert"/>
 <setting id="org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_field" value="insert"/>
