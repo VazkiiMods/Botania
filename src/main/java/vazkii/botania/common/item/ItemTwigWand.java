@@ -360,9 +360,9 @@ public class ItemTwigWand extends Item {
 
 	public static Optional<BlockPos> getBindingAttempt(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Y, -1);
+		int y = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Y, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_BOUND_TILE_Z, 0);
-		return y < 0 ? Optional.empty() : Optional.of(new BlockPos(x, y, z));
+		return y == Integer.MIN_VALUE ? Optional.empty() : Optional.of(new BlockPos(x, y, z));
 	}
 
 	public static boolean getBindMode(ItemStack stack) {
