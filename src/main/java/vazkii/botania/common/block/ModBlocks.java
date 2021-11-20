@@ -213,7 +213,6 @@ public final class ModBlocks {
 	public static final Block livingrockBrickCracked = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickMossy = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 
-	// TODO 1.16+ livingwood/dreamwood should support leaves?
 	public static final Block livingwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2).sound(SoundType.WOOD)); // TODO color
 	public static final Block livingwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
 	public static final Block livingwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog).lightLevel(b -> 12));
@@ -510,25 +509,25 @@ public final class ModBlocks {
 		register(r, LibBlockNames.LIVING_WOOD_LOG_GLIMMERING, livingwoodLogGlimmering);
 		register(r, LibBlockNames.LIVING_WOOD_LOG_GLIMMERING_STRIPPED, livingwoodLogStrippedGlimmering);
 		register(r, LibBlockNames.LIVING_WOOD, livingwood);
+		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING, livingwoodGlimmering);
 		register(r, LibBlockNames.LIVING_WOOD_STRIPPED, livingwoodStripped);
 		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING_STRIPPED, livingwoodStrippedGlimmering);
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS, livingwoodPlanks);
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, livingwoodPlanksMossy);
 		register(r, LibBlockNames.LIVING_WOOD_FRAMED, livingwoodFramed);
 		register(r, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED, livingwoodPatternFramed);
-		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING, livingwoodGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD_LOG, dreamwoodLog);
 		register(r, LibBlockNames.DREAM_WOOD_LOG_GLIMMERING, dreamwoodLogGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD_LOG_STRIPPED, dreamwoodLogStripped);
 		register(r, LibBlockNames.DREAM_WOOD_LOG_GLIMMERING_STRIPPED, dreamwoodLogStrippedGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD, dreamwood);
+		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING, dreamwoodGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD_STRIPPED, dreamwoodStripped);
 		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING_STRIPPED, dreamwoodStrippedGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS, dreamwoodPlanks);
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, dreamwoodPlanksMossy);
 		register(r, LibBlockNames.DREAM_WOOD_FRAMED, dreamwoodFramed);
 		register(r, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, dreamwoodPatternFramed);
-		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING, dreamwoodGlimmering);
 		register(r, LibBlockNames.SPREADER, manaSpreader);
 		register(r, LibBlockNames.SPREADER_REDSTONE, redstoneSpreader);
 		register(r, LibBlockNames.SPREADER_ELVEN, elvenSpreader);

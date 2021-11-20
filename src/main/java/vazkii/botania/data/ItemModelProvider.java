@@ -455,7 +455,9 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(itemBlocks, Stream.of(ModBlocks.dreamwoodLog, ModBlocks.dreamwood, ModBlocks.dreamwoodLogStripped,
 				ModBlocks.dreamwoodStripped, ModBlocks.dreamwoodLogGlimmering, ModBlocks.dreamwoodGlimmering,
-				ModBlocks.dreamwoodLogStrippedGlimmering, ModBlocks.dreamwoodStrippedGlimmering)
+				ModBlocks.dreamwoodLogStrippedGlimmering, ModBlocks.dreamwoodStrippedGlimmering,
+				ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodStrippedStairs, ModFluffBlocks.dreamwoodSlab,
+				ModFluffBlocks.dreamwoodStrippedSlab)
 				.map(Block::asItem)
 				.map(i -> (BlockItem) i)
 				.toArray(BlockItem[]::new))

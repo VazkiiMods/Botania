@@ -249,14 +249,13 @@ public final class ModFluffBlocks {
 		register(r, LibBlockNames.LIVING_WOOD + STAIR_SUFFIX, livingwoodStairs);
 		register(r, LibBlockNames.LIVING_WOOD + SLAB_SUFFIX, livingwoodSlab);
 		register(r, LibBlockNames.LIVING_WOOD + WALL_SUFFIX, livingwoodWall);
-		register(r, LibBlockNames.LIVING_WOOD + FENCE_SUFFIX, livingwoodFence);
-		register(r, LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX, livingwoodFenceGate);
 		register(r, LibBlockNames.LIVING_WOOD_STRIPPED + STAIR_SUFFIX, livingwoodStrippedStairs);
 		register(r, LibBlockNames.LIVING_WOOD_STRIPPED + SLAB_SUFFIX, livingwoodStrippedSlab);
 		register(r, LibBlockNames.LIVING_WOOD_STRIPPED + WALL_SUFFIX, livingwoodStrippedWall);
-
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX, livingwoodPlankStairs);
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX, livingwoodPlankSlab);
+		register(r, LibBlockNames.LIVING_WOOD + FENCE_SUFFIX, livingwoodFence);
+		register(r, LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX, livingwoodFenceGate);
 
 		register(r, LibBlockNames.LIVING_ROCK + STAIR_SUFFIX, livingrockStairs);
 		register(r, LibBlockNames.LIVING_ROCK + SLAB_SUFFIX, livingrockSlab);
@@ -273,14 +272,13 @@ public final class ModFluffBlocks {
 		register(r, LibBlockNames.DREAM_WOOD + STAIR_SUFFIX, dreamwoodStairs);
 		register(r, LibBlockNames.DREAM_WOOD + SLAB_SUFFIX, dreamwoodSlab);
 		register(r, LibBlockNames.DREAM_WOOD + WALL_SUFFIX, dreamwoodWall);
-		register(r, LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, dreamwoodFence);
-		register(r, LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, dreamwoodFenceGate);
 		register(r, LibBlockNames.DREAM_WOOD_STRIPPED + STAIR_SUFFIX, dreamwoodStrippedStairs);
 		register(r, LibBlockNames.DREAM_WOOD_STRIPPED + SLAB_SUFFIX, dreamwoodStrippedSlab);
 		register(r, LibBlockNames.DREAM_WOOD_STRIPPED + WALL_SUFFIX, dreamwoodStrippedWall);
-
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX, dreamwoodPlankStairs);
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX, dreamwoodPlankSlab);
+		register(r, LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, dreamwoodFence);
+		register(r, LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, dreamwoodFenceGate);
 
 		register(r, QUARTZ_DARK, darkQuartz);
 		register(r, "chiseled_" + QUARTZ_DARK, darkQuartzChiseled);
