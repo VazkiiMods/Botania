@@ -38,6 +38,7 @@
     "AccessorItemOverrideList",
     "AccessorMinecraft",
     "AccessorModelBakery",
+    "AccessorModelRenderer",
     "AccessorRecipeBookGui",
     "AccessorRecipeBookPage",
     "AccessorRenderState",

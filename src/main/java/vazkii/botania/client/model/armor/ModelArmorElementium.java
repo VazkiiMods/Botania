@@ -8,9 +8,6 @@
  */
 package vazkii.botania.client.model.armor;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
@@ -61,13 +58,10 @@ public class ModelArmorElementium extends ModelArmor {
 
 		//helm
 		this.helmAnchor = new ModelRenderer(this, 0, 0);
-		this.helmAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.helmAnchor.addBox(-1.0F, -2.0F, 0.0F, 2, 2, 2, s);
 		this.helm = new ModelRenderer(this, 0, 0);
-		this.helm.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.helm.addBox(-4.5F, -9.0F, -4.5F, 9, 9, 9, s);
 		this.helmFairy = new ModelRenderer(this, 36, 11);
-		this.helmFairy.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.helmFairy.addBox(-2.5F, -10.0F, -5.5F, 5, 5, 5, s);
 		this.helmWing1l = new ModelRenderer(this, 36, 0);
 		this.helmWing1l.mirror = true;
@@ -90,27 +84,21 @@ public class ModelArmorElementium extends ModelArmor {
 
 		//body
 		this.bodyAnchor = new ModelRenderer(this, 0, 0);
-		this.bodyAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.bodyAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
 		this.bodyTop = new ModelRenderer(this, 0, 19);
-		this.bodyTop.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.bodyTop.addBox(-4.5F, 0.0F, -3.0F, 9, 6, 6, s);
 		this.bodyBottom = new ModelRenderer(this, 0, 31);
-		this.bodyBottom.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.bodyBottom.addBox(-3.5F, 5.0F, -2.5F, 7, 3, 5, s);
 
 		//armL
 		this.armLAnchor = new ModelRenderer(this, 0, 0);
 		this.armLAnchor.mirror = true;
-		this.armLAnchor.setRotationPoint(4.0F, 2.0F, 0.0F);
 		this.armLAnchor.addBox(0.0F, -1.0F, -1.0F, 2, 2, 2, s);
 		this.armL = new ModelRenderer(this, 24, 40);
 		this.armL.mirror = true;
-		this.armL.setRotationPoint(0.0F, 0.0F, -0.0F);
 		this.armL.addBox(0.5F, 4.5F, -2.49F, 3, 6, 5, s);
 		this.armLpauldron = new ModelRenderer(this, 0, 40);
 		this.armLpauldron.mirror = true;
-		this.armLpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.armLpauldron.addBox(-0.5F, -3.0F, -3.0F, 6, 7, 6, s);
 		this.armLwing1 = new ModelRenderer(this, 40, 35);
 		this.armLwing1.setRotationPoint(6.0F, -1.0F, 0.0F);
@@ -124,13 +112,10 @@ public class ModelArmorElementium extends ModelArmor {
 		//armR
 		this.armRAnchor = new ModelRenderer(this, 0, 0);
 		this.armRAnchor.mirror = true;
-		this.armRAnchor.setRotationPoint(-4.0F, 2.0F, 0.0F);
 		this.armRAnchor.addBox(-2.0F, -1.0F, -1.0F, 2, 2, 2, s);
 		this.armR = new ModelRenderer(this, 24, 40);
-		this.armR.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.armR.addBox(-3.5F, 4.5F, -2.51F, 3, 6, 5, s);
 		this.armRpauldron = new ModelRenderer(this, 0, 40);
-		this.armRpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.armRpauldron.addBox(-5.5F, -3.0F, -3.0F, 6, 7, 6, s);
 		this.setRotateAngle(armRpauldron, 0.0F, 0.0F, 0.0017453292519943296F);
 		this.armRwing1 = new ModelRenderer(this, 40, 35);
@@ -146,23 +131,18 @@ public class ModelArmorElementium extends ModelArmor {
 
 		//pants
 		this.pantsAnchor = new ModelRenderer(this, 0, 0);
-		this.pantsAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.pantsAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
 		this.belt = new ModelRenderer(this, 0, 53);
-		this.belt.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.belt.addBox(-4.5F, 8.0F, -3.0F, 9, 5, 6, s);
 		this.legL = new ModelRenderer(this, 0, 64);
 		this.legL.mirror = true;
-		this.legL.setRotationPoint(1.9F, 12.0F, 0.0F);
 		this.legL.addBox(-2.39F, 0.0F, -2.49F, 5, 6, 5, s);
 		this.legR = new ModelRenderer(this, 0, 64);
-		this.legR.setRotationPoint(-1.9F, 12.0F, 0.0F);
 		this.legR.addBox(-2.61F, 0.0F, -2.51F, 5, 6, 5, s);
 
 		//boots
 		this.bootL = new ModelRenderer(this, 0, 75);
 		this.bootL.mirror = true;
-		this.bootL.setRotationPoint(1.9F, 12.0F, 0.0F);
 		this.bootL.addBox(-2.39F, 8.5F, -2.49F, 5, 5, 5, s);
 		this.bootLwing1 = new ModelRenderer(this, 40, 40);
 		this.bootLwing1.setRotationPoint(2.5F, 8.5F, 0.0F);
@@ -173,7 +153,6 @@ public class ModelArmorElementium extends ModelArmor {
 		this.bootLwing2.addBox(0.0F, 0.0F, 0.0F, 0, 2, 3, s);
 		this.setRotateAngle(bootLwing2, -0.2617993877991494F, 0.2617993877991494F, -0.2617993877991494F);
 		this.bootR = new ModelRenderer(this, 0, 75);
-		this.bootR.setRotationPoint(-1.9F, 12.0F, 0.0F);
 		this.bootR.addBox(-2.61F, 8.5F, -2.51F, 5, 5, 5, s);
 		this.bootRwing1 = new ModelRenderer(this, 40, 40);
 		this.bootRwing1.mirror = true;
@@ -211,10 +190,6 @@ public class ModelArmorElementium extends ModelArmor {
 		this.bootL.addChild(bootLwing2);
 		this.bootR.addChild(bootRwing1);
 		this.bootR.addChild(bootRwing2);
-	}
-
-	@Override
-	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
 
 		helmAnchor.showModel = slot == EquipmentSlotType.HEAD;
 		bodyAnchor.showModel = slot == EquipmentSlotType.CHEST;
@@ -226,19 +201,14 @@ public class ModelArmorElementium extends ModelArmor {
 		bootR.showModel = slot == EquipmentSlotType.FEET;
 		bipedHeadwear.showModel = false;
 
-		bipedHead = helmAnchor;
-		bipedBody = bodyAnchor;
-		bipedRightArm = armRAnchor;
-		bipedLeftArm = armLAnchor;
-		if (slot == EquipmentSlotType.LEGS) {
-			bipedBody = pantsAnchor;
-			bipedRightLeg = legR;
-			bipedLeftLeg = legL;
-		} else {
-			bipedRightLeg = bootR;
-			bipedLeftLeg = bootL;
-		}
-
-		super.render(ms, buffer, light, overlay, r, g, b, a);
+		bipedHead.addChild(helmAnchor);
+		bipedBody.addChild(bodyAnchor);
+		bipedRightArm.addChild(armRAnchor);
+		bipedLeftArm.addChild(armLAnchor);
+		bipedBody.addChild(pantsAnchor);
+		bipedRightLeg.addChild(legR);
+		bipedLeftLeg.addChild(legL);
+		bipedRightLeg.addChild(bootR);
+		bipedLeftLeg.addChild(bootL);
 	}
 }

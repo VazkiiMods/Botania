@@ -14,12 +14,21 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 
+import vazkii.botania.mixin.AccessorModelRenderer;
+
 public class ModelArmor extends BipedModel<LivingEntity> {
 	protected final EquipmentSlotType slot;
 
 	public ModelArmor(EquipmentSlotType slot) {
 		super(1);
 		this.slot = slot;
+
+		// Clear the existing renderer's cubes, we only use them as points to attach parts to
+		ModelRenderer[] renderers = { bipedHead, bipedHeadwear, bipedRightArm,
+				bipedLeftArm, bipedBody, bipedRightLeg, bipedLeftLeg };
+		for (ModelRenderer renderer : renderers) {
+			((AccessorModelRenderer) renderer).botania_getCubeList().clear();
+		}
 	}
 
 	// [VanillaCopy] ArmorStandArmorModel.setRotationAngles because armor stands are dumb

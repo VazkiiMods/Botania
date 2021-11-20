@@ -8,9 +8,6 @@
  */
 package vazkii.botania.client.model.armor;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
 
@@ -48,61 +45,48 @@ public class ModelArmorManaweave extends ModelArmor {
 
 		//helm
 		this.helmAnchor = new ModelRenderer(this, 0, 0);
-		this.helmAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.helmAnchor.addBox(-1.0F, -2.0F, 0.0F, 2, 2, 2, s);
 		this.helm = new ModelRenderer(this, 0, 0);
-		this.helm.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.helm.addBox(-4.5F, -9.5F, -4.0F, 9, 11, 10, s);
 		this.setRotateAngle(helm, 0.17453292519943295F, 0.0F, 0.0F);
 
 		//body
 		this.bodyAnchor = new ModelRenderer(this, 0, 0);
-		this.bodyAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.bodyAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
 		this.bodyTop = new ModelRenderer(this, 0, 21);
-		this.bodyTop.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.bodyTop.addBox(-4.5F, -0.5F, -3.0F, 9, 7, 6, s);
 		this.setRotateAngle(bodyTop, 0.0F, 0.0F, 0.0F);
 		this.bodyBottom = new ModelRenderer(this, 0, 34);
-		this.bodyBottom.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.bodyBottom.addBox(-4.5F, 6.5F, -2.5F, 9, 5, 5, s);
 		this.setRotateAngle(bodyBottom, -0F, 0.0F, 0.0F);
 
 		//armL
 		this.armLAnchor = new ModelRenderer(this, 0, 0);
 		this.armLAnchor.mirror = true;
-		this.armLAnchor.setRotationPoint(4.0F, 2.0F, 0.0F);
 		this.armLAnchor.addBox(0.0F, -1.0F, -1.0F, 2, 2, 2, s);
 		this.armL = new ModelRenderer(this, 0, 44);
 		this.armL.mirror = true;
-		this.armL.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.armL.addBox(-1.5F, -2.5F, -2.49F, 5, 10, 5, s);
 		this.armLpauldron = new ModelRenderer(this, 20, 44);
 		this.armLpauldron.mirror = true;
-		this.armLpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.armLpauldron.addBox(-1.0F, -3.0F, -3.0F, 6, 5, 6, s);
 		this.setRotateAngle(armLpauldron, 0.0F, 0.0F, -0.08726646259971647F);
 
 		//armR
 		this.armRAnchor = new ModelRenderer(this, 0, 0);
 		this.armRAnchor.mirror = true;
-		this.armRAnchor.setRotationPoint(-4.0F, 2.0F, 0.0F);
 		this.armRAnchor.addBox(-2.0F, -1.0F, -1.0F, 2, 2, 2, s);
 		this.armR = new ModelRenderer(this, 0, 44);
-		this.armR.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.armR.addBox(-3.5F, -2.5F, -2.51F, 5, 10, 5, s);
 		this.armRpauldron = new ModelRenderer(this, 20, 44);
-		this.armRpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.armRpauldron.addBox(-5.0F, -3.0F, -3.0F, 6, 5, 6, s);
 		this.setRotateAngle(armRpauldron, 0.0F, 0.0F, 0.08726646259971647F);
 
 		//pants
 		this.pantsAnchor = new ModelRenderer(this, 0, 0);
-		this.pantsAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.pantsAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
 		this.legL = new ModelRenderer(this, 0, 78);
 		this.legL.mirror = true;
-		this.legL.setRotationPoint(1.9F, 12.0F, 0.0F);
 		this.legL.addBox(-2.39F, -0.5F, -2.49F, 5, 6, 5, s);
 		this.skirtL = new ModelRenderer(this, 0, 59);
 		this.skirtL.mirror = true;
@@ -110,7 +94,6 @@ public class ModelArmorManaweave extends ModelArmor {
 		this.skirtL.addBox(-1.0F, 0.0F, -0.5F, 5, 13, 6, s);
 		this.setRotateAngle(skirtL, 0.0F, -0.17453292519943295F, -0.2617993877991494F);
 		this.legR = new ModelRenderer(this, 0, 78);
-		this.legR.setRotationPoint(-1.9F, 12.0F, 0.0F);
 		this.legR.addBox(-2.61F, 0.0F, -2.51F, 5, 6, 5, s);
 		this.skirtR = new ModelRenderer(this, 0, 59);
 		this.skirtR.setRotationPoint(0.5F, -2.0F, -2.5F);
@@ -120,10 +103,8 @@ public class ModelArmorManaweave extends ModelArmor {
 		//boot
 		this.bootL = new ModelRenderer(this, 0, 89);
 		this.bootL.mirror = true;
-		this.bootL.setRotationPoint(1.9F, 12.0F, 0.0F);
 		this.bootL.addBox(-2.39F, 8.5F, -2.49F, 5, 4, 5, s);
 		this.bootR = new ModelRenderer(this, 0, 89);
-		this.bootR.setRotationPoint(-1.9F, 12.0F, 0.0F);
 		this.bootR.addBox(-2.61F, 8.5F, -2.51F, 5, 4, 5, s);
 
 		//hierarchy
@@ -140,10 +121,6 @@ public class ModelArmorManaweave extends ModelArmor {
 
 		this.legL.addChild(this.skirtL);
 		this.legR.addChild(this.skirtR);
-	}
-
-	@Override
-	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
 
 		helmAnchor.showModel = slot == EquipmentSlotType.HEAD;
 		bodyAnchor.showModel = slot == EquipmentSlotType.CHEST;
@@ -155,18 +132,13 @@ public class ModelArmorManaweave extends ModelArmor {
 		bootR.showModel = slot == EquipmentSlotType.FEET;
 		bipedHeadwear.showModel = false;
 
-		bipedHead = helmAnchor;
-		bipedBody = bodyAnchor;
-		bipedRightArm = armRAnchor;
-		bipedLeftArm = armLAnchor;
-		if (slot == EquipmentSlotType.LEGS) {
-			bipedRightLeg = legR;
-			bipedLeftLeg = legL;
-		} else {
-			bipedRightLeg = bootR;
-			bipedLeftLeg = bootL;
-		}
-
-		super.render(ms, buffer, light, overlay, r, g, b, a);
+		bipedHead.addChild(helmAnchor);
+		bipedBody.addChild(bodyAnchor);
+		bipedRightArm.addChild(armRAnchor);
+		bipedLeftArm.addChild(armLAnchor);
+		bipedRightLeg.addChild(legR);
+		bipedLeftLeg.addChild(legL);
+		bipedRightLeg.addChild(bootR);
+		bipedLeftLeg.addChild(bootL);
 	}
 }
