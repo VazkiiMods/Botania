@@ -83,10 +83,10 @@ public class StateIngredientHelper {
 				List<StateIngredient> ingr = new ArrayList<>();
 				for (JsonElement element : GsonHelper.getAsJsonArray(object, "exclude")) {
 					ingr.add(deserialize(GsonHelper.convertToJsonObject(element, "exclude entry")));
-			}
-			return new StateIngredientTagExcluding(tag, ingr);
-		default:
-			throw new JsonParseException("Unknown type!");
+				}
+				return new StateIngredientTagExcluding(tag, ingr);
+			default:
+				throw new JsonParseException("Unknown type!");
 		}
 	}
 

@@ -29,7 +29,6 @@ import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
@@ -58,7 +57,6 @@ import vazkii.botania.mixin.AccessorTextureSlot;
 import javax.annotation.Nonnull;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
@@ -690,36 +688,40 @@ public class BlockstateProvider implements DataProvider {
 				BlockStateProperties.HALF,
 				BlockStateProperties.STAIRS_SHAPE
 		);
-		for (Direction direction : Direction.Plane.HORIZONTAL) for (Half half : Half.values()) for (StairsShape stairsShape : StairsShape.values()) {
-			// Stair blockstates are super weird. If it's left and bottom, you need to rotate it 90deg ccw compared to
-			// usual, and if it's right and top, you need to rotate it 90deg cw. This is the cleanest way I could think
-			// of to do that.
-			boolean isLeft = stairsShape == StairsShape.INNER_LEFT || stairsShape == StairsShape.OUTER_LEFT;
-			boolean isRight = stairsShape == StairsShape.INNER_RIGHT || stairsShape == StairsShape.OUTER_RIGHT;
-			int rotationOffset = isLeft && half == Half.BOTTOM ? -1 : isRight && half == Half.TOP ? 1 : 0;
+		for (Direction direction : Direction.Plane.HORIZONTAL) {
+			for (Half half : Half.values()) {
+				for (StairsShape stairsShape : StairsShape.values()) {
+					// Stair blockstates are super weird. If it's left and bottom, you need to rotate it 90deg ccw compared to
+					// usual, and if it's right and top, you need to rotate it 90deg cw. This is the cleanest way I could think
+					// of to do that.
+					boolean isLeft = stairsShape == StairsShape.INNER_LEFT || stairsShape == StairsShape.OUTER_LEFT;
+					boolean isRight = stairsShape == StairsShape.INNER_RIGHT || stairsShape == StairsShape.OUTER_RIGHT;
+					int rotationOffset = isLeft && half == Half.BOTTOM ? -1 : isRight && half == Half.TOP ? 1 : 0;
 
-			VariantProperties.Rotation[] rotations = VariantProperties.Rotation.values();
-			VariantProperties.Rotation yRot = switch (direction) {
-				case EAST -> rotations[(4 + rotationOffset) % 4];
-				case WEST -> rotations[(2 + rotationOffset) % 4];
-				case SOUTH -> rotations[(1 + rotationOffset) % 4];
-				case NORTH -> rotations[(3 + rotationOffset) % 4];
-				default -> throw new IllegalStateException();
-			};
-			VariantProperties.Rotation xRot = switch (half) {
-				case BOTTOM -> VariantProperties.Rotation.R0;
-				case TOP -> VariantProperties.Rotation.R180;
-			};
-			ResourceLocation[] models = switch (stairsShape) {
-				case STRAIGHT -> straightModels;
-				case OUTER_RIGHT, OUTER_LEFT -> outerModels;
-				case INNER_RIGHT, INNER_LEFT -> innerModels;
-			};
-			propertyDispatch.select(direction, half, stairsShape, Stream.of(models).map(rl -> Variant.variant()
-					.with(VariantProperties.MODEL, rl)
-					.with(VariantProperties.X_ROT, xRot)
-					.with(VariantProperties.Y_ROT, yRot)
-					.with(VariantProperties.UV_LOCK, true)).toList());
+					VariantProperties.Rotation[] rotations = VariantProperties.Rotation.values();
+					VariantProperties.Rotation yRot = switch (direction) {
+						case EAST -> rotations[(4 + rotationOffset) % 4];
+						case WEST -> rotations[(2 + rotationOffset) % 4];
+						case SOUTH -> rotations[(1 + rotationOffset) % 4];
+						case NORTH -> rotations[(3 + rotationOffset) % 4];
+						default -> throw new IllegalStateException();
+					};
+					VariantProperties.Rotation xRot = switch (half) {
+						case BOTTOM -> VariantProperties.Rotation.R0;
+						case TOP -> VariantProperties.Rotation.R180;
+					};
+					ResourceLocation[] models = switch (stairsShape) {
+						case STRAIGHT -> straightModels;
+						case OUTER_RIGHT, OUTER_LEFT -> outerModels;
+						case INNER_RIGHT, INNER_LEFT -> innerModels;
+					};
+					propertyDispatch.select(direction, half, stairsShape, Stream.of(models).map(rl -> Variant.variant()
+							.with(VariantProperties.MODEL, rl)
+							.with(VariantProperties.X_ROT, xRot)
+							.with(VariantProperties.Y_ROT, yRot)
+							.with(VariantProperties.UV_LOCK, true)).toList());
+				}
+			}
 		}
 		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(propertyDispatch));
 		blocks.remove(block);
@@ -756,13 +758,12 @@ public class BlockstateProvider implements DataProvider {
 						.select(SlabType.BOTTOM, Stream.of(bottomModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
 						.select(SlabType.TOP, Stream.of(topModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
 						.select(SlabType.DOUBLE, Stream.of(doubleModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
-				));
+		));
 		blocks.remove(block);
 	}
 
-
 	protected void wallBlock(Set<Block> blocks, Block block, ResourceLocation texture) {
-		wallBlockWithVariants(blocks, block, new ResourceLocation[] { texture } );
+		wallBlockWithVariants(blocks, block, new ResourceLocation[] { texture });
 	}
 
 	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures) {
@@ -791,10 +792,10 @@ public class BlockstateProvider implements DataProvider {
 		var wallSides = List.of(BlockStateProperties.EAST_WALL, BlockStateProperties.WEST_WALL, BlockStateProperties.SOUTH_WALL, BlockStateProperties.NORTH_WALL);
 		for (EnumProperty<WallSide> wallSide : wallSides) {
 			VariantProperties.Rotation yRot =
-				wallSide == BlockStateProperties.EAST_WALL ? VariantProperties.Rotation.R90
-				: wallSide == BlockStateProperties.WEST_WALL ? VariantProperties.Rotation.R270
-				: wallSide == BlockStateProperties.SOUTH_WALL ? VariantProperties.Rotation.R180
-				: VariantProperties.Rotation.R0;
+					wallSide == BlockStateProperties.EAST_WALL ? VariantProperties.Rotation.R90
+							: wallSide == BlockStateProperties.WEST_WALL ? VariantProperties.Rotation.R270
+							: wallSide == BlockStateProperties.SOUTH_WALL ? VariantProperties.Rotation.R180
+							: VariantProperties.Rotation.R0;
 			multiPartGenerator
 					.with(Condition.condition().term(wallSide, WallSide.LOW), Stream.of(lowModels).map(rl -> Variant.variant()
 							.with(VariantProperties.MODEL, rl)
