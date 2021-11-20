@@ -68,6 +68,10 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		this.variant = v;
 	}
 
+	public Variant getVariant() {
+		return variant;
+	}
+
 	@Nonnull
 	@Override
 	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
@@ -129,6 +133,11 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 		ItemStack currentStack = player.getHeldItem(hand);
+
+		if (variant.indestructible && !player.isCreative()) {
+			return ActionResultType.PASS;
+		}
+
 		if (!currentStack.isEmpty()
 				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
 				&& tile instanceof TilePlatform) {
@@ -136,7 +145,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 			BlockItemUseContext ctx = new BlockItemUseContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
 
-			if (changeState != null && isValidBlock(changeState, world, pos)
+			if (isValidBlock(changeState, world, pos)
 					&& !(changeState.getBlock() instanceof BlockPlatform)
 					&& changeState.getMaterial() != Material.AIR) {
 				if (!world.isRemote) {

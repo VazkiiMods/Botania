@@ -22,6 +22,8 @@ import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
 
+import vazkii.botania.common.block.BlockPlatform;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -40,10 +42,14 @@ public class TilePlatform extends TileMod {
 
 	public boolean onWanded(PlayerEntity player) {
 		if (player != null) {
+			if (getVariant().indestructible && !player.isCreative()) {
+				return false;
+			}
+
 			if (getCamoState() == null || player.isSneaking()) {
-				swapSelfAndPass(this, true);
+				swapSelfAndPass(this, true, getVariant());
 			} else {
-				swapSurroudings(this, false);
+				swapSurroudings(this, false, getVariant());
 			}
 			return true;
 		}
@@ -67,19 +73,26 @@ public class TilePlatform extends TileMod {
 		}
 	}
 
-	private void swapSelfAndPass(TilePlatform tile, boolean empty) {
-		swap(tile, empty);
-		swapSurroudings(tile, empty);
+	private BlockPlatform.Variant getVariant() {
+		return ((BlockPlatform) getBlockState().getBlock()).getVariant();
 	}
 
-	private void swapSurroudings(TilePlatform tile, boolean empty) {
+	private void swapSelfAndPass(TilePlatform tile, boolean empty, BlockPlatform.Variant variant) {
+		swap(tile, empty);
+		swapSurroudings(tile, empty, variant);
+	}
+
+	private void swapSurroudings(TilePlatform tile, boolean empty, BlockPlatform.Variant variant) {
 		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getPos().offset(dir);
 			TileEntity tileAt = world.getTileEntity(pos);
 			if (tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
+				if (tile.getVariant() != platform.getVariant()) {
+					continue;
+				}
 				if (empty == (platform.getCamoState() != null)) {
-					swapSelfAndPass(platform, empty);
+					swapSelfAndPass(platform, empty, variant);
 				}
 			}
 		}
