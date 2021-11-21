@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -372,12 +374,25 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		serverIndexes.clear();
 	}
 
+	private static IFormattableTextComponent formatRequest(int inputCount, ITextComponent requestName, ICorporeaResult res) {
+		// This is a bit of a hack; TODO maybe make the request localize itself instead?
+		if (inputCount == 0) {
+			// "count X"
+			return new TranslationTextComponent("botaniamisc.requestCount", res.getMatchedCount(), requestName);
+		}
+		if (inputCount == Integer.MAX_VALUE) {
+			// "all X"
+			return new TranslationTextComponent("botaniamisc.requestAll", requestName, res.getExtractedCount());
+		}
+		return new TranslationTextComponent("botaniamisc.requestSome", inputCount, res.getMatchedCount(), requestName, res.getExtractedCount());
+	}
+
 	public void performPlayerRequest(ServerPlayerEntity player, ICorporeaRequestMatcher request, int count) {
 		CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(player, request, count, this.getSpark());
 		if (!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
 			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
 
-			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).mergeStyle(TextFormatting.LIGHT_PURPLE), Util.DUMMY_UUID);
+			player.sendMessage(formatRequest(count, request.getRequestName(), res).mergeStyle(TextFormatting.LIGHT_PURPLE), Util.DUMMY_UUID);
 			player.addStat(ModStats.CORPOREA_ITEMS_REQUESTED, res.getExtractedCount());
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), res.getExtractedCount());
 		}
