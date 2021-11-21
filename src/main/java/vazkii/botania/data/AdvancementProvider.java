@@ -62,7 +62,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		// Main progression line
 		Advancement root = Advancement.Builder.advancement()
 				.display(rootDisplay(ModItems.lexicon, "itemGroup.botania",
-						"botania.desc", prefix("textures/block/livingwood.png")))
+						"botania.desc", prefix("textures/block/livingwood_log.png")))
 				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer, mainId("root"));
 

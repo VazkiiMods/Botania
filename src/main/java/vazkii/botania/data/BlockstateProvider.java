@@ -362,8 +362,8 @@ public class BlockstateProvider implements DataProvider {
 
 		// block entities with only particles
 		particleOnly(remainingBlocks, animatedTorch, getBlockTexture(Blocks.REDSTONE_TORCH));
-		particleOnly(remainingBlocks, avatar, getBlockTexture(livingwood));
-		particleOnly(remainingBlocks, bellows, getBlockTexture(livingwood));
+		particleOnly(remainingBlocks, avatar, getBlockTexture(livingwoodLog));
+		particleOnly(remainingBlocks, bellows, getBlockTexture(livingwoodLog));
 		particleOnly(remainingBlocks, brewery, getBlockTexture(livingrock));
 		particleOnly(remainingBlocks, corporeaIndex, getBlockTexture(corporeaBlock));
 		particleOnly(remainingBlocks, lightRelayDetector, getBlockTexture(lightRelayDetector));
