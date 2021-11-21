@@ -66,7 +66,6 @@
   "botaniamisc.requestSome": "%d of %d \"%s\" requested. %d taken.",
   "botaniamisc.requestAll": "All \"%s\" requested. %d taken.",
   "botaniamisc.requestCount": "%d \"%s\" counted.",
-  "botaniamisc.requestMsg": "Requested %d x \"%s\" out of %d. %d taken.",
   "botaniamisc.nearIndex0": "Corporea Index nearby!",
   "botaniamisc.nearIndex1": "Anything you say will be",
   "botaniamisc.nearIndex2": "intercepted as a request",
