@@ -35,7 +35,7 @@ public class MixinPollinateGoal {
 	 * 
 	 * @see MixinBee
 	 */
-	@SuppressWarnings("UnresolvedMixinReference") // MCDev warning
+	@SuppressWarnings("target")
 	@Inject(method = "<init>(Lnet/minecraft/world/entity/animal/Bee;)V", at = @At("TAIL"))
 	private void extendPredicate(Bee outer, CallbackInfo ci) {
 		VALID_POLLINATION_BLOCKS = VALID_POLLINATION_BLOCKS.or(b -> b.is(ModTags.Blocks.SPECIAL_FLOWERS));
