@@ -60,14 +60,18 @@ import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements IWandable {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> {
-		record Matcher(Tag<Block> tag, Direction.Axis displayedRotation) implements IStateMatcher {
+		record Matcher(Tag<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
 			@Override
 			public BlockState getDisplayedState(int ticks) {
 				List<Block> blocks = tag().getValues();
 				if (blocks.isEmpty()) {
 					return Blocks.BEDROCK.defaultBlockState();
 				}
-				BlockState block = blocks.get((ticks / 20) % blocks.size()).defaultBlockState();
+
+				BlockState block = blocks.contains(defaultBlock)
+						? defaultBlock.defaultBlockState()
+						: blocks.get((ticks / 20) % blocks.size()).defaultBlockState();
+
 				return block.hasProperty(BlockStateProperties.AXIS)
 						? block.setValue(BlockStateProperties.AXIS, displayedRotation())
 						: block;
@@ -78,10 +82,10 @@ public class TileAlfPortal extends TileMod implements IWandable {
 				return (blockGetter, pos, state) -> state.is(tag());
 			}
 		}
-		var horizontal = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X);
-		var vertical = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y);
-		var horizontalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X);
-		var verticalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y);
+		var horizontal = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, ModBlocks.livingwoodLog);
+		var vertical = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, ModBlocks.livingwoodLog);
+		var horizontalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, ModBlocks.livingwoodLogGlimmering);
+		var verticalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, ModBlocks.livingwoodLogGlimmering);
 
 		return PatchouliAPI.get().makeMultiblock(
 				new String[][] {

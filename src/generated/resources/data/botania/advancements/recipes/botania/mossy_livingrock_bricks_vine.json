@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:mossy_livingrock_brick_vine"
+      "botania:mossy_livingrock_bricks_vine"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:mossy_livingrock_brick_vine"
+        "recipe": "botania:mossy_livingrock_bricks_vine"
       }
     }
   },

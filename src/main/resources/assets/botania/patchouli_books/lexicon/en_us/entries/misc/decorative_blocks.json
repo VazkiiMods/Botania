@@ -17,7 +17,8 @@
     {
       "type": "crafting",
       "text": "botania.page.decorativeBlocks2",
-      "recipe": "botania:mossy_livingrock_bricks"
+      "recipe": "botania:mossy_livingrock_bricks",
+      "recipe2": "botania:mossy_livingrock_bricks_vine"
     },
     {
       "type": "crafting",
@@ -38,7 +39,8 @@
     {
       "type": "crafting",
       "text": "botania.page.decorativeBlocks6",
-      "recipe": "botania:mossy_livingwood_planks"
+      "recipe": "botania:mossy_livingwood_planks",
+      "recipe2": "botania:mossy_livingwood_planks_vine"
     },
     {
       "type": "crafting",
@@ -53,7 +55,8 @@
     {
       "type": "crafting",
       "text": "botania.page.decorativeBlocks9",
-      "recipe": "botania:glimmering_livingwood"
+      "recipe": "botania:glimmering_livingwood",
+      "recipe2": "botania:glimmering_livingwood_log"
     },
     {
       "type": "text",

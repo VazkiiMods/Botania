@@ -2162,7 +2162,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.requires(ModBlocks.livingrockBrick)
 				.requires(Items.VINE)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
-				.save(consumer, "botania:mossy_livingrock_brick_vine");
+				.save(consumer, "botania:mossy_livingrock_bricks_vine");
 		ShapelessRecipeBuilder.shapeless(ModBlocks.shimmerrock)
 				.requires(ModBlocks.livingrock)
 				.requires(ModBlocks.bifrostPerm)
@@ -2541,8 +2541,8 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer, "botania:mossy_" + variant + "_planks_vine");
 		ShapedRecipeBuilder.shaped(framed, 4)
 				.define('W', planks)
-				.pattern("WW")
-				.pattern("WW")
+				.pattern("W W")
+				.pattern("W W")
 				.unlockedBy("has_item", conditionsFromItem(planks))
 				.save(consumer);
 		ringShape(patternFramed, planks).save(consumer);
