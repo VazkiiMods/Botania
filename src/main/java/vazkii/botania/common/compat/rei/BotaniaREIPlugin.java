@@ -56,12 +56,13 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	@Override
 	public void registerCategories(CategoryRegistry helper) {
 		helper.add(List.of(
-				new BreweryREICategory(),
-				new PureDaisyREICategory(),
-				new RunicAltarREICategory(),
 				new PetalApothecaryREICategory(),
-				new ElvenTradeREICategory(),
+				new PureDaisyREICategory(),
 				new ManaPoolREICategory(),
+				new RunicAltarREICategory(),
+				new ElvenTradeREICategory(),
+				new BreweryREICategory(),
+				new TerraPlateREICategory(),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, ModSubtiles.orechid),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, ModSubtiles.orechidIgnem),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, ModSubtiles.marimorphosis)
@@ -96,6 +97,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				EntryStacks.of(ModSubtiles.marimorphosisChibi), EntryStacks.of(ModSubtiles.marimorphosisChibiFloating));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.PURE_DAISY, EntryStacks.of(ModSubtiles.pureDaisy), EntryStacks.of(ModSubtiles.pureDaisyFloating));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR, EntryStacks.of(ModBlocks.runeAltar));
+		helper.addWorkstations(BotaniaREICategoryIdentifiers.TERRA_PLATE, EntryStacks.of(ModBlocks.terraPlate));
 
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY);
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.BREWERY);
@@ -106,6 +108,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.MARIMORPHOSIS);
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.PURE_DAISY);
 		helper.removePlusButton(BotaniaREICategoryIdentifiers.RUNE_ALTAR);
+		helper.removePlusButton(BotaniaREICategoryIdentifiers.TERRA_PLATE);
 	}
 
 	@Override
@@ -122,6 +125,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
 		helper.registerFiller(RecipePureDaisy.class, PureDaisyREIDisplay::new);
 		helper.registerFiller(RecipeRuneAltar.class, RunicAltarREIDisplay::new);
+		helper.registerFiller(RecipeTerraPlate.class, TerraPlateREIDisplay::new);
 
 		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
 		helper.registerRecipeFiller(RecipeOrechid.class, ModRecipeTypes.ORECHID_TYPE,

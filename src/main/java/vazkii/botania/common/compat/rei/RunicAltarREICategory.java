@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.compat.rei;
 
+import me.shedaniel.math.FloatingPoint;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -63,24 +64,26 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
 
 		double angleBetweenEach = 360.0 / inputs.size();
-		Point point = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 35), center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
-
-		widgets.add(CategoryUtils.drawRecipeBackground(bounds));
+		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 38);
+		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 6);
+		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(helper, matrices, PETAL_OVERLAY, center.x - 23, center.y - 40, 42, 11, 85, 82);
-			HUDHandler.renderManaBar(matrices, center.x - 44, center.y + 51, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
+			CategoryUtils.drawOverlay(helper, matrices, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82);
+			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
 		})));
-		widgets.add(Widgets.createSlot(center).entry(altar).disableBackground());
+
 		for (EntryIngredient o : inputs) {
-			widgets.add(Widgets.createSlot(point).entries(o).disableBackground());
+			widgets.add(Widgets.createSlot(point.getLocation()).entries(o).disableBackground());
 			point = CategoryUtils.rotatePointAbout(point, center, angleBetweenEach);
 		}
-		widgets.add(Widgets.createSlot(new Point(center.x + 39, center.y - 33)).entry(output).disableBackground());
+		widgets.add(Widgets.createSlot(center).entry(this.altar).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x + 38, center.y - 35)).entry(output).disableBackground());
+
 		return widgets;
 	}
 
 	@Override
 	public int getDisplayHeight() {
-		return 120;
+		return 114;
 	}
 }

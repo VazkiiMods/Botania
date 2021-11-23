@@ -66,18 +66,18 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	@Override
 	public @NotNull List<Widget> setupDisplay(OrechidBaseREIDisplay<?> display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
-		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 16);
+		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 9);
 
-		widgets.add(CategoryUtils.drawRecipeBackground(bounds));
-		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 24, center.y - 14, 0, 0, 65, 44))));
+		widgets.add(Widgets.createRecipeBase(bounds));
+		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44))));
 		widgets.add(Widgets.createSlot(center).entry(orechid).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x - 31, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x - 30, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().get(0)).disableBackground());
 		return widgets;
 	}
 
 	@Override
 	public int getDisplayHeight() {
-		return 72;
+		return 54;
 	}
 }
