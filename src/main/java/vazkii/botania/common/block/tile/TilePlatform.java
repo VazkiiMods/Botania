@@ -19,9 +19,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.block.BlockPlatform;
 
-import vazkii.botania.api.block.IWandable;
 import javax.annotation.Nullable;
 
 public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity, IWandable {
