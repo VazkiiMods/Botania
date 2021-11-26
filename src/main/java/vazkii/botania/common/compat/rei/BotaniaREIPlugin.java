@@ -14,17 +14,25 @@ import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
+import me.shedaniel.math.Point;
+import me.shedaniel.math.impl.PointHelper;
+import me.shedaniel.rei.api.client.REIRuntime;
+import me.shedaniel.rei.api.client.gui.screen.DisplayScreen;
+import me.shedaniel.rei.api.client.gui.widgets.Slot;
+import me.shedaniel.rei.api.client.overlay.OverlayListWidget;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,6 +44,7 @@ import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.*;
@@ -45,6 +54,8 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
+
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -53,6 +64,11 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Environment(EnvType.CLIENT)
 public class BotaniaREIPlugin implements REIClientPlugin {
+	public BotaniaREIPlugin() {
+		CorporeaInputHandler.jeiPanelSupplier = BotaniaREIPlugin::getHoveredREIStack;
+		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(s -> s instanceof DisplayScreen);
+	}
+
 	@Override
 	public void registerCategories(CategoryRegistry helper) {
 		helper.add(List.of(
@@ -206,5 +222,43 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		ItemTerraPick.setTipped(output);
 
 		helper.add(new DefaultCustomDisplay(null, inputs, Collections.singletonList(EntryIngredients.of(output))));
+	}
+
+	private static ItemStack getHoveredREIStack() {
+		return REIRuntime.getInstance().getOverlay().map(o -> {
+			ItemStack stack;
+			if (REIRuntime.getInstance().isOverlayVisible()) {
+				stack = unwrapEntry(o.getEntryList().getFocusedStack());
+				if (!stack.isEmpty()) {
+					return stack;
+				}
+				stack = o.getFavoritesList()
+						.map(OverlayListWidget::getFocusedStack)
+						.map(BotaniaREIPlugin::unwrapEntry)
+						.orElse(ItemStack.EMPTY);
+				if (!stack.isEmpty()) {
+					return stack;
+				}
+			}
+			if (Minecraft.getInstance().screen instanceof DisplayScreen) {
+				Point point = PointHelper.ofMouse();
+				for (var child : Minecraft.getInstance().screen.children()) {
+					if (child.isMouseOver(point.x, point.y) && child instanceof Slot slot) {
+						stack = unwrapEntry(slot.getCurrentEntry());
+						if (!stack.isEmpty()) {
+							return stack;
+						}
+					}
+				}
+			}
+			return ItemStack.EMPTY;
+		}).orElse(ItemStack.EMPTY);
+	}
+
+	private static ItemStack unwrapEntry(@Nullable EntryStack<?> stack) {
+		if (stack != null && !stack.isEmpty() && stack.getType() == VanillaEntryTypes.ITEM) {
+			return (ItemStack) stack.getValue();
+		}
+		return ItemStack.EMPTY;
 	}
 }
