@@ -12,13 +12,14 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookPage;
 import net.minecraft.client.gui.screens.recipebook.RecipeButton;
+import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.client.core.RecipeBookAccess;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.network.PacketIndexKeybindRequest;
@@ -81,19 +82,23 @@ public class CorporeaInputHandler {
 		Screen screen = Minecraft.getInstance().screen;
 		if (screen instanceof AbstractContainerScreen) {
 			Slot slotUnderMouse = ((AccessorAbstractContainerScreen) screen).getHoveredSlot();
-			if (slotUnderMouse != null) {
+			if (slotUnderMouse != null && slotUnderMouse.hasItem()) {
 				ItemStack stack = slotUnderMouse.getItem().copy();
 				stack.setTag(null); // Wipe NBT of inventory items before request, as player items will often have data
 				return stack; // that's better to ignore. This is still an improvement over matching names only.
 			}
-		}
 
-		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeBookComponent().isVisible()) {
-			RecipeBookComponent recipeBook = ((InventoryScreen) screen).getRecipeBookComponent();
-			RecipeBookPage page = ((AccessorRecipeBookComponent) recipeBook).getRecipesArea();
-			RecipeButton widget = ((AccessorRecipeBookPage) page).getHoveredButton();
-			if (widget != null) {
-				return widget.getRecipe().getResultItem();
+			if (screen instanceof RecipeUpdateListener recipeScreen && recipeScreen.getRecipeBookComponent().isVisible()) {
+				RecipeBookComponent recipeBook = recipeScreen.getRecipeBookComponent();
+				RecipeBookPage page = ((AccessorRecipeBookComponent) recipeBook).getRecipesArea();
+				RecipeButton widget = ((AccessorRecipeBookPage) page).getHoveredButton();
+				if (widget != null) {
+					return widget.getRecipe().getResultItem();
+				}
+				ItemStack stack = ((RecipeBookAccess) recipeBook).getHoveredGhostRecipeStack();
+				if (stack != null) {
+					return stack;
+				}
 			}
 		}
 

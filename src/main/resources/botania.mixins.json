@@ -87,6 +87,7 @@
     "MixinMinecraft",
     "MixinModelManager",
     "MixinParticleEngine",
+    "MixinRecipeBookComponent",
     "MixinScreen",
     "MixinSkullBlockRenderer",
     "MixinSoundEngine",
