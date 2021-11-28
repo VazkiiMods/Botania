@@ -204,6 +204,9 @@ jar {
     exclude "**/*.psd"
     exclude "**/*.exe"
 }
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
 
 // configure the maven publication
 publishing {
