@@ -11,9 +11,7 @@ package vazkii.botania.common.crafting;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.commands.CommandFunction;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -23,12 +21,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-
 import net.minecraft.world.phys.Vec3;
+
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,13 +41,14 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	private final CommandFunction.CacheableFunction function;
 
 	/**
-	 * @param id    The ID for this recipe.
-	 * @param input The input for the recipe. Can be a Block, BlockState, or Tag&lt;Block&gt;.
-	 * @param state The blockstate to be placed upon recipe completion.
-	 * @param time  The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not
-	 *              total time.
-	 *              The Pure Daisy only ticks one block at a time in a round robin fashion.
-	 * @param function An mcfunction to run at the converted block after finish. If you don't want one, pass CommandFunction.CacheableFunction.NONE
+	 * @param id       The ID for this recipe.
+	 * @param input    The input for the recipe. Can be a Block, BlockState, or Tag&lt;Block&gt;.
+	 * @param state    The blockstate to be placed upon recipe completion.
+	 * @param time     The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not
+	 *                 total time.
+	 *                 The Pure Daisy only ticks one block at a time in a round robin fashion.
+	 * @param function An mcfunction to run at the converted block after finish. If you don't want one, pass
+	 *                 CommandFunction.CacheableFunction.NONE
 	 */
 	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state, int time, @Nullable CommandFunction.CacheableFunction function) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
@@ -75,7 +73,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 				var server = serverLevel.getServer();
 				this.function.get(server.getFunctions()).ifPresent(command -> {
 					var context = server.getFunctions().getGameLoopSender()
-						.withPosition(Vec3.atBottomCenterOf(pos));
+							.withPosition(Vec3.atBottomCenterOf(pos));
 					server.getFunctions().execute(command, context);
 				});
 			}
