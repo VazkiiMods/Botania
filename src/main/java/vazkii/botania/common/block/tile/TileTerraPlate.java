@@ -79,7 +79,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 
 		if (hasValidPlatform()) {
 			List<ItemStack> items = getItems();
-			Inventory inv = new Inventory(items.toArray(new ItemStack[0]));
+			Inventory inv = getInventory();
 
 			ITerraPlateRecipe recipe = getCurrentRecipe(inv);
 			if (recipe != null) {
@@ -98,10 +98,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 				}
 
 				if (mana >= recipe.getMana()) {
+					ItemStack result = recipe.getCraftingResult(inv);
 					for (ItemStack item : items) {
-						item.shrink(1);
+						item.setCount(0);
 					}
-					ItemEntity item = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 0.2, getPos().getZ() + 0.5, recipe.getCraftingResult(inv));
+					ItemEntity item = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 0.2, getPos().getZ() + 0.5, result);
 					item.setMotion(Vector3d.ZERO);
 					world.addEntity(item);
 					world.playSound(null, item.getPosX(), item.getPosY(), item.getPosZ(), ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
@@ -130,11 +131,47 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 
 	private Inventory getInventory() {
 		List<ItemStack> items = getItems();
-		return new Inventory(items.toArray(new ItemStack[0]));
+		return new Inventory(flattenStacks(items));
+	}
+
+	/**
+	 * Flattens the list of stacks into an array of stacks with size 1,
+	 * for recipe matching purposes only.
+	 * If the total count of items exceeds 64, returns no items.
+	 */
+	private static ItemStack[] flattenStacks(List<ItemStack> items) {
+		ItemStack[] stacks;
+		int i = 0;
+		for (ItemStack item : items) {
+			i += item.getCount();
+		}
+		if (i > 64) {
+			return new ItemStack[0];
+		}
+
+		stacks = new ItemStack[i];
+		int j = 0;
+		for (ItemStack item : items) {
+			if (item.getCount() > 1) {
+				ItemStack temp = item.copy();
+				temp.setCount(1);
+				for (int count = 0; count < item.getCount(); count++) {
+					stacks[j] = temp.copy();
+					j++;
+				}
+			} else {
+				stacks[j] = item;
+				j++;
+			}
+		}
+		return stacks;
 	}
 
 	@Nullable
 	private ITerraPlateRecipe getCurrentRecipe(Inventory items) {
+		if (items.isEmpty()) {
+			return null;
+		}
 		return world.getRecipeManager().getRecipe(ModRecipeTypes.TERRA_PLATE_TYPE, items, world).orElse(null);
 	}
 
