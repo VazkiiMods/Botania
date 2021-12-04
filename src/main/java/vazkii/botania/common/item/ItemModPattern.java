@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ItemModPattern extends Item {
 	// todo 1.18
-	public ItemModPattern(LoomPattern pattern, Properties settings) {
+	public ItemModPattern(/*LoomPattern pattern, */Properties settings) {
 		super(settings);
 	}
 

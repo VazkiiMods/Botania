@@ -102,7 +102,7 @@ public final class ModItems {
 	public static final Item manaSteel = new Item(defaultBuilder());
 	public static final Item manaPearl = new Item(defaultBuilder());
 	public static final Item manaDiamond = new Item(defaultBuilder());
-	public static final Item livingwoodTwig = new ItemModPattern(ModPatterns.FLOWER, defaultBuilder());
+	public static final Item livingwoodTwig = new ItemModPattern(/*ModPatterns.FLOWER, */defaultBuilder());
 	public static final Item terrasteel = new ItemTerrasteel(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item lifeEssence = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item redstoneRoot = new Item(defaultBuilder());
@@ -110,7 +110,7 @@ public final class ModItems {
 	public static final Item pixieDust = new Item(defaultBuilder());
 	public static final Item dragonstone = new Item(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
-	public static final Item dreamwoodTwig = new ItemModPattern(ModPatterns.SAPLING, defaultBuilder());
+	public static final Item dreamwoodTwig = new ItemModPattern(/*ModPatterns.SAPLING, */defaultBuilder());
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item enderAirBottle = new ItemEnderAir(defaultBuilder());
 	public static final Item manaString = new Item(defaultBuilder());
@@ -305,10 +305,10 @@ public final class ModItems {
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
 	public static final Item nullVirus = new ItemVirus(defaultBuilder());
 	public static final Item spark = new ItemManaSpark(defaultBuilder());
-	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(ModPatterns.SPARK_DISPERSIVE, defaultBuilder(), SparkUpgradeType.DISPERSIVE);
-	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(ModPatterns.SPARK_DOMINANT, defaultBuilder(), SparkUpgradeType.DOMINANT);
-	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(ModPatterns.SPARK_RECESSIVE, defaultBuilder(), SparkUpgradeType.RECESSIVE);
-	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(ModPatterns.SPARK_ISOLATED, defaultBuilder(), SparkUpgradeType.ISOLATED);
+	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(/*ModPatterns.SPARK_DISPERSIVE, */defaultBuilder(), SparkUpgradeType.DISPERSIVE);
+	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(/*ModPatterns.SPARK_DOMINANT, */defaultBuilder(), SparkUpgradeType.DOMINANT);
+	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(/*ModPatterns.SPARK_RECESSIVE, */defaultBuilder(), SparkUpgradeType.RECESSIVE);
+	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(/*ModPatterns.SPARK_ISOLATED, */defaultBuilder(), SparkUpgradeType.ISOLATED);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.RARE));
