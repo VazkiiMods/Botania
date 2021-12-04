@@ -50,7 +50,7 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
 			if (context instanceof EntityCollisionContext econtext) {
-				Entity e = econtext.getEntity().orElse(null);
+				Entity e = econtext.getEntity();
 				return (e == null || e.getY() > pos.getY() + 0.9 && !context.isDescending());
 			} else {
 				return true;
