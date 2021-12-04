@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  */
 public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 	public StateCopyPureDaisyRecipe(ResourceLocation id, StateIngredient input, Block block, int time) {
-		super(id, input, block.defaultBlockState(), time);
+		super(id, input, block.defaultBlockState(), time, null);
 	}
 
 	@Override
