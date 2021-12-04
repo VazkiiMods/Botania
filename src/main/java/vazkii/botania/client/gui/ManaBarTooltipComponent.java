@@ -83,7 +83,7 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 	}
 
 	@Override
-	public void renderImage(Font font, int x, int y, PoseStack ps, ItemRenderer renderer, int z, TextureManager manager) {
+	public void renderImage(Font font, int x, int y, PoseStack ps, ItemRenderer renderer, int z) {
 		int height = 3;
 		int offsetFromBox = 4;
 
