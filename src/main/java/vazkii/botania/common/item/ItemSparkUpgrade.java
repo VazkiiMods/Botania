@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 
-
 public class ItemSparkUpgrade extends ItemModPattern {
 	public final SparkUpgradeType type;
 

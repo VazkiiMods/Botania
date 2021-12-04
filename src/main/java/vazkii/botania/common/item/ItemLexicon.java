@@ -28,7 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.block.ModPatterns;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
 

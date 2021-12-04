@@ -8,9 +8,7 @@
  */
 package vazkii.botania.common.item;
 
-import vazkii.botania.common.block.ModPatterns;
 import vazkii.botania.common.item.material.ItemManaResource;
-
 
 public class ItemTerrasteel extends ItemManaResource /*implements LoomPatternProvider*/ {
 	public ItemTerrasteel(Properties props) {

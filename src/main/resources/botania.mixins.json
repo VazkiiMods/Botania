@@ -8,6 +8,7 @@
     "AccessorAbstractHorse",
     "AccessorAdvancementProvider",
     "AccessorAvoidEntityGoal",
+    "AccessorBiome",
     "AccessorBlockModelGenerators",
     "AccessorBucketItem",
     "AccessorCreeper",

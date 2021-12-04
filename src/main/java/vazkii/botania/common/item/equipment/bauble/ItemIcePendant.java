@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.mixin.AccessorBiome;
 
 public class ItemIcePendant extends ItemBauble {
 
@@ -55,7 +56,7 @@ public class ItemIcePendant extends ItemBauble {
 				x = Mth.floor(entity.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
 				z = Mth.floor(entity.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
-				if (entity.level.isEmptyBlock(blockpos) && entity.level.getBiome(blockpos).getTemperature(blockpos) < 0.9F && blockstate.canSurvive(entity.level, blockpos)) {
+				if (entity.level.isEmptyBlock(blockpos) && ((AccessorBiome) (Object) (entity.level.getBiome(blockpos))).callGetTemperature(blockpos) < 0.9F && blockstate.canSurvive(entity.level, blockpos)) {
 					entity.level.setBlockAndUpdate(blockpos, blockstate);
 				}
 			}
