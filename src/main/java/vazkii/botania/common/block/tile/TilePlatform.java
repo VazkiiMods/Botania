@@ -111,12 +111,7 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 			state = null;
 		}
 		setCamoState(state);
-	}
-
-	@Override
-	public void fromClientTag(CompoundTag tag) {
-		super.fromClientTag(tag);
-		if (level instanceof ClientLevel) {
+		if (level != null && level.isClientSide) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
 	}

@@ -300,10 +300,9 @@ public class TileAlfPortal extends TileMod implements IWandable {
 		ticksSinceLastItem = 0;
 	}
 
-	@Nonnull
 	@Override
-	public CompoundTag save(CompoundTag cmp) {
-		CompoundTag ret = super.save(cmp);
+	public void saveAdditional(CompoundTag cmp) {
+		super.saveAdditional(cmp);
 
 		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
@@ -312,8 +311,6 @@ public class TileAlfPortal extends TileMod implements IWandable {
 			cmp.put(TAG_STACK + i, stackcmp);
 			i++;
 		}
-
-		return ret;
 	}
 
 	@Override

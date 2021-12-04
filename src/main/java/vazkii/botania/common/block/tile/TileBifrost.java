@@ -32,12 +32,10 @@ public class TileBifrost extends TileMod {
 		}
 	}
 
-	@Nonnull
 	@Override
-	public CompoundTag save(CompoundTag tag) {
-		CompoundTag ret = super.save(tag);
-		ret.putInt(TAG_TICKS, ticks);
-		return ret;
+	public void saveAdditional(CompoundTag tag) {
+		super.saveAdditional(tag);
+		tag.putInt(TAG_TICKS, ticks);
 	}
 
 	@Override

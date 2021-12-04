@@ -37,14 +37,12 @@ public class TileFakeAir extends TileMod {
 		return SubTileBubbell.isValidBubbell(level, flowerPos);
 	}
 
-	@Nonnull
 	@Override
-	public CompoundTag save(CompoundTag tag) {
-		CompoundTag ret = super.save(tag);
-		ret.putInt(TAG_FLOWER_X, flowerPos.getX());
-		ret.putInt(TAG_FLOWER_Y, flowerPos.getY());
-		ret.putInt(TAG_FLOWER_Z, flowerPos.getZ());
-		return ret;
+	public void saveAdditional(CompoundTag tag) {
+		super.saveAdditional(tag);
+		tag.putInt(TAG_FLOWER_X, flowerPos.getX());
+		tag.putInt(TAG_FLOWER_Y, flowerPos.getY());
+		tag.putInt(TAG_FLOWER_Z, flowerPos.getZ());
 	}
 
 	@Override
