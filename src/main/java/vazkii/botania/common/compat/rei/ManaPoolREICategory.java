@@ -64,12 +64,12 @@ public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> 
 		ItemStack pool = manaPool.getValue().copy();
 		ItemNBTHelper.setBoolean(pool, "RenderFull", true);
 		EntryStack<ItemStack> renderPool = EntryStacks.of(pool);
-		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 16);
+		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 14);
 
-		widgets.add(CategoryUtils.drawRecipeBackground(bounds));
+		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 24, center.y - 14, 0, 0, 65, 44);
-			HUDHandler.renderManaBar(matrices, center.x - 44, center.y + 36, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
+			CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44);
+			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 37, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
 		})));
 
 		widgets.add(Widgets.createSlot(center).entry(renderPool).disableBackground());
@@ -78,15 +78,15 @@ public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> 
 			List<EntryStack<ItemStack>> entries = catalyst.getDisplayed()
 					.stream().map(state -> EntryStacks.of(state.getBlock()))
 					.collect(Collectors.toList());
-			widgets.add(Widgets.createSlot(new Point(center.x - 49, center.y)).entries(entries).disableBackground());
+			widgets.add(Widgets.createSlot(new Point(center.x - 50, center.y)).entries(entries).disableBackground());
 		}
-		widgets.add(Widgets.createSlot(new Point(center.x - 31, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x - 30, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().get(0)).disableBackground());
 		return widgets;
 	}
 
 	@Override
 	public int getDisplayHeight() {
-		return 72;
+		return 65;
 	}
 }

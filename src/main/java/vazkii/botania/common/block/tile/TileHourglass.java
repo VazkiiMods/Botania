@@ -75,7 +75,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements IWandab
 				self.flipTicks = 4;
 				if (!level.isClientSide) {
 					level.setBlock(worldPosition, state.setValue(BlockStateProperties.POWERED, true), 1);
-					level.getBlockTicks().scheduleTick(worldPosition, state.getBlock(), 4);
+					level.scheduleTick(worldPosition, state.getBlock(), 4);
 				}
 
 				for (Direction facing : Direction.values()) {

@@ -313,6 +313,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 							}
 
 							int manaVal = Math.min(transfRate, Math.min(self.manaCap - self.getCurrentMana(), mana.getMana(stack)));
+							if (manaVal == 0 && self.level.getBlockState(worldPosition.below()).is(ModBlocks.manaVoid)) {
+								manaVal = Math.min(transfRate, mana.getMana(stack));
+							}
 							mana.addMana(stack, -manaVal);
 							self.receiveMana(manaVal);
 						}

@@ -17,8 +17,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.DecoratorConfiguration;
-import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -31,11 +30,12 @@ public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
 	public static final Feature<MysticalMushroomConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS_CONF = MYSTICAL_FLOWERS
-			.configured(new MysticalFlowerConfig(6, 2, 2, 16, 0.05))
-			.decorated(FeatureDecorator.NOPE.configured(DecoratorConfiguration.NONE));
+			.configured(new MysticalFlowerConfig(6, 2, 2, 16, 0.05));
 	public static final ConfiguredFeature<?, ?> MYSTICAL_MUSHROOMS_CONF = MYSTICAL_MUSHROOMS
-			.configured(new MysticalMushroomConfig(40))
-			.decorated(FeatureDecorator.NOPE.configured(DecoratorConfiguration.NONE));
+			.configured(new MysticalMushroomConfig(40));
+
+	public static final PlacedFeature MYSTICAL_FLOWERS_PLACED = MYSTICAL_FLOWERS_CONF.placed();
+	public static final PlacedFeature MYSTICAL_MUSHROOMS_PLACED = MYSTICAL_MUSHROOMS_CONF.placed();
 
 	public static final Set<Biome.BiomeCategory> TYPE_BLACKLIST = ImmutableSet.of(
 			Biome.BiomeCategory.NETHER,
@@ -53,17 +53,20 @@ public class ModFeatures {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);
 
+		Registry.register(BuiltinRegistries.PLACED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_PLACED);
+		Registry.register(BuiltinRegistries.PLACED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_PLACED);
+
 		if (ConfigHandler.COMMON.worldgenEnabled.getValue()) {
 			BiomeModifications.addFeature(ctx -> {
 				Biome.BiomeCategory category = ctx.getBiome().getBiomeCategory();
 				return !TYPE_BLACKLIST.contains(category);
 			},
 					GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.CONFIGURED_FEATURE.getResourceKey(MYSTICAL_FLOWERS_CONF).get());
-			BiomeModifications.addFeature(ctx -> {
-				return ctx.getBiome().getBiomeCategory() != Biome.BiomeCategory.THEEND;
-			}, GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.CONFIGURED_FEATURE.getResourceKey(MYSTICAL_MUSHROOMS_CONF).get());
+					BuiltinRegistries.PLACED_FEATURE.getResourceKey(MYSTICAL_FLOWERS_PLACED).orElseThrow());
+			BiomeModifications.addFeature(
+					ctx -> ctx.getBiome().getBiomeCategory() != Biome.BiomeCategory.THEEND,
+					GenerationStep.Decoration.VEGETAL_DECORATION,
+					BuiltinRegistries.PLACED_FEATURE.getResourceKey(MYSTICAL_MUSHROOMS_PLACED).orElseThrow());
 		}
 
 	}

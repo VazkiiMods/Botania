@@ -45,22 +45,17 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 	}
 
 	@Override
-	public void fromClientTag(CompoundTag tag) {
-		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
-		super.fromClientTag(tag);
-		if (oldType != floatingData.getIslandType()) {
-			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
-		}
-	}
-
-	@Override
 	public void writePacketNBT(CompoundTag cmp) {
 		cmp.put(TAG_FLOATING_DATA, floatingData.writeNBT());
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
+		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
+		if (oldType != floatingData.getIslandType() && level != null && level.isClientSide) {
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
+		}
 	}
 
 	@Override

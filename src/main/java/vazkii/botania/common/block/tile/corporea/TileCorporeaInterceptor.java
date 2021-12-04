@@ -46,7 +46,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 
 				if (missing > 0 && !getBlockState().getValue(BlockStateProperties.POWERED)) {
 					level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true));
-					level.getBlockTicks().scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
+					level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
 
 					BlockPos requestorPos = source.getSparkNode().getPos();
 					for (Direction dir : Direction.values()) {

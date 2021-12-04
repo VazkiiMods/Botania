@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
@@ -132,6 +133,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		TooltipComponentCallback.EVENT.register(ManaBarTooltipComponent::tryConvert);
+		ScreenEvents.AFTER_INIT.register(CorporeaInputHandler::registerEvent);
 
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
 			LocalDateTime now = LocalDateTime.now();

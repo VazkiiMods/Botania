@@ -28,7 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.block.ModPatterns;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -41,7 +40,7 @@ public class ItemLexicon extends ItemModPattern {
 	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
 	public ItemLexicon(Properties settings) {
-		super(ModPatterns.LEXICON, settings);
+		super(/*ModPatterns.LEXICON, */settings);
 	}
 
 	public static boolean isOpen() {

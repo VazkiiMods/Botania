@@ -1,0 +1,11 @@
+{
+  "type": "botania:pure_daisy",
+  "input": {
+    "type": "block",
+    "block": "minecraft:end_stone"
+  },
+  "output": {
+    "name": "minecraft:cobblestone"
+  },
+  "success_function": "botania:ender_air_release"
+}

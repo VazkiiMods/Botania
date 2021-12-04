@@ -61,7 +61,7 @@ public class BlockManaDetector extends BlockMod implements IManaTrigger, IManaCo
 			BlockState state = world.getBlockState(pos);
 			if (!state.getValue(BlockStateProperties.POWERED) && !world.getBlockTicks().hasScheduledTick(pos, this)) {
 				world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
-				world.getBlockTicks().scheduleTick(pos, this, 4);
+				world.scheduleTick(pos, this, 4);
 			}
 		}
 	}

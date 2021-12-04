@@ -12,7 +12,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -43,7 +42,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower block entities
  */
-public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable, IWandHUD {
+public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, IWandHUD {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -155,37 +154,25 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 		if (getBlockState().getBlock() instanceof BlockFloatingFlower) {
 			setFloating(true);
 		}
-		readFromPacketNBT(cmp);
-	}
 
-	@Nonnull
-	@Override
-	public final CompoundTag save(CompoundTag cmp) {
-		cmp = super.save(cmp);
-		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
-		writeToPacketNBT(cmp);
-		return cmp;
-	}
-
-	@Override
-	public CompoundTag toClientTag(CompoundTag compoundTag) {
-		writeToPacketNBT(compoundTag);
-		return compoundTag;
-	}
-
-	@Override
-	public void fromClientTag(CompoundTag tag) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
-		readFromPacketNBT(tag);
-		if (isFloating() && oldType != floatingData.getIslandType()) {
+		readFromPacketNBT(cmp);
+		if (isFloating() && oldType != floatingData.getIslandType() && level != null) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
+	}
+
+	@Override
+	public final void saveAdditional(CompoundTag cmp) {
+		super.saveAdditional(cmp);
+		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
+		writeToPacketNBT(cmp);
 	}
 
 	@Nonnull
 	@Override
 	public CompoundTag getUpdateTag() {
-		return save(new CompoundTag());
+		return saveWithoutMetadata();
 	}
 
 	/**
@@ -210,7 +197,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 		}
 	}
 
-	@Override
 	public void sync() {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}

@@ -8,20 +8,8 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
-
-import java.util.List;
-
-import static vazkii.botania.common.block.ModBlocks.register;
-
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatterns;
-
 public final class ModPatterns {
+	/*
 	public static LoomPattern FLOWER = new ModLoomPattern(true);
 	public static LoomPattern LEXICON = new ModLoomPattern(true);
 	public static LoomPattern LOGO = new ModLoomPattern(true);
@@ -31,15 +19,17 @@ public final class ModPatterns {
 	public static LoomPattern SPARK_DOMINANT = new ModLoomPattern(true);
 	public static LoomPattern SPARK_RECESSIVE = new ModLoomPattern(true);
 	public static LoomPattern SPARK_ISOLATED = new ModLoomPattern(true);
-
+	
 	public static LoomPattern FISH = new ModLoomPattern(false);
 	public static LoomPattern AXE = new ModLoomPattern(false);
 	public static LoomPattern HOE = new ModLoomPattern(false);
 	public static LoomPattern PICKAXE = new ModLoomPattern(false);
 	public static LoomPattern SHOVEL = new ModLoomPattern(false);
 	public static LoomPattern SWORD = new ModLoomPattern(false);
+	*/
 
 	public static void init() {
+		/*
 		register(LoomPatterns.REGISTRY, "flower", FLOWER);
 		register(LoomPatterns.REGISTRY, "lexicon", LEXICON);
 		register(LoomPatterns.REGISTRY, "logo", LOGO);
@@ -57,18 +47,20 @@ public final class ModPatterns {
 		register(LoomPatterns.REGISTRY, "pickaxe", PICKAXE);
 		register(LoomPatterns.REGISTRY, "shovel", SHOVEL);
 		register(LoomPatterns.REGISTRY, "sword", SWORD);
+		*/
 	}
 
+	/*
 	private static class ModLoomPattern extends LoomPattern {
 		public ModLoomPattern(boolean special) {
 			super(special);
 		}
-
+	
 		@Override
 		public ResourceLocation getSpriteId(String type) {
 			return new ResourceLocation("entity/" + type + "/botania_" + LoomPatterns.REGISTRY.getKey(this).getPath());
 		}
-
+	
 		@Override
 		public void addPatternLine(List<Component> lines, DyeColor color) {
 			String colorName = color.getName();
@@ -80,4 +72,5 @@ public final class ModPatterns {
 			lines.add(new TranslatableComponent("block.minecraft.banner.botania_" + LoomPatterns.REGISTRY.getKey(this).getPath() + "." + colorName).withStyle(ChatFormatting.GRAY));
 		}
 	}
+	*/
 }

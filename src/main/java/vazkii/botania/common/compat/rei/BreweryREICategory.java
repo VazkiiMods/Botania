@@ -58,24 +58,24 @@ public class BreweryREICategory implements DisplayCategory<BreweryREIDisplay> {
 	public @NotNull List<Widget> setupDisplay(BreweryREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
-		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
+		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() + 9);
 
-		widgets.add(CategoryUtils.drawRecipeBackground(bounds));
-		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, BREWERY_OVERLAY, center.x - 35, center.y - 20, 28, 6, 86, 55))));
+		widgets.add(Widgets.createRecipeBase(bounds));
+		widgets.add(Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, BREWERY_OVERLAY, center.x - 59, center.y - 36, 28, 6, 86, 55)));
 
-		widgets.add(Widgets.createSlot(new Point(center.x - 24, center.y + 16)).entries(display.getContainers()));
+		widgets.add(Widgets.createSlot(new Point(center.x - 48, center.y)).entries(display.getContainers()));
 		int posX = center.x - (inputs.size() - 1) * 9;
 		for (EntryIngredient o : inputs) {
-			widgets.add(Widgets.createSlot(new Point(posX, center.y - 22)).entries(o).disableBackground());
+			widgets.add(Widgets.createSlot(new Point(posX, center.y - 35)).entries(o).disableBackground());
 			posX += 18;
 		}
-		widgets.add(Widgets.createSlot(new Point(center.x + 24, center.y + 16)).entries(display.getOutputEntries().get(0)));
+		widgets.add(Widgets.createSlot(center).entries(display.getOutputEntries().get(0)));
 
 		return widgets;
 	}
 
 	@Override
 	public int getDisplayHeight() {
-		return 72;
+		return 65;
 	}
 }

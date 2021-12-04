@@ -50,7 +50,7 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
 			if (context instanceof EntityCollisionContext econtext) {
-				Entity e = econtext.getEntity().orElse(null);
+				Entity e = econtext.getEntity();
 				return (e == null || e.getY() > pos.getY() + 0.9 && !context.isDescending());
 			} else {
 				return true;
@@ -73,6 +73,10 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	public BlockPlatform(@Nonnull Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
+	}
+
+	public Variant getVariant() {
+		return variant;
 	}
 
 	@Nonnull
@@ -125,13 +129,17 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
 		ItemStack currentStack = player.getItemInHand(hand);
+
+		if (variant.indestructible && !player.isCreative()) {
+			return InteractionResult.PASS;
+		}
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
 				&& tile instanceof TilePlatform camo) {
 			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 
-			if (changeState != null && isValidBlock(changeState, world, pos)
+			if (isValidBlock(changeState, world, pos)
 					&& !(changeState.getBlock() instanceof BlockPlatform)
 					&& changeState.getMaterial() != Material.AIR) {
 				if (!world.isClientSide) {

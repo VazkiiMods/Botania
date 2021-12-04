@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.9-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
     id 'com.diffplug.spotless' version '5.8.2'
     id 'io.github.juuxel.loom-quiltflower-mini' version '1.1.0'
@@ -10,7 +10,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.17.1"
+def mc_version = "1.18"
 version = "${mc_version}-${config.build_number}-FABRIC"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
@@ -82,27 +82,27 @@ dependencies {
     minecraft "com.mojang:minecraft:${mc_version}"
     mappings loom.officialMojangMappings()
 
-    modImplementation "net.fabricmc:fabric-loader:0.11.6"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.42.1+1.17"
+    modImplementation "net.fabricmc:fabric-loader:0.12.8"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.44.0+1.18"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.17.1-58-FABRIC-SNAPSHOT"
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:6.0.268-alpha"
+    modImplementation "vazkii.patchouli:Patchouli:1.18-60-FABRIC"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
-    // Don't include base and entity as curios includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.0.0"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.0.0"
+    // Don't include base and entity as Trinkets includes it already
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:4.0.0"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:4.0.0"
 
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.0.0"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.0.0"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.0"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.0"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation "dev.emi:trinkets:3.0.4"
+    modImplementation "dev.emi:trinkets:3.1.0"
 
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
     include "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
@@ -110,8 +110,10 @@ dependencies {
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
 
+    /*
     modImplementation "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
     include "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
+    */
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
@@ -200,6 +202,9 @@ jar {
     exclude "**/*.bat"
     exclude "**/*.psd"
     exclude "**/*.exe"
+}
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
 }
 
 // configure the maven publication

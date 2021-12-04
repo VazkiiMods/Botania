@@ -182,7 +182,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 					CompoundTag cmp = new CompoundTag();
 					if (tile != null) {
-						cmp = tile.save(cmp);
+						cmp = tile.saveWithFullMetadata();
 						// Reset the block entity so e.g. chests don't spawn their drops
 						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(pos_, state);
 						world.setBlockEntity(newTile);

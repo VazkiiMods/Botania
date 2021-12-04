@@ -360,7 +360,6 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 		return manaRequired > 0;
 	}
 
-	@Override
 	public void sync() {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}

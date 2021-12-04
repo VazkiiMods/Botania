@@ -129,7 +129,7 @@ public class ItemSpawnerMover extends Item {
 		if (world.getBlockState(pos).is(Blocks.SPAWNER)) {
 			if (!world.isClientSide) {
 				BlockEntity te = world.getBlockEntity(pos);
-				stack.getOrCreateTag().put(TAG_SPAWNER, te.save(new CompoundTag()));
+				stack.getOrCreateTag().put(TAG_SPAWNER, te.saveWithFullMetadata());
 				world.destroyBlock(pos, false);
 				if (player != null) {
 					player.getCooldowns().addCooldown(this, 20);

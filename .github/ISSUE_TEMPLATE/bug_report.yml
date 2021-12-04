@@ -1,0 +1,70 @@
+name: Bug Report
+description: Report an issue with supported versions of Botania
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not use GitHub issues to post ideas.
+        Ideas should be posted on the Botania subreddit [/r/Botania](https://www.reddit.com/r/botania/), or discussed on the [Violet Moon discord](https://discord.gg/SFrYxxD).
+  - type: dropdown
+    id: modloader
+    attributes:
+      label: Mod loader
+      options:
+        - Forge
+        - Fabric
+    validations:
+      required: true
+  - type: input
+    id: mc-version
+    attributes:
+      label: Minecraft version
+      placeholder: eg. 1.17.1
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: Botania version
+      placeholder: eg. 1.16.5-419
+    validations:
+      required: true
+  - type: input
+    id: modloader-version
+    attributes:
+      label: Modloader version
+      description: |
+        List the version of the mod loader you are using.
+        If on Fabric, post the versions of both Fabric Loader and Fabric API.
+      placeholder: "eg. Forge: 36.2.9 / Fabric: Loader 0.10.6 + API 0.42.1"
+    validations:
+      required: true
+  - type: input
+    id: modpack
+    attributes:
+      label: Modpack info
+      description: |
+        If playing a modpack, post the link to it!
+  - type: input
+    attributes:
+      label: "The latest.log file"
+      description: "Please use a paste site such as [gist](https://gist.github.com/) / [pastebin](https://pastebin.com/) / etc."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Issue description
+      placeholder: A description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. First step
+        2. Second step
+        3. etc...
+  - type: textarea
+    attributes:
+      label: Other information
+      description: Any other relevant information that is related to this issue, such as other mods and their versions.

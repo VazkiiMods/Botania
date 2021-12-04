@@ -10,8 +10,8 @@ package vazkii.botania.common.world;
 
 import net.minecraft.client.gui.screens.worldselection.WorldPreset;
 import net.minecraft.core.Registry;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.OverworldBiomeSource;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
@@ -23,8 +23,12 @@ public class WorldTypeSkyblock extends WorldPreset {
 	}
 
 	@Override
-	protected ChunkGenerator generator(Registry<Biome> biomes, Registry<NoiseGeneratorSettings> noiseSettings, long seed) {
-		return new SkyblockChunkGenerator(new OverworldBiomeSource(seed, false, false, biomes), seed,
-				() -> noiseSettings.get(NoiseGeneratorSettings.OVERWORLD));
+	protected ChunkGenerator generator(RegistryAccess registryAccess, long seed) {
+		return new SkyblockChunkGenerator(
+				registryAccess.registryOrThrow(Registry.NOISE_REGISTRY),
+				MultiNoiseBiomeSource.Preset.OVERWORLD.biomeSource(registryAccess.registryOrThrow(Registry.BIOME_REGISTRY)),
+				seed,
+				() -> registryAccess.registryOrThrow(Registry.NOISE_GENERATOR_SETTINGS_REGISTRY).getOrThrow(NoiseGeneratorSettings.OVERWORLD)
+		);
 	}
 }

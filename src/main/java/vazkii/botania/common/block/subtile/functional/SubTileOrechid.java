@@ -10,7 +10,9 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.WeighedRandom;
+import net.minecraft.util.random.Weight;
+import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -87,18 +89,24 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 			Output output = new Output(recipe, recipe.getWeight(getLevel(), coords));
 			values.add(output);
 		}
-		return WeighedRandom.getRandomItem(getLevel().random, values)
+		return WeightedRandom.getRandomItem(getLevel().random, values)
 				.map(oo -> oo.recipe.getOutput(getLevel(), coords)
 						.pick(getLevel().getRandom()))
 				.orElse(null);
 	}
 
-	private static class Output extends WeighedRandom.WeighedRandomItem {
+	private static class Output implements WeightedEntry {
+		private final Weight weight;
 		private final IOrechidRecipe recipe;
 
 		public Output(IOrechidRecipe recipe, int weight) {
-			super(weight);
+			this.weight = Weight.of(weight);
 			this.recipe = recipe;
+		}
+
+		@Override
+		public Weight getWeight() {
+			return weight;
 		}
 	}
 

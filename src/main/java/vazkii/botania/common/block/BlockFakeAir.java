@@ -33,7 +33,7 @@ public class BlockFakeAir extends AirBlock implements EntityBlock {
 	@Override
 	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		if (shouldRemove(world, pos)) {
-			world.getBlockTicks().scheduleTick(pos, this, 4);
+			world.scheduleTick(pos, this, 4);
 		}
 	}
 

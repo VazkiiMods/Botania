@@ -107,9 +107,7 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock {
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
 		if (context instanceof EntityCollisionContext econtext
-				&& econtext.getEntity()
-						.map(e -> e instanceof EntityManaBurst)
-						.orElse(false)) {
+				&& econtext.getEntity() instanceof EntityManaBurst) {
 			// Sometimes the pool's collision box is too thin for bursts shot straight up.
 			return BURST_SHAPE;
 		} else {
