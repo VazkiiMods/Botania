@@ -30,7 +30,7 @@ public class TileRedStringDispenser extends TileRedStringContainer {
 		if (bind != null) {
 			BlockEntity tile = level.getBlockEntity(bind);
 			if (tile instanceof DispenserBlockEntity) {
-				level.getBlockTicks().scheduleTick(bind, tile.getBlockState().getBlock(), 4);
+				level.scheduleTick(bind, tile.getBlockState().getBlock(), 4);
 			}
 		}
 	}
