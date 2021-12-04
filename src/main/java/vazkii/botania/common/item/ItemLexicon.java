@@ -41,7 +41,7 @@ public class ItemLexicon extends ItemModPattern {
 	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
 	public ItemLexicon(Properties settings) {
-		super(ModPatterns.LEXICON, settings);
+		super(/*ModPatterns.LEXICON, */settings);
 	}
 
 	public static boolean isOpen() {
