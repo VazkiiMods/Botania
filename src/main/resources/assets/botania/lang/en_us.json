@@ -3011,9 +3011,9 @@
   "botania.page.auraRing1": "Creating the ring",
   "botania.page.auraRing2": "Upgrading the ring",
 
-  "botania.entry.travelBelt": "Soujourner's Sash",
+  "botania.entry.travelBelt": "Sojourner's Sash",
   "botania.tagline.travelBelt": "Run faster, jump higher, and step more smoothly",
-  "botania.page.travelBelt0": "Traversing lots of terrain sometimes proves to be a hassle. The $(item)Soujourner's Sash$(0) is a $(thing)Belt$(0) that, when worn, uses a trickle of $(thing)Mana$(0) to buff its wearer's movement speed, jump height, and fall-damage resistance. It also allows a non-sneaking wearer to step up one-block-high gaps as if they were stairs.",
+  "botania.page.travelBelt0": "Traversing lots of terrain sometimes proves to be a hassle. The $(item)Sojourner's Sash$(0) is a $(thing)Belt$(0) that, when worn, uses a trickle of $(thing)Mana$(0) to buff its wearer's movement speed, jump height, and fall-damage resistance. It also allows a non-sneaking wearer to step up one-block-high gaps as if they were stairs.",
   "botania.page.travelBelt1": "...everell",
 
   "botania.entry.knockbackBelt": "Tectonic Girdle",
@@ -3064,7 +3064,7 @@
 
   "botania.entry.superTravelBelt": "Globetrotter's Sash",
   "botania.tagline.superTravelBelt": "Gotta go fast",
-  "botania.page.superTravelBelt0": "The $(item)Globetrotter's Sash$(0) is nothing more than an upgrade to the $(l:baubles/travel_belt)$(item)Soujourner's Sash$(0)$(/l). $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l) and $(l:alfhomancy/elf_resources)$(item)Elven resources$(0)$(/l) allow this belt's wearer (for some $(thing)Mana$(0), of course) to reach incredible speeds-- the $(l:baubles/travel_belt)$(item)Soujourner's Sash$(0)$(/l) doesn't even stand a chance in comparison.",
+  "botania.page.superTravelBelt0": "The $(item)Globetrotter's Sash$(0) is nothing more than an upgrade to the $(l:baubles/travel_belt)$(item)Sojourner's Sash$(0)$(/l). $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l) and $(l:alfhomancy/elf_resources)$(item)Elven resources$(0)$(/l) allow this belt's wearer (for some $(thing)Mana$(0), of course) to reach incredible speeds-- the $(l:baubles/travel_belt)$(item)Sojourner's Sash$(0)$(/l) doesn't even stand a chance in comparison.",
   "botania.page.superTravelBelt1": "No time for guessing, follow my plan instead",
 
   "botania.entry.itemFinder": "The Spectator",
@@ -3105,7 +3105,7 @@
 
   "botania.entry.speedUpBelt": "Planestrider's Sash",
   "botania.tagline.speedUpBelt": "Speeds you up the more you walk",
-  "botania.page.speedUpBelt0": "The $(item)Planestrider's Sash$(0) is an alternative to the $(l:baubles/travel_belt)$(item)Soujourner's Sash$(0)$(/l).$(p)Unlike its counterpart, it provides no speed boost by default-- however, the more its wearer moves, the faster they get, allowing them to hit truly ludicrous speeds. If its user stops running, however, their bonus is reset.",
+  "botania.page.speedUpBelt0": "The $(item)Planestrider's Sash$(0) is an alternative to the $(l:baubles/travel_belt)$(item)Sojourner's Sash$(0)$(/l).$(p)Unlike its counterpart, it provides no speed boost by default-- however, the more its wearer moves, the faster they get, allowing them to hit truly ludicrous speeds. If its user stops running, however, their bonus is reset.",
   "botania.page.speedUpBelt1": "If you go slow you're a Planeswalker",
 
   "botania.entry.baubleBox": "Trinket Case",
