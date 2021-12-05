@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ItemGravityRod extends Item {
+public class ItemGravityRod extends Item implements FabricItem {
 	private static final Tag.Named<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
@@ -58,12 +59,10 @@ public class ItemGravityRod extends Item {
 		super(props);
 	}
 
-	/* todo fabric
 	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
+	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return !newStack.is(this);
 	}
-	*/
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean held) {
