@@ -45,8 +45,8 @@ import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.recipe.IOrechidRecipe;
-import vazkii.botania.common.Botania;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.*;
