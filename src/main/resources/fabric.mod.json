@@ -50,7 +50,7 @@
 
   "depends": {
     "fabricloader": ">=0.8",
-    "fabric": ">=0.40",
+    "fabric": ">=0.44",
     "minecraft": ">=1.17.1",
     "trinkets" : ">=3",
     "patchouli": "*"
