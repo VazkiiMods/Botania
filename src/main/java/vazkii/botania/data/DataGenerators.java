@@ -12,6 +12,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -67,6 +68,15 @@ public class DataGenerators {
 
 	private static void gatherData(Path output) throws IOException {
 		DataGenerator generator = new DataGenerator(output, Collections.emptyList());
+		gatherData(generator);
+		generator.run();
+	}
+
+	public static void prepareDatagen(FabricDataGenerator generator) {
+		gatherData(generator);
+	}
+
+	private static void gatherData(DataGenerator generator) {
 		generator.addProvider(new BlockLootProvider(generator));
 		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
 		generator.addProvider(blockTagProvider);
@@ -87,7 +97,6 @@ public class DataGenerators {
 		generator.addProvider(new FloatingFlowerModelProvider(generator));
 		generator.addProvider(new ItemModelProvider(generator));
 		generator.addProvider(new AdvancementProvider(generator));
-		generator.run();
 	}
 
 }

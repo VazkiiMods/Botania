@@ -24,11 +24,20 @@ compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecat
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")
     runs {
-        create("GameTest") {
+        gameTest {
             server()
             vmArg "-Dfabric-api.gametest=1"
         }
+
+        datagen {
+            client()
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.modid=botania"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            vmArg "-Dfabric-api.datagen.strict-validation"
+        }
     }
+
 }
 
 sourceSets.main.resources {

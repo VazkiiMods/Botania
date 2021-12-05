@@ -33,6 +33,9 @@
       "vazkii.botania.test.block.PistonRelayTest",
       "vazkii.botania.test.item.CacophoniumTest"
     ],
+    "fabric-datagen": [
+      "vazkii.botania.data.DataGenerators::prepareDatagen"
+    ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
     ],
