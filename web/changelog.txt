@@ -1,3 +1,15 @@
+1.16.5-421
+* Info: Barring hotfixes, this will be the final update for Botania Forge 1.16. Thanks for your support!
+* Change: Horns and Drums will not break blocks when in range of an active Bergamute (Alwinfy)
+* Change/Fix: Narslimmus buffer was too small to hold all the mana from large slimes. Reported by million09.
+* Change: Mass camoflage changes for platforms no longer spread to different platform types
+* Fix: Bellows sometimes messing up modded furnaces. Reported bloche1871.
+* Fix: Warp Lens documentation didn't explain properly that mana is not transferred
+* Fix: Using too fast a Haste effect would make the Mana Blaster get stuck. Reported by DrTasslehoff.
+* Fix: Armor rotations not declared properly causing incompatibilities with mods such as Epic Fight. Reported by dylan-jara.
+* Fix: Mana items would not drain into a full pool with a Mana Void below. Reported by artemisSystem.
+* Fix: Sojourner' Sash name being misspelled. Reported by rsaihe.
+* API: IElvenItem deprecated
 1.16.5-420
 * Haha: funny number
 * Add: tomater (Eutro)
