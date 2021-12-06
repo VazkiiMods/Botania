@@ -12,7 +12,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -72,11 +71,7 @@ public class DataGenerators {
 		generator.run();
 	}
 
-	public static void prepareDatagen(FabricDataGenerator generator) {
-		gatherData(generator);
-	}
-
-	private static void gatherData(DataGenerator generator) {
+	static void gatherData(DataGenerator generator) {
 		generator.addProvider(new BlockLootProvider(generator));
 		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
 		generator.addProvider(blockTagProvider);

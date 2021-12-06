@@ -34,7 +34,7 @@
       "vazkii.botania.test.item.CacophoniumTest"
     ],
     "fabric-datagen": [
-      "vazkii.botania.data.DataGenerators::prepareDatagen"
+      "vazkii.botania.data.DatagenInitializer"
     ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
