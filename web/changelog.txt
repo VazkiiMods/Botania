@@ -1,3 +1,45 @@
+1.17.1-422
+* Info: This changelog also includes changes from the previous version (421)
+* Info: Port to 1.17.1 Fabric. Forge will also be coming soon.
+* Add: Luminizers can now be phantom-inked to suppress their particles
+* Add: Influence Lens now affects primed TNT
+* Add: Trinket Case and Flower Bag have Bundle-like interaction in the inventory menu
+* Add: Snowflake Pendant is in the vanilla #freeze_immune_wearables tag
+* Add: Structure files for Botania's multiblocks. These are just for convenience while testing and are not used for gameplay purposes
+* Add: Pure Daisy recipe from End Stone -> Cobblestone. After completion, a cloud of Ender Air is released above the End Stone that can then be bottled by a dispenser.
+* Add: GameTests for various internal features (team, quat)
+* Change: Mana Detector is no longer a block entity and thus can be pushed by pistons
+* Change: Cacophonium is now crafted with copper
+* Change: Destroyed Trinket Boxes and Flower Pouches drop their contents like Bundles do
+* Change: All lenses now stack to 16
+* Change: Wand of the Forest now shows mode in the item name itself
+* Change: Remove shader taters
+* Change: Tater nameplates are hidden in F1 like vanilla ones
+* Change: Botania sounds use their own soundevents, allowing them to be overridden independently of vanilla sounds (quat)
+* Change: Orechid and Marimorphosis now use the JSON recipe system
+* Change: Remove fluxfield config option. Modpacks that don't like it can simply remove the recipe theirself.
+* Change: Remove obscure "fragile" mapmaker tag for pools
+* Change: Kindle lens actually lights the burst on fire internally, so it can participate in vanilla mechanics like lighting the campfire
+* Change: Any burning projectile can light the Incense Plate, similar to the campfire
+* Change: Update Cacophonium Block texture to match new Note Block texture (quat)
+* Change: Launching an entity with the Rod of Shaded Mesa counts as a player kill if the entity dies as a result
+* Change: Force Relay and Force Lens now use vanilla piston logic, allowing slime block structures to be pushed. This is subject to further change as the implementation is quite tricky.
+* Fix: Fix bursts being unable to collide with their source block at all. Now they can collide with their source block after leaving it for the first time
+* Fix: After years of being broken, reimplement lightning bolts using Mekanism's code. Still some rough edges to work out.
+* Fix: Adjust some lens models to prevent Z-fighting (artemisSystem)
+* Fix: Refactor and overall improve binding logic, preventing various directionality bugs with flower binding range (quat)
+1.16.5-421
+* Info: Barring hotfixes, this will be the final update for Botania Forge 1.16. Thanks for your support!
+* Change: Horns and Drums will not break blocks when in range of an active Bergamute (Alwinfy)
+* Change/Fix: Narslimmus buffer was too small to hold all the mana from large slimes. Reported by million09.
+* Change: Mass camoflage changes for platforms no longer spread to different platform types
+* Fix: Bellows sometimes messing up modded furnaces. Reported bloche1871.
+* Fix: Warp Lens documentation didn't explain properly that mana is not transferred
+* Fix: Using too fast a Haste effect would make the Mana Blaster get stuck. Reported by DrTasslehoff.
+* Fix: Armor rotations not declared properly causing incompatibilities with mods such as Epic Fight. Reported by dylan-jara.
+* Fix: Mana items would not drain into a full pool with a Mana Void below. Reported by artemisSystem.
+* Fix: Sojourner' Sash name being misspelled. Reported by rsaihe.
+* API: IElvenItem deprecated
 1.16.5-420
 * Haha: funny number
 * Add: tomater (Eutro)
