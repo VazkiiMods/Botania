@@ -1,3 +1,7 @@
+1.18-423
+* Info: Update to 1.18. Trivia: 2 builds for 1.17 is the least Botania has ever had for an mc version. Next is 1.11, with 4 public releases
+* Info: Forge work will commence soon
+* Fix: Replace various internal workarounds with standard Fabric API's
 1.17.1-422
 * Info: This changelog also includes changes from the previous version (421)
 * Info: Port to 1.17.1 Fabric. Forge will also be coming soon.
