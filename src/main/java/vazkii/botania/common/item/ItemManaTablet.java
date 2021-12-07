@@ -80,7 +80,11 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	}
 
 	public static void setMana(ItemStack stack, int mana) {
-		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+		if (mana > 0) {
+			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+		} else {
+			ItemNBTHelper.removeEntry(stack, TAG_MANA);
+		}
 	}
 
 	public static void setStackCreative(ItemStack stack) {

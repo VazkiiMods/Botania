@@ -166,23 +166,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		if (item != filter.getItem()) {
 			return false;
 		}
-
-		if (item instanceof IManaItem) {
-			IManaItem manaItem = (IManaItem) item;
-			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
-		} else {
-			return ItemStack.areItemStackTagsEqual(filter, stack);
-		}
-	}
-
-	/**
-	 * Returns the fullness of the mana item:
-	 * 0 if empty, 1 if partially full, 2 if full.
-	 */
-	public static int getFullness(IManaItem item, ItemStack stack) {
-		int mana = item.getMana(stack);
-		int fuzz = 10;
-		return mana <= fuzz ? 0 : (mana + fuzz < item.getMaxMana(stack) ? 1 : 2);
+		return ItemStack.areItemStackTagsEqual(filter, stack);
 	}
 
 	public List<ItemStack> getFilterForInventory(BlockPos pos, boolean recursiveForDoubleChests) {

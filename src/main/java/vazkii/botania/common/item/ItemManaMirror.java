@@ -101,9 +101,12 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	public void setMana(ItemStack stack, int mana) {
-		ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, mana));
+		if (mana > 0) {
+			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+		} else {
+			ItemNBTHelper.removeEntry(stack, TAG_MANA);
+		}
 	}
-
 	public int getManaBacklog(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_MANA_BACKLOG, 0);
 	}

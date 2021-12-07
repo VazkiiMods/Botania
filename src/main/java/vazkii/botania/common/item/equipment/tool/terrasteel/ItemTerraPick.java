@@ -228,7 +228,11 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	public static void setMana(ItemStack stack, int mana) {
-		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+		if (mana > 0) {
+			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+		} else {
+			ItemNBTHelper.removeEntry(stack, TAG_MANA);
+		}
 	}
 
 	@Override
