@@ -8,22 +8,32 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import vazkii.botania.api.wand.IWandHUD;
+import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaFunnel extends BlockMod implements ITileEntityProvider {
+public class BlockCorporeaFunnel extends BlockMod implements ITileEntityProvider, IWandable, IWandHUD {
 
 	public BlockCorporeaFunnel(Properties builder) {
 		super(builder);
@@ -54,4 +64,18 @@ public class BlockCorporeaFunnel extends BlockMod implements ITileEntityProvider
 		return new TileCorporeaFunnel();
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileCorporeaFunnel) {
+			((TileCorporeaFunnel) te).renderHUD(ms, mc);
+		}
+	}
+
+	@Override
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+		TileEntity te = world.getTileEntity(pos);
+		return te instanceof TileCorporeaFunnel && ((TileCorporeaFunnel) te).onUsedByWand();
+	}
 }

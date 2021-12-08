@@ -8,12 +8,19 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -21,6 +28,8 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 
@@ -28,6 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
+	private static final String TAG_CHECK_NBT = "checkNBT";
+
+	private boolean checkNBT = false;
+
 	public TileCorporeaFunnel() {
 		super(ModTiles.CORPOREA_FUNNEL);
 	}
@@ -40,7 +53,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				ItemStack stack = filter.get(world.rand.nextInt(filter.size()));
 
 				if (!stack.isEmpty()) {
-					doCorporeaRequest(CorporeaHelper.instance().createMatcher(stack, true), stack.getCount(), spark);
+					doCorporeaRequest(CorporeaHelper.instance().createMatcher(stack, checkNBT), stack.getCount(), spark);
 				}
 			}
 		}
@@ -69,6 +82,27 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		}
 
 		return filter;
+	}
+
+	public boolean checksNBT() {
+		return checkNBT;
+	}
+
+	@Override
+	public void readPacketNBT(CompoundNBT cmp) {
+		super.readPacketNBT(cmp);
+		if (cmp.contains(TAG_CHECK_NBT)) {
+			checkNBT = cmp.getBoolean(TAG_CHECK_NBT);
+		} else {
+			// Old funnels will check NBT as they always did, new ones will by default not.
+			checkNBT = true;
+		}
+	}
+
+	@Override
+	public void writePacketNBT(CompoundNBT cmp) {
+		super.writePacketNBT(cmp);
+		cmp.putBoolean(TAG_CHECK_NBT, checkNBT);
 	}
 
 	@Override
@@ -109,4 +143,20 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		return null;
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
+		String mode = I18n.format("botaniamisc.funnel." + (checkNBT ? "check_nbt" : "ignore_nbt"));
+		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(mode) / 2;
+		int y = mc.getMainWindow().getScaledHeight() / 2 + 10;
+		mc.fontRenderer.drawStringWithShadow(ms, mode, x, y, TextFormatting.GRAY.getColor());
+	}
+
+	public boolean onUsedByWand() {
+		if (!world.isRemote) {
+			checkNBT = !checkNBT;
+			markDirty();
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
+		return true;
+	}
 }

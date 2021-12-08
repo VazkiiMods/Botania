@@ -31,6 +31,12 @@
   "botaniamisc.filter2": "Pickup any items",
   "botaniamisc.retainer.retain_all": "Retain original number of items requested",
   "botaniamisc.retainer.retain_missing": "Retain number of missing items",
+  "botaniamisc.funnel.check_nbt": "Request items with identical NBT",
+  "botaniamisc.funnel.ignore_nbt": "Request matching items regardless of NBT",
+  "botaniamisc.index.check_nbt": "Request items with identical NBT",
+  "botaniamisc.index.ignore_nbt": "Request matching items regardless of NBT",
+  "botaniamisc.crystal_cube.check_nbt": "Show items with identical NBT",
+  "botaniamisc.crystal_cube.ignore_nbt": "Show matching items regardless of NBT",
 
   "botaniamisc.creativePool0": "Creative Mana Pool, has infinite Mana",
   "botaniamisc.creativePool1": "Worthy of an Egoist",

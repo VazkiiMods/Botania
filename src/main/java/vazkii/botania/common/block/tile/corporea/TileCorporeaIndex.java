@@ -8,10 +8,14 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 
 import vazkii.botania.api.corporea.*;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.ModStats;
@@ -34,6 +39,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickableTileEntity {
+	private static final String TAG_CHECK_NBT = "checkNBT";
+	private boolean checkNBT = false;
+
 	public static final double RADIUS = 2.5;
 
 	private static InputHandler input;
@@ -266,6 +274,10 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		super(ModTiles.CORPOREA_INDEX);
 	}
 
+	public boolean checksNBT() {
+		return checkNBT;
+	}
+
 	@Override
 	public void tick() {
 		double x = pos.getX() + 0.5;
@@ -434,6 +446,40 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 		String getName(Matcher m);
 
+	}
+
+	@Override
+	public void readPacketNBT(CompoundNBT cmp) {
+		super.readPacketNBT(cmp);
+		if (cmp.contains(TAG_CHECK_NBT)) {
+			checkNBT = cmp.getBoolean(TAG_CHECK_NBT);
+		} else {
+			// Old indexes will check NBT, newly placed ones will by default not.
+			checkNBT = true;
+		}
+	}
+
+	@Override
+	public void writePacketNBT(CompoundNBT cmp) {
+		super.writePacketNBT(cmp);
+		cmp.putBoolean(TAG_CHECK_NBT, checkNBT);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
+		String mode = I18n.format("botaniamisc.index." + (checkNBT ? "check_nbt" : "ignore_nbt"));
+		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(mode) / 2;
+		int y = mc.getMainWindow().getScaledHeight() / 2 + 10;
+		mc.fontRenderer.drawStringWithShadow(ms, mode, x, y, TextFormatting.GRAY.getColor());
+	}
+
+	public boolean onUsedByWand() {
+		if (!world.isRemote) {
+			checkNBT = !checkNBT;
+			markDirty();
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
+		return true;
 	}
 
 }

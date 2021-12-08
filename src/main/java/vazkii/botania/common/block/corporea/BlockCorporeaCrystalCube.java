@@ -8,10 +8,13 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -23,16 +26,20 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements ITileEntityProvider, IWandable {
+public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements ITileEntityProvider, IWandable, IWandHUD {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3.0, 0, 3.0, 13.0, 16, 13.0);
 
@@ -70,21 +77,32 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements I
 				cube.setRequestTarget(stack);
 			}
 			return ActionResultType.SUCCESS;
+		} else {
+			if (player.isSneaking()) {
+				TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
+				cube.locked = !cube.locked;
+				if (!world.isRemote) {
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(cube);
+				}
+				return ActionResultType.SUCCESS;
+			}
 		}
 		return ActionResultType.PASS;
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileCorporeaCrystalCube) {
+			((TileCorporeaCrystalCube) te).renderHUD(ms, mc);
+		}
+	}
+
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		if (player == null || player.isSneaking()) {
-			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
-			cube.locked = !cube.locked;
-			if (!world.isRemote) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(cube);
-			}
-			return true;
-		}
-		return false;
+		TileEntity te = world.getTileEntity(pos);
+		return te instanceof TileCorporeaCrystalCube && ((TileCorporeaCrystalCube) te).onUsedByWand(player, stack, world, pos, side);
 	}
 
 	@Nonnull

@@ -75,8 +75,7 @@ public class CorporeaInputHandler {
 			Slot slotUnderMouse = ((ContainerScreen) screen).getSlotUnderMouse();
 			if (slotUnderMouse != null) {
 				ItemStack stack = slotUnderMouse.getStack().copy();
-				stack.setTag(null); // Wipe NBT of inventory items before request, as player items will often have data
-				return stack; // that's better to ignore. This is still an improvement over matching names only.
+				return stack;
 			}
 		}
 

@@ -14,6 +14,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import java.util.function.Supplier;
@@ -41,10 +42,14 @@ public class PacketIndexKeybindRequest {
 					return;
 				}
 
-				boolean checkNBT = message.stack.getTag() != null && !message.stack.getTag().isEmpty();
 				for (TileCorporeaIndex index : TileCorporeaIndex.InputHandler.getNearbyIndexes(player)) {
 					if (index.getSpark() != null) {
-						index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(message.stack, checkNBT), message.stack.getCount());
+						boolean checkNBT = index.checksNBT();
+						ItemStack stack = message.stack.copy();
+						if (!checkNBT) {
+							stack.setTag(null);
+						}
+						index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(stack, checkNBT), stack.getCount());
 					}
 				}
 			});
