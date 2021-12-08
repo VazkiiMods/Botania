@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -73,34 +71,29 @@ public class TileBellows extends TileMod {
 			}
 
 			if (tile instanceof AbstractFurnaceBlockEntity furnace) {
-				Pair<AbstractCookingRecipe, Boolean> p = canSmelt(furnace);
-				if (p != null) {
-					AbstractCookingRecipe recipe = p.getFirst();
-					boolean canSmelt = p.getSecond();
-					if (canSmelt) {
-						AccessorAbstractFurnaceBlockEntity mFurnace = (AccessorAbstractFurnaceBlockEntity) furnace;
-						mFurnace.setCookingProgress(Math.min(mFurnace.getCookingTotalTime() - 1, mFurnace.getCookingProgress() + 20));
-						mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
-					}
+				if (canSmelt(furnace)) {
+					AccessorAbstractFurnaceBlockEntity mFurnace = (AccessorAbstractFurnaceBlockEntity) furnace;
+					mFurnace.setCookingProgress(Math.min(mFurnace.getCookingTotalTime() - 1, mFurnace.getCookingProgress() + 20));
+					mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
+				}
 
-					if (furnace instanceof FurnaceBlockEntity
-							&& furnace.hasLevel() && furnace.getBlockState().getValue(FurnaceBlock.LIT)) {
-						// [VanillaCopy] FurnaceBlock
-						double d0 = (double) worldPosition.getX() + 0.5D;
-						double d1 = (double) worldPosition.getY();
-						double d2 = (double) worldPosition.getZ() + 0.5D;
-						// Botania: no playSound
+				if (furnace instanceof FurnaceBlockEntity
+						&& furnace.hasLevel() && furnace.getBlockState().getValue(FurnaceBlock.LIT)) {
+					// [VanillaCopy] FurnaceBlock
+					double d0 = (double) worldPosition.getX() + 0.5D;
+					double d1 = (double) worldPosition.getY();
+					double d2 = (double) worldPosition.getZ() + 0.5D;
+					// Botania: no playSound
 
-						Direction enumfacing = furnace.getBlockState().getValue(FurnaceBlock.FACING);
-						Direction.Axis enumfacing$axis = enumfacing.getAxis();
-						double d3 = 0.52D;
-						double d4 = level.random.nextDouble() * 0.6D - 0.3D;
-						double d5 = enumfacing$axis == Direction.Axis.X ? (double) enumfacing.getStepX() * 0.52D : d4;
-						double d6 = level.random.nextDouble() * 6.0D / 16.0D;
-						double d7 = enumfacing$axis == Direction.Axis.Z ? (double) enumfacing.getStepZ() * 0.52D : d4;
-						level.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
-						level.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
-					}
+					Direction enumfacing = furnace.getBlockState().getValue(FurnaceBlock.FACING);
+					Direction.Axis enumfacing$axis = enumfacing.getAxis();
+					double d3 = 0.52D;
+					double d4 = level.random.nextDouble() * 0.6D - 0.3D;
+					double d5 = enumfacing$axis == Direction.Axis.X ? (double) enumfacing.getStepX() * 0.52D : d4;
+					double d6 = level.random.nextDouble() * 6.0D / 16.0D;
+					double d7 = enumfacing$axis == Direction.Axis.Z ? (double) enumfacing.getStepZ() * 0.52D : d4;
+					level.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+					level.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 				}
 			}
 
@@ -149,11 +142,10 @@ public class TileBellows extends TileMod {
 		}
 	}
 
-	public static Pair<AbstractCookingRecipe, Boolean> canSmelt(AbstractFurnaceBlockEntity furnace) {
+	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace) {
 		RecipeType<? extends AbstractCookingRecipe> rt = ExoflameFurnaceHandler.getRecipeType(furnace);
 		AbstractCookingRecipe recipe = furnace.getLevel().getRecipeManager().getRecipeFor(rt, furnace, furnace.getLevel()).orElse(null);
-		boolean canSmelt = ExoflameFurnaceHandler.canSmelt(furnace, recipe);
-		return Pair.of(recipe, canSmelt);
+		return recipe != null && ExoflameFurnaceHandler.canSmelt(furnace, recipe);
 	}
 
 }
