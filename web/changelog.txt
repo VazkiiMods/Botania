@@ -1,3 +1,5 @@
+1.18-424
+* Hotfix: Fix crash on startup caused by lack of Fabric datagen api in non-dev environments
 1.18-423
 * Info: Update to 1.18. Trivia: 2 builds for 1.17 is the least Botania has ever had for an mc version. Next is 1.11, with 4 public releases
 * Info: Forge work will commence soon
