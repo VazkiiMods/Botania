@@ -157,8 +157,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.CommonProxy;
-import vazkii.botania.common.core.version.AdaptorNotifier;
-import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -222,11 +220,6 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
 		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
 		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
-		
-		if(ConfigHandler.useAdaptativeConfig)
-			FMLCommonHandler.instance().bus().register(new AdaptorNotifier());
-		if(ConfigHandler.versionCheckEnabled)
-			new VersionChecker().init();
 
 		if(ConfigHandler.enableSeasonalFeatures) {
 			Calendar calendar = Calendar.getInstance();
@@ -420,19 +413,6 @@ public class ClientProxy extends CommonProxy {
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public String getLastVersion() {
-		String s = PersistentVariableHelper.lastBotaniaVersion;
-
-		if(s == null)
-			return "N/A";
-
-		if(s.indexOf("-") > 0)
-			return s.split("-")[1];
-
-		return s;
 	}
 
 	@Override
