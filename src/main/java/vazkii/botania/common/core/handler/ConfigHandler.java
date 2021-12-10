@@ -74,7 +74,6 @@ public final class ConfigHandler {
 	public static boolean matrixMode = false;
 	public static boolean referencesEnabled = true;
 
-	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
@@ -209,9 +208,6 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the references in the flower tooltips. (You monster D:)";
 		referencesEnabled = loadPropBool("references.enabled", desc, referencesEnabled);
-
-		desc = "Set this to false to disable checking and alerting when new Botania versions come out. (keywords for noobs: update notification message)";
-		versionCheckEnabled = loadPropBool("versionChecking.enabled", desc, versionCheckEnabled);
 
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
@@ -358,22 +354,12 @@ public final class ConfigHandler {
 	public static class ConfigAdaptor {
 
 		private boolean enabled;
-		private int lastBuild;
-		private int currentBuild;
 
 		private Map<String, List<AdaptableValue>> adaptableValues = new HashMap();
 		private List<String> changes = new ArrayList();
 
 		public ConfigAdaptor(boolean enabled) {
 			this.enabled = enabled;
-
-			String lastVersion = Botania.proxy.getLastVersion();
-			try {
-				lastBuild = Integer.parseInt(lastVersion);
-				currentBuild = Integer.parseInt(LibMisc.BUILD);
-			} catch(NumberFormatException e) {
-				this.enabled = false;
-			}
 		}
 
 		public <T> void adaptProperty(Property prop, T val) {
@@ -387,9 +373,6 @@ public final class ConfigHandler {
 
 			AdaptableValue<T> bestValue = null;
 			for(AdaptableValue<T> value : adaptableValues.get(name)) {
-				if(value.version >= lastBuild) // If version is newer than what we last used we don't care about it
-					continue;
-
 				if(bestValue == null || value.version > bestValue.version)
 					bestValue = value;
 			}

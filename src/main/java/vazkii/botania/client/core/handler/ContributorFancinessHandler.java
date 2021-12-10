@@ -31,7 +31,6 @@ import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.material.ItemManaResource;
@@ -192,7 +191,6 @@ public final class ContributorFancinessHandler {
 				FMLLog.info("[Botania] Could not load contributors list. Either you're offline or github is down. Nothing to worry about, carry on~");
 				e.printStackTrace();
 			}
-			VersionChecker.doneChecking = true;
 		}
 
 	}

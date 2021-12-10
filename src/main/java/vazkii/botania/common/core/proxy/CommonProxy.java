@@ -42,7 +42,6 @@ import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
-import vazkii.botania.common.core.command.CommandDownloadLatest;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
@@ -79,7 +78,6 @@ import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
 import vazkii.botania.common.integration.etfuturum.ModBanners;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
@@ -218,7 +216,6 @@ public class CommonProxy {
 	}
 
 	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandDownloadLatest());
 		event.registerServerCommand(new CommandShare());
 		event.registerServerCommand(new CommandOpen());
 		if(Botania.gardenOfGlassLoaded)
@@ -247,10 +244,6 @@ public class CommonProxy {
 
 	public boolean isClientPlayerWearingMonocle() {
 		return false;
-	}
-
-	public String getLastVersion() {
-		return LibMisc.BUILD;
 	}
 
 	public void setExtraReach(EntityLivingBase entity, float reach) {

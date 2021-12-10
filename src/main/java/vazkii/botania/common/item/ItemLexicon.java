@@ -120,9 +120,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	public static String getEdition() {
-		String version = LibMisc.BUILD;
-		int build = version.contains("GRADLE") ? 0 : Integer.parseInt(version);
-		return build == 0 ? StatCollector.translateToLocal("botaniamisc.devEdition") : MathHelper.numberToOrdinal(build);
+		return "GTNH";
 	}
 
 	@Override

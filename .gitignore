@@ -1,62 +1,28 @@
-## Windows
-Thumbs.db
-
-## gradle
-/.gradle
-/build
-
-## ForgeGradle
-/run
-
-## eclipse
-/.settings
-/.metadata
-/.classpath
-/.project
-/eclipse
-/bin
-
-## intellij
-/out
-/.idea
-/atlassian-ide-plugin.xml
-/*.ipr
-/*.iws
-/*.iml
-
-## Private Stuffs
-/private.properties
-
-## Jars
-*.jar
-!/gradle/wrapper/gradle-wrapper.jar
-!GardenOfGlass.jar
-
-### OSX (adds a lot of garbage)###
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-*.bat
+.gradle
+.settings
+/.idea/
+/run/
+/build/
+/eclipse/
+.classpath
+.project
+/bin/
+/config/
+/crash-reports/
+/logs/
+options.txt
+/saves/
+usernamecache.json
+banned-ips.json
+banned-players.json
+eula.txt
+ops.json
+server.properties
+servers.dat
+usercache.json
+whitelist.json
+/out/
+*.iml
+*.ipr
+*.iws
+src/main/resources/mixins.*.json
