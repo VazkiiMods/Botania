@@ -17,8 +17,8 @@ public final class LibMisc {
 	// Mod Constants
 	public static final String MOD_ID = "Botania";
 	public static final String MOD_NAME = MOD_ID;
-	public static final String BUILD = "GRADLE:BUILD";
-	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
+	public static final String BUILD = "GRADLE:BUILD";  // TODO REMOVE
+	public static final String VERSION = "GRADLETOKEN_VERSION";
 	public static final String DEPENDENCIES = "required-after:Baubles;after:Thaumcraft";
 
 	// Network Contants
