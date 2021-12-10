@@ -1,5 +1,33 @@
 // Add your dependencies here
 
 dependencies {
+    compile("com.github.GTNewHorizons:Baubles:master-SNAPSHOT:dev")
 
+    compile("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
+
+    compileOnly("com.github.GTNewHorizons:Railcraft:master-SNAPSHOT:api") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:StorageDrawers:master-SNAPSHOT:api") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:ForgeMultipart:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:NotEnoughItems:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:CodeChickenLib:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+
+    compileOnly("curse.maven:cofh-lib-220333:2388749") {
+        transitive = false
+    }
+    compileOnly("com.mod-buildcraft:buildcraft:7.1.23:api") {
+        transitive = false
+    }
+    compileOnly("curse.maven:minefactory-reloaded-66672:2366150") {
+        transitive = false
+    }
 }
