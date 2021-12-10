@@ -41,6 +41,8 @@ public final class ConfigHandler {
 
 	public static int hardcorePassiveGeneration = 72000;
 
+	public static boolean useAdaptativeConfig = true;
+
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
 	public static boolean lexiconJustifiedText = false;
@@ -118,6 +120,10 @@ public final class ConfigHandler {
 
 	public static void load() {
 		String desc;
+
+		desc = "Set this to false to disable the Adaptative Config. Adaptative Config changes any default config values from old versions to the new defaults to make sure you aren't missing out on changes because of old configs. It will not touch any values that were changed manually.";
+		useAdaptativeConfig = loadPropBool("adaptativeConfig.enabled", desc, useAdaptativeConfig);
+		adaptor = new ConfigAdaptor(useAdaptativeConfig);
 
 		desc = "Set this to false to disable the use of shaders for some of the mod's renders.";
 		useShaders = loadPropBool("shaders.enabled", desc, useShaders);
