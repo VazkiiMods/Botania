@@ -18,6 +18,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -172,7 +175,9 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	@Nonnull
 	@Override
 	public CompoundTag getUpdateTag() {
-		return saveWithoutMetadata();
+		var tag = new CompoundTag();
+		writeToPacketNBT(tag);
+		return tag;
 	}
 
 	/**
@@ -195,6 +200,11 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 		if (cmp.contains(TAG_FLOATING_DATA)) {
 			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
 		}
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	public void sync() {
