@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 import javax.annotation.Nonnull;
 
@@ -35,7 +36,9 @@ public class TileMod extends BlockEntity {
 	@Nonnull
 	@Override
 	public final CompoundTag getUpdateTag() {
-		return saveWithoutMetadata();
+		var tag = new CompoundTag();
+		writePacketNBT(tag);
+		return tag;
 	}
 
 	@Override
