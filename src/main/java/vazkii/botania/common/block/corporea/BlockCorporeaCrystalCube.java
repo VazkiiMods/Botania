@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.corporea;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
@@ -25,16 +26,15 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;

@@ -13,7 +13,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class CorporeaItemStackMatcher implements ICorporeaRequestMatcher {
 	private static final String TAG_REQUEST_STACK = "requestStack";

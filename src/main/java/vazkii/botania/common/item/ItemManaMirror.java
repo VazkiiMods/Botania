@@ -107,6 +107,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			ItemNBTHelper.removeEntry(stack, TAG_MANA);
 		}
 	}
+
 	public int getManaBacklog(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_MANA_BACKLOG, 0);
 	}

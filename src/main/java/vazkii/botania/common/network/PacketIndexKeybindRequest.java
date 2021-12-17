@@ -14,7 +14,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import java.util.function.Supplier;
