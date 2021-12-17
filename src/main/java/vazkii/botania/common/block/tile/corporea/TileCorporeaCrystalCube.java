@@ -171,10 +171,9 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(MatrixStack ms, Minecraft mc) {
-		// TODO: make it not overlap the other thing
 		String mode = I18n.format("botaniamisc.crystal_cube." + (checkNBT ? "check_nbt" : "ignore_nbt"));
 		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(mode) / 2;
-		int y = mc.getMainWindow().getScaledHeight() / 2 + 10;
+		int y = mc.getMainWindow().getScaledHeight() / 2 + 25;
 		mc.fontRenderer.drawStringWithShadow(ms, mode, x, y, TextFormatting.GRAY.getColor());
 	}
 

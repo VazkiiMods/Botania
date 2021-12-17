@@ -14,8 +14,12 @@
       "text": "botania.page.corporeaFunnel1"
     },
     {
+      "type": "text",
+      "text": "botania.page.corporeaFunnel2"
+    },
+    {
       "type": "crafting",
-      "text": "botania.page.corporeaFunnel2",
+      "text": "botania.page.corporeaFunnel3",
       "recipe": "botania:corporea_funnel"
     }
   ]
