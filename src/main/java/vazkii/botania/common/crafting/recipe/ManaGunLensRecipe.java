@@ -37,17 +37,15 @@ public class ManaGunLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
+				if (!foundGun && stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
 					foundGun = true;
-				} else if (stack.getItem() instanceof ILens) {
-					if (!(stack.getItem() instanceof ILensControl) || !((ILensControl) stack.getItem()).isControlLens(stack)) {
+				} else if (!foundLens && stack.getItem() instanceof ILens lens) {
+					if (!(lens instanceof ILensControl control) || !control.isControlLens(stack)) {
 						foundLens = true;
 					} else {
 						return false;
 					}
-				}
-
-				else {
+				} else {
 					return false; // Found an invalid item, breaking the recipe
 				}
 			}
