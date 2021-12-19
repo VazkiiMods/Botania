@@ -21,6 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
  * Blocks with this capability can express custom logic when being
  * harvested by Botania horns.
  */
+@FunctionalInterface
 public interface IHornHarvestable {
 	BlockApiLookup<IHornHarvestable, Unit> API = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable"), IHornHarvestable.class, Unit.class);
 
@@ -35,13 +36,15 @@ public interface IHornHarvestable {
 	 * block breaking method.
 	 * Note that the stack param can be empty if it's a drum breaking it.
 	 */
-	boolean hasSpecialHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType);
+	default boolean hasSpecialHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+		return false;
+	}
 
 	/**
 	 * Called to harvest by a horn.
 	 * Note that the stack param can be empty if it's a drum breaking it.
 	 */
-	void harvestByHorn(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType);
+	default void harvestByHorn(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
 	enum EnumHornType {
 
