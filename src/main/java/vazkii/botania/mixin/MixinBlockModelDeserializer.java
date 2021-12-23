@@ -25,7 +25,7 @@ import java.lang.reflect.Type;
 @Mixin(BlockModel.Deserializer.class)
 public class MixinBlockModelDeserializer {
 	@Inject(
-		method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/minecraft/client/renderer/block/model/BlockModel;", remap = false,
+		method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lnet/minecraft/client/renderer/block/model/BlockModel;",
 		at = @At("HEAD"), cancellable = true
 	)
 	private void hookDeserialize(JsonElement jsonElement, Type type,
