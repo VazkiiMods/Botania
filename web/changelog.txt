@@ -1,3 +1,6 @@
+1.18.1-427
+* Fix: Crash on mixin application on client
+* Fix: Crash with Rod of Unstable Reservoir targetting certain entities
 1.18.1-426
 * Info: Update to 1.18.1
 * Add: Horn of the Canopy now breaks vines
