@@ -1,3 +1,16 @@
+1.18.1-426
+* Info: Update to 1.18.1
+* Add: Horn of the Canopy now breaks vines
+* Fix: Flower syncing
+* Fix: Ender Air Cloud entity not having a name
+* Fix: Ender Air Cloud entity not being pickupable by hand
+* Fix: Spam from advancements with certain Discord bridge mods
+* Fix: Mana blaster lens recipe voiding extra blasters or lenses
+* Fix: Mod name looking ugly in creative tab
+* Change: Mixin cleanups
+1.18-425
+* Fix: Fix block entity update packets not being fired
+* Fix: Mixin conflict with Enhanced Celestials
 1.18-424
 * Hotfix: Fix crash on startup caused by lack of Fabric datagen api in non-dev environments
 1.18-423
