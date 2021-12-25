@@ -29,6 +29,7 @@
     ],
     "fabric-gametest": [
       "vazkii.botania.test.block.BindingTest",
+      "vazkii.botania.test.block.HopperhockTest",
       "vazkii.botania.test.block.OpenCrateTest",
       "vazkii.botania.test.block.PistonRelayTest",
       "vazkii.botania.test.item.CacophoniumTest"
