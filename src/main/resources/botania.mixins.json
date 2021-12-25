@@ -63,6 +63,7 @@
   ],
   "client": [
     "AccessorAbstractContainerScreen",
+    "AccessorItemRenderer",
     "AccessorModelBakery",
     "AccessorModelLayers",
     "AccessorModelManager",

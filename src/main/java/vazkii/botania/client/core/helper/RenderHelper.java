@@ -42,6 +42,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.mixin.AccessorItemRenderer;
 import vazkii.botania.mixin.AccessorRenderType;
 
 import javax.annotation.Nullable;
@@ -407,20 +408,21 @@ public final class RenderHelper extends RenderType {
 		renderBakedItemQuads(ms, buffer, color, model.getQuads((BlockState) null, (Direction) null, random), stack, light, overlay);
 	}
 
-	// [VanillaCopy] ItemRenderer, with custom color + alpha support
+	// Wraps ItemRenderer#renderQuadList for custom color support
 	private static void renderBakedItemQuads(PoseStack ms, VertexConsumer buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
-		PoseStack.Pose matrixstack$entry = ms.last();
+		float overriddenAlpha = ((color >> 24) & 0xFF) / 255.0F;
+		float r = (float) (color >> 16 & 0xFF) / 255.0F;
+		float g = (float) (color >> 8 & 0xFF) / 255.0F;
+		float b = (float) (color & 0xFF) / 255.0F;
 
-		for (BakedQuad bakedquad : quads) {
-			int i = color;
-
-			float f = (float) (i >> 16 & 255) / 255.0F;
-			float f1 = (float) (i >> 8 & 255) / 255.0F;
-			float f2 = (float) (i & 255) / 255.0F;
-			float alpha = ((color >> 24) & 0xFF) / 255.0F;
-			// todo 1.16-fabric buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
-		}
-
+		buffer = new DelegatedVertexConsumer(buffer) {
+			@Override
+			public VertexConsumer color(float red, float green, float blue, float alpha) {
+				return super.color(r, g, b, overriddenAlpha);
+			}
+		};
+		((AccessorItemRenderer) Minecraft.getInstance().getItemRenderer())
+				.callRenderQuadList(ms, buffer, quads, stack, light, overlay);
 	}
 
 	private static class AstrolabeLayer extends RenderType {
