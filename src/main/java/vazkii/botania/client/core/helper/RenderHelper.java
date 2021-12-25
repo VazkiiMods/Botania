@@ -410,7 +410,7 @@ public final class RenderHelper extends RenderType {
 
 	// Wraps ItemRenderer#renderQuadList for custom color support
 	private static void renderBakedItemQuads(PoseStack ms, VertexConsumer buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
-		float overriddenAlpha = ((color >> 24) & 0xFF) / 255.0F;
+		float a = ((color >> 24) & 0xFF) / 255.0F;
 		float r = (float) (color >> 16 & 0xFF) / 255.0F;
 		float g = (float) (color >> 8 & 0xFF) / 255.0F;
 		float b = (float) (color & 0xFF) / 255.0F;
@@ -418,7 +418,7 @@ public final class RenderHelper extends RenderType {
 		buffer = new DelegatedVertexConsumer(buffer) {
 			@Override
 			public VertexConsumer color(float red, float green, float blue, float alpha) {
-				return super.color(r, g, b, overriddenAlpha);
+				return super.color(r, g, b, a);
 			}
 		};
 		((AccessorItemRenderer) Minecraft.getInstance().getItemRenderer())
