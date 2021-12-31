@@ -142,7 +142,7 @@ public class GunModel implements BakedModel {
 			ModelState transform = new ModelState() {
 				@Override
 				public Transformation getRotation() {
-					return new Transformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.YP.rotation((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null);
+					return new Transformation(new Vector3f(-0.3F, 0.29F, 0.0F), Vector3f.YP.rotation((float) Math.PI / 2), new Vector3f(0.31F, 0.31F, 0.31F), null);
 				}
 			};
 			ResourceLocation name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
