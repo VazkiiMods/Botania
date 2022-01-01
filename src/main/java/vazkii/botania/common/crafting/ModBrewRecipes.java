@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
 public class ModBrewRecipes {
@@ -46,6 +47,8 @@ public class ModBrewRecipes {
 	public static RecipeBrew warpWardBrew;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		speedBrew = BotaniaAPI.registerBrewRecipe(ModBrews.speed, new ItemStack(Items.nether_wart), new ItemStack(Items.sugar), new ItemStack(Items.redstone));
 		strengthBrew = BotaniaAPI.registerBrewRecipe(ModBrews.strength, new ItemStack(Items.nether_wart), new ItemStack(Items.blaze_powder), new ItemStack(Items.glowstone_dust));
 		hasteBrew = BotaniaAPI.registerBrewRecipe(ModBrews.haste, new ItemStack(Items.nether_wart), new ItemStack(Items.sugar), new ItemStack(Items.gold_nugget));

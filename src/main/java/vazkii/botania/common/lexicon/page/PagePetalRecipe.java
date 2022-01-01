@@ -43,10 +43,11 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	List<T> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
+	int oredictCounter = 0;
 
 	public PagePetalRecipe(String unlocalizedName, List<T> recipes) {
 		super(unlocalizedName);
-		this.recipes = recipes;
+		this.recipes = filterRecipes(recipes);
 	}
 
 	public PagePetalRecipe(String unlocalizedName, T recipe) {
@@ -56,13 +57,16 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(T recipe : recipes)
-			LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
+			if (recipe != null)
+				LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
+		if (recipes.size() == 0) return;
 		T recipe = recipes.get(recipeAt);
+
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 
 		renderItemAtGridPos(gui, 3, 0, recipe.getOutput(), false);
@@ -74,8 +78,10 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		for(Object obj : inputs) {
 			Object input = obj;
-			if(input instanceof String)
-				input = OreDictionary.getOres((String) input).get(0);
+			if(input instanceof String) {
+				List<ItemStack> ores = OreDictionary.getOres((String) input);
+				input = ores.get(oredictCounter % ores.size());
+			}
 
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
 
@@ -124,8 +130,10 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
-			if(recipeAt == recipes.size())
+			if(recipeAt == recipes.size()) {
 				recipeAt = 0;
+				oredictCounter++;
+			}
 		}
 		++ticksElapsed;
 	}

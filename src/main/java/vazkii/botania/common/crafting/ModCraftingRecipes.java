@@ -320,6 +320,8 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeEndPortal;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		int recipeListSize = CraftingManager.getInstance().getRecipeList().size();
 
 		// Lexicon Recipe

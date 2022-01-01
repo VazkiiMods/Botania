@@ -295,7 +295,7 @@ public final class LexiconData {
 	public static LexiconEntry bcIntegration;
 	public static LexiconEntry banners;
 
-	public static void init() {
+	public static void preInit() {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
 		BotaniaAPI.addCategory(
@@ -308,7 +308,9 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryEnder = new BLexiconCategory(LibLexicon.CATEGORY_ENDER, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryAlfhomancy = new BLexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMisc = new BLexiconCategory(LibLexicon.CATEGORY_MISC, 0));
+	}
 
+	public static void init() {
 		LexiconCategory categoryBasics = BotaniaAPI.categoryBasics;
 		LexiconCategory categoryMana = BotaniaAPI.categoryMana;
 		LexiconCategory categoryGenerationFlowers = BotaniaAPI.categoryGenerationFlowers;
@@ -1162,8 +1164,11 @@ public final class LexiconData {
 			List<LexiconPage> pages = new ArrayList();
 			pages.add(new PageText("0"));
 			pages.add(new PageText("1"));
-			for (int i = 0; i < 32; i++)
-				pages.add(new PageCraftingRecipe("" + (i + 2), ModCraftingRecipes.recipesCosmeticItems.get(i)));
+			if (ModCraftingRecipes.recipesCosmeticItems != null) {
+				for (int i = 0; i < 32; i++) {
+					pages.add(new PageCraftingRecipe("" + (i + 2), ModCraftingRecipes.recipesCosmeticItems.get(i)));
+				}
+			}
 			cosmeticBaubles.setPriority().setLexiconPages(pages.toArray(new LexiconPage[pages.size()]));
 		}
 

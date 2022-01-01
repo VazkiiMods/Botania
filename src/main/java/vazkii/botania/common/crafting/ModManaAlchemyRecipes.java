@@ -53,6 +53,8 @@ public final class ModManaAlchemyRecipes {
 	public static List<RecipeManaInfusion> flowersRecipes;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		leatherRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.leather), new ItemStack(Items.rotten_flesh), 600);
 
 		woodRecipes = new ArrayList();

@@ -49,7 +49,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	public PageCraftingRecipe(String unlocalizedName, List<IRecipe> recipes) {
 		super(unlocalizedName);
-		this.recipes = recipes;
+		this.recipes = filterRecipes(recipes);
 	}
 
 	public PageCraftingRecipe(String unlocalizedName, IRecipe recipe) {
@@ -59,7 +59,8 @@ public class PageCraftingRecipe extends PageRecipe {
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(IRecipe recipe : recipes)
-			LexiconRecipeMappings.map(recipe.getRecipeOutput(), entry, index);
+			if (recipe != null)
+				LexiconRecipeMappings.map(recipe.getRecipeOutput(), entry, index);
 	}
 
 	@Override
@@ -67,7 +68,9 @@ public class PageCraftingRecipe extends PageRecipe {
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		oreDictRecipe = shapelessRecipe = false;
 
+		if (recipes.size() == 0) return;
 		IRecipe recipe = recipes.get(recipeAt);
+
 		renderCraftingRecipe(gui, recipe);
 
 		TextureManager render = Minecraft.getMinecraft().renderEngine;

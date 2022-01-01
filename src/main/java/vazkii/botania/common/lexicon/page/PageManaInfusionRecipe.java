@@ -50,7 +50,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 	public PageManaInfusionRecipe(String unlocalizedName, List<RecipeManaInfusion> recipes) {
 		super(unlocalizedName);
-		this.recipes = recipes;
+		this.recipes = filterRecipes(recipes);
 	}
 
 	public PageManaInfusionRecipe(String unlocalizedName, RecipeManaInfusion recipe) {
@@ -60,13 +60,16 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(RecipeManaInfusion recipe : recipes)
-			LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
+			if (recipe != null)
+				LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
+		if (recipes.size() == 0) return;
 		RecipeManaInfusion recipe = recipes.get(recipeAt);
+
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 

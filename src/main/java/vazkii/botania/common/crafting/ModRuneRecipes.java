@@ -19,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
@@ -45,6 +46,8 @@ public final class ModRuneRecipes {
 	public static RecipeRuneAltar recipeHead;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		final int costTier1 = 5200;
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;
