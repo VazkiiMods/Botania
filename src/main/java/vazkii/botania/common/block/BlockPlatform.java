@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -117,7 +115,6 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		if (variant.indestructible) {
 			tooltip.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));

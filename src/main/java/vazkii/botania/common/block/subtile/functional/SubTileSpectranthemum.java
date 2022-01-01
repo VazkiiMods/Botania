@@ -8,9 +8,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -26,6 +23,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.ItemFlagsComponent;
@@ -154,9 +152,8 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getInstance().player.isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
+		return Botania.proxy.getClientPlayer().isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
 	}
 
 }

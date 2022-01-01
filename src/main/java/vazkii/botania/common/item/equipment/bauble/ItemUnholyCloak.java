@@ -10,8 +10,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -67,13 +65,11 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	ResourceLocation getCloakTexture() {
 		return texture;
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	ResourceLocation getCloakGlowTexture() {
 		return textureGlow;
 	}

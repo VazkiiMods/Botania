@@ -947,7 +947,6 @@ public class EntityDoppleganger extends Mob {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public ResourceLocation getBossBarTexture() {
 		return BossBarHandler.defaultBossBar;
 	}
@@ -1017,13 +1016,12 @@ public class EntityDoppleganger extends Mob {
 	}
 	*/
 
-	@Environment(EnvType.CLIENT)
 	public void readSpawnData(int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUUID) {
 		this.playerCount = playerCount;
 		this.hardMode = hardMode;
 		this.source = source;
 		this.bossInfoUUID = bossInfoUUID;
-		Minecraft.getInstance().getSoundManager().play(new DopplegangerMusic(this));
+		Botania.runOnClient.accept(() -> () -> DopplegangerMusic.play(this));
 	}
 
 	@Nonnull
@@ -1041,13 +1039,17 @@ public class EntityDoppleganger extends Mob {
 	private static class DopplegangerMusic extends AbstractTickableSoundInstance {
 		private final EntityDoppleganger guardian;
 
-		public DopplegangerMusic(EntityDoppleganger guardian) {
+		private DopplegangerMusic(EntityDoppleganger guardian) {
 			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS);
 			this.guardian = guardian;
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();
 			this.z = guardian.getSource().getZ();
 			// this.repeat = true; disabled due to unknown vanilla/LWJGL bug where track glitches and repeats early
+		}
+
+		public static void play(EntityDoppleganger guardian) {
+			Minecraft.getInstance().getSoundManager().play(new DopplegangerMusic(guardian));
 		}
 
 		@Override

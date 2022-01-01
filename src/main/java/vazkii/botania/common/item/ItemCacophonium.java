@@ -10,8 +10,6 @@ package vazkii.botania.common.item;
 
 import com.google.common.annotations.VisibleForTesting;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.core.BlockPos;
@@ -103,7 +101,6 @@ public class ItemCacophonium extends Item {
 		return InteractionResult.PASS;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		if (isDOIT(stack)) {

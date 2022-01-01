@@ -62,7 +62,6 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Nonnull
 	@Override
-	@Environment(EnvType.CLIENT)
 	public String getDescriptionId(ItemStack stack) {
 		String name = super.getDescriptionId(stack);
 		if (ClientProxy.jingleTheBells) {
@@ -109,7 +108,6 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		return new TranslatableComponent("botania.armorset.manaweave.name");
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		if (ClientProxy.jingleTheBells) {
@@ -120,7 +118,6 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		super.addInformationAfterShift(stack, world, list, flags);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		list.add(new TranslatableComponent("botania.armorset.manaweave.desc0").withStyle(ChatFormatting.GRAY));

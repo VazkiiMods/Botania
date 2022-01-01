@@ -69,7 +69,6 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag adv) {
 		super.appendHoverText(stack, world, tooltip, adv);

@@ -10,8 +10,6 @@ package vazkii.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -67,7 +65,6 @@ public class ItemSpawnerMover extends Item {
 		return getEntityId(stack) != null;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> infoList, TooltipFlag flags) {
 		ResourceLocation id = getEntityId(stack);

@@ -37,7 +37,6 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 		}
 	}
 
-	@Override
 	public ResourceLocation getGlowResource() {
 		return glowTexture;
 	}

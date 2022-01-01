@@ -92,7 +92,6 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 		return new TranslatableComponent("botania.armorset.elementium.name");
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		super.addArmorSetDescription(stack, list);

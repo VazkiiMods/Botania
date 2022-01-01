@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
@@ -37,7 +35,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
 		this.blockEntityType = blockEntityType;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		BlockSpecialFlower.redstoneParticlesIfPowered(state, world, pos, rand);

@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -43,7 +41,6 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		super(block1, props);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load

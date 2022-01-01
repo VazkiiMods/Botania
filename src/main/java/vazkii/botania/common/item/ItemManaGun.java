@@ -8,10 +8,7 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -154,9 +151,17 @@ public class ItemManaGun extends Item {
 		return null;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+		boolean clip = hasClip(stack);
+		if (clip) {
+			TooltipHandler.addOnShift(tooltip, () -> appendHoverTextImpl(stack, tooltip));
+		} else {
+			appendHoverTextImpl(stack, tooltip);
+		}
+	}
+
+	private void appendHoverTextImpl(ItemStack stack, List<Component> tooltip) {
 		boolean clip = hasClip(stack);
 		if (clip && !Screen.hasShiftDown()) {
 			tooltip.add(TooltipHandler.getShiftInfoTooltip());
@@ -165,7 +170,7 @@ public class ItemManaGun extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<Component> lensTip = lens.getTooltipLines(Minecraft.getInstance().player, TooltipFlag.Default.NORMAL);
+			List<Component> lensTip = lens.getTooltipLines(null, TooltipFlag.Default.NORMAL);
 			if (lensTip.size() > 1) {
 				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}

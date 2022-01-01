@@ -10,8 +10,6 @@ package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -459,7 +457,6 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public List<BlockPos> getWireframesToDraw(Player player, ItemStack stack) {
 		ItemStack holding = player.getMainHandItem();
 		if (holding != stack || !canExchange(stack)) {

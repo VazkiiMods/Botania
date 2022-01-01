@@ -10,8 +10,6 @@ package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableMap;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -63,7 +61,6 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 		entityData.define(GRAVITY, 0F);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void handleEntityEvent(byte id) {
 		if (id == 3) {

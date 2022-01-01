@@ -12,14 +12,15 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -86,19 +87,18 @@ public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 		if (pool != null) {
 			Block below = pool.getLevel().getBlockState(pool.getBlockPos().below()).getBlock();
 			if (below instanceof IPoolOverlayProvider) {
-				TextureAtlasSprite overlayIcon = ((IPoolOverlayProvider) below).getIcon(pool.getLevel(), pool.getBlockPos());
-				if (overlayIcon != null) {
-					ms.pushPose();
-					float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
-					ms.translate(-0.5F, -1F - 0.43F, -0.5F);
-					ms.mulPose(Vector3f.XP.rotationDegrees(90F));
-					ms.scale(s, s, s);
+				var overlaySpriteId = ((IPoolOverlayProvider) below).getIcon(pool.getLevel(), pool.getBlockPos());
+				var overlayIcon = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
+				ms.pushPose();
+				float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
+				ms.translate(-0.5F, -1F - 0.43F, -0.5F);
+				ms.mulPose(Vector3f.XP.rotationDegrees(90F));
+				ms.scale(s, s, s);
 
-					VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
-					IconHelper.renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
+				VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
+				IconHelper.renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
 
-					ms.popPose();
-				}
+				ms.popPose();
 			}
 		}
 

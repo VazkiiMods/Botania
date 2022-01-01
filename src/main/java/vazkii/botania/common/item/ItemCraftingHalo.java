@@ -434,7 +434,6 @@ public class ItemCraftingHalo extends Item {
 		buffers.endBatch();
 	}
 
-	@Environment(EnvType.CLIENT)
 	public ResourceLocation getGlowResource() {
 		return glowTexture;
 	}

@@ -220,7 +220,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	 * Gets the block coordinates this is bound to, for use with the wireframe render
 	 * when the sub tile is being hovered with a wand of the forest.
 	 */
-	@Environment(EnvType.CLIENT)
 	@Override
 	public BlockPos getBinding() {
 		return null;

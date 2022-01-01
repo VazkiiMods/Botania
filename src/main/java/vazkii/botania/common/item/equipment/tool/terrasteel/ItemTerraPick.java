@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -93,7 +91,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));

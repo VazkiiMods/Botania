@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.world.Containers;
@@ -76,7 +74,6 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		if (state.getValue(BlockStateProperties.POWERED)) {
 			redstoneParticlesInShape(state, world, pos, rand);

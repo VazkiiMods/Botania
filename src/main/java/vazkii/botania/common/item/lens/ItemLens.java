@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -55,7 +53,6 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		this.props = props;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		int storedColor = getStoredColor(stack);

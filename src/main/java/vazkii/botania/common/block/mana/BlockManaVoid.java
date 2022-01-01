@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,9 +35,8 @@ public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, Ent
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
-	public TextureAtlasSprite getIcon(Level world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.manaVoidOverlay.sprite();
+	public ResourceLocation getIcon(Level world, BlockPos pos) {
+		return MiscellaneousIcons.INSTANCE.manaVoidOverlay.texture();
 	}
 
 }
