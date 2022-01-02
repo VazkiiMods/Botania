@@ -10,9 +10,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -27,7 +24,6 @@ import java.util.*;
 public class SubTileBergamute extends TileEntitySpecialFlower {
 	private static final int RANGE = 4;
 	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
-	private static final Set<SoundInstance> mutedSounds = Collections.newSetFromMap(new WeakHashMap<>());
 	private boolean disabled = false;
 
 	public SubTileBergamute(BlockPos pos, BlockState state) {
@@ -50,7 +46,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		existingFlowers.remove(this);
 	}
 
-	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z, int maxCount) {
+	public static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z, int maxCount) {
 		int count = 0;
 		SubTileBergamute tile = null;
 
@@ -72,25 +68,13 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		return getBergamutesNearby(x, y, z, 1).getFirst() > 0;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static int countFlowersAround(SoundInstance sound) {
-		// We halve the volume for each flower (see MixinSoundEngine)
-		// halving 8 times already brings the multiplier to near zero, so no
-		// need to keep going if we've seen more than 8.
-		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(sound.getX(), sound.getY(), sound.getZ(), 8);
-		int count = countAndBerg.getFirst();
-		if (count > 0) {
-			if (mutedSounds.add(sound) && Math.random() < 0.5) {
-				int color = TilePool.PARTICLE_COLOR;
-				float red = (color >> 16 & 0xFF) / 255F;
-				float green = (color >> 8 & 0xFF) / 255F;
-				float blue = (color & 0xFF) / 255F;
-				SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
-				SubTileBergamute berg = countAndBerg.getSecond();
-				berg.getLevel().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
-			}
-		}
-		return count;
+	public static void particle(SubTileBergamute berg) {
+		int color = TilePool.PARTICLE_COLOR;
+		float red = (color >> 16 & 0xFF) / 255F;
+		float green = (color >> 8 & 0xFF) / 255F;
+		float blue = (color & 0xFF) / 255F;
+		SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
+		berg.getLevel().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
 	}
 
 	@Override
