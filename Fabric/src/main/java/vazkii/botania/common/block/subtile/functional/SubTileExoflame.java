@@ -9,14 +9,15 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Unit;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.BlockEntityComponents;
 
 public class SubTileExoflame extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;
@@ -41,7 +42,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 				getEffectivePos().offset(RANGE, RANGE_Y, RANGE))) {
 			BlockEntity tile = getLevel().getBlockEntity(pos);
 			if (tile != null) {
-				IExoflameHeatable heatable = BlockEntityComponents.EXOFLAME_HEATABLE.getNullable(tile);
+				IExoflameHeatable heatable = BotaniaCapabilities.EXOFLAME_HEATABLE.find(getLevel(), pos, getLevel().getBlockState(pos), tile, Unit.INSTANCE);
 				if (heatable != null) {
 					if (heatable.canSmelt() && getMana() >= COST) {
 						if (heatable.getBurnTime() < 2) {

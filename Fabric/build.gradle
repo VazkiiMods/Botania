@@ -95,9 +95,8 @@ dependencies {
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
-    // Don't include base and entity as Trinkets includes it already
+    // Don't include base as Trinkets includes it already
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:4.0.1"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:4.0.1"
 
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.1"
     include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.1"

@@ -40,9 +40,6 @@
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
     ],
-    "cardinal-components-block": [
-      "vazkii.botania.common.components.BlockEntityComponents"
-    ],
     "rei_plugins_v0": [
       "vazkii.botania.fabric.compat.rei.BotaniaREIPlugin"
     ]
