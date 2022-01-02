@@ -1,10 +1,19 @@
 package vazkii.botania.xplat;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+
 import java.util.ServiceLoader;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public interface IXplatAbstractions {
 	boolean isModLoaded(String modId);
+
+	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... p_155275_);
 
 	IXplatAbstractions INSTANCE = find();
 
