@@ -64,6 +64,7 @@
   "client": [
     "AccessorAbstractContainerScreen",
     "AccessorItemRenderer",
+    "AccessorMinecraft",
     "AccessorModelBakery",
     "AccessorModelLayers",
     "AccessorModelManager",

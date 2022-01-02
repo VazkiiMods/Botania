@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -333,7 +334,8 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private void loadComplete(Minecraft mc) {
-		ColorHandler.init();
+		ColorHandler.submitBlocks(ColorProviderRegistry.BLOCK::register);
+		ColorHandler.submitItems(ColorProviderRegistry.ITEM::register);
 
 		// Needed to prevent mana pools on carts from X-raying through the cart
 		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderBuffers) mc.renderBuffers()).getEntityBuilders();

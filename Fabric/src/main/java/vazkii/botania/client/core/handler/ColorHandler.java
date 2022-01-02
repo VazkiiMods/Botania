@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
@@ -41,12 +40,18 @@ import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
+import vazkii.botania.mixin.AccessorMinecraft;
 
 public final class ColorHandler {
+	public interface BlockHandlerConsumer {
+		void register(BlockColor handler, Block... blocks);
+	}
 
-	public static void init() {
-		ColorProviderRegistry<Block, BlockColor> blocks = ColorProviderRegistry.BLOCK;
+	public interface ItemHandlerConsumer {
+		void register(ItemColor handler, ItemLike... items);
+	}
 
+	public static void submitBlocks(BlockHandlerConsumer blocks) {
 		// [VanillaCopy] BlockColors for vine
 		BlockColor vineColor = (state, world, pos, tint) -> world != null && pos != null ? BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.getDefaultColor();
 		blocks.register(vineColor, ModBlocks.solidVines);
@@ -108,9 +113,9 @@ public final class ColorHandler {
 					}
 					return 0xFFFFFF;
 				}, ModBlocks.abstrusePlatform, ModBlocks.spectralPlatform, ModBlocks.infrangiblePlatform);
+	}
 
-		ColorProviderRegistry<ItemLike, ItemColor> items = ColorProviderRegistry.ITEM;
-
+	public static void submitItems(ItemHandlerConsumer items) {
 		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
 				ModItems.lifeEssence, ModItems.gaiaIngot);
 
@@ -161,7 +166,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			ItemStack lens = ItemManaGun.getLens(s);
 			if (!lens.isEmpty() && t == 0) {
-				return ColorProviderRegistry.ITEM.get(lens.getItem()).getColor(lens, t);
+				return ((AccessorMinecraft) Minecraft.getInstance()).getItemColors().getColor(lens, t);
 			}
 
 			if (t == 2) {
