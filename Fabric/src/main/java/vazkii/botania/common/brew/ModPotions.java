@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.brew;
 
-import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 
 import vazkii.botania.common.brew.potion.*;
 import vazkii.botania.common.lib.LibPotionNames;
+
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
@@ -25,8 +27,7 @@ public class ModPotions {
 	public static final MobEffect allure = new PotionAllure();
 	public static final MobEffect clear = new PotionClear();
 
-	public static void registerPotions() {
-		Registry<MobEffect> r = Registry.MOB_EFFECT;
+	public static void registerPotions(BiConsumer<MobEffect, ResourceLocation> r) {
 		register(r, LibPotionNames.SOUL_CROSS, soulCross);
 		register(r, LibPotionNames.FEATHER_FEET, featherfeet);
 		register(r, LibPotionNames.EMPTINESS, emptiness);

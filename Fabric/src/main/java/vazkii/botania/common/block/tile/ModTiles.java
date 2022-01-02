@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,6 +25,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Arrays;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.*;
 
@@ -84,8 +85,7 @@ public class ModTiles {
 	public static final BlockEntityType<TileAvatar> AVATAR = IXplatAbstractions.INSTANCE.createBlockEntityType(TileAvatar::new, avatar);
 	public static final BlockEntityType<TileAnimatedTorch> ANIMATED_TORCH = IXplatAbstractions.INSTANCE.createBlockEntityType(TileAnimatedTorch::new, animatedTorch);
 
-	public static void registerTiles() {
-		Registry<BlockEntityType<?>> r = Registry.BLOCK_ENTITY_TYPE;
+	public static void registerTiles(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
 		register(r, LibBlockNames.ALTAR, ALTAR);
 		register(r, LibBlockNames.SPREADER, SPREADER);
 		register(r, LibBlockNames.POOL, POOL);

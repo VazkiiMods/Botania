@@ -22,6 +22,7 @@ import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.mixin.AccessorRecipeManager;
 
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -59,10 +60,9 @@ public class ModRecipeTypes {
 	public static final RecipeType<IOrechidRecipe> MARIMORPHOSIS_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeMarimorphosis> MARIMORPHOSIS_SERIALIZER = new RecipeMarimorphosis.Serializer();
 
-	public static void registerRecipeTypes() {
+	public static void registerRecipeTypes(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
 		ResourceLocation id = IElvenTradeRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
-		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
 		register(r, id, ELVEN_TRADE_SERIALIZER);
 		register(r, prefix("elven_trade_lexicon"), LEXICON_ELVEN_TRADE_SERIALIZER);
 

@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -26,6 +27,8 @@ import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.lib.LibBlockNames.*;
@@ -237,8 +240,7 @@ public final class ModFluffBlocks {
 	public static final Block alfglassPane = new BlockModPane(BlockBehaviour.Properties.copy(elfGlass));
 	public static final Block bifrostPane = new BlockModPane(BlockBehaviour.Properties.copy(bifrostPerm));
 
-	public static void registerBlocks() {
-		Registry<Block> r = Registry.BLOCK;
+	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
 
 		register(r, LibBlockNames.LIVING_WOOD + STAIR_SUFFIX, livingwoodStairs);
 		register(r, LibBlockNames.LIVING_WOOD + SLAB_SUFFIX, livingwoodSlab);
@@ -451,8 +453,7 @@ public final class ModFluffBlocks {
 		register(r, LibBlockNames.BIFROST + "_pane", bifrostPane);
 	}
 
-	public static void registerItemBlocks() {
-		Registry<Item> r = Registry.ITEM;
+	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = ModItems.defaultBuilder();
 
 		register(r, Registry.BLOCK.getKey(livingwoodStairs), new BlockItem(livingwoodStairs, props));

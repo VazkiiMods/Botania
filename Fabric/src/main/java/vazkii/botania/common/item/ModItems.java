@@ -11,7 +11,7 @@ package vazkii.botania.common.item;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -69,6 +69,7 @@ import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.Locale;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -404,8 +405,7 @@ public final class ModItems {
 		return defaultBuilder().maxCount(1);
 	}
 
-	public static void registerItems() {
-		Registry<Item> r = Registry.ITEM;
+	public static void registerItems(BiConsumer<Item, ResourceLocation> r) {
 		register(r, LibItemNames.LEXICON, lexicon);
 		register(r, LibItemNames.TWIG_WAND, twigWand);
 		register(r, LibItemNames.OBEDIENCE_STICK, obedienceStick);
@@ -700,8 +700,7 @@ public final class ModItems {
 		register(r, LibItemNames.COSMETIC_PREFIX + "thinking_hand", thinkingHand);
 	}
 
-	public static void registerRecipeSerializers() {
-		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
+	public static void registerRecipeSerializers(BiConsumer<RecipeSerializer, ResourceLocation> r) {
 		register(r, "ancient_will_attach", AncientWillRecipe.SERIALIZER);
 		register(r, "armor_upgrade", ArmorUpgradeRecipe.SERIALIZER);
 		register(r, "black_hole_talisman_extract", BlackHoleTalismanExtractRecipe.SERIALIZER);

@@ -9,7 +9,7 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.Util;
-import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,6 +32,7 @@ import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -57,8 +58,7 @@ public final class PixieHandler {
 			MobEffects.WEAKNESS
 	};
 
-	public static void registerAttribute() {
-		Registry<Attribute> r = Registry.ATTRIBUTE;
+	public static void registerAttribute(BiConsumer<Attribute, ResourceLocation> r) {
 		register(r, prefix("pixie_spawn_chance"), PIXIE_SPAWN_CHANCE);
 	}
 

@@ -10,6 +10,7 @@ package vazkii.botania.common.brew;
 
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -18,6 +19,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
 
 import java.util.Arrays;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -48,8 +50,7 @@ public class ModBrews {
 	public static final Brew overload = new Brew(0x232323, 12000, new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800, 3), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1800, 2), new MobEffectInstance(MobEffects.WEAKNESS, 3600, 1), new MobEffectInstance(MobEffects.HUNGER, 200, 2));
 	public static final Brew clear = make(4000, new MobEffectInstance(ModPotions.clear, 0, 0));
 
-	public static void registerBrews() {
-		Registry<Brew> r = registry;
+	public static void registerBrews(BiConsumer<Brew, ResourceLocation> r) {
 		register(r, prefix("fallback"), fallbackBrew);
 		register(r, LibBrewNames.SPEED, speed);
 		register(r, LibBrewNames.STRENGTH, strength);

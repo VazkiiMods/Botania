@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
@@ -80,6 +81,7 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -108,24 +110,24 @@ public class Botania implements ModInitializer {
 		ConfigHandler.setup();
 
 		EquipmentHandler.init();
-		ModFeatures.registerFeatures();
-		ModItems.registerItems();
-		ModItems.registerRecipeSerializers();
-		ModEntities.registerEntities();
-		ModRecipeTypes.registerRecipeTypes();
-		ModSounds.init();
-		ModBrews.registerBrews();
-		ModPotions.registerPotions();
-		ModBlocks.registerBlocks();
-		ModBlocks.registerItemBlocks();
-		ModTiles.registerTiles();
-		ModFluffBlocks.registerBlocks();
-		ModFluffBlocks.registerItemBlocks();
-		ModParticles.registerParticles();
-		ModSubtiles.registerBlocks();
-		ModSubtiles.registerItemBlocks();
-		ModSubtiles.registerTEs();
-		PixieHandler.registerAttribute();
+		ModFeatures.registerFeatures(bind(Registry.FEATURE));
+		ModItems.registerItems(bind(Registry.ITEM));
+		ModItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
+		ModEntities.registerEntities(bind(Registry.ENTITY_TYPE));
+		ModRecipeTypes.registerRecipeTypes(bind(Registry.RECIPE_SERIALIZER));
+		ModSounds.init(bind(Registry.SOUND_EVENT));
+		ModBrews.registerBrews(bind(BotaniaAPI.instance().getBrewRegistry()));
+		ModPotions.registerPotions(bind(Registry.MOB_EFFECT));
+		ModBlocks.registerBlocks(bind(Registry.BLOCK));
+		ModBlocks.registerItemBlocks(bind(Registry.ITEM));
+		ModTiles.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
+		ModFluffBlocks.registerBlocks(bind(Registry.BLOCK));
+		ModFluffBlocks.registerItemBlocks(bind(Registry.ITEM));
+		ModParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
+		ModSubtiles.registerBlocks(bind(Registry.BLOCK));
+		ModSubtiles.registerItemBlocks(bind(Registry.ITEM));
+		ModSubtiles.registerTEs(bind(Registry.BLOCK_ENTITY_TYPE));
+		PixieHandler.registerAttribute(bind(Registry.ATTRIBUTE));
 
 		commonSetup();
 		ServerLifecycleEvents.SERVER_STARTING.register(this::serverStarting);
@@ -148,6 +150,10 @@ public class Botania implements ModInitializer {
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();
+	}
+
+	private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {
+		return (t, id) -> Registry.register(registry, id, t);
 	}
 
 	private void commonSetup() {

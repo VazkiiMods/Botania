@@ -60,6 +60,7 @@ import vazkii.botania.mixin.AccessorDispenserBlock;
 import javax.annotation.Nonnull;
 
 import java.util.Locale;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -357,8 +358,7 @@ public final class ModBlocks {
 	public static final Block motifNightshade = new BlockMotifFlower(MobEffects.POISON, 20, BlockBehaviour.Properties.copy(Blocks.POPPY), true);
 	public static final Block motifHydroangeas = new BlockMotifFlower(MobEffects.UNLUCK, 10, BlockBehaviour.Properties.copy(Blocks.POPPY), false);
 
-	public static void registerBlocks() {
-		Registry<Block> r = Registry.BLOCK;
+	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
 		register(r, "white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, whiteFlower);
 		register(r, "orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, orangeFlower);
 		register(r, "magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, magentaFlower);
@@ -620,8 +620,7 @@ public final class ModBlocks {
 		register(r, LibBlockNames.MOTIF_HYDROANGEAS, motifHydroangeas);
 	}
 
-	public static void registerItemBlocks() {
-		Registry<Item> r = Registry.ITEM;
+	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = ModItems.defaultBuilder();
 		register(r, Registry.BLOCK.getKey(whiteFlower), new BlockItem(whiteFlower, props));
 		register(r, Registry.BLOCK.getKey(orangeFlower), new BlockItem(orangeFlower, props));
@@ -867,12 +866,12 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(motifHydroangeas), new BlockItem(motifHydroangeas, props));
 	}
 
-	public static <T> void register(Registry<? super T> reg, ResourceLocation name, T thing) {
-		Registry.register(reg, name, thing);
+	public static <T> void register(BiConsumer<T, ResourceLocation> consumer, ResourceLocation name, T thing) {
+		consumer.accept(thing, name);
 	}
 
-	public static <T> void register(Registry<? super T> reg, String name, T thing) {
-		register(reg, prefix(name), thing);
+	public static <T> void register(BiConsumer<T, ResourceLocation> consumer, String name, T thing) {
+		consumer.accept(thing, prefix(name));
 	}
 
 	public static void addDispenserBehaviours() {

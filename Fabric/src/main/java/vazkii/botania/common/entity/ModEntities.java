@@ -11,7 +11,7 @@ package vazkii.botania.common.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
-import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -21,6 +21,8 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 
 import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.lib.LibEntityNames;
+
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
@@ -146,8 +148,7 @@ public final class ModEntities {
 			.trackedUpdateRate(Integer.MAX_VALUE)
 			.build();
 
-	public static void registerEntities() {
-		Registry<EntityType<?>> r = Registry.ENTITY_TYPE;
+	public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
 		register(r, LibEntityNames.MANA_BURST, MANA_BURST);
 		register(r, LibEntityNames.PIXIE, PIXIE);
 		register(r, LibEntityNames.FLAME_RING, FLAME_RING);

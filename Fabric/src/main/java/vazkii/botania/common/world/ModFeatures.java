@@ -13,6 +13,7 @@ import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -23,6 +24,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -44,9 +46,7 @@ public class ModFeatures {
 			Biome.BiomeCategory.MUSHROOM
 	);
 
-	public static void registerFeatures() {
-		Registry<Feature<?>> r = Registry.FEATURE;
-
+	public static void registerFeatures(BiConsumer<Feature<?>, ResourceLocation> r) {
 		ModBlocks.register(r, "mystical_flowers", MYSTICAL_FLOWERS);
 		ModBlocks.register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);
 

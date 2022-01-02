@@ -32,6 +32,8 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.IXplatAbstractions;
 
+import java.util.function.BiConsumer;
+
 import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModSubtiles {
@@ -249,8 +251,7 @@ public class ModSubtiles {
 		return Registry.BLOCK.getKey(b);
 	}
 
-	public static void registerBlocks() {
-		Registry<Block> r = Registry.BLOCK;
+	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
 		register(r, LibBlockNames.SUBTILE_PUREDAISY, pureDaisy);
 		register(r, floating(LibBlockNames.SUBTILE_PUREDAISY), pureDaisyFloating);
 
@@ -398,8 +399,7 @@ public class ModSubtiles {
 		register(r, floating(LibBlockNames.SUBTILE_LABELLIA), labelliaFloating);
 	}
 
-	public static void registerItemBlocks() {
-		Registry<Item> r = Registry.ITEM;
+	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = ModItems.defaultBuilder();
 
 		register(r, getId(pureDaisy), new ItemBlockSpecialFlower(pureDaisy, props));
@@ -549,8 +549,7 @@ public class ModSubtiles {
 		register(r, getId(labelliaFloating), new ItemBlockSpecialFlower(labelliaFloating, props));
 	}
 
-	public static void registerTEs() {
-		Registry<BlockEntityType<?>> r = Registry.BLOCK_ENTITY_TYPE;
+	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
 		register(r, getId(pureDaisy), PURE_DAISY);
 		register(r, getId(manastar), MANASTAR);
 		register(r, getId(hydroangeas), HYDROANGEAS);

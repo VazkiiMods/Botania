@@ -8,13 +8,17 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModSounds {
+	private static final List<SoundEvent> EVENTS = new ArrayList<>();
 	//blocks
 	public static final SoundEvent altarCraft = makeSoundEvent("altar_craft");
 	public static final SoundEvent bellows = makeSoundEvent("bellows");
@@ -110,12 +114,15 @@ public final class ModSounds {
 	public static final SoundEvent way = makeSoundEvent("way");
 
 	private static SoundEvent makeSoundEvent(String name) {
-		ResourceLocation loc = prefix(name);
-		return Registry.register(Registry.SOUND_EVENT, loc, new SoundEvent(loc));
+		SoundEvent event = new SoundEvent(prefix(name));
+		EVENTS.add(event);
+		return event;
 	}
 
-	public static void init() {
-
+	public static void init(BiConsumer<SoundEvent, ResourceLocation> r) {
+		for (SoundEvent event : EVENTS) {
+			r.accept(event, event.getLocation());
+		}
 	}
 
 	private ModSounds() {}
