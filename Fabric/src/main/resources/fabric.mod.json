@@ -25,7 +25,7 @@
       "vazkii.botania.common.Botania"
     ],
     "client": [
-      "vazkii.botania.client.core.proxy.ClientProxy"
+      "vazkii.botania.fabric.client.FabricClientInitializer"
     ],
     "fabric-gametest": [
       "vazkii.botania.test.block.BindingTest",
