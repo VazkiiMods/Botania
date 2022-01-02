@@ -9,10 +9,8 @@
 package vazkii.botania.common.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
@@ -25,126 +23,106 @@ import vazkii.botania.common.lib.LibEntityNames;
 import java.util.function.BiConsumer;
 
 public final class ModEntities {
-	private static final EntityDimensions ZERO_SIZE = EntityDimensions.fixed(0, 0);
-
-	public static final EntityType<EntityManaBurst> MANA_BURST = FabricEntityTypeBuilder.<EntityManaBurst>create(
-			MobCategory.MISC, EntityManaBurst::new)
-			.dimensions(ZERO_SIZE)
-			.trackedUpdateRate(10)
-			.trackRangeChunks(6)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityPixie> PIXIE = FabricEntityTypeBuilder.<EntityPixie>create(MobCategory.MISC, EntityPixie::new)
-			.dimensions(EntityDimensions.scalable(1, 1))
-			.trackedUpdateRate(3)
-			.trackRangeChunks(6)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityFlameRing> FLAME_RING = FabricEntityTypeBuilder.<EntityFlameRing>create(MobCategory.MISC, EntityFlameRing::new)
-			.dimensions(ZERO_SIZE)
-			.trackRangeChunks(3)
-			.trackedUpdateRate(40)
-			.forceTrackedVelocityUpdates(false)
-			.build();
-	public static final EntityType<EntityVineBall> VINE_BALL = FabricEntityTypeBuilder.<EntityVineBall>create(MobCategory.MISC, EntityVineBall::new)
-			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
-			.trackRangeChunks(4)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityDoppleganger> DOPPLEGANGER = FabricEntityTypeBuilder.create(MobCategory.MONSTER, EntityDoppleganger::new)
-			.dimensions(EntityDimensions.scalable(0.6F, 1.8F))
+	public static final EntityType<EntityManaBurst> MANA_BURST = EntityType.Builder.<EntityManaBurst>of(
+			EntityManaBurst::new, MobCategory.MISC)
+			.sized(0, 0)
+			.updateInterval(10)
+			.clientTrackingRange(6)
+			.build("");
+	public static final EntityType<EntityPixie> PIXIE = EntityType.Builder.<EntityPixie>of(EntityPixie::new, MobCategory.MISC)
+			.sized(1, 1)
+			.updateInterval(3)
+			.clientTrackingRange(6)
+			.build("");
+	public static final EntityType<EntityFlameRing> FLAME_RING = EntityType.Builder.of(EntityFlameRing::new, MobCategory.MISC)
+			.sized(0, 0)
+			.clientTrackingRange(3)
+			.updateInterval(40)
+			.build("");
+	public static final EntityType<EntityVineBall> VINE_BALL = EntityType.Builder.<EntityVineBall>of(EntityVineBall::new, MobCategory.MISC)
+			.sized(0.25F, 0.25F)
+			.clientTrackingRange(4)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityDoppleganger> DOPPLEGANGER = EntityType.Builder.of(EntityDoppleganger::new, MobCategory.MONSTER)
+			.sized(0.6F, 1.8F)
 			.fireImmune()
-			.trackRangeChunks(10)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityMagicLandmine> MAGIC_LANDMINE = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityMagicLandmine::new)
-			.dimensions(EntityDimensions.scalable(5F, 0.1F))
-			.trackRangeChunks(8)
-			.trackedUpdateRate(40)
-			.forceTrackedVelocityUpdates(false)
-			.build();
-	public static final EntityType<EntityManaSpark> SPARK = FabricEntityTypeBuilder.<EntityManaSpark>create(MobCategory.MISC, EntityManaSpark::new)
-			.dimensions(EntityDimensions.scalable(0.2F, 0.5F))
+			.clientTrackingRange(10)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityMagicLandmine> MAGIC_LANDMINE = EntityType.Builder.of(EntityMagicLandmine::new, MobCategory.MISC)
+			.sized(5F, 0.1F)
+			.clientTrackingRange(8)
+			.updateInterval(40)
+			.build("");
+	public static final EntityType<EntityManaSpark> SPARK = EntityType.Builder.<EntityManaSpark>of(EntityManaSpark::new, MobCategory.MISC)
+			.sized(0.2F, 0.5F)
 			.fireImmune()
-			.trackRangeChunks(4)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(false)
-			.build();
-	public static final EntityType<EntityThrownItem> THROWN_ITEM = FabricEntityTypeBuilder.<EntityThrownItem>create(MobCategory.MISC, EntityThrownItem::new)
-			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
-			.trackRangeChunks(4)
-			.trackedUpdateRate(20)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityMagicMissile> MAGIC_MISSILE = FabricEntityTypeBuilder.<EntityMagicMissile>create(MobCategory.MISC, EntityMagicMissile::new)
-			.dimensions(ZERO_SIZE)
-			.trackRangeChunks(4)
-			.trackedUpdateRate(2)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityThornChakram> THORN_CHAKRAM = FabricEntityTypeBuilder.<EntityThornChakram>create(MobCategory.MISC, EntityThornChakram::new)
-			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
-			.trackRangeChunks(5)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityCorporeaSpark> CORPOREA_SPARK = FabricEntityTypeBuilder.<EntityCorporeaSpark>create(MobCategory.MISC, EntityCorporeaSpark::new)
-			.dimensions(EntityDimensions.scalable(0.2F, 0.5F))
+			.clientTrackingRange(4)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityThrownItem> THROWN_ITEM = EntityType.Builder.<EntityThrownItem>of(EntityThrownItem::new, MobCategory.MISC)
+			.sized(0.25F, 0.25F)
+			.clientTrackingRange(4)
+			.updateInterval(20)
+			.build("");
+	public static final EntityType<EntityMagicMissile> MAGIC_MISSILE = EntityType.Builder.<EntityMagicMissile>of(EntityMagicMissile::new, MobCategory.MISC)
+			.sized(0, 0)
+			.clientTrackingRange(4)
+			.updateInterval(2)
+			.build("");
+	public static final EntityType<EntityThornChakram> THORN_CHAKRAM = EntityType.Builder.<EntityThornChakram>of(EntityThornChakram::new, MobCategory.MISC)
+			.sized(0.25F, 0.25F)
+			.clientTrackingRange(5)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityCorporeaSpark> CORPOREA_SPARK = EntityType.Builder.of(EntityCorporeaSpark::new, MobCategory.MISC)
+			.sized(0.2F, 0.5F)
 			.fireImmune()
-			.trackRangeChunks(4)
-			.trackedUpdateRate(40)
-			.forceTrackedVelocityUpdates(false)
-			.build();
-	public static final EntityType<EntityEnderAirBottle> ENDER_AIR_BOTTLE = FabricEntityTypeBuilder.<EntityEnderAirBottle>create(MobCategory.MISC, EntityEnderAirBottle::new)
-			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
-			.trackRangeChunks(4)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityPoolMinecart> POOL_MINECART = FabricEntityTypeBuilder.<EntityPoolMinecart>create(MobCategory.MISC, EntityPoolMinecart::new)
-			.dimensions(EntityDimensions.scalable(0.98F, 0.7F))
-			.trackRangeChunks(5)
-			.trackedUpdateRate(3)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityPinkWither> PINK_WITHER = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityPinkWither::new)
-			.dimensions(EntityDimensions.scalable(0.9F, 3.5F))
-			.trackRangeChunks(6)
-			.trackedUpdateRate(3)
-			.forceTrackedVelocityUpdates(false)
-			.build();
-	public static final EntityType<EntityPlayerMover> PLAYER_MOVER = FabricEntityTypeBuilder.<EntityPlayerMover>create(MobCategory.MISC, EntityPlayerMover::new)
-			.dimensions(ZERO_SIZE)
-			.trackRangeChunks(10)
-			.trackedUpdateRate(3)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityManaStorm> MANA_STORM = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityManaStorm::new)
-			.dimensions(EntityDimensions.scalable(0.98F, 0.98F))
-			.trackRangeChunks(4)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(false)
-			.build();
-	public static final EntityType<EntityBabylonWeapon> BABYLON_WEAPON = FabricEntityTypeBuilder.<EntityBabylonWeapon>create(MobCategory.MISC, EntityBabylonWeapon::new)
-			.dimensions(ZERO_SIZE)
-			.trackRangeChunks(6)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityFallingStar> FALLING_STAR = FabricEntityTypeBuilder.<EntityFallingStar>create(MobCategory.MISC, EntityFallingStar::new)
-			.dimensions(ZERO_SIZE)
-			.trackRangeChunks(4)
-			.trackedUpdateRate(10)
-			.forceTrackedVelocityUpdates(true)
-			.build();
-	public static final EntityType<EntityEnderAir> ENDER_AIR = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityEnderAir::new)
+			.clientTrackingRange(4)
+			.updateInterval(40)
+			.build("");
+	public static final EntityType<EntityEnderAirBottle> ENDER_AIR_BOTTLE = EntityType.Builder.<EntityEnderAirBottle>of(EntityEnderAirBottle::new, MobCategory.MISC)
+			.sized(0.25F, 0.25F)
+			.clientTrackingRange(4)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityPoolMinecart> POOL_MINECART = EntityType.Builder.<EntityPoolMinecart>of(EntityPoolMinecart::new, MobCategory.MISC)
+			.sized(0.98F, 0.7F)
+			.clientTrackingRange(5)
+			.updateInterval(3)
+			.build("");
+	public static final EntityType<EntityPinkWither> PINK_WITHER = EntityType.Builder.of(EntityPinkWither::new, MobCategory.MISC)
+			.sized(0.9F, 3.5F)
+			.clientTrackingRange(6)
+			.updateInterval(3)
+			.build("");
+	public static final EntityType<EntityPlayerMover> PLAYER_MOVER = EntityType.Builder.<EntityPlayerMover>of(EntityPlayerMover::new, MobCategory.MISC)
+			.sized(0, 0)
+			.clientTrackingRange(10)
+			.updateInterval(3)
+			.build("");
+	public static final EntityType<EntityManaStorm> MANA_STORM = EntityType.Builder.of(EntityManaStorm::new, MobCategory.MISC)
+			.sized(0.98F, 0.98F)
+			.clientTrackingRange(4)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityBabylonWeapon> BABYLON_WEAPON = EntityType.Builder.<EntityBabylonWeapon>of(EntityBabylonWeapon::new, MobCategory.MISC)
+			.sized(0, 0)
+			.clientTrackingRange(6)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityFallingStar> FALLING_STAR = EntityType.Builder.<EntityFallingStar>of(EntityFallingStar::new, MobCategory.MISC)
+			.sized(0, 0)
+			.clientTrackingRange(4)
+			.updateInterval(10)
+			.build("");
+	public static final EntityType<EntityEnderAir> ENDER_AIR = EntityType.Builder.of(EntityEnderAir::new, MobCategory.MISC)
 			.fireImmune()
-			.dimensions(EntityDimensions.fixed(1, 1))
-			.trackRangeChunks(4)
-			.trackedUpdateRate(Integer.MAX_VALUE)
-			.build();
+			.sized(1, 1)
+			.clientTrackingRange(4)
+			.updateInterval(Integer.MAX_VALUE)
+			.build("");
 
 	public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
 		r.accept(MANA_BURST, LibEntityNames.MANA_BURST);
