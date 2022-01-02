@@ -20,7 +20,7 @@ build
 /*.launch
 
 ## intellij
-/out
+out
 /.idea
 /atlassian-ide-plugin.xml
 /*.ipr
