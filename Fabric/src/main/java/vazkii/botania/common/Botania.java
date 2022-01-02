@@ -30,7 +30,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -100,7 +99,7 @@ public class Botania implements ModInitializer {
 	public static volatile boolean configLoaded = false;
 	public static MinecraftServer currentServer;
 
-	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
+	public static final Logger LOGGER = BotaniaAPI.LOGGER;
 
 	@Override
 	public void onInitialize() {

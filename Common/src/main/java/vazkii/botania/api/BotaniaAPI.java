@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
@@ -47,6 +48,7 @@ import java.util.function.Supplier;
 public interface BotaniaAPI {
 	String MODID = "botania";
 	String GOG_MODID = "gardenofglass";
+	Logger LOGGER = LogManager.getLogger(MODID);
 
 	Supplier<BotaniaAPI> INSTANCE = Suppliers.memoize(() -> {
 		try {

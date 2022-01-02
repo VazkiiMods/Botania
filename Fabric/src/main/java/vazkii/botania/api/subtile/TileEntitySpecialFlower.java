@@ -25,9 +25,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
@@ -69,7 +69,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileEntitySpecialFlower self) {
 		if (self.isFloating != state.is(ModTags.Blocks.FLOATING_FLOWERS)) {
-			Botania.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
+			BotaniaAPI.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
 			self.isFloating = !self.isFloating;
 		}
 		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
