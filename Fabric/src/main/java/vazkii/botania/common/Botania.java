@@ -77,6 +77,7 @@ import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.data.DataGenerators;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -101,8 +102,8 @@ public class Botania implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded(LibMisc.GOG_MOD_ID);
-		trinketsLoaded = FabricLoader.getInstance().isModLoaded("trinkets");
+		gardenOfGlassLoaded = IXplatAbstractions.INSTANCE.isModLoaded(LibMisc.GOG_MOD_ID);
+		trinketsLoaded = IXplatAbstractions.INSTANCE.isModLoaded("trinkets");
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 			runOnClient = t -> t.get().run();
 		}

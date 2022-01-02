@@ -19,6 +19,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -37,7 +38,7 @@ public class GogAlternationRecipe {
 				throw new IllegalArgumentException("Subrecipes must have matching types");
 			}
 
-			if (FabricLoader.getInstance().isModLoaded(LibMisc.GOG_MOD_ID)) {
+			if (IXplatAbstractions.INSTANCE.isModLoaded(LibMisc.GOG_MOD_ID)) {
 				return gog;
 			} else {
 				return base;
