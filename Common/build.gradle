@@ -1,0 +1,45 @@
+plugins {
+    id('java')
+    id('org.spongepowered.gradle.vanilla') version '0.2.1-SNAPSHOT'
+}
+
+archivesBaseName = "${mod_name}-xplat"
+version = "${minecraft_version}-${build_number}"
+if (System.getenv().RELEASE_MODE == null) {
+    version += '-SNAPSHOT'
+}
+
+minecraft {
+    version(minecraft_version)
+}
+
+dependencies {
+    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+processResources {
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://" + System.getenv("local_maven")
+        }
+    }
+}

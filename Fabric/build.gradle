@@ -1,23 +1,12 @@
 plugins {
     id 'fabric-loom' version '0.10-SNAPSHOT'
-    id 'maven-publish'
-    id 'com.diffplug.spotless' version '5.8.2'
     id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
-    id 'pmd'
 }
 
-ext.configFile = file('build.properties')
-ext.config = parseConfig(configFile)
-ext.priv = parseConfig(file('private.properties'))
-
-def mc_version = "1.18.1"
-version = "${mc_version}-${config.build_number}-FABRIC"
+version = "${minecraft_version}-${build_number}-FABRIC"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
-
-group = "vazkii.botania"
-archivesBaseName = "${ext.config.mod_name}"
 
 compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
 
@@ -88,7 +77,7 @@ test {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${mc_version}"
+    minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-1.18.1:2021.12.19@zip")
@@ -98,6 +87,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.44.0+1.18"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+    implementation project(":Common")
 
     modImplementation "vazkii.patchouli:Patchouli:1.18.1-61-FABRIC"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
@@ -131,30 +121,12 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 }
 
-spotless {
-    enforceCheck = false // workaround around jenkins having wrong line endings in some files
-                         // we explicitly check in github actions builds
-    java {
-        indentWithTabs()
-        licenseHeaderFile('spotless/license_template.txt')
-        eclipse().configFile 'spotless/eclipseformat.xml'
-        removeUnusedImports()
-        importOrderFile 'spotless/eclipse.importorder'
-    }
-}
-
-pmd {
-    toolVersion '6.37.0'
-    incrementalAnalysis.set(true)
-    ruleSets.clear()
-    ruleSetFiles = files("spotless/pmd-ruleset.xml")
-}
-
-task checkSyntax (group: "verification") {
-    dependsOn spotlessJavaCheck, pmdMain
+tasks.withType(JavaCompile) {
+	source(project(":Common").sourceSets.main.allSource)
 }
 
 processResources {
+    from project(":Common").sourceSets.main.resources
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
@@ -170,67 +142,7 @@ processResources {
 
     filesMatching('data/botania/patchouli_books/lexicon/book.json') {
         filter {
-            it.replaceAll("buildNumber", config.build_number)
+            it.replaceAll("buildNumber", build_number)
         }
     }
 }
-
-task incrementBuildNumber {
-    doFirst {
-        config.build_number = (config.build_number.toString().toInteger()) + 1
-        configFile.withWriter {
-            config.toProperties().store(it, "")
-        }
-    }
-}
-
-def parseConfig(File config) {
-	if(config.exists()){
-		config.withReader {
-			def prop = new Properties()
-			prop.load(it)
-			return (new ConfigSlurper().parse(prop))
-		}
-	} else {
-		return null
-	}
-}
-
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-java {
-    withSourcesJar()
-}
-jar {
-    from "LICENSE"
-
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.exe"
-}
-tasks.withType(GenerateModuleMetadata) {
-    enabled = false
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-
-    // select the repositories you want to publish to
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
-    }
-}
-
-defaultTasks 'clean', 'checkSyntax', 'build'
