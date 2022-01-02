@@ -1,6 +1,9 @@
 package vazkii.botania.xplat;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -18,6 +21,8 @@ public interface IXplatAbstractions {
 
 	// Misc
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... p_155275_);
+
+	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 
 	IXplatAbstractions INSTANCE = find();
 

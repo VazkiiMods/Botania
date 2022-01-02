@@ -10,8 +10,6 @@ package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.core.BlockPos;
@@ -19,7 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
@@ -41,6 +39,7 @@ import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorRecipeManager;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,17 +62,8 @@ public class TileCraftCrate extends TileOpenCrate implements IWandable {
 	private int lastRecipeEpoch = recipeEpoch;
 
 	public static void registerListener() {
-		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public ResourceLocation getFabricId() {
-				return prefix("craft_crate_epoch_counter");
-			}
-
-			@Override
-			public void onResourceManagerReload(ResourceManager resourceManager) {
-				recipeEpoch++;
-			}
-		});
+		IXplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("craft_crate_epoch_counter"),
+				(ResourceManagerReloadListener) mgr -> recipeEpoch++);
 	}
 
 	public TileCraftCrate(BlockPos pos, BlockState state) {

@@ -11,16 +11,15 @@ package vazkii.botania.common.core.handler;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.common.Botania;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -28,11 +27,11 @@ import java.util.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class OrechidManager implements SimpleSynchronousResourceReloadListener {
+public class OrechidManager implements ResourceManagerReloadListener {
 	private static final Map<RecipeType<? extends IOrechidRecipe>, Multimap<Block, ? extends IOrechidRecipe>> DATA = new HashMap<>();
 
 	public static void registerListener() {
-		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new OrechidManager());
+		IXplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("orechid"), new OrechidManager());
 	}
 
 	@Override
@@ -51,10 +50,5 @@ public class OrechidManager implements SimpleSynchronousResourceReloadListener {
 			}
 			return map;
 		});
-	}
-
-	@Override
-	public ResourceLocation getFabricId() {
-		return prefix("orechid");
 	}
 }
