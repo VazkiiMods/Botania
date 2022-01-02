@@ -27,6 +27,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -50,7 +51,7 @@ public class ItemManaMirror extends Item implements IManaItem {
 
 	public ItemManaMirror(Properties props) {
 		super(props);
-		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
+		BotaniaCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	@Override

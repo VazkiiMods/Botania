@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
@@ -42,8 +43,8 @@ public class ItemDirtRod extends Item {
 
 	public ItemDirtRod(Properties props) {
 		super(props);
-		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(stack), this);
-		IAvatarWieldable.API.registerForItems((stack, c) -> new AvatarBehavior(), this);
+		BotaniaCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new BlockProvider(stack), this);
+		BotaniaCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull

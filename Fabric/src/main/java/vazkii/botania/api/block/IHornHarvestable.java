@@ -8,14 +8,9 @@
  */
 package vazkii.botania.api.block;
 
-import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import vazkii.botania.api.BotaniaAPI;
 
 /**
  * Blocks with this capability can express custom logic when being
@@ -23,7 +18,6 @@ import vazkii.botania.api.BotaniaAPI;
  */
 @FunctionalInterface
 public interface IHornHarvestable {
-	BlockApiLookup<IHornHarvestable, Unit> API = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable"), IHornHarvestable.class, Unit.class);
 
 	/**
 	 * Returns true if this block can be uprooted.

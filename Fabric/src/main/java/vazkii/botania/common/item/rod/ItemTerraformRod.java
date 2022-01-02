@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -43,7 +44,7 @@ public class ItemTerraformRod extends Item {
 
 	public ItemTerraformRod(Properties props) {
 		super(props);
-		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(), this);
+		BotaniaCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new BlockProvider(), this);
 	}
 
 	@Nonnull

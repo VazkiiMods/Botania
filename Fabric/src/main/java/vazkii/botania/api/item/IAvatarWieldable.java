@@ -8,18 +8,14 @@
  */
 package vazkii.botania.api.item;
 
-import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IAvatarTile;
 
 /**
  * An Item that has this capability this can be wielded by an Avatar.
  */
 public interface IAvatarWieldable {
-	ItemApiLookup<IAvatarWieldable, Unit> API = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "avatar_wieldable"), IAvatarWieldable.class, Unit.class);
 
 	/**
 	 * Called on update of the avatar tile.

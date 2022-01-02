@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.properties.PistonType;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -44,7 +44,7 @@ public class BlockPistonRelay extends BlockMod {
 
 	public BlockPistonRelay(Properties builder) {
 		super(builder);
-		IWandable.API.registerForBlocks(
+		BotaniaCapabilities.WANDABLE.registerForBlocks(
 				(world, pos, state, blockEntity, context) -> (player, stack, side) -> onUsedByWand(player, stack, world, pos),
 				this
 		);

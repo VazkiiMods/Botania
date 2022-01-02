@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -62,7 +62,7 @@ public final class BoundTileRenderer {
 		int color = 0xFF000000 | Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if (!player.getMainHandItem().isEmpty()) {
-			var coordBoundItem = ICoordBoundItem.API.find(player.getMainHandItem(), Unit.INSTANCE);
+			var coordBoundItem = BotaniaCapabilities.COORD_BOUND_ITEM.find(player.getMainHandItem(), Unit.INSTANCE);
 			if (coordBoundItem != null) {
 				BlockPos coords = coordBoundItem.getBinding(player.level);
 				if (coords != null) {
@@ -72,7 +72,7 @@ public final class BoundTileRenderer {
 		}
 
 		if (!player.getOffhandItem().isEmpty()) {
-			var coordBoundItem = ICoordBoundItem.API.find(player.getOffhandItem(), Unit.INSTANCE);
+			var coordBoundItem = BotaniaCapabilities.COORD_BOUND_ITEM.find(player.getOffhandItem(), Unit.INSTANCE);
 			if (coordBoundItem != null) {
 				BlockPos coords = coordBoundItem.getBinding(player.level);
 				if (coords != null) {

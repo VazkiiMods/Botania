@@ -41,9 +41,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.block.IWandBindable;
-import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -77,7 +77,7 @@ public class ItemTwigWand extends Item {
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
-		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
+		BotaniaCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
@@ -205,7 +205,7 @@ public class ItemTwigWand extends Item {
 
 			return InteractionResult.SUCCESS;
 		} else {
-			var wandable = IWandable.API.find(world, pos, state, tile, Unit.INSTANCE);
+			var wandable = BotaniaCapabilities.WANDABLE.find(world, pos, state, tile, Unit.INSTANCE);
 			if (wandable != null) {
 				return wandable.onUsedByWand(player, stack, side) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
 			}

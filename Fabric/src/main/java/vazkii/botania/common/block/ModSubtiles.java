@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.BotaniaCapabilities;
+import vazkii.botania.api.BotaniaClientCapabilities;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.Botania;
@@ -601,19 +601,19 @@ public class ModSubtiles {
 		r.accept(ORECHID_IGNEM, getId(orechidIgnem));
 		r.accept(LABELLIA, getId(labellia));
 
-		IWandable.API.registerSelf(
+		BotaniaCapabilities.WANDABLE.registerSelf(
 				DAFFOMILL, HOPPERHOCK, HOPPERHOCK_CHIBI, RANNUNCARPUS, RANNUNCARPUS_CHIBI
 		);
 
 		Botania.runOnClient.accept(() -> () -> {
-			IWandHUD.API.registerForBlockEntities((be, c) -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);
-			IWandHUD.API.registerForBlockEntities((be, c) -> new TileEntityGeneratingFlower.GeneratingWandHud<>((TileEntityGeneratingFlower) be),
+			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);
+			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileEntityGeneratingFlower.GeneratingWandHud<>((TileEntityGeneratingFlower) be),
 					HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,
 					DANDELIFEON, RAFFLOWSIA, SHULK_ME_NOT);
 
-			IWandHUD.API.registerForBlockEntities((be, c) -> new SubTileHopperhock.WandHud((SubTileHopperhock) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
-			IWandHUD.API.registerForBlockEntities((be, c) -> new SubTileRannuncarpus.WandHud((SubTileRannuncarpus) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
-			IWandHUD.API.registerForBlockEntities((be, c) -> new TileEntityFunctionalFlower.FunctionalWandHud<>((TileEntityFunctionalFlower) be),
+			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileHopperhock.WandHud((SubTileHopperhock) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
+			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileRannuncarpus.WandHud((SubTileRannuncarpus) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
+			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileEntityFunctionalFlower.FunctionalWandHud<>((TileEntityFunctionalFlower) be),
 					BELLETHORNE, BELLETHORNE_CHIBI, BERGAMUTE, DREADTHORN, HEISEI_DREAM, TIGERSEYE,
 					JADED_AMARANTHUS, ORECHID, FALLEN_KANADE, EXOFLAME, AGRICARNATION, AGRICARNATION_CHIBI,
 					TANGLEBERRIE, TANGLEBERRIE_CHIBI, JIYUULIA, JIYUULIA_CHIBI, HYACIDUS, POLLIDISIAC,

@@ -24,6 +24,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -69,7 +70,7 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 						light, overlay, ms, buffers, 0);
 				ms.popPose();
 
-				IAvatarWieldable wieldable = IAvatarWieldable.API.find(stack, Unit.INSTANCE);
+				IAvatarWieldable wieldable = BotaniaCapabilities.AVATAR_WIELDABLE.find(stack, Unit.INSTANCE);
 				buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar)));
 				s = 1.01F;
 

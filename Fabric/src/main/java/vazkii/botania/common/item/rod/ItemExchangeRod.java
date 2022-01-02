@@ -46,6 +46,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -301,7 +302,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 				return ret;
 			}
 
-			var provider = IBlockProvider.API.find(invStack, Unit.INSTANCE);
+			var provider = BotaniaCapabilities.BLOCK_PROVIDER.find(invStack, Unit.INSTANCE);
 			if (provider != null) {
 				providers.add(provider);
 			}
@@ -366,7 +367,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 				count += invStack.getCount();
 			}
 
-			var prov = IBlockProvider.API.find(invStack, Unit.INSTANCE);
+			var prov = BotaniaCapabilities.BLOCK_PROVIDER.find(invStack, Unit.INSTANCE);
 			if (prov != null && requested instanceof BlockItem) {
 				int provCount = prov.getBlockCount(player, stack, ((BlockItem) requested).getBlock());
 				if (provCount == -1) {

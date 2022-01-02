@@ -19,6 +19,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -39,7 +40,7 @@ public class ItemFireRod extends Item {
 
 	public ItemFireRod(Properties props) {
 		super(props);
-		IAvatarWieldable.API.registerForItems((stack, c) -> new AvatarBehavior(), this);
+		BotaniaCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull

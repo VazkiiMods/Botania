@@ -8,13 +8,9 @@
  */
 package vazkii.botania.api.item;
 
-import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.ITileBound;
 
 import javax.annotation.Nullable;
@@ -26,8 +22,6 @@ import javax.annotation.Nullable;
  * @see ITileBound
  */
 public interface ICoordBoundItem {
-	ItemApiLookup<ICoordBoundItem, Unit> API = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "coord_bound_item"),
-			ICoordBoundItem.class, Unit.class);
 
 	@Nullable
 	BlockPos getBinding(Level world);

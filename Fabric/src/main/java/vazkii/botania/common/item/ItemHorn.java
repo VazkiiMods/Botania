@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
@@ -90,7 +91,7 @@ public class ItemHorn extends Item {
 			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 			BlockEntity be = world.getBlockEntity(pos);
-			IHornHarvestable harvestable = IHornHarvestable.API.find(world, pos, state, be, Unit.INSTANCE);
+			IHornHarvestable harvestable = BotaniaCapabilities.HORN_HARVEST.find(world, pos, state, be, Unit.INSTANCE);
 
 			if (SubTileBergamute.isBergamuteNearby(world.dimension(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
@@ -111,7 +112,7 @@ public class ItemHorn extends Item {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
 			BlockEntity be = world.getBlockEntity(currCoords);
-			IHornHarvestable harvestable = IHornHarvestable.API.find(world, currCoords, state, be, Unit.INSTANCE);
+			IHornHarvestable harvestable = BotaniaCapabilities.HORN_HARVEST.find(world, currCoords, state, be, Unit.INSTANCE);
 
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type);

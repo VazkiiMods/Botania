@@ -21,9 +21,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IAvatarWieldable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +51,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 		ItemStack stack = self.getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
-			var wieldable = IAvatarWieldable.API.find(stack, Unit.INSTANCE);
+			var wieldable = BotaniaCapabilities.AVATAR_WIELDABLE.find(stack, Unit.INSTANCE);
 			if (wieldable != null) {
 				wieldable.onAvatarUpdate(self);
 			}

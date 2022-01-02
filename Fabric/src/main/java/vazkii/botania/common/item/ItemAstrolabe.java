@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
@@ -140,7 +141,7 @@ public class ItemAstrolabe extends Item {
 			}
 
 			if (!stackInSlot.isEmpty()) {
-				var provider = IBlockProvider.API.find(stackInSlot, Unit.INSTANCE);
+				var provider = BotaniaCapabilities.BLOCK_PROVIDER.find(stackInSlot, Unit.INSTANCE);
 				if (provider != null) {
 					providers.add(provider);
 				}
@@ -175,7 +176,7 @@ public class ItemAstrolabe extends Item {
 				}
 			}
 			if (!stackInSlot.isEmpty()) {
-				var provider = IBlockProvider.API.find(stackInSlot, Unit.INSTANCE);
+				var provider = BotaniaCapabilities.BLOCK_PROVIDER.find(stackInSlot, Unit.INSTANCE);
 				if (provider != null) {
 					providersToCheck.add(provider);
 				}

@@ -8,14 +8,9 @@
  */
 package vazkii.botania.api.item;
 
-import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-
-import vazkii.botania.api.BotaniaAPI;
 
 /**
  * An Item that has this capability can provide blocks to other items that use them.
@@ -25,7 +20,6 @@ import vazkii.botania.api.BotaniaAPI;
  * Mutations to objects of this type propagate directly to the underlying stack it was retrieved from.
  */
 public interface IBlockProvider {
-	ItemApiLookup<IBlockProvider, Unit> API = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "block_provider"), IBlockProvider.class, Unit.class);
 
 	/**
 	 * Provides the requested item. The doit paremeter specifies whether this is

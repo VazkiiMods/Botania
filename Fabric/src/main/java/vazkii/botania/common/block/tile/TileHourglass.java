@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IHourglassTrigger;
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -78,7 +78,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements IWandab
 
 				for (Direction facing : Direction.values()) {
 					BlockPos pos = worldPosition.relative(facing);
-					var trigger = IHourglassTrigger.API.find(level, pos,
+					var trigger = BotaniaCapabilities.HOURGLASS_TRIGGER.find(level, pos,
 							level.getBlockState(pos), level.getBlockEntity(pos), Unit.INSTANCE);
 					if (trigger != null) {
 						trigger.onTriggeredByHourglass(self);

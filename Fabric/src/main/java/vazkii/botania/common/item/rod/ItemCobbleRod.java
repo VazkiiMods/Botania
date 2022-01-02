@@ -16,6 +16,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 
@@ -27,7 +28,7 @@ public class ItemCobbleRod extends Item {
 
 	public ItemCobbleRod(Properties props) {
 		super(props);
-		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(), this);
+		BotaniaCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new BlockProvider(), this);
 	}
 
 	@Nonnull

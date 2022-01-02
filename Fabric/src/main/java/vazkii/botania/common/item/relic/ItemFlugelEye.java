@@ -31,6 +31,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
@@ -51,7 +52,7 @@ public class ItemFlugelEye extends ItemRelic {
 
 	public ItemFlugelEye(Properties props) {
 		super(props);
-		ICoordBoundItem.API.registerForItems((st, c) -> new CoordBoundItem(st), this);
+		BotaniaCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new CoordBoundItem(st), this);
 	}
 
 	private static final String TAG_TARGET_PREFIX = "target_";
@@ -175,7 +176,7 @@ public class ItemFlugelEye extends ItemRelic {
 			return;
 		}
 
-		BlockPos binding = ICoordBoundItem.API.find(stack, Unit.INSTANCE).getBinding(world);
+		BlockPos binding = BotaniaCapabilities.COORD_BOUND_ITEM.find(stack, Unit.INSTANCE).getBinding(world);
 		Component worldText = new TextComponent(world.dimension().location().toString()).withStyle(ChatFormatting.GREEN);
 
 		if (binding == null) {

@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -36,7 +37,7 @@ public class ItemEnderHand extends Item {
 
 	public ItemEnderHand(Properties props) {
 		super(props);
-		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(stack), this);
+		BotaniaCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new BlockProvider(stack), this);
 	}
 
 	@Nonnull

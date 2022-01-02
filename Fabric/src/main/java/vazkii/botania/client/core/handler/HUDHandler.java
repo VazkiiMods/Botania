@@ -34,7 +34,7 @@ import net.minecraft.world.phys.HitResult;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.BotaniaClientCapabilities;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
@@ -101,7 +101,7 @@ public final class HUDHandler {
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-					var hud = IWandHUD.API.find(mc.level, bpos, state, tile, Unit.INSTANCE);
+					var hud = BotaniaClientCapabilities.WAND_HUD.find(mc.level, bpos, state, tile, Unit.INSTANCE);
 					if (hud != null) {
 						profiler.push("wandItem");
 						hud.renderHUD(ms, mc);

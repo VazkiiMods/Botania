@@ -8,14 +8,9 @@
  */
 package vazkii.botania.api.block;
 
-import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-
-import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nullable;
 
@@ -23,7 +18,6 @@ import javax.annotation.Nullable;
  * Any block with this component can be used with the Wand for the Forest for some purpose.
  */
 public interface IWandable {
-	BlockApiLookup<IWandable, Unit> API = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "wandable"), IWandable.class, Unit.class);
 
 	/**
 	 * Called when the block is used by a wand.
