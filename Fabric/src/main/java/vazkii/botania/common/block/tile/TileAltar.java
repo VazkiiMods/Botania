@@ -11,8 +11,6 @@ package vazkii.botania.common.block.tile;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -364,55 +362,57 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		return getBlockState().getValue(BlockAltar.FLUID);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		int xc = mc.getWindow().getGuiScaledWidth() / 2;
-		int yc = mc.getWindow().getGuiScaledHeight() / 2;
+	public static class Hud {
+		public static void render(TileAltar altar, PoseStack ms, Minecraft mc) {
+			int xc = mc.getWindow().getGuiScaledWidth() / 2;
+			int yc = mc.getWindow().getGuiScaledHeight() / 2;
 
-		float angle = -90;
-		int radius = 24;
-		int amt = 0;
-		for (int i = 0; i < inventorySize(); i++) {
-			if (getItemHandler().getItem(i).isEmpty()) {
-				break;
+			float angle = -90;
+			int radius = 24;
+			int amt = 0;
+			for (int i = 0; i < altar.inventorySize(); i++) {
+				if (altar.getItemHandler().getItem(i).isEmpty()) {
+					break;
+				}
+				amt++;
 			}
-			amt++;
-		}
 
-		if (amt > 0) {
-			float anglePer = 360F / amt;
+			if (amt > 0) {
+				float anglePer = 360F / amt;
 
-			Optional<IPetalRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
-			maybeRecipe.ifPresent(recipe -> {
-				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-				RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
-				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
+				Optional<IPetalRecipe> maybeRecipe = altar.level.getRecipeManager()
+						.getRecipeFor(ModRecipeTypes.PETAL_TYPE, altar.getItemHandler(), altar.level);
+				maybeRecipe.ifPresent(recipe -> {
+					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+					RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
+					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-				ItemStack stack = recipe.assemble(getItemHandler());
+					ItemStack stack = recipe.assemble(altar.getItemHandler());
 
-				mc.getItemRenderer().renderGuiItem(stack, xc + radius + 32, yc - 8);
-				mc.getItemRenderer().renderGuiItem(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
-				mc.font.draw(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
-			});
+					mc.getItemRenderer().renderGuiItem(stack, xc + radius + 32, yc - 8);
+					mc.getItemRenderer().renderGuiItem(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
+					mc.font.draw(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
+				});
 
-			for (int i = 0; i < amt; i++) {
-				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
-				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				PoseStack pose = RenderSystem.getModelViewStack();
-				pose.pushPose();
-				pose.translate(xPos, yPos, 0);
-				RenderSystem.applyModelViewMatrix();
-				mc.getItemRenderer().renderGuiItem(getItemHandler().getItem(i), 0, 0);
-				pose.popPose();
-				RenderSystem.applyModelViewMatrix();
+				for (int i = 0; i < amt; i++) {
+					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
+					double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
+					PoseStack pose = RenderSystem.getModelViewStack();
+					pose.pushPose();
+					pose.translate(xPos, yPos, 0);
+					RenderSystem.applyModelViewMatrix();
+					mc.getItemRenderer().renderGuiItem(altar.getItemHandler().getItem(i), 0, 0);
+					pose.popPose();
+					RenderSystem.applyModelViewMatrix();
 
-				angle += anglePer;
+					angle += anglePer;
+				}
+			} else if (altar.recipeKeepTicks > 0 && altar.getFluid() == State.WATER) {
+				String s = I18n.get("botaniamisc.altarRefill0");
+				mc.font.draw(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
+				s = I18n.get("botaniamisc.altarRefill1");
+				mc.font.draw(ms, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
 			}
-		} else if (recipeKeepTicks > 0 && getFluid() == State.WATER) {
-			String s = I18n.get("botaniamisc.altarRefill0");
-			mc.font.draw(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
-			s = I18n.get("botaniamisc.altarRefill1");
-			mc.font.draw(ms, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

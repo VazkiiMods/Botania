@@ -438,79 +438,79 @@ public class ItemCraftingHalo extends Item {
 		return glowTexture;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {
-		Minecraft mc = Minecraft.getInstance();
-		int slot = getSegmentLookedAt(stack, player);
+	public static class Hud {
+		public static void render(PoseStack ms, Player player, ItemStack stack) {
+			Minecraft mc = Minecraft.getInstance();
+			int slot = getSegmentLookedAt(stack, player);
 
-		if (slot == 0) {
-			String name = craftingTable.getHoverName().getString();
-			int l = mc.font.width(name);
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - l / 2;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 - 65;
+			if (slot == 0) {
+				String name = craftingTable.getHoverName().getString();
+				int l = mc.font.width(name);
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - l / 2;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 65;
 
-			GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
-			GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-			mc.getItemRenderer().renderAndDecorateItem(craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
+				GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
+				GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
+				mc.getItemRenderer().renderAndDecorateItem(craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
 
-			mc.font.drawShadow(ms, name, x, y, 0xFFFFFF);
-		} else {
-			Recipe<CraftingContainer> recipe = getSavedRecipe(player.level, stack, slot);
-			Component label;
-			boolean setRecipe = false;
-
-			if (recipe == null) {
-				label = new TranslatableComponent("botaniamisc.unsetRecipe");
-				recipe = getLastRecipe(player.level, stack);
+				mc.font.drawShadow(ms, name, x, y, 0xFFFFFF);
 			} else {
-				label = recipe.getResultItem().getHoverName();
-				setRecipe = true;
-			}
+				Recipe<CraftingContainer> recipe = getSavedRecipe(player.level, stack, slot);
+				Component label;
+				boolean setRecipe = false;
 
-			renderRecipe(ms, label, recipe, player, setRecipe);
-		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void renderRecipe(PoseStack ms, Component label, @Nullable Recipe<CraftingContainer> recipe, Player player, boolean isSavedRecipe) {
-		Minecraft mc = Minecraft.getInstance();
-
-		if (recipe != null && !recipe.getResultItem().isEmpty()) {
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - 45;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 - 90;
-
-			GuiComponent.fill(ms, x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
-			GuiComponent.fill(ms, x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
-
-			GuiComponent.fill(ms, x + 66, y + 14, x + 92, y + 40, 0x22000000);
-			GuiComponent.fill(ms, x - 2, y - 2, x + 56, y + 56, 0x22000000);
-
-			int wrap = recipe instanceof ShapedRecipe ? ((ShapedRecipe) recipe).getWidth() : 3;
-			for (int i = 0; i < recipe.getIngredients().size(); i++) {
-				Ingredient ingr = recipe.getIngredients().get(i);
-				if (ingr != Ingredient.EMPTY) {
-					ItemStack stack = ingr.getItems()[ClientTickHandler.ticksInGame / 20 % ingr.getItems().length];
-					int xpos = x + i % wrap * 18;
-					int ypos = y + i / wrap * 18;
-					GuiComponent.fill(ms, xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
-
-					mc.getItemRenderer().renderAndDecorateItem(stack, xpos, ypos);
+				if (recipe == null) {
+					label = new TranslatableComponent("botaniamisc.unsetRecipe");
+					recipe = getLastRecipe(player.level, stack);
+				} else {
+					label = recipe.getResultItem().getHoverName();
+					setRecipe = true;
 				}
+
+				renderRecipe(ms, label, recipe, player, setRecipe);
+			}
+		}
+
+		private static void renderRecipe(PoseStack ms, Component label, @Nullable Recipe<CraftingContainer> recipe, Player player, boolean isSavedRecipe) {
+			Minecraft mc = Minecraft.getInstance();
+
+			if (recipe != null && !recipe.getResultItem().isEmpty()) {
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - 45;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 90;
+
+				GuiComponent.fill(ms, x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
+				GuiComponent.fill(ms, x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
+
+				GuiComponent.fill(ms, x + 66, y + 14, x + 92, y + 40, 0x22000000);
+				GuiComponent.fill(ms, x - 2, y - 2, x + 56, y + 56, 0x22000000);
+
+				int wrap = recipe instanceof ShapedRecipe ? ((ShapedRecipe) recipe).getWidth() : 3;
+				for (int i = 0; i < recipe.getIngredients().size(); i++) {
+					Ingredient ingr = recipe.getIngredients().get(i);
+					if (ingr != Ingredient.EMPTY) {
+						ItemStack stack = ingr.getItems()[ClientTickHandler.ticksInGame / 20 % ingr.getItems().length];
+						int xpos = x + i % wrap * 18;
+						int ypos = y + i / wrap * 18;
+						GuiComponent.fill(ms, xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
+
+						mc.getItemRenderer().renderAndDecorateItem(stack, xpos, ypos);
+					}
+				}
+
+				mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 72, y + 18);
+				mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 72, y + 18);
+
 			}
 
-			mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 72, y + 18);
-			mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 72, y + 18);
+			int yoff = 110;
+			if (isSavedRecipe && recipe != null && !canCraftHeuristic(player, recipe)) {
+				String warning = ChatFormatting.RED + I18n.get("botaniamisc.cantCraft");
+				mc.font.drawShadow(ms, warning, mc.getWindow().getGuiScaledWidth() / 2.0F - mc.font.width(warning) / 2.0F, mc.getWindow().getGuiScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+				yoff += 12;
+			}
 
+			mc.font.drawShadow(ms, label, mc.getWindow().getGuiScaledWidth() / 2.0F - mc.font.width(label.getString()) / 2.0F, mc.getWindow().getGuiScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 		}
-
-		int yoff = 110;
-		if (isSavedRecipe && recipe != null && !canCraftHeuristic(player, recipe)) {
-			String warning = ChatFormatting.RED + I18n.get("botaniamisc.cantCraft");
-			mc.font.drawShadow(ms, warning, mc.getWindow().getGuiScaledWidth() / 2.0F - mc.font.width(warning) / 2.0F, mc.getWindow().getGuiScaledHeight() / 2.0F - yoff, 0xFFFFFF);
-			yoff += 12;
-		}
-
-		mc.font.drawShadow(ms, label, mc.getWindow().getGuiScaledWidth() / 2.0F - mc.font.width(label.getString()) / 2.0F, mc.getWindow().getGuiScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 	}
 
 	public static class RecipePlacer extends ServerPlaceRecipe<CraftingContainer> {

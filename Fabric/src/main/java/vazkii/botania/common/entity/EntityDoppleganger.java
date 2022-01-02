@@ -9,15 +9,11 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -56,7 +52,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -66,7 +61,6 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
@@ -947,52 +941,46 @@ public class EntityDoppleganger extends Mob {
 		}
 	}
 
+	/* TODO 1.18 custom boss bar
 	public ResourceLocation getBossBarTexture() {
 		return BossBarHandler.defaultBossBar;
 	}
-
-	@Environment(EnvType.CLIENT)
+	
 	public Rect2i getBossBarTextureRect() {
 		return new Rect2i(0, 0, 185, 15);
 	}
-
-	@Environment(EnvType.CLIENT)
+	
 	public Rect2i getBossBarHPTextureRect() {
 		Rect2i barRect = getBossBarTextureRect();
 		return new Rect2i(0, barRect.getY() + barRect.getHeight(), 181, 7);
 	}
-
-	@Environment(EnvType.CLIENT)
+	
 	public int bossBarRenderCallback(PoseStack ms, int x, int y) {
 		ms.pushPose();
 		int px = x + 160;
 		int py = y + 12;
-
+	
 		Minecraft mc = Minecraft.getInstance();
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		mc.getItemRenderer().renderGuiItem(stack, px, py);
-
+	
 		mc.font.drawShadow(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
 		ms.popPose();
-
+	
 		return 5;
 	}
-
+	
 	public UUID getBossInfoUuid() {
 		return bossInfoUUID;
 	}
-
-	/* TODO 1.17 fabric
-	@Environment(EnvType.CLIENT)
+	
 	@Nullable
 	public ShaderHelper.BotaniaShader getBossBarShaderProgram(boolean background) {
 		return background ? null : ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR;
 	}
 	
-	@Environment(EnvType.CLIENT)
 	private ShaderCallback shaderCallback;
 	
-	@Environment(EnvType.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background) {
 		if (shaderCallback == null) {
 			shaderCallback = shader1 -> {
@@ -1035,7 +1023,6 @@ public class EntityDoppleganger extends Mob {
 		return false;
 	}
 
-	@Environment(EnvType.CLIENT)
 	private static class DopplegangerMusic extends AbstractTickableSoundInstance {
 		private final EntityDoppleganger guardian;
 

@@ -10,10 +10,7 @@ package vazkii.botania.common.item.equipment.armor.manasteel;
 
 import com.google.common.base.Suppliers;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
@@ -50,8 +47,6 @@ public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	@Environment(EnvType.CLIENT)
-	private HumanoidModel<LivingEntity> model;
 	public final EquipmentSlot type;
 
 	public ItemManasteelArmor(EquipmentSlot type, Properties props) {

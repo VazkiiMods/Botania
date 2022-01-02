@@ -14,8 +14,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -182,39 +180,40 @@ public class ItemSextant extends Item {
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {
-		ItemStack onUse = player.getUseItem();
-		int time = player.getUseItemRemainingTicks();
+	public static class Hud {
+		public static void render(PoseStack ms, Player player, ItemStack stack) {
+			ItemStack onUse = player.getUseItem();
+			int time = player.getUseItemRemainingTicks();
 
-		if (onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
-			double radius = calculateRadius(stack, player);
-			Font font = Minecraft.getInstance().font;
-			int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 30;
-			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
+			if (onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
+				double radius = calculateRadius(stack, player);
+				Font font = Minecraft.getInstance().font;
+				int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 30;
+				int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
 
-			String s = Integer.toString((int) radius);
-			boolean inRange = 0 < radius && radius <= MAX_RADIUS;
-			if (!inRange) {
-				s = ChatFormatting.RED + s;
-			}
-
-			font.drawShadow(ms, s, x - font.width(s) / 2, y - 4, 0xFFFFFF);
-
-			if (inRange) {
-				radius += 4;
-				RenderSystem.disableTexture();
-				RenderSystem.lineWidth(3F);
-				Tesselator.getInstance().getBuilder().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
-				RenderSystem.setShaderColor(0F, 1F, 1F, 1F);
-				for (int i = 0; i < 361; i++) {
-					float radian = (float) (i * Math.PI / 180);
-					float xp = x + net.minecraft.util.Mth.cos(radian) * (float) radius;
-					float yp = y + net.minecraft.util.Mth.sin(radian) * (float) radius;
-					Tesselator.getInstance().getBuilder().vertex(ms.last().pose(), xp, yp, 0).endVertex();
+				String s = Integer.toString((int) radius);
+				boolean inRange = 0 < radius && radius <= MAX_RADIUS;
+				if (!inRange) {
+					s = ChatFormatting.RED + s;
 				}
-				Tesselator.getInstance().end();
-				RenderSystem.enableTexture();
+
+				font.drawShadow(ms, s, x - font.width(s) / 2, y - 4, 0xFFFFFF);
+
+				if (inRange) {
+					radius += 4;
+					RenderSystem.disableTexture();
+					RenderSystem.lineWidth(3F);
+					Tesselator.getInstance().getBuilder().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
+					RenderSystem.setShaderColor(0F, 1F, 1F, 1F);
+					for (int i = 0; i < 361; i++) {
+						float radian = (float) (i * Math.PI / 180);
+						float xp = x + net.minecraft.util.Mth.cos(radian) * (float) radius;
+						float yp = y + net.minecraft.util.Mth.sin(radian) * (float) radius;
+						Tesselator.getInstance().getBuilder().vertex(ms.last().pose(), xp, yp, 0).endVertex();
+					}
+					Tesselator.getInstance().end();
+					RenderSystem.enableTexture();
+				}
 			}
 		}
 	}

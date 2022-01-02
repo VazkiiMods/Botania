@@ -114,9 +114,9 @@ public final class HUDHandler {
 			}
 			if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
 				if (tile instanceof TileAltar altar) {
-					altar.renderHUD(ms, mc);
+					TileAltar.Hud.render(altar, ms, mc);
 				} else if (tile instanceof TileRuneAltar runeAltar) {
-					runeAltar.renderHUD(ms, mc);
+					TileRuneAltar.Hud.render(runeAltar, ms, mc);
 				} else if (tile instanceof TileCorporeaCrystalCube cube) {
 					renderCrystalCubeHUD(ms, cube);
 				}
@@ -132,17 +132,17 @@ public final class HUDHandler {
 
 		if (!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
 			profiler.push("craftingHalo_main");
-			ItemCraftingHalo.renderHUD(ms, mc.player, main);
+			ItemCraftingHalo.Hud.render(ms, mc.player, main);
 			profiler.pop();
 		} else if (!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
 			profiler.push("craftingHalo_off");
-			ItemCraftingHalo.renderHUD(ms, mc.player, offhand);
+			ItemCraftingHalo.Hud.render(ms, mc.player, offhand);
 			profiler.pop();
 		}
 
 		if (!main.isEmpty() && main.getItem() instanceof ItemSextant) {
 			profiler.push("sextant");
-			ItemSextant.renderHUD(ms, mc.player, main);
+			ItemSextant.Hud.render(ms, mc.player, main);
 			profiler.pop();
 		}
 

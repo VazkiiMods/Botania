@@ -347,68 +347,70 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		return !isFull();
 	}
 
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		int xc = mc.getWindow().getGuiScaledWidth() / 2;
-		int yc = mc.getWindow().getGuiScaledHeight() / 2;
+	public static class Hud {
+		public static void render(TileRuneAltar altar, PoseStack ms, Minecraft mc) {
+			int xc = mc.getWindow().getGuiScaledWidth() / 2;
+			int yc = mc.getWindow().getGuiScaledHeight() / 2;
 
-		float angle = -90;
-		int radius = 24;
-		int amt = 0;
-		for (int i = 0; i < inventorySize(); i++) {
-			if (getItemHandler().getItem(i).isEmpty()) {
-				break;
+			float angle = -90;
+			int radius = 24;
+			int amt = 0;
+			for (int i = 0; i < altar.inventorySize(); i++) {
+				if (altar.getItemHandler().getItem(i).isEmpty()) {
+					break;
+				}
+				amt++;
 			}
-			amt++;
-		}
 
-		if (amt > 0) {
-			float anglePer = 360F / amt;
-			level.getRecipeManager().getRecipeFor(ModRecipeTypes.RUNE_TYPE, getItemHandler(), level).ifPresent(recipe -> {
-				RenderSystem.enableBlend();
-				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			if (amt > 0) {
+				float anglePer = 360F / amt;
+				altar.level.getRecipeManager().getRecipeFor(ModRecipeTypes.RUNE_TYPE, altar.getItemHandler(), altar.level).ifPresent(recipe -> {
+					RenderSystem.enableBlend();
+					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-				float progress = (float) mana / (float) manaToGet;
+					float progress = (float) altar.mana / (float) altar.manaToGet;
 
-				RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
-				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
+					RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
+					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
-				if (progress == 1F) {
-					mc.getItemRenderer().renderGuiItem(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
+					if (progress == 1F) {
+						mc.getItemRenderer().renderGuiItem(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
+						PoseStack pose = RenderSystem.getModelViewStack();
+						pose.pushPose();
+						pose.translate(0, 0, 100);
+						RenderSystem.applyModelViewMatrix();
+						mc.getItemRenderer().renderGuiItem(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
+						pose.popPose();
+						RenderSystem.applyModelViewMatrix();
+					}
+
+					RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.assemble(altar.getItemHandler()));
+
+					if (progress == 1F) {
+						mc.font.draw(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
+					}
+				});
+
+				for (int i = 0; i < amt; i++) {
+					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
+					double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
 					PoseStack pose = RenderSystem.getModelViewStack();
 					pose.pushPose();
-					pose.translate(0, 0, 100);
+					pose.translate(xPos, yPos, 0);
 					RenderSystem.applyModelViewMatrix();
-					mc.getItemRenderer().renderGuiItem(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
+					mc.getItemRenderer().renderGuiItem(altar.getItemHandler().getItem(i), 0, 0);
 					pose.popPose();
 					RenderSystem.applyModelViewMatrix();
+
+					angle += anglePer;
 				}
-
-				RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.assemble(getItemHandler()));
-
-				if (progress == 1F) {
-					mc.font.draw(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
-				}
-			});
-
-			for (int i = 0; i < amt; i++) {
-				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
-				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				PoseStack pose = RenderSystem.getModelViewStack();
-				pose.pushPose();
-				pose.translate(xPos, yPos, 0);
-				RenderSystem.applyModelViewMatrix();
-				mc.getItemRenderer().renderGuiItem(getItemHandler().getItem(i), 0, 0);
-				pose.popPose();
-				RenderSystem.applyModelViewMatrix();
-
-				angle += anglePer;
+			} else if (altar.recipeKeepTicks > 0) {
+				String s = I18n.get("botaniamisc.altarRefill0");
+				mc.font.drawShadow(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
+				s = I18n.get("botaniamisc.altarRefill1");
+				mc.font.drawShadow(ms, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
 			}
-		} else if (recipeKeepTicks > 0) {
-			String s = I18n.get("botaniamisc.altarRefill0");
-			mc.font.drawShadow(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
-			s = I18n.get("botaniamisc.altarRefill1");
-			mc.font.drawShadow(ms, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 
