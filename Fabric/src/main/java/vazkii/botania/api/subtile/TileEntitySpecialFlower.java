@@ -8,7 +8,6 @@
  */
 package vazkii.botania.api.subtile;
 
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -40,7 +39,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower block entities
  */
-public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity {
+public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -285,14 +284,5 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 		}
 
 		return 0;
-	}
-
-	@Nullable
-	@Override
-	public IFloatingFlower.IslandType getRenderAttachmentData() {
-		if (isFloating()) {
-			return floatingData.getIslandType();
-		}
-		return null;
 	}
 }

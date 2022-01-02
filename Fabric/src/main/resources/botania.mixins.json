@@ -88,7 +88,8 @@
     "MixinScreen",
     "MixinSkullBlockRenderer",
     "MixinSoundEngine",
-    "MixinSplashManager"
+    "MixinSplashManager",
+    "MixinTileEntitySpecialFlower"
   ],
   "injectors": {
     "defaultRequire": 1
