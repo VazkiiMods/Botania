@@ -62,7 +62,7 @@ public class MixinGameRenderer {
 	private void renderWorldLast(float tickDelta, long limitTime, PoseStack matrix, CallbackInfo ci) {
 		// todo 1.17 these don't work in fabulous, need a better injection site
 		BoltRenderer.onWorldRenderLast(tickDelta, matrix);
-		ItemCraftingHalo.onRenderWorldLast(tickDelta, matrix);
+		ItemCraftingHalo.Rendering.onRenderWorldLast(tickDelta, matrix);
 		BoundTileRenderer.onWorldRenderLast(matrix);
 		AstrolabePreviewHandler.onWorldRenderLast(matrix);
 		RenderMagicLandmine.onWorldRenderLast();

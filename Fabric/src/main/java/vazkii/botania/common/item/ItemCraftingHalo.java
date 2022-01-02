@@ -13,8 +13,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -331,115 +329,111 @@ public class ItemCraftingHalo extends Item {
 		ItemNBTHelper.setFloat(stack, TAG_ROTATION_BASE, rotation);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static void onRenderWorldLast(float partialTicks, PoseStack ms) {
-		Player player = Minecraft.getInstance().player;
-		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
-		if (!stack.isEmpty()) {
-			render(stack, player, ms, partialTicks);
-		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void render(ItemStack stack, Player player, PoseStack ms, float partialTicks) {
-		Minecraft mc = Minecraft.getInstance();
-		MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
-
-		double renderPosX = mc.getEntityRenderDispatcher().camera.getPosition().x();
-		double renderPosY = mc.getEntityRenderDispatcher().camera.getPosition().y();
-		double renderPosZ = mc.getEntityRenderDispatcher().camera.getPosition().z();
-
-		ms.pushPose();
-		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
-
-		double posX = player.xo + (player.getX() - player.xo) * partialTicks;
-		double posY = player.yo + (player.getY() - player.yo) * partialTicks + player.getEyeHeight();
-		double posZ = player.zo + (player.getZ() - player.zo) * partialTicks;
-
-		ms.translate(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
-
-		float base = getRotationBase(stack);
-		int angles = 360;
-		int segAngles = angles / SEGMENTS;
-		float shift = base - segAngles / 2.0F;
-
-		float u = 1F;
-		float v = 0.25F;
-
-		float s = 3F;
-		float m = 0.8F;
-		float y = v * s * 2;
-		float y0 = 0;
-
-		int segmentLookedAt = getSegmentLookedAt(stack, player);
-		ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
-		RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource());
-
-		for (int seg = 0; seg < SEGMENTS; seg++) {
-			boolean inside = false;
-			float rotationAngle = (seg + 0.5F) * segAngles + shift;
-			ms.pushPose();
-			ms.mulPose(Vector3f.YP.rotationDegrees(rotationAngle));
-			ms.translate(s * m, -0.75F, 0F);
-
-			if (segmentLookedAt == seg) {
-				inside = true;
-			}
-
-			ItemStack slotStack = getDisplayItem(player.level, stack, seg);
-			if (!slotStack.isEmpty()) {
-				float scale = seg == 0 ? 0.9F : 0.8F;
-				ms.scale(scale, scale, scale);
-				ms.mulPose(Vector3f.YP.rotationDegrees(180F));
-				ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
-
-				ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-				Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI,
-						0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
-			}
-			ms.popPose();
-
-			ms.pushPose();
-			ms.mulPose(Vector3f.XP.rotationDegrees(180));
-			float r = 1, g = 1, b = 1, a = alpha;
-			if (inside) {
-				a += 0.3F;
-				y0 = -y;
-			}
-
-			if (seg % 2 == 0) {
-				r = g = b = 0.6F;
-			}
-
-			VertexConsumer buffer = buffers.getBuffer(layer);
-			for (int i = 0; i < segAngles; i++) {
-				Matrix4f mat = ms.last().pose();
-				float ang = i + seg * segAngles + shift;
-				float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
-				float zp = (float) Math.sin(ang * Math.PI / 180F) * s;
-
-				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).uv(u, v).endVertex();
-				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).uv(u, 0).endVertex();
-
-				xp = (float) Math.cos((ang + 1) * Math.PI / 180F) * s;
-				zp = (float) Math.sin((ang + 1) * Math.PI / 180F) * s;
-
-				buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).uv(0, 0).endVertex();
-				buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).uv(0, v).endVertex();
-			}
-			y0 = 0;
-			ms.popPose();
-		}
-		ms.popPose();
-		buffers.endBatch();
-	}
-
 	public ResourceLocation getGlowResource() {
 		return glowTexture;
 	}
 
-	public static class Hud {
-		public static void render(PoseStack ms, Player player, ItemStack stack) {
+	public static class Rendering {
+		public static void onRenderWorldLast(float partialTicks, PoseStack ms) {
+			Player player = Minecraft.getInstance().player;
+			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
+			if (stack.isEmpty()) {
+				return;
+			}
+
+			Minecraft mc = Minecraft.getInstance();
+			MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
+
+			double renderPosX = mc.getEntityRenderDispatcher().camera.getPosition().x();
+			double renderPosY = mc.getEntityRenderDispatcher().camera.getPosition().y();
+			double renderPosZ = mc.getEntityRenderDispatcher().camera.getPosition().z();
+
+			ms.pushPose();
+			float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
+
+			double posX = player.xo + (player.getX() - player.xo) * partialTicks;
+			double posY = player.yo + (player.getY() - player.yo) * partialTicks + player.getEyeHeight();
+			double posZ = player.zo + (player.getZ() - player.zo) * partialTicks;
+
+			ms.translate(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
+
+			float base = getRotationBase(stack);
+			int angles = 360;
+			int segAngles = angles / SEGMENTS;
+			float shift = base - segAngles / 2.0F;
+
+			float u = 1F;
+			float v = 0.25F;
+
+			float s = 3F;
+			float m = 0.8F;
+			float y = v * s * 2;
+			float y0 = 0;
+
+			int segmentLookedAt = getSegmentLookedAt(stack, player);
+			ItemCraftingHalo item = (ItemCraftingHalo) stack.getItem();
+			RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource());
+
+			for (int seg = 0; seg < SEGMENTS; seg++) {
+				boolean inside = false;
+				float rotationAngle = (seg + 0.5F) * segAngles + shift;
+				ms.pushPose();
+				ms.mulPose(Vector3f.YP.rotationDegrees(rotationAngle));
+				ms.translate(s * m, -0.75F, 0F);
+
+				if (segmentLookedAt == seg) {
+					inside = true;
+				}
+
+				ItemStack slotStack = getDisplayItem(player.level, stack, seg);
+				if (!slotStack.isEmpty()) {
+					float scale = seg == 0 ? 0.9F : 0.8F;
+					ms.scale(scale, scale, scale);
+					ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+					ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
+
+					ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI,
+							0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
+				}
+				ms.popPose();
+
+				ms.pushPose();
+				ms.mulPose(Vector3f.XP.rotationDegrees(180));
+				float r = 1, g = 1, b = 1, a = alpha;
+				if (inside) {
+					a += 0.3F;
+					y0 = -y;
+				}
+
+				if (seg % 2 == 0) {
+					r = g = b = 0.6F;
+				}
+
+				VertexConsumer buffer = buffers.getBuffer(layer);
+				for (int i = 0; i < segAngles; i++) {
+					Matrix4f mat = ms.last().pose();
+					float ang = i + seg * segAngles + shift;
+					float xp = (float) Math.cos(ang * Math.PI / 180F) * s;
+					float zp = (float) Math.sin(ang * Math.PI / 180F) * s;
+
+					buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).uv(u, v).endVertex();
+					buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).uv(u, 0).endVertex();
+
+					xp = (float) Math.cos((ang + 1) * Math.PI / 180F) * s;
+					zp = (float) Math.sin((ang + 1) * Math.PI / 180F) * s;
+
+					buffer.vertex(mat, xp, y0, zp).color(r, g, b, a).uv(0, 0).endVertex();
+					buffer.vertex(mat, xp * m, y, zp * m).color(r, g, b, a).uv(0, v).endVertex();
+				}
+				y0 = 0;
+				ms.popPose();
+			}
+			ms.popPose();
+			buffers.endBatch();
+		}
+
+		public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {
 			Minecraft mc = Minecraft.getInstance();
 			int slot = getSegmentLookedAt(stack, player);
 

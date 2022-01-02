@@ -132,11 +132,11 @@ public final class HUDHandler {
 
 		if (!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
 			profiler.push("craftingHalo_main");
-			ItemCraftingHalo.Hud.render(ms, mc.player, main);
+			ItemCraftingHalo.Rendering.renderHUD(ms, mc.player, main);
 			profiler.pop();
 		} else if (!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
 			profiler.push("craftingHalo_off");
-			ItemCraftingHalo.Hud.render(ms, mc.player, offhand);
+			ItemCraftingHalo.Rendering.renderHUD(ms, mc.player, offhand);
 			profiler.pop();
 		}
 
