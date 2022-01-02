@@ -10,8 +10,6 @@ package vazkii.botania.common.block.tile.corporea;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
@@ -37,7 +35,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class TileCorporeaRetainer extends TileMod implements IWandable, IWandHUD {
+public class TileCorporeaRetainer extends TileMod implements IWandable {
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
 	private static final String TAG_REQUEST_Z = "requestZ";
@@ -142,14 +140,21 @@ public class TileCorporeaRetainer extends TileMod implements IWandable, IWandHUD
 		corporeaMatcherDeserializers.put(id, deserializer);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		String mode = I18n.get("botaniamisc.retainer." + (retainMissing ? "retain_missing" : "retain_all"));
-		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
+	public static class WandHud implements IWandHUD {
+		private final TileCorporeaRetainer retainer;
 
-		mc.font.drawShadow(ms, mode, x, y, ChatFormatting.GRAY.getColor());
+		public WandHud(TileCorporeaRetainer retainer) {
+			this.retainer = retainer;
+		}
+
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			String mode = I18n.get("botaniamisc.retainer." + (retainer.retainMissing ? "retain_missing" : "retain_all"));
+			int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
+
+			mc.font.drawShadow(ms, mode, x, y, ChatFormatting.GRAY.getColor());
+		}
 	}
 
 	@Override

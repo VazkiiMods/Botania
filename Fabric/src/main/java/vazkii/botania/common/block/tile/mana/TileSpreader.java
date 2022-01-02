@@ -12,8 +12,6 @@ import com.google.common.base.Predicates;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -61,7 +59,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable, IWandHUD {
+public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -531,39 +529,47 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		return null;
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		String name = new ItemStack(getBlockState().getBlock()).getHoverName().getString();
-		int color = getVariant().hudColor;
-		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), getMaxMana(), name);
+	public static class WandHud implements IWandHUD {
+		private final TileSpreader spreader;
 
-		ItemStack lens = getItemHandler().getItem(0);
-		if (!lens.isEmpty()) {
-			Component lensName = lens.getHoverName();
-			int width = 16 + mc.font.width(lensName) / 2;
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
-
-			mc.font.drawShadow(ms, lensName, x + 20, y + 5, color);
-			mc.getItemRenderer().renderAndDecorateItem(lens, x, y);
+		public WandHud(TileSpreader spreader) {
+			this.spreader = spreader;
 		}
 
-		if (receiver != null) {
-			BlockEntity receiverTile = receiver.tileEntity();
-			ItemStack recieverStack = new ItemStack(level.getBlockState(receiverTile.getBlockPos()).getBlock());
-			if (!recieverStack.isEmpty()) {
-				String stackName = recieverStack.getHoverName().getString();
-				int width = 16 + mc.font.width(stackName) / 2;
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			String name = new ItemStack(spreader.getBlockState().getBlock()).getHoverName().getString();
+			int color = spreader.getVariant().hudColor;
+			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, spreader.getCurrentMana(),
+					spreader.getMaxMana(), name);
+
+			ItemStack lens = spreader.getItemHandler().getItem(0);
+			if (!lens.isEmpty()) {
+				Component lensName = lens.getHoverName();
+				int width = 16 + mc.font.width(lensName) / 2;
 				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
 
-				mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
-				mc.getItemRenderer().renderAndDecorateItem(recieverStack, x, y);
+				mc.font.drawShadow(ms, lensName, x + 20, y + 5, color);
+				mc.getItemRenderer().renderAndDecorateItem(lens, x, y);
 			}
-		}
 
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			if (spreader.receiver != null) {
+				BlockEntity receiverTile = spreader.receiver.tileEntity();
+				ItemStack recieverStack = new ItemStack(spreader.level.getBlockState(receiverTile.getBlockPos()).getBlock());
+				if (!recieverStack.isEmpty()) {
+					String stackName = recieverStack.getHoverName().getString();
+					int width = 16 + mc.font.width(stackName) / 2;
+					int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+					int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+
+					mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
+					mc.getItemRenderer().renderAndDecorateItem(recieverStack, x, y);
+				}
+			}
+
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+		}
 	}
 
 	@Override

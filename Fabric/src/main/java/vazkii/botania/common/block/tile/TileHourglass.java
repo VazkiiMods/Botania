@@ -10,8 +10,6 @@ package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -35,7 +33,7 @@ import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
-public class TileHourglass extends TileExposedSimpleInventory implements IWandable, IWandHUD {
+public class TileHourglass extends TileExposedSimpleInventory implements IWandable {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -206,30 +204,37 @@ public class TileHourglass extends TileExposedSimpleInventory implements IWandab
 		lock = tag.getBoolean(TAG_LOCK);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
+	public static class WandHud implements IWandHUD {
+		private final TileHourglass hourglass;
 
-		ItemStack stack = getItemHandler().getItem(0);
-		if (!stack.isEmpty()) {
-			mc.getItemRenderer().renderGuiItem(stack, x, y);
-			mc.getItemRenderer().renderGuiItemDecorations(mc.font, stack, x, y);
+		public WandHud(TileHourglass hourglass) {
+			this.hourglass = hourglass;
+		}
 
-			int time = getTotalTime();
-			String timeStr = StringUtil.formatTickDuration(time);
-			mc.font.drawShadow(ms, timeStr, x + 20, y, getColor());
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
 
-			String status = "";
-			if (lock) {
-				status = "locked";
-			}
-			if (!move) {
-				status = status.isEmpty() ? "stopped" : "lockedStopped";
-			}
-			if (!status.isEmpty()) {
-				mc.font.drawShadow(ms, I18n.get("botaniamisc." + status), x + 20, y + 12, getColor());
+			ItemStack stack = hourglass.getItemHandler().getItem(0);
+			if (!stack.isEmpty()) {
+				mc.getItemRenderer().renderGuiItem(stack, x, y);
+				mc.getItemRenderer().renderGuiItemDecorations(mc.font, stack, x, y);
+
+				int time = hourglass.getTotalTime();
+				String timeStr = StringUtil.formatTickDuration(time);
+				mc.font.drawShadow(ms, timeStr, x + 20, y, hourglass.getColor());
+
+				String status = "";
+				if (hourglass.lock) {
+					status = "locked";
+				}
+				if (!hourglass.move) {
+					status = status.isEmpty() ? "stopped" : "lockedStopped";
+				}
+				if (!status.isEmpty()) {
+					mc.font.drawShadow(ms, I18n.get("botaniamisc." + status), x + 20, y + 12, hourglass.getColor());
+				}
 			}
 		}
 	}

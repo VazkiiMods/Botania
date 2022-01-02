@@ -10,8 +10,6 @@ package vazkii.botania.api.subtile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -27,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
 
@@ -137,11 +136,19 @@ public class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<
 		return Registry.ITEM.getOptional(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		String name = I18n.get(getBlockState().getBlock().getDescriptionId());
-		int color = getColor();
-		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
+	public static class FunctionalWandHud<T extends TileEntityFunctionalFlower> implements IWandHUD {
+		protected final T flower;
+
+		public FunctionalWandHud(T flower) {
+			this.flower = flower;
+		}
+
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			String name = I18n.get(flower.getBlockState().getBlock().getDescriptionId());
+			int color = flower.getColor();
+			BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, flower.getMana(), flower.getMaxMana(),
+					name, flower.getHudIcon(), flower.isValidBinding());
+		}
 	}
 }

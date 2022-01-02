@@ -10,8 +10,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
@@ -264,16 +262,21 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 		filterType = cmp.getInt(TAG_FILTER_TYPE);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		super.renderHUD(ms, mc);
+	public static class WandHud extends FunctionalWandHud<SubTileHopperhock> {
+		public WandHud(SubTileHopperhock flower) {
+			super(flower);
+		}
 
-		String filter = I18n.get("botaniamisc.filter" + filterType);
-		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(filter) / 2;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			super.renderHUD(ms, mc);
 
-		mc.font.drawShadow(ms, filter, x, y, ChatFormatting.GRAY.getColor());
+			String filter = I18n.get("botaniamisc.filter" + flower.filterType);
+			int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(filter) / 2;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+
+			mc.font.drawShadow(ms, filter, x, y, ChatFormatting.GRAY.getColor());
+		}
 	}
 
 	@Override

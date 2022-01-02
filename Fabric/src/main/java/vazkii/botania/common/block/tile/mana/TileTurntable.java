@@ -10,8 +10,6 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -31,7 +29,7 @@ import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nullable;
 
-public class TileTurntable extends TileMod implements IWandable, IWandHUD {
+public class TileTurntable extends TileMod implements IWandable {
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
 
@@ -80,20 +78,27 @@ public class TileTurntable extends TileMod implements IWandable, IWandHUD {
 		return true;
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		int color = 0xAA006600;
+	public static class WandHud implements IWandHUD {
+		private final TileTurntable turntable;
 
-		char motion = backwards ? '<' : '>';
-		String speed = ChatFormatting.BOLD + "";
-		for (int i = 0; i < this.speed; i++) {
-			speed = speed + motion;
+		public WandHud(TileTurntable turntable) {
+			this.turntable = turntable;
 		}
 
-		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(speed) / 2;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 - 15;
-		mc.font.drawShadow(ms, speed, x, y, color);
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			int color = 0xAA006600;
+
+			char motion = turntable.backwards ? '<' : '>';
+			String speed = ChatFormatting.BOLD + "";
+			for (int i = 0; i < turntable.speed; i++) {
+				speed = speed + motion;
+			}
+
+			int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(speed) / 2;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 - 15;
+			mc.font.drawShadow(ms, speed, x, y, color);
+		}
 	}
 
 }

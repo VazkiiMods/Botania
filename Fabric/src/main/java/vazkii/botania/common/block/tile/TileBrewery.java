@@ -10,8 +10,6 @@ package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -45,7 +43,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class TileBrewery extends TileSimpleInventory implements IManaReceiver, IWandHUD {
+public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
@@ -247,19 +245,27 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		return !isFull();
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		int manaToGet = getManaCost();
-		if (manaToGet > 0) {
-			int x = mc.getWindow().getGuiScaledWidth() / 2 + 20;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+	public static class WandHud implements IWandHUD {
+		private final TileBrewery brewery;
 
-			if (recipe == null) {
-				return;
+		public WandHud(TileBrewery brewery) {
+			this.brewery = brewery;
+		}
+
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			int manaToGet = brewery.getManaCost();
+			if (manaToGet > 0) {
+				int x = mc.getWindow().getGuiScaledWidth() / 2 + 20;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+
+				if (brewery.recipe == null) {
+					return;
+				}
+
+				RenderHelper.renderProgressPie(ms, x, y, (float) brewery.mana / (float) manaToGet,
+						brewery.recipe.getOutput(brewery.getItemHandler().getItem(0)));
 			}
-
-			RenderHelper.renderProgressPie(ms, x, y, (float) mana / (float) manaToGet, recipe.getOutput(getItemHandler().getItem(0)));
 		}
 	}
 

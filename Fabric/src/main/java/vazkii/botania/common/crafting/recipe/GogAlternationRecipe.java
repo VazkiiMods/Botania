@@ -10,7 +10,6 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;

@@ -12,8 +12,6 @@ import com.google.common.base.Predicates;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -66,7 +64,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable,
-		IThrottledPacket, IWandable, IWandHUD {
+		IThrottledPacket, IWandable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -391,34 +389,41 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return true;
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		ItemStack pool = new ItemStack(getBlockState().getBlock());
-		String name = pool.getHoverName().getString();
-		int color = 0x4444FF;
-		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), manaCap, name);
+	public static class WandHud implements IWandHUD {
+		private final TilePool pool;
 
-		int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 11;
-		int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 30;
+		public WandHud(TilePool pool) {
+			this.pool = pool;
+		}
 
-		int u = outputting ? 22 : 0;
-		int v = 38;
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			ItemStack poolStack = new ItemStack(pool.getBlockState().getBlock());
+			String name = poolStack.getHoverName().getString();
+			int color = 0x4444FF;
+			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, pool.getCurrentMana(), pool.manaCap, name);
 
-		RenderSystem.enableBlend();
-		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 11;
+			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 30;
 
-		RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
-		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			int u = pool.outputting ? 22 : 0;
+			int v = 38;
 
-		ItemStack tablet = new ItemStack(ModItems.manaTablet);
-		ItemManaTablet.setStackCreative(tablet);
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		mc.getItemRenderer().renderAndDecorateItem(tablet, x - 20, y);
-		mc.getItemRenderer().renderAndDecorateItem(pool, x + 26, y);
+			RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
+			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-		RenderSystem.disableBlend();
+			ItemStack tablet = new ItemStack(ModItems.manaTablet);
+			ItemManaTablet.setStackCreative(tablet);
+
+			mc.getItemRenderer().renderAndDecorateItem(tablet, x - 20, y);
+			mc.getItemRenderer().renderAndDecorateItem(poolStack, x + 26, y);
+
+			RenderSystem.disableBlend();
+		}
 	}
 
 	@Override

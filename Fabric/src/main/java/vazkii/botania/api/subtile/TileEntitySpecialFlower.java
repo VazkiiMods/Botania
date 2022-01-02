@@ -8,12 +8,7 @@
  */
 package vazkii.botania.api.subtile;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -45,7 +40,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower block entities
  */
-public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, IWandHUD {
+public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -259,15 +254,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		return false;
 	}
-
-	/**
-	 * Called on the client when the block being pointed at is the one with this sub tile.
-	 * Used to render a HUD portraying some data from this sub tile.
-	 * Note: This will not be called unless you register your block entity type to the API.
-	 */
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {}
 
 	/**
 	 * Gets if this SubTileEntity is affected by Enchanted Soil's speed boost.

@@ -11,8 +11,6 @@ package vazkii.botania.common.block.subtile.functional;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
@@ -192,30 +190,34 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 		return false;
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		super.renderHUD(ms, mc);
-
-		BlockState filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(filter.getBlock());
-		int color = getColor();
-
-		if (!recieverStack.isEmpty()) {
-			Component stackName = recieverStack.getHoverName();
-			int width = 16 + mc.font.width(stackName) / 2;
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
-
-			mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
-			mc.getItemRenderer().renderAndDecorateItem(recieverStack, x, y);
-
-			String mode = I18n.get("botaniamisc.rannuncarpus." + (stateSensitive ? "state_sensitive" : "state_insensitive"));
-			x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
-			y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
-			mc.font.drawShadow(ms, mode, x, y, ChatFormatting.WHITE.getColor());
+	public static class WandHud extends FunctionalWandHud<SubTileRannuncarpus> {
+		public WandHud(SubTileRannuncarpus flower) {
+			super(flower);
 		}
 
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			super.renderHUD(ms, mc);
+
+			BlockState filter = flower.getUnderlyingBlock();
+			ItemStack recieverStack = new ItemStack(filter.getBlock());
+			int color = flower.getColor();
+
+			if (!recieverStack.isEmpty()) {
+				Component stackName = recieverStack.getHoverName();
+				int width = 16 + mc.font.width(stackName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+
+				mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
+				mc.getItemRenderer().renderAndDecorateItem(recieverStack, x, y);
+
+				String mode = I18n.get("botaniamisc.rannuncarpus." + (flower.stateSensitive ? "state_sensitive" : "state_insensitive"));
+				x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
+				y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
+				mc.font.drawShadow(ms, mode, x, y, ChatFormatting.WHITE.getColor());
+			}
+		}
 	}
 
 	@Override

@@ -11,8 +11,6 @@ package vazkii.botania.common.block.subtile.generating;
 import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -123,22 +121,27 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		return Mth.hsvToRgb(ticksExisted * 2 % 360 / 360F, 1F, 1F);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		super.renderHUD(ms, mc);
+	public static class WandHud extends GeneratingWandHud<SubTileSpectrolus> {
+		public WandHud(SubTileSpectrolus flower) {
+			super(flower);
+		}
 
-		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(nextColor));
-		int color = getColor();
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			super.renderHUD(ms, mc);
 
-		if (!stack.isEmpty()) {
-			Component stackName = stack.getHoverName();
-			int width = 16 + mc.font.width(stackName) / 2;
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+			ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(flower.nextColor));
+			int color = flower.getColor();
 
-			mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
-			mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+			if (!stack.isEmpty()) {
+				Component stackName = stack.getHoverName();
+				int width = 16 + mc.font.width(stackName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+
+				mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
+				mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+			}
 		}
 	}
 

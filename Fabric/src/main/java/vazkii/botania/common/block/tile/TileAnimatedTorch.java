@@ -10,8 +10,6 @@ package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -36,7 +34,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod implements IWandable, IWandHUD {
+public class TileAnimatedTorch extends TileMod implements IWandable {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -132,14 +130,21 @@ public class TileAnimatedTorch extends TileMod implements IWandable, IWandHUD {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void renderHUD(PoseStack ms, Minecraft mc) {
-		int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+	public static class WandHud implements IWandHUD {
+		private final TileAnimatedTorch torch;
 
-		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-		mc.font.drawShadow(ms, I18n.get("botania.animatedTorch." + torchMode.name().toLowerCase(Locale.ROOT)), x + 18, y + 6, 0xFF4444);
+		public WandHud(TileAnimatedTorch torch) {
+			this.torch = torch;
+		}
+
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+
+			mc.getItemRenderer().renderAndDecorateItem(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
+			mc.font.drawShadow(ms, I18n.get("botania.animatedTorch." + torch.torchMode.name().toLowerCase(Locale.ROOT)), x + 18, y + 6, 0xFF4444);
+		}
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileAnimatedTorch self) {

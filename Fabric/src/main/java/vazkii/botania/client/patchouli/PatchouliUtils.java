@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.patchouli;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;

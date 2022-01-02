@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.common.Botania;
