@@ -24,7 +24,6 @@ import vazkii.botania.mixin.AccessorRecipeManager;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModRecipeTypes {
@@ -63,45 +62,45 @@ public class ModRecipeTypes {
 	public static void registerRecipeTypes(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
 		ResourceLocation id = IElvenTradeRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
-		register(r, id, ELVEN_TRADE_SERIALIZER);
-		register(r, prefix("elven_trade_lexicon"), LEXICON_ELVEN_TRADE_SERIALIZER);
+		r.accept(ELVEN_TRADE_SERIALIZER, id);
+		r.accept(LEXICON_ELVEN_TRADE_SERIALIZER, prefix("elven_trade_lexicon"));
 
 		id = IManaInfusionRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, MANA_INFUSION_TYPE);
-		register(r, id, MANA_INFUSION_SERIALIZER);
+		r.accept(MANA_INFUSION_SERIALIZER, id);
 
 		id = IPureDaisyRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, PURE_DAISY_TYPE);
-		register(r, id, PURE_DAISY_SERIALIZER);
+		r.accept(PURE_DAISY_SERIALIZER, id);
 
 		id = IBrewRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, BREW_TYPE);
-		register(r, id, BREW_SERIALIZER);
+		r.accept(BREW_SERIALIZER, id);
 
 		id = IPetalRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, PETAL_TYPE);
-		register(r, id, PETAL_SERIALIZER);
+		r.accept(PETAL_SERIALIZER, id);
 
 		id = IRuneAltarRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, RUNE_TYPE);
-		register(r, id, RUNE_SERIALIZER);
-		register(r, prefix("runic_altar_head"), RUNE_HEAD_SERIALIZER);
+		r.accept(RUNE_SERIALIZER, id);
+		r.accept(RUNE_HEAD_SERIALIZER, prefix("runic_altar_head"));
 
 		id = ITerraPlateRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, TERRA_PLATE_TYPE);
-		register(r, id, TERRA_PLATE_SERIALIZER);
+		r.accept(TERRA_PLATE_SERIALIZER, id);
 
 		id = IOrechidRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, ORECHID_TYPE);
-		register(r, id, ORECHID_SERIALIZER);
+		r.accept(ORECHID_SERIALIZER, id);
 
 		id = IOrechidRecipe.IGNEM_TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, ORECHID_IGNEM_TYPE);
-		register(r, id, ORECHID_IGNEM_SERIALIZER);
+		r.accept(ORECHID_IGNEM_SERIALIZER, id);
 
 		id = IOrechidRecipe.MARIMORPHOSIS_TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, MARIMORPHOSIS_TYPE);
-		register(r, id, MARIMORPHOSIS_SERIALIZER);
+		r.accept(MARIMORPHOSIS_SERIALIZER, id);
 	}
 
 	private static class ModRecipeType<T extends Recipe<?>> implements RecipeType<T> {

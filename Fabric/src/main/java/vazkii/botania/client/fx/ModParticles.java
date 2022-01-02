@@ -14,15 +14,15 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.block.ModBlocks.register;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModParticles {
 	public static final ParticleType<WispParticleData> WISP = new WispParticleType();
 	public static final ParticleType<SparkleParticleData> SPARKLE = new SparkleParticleType();
 
 	public static void registerParticles(BiConsumer<ParticleType<?>, ResourceLocation> r) {
-		register(r, "wisp", WISP);
-		register(r, "sparkle", SPARKLE);
+		r.accept(WISP, prefix("wisp"));
+		r.accept(SPARKLE, prefix("sparkle"));
 	}
 
 	public static class FactoryHandler {

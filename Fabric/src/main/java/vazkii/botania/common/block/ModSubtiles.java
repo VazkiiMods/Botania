@@ -34,8 +34,6 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.block.ModBlocks.register;
-
 public class ModSubtiles {
 	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.copy(Blocks.POPPY);
 	private static final BlockBehaviour.Properties FLOATING_PROPS = ModBlocks.FLOATING_PROPS;
@@ -252,356 +250,356 @@ public class ModSubtiles {
 	}
 
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
-		register(r, LibBlockNames.SUBTILE_PUREDAISY, pureDaisy);
-		register(r, floating(LibBlockNames.SUBTILE_PUREDAISY), pureDaisyFloating);
+		r.accept(pureDaisy, LibBlockNames.SUBTILE_PUREDAISY);
+		r.accept(pureDaisyFloating, floating(LibBlockNames.SUBTILE_PUREDAISY));
 
-		register(r, LibBlockNames.SUBTILE_MANASTAR, manastar);
-		register(r, floating(LibBlockNames.SUBTILE_MANASTAR), manastarFloating);
+		r.accept(manastar, LibBlockNames.SUBTILE_MANASTAR);
+		r.accept(manastarFloating, floating(LibBlockNames.SUBTILE_MANASTAR));
 
-		register(r, LibBlockNames.SUBTILE_HYDROANGEAS, hydroangeas);
-		register(r, floating(LibBlockNames.SUBTILE_HYDROANGEAS), hydroangeasFloating);
+		r.accept(hydroangeas, LibBlockNames.SUBTILE_HYDROANGEAS);
+		r.accept(hydroangeasFloating, floating(LibBlockNames.SUBTILE_HYDROANGEAS));
 
-		register(r, LibBlockNames.SUBTILE_ENDOFLAME, endoflame);
-		register(r, floating(LibBlockNames.SUBTILE_ENDOFLAME), endoflameFloating);
+		r.accept(endoflame, LibBlockNames.SUBTILE_ENDOFLAME);
+		r.accept(endoflameFloating, floating(LibBlockNames.SUBTILE_ENDOFLAME));
 
-		register(r, LibBlockNames.SUBTILE_THERMALILY, thermalily);
-		register(r, floating(LibBlockNames.SUBTILE_THERMALILY), thermalilyFloating);
+		r.accept(thermalily, LibBlockNames.SUBTILE_THERMALILY);
+		r.accept(thermalilyFloating, floating(LibBlockNames.SUBTILE_THERMALILY));
 
-		register(r, LibBlockNames.SUBTILE_ARCANE_ROSE, rosaArcana);
-		register(r, floating(LibBlockNames.SUBTILE_ARCANE_ROSE), rosaArcanaFloating);
+		r.accept(rosaArcana, LibBlockNames.SUBTILE_ARCANE_ROSE);
+		r.accept(rosaArcanaFloating, floating(LibBlockNames.SUBTILE_ARCANE_ROSE));
 
-		register(r, LibBlockNames.SUBTILE_MUNCHDEW, munchdew);
-		register(r, floating(LibBlockNames.SUBTILE_MUNCHDEW), munchdewFloating);
+		r.accept(munchdew, LibBlockNames.SUBTILE_MUNCHDEW);
+		r.accept(munchdewFloating, floating(LibBlockNames.SUBTILE_MUNCHDEW));
 
-		register(r, LibBlockNames.SUBTILE_ENTROPINNYUM, entropinnyum);
-		register(r, floating(LibBlockNames.SUBTILE_ENTROPINNYUM), entropinnyumFloating);
+		r.accept(entropinnyum, LibBlockNames.SUBTILE_ENTROPINNYUM);
+		r.accept(entropinnyumFloating, floating(LibBlockNames.SUBTILE_ENTROPINNYUM));
 
-		register(r, LibBlockNames.SUBTILE_KEKIMURUS, kekimurus);
-		register(r, floating(LibBlockNames.SUBTILE_KEKIMURUS), kekimurusFloating);
+		r.accept(kekimurus, LibBlockNames.SUBTILE_KEKIMURUS);
+		r.accept(kekimurusFloating, floating(LibBlockNames.SUBTILE_KEKIMURUS));
 
-		register(r, LibBlockNames.SUBTILE_GOURMARYLLIS, gourmaryllis);
-		register(r, floating(LibBlockNames.SUBTILE_GOURMARYLLIS), gourmaryllisFloating);
+		r.accept(gourmaryllis, LibBlockNames.SUBTILE_GOURMARYLLIS);
+		r.accept(gourmaryllisFloating, floating(LibBlockNames.SUBTILE_GOURMARYLLIS));
 
-		register(r, LibBlockNames.SUBTILE_NARSLIMMUS, narslimmus);
-		register(r, floating(LibBlockNames.SUBTILE_NARSLIMMUS), narslimmusFloating);
+		r.accept(narslimmus, LibBlockNames.SUBTILE_NARSLIMMUS);
+		r.accept(narslimmusFloating, floating(LibBlockNames.SUBTILE_NARSLIMMUS));
 
-		register(r, LibBlockNames.SUBTILE_SPECTROLUS, spectrolus);
-		register(r, floating(LibBlockNames.SUBTILE_SPECTROLUS), spectrolusFloating);
+		r.accept(spectrolus, LibBlockNames.SUBTILE_SPECTROLUS);
+		r.accept(spectrolusFloating, floating(LibBlockNames.SUBTILE_SPECTROLUS));
 
-		register(r, LibBlockNames.SUBTILE_DANDELIFEON, dandelifeon);
-		register(r, floating(LibBlockNames.SUBTILE_DANDELIFEON), dandelifeonFloating);
+		r.accept(dandelifeon, LibBlockNames.SUBTILE_DANDELIFEON);
+		r.accept(dandelifeonFloating, floating(LibBlockNames.SUBTILE_DANDELIFEON));
 
-		register(r, LibBlockNames.SUBTILE_RAFFLOWSIA, rafflowsia);
-		register(r, floating(LibBlockNames.SUBTILE_RAFFLOWSIA), rafflowsiaFloating);
+		r.accept(rafflowsia, LibBlockNames.SUBTILE_RAFFLOWSIA);
+		r.accept(rafflowsiaFloating, floating(LibBlockNames.SUBTILE_RAFFLOWSIA));
 
-		register(r, LibBlockNames.SUBTILE_SHULK_ME_NOT, shulkMeNot);
-		register(r, floating(LibBlockNames.SUBTILE_SHULK_ME_NOT), shulkMeNotFloating);
+		r.accept(shulkMeNot, LibBlockNames.SUBTILE_SHULK_ME_NOT);
+		r.accept(shulkMeNotFloating, floating(LibBlockNames.SUBTILE_SHULK_ME_NOT));
 
-		register(r, LibBlockNames.SUBTILE_BELLETHORN, bellethorn);
-		register(r, chibi(LibBlockNames.SUBTILE_BELLETHORN), bellethornChibi);
-		register(r, floating(LibBlockNames.SUBTILE_BELLETHORN), bellethornFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_BELLETHORN)), bellethornChibiFloating);
+		r.accept(bellethorn, LibBlockNames.SUBTILE_BELLETHORN);
+		r.accept(bellethornChibi, chibi(LibBlockNames.SUBTILE_BELLETHORN));
+		r.accept(bellethornFloating, floating(LibBlockNames.SUBTILE_BELLETHORN));
+		r.accept(bellethornChibiFloating, chibi(floating(LibBlockNames.SUBTILE_BELLETHORN)));
 
-		register(r, LibBlockNames.SUBTILE_BERGAMUTE, bergamute);
-		register(r, floating(LibBlockNames.SUBTILE_BERGAMUTE), bergamuteFloating);
+		r.accept(bergamute, LibBlockNames.SUBTILE_BERGAMUTE);
+		r.accept(bergamuteFloating, floating(LibBlockNames.SUBTILE_BERGAMUTE));
 
-		register(r, LibBlockNames.SUBTILE_DREADTHORN, dreadthorn);
-		register(r, floating(LibBlockNames.SUBTILE_DREADTHORN), dreadthornFloating);
+		r.accept(dreadthorn, LibBlockNames.SUBTILE_DREADTHORN);
+		r.accept(dreadthornFloating, floating(LibBlockNames.SUBTILE_DREADTHORN));
 
-		register(r, LibBlockNames.SUBTILE_HEISEI_DREAM, heiseiDream);
-		register(r, floating(LibBlockNames.SUBTILE_HEISEI_DREAM), heiseiDreamFloating);
+		r.accept(heiseiDream, LibBlockNames.SUBTILE_HEISEI_DREAM);
+		r.accept(heiseiDreamFloating, floating(LibBlockNames.SUBTILE_HEISEI_DREAM));
 
-		register(r, LibBlockNames.SUBTILE_TIGERSEYE, tigerseye);
-		register(r, floating(LibBlockNames.SUBTILE_TIGERSEYE), tigerseyeFloating);
+		r.accept(tigerseye, LibBlockNames.SUBTILE_TIGERSEYE);
+		r.accept(tigerseyeFloating, floating(LibBlockNames.SUBTILE_TIGERSEYE));
 
-		register(r, LibBlockNames.SUBTILE_JADED_AMARANTHUS, jadedAmaranthus);
-		register(r, floating(LibBlockNames.SUBTILE_JADED_AMARANTHUS), jadedAmaranthusFloating);
+		r.accept(jadedAmaranthus, LibBlockNames.SUBTILE_JADED_AMARANTHUS);
+		r.accept(jadedAmaranthusFloating, floating(LibBlockNames.SUBTILE_JADED_AMARANTHUS));
 
-		register(r, LibBlockNames.SUBTILE_ORECHID, orechid);
-		register(r, floating(LibBlockNames.SUBTILE_ORECHID), orechidFloating);
+		r.accept(orechid, LibBlockNames.SUBTILE_ORECHID);
+		r.accept(orechidFloating, floating(LibBlockNames.SUBTILE_ORECHID));
 
-		register(r, LibBlockNames.SUBTILE_FALLEN_KANADE, fallenKanade);
-		register(r, floating(LibBlockNames.SUBTILE_FALLEN_KANADE), fallenKanadeFloating);
+		r.accept(fallenKanade, LibBlockNames.SUBTILE_FALLEN_KANADE);
+		r.accept(fallenKanadeFloating, floating(LibBlockNames.SUBTILE_FALLEN_KANADE));
 
-		register(r, LibBlockNames.SUBTILE_EXOFLAME, exoflame);
-		register(r, floating(LibBlockNames.SUBTILE_EXOFLAME), exoflameFloating);
+		r.accept(exoflame, LibBlockNames.SUBTILE_EXOFLAME);
+		r.accept(exoflameFloating, floating(LibBlockNames.SUBTILE_EXOFLAME));
 
-		register(r, LibBlockNames.SUBTILE_AGRICARNATION, agricarnation);
-		register(r, chibi(LibBlockNames.SUBTILE_AGRICARNATION), agricarnationChibi);
-		register(r, floating(LibBlockNames.SUBTILE_AGRICARNATION), agricarnationFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_AGRICARNATION)), agricarnationChibiFloating);
+		r.accept(agricarnation, LibBlockNames.SUBTILE_AGRICARNATION);
+		r.accept(agricarnationChibi, chibi(LibBlockNames.SUBTILE_AGRICARNATION));
+		r.accept(agricarnationFloating, floating(LibBlockNames.SUBTILE_AGRICARNATION));
+		r.accept(agricarnationChibiFloating, chibi(floating(LibBlockNames.SUBTILE_AGRICARNATION)));
 
-		register(r, LibBlockNames.SUBTILE_HOPPERHOCK, hopperhock);
-		register(r, chibi(LibBlockNames.SUBTILE_HOPPERHOCK), hopperhockChibi);
-		register(r, floating(LibBlockNames.SUBTILE_HOPPERHOCK), hopperhockFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)), hopperhockChibiFloating);
+		r.accept(hopperhock, LibBlockNames.SUBTILE_HOPPERHOCK);
+		r.accept(hopperhockChibi, chibi(LibBlockNames.SUBTILE_HOPPERHOCK));
+		r.accept(hopperhockFloating, floating(LibBlockNames.SUBTILE_HOPPERHOCK));
+		r.accept(hopperhockChibiFloating, chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)));
 
-		register(r, LibBlockNames.SUBTILE_TANGLEBERRIE, tangleberrie);
-		register(r, chibi(LibBlockNames.SUBTILE_TANGLEBERRIE), tangleberrieChibi);
-		register(r, floating(LibBlockNames.SUBTILE_TANGLEBERRIE), tangleberrieFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)), tangleberrieChibiFloating);
+		r.accept(tangleberrie, LibBlockNames.SUBTILE_TANGLEBERRIE);
+		r.accept(tangleberrieChibi, chibi(LibBlockNames.SUBTILE_TANGLEBERRIE));
+		r.accept(tangleberrieFloating, floating(LibBlockNames.SUBTILE_TANGLEBERRIE));
+		r.accept(tangleberrieChibiFloating, chibi(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)));
 
-		register(r, LibBlockNames.SUBTILE_JIYUULIA, jiyuulia);
-		register(r, chibi(LibBlockNames.SUBTILE_JIYUULIA), jiyuuliaChibi);
-		register(r, floating(LibBlockNames.SUBTILE_JIYUULIA), jiyuuliaFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_JIYUULIA)), jiyuuliaChibiFloating);
+		r.accept(jiyuulia, LibBlockNames.SUBTILE_JIYUULIA);
+		r.accept(jiyuuliaChibi, chibi(LibBlockNames.SUBTILE_JIYUULIA));
+		r.accept(jiyuuliaFloating, floating(LibBlockNames.SUBTILE_JIYUULIA));
+		r.accept(jiyuuliaChibiFloating, chibi(floating(LibBlockNames.SUBTILE_JIYUULIA)));
 
-		register(r, LibBlockNames.SUBTILE_RANNUNCARPUS, rannuncarpus);
-		register(r, chibi(LibBlockNames.SUBTILE_RANNUNCARPUS), rannuncarpusChibi);
-		register(r, floating(LibBlockNames.SUBTILE_RANNUNCARPUS), rannuncarpusFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)), rannuncarpusChibiFloating);
+		r.accept(rannuncarpus, LibBlockNames.SUBTILE_RANNUNCARPUS);
+		r.accept(rannuncarpusChibi, chibi(LibBlockNames.SUBTILE_RANNUNCARPUS));
+		r.accept(rannuncarpusFloating, floating(LibBlockNames.SUBTILE_RANNUNCARPUS));
+		r.accept(rannuncarpusChibiFloating, chibi(floating(LibBlockNames.SUBTILE_RANNUNCARPUS)));
 
-		register(r, LibBlockNames.SUBTILE_HYACIDUS, hyacidus);
-		register(r, floating(LibBlockNames.SUBTILE_HYACIDUS), hyacidusFloating);
+		r.accept(hyacidus, LibBlockNames.SUBTILE_HYACIDUS);
+		r.accept(hyacidusFloating, floating(LibBlockNames.SUBTILE_HYACIDUS));
 
-		register(r, LibBlockNames.SUBTILE_POLLIDISIAC, pollidisiac);
-		register(r, floating(LibBlockNames.SUBTILE_POLLIDISIAC), pollidisiacFloating);
+		r.accept(pollidisiac, LibBlockNames.SUBTILE_POLLIDISIAC);
+		r.accept(pollidisiacFloating, floating(LibBlockNames.SUBTILE_POLLIDISIAC));
 
-		register(r, LibBlockNames.SUBTILE_CLAYCONIA, clayconia);
-		register(r, chibi(LibBlockNames.SUBTILE_CLAYCONIA), clayconiaChibi);
-		register(r, floating(LibBlockNames.SUBTILE_CLAYCONIA), clayconiaFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_CLAYCONIA)), clayconiaChibiFloating);
+		r.accept(clayconia, LibBlockNames.SUBTILE_CLAYCONIA);
+		r.accept(clayconiaChibi, chibi(LibBlockNames.SUBTILE_CLAYCONIA));
+		r.accept(clayconiaFloating, floating(LibBlockNames.SUBTILE_CLAYCONIA));
+		r.accept(clayconiaChibiFloating, chibi(floating(LibBlockNames.SUBTILE_CLAYCONIA)));
 
-		register(r, LibBlockNames.SUBTILE_LOONIUM, loonium);
-		register(r, floating(LibBlockNames.SUBTILE_LOONIUM), looniumFloating);
+		r.accept(loonium, LibBlockNames.SUBTILE_LOONIUM);
+		r.accept(looniumFloating, floating(LibBlockNames.SUBTILE_LOONIUM));
 
-		register(r, LibBlockNames.SUBTILE_DAFFOMILL, daffomill);
-		register(r, floating(LibBlockNames.SUBTILE_DAFFOMILL), daffomillFloating);
+		r.accept(daffomill, LibBlockNames.SUBTILE_DAFFOMILL);
+		r.accept(daffomillFloating, floating(LibBlockNames.SUBTILE_DAFFOMILL));
 
-		register(r, LibBlockNames.SUBTILE_VINCULOTUS, vinculotus);
-		register(r, floating(LibBlockNames.SUBTILE_VINCULOTUS), vinculotusFloating);
+		r.accept(vinculotus, LibBlockNames.SUBTILE_VINCULOTUS);
+		r.accept(vinculotusFloating, floating(LibBlockNames.SUBTILE_VINCULOTUS));
 
-		register(r, LibBlockNames.SUBTILE_SPECTRANTHEMUM, spectranthemum);
-		register(r, floating(LibBlockNames.SUBTILE_SPECTRANTHEMUM), spectranthemumFloating);
+		r.accept(spectranthemum, LibBlockNames.SUBTILE_SPECTRANTHEMUM);
+		r.accept(spectranthemumFloating, floating(LibBlockNames.SUBTILE_SPECTRANTHEMUM));
 
-		register(r, LibBlockNames.SUBTILE_MEDUMONE, medumone);
-		register(r, floating(LibBlockNames.SUBTILE_MEDUMONE), medumoneFloating);
+		r.accept(medumone, LibBlockNames.SUBTILE_MEDUMONE);
+		r.accept(medumoneFloating, floating(LibBlockNames.SUBTILE_MEDUMONE));
 
-		register(r, LibBlockNames.SUBTILE_MARIMORPHOSIS, marimorphosis);
-		register(r, chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS), marimorphosisChibi);
-		register(r, floating(LibBlockNames.SUBTILE_MARIMORPHOSIS), marimorphosisFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_MARIMORPHOSIS)), marimorphosisChibiFloating);
+		r.accept(marimorphosis, LibBlockNames.SUBTILE_MARIMORPHOSIS);
+		r.accept(marimorphosisChibi, chibi(LibBlockNames.SUBTILE_MARIMORPHOSIS));
+		r.accept(marimorphosisFloating, floating(LibBlockNames.SUBTILE_MARIMORPHOSIS));
+		r.accept(marimorphosisChibiFloating, chibi(floating(LibBlockNames.SUBTILE_MARIMORPHOSIS)));
 
-		register(r, LibBlockNames.SUBTILE_BUBBELL, bubbell);
-		register(r, chibi(LibBlockNames.SUBTILE_BUBBELL), bubbellChibi);
-		register(r, floating(LibBlockNames.SUBTILE_BUBBELL), bubbellFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_BUBBELL)), bubbellChibiFloating);
+		r.accept(bubbell, LibBlockNames.SUBTILE_BUBBELL);
+		r.accept(bubbellChibi, chibi(LibBlockNames.SUBTILE_BUBBELL));
+		r.accept(bubbellFloating, floating(LibBlockNames.SUBTILE_BUBBELL));
+		r.accept(bubbellChibiFloating, chibi(floating(LibBlockNames.SUBTILE_BUBBELL)));
 
-		register(r, LibBlockNames.SUBTILE_SOLEGNOLIA, solegnolia);
-		register(r, chibi(LibBlockNames.SUBTILE_SOLEGNOLIA), solegnoliaChibi);
-		register(r, floating(LibBlockNames.SUBTILE_SOLEGNOLIA), solegnoliaFloating);
-		register(r, chibi(floating(LibBlockNames.SUBTILE_SOLEGNOLIA)), solegnoliaChibiFloating);
+		r.accept(solegnolia, LibBlockNames.SUBTILE_SOLEGNOLIA);
+		r.accept(solegnoliaChibi, chibi(LibBlockNames.SUBTILE_SOLEGNOLIA));
+		r.accept(solegnoliaFloating, floating(LibBlockNames.SUBTILE_SOLEGNOLIA));
+		r.accept(solegnoliaChibiFloating, chibi(floating(LibBlockNames.SUBTILE_SOLEGNOLIA)));
 
-		register(r, LibBlockNames.SUBTILE_ORECHID_IGNEM, orechidIgnem);
-		register(r, floating(LibBlockNames.SUBTILE_ORECHID_IGNEM), orechidIgnemFloating);
+		r.accept(orechidIgnem, LibBlockNames.SUBTILE_ORECHID_IGNEM);
+		r.accept(orechidIgnemFloating, floating(LibBlockNames.SUBTILE_ORECHID_IGNEM));
 
-		register(r, LibBlockNames.SUBTILE_LABELLIA, labellia);
-		register(r, floating(LibBlockNames.SUBTILE_LABELLIA), labelliaFloating);
+		r.accept(labellia, LibBlockNames.SUBTILE_LABELLIA);
+		r.accept(labelliaFloating, floating(LibBlockNames.SUBTILE_LABELLIA));
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = ModItems.defaultBuilder();
 
-		register(r, getId(pureDaisy), new ItemBlockSpecialFlower(pureDaisy, props));
-		register(r, getId(pureDaisyFloating), new ItemBlockSpecialFlower(pureDaisyFloating, props));
+		r.accept(new ItemBlockSpecialFlower(pureDaisy, props), getId(pureDaisy));
+		r.accept(new ItemBlockSpecialFlower(pureDaisyFloating, props), getId(pureDaisyFloating));
 
-		register(r, getId(manastar), new ItemBlockSpecialFlower(manastar, props));
-		register(r, getId(manastarFloating), new ItemBlockSpecialFlower(manastarFloating, props));
+		r.accept(new ItemBlockSpecialFlower(manastar, props), getId(manastar));
+		r.accept(new ItemBlockSpecialFlower(manastarFloating, props), getId(manastarFloating));
 
-		register(r, getId(hydroangeas), new ItemBlockSpecialFlower(hydroangeas, props));
-		register(r, getId(hydroangeasFloating), new ItemBlockSpecialFlower(hydroangeasFloating, props));
+		r.accept(new ItemBlockSpecialFlower(hydroangeas, props), getId(hydroangeas));
+		r.accept(new ItemBlockSpecialFlower(hydroangeasFloating, props), getId(hydroangeasFloating));
 
-		register(r, getId(endoflame), new ItemBlockSpecialFlower(endoflame, props));
-		register(r, getId(endoflameFloating), new ItemBlockSpecialFlower(endoflameFloating, props));
+		r.accept(new ItemBlockSpecialFlower(endoflame, props), getId(endoflame));
+		r.accept(new ItemBlockSpecialFlower(endoflameFloating, props), getId(endoflameFloating));
 
-		register(r, getId(thermalily), new ItemBlockSpecialFlower(thermalily, props));
-		register(r, getId(thermalilyFloating), new ItemBlockSpecialFlower(thermalilyFloating, props));
+		r.accept(new ItemBlockSpecialFlower(thermalily, props), getId(thermalily));
+		r.accept(new ItemBlockSpecialFlower(thermalilyFloating, props), getId(thermalilyFloating));
 
-		register(r, getId(rosaArcana), new ItemBlockSpecialFlower(rosaArcana, props));
-		register(r, getId(rosaArcanaFloating), new ItemBlockSpecialFlower(rosaArcanaFloating, props));
+		r.accept(new ItemBlockSpecialFlower(rosaArcana, props), getId(rosaArcana));
+		r.accept(new ItemBlockSpecialFlower(rosaArcanaFloating, props), getId(rosaArcanaFloating));
 
-		register(r, getId(munchdew), new ItemBlockSpecialFlower(munchdew, props));
-		register(r, getId(munchdewFloating), new ItemBlockSpecialFlower(munchdewFloating, props));
+		r.accept(new ItemBlockSpecialFlower(munchdew, props), getId(munchdew));
+		r.accept(new ItemBlockSpecialFlower(munchdewFloating, props), getId(munchdewFloating));
 
-		register(r, getId(entropinnyum), new ItemBlockSpecialFlower(entropinnyum, props));
-		register(r, getId(entropinnyumFloating), new ItemBlockSpecialFlower(entropinnyumFloating, props));
+		r.accept(new ItemBlockSpecialFlower(entropinnyum, props), getId(entropinnyum));
+		r.accept(new ItemBlockSpecialFlower(entropinnyumFloating, props), getId(entropinnyumFloating));
 
-		register(r, getId(kekimurus), new ItemBlockSpecialFlower(kekimurus, props));
-		register(r, getId(kekimurusFloating), new ItemBlockSpecialFlower(kekimurusFloating, props));
+		r.accept(new ItemBlockSpecialFlower(kekimurus, props), getId(kekimurus));
+		r.accept(new ItemBlockSpecialFlower(kekimurusFloating, props), getId(kekimurusFloating));
 
-		register(r, getId(gourmaryllis), new ItemBlockSpecialFlower(gourmaryllis, props));
-		register(r, getId(gourmaryllisFloating), new ItemBlockSpecialFlower(gourmaryllisFloating, props));
+		r.accept(new ItemBlockSpecialFlower(gourmaryllis, props), getId(gourmaryllis));
+		r.accept(new ItemBlockSpecialFlower(gourmaryllisFloating, props), getId(gourmaryllisFloating));
 
-		register(r, getId(narslimmus), new ItemBlockSpecialFlower(narslimmus, props));
-		register(r, getId(narslimmusFloating), new ItemBlockSpecialFlower(narslimmusFloating, props));
+		r.accept(new ItemBlockSpecialFlower(narslimmus, props), getId(narslimmus));
+		r.accept(new ItemBlockSpecialFlower(narslimmusFloating, props), getId(narslimmusFloating));
 
-		register(r, getId(spectrolus), new ItemBlockSpecialFlower(spectrolus, props));
-		register(r, getId(spectrolusFloating), new ItemBlockSpecialFlower(spectrolusFloating, props));
+		r.accept(new ItemBlockSpecialFlower(spectrolus, props), getId(spectrolus));
+		r.accept(new ItemBlockSpecialFlower(spectrolusFloating, props), getId(spectrolusFloating));
 
-		register(r, getId(dandelifeon), new ItemBlockSpecialFlower(dandelifeon, props));
-		register(r, getId(dandelifeonFloating), new ItemBlockSpecialFlower(dandelifeonFloating, props));
+		r.accept(new ItemBlockSpecialFlower(dandelifeon, props), getId(dandelifeon));
+		r.accept(new ItemBlockSpecialFlower(dandelifeonFloating, props), getId(dandelifeonFloating));
 
-		register(r, getId(rafflowsia), new ItemBlockSpecialFlower(rafflowsia, props));
-		register(r, getId(rafflowsiaFloating), new ItemBlockSpecialFlower(rafflowsiaFloating, props));
+		r.accept(new ItemBlockSpecialFlower(rafflowsia, props), getId(rafflowsia));
+		r.accept(new ItemBlockSpecialFlower(rafflowsiaFloating, props), getId(rafflowsiaFloating));
 
-		register(r, getId(shulkMeNot), new ItemBlockSpecialFlower(shulkMeNot, props));
-		register(r, getId(shulkMeNotFloating), new ItemBlockSpecialFlower(shulkMeNotFloating, props));
+		r.accept(new ItemBlockSpecialFlower(shulkMeNot, props), getId(shulkMeNot));
+		r.accept(new ItemBlockSpecialFlower(shulkMeNotFloating, props), getId(shulkMeNotFloating));
 
-		register(r, getId(bellethorn), new ItemBlockSpecialFlower(bellethorn, props));
-		register(r, getId(bellethornChibi), new ItemBlockSpecialFlower(bellethornChibi, props));
-		register(r, getId(bellethornFloating), new ItemBlockSpecialFlower(bellethornFloating, props));
-		register(r, getId(bellethornChibiFloating), new ItemBlockSpecialFlower(bellethornChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(bellethorn, props), getId(bellethorn));
+		r.accept(new ItemBlockSpecialFlower(bellethornChibi, props), getId(bellethornChibi));
+		r.accept(new ItemBlockSpecialFlower(bellethornFloating, props), getId(bellethornFloating));
+		r.accept(new ItemBlockSpecialFlower(bellethornChibiFloating, props), getId(bellethornChibiFloating));
 
-		register(r, getId(bergamute), new ItemBlockSpecialFlower(bergamute, props));
-		register(r, getId(bergamuteFloating), new ItemBlockSpecialFlower(bergamuteFloating, props));
+		r.accept(new ItemBlockSpecialFlower(bergamute, props), getId(bergamute));
+		r.accept(new ItemBlockSpecialFlower(bergamuteFloating, props), getId(bergamuteFloating));
 
-		register(r, getId(dreadthorn), new ItemBlockSpecialFlower(dreadthorn, props));
-		register(r, getId(dreadthornFloating), new ItemBlockSpecialFlower(dreadthornFloating, props));
+		r.accept(new ItemBlockSpecialFlower(dreadthorn, props), getId(dreadthorn));
+		r.accept(new ItemBlockSpecialFlower(dreadthornFloating, props), getId(dreadthornFloating));
 
-		register(r, getId(heiseiDream), new ItemBlockSpecialFlower(heiseiDream, props));
-		register(r, getId(heiseiDreamFloating), new ItemBlockSpecialFlower(heiseiDreamFloating, props));
+		r.accept(new ItemBlockSpecialFlower(heiseiDream, props), getId(heiseiDream));
+		r.accept(new ItemBlockSpecialFlower(heiseiDreamFloating, props), getId(heiseiDreamFloating));
 
-		register(r, getId(tigerseye), new ItemBlockSpecialFlower(tigerseye, props));
-		register(r, getId(tigerseyeFloating), new ItemBlockSpecialFlower(tigerseyeFloating, props));
+		r.accept(new ItemBlockSpecialFlower(tigerseye, props), getId(tigerseye));
+		r.accept(new ItemBlockSpecialFlower(tigerseyeFloating, props), getId(tigerseyeFloating));
 
-		register(r, getId(jadedAmaranthus), new ItemBlockSpecialFlower(jadedAmaranthus, props));
-		register(r, getId(jadedAmaranthusFloating), new ItemBlockSpecialFlower(jadedAmaranthusFloating, props));
+		r.accept(new ItemBlockSpecialFlower(jadedAmaranthus, props), getId(jadedAmaranthus));
+		r.accept(new ItemBlockSpecialFlower(jadedAmaranthusFloating, props), getId(jadedAmaranthusFloating));
 
-		register(r, getId(orechid), new ItemBlockSpecialFlower(orechid, props));
-		register(r, getId(orechidFloating), new ItemBlockSpecialFlower(orechidFloating, props));
+		r.accept(new ItemBlockSpecialFlower(orechid, props), getId(orechid));
+		r.accept(new ItemBlockSpecialFlower(orechidFloating, props), getId(orechidFloating));
 
-		register(r, getId(fallenKanade), new ItemBlockSpecialFlower(fallenKanade, props));
-		register(r, getId(fallenKanadeFloating), new ItemBlockSpecialFlower(fallenKanadeFloating, props));
+		r.accept(new ItemBlockSpecialFlower(fallenKanade, props), getId(fallenKanade));
+		r.accept(new ItemBlockSpecialFlower(fallenKanadeFloating, props), getId(fallenKanadeFloating));
 
-		register(r, getId(exoflame), new ItemBlockSpecialFlower(exoflame, props));
-		register(r, getId(exoflameFloating), new ItemBlockSpecialFlower(exoflameFloating, props));
+		r.accept(new ItemBlockSpecialFlower(exoflame, props), getId(exoflame));
+		r.accept(new ItemBlockSpecialFlower(exoflameFloating, props), getId(exoflameFloating));
 
-		register(r, getId(agricarnation), new ItemBlockSpecialFlower(agricarnation, props));
-		register(r, getId(agricarnationChibi), new ItemBlockSpecialFlower(agricarnationChibi, props));
-		register(r, getId(agricarnationFloating), new ItemBlockSpecialFlower(agricarnationFloating, props));
-		register(r, getId(agricarnationChibiFloating), new ItemBlockSpecialFlower(agricarnationChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(agricarnation, props), getId(agricarnation));
+		r.accept(new ItemBlockSpecialFlower(agricarnationChibi, props), getId(agricarnationChibi));
+		r.accept(new ItemBlockSpecialFlower(agricarnationFloating, props), getId(agricarnationFloating));
+		r.accept(new ItemBlockSpecialFlower(agricarnationChibiFloating, props), getId(agricarnationChibiFloating));
 
-		register(r, getId(hopperhock), new ItemBlockSpecialFlower(hopperhock, props));
-		register(r, getId(hopperhockChibi), new ItemBlockSpecialFlower(hopperhockChibi, props));
-		register(r, getId(hopperhockFloating), new ItemBlockSpecialFlower(hopperhockFloating, props));
-		register(r, getId(hopperhockChibiFloating), new ItemBlockSpecialFlower(hopperhockChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(hopperhock, props), getId(hopperhock));
+		r.accept(new ItemBlockSpecialFlower(hopperhockChibi, props), getId(hopperhockChibi));
+		r.accept(new ItemBlockSpecialFlower(hopperhockFloating, props), getId(hopperhockFloating));
+		r.accept(new ItemBlockSpecialFlower(hopperhockChibiFloating, props), getId(hopperhockChibiFloating));
 
-		register(r, getId(tangleberrie), new ItemBlockSpecialFlower(tangleberrie, props));
-		register(r, getId(tangleberrieChibi), new ItemBlockSpecialFlower(tangleberrieChibi, props));
-		register(r, getId(tangleberrieFloating), new ItemBlockSpecialFlower(tangleberrieFloating, props));
-		register(r, getId(tangleberrieChibiFloating), new ItemBlockSpecialFlower(tangleberrieChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(tangleberrie, props), getId(tangleberrie));
+		r.accept(new ItemBlockSpecialFlower(tangleberrieChibi, props), getId(tangleberrieChibi));
+		r.accept(new ItemBlockSpecialFlower(tangleberrieFloating, props), getId(tangleberrieFloating));
+		r.accept(new ItemBlockSpecialFlower(tangleberrieChibiFloating, props), getId(tangleberrieChibiFloating));
 
-		register(r, getId(jiyuulia), new ItemBlockSpecialFlower(jiyuulia, props));
-		register(r, getId(jiyuuliaChibi), new ItemBlockSpecialFlower(jiyuuliaChibi, props));
-		register(r, getId(jiyuuliaFloating), new ItemBlockSpecialFlower(jiyuuliaFloating, props));
-		register(r, getId(jiyuuliaChibiFloating), new ItemBlockSpecialFlower(jiyuuliaChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(jiyuulia, props), getId(jiyuulia));
+		r.accept(new ItemBlockSpecialFlower(jiyuuliaChibi, props), getId(jiyuuliaChibi));
+		r.accept(new ItemBlockSpecialFlower(jiyuuliaFloating, props), getId(jiyuuliaFloating));
+		r.accept(new ItemBlockSpecialFlower(jiyuuliaChibiFloating, props), getId(jiyuuliaChibiFloating));
 
-		register(r, getId(rannuncarpus), new ItemBlockSpecialFlower(rannuncarpus, props));
-		register(r, getId(rannuncarpusChibi), new ItemBlockSpecialFlower(rannuncarpusChibi, props));
-		register(r, getId(rannuncarpusFloating), new ItemBlockSpecialFlower(rannuncarpusFloating, props));
-		register(r, getId(rannuncarpusChibiFloating), new ItemBlockSpecialFlower(rannuncarpusChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(rannuncarpus, props), getId(rannuncarpus));
+		r.accept(new ItemBlockSpecialFlower(rannuncarpusChibi, props), getId(rannuncarpusChibi));
+		r.accept(new ItemBlockSpecialFlower(rannuncarpusFloating, props), getId(rannuncarpusFloating));
+		r.accept(new ItemBlockSpecialFlower(rannuncarpusChibiFloating, props), getId(rannuncarpusChibiFloating));
 
-		register(r, getId(hyacidus), new ItemBlockSpecialFlower(hyacidus, props));
-		register(r, getId(hyacidusFloating), new ItemBlockSpecialFlower(hyacidusFloating, props));
+		r.accept(new ItemBlockSpecialFlower(hyacidus, props), getId(hyacidus));
+		r.accept(new ItemBlockSpecialFlower(hyacidusFloating, props), getId(hyacidusFloating));
 
-		register(r, getId(pollidisiac), new ItemBlockSpecialFlower(pollidisiac, props));
-		register(r, getId(pollidisiacFloating), new ItemBlockSpecialFlower(pollidisiacFloating, props));
+		r.accept(new ItemBlockSpecialFlower(pollidisiac, props), getId(pollidisiac));
+		r.accept(new ItemBlockSpecialFlower(pollidisiacFloating, props), getId(pollidisiacFloating));
 
-		register(r, getId(clayconia), new ItemBlockSpecialFlower(clayconia, props));
-		register(r, getId(clayconiaChibi), new ItemBlockSpecialFlower(clayconiaChibi, props));
-		register(r, getId(clayconiaFloating), new ItemBlockSpecialFlower(clayconiaFloating, props));
-		register(r, getId(clayconiaChibiFloating), new ItemBlockSpecialFlower(clayconiaChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(clayconia, props), getId(clayconia));
+		r.accept(new ItemBlockSpecialFlower(clayconiaChibi, props), getId(clayconiaChibi));
+		r.accept(new ItemBlockSpecialFlower(clayconiaFloating, props), getId(clayconiaFloating));
+		r.accept(new ItemBlockSpecialFlower(clayconiaChibiFloating, props), getId(clayconiaChibiFloating));
 
-		register(r, getId(loonium), new ItemBlockSpecialFlower(loonium, props));
-		register(r, getId(looniumFloating), new ItemBlockSpecialFlower(looniumFloating, props));
+		r.accept(new ItemBlockSpecialFlower(loonium, props), getId(loonium));
+		r.accept(new ItemBlockSpecialFlower(looniumFloating, props), getId(looniumFloating));
 
-		register(r, getId(daffomill), new ItemBlockSpecialFlower(daffomill, props));
-		register(r, getId(daffomillFloating), new ItemBlockSpecialFlower(daffomillFloating, props));
+		r.accept(new ItemBlockSpecialFlower(daffomill, props), getId(daffomill));
+		r.accept(new ItemBlockSpecialFlower(daffomillFloating, props), getId(daffomillFloating));
 
-		register(r, getId(vinculotus), new ItemBlockSpecialFlower(vinculotus, props));
-		register(r, getId(vinculotusFloating), new ItemBlockSpecialFlower(vinculotusFloating, props));
+		r.accept(new ItemBlockSpecialFlower(vinculotus, props), getId(vinculotus));
+		r.accept(new ItemBlockSpecialFlower(vinculotusFloating, props), getId(vinculotusFloating));
 
-		register(r, getId(spectranthemum), new ItemBlockSpecialFlower(spectranthemum, props));
-		register(r, getId(spectranthemumFloating), new ItemBlockSpecialFlower(spectranthemumFloating, props));
+		r.accept(new ItemBlockSpecialFlower(spectranthemum, props), getId(spectranthemum));
+		r.accept(new ItemBlockSpecialFlower(spectranthemumFloating, props), getId(spectranthemumFloating));
 
-		register(r, getId(medumone), new ItemBlockSpecialFlower(medumone, props));
-		register(r, getId(medumoneFloating), new ItemBlockSpecialFlower(medumoneFloating, props));
+		r.accept(new ItemBlockSpecialFlower(medumone, props), getId(medumone));
+		r.accept(new ItemBlockSpecialFlower(medumoneFloating, props), getId(medumoneFloating));
 
-		register(r, getId(marimorphosis), new ItemBlockSpecialFlower(marimorphosis, props));
-		register(r, getId(marimorphosisChibi), new ItemBlockSpecialFlower(marimorphosisChibi, props));
-		register(r, getId(marimorphosisFloating), new ItemBlockSpecialFlower(marimorphosisFloating, props));
-		register(r, getId(marimorphosisChibiFloating), new ItemBlockSpecialFlower(marimorphosisChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(marimorphosis, props), getId(marimorphosis));
+		r.accept(new ItemBlockSpecialFlower(marimorphosisChibi, props), getId(marimorphosisChibi));
+		r.accept(new ItemBlockSpecialFlower(marimorphosisFloating, props), getId(marimorphosisFloating));
+		r.accept(new ItemBlockSpecialFlower(marimorphosisChibiFloating, props), getId(marimorphosisChibiFloating));
 
-		register(r, getId(bubbell), new ItemBlockSpecialFlower(bubbell, props));
-		register(r, getId(bubbellChibi), new ItemBlockSpecialFlower(bubbellChibi, props));
-		register(r, getId(bubbellFloating), new ItemBlockSpecialFlower(bubbellFloating, props));
-		register(r, getId(bubbellChibiFloating), new ItemBlockSpecialFlower(bubbellChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(bubbell, props), getId(bubbell));
+		r.accept(new ItemBlockSpecialFlower(bubbellChibi, props), getId(bubbellChibi));
+		r.accept(new ItemBlockSpecialFlower(bubbellFloating, props), getId(bubbellFloating));
+		r.accept(new ItemBlockSpecialFlower(bubbellChibiFloating, props), getId(bubbellChibiFloating));
 
-		register(r, getId(solegnolia), new ItemBlockSpecialFlower(solegnolia, props));
-		register(r, getId(solegnoliaChibi), new ItemBlockSpecialFlower(solegnoliaChibi, props));
-		register(r, getId(solegnoliaFloating), new ItemBlockSpecialFlower(solegnoliaFloating, props));
-		register(r, getId(solegnoliaChibiFloating), new ItemBlockSpecialFlower(solegnoliaChibiFloating, props));
+		r.accept(new ItemBlockSpecialFlower(solegnolia, props), getId(solegnolia));
+		r.accept(new ItemBlockSpecialFlower(solegnoliaChibi, props), getId(solegnoliaChibi));
+		r.accept(new ItemBlockSpecialFlower(solegnoliaFloating, props), getId(solegnoliaFloating));
+		r.accept(new ItemBlockSpecialFlower(solegnoliaChibiFloating, props), getId(solegnoliaChibiFloating));
 
-		register(r, getId(orechidIgnem), new ItemBlockSpecialFlower(orechidIgnem, props));
-		register(r, getId(orechidIgnemFloating), new ItemBlockSpecialFlower(orechidIgnemFloating, props));
+		r.accept(new ItemBlockSpecialFlower(orechidIgnem, props), getId(orechidIgnem));
+		r.accept(new ItemBlockSpecialFlower(orechidIgnemFloating, props), getId(orechidIgnemFloating));
 
-		register(r, getId(labellia), new ItemBlockSpecialFlower(labellia, props));
-		register(r, getId(labelliaFloating), new ItemBlockSpecialFlower(labelliaFloating, props));
+		r.accept(new ItemBlockSpecialFlower(labellia, props), getId(labellia));
+		r.accept(new ItemBlockSpecialFlower(labelliaFloating, props), getId(labelliaFloating));
 	}
 
 	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
-		register(r, getId(pureDaisy), PURE_DAISY);
-		register(r, getId(manastar), MANASTAR);
-		register(r, getId(hydroangeas), HYDROANGEAS);
-		register(r, getId(endoflame), ENDOFLAME);
-		register(r, getId(thermalily), THERMALILY);
-		register(r, getId(rosaArcana), ROSA_ARCANA);
-		register(r, getId(munchdew), MUNCHDEW);
-		register(r, getId(entropinnyum), ENTROPINNYUM);
-		register(r, getId(kekimurus), KEKIMURUS);
-		register(r, getId(gourmaryllis), GOURMARYLLIS);
-		register(r, getId(narslimmus), NARSLIMMUS);
-		register(r, getId(spectrolus), SPECTROLUS);
-		register(r, getId(dandelifeon), DANDELIFEON);
-		register(r, getId(rafflowsia), RAFFLOWSIA);
-		register(r, getId(shulkMeNot), SHULK_ME_NOT);
-		register(r, getId(bellethorn), BELLETHORNE);
-		register(r, getId(bellethornChibi), BELLETHORNE_CHIBI);
-		register(r, getId(bergamute), BERGAMUTE);
-		register(r, getId(dreadthorn), DREADTHORN);
-		register(r, getId(heiseiDream), HEISEI_DREAM);
-		register(r, getId(tigerseye), TIGERSEYE);
-		register(r, getId(jadedAmaranthus), JADED_AMARANTHUS);
-		register(r, getId(orechid), ORECHID);
-		register(r, getId(fallenKanade), FALLEN_KANADE);
-		register(r, getId(exoflame), EXOFLAME);
-		register(r, getId(agricarnation), AGRICARNATION);
-		register(r, getId(agricarnationChibi), AGRICARNATION_CHIBI);
-		register(r, getId(hopperhock), HOPPERHOCK);
-		register(r, getId(hopperhockChibi), HOPPERHOCK_CHIBI);
-		register(r, getId(tangleberrie), TANGLEBERRIE);
-		register(r, getId(tangleberrieChibi), TANGLEBERRIE_CHIBI);
-		register(r, getId(jiyuulia), JIYUULIA);
-		register(r, getId(jiyuuliaChibi), JIYUULIA_CHIBI);
-		register(r, getId(rannuncarpus), RANNUNCARPUS);
-		register(r, getId(rannuncarpusChibi), RANNUNCARPUS_CHIBI);
-		register(r, getId(hyacidus), HYACIDUS);
-		register(r, getId(pollidisiac), POLLIDISIAC);
-		register(r, getId(clayconia), CLAYCONIA);
-		register(r, getId(clayconiaChibi), CLAYCONIA_CHIBI);
-		register(r, getId(loonium), LOONIUM);
-		register(r, getId(daffomill), DAFFOMILL);
-		register(r, getId(vinculotus), VINCULOTUS);
-		register(r, getId(spectranthemum), SPECTRANTHEMUM);
-		register(r, getId(medumone), MEDUMONE);
-		register(r, getId(marimorphosis), MARIMORPHOSIS);
-		register(r, getId(marimorphosisChibi), MARIMORPHOSIS_CHIBI);
-		register(r, getId(bubbell), BUBBELL);
-		register(r, getId(bubbellChibi), BUBBELL_CHIBI);
-		register(r, getId(solegnolia), SOLEGNOLIA);
-		register(r, getId(solegnoliaChibi), SOLEGNOLIA_CHIBI);
-		register(r, getId(orechidIgnem), ORECHID_IGNEM);
-		register(r, getId(labellia), LABELLIA);
+		r.accept(PURE_DAISY, getId(pureDaisy));
+		r.accept(MANASTAR, getId(manastar));
+		r.accept(HYDROANGEAS, getId(hydroangeas));
+		r.accept(ENDOFLAME, getId(endoflame));
+		r.accept(THERMALILY, getId(thermalily));
+		r.accept(ROSA_ARCANA, getId(rosaArcana));
+		r.accept(MUNCHDEW, getId(munchdew));
+		r.accept(ENTROPINNYUM, getId(entropinnyum));
+		r.accept(KEKIMURUS, getId(kekimurus));
+		r.accept(GOURMARYLLIS, getId(gourmaryllis));
+		r.accept(NARSLIMMUS, getId(narslimmus));
+		r.accept(SPECTROLUS, getId(spectrolus));
+		r.accept(DANDELIFEON, getId(dandelifeon));
+		r.accept(RAFFLOWSIA, getId(rafflowsia));
+		r.accept(SHULK_ME_NOT, getId(shulkMeNot));
+		r.accept(BELLETHORNE, getId(bellethorn));
+		r.accept(BELLETHORNE_CHIBI, getId(bellethornChibi));
+		r.accept(BERGAMUTE, getId(bergamute));
+		r.accept(DREADTHORN, getId(dreadthorn));
+		r.accept(HEISEI_DREAM, getId(heiseiDream));
+		r.accept(TIGERSEYE, getId(tigerseye));
+		r.accept(JADED_AMARANTHUS, getId(jadedAmaranthus));
+		r.accept(ORECHID, getId(orechid));
+		r.accept(FALLEN_KANADE, getId(fallenKanade));
+		r.accept(EXOFLAME, getId(exoflame));
+		r.accept(AGRICARNATION, getId(agricarnation));
+		r.accept(AGRICARNATION_CHIBI, getId(agricarnationChibi));
+		r.accept(HOPPERHOCK, getId(hopperhock));
+		r.accept(HOPPERHOCK_CHIBI, getId(hopperhockChibi));
+		r.accept(TANGLEBERRIE, getId(tangleberrie));
+		r.accept(TANGLEBERRIE_CHIBI, getId(tangleberrieChibi));
+		r.accept(JIYUULIA, getId(jiyuulia));
+		r.accept(JIYUULIA_CHIBI, getId(jiyuuliaChibi));
+		r.accept(RANNUNCARPUS, getId(rannuncarpus));
+		r.accept(RANNUNCARPUS_CHIBI, getId(rannuncarpusChibi));
+		r.accept(HYACIDUS, getId(hyacidus));
+		r.accept(POLLIDISIAC, getId(pollidisiac));
+		r.accept(CLAYCONIA, getId(clayconia));
+		r.accept(CLAYCONIA_CHIBI, getId(clayconiaChibi));
+		r.accept(LOONIUM, getId(loonium));
+		r.accept(DAFFOMILL, getId(daffomill));
+		r.accept(VINCULOTUS, getId(vinculotus));
+		r.accept(SPECTRANTHEMUM, getId(spectranthemum));
+		r.accept(MEDUMONE, getId(medumone));
+		r.accept(MARIMORPHOSIS, getId(marimorphosis));
+		r.accept(MARIMORPHOSIS_CHIBI, getId(marimorphosisChibi));
+		r.accept(BUBBELL, getId(bubbell));
+		r.accept(BUBBELL_CHIBI, getId(bubbellChibi));
+		r.accept(SOLEGNOLIA, getId(solegnolia));
+		r.accept(SOLEGNOLIA_CHIBI, getId(solegnoliaChibi));
+		r.accept(ORECHID_IGNEM, getId(orechidIgnem));
+		r.accept(LABELLIA, getId(labellia));
 
 		IWandable.API.registerSelf(
 				DAFFOMILL, HOPPERHOCK, HOPPERHOCK_CHIBI, RANNUNCARPUS, RANNUNCARPUS_CHIBI

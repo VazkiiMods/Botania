@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class PixieHandler {
@@ -59,7 +58,7 @@ public final class PixieHandler {
 	};
 
 	public static void registerAttribute(BiConsumer<Attribute, ResourceLocation> r) {
-		register(r, prefix("pixie_spawn_chance"), PIXIE_SPAWN_CHANCE);
+		r.accept(PIXIE_SPAWN_CHANCE, prefix("pixie_spawn_chance"));
 	}
 
 	public static AttributeModifier makeModifier(EquipmentSlot slot, String name, double amount) {

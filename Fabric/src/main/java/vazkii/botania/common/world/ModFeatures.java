@@ -20,7 +20,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.Set;
@@ -47,8 +46,8 @@ public class ModFeatures {
 	);
 
 	public static void registerFeatures(BiConsumer<Feature<?>, ResourceLocation> r) {
-		ModBlocks.register(r, "mystical_flowers", MYSTICAL_FLOWERS);
-		ModBlocks.register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);
+		r.accept(MYSTICAL_FLOWERS, prefix("mystical_flowers"));
+		r.accept(MYSTICAL_MUSHROOMS, prefix("mystical_mushrooms"));
 
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);

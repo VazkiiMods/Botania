@@ -24,8 +24,6 @@ import vazkii.botania.common.lib.LibEntityNames;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.block.ModBlocks.register;
-
 public final class ModEntities {
 	private static final EntityDimensions ZERO_SIZE = EntityDimensions.fixed(0, 0);
 
@@ -149,25 +147,25 @@ public final class ModEntities {
 			.build();
 
 	public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
-		register(r, LibEntityNames.MANA_BURST, MANA_BURST);
-		register(r, LibEntityNames.PIXIE, PIXIE);
-		register(r, LibEntityNames.FLAME_RING, FLAME_RING);
-		register(r, LibEntityNames.VINE_BALL, VINE_BALL);
-		register(r, LibEntityNames.DOPPLEGANGER, DOPPLEGANGER);
-		register(r, LibEntityNames.MAGIC_LANDMINE, MAGIC_LANDMINE);
-		register(r, LibEntityNames.SPARK, SPARK);
-		register(r, LibEntityNames.THROWN_ITEM, THROWN_ITEM);
-		register(r, LibEntityNames.MAGIC_MISSILE, MAGIC_MISSILE);
-		register(r, LibEntityNames.THORN_CHAKRAM, THORN_CHAKRAM);
-		register(r, LibEntityNames.CORPOREA_SPARK, CORPOREA_SPARK);
-		register(r, LibEntityNames.ENDER_AIR_BOTTLE, ENDER_AIR_BOTTLE);
-		register(r, LibEntityNames.POOL_MINECART, POOL_MINECART);
-		register(r, LibEntityNames.PINK_WITHER, PINK_WITHER);
-		register(r, LibEntityNames.PLAYER_MOVER, PLAYER_MOVER);
-		register(r, LibEntityNames.MANA_STORM, MANA_STORM);
-		register(r, LibEntityNames.BABYLON_WEAPON, BABYLON_WEAPON);
-		register(r, LibEntityNames.FALLING_STAR, FALLING_STAR);
-		register(r, LibEntityNames.ENDER_AIR, ENDER_AIR);
+		r.accept(MANA_BURST, LibEntityNames.MANA_BURST);
+		r.accept(PIXIE, LibEntityNames.PIXIE);
+		r.accept(FLAME_RING, LibEntityNames.FLAME_RING);
+		r.accept(VINE_BALL, LibEntityNames.VINE_BALL);
+		r.accept(DOPPLEGANGER, LibEntityNames.DOPPLEGANGER);
+		r.accept(MAGIC_LANDMINE, LibEntityNames.MAGIC_LANDMINE);
+		r.accept(SPARK, LibEntityNames.SPARK);
+		r.accept(THROWN_ITEM, LibEntityNames.THROWN_ITEM);
+		r.accept(MAGIC_MISSILE, LibEntityNames.MAGIC_MISSILE);
+		r.accept(THORN_CHAKRAM, LibEntityNames.THORN_CHAKRAM);
+		r.accept(CORPOREA_SPARK, LibEntityNames.CORPOREA_SPARK);
+		r.accept(ENDER_AIR_BOTTLE, LibEntityNames.ENDER_AIR_BOTTLE);
+		r.accept(POOL_MINECART, LibEntityNames.POOL_MINECART);
+		r.accept(PINK_WITHER, LibEntityNames.PINK_WITHER);
+		r.accept(PLAYER_MOVER, LibEntityNames.PLAYER_MOVER);
+		r.accept(MANA_STORM, LibEntityNames.MANA_STORM);
+		r.accept(BABYLON_WEAPON, LibEntityNames.BABYLON_WEAPON);
+		r.accept(FALLING_STAR, LibEntityNames.FALLING_STAR);
+		r.accept(ENDER_AIR, LibEntityNames.ENDER_AIR);
 
 		MinecartComparatorLogicRegistry.register(POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 	}
