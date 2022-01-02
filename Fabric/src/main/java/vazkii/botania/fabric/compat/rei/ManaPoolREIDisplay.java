@@ -6,12 +6,9 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei;
+package vazkii.botania.fabric.compat.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +17,6 @@ import vazkii.botania.common.crafting.RecipeManaInfusion;
 
 import javax.annotation.Nullable;
 
-@Environment(EnvType.CLIENT)
 public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion> {
 	@Nullable
 	private final StateIngredient catalyst;

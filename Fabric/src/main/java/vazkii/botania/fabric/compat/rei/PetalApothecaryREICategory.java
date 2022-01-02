@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei;
+package vazkii.botania.fabric.compat.rei;
 
 import me.shedaniel.math.FloatingPoint;
 import me.shedaniel.math.Point;
@@ -20,8 +20,6 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -29,54 +27,48 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
-public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDisplay> {
-	private final EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(ModBlocks.runeAltar));
+public class PetalApothecaryREICategory implements DisplayCategory<PetalApothecaryREIDisplay> {
+	private final EntryStack<ItemStack> apothecary = EntryStacks.of(new ItemStack(ModBlocks.defaultAltar));
 	private final ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
-	public @NotNull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {
-		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
+	public @NotNull CategoryIdentifier<PetalApothecaryREIDisplay> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 
 	@Override
 	public @NotNull Renderer getIcon() {
-		return altar;
+		return this.apothecary;
 	}
 
 	@Override
 	public @NotNull Component getTitle() {
-		return new TranslatableComponent("botania.nei.runicAltar");
+		return new TranslatableComponent("botania.nei.petalApothecary");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(PetalApothecaryREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
 
 		double angleBetweenEach = 360.0 / inputs.size();
-		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 38);
-		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 6);
+		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 34);
+		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 2);
 		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(helper, matrices, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82);
-			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
-		})));
+		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82))));
 
 		for (EntryIngredient o : inputs) {
 			widgets.add(Widgets.createSlot(point.getLocation()).entries(o).disableBackground());
 			point = CategoryUtils.rotatePointAbout(point, center, angleBetweenEach);
 		}
-		widgets.add(Widgets.createSlot(center).entry(this.altar).disableBackground());
+		widgets.add(Widgets.createSlot(center).entry(this.apothecary).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x + 38, center.y - 35)).entry(output).disableBackground());
 
 		return widgets;
@@ -84,6 +76,6 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 
 	@Override
 	public int getDisplayHeight() {
-		return 114;
+		return 107;
 	}
 }

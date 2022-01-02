@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei;
+package vazkii.botania.fabric.compat.rei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -14,12 +14,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.shedaniel.math.FloatingPoint;
 import me.shedaniel.math.Point;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 
-@Environment(EnvType.CLIENT)
 interface CategoryUtils {
 	/**
 	 * Widgets#createTexturedWidget doesn't allow partial transparency, so this is called in createDrawableWidget

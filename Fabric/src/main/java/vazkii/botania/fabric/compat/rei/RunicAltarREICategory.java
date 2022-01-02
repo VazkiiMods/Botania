@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei;
+package vazkii.botania.fabric.compat.rei;
 
 import me.shedaniel.math.FloatingPoint;
 import me.shedaniel.math.Point;
@@ -35,37 +35,37 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TerraPlateREICategory implements DisplayCategory<TerraPlateREIDisplay> {
-	private static final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/terrasteel_jei_overlay.png");
-	private final EntryStack<ItemStack> icon = EntryStacks.of(ModBlocks.terraPlate);
+public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDisplay> {
+	private final EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(ModBlocks.runeAltar));
+	private final ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
-	public @NotNull CategoryIdentifier<TerraPlateREIDisplay> getCategoryIdentifier() {
-		return BotaniaREICategoryIdentifiers.TERRA_PLATE;
+	public @NotNull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
 	}
 
 	@Override
 	public @NotNull Renderer getIcon() {
-		return icon;
+		return altar;
 	}
 
 	@Override
 	public @NotNull Component getTitle() {
-		return new TranslatableComponent("botania.nei.terraPlate");
+		return new TranslatableComponent("botania.nei.runicAltar");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(TerraPlateREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
 
 		double angleBetweenEach = 360.0 / inputs.size();
-		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 44);
-		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 12);
+		FloatingPoint point = new FloatingPoint(bounds.getCenterX() - 8, bounds.getCenterY() - 38);
+		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 6);
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
-			CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 24, center.y - 24, 42, 29, 64, 64);
+			CategoryUtils.drawOverlay(helper, matrices, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82);
 			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
 		})));
 
@@ -73,13 +73,14 @@ public class TerraPlateREICategory implements DisplayCategory<TerraPlateREIDispl
 			widgets.add(Widgets.createSlot(point.getLocation()).entries(o).disableBackground());
 			point = CategoryUtils.rotatePointAbout(point, center, angleBetweenEach);
 		}
-		widgets.add(Widgets.createSlot(center).entry(output).disableBackground());
+		widgets.add(Widgets.createSlot(center).entry(this.altar).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x + 38, center.y - 35)).entry(output).disableBackground());
 
 		return widgets;
 	}
 
 	@Override
 	public int getDisplayHeight() {
-		return 103;
+		return 114;
 	}
 }
