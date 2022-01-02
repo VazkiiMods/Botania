@@ -10,17 +10,12 @@ package vazkii.botania.common.item.equipment.armor.manaweave;
 
 import com.google.common.base.Suppliers;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -29,8 +24,6 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.armor.ModelArmor;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -43,16 +36,6 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	public ItemManaweaveArmor(EquipmentSlot type, Properties props) {
 		super(type, BotaniaAPI.instance().getManaweaveArmorMaterial(), props);
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	protected HumanoidModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
-		var entityModels = Minecraft.getInstance().getEntityModels();
-		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
-				? ModModelLayers.MANAWEAVE_INNER_ARMOR
-				: ModModelLayers.MANAWEAVE_OUTER_ARMOR);
-		return new ModelArmor(root, slot);
 	}
 
 	@Override

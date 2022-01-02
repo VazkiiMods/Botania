@@ -13,7 +13,6 @@ import com.google.common.base.Suppliers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -34,8 +33,6 @@ import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.armor.ModelArmor;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -90,23 +87,6 @@ public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
 
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
 		return LibResources.MODEL_MANASTEEL_NEW;
-	}
-
-	@Environment(EnvType.CLIENT)
-	public HumanoidModel<LivingEntity> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<LivingEntity> original) {
-		if (model == null) {
-			model = provideArmorModelForSlot(slot);
-		}
-		return model;
-	}
-
-	@Environment(EnvType.CLIENT)
-	protected HumanoidModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
-		var entityModels = Minecraft.getInstance().getEntityModels();
-		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
-				? ModModelLayers.MANASTEEL_INNER_ARMOR
-				: ModModelLayers.MANASTEEL_OUTER_ARMOR);
-		return new ModelArmor(root, slot);
 	}
 
 	@Override

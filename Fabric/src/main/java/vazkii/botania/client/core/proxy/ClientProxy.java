@@ -61,6 +61,7 @@ import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.model.ModLayerDefinitions;
+import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
@@ -167,10 +168,12 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 		ArmorRenderer renderer = (matrices, vertexConsumers, stack, entity, slot, light, contextModel) -> {
 			ItemManasteelArmor armor = (ItemManasteelArmor) stack.getItem();
-			var model = armor.getArmorModel(entity, stack, slot, contextModel);
+			var model = ArmorModels.get(stack);
 			var texture = armor.getArmorTexture(stack, slot);
-			contextModel.copyPropertiesTo(model);
-			ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new ResourceLocation(texture));
+			if (model != null) {
+				contextModel.copyPropertiesTo(model);
+				ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new ResourceLocation(texture));
+			}
 		};
 		ArmorRenderer.register(renderer, armors);
 	}

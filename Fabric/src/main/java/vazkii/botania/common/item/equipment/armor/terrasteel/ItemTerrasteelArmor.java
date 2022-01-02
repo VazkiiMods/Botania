@@ -12,17 +12,12 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -31,8 +26,6 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.armor.ModelArmor;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -46,16 +39,6 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	public ItemTerrasteelArmor(EquipmentSlot type, Properties props) {
 		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), props);
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	protected HumanoidModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
-		var entityModels = Minecraft.getInstance().getEntityModels();
-		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
-				? ModModelLayers.TERRASTEEL_INNER_ARMOR
-				: ModModelLayers.TERRASTEEL_OUTER_ARMOR);
-		return new ModelArmor(root, slot);
 	}
 
 	@Override

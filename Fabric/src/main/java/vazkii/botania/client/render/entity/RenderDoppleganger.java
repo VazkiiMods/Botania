@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
@@ -40,6 +41,8 @@ public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, 
 		super(ctx, new Model(ctx.bakeLayer(ModelLayers.PLAYER)), 0F);
 		this.normalModel = (Model) this.getModel();
 		this.slimModel = new Model(ctx.bakeLayer(ModelLayers.PLAYER_SLIM));
+		// Call this here bc why not
+		ArmorModels.init(ctx);
 	}
 
 	@Override
