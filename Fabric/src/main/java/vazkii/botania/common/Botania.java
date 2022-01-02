@@ -104,7 +104,7 @@ public class Botania implements ModInitializer {
 	public void onInitialize() {
 		gardenOfGlassLoaded = IXplatAbstractions.INSTANCE.isModLoaded(LibMisc.GOG_MOD_ID);
 		trinketsLoaded = IXplatAbstractions.INSTANCE.isModLoaded("trinkets");
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
 			runOnClient = t -> t.get().run();
 		}
 		ConfigHandler.setup();

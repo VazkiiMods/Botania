@@ -33,6 +33,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
 import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -103,7 +104,7 @@ public class BlockPistonRelay extends BlockMod {
 				world.playSound(null, pos, ModSounds.ding, SoundSource.BLOCKS, 0.5F, 1F);
 			} else {
 				var data = WorldData.get(world);
-				if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+				if (IXplatAbstractions.INSTANCE.isDevEnvironment()) {
 					Botania.LOGGER.info("PistonRelay pairs");
 					for (var e : data.mapping.entrySet()) {
 						Botania.LOGGER.info("{} -> {}", e.getKey(), e.getValue());

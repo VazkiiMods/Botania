@@ -23,6 +23,7 @@ import net.minecraft.network.chat.TextComponent;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.data.recipes.*;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -35,7 +36,7 @@ public class DataGenerators {
 	}
 
 	public static void registerCommands(CommandDispatcher<CommandSourceStack> disp) {
-		if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
+		if (!IXplatAbstractions.INSTANCE.isDevEnvironment()) {
 			return;
 		}
 

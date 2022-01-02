@@ -11,8 +11,12 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public interface IXplatAbstractions {
+	// FML/Fabric Loader
 	boolean isModLoaded(String modId);
+	boolean isDevEnvironment();
+	boolean isPhysicalClient();
 
+	// Misc
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... p_155275_);
 
 	IXplatAbstractions INSTANCE = find();

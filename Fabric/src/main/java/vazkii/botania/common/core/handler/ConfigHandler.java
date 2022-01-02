@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.*;
@@ -65,7 +66,7 @@ public final class ConfigHandler {
 		ConfigTree common = COMMON.configure(ConfigTree.builder());
 		setupConfig(common, Paths.get("config", LibMisc.MOD_ID + "-common.json5"), serializer);
 
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
 			ConfigTree client = CLIENT.configure(ConfigTree.builder());
 			setupConfig(client, Paths.get("config", LibMisc.MOD_ID + "-client.json5"), serializer);
 		}

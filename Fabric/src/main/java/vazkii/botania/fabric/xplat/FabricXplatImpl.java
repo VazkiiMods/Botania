@@ -1,5 +1,6 @@
 package vazkii.botania.fabric.xplat;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -16,6 +17,16 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean isModLoaded(String modId) {
 		return FabricLoader.getInstance().isModLoaded(modId);
+	}
+
+	@Override
+	public boolean isDevEnvironment() {
+		return FabricLoader.getInstance().isDevelopmentEnvironment();
+	}
+
+	@Override
+	public boolean isPhysicalClient() {
+		return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
 	}
 
 	@Override
