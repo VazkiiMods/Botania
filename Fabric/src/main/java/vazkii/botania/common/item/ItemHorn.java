@@ -92,7 +92,7 @@ public class ItemHorn extends Item {
 			BlockEntity be = world.getBlockEntity(pos);
 			IHornHarvestable harvestable = IHornHarvestable.API.find(world, pos, state, be, Unit.INSTANCE);
 
-			if (SubTileBergamute.isBergamuteNearby(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
+			if (SubTileBergamute.isBergamuteNearby(world.dimension(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
 			}
 			if (harvestable != null

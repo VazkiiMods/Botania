@@ -54,7 +54,7 @@ public class MixinSoundEngine {
 			// We halve the volume for each flower (see return below)
 			// halving 8 times already brings the multiplier to near zero, so no
 			// need to keep going if we've seen more than 8.
-			Pair<Integer, SubTileBergamute> countAndBerg = SubTileBergamute.getBergamutesNearby(tmpSound.getX(), tmpSound.getY(), tmpSound.getZ(), 8);
+			Pair<Integer, SubTileBergamute> countAndBerg = SubTileBergamute.getBergamutesNearby(null, tmpSound.getX(), tmpSound.getY(), tmpSound.getZ(), 8);
 			int count = countAndBerg.getFirst();
 			if (count > 0) {
 				if (mutedSounds == null) {

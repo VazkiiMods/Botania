@@ -11,6 +11,8 @@ package vazkii.botania.common.block.subtile.functional;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -23,7 +25,8 @@ import java.util.*;
 
 public class SubTileBergamute extends TileEntitySpecialFlower {
 	private static final int RANGE = 4;
-	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SubTileBergamute> clientFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SubTileBergamute> serverFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private boolean disabled = false;
 
 	public SubTileBergamute(BlockPos pos, BlockState state) {
@@ -34,24 +37,30 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
+		disabled = getLevel().hasNeighborSignal(getBlockPos());
 		if (getLevel().isClientSide) {
-			disabled = getLevel().hasNeighborSignal(getBlockPos());
-			existingFlowers.add(this);
+			clientFlowers.add(this);
+		} else {
+			serverFlowers.add(this);
 		}
 	}
 
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		existingFlowers.remove(this);
+		if (getLevel().isClientSide) {
+			clientFlowers.remove(this);
+		} else {
+			serverFlowers.remove(this);
+		}
 	}
 
-	public static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z, int maxCount) {
+	public static Pair<Integer, SubTileBergamute> getBergamutesNearby(ResourceKey<Level> level, double x, double y, double z, int maxCount) {
 		int count = 0;
 		SubTileBergamute tile = null;
 
-		for (SubTileBergamute f : existingFlowers) {
-			if (!f.disabled && f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
+		for (SubTileBergamute f : level == null ? clientFlowers : serverFlowers) {
+			if (!f.disabled && (level == null || level == f.level.dimension()) && f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
 				count++;
 				if (count == 1) {
 					tile = f;
@@ -64,8 +73,8 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		return Pair.of(count, tile);
 	}
 
-	public static boolean isBergamuteNearby(double x, double y, double z) {
-		return getBergamutesNearby(x, y, z, 1).getFirst() > 0;
+	public static boolean isBergamuteNearby(ResourceKey<Level> level, double x, double y, double z) {
+		return getBergamutesNearby(level, x, y, z, 1).getFirst() > 0;
 	}
 
 	public static void particle(SubTileBergamute berg) {
