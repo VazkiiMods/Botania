@@ -10,8 +10,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -35,6 +33,9 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.lib.ModTags;
 
@@ -42,53 +43,56 @@ public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 
 	public ItemMonocle(Properties props) {
 		super(props);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.head.translateAndRotate(ms);
-		ms.translate(0.15, -0.2, -0.25);
-		ms.scale(0.3F, -0.3F, -0.3F);
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-				light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
+	public static class Renderer implements AccessoryRenderer {
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			bipedModel.head.translateAndRotate(ms);
+			ms.translate(0.15, -0.2, -0.25);
+			ms.scale(0.3F, -0.3F, -0.3F);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
+		}
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static void renderHUD(PoseStack ms, Player player) {
-		Minecraft mc = Minecraft.getInstance();
-		HitResult ray = mc.hitResult;
-		if (ray == null || ray.getType() != HitResult.Type.BLOCK) {
-			return;
+	public static class Hud {
+		public static void render(PoseStack ms, Player player) {
+			Minecraft mc = Minecraft.getInstance();
+			HitResult ray = mc.hitResult;
+			if (ray == null || ray.getType() != HitResult.Type.BLOCK) {
+				return;
+			}
+			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
+			BlockState state = player.level.getBlockState(pos);
+			player.level.getBlockEntity(pos);
+
+			ItemStack dispStack = ItemStack.EMPTY;
+			String text = "";
+
+			if (state.is(Blocks.REDSTONE_WIRE)) {
+				dispStack = new ItemStack(Items.REDSTONE);
+				text = ChatFormatting.RED + "" + state.getValue(RedStoneWireBlock.POWER);
+			} else if (state.is(Blocks.REPEATER)) {
+				dispStack = new ItemStack(Blocks.REPEATER);
+				text = "" + state.getValue(RepeaterBlock.DELAY);
+			} else if (state.is(Blocks.COMPARATOR)) {
+				dispStack = new ItemStack(Blocks.COMPARATOR);
+				text = state.getValue(ComparatorBlock.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
+			}
+
+			if (dispStack.isEmpty()) {
+				return;
+			}
+
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+
+			mc.getItemRenderer().renderAndDecorateItem(dispStack, x, y);
+
+			mc.font.drawShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
 		}
-		BlockPos pos = ((BlockHitResult) ray).getBlockPos();
-		BlockState state = player.level.getBlockState(pos);
-		player.level.getBlockEntity(pos);
-
-		ItemStack dispStack = ItemStack.EMPTY;
-		String text = "";
-
-		if (state.is(Blocks.REDSTONE_WIRE)) {
-			dispStack = new ItemStack(Items.REDSTONE);
-			text = ChatFormatting.RED + "" + state.getValue(RedStoneWireBlock.POWER);
-		} else if (state.is(Blocks.REPEATER)) {
-			dispStack = new ItemStack(Blocks.REPEATER);
-			text = "" + state.getValue(RepeaterBlock.DELAY);
-		} else if (state.is(Blocks.COMPARATOR)) {
-			dispStack = new ItemStack(Blocks.COMPARATOR);
-			text = state.getValue(ComparatorBlock.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
-		}
-
-		if (dispStack.isEmpty()) {
-			return;
-		}
-
-		int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
-		int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
-
-		mc.getItemRenderer().renderAndDecorateItem(dispStack, x, y);
-
-		mc.font.drawShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
 	}
 
 	public static boolean hasMonocle(LivingEntity living) {

@@ -13,8 +13,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -39,6 +37,8 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -51,6 +51,7 @@ public class ItemItemFinder extends ItemBauble {
 
 	public ItemItemFinder(Properties props) {
 		super(props);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
@@ -66,18 +67,19 @@ public class ItemItemFinder extends ItemBauble {
 		}
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !living.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
-		bipedModel.head.translateAndRotate(ms);
-		ms.translate(-0.35, -0.2, armor ? 0.05 : 0.1);
-		ms.scale(0.75F, -0.75F, -0.75F);
+	public static class Renderer implements AccessoryRenderer {
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			boolean armor = !living.getItemBySlot(EquipmentSlot.HEAD).isEmpty();
+			bipedModel.head.translateAndRotate(ms);
+			ms.translate(-0.35, -0.2, armor ? 0.05 : 0.1);
+			ms.scale(0.75F, -0.75F, -0.75F);
 
-		BakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
-		VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
-		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
-				.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+			BakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
+			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+		}
 	}
 
 	protected void tickClient(ItemStack stack, Player player) {

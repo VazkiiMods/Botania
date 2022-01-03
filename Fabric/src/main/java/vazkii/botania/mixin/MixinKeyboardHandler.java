@@ -24,7 +24,7 @@ public class MixinKeyboardHandler {
 	@Inject(at = @At("HEAD"), method = "keyPress")
 	private void keyEvent(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
 		if (window == Minecraft.getInstance().getWindow().getWindow()) {
-			ItemDodgeRing.onKeyDown();
+			ItemDodgeRing.ClientLogic.onKeyDown();
 			KonamiHandler.handleInput(key, action, modifiers);
 		}
 	}

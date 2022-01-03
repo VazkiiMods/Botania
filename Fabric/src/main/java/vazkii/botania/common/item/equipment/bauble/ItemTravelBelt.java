@@ -13,8 +13,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -31,6 +29,9 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import java.util.UUID;
@@ -44,8 +45,6 @@ public class ItemTravelBelt extends ItemBauble {
 			0.65, AttributeModifier.Operation.ADDITION);
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
-	@Environment(EnvType.CLIENT)
-	private static HumanoidModel<LivingEntity> model;
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
@@ -56,6 +55,7 @@ public class ItemTravelBelt extends ItemBauble {
 
 	public ItemTravelBelt(Properties props) {
 		this(props, 0.035F, 0.2F, 2F);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static float onPlayerFall(Player entity, float dist) {
@@ -143,26 +143,28 @@ public class ItemTravelBelt extends ItemBauble {
 		return !result.isEmpty() && ManaItemHandler.instance().requestManaExact(result, player, COST, false);
 	}
 
-	@Environment(EnvType.CLIENT)
 	ResourceLocation getRenderTexture() {
 		return texture;
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.rotateIfSneaking(ms, player);
+	public static class Renderer implements AccessoryRenderer {
+		private static HumanoidModel<LivingEntity> model = null;
 
-		float s = 1.15F;
-		ms.scale(s, s, s);
-		if (model == null) {
-			model = new HumanoidModel<>(Minecraft.getInstance()
-					.getEntityModels().bakeLayer(ModelLayers.PLAYER));
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			AccessoryRenderHelper.rotateIfSneaking(ms, living);
+
+			float s = 1.15F;
+			ms.scale(s, s, s);
+			if (model == null) {
+				model = new HumanoidModel<>(Minecraft.getInstance()
+						.getEntityModels().bakeLayer(ModelLayers.PLAYER));
+			}
+
+			ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
+			VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
+			model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 		}
-
-		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
-		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
-		model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
 }

@@ -13,8 +13,6 @@ import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -29,14 +27,17 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.Botania;
 
 public class ItemKnockbackBelt extends ItemBauble {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
-	private static HumanoidModel<LivingEntity> model;
 
 	public ItemKnockbackBelt(Properties props) {
 		super(props);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
@@ -46,19 +47,22 @@ public class ItemKnockbackBelt extends ItemBauble {
 		return attributes;
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		AccessoryRenderHelper.rotateIfSneaking(ms, living);
+	public static class Renderer implements AccessoryRenderer {
+		private static HumanoidModel<LivingEntity> model = null;
 
-		float s = 1.15F;
-		ms.scale(s, s, s);
-		if (model == null) {
-			model = new HumanoidModel<>(Minecraft.getInstance()
-					.getEntityModels().bakeLayer(ModelLayers.PLAYER));
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			AccessoryRenderHelper.rotateIfSneaking(ms, living);
+
+			float s = 1.15F;
+			ms.scale(s, s, s);
+			if (model == null) {
+				model = new HumanoidModel<>(Minecraft.getInstance()
+						.getEntityModels().bakeLayer(ModelLayers.PLAYER));
+			}
+
+			VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
+			model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY);
 		}
-
-		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
-		model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY);
 	}
 }

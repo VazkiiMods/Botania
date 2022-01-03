@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -43,6 +41,9 @@ import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -54,6 +55,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	public ItemBloodPendant(Properties props) {
 		super(props);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
@@ -113,26 +115,27 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		}
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
-		bipedModel.body.translateAndRotate(ms);
-		ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
-		ms.scale(0.5F, -0.5F, -0.5F);
+	public static class Renderer implements AccessoryRenderer {
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+			bipedModel.body.translateAndRotate(ms);
+			ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
+			ms.scale(0.5F, -0.5F, -0.5F);
 
-		BakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
-		VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
-		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
-				.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+			BakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
+			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 
-		model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
-		int color = ColorProviderRegistry.ITEM.get(stack.getItem()).getColor(stack, 1);
-		float r = (color >> 16 & 0xFF) / 255F;
-		float g = (color >> 8 & 0xFF) / 255F;
-		float b = (color & 0xFF) / 255F;
-		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
-				.renderModel(ms.last(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.NO_OVERLAY);
+			model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
+			int color = ColorProviderRegistry.ITEM.get(stack.getItem()).getColor(stack, 1);
+			float r = (color >> 16 & 0xFF) / 255F;
+			float g = (color >> 8 & 0xFF) / 255F;
+			float b = (color & 0xFF) / 255F;
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+					.renderModel(ms.last(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		}
 	}
 
 	@Override

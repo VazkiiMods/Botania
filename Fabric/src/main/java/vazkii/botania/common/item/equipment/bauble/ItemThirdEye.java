@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -30,6 +28,9 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityMagicMissile;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class ItemThirdEye extends ItemBauble {
 
 	public ItemThirdEye(Properties props) {
 		super(props);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
@@ -60,38 +62,39 @@ public class ItemThirdEye extends ItemBauble {
 		}
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !living.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+	public static class Renderer implements AccessoryRenderer {
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			boolean armor = !living.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
 
-		for (int i = 0; i < 3; i++) {
-			ms.pushPose();
-			bipedModel.body.translateAndRotate(ms);
+			for (int i = 0; i < 3; i++) {
+				ms.pushPose();
+				bipedModel.body.translateAndRotate(ms);
 
-			switch (i) {
-				case 0:
-					break;
-				case 1:
-					double time = ClientTickHandler.total * 0.12;
-					double dist = 0.05;
-					ms.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
+				switch (i) {
+					case 0:
+						break;
+					case 1:
+						double time = ClientTickHandler.total * 0.12;
+						double dist = 0.05;
+						ms.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
 
-					ms.scale(0.75F, 0.75F, 1F);
-					ms.translate(0, 0.1, -0.025);
-					break;
-				case 2:
-					ms.translate(0, 0, -0.05);
-					break;
+						ms.scale(0.75F, 0.75F, 1F);
+						ms.translate(0, 0.1, -0.025);
+						break;
+					case 2:
+						ms.translate(0, 0, -0.05);
+						break;
+				}
+
+				ms.translate(-0.3, 0.6, armor ? 0.10 : 0.15);
+				ms.scale(0.6F, -0.6F, -0.6F);
+				BakedModel model = MiscellaneousIcons.INSTANCE.thirdEyeLayers[i];
+				VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+				Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+						.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+				ms.popPose();
 			}
-
-			ms.translate(-0.3, 0.6, armor ? 0.10 : 0.15);
-			ms.scale(0.6F, -0.6F, -0.6F);
-			BakedModel model = MiscellaneousIcons.INSTANCE.thirdEyeLayers[i];
-			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
-					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
-			ms.popPose();
 		}
 	}
 

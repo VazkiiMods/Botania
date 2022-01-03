@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -29,6 +27,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -43,6 +44,7 @@ public class ItemDivaCharm extends ItemBauble {
 
 	public ItemDivaCharm(Properties props) {
 		super(props);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static void onEntityDamaged(Player player, Entity entity) {
@@ -77,13 +79,14 @@ public class ItemDivaCharm extends ItemBauble {
 		}
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.head.translateAndRotate(ms);
-		ms.translate(0.15, -0.42, -0.35);
-		ms.scale(0.4F, -0.4F, -0.4F);
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-				light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
+	public static class Renderer implements AccessoryRenderer {
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			bipedModel.head.translateAndRotate(ms);
+			ms.translate(0.15, -0.42, -0.35);
+			ms.scale(0.4F, -0.4F, -0.4F);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
+		}
 	}
 }

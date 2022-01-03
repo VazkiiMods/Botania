@@ -14,8 +14,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.model.HumanoidModel;
@@ -47,6 +45,7 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -283,252 +282,247 @@ public class ItemFlightTiara extends ItemBauble {
 		return super.hasRender(stack, living) && living instanceof Player;
 	}
 
-	/*
-		NB: All of the following methods are somewhat similar, but they are split apart to isolate the logic.
-		Trying too hard to factor things out of each case led to very spaghetti-looking code.
-		As such, only Jibril's is commented, the rest are variations on the same theme
-	*/
+	public static class Renderer implements AccessoryRenderer {
+		/*
+			NB: All of the following methods are somewhat similar, but they are split apart to isolate the logic.
+			Trying too hard to factor things out of each case led to very spaghetti-looking code.
+			As such, only Jibril's is commented, the rest are variations on the same theme
+		*/
 
-	@Environment(EnvType.CLIENT)
-	private static void renderBasic(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light, float flap) {
-		ms.pushPose();
-
-		// attach to body
-		bipedModel.body.translateAndRotate(ms);
-
-		// position on body
-		ms.translate(0, 0.5, 0.2);
-
-		for (int i = 0; i < 2; i++) {
+		private static void renderBasic(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light, float flap) {
 			ms.pushPose();
-			ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
 
-			// move so flapping about the edge instead of center of texture
-			ms.translate(-1, 0, 0);
+			// attach to body
+			bipedModel.body.translateAndRotate(ms);
 
-			// rotate since the textures are stored rotated
-			ms.mulPose(Vector3f.ZP.rotationDegrees(-60));
-			ms.scale(1.5F, -1.5F, -1.5F);
-			Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+			// position on body
+			ms.translate(0, 0.5, 0.2);
+
+			for (int i = 0; i < 2; i++) {
+				ms.pushPose();
+				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+
+				// move so flapping about the edge instead of center of texture
+				ms.translate(-1, 0, 0);
+
+				// rotate since the textures are stored rotated
+				ms.mulPose(Vector3f.ZP.rotationDegrees(-60));
+				ms.scale(1.5F, -1.5F, -1.5F);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+				ms.popPose();
+			}
+
 			ms.popPose();
 		}
 
-		ms.popPose();
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void renderSephiroth(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light, float flap) {
-		ms.pushPose();
-		bipedModel.body.translateAndRotate(ms);
-		ms.translate(0, 0.5, 0.2);
-
-		ms.mulPose(Vector3f.YP.rotationDegrees(flap));
-		ms.translate(-1.1, 0, 0);
-
-		ms.mulPose(Vector3f.ZP.rotationDegrees(-60));
-		ms.scale(1.6F, -1.6F, -1.6F);
-		Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
-		ms.popPose();
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void renderCirno(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light) {
-		ms.pushPose();
-		bipedModel.body.translateAndRotate(ms);
-		ms.translate(-0.8, 0.15, 0.25);
-
-		for (int i = 0; i < 2; i++) {
+		private static void renderSephiroth(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light, float flap) {
 			ms.pushPose();
+			bipedModel.body.translateAndRotate(ms);
+			ms.translate(0, 0.5, 0.2);
 
-			if (i == 1) {
-				ms.mulPose(Vector3f.YP.rotationDegrees(180));
-				ms.translate(-1.6, 0, 0);
-			}
+			ms.mulPose(Vector3f.YP.rotationDegrees(flap));
+			ms.translate(-1.1, 0, 0);
 
+			ms.mulPose(Vector3f.ZP.rotationDegrees(-60));
 			ms.scale(1.6F, -1.6F, -1.6F);
 			Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 			ms.popPose();
 		}
 
-		ms.popPose();
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void renderPhoenix(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, float flap) {
-		ms.pushPose();
-		bipedModel.body.translateAndRotate(ms);
-		ms.translate(0, -0.2, 0.2);
-
-		for (int i = 0; i < 2; i++) {
+		private static void renderCirno(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light) {
 			ms.pushPose();
-			ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+			bipedModel.body.translateAndRotate(ms);
+			ms.translate(-0.8, 0.15, 0.25);
 
-			ms.translate(-0.9, 0, 0);
-
-			ms.scale(1.7F, -1.7F, -1.7F);
-			Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
-			ms.popPose();
-		}
-
-		ms.popPose();
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void renderKuroyukihime(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, float flap) {
-		ms.pushPose();
-		bipedModel.body.translateAndRotate(ms);
-		ms.translate(0, -0.4, 0.2);
-
-		for (int i = 0; i < 2; i++) {
-			ms.pushPose();
-			ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
-
-			ms.translate(-1.3, 0, 0);
-
-			ms.scale(2.5F, -2.5F, -2.5F);
-			Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
-			ms.popPose();
-		}
-
-		ms.popPose();
-	}
-
-	@Environment(EnvType.CLIENT)
-	private static void renderCustomColor(HumanoidModel<?> bipedModel, BakedModel model, LivingEntity living, ItemStack stack, PoseStack ms, MultiBufferSource buffers, float flap, int color) {
-		ms.pushPose();
-		bipedModel.body.translateAndRotate(ms);
-		ms.translate(0, 0, 0.2);
-
-		for (int i = 0; i < 2; i++) {
-			ms.pushPose();
-			ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
-			ms.translate(-0.7, 0, 0);
-
-			ms.scale(1.5F, -1.5F, -1.5F);
-
-			RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
-			ms.popPose();
-		}
-
-		ms.popPose();
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		int meta = getVariant(stack);
-		if (meta <= 0 || meta >= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length + 1) {
-			return;
-		}
-
-		BakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-		boolean flying = living instanceof Player && ((Player) living).getAbilities().flying;
-		float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
-
-		switch (meta) {
-			case 1:
-				renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
+			for (int i = 0; i < 2; i++) {
 				ms.pushPose();
-				renderHalo(bipedModel, living, ms, buffers, partialTicks);
+
+				if (i == 1) {
+					ms.mulPose(Vector3f.YP.rotationDegrees(180));
+					ms.translate(-1.6, 0, 0);
+				}
+
+				ms.scale(1.6F, -1.6F, -1.6F);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 				ms.popPose();
-				break;
-			case 2:
-				renderSephiroth(bipedModel, model, stack, ms, buffers, light, flap);
-				break;
-			case 3:
-				renderCirno(bipedModel, model, stack, ms, buffers, light);
-				break;
-			case 4:
-				renderPhoenix(bipedModel, model, stack, ms, buffers, flap);
-				break;
-			case 5:
-				renderKuroyukihime(bipedModel, model, stack, ms, buffers, flap);
-				break;
-			case 6:
-			case 8:
-				renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
-				break;
-			case 7:
-				float alpha = 0.5F + (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.2F;
-				int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
-				renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
-				break;
-			case 9:
-				flap = -(float) ((Math.sin((double) (living.tickCount + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-				alpha = 0.5F + (flying ? (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
-				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
-				renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
-				break;
-		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static void renderHalo(@Nullable HumanoidModel<?> model, @Nullable LivingEntity player, PoseStack ms, MultiBufferSource buffers, float partialTicks) {
-		if (model != null) {
-			model.body.translateAndRotate(ms);
-		}
-
-		ms.translate(0.2, -0.65, 0);
-		ms.mulPose(Vector3f.ZP.rotationDegrees(30));
-
-		if (player != null) {
-			ms.mulPose(Vector3f.YP.rotationDegrees(player.tickCount + partialTicks));
-		} else {
-			ms.mulPose(Vector3f.YP.rotationDegrees(ClientTickHandler.ticksInGame));
-		}
-
-		ms.scale(0.75F, -0.75F, -0.75F);
-		VertexConsumer buffer = buffers.getBuffer(RenderHelper.HALO);
-		Matrix4f mat = ms.last().pose();
-		buffer.vertex(mat, -1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 0).endVertex();
-		buffer.vertex(mat, 1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 0).endVertex();
-		buffer.vertex(mat, 1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 1).endVertex();
-		buffer.vertex(mat, -1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 1).endVertex();
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {
-		int u = Math.max(1, getVariant(stack)) * 9 - 9;
-		int v = 0;
-
-		Minecraft mc = Minecraft.getInstance();
-		RenderSystem.setShaderTexture(0, textureHud);
-		int xo = mc.getWindow().getGuiScaledWidth() / 2 + 10;
-		int x = xo;
-		int y = mc.getWindow().getGuiScaledHeight() - 49;
-		if (player.isEyeInFluid(FluidTags.WATER)) {
-			y -= 10;
-		}
-
-		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
-
-		int segTime = MAX_FLY_TIME / 10;
-		int segs = left / segTime + 1;
-		int last = left % segTime;
-
-		for (int i = 0; i < segs; i++) {
-			float trans = 1F;
-			if (i == segs - 1) {
-				trans = (float) last / (float) segTime;
-				RenderSystem.enableBlend();
-				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			}
 
-			RenderSystem.setShaderColor(1F, 1F, 1F, trans);
-			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 9, 9);
-			x += 8;
+			ms.popPose();
 		}
 
-		if (player.getAbilities().flying) {
-			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
+		private static void renderPhoenix(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, float flap) {
+			ms.pushPose();
+			bipedModel.body.translateAndRotate(ms);
+			ms.translate(0, -0.2, 0.2);
+
+			for (int i = 0; i < 2; i++) {
+				ms.pushPose();
+				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+
+				ms.translate(-0.9, 0, 0);
+
+				ms.scale(1.7F, -1.7F, -1.7F);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+				ms.popPose();
+			}
+
+			ms.popPose();
+		}
+
+		private static void renderKuroyukihime(HumanoidModel<?> bipedModel, BakedModel model, ItemStack stack, PoseStack ms, MultiBufferSource buffers, float flap) {
+			ms.pushPose();
+			bipedModel.body.translateAndRotate(ms);
+			ms.translate(0, -0.4, 0.2);
+
+			for (int i = 0; i < 2; i++) {
+				ms.pushPose();
+				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+
+				ms.translate(-1.3, 0, 0);
+
+				ms.scale(2.5F, -2.5F, -2.5F);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+				ms.popPose();
+			}
+
+			ms.popPose();
+		}
+
+		private static void renderCustomColor(HumanoidModel<?> bipedModel, BakedModel model, LivingEntity living, ItemStack stack, PoseStack ms, MultiBufferSource buffers, float flap, int color) {
+			ms.pushPose();
+			bipedModel.body.translateAndRotate(ms);
+			ms.translate(0, 0, 0.2);
+
+			for (int i = 0; i < 2; i++) {
+				ms.pushPose();
+				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+				ms.translate(-0.7, 0, 0);
+
+				ms.scale(1.5F, -1.5F, -1.5F);
+
+				RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+				ms.popPose();
+			}
+
+			ms.popPose();
+		}
+
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			int meta = getVariant(stack);
+			if (meta <= 0 || meta >= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length + 1) {
+				return;
+			}
+
+			BakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+			boolean flying = living instanceof Player && ((Player) living).getAbilities().flying;
+			float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+
+			switch (meta) {
+				case 1:
+					renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
+					ms.pushPose();
+					ClientLogic.renderHalo(bipedModel, living, ms, buffers, partialTicks);
+					ms.popPose();
+					break;
+				case 2:
+					renderSephiroth(bipedModel, model, stack, ms, buffers, light, flap);
+					break;
+				case 3:
+					renderCirno(bipedModel, model, stack, ms, buffers, light);
+					break;
+				case 4:
+					renderPhoenix(bipedModel, model, stack, ms, buffers, flap);
+					break;
+				case 5:
+					renderKuroyukihime(bipedModel, model, stack, ms, buffers, flap);
+					break;
+				case 6:
+				case 8:
+					renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
+					break;
+				case 7:
+					float alpha = 0.5F + (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.2F;
+					int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
+					renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
+					break;
+				case 9:
+					flap = -(float) ((Math.sin((double) (living.tickCount + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
+					alpha = 0.5F + (flying ? (float) Math.cos((double) (living.tickCount + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
+					color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
+					renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
+					break;
+			}
+		}
+	}
+
+	public static class ClientLogic {
+		public static void renderHalo(@Nullable HumanoidModel<?> model, @Nullable LivingEntity player, PoseStack ms, MultiBufferSource buffers, float partialTicks) {
+			if (model != null) {
+				model.body.translateAndRotate(ms);
+			}
+
+			ms.translate(0.2, -0.65, 0);
+			ms.mulPose(Vector3f.ZP.rotationDegrees(30));
+
+			if (player != null) {
+				ms.mulPose(Vector3f.YP.rotationDegrees(player.tickCount + partialTicks));
+			} else {
+				ms.mulPose(Vector3f.YP.rotationDegrees(ClientTickHandler.ticksInGame));
+			}
+
+			ms.scale(0.75F, -0.75F, -0.75F);
+			VertexConsumer buffer = buffers.getBuffer(RenderHelper.HALO);
+			Matrix4f mat = ms.last().pose();
+			buffer.vertex(mat, -1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 0).endVertex();
+			buffer.vertex(mat, 1F, 0, -1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 0).endVertex();
+			buffer.vertex(mat, 1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(1, 1).endVertex();
+			buffer.vertex(mat, -1F, 0, 1F).color(1.0F, 1.0F, 1.0F, 1.0F).uv(0, 1).endVertex();
+		}
+
+		public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {
+			int u = Math.max(1, getVariant(stack)) * 9 - 9;
+			int v = 0;
+
+			Minecraft mc = Minecraft.getInstance();
+			RenderSystem.setShaderTexture(0, textureHud);
+			int xo = mc.getWindow().getGuiScaledWidth() / 2 + 10;
+			int x = xo;
+			int y = mc.getWindow().getGuiScaledHeight() - 49;
+			if (player.isEyeInFluid(FluidTags.WATER)) {
+				y -= 10;
+			}
+
+			int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
+
+			int segTime = MAX_FLY_TIME / 10;
+			int segs = left / segTime + 1;
+			int last = left % segTime;
+
+			for (int i = 0; i < segs; i++) {
+				float trans = 1F;
+				if (i == segs - 1) {
+					trans = (float) last / (float) segTime;
+					RenderSystem.enableBlend();
+					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				}
+
+				RenderSystem.setShaderColor(1F, 1F, 1F, trans);
+				RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 9, 9);
+				x += 8;
+			}
+
+			if (player.getAbilities().flying) {
+				int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
+				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+				if (width > 0) {
+					GuiComponent.fill(ms, xo, y - 2, xo + 80, y - 1, 0x88000000);
+				}
+				GuiComponent.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+			}
+
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-			if (width > 0) {
-				GuiComponent.fill(ms, xo, y - 2, xo + 80, y - 1, 0x88000000);
-			}
-			GuiComponent.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
-
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
 	public static int getVariant(ItemStack stack) {

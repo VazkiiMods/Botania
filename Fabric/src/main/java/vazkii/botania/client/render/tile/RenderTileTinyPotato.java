@@ -336,7 +336,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);
 					ms.translate(0F, 0.8F, 0F);
-					ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
+					ItemFlightTiara.ClientLogic.renderHalo(null, null, ms, buffers, partialTicks);
 				}
 				case "kingdaddydmac" -> {
 					ms.scale(0.5F, 0.5F, 0.5F);

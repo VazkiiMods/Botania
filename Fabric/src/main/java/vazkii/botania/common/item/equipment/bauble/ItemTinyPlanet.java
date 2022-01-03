@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.google.common.base.Predicates;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -26,6 +24,9 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	public ItemTinyPlanet(Properties props) {
 		super(props);
+		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
@@ -45,13 +47,14 @@ public class ItemTinyPlanet extends ItemBauble {
 		applyEffect(player.level, x, y, z);
 	}
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.head.translateAndRotate(ms);
-		ms.translate(-0.25, -0.4, 0);
-		ms.scale(0.5F, -0.5F, -0.5F);
-		Minecraft.getInstance().getBlockRenderer().renderSingleBlock(ModBlocks.tinyPlanet.defaultBlockState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
+	public static class Renderer implements AccessoryRenderer {
+		@Override
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			bipedModel.head.translateAndRotate(ms);
+			ms.translate(-0.25, -0.4, 0);
+			ms.scale(0.5F, -0.5F, -0.5F);
+			Minecraft.getInstance().getBlockRenderer().renderSingleBlock(ModBlocks.tinyPlanet.defaultBlockState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
+		}
 	}
 
 	public static void applyEffect(Level world, double x, double y, double z) {

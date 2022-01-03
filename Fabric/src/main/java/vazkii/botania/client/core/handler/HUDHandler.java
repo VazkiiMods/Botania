@@ -79,14 +79,14 @@ public final class HUDHandler {
 			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
-				ItemFlightTiara.renderHUD(ms, mc.player, tiara);
+				ItemFlightTiara.ClientLogic.renderHUD(ms, mc.player, tiara);
 				profiler.pop();
 			}
 
 			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
-				ItemDodgeRing.renderHUD(ms, mc.player, dodgeRing, partialTicks);
+				ItemDodgeRing.ClientLogic.renderHUD(ms, mc.player, dodgeRing, partialTicks);
 				profiler.pop();
 			}
 		}
@@ -154,7 +154,7 @@ public final class HUDHandler {
 
 		if (Botania.proxy.isClientPlayerWearingMonocle()) {
 			profiler.push("monocle");
-			ItemMonocle.renderHUD(ms, mc.player);
+			ItemMonocle.Hud.render(ms, mc.player);
 			profiler.pop();
 		}
 

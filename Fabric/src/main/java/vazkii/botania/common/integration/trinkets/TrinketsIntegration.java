@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemKeepIvy;
@@ -162,7 +163,10 @@ public class TrinketsIntegration extends EquipmentHandler {
 				TrinketRendererRegistry.getRenderer(cosmetic.getItem())
 						.ifPresent(sub -> sub.render(cosmetic, slotReference, contextModel, matrices, vertexConsumers, light, livingEntity, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch));
 			} else {
-				item.doRender((HumanoidModel<?>) contextModel, stack, livingEntity, matrices, vertexConsumers, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
+				var renderer = AccessoryRenderRegistry.get(stack);
+				if (renderer != null) {
+					renderer.doRender((HumanoidModel<?>) contextModel, stack, livingEntity, matrices, vertexConsumers, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
+				}
 			}
 		}
 	}

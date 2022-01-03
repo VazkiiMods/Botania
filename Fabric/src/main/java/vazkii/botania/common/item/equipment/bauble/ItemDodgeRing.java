@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.core.Direction;
@@ -40,53 +38,71 @@ public class ItemDodgeRing extends ItemBauble {
 		super(props);
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static void onKeyDown() {
-		Minecraft mc = Minecraft.getInstance();
-		if (mc.player == null) {
-			return;
+	public static class ClientLogic {
+		public static void onKeyDown() {
+			Minecraft mc = Minecraft.getInstance();
+			if (mc.player == null) {
+				return;
+			}
+
+			ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
+			if (ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0) {
+				return;
+			}
+
+			int threshold = 5;
+			if (mc.options.keyLeft.isDown() && !oldLeftDown) {
+				int oldLeft = leftDown;
+				leftDown = ClientTickHandler.ticksInGame;
+
+				if (leftDown - oldLeft < threshold) {
+					dodge(mc.player, Direction.WEST);
+				}
+			} else if (mc.options.keyRight.isDown() && !oldRightDown) {
+				int oldRight = rightDown;
+				rightDown = ClientTickHandler.ticksInGame;
+
+				if (rightDown - oldRight < threshold) {
+					dodge(mc.player, Direction.EAST);
+				}
+			} else if (mc.options.keyUp.isDown() && !oldForwardDown) {
+				int oldForward = forwardDown;
+				forwardDown = ClientTickHandler.ticksInGame;
+
+				if (forwardDown - oldForward < threshold) {
+					dodge(mc.player, Direction.NORTH);
+				}
+			} else if (mc.options.keyDown.isDown() && !oldBackDown) {
+				int oldBack = backDown;
+				backDown = ClientTickHandler.ticksInGame;
+
+				if (backDown - oldBack < threshold) {
+					dodge(mc.player, Direction.SOUTH);
+				}
+			}
+
+			oldLeftDown = mc.options.keyLeft.isDown();
+			oldRightDown = mc.options.keyRight.isDown();
+			oldForwardDown = mc.options.keyUp.isDown();
+			oldBackDown = mc.options.keyDown.isDown();
 		}
 
-		ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
-		if (ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0) {
-			return;
+		public static void renderHUD(PoseStack ms, Player player, ItemStack stack, float pticks) {
+			int xo = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 20;
+			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 20;
+
+			if (!player.getAbilities().flying) {
+				int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
+				int width = Math.min((int) ((cd - pticks) * 2), 40);
+				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+				if (width > 0) {
+					GuiComponent.fill(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
+					GuiComponent.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				}
+			}
+
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		}
-
-		int threshold = 5;
-		if (mc.options.keyLeft.isDown() && !oldLeftDown) {
-			int oldLeft = leftDown;
-			leftDown = ClientTickHandler.ticksInGame;
-
-			if (leftDown - oldLeft < threshold) {
-				dodge(mc.player, Direction.WEST);
-			}
-		} else if (mc.options.keyRight.isDown() && !oldRightDown) {
-			int oldRight = rightDown;
-			rightDown = ClientTickHandler.ticksInGame;
-
-			if (rightDown - oldRight < threshold) {
-				dodge(mc.player, Direction.EAST);
-			}
-		} else if (mc.options.keyUp.isDown() && !oldForwardDown) {
-			int oldForward = forwardDown;
-			forwardDown = ClientTickHandler.ticksInGame;
-
-			if (forwardDown - oldForward < threshold) {
-				dodge(mc.player, Direction.NORTH);
-			}
-		} else if (mc.options.keyDown.isDown() && !oldBackDown) {
-			int oldBack = backDown;
-			backDown = ClientTickHandler.ticksInGame;
-
-			if (backDown - oldBack < threshold) {
-				dodge(mc.player, Direction.SOUTH);
-			}
-		}
-
-		oldLeftDown = mc.options.keyLeft.isDown();
-		oldRightDown = mc.options.keyRight.isDown();
-		oldForwardDown = mc.options.keyUp.isDown();
-		oldBackDown = mc.options.keyDown.isDown();
 	}
 
 	@Override
@@ -115,23 +131,5 @@ public class ItemDodgeRing extends ItemBauble {
 		player.setDeltaMovement(sideVec);
 
 		PacketDodge.send();
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static void renderHUD(PoseStack ms, Player player, ItemStack stack, float pticks) {
-		int xo = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 20;
-		int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 20;
-
-		if (!player.getAbilities().flying) {
-			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
-			int width = Math.min((int) ((cd - pticks) * 2), 40);
-			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-			if (width > 0) {
-				GuiComponent.fill(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
-				GuiComponent.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
-			}
-		}
-
-		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 }
