@@ -1,0 +1,51 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "vazkii.botania.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AccessorAbstractFurnaceBlockEntity",
+    "AccessorAbstractHorse",
+    "AccessorAdvancementProvider",
+    "AccessorBiome",
+    "AccessorBlockModelGenerators",
+    "AccessorBucketItem",
+    "AccessorCreeper",
+    "AccessorCriteriaTriggers",
+    "AccessorDamageSource",
+    "AccessorDispenserBlock",
+    "AccessorEntity",
+    "AccessorFireBlock",
+    "AccessorGoalSelector",
+    "AccessorHopperBlockEntity",
+    "AccessorIngredient",
+    "AccessorItemEntity",
+    "AccessorLivingEntity",
+    "AccessorMob",
+    "AccessorMobEffect",
+    "AccessorNearestAttackableTargetGoal",
+    "AccessorRecipeManager",
+    "AccessorRecipeProvider",
+    "AccessorSoundType",
+    "AccessorStats",
+    "AccessorTextureSlot",
+    "AccessorWitherEntity"
+  ],
+  "client": [
+    "AccessorAbstractContainerScreen",
+    "AccessorItemRenderer",
+    "AccessorMinecraft",
+    "AccessorModelBakery",
+    "AccessorModelLayers",
+    "AccessorModelManager",
+    "AccessorRecipeBookComponent",
+    "AccessorRecipeBookPage",
+    "AccessorRenderBuffers",
+    "AccessorRenderType",
+    "AccessorWorldPreset"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "${refmap_target}refmap.json"
+}

@@ -133,13 +133,15 @@ processResources {
     // Exclude datagenerator .cache directory
     exclude '.cache'
 
-    // Exclude Forge-specific metadata on Fabric only
-    exclude 'META-INF/mods.toml'
-    exclude 'META-INF/accesstransformer.cfg'
-
     filesMatching('data/botania/patchouli_books/lexicon/book.json') {
         filter {
             it.replaceAll("buildNumber", build_number)
         }
+    }
+
+    filesMatching("*.mixins.json") {
+        // In Fabric, all refmaps are merged together and the refmap name is pre-set by Loom
+        // Make sure everyone uses that name
+        expand "refmap_target": archivesBaseName + "-"
     }
 }

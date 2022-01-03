@@ -11,6 +11,7 @@ if (System.getenv().RELEASE_MODE == null) {
 
 minecraft {
     version(minecraft_version)
+    accessWideners 'src/main/resources/botania_xplat.accesswidener'
 }
 
 dependencies {

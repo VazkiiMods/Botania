@@ -45,7 +45,8 @@
     ]
   },
   "mixins": [
-    "botania.mixins.json"
+    "botania_xplat.mixins.json",
+    "botania_fabric.mixins.json"
   ],
   "accessWidener": "botania.accesswidener",
 
