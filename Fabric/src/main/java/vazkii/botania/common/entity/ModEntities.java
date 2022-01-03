@@ -8,12 +8,13 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
@@ -148,13 +149,13 @@ public final class ModEntities {
 		MinecartComparatorLogicRegistry.register(POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 	}
 
-	public static void registerAttributes() {
-		FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, Mob.createMobAttributes()
+	public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> consumer) {
+		consumer.accept(ModEntities.DOPPLEGANGER, Mob.createMobAttributes()
 				.add(Attributes.MOVEMENT_SPEED, 0.4)
 				.add(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
 				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0));
-		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, Mob.createMobAttributes()
+		consumer.accept(ModEntities.PIXIE, Mob.createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 2.0));
-		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherBoss.createAttributes());
+		consumer.accept(ModEntities.PINK_WITHER, WitherBoss.createAttributes());
 	}
 }
