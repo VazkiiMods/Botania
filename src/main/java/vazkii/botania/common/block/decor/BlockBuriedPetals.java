@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.DyeColor;
@@ -49,7 +47,6 @@ public class BlockBuriedPetals extends BushBlock implements BonemealableBlock {
 		return SHAPE;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		int hex = ColorHelper.getColorValue(color);

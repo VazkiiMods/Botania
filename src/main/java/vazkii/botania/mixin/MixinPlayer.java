@@ -59,7 +59,7 @@ public abstract class MixinPlayer extends LivingEntity {
 
 	@Shadow
 	@Final
-	public Inventory inventory;
+	private Inventory inventory;
 
 	@Unique
 	private LivingEntity critTarget;

@@ -19,7 +19,7 @@ public class VecHelper {
 	private VecHelper() {}
 
 	public static Vec3 fromEntityCenter(Entity e) {
-		return new Vec3(e.getX(), e.getY() - e.getMyRidingOffset() + e.getBbHeight() / 2, e.getZ());
+		return new Vec3(e.getX(), e.getY() + e.getBbHeight() / 2, e.getZ());
 	}
 
 	/**

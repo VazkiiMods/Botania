@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -42,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class ItemTornadoRod extends Item {
+public class ItemTornadoRod extends Item implements FabricItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_TORNADO);
 
@@ -240,11 +241,9 @@ public class ItemTornadoRod extends Item {
 		}
 	}
 
-	/* todo 1.16-fabric FAPI#860
 	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
+	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return !newStack.is(this) || isFlying(oldStack) != isFlying(newStack);
 	}
-	*/
 
 }

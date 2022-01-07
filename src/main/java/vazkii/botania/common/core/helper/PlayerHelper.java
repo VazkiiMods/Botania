@@ -116,7 +116,7 @@ public final class PlayerHelper {
 		PlayerAdvancements advancements = player.getAdvancements();
 		ServerAdvancementManager manager = player.getLevel().getServer().getAdvancements();
 		Advancement advancement = manager.getAdvancement(advancementId);
-		if (advancement != null) {
+		if (advancement != null && !advancements.getOrStartProgress(advancement).isDone()) {
 			advancements.award(advancement, criterion);
 		}
 	}

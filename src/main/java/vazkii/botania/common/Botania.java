@@ -34,6 +34,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
@@ -220,6 +221,10 @@ public class Botania implements ModInitializer {
 
 		ModStats.init();
 		registerPaintables();
+
+		IHornHarvestable.API.registerForBlocks((w, p, s, be, c) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
+				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
+				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 	}
 
 	private void registerPaintables() {

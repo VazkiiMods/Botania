@@ -11,10 +11,10 @@ package vazkii.botania.common.item.material;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.entity.EntityEnderAir;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ModItems;
 
@@ -38,10 +39,12 @@ public class ItemEnderAir extends Item {
 	public static InteractionResultHolder<ItemStack> onPlayerInteract(Player player, Level world, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 
-		if (!stack.isEmpty() && stack.is(Items.GLASS_BOTTLE) && world.dimension() == Level.END) {
-			if (!isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5D))) {
-				return InteractionResultHolder.pass(stack);
-			}
+		if (stack.isEmpty() || !stack.is(Items.GLASS_BOTTLE)) {
+			return InteractionResultHolder.pass(stack);
+		}
+
+		if ((world.dimension() == Level.END && isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5)))
+				|| pickupFromEntity(world, player.getBoundingBox().inflate(1.0))) {
 
 			if (!world.isClientSide) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
@@ -61,6 +64,15 @@ public class ItemEnderAir extends Item {
 				aabb, entity -> entity != null && entity.isAlive()
 						&& entity.getParticle().getType() == ParticleTypes.DRAGON_BREATH);
 		return list.isEmpty();
+	}
+
+	public static boolean pickupFromEntity(Level level, AABB area) {
+		var entities = level.getEntitiesOfClass(EntityEnderAir.class, area, EntitySelector.ENTITY_STILL_ALIVE);
+		if (!entities.isEmpty()) {
+			entities.get(0).discard();
+			return true;
+		}
+		return false;
 	}
 
 	@Nonnull

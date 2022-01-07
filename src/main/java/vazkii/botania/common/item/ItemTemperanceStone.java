@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundSource;
@@ -46,7 +44,6 @@ public class ItemTemperanceStone extends Item {
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
 			stacks.add(new TranslatableComponent("botaniamisc.active"));

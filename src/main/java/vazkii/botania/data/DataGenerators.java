@@ -67,6 +67,11 @@ public class DataGenerators {
 
 	private static void gatherData(Path output) throws IOException {
 		DataGenerator generator = new DataGenerator(output, Collections.emptyList());
+		gatherData(generator);
+		generator.run();
+	}
+
+	static void gatherData(DataGenerator generator) {
 		generator.addProvider(new BlockLootProvider(generator));
 		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
 		generator.addProvider(blockTagProvider);
@@ -87,7 +92,6 @@ public class DataGenerators {
 		generator.addProvider(new FloatingFlowerModelProvider(generator));
 		generator.addProvider(new ItemModelProvider(generator));
 		generator.addProvider(new AdvancementProvider(generator));
-		generator.run();
 	}
 
 }

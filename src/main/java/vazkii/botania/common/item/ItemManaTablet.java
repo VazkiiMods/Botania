@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -67,7 +65,6 @@ public class ItemManaTablet extends Item implements IManaItem {
 		return isStackCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		if (isStackCreative(stack)) {

@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -44,7 +42,6 @@ public class ItemRelic extends Item implements IRelic {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		if (!hasUUID(stack)) {

@@ -2,7 +2,7 @@ plugins {
     id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
     id 'com.diffplug.spotless' version '5.8.2'
-    id 'io.github.juuxel.loom-quiltflower-mini' version '1.1.0'
+    id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
     id 'pmd'
 }
 
@@ -10,7 +10,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.18"
+def mc_version = "1.18.1"
 version = "${mc_version}-${config.build_number}-FABRIC"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
@@ -24,11 +24,20 @@ compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecat
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")
     runs {
-        create("GameTest") {
+        gameTest {
             server()
             vmArg "-Dfabric-api.gametest=1"
         }
+
+        datagen {
+            client()
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.modid=botania"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            vmArg "-Dfabric-api.datagen.strict-validation"
+        }
     }
+
 }
 
 sourceSets.main.resources {
@@ -80,25 +89,28 @@ test {
 
 dependencies {
     minecraft "com.mojang:minecraft:${mc_version}"
-    mappings loom.officialMojangMappings()
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.18.1:2021.12.19@zip")
+    }
 
     modImplementation "net.fabricmc:fabric-loader:0.12.8"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.44.0+1.18"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.18-60-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.18.1-61-FABRIC"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
     // Don't include base and entity as Trinkets includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:4.0.0"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:4.0.0"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:4.0.1"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:4.0.1"
 
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.0"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.0"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.1"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.1"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
@@ -117,8 +129,6 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
 }
 
 spotless {

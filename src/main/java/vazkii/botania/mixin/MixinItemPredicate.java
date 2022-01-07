@@ -25,7 +25,7 @@ import java.util.Set;
 
 @Mixin(ItemPredicate.class)
 public abstract class MixinItemPredicate {
-	@ModifyVariable(at = @At("HEAD"), method = "<init>(Lnet/minecraft/tags/Tag;Ljava/util/Set;Lnet/minecraft/advancements/critereon/MinMaxBounds$Ints;Lnet/minecraft/advancements/critereon/MinMaxBounds$Ints;[Lnet/minecraft/advancements/critereon/EnchantmentPredicate;[Lnet/minecraft/advancements/critereon/EnchantmentPredicate;Lnet/minecraft/world/item/alchemy/Potion;Lnet/minecraft/advancements/critereon/NbtPredicate;)V")
+	@ModifyVariable(at = @At("HEAD"), method = "<init>(Lnet/minecraft/tags/Tag;Ljava/util/Set;Lnet/minecraft/advancements/critereon/MinMaxBounds$Ints;Lnet/minecraft/advancements/critereon/MinMaxBounds$Ints;[Lnet/minecraft/advancements/critereon/EnchantmentPredicate;[Lnet/minecraft/advancements/critereon/EnchantmentPredicate;Lnet/minecraft/world/item/alchemy/Potion;Lnet/minecraft/advancements/critereon/NbtPredicate;)V", argsOnly = true)
 	private static Set<Item> addBotaniaShears(Set<Item> set) {
 		if (set != null && set.contains(Items.SHEARS)) {
 			set = new HashSet<>(set);

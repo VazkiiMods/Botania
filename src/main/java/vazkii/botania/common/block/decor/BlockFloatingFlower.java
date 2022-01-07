@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.decor;
 
 import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -68,7 +67,6 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 		return ConfigHandler.CLIENT.staticFloaters.getValue() ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		int hex = ColorHelper.getColorValue(color);

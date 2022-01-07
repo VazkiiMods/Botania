@@ -5,7 +5,7 @@ pluginManagement {
             url = 'https://maven.fabricmc.net/'
         }
         maven {
-            name = 'Cotton'
+            name = 'QuiltFlower'
             url = 'https://server.bbkr.space/artifactory/libs-release/'
         }
         gradlePluginPortal()

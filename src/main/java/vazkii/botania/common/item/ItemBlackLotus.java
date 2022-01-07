@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -59,7 +57,6 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 		item.playSound(ModSounds.blackLotus, 1F, t2 ? 0.1F : 1F);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		list.add(new TranslatableComponent("botaniamisc.lotusDesc").withStyle(ChatFormatting.GRAY));

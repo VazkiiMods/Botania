@@ -24,6 +24,7 @@ public final class BotaniaCreativeTab extends CreativeModeTab {
 
 	public BotaniaCreativeTab() {
 		super(computeIndex(), LibMisc.MOD_ID);
+		hideTitle();
 		setBackgroundSuffix(LibResources.GUI_CREATIVE);
 	}
 

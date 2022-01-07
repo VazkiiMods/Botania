@@ -118,7 +118,7 @@ public abstract class TileExposedSimpleInventory extends TileSimpleInventory imp
 			// Vanilla hoppers do not check the inventory's stack limit, so do so here.
 			// We don't have to check anything else like stackability because the hopper logic will do it
 			ItemStack existing = getItem(index);
-			return existing.getCount() + stack.getCount() <= getMaxStackSize();
+			return existing.getCount() < getMaxStackSize();
 		}
 
 		return false;

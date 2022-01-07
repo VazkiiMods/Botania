@@ -27,8 +27,7 @@ public class MixinEntity {
 	 */
 	@Inject(at = @At("HEAD"), method = "isInvulnerableTo", cancellable = true)
 	private void checkInvulnerabilities(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-		if (((Object) this) instanceof LivingEntity) {
-			LivingEntity self = (LivingEntity) (Object) this;
+		if (((Object) this) instanceof LivingEntity self) {
 			if (ItemVirus.onLivingHurt(self, source)) {
 				cir.setReturnValue(true);
 			} else if (ItemSuperLavaPendant.onDamage(self, source)) {

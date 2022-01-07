@@ -19,8 +19,6 @@ import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import dev.emi.trinkets.api.event.TrinketDropCallback;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -145,7 +143,6 @@ public class TrinketsIntegration extends EquipmentHandler {
 		}
 	};
 
-	@Environment(EnvType.CLIENT)
 	private static class RenderWrapper implements TrinketRenderer {
 		@Override
 		public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntity> contextModel,
