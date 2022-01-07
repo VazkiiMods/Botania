@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.brew;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -54,7 +52,6 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		Brew brew = getBrew(stack);

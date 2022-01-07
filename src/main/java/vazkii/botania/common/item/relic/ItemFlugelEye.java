@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.NbtOps;
@@ -169,7 +167,6 @@ public class ItemFlugelEye extends ItemRelic {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);

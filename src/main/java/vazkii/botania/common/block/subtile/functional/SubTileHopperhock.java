@@ -129,7 +129,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 
 			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
-				HopperBlockEntity.addItem(null, invToPutItemIn, stack.split(amountToPutIn), direction);
+				HopperBlockEntity.addItem(null, invToPutItemIn, stack.split(amountToPutIn), direction.getOpposite());
 				item.setItem(stack); // Just in case someone subclasses ItemEntity and changes something important.
 				pulledAny = true;
 			}

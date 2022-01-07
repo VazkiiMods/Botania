@@ -11,8 +11,6 @@ package vazkii.botania.api;
 import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,7 +25,6 @@ import java.util.function.Supplier;
 /**
  * Class for API calls that must be made clientside
  */
-@Environment(EnvType.CLIENT)
 public interface BotaniaAPIClient {
 	Supplier<BotaniaAPIClient> INSTANCE = Suppliers.memoize(() -> {
 		try {

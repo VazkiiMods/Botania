@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.world.effect.MobEffect;
@@ -84,7 +82,6 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		redstoneParticlesIfPowered(state, world, pos, rand);
 	}

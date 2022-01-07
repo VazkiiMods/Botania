@@ -1,6 +1,0 @@
-Pending 1.17 gameplay changes:
-- Turntable can face any direction and rotates about that axis
-- Turntable entities? (when facing up)
-- Spark traversal rewrite?
-- new pure daisy recipes
-- antioxidizing flower? or some way to reverse oxidation (pure daisy?)

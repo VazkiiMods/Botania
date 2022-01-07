@@ -62,7 +62,7 @@ public class ItemDivaCharm extends ItemBauble {
 					if (mobs.size() > 1) {
 						if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
 							target.heal(target.getMaxHealth());
-							((AccessorEntity) target).unsetRemoved();
+							((AccessorEntity) target).callUnsetRemoved();
 							if (target instanceof Creeper) {
 								((AccessorCreeper) target).setCurrentFuseTime(2);
 							}

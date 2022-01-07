@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
@@ -27,7 +25,6 @@ public class BlockBifrostPerm extends BlockModGlass implements BeaconBeamBlock {
 		super(builder);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		if (rand.nextBoolean()) {

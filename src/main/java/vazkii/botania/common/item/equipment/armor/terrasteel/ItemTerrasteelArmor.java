@@ -115,7 +115,6 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return new TranslatableComponent("botania.armorset.terrasteel.name");
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc0").withStyle(ChatFormatting.GRAY));

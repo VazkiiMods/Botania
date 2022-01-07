@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -54,7 +52,6 @@ public class BlockModDoubleFlower extends TallFlowerBlock {
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;

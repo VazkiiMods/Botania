@@ -8,8 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -56,7 +55,7 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
+public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker, FabricItem {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
@@ -92,7 +91,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));
@@ -290,12 +288,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return true;
 	}
 
-	/* todo 1.16-fabric
 	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack before, @Nonnull ItemStack after, boolean slotChanged) {
+	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack before, ItemStack after) {
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
-	*/
 
 	@Nonnull
 	@Override

@@ -36,7 +36,7 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 		tag(ModTags.Entities.COCOON_COMMON_AQUATIC)
 				.add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID)
 				.addOptional(new ResourceLocation("quark", "crab"));
-		tag(ModTags.Entities.COCOON_RARE_AQUATIC).add(EntityType.DOLPHIN);
+		tag(ModTags.Entities.COCOON_RARE_AQUATIC).add(EntityType.DOLPHIN, EntityType.GLOW_SQUID);
 
 		tag(ModTags.Entities.SHADED_MESA_BLACKLIST).add(EntityType.ENDER_DRAGON, EntityType.WITHER,
 				EntityType.ITEM_FRAME, EntityType.END_CRYSTAL, EntityType.PAINTING, ModEntities.CORPOREA_SPARK,

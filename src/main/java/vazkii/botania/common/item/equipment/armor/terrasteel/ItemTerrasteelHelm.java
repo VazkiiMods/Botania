@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -75,7 +73,6 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		super.addArmorSetDescription(stack, list);
 		for (AncientWillType type : AncientWillType.values()) {

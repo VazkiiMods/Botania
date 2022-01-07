@@ -14,6 +14,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -26,7 +28,8 @@ import java.util.*;
 
 public class SubTileBergamute extends TileEntitySpecialFlower {
 	private static final int RANGE = 4;
-	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SubTileBergamute> clientFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SubTileBergamute> serverFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final Set<SoundInstance> mutedSounds = Collections.newSetFromMap(new WeakHashMap<>());
 	private boolean disabled = false;
 
@@ -38,24 +41,30 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
+		disabled = getLevel().hasNeighborSignal(getBlockPos());
 		if (getLevel().isClientSide) {
-			disabled = getLevel().hasNeighborSignal(getBlockPos());
-			existingFlowers.add(this);
+			clientFlowers.add(this);
+		} else {
+			serverFlowers.add(this);
 		}
 	}
 
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		existingFlowers.remove(this);
+		if (getLevel().isClientSide) {
+			clientFlowers.remove(this);
+		} else {
+			serverFlowers.remove(this);
+		}
 	}
 
-	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z, int maxCount) {
+	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(ResourceKey<Level> level, double x, double y, double z, int maxCount) {
 		int count = 0;
 		SubTileBergamute tile = null;
 
-		for (SubTileBergamute f : existingFlowers) {
-			if (!f.disabled && f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
+		for (SubTileBergamute f : level == null ? clientFlowers : serverFlowers) {
+			if (!f.disabled && (level == null || level == f.level.dimension()) && f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
 				count++;
 				if (count == 1) {
 					tile = f;
@@ -68,8 +77,8 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		return Pair.of(count, tile);
 	}
 
-	public static boolean isBergamuteNearby(double x, double y, double z) {
-		return getBergamutesNearby(x, y, z, 1).getFirst() > 0;
+	public static boolean isBergamuteNearby(ResourceKey<Level> level, double x, double y, double z) {
+		return getBergamutesNearby(level, x, y, z, 1).getFirst() > 0;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -77,7 +86,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		// We halve the volume for each flower (see MixinSoundEngine)
 		// halving 8 times already brings the multiplier to near zero, so no
 		// need to keep going if we've seen more than 8.
-		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(sound.getX(), sound.getY(), sound.getZ(), 8);
+		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(null, sound.getX(), sound.getY(), sound.getZ(), 8);
 		int count = countAndBerg.getFirst();
 		if (count > 0) {
 			if (mutedSounds.add(sound) && Math.random() < 0.5) {

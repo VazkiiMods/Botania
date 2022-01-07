@@ -11,8 +11,6 @@ package vazkii.botania.common.item.brew;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -145,7 +143,6 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	}
 
 	// [VanillaCopy] PotionUtils.addPotionTooltip, with custom effect list
-	@Environment(EnvType.CLIENT)
 	public static void addPotionTooltip(List<MobEffectInstance> list, List<Component> lores, float durationFactor) {
 		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
 		if (list.isEmpty()) {
@@ -199,7 +196,6 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		addPotionTooltip(getBrew(stack).getPotionEffects(stack), list, 1);

@@ -10,12 +10,9 @@ package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -24,7 +21,6 @@ import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -135,14 +131,8 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && stack.is(this)) {
-			// Returning SUCCESS or FAIL from this callback prevents vanilla from sending the C2S packet for block
-			// breaking. Returning PASS does a bunch of things we don't want, like creative block breaking and action
-			// acknowledgements, so send a packet directly to trigger this event on the server.
+			// Skip logic on the client, the server will replace the block when it receives the action packet
 			if (world.isClientSide()) {
-				if (!(player instanceof LocalPlayer localPlayer)) {
-					return InteractionResult.PASS; // impossible
-				}
-				localPlayer.connection.send(new ServerboundPlayerActionPacket(ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK, pos, side));
 				return InteractionResult.SUCCESS;
 			}
 
@@ -152,7 +142,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 					ManaItemHandler.instance().requestManaExactForTool(stack, player, exchange, true);
 				}
 			}
-			// Always return SUCCESS with rod in hand to prevent any vanilla block breaking, esp. on second packet
+			// Always return SUCCESS with rod in hand to prevent any vanilla block breaking
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
@@ -467,7 +457,6 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public List<BlockPos> getWireframesToDraw(Player player, ItemStack stack) {
 		ItemStack holding = player.getMainHandItem();
 		if (holding != stack || !canExchange(stack)) {

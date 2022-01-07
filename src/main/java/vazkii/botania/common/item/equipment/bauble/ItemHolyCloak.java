@@ -140,12 +140,10 @@ public class ItemHolyCloak extends ItemBauble {
 		ItemNBTHelper.setBoolean(stack, TAG_IN_EFFECT, effect);
 	}
 
-	@Environment(EnvType.CLIENT)
 	ResourceLocation getCloakTexture() {
 		return texture;
 	}
 
-	@Environment(EnvType.CLIENT)
 	ResourceLocation getCloakGlowTexture() {
 		return textureGlow;
 	}

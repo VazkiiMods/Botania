@@ -100,7 +100,7 @@ public final class BoundTileRenderer {
 				}
 
 				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
-				if (coords != null && coords.getY() > -1) {
+				if (coords != null && coords.getY() != Integer.MIN_VALUE) {
 					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color, true);
 				}
 			}

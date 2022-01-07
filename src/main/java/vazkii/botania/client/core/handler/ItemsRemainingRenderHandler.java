@@ -11,8 +11,6 @@ package vazkii.botania.client.core.handler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -36,7 +34,6 @@ public final class ItemsRemainingRenderHandler {
 	private static Component customString;
 	private static int ticks, count;
 
-	@Environment(EnvType.CLIENT)
 	public static void render(PoseStack ms, float partTicks) {
 		if (ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
@@ -98,7 +95,6 @@ public final class ItemsRemainingRenderHandler {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static void tick() {
 		if (ticks > 0) {
 			--ticks;

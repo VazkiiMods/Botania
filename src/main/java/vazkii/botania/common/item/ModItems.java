@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
@@ -731,7 +729,6 @@ public final class ModItems {
 		ModPatterns.init();
 	}
 
-	@Environment(EnvType.CLIENT)
 	public static void registerGuis() {
 		ScreenRegistry.register(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
 		ScreenRegistry.register(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);

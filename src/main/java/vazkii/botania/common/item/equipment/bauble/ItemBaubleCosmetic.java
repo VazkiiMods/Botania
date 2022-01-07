@@ -63,7 +63,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		this.variant = variant;
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		if (variant == Variant.THINKING_HAND) {

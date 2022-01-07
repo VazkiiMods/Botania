@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -71,7 +69,6 @@ public class ItemPinkinator extends Item {
 		return InteractionResultHolder.pass(stack);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		tooltip.add(new TranslatableComponent("botaniamisc.pinkinatorDesc").withStyle(ChatFormatting.GRAY));

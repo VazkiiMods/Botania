@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
@@ -25,9 +23,8 @@ public class BlockAlchemyCatalyst extends BlockMod implements IPoolOverlayProvid
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
-	public TextureAtlasSprite getIcon(Level world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.alchemyCatalystOverlay.sprite();
+	public ResourceLocation getIcon(Level world, BlockPos pos) {
+		return MiscellaneousIcons.INSTANCE.alchemyCatalystOverlay.texture();
 	}
 
 }

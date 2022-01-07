@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -166,6 +167,8 @@ public final class ModEntities {
 		register(r, LibEntityNames.BABYLON_WEAPON, BABYLON_WEAPON);
 		register(r, LibEntityNames.FALLING_STAR, FALLING_STAR);
 		register(r, LibEntityNames.ENDER_AIR, ENDER_AIR);
+
+		MinecartComparatorLogicRegistry.register(POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 	}
 
 	public static void registerAttributes() {

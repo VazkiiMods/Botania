@@ -38,6 +38,12 @@ public class MixinLevelRenderer {
 	private VertexBuffer starBuffer;
 
 	@Unique
+	private static final Matrix4f SUN_SCALE = Matrix4f.createScaleMatrix(2F, 1F, 2F);
+
+	@Unique
+	private static final Matrix4f MOON_SCALE = Matrix4f.createScaleMatrix(1.5F, 1F, 1.5F);
+
+	@Unique
 	private static boolean isGogSky() {
 		Level world = Minecraft.getInstance().level;
 		boolean isGog = world.getLevelData() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getLevelData()).isGardenOfGlass();
@@ -72,40 +78,44 @@ public class MixinLevelRenderer {
 	}
 
 	/**
-	 * Make the sun bigger, replace any 30.0F seen before first call to bindTexture
+	 * Make the sun bigger by scaling it to double size
 	 */
-	@ModifyConstant(
+	@ModifyVariable(
 		method = "renderSky",
-		slice = @Slice(to = @At(ordinal = 0, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V")),
-		constant = { @Constant(floatValue = 30.0F) },
+		slice = @Slice(
+			from = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getTimeOfDay(F)F"),
+			to = @At(ordinal = 0, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V")
+		),
+		at = @At(value = "CONSTANT", args = "floatValue=30.0"),
+		ordinal = 1,
 		require = 0
 	)
-	private float makeSunBigger(float oldValue) {
+	private Matrix4f makeSunBigger(Matrix4f matrix) {
 		if (isGogSky()) {
-			return 60.0F;
-		} else {
-			return oldValue;
+			matrix = matrix.copy();
+			matrix.multiply(SUN_SCALE);
 		}
+		return matrix;
 	}
 
 	/**
-	 * Make the moon bigger, replace any 20.0F seen between first and second call to bindTexture
+	 * Make the moon bigger by scaling it to triple size (the matrix is already scaled on the call above)
 	 */
-	@ModifyConstant(
+	@ModifyVariable(
 		method = "renderSky",
 		slice = @Slice(
 			from = @At(ordinal = 0, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"),
 			to = @At(ordinal = 1, value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V")
 		),
-		constant = @Constant(floatValue = 20.0F),
+		at = @At(value = "CONSTANT", args = "floatValue=20.0"),
+		ordinal = 1,
 		require = 0
 	)
-	private float makeMoonBigger(float oldValue) {
+	private Matrix4f makeMoonBigger(Matrix4f matrix) {
 		if (isGogSky()) {
-			return 60.0F;
-		} else {
-			return oldValue;
+			matrix.multiply(MOON_SCALE);
 		}
+		return matrix;
 	}
 
 	/**

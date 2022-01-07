@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
@@ -61,7 +59,6 @@ public class BlockModFlower extends FlowerBlock implements BonemealableBlock {
 		};
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		int hex = ColorHelper.getColorValue(this.color);

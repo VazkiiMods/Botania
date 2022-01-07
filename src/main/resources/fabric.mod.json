@@ -29,9 +29,13 @@
     ],
     "fabric-gametest": [
       "vazkii.botania.test.block.BindingTest",
+      "vazkii.botania.test.block.HopperhockTest",
       "vazkii.botania.test.block.OpenCrateTest",
       "vazkii.botania.test.block.PistonRelayTest",
       "vazkii.botania.test.item.CacophoniumTest"
+    ],
+    "fabric-datagen": [
+      "vazkii.botania.data.DatagenInitializer"
     ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
@@ -50,8 +54,8 @@
 
   "depends": {
     "fabricloader": ">=0.8",
-    "fabric": ">=0.40",
-    "minecraft": ">=1.17.1",
+    "fabric": ">=0.44",
+    "minecraft": ">=1.18.1",
     "trinkets" : ">=3",
     "patchouli": "*"
   },

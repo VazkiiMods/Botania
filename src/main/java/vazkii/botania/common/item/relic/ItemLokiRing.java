@@ -10,8 +10,6 @@ package vazkii.botania.common.item.relic;
 
 import com.google.common.collect.ImmutableList;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -186,7 +184,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public List<BlockPos> getWireframesToDraw(Player player, ItemStack stack) {
 		if (getLokiRing(player) != stack) {
 			return ImmutableList.of();
@@ -215,7 +212,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public BlockPos getSourceWireframe(Player player, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		if (getLokiRing(player) == stack) {

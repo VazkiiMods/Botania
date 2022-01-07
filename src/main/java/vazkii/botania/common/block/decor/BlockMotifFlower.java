@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -34,7 +32,6 @@ public class BlockMotifFlower extends FlowerBlock {
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flags) {
 		if (hidden) {
 			tooltip.add(new TranslatableComponent("block.botania.daybloom_motif.description").withStyle(ChatFormatting.GRAY));

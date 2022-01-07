@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -23,8 +21,7 @@ public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 	}
 
 	@Override
-	@Environment(EnvType.CLIENT)
-	public TextureAtlasSprite getIcon(Level world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.conjurationCatalystOverlay.sprite();
+	public ResourceLocation getIcon(Level world, BlockPos pos) {
+		return MiscellaneousIcons.INSTANCE.conjurationCatalystOverlay.texture();
 	}
 }
