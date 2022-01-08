@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,6 +28,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.network.PacketLeftClick;
 
@@ -42,7 +42,6 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	public ItemTerraSword(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
-		AttackEntityCallback.EVENT.register(this::attackEntity);
 	}
 
 	public static void leftClick(ItemStack stack) {
@@ -51,16 +50,16 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		}
 	}
 
-	private InteractionResult attackEntity(Player player, Level world, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
+	public static InteractionResult attackEntity(Player player, Level world, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
 		if (!player.level.isClientSide && !player.isSpectator()) {
 			trySpawnBurst(player);
 		}
 		return InteractionResult.PASS;
 	}
 
-	public void trySpawnBurst(Player player) {
+	public static void trySpawnBurst(Player player) {
 		if (!player.getMainHandItem().isEmpty()
-				&& player.getMainHandItem().is(this)
+				&& player.getMainHandItem().is(ModItems.terraSword)
 				&& player.getAttackStrengthScale(0) == 1) {
 			EntityManaBurst burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);
@@ -74,7 +73,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		return MANA_PER_DAMAGE;
 	}
 
-	public EntityManaBurst getBurst(Player player, ItemStack stack) {
+	public static EntityManaBurst getBurst(Player player, ItemStack stack) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 
 		float motionModifier = 7F;

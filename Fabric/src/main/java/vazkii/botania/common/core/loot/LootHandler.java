@@ -8,21 +8,19 @@
  */
 package vazkii.botania.common.core.loot;
 
-import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
+import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {
 
-	public static void lootLoad(ResourceManager resourceManager, LootTables manager, ResourceLocation id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
+	public static void lootLoad(ResourceLocation id, Consumer<LootPool> addPool) {
 		String prefix = "minecraft:chests/";
 		String name = id.toString();
 
@@ -35,12 +33,12 @@ public final class LootHandler {
 				case "simple_dungeon":
 				case "spawn_bonus_chest":
 				case "stronghold_corridor":
-					supplier.withPool(getInjectPool(file));
+					addPool.accept(getInjectPool(file));
 					break;
 				case "village/village_temple":
 				case "village/village_toolsmith":
 				case "village/village_weaponsmith":
-					supplier.withPool(getInjectPool("village_chest"));
+					addPool.accept(getInjectPool("village_chest"));
 					break;
 				default:
 					break;

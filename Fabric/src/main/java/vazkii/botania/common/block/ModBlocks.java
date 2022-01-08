@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -43,7 +42,6 @@ import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
@@ -848,10 +846,7 @@ public final class ModBlocks {
 		r.accept(new BlockItem(azulejo13, props), Registry.BLOCK.getKey(azulejo13));
 		r.accept(new BlockItem(azulejo14, props), Registry.BLOCK.getKey(azulejo14));
 		r.accept(new BlockItem(azulejo15, props), Registry.BLOCK.getKey(azulejo15));
-		Item blazeBlockItem = new ItemBlockBlaze(blazeBlock, props);
-		r.accept(blazeBlockItem, Registry.BLOCK.getKey(blazeBlock));
-		int blazeTime = 2400;
-		FuelRegistry.INSTANCE.add(blazeBlockItem, blazeTime * (Botania.gardenOfGlassLoaded ? 5 : 10));
+		r.accept(new ItemBlockBlaze(blazeBlock, props), Registry.BLOCK.getKey(blazeBlock));
 		r.accept(new StandingAndWallBlockItem(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(gaiaHead));
 		r.accept(new BlockItem(shimmerrock, props), Registry.BLOCK.getKey(shimmerrock));
 		r.accept(new BlockItem(shimmerwoodPlanks, props), Registry.BLOCK.getKey(shimmerwoodPlanks));

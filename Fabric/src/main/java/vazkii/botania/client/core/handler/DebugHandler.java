@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
@@ -31,9 +30,7 @@ public final class DebugHandler {
 		Level world = Minecraft.getInstance().level;
 		if (ConfigHandler.CLIENT.debugInfo.getValue()) {
 			left.add("");
-			String version = FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID)
-					.map(m -> m.getMetadata().getVersion().getFriendlyString())
-					.orElse("N/A");
+			String version = IXplatAbstractions.INSTANCE.getBotaniaVersion();
 
 			left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -69,7 +68,6 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
-		ServerTickEvents.END_WORLD_TICK.register(this::onTickEnd);
 	}
 
 	public static boolean shouldBreak(Player player) {
@@ -101,7 +99,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 	}
 
-	private void onTickEnd(ServerLevel world) {
+	public static void onTickEnd(ServerLevel world) {
 		ResourceKey<Level> dim = world.dimension();
 		if (blockSwappers.containsKey(dim)) {
 			tickingSwappers = true;

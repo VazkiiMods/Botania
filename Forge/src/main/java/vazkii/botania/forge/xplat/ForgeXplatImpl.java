@@ -15,6 +15,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.BiFunction;
@@ -33,6 +34,12 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean isPhysicalClient() {
 		return FMLLoader.getDist() == Dist.CLIENT;
+	}
+
+	@Override
+	public String getBotaniaVersion() {
+		return ModList.get().getModContainerById(LibMisc.MOD_ID).get()
+				.getModInfo().getVersion().toString();
 	}
 
 	@Override

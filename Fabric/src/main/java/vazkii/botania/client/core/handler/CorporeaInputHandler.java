@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -37,13 +36,6 @@ public class CorporeaInputHandler {
 
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
 	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen;
-
-	public static void registerEvent(Minecraft client, Screen screen, int scaledWidth, int scaledHeight) {
-		if (supportedGuiFilter.test(screen)) {
-			ScreenKeyboardEvents.beforeKeyPress(screen)
-					.register((screen1, key, scancode, modifiers) -> buttonPressed(key, scancode));
-		}
-	}
 
 	public static boolean buttonPressed(int keyCode, int scanCode) {
 		Minecraft mc = Minecraft.getInstance();

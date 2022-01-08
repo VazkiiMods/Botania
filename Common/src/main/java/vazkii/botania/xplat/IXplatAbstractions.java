@@ -18,6 +18,7 @@ public interface IXplatAbstractions {
 	boolean isModLoaded(String modId);
 	boolean isDevEnvironment();
 	boolean isPhysicalClient();
+	String getBotaniaVersion();
 
 	// Misc
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... p_155275_);

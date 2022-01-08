@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.concurrent.CompletableFuture;
@@ -36,6 +37,12 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean isPhysicalClient() {
 		return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+	}
+
+	@Override
+	public String getBotaniaVersion() {
+		return FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).get()
+				.getMetadata().getVersion().getFriendlyString();
 	}
 
 	@Override

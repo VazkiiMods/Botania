@@ -11,7 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -46,6 +45,7 @@ import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.mixin.AccessorMinecraft;
 
 import java.util.List;
 
@@ -129,7 +129,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 
 			model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
-			int color = ColorProviderRegistry.ITEM.get(stack.getItem()).getColor(stack, 1);
+			int color = ((AccessorMinecraft) Minecraft.getInstance()).getItemColors().getColor(stack, 1);
 			float r = (color >> 16 & 0xFF) / 255F;
 			float g = (color >> 8 & 0xFF) / 255F;
 			float b = (color & 0xFF) / 255F;

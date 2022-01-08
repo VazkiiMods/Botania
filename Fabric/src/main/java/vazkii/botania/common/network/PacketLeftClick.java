@@ -16,7 +16,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -29,6 +28,6 @@ public class PacketLeftClick {
 	}
 
 	public static void handle(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
-		server.execute(() -> ((ItemTerraSword) ModItems.terraSword).trySpawnBurst(player));
+		server.execute(() -> ItemTerraSword.trySpawnBurst(player));
 	}
 }

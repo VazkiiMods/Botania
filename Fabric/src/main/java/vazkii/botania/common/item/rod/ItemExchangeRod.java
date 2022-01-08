@@ -10,7 +10,6 @@ package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -80,7 +79,6 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 
 	public ItemExchangeRod(Properties props) {
 		super(props);
-		AttackBlockCallback.EVENT.register(this::onLeftClick);
 	}
 
 	@Nonnull
@@ -125,7 +123,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 		return !player.isCreative();
 	}
 
-	private InteractionResult onLeftClick(Player player, Level world, InteractionHand hand, BlockPos pos, Direction side) {
+	public InteractionResult onLeftClick(Player player, Level world, InteractionHand hand, BlockPos pos, Direction side) {
 		if (player.isSpectator()) {
 			return InteractionResult.PASS;
 		}
