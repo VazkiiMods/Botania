@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.util.ServiceLoader;
 import java.util.function.BiFunction;
@@ -21,7 +22,7 @@ public interface IXplatAbstractions {
 	String getBotaniaVersion();
 
 	// Misc
-	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... p_155275_);
+	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 
@@ -34,7 +35,7 @@ public interface IXplatAbstractions {
 			throw new IllegalStateException("There should be exactly one IXplatAbstractions implementation on the classpath. Found: " + names);
 		} else {
 			var provider = providers.get(0);
-			// todo PatchouliAPI.LOGGER.debug("Instantiating xplat impl: " + provider.type().getName());
+			BotaniaAPI.LOGGER.debug("Instantiating xplat impl: " + provider.type().getName());
 			return provider.get();
 		}
 	}
