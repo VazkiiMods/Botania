@@ -33,6 +33,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
@@ -65,7 +66,7 @@ public final class SkyblockWorldEvents {
 				IslandPos islandPos = data.getSpawn();
 				world.setDefaultSpawnPos(islandPos.getCenter(), 0);
 				spawnPlayer(player, islandPos);
-				Botania.LOGGER.info("Created the spawn GoG island");
+				BotaniaAPI.LOGGER.info("Created the spawn GoG island");
 			}
 		}
 	}
@@ -141,7 +142,7 @@ public final class SkyblockWorldEvents {
 		if (infoOptional.isPresent()) {
 			offset = infoOptional.get().pos;
 		} else {
-			Botania.LOGGER.error("Structure botania:gog_island has no spawn_point data marker block, trying to offset it somewhat in the center");
+			BotaniaAPI.LOGGER.error("Structure botania:gog_island has no spawn_point data marker block, trying to offset it somewhat in the center");
 			Vec3i size = template.getSize();
 			offset = new BlockPos(size.getX() / 2, size.getY(), size.getZ() / 2);
 		}

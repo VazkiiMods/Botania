@@ -20,7 +20,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.data.recipes.*;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -48,7 +48,7 @@ public class DataGenerators {
 						ctx.getSource().sendSuccess(new TextComponent("Done"), false);
 						return Command.SINGLE_SUCCESS;
 					} catch (Exception e) {
-						Botania.LOGGER.error("Failed to generate data", e);
+						BotaniaAPI.LOGGER.error("Failed to generate data", e);
 						ctx.getSource().sendFailure(new TextComponent("Failed to generate data, see logs"));
 						return 0;
 					}

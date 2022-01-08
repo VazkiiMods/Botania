@@ -18,9 +18,9 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
@@ -37,7 +37,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		if (variables.has("recipes") && variables.has("group")) {
-			Botania.LOGGER.warn("Mana infusion template has both 'recipes' and 'group', ignoring 'recipes'");
+			BotaniaAPI.LOGGER.warn("Mana infusion template has both 'recipes' and 'group', ignoring 'recipes'");
 		}
 
 		ImmutableList.Builder<IManaInfusionRecipe> builder = ImmutableList.builder();

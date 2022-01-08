@@ -36,10 +36,10 @@ import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -92,7 +92,7 @@ public class BlockstateProvider implements DataProvider {
 		try {
 			registerStatesAndModels();
 		} catch (Exception e) {
-			Botania.LOGGER.error("Error registering states and models", e);
+			BotaniaAPI.LOGGER.error("Error registering states and models", e);
 		}
 
 		var root = generator.getOutputFolder();
@@ -104,7 +104,7 @@ public class BlockstateProvider implements DataProvider {
 			try {
 				DataProvider.save(gson, hashCache, state.get(), path);
 			} catch (IOException ex) {
-				Botania.LOGGER.error("Error generating blockstate file for {}", id, ex);
+				BotaniaAPI.LOGGER.error("Error generating blockstate file for {}", id, ex);
 			}
 		}
 
@@ -114,7 +114,7 @@ public class BlockstateProvider implements DataProvider {
 			try {
 				DataProvider.save(gson, hashCache, e.getValue().get(), path);
 			} catch (IOException ex) {
-				Botania.LOGGER.error("Error generating model file {}", modelId, ex);
+				BotaniaAPI.LOGGER.error("Error generating model file {}", modelId, ex);
 			}
 		}
 	}
@@ -642,11 +642,11 @@ public class BlockstateProvider implements DataProvider {
 		List<T> ret = Arrays.asList(items);
 		for (T item : items) {
 			if (!src.contains(item)) {
-				Botania.LOGGER.warn("Item {} not found in set", item);
+				BotaniaAPI.LOGGER.warn("Item {} not found in set", item);
 			}
 		}
 		if (!src.removeAll(ret)) {
-			Botania.LOGGER.warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
+			BotaniaAPI.LOGGER.warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
 		}
 		return ret;
 	}
@@ -664,7 +664,7 @@ public class BlockstateProvider implements DataProvider {
 		}
 
 		if (ret.isEmpty()) {
-			Botania.LOGGER.warn("takeAll predicate yielded nothing", new Throwable());
+			BotaniaAPI.LOGGER.warn("takeAll predicate yielded nothing", new Throwable());
 		}
 		return ret;
 	}

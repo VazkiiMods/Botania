@@ -10,6 +10,7 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.resources.ResourceLocation;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -38,7 +39,7 @@ public final class ConfigHandler {
 		try (OutputStream s = new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW))) {
 			FiberSerialization.serialize(config, s, serializer);
 		} catch (FileAlreadyExistsException ignored) {} catch (IOException e) {
-			Botania.LOGGER.error("Error writing default config", e);
+			BotaniaAPI.LOGGER.error("Error writing default config", e);
 		}
 	}
 
@@ -49,7 +50,7 @@ public final class ConfigHandler {
 			FiberSerialization.deserialize(config, s, serializer);
 			onConfigLoad();
 		} catch (IOException | ValueDeserializationException e) {
-			Botania.LOGGER.error("Error loading config from {}", p, e);
+			BotaniaAPI.LOGGER.error("Error loading config from {}", p, e);
 		}
 	}
 
@@ -57,7 +58,7 @@ public final class ConfigHandler {
 		try {
 			Files.createDirectory(Paths.get("config"));
 		} catch (FileAlreadyExistsException ignored) {} catch (IOException e) {
-			Botania.LOGGER.warn("Failed to make config dir", e);
+			BotaniaAPI.LOGGER.warn("Failed to make config dir", e);
 		}
 
 		JanksonValueSerializer serializer = new JanksonValueSerializer(false);

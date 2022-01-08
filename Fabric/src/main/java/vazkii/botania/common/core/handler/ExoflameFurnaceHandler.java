@@ -16,8 +16,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IExoflameHeatable;
-import vazkii.botania.common.Botania;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 
 public class ExoflameFurnaceHandler {
@@ -58,7 +58,7 @@ public class ExoflameFurnaceHandler {
 				currentRecipe = furnace.getLevel().getRecipeManager().getRecipeFor(recipeType, furnace, furnace.getLevel()).orElse(null);
 				return ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe);
 			} catch (Throwable t) {
-				Botania.LOGGER.error("Failed to determine if furnace TE can smelt", t);
+				BotaniaAPI.LOGGER.error("Failed to determine if furnace TE can smelt", t);
 				return false;
 			}
 		}

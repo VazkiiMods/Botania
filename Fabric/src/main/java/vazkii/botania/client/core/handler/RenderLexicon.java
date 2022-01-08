@@ -29,8 +29,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
@@ -81,7 +81,7 @@ public class RenderLexicon {
 			doRender(stack, leftHanded, ms, buffers, light, ClientTickHandler.partialTicks);
 			return true;
 		} catch (Throwable throwable) {
-			Botania.LOGGER.warn("Failed to render lexicon", throwable);
+			BotaniaAPI.LOGGER.warn("Failed to render lexicon", throwable);
 			return false;
 		}
 	}

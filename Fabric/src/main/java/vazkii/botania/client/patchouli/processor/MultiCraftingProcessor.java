@@ -15,8 +15,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.Botania;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -49,7 +49,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 					}
 				}
 			} else {
-				Botania.LOGGER.warn("Missing crafting recipe " + name);
+				BotaniaAPI.LOGGER.warn("Missing crafting recipe " + name);
 			}
 		}
 		this.hasCustomHeading = variables.has("heading");

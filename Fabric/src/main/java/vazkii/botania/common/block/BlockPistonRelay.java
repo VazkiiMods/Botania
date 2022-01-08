@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.state.properties.PistonType;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaCapabilities;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
@@ -104,9 +104,9 @@ public class BlockPistonRelay extends BlockMod {
 			} else {
 				var data = WorldData.get(world);
 				if (IXplatAbstractions.INSTANCE.isDevEnvironment()) {
-					Botania.LOGGER.info("PistonRelay pairs");
+					BotaniaAPI.LOGGER.info("PistonRelay pairs");
 					for (var e : data.mapping.entrySet()) {
-						Botania.LOGGER.info("{} -> {}", e.getKey(), e.getValue());
+						BotaniaAPI.LOGGER.info("{} -> {}", e.getKey(), e.getValue());
 					}
 				}
 				BlockPos dest = data.mapping.get(pos);

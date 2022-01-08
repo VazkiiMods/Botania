@@ -18,12 +18,12 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
@@ -124,7 +124,7 @@ public class MiscellaneousIcons {
 
 	public void onModelBake(ModelBakery loader, Map<ResourceLocation, BakedModel> map) {
 		if (!ModelHandler.registeredModels) {
-			Botania.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
+			BotaniaAPI.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}
 		// Platforms

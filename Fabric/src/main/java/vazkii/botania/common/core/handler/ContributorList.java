@@ -21,7 +21,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.ModTags;
@@ -57,7 +57,7 @@ public class ContributorList {
 			Thread thread = new Thread(ContributorList::fetch);
 			thread.setName("Botania Contributor Fanciness Thread");
 			thread.setDaemon(true);
-			thread.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(Botania.LOGGER));
+			thread.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(BotaniaAPI.LOGGER));
 			thread.start();
 
 			startedLoading = true;
@@ -120,7 +120,7 @@ public class ContributorList {
 				load(props);
 			}
 		} catch (IOException e) {
-			Botania.LOGGER.info("Could not load contributors list. Either you're offline or GitHub is down. Nothing to worry about, carry on~");
+			BotaniaAPI.LOGGER.info("Could not load contributors list. Either you're offline or GitHub is down. Nothing to worry about, carry on~");
 		}
 	}
 }

@@ -32,7 +32,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.WallBlock;
 
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
@@ -103,7 +103,7 @@ public class ItemModelProvider implements DataProvider {
 			try {
 				DataProvider.save(GSON, cache, e.getValue().get(), out);
 			} catch (IOException ex) {
-				Botania.LOGGER.error("Failed to generate {}", out, ex);
+				BotaniaAPI.LOGGER.error("Failed to generate {}", out, ex);
 			}
 		}
 	}

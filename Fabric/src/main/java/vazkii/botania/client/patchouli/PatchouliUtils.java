@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IVariable;
@@ -52,11 +52,11 @@ public class PatchouliUtils {
 			return r;
 		}
 
-		Botania.LOGGER.warn("Template references nonexistent recipe {} of type {}", id, type);
+		BotaniaAPI.LOGGER.warn("Template references nonexistent recipe {} of type {}", id, type);
 		if (!crafttweakerInfoNote) {
 			crafttweakerInfoNote = true;
 			if (IXplatAbstractions.INSTANCE.isModLoaded("crafttweaker")) {
-				Botania.LOGGER.info("To add a recipe that replaces a builtin recipe with CT, \n" +
+				BotaniaAPI.LOGGER.info("To add a recipe that replaces a builtin recipe with CT, \n" +
 						"add one with the same type, named the same as the path of the missing recipe.\n" +
 						"eg. for recipe {}, add a recipe named \"{}\".", id, id.getPath());
 			}
@@ -77,7 +77,7 @@ public class PatchouliUtils {
 			}
 		}
 		if (list.isEmpty()) {
-			Botania.LOGGER.warn("Template references empty group {} of recipe type {}", group, type);
+			BotaniaAPI.LOGGER.warn("Template references empty group {} of recipe type {}", group, type);
 		}
 		return list;
 	}
