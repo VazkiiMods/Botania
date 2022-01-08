@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -51,7 +50,7 @@ public class ItemDiviningRod extends Item {
 		ItemStack stack = p.getItemInHand(hand);
 		if (ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, true)) {
 			if (world.isClientSide) {
-				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
+				int range = ManaItemHandler.instance().hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.random.nextLong();
 				doHighlight(world, p.blockPosition(), range, seedxor);
 			} else {

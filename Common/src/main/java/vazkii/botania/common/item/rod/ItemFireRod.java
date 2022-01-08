@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -55,7 +54,7 @@ public class ItemFireRod extends Item {
 			world.addFreshEntity(entity);
 
 			if (!player.isCreative()) {
-				player.getCooldowns().addCooldown(this, IManaProficiencyArmor.hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
+				player.getCooldowns().addCooldown(this, ManaItemHandler.instance().hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
 			}
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 

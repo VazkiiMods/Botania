@@ -10,10 +10,7 @@ package vazkii.botania.api.item;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
-import vazkii.botania.api.mana.ManaProficiencyCallback;
 
 /**
  * An armor item that implements this gives the player wearing it mana proficiency, by
@@ -26,26 +23,6 @@ public interface IManaProficiencyArmor {
 
 	default boolean shouldGiveProficiency(ItemStack armorStack, EquipmentSlot slot, Player player, ItemStack rod) {
 		return false;
-	}
-
-	static boolean hasProficiency(Player player, ItemStack rod) {
-		boolean proficient = false;
-
-		for (EquipmentSlot e : EquipmentSlot.values()) {
-			if (e.getType() != EquipmentSlot.Type.ARMOR) {
-				continue;
-			}
-			ItemStack armor = player.getItemBySlot(e);
-			if (!armor.isEmpty()) {
-				Item item = armor.getItem();
-				if (item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
-					proficient = true;
-					break;
-				}
-			}
-		}
-
-		return ManaProficiencyCallback.EVENT.invoker().getProficient(player, rod, proficient);
 	}
 
 }

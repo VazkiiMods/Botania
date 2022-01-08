@@ -45,7 +45,6 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
@@ -154,7 +153,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 		}
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
-		int extraRangeNew = IManaProficiencyArmor.hasProficiency(player, stack) ? 3 : 1;
+		int extraRangeNew = ManaItemHandler.instance().hasProficiency(player, stack) ? 3 : 1;
 		if (extraRange != extraRangeNew) {
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
 		}

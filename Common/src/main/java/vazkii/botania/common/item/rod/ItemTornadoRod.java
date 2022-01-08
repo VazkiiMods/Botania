@@ -26,7 +26,6 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -73,7 +72,7 @@ public class ItemTornadoRod extends Item implements FabricItem {
 			} else if (isFlying(stack)) {
 				if (held) {
 					player.fallDistance = 0F;
-					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
+					double my = ManaItemHandler.instance().hasProficiency(player, stack) ? 1.6 : 1.25;
 					Vec3 oldMot = player.getDeltaMovement();
 					if (player.isFallFlying()) {
 						Vec3 lookDir = player.getLookAngle();

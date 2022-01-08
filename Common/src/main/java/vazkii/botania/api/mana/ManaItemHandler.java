@@ -148,4 +148,8 @@ public interface ManaItemHandler {
 	default float getFullDiscountForTools(Player player, ItemStack tool) {
 		return 0;
 	}
+
+	default boolean hasProficiency(Player player, ItemStack manaItem) {
+		return false;
+	}
 }

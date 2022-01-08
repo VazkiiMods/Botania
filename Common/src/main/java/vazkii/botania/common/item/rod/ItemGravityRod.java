@@ -27,7 +27,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -233,7 +232,7 @@ public class ItemGravityRod extends Item implements FabricItem {
 					Vec3 moveVector = player.getLookAngle().normalize();
 					if (target instanceof ItemEntity item) {
 						item.setPickUpDelay(20);
-						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
+						float mot = ManaItemHandler.instance().hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setDeltaMovement(moveVector.x * mot, moveVector.y, moveVector.z * mot);
 						if (!player.level.isClientSide) {
 							EntityThrownItem thrown = new EntityThrownItem(item.level, item.getX(), item.getY(), item.getZ(), item);

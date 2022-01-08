@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -119,7 +118,7 @@ public class ItemSmeltRod extends Item {
 						}
 
 						if (!decremented) {
-							playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
+							playerData.put(p, new SmeltData(pos, ManaItemHandler.instance().hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
 						} else {
 							for (int i = 0; i < 2; i++) {
 								double x = pos.getBlockPos().getX() + Math.random();

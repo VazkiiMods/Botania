@@ -14,12 +14,15 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.*;
 
 import java.util.*;
@@ -270,5 +273,27 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		discount = ManaDiscountCallback.EVENT.invoker().getManaDiscount(player, discount, tool);
 
 		return discount;
+	}
+
+	@Override
+	public boolean hasProficiency(Player player, ItemStack manaItem) {
+		boolean proficient = false;
+
+		for (EquipmentSlot e : EquipmentSlot.values()) {
+			if (e.getType() != EquipmentSlot.Type.ARMOR) {
+				continue;
+			}
+			ItemStack stack = player.getItemBySlot(e);
+			if (!stack.isEmpty()) {
+				Item item = stack.getItem();
+				if (item instanceof IManaProficiencyArmor armor
+						&& armor.shouldGiveProficiency(stack, e, player, manaItem)) {
+					proficient = true;
+					break;
+				}
+			}
+		}
+
+		return ManaProficiencyCallback.EVENT.invoker().getProficient(player, rod, proficient);
 	}
 }

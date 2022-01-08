@@ -25,7 +25,6 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
@@ -70,7 +69,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 			int count = 0;
 			boolean placedAny = false;
 
-			boolean prof = IManaProficiencyArmor.hasProficiency(player, stack);
+			boolean prof = ManaItemHandler.instance().hasProficiency(player, stack);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 

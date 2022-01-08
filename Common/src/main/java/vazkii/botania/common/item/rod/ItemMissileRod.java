@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -61,7 +60,7 @@ public class ItemMissileRod extends Item {
 			return;
 		}
 
-		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
+		if (count != getUseDuration(stack) && count % (ManaItemHandler.instance().hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
 			if (!world.isClientSide && spawnMissile(world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
 			}
