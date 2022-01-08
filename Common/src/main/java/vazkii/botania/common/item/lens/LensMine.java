@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.fabricmc.fabric.api.tool.attribute.v1.ToolManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -95,6 +94,8 @@ public class LensMine extends Lens {
 			.map(ItemStack::new).toList();
 
 	public static boolean canHarvest(int harvestLevel, BlockState state) {
-		return !state.requiresCorrectToolForDrops() || ToolManager.handleIsEffectiveOn(state, HARVEST_TOOLS.get(harvestLevel), null);
+		return !state.requiresCorrectToolForDrops()
+			// todo 1.18 check this
+			|| HARVEST_TOOLS.get(harvestLevel).isCorrectToolForDrops(state);
 	}
 }
