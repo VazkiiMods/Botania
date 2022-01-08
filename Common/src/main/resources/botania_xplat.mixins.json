@@ -55,8 +55,14 @@
     "client.AccessorRenderBuffers",
     "client.AccessorRenderType",
     "client.AccessorWorldPreset",
+    "client.MixinClientLevelData",
+    "client.MixinItemInHandRenderer",
     "client.MixinLevelRenderer",
-    "client.MixinSkullBlockRenderer"
+    "client.MixinRecipeBookComponent",
+    "client.MixinScreen",
+    "client.MixinSkullBlockRenderer",
+    "client.MixinSoundEngine",
+    "client.MixinSplashManager"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -26,18 +26,12 @@
   "client": [
     "client.MixinAbstractTexture",
     "client.MixinBlockModelDeserializer",
-    "client.MixinClientLevelData",
     "client.MixinDebugScreenOverlay",
     "client.MixinGameRenderer",
-    "client.MixinItemInHandRenderer",
     "client.MixinKeyboardHandler",
     "client.MixinMinecraft",
     "client.MixinModelManager",
     "client.MixinParticleEngine",
-    "client.MixinRecipeBookComponent",
-    "client.MixinScreen",
-    "client.MixinSoundEngine",
-    "client.MixinSplashManager",
     "client.MixinTileEntitySpecialFlower"
   ],
   "injectors": {

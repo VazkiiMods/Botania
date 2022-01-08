@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin.client;
+package vazkii.botania.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
