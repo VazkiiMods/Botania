@@ -11,6 +11,7 @@ package vazkii.botania.common.core.handler;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -18,7 +19,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.IOrechidRecipe;
-import vazkii.botania.common.Botania;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
@@ -39,10 +39,11 @@ public class OrechidManager implements ResourceManagerReloadListener {
 		DATA.clear();
 	}
 
-	public static Multimap<Block, ? extends IOrechidRecipe> getFor(RecipeType<? extends IOrechidRecipe> type) {
+	public static Multimap<Block, ? extends IOrechidRecipe> getFor(MinecraftServer server,
+			RecipeType<? extends IOrechidRecipe> type) {
 		return DATA.computeIfAbsent(type, t -> {
 			Multimap<Block, IOrechidRecipe> map = ArrayListMultimap.create();
-			for (var recipe : Botania.currentServer.getRecipeManager().getAllRecipesFor(t)) {
+			for (var recipe : server.getRecipeManager().getAllRecipesFor(t)) {
 				map.put(recipe.getInput(), recipe);
 			}
 			for (var list : map.asMap().values()) {
