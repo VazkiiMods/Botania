@@ -1,6 +1,7 @@
 package vazkii.botania.fabric.xplat;
 
 import net.fabricmc.api.EnvType;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -16,6 +17,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -28,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.*;
+import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.UUID;
@@ -136,5 +139,10 @@ public class FabricXplatImpl implements IXplatAbstractions {
 				return id;
 			}
 		});
+	}
+
+	@Override
+	public Item.Properties defaultItemBuilder() {
+		return new FabricItemSettings().group(FabricBotaniaCreativeTab.INSTANCE);
 	}
 }

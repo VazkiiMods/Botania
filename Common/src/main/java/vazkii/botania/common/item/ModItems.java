@@ -67,6 +67,7 @@ import vazkii.botania.common.item.record.ItemModRecord;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Locale;
 import java.util.function.BiConsumer;
@@ -216,13 +217,13 @@ public final class ModItems {
 	public static final Item elementiumHoe = new ItemElementiumHoe(unstackable().customDamage(ItemManasteelHoe::damageItem));
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable().customDamage(ItemManasteelSword::damageItem));
 	public static final Item elementiumShears = new ItemElementiumShears(unstackable().maxDamageIfAbsent(238).customDamage(ItemManasteelShears::damageItem));
-	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terraPick = new ItemTerraPick(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelPick::damageItem));
-	public static final Item terraAxe = new ItemTerraAxe(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelAxe::damageItem));
-	public static final Item terraSword = new ItemTerraSword(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
+	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terraPick = new ItemTerraPick(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelPick::damageItem));
+	public static final Item terraAxe = new ItemTerraAxe(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelAxe::damageItem));
+	public static final Item terraSword = new ItemTerraSword(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
 	public static final Item starSword = new ItemStarSword(unstackable().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
 	public static final Item thunderSword = new ItemThunderSword(unstackable().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
 	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable().customDamage(ItemManaweaveHelm::damageItem));
@@ -231,8 +232,8 @@ public final class ModItems {
 	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultDurability(69) /* todo 1.16-fabric .setNoRepair()*/); // What you looking at?
 	public static final Item glassPick = new ItemGlassPick(unstackable().customDamage(ItemManasteelPick::damageItem));
-	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemLivingwoodBow::damageItem));
-	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemCrystalBow::damageItem));
+	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().defaultDurability(500).customDamage(ItemLivingwoodBow::damageItem));
+	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().defaultDurability(500).customDamage(ItemCrystalBow::damageItem));
 	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().stacksTo(6));
 	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().stacksTo(6));
 
@@ -391,17 +392,17 @@ public final class ModItems {
 	public static final MenuType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.FLOWER_BAG), ContainerFlowerBag::fromNetwork);
 	public static final MenuType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.BAUBLE_BOX), ContainerBaubleBox::fromNetwork);
 
-	public static FabricItemSettings defaultBuilder() {
-		return new FabricItemSettings().group(BotaniaCreativeTab.INSTANCE);
+	public static Item.Properties defaultBuilder() {
+		return IXplatAbstractions.INSTANCE.defaultItemBuilder();
 	}
 
-	private static FabricItemSettings stackTo16() {
-		return defaultBuilder().maxCount(16);
+	private static Item.Properties stackTo16() {
+		return defaultBuilder().stacksTo(16);
 
 	}
 
-	private static FabricItemSettings unstackable() {
-		return defaultBuilder().maxCount(1);
+	private static Item.Properties unstackable() {
+		return defaultBuilder().stacksTo(1);
 	}
 
 	public static void registerItems(BiConsumer<Item, ResourceLocation> r) {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.core;
+package vazkii.botania.fabric;
 
 import net.fabricmc.fabric.impl.item.group.ItemGroupExtensions;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,11 +18,11 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public final class BotaniaCreativeTab extends CreativeModeTab {
+public final class FabricBotaniaCreativeTab extends CreativeModeTab {
 
-	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
+	public static final FabricBotaniaCreativeTab INSTANCE = new FabricBotaniaCreativeTab();
 
-	public BotaniaCreativeTab() {
+	public FabricBotaniaCreativeTab() {
 		super(computeIndex(), LibMisc.MOD_ID);
 		hideTitle();
 		setBackgroundSuffix(LibResources.GUI_CREATIVE);

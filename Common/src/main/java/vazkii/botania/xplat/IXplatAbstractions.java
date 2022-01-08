@@ -8,6 +8,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -49,10 +50,10 @@ public interface IXplatAbstractions {
 	void sendDodgePacket();
 	void sendLeftClickPacket();
 
-	// Misc
+	// Registrations
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
-
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
+	Item.Properties defaultItemBuilder();
 
 	IXplatAbstractions INSTANCE = find();
 
