@@ -69,7 +69,7 @@ public final class FiberBotaniaConfig {
 		onConfigLoad();
 	}
 
-	public static class Client implements BotaniaConfig.ClientConfigAccess {
+	private static class Client implements BotaniaConfig.ClientConfigAccess {
 		public final PropertyMirror<Boolean> lexiconRotatingItems = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> subtlePowerSystem = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> staticWandBeam = PropertyMirror.create(BOOLEAN);
@@ -246,9 +246,9 @@ public final class FiberBotaniaConfig {
 		}
 	}
 
-	public static final Client CLIENT = new Client();
+	private static final Client CLIENT = new Client();
 
-	public static class Common implements BotaniaConfig.ConfigAccess {
+	private static class Common implements BotaniaConfig.ConfigAccess {
 		public final PropertyMirror<Boolean> blockBreakParticles = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> blockBreakParticlesTool = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> chargingAnimationEnabled = PropertyMirror.create(BOOLEAN);
@@ -434,7 +434,7 @@ public final class FiberBotaniaConfig {
 		}
 	}
 
-	public static final Common COMMON = new Common();
+	private static final Common COMMON = new Common();
 
 	private static void onConfigLoad() {
 		PatchouliAPI.get().setConfigFlag("botania:relics", COMMON.relicsEnabled.getValue());

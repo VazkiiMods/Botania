@@ -33,6 +33,10 @@ repositories {
         name = "JEI"
         url "https://dvs1.progwml6.com/files/maven/"
     }
+    maven {
+        name = "Jared"
+        url = "https://maven.blamejared.com/"
+    }
 }
 
 minecraft {
@@ -74,6 +78,7 @@ dependencies {
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44")
 }
