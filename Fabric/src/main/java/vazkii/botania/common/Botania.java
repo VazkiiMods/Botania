@@ -83,6 +83,7 @@ import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.data.DataGenerators;
+import vazkii.botania.fabric.FiberBotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -108,7 +109,7 @@ public class Botania implements ModInitializer {
 		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
 			runOnClient = t -> t.get().run();
 		}
-		ConfigHandler.setup();
+		FiberBotaniaConfig.setup();
 
 		EquipmentHandler.init();
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));

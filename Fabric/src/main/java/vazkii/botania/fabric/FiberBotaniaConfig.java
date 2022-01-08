@@ -6,9 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.core.handler;
-
-import net.minecraft.resources.ResourceLocation;
+package vazkii.botania.fabric;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
@@ -20,10 +18,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.io.*;
 import java.nio.file.*;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.ConfigTypes.*;
 
@@ -35,7 +30,7 @@ import io.github.fablabsmc.fablabs.api.fiber.v1.serialization.JanksonValueSerial
 import io.github.fablabsmc.fablabs.api.fiber.v1.tree.ConfigTree;
 import io.github.fablabsmc.fablabs.api.fiber.v1.tree.PropertyMirror;
 
-public final class ConfigHandler {
+public final class FiberBotaniaConfig {
 	private static void writeDefaultConfig(ConfigTree config, Path path, JanksonValueSerializer serializer) {
 		try (OutputStream s = new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW))) {
 			FiberSerialization.serialize(config, s, serializer);
