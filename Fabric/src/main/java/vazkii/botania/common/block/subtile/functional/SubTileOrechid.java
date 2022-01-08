@@ -23,10 +23,10 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.handler.OrechidManager;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nullable;
 
@@ -65,7 +65,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 				BlockState state = getOreToPut(coords, getLevel().getBlockState(coords));
 				if (state != null) {
 					getLevel().setBlockAndUpdate(coords, state);
-					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+					if (BotaniaConfig.common().blockBreakParticles()) {
 						getLevel().levelEvent(2001, coords, Block.getId(state));
 					}
 					playSound(coords);

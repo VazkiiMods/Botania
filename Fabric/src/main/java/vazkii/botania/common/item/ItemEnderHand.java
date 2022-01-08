@@ -24,8 +24,8 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -59,12 +59,10 @@ public class ItemEnderHand extends Item {
 
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-		if (ConfigHandler.COMMON.enderPickpocketEnabled.getValue() && entity instanceof Player && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
+		if (BotaniaConfig.common().enderPickpocketEnabled() && entity instanceof Player && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
 			if (!player.level.isClientSide) {
 				Player other = (Player) entity;
-				player.openMenu(new SimpleMenuProvider((windowId, playerInv, p) -> {
-					return ChestMenu.threeRows(windowId, playerInv, other.getEnderChestInventory());
-				}, stack.getHoverName()));
+				player.openMenu(new SimpleMenuProvider((windowId, playerInv, p) -> ChestMenu.threeRows(windowId, playerInv, other.getEnderChestInventory()), stack.getHoverName()));
 			}
 			ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.ENDER_CHEST_OPEN, 1F, 1F);

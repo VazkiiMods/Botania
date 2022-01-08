@@ -28,8 +28,8 @@ import net.minecraft.world.level.material.Material;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Set;
 
@@ -75,7 +75,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 					BlockState state = getLevel().getBlockState(pos);
 					addMana(-5);
 					state.randomTick((ServerLevel) level, pos, level.random);
-					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+					if (BotaniaConfig.common().blockBreakParticles()) {
 						getLevel().levelEvent(2005, pos, 6 + getLevel().random.nextInt(4));
 					}
 					getLevel().playSound(null, x, y, z, ModSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);

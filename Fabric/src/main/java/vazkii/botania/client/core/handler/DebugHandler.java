@@ -14,8 +14,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public final class DebugHandler {
 
 	public static void onDrawDebugText(List<String> left) {
 		Level world = Minecraft.getInstance().level;
-		if (ConfigHandler.CLIENT.debugInfo.getValue()) {
+		if (BotaniaConfig.client().debugInfo()) {
 			left.add("");
 			String version = IXplatAbstractions.INSTANCE.getBotaniaVersion();
 

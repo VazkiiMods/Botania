@@ -23,8 +23,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +36,7 @@ public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPla
 
 	@Override
 	public void render(PoseStack ms, MultiBufferSource buffers, int light, @Nonnull AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (ConfigHandler.CLIENT.renderAccessories.getValue() && !player.isInvisible()) {
+		if (BotaniaConfig.client().renderAccessories() && !player.isInvisible()) {
 			renderManaTablet(ms, buffers, player);
 		}
 	}

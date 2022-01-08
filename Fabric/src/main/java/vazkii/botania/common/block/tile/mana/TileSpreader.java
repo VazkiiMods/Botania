@@ -46,13 +46,13 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nullable;
 
@@ -435,7 +435,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 						burst.setShooterUUID(getIdentifier());
 						level.addFreshEntity(burst);
 						burst.ping();
-						if (!ConfigHandler.COMMON.silentSpreaders.getValue()) {
+						if (!BotaniaConfig.common().silentSpreaders()) {
 							level.playSound(null, worldPosition, ModSounds.spreaderFire, SoundSource.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 						}
 					}

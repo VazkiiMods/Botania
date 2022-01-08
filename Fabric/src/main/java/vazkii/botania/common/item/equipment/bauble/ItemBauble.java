@@ -26,10 +26,10 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 import java.util.UUID;
@@ -126,7 +126,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	public boolean hasRender(ItemStack stack, LivingEntity living) {
 		return !hasPhantomInk(stack)
-				&& ConfigHandler.CLIENT.renderAccessories.getValue()
+				&& BotaniaConfig.client().renderAccessories()
 				&& !living.isInvisible();
 	}
 }

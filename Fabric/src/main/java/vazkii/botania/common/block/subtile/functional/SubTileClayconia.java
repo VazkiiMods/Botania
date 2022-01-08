@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 				if (coords != null) {
 					int stateId = Block.getId(getLevel().getBlockState(coords));
 					getLevel().removeBlock(coords, false);
-					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+					if (BotaniaConfig.common().blockBreakParticles()) {
 						getLevel().levelEvent(2001, coords, stateId);
 					}
 					ItemEntity item = new ItemEntity(getLevel(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));

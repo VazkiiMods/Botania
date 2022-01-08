@@ -18,7 +18,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -64,7 +64,7 @@ public class SkyblockSavedData extends SavedData {
 	}
 
 	public IslandPos create(UUID playerId) {
-		int scale = ConfigHandler.COMMON.gogIslandScaleMultiplier.getValue();
+		int scale = BotaniaConfig.common().gogIslandScaleMultiplier();
 		IslandPos islandPos;
 		do {
 			int[] pos = spiral.next();

@@ -76,7 +76,6 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ItemBlackHoleTalisman;
@@ -100,6 +99,7 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.mixin.AccessorRenderBuffers;
 import vazkii.botania.mixin.AccessorWorldPreset;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 
 import java.time.LocalDateTime;
@@ -138,7 +138,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> ScreenKeyboardEvents.beforeKeyPress(screen)
 				.register((screen2, key, scancode, modifiers) -> CorporeaInputHandler.buttonPressed(key, scancode)));
 
-		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
+		if (BotaniaConfig.client().enableSeasonalFeatures()) {
 			LocalDateTime now = LocalDateTime.now();
 			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2) {
 				ClientProxy.jingleTheBells = true;

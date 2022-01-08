@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class MixinSplashManager {
 	 */
 	@Inject(at = @At("RETURN"), method = "apply(Ljava/util/List;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V")
 	public void addSplashes(List<String> splashes, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
-		if (ConfigHandler.CLIENT.splashesEnabled.getValue()) {
+		if (BotaniaConfig.client().splashesEnabled()) {
 			this.splashes.add("Do not feed bread to elves!");
 		}
 	}

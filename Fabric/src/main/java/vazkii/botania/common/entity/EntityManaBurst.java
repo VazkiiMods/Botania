@@ -41,7 +41,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -214,7 +214,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		this.noParticles = noParticles;
 
 		int iterations = 0;
-		while (isAlive() && iterations < ConfigHandler.COMMON.spreaderTraceTime.getValue()) {
+		while (isAlive() && iterations < BotaniaConfig.common().spreaderTraceTime()) {
 			tick();
 			iterations++;
 		}
@@ -356,7 +356,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		} else {
 			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
 
-			if (ConfigHandler.CLIENT.subtlePowerSystem.getValue()) {
+			if (BotaniaConfig.client().subtlePowerSystem()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
 				Botania.proxy.addParticleForceNear(level, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
@@ -483,7 +483,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 				int maxMana = getStartingMana();
 				float size = (float) mana / (float) maxMana;
 
-				if (!ConfigHandler.CLIENT.subtlePowerSystem.getValue()) {
+				if (!BotaniaConfig.client().subtlePowerSystem()) {
 					for (int i = 0; i < 4; i++) {
 						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
 						level.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
@@ -735,7 +735,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	protected boolean shouldDoFakeParticles() {
-		if (ConfigHandler.CLIENT.staticWandBeam.getValue()) {
+		if (BotaniaConfig.client().staticWandBeam()) {
 			return true;
 		}
 

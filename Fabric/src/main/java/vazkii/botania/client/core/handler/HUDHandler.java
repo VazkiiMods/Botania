@@ -48,7 +48,6 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex.InputHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemCraftingHalo;
@@ -58,6 +57,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
@@ -217,7 +217,7 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getInstance();
 		int width = 182;
 		int x = mc.getWindow().getGuiScaledWidth() / 2 - width / 2;
-		int y = mc.getWindow().getGuiScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.getValue();
+		int y = mc.getWindow().getGuiScaledHeight() - BotaniaConfig.client().manaBarHeight();
 
 		if (totalMaxMana == 0) {
 			width = 0;

@@ -38,8 +38,8 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -100,7 +100,7 @@ public class TileAlfPortal extends TileMod implements IWandable {
 
 		if (self.ticksOpen > 60) {
 			self.ticksSinceLastItem++;
-			if (level.isClientSide && ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
+			if (level.isClientSide && BotaniaConfig.client().elfPortalParticlesEnabled()) {
 				self.blockParticle(state);
 			}
 

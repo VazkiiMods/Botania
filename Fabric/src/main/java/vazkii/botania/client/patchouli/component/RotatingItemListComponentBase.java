@@ -13,7 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 
@@ -43,7 +43,7 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 		int degreePerInput = (int) (360F / ingredients.size());
 		int ticksElapsed = context.getTicksInBook();
 
-		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.getValue()
+		float currentDegree = BotaniaConfig.client().lexiconRotatingItems()
 				? Screen.hasShiftDown()
 						? ticksElapsed
 						: ticksElapsed + pticks

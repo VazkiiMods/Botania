@@ -20,7 +20,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -55,7 +55,7 @@ public class ModFeatures {
 		Registry.register(BuiltinRegistries.PLACED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_PLACED);
 		Registry.register(BuiltinRegistries.PLACED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_PLACED);
 
-		if (ConfigHandler.COMMON.worldgenEnabled.getValue()) {
+		if (BotaniaConfig.common().worldgenEnabled()) {
 			BiomeModifications.addFeature(ctx -> {
 				Biome.BiomeCategory category = ctx.getBiome().getBiomeCategory();
 				return !TYPE_BLACKLIST.contains(category);

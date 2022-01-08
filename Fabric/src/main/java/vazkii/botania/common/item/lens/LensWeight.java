@@ -21,14 +21,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 public class LensWeight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
-			int harvestLevel = ConfigHandler.COMMON.harvestLevelWeight.getValue();
+			int harvestLevel = BotaniaConfig.common().harvestLevelWeight();
 
 			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
 			BlockState state = entity.level.getBlockState(bPos);

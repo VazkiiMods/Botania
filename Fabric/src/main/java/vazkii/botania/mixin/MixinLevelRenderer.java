@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.client.core.SkyblockWorldInfo;
 import vazkii.botania.client.render.world.SkyblockSkyRenderer;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nullable;
 
@@ -47,9 +47,9 @@ public class MixinLevelRenderer {
 	private static boolean isGogSky() {
 		Level world = Minecraft.getInstance().level;
 		boolean isGog = world.getLevelData() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getLevelData()).isGardenOfGlass();
-		return ConfigHandler.CLIENT.enableFancySkybox.getValue()
+		return BotaniaConfig.client().enableFancySkybox()
 				&& world.dimension() == Level.OVERWORLD
-				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.getValue() || isGog);
+				&& (BotaniaConfig.client().enableFancySkyboxInNormalWorlds() || isGog);
 	}
 
 	/**

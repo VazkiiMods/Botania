@@ -33,7 +33,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -52,7 +52,7 @@ public final class BoundTileRenderer {
 	private BoundTileRenderer() {}
 
 	public static void onWorldRenderLast(PoseStack ms) {
-		if (!ConfigHandler.CLIENT.boundBlockWireframe.getValue()) {
+		if (!BotaniaConfig.client().boundBlockWireframe()) {
 			return;
 		}
 

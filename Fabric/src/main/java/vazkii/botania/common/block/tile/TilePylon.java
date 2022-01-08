@@ -23,8 +23,8 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Random;
 
@@ -52,7 +52,7 @@ public class TilePylon extends BlockEntity {
 			Vec3 centerBlock = new Vec3(self.centerPos.getX() + 0.5, self.centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), self.centerPos.getZ() + 0.5);
 
 			if (variant == BlockPylon.Variant.NATURA) {
-				if (ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
+				if (BotaniaConfig.client().elfPortalParticlesEnabled()) {
 					double worldTime = self.ticks;
 					worldTime += new Random(worldPosition.hashCode()).nextInt(1000);
 					worldTime /= 5;

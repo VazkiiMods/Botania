@@ -37,11 +37,11 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.network.PacketGogWorld;
 import vazkii.botania.mixin.AccessorSoundType;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -123,7 +123,7 @@ public final class SkyblockWorldEvents {
 			createSkyblock(pmp.getLevel(), pos);
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setRespawnPosition(pmp.level.dimension(), pos, 0, true, false);
-			if (ConfigHandler.COMMON.gogSpawnWithLexicon.getValue()) {
+			if (BotaniaConfig.common().gogSpawnWithLexicon()) {
 				player.getInventory().add(new ItemStack(ModItems.lexicon));
 			}
 		}

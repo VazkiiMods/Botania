@@ -20,12 +20,12 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 
 		if (cooldown <= 0) {
-			if (living.isShiftKeyDown() == ConfigHandler.COMMON.invertMagnetRing.getValue()) {
+			if (living.isShiftKeyDown() == BotaniaConfig.common().invertMagnetRing()) {
 				double x = living.getX();
 				double y = living.getY() + 0.75;
 				double z = living.getZ();

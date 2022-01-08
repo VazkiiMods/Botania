@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -24,7 +24,7 @@ public class EnableRelics implements LootItemCondition {
 
 	@Override
 	public boolean test(@Nonnull LootContext context) {
-		return ConfigHandler.COMMON.relicsEnabled.getValue();
+		return BotaniaConfig.common().relicsEnabled();
 	}
 
 	@Override

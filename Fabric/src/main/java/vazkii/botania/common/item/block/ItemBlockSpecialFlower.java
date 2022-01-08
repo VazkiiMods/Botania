@@ -25,8 +25,8 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -55,7 +55,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 				}
 			}
 
-			if (ConfigHandler.CLIENT.referencesEnabled.getValue()) {
+			if (BotaniaConfig.client().referencesEnabled()) {
 				String key = getDescriptionId() + ".reference";
 				MutableComponent lore = new TranslatableComponent(key);
 				if (!lore.getString().equals(key)) {

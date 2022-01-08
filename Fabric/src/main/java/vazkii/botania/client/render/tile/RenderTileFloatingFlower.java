@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -38,7 +38,7 @@ public class RenderTileFloatingFlower implements BlockEntityRenderer<TileFloatin
 	}
 
 	public static void renderFloatingIsland(BlockEntity tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		if (ConfigHandler.CLIENT.staticFloaters.getValue()) {
+		if (BotaniaConfig.client().staticFloaters()) {
 			return;
 		}
 

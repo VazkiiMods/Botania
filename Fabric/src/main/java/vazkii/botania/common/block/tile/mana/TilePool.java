@@ -49,12 +49,12 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -222,7 +222,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			}
 			case CHARGE_EFFECT_EVENT: {
 				if (level.isClientSide) {
-					if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue()) {
+					if (BotaniaConfig.common().chargingAnimationEnabled()) {
 						boolean outputting = param == 1;
 						Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
 						Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
@@ -320,7 +320,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 					}
 
 					if (didSomething) {
-						if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue() && level.random.nextInt(20) == 0) {
+						if (BotaniaConfig.common().chargingAnimationEnabled() && level.random.nextInt(20) == 0) {
 							level.blockEvent(worldPosition, state.getBlock(), CHARGE_EFFECT_EVENT, self.outputting ? 1 : 0);
 						}
 						self.isDoingTransfer = self.outputting;

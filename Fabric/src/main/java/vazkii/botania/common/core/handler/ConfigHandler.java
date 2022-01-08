@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -48,7 +49,6 @@ public final class ConfigHandler {
 
 		try (InputStream s = new BufferedInputStream(Files.newInputStream(p, StandardOpenOption.READ, StandardOpenOption.CREATE))) {
 			FiberSerialization.deserialize(config, s, serializer);
-			onConfigLoad();
 		} catch (IOException | ValueDeserializationException e) {
 			BotaniaAPI.LOGGER.error("Error loading config from {}", p, e);
 		}
@@ -64,14 +64,17 @@ public final class ConfigHandler {
 		JanksonValueSerializer serializer = new JanksonValueSerializer(false);
 		ConfigTree common = COMMON.configure(ConfigTree.builder());
 		setupConfig(common, Paths.get("config", LibMisc.MOD_ID + "-common.json5"), serializer);
+		BotaniaConfig.setCommon(COMMON);
 
 		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
 			ConfigTree client = CLIENT.configure(ConfigTree.builder());
 			setupConfig(client, Paths.get("config", LibMisc.MOD_ID + "-client.json5"), serializer);
+			BotaniaConfig.setClient(CLIENT);
 		}
+		onConfigLoad();
 	}
 
-	public static class Client {
+	public static class Client implements BotaniaConfig.ClientConfigAccess {
 		public final PropertyMirror<Boolean> lexiconRotatingItems = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> subtlePowerSystem = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> staticWandBeam = PropertyMirror.create(BOOLEAN);
@@ -166,11 +169,91 @@ public final class ConfigHandler {
 
 			return builder.build();
 		}
+
+		@Override
+		public boolean lexiconRotatingItems() {
+			return lexiconRotatingItems.getValue();
+		}
+
+		@Override
+		public boolean subtlePowerSystem() {
+			return subtlePowerSystem.getValue();
+		}
+
+		@Override
+		public boolean staticWandBeam() {
+			return staticWandBeam.getValue();
+		}
+
+		@Override
+		public boolean boundBlockWireframe() {
+			return boundBlockWireframe.getValue();
+		}
+
+		@Override
+		public boolean lexicon3dModel() {
+			return lexicon3dModel.getValue();
+		}
+
+		@Override
+		public double flowerParticleFrequency() {
+			return flowerParticleFrequency.getValue();
+		}
+
+		@Override
+		public boolean elfPortalParticlesEnabled() {
+			return elfPortalParticlesEnabled.getValue();
+		}
+
+		@Override
+		public boolean renderAccessories() {
+			return renderAccessories.getValue();
+		}
+
+		@Override
+		public boolean enableSeasonalFeatures() {
+			return enableSeasonalFeatures.getValue();
+		}
+
+		@Override
+		public boolean enableFancySkybox() {
+			return enableFancySkybox.getValue();
+		}
+
+		@Override
+		public boolean enableFancySkyboxInNormalWorlds() {
+			return enableFancySkyboxInNormalWorlds.getValue();
+		}
+
+		@Override
+		public int manaBarHeight() {
+			return manaBarHeight.getValue();
+		}
+
+		@Override
+		public boolean staticFloaters() {
+			return staticFloaters.getValue();
+		}
+
+		@Override
+		public boolean debugInfo() {
+			return debugInfo.getValue();
+		}
+
+		@Override
+		public boolean referencesEnabled() {
+			return referencesEnabled.getValue();
+		}
+
+		@Override
+		public boolean splashesEnabled() {
+			return splashesEnabled.getValue();
+		}
 	}
 
 	public static final Client CLIENT = new Client();
 
-	public static class Common {
+	public static class Common implements BotaniaConfig.ConfigAccess {
 		public final PropertyMirror<Boolean> blockBreakParticles = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> blockBreakParticlesTool = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> chargingAnimationEnabled = PropertyMirror.create(BOOLEAN);
@@ -269,16 +352,96 @@ public final class ConfigHandler {
 
 			return builder.build();
 		}
+
+		@Override
+		public boolean blockBreakParticles() {
+			return blockBreakParticles.getValue();
+		}
+
+		@Override
+		public boolean blockBreakParticlesTool() {
+			return blockBreakParticlesTool.getValue();
+		}
+
+		@Override
+		public boolean chargingAnimationEnabled() {
+			return chargingAnimationEnabled.getValue();
+		}
+
+		@Override
+		public boolean silentSpreaders() {
+			return silentSpreaders.getValue();
+		}
+
+		@Override
+		public int spreaderTraceTime() {
+			return spreaderTraceTime.getValue();
+		}
+
+		@Override
+		public boolean enderPickpocketEnabled() {
+			return enderPickpocketEnabled.getValue();
+		}
+
+		@Override
+		public boolean enchanterEnabled() {
+			return enchanterEnabled.getValue();
+		}
+
+		@Override
+		public boolean fluxfieldEnabled() {
+			return fluxfieldEnabled.getValue();
+		}
+
+		@Override
+		public boolean relicsEnabled() {
+			return relicsEnabled.getValue();
+		}
+
+		@Override
+		public boolean invertMagnetRing() {
+			return invertMagnetRing.getValue();
+		}
+
+		@Override
+		public int harvestLevelWeight() {
+			return harvestLevelWeight.getValue();
+		}
+
+		@Override
+		public int harvestLevelBore() {
+			return harvestLevelBore.getValue();
+		}
+
+		@Override
+		public boolean gogSpawnWithLexicon() {
+			return gogSpawnWithLexicon.getValue();
+		}
+
+		@Override
+		public int gogIslandScaleMultiplier() {
+			return gogIslandScaleMultiplier.getValue();
+		}
+
+		@Override
+		public boolean worldgenEnabled() {
+			return worldgenEnabled.getValue();
+		}
+
+		@Override
+		public List<String> rannuncarpusItemBlacklist() {
+			return rannuncarpusItemBlacklist.getValue();
+		}
+
+		@Override
+		public List<String> rannuncarpusModBlacklist() {
+			return rannuncarpusModBlacklist.getValue();
+		}
 	}
 
 	public static final Common COMMON = new Common();
-	public static Set<ResourceLocation> blacklistedRannuncarpusItems;
-	public static Set<String> blacklistedRannuncarpusModIds;
 
 	private static void onConfigLoad() {
-		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.getValue().stream().map(ResourceLocation::new).collect(Collectors.toSet());
-		blacklistedRannuncarpusModIds = new HashSet<>(COMMON.rannuncarpusModBlacklist.getValue());
-
 		PatchouliAPI.get().setConfigFlag("botania:relics", COMMON.relicsEnabled.getValue());
 		PatchouliAPI.get().setConfigFlag("botania:enchanter", COMMON.enchanterEnabled.getValue());
 		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", COMMON.enderPickpocketEnabled.getValue());

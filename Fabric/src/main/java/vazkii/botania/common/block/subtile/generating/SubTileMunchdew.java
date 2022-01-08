@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,7 +82,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				getLevel().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;
 				ateOnce = true;
-				if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+				if (BotaniaConfig.common().blockBreakParticles()) {
 					getLevel().levelEvent(2001, breakCoords, Block.getId(state));
 				}
 				addMana(manaPerLeaf);

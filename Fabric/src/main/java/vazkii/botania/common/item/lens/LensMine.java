@@ -24,8 +24,8 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -51,7 +51,7 @@ public class LensMine extends Lens {
 			return false;
 		}
 
-		int harvestLevel = ConfigHandler.COMMON.harvestLevelBore.getValue();
+		int harvestLevel = BotaniaConfig.common().harvestLevelBore();
 
 		BlockEntity tile = world.getBlockEntity(collidePos);
 
@@ -68,7 +68,7 @@ public class LensMine extends Lens {
 					List<ItemStack> items = Block.getDrops(state, (ServerLevel) world, collidePos, tile);
 
 					world.removeBlock(collidePos, false);
-					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+					if (BotaniaConfig.common().blockBreakParticles()) {
 						world.levelEvent(2001, collidePos, Block.getId(state));
 					}
 

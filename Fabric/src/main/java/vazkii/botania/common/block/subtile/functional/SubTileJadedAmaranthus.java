@@ -17,7 +17,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 	private static final int COST = 100;
@@ -49,7 +49,7 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 				BlockState flower = ModBlocks.getFlower(color).defaultBlockState();
 
 				if (getLevel().isEmptyBlock(up) && flower.canSurvive(getLevel(), up)) {
-					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+					if (BotaniaConfig.common().blockBreakParticles()) {
 						getLevel().levelEvent(2001, up, Block.getId(flower));
 					}
 					getLevel().setBlockAndUpdate(up, flower);

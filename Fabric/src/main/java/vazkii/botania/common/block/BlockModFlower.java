@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -70,7 +70,7 @@ public class BlockModFlower extends FlowerBlock implements BonemealableBlock {
 		double y = pos.getY() + offset.y;
 		double z = pos.getZ() + offset.z;
 
-		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.getValue()) {
+		if (rand.nextDouble() < BotaniaConfig.client().flowerParticleFrequency()) {
 			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
 			world.addParticle(data, x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 		}

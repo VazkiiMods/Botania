@@ -21,8 +21,8 @@ import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nullable;
 
@@ -94,7 +94,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 					ticksRemaining[positionAt] = -1;
 
 					if (recipe.set(world, coords, this)) {
-						if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+						if (BotaniaConfig.common().blockBreakParticles()) {
 							getLevel().levelEvent(2001, coords, Block.getId(recipe.getOutputState()));
 						}
 						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);

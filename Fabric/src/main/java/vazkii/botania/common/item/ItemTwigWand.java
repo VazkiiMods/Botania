@@ -52,11 +52,11 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -185,7 +185,7 @@ public class ItemTwigWand extends Item {
 			}
 		}
 
-		if (state.is(Blocks.LAPIS_BLOCK) && ConfigHandler.COMMON.enchanterEnabled.getValue() && tryFormEnchanter(ctx)) {
+		if (state.is(Blocks.LAPIS_BLOCK) && BotaniaConfig.common().enchanterEnabled() && tryFormEnchanter(ctx)) {
 			return InteractionResult.SUCCESS;
 		}
 

@@ -27,9 +27,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -82,7 +82,7 @@ public class BlockModMushroom extends MushroomBlock implements ICustomApothecary
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.getValue() * 0.25F) {
+		if (rand.nextDouble() < BotaniaConfig.client().flowerParticleFrequency() * 0.25F) {
 			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
 			world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 		}

@@ -31,10 +31,10 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ public class RenderLexicon {
 	}
 
 	public static boolean renderHand(ItemStack stack, boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light) {
-		if (!ConfigHandler.CLIENT.lexicon3dModel.getValue()
+		if (!BotaniaConfig.client().lexicon3dModel()
 				|| stack.isEmpty()
 				|| !stack.is(ModItems.lexicon)) {
 			return false;

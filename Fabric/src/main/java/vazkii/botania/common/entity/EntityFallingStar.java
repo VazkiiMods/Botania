@@ -22,7 +22,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
@@ -96,7 +96,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if (!level.isClientSide) {
 			BlockPos bpos = hit.getBlockPos();
 			BlockState state = level.getBlockState(bpos);
-			if (ConfigHandler.COMMON.blockBreakParticles.getValue() && !state.isAir()) {
+			if (BotaniaConfig.common().blockBreakParticles() && !state.isAir()) {
 				level.levelEvent(2001, bpos, Block.getId(state));
 			}
 			discard();

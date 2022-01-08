@@ -41,8 +41,8 @@ import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.DelayHelper;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -89,8 +89,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 				ItemStack stack = item.getItem();
 				Item stackItem = stack.getItem();
 				ResourceLocation id = Registry.ITEM.getKey(stackItem);
-				if (ConfigHandler.blacklistedRannuncarpusModIds.contains(id.getNamespace())
-						|| ConfigHandler.blacklistedRannuncarpusItems.contains(id)) {
+				if (BotaniaConfig.common().rannuncarpusModBlacklist().contains(id.getNamespace())
+						|| BotaniaConfig.common().rannuncarpusItemBlacklist().contains(id.toString())) {
 					continue;
 				}
 
@@ -111,7 +111,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 					}
 
 					if (success) {
-						if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+						if (BotaniaConfig.common().blockBreakParticles()) {
 							BlockState state = getLevel().getBlockState(ctx.getClickedPos());
 							getLevel().levelEvent(2001, coords, Block.getId(state));
 						}
