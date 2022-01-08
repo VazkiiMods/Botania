@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.mana.TilePump;
@@ -38,15 +37,15 @@ public class RenderTilePump implements BlockEntityRenderer<TilePump> {
 		float angle = 0;
 		switch (pump.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {
 			default:
-			case Direction.NORTH:
+			case NORTH:
 				break;
-			case Direction.SOUTH:
+			case SOUTH:
 				angle = 180;
 				break;
-			case Direction.EAST:
+			case EAST:
 				angle = -90;
 				break;
-			case Direction.WEST:
+			case WEST:
 				angle = 90;
 				break;
 		}

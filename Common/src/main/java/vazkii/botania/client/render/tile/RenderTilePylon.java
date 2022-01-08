@@ -77,12 +77,12 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 				texture = MANA_TEXTURE;
 				shaderLayer = direct ? RenderHelper.MANA_PYLON_GLOW_DIRECT : RenderHelper.MANA_PYLON_GLOW;
 			}
-			case Variant.NATURA -> {
+			case NATURA -> {
 				model = naturaModel;
 				texture = NATURA_TEXTURE;
 				shaderLayer = direct ? RenderHelper.NATURA_PYLON_GLOW_DIRECT : RenderHelper.NATURA_PYLON_GLOW;
 			}
-			case Variant.GAIA -> {
+			case GAIA -> {
 				model = gaiaModel;
 				texture = GAIA_TEXTURE;
 				shaderLayer = direct ? RenderHelper.GAIA_PYLON_GLOW_DIRECT : RenderHelper.GAIA_PYLON_GLOW;

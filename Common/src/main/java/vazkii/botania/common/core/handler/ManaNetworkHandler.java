@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.mana.ManaNetworkCallback.Action;
-import vazkii.botania.api.mana.ManaNetworkCallback.ManaBlockType;
+import vazkii.botania.api.mana.ManaBlockType;
+import vazkii.botania.api.mana.ManaNetworkAction;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nullable;
@@ -28,9 +28,9 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	private final WeakHashMap<Level, Set<BlockEntity>> manaPools = new WeakHashMap<>();
 	private final WeakHashMap<Level, Set<BlockEntity>> manaCollectors = new WeakHashMap<>();
 
-	public void onNetworkEvent(BlockEntity be, ManaBlockType type, Action action) {
+	public void onNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
 		Map<Level, Set<BlockEntity>> map = type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
-		if (action == Action.ADD) {
+		if (action == ManaNetworkAction.ADD) {
 			add(map, be);
 		} else {
 			remove(map, be);
