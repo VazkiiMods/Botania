@@ -40,7 +40,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
-import vazkii.botania.mixin.AccessorMinecraft;
+import vazkii.botania.mixin.client.AccessorMinecraft;
 
 public final class ColorHandler {
 	public interface BlockHandlerConsumer {

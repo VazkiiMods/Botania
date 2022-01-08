@@ -6,24 +6,20 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package vazkii.botania.mixin.client;
 
-import net.minecraft.client.renderer.texture.AtlasSet;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelLayers;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Set;
 
-@Mixin(ModelBakery.class)
-public interface AccessorModelBakery {
-	@Accessor("UNREFERENCED_TEXTURES")
-	static Set<Material> getMaterials() {
+@Mixin(ModelLayers.class)
+public interface AccessorModelLayers {
+	@Accessor("ALL_MODELS")
+	static Set<ModelLayerLocation> getAllModels() {
 		throw new IllegalStateException();
 	}
-
-	@Accessor("atlasSet")
-	AtlasSet getSpriteAtlasManager();
 }

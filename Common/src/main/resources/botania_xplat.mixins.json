@@ -32,17 +32,17 @@
     "AccessorWitherEntity"
   ],
   "client": [
-    "AccessorAbstractContainerScreen",
-    "AccessorItemRenderer",
-    "AccessorMinecraft",
-    "AccessorModelBakery",
-    "AccessorModelLayers",
-    "AccessorModelManager",
-    "AccessorRecipeBookComponent",
-    "AccessorRecipeBookPage",
-    "AccessorRenderBuffers",
-    "AccessorRenderType",
-    "AccessorWorldPreset"
+    "client.AccessorAbstractContainerScreen",
+    "client.AccessorItemRenderer",
+    "client.AccessorMinecraft",
+    "client.AccessorModelBakery",
+    "client.AccessorModelLayers",
+    "client.AccessorModelManager",
+    "client.AccessorRecipeBookComponent",
+    "client.AccessorRecipeBookPage",
+    "client.AccessorRenderBuffers",
+    "client.AccessorRenderType",
+    "client.AccessorWorldPreset"
   ],
   "injectors": {
     "defaultRequire": 1

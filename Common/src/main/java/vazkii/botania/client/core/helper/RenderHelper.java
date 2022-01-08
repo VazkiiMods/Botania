@@ -42,8 +42,8 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.mixin.AccessorItemRenderer;
-import vazkii.botania.mixin.AccessorRenderType;
+import vazkii.botania.mixin.client.AccessorItemRenderer;
+import vazkii.botania.mixin.client.AccessorRenderType;
 
 import javax.annotation.Nullable;
 

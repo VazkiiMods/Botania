@@ -45,7 +45,7 @@ import vazkii.botania.common.core.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.mixin.AccessorModelManager;
+import vazkii.botania.mixin.client.AccessorModelManager;
 
 import javax.annotation.Nonnull;
 

@@ -95,7 +95,7 @@ public class LensMine extends Lens {
 
 	public static boolean canHarvest(int harvestLevel, BlockState state) {
 		return !state.requiresCorrectToolForDrops()
-			// todo 1.18 check this
-			|| HARVEST_TOOLS.get(harvestLevel).isCorrectToolForDrops(state);
+				// todo 1.18 check this
+				|| HARVEST_TOOLS.get(harvestLevel).isCorrectToolForDrops(state);
 	}
 }

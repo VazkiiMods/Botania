@@ -6,16 +6,19 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.mixin;
+package vazkii.botania.mixin.client;
 
-import net.minecraft.client.gui.screens.recipebook.RecipeBookPage;
-import net.minecraft.client.gui.screens.recipebook.RecipeButton;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.resources.ResourceLocation;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(RecipeBookPage.class)
-public interface AccessorRecipeBookPage {
+import java.util.Map;
+
+@Mixin(ModelManager.class)
+public interface AccessorModelManager {
 	@Accessor
-	RecipeButton getHoveredButton();
+	Map<ResourceLocation, BakedModel> getBakedRegistry();
 }

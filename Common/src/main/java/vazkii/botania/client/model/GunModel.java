@@ -37,7 +37,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.AccessorModelBakery;
+import vazkii.botania.mixin.client.AccessorModelBakery;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

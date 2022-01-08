@@ -1,4 +1,4 @@
-package vazkii.botania.mixin;
+package vazkii.botania.mixin.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;

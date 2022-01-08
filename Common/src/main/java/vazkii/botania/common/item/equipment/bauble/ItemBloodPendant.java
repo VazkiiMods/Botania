@@ -45,7 +45,7 @@ import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.mixin.AccessorMinecraft;
+import vazkii.botania.mixin.client.AccessorMinecraft;
 
 import java.util.List;
 

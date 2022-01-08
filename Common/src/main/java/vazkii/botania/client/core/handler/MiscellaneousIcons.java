@@ -27,7 +27,7 @@ import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.AccessorModelBakery;
+import vazkii.botania.mixin.client.AccessorModelBakery;
 
 import java.util.Arrays;
 import java.util.Map;

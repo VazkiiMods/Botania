@@ -10,7 +10,7 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
-import vazkii.botania.mixin.AccessorModelLayers;
+import vazkii.botania.mixin.client.AccessorModelLayers;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
