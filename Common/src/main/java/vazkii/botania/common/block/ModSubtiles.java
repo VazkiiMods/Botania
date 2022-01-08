@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import vazkii.botania.api.BotaniaClientCapabilities;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.*;
 import vazkii.botania.common.block.subtile.generating.*;
 import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -600,7 +600,7 @@ public class ModSubtiles {
 		r.accept(ORECHID_IGNEM, getId(orechidIgnem));
 		r.accept(LABELLIA, getId(labellia));
 
-		Botania.runOnClient.accept(() -> () -> {
+		IProxy.INSTANCE.runOnClient(() -> () -> {
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileEntityGeneratingFlower.GeneratingWandHud<>((TileEntityGeneratingFlower) be),
 					HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,

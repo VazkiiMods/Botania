@@ -25,10 +25,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -56,7 +56,7 @@ public class BlockManaFlame extends BlockMod implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (Botania.gardenOfGlassLoaded) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			ItemStack stack = player.getItemInHand(hand);
 			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.getInventory().contains(new ItemStack(ModItems.lexicon))) {
 				if (!world.isClientSide) {

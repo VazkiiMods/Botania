@@ -23,11 +23,11 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.ItemFlagsComponent;
 import vazkii.botania.common.core.helper.DelayHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.network.EffectType;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -154,7 +154,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	@Override
 	public BlockPos getBinding() {
-		return Botania.proxy.getClientPlayer().isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
+		return IProxy.INSTANCE.getClientPlayer().isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
 	}
 
 }

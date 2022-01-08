@@ -45,7 +45,7 @@ public class EntityMagicLandmine extends Entity {
 		float g = 0F;
 		float b = 0.2F;
 
-		//Botania.proxy.wispFX(world, getPosX(), getPosY(), getPosZ(), r, g, b, 0.6F, -0.2F, 1);
+		//IProxy.INSTANCE.wispFX(world, getPosX(), getPosY(), getPosZ(), r, g, b, 0.6F, -0.2F, 1);
 		for (int i = 0; i < 6; i++) {
 			WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
 			level.addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);

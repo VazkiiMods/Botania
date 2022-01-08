@@ -28,7 +28,7 @@ import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.proxy.IProxy;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public ItemBaubleCosmetic(Variant variant, Properties props) {
 		super(props);
 		this.variant = variant;
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

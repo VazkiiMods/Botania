@@ -27,8 +27,8 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class ItemGoddessCharm extends ItemBauble {
 
 	public ItemGoddessCharm(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static void onExplosion(Level world, Vec3 vec, List<BlockPos> affectedBlocks) {

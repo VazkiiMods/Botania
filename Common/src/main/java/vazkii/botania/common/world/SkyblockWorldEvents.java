@@ -34,7 +34,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
@@ -72,7 +71,7 @@ public final class SkyblockWorldEvents {
 	}
 
 	public static InteractionResult onPlayerInteract(Player player, Level world, InteractionHand hand, BlockHitResult hit) {
-		if (Botania.gardenOfGlassLoaded) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			ItemStack equipped = player.getItemInHand(hand);
 
 			if (equipped.isEmpty() && player.isShiftKeyDown()) {

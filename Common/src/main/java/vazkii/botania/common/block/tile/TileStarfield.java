@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.proxy.IProxy;
 
 public class TileStarfield extends TileMod {
 	public TileStarfield(BlockPos pos, BlockState state) {
@@ -30,7 +30,7 @@ public class TileStarfield extends TileMod {
 		int iter = 2;
 		for (int i = 0; i < iter; i++) {
 			double x = worldPosition.getX() + 0.5 + (Math.random() - 0.5) * radius;
-			double y = Math.min(256, worldPosition.getY() + Botania.proxy.getClientRenderDistance() * 16);
+			double y = Math.min(256, worldPosition.getY() + IProxy.INSTANCE.getClientRenderDistance() * 16);
 			double z = worldPosition.getZ() + 0.5 + (Math.random() - 0.5) * radius;
 
 			float w = 0.6F;
@@ -44,7 +44,7 @@ public class TileStarfield extends TileMod {
 			int m = 50;
 
 			SparkleParticleData data = SparkleParticleData.sparkle(s, r, g, b, m);
-			Botania.proxy.addParticleForce(level, data, x, y, z, 0, 0, 0);
+			IProxy.INSTANCE.addParticleForce(level, data, x, y, z, 0, 0, 0);
 		}
 	}
 

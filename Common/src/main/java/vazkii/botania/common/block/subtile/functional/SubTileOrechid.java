@@ -21,12 +21,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.handler.OrechidManager;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -141,11 +141,11 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	}
 
 	public int getCost() {
-		return Botania.gardenOfGlassLoaded ? COST_GOG : COST;
+		return IXplatAbstractions.INSTANCE.gogLoaded() ? COST_GOG : COST;
 	}
 
 	public int getDelay() {
-		return Botania.gardenOfGlassLoaded ? DELAY_GOG : DELAY;
+		return IXplatAbstractions.INSTANCE.gogLoaded() ? DELAY_GOG : DELAY;
 	}
 
 	@Override

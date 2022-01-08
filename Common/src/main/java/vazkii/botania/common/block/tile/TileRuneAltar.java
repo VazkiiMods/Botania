@@ -37,9 +37,9 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
@@ -187,7 +187,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.random.nextInt(20) == 0) {
 			Vec3 vec = Vec3.atCenterOf(self.getBlockPos());
 			Vec3 endVec = vec.add(0, 2.5, 0);
-			Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
+			IProxy.INSTANCE.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
 		}
 
 		if (self.cooldown > 0) {

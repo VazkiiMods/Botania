@@ -16,10 +16,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 
+import java.util.function.Supplier;
+
 public interface IProxy {
+	IProxy INSTANCE = make();
+
+	private static IProxy make() {
+		// todo check this in prod
+		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
+			return new ClientProxy();
+		} else {
+			return new IProxy() {};
+		}
+	}
+
+	default void runOnClient(Supplier<Runnable> s) {}
+
 	default Player getClientPlayer() {
 		return null;
 	}

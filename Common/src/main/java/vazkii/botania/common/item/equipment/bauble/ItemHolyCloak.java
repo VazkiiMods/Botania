@@ -32,10 +32,10 @@ import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 
 public class ItemHolyCloak extends ItemBauble {
 
@@ -47,7 +47,7 @@ public class ItemHolyCloak extends ItemBauble {
 
 	public ItemHolyCloak(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public float onPlayerDamage(Player player, DamageSource src, float amount) {

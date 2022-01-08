@@ -31,14 +31,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.mixin.AccessorBiome;
 
 public class ItemIcePendant extends ItemBauble {
 
 	public ItemIcePendant(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

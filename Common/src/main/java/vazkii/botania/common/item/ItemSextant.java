@@ -35,10 +35,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.VecHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -125,7 +125,7 @@ public class ItemSextant extends Item {
 					}
 				}
 				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
-				Botania.proxy.showMultiblock(sparse, new TextComponent("r = " + (int) radius), new BlockPos(x, y, z), Rotation.NONE);
+				IProxy.INSTANCE.showMultiblock(sparse, new TextComponent("r = " + (int) radius), new BlockPos(x, y, z), Rotation.NONE);
 			}
 		}
 	}
@@ -133,7 +133,7 @@ public class ItemSextant extends Item {
 	private void reset(Level world, ItemStack stack) {
 		ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 		if (world.isClientSide) {
-			Botania.proxy.clearSextantMultiblock();
+			IProxy.INSTANCE.clearSextantMultiblock();
 		}
 	}
 

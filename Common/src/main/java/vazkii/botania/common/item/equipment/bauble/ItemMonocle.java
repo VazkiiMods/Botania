@@ -35,15 +35,15 @@ import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.lib.ModTags;
 
 public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 
 	public ItemMonocle(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static class Renderer implements AccessoryRenderer {

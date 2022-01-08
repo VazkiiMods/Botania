@@ -31,8 +31,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
@@ -97,7 +97,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 	@Override
 	protected void registerComponentEvent(Item item) {
 		TrinketsApi.registerTrinket(item, WRAPPER);
-		Botania.runOnClient.accept(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
+		IProxy.INSTANCE.runOnClient(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
 	}
 
 	public static final Trinket WRAPPER = new Trinket() {

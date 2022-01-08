@@ -42,9 +42,9 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.mixin.client.AccessorMinecraft;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	public ItemBloodPendant(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

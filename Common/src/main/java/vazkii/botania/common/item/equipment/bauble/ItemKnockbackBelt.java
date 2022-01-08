@@ -29,7 +29,7 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.proxy.IProxy;
 
 public class ItemKnockbackBelt extends ItemBauble {
 
@@ -37,7 +37,7 @@ public class ItemKnockbackBelt extends ItemBauble {
 
 	public ItemKnockbackBelt(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

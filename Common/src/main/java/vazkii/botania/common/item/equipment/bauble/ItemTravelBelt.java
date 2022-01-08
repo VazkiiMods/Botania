@@ -31,8 +31,8 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.core.proxy.IProxy;
 
 import java.util.UUID;
 
@@ -55,7 +55,7 @@ public class ItemTravelBelt extends ItemBauble {
 
 	public ItemTravelBelt(Properties props) {
 		this(props, 0.035F, 0.2F, 2F);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static float onPlayerFall(Player entity, float dist) {

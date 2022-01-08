@@ -62,12 +62,12 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.VecHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.EffectType;
@@ -140,7 +140,7 @@ public class EntityDoppleganger extends Mob {
 		super(type, world);
 		xpReward = 825;
 		if (world.isClientSide) {
-			Botania.proxy.addBoss(this);
+			IProxy.INSTANCE.addBoss(this);
 		}
 	}
 
@@ -504,7 +504,7 @@ public class EntityDoppleganger extends Mob {
 	@Override
 	public void remove(RemovalReason reason) {
 		if (level.isClientSide) {
-			Botania.proxy.removeBoss(this);
+			IProxy.INSTANCE.removeBoss(this);
 		}
 		super.remove(reason);
 	}
@@ -689,7 +689,7 @@ public class EntityDoppleganger extends Mob {
 
 		if (level.isClientSide) {
 			particles();
-			Player player = Botania.proxy.getClientPlayer();
+			Player player = IProxy.INSTANCE.getClientPlayer();
 			if (getPlayersAround().contains(player)) {
 				player.getAbilities().flying &= player.getAbilities().instabuild;
 			}
@@ -1009,7 +1009,7 @@ public class EntityDoppleganger extends Mob {
 		this.hardMode = hardMode;
 		this.source = source;
 		this.bossInfoUUID = bossInfoUUID;
-		Botania.runOnClient.accept(() -> () -> DopplegangerMusic.play(this));
+		IProxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
 	}
 
 	@Nonnull

@@ -22,22 +22,22 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.Botania;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.Consumer;
 
 @Mixin(LootTable.class)
 public class MixinLootTable {
-	private static final ResourceLocation GOG_SEEDS = new ResourceLocation(LibMisc.GOG_MOD_ID, "extra_seeds");
+	private static final ResourceLocation GOG_SEEDS = new ResourceLocation(BotaniaAPI.GOG_MODID, "extra_seeds");
 
 	@Unique
 	private boolean callingGogTable;
 
 	@Inject(at = @At("RETURN"), method = "getRandomItemsRaw")
 	private void addGogSeeds(LootContext context, Consumer<ItemStack> stacksOut, CallbackInfo ci) {
-		if (Botania.gardenOfGlassLoaded && !callingGogTable) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded() && !callingGogTable) {
 			callingGogTable = true;
 			context.getLootTable(GOG_SEEDS).getRandomItems(context, stacksOut);
 			callingGogTable = false;

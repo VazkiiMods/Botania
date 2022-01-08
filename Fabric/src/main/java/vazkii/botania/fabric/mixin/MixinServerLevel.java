@@ -16,14 +16,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 @Mixin(ServerLevel.class)
 public class MixinServerLevel {
 	@Inject(at = @At("RETURN"), method = "addPlayer")
 	private void onEntityAdd(ServerPlayer entity, CallbackInfo ci) {
-		if (Botania.gardenOfGlassLoaded) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockWorldEvents.syncGogStatus(entity);
 		}
 	}

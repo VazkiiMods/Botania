@@ -14,11 +14,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.api.BotaniaClientCapabilities;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.*;
 import vazkii.botania.common.block.tile.mana.*;
 import vazkii.botania.common.block.tile.string.*;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -137,7 +137,7 @@ public class ModTiles {
 		r.accept(AVATAR, prefix(LibBlockNames.AVATAR));
 		r.accept(ANIMATED_TORCH, prefix(LibBlockNames.ANIMATED_TORCH));
 
-		Botania.runOnClient.accept(() -> () -> {
+		IProxy.INSTANCE.runOnClient(() -> () -> {
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileAnimatedTorch.WandHud((TileAnimatedTorch) be), ANIMATED_TORCH);
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileBrewery.WandHud((TileBrewery) be), BREWERY);
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileCorporeaRetainer.WandHud((TileCorporeaRetainer) be), CORPOREA_RETAINER);

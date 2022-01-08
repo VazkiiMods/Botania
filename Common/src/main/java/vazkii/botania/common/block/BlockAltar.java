@@ -46,13 +46,13 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.IPetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemWaterRod;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -138,7 +138,7 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 
 	private boolean tryWithdrawFluid(Player player, InteractionHand hand, TileAltar altar) {
 		Fluid fluid = altar.getFluid().asVanilla();
-		if (fluid == Fluids.EMPTY || fluid == Fluids.WATER && Botania.gardenOfGlassLoaded) {
+		if (fluid == Fluids.EMPTY || fluid == Fluids.WATER && IXplatAbstractions.INSTANCE.gogLoaded()) {
 			return false;
 		}
 

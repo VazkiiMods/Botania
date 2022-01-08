@@ -29,12 +29,19 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.function.Supplier;
+
 public class ClientProxy implements IProxy {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
 	public static KeyMapping CORPOREA_REQUEST;
+
+	@Override
+	public void runOnClient(Supplier<Runnable> s) {
+		s.get().run();
+	}
 
 	@Override
 	public Player getClientPlayer() {

@@ -39,8 +39,8 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
@@ -351,14 +351,14 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 			if (!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				Botania.proxy.addParticleForce(level, data, getX(), getY(), getZ(), 0, 0, 0);
+				IProxy.INSTANCE.addParticleForce(level, data, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
-			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
+			boolean depth = !IProxy.INSTANCE.isClientPlayerWearingMonocle();
 
 			if (BotaniaConfig.client().subtlePowerSystem()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
-				Botania.proxy.addParticleForceNear(level, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				IProxy.INSTANCE.addParticleForceNear(level, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
 				float og = g;
@@ -385,7 +385,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(uuid.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
-					Botania.proxy.addParticleForceNear(level, data, iterX, iterY, iterZ,
+					IProxy.INSTANCE.addParticleForceNear(level, data, iterX, iterY, iterZ,
 							(float) -getDeltaMovement().x() * 0.01F,
 							(float) -getDeltaMovement().y() * 0.01F,
 							(float) -getDeltaMovement().z() * 0.01F);

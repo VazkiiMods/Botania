@@ -30,8 +30,8 @@ import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -90,7 +90,7 @@ public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
 	}
 
 	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		Player player = Botania.proxy.getClientPlayer();
+		Player player = IProxy.INSTANCE.getClientPlayer();
 		list.add(getArmorSetTitle(player));
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();

@@ -29,10 +29,10 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.EffectType;
 import vazkii.botania.mixin.AccessorCreeper;
@@ -45,7 +45,7 @@ public class ItemDivaCharm extends ItemBauble {
 
 	public ItemDivaCharm(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static void onEntityDamaged(Player player, Entity entity) {

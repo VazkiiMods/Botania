@@ -40,7 +40,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileRuneAltar;
@@ -50,6 +49,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex.InputHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ModItems;
@@ -152,7 +152,7 @@ public final class HUDHandler {
 			profiler.endSection();
 		}*/
 
-		if (Botania.proxy.isClientPlayerWearingMonocle()) {
+		if (IProxy.INSTANCE.isClientPlayerWearingMonocle()) {
 			profiler.push("monocle");
 			ItemMonocle.Hud.render(ms, mc.player);
 			profiler.pop();

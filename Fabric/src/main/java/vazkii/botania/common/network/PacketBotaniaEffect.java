@@ -31,10 +31,10 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.helper.VecHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
 
@@ -126,7 +126,7 @@ public class PacketBotaniaEffect {
 								double wx = x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
 								double wy = y + 0.5;
 								double wz = z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
-								Botania.proxy.addParticleForceNear(world, data, wx, wy, wz, 0, 0, 0);
+								IProxy.INSTANCE.addParticleForceNear(world, data, wx, wy, wz, 0, 0, 0);
 							}
 						}
 						case ITEM_SMOKE -> {
@@ -256,7 +256,7 @@ public class PacketBotaniaEffect {
 											0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
 									};
 									WispParticleData data = WispParticleData.wisp(0.85F, colorsfx[0], colorsfx[1], colorsfx[2], 0.25F);
-									Botania.proxy.addParticleForceNear(world, data, wx, wy, wz, 0, (float) (-g * 0.05), 0);
+									IProxy.INSTANCE.addParticleForceNear(world, data, wx, wy, wz, 0, (float) (-g * 0.05), 0);
 									data = WispParticleData.wisp((float) Math.random() * 0.1F + 0.1F, colorsfx[0], colorsfx[1], colorsfx[2], 0.9F);
 									world.addParticle(data, wx, wy, wz, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F);
 

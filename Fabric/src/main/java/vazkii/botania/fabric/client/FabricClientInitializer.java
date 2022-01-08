@@ -70,7 +70,6 @@ import vazkii.botania.client.render.entity.RenderManaStorm;
 import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -100,6 +99,7 @@ import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.mixin.client.AccessorWorldPreset;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 
 import java.time.LocalDateTime;
@@ -113,7 +113,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class FabricClientInitializer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		Botania.proxy = new ClientProxy();
 		PacketHandler.initClient();
 
 		ModItems.registerGuis();
@@ -152,7 +151,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		registerEntityRenderers();
 		registerEntityModels();
 
-		if (Botania.gardenOfGlassLoaded) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			AccessorWorldPreset.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 		}
 

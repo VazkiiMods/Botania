@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 @Mixin(ServerPlayer.class)
 public class MixinServerPlayer {
@@ -27,7 +27,7 @@ public class MixinServerPlayer {
 	 */
 	@Inject(at = @At("RETURN"), method = "initMenu")
 	private void onLogin(CallbackInfo ci) {
-		if (Botania.gardenOfGlassLoaded) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockWorldEvents.onPlayerJoin((ServerPlayer) (Object) this);
 		}
 	}

@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -43,12 +43,12 @@ public class ItemCloudPendant extends ItemBauble {
 
 	public ItemCloudPendant(Properties props) {
 		super(props);
-		Botania.runOnClient.accept(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		Botania.runOnClient.accept(() -> () -> {
+		IProxy.INSTANCE.runOnClient(() -> () -> {
 			if (player == Minecraft.getInstance().player) {
 				LocalPlayer playerSp = (LocalPlayer) player;
 

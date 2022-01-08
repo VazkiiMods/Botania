@@ -36,6 +36,10 @@ import java.util.stream.Collectors;
 
 public interface IXplatAbstractions {
 	// FML/Fabric Loader
+	default boolean gogLoaded() {
+		return isModLoaded(BotaniaAPI.GOG_MODID);
+	}
+
 	boolean isModLoaded(String modId);
 	boolean isDevEnvironment();
 	boolean isPhysicalClient();

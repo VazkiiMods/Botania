@@ -43,7 +43,6 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -51,6 +50,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
@@ -226,7 +226,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 						boolean outputting = param == 1;
 						Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
 						Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-						Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
+						IProxy.INSTANCE.lightningFX(outputting ? tileVec : itemVec,
 								outputting ? itemVec : tileVec, 80, level.random.nextLong(), 0x4400799c, 0x4400C6FF);
 					}
 				}

@@ -47,13 +47,13 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.network.EffectType;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -288,7 +288,7 @@ public class ItemTwigWand extends Item {
 			float b = (color & 0xFF) / 255F;
 
 			SparkleParticleData data = SparkleParticleData.noClip(0.5F, r, g, b, 4);
-			Botania.proxy.addParticleForceNear(world, data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
+			IProxy.INSTANCE.addParticleForceNear(world, data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 			currentPos = currentPos.add(movement);
 		}
 	}

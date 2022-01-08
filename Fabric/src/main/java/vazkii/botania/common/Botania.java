@@ -55,11 +55,10 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
-import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
+import vazkii.botania.common.core.handler.*;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
-import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
@@ -74,7 +73,6 @@ import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.rod.*;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
@@ -88,25 +86,15 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class Botania implements ModInitializer {
 
-	public static boolean gardenOfGlassLoaded = false;
-
-	public static IProxy proxy = new IProxy() {};
-	public static Consumer<Supplier<Runnable>> runOnClient = s -> {};
 	public static volatile boolean configLoaded = false;
 
 	@Override
 	public void onInitialize() {
-		gardenOfGlassLoaded = IXplatAbstractions.INSTANCE.isModLoaded(LibMisc.GOG_MOD_ID);
-		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
-			runOnClient = t -> t.get().run();
-		}
 		FiberBotaniaConfig.setup();
 
 		EquipmentHandler.init();
@@ -121,7 +109,7 @@ public class Botania implements ModInitializer {
 		ModBrews.registerBrews(bind(BotaniaAPI.instance().getBrewRegistry()));
 		ModPotions.registerPotions(bind(Registry.MOB_EFFECT));
 		int blazeTime = 2400;
-		FuelRegistry.INSTANCE.add(ModBlocks.blazeBlock.asItem(), blazeTime * (Botania.gardenOfGlassLoaded ? 5 : 10));
+		FuelRegistry.INSTANCE.add(ModBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
 		ModBlocks.registerItemBlocks(bind(Registry.ITEM));
 		ModTiles.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
 		ModFluffBlocks.registerBlocks(bind(Registry.BLOCK));
@@ -169,7 +157,7 @@ public class Botania implements ModInitializer {
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
-		if (Botania.gardenOfGlassLoaded) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 
@@ -333,7 +321,7 @@ public class Botania implements ModInitializer {
 	}
 
 	private void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, boolean dedicated) {
-		if (Botania.gardenOfGlassLoaded) {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockCommand.register(dispatcher);
 		}
 		DataGenerators.registerCommands(dispatcher);
