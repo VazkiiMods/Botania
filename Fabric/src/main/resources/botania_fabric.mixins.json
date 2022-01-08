@@ -1,8 +1,8 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_16",
-  "package": "vazkii.botania.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "package": "vazkii.botania.fabric.mixin",
   "mixins": [
     "MixinAbstractMinecart",
     "MixinAnvilMenu",
@@ -24,21 +24,21 @@
     "MixinServerPlayerGameMode"
   ],
   "client": [
-    "MixinAbstractTexture",
-    "MixinBlockModelDeserializer",
-    "MixinClientLevelData",
-    "MixinDebugScreenOverlay",
-    "MixinGameRenderer",
-    "MixinItemInHandRenderer",
-    "MixinKeyboardHandler",
-    "MixinMinecraft",
-    "MixinModelManager",
-    "MixinParticleEngine",
-    "MixinRecipeBookComponent",
-    "MixinScreen",
-    "MixinSoundEngine",
-    "MixinSplashManager",
-    "MixinTileEntitySpecialFlower"
+    "client.MixinAbstractTexture",
+    "client.MixinBlockModelDeserializer",
+    "client.MixinClientLevelData",
+    "client.MixinDebugScreenOverlay",
+    "client.MixinGameRenderer",
+    "client.MixinItemInHandRenderer",
+    "client.MixinKeyboardHandler",
+    "client.MixinMinecraft",
+    "client.MixinModelManager",
+    "client.MixinParticleEngine",
+    "client.MixinRecipeBookComponent",
+    "client.MixinScreen",
+    "client.MixinSoundEngine",
+    "client.MixinSplashManager",
+    "client.MixinTileEntitySpecialFlower"
   ],
   "injectors": {
     "defaultRequire": 1
