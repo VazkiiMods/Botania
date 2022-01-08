@@ -11,13 +11,11 @@ package vazkii.botania.common.core.proxy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.patchouli.api.IMultiblock;
 
@@ -28,14 +26,6 @@ public interface IProxy {
 
 	default boolean isClientPlayerWearingMonocle() {
 		return false;
-	}
-
-	default long getWorldElapsedTicks() {
-		MinecraftServer server = Botania.currentServer;
-		if (server != null) {
-			return server.getLevel(Level.OVERWORLD).getGameTime();
-		}
-		return 0;
 	}
 
 	default void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {

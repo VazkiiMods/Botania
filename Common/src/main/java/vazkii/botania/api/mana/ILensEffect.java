@@ -9,6 +9,7 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
@@ -23,7 +24,7 @@ public interface ILensEffect {
 	 * Called when a mana spreader that has this focus shoots a burst. This is where
 	 * you change the properties of the burst.
 	 */
-	void apply(ItemStack stack, BurstProperties props);
+	void apply(ItemStack stack, BurstProperties props, Level level);
 
 	/**
 	 * Called when a mana burst fired from a mana spreader with this focus collides against

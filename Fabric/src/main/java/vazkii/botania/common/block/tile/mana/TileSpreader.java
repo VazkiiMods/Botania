@@ -489,7 +489,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 		ItemStack lens = getItemHandler().getItem(0);
 		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect lensEffect) {
-			lensEffect.apply(lens, props);
+			lensEffect.apply(lens, props, level);
 		}
 
 		if (getCurrentMana() >= props.maxMana || fake) {

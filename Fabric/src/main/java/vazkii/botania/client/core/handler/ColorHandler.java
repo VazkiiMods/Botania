@@ -193,7 +193,7 @@ public final class ColorHandler {
 
 		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
-		ItemColor lensHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
+		ItemColor lensHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s, Minecraft.getInstance().level) : -1;
 		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime,
 				ModItems.lensEfficiency, ModItems.lensBounce, ModItems.lensGravity, ModItems.lensMine,
 				ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet, ModItems.lensExplosive,

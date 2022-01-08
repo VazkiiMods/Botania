@@ -23,7 +23,6 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -58,7 +57,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
 			TranslatableComponent colorName = new TranslatableComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
-			TextColor realColor = TextColor.fromRgb(getLensColor(stack));
+			TextColor realColor = TextColor.fromRgb(getLensColor(stack, world));
 			stacks.add(new TranslatableComponent("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
 		}
 
@@ -80,17 +79,17 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public void apply(ItemStack stack, BurstProperties props) {
+	public void apply(ItemStack stack, BurstProperties props, Level level) {
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
-			props.color = getLensColor(stack);
+			props.color = getLensColor(stack, level);
 		}
 
 		getLens(stack).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
 		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens) {
-			((ILens) compositeLens.getItem()).apply(compositeLens, props);
+			((ILens) compositeLens.getItem()).apply(compositeLens, props, level);
 		}
 	}
 
@@ -111,7 +110,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		int storedColor = getStoredColor(stack);
 
 		if (storedColor == 16 && burst.entity().level.isClientSide) {
-			burst.setColor(getLensColor(stack));
+			burst.setColor(getLensColor(stack, burst.entity().level));
 		}
 
 		getLens(stack).updateBurst(burst, stack);
@@ -123,7 +122,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public int getLensColor(ItemStack stack) {
+	public int getLensColor(ItemStack stack, Level level) {
 		int storedColor = getStoredColor(stack);
 
 		if (storedColor == -1) {
@@ -131,7 +130,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		}
 
 		if (storedColor == 16) {
-			return Mth.hsvToRgb(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
+			return Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		}
 
 		return ColorHelper.getColorValue(DyeColor.byId(storedColor));

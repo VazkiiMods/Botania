@@ -127,7 +127,7 @@ public class ItemManaGun extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			((ILens) lens.getItem()).apply(lens, props);
+			((ILens) lens.getItem()).apply(lens, props, player.level);
 		}
 		return props;
 	}

@@ -47,11 +47,6 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public long getWorldElapsedTicks() {
-		return ClientTickHandler.ticksInGame;
-	}
-
-	@Override
 	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		// todo wip, params are ignored
 		BoltRenderer.INSTANCE.add(new BoltParticleOptions(vectorStart, vectorEnd).size(0.08F), ClientTickHandler.partialTicks);
