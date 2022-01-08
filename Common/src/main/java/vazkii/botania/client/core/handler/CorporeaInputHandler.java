@@ -21,10 +21,10 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.client.core.RecipeBookAccess;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.network.PacketIndexKeybindRequest;
 import vazkii.botania.mixin.AccessorAbstractContainerScreen;
 import vazkii.botania.mixin.AccessorRecipeBookComponent;
 import vazkii.botania.mixin.AccessorRecipeBookPage;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -63,7 +63,7 @@ public class CorporeaInputHandler {
 			if (count > 0) {
 				ItemStack requested = stack.copy();
 				requested.setCount(count);
-				PacketIndexKeybindRequest.send(requested);
+				IXplatAbstractions.INSTANCE.sendIndexKeybindRequestPacket(requested);
 				return true;
 			}
 		}

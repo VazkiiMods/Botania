@@ -31,7 +31,7 @@ import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
-import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.EffectType;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
@@ -111,7 +111,7 @@ public class BlockPistonRelay extends BlockMod {
 				}
 				BlockPos dest = data.mapping.get(pos);
 				if (dest != null) {
-					PacketBotaniaEffect.sendNearby(world, pos, PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
+					IXplatAbstractions.INSTANCE.sendEffectPacketNear(world, pos, EffectType.PARTICLE_BEAM,
 							pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
 							dest.getX(), dest.getY(), dest.getZ());
 				}

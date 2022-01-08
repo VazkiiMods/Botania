@@ -18,7 +18,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.network.PacketUpdateItemsRemaining;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -113,7 +113,7 @@ public final class ItemsRemainingRenderHandler {
 	}
 
 	public static void send(Player entity, ItemStack stack, int count, @Nullable Component str) {
-		PacketUpdateItemsRemaining.send(entity, stack, count, str);
+		IXplatAbstractions.INSTANCE.sendItemsRemainingPacket(entity, stack, count, str);
 	}
 
 	public static void send(Player player, ItemStack displayStack, Pattern pattern) {

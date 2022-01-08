@@ -48,7 +48,8 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
-import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.EffectType;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -264,7 +265,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 
 		if (FORMED_MULTIBLOCK.get().validate(level, worldPosition.below()) == null) {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
-			PacketBotaniaEffect.sendNearby(level, worldPosition, PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
+			IXplatAbstractions.INSTANCE.sendEffectPacketNear(level, worldPosition, EffectType.ENCHANTER_DESTROY,
 					worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
 			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
 		}

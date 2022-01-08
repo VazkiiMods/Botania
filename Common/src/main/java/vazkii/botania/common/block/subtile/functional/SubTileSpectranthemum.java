@@ -28,7 +28,8 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.ItemFlagsComponent;
 import vazkii.botania.common.core.helper.DelayHelper;
-import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.EffectType;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getId(), p);
+		IXplatAbstractions.INSTANCE.sendEffectPacketNear(item, EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getId(), p);
 	}
 
 	@Override

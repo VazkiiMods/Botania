@@ -70,9 +70,9 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
-import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketSpawnDoppleganger;
+import vazkii.botania.common.network.EffectType;
 import vazkii.botania.mixin.AccessorMobEffect;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -178,7 +178,7 @@ public class EntityDoppleganger extends Mob {
 			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
-				PacketBotaniaEffect.send(player, PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ());
+				IXplatAbstractions.INSTANCE.sendEffectPacket(player, EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ());
 
 				player.sendMessage(new TranslatableComponent("botaniamisc.badArena").withStyle(ChatFormatting.RED), Util.NIL_UUID);
 			}
@@ -1015,7 +1015,7 @@ public class EntityDoppleganger extends Mob {
 	@Nonnull
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnDoppleganger.make(this, playerCount, hardMode, source, bossInfoUUID);
+		return IXplatAbstractions.INSTANCE.makeSpawnDopplegangerPacket(this, playerCount, hardMode, source, bossInfoUUID);
 	}
 
 	@Override

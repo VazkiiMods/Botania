@@ -24,7 +24,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketDodge;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ItemDodgeRing extends ItemBauble {
 
@@ -130,6 +130,6 @@ public class ItemDodgeRing extends ItemBauble {
 
 		player.setDeltaMovement(sideVec);
 
-		PacketDodge.send();
+		IXplatAbstractions.INSTANCE.sendDodgePacket();
 	}
 }

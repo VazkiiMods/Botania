@@ -33,7 +33,8 @@ import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.EffectType;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -90,8 +91,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				if (self.mana > 0) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 					int proportion = Float.floatToIntBits(self.getCompletion());
-					PacketBotaniaEffect.sendNearby(level, worldPosition,
-							PacketBotaniaEffect.EffectType.TERRA_PLATE, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), proportion);
+					IXplatAbstractions.INSTANCE.sendEffectPacketNear(level, worldPosition,
+							EffectType.TERRA_PLATE, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), proportion);
 				}
 
 				if (self.mana >= recipe.getMana()) {

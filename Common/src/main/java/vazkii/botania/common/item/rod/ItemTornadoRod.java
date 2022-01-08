@@ -10,7 +10,6 @@ package vazkii.botania.common.item.rod;
 
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -35,8 +34,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.network.PacketAvatarTornadoRod;
-import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.EffectType;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -204,9 +203,9 @@ public class ItemTornadoRod extends Item implements FabricItem {
 				p.getDeltaMovement().z() + lookDir.z() * mult);
 
 		if (!world.isClientSide) {
-			PacketAvatarTornadoRod.sendTo((ServerPlayer) p, true);
-			PacketBotaniaEffect.sendNearby(p,
-					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_BOOST,
+			IXplatAbstractions.INSTANCE.sendAvatarTornadoRodPacket(p, true);
+			IXplatAbstractions.INSTANCE.sendEffectPacketNear(p,
+					EffectType.AVATAR_TORNADO_BOOST,
 					p.getX(), p.getY(), p.getZ(),
 					p.getId());
 		}
@@ -216,9 +215,9 @@ public class ItemTornadoRod extends Item implements FabricItem {
 		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
 
 		if (!world.isClientSide) {
-			PacketAvatarTornadoRod.sendTo((ServerPlayer) p, false);
-			PacketBotaniaEffect.sendNearby(p,
-					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_JUMP,
+			IXplatAbstractions.INSTANCE.sendAvatarTornadoRodPacket(p, false);
+			IXplatAbstractions.INSTANCE.sendEffectPacketNear(p,
+					EffectType.AVATAR_TORNADO_JUMP,
 					p.getX(), p.getY(), p.getZ(),
 					p.getId()
 			);

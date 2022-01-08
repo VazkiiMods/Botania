@@ -28,7 +28,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.helper.DelayHelper;
-import vazkii.botania.common.network.PacketItemAge;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -181,7 +181,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWan
 		if (entity instanceof ItemEntity) {
 			int entityId = entity.getId();
 			int age = EntityComponents.INTERNAL_ITEM.get(entity).timeCounter;
-			PacketItemAge.send(player, entityId, age);
+			IXplatAbstractions.INSTANCE.sendItemTimeCounterPacket(player, entityId, age);
 		}
 	}
 }

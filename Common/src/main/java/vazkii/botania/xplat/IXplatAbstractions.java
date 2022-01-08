@@ -1,17 +1,28 @@
 package vazkii.botania.xplat;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.network.EffectType;
+
+import javax.annotation.Nullable;
 
 import java.util.ServiceLoader;
+import java.util.UUID;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -21,6 +32,22 @@ public interface IXplatAbstractions {
 	boolean isDevEnvironment();
 	boolean isPhysicalClient();
 	String getBotaniaVersion();
+
+	// Clientbound packets
+	void sendEffectPacket(Player player, EffectType type, double x, double y, double z, int... args);
+	void sendEffectPacketNear(Entity e, EffectType type, double x, double y, double z, int... args);
+	void sendEffectPacketNear(Level level, BlockPos pos, EffectType type, double x, double y, double z, int... args);
+	Packet<?> makeSpawnDopplegangerPacket(EntityDoppleganger boss, int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUuid);
+	void sendItemsRemainingPacket(Player player, ItemStack stack, int count, @Nullable Component message);
+	void sendGogWorldPacket(Player player);
+	void sendItemTimeCounterPacket(Player player, int entityId, int timeCounter);
+	void sendAvatarTornadoRodPacket(Player player, boolean elytra);
+
+	// Serverbound packets
+	void sendIndexKeybindRequestPacket(ItemStack stack);
+	void sendJumpPacket();
+	void sendDodgePacket();
+	void sendLeftClickPacket();
 
 	// Misc
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
