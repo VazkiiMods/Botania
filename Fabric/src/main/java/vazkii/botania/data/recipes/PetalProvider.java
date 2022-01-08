@@ -32,7 +32,6 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-import static vazkii.botania.common.lib.ModTags.Items.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalProvider extends BotaniaRecipeProvider {

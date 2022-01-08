@@ -40,7 +40,6 @@ import vazkii.botania.common.block.decor.BlockMotifFlower;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.item.lens.*;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.ModelWithOverrides;

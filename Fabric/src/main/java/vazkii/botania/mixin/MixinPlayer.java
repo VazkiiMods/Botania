@@ -44,7 +44,6 @@ import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
-import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 
 @Mixin(Player.class)

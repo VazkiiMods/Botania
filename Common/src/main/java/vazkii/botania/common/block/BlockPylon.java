@@ -30,7 +30,7 @@ import vazkii.botania.common.block.tile.TilePylon;
 import javax.annotation.Nonnull;
 
 public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
-	private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 21, 14);
+	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 21, 14);
 
 	public enum Variant {
 		MANA(8f, 0.5f, 0.5f, 1f),

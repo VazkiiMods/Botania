@@ -15,6 +15,7 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -41,15 +42,15 @@ public class RenderTileBellows implements BlockEntityRenderer<TileBellows> {
 		float angle = 0;
 		if (bellows != null) {
 			switch (bellows.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-				case SOUTH:
+				case Direction.SOUTH:
 					break;
-				case NORTH:
+				case Direction.NORTH:
 					angle = 180F;
 					break;
-				case EAST:
+				case Direction.EAST:
 					angle = 270F;
 					break;
-				case WEST:
+				case Direction.WEST:
 					angle = 90F;
 					break;
 			}

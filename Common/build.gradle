@@ -14,8 +14,16 @@ minecraft {
     accessWideners 'src/main/resources/botania_xplat.accesswidener'
 }
 
+repositories {
+    maven {
+        name = "Jared"
+        url = "https://maven.blamejared.com/"
+    }
+}
+
 dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    compileOnly "vazkii.patchouli:Patchouli-xplat:1.18.1-64"
     implementation "com.google.code.findbugs:jsr305:3.0.2"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'

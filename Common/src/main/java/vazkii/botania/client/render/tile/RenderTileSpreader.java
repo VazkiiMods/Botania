@@ -138,10 +138,10 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 
 	private BakedModel getInsideModel(TileSpreader tile) {
 		return switch (tile.getVariant()) {
-			case GAIA -> MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
-			case REDSTONE -> MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
-			case ELVEN -> MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
-			case MANA -> MiscellaneousIcons.INSTANCE.manaSpreaderInside;
+			case Variant.GAIA -> MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
+			case Variant.REDSTONE -> MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
+			case Variant.ELVEN -> MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
+			case Variant.MANA -> MiscellaneousIcons.INSTANCE.manaSpreaderInside;
 		};
 	}
 }
