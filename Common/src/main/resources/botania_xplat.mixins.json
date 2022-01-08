@@ -29,7 +29,19 @@
     "AccessorSoundType",
     "AccessorStats",
     "AccessorTextureSlot",
-    "AccessorWitherEntity"
+    "AccessorWitherEntity",
+    "MixinBaseSpawner",
+    "MixinBee",
+    "MixinBushBlock",
+    "MixinCreeper",
+    "MixinEnderMan",
+    "MixinEntity",
+    "MixinFarmBlock",
+    "MixinNaturalSpawner",
+    "MixinPollinateGoal",
+    "MixinServerPlayer",
+    "MixinSpawnPlacements",
+    "MixinThrowableProjectile"
   ],
   "client": [
     "client.AccessorAbstractContainerScreen",
@@ -42,7 +54,9 @@
     "client.AccessorRecipeBookPage",
     "client.AccessorRenderBuffers",
     "client.AccessorRenderType",
-    "client.AccessorWorldPreset"
+    "client.AccessorWorldPreset",
+    "client.MixinLevelRenderer",
+    "client.MixinSkullBlockRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
