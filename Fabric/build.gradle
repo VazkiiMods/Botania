@@ -87,7 +87,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.44.0+1.18"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-    implementation project(":Common")
+    compileOnly project(":Common")
 
     modImplementation "vazkii.patchouli:Patchouli:1.18.1-61-FABRIC"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"

@@ -23,10 +23,9 @@ if (System.getenv().RELEASE_MODE == null) {
 }
 
 mixin {
-    // add sourceSets.main, "botania.refmap.json"
+    add sourceSets.main, "botania.refmap.json"
 
-    // config "botania_xplat.mixins.json"
-    // config "patchouli_forge.mixins.json"
+    config "botania_xplat.mixins.json"
 }
 
 repositories {
@@ -45,9 +44,9 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
-            args "-mixin.config=patchouli_xplat.mixins.json"
+            args "-mixin.config=botania_xplat.mixins.json"
             mods {
-                patchouli {
+                botania {
                     source sourceSets.main
                     source project(":Common").sourceSets.main
                 }
@@ -59,7 +58,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
-            // args "-mixin.config=botania_xplat.mixins.json"
+            args "-mixin.config=botania_xplat.mixins.json"
             mods {
                 botania {
                     source sourceSets.main
@@ -72,7 +71,7 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-39.0.5"
-    implementation project(":Common")
+    compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44:api")
