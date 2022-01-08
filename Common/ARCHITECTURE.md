@@ -16,12 +16,15 @@ When the Forge or Fabric specific artifacts are being built, the `Common` module
 are substituted into the project, as if the contents of `Common/src` are pasted into `Forge/src`
 or `Fabric/src`. From the perspective of players or modders consuming a specific loader's
 artifacts, it should be indistinguishable from having two separate branches.
+Common code that ends up in the loader-specific artifact JARs are remapped to Intermediary/SRG
+like any regular mod.
 
 ### Separate Common artifact
 The `Common` module also has its own build.gradle, which uses `VanillaGradle` to set up
 a barebones Mojmap-decompiled vanilla. This is mostly just to provide typecheck and IDE aid.
-The `Common` module's code is also published independently to Maven. This is to aid in downstream
-addon authors that may also want to make their addons cross-loader-compatible. They would
-have their own `Common` module that depends on Botania's `Common` module. However,
-the `Common` module JAR should **never appear on the classpath at runtime**. If a player
-finds themselves with a common JAR, things have gone very, very wrong.
+The `Common` module's code is also published independently to Maven in raw Mojmap without
+any remapping. This is to aid in downstream addon authors that may also want to make their
+addons cross-loader-compatible. They would have their own `Common` module that depends on
+Botania's `Common` module. However, Botania's `Common` module JAR should
+**never appear on the classpath at runtime**.
+If a player finds themselves with a Botania-Common JAR, things have gone very, very wrong.
