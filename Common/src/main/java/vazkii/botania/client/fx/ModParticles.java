@@ -15,6 +15,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -28,12 +29,8 @@ public class ModParticles {
 	}
 
 	public static class FactoryHandler {
-		public interface ParticleProviderConstructor<T extends ParticleOptions> {
-			ParticleProvider<T> make(SpriteSet sprites);
-		}
-
 		public interface Consumer {
-			<T extends ParticleOptions> void register(ParticleType<T> type, ParticleProviderConstructor<T> constructor);
+			<T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor);
 		}
 
 		public static void registerFactories(Consumer consumer) {

@@ -21,6 +21,8 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
@@ -109,6 +111,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Locale;
 import java.util.SortedMap;
+import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -126,8 +129,8 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ModelHandler.registerRenderers();
 		ModParticles.FactoryHandler.registerFactories(new ModParticles.FactoryHandler.Consumer() {
 			@Override
-			public <T extends ParticleOptions> void register(ParticleType<T> type, ModParticles.FactoryHandler.ParticleProviderConstructor<T> constructor) {
-				ParticleFactoryRegistry.getInstance().register(type, constructor::make);
+			public <T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor) {
+				ParticleFactoryRegistry.getInstance().register(type, constructor::apply);
 			}
 		});
 		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
