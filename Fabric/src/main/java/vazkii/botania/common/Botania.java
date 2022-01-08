@@ -32,31 +32,30 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaCapabilities;
+import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.advancements.*;
+import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
-import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.block.tile.TileCraftCrate;
-import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
+import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
@@ -64,18 +63,17 @@ import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
+import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
-import vazkii.botania.common.item.ItemGrassSeeds;
-import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
+import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.item.rod.ItemExchangeRod;
-import vazkii.botania.common.item.rod.ItemGravityRod;
+import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
@@ -88,6 +86,7 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -233,15 +232,53 @@ public class Botania implements ModInitializer {
 		ModStats.init();
 		registerPaintables();
 
-		BotaniaCapabilities.EXOFLAME_HEATABLE.registerFallback((world, pos, state, blockEntity, context) -> {
+		registerCapabilities();
+	}
+
+	private void registerCapabilities() {
+		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new ItemDirtRod.AvatarBehavior(), ModItems.dirtRod);
+		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new ItemDiviningRod.AvatarBehavior(), ModItems.diviningRod);
+		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new ItemFireRod.AvatarBehavior(), ModItems.fireRod);
+		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new ItemMissileRod.AvatarBehavior(), ModItems.missileRod);
+		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new ItemRainbowRod.AvatarBehavior(), ModItems.rainbowRod);
+		BotaniaFabricCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new ItemTornadoRod.AvatarBehavior(), ModItems.tornadoRod);
+		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemDirtRod.BlockProvider(stack), ModItems.dirtRod);
+		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemBlackHoleTalisman.BlockProvider(stack), ModItems.blackHoleTalisman);
+		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemCobbleRod.BlockProvider(), ModItems.cobbleRod);
+		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemEnderHand.BlockProvider(stack), ModItems.enderHand);
+		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemTerraformRod.BlockProvider(), ModItems.terraformRod);
+		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemFlugelEye.CoordBoundItem(st), ModItems.flugelEye);
+		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemManaMirror.CoordBoundItem(st), ModItems.manaMirror);
+		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItem(st), ModItems.twigWand);
+
+		BotaniaFabricCapabilities.EXOFLAME_HEATABLE.registerFallback((world, pos, state, blockEntity, context) -> {
 			if (blockEntity instanceof AbstractFurnaceBlockEntity furnace) {
 				return new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace);
 			}
 			return null;
 		});
-		BotaniaCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
+		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
+		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
+				Arrays.stream(DyeColor.values()).map(ModBlocks::getMushroom).toArray(Block[]::new));
+		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
+				Arrays.stream(DyeColor.values()).map(ModBlocks::getShinyFlower).toArray(Block[]::new));
+		BotaniaFabricCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
+			var torch = (TileAnimatedTorch) be;
+			return hourglass -> torch.toggle();
+		}, ModTiles.ANIMATED_TORCH);
+		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(
+				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
+				ModBlocks.pistonRelay
+		);
+		BotaniaFabricCapabilities.WANDABLE.registerSelf(
+				ModTiles.ALF_PORTAL, ModTiles.ANIMATED_TORCH, ModTiles.CORPOREA_CRYSTAL_CUBE, ModTiles.CORPOREA_RETAINER,
+				ModTiles.CRAFT_CRATE, ModTiles.ENCHANTER, ModTiles.HOURGLASS, ModTiles.PLATFORM, ModTiles.POOL,
+				ModTiles.RUNE_ALTAR, ModTiles.SPREADER, ModTiles.TURNTABLE,
+				ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
+				ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI
+		);
 	}
 
 	private void registerPaintables() {

@@ -23,7 +23,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -45,7 +44,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -55,6 +53,7 @@ import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTemperanceStone;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -300,7 +299,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 				return ret;
 			}
 
-			var provider = BotaniaCapabilities.BLOCK_PROVIDER.find(invStack, Unit.INSTANCE);
+			var provider = IXplatAbstractions.INSTANCE.findBlockProvider(invStack);
 			if (provider != null) {
 				providers.add(provider);
 			}
@@ -365,7 +364,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 				count += invStack.getCount();
 			}
 
-			var prov = BotaniaCapabilities.BLOCK_PROVIDER.find(invStack, Unit.INSTANCE);
+			var prov = IXplatAbstractions.INSTANCE.findBlockProvider(invStack);
 			if (prov != null && requested instanceof BlockItem) {
 				int provCount = prov.getBlockCount(player, stack, ((BlockItem) requested).getBlock());
 				if (provCount == -1) {

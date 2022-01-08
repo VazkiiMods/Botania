@@ -17,6 +17,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IExoflameHeatable;
+import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.block.IHourglassTrigger;
+import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.network.EffectType;
 
@@ -33,6 +40,22 @@ public interface IXplatAbstractions {
 	boolean isDevEnvironment();
 	boolean isPhysicalClient();
 	String getBotaniaVersion();
+
+	// Capability access
+	@Nullable
+	IAvatarWieldable findAvatarWieldable(ItemStack stack);
+	@Nullable
+	IBlockProvider findBlockProvider(ItemStack stack);
+	@Nullable
+	ICoordBoundItem findCoordBoundItem(ItemStack stack);
+	@Nullable
+	IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	@Nullable
+	IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	@Nullable
+	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	@Nullable
+	IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be);
 
 	// Clientbound packets
 	void sendEffectPacket(Player player, EffectType type, double x, double y, double z, int... args);

@@ -13,9 +13,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.impl.DefaultHornHarvestable;
 
 import javax.annotation.Nonnull;
 
@@ -23,7 +21,6 @@ public class BlockShinyFlower extends BlockModFlower {
 
 	public BlockShinyFlower(DyeColor color, Properties builder) {
 		super(color, builder);
-		BotaniaCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE, this);
 	}
 
 	@Override

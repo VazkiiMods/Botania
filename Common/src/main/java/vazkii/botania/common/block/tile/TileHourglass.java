@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.StringUtil;
-import net.minecraft.util.Unit;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,11 +26,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class TileHourglass extends TileExposedSimpleInventory implements IWandable {
 	private static final String TAG_TIME = "time";
@@ -78,8 +77,8 @@ public class TileHourglass extends TileExposedSimpleInventory implements IWandab
 
 				for (Direction facing : Direction.values()) {
 					BlockPos pos = worldPosition.relative(facing);
-					var trigger = BotaniaCapabilities.HOURGLASS_TRIGGER.find(level, pos,
-							level.getBlockState(pos), level.getBlockEntity(pos), Unit.INSTANCE);
+					var trigger = IXplatAbstractions.INSTANCE.findHourglassTrigger(level, pos,
+							level.getBlockState(pos), level.getBlockEntity(pos));
 					if (trigger != null) {
 						trigger.onTriggeredByHourglass(self);
 					}

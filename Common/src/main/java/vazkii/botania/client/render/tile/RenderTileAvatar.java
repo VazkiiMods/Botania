@@ -20,17 +20,16 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.tile.TileAvatar;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -70,7 +69,7 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 						light, overlay, ms, buffers, 0);
 				ms.popPose();
 
-				IAvatarWieldable wieldable = BotaniaCapabilities.AVATAR_WIELDABLE.find(stack, Unit.INSTANCE);
+				IAvatarWieldable wieldable = IXplatAbstractions.INSTANCE.findAvatarWieldable(stack);
 				buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar)));
 				s = 1.01F;
 

@@ -27,7 +27,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
@@ -44,10 +43,6 @@ public class BlockPistonRelay extends BlockMod {
 
 	public BlockPistonRelay(Properties builder) {
 		super(builder);
-		BotaniaCapabilities.WANDABLE.registerForBlocks(
-				(world, pos, state, blockEntity, context) -> (player, stack, side) -> onUsedByWand(player, stack, world, pos),
-				this
-		);
 	}
 
 	@Override
@@ -89,7 +84,7 @@ public class BlockPistonRelay extends BlockMod {
 		}
 	}
 
-	private boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos) {
 		if (world.isClientSide) {
 			return false;
 		}

@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -57,7 +56,6 @@ public class ItemTornadoRod extends Item implements FabricItem {
 
 	public ItemTornadoRod(Properties props) {
 		super(props);
-		BotaniaCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Override
@@ -153,7 +151,7 @@ public class ItemTornadoRod extends Item implements FabricItem {
 		stack.getOrCreateTag().putInt(TAG_FLYCOUNTER, counter);
 	}
 
-	protected static class AvatarBehavior implements IAvatarWieldable {
+	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = tile.tileEntity();

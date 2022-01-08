@@ -36,11 +36,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.common.block.mana.BlockPrism;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -81,7 +81,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 			avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(stackOnAvatar);
 			return InteractionResult.SUCCESS;
-		} else if (!stackOnPlayer.isEmpty() && BotaniaCapabilities.AVATAR_WIELDABLE.find(stackOnPlayer, Unit.INSTANCE) != null) {
+		} else if (!stackOnPlayer.isEmpty() && IXplatAbstractions.INSTANCE.findAvatarWieldable(stackOnPlayer) != null) {
 			avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
 			return InteractionResult.SUCCESS;
 		}

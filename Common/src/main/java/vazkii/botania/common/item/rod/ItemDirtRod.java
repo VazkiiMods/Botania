@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
@@ -43,8 +42,6 @@ public class ItemDirtRod extends Item {
 
 	public ItemDirtRod(Properties props) {
 		super(props);
-		BotaniaCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new BlockProvider(stack), this);
-		BotaniaCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -83,10 +80,10 @@ public class ItemDirtRod extends Item {
 		return InteractionResult.PASS;
 	}
 
-	protected static class BlockProvider implements IBlockProvider {
+	public static class BlockProvider implements IBlockProvider {
 		private final ItemStack stack;
 
-		protected BlockProvider(ItemStack stack) {
+		public BlockProvider(ItemStack stack) {
 			this.stack = stack;
 		}
 
@@ -108,7 +105,7 @@ public class ItemDirtRod extends Item {
 		}
 	}
 
-	protected static class AvatarBehavior implements IAvatarWieldable {
+	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = tile.tileEntity();

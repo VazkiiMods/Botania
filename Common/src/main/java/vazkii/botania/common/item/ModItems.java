@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,7 +32,6 @@ import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModPatterns;
-import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;

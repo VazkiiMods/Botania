@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,12 +26,12 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -91,7 +90,7 @@ public class ItemHorn extends Item {
 			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 			BlockEntity be = world.getBlockEntity(pos);
-			IHornHarvestable harvestable = BotaniaCapabilities.HORN_HARVEST.find(world, pos, state, be, Unit.INSTANCE);
+			IHornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, pos, state, be);
 
 			if (SubTileBergamute.isBergamuteNearby(world.dimension(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
@@ -112,7 +111,7 @@ public class ItemHorn extends Item {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
 			BlockEntity be = world.getBlockEntity(currCoords);
-			IHornHarvestable harvestable = BotaniaCapabilities.HORN_HARVEST.find(world, currCoords, state, be, Unit.INSTANCE);
+			IHornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, currCoords, state, be);
 
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type);

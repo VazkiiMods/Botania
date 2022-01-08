@@ -6,6 +6,6 @@ import net.minecraft.util.Unit;
 
 import vazkii.botania.api.block.IWandHUD;
 
-public class BotaniaClientCapabilities {
+public class BotaniaFabricClientCapabilities {
 	public static final BlockApiLookup<IWandHUD, Unit> WAND_HUD = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "wand_hud"), IWandHUD.class, Unit.class);
 }

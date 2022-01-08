@@ -24,11 +24,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
@@ -43,7 +41,6 @@ public class BlockModMushroom extends MushroomBlock implements ICustomApothecary
 	public BlockModMushroom(DyeColor color, Properties builder) {
 		super(builder, BlockModMushroom::getDummyFeature);
 		this.color = color;
-		BotaniaCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE, this);
 	}
 
 	private static ConfiguredFeature<NoneFeatureConfiguration, Feature<NoneFeatureConfiguration>> getDummyFeature() {

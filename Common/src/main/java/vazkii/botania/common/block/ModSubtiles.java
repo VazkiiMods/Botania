@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.BotaniaClientCapabilities;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -600,10 +599,6 @@ public class ModSubtiles {
 		r.accept(SOLEGNOLIA_CHIBI, getId(solegnoliaChibi));
 		r.accept(ORECHID_IGNEM, getId(orechidIgnem));
 		r.accept(LABELLIA, getId(labellia));
-
-		BotaniaCapabilities.WANDABLE.registerSelf(
-				DAFFOMILL, HOPPERHOCK, HOPPERHOCK_CHIBI, RANNUNCARPUS, RANNUNCARPUS_CHIBI
-		);
 
 		Botania.runOnClient.accept(() -> () -> {
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);

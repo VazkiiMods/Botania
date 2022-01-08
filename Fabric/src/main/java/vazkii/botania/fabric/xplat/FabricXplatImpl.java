@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +28,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaFabricCapabilities;
+import vazkii.botania.api.block.IExoflameHeatable;
+import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.block.IHourglassTrigger;
+import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.*;
@@ -58,6 +67,48 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	public String getBotaniaVersion() {
 		return FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID).get()
 				.getMetadata().getVersion().getFriendlyString();
+	}
+
+	@Nullable
+	@Override
+	public IAvatarWieldable findAvatarWieldable(ItemStack stack) {
+		return BotaniaFabricCapabilities.AVATAR_WIELDABLE.find(stack, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IBlockProvider findBlockProvider(ItemStack stack) {
+		return BotaniaFabricCapabilities.BLOCK_PROVIDER.find(stack, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public ICoordBoundItem findCoordBoundItem(ItemStack stack) {
+		return BotaniaFabricCapabilities.COORD_BOUND_ITEM.find(stack, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		return BotaniaFabricCapabilities.EXOFLAME_HEATABLE.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		return BotaniaFabricCapabilities.HORN_HARVEST.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		return BotaniaFabricCapabilities.HOURGLASS_TRIGGER.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
 	@Override

@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -48,7 +47,6 @@ public class ItemRainbowRod extends ItemSelfReturning {
 
 	public ItemRainbowRod(Properties props) {
 		super(props);
-		BotaniaCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -136,7 +134,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 		return placed;
 	}
 
-	protected static class AvatarBehavior implements IAvatarWieldable {
+	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = tile.tileEntity();

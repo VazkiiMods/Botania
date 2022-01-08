@@ -13,7 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -21,9 +20,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +50,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 		ItemStack stack = self.getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
-			var wieldable = BotaniaCapabilities.AVATAR_WIELDABLE.find(stack, Unit.INSTANCE);
+			var wieldable = IXplatAbstractions.INSTANCE.findAvatarWieldable(stack);
 			if (wieldable != null) {
 				wieldable.onAvatarUpdate(self);
 			}

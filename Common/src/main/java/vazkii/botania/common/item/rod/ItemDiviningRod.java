@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -44,7 +43,6 @@ public class ItemDiviningRod extends Item {
 
 	public ItemDiviningRod(Properties props) {
 		super(props);
-		BotaniaCapabilities.AVATAR_WIELDABLE.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -82,7 +80,7 @@ public class ItemDiviningRod extends Item {
 		}
 	}
 
-	protected static class AvatarBehavior implements IAvatarWieldable {
+	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = (BlockEntity) tile;

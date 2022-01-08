@@ -13,7 +13,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import vazkii.botania.api.BotaniaCapabilities;
 import vazkii.botania.api.BotaniaClientCapabilities;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -138,14 +137,6 @@ public class ModTiles {
 		r.accept(AVATAR, prefix(LibBlockNames.AVATAR));
 		r.accept(ANIMATED_TORCH, prefix(LibBlockNames.ANIMATED_TORCH));
 
-		BotaniaCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
-			var torch = (TileAnimatedTorch) be;
-			return hourglass -> torch.toggle();
-		}, ANIMATED_TORCH);
-		BotaniaCapabilities.WANDABLE.registerSelf(
-				ALF_PORTAL, ANIMATED_TORCH, CORPOREA_CRYSTAL_CUBE, CORPOREA_RETAINER,
-				CRAFT_CRATE, ENCHANTER, HOURGLASS, PLATFORM, POOL,
-				RUNE_ALTAR, SPREADER, TURNTABLE);
 		Botania.runOnClient.accept(() -> () -> {
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileAnimatedTorch.WandHud((TileAnimatedTorch) be), ANIMATED_TORCH);
 			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileBrewery.WandHud((TileBrewery) be), BREWERY);
