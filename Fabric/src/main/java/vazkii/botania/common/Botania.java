@@ -98,8 +98,6 @@ public class Botania implements ModInitializer {
 
 	public static boolean gardenOfGlassLoaded = false;
 
-	public static boolean trinketsLoaded = false;
-
 	public static IProxy proxy = new IProxy() {};
 	public static Consumer<Supplier<Runnable>> runOnClient = s -> {};
 	public static volatile boolean configLoaded = false;
@@ -107,7 +105,6 @@ public class Botania implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		gardenOfGlassLoaded = IXplatAbstractions.INSTANCE.isModLoaded(LibMisc.GOG_MOD_ID);
-		trinketsLoaded = IXplatAbstractions.INSTANCE.isModLoaded("trinkets");
 		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
 			runOnClient = t -> t.get().run();
 		}
