@@ -1,4 +1,4 @@
-package vazkii.botania.forge;
+package vazkii.botania.forge.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleProvider;
