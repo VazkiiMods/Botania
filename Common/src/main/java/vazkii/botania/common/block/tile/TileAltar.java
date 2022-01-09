@@ -11,12 +11,6 @@ package vazkii.botania.common.block.tile;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -52,6 +46,7 @@ import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.mixin.AccessorBucketItem;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -75,24 +70,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		super(ModTiles.ALTAR, pos, state);
 	}
 
-	private static class SingleStackEntityStorage extends SingleStackStorage {
-		private final ItemEntity entity;
-
-		private SingleStackEntityStorage(ItemEntity entity) {
-			this.entity = entity;
-		}
-
-		@Override
-		protected ItemStack getStack() {
-			return entity.getItem();
-		}
-
-		@Override
-		protected void setStack(ItemStack stack) {
-			entity.setItem(stack);
-		}
-	}
-
 	public boolean collideEntityItem(ItemEntity item) {
 		ItemStack stack = item.getItem();
 		if (level.isClientSide || stack.isEmpty() || !item.isAlive()) {
@@ -114,9 +91,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			return true;
 		}
 
-		var fluidStorage = ContainerItemContext.ofSingleSlot(new SingleStackEntityStorage(item)).find(FluidStorage.ITEM);
-		boolean hasFluidCapability = fluidStorage != null;
-
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
 			if (stack.getItem() instanceof MobBucketItem && ((AccessorBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
@@ -126,26 +100,14 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				return true;
 			}
 
-			if (!hasFluidCapability) {
-				return false;
+			if (IXplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.WATER)) {
+				setFluid(State.WATER);
+				return true;
 			}
 
-			try (Transaction txn = Transaction.openOuter()) {
-				long extracted = fluidStorage.extract(FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK, txn);
-				if (extracted == FluidConstants.BLOCK) {
-					setFluid(State.WATER);
-					txn.commit();
-					return true;
-				}
-			}
-
-			try (Transaction txn = Transaction.openOuter()) {
-				long extracted = fluidStorage.extract(FluidVariant.of(Fluids.LAVA), FluidConstants.BLOCK, txn);
-				if (extracted == FluidConstants.BLOCK) {
-					setFluid(State.LAVA);
-					txn.commit();
-					return true;
-				}
+			if (IXplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.LAVA)) {
+				setFluid(State.LAVA);
+				return true;
 			}
 
 			return false;
@@ -177,7 +139,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 			});
 			return maybeRecipe.isPresent();
-		} else if (!hasFluidCapability && !EntityComponents.INTERNAL_ITEM.get(item).apothecarySpawned) {
+		} else if (!IXplatAbstractions.INSTANCE.isFluidContainer(item) && !EntityComponents.INTERNAL_ITEM.get(item).apothecarySpawned) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
 			}

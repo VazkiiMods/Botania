@@ -9,8 +9,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
@@ -77,6 +80,10 @@ public interface IXplatAbstractions {
 	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, BlockEntity be);
 	@Nullable
 	IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	boolean isFluidContainer(ItemEntity item);
+	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
+	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);
+	boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid);
 
 	// Events
 	boolean fireCorporeaRequestEvent(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean dryRun);

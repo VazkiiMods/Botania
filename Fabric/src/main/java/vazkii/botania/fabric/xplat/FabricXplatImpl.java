@@ -7,6 +7,12 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
@@ -21,8 +27,10 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -34,16 +42,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
-import vazkii.botania.api.block.IExoflameHeatable;
-import vazkii.botania.api.block.IHornHarvestable;
-import vazkii.botania.api.block.IHourglassTrigger;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.*;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
@@ -131,6 +137,86 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
 		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	private static class SingleStackEntityStorage extends SingleStackStorage {
+		private final ItemEntity entity;
+
+		private SingleStackEntityStorage(ItemEntity entity) {
+			this.entity = entity;
+		}
+
+		@Override
+		protected ItemStack getStack() {
+			return entity.getItem();
+		}
+
+		@Override
+		protected void setStack(ItemStack stack) {
+			entity.setItem(stack);
+		}
+	}
+
+	@Override
+	public boolean isFluidContainer(ItemEntity item) {
+		return ContainerItemContext.ofSingleSlot(new SingleStackEntityStorage(item)).find(FluidStorage.ITEM) != null;
+	}
+
+	@Override
+	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
+		var fluidStorage = ContainerItemContext.ofSingleSlot(new SingleStackEntityStorage(item)).find(FluidStorage.ITEM);
+		if (fluidStorage == null) {
+			return false;
+		}
+		try (Transaction txn = Transaction.openOuter()) {
+			long extracted = fluidStorage.extract(FluidVariant.of(fluid), FluidConstants.BLOCK, txn);
+			if (extracted == FluidConstants.BLOCK) {
+				txn.commit();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
+		var fluidStorage = ContainerItemContext.ofPlayerHand(player, hand).find(FluidStorage.ITEM);
+		if (fluidStorage == null) {
+			return false;
+		}
+		try (Transaction txn = Transaction.openOuter()) {
+			long extracted = fluidStorage.extract(FluidVariant.of(fluid), FluidConstants.BUCKET, txn);
+			if (extracted == FluidConstants.BUCKET) {
+				if (!player.getAbilities().instabuild) {
+					// Only perform inventory side effects in survival
+					txn.commit();
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
+		var fluidStorage = ContainerItemContext.ofPlayerHand(player, hand).find(FluidStorage.ITEM);
+
+		if (fluidStorage == null) {
+			return false;
+		}
+
+		try (Transaction txn = Transaction.openOuter()) {
+			long inserted = fluidStorage.insert(FluidVariant.of(fluid), FluidConstants.BUCKET, txn);
+			if (inserted == FluidConstants.BUCKET) {
+				if (!player.getAbilities().instabuild) {
+					// Only perform inventory side effects in survival
+					txn.commit();
+				}
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override

@@ -8,11 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -43,6 +38,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.block.IPetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -142,26 +138,11 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 			return false;
 		}
 
-		var context = ContainerItemContext.ofPlayerHand(player, hand);
-		var fluidStorage = context.find(FluidStorage.ITEM);
-
-		if (fluidStorage == null) {
-			return false;
+		boolean success = IXplatAbstractions.INSTANCE.insertFluidIntoPlayerItem(player, hand, fluid);
+		if (success) {
+			altar.setFluid(IPetalApothecary.State.EMPTY);
 		}
-
-		try (Transaction txn = Transaction.openOuter()) {
-			long inserted = fluidStorage.insert(FluidVariant.of(fluid), FluidConstants.BUCKET, txn);
-			if (inserted == FluidConstants.BUCKET) {
-				if (!player.getAbilities().instabuild) {
-					// Only perform inventory side effects in survival
-					txn.commit();
-				}
-				altar.setFluid(State.EMPTY);
-				return true;
-			}
-		}
-
-		return false;
+		return success;
 	}
 
 	private boolean tryDepositFluid(Player player, InteractionHand hand, TileAltar altar) {
@@ -178,37 +159,13 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 			return true;
 		}
 
-		var context = ContainerItemContext.ofPlayerHand(player, hand);
-		var fluidStorage = context.find(FluidStorage.ITEM);
-
-		if (fluidStorage == null) {
-			return false;
+		if (IXplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.WATER)) {
+			altar.setFluid(State.WATER);
+			return true;
+		} else if (IXplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.LAVA)) {
+			altar.setFluid(State.LAVA);
+			return true;
 		}
-
-		try (Transaction txn = Transaction.openOuter()) {
-			long extracted = fluidStorage.extract(FluidVariant.of(Fluids.WATER), FluidConstants.BUCKET, txn);
-			if (extracted == FluidConstants.BUCKET) {
-				if (!player.getAbilities().instabuild) {
-					// Only perform inventory side effects in survival
-					txn.commit();
-				}
-				altar.setFluid(State.WATER);
-				return true;
-			}
-		}
-
-		try (Transaction txn = Transaction.openOuter()) {
-			long extracted = fluidStorage.extract(FluidVariant.of(Fluids.LAVA), FluidConstants.BUCKET, txn);
-			if (extracted == FluidConstants.BUCKET) {
-				if (!player.getAbilities().instabuild) {
-					// Only perform inventory side effects in survival
-					txn.commit();
-				}
-				altar.setFluid(State.LAVA);
-				return true;
-			}
-		}
-
 		return false;
 	}
 

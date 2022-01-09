@@ -200,7 +200,7 @@ public final class ModItems {
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
 	public static final Item manasteelHoe = new ItemManasteelHoe(unstackable().customDamage(ItemManasteelHoe::damageItem));
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable().customDamage(ItemManasteelSword::damageItem));
-	public static final Item manasteelShears = new ItemManasteelShears(unstackable().maxDamageIfAbsent(238).customDamage(ItemManasteelShears::damageItem));
+	public static final Item manasteelShears = new ItemManasteelShears(unstackable().defaultDurability(238).customDamage(ItemManasteelShears::damageItem));
 	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item elementiumChest = new ItemElementiumChest(unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable().customDamage(ItemManasteelArmor::damageItem));

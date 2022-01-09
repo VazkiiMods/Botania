@@ -6,19 +6,27 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.network.NetworkHooks;
@@ -51,6 +59,44 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public String getBotaniaVersion() {
 		return ModList.get().getModContainerById(LibMisc.MOD_ID).get()
 				.getModInfo().getVersion().toString();
+	}
+
+	@Override
+	public boolean isFluidContainer(ItemEntity item) {
+		return item.getItem().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent();
+	}
+
+	@Override
+	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
+		return item.getItem().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+				.map(h -> {
+					var result = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+							IFluidHandler.FluidAction.EXECUTE);
+					return result.getFluid() == fluid && result.getAmount() == FluidAttributes.BUCKET_VOLUME;
+				})
+				.orElse(false);
+	}
+
+	@Override
+	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
+		return player.getItemInHand(hand).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+				.map(h -> {
+					var result = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+							IFluidHandler.FluidAction.EXECUTE);
+					return result.getFluid() == fluid && result.getAmount() == FluidAttributes.BUCKET_VOLUME;
+				})
+				.orElse(false);
+	}
+
+	@Override
+	public boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
+		return player.getItemInHand(hand).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+				.map(h -> {
+					var result = h.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+							IFluidHandler.FluidAction.EXECUTE);
+					return result == FluidAttributes.BUCKET_VOLUME;
+				})
+				.orElse(false);
 	}
 
 	@Override
