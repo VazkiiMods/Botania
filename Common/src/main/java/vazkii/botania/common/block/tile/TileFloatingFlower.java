@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +20,7 @@ import vazkii.botania.api.block.IFloatingFlowerProvider;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
-public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvider, RenderAttachmentBlockEntity {
+public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvider {
 	private static final String TAG_FLOATING_DATA = "floating";
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
@@ -58,7 +57,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 		}
 	}
 
-	@Override
+	// [SoftImplement] RenderAttachBlockEntity
 	public IFloatingFlower.IslandType getRenderAttachmentData() {
 		return floatingData.getIslandType();
 	}

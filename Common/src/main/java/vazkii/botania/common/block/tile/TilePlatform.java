@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +22,7 @@ import vazkii.botania.common.block.BlockPlatform;
 
 import javax.annotation.Nullable;
 
-public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity, IWandable {
+public class TilePlatform extends TileMod implements IWandable {
 	private static final String TAG_CAMO = "camo";
 
 	@Nullable
@@ -115,7 +114,7 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		}
 	}
 
-	@Override
+	// [SoftImplement] RenderAttachmentBlockEntity
 	public Object getRenderAttachmentData() {
 		return new PlatformData(getBlockPos().immutable(), camoState);
 	}

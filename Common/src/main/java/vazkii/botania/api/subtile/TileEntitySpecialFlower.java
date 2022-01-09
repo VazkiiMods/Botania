@@ -285,4 +285,13 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 
 		return 0;
 	}
+
+	// [SoftImplement] RenderAttachmentBlockEntity
+	@Nullable
+	public Object getRenderAttachmentData() {
+		if (isFloating()) {
+			return floatingData.getIslandType();
+		}
+		return null;
+	}
 }

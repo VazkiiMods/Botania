@@ -31,8 +31,7 @@
     "client.MixinKeyboardHandler",
     "client.MixinMinecraft",
     "client.MixinModelManager",
-    "client.MixinParticleEngine",
-    "client.MixinTileEntitySpecialFlower"
+    "client.MixinParticleEngine"
   ],
   "injectors": {
     "defaultRequire": 1
