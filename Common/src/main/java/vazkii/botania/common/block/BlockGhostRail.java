@@ -22,8 +22,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
-import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.components.GhostRailComponent;
+import vazkii.botania.common.internal_caps.GhostRailComponent;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -43,7 +43,7 @@ public class BlockGhostRail extends BaseRailBlock {
 
 	private void updateFloating(AbstractMinecart cart) {
 		cart.level.getProfiler().push("cartFloating");
-		GhostRailComponent persistentData = EntityComponents.GHOST_RAIL.get(cart);
+		GhostRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(cart);
 		int floatTicks = persistentData.floatTicks;
 		Preconditions.checkState(floatTicks > 0);
 
@@ -72,7 +72,7 @@ public class BlockGhostRail extends BaseRailBlock {
 
 	public void onMinecartPass(Level world, AbstractMinecart cart) {
 		if (!world.isClientSide) {
-			EntityComponents.GHOST_RAIL.get(cart).floatTicks = 20;
+			IXplatAbstractions.INSTANCE.ghostRailComponent(cart).floatTicks = 20;
 			updateFloating(cart);
 		}
 	}
@@ -82,7 +82,7 @@ public class BlockGhostRail extends BaseRailBlock {
 			return;
 		}
 
-		GhostRailComponent persistentData = EntityComponents.GHOST_RAIL.get(c);
+		GhostRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(c);
 		if (!c.isAlive() || persistentData.floatTicks <= 0) {
 			c.noPhysics = false;
 			return;

@@ -40,8 +40,8 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Collections;
 import java.util.List;
@@ -148,7 +148,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION,
 					entity instanceof Creeper ? 100 : Integer.MAX_VALUE, 0));
 
-			EntityComponents.LOONIUM_DROP.get(entity).setDrop(stack);
+			IXplatAbstractions.INSTANCE.looniumComponent(entity).setDrop(stack);
 
 			entity.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pos), MobSpawnType.SPAWNER, null, null);
 			world.addFreshEntity(entity);

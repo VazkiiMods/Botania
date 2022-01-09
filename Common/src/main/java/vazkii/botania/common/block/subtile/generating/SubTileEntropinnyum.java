@@ -26,8 +26,8 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
@@ -88,7 +88,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 			for (PrimedTnt tnt : tnts) {
 				FluidState fluid = getLevel().getFluidState(tnt.blockPosition());
 				if (tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {
-					boolean unethical = EntityComponents.TNT_ETHICAL.get(tnt).unethical;
+					boolean unethical = IXplatAbstractions.INSTANCE.ethicalComponent(tnt).isUnethical();
 					tnt.playSound(unethical ? ModSounds.entropinnyumAngry : ModSounds.entropinnyumHappy, 1F, (1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
 					tnt.discard();
 					addMana(unethical ? 3 : getMaxMana());

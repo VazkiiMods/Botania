@@ -18,7 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 
-import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -41,7 +41,7 @@ public class PacketItemAge {
 			client.execute(() -> {
 				Entity e = Minecraft.getInstance().level.getEntity(entityId);
 				if (e instanceof ItemEntity) {
-					EntityComponents.INTERNAL_ITEM.get(e).timeCounter = counter;
+					CCAInternalEntityComponents.INTERNAL_ITEM.get(e).timeCounter = counter;
 				}
 			});
 		}

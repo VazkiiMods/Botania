@@ -6,25 +6,21 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.components;
-
-import dev.onyxstudios.cca.api.v3.component.Component;
+package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.monster.Slime;
 
-public class NarslimmusComponent implements Component {
+public class NarslimmusComponent {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 	private boolean naturalSpawned = false;
 
 	public NarslimmusComponent(Slime e) {}
 
-	@Override
 	public void readFromNbt(CompoundTag tag) {
 		naturalSpawned = tag.getBoolean(TAG_WORLD_SPAWNED);
 	}
 
-	@Override
 	public void writeToNbt(CompoundTag tag) {
 		tag.putBoolean(TAG_WORLD_SPAWNED, naturalSpawned);
 	}

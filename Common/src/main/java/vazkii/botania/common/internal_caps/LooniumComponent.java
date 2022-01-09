@@ -6,14 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.components;
-
-import dev.onyxstudios.cca.api.v3.component.Component;
+package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
-public class LooniumComponent implements Component {
+public class LooniumComponent {
+	protected static final String TAG_TODROP = "toDrop";
 	private ItemStack toDrop = ItemStack.EMPTY;
 
 	public ItemStack getDrop() {
@@ -37,19 +36,17 @@ public class LooniumComponent implements Component {
 		return toDrop.hashCode();
 	}
 
-	@Override
 	public void readFromNbt(CompoundTag tag) {
-		if (tag.contains("toDrop")) {
-			toDrop = ItemStack.of(tag.getCompound("toDrop"));
+		if (tag.contains(TAG_TODROP)) {
+			setDrop(ItemStack.of(tag.getCompound(TAG_TODROP)));
 		} else {
-			toDrop = ItemStack.EMPTY;
+			setDrop(ItemStack.EMPTY);
 		}
 	}
 
-	@Override
 	public void writeToNbt(CompoundTag tag) {
-		if (!toDrop.isEmpty()) {
-			tag.put("toDrop", toDrop.save(new CompoundTag()));
+		if (!getDrop().isEmpty()) {
+			tag.put(TAG_TODROP, getDrop().save(new CompoundTag()));
 		}
 	}
 }

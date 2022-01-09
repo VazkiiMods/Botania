@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -41,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class ItemTornadoRod extends Item implements FabricItem {
+public class ItemTornadoRod extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_TORNADO);
 
@@ -238,7 +237,7 @@ public class ItemTornadoRod extends Item implements FabricItem {
 		}
 	}
 
-	@Override
+	// [SoftImplement] FabricItem
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return !newStack.is(this) || isFlying(oldStack) != isFlying(newStack);
 	}

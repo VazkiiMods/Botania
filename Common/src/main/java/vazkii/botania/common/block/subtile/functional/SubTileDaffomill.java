@@ -26,7 +26,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -178,9 +177,9 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWan
 
 	// Send timeCounter to client to prevent client desync when an item is e.g. dropped by a powered open crate
 	public static void onItemTrack(ServerPlayer player, Entity entity) {
-		if (entity instanceof ItemEntity) {
+		if (entity instanceof ItemEntity item) {
 			int entityId = entity.getId();
-			int age = EntityComponents.INTERNAL_ITEM.get(entity).timeCounter;
+			int age = IXplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter;
 			IXplatAbstractions.INSTANCE.sendItemTimeCounterPacket(player, entityId, age);
 		}
 	}

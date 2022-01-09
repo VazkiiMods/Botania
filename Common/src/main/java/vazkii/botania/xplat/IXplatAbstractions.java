@@ -12,10 +12,15 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -44,6 +49,7 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.ManaBlockType;
 import vazkii.botania.api.mana.ManaNetworkAction;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.network.EffectType;
 
 import javax.annotation.Nullable;
@@ -66,7 +72,7 @@ public interface IXplatAbstractions {
 	boolean isPhysicalClient();
 	String getBotaniaVersion();
 
-	// Capability access
+	// Capability access (API-facing caps)
 	@Nullable
 	IAvatarWieldable findAvatarWieldable(ItemStack stack);
 	@Nullable
@@ -85,6 +91,15 @@ public interface IXplatAbstractions {
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
 	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);
 	boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid);
+
+	// Capability access (internal caps)
+	EthicalComponent ethicalComponent(PrimedTnt tnt);
+	GhostRailComponent ghostRailComponent(AbstractMinecart cart);
+	ItemFlagsComponent itemFlagsComponent(ItemEntity item);
+	KeptItemsComponent keptItemsComponent(Player player);
+	LooniumComponent looniumComponent(LivingEntity entity);
+	NarslimmusComponent narslimmusComponent(Slime slime);
+	TigerseyeComponent tigersEyeComponent(Creeper creeper);
 
 	// Events
 	boolean fireCorporeaRequestEvent(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean dryRun);

@@ -36,7 +36,6 @@ import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -112,7 +111,7 @@ public class TileAlfPortal extends TileMod implements IWandable {
 					}
 
 					ItemStack stack = item.getItem();
-					if (EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned) {
+					if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned) {
 						continue;
 					}
 
@@ -295,7 +294,7 @@ public class TileAlfPortal extends TileMod implements IWandable {
 
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
-		EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned = true;
+		IXplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned = true;
 		level.addFreshEntity(item);
 		ticksSinceLastItem = 0;
 	}

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ItemGravityRod extends Item implements FabricItem {
+public class ItemGravityRod extends Item {
 	private static final Tag.Named<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
@@ -58,7 +57,7 @@ public class ItemGravityRod extends Item implements FabricItem {
 		super(props);
 	}
 
-	@Override
+	// [SoftImplement] FabricItem
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return !newStack.is(this);
 	}

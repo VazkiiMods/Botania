@@ -24,10 +24,9 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.components.ItemFlagsComponent;
 import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.network.EffectType;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -62,7 +61,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-RANGE, -RANGE, -RANGE), pos.offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for (ItemEntity item : items) {
-				ItemFlagsComponent flags = EntityComponents.INTERNAL_ITEM.get(item);
+				ItemFlagsComponent flags = IXplatAbstractions.INSTANCE.itemFlagsComponent(item);
 				if (!DelayHelper.canInteractWith(this, item) || flags.spectranthemumTeleported) {
 					continue;
 				}

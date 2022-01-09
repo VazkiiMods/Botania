@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,7 +54,7 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker, FabricItem {
+public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
@@ -288,7 +287,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return true;
 	}
 
-	@Override
+	// [SoftImplement] FabricItem
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack before, ItemStack after) {
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}

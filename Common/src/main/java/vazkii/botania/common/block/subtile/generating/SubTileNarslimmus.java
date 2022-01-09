@@ -23,8 +23,8 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		if (ticksExisted % 5 == 0) {
 			List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (Slime slime : slimes) {
-				if (slime.isAlive() && EntityComponents.NARSLIMMUS.get(slime).isNaturalSpawned()) {
+				if (slime.isAlive() && IXplatAbstractions.INSTANCE.narslimmusComponent(slime).isNaturalSpawned()) {
 					int size = slime.getSize();
 					if (!slime.level.isClientSide) {
 						slime.discard();
@@ -92,8 +92,8 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		boolean slimeChunk = isSlimeChunk(entity.level, entity.getX(), entity.getZ());
 		if (slimeChunk) {
 			entity.getSelfAndPassengers().forEach(e -> {
-				if (e instanceof Slime) {
-					EntityComponents.NARSLIMMUS.get(e).setNaturalSpawn(true);
+				if (e instanceof Slime slime) {
+					IXplatAbstractions.INSTANCE.narslimmusComponent(slime).setNaturalSpawn(true);
 				}
 			});
 		}

@@ -47,7 +47,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.proxy.IProxy;
@@ -169,7 +168,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
 		}
 
-		if (EntityComponents.INTERNAL_ITEM.get(item).getManaInfusionCooldown() > 0) {
+		if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown() > 0) {
 			return false;
 		}
 
@@ -185,7 +184,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				EntityComponents.INTERNAL_ITEM.get(outputItem).markNewlyInfused();
+				IXplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).markNewlyInfused();
 				level.addFreshEntity(outputItem);
 
 				craftingFanciness();

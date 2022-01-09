@@ -24,9 +24,9 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.mixin.*;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Set;
 
@@ -54,7 +54,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 			if (getMana() >= COST) {
 				if (pacifyCreeper(entity)) {
-					EntityComponents.TIGERSEYE.get(entity).setPacified();
+					IXplatAbstractions.INSTANCE.tigersEyeComponent(entity).setPacified();
 					entity.playSound(ModSounds.tigerseyePacify, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
 					level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 					addMana(-COST);
@@ -65,7 +65,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	}
 
 	public static void pacifyAfterLoad(Entity entity, ServerLevel level) {
-		if (entity instanceof Creeper creeper && EntityComponents.TIGERSEYE.get(creeper).isPacified()) {
+		if (entity instanceof Creeper creeper && IXplatAbstractions.INSTANCE.tigersEyeComponent(creeper).isPacified()) {
 			pacifyCreeper(creeper);
 		}
 	}

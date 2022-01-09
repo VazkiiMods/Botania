@@ -34,10 +34,10 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.components.ItemFlagsComponent;
 import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.internal_caps.ItemFlagsComponent;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -84,7 +84,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 
 			// Hopperhocks additionally don't pick up items that have been newly infused (5 ticks),
 			// to facilitate multiple infusions
-			if (EntityComponents.INTERNAL_ITEM.get(item).getManaInfusionCooldown()
+			if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown()
 					> ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5) {
 				continue;
 			}

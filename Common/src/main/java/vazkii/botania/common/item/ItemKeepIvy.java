@@ -13,9 +13,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.components.KeptItemsComponent;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.internal_caps.KeptItemsComponent;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,14 +48,14 @@ public class ItemKeepIvy extends Item {
 		}
 
 		if (keeps.size() > 0) {
-			KeptItemsComponent data = EntityComponents.KEPT_ITEMS.get(player);
+			KeptItemsComponent data = IXplatAbstractions.INSTANCE.keptItemsComponent(player);
 			data.addAll(keeps);
 		}
 	}
 
 	public static void onPlayerRespawn(ServerPlayer oldPlayer, ServerPlayer newPlayer, boolean alive) {
 		if (!alive) {
-			KeptItemsComponent keeps = EntityComponents.KEPT_ITEMS.get(oldPlayer);
+			KeptItemsComponent keeps = IXplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer);
 
 			for (ItemStack stack : keeps.getStacks()) {
 				ItemStack copy = stack.copy();

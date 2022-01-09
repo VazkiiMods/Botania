@@ -42,7 +42,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.mixin.AccessorBucketItem;
@@ -131,7 +130,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				stack.shrink(1);
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				EntityComponents.INTERNAL_ITEM.get(outputItem).apothecarySpawned = true;
+				IXplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
 				level.addFreshEntity(outputItem);
 
 				setFluid(State.EMPTY);
@@ -139,7 +138,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 			});
 			return maybeRecipe.isPresent();
-		} else if (!IXplatAbstractions.INSTANCE.isFluidContainer(item) && !EntityComponents.INTERNAL_ITEM.get(item).apothecarySpawned) {
+		} else if (!IXplatAbstractions.INSTANCE.isFluidContainer(item)
+				&& !IXplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
 			}

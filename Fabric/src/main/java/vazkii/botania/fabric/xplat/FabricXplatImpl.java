@@ -34,10 +34,15 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -66,9 +71,11 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
+import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
@@ -222,6 +229,41 @@ public class FabricXplatImpl implements IXplatAbstractions {
 		}
 
 		return false;
+	}
+
+	@Override
+	public EthicalComponent ethicalComponent(PrimedTnt tnt) {
+		return CCAInternalEntityComponents.TNT_ETHICAL.get(tnt);
+	}
+
+	@Override
+	public GhostRailComponent ghostRailComponent(AbstractMinecart cart) {
+		return CCAInternalEntityComponents.GHOST_RAIL.get(cart);
+	}
+
+	@Override
+	public ItemFlagsComponent itemFlagsComponent(ItemEntity item) {
+		return CCAInternalEntityComponents.INTERNAL_ITEM.get(item);
+	}
+
+	@Override
+	public KeptItemsComponent keptItemsComponent(Player player) {
+		return CCAInternalEntityComponents.KEPT_ITEMS.get(player);
+	}
+
+	@Override
+	public LooniumComponent looniumComponent(LivingEntity entity) {
+		return CCAInternalEntityComponents.LOONIUM_DROP.get(entity);
+	}
+
+	@Override
+	public NarslimmusComponent narslimmusComponent(Slime slime) {
+		return CCAInternalEntityComponents.NARSLIMMUS.get(slime);
+	}
+
+	@Override
+	public TigerseyeComponent tigersEyeComponent(Creeper creeper) {
+		return CCAInternalEntityComponents.TIGERSEYE.get(creeper);
 	}
 
 	@Override

@@ -23,12 +23,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.brew.potion.PotionSoulCross;
-import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.components.LooniumComponent;
+import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.rod.ItemGravityRod;
+import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 
 import javax.annotation.Nullable;
 
@@ -47,7 +47,7 @@ public abstract class MixinLivingEntity extends Entity {
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
-		LooniumComponent comp = EntityComponents.LOONIUM_DROP.getNullable(this);
+		LooniumComponent comp = CCAInternalEntityComponents.LOONIUM_DROP.getNullable(this);
 		if (comp != null && !comp.getDrop().isEmpty()) {
 			spawnAtLocation(comp.getDrop());
 			ci.cancel();
