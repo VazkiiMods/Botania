@@ -11,6 +11,7 @@ package vazkii.botania.common;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -32,14 +33,17 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -85,6 +89,7 @@ import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.data.DataGenerators;
 import vazkii.botania.fabric.FiberBotaniaConfig;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -105,6 +110,19 @@ public class Botania implements ModInitializer {
 
 		EquipmentHandler.init();
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
+		if (BotaniaConfig.common().worldgenEnabled()) {
+			BiomeModifications.addFeature(ctx -> {
+				Biome.BiomeCategory category = ctx.getBiome().getBiomeCategory();
+				return !ModFeatures.TYPE_BLACKLIST.contains(category);
+			},
+					GenerationStep.Decoration.VEGETAL_DECORATION,
+					BuiltinRegistries.PLACED_FEATURE.getResourceKey(ModFeatures.MYSTICAL_FLOWERS_PLACED).orElseThrow());
+			BiomeModifications.addFeature(
+					ctx -> ctx.getBiome().getBiomeCategory() != Biome.BiomeCategory.THEEND,
+					GenerationStep.Decoration.VEGETAL_DECORATION,
+					BuiltinRegistries.PLACED_FEATURE.getResourceKey(ModFeatures.MYSTICAL_MUSHROOMS_PLACED).orElseThrow());
+		}
+
 		ModBlocks.registerBlocks(bind(Registry.BLOCK));
 		ModItems.registerItems(bind(Registry.ITEM));
 		ModItems.registerMenuTypes(bind(Registry.MENU));

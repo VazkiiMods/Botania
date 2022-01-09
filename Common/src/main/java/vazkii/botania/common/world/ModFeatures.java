@@ -10,17 +10,13 @@ package vazkii.botania.common.world;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-
-import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -54,20 +50,6 @@ public class ModFeatures {
 
 		Registry.register(BuiltinRegistries.PLACED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_PLACED);
 		Registry.register(BuiltinRegistries.PLACED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_PLACED);
-
-		if (BotaniaConfig.common().worldgenEnabled()) {
-			BiomeModifications.addFeature(ctx -> {
-				Biome.BiomeCategory category = ctx.getBiome().getBiomeCategory();
-				return !TYPE_BLACKLIST.contains(category);
-			},
-					GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.PLACED_FEATURE.getResourceKey(MYSTICAL_FLOWERS_PLACED).orElseThrow());
-			BiomeModifications.addFeature(
-					ctx -> ctx.getBiome().getBiomeCategory() != Biome.BiomeCategory.THEEND,
-					GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.PLACED_FEATURE.getResourceKey(MYSTICAL_MUSHROOMS_PLACED).orElseThrow());
-		}
-
 	}
 
 }
