@@ -1,6 +1,7 @@
 package vazkii.botania.xplat;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -24,11 +25,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHourglassTrigger;
 import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -105,6 +108,7 @@ public interface IXplatAbstractions {
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();
 	<T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor);
+	Registry<Brew> createBrewRegistry();
 
 	// Misc
 	void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> buf);

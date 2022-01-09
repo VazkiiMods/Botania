@@ -1,15 +1,16 @@
 package vazkii.botania.fabric.xplat;
 
 import net.fabricmc.api.EnvType;
+import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -43,6 +44,7 @@ import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHourglassTrigger;
 import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
@@ -64,6 +66,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
@@ -254,6 +258,11 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
 		return new ExtendedScreenHandlerType<>(constructor::apply);
+	}
+
+	@Override
+	public Registry<Brew> createBrewRegistry() {
+		return FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
 	}
 
 	@Override

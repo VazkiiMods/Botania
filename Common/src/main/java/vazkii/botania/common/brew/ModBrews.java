@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.brew;
 
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,6 +16,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
@@ -25,7 +25,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModBrews {
 
-	public static final Registry<Brew> registry = FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
+	public static final Registry<Brew> registry = IXplatAbstractions.INSTANCE.createBrewRegistry();
 	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
 	public static final Brew speed = new Brew(0x59B7FF, 4000, new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1800, 1));
 	public static final Brew strength = new Brew(0xEE3F3F, 4000, new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800, 1));

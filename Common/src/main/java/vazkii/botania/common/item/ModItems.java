@@ -25,9 +25,7 @@ import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
-import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
-import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModPatterns;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -63,7 +61,6 @@ import vazkii.botania.common.item.record.ItemModRecord;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Locale;

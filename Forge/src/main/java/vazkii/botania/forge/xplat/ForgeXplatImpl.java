@@ -1,7 +1,6 @@
 package vazkii.botania.forge.xplat;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,6 +24,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.network.NetworkHooks;
 
 import org.apache.commons.lang3.function.TriFunction;
+
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.IXplatAbstractions;
 
