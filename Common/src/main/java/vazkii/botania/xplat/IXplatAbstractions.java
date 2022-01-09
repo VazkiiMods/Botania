@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.Entity;
@@ -15,20 +16,26 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHourglassTrigger;
 import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
+import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.mana.ManaBlockType;
+import vazkii.botania.api.mana.ManaNetworkAction;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.network.EffectType;
 
 import javax.annotation.Nullable;
 
+import java.util.List;
 import java.util.ServiceLoader;
 import java.util.UUID;
 import java.util.function.BiFunction;
@@ -60,6 +67,15 @@ public interface IXplatAbstractions {
 	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, BlockEntity be);
 	@Nullable
 	IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be);
+
+	// Events
+	boolean fireCorporeaRequestEvent(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean dryRun);
+	boolean fireCorporeaIndexRequestEvent(ServerPlayer player, ICorporeaRequestMatcher request, int count, ICorporeaSpark spark);
+	void fireManaItemEvent(Player player, List<ItemStack> toReturn);
+	float fireManaDiscountEvent(Player player, float discount, ItemStack tool);
+	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
+	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
+	void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action);
 
 	// Clientbound packets
 	void sendEffectPacket(Player player, EffectType type, double x, double y, double z, int... args);

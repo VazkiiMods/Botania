@@ -22,6 +22,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
 import java.util.function.Function;
@@ -108,7 +109,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	@Override
 	public ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
-		if (CorporeaRequestCallback.EVENT.invoker().onRequest(matcher, itemCount, spark, !doit)) {
+		if (IXplatAbstractions.INSTANCE.fireCorporeaRequestEvent(matcher, itemCount, spark, !doit)) {
 			return new CorporeaResult(stacks, 0, 0);
 		}
 

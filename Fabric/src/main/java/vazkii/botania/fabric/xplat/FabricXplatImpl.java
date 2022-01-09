@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -33,15 +34,22 @@ import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHourglassTrigger;
 import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
+import vazkii.botania.api.corporea.CorporeaRequestCallback;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
+import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.mana.*;
+import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.xplat.IXplatAbstractions;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -109,6 +117,42 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
 		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Override
+	public boolean fireCorporeaRequestEvent(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean dryRun) {
+		return CorporeaRequestCallback.EVENT.invoker().onRequest(matcher, itemCount, spark, dryRun);
+	}
+
+	@Override
+	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+		return CorporeaIndexRequestCallback.EVENT.invoker().onIndexRequest(player, request, count, spark);
+	}
+
+	@Override
+	public void fireManaItemEvent(Player player, List<ItemStack> toReturn) {
+		ManaItemsCallback.EVENT.invoker().getManaItems(player, toReturn);
+	}
+
+	@Override
+	public float fireManaDiscountEvent(Player player, float discount, ItemStack tool) {
+		return ManaDiscountCallback.EVENT.invoker().getManaDiscount(player, discount, tool);
+	}
+
+	@Override
+	public boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient) {
+		return ManaProficiencyCallback.EVENT.invoker().getProficient(player, tool, proficient);
+	}
+
+	@Override
+	public void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside) {
+		ElvenPortalUpdateCallback.EVENT.invoker().onElvenPortalTick(portal, bounds, open, stacksInside);
+	}
+
+	@Override
+	public void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
+		ManaNetworkCallback.EVENT.invoker().onNetworkChange(be, type, action);
+
 	}
 
 	@Override

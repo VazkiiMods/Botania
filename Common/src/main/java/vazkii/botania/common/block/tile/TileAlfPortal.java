@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block.IWandable;
-import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -40,6 +39,7 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -96,7 +96,7 @@ public class TileAlfPortal extends TileMod implements IWandable {
 
 		AABB aabb = self.getPortalAABB();
 		boolean open = self.ticksOpen > 60;
-		ElvenPortalUpdateCallback.EVENT.invoker().onElvenPortalTick(self, aabb, open, self.stacksIn);
+		IXplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.stacksIn);
 
 		if (self.ticksOpen > 60) {
 			self.ticksSinceLastItem++;

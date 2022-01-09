@@ -53,6 +53,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -150,14 +151,14 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		ManaNetworkCallback.removeCollector(this);
+		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileSpreader self) {
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(self);
 		boolean wasInNetwork = inNetwork;
 		if (!inNetwork && !self.isRemoved()) {
-			ManaNetworkCallback.addCollector(self);
+			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
 		}
 
 		boolean powered = false;

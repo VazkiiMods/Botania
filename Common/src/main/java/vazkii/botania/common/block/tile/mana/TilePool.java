@@ -55,6 +55,7 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -121,7 +122,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		ManaNetworkCallback.removePool(this);
+		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.REMOVE);
 	}
 
 	public static int calculateComparatorLevel(int mana, int max) {
@@ -242,7 +243,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
 		if (!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved()) {
-			ManaNetworkCallback.addPool(this);
+			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
 		}
 	}
 

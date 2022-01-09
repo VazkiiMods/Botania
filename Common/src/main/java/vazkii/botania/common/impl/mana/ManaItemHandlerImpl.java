@@ -24,6 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
 
@@ -42,7 +43,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		}
 
-		ManaItemsCallback.EVENT.invoker().getManaItems(player, toReturn);
+		IXplatAbstractions.INSTANCE.fireManaItemEvent(player, toReturn);
 		return toReturn;
 	}
 
@@ -270,7 +271,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 
 		int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, tool);
 		discount += unbreaking * 0.05F;
-		discount = ManaDiscountCallback.EVENT.invoker().getManaDiscount(player, discount, tool);
+		discount = IXplatAbstractions.INSTANCE.fireManaDiscountEvent(player, discount, tool);
 
 		return discount;
 	}
@@ -294,6 +295,6 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		}
 
-		return ManaProficiencyCallback.EVENT.invoker().getProficient(player, rod, proficient);
+		return IXplatAbstractions.INSTANCE.fireManaProficiencyEvent(player, manaItem, proficient);
 	}
 }

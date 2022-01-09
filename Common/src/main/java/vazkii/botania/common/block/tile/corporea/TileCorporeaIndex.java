@@ -25,6 +25,7 @@ import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -357,7 +358,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public void performPlayerRequest(ServerPlayer player, ICorporeaRequestMatcher request, int count) {
-		if (!CorporeaIndexRequestCallback.EVENT.invoker().onIndexRequest(player, request, count, this.getSpark())) {
+		if (!IXplatAbstractions.INSTANCE.fireCorporeaIndexRequestEvent(player, request, count, this.getSpark())) {
 			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
 
 			player.sendMessage(new TranslatableComponent("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE), Util.NIL_UUID);

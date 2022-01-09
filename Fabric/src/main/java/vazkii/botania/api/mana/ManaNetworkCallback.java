@@ -21,20 +21,4 @@ public interface ManaNetworkCallback {
 			});
 
 	void onNetworkChange(BlockEntity be, ManaBlockType type, ManaNetworkAction action);
-
-	static void addCollector(BlockEntity tile) {
-		EVENT.invoker().onNetworkChange(tile, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
-	}
-
-	static void removeCollector(BlockEntity tile) {
-		EVENT.invoker().onNetworkChange(tile, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
-	}
-
-	static void addPool(BlockEntity tile) {
-		EVENT.invoker().onNetworkChange(tile, ManaBlockType.POOL, ManaNetworkAction.ADD);
-	}
-
-	static void removePool(BlockEntity tile) {
-		EVENT.invoker().onNetworkChange(tile, ManaBlockType.POOL, ManaNetworkAction.REMOVE);
-	}
 }
