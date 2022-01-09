@@ -101,6 +101,7 @@ public class Botania implements ModInitializer {
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
 		ModBlocks.registerBlocks(bind(Registry.BLOCK));
 		ModItems.registerItems(bind(Registry.ITEM));
+		ModItems.registerMenuTypes(bind(Registry.MENU));
 		ModItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
 		ModEntities.registerEntities(bind(Registry.ENTITY_TYPE));
 		MinecartComparatorLogicRegistry.register(ModEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());

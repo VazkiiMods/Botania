@@ -8,14 +8,9 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -31,6 +26,7 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -57,12 +53,7 @@ public class ItemBaubleBox extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
-			MenuProvider container = new ExtendedScreenHandlerFactory() {
-				@Override
-				public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-					buf.writeBoolean(hand == InteractionHand.MAIN_HAND);
-				}
-
+			IXplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
 					return stack.getHoverName();
@@ -72,8 +63,7 @@ public class ItemBaubleBox extends Item {
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
 					return new ContainerBaubleBox(syncId, inv, stack);
 				}
-			};
-			player.openMenu(container);
+			}, buf -> buf.writeBoolean(hand == InteractionHand.MAIN_HAND));
 		}
 		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}

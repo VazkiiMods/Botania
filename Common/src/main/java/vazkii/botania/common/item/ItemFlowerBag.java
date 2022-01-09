@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -39,6 +37,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -110,12 +109,7 @@ public class ItemFlowerBag extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
-			MenuProvider container = new ExtendedScreenHandlerFactory() {
-				@Override
-				public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-					buf.writeBoolean(hand == InteractionHand.MAIN_HAND);
-				}
-
+			IXplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
 					return stack.getHoverName();
@@ -125,8 +119,7 @@ public class ItemFlowerBag extends Item {
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
 					return new ContainerFlowerBag(syncId, inv, stack);
 				}
-			};
-			player.openMenu(container);
+			}, buf -> buf.writeBoolean(hand == InteractionHand.MAIN_HAND));
 		}
 		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}

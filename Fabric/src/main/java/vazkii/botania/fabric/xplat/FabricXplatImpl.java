@@ -5,8 +5,12 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -16,8 +20,12 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -27,6 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
@@ -54,6 +63,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
@@ -239,5 +249,32 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public Item.Properties defaultItemBuilder() {
 		return new FabricItemSettings().group(FabricBotaniaCreativeTab.INSTANCE);
+	}
+
+	@Override
+	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
+		return new ExtendedScreenHandlerType<>(constructor::apply);
+	}
+
+	@Override
+	public void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> writeInitialData) {
+		var menuProvider = new ExtendedScreenHandlerFactory() {
+			@Nullable
+			@Override
+			public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+				return menu.createMenu(id, inventory, player);
+			}
+
+			@Override
+			public Component getDisplayName() {
+				return menu.getDisplayName();
+			}
+
+			@Override
+			public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+				writeInitialData.accept(buf);
+			}
+		};
+		player.openMenu(menuProvider);
 	}
 }

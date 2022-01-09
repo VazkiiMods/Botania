@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -65,6 +63,7 @@ import vazkii.botania.common.item.record.ItemModRecord;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Locale;
@@ -214,7 +213,7 @@ public final class ModItems {
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
 	public static final Item elementiumHoe = new ItemElementiumHoe(unstackable().customDamage(ItemManasteelHoe::damageItem));
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable().customDamage(ItemManasteelSword::damageItem));
-	public static final Item elementiumShears = new ItemElementiumShears(unstackable().maxDamageIfAbsent(238).customDamage(ItemManasteelShears::damageItem));
+	public static final Item elementiumShears = new ItemElementiumShears(unstackable().defaultDurability(238).customDamage(ItemManasteelShears::damageItem));
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
 	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
 	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
@@ -387,8 +386,8 @@ public final class ModItems {
 	public static final Item questgiverMark = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK, unstackable());
 	public static final Item thinkingHand = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.THINKING_HAND, unstackable());
 
-	public static final MenuType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.FLOWER_BAG), ContainerFlowerBag::fromNetwork);
-	public static final MenuType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.BAUBLE_BOX), ContainerBaubleBox::fromNetwork);
+	public static final MenuType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(ContainerBaubleBox::fromNetwork);
+	public static final MenuType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(ContainerFlowerBag::fromNetwork);
 
 	public static Item.Properties defaultBuilder() {
 		return IXplatAbstractions.INSTANCE.defaultItemBuilder();
@@ -698,6 +697,11 @@ public final class ModItems {
 		r.accept(thinkingHand, prefix(LibItemNames.COSMETIC_PREFIX + "thinking_hand"));
 	}
 
+	public static void registerMenuTypes(BiConsumer<MenuType<?>, ResourceLocation> consumer) {
+		consumer.accept(BAUBLE_BOX_CONTAINER, prefix(LibItemNames.BAUBLE_BOX));
+		consumer.accept(FLOWER_BAG_CONTAINER, prefix(LibItemNames.FLOWER_BAG));
+	}
+
 	public static void registerRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
 		r.accept(AncientWillRecipe.SERIALIZER, prefix("ancient_will_attach"));
 		r.accept(ArmorUpgradeRecipe.SERIALIZER, prefix("armor_upgrade"));
@@ -724,11 +728,6 @@ public final class ModItems {
 		r.accept(WaterBottleMatchingRecipe.SERIALIZER, prefix("water_bottle_matching_shaped"));
 
 		ModPatterns.init();
-	}
-
-	public static void registerGuis() {
-		ScreenRegistry.register(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
-		ScreenRegistry.register(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 	}
 
 	public static Item getPetal(DyeColor color) {
