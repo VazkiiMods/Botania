@@ -6,14 +6,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -134,5 +140,20 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public Attribute getStepHeightAttribute() {
 		return null;
+	}
+
+	@Override
+	public Tag.Named<Block> blockTag(ResourceLocation id) {
+		return BlockTags.createOptional(id);
+	}
+
+	@Override
+	public Tag.Named<Item> itemTag(ResourceLocation id) {
+		return ItemTags.createOptional(id);
+	}
+
+	@Override
+	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
+		return EntityTypeTags.createOptional(id);
 	}
 }

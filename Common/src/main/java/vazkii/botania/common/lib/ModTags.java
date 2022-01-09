@@ -8,13 +8,14 @@
  */
 package vazkii.botania.common.lib;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -132,7 +133,7 @@ public class ModTags {
 		}
 
 		private static Tag.Named<Item> tag(String name) {
-			return TagFactory.ITEM.create(prefix(name));
+			return IXplatAbstractions.INSTANCE.itemTag(prefix(name));
 		}
 
 		private static Tag.Named<Item> commonTag(String name) {
@@ -198,7 +199,7 @@ public class ModTags {
 		public static final Tag.Named<Block> MUSHROOMS = commonTag("mushrooms");
 
 		private static Tag.Named<Block> tag(String name) {
-			return TagFactory.BLOCK.create(prefix(name));
+			return IXplatAbstractions.INSTANCE.blockTag(prefix(name));
 		}
 
 		private static Tag.Named<Block> commonTag(String name) {
@@ -218,7 +219,7 @@ public class ModTags {
 		public static final Tag.Named<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
 		private static Tag.Named<EntityType<?>> tag(String name) {
-			return TagFactory.ENTITY_TYPE.create(prefix(name));
+			return IXplatAbstractions.INSTANCE.entityTag(prefix(name));
 		}
 	}
 }

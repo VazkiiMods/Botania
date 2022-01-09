@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -29,11 +30,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -428,5 +431,20 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public Attribute getStepHeightAttribute() {
 		return StepHeightEntityAttributeMain.STEP_HEIGHT;
+	}
+
+	@Override
+	public Tag.Named<Block> blockTag(ResourceLocation id) {
+		return TagFactory.BLOCK.create(id);
+	}
+
+	@Override
+	public Tag.Named<Item> itemTag(ResourceLocation id) {
+		return TagFactory.ITEM.create(id);
+	}
+
+	@Override
+	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
+		return TagFactory.ENTITY_TYPE.create(id);
 	}
 }
