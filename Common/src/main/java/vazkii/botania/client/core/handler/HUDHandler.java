@@ -20,7 +20,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +33,6 @@ import net.minecraft.world.phys.HitResult;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaClientCapabilities;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
@@ -58,6 +56,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.List;
 
@@ -101,7 +100,7 @@ public final class HUDHandler {
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-					var hud = BotaniaClientCapabilities.WAND_HUD.find(mc.level, bpos, state, tile, Unit.INSTANCE);
+					var hud = IClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("wandItem");
 						hud.renderHUD(ms, mc);

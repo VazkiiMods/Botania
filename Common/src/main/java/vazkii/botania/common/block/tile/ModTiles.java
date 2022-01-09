@@ -13,12 +13,10 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import vazkii.botania.api.BotaniaClientCapabilities;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.*;
 import vazkii.botania.common.block.tile.mana.*;
 import vazkii.botania.common.block.tile.string.*;
-import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -136,18 +134,5 @@ public class ModTiles {
 		r.accept(TERU_TERU_BOZU, prefix(LibBlockNames.TERU_TERU_BOZU));
 		r.accept(AVATAR, prefix(LibBlockNames.AVATAR));
 		r.accept(ANIMATED_TORCH, prefix(LibBlockNames.ANIMATED_TORCH));
-
-		IProxy.INSTANCE.runOnClient(() -> () -> {
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileAnimatedTorch.WandHud((TileAnimatedTorch) be), ANIMATED_TORCH);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileBrewery.WandHud((TileBrewery) be), BREWERY);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileCorporeaRetainer.WandHud((TileCorporeaRetainer) be), CORPOREA_RETAINER);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileCraftCrate.WandHud((TileCraftCrate) be), CRAFT_CRATE);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileEnchanter.WandHud((TileEnchanter) be), ENCHANTER);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileHourglass.WandHud((TileHourglass) be), HOURGLASS);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TilePool.WandHud((TilePool) be), POOL);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TilePrism.WandHud((TilePrism) be), PRISM);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileSpreader.WandHud((TileSpreader) be), SPREADER);
-			BotaniaClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileTurntable.WandHud((TileTurntable) be), TURNTABLE);
-		});
 	}
 }

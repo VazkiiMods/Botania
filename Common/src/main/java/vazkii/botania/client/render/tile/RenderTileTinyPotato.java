@@ -36,7 +36,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -46,6 +45,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.mixin.client.AccessorModelManager;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -164,7 +164,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		renderItems(potato, potatoFacing, name, partialTicks, ms, buffers, light, overlay);
 
 		ms.pushPose();
-		TinyPotatoRenderCallback.EVENT.invoker().onRender(potato, potato.name, partialTicks, ms, buffers, light, overlay);
+		IClientXplatAbstractions.INSTANCE.fireRenderTinyPotato(potato, potato.name, partialTicks, ms, buffers, light, overlay);
 		ms.popPose();
 		ms.popPose();
 
