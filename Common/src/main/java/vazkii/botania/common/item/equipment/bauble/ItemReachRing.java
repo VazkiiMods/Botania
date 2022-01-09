@@ -10,11 +10,12 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
+
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ItemReachRing extends ItemBauble {
 
@@ -25,7 +26,8 @@ public class ItemReachRing extends ItemBauble {
 	@Override
 	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(ReachEntityAttributes.REACH, new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, AttributeModifier.Operation.ADDITION));
+		attributes.put(IXplatAbstractions.INSTANCE.getReachDistanceAttribute(),
+				new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, AttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 }

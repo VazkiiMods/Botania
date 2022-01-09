@@ -12,6 +12,7 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -119,6 +120,8 @@ public interface IXplatAbstractions {
 
 	// Misc
 	void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> buf);
+	Attribute getReachDistanceAttribute();
+	Attribute getStepHeightAttribute();
 
 	IXplatAbstractions INSTANCE = find();
 

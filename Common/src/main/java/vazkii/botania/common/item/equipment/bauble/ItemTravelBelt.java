@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -33,6 +31,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.UUID;
 
@@ -87,7 +86,12 @@ public class ItemTravelBelt extends ItemBauble {
 	public static void updatePlayerStepStatus(Player player) {
 		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
-		AttributeInstance attrib = player.getAttribute(StepHeightEntityAttributeMain.STEP_HEIGHT);
+		var reachDist = IXplatAbstractions.INSTANCE.getStepHeightAttribute();
+		if (reachDist == null) {
+			// TODO 1.18-forge step height is not yet an attribute. PR?
+			return;
+		}
+		AttributeInstance attrib = player.getAttribute(reachDist);
 		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
 
 		if (tryConsumeMana(player)) {

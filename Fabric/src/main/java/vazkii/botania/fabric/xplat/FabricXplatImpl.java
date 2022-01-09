@@ -1,5 +1,9 @@
 package vazkii.botania.fabric.xplat;
 
+import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+
+import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -30,6 +34,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -371,5 +376,15 @@ public class FabricXplatImpl implements IXplatAbstractions {
 			}
 		};
 		player.openMenu(menuProvider);
+	}
+
+	@Override
+	public Attribute getReachDistanceAttribute() {
+		return ReachEntityAttributes.REACH;
+	}
+
+	@Override
+	public Attribute getStepHeightAttribute() {
+		return StepHeightEntityAttributeMain.STEP_HEIGHT;
 	}
 }
