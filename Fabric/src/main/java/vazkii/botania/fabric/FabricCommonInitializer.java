@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common;
+package vazkii.botania.fabric;
 
 import com.mojang.brigadier.CommandDispatcher;
 
@@ -88,7 +88,6 @@ import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.data.DataGenerators;
-import vazkii.botania.fabric.FiberBotaniaConfig;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
@@ -100,10 +99,7 @@ import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class Botania implements ModInitializer {
-
-	public static volatile boolean configLoaded = false;
-
+public class FabricCommonInitializer implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		FiberBotaniaConfig.setup();

@@ -21,7 +21,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Collections;
 import java.util.List;
@@ -415,18 +414,11 @@ public final class ForgeBotaniaConfig {
 
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Loading evt) {
-		onReload();
+		BotaniaConfig.resetPatchouliFlags();
 	}
 
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Reloading evt) {
-		onReload();
-	}
-
-	private static void onReload() {
-		PatchouliAPI.get().setConfigFlag("botania:relics", COMMON.relicsEnabled.get());
-		PatchouliAPI.get().setConfigFlag("botania:enchanter", COMMON.enchanterEnabled.get());
-		PatchouliAPI.get().setConfigFlag("botania:fluxfield", COMMON.fluxfieldEnabled.get());
-		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", COMMON.enderPickpocketEnabled.get());
+		BotaniaConfig.resetPatchouliFlags();
 	}
 }

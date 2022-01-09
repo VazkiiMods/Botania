@@ -22,7 +22,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "vazkii.botania.common.Botania"
+      "vazkii.botania.fabric.FabricCommonInitializer"
     ],
     "client": [
       "vazkii.botania.fabric.client.FabricClientInitializer"

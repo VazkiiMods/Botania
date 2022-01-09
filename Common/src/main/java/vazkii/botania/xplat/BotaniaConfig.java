@@ -1,5 +1,7 @@
 package vazkii.botania.xplat;
 
+import vazkii.patchouli.api.PatchouliAPI;
+
 import java.util.List;
 
 public class BotaniaConfig {
@@ -67,5 +69,12 @@ public class BotaniaConfig {
 					+ clientConfig.getClass().getName());
 		}
 		clientConfig = access;
+	}
+
+	public static void resetPatchouliFlags() {
+		PatchouliAPI.get().setConfigFlag("botania:relics", common().relicsEnabled());
+		PatchouliAPI.get().setConfigFlag("botania:enchanter", common().enchanterEnabled());
+		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", common().enderPickpocketEnabled());
+		PatchouliAPI.get().setConfigFlag("botania:fluxfield", common().fluxfieldEnabled());
 	}
 }

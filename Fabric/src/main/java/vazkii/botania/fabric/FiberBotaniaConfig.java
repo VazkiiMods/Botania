@@ -9,11 +9,9 @@
 package vazkii.botania.fabric;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.*;
 import java.nio.file.*;
@@ -66,7 +64,7 @@ public final class FiberBotaniaConfig {
 			setupConfig(client, Paths.get("config", LibMisc.MOD_ID + "-client.json5"), serializer);
 			BotaniaConfig.setClient(CLIENT);
 		}
-		onConfigLoad();
+		BotaniaConfig.resetPatchouliFlags();
 	}
 
 	private static class Client implements BotaniaConfig.ClientConfigAccess {
@@ -435,12 +433,4 @@ public final class FiberBotaniaConfig {
 	}
 
 	private static final Common COMMON = new Common();
-
-	private static void onConfigLoad() {
-		PatchouliAPI.get().setConfigFlag("botania:relics", COMMON.relicsEnabled.getValue());
-		PatchouliAPI.get().setConfigFlag("botania:enchanter", COMMON.enchanterEnabled.getValue());
-		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", COMMON.enderPickpocketEnabled.getValue());
-
-		Botania.configLoaded = true;
-	}
 }

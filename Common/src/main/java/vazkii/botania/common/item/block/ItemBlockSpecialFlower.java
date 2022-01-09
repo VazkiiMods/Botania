@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -44,7 +43,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	@Override
 	public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load
-		if (Botania.configLoaded) {
+		if (BotaniaConfig.client() != null) {
 			if (world != null) {
 				if (GENERATING.contains(this)) {
 					tooltip.add(new TranslatableComponent("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
