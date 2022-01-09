@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,13 +18,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.client.fx.WispParticleData;
@@ -35,9 +32,8 @@ import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-public class EntityPoolMinecart extends AbstractMinecart implements EntityPickInteractionAware {
+public class EntityPoolMinecart extends AbstractMinecart {
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
 	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(EntityPoolMinecart.class, EntityDataSerializers.INT);
@@ -81,7 +77,7 @@ public class EntityPoolMinecart extends AbstractMinecart implements EntityPickIn
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedStack(@Nullable Player player, HitResult target) {
+	public ItemStack getPickResult() {
 		return new ItemStack(ModItems.poolMinecart);
 	}
 

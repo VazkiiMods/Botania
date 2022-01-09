@@ -10,7 +10,6 @@ package vazkii.botania.common.entity;
 
 import com.google.common.base.Predicates;
 
-import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -29,7 +28,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -39,12 +37,11 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark, EntityPickInteractionAware {
+public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
 	private static final int SCAN_RANGE = 8;
 
 	private static final String TAG_MASTER = "master";
@@ -68,7 +65,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedStack(@Nullable Player player, HitResult target) {
+	public ItemStack getPickResult() {
 		return isMaster() ? new ItemStack(ModItems.corporeaSparkMaster) : new ItemStack(ModItems.corporeaSpark);
 	}
 

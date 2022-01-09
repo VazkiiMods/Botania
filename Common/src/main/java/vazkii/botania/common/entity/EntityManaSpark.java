@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,7 +23,6 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
@@ -44,7 +42,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EntityManaSpark extends EntitySparkBase implements IManaSpark, EntityPickInteractionAware {
+public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final EntityDataAccessor<Integer> UPGRADE = SynchedEntityData.defineId(EntityManaSpark.class, EntityDataSerializers.INT);
@@ -69,7 +67,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedStack(Player player, HitResult target) {
+	public ItemStack getPickResult() {
 		return new ItemStack(ModItems.spark);
 	}
 
