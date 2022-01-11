@@ -8,19 +8,15 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -30,14 +26,11 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.BlockPylon;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Random;
-import java.util.function.Supplier;
 
 public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 
@@ -60,11 +53,7 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 	}
 
 	@Override
-	public void render(@Nonnull TilePylon pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		renderPylon(pylon, pticks, ms, buffers, light, overlay);
-	}
-
-	private void renderPylon(@Nullable TilePylon pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable TilePylon pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		boolean renderingItem = pylon == null;
 		boolean direct = renderingItem && (forceTransform == ItemTransforms.TransformType.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
 		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
@@ -131,18 +120,17 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 		ms.popPose();
 	}
 
-	public static class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
-		private static final Supplier<TilePylon> DUMMY = Suppliers.memoize(() -> new TilePylon(new BlockPos(0, Integer.MIN_VALUE, 0), ModBlocks.manaPylon.defaultBlockState()));
+	public static class ItemRenderer extends TEISR {
+		public ItemRenderer(Block block) {
+			super(block);
+		}
 
 		@Override
 		public void render(ItemStack stack, ItemTransforms.TransformType type, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-			if (Block.byItem(stack.getItem()) instanceof BlockPylon) {
-				RenderTilePylon.forceVariant = ((BlockPylon) Block.byItem(stack.getItem())).variant;
+			if (Block.byItem(stack.getItem()) instanceof BlockPylon pylon) {
+				RenderTilePylon.forceVariant = pylon.variant;
 				RenderTilePylon.forceTransform = type;
-				BlockEntityRenderer<TilePylon> r = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(DUMMY.get());
-				if (r instanceof RenderTilePylon) {
-					((RenderTilePylon) r).renderPylon(null, 0, ms, buffers, light, overlay);
-				}
+				super.render(stack, type, ms, buffers, light, overlay);
 			}
 		}
 	}

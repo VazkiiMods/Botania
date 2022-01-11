@@ -138,7 +138,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(MiscellaneousIcons.INSTANCE::onModelRegister);
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(ModelHandler::registerModels);
 		ModelHandler.registerRenderers(BlockEntityRendererRegistry::register);
-		ModelHandler.registerBuiltinItemRenderers();
+		ModelHandler.registerBuiltinItemRenderers((item, teisr) -> BuiltinItemRendererRegistry.INSTANCE.register(item, teisr::render));
 		ModParticles.FactoryHandler.registerFactories(new ModParticles.FactoryHandler.Consumer() {
 			@Override
 			public <T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor) {

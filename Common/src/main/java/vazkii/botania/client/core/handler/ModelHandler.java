@@ -8,12 +8,12 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -27,6 +27,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -146,16 +147,16 @@ public final class ModelHandler {
 		consumer.register(ModSubtiles.LABELLIA, RenderTileSpecialFlower::new);
 	}
 
-	public static void registerBuiltinItemRenderers() {
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.manaPylon.asItem(), new RenderTilePylon.TEISR());
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.naturaPylon.asItem(), new RenderTilePylon.TEISR());
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.gaiaPylon.asItem(), new RenderTilePylon.TEISR());
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.teruTeruBozu.asItem(), new TEISR(ModBlocks.teruTeruBozu));
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.avatar.asItem(), new TEISR(ModBlocks.avatar));
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.bellows.asItem(), new TEISR(ModBlocks.bellows));
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.brewery.asItem(), new TEISR(ModBlocks.brewery));
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.corporeaIndex.asItem(), new TEISR(ModBlocks.corporeaIndex));
-		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.hourglass.asItem(), new TEISR(ModBlocks.hourglass));
+	public static void registerBuiltinItemRenderers(BiConsumer<Item, TEISR> consumer) {
+		consumer.accept(ModBlocks.manaPylon.asItem(), new RenderTilePylon.ItemRenderer(ModBlocks.manaPylon));
+		consumer.accept(ModBlocks.naturaPylon.asItem(), new RenderTilePylon.ItemRenderer(ModBlocks.naturaPylon));
+		consumer.accept(ModBlocks.gaiaPylon.asItem(), new RenderTilePylon.ItemRenderer(ModBlocks.gaiaPylon));
+		consumer.accept(ModBlocks.teruTeruBozu.asItem(), new TEISR(ModBlocks.teruTeruBozu));
+		consumer.accept(ModBlocks.avatar.asItem(), new TEISR(ModBlocks.avatar));
+		consumer.accept(ModBlocks.bellows.asItem(), new TEISR(ModBlocks.bellows));
+		consumer.accept(ModBlocks.brewery.asItem(), new TEISR(ModBlocks.brewery));
+		consumer.accept(ModBlocks.corporeaIndex.asItem(), new TEISR(ModBlocks.corporeaIndex));
+		consumer.accept(ModBlocks.hourglass.asItem(), new TEISR(ModBlocks.hourglass));
 	}
 
 	private static void registerIslands() {
