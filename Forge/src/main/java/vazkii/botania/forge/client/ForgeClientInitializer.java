@@ -6,12 +6,15 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.function.Function;
 
@@ -25,6 +28,12 @@ public class ForgeClientInitializer {
 				Minecraft.getInstance().particleEngine.register(type, constructor::apply);
 			}
 		});
+	}
+
+	@SubscribeEvent
+	public static void onModelRegister(ModelRegistryEvent evt) {
+		ModelLoaderRegistry.registerLoader(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
+				ForgeFloatingFlowerModel.Loader.INSTANCE);
 	}
 
 }

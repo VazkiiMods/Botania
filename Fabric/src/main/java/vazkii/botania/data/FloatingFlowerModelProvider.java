@@ -22,9 +22,9 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -56,7 +56,7 @@ public class FloatingFlowerModelProvider implements DataProvider {
 
 				JsonObject obj = new JsonObject();
 				obj.addProperty("parent", "minecraft:block/block");
-				obj.addProperty("loader", FloatingFlowerModel.MAGIC_STRING);
+				obj.addProperty("loader", IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.toString());
 				JsonObject flower = new JsonObject();
 				flower.addProperty("parent", LibResources.PREFIX_MOD + "block/" + nonFloat);
 				obj.add("flower", flower);

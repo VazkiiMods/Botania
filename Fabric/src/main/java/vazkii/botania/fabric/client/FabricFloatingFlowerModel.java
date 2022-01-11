@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.model;
+package vazkii.botania.fabric.client;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -38,6 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,14 +48,14 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /*
- * NB Fabric: We extend BlockModel only as an artifact of where we inject our mixin.
+ * NB: We extend BlockModel only as an artifact of where we inject our mixin.
  * Pretty much all of the data of the superclass is ignored.
  */
-public class FloatingFlowerModel extends BlockModel {
+public class FabricFloatingFlowerModel extends BlockModel {
 	private final UnbakedModel unbakedFlower;
 	private final Map<IFloatingFlower.IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
 
-	private FloatingFlowerModel(UnbakedModel flower) {
+	private FabricFloatingFlowerModel(UnbakedModel flower) {
 		super(null, Collections.emptyList(), Collections.emptyMap(), false, GuiLight.SIDE, ItemTransforms.NO_TRANSFORMS, Collections.emptyList());
 		this.unbakedFlower = flower;
 	}
@@ -146,14 +147,13 @@ public class FloatingFlowerModel extends BlockModel {
 		}
 	}
 
-	public static final String MAGIC_STRING = "botania:floating_flower";
-
 	public static void hookModelLoad(JsonElement jsonElement, JsonDeserializationContext context, CallbackInfoReturnable<BlockModel> cir) {
 		JsonObject json = jsonElement.getAsJsonObject();
 		JsonElement loader = json.get("loader");
-		if (loader != null && loader.isJsonPrimitive() && loader.getAsString().equals(MAGIC_STRING)) {
+		if (loader != null && loader.isJsonPrimitive()
+				&& loader.getAsString().equals(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.toString())) {
 			BlockModel flowerModel = context.deserialize(json.getAsJsonObject("flower"), BlockModel.class);
-			cir.setReturnValue(new FloatingFlowerModel(flowerModel));
+			cir.setReturnValue(new FabricFloatingFlowerModel(flowerModel));
 		}
 	}
 }

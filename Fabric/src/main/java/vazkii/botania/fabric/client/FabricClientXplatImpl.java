@@ -3,6 +3,7 @@ package vazkii.botania.fabric.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Unit;
@@ -27,5 +28,10 @@ public class FabricClientXplatImpl implements IClientXplatAbstractions {
 	@Override
 	public IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, BlockEntity be) {
 		return BotaniaFabricClientCapabilities.WAND_HUD.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Override
+	public BakedModel wrapPlatformModel(BakedModel original) {
+		return new FabricPlatformModel(original);
 	}
 }

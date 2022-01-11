@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.client.model.FloatingFlowerModel;
+import vazkii.botania.fabric.client.FabricFloatingFlowerModel;
 
 import java.lang.reflect.Type;
 
@@ -31,6 +31,6 @@ public class MixinBlockModelDeserializer {
 	private void hookDeserialize(JsonElement jsonElement, Type type,
 			JsonDeserializationContext context,
 			CallbackInfoReturnable<BlockModel> cir) {
-		FloatingFlowerModel.hookModelLoad(jsonElement, context, cir);
+		FabricFloatingFlowerModel.hookModelLoad(jsonElement, context, cir);
 	}
 }

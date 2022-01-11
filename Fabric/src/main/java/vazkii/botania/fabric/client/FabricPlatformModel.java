@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.model;
+package vazkii.botania.fabric.client;
 
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
@@ -25,8 +25,8 @@ import vazkii.botania.common.block.tile.TilePlatform;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class PlatformModel extends ForwardingBakedModel {
-	public PlatformModel(BakedModel original) {
+public class FabricPlatformModel extends ForwardingBakedModel {
+	public FabricPlatformModel(BakedModel original) {
 		this.wrapped = original;
 	}
 
@@ -38,7 +38,8 @@ public class PlatformModel extends ForwardingBakedModel {
 	@Override
 	public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		if (!(state.getBlock() instanceof BlockPlatform)) {
-			context.fallbackConsumer().accept(Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getModelManager().getMissingModel());
+			context.fallbackConsumer().accept(Minecraft.getInstance().getBlockRenderer()
+					.getBlockModelShaper().getModelManager().getMissingModel());
 			return;
 		}
 
@@ -56,7 +57,8 @@ public class PlatformModel extends ForwardingBakedModel {
 					return;
 				}
 
-				BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getBlockModel(heldState);
+				BakedModel model = Minecraft.getInstance().getBlockRenderer()
+						.getBlockModelShaper().getBlockModel(heldState);
 				if (model instanceof FabricBakedModel) {
 					// Steal camo's model
 					((FabricBakedModel) model).emitBlockQuads(blockView, heldState, heldPos, randomSupplier, context);

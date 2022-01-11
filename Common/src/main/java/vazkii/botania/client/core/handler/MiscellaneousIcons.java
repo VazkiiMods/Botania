@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.model.GunModel;
-import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
@@ -28,6 +27,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.client.AccessorModelBakery;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -135,9 +135,9 @@ public class MiscellaneousIcons {
 		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "");
 		BakedModel infrangible = map.get(infrangibleName);
 
-		map.put(abstruseName, new PlatformModel(abstruse));
-		map.put(spectralName, new PlatformModel(spectral));
-		map.put(infrangibleName, new PlatformModel(infrangible));
+		map.put(abstruseName, IClientXplatAbstractions.INSTANCE.wrapPlatformModel(abstruse));
+		map.put(spectralName, IClientXplatAbstractions.INSTANCE.wrapPlatformModel(spectral));
+		map.put(infrangibleName, IClientXplatAbstractions.INSTANCE.wrapPlatformModel(infrangible));
 
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
