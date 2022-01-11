@@ -27,13 +27,14 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
 
 import java.util.function.Consumer;
 
-public class ItemLivingwoodBow extends BowItem {
+public class ItemLivingwoodBow extends BowItem implements ICustomDamageItem {
 	public static final int MANA_PER_DAMAGE = 40;
 
 	public ItemLivingwoodBow(Properties builder) {
@@ -149,7 +150,8 @@ public class ItemLivingwoodBow extends BowItem {
 		return material.is(ModItems.livingwoodTwig) || super.isValidRepairItem(bow, material);
 	}
 
-	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
 	}
 }

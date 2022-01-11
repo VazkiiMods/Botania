@@ -24,6 +24,7 @@ import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
@@ -31,7 +32,7 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
-public class ItemManasteelPick extends PickaxeItem implements ISortableTool {
+public class ItemManasteelPick extends PickaxeItem implements ICustomDamageItem, ISortableTool {
 
 	private static final Pattern TORCH_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)torch)|(?:(?:[a-z-_.:]|^)Torch))(?:[A-Z-_.:]|$)");
 
@@ -45,7 +46,8 @@ public class ItemManasteelPick extends PickaxeItem implements ISortableTool {
 		super(mat, 1, attackSpeed, props);
 	}
 
-	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		int manaPerDamage = ((ItemManasteelPick) stack.getItem()).getManaPerDamage();
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}

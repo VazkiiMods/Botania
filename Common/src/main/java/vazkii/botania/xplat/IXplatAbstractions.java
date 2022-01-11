@@ -133,6 +133,11 @@ public interface IXplatAbstractions {
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();
+
+	default Item.Properties defaultItemBuilderWithCustomDamageOnFabric() {
+		return defaultItemBuilder();
+	}
+
 	<T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor);
 	Registry<Brew> createBrewRegistry();
 	@Nullable

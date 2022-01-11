@@ -76,6 +76,7 @@ import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.internal_caps.*;
+import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
@@ -389,8 +390,19 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public Item.Properties defaultItemBuilder() {
+	public FabricItemSettings defaultItemBuilder() {
 		return new FabricItemSettings().group(FabricBotaniaCreativeTab.INSTANCE);
+	}
+
+	@Override
+	public Item.Properties defaultItemBuilderWithCustomDamageOnFabric() {
+		return defaultItemBuilder().customDamage((stack, amount, entity, breakCallback) -> {
+			var item = stack.getItem();
+			if (item instanceof ICustomDamageItem cd) {
+				return cd.damageItem(stack, amount, entity, breakCallback);
+			}
+			return amount;
+		});
 	}
 
 	@Override

@@ -20,11 +20,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelShovel extends ShovelItem implements ISortableTool {
+public class ItemManasteelShovel extends ShovelItem implements ICustomDamageItem, ISortableTool {
 
 	private static final int MANA_PER_DAMAGE = 60;
 
@@ -36,7 +37,8 @@ public class ItemManasteelShovel extends ShovelItem implements ISortableTool {
 		super(mat, 1.5F, -3.0F, props);
 	}
 
-	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		int manaPerDamage = ((ItemManasteelShovel) stack.getItem()).getManaPerDamage();
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}

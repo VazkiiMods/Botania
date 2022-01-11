@@ -33,6 +33,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import javax.annotation.Nonnull;
@@ -41,7 +42,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
+public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, IPhantomInkable {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
@@ -71,7 +72,8 @@ public class ItemManasteelArmor extends ArmorItem implements IPhantomInkable {
 		}
 	}
 
-	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
 	}
 

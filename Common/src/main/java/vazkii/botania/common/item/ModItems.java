@@ -191,43 +191,43 @@ public final class ModItems {
 	public static final Item missileRod = new ItemMissileRod(unstackable().rarity(Rarity.UNCOMMON));
 
 	// Equipment
-	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlot.CHEST, unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlot.LEGS, unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlot.FEET, unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item manasteelPick = new ItemManasteelPick(unstackable().customDamage(ItemManasteelPick::damageItem));
-	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
-	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
-	public static final Item manasteelHoe = new ItemManasteelHoe(unstackable().customDamage(ItemManasteelHoe::damageItem));
-	public static final Item manasteelSword = new ItemManasteelSword(unstackable().customDamage(ItemManasteelSword::damageItem));
-	public static final Item manasteelShears = new ItemManasteelShears(unstackable().defaultDurability(238).customDamage(ItemManasteelShears::damageItem));
-	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item elementiumChest = new ItemElementiumChest(unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item elementiumBoots = new ItemElementiumBoots(unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item elementiumPick = new ItemElementiumPick(unstackable().customDamage(ItemManasteelPick::damageItem));
-	public static final Item elementiumShovel = new ItemElementiumShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
-	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
-	public static final Item elementiumHoe = new ItemElementiumHoe(unstackable().customDamage(ItemManasteelHoe::damageItem));
-	public static final Item elementiumSword = new ItemElementiumSword(unstackable().customDamage(ItemManasteelSword::damageItem));
-	public static final Item elementiumShears = new ItemElementiumShears(unstackable().defaultDurability(238).customDamage(ItemManasteelShears::damageItem));
-	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terraPick = new ItemTerraPick(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelPick::damageItem));
-	public static final Item terraAxe = new ItemTerraAxe(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelAxe::damageItem));
-	public static final Item terraSword = new ItemTerraSword(unstackable().fireResistant().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
-	public static final Item starSword = new ItemStarSword(unstackable().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
-	public static final Item thunderSword = new ItemThunderSword(unstackable().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
-	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable().customDamage(ItemManaweaveHelm::damageItem));
-	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item manasteelHelm = new ItemManasteelHelm(unstackableCustomDamage());
+	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlot.CHEST, unstackableCustomDamage());
+	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlot.LEGS, unstackableCustomDamage());
+	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlot.FEET, unstackableCustomDamage());
+	public static final Item manasteelPick = new ItemManasteelPick(unstackableCustomDamage());
+	public static final Item manasteelShovel = new ItemManasteelShovel(unstackableCustomDamage());
+	public static final Item manasteelAxe = new ItemManasteelAxe(unstackableCustomDamage());
+	public static final Item manasteelHoe = new ItemManasteelHoe(unstackableCustomDamage());
+	public static final Item manasteelSword = new ItemManasteelSword(unstackableCustomDamage());
+	public static final Item manasteelShears = new ItemManasteelShears(unstackableCustomDamage().defaultDurability(238));
+	public static final Item elementiumHelm = new ItemElementiumHelm(unstackableCustomDamage());
+	public static final Item elementiumChest = new ItemElementiumChest(unstackableCustomDamage());
+	public static final Item elementiumLegs = new ItemElementiumLegs(unstackableCustomDamage());
+	public static final Item elementiumBoots = new ItemElementiumBoots(unstackableCustomDamage());
+	public static final Item elementiumPick = new ItemElementiumPick(unstackableCustomDamage());
+	public static final Item elementiumShovel = new ItemElementiumShovel(unstackableCustomDamage());
+	public static final Item elementiumAxe = new ItemElementiumAxe(unstackableCustomDamage());
+	public static final Item elementiumHoe = new ItemElementiumHoe(unstackableCustomDamage());
+	public static final Item elementiumSword = new ItemElementiumSword(unstackableCustomDamage());
+	public static final Item elementiumShears = new ItemElementiumShears(unstackableCustomDamage().defaultDurability(238));
+	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON));
+	public static final Item terraPick = new ItemTerraPick(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON));
+	public static final Item terraAxe = new ItemTerraAxe(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON));
+	public static final Item terraSword = new ItemTerraSword(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON));
+	public static final Item starSword = new ItemStarSword(unstackableCustomDamage().rarity(Rarity.UNCOMMON));
+	public static final Item thunderSword = new ItemThunderSword(unstackableCustomDamage().rarity(Rarity.UNCOMMON));
+	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackableCustomDamage());
+	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackableCustomDamage());
+	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackableCustomDamage());
+	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackableCustomDamage());
 	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultDurability(69) /* todo 1.16-fabric .setNoRepair()*/); // What you looking at?
-	public static final Item glassPick = new ItemGlassPick(unstackable().customDamage(ItemManasteelPick::damageItem));
-	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().defaultDurability(500).customDamage(ItemLivingwoodBow::damageItem));
-	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().defaultDurability(500).customDamage(ItemCrystalBow::damageItem));
+	public static final Item glassPick = new ItemGlassPick(unstackableCustomDamage());
+	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilderCustomDamage().defaultDurability(500));
+	public static final Item crystalBow = new ItemCrystalBow(defaultBuilderCustomDamage().defaultDurability(500));
 	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().stacksTo(6));
 	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().stacksTo(6));
 
@@ -388,6 +388,16 @@ public final class ModItems {
 
 	public static Item.Properties defaultBuilder() {
 		return IXplatAbstractions.INSTANCE.defaultItemBuilder();
+	}
+
+	// Forge does custom damage by just implementing a method on Item,
+	// Fabric does it by an extra lambda to the Properties object
+	public static Item.Properties defaultBuilderCustomDamage() {
+		return IXplatAbstractions.INSTANCE.defaultItemBuilderWithCustomDamageOnFabric();
+	}
+
+	public static Item.Properties unstackableCustomDamage() {
+		return defaultBuilderCustomDamage().stacksTo(1);
 	}
 
 	private static Item.Properties stackTo16() {

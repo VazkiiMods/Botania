@@ -18,11 +18,12 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelSword extends SwordItem {
+public class ItemManasteelSword extends SwordItem implements ICustomDamageItem {
 
 	public static final int MANA_PER_DAMAGE = 60;
 
@@ -38,7 +39,8 @@ public class ItemManasteelSword extends SwordItem {
 		super(mat, attackDamage, attackSpeed, props);
 	}
 
-	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		int manaPerDamage = ((ItemManasteelSword) stack.getItem()).getManaPerDamage();
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}
