@@ -41,7 +41,7 @@
       "vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents"
     ],
     "rei_plugins_v0": [
-      "vazkii.botania.fabric.compat.rei.BotaniaREIPlugin"
+      "vazkii.botania.fabric.integration.rei.BotaniaREIPlugin"
     ]
   },
   "mixins": [
