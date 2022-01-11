@@ -109,7 +109,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.fabric.network.PacketHandler;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.mixin.client.AccessorWorldPreset;

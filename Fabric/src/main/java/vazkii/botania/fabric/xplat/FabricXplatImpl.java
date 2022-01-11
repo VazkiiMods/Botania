@@ -82,6 +82,7 @@ import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
+import vazkii.botania.fabric.network.*;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;

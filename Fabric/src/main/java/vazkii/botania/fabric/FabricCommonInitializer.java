@@ -83,7 +83,7 @@ import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.rod.*;
-import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.fabric.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.network;
+package vazkii.botania.fabric.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -41,6 +41,7 @@ import vazkii.botania.common.item.ItemTwigWand;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 import io.netty.buffer.Unpooled;
+import vazkii.botania.common.network.EffectType;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
