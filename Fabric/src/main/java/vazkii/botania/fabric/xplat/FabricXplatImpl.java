@@ -73,11 +73,13 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
+import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -399,6 +401,16 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public Registry<Brew> createBrewRegistry() {
 		return FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
+	}
+
+	@Nullable
+	@Override
+	public EquipmentHandler tryCreateEquipmentHandler() {
+		if (isModLoaded("trinkets")) {
+			TrinketsIntegration.init();
+			return new TrinketsIntegration();
+		}
+		return null;
 	}
 
 	@Override

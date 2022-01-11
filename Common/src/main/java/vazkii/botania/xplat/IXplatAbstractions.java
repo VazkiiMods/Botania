@@ -50,6 +50,7 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.ManaBlockType;
 import vazkii.botania.api.mana.ManaNetworkAction;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.network.EffectType;
@@ -134,6 +135,8 @@ public interface IXplatAbstractions {
 	Item.Properties defaultItemBuilder();
 	<T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor);
 	Registry<Brew> createBrewRegistry();
+	@Nullable
+	EquipmentHandler tryCreateEquipmentHandler();
 
 	// Misc
 	void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> buf);

@@ -17,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.common.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -31,12 +30,9 @@ public abstract class EquipmentHandler {
 	public static EquipmentHandler instance;
 
 	public static void init() {
-		if (IXplatAbstractions.INSTANCE.isModLoaded("trinkets")) {
-			instance = new TrinketsIntegration();
-			TrinketsIntegration.init();
-		} else {
-			InventoryEquipmentHandler handler = new InventoryEquipmentHandler();
-			instance = handler;
+		instance = IXplatAbstractions.INSTANCE.tryCreateEquipmentHandler();
+		if (instance == null) {
+			instance = new InventoryEquipmentHandler();
 		}
 	}
 
