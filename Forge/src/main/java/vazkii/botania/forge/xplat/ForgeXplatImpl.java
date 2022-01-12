@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.ForgeMod;
@@ -50,11 +52,18 @@ import net.minecraftforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
 
+import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
+import vazkii.botania.api.corporea.CorporeaRequestEvent;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
+import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.mana.*;
+import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
@@ -116,6 +125,45 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 					return result == FluidAttributes.BUCKET_VOLUME;
 				})
 				.orElse(false);
+	}
+
+	@Override
+	public boolean fireCorporeaRequestEvent(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean dryRun) {
+		return MinecraftForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun));
+	}
+
+	@Override
+	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+		return MinecraftForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark));
+	}
+
+	@Override
+	public void fireManaItemEvent(Player player, List<ItemStack> toReturn) {
+		MinecraftForge.EVENT_BUS.post(new ManaItemsEvent(player, toReturn));
+	}
+
+	@Override
+	public float fireManaDiscountEvent(Player player, float discount, ItemStack tool) {
+		var evt = new ManaDiscountEvent(player, discount, tool);
+		MinecraftForge.EVENT_BUS.post(evt);
+		return evt.getDiscount();
+	}
+
+	@Override
+	public boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient) {
+		var evt = new ManaProficiencyEvent(player, tool, proficient);
+		MinecraftForge.EVENT_BUS.post(evt);
+		return evt.isProficient();
+	}
+
+	@Override
+	public void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside) {
+		MinecraftForge.EVENT_BUS.post(new ElvenPortalUpdateEvent(portal, bounds, open, stacksInside));
+	}
+
+	@Override
+	public void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
+		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(be, type, action));
 	}
 
 	@Override
