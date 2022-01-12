@@ -110,7 +110,7 @@ import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.world.WorldTypeSkyblock;
-import vazkii.botania.fabric.network.PacketHandler;
+import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.mixin.client.AccessorWorldPreset;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -129,7 +129,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class FabricClientInitializer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		PacketHandler.initClient();
+		FabricPacketHandler.initClient();
 
 		ScreenRegistry.register(ModItems.FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
 		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);

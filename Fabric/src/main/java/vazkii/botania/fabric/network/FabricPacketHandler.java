@@ -21,7 +21,7 @@ import vazkii.botania.network.serverbound.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class PacketHandler {
+public final class FabricPacketHandler {
 	public static void init() {
 		ServerPlayNetworking.registerGlobalReceiver(PacketDodge.ID, makeServerBoundHandler(PacketDodge::decode, PacketDodge::handle));
 		ServerPlayNetworking.registerGlobalReceiver(PacketIndexKeybindRequest.ID, makeServerBoundHandler(PacketIndexKeybindRequest::decode, PacketIndexKeybindRequest::handle));
@@ -46,6 +46,6 @@ public final class PacketHandler {
 		return (_client, _handler, buf, _responseSender) -> handler.accept(decoder.apply(buf));
 	}
 
-	private PacketHandler() {}
+	private FabricPacketHandler() {}
 
 }

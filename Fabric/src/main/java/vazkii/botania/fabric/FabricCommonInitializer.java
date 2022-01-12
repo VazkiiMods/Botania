@@ -87,7 +87,7 @@ import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.data.DataGenerators;
-import vazkii.botania.fabric.network.PacketHandler;
+import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
@@ -172,7 +172,7 @@ public class FabricCommonInitializer implements ModInitializer {
 	}
 
 	private void commonSetup() {
-		PacketHandler.init();
+		FabricPacketHandler.init();
 		PaintableData.init();
 
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
