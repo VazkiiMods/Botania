@@ -197,7 +197,8 @@ public class ItemCraftingHalo extends Item {
 		}
 	}
 
-	public static boolean onEntitySwing(ItemStack stack, LivingEntity player) {
+	// [SoftImplement] IForgeItem
+	public boolean onEntitySwing(ItemStack stack, LivingEntity player) {
 		int segment = getSegmentLookedAt(stack, player);
 		if (segment == 0) {
 			return false;

@@ -75,7 +75,7 @@ public abstract class MixinLivingEntity extends Entity {
 		ItemStack stack = getItemInHand(hand);
 		LivingEntity self = (LivingEntity) (Object) this;
 		if (!level.isClientSide) {
-			if (stack.getItem() instanceof ItemCraftingHalo && ItemCraftingHalo.onEntitySwing(stack, self)) {
+			if (stack.getItem() instanceof ItemCraftingHalo halo && halo.onEntitySwing(stack, self)) {
 				ci.cancel();
 			} else if (stack.getItem() instanceof ItemGravityRod) {
 				ItemGravityRod.onEntitySwing(self);
