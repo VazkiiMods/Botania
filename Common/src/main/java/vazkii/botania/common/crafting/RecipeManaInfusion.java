@@ -110,7 +110,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		return new ItemStack(ModBlocks.manaPool);
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipeManaInfusion> {
+	public static class Serializer extends RecipeSerializerBase<RecipeManaInfusion> {
 
 		@Nonnull
 		@Override

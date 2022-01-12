@@ -20,12 +20,12 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemPetal;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TwigWandRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<TwigWandRecipe> SERIALIZER = new Serializer();
@@ -71,14 +71,14 @@ public class TwigWandRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer implements RecipeSerializer<TwigWandRecipe> {
+	private static class Serializer extends RecipeSerializerBase<TwigWandRecipe> {
 		@Nonnull
 		@Override
 		public TwigWandRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
 			return new TwigWandRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
 		}
 
-		@Nullable
+		@Nonnull
 		@Override
 		public TwigWandRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
 			return new TwigWandRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));

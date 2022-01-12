@@ -19,6 +19,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
+import vazkii.botania.common.crafting.RecipeSerializerBase;
+
 import javax.annotation.Nonnull;
 
 public class ArmorUpgradeRecipe extends ShapedRecipe {
@@ -48,7 +50,7 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 
 	public static final RecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer implements RecipeSerializer<ArmorUpgradeRecipe> {
+	private static class Serializer extends RecipeSerializerBase<ArmorUpgradeRecipe> {
 		@Override
 		public ArmorUpgradeRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
 			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));

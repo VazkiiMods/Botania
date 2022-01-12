@@ -136,7 +136,7 @@ public class RecipeBrew implements IBrewRecipe {
 				&& inputs.equals(((RecipeBrew) o).inputs);
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipeBrew> {
+	public static class Serializer extends RecipeSerializerBase<RecipeBrew> {
 		@Nonnull
 		@Override
 		public RecipeBrew fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {

@@ -93,7 +93,7 @@ public class RecipeTerraPlate implements ITerraPlateRecipe {
 		return ModRecipeTypes.TERRA_PLATE_SERIALIZER;
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipeTerraPlate> {
+	public static class Serializer extends RecipeSerializerBase<RecipeTerraPlate> {
 		@Nonnull
 		@Override
 		public RecipeTerraPlate fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {

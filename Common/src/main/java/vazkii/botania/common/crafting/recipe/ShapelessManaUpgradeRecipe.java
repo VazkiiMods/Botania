@@ -17,6 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
+import vazkii.botania.common.crafting.RecipeSerializerBase;
+
 import javax.annotation.Nonnull;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
@@ -38,7 +40,7 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 
 	public static final RecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer implements RecipeSerializer<ShapelessManaUpgradeRecipe> {
+	private static class Serializer extends RecipeSerializerBase<ShapelessManaUpgradeRecipe> {
 		@Nonnull
 		@Override
 		public ShapelessManaUpgradeRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {

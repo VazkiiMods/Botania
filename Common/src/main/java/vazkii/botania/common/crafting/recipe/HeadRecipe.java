@@ -20,13 +20,13 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeRuneAltar;
+import vazkii.botania.common.crafting.RecipeSerializerBase;
 
 import javax.annotation.Nonnull;
 
@@ -76,7 +76,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 		return stack;
 	}
 
-	public static class Serializer implements RecipeSerializer<HeadRecipe> {
+	public static class Serializer extends RecipeSerializerBase<HeadRecipe> {
 
 		@Nonnull
 		@Override

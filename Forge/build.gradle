@@ -41,6 +41,7 @@ repositories {
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -78,6 +79,8 @@ dependencies {
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44")
@@ -85,6 +88,7 @@ dependencies {
 
 compileJava {
     source(project(":Common").sourceSets.main.allSource)
+    options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
 }
 
 processResources {

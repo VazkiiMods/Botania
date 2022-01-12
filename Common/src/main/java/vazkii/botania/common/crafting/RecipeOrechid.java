@@ -67,7 +67,7 @@ public class RecipeOrechid implements IOrechidRecipe {
 		return ModRecipeTypes.ORECHID_SERIALIZER;
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipeOrechid> {
+	public static class Serializer extends RecipeSerializerBase<RecipeOrechid> {
 		@Override
 		public RecipeOrechid fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
 			var blockId = new ResourceLocation(GsonHelper.getAsString(json, "input"));

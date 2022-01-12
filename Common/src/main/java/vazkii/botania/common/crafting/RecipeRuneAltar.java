@@ -93,7 +93,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		return mana;
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipeRuneAltar> {
+	public static class Serializer extends RecipeSerializerBase<RecipeRuneAltar> {
 		@Nonnull
 		@Override
 		public RecipeRuneAltar fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {

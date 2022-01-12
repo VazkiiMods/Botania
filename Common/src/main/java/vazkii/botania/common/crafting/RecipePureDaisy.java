@@ -107,7 +107,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 		return ModRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipePureDaisy> {
+	public static class Serializer extends RecipeSerializerBase<RecipePureDaisy> {
 		@Nonnull
 		@Override
 		public RecipePureDaisy fromJson(@Nonnull ResourceLocation id, JsonObject object) {

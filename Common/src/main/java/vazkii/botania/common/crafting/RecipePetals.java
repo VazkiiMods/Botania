@@ -110,7 +110,7 @@ public class RecipePetals implements IPetalRecipe {
 		return ModRecipeTypes.PETAL_SERIALIZER;
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipePetals> {
+	public static class Serializer extends RecipeSerializerBase<RecipePetals> {
 		@Nonnull
 		@Override
 		public RecipePetals fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {

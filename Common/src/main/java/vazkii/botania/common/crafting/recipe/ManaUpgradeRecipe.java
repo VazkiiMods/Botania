@@ -19,6 +19,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.common.crafting.RecipeSerializerBase;
 
 import javax.annotation.Nonnull;
 
@@ -57,7 +58,7 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	public static final RecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer implements RecipeSerializer<ManaUpgradeRecipe> {
+	private static class Serializer extends RecipeSerializerBase<ManaUpgradeRecipe> {
 		@Override
 		public ManaUpgradeRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
 			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));

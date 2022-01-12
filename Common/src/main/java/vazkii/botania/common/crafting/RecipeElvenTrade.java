@@ -121,7 +121,7 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 		return getOutputs();
 	}
 
-	public static class Serializer implements RecipeSerializer<RecipeElvenTrade> {
+	public static class Serializer extends RecipeSerializerBase<RecipeElvenTrade> {
 
 		@Nonnull
 		@Override
