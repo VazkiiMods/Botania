@@ -28,12 +28,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBlock {
 

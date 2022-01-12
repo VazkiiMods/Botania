@@ -11,10 +11,10 @@ package vazkii.botania.fabric.integration.rei;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.tile.TileAlfPortal;
+
+import javax.annotation.Nonnull;
 
 public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<IElvenTradeRecipe> {
 
@@ -29,7 +29,7 @@ public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<IElvenTradeRecipe
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public @Nonnull CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.ELVEN_TRADE;
 	}
 }

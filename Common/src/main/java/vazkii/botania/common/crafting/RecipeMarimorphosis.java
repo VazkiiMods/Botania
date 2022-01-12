@@ -24,8 +24,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.StateIngredient;
 
 import javax.annotation.Nonnull;
@@ -43,7 +41,7 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 	}
 
 	@Override
-	public int getWeight(@NotNull Level level, @NotNull BlockPos pos) {
+	public int getWeight(@Nonnull Level level, @Nonnull BlockPos pos) {
 		Biome biome = level.getBiome(pos);
 		if (biomes.contains(biome.getBiomeCategory())) {
 			return getWeight() + weightBonus;

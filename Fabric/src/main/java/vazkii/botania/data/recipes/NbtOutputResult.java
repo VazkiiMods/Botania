@@ -15,9 +15,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.common.crafting.recipe.NbtOutputRecipe;
+
+import javax.annotation.Nullable;
 
 import java.util.function.Consumer;
 

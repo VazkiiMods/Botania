@@ -22,12 +22,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnderEye;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Random;
 

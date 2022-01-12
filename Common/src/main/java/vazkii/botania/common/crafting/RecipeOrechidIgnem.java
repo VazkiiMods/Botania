@@ -16,9 +16,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.StateIngredient;
+
+import javax.annotation.Nonnull;
 
 public class RecipeOrechidIgnem extends RecipeOrechid {
 	public RecipeOrechidIgnem(ResourceLocation id, Block input, StateIngredient output, int weight) {
@@ -41,17 +41,17 @@ public class RecipeOrechidIgnem extends RecipeOrechid {
 
 	public static class Serializer implements RecipeSerializer<RecipeOrechidIgnem> {
 		@Override
-		public RecipeOrechidIgnem fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
+		public RecipeOrechidIgnem fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
 			return new RecipeOrechidIgnem(ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json));
 		}
 
 		@Override
-		public RecipeOrechidIgnem fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
+		public RecipeOrechidIgnem fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
 			return new RecipeOrechidIgnem(ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RecipeOrechidIgnem recipe) {
+		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull RecipeOrechidIgnem recipe) {
 			ModRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
 		}
 	}

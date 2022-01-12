@@ -108,7 +108,7 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 		return new TileAnimatedTorch(pos, state);
 	}
 
-	@org.jetbrains.annotations.Nullable
+	@javax.annotation.Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.ANIMATED_TORCH, TileAnimatedTorch::commonTick);

@@ -37,11 +37,11 @@ import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.network.EffectType;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 import io.netty.buffer.Unpooled;
-import vazkii.botania.common.network.EffectType;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here

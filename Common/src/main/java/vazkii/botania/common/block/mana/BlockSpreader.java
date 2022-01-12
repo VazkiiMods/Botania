@@ -204,7 +204,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		return new TileSpreader(pos, state);
 	}
 
-	@org.jetbrains.annotations.Nullable
+	@javax.annotation.Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.SPREADER, TileSpreader::commonTick);

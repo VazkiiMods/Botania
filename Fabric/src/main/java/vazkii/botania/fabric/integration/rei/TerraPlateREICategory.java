@@ -25,12 +25,12 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.ResourceLocationHelper;
+
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,22 +40,22 @@ public class TerraPlateREICategory implements DisplayCategory<TerraPlateREIDispl
 	private final EntryStack<ItemStack> icon = EntryStacks.of(ModBlocks.terraPlate);
 
 	@Override
-	public @NotNull CategoryIdentifier<TerraPlateREIDisplay> getCategoryIdentifier() {
+	public @Nonnull CategoryIdentifier<TerraPlateREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.TERRA_PLATE;
 	}
 
 	@Override
-	public @NotNull Renderer getIcon() {
+	public @Nonnull Renderer getIcon() {
 		return icon;
 	}
 
 	@Override
-	public @NotNull Component getTitle() {
+	public @Nonnull Component getTitle() {
 		return new TranslatableComponent("botania.nei.terraPlate");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(TerraPlateREIDisplay display, Rectangle bounds) {
+	public @Nonnull List<Widget> setupDisplay(TerraPlateREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);

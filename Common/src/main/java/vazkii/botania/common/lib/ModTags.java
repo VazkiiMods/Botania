@@ -137,7 +137,8 @@ public class ModTags {
 		}
 
 		private static Tag.Named<Item> commonTag(String name) {
-			return TagFactory.ITEM.create(new ResourceLocation("c", name));
+			// TODO 1.18 fix this for datagen
+			return IXplatAbstractions.INSTANCE.itemTag(new ResourceLocation("c", name));
 		}
 	}
 
@@ -203,7 +204,8 @@ public class ModTags {
 		}
 
 		private static Tag.Named<Block> commonTag(String name) {
-			return TagFactory.BLOCK.create(new ResourceLocation("c", name));
+			// TODO 1.18 fix this for datagen
+			return IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", name));
 		}
 	}
 

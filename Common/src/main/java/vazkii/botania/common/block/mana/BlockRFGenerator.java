@@ -16,13 +16,12 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockRFGenerator extends BlockMod implements EntityBlock {
 

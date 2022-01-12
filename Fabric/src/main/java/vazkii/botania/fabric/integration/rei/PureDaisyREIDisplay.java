@@ -18,9 +18,9 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.crafting.RecipePureDaisy;
+
+import javax.annotation.Nonnull;
 
 import java.util.Collections;
 
@@ -52,7 +52,7 @@ public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public @Nonnull CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.PURE_DAISY;
 	}
 }

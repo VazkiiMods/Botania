@@ -36,8 +36,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.block.IPetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -51,6 +49,7 @@ import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockAltar extends BlockMod implements EntityBlock {
 

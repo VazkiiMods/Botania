@@ -14,10 +14,10 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.crafting.RecipeBrew;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +50,7 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public @Nonnull CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.BREWERY;
 	}
 }

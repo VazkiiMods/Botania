@@ -14,9 +14,9 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.api.recipe.IOrechidRecipe;
+
+import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,12 +39,12 @@ public abstract class OrechidBaseREIDisplay<T extends IOrechidRecipe> implements
 	}
 
 	@Override
-	public @NotNull List<EntryIngredient> getInputEntries() {
+	public @Nonnull List<EntryIngredient> getInputEntries() {
 		return stone;
 	}
 
 	@Override
-	public @NotNull List<EntryIngredient> getOutputEntries() {
+	public @Nonnull List<EntryIngredient> getOutputEntries() {
 		return ores;
 	}
 }

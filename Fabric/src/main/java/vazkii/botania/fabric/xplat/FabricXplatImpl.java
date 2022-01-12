@@ -59,7 +59,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
@@ -84,6 +83,8 @@ import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.fabric.network.*;
 import vazkii.botania.xplat.IXplatAbstractions;
+
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;

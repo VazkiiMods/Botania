@@ -72,10 +72,6 @@ repositories {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
@@ -113,9 +109,6 @@ dependencies {
     modImplementation "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
     include "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
     */
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 }
 
 tasks.withType(JavaCompile) {

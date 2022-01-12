@@ -10,12 +10,12 @@ import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePlatform;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,9 +28,9 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 		super(originalModel);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull Random rand, @NotNull IModelData extraData) {
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
 		var data = extraData.getData(PROPERTY);
 		if (state == null || !(state.getBlock() instanceof BlockPlatform) || data == null) {
 			return Minecraft.getInstance().getBlockRenderer().getBlockModelShaper()

@@ -19,12 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileForestEye;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockForestEye extends BlockModWaterloggable implements EntityBlock {
 

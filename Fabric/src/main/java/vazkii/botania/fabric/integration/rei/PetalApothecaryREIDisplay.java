@@ -10,9 +10,9 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.crafting.RecipePetals;
+
+import javax.annotation.Nonnull;
 
 public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals> {
 	public PetalApothecaryREIDisplay(RecipePetals recipe) {
@@ -25,7 +25,7 @@ public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+	public @Nonnull CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 }

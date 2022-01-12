@@ -11,12 +11,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.xplat.IClientXplatAbstractions;
+
+import javax.annotation.Nullable;
 
 public class FabricClientXplatImpl implements IClientXplatAbstractions {
 	@Override

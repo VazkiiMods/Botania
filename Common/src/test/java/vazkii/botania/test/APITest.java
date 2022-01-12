@@ -19,6 +19,8 @@ import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaHelperImpl;
 import vazkii.botania.common.impl.mana.ManaItemHandlerImpl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Basic smoke test to ensure the class name strings in the API are still accurate
  */
