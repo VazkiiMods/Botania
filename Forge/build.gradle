@@ -83,7 +83,7 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44")
 }
 
-tasks.withType(JavaCompile) {
+compileJava {
     source(project(":Common").sourceSets.main.allSource)
 }
 

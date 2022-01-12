@@ -8,8 +8,6 @@ if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
 
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
-
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")
     runs {
@@ -111,8 +109,10 @@ dependencies {
     */
 }
 
-tasks.withType(JavaCompile) {
+compileJava {
 	source(project(":Common").sourceSets.main.allSource)
+	options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
+
 }
 
 processResources {
