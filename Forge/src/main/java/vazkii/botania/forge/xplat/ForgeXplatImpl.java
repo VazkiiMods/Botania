@@ -59,6 +59,7 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -225,6 +226,11 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 			case SERVER_DATA -> MinecraftForge.EVENT_BUS.addListener(
 					(AddReloadListenerEvent e) -> e.addListener(listener));
 		}
+	}
+
+	@Override
+	public Item.Properties defaultItemBuilder() {
+		return new Item.Properties().tab(ForgeBotaniaCreativeTab.INSTANCE);
 	}
 
 	@Override
