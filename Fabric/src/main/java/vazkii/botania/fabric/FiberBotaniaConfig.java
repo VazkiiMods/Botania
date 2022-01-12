@@ -315,6 +315,10 @@ public final class FiberBotaniaConfig {
 					.withComment("Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.")
 					.finishValue(enchanterEnabled::mirror)
 
+					.beginValue("fluxfieldEnabled", BOOLEAN, true)
+					.withComment("Set this to false to disable the Mana Fluxfield. This only disables the entry and creation. Old ones that are already in the world will stay.")
+					.finishValue(fluxfieldEnabled::mirror)
+
 					.beginValue("relics", BOOLEAN, true)
 					.withComment("Set this to false to disable the Relic System. This only disables the entries, drops and achievements. Old ones that are already in the world will stay.")
 					.finishValue(relicsEnabled::mirror)
