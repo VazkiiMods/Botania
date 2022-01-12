@@ -6,28 +6,37 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.network;
+package vazkii.botania.network.serverbound;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
+import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PacketLeftClick {
+public class PacketLeftClick implements IPacket {
+	public static final PacketLeftClick INSTANCE = new PacketLeftClick();
 	public static final ResourceLocation ID = prefix("lc");
 
-	public static void send() {
-		ClientPlayNetworking.send(ID, PacketHandler.EMPTY_BUF);
+	@Override
+	public void encode(FriendlyByteBuf buf) {
+
 	}
 
-	public static void handle(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+	@Override
+	public ResourceLocation getFabricId() {
+		return ID;
+	}
+
+	public static PacketLeftClick decode(FriendlyByteBuf buf) {
+		return INSTANCE;
+	}
+
+	public void handle(MinecraftServer server, ServerPlayer player) {
 		server.execute(() -> ItemTerraSword.trySpawnBurst(player));
 	}
 }

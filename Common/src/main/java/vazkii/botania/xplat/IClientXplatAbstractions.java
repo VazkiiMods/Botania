@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.network.IPacket;
 
 import javax.annotation.Nullable;
 
@@ -26,6 +27,9 @@ public interface IClientXplatAbstractions {
 
 	// Event firing
 	void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay);
+
+	// Networking
+	void sendToServer(IPacket packet);
 
 	// Capability access
 	@Nullable

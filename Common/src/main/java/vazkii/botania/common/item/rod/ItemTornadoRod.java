@@ -32,6 +32,8 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.clientbound.PacketAvatarTornadoRod;
+import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
@@ -199,11 +201,11 @@ public class ItemTornadoRod extends Item {
 				p.getDeltaMovement().z() + lookDir.z() * mult);
 
 		if (!world.isClientSide) {
-			IXplatAbstractions.INSTANCE.sendAvatarTornadoRodPacket(p, true);
-			IXplatAbstractions.INSTANCE.sendEffectPacketNear(p,
-					EffectType.AVATAR_TORNADO_BOOST,
-					p.getX(), p.getY(), p.getZ(),
-					p.getId());
+			IXplatAbstractions.INSTANCE.sendToPlayer(p, new PacketAvatarTornadoRod(true));
+			IXplatAbstractions.INSTANCE.sendToTracking(p,
+					new PacketBotaniaEffect(EffectType.AVATAR_TORNADO_BOOST,
+							p.getX(), p.getY(), p.getZ(),
+							p.getId()));
 		}
 	}
 
@@ -211,11 +213,11 @@ public class ItemTornadoRod extends Item {
 		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
 
 		if (!world.isClientSide) {
-			IXplatAbstractions.INSTANCE.sendAvatarTornadoRodPacket(p, false);
-			IXplatAbstractions.INSTANCE.sendEffectPacketNear(p,
-					EffectType.AVATAR_TORNADO_JUMP,
-					p.getX(), p.getY(), p.getZ(),
-					p.getId()
+			IXplatAbstractions.INSTANCE.sendToPlayer(p, new PacketAvatarTornadoRod(false));
+			IXplatAbstractions.INSTANCE.sendToTracking(p,
+					new PacketBotaniaEffect(EffectType.AVATAR_TORNADO_JUMP,
+							p.getX(), p.getY(), p.getZ(),
+							p.getId())
 			);
 		}
 	}

@@ -30,7 +30,8 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.network.serverbound.PacketLeftClick;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -46,7 +47,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	public static void leftClick(ItemStack stack) {
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemTerraSword) {
-			IXplatAbstractions.INSTANCE.sendLeftClickPacket();
+			IClientXplatAbstractions.INSTANCE.sendToServer(PacketLeftClick.INSTANCE);
 		}
 	}
 

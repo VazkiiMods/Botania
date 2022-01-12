@@ -1,8 +1,12 @@
 package vazkii.botania.forge.xplat;
 
+import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -12,6 +16,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -20,6 +25,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -37,11 +44,15 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
 
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.forge.network.ForgePacketHandler;
+import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.BiFunction;
@@ -105,6 +116,52 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 					return result == FluidAttributes.BUCKET_VOLUME;
 				})
 				.orElse(false);
+	}
+
+	@Override
+	public Packet<?> toVanillaClientboundPacket(IPacket packet) {
+		return ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
+	}
+
+	@Override
+	public void sendToPlayer(Player player, IPacket packet) {
+		if (!player.level.isClientSide) {
+			ForgePacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player),
+					packet);
+		}
+	}
+
+	private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(
+			(_d, pairSupplier) -> {
+				var pair = pairSupplier.get();
+				var level = pair.getFirst();
+				var blockpos = pair.getSecond();
+				var chunkpos = new ChunkPos(blockpos);
+				return packet -> {
+					var players = ((ServerChunkCache) level.getChunkSource()).chunkMap
+							.getPlayers(chunkpos, false);
+					for (var player : players) {
+						if (player.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) < 64 * 64) {
+							player.connection.send(packet);
+						}
+					}
+				};
+			},
+			NetworkDirection.PLAY_TO_CLIENT
+	);
+
+	@Override
+	public void sendToNear(Level level, BlockPos pos, IPacket packet) {
+		if (!level.isClientSide) {
+			ForgePacketHandler.CHANNEL.send(TRACKING_CHUNK_AND_NEAR.with(() -> Pair.of(level, pos)), packet);
+		}
+	}
+
+	@Override
+	public void sendToTracking(Entity e, IPacket packet) {
+		if (!e.level.isClientSide) {
+			ForgePacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), packet);
+		}
 	}
 
 	@Override

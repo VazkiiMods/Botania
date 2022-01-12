@@ -6,35 +6,39 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.network;
+package vazkii.botania.network.serverbound;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-import io.netty.buffer.Unpooled;
-
-public class PacketIndexKeybindRequest {
+public record PacketIndexKeybindRequest(ItemStack stack) implements IPacket {
 	public static final ResourceLocation ID = prefix("idx");
 
-	public static void send(ItemStack stack) {
-		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
-		buf.writeItem(stack);
-		ClientPlayNetworking.send(ID, buf);
+	@Override
+	public void encode(FriendlyByteBuf buf) {
+		buf.writeItem(stack());
 	}
 
-	public static void handle(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
-		ItemStack stack = buf.readItem();
+	@Override
+	public ResourceLocation getFabricId() {
+		return ID;
+	}
+
+	public static PacketIndexKeybindRequest decode(FriendlyByteBuf buf) {
+		return new PacketIndexKeybindRequest(buf.readItem());
+	}
+
+	public void handle(MinecraftServer server, ServerPlayer player) {
+		var stack = this.stack();
 		server.execute(() -> {
 			if (player.isSpectator()) {
 				return;

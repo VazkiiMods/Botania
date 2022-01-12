@@ -28,7 +28,8 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.network.serverbound.PacketJump;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.Collections;
 import java.util.Set;
@@ -58,7 +59,7 @@ public class ItemCloudPendant extends ItemBauble {
 					if (playerSp.input.jumping) {
 						if (!jumpDown && timesJumped < ((ItemCloudPendant) stack.getItem()).getMaxAllowedJumps()) {
 							playerSp.jumpFromGround();
-							IXplatAbstractions.INSTANCE.sendJumpPacket();
+							IClientXplatAbstractions.INSTANCE.sendToServer(PacketJump.INSTANCE);
 							timesJumped++;
 						}
 						jumpDown = true;

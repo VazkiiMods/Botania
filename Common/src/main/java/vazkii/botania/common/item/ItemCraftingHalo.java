@@ -59,6 +59,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
@@ -191,8 +192,8 @@ public class ItemCraftingHalo extends Item {
 		// The items we consumed will stay in the dummy workbench and get deleted
 
 		if (particles) {
-			IXplatAbstractions.INSTANCE.sendEffectPacketNear(player, EffectType.HALO_CRAFT,
-					player.getX(), player.getY(), player.getZ(), player.getId());
+			IXplatAbstractions.INSTANCE.sendToTracking(player, new PacketBotaniaEffect(EffectType.HALO_CRAFT,
+					player.getX(), player.getY(), player.getZ(), player.getId()));
 		}
 	}
 

@@ -27,6 +27,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.ISparkEntity;
 import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class LensPaint extends Lens {
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
 							entity.level.setBlockAndUpdate(coords, newBlock.defaultBlockState());
-							IXplatAbstractions.INSTANCE.sendEffectPacketNear(entity.level, coords, EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId());
+							IXplatAbstractions.INSTANCE.sendToNear(entity.level, coords, new PacketBotaniaEffect(EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
 						}
 					}
 				}

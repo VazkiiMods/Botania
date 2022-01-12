@@ -55,6 +55,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -143,9 +144,9 @@ public class ItemTwigWand extends Item {
 			data.mapping.put(bindPos.pos(), pos.immutable());
 			data.setDirty();
 
-			IXplatAbstractions.INSTANCE.sendEffectPacketNear(world, pos, EffectType.PARTICLE_BEAM,
+			IXplatAbstractions.INSTANCE.sendToNear(world, pos, new PacketBotaniaEffect(EffectType.PARTICLE_BEAM,
 					bindPos.pos().getX() + 0.5, bindPos.pos().getY() + 0.5, bindPos.pos().getZ() + 0.5,
-					pos.getX(), pos.getY(), pos.getZ());
+					pos.getX(), pos.getY(), pos.getZ()));
 
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundSource.PLAYERS, 1F, 1F);
 			return true;

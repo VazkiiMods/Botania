@@ -7,6 +7,8 @@ import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -26,6 +28,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -73,7 +76,6 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
@@ -81,13 +83,13 @@ import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
-import vazkii.botania.fabric.network.*;
+import vazkii.botania.network.IPacket;
+import vazkii.botania.network.clientbound.*;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
@@ -307,67 +309,33 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
 		ManaNetworkCallback.EVENT.invoker().onNetworkChange(be, type, action);
-
 	}
 
 	@Override
-	public void sendEffectPacket(Player player, EffectType type, double x, double y, double z, int... args) {
-		PacketBotaniaEffect.send(player, type, x, y, z, args);
+	public Packet<?> toVanillaClientboundPacket(IPacket packet) {
+		return ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
 	}
 
 	@Override
-	public void sendEffectPacketNear(Entity e, EffectType type, double x, double y, double z, int... args) {
-		PacketBotaniaEffect.sendNearby(e, type, x, y, z, args);
+	public void sendToPlayer(Player player, IPacket packet) {
+		ServerPlayNetworking.send((ServerPlayer) player, packet.getFabricId(), packet.toBuf());
 	}
 
 	@Override
-	public void sendEffectPacketNear(Level level, BlockPos pos, EffectType type, double x, double y, double z, int... args) {
-		PacketBotaniaEffect.sendNearby(level, pos, type, x, y, z, args);
+	public void sendToNear(Level level, BlockPos pos, IPacket packet) {
+		var pkt = ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
+		PlayerLookup.tracking((ServerLevel) level, pos).stream()
+				.filter(p -> p.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
+				.forEach(p -> p.connection.send(pkt));
 	}
 
 	@Override
-	public Packet<?> makeSpawnDopplegangerPacket(EntityDoppleganger boss, int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUuid) {
-		return PacketSpawnDoppleganger.make(boss, playerCount, hardMode, source, bossInfoUuid);
-	}
-
-	@Override
-	public void sendItemsRemainingPacket(Player player, ItemStack stack, int count, @Nullable Component message) {
-		PacketUpdateItemsRemaining.send(player, stack, count, message);
-	}
-
-	@Override
-	public void sendGogWorldPacket(Player player) {
-		PacketGogWorld.send((ServerPlayer) player);
-	}
-
-	@Override
-	public void sendItemTimeCounterPacket(Player player, int entityId, int timeCounter) {
-		PacketItemAge.send((ServerPlayer) player, entityId, timeCounter);
-	}
-
-	@Override
-	public void sendAvatarTornadoRodPacket(Player player, boolean elytra) {
-		PacketAvatarTornadoRod.sendTo((ServerPlayer) player, elytra);
-	}
-
-	@Override
-	public void sendIndexKeybindRequestPacket(ItemStack stack) {
-		PacketIndexKeybindRequest.send(stack);
-	}
-
-	@Override
-	public void sendJumpPacket() {
-		PacketJump.send();
-	}
-
-	@Override
-	public void sendDodgePacket() {
-		PacketDodge.send();
-	}
-
-	@Override
-	public void sendLeftClickPacket() {
-		PacketLeftClick.send();
+	public void sendToTracking(Entity e, IPacket packet) {
+		var pkt = ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
+		PlayerLookup.tracking(e).forEach(p -> p.connection.send(pkt));
+		if (e instanceof ServerPlayer) {
+			((ServerPlayer) e).connection.send(pkt);
+		}
 	}
 
 	@Override

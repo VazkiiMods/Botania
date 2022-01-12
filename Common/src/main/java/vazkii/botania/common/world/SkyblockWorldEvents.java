@@ -39,6 +39,7 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.mixin.AccessorSoundType;
+import vazkii.botania.network.clientbound.PacketGogWorld;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -53,7 +54,7 @@ public final class SkyblockWorldEvents {
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level);
 		if (isGog) {
-			IXplatAbstractions.INSTANCE.sendGogWorldPacket(e);
+			IXplatAbstractions.INSTANCE.sendToPlayer(e, PacketGogWorld.INSTANCE);
 		}
 	}
 

@@ -3,7 +3,6 @@ package vazkii.botania.xplat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -51,15 +50,13 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.ManaBlockType;
 import vazkii.botania.api.mana.ManaNetworkAction;
 import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.internal_caps.*;
-import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.IPacket;
 
 import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.ServiceLoader;
-import java.util.UUID;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -113,21 +110,11 @@ public interface IXplatAbstractions {
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
 	void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action);
 
-	// Clientbound packets
-	void sendEffectPacket(Player player, EffectType type, double x, double y, double z, int... args);
-	void sendEffectPacketNear(Entity e, EffectType type, double x, double y, double z, int... args);
-	void sendEffectPacketNear(Level level, BlockPos pos, EffectType type, double x, double y, double z, int... args);
-	Packet<?> makeSpawnDopplegangerPacket(EntityDoppleganger boss, int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUuid);
-	void sendItemsRemainingPacket(Player player, ItemStack stack, int count, @Nullable Component message);
-	void sendGogWorldPacket(Player player);
-	void sendItemTimeCounterPacket(Player player, int entityId, int timeCounter);
-	void sendAvatarTornadoRodPacket(Player player, boolean elytra);
-
-	// Serverbound packets
-	void sendIndexKeybindRequestPacket(ItemStack stack);
-	void sendJumpPacket();
-	void sendDodgePacket();
-	void sendLeftClickPacket();
+	// Networking
+	Packet<?> toVanillaClientboundPacket(IPacket packet);
+	void sendToPlayer(Player player, IPacket packet);
+	void sendToNear(Level level, BlockPos pos, IPacket packet);
+	void sendToTracking(Entity e, IPacket packet);
 
 	// Registrations
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);

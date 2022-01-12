@@ -6,16 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.network;
+package vazkii.botania.network.serverbound;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 
@@ -24,17 +21,29 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PacketDodge {
+public class PacketDodge implements IPacket {
+	public static final PacketDodge INSTANCE = new PacketDodge();
 	public static final ResourceLocation ID = prefix("do");
 
-	public static void send() {
-		ClientPlayNetworking.send(ID, PacketHandler.EMPTY_BUF);
+	public static PacketDodge decode(FriendlyByteBuf buf) {
+		return INSTANCE;
 	}
 
-	public static void handle(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+	@Override
+	public void encode(FriendlyByteBuf buf) {
+
+	}
+
+	@Override
+	public ResourceLocation getFabricId() {
+		return ID;
+	}
+
+	public void handle(MinecraftServer server, ServerPlayer player) {
 		server.execute(() -> {
 			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 

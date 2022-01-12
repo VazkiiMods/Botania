@@ -6,39 +6,40 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.network;
+package vazkii.botania.network.clientbound;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.rod.ItemTornadoRod;
+import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-import io.netty.buffer.Unpooled;
+public record PacketAvatarTornadoRod(boolean elytra) implements IPacket {
+	public static final ResourceLocation ID = prefix("atr");
 
-public class PacketAvatarTornadoRod {
-	public static final ResourceLocation ID = prefix("avatar_tornado_rod");
+	@Override
+	public void encode(FriendlyByteBuf buf) {
+		buf.writeBoolean(elytra);
+	}
 
-	public static void sendTo(ServerPlayer player, boolean elytra) {
-		if (!player.level.isClientSide) {
-			FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
-			buf.writeBoolean(elytra);
-			ServerPlayNetworking.send(player, ID, buf);
-		}
+	@Override
+	public ResourceLocation getFabricId() {
+		return ID;
+	}
+
+	public static PacketAvatarTornadoRod decode(FriendlyByteBuf buf) {
+		return new PacketAvatarTornadoRod(buf.readBoolean());
 	}
 
 	public static class Handler {
-		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
-			boolean elytra = buf.readBoolean();
-			client.execute(() -> {
+		public static void handle(PacketAvatarTornadoRod packet) {
+			boolean elytra = packet.elytra();
+			Minecraft.getInstance().execute(() -> {
 				Player player = Minecraft.getInstance().player;
 				Level world = Minecraft.getInstance().level;
 				if (elytra) {

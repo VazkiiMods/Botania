@@ -22,6 +22,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -72,6 +73,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.EffectType;
 import vazkii.botania.mixin.AccessorMobEffect;
+import vazkii.botania.network.clientbound.PacketBotaniaEffect;
+import vazkii.botania.network.clientbound.PacketSpawnDoppleganger;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
@@ -178,7 +181,7 @@ public class EntityDoppleganger extends Mob {
 			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
-				IXplatAbstractions.INSTANCE.sendEffectPacket(player, EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ());
+				IXplatAbstractions.INSTANCE.sendToPlayer(player, new PacketBotaniaEffect(EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
 				player.sendMessage(new TranslatableComponent("botaniamisc.badArena").withStyle(ChatFormatting.RED), Util.NIL_UUID);
 			}
@@ -1015,7 +1018,8 @@ public class EntityDoppleganger extends Mob {
 	@Nonnull
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return IXplatAbstractions.INSTANCE.makeSpawnDopplegangerPacket(this, playerCount, hardMode, source, bossInfoUUID);
+		return IXplatAbstractions.INSTANCE.toVanillaClientboundPacket(
+				new PacketSpawnDoppleganger(new ClientboundAddMobPacket(this), playerCount, hardMode, source, bossInfoUUID));
 	}
 
 	@Override

@@ -24,7 +24,8 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.mixin.client.AccessorAbstractContainerScreen;
 import vazkii.botania.mixin.client.AccessorRecipeBookComponent;
 import vazkii.botania.mixin.client.AccessorRecipeBookPage;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.network.serverbound.PacketIndexKeybindRequest;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -63,7 +64,7 @@ public class CorporeaInputHandler {
 			if (count > 0) {
 				ItemStack requested = stack.copy();
 				requested.setCount(count);
-				IXplatAbstractions.INSTANCE.sendIndexKeybindRequestPacket(requested);
+				IClientXplatAbstractions.INSTANCE.sendToServer(new PacketIndexKeybindRequest(requested));
 				return true;
 			}
 		}

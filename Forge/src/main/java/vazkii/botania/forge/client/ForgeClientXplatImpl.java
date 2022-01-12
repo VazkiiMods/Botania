@@ -11,6 +11,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.forge.network.ForgePacketHandler;
+import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nullable;
@@ -19,6 +21,11 @@ public class ForgeClientXplatImpl implements IClientXplatAbstractions {
 	@Override
 	public void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		throw new UnsupportedOperationException("NYI");
+	}
+
+	@Override
+	public void sendToServer(IPacket packet) {
+		ForgePacketHandler.CHANNEL.sendToServer(packet);
 	}
 
 	@Nullable
