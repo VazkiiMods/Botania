@@ -254,32 +254,26 @@
       "apply": [
         {
           "model": "botania:block/stripped_dreamwood_wall_side_1",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_2",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_3",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_4",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_5",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_6",
-          "y": 0,
           "uvlock": true
         }
       ]
@@ -291,32 +285,26 @@
       "apply": [
         {
           "model": "botania:block/stripped_dreamwood_wall_side_tall_1",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_tall_2",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_tall_3",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_tall_4",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_tall_5",
-          "y": 0,
           "uvlock": true
         },
         {
           "model": "botania:block/stripped_dreamwood_wall_side_tall_6",
-          "y": 0,
           "uvlock": true
         }
       ]

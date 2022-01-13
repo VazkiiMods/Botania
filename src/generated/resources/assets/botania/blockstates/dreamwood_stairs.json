@@ -3,37 +3,31 @@
     "facing=east,half=bottom,shape=inner_left": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
         "y": 270,
         "uvlock": true
       }
@@ -41,75 +35,57 @@
     "facing=east,half=bottom,shape=inner_right": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       }
     ],
     "facing=east,half=bottom,shape=outer_left": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
         "y": 270,
         "uvlock": true
       }
@@ -117,76 +93,52 @@
     "facing=east,half=bottom,shape=outer_right": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       }
     ],
     "facing=east,half=bottom,shape=straight": [
       {
         "model": "botania:block/dreamwood_stairs_1",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_2",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_3",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_4",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_5",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_6",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       }
     ],
@@ -194,37 +146,31 @@
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
         "x": 180,
-        "y": 0,
         "uvlock": true
       }
     ],
@@ -270,37 +216,31 @@
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
         "x": 180,
-        "y": 0,
         "uvlock": true
       }
     ],
@@ -346,74 +286,62 @@
       {
         "model": "botania:block/dreamwood_stairs_1",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_2",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_3",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_4",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_5",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_6",
         "x": 180,
-        "y": 0,
         "uvlock": true
       }
     ],
     "facing=north,half=bottom,shape=inner_left": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
         "y": 180,
         "uvlock": true
       }
@@ -421,37 +349,31 @@
     "facing=north,half=bottom,shape=inner_right": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
         "y": 270,
         "uvlock": true
       }
@@ -459,37 +381,31 @@
     "facing=north,half=bottom,shape=outer_left": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
         "y": 180,
         "uvlock": true
       }
@@ -497,37 +413,31 @@
     "facing=north,half=bottom,shape=outer_right": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
         "y": 270,
         "uvlock": true
       }
@@ -535,37 +445,31 @@
     "facing=north,half=bottom,shape=straight": [
       {
         "model": "botania:block/dreamwood_stairs_1",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_2",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_3",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_4",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_5",
-        "x": 0,
         "y": 270,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_6",
-        "x": 0,
         "y": 270,
         "uvlock": true
       }
@@ -612,37 +516,31 @@
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
         "x": 180,
-        "y": 0,
         "uvlock": true
       }
     ],
@@ -688,37 +586,31 @@
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
         "x": 180,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
         "x": 180,
-        "y": 0,
         "uvlock": true
       }
     ],
@@ -763,75 +655,57 @@
     "facing=south,half=bottom,shape=inner_left": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       }
     ],
     "facing=south,half=bottom,shape=inner_right": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
         "y": 90,
         "uvlock": true
       }
@@ -839,75 +713,57 @@
     "facing=south,half=bottom,shape=outer_left": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
-        "y": 0,
         "uvlock": true
       }
     ],
     "facing=south,half=bottom,shape=outer_right": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
         "y": 90,
         "uvlock": true
       }
@@ -915,37 +771,31 @@
     "facing=south,half=bottom,shape=straight": [
       {
         "model": "botania:block/dreamwood_stairs_1",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_2",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_3",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_4",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_5",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_6",
-        "x": 0,
         "y": 90,
         "uvlock": true
       }
@@ -1143,37 +993,31 @@
     "facing=west,half=bottom,shape=inner_left": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
         "y": 90,
         "uvlock": true
       }
@@ -1181,37 +1025,31 @@
     "facing=west,half=bottom,shape=inner_right": [
       {
         "model": "botania:block/dreamwood_stairs_inner_1",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_2",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_3",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_4",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_5",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_inner_6",
-        "x": 0,
         "y": 180,
         "uvlock": true
       }
@@ -1219,37 +1057,31 @@
     "facing=west,half=bottom,shape=outer_left": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
         "y": 90,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
         "y": 90,
         "uvlock": true
       }
@@ -1257,37 +1089,31 @@
     "facing=west,half=bottom,shape=outer_right": [
       {
         "model": "botania:block/dreamwood_stairs_outer_1",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_2",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_3",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_4",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_5",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_outer_6",
-        "x": 0,
         "y": 180,
         "uvlock": true
       }
@@ -1295,37 +1121,31 @@
     "facing=west,half=bottom,shape=straight": [
       {
         "model": "botania:block/dreamwood_stairs_1",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_2",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_3",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_4",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_5",
-        "x": 0,
         "y": 180,
         "uvlock": true
       },
       {
         "model": "botania:block/dreamwood_stairs_6",
-        "x": 0,
         "y": 180,
         "uvlock": true
       }

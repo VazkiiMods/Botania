@@ -74,7 +74,6 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_fungal_bricks_wall_side",
-        "y": 0,
         "uvlock": true
       }
     },
@@ -84,7 +83,6 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_fungal_bricks_wall_side_tall",
-        "y": 0,
         "uvlock": true
       }
     }

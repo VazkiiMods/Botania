@@ -715,11 +715,18 @@ public class BlockstateProvider implements DataProvider {
 						case OUTER_RIGHT, OUTER_LEFT -> outerModels;
 						case INNER_RIGHT, INNER_LEFT -> innerModels;
 					};
-					propertyDispatch.select(direction, half, stairsShape, Stream.of(models).map(rl -> Variant.variant()
-							.with(VariantProperties.MODEL, rl)
-							.with(VariantProperties.X_ROT, xRot)
-							.with(VariantProperties.Y_ROT, yRot)
-							.with(VariantProperties.UV_LOCK, true)).toList());
+					propertyDispatch.select(direction, half, stairsShape, Stream.of(models).map(rl -> {
+						Variant variant = Variant.variant()
+								.with(VariantProperties.MODEL, rl);
+						if (xRot != VariantProperties.Rotation.R0) {
+							variant.with(VariantProperties.X_ROT, xRot);
+						}
+						if (yRot != VariantProperties.Rotation.R0) {
+							variant.with(VariantProperties.Y_ROT, yRot);
+						}
+						variant.with(VariantProperties.UV_LOCK, true);
+						return variant;
+					}).toList());
 				}
 			}
 		}
@@ -797,14 +804,22 @@ public class BlockstateProvider implements DataProvider {
 							: wallSide == BlockStateProperties.SOUTH_WALL ? VariantProperties.Rotation.R180
 							: VariantProperties.Rotation.R0;
 			multiPartGenerator
-					.with(Condition.condition().term(wallSide, WallSide.LOW), Stream.of(lowModels).map(rl -> Variant.variant()
-							.with(VariantProperties.MODEL, rl)
-							.with(VariantProperties.Y_ROT, yRot)
-							.with(VariantProperties.UV_LOCK, true)).toList())
-					.with(Condition.condition().term(wallSide, WallSide.TALL), Stream.of(tallModels).map(rl -> Variant.variant()
-							.with(VariantProperties.MODEL, rl)
-							.with(VariantProperties.Y_ROT, yRot)
-							.with(VariantProperties.UV_LOCK, true)).toList());
+					.with(Condition.condition().term(wallSide, WallSide.LOW), Stream.of(lowModels).map(rl -> {
+						Variant variant = Variant.variant().with(VariantProperties.MODEL, rl);
+						if (yRot != VariantProperties.Rotation.R0) {
+							variant.with(VariantProperties.Y_ROT, yRot);
+						}
+						variant.with(VariantProperties.UV_LOCK, true);
+						return variant;
+					}).toList())
+					.with(Condition.condition().term(wallSide, WallSide.TALL), Stream.of(tallModels).map(rl -> {
+						Variant variant = Variant.variant().with(VariantProperties.MODEL, rl);
+						if (yRot != VariantProperties.Rotation.R0) {
+							variant.with(VariantProperties.Y_ROT, yRot);
+						}
+						variant.with(VariantProperties.UV_LOCK, true);
+						return variant;
+					}).toList());
 		}
 		this.blockstates.add(multiPartGenerator);
 		blocks.remove(block);
