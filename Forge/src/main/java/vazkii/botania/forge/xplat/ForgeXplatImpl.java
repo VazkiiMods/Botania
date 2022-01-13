@@ -53,12 +53,21 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaForgeCapabilities;
+import vazkii.botania.api.block.IExoflameHeatable;
+import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.block.IHourglassTrigger;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.brew.ModBrews;
@@ -95,6 +104,51 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public String getBotaniaVersion() {
 		return ModList.get().getModContainerById(LibMisc.MOD_ID).get()
 				.getModInfo().getVersion().toString();
+	}
+
+	@Nullable
+	@Override
+	public IAvatarWieldable findAvatarWieldable(ItemStack stack) {
+		return stack.getCapability(BotaniaForgeCapabilities.AVATAR_WIELDABLE).orElse(null);
+	}
+
+	@Nullable
+	@Override
+	public IBlockProvider findBlockProvider(ItemStack stack) {
+		return stack.getCapability(BotaniaForgeCapabilities.BLOCK_PROVIDER).orElse(null);
+	}
+
+	@Nullable
+	@Override
+	public ICoordBoundItem findCoordBoundItem(ItemStack stack) {
+		return stack.getCapability(BotaniaForgeCapabilities.COORD_BOUND_ITEM).orElse(null);
+	}
+
+	@Nullable
+	@Override
+	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		return be.getCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE).orElse(null);
+	}
+
+	@Nullable
+	@Override
+	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		// todo non-be's need some sort of lookaside registry
+		return be.getCapability(BotaniaForgeCapabilities.HORN_HARVEST).orElse(null);
+	}
+
+	@Nullable
+	@Override
+	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		// todo non-be's need some sort of lookaside registry
+		return be.getCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER).orElse(null);
+	}
+
+	@Nullable
+	@Override
+	public IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+		// todo non-be's need some sort of lookaside registry
+		return be.getCapability(BotaniaForgeCapabilities.WANDABLE).orElse(null);
 	}
 
 	@Override
