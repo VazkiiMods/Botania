@@ -3,8 +3,10 @@ package vazkii.botania.forge.xplat;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerPlayer;
@@ -52,14 +54,17 @@ import net.minecraftforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
 
+import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
+import vazkii.botania.forge.mixin.AccessorRegistry;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -67,6 +72,8 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
@@ -236,6 +243,14 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
 		return IForgeMenuType.create(constructor::apply);
+	}
+
+	@Override
+	public Registry<Brew> createBrewRegistry() {
+		// The registryKey really belongs on ModBrews, but this method is called from there,
+		// so we'd like to avoid the circular dependency.
+		return AccessorRegistry.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
+				LibMisc.MOD_ID + ":fallback", () -> ModBrews.fallbackBrew);
 	}
 
 	@Override

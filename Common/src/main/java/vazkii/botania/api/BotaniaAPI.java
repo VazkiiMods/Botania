@@ -74,7 +74,8 @@ public interface BotaniaAPI {
 
 	/**
 	 * Get the registry for brews.
-	 * Forge documentation: This is purely a read-only wrapper. Register brews using the registry events.
+	 * Forge note: This registry is a vanilla registry, not a Forge one. Use vanilla's
+	 * methods to register to it. Its integer ID's are not synced, as a result.
 	 */
 	default Registry<Brew> getBrewRegistry() {
 		return null;

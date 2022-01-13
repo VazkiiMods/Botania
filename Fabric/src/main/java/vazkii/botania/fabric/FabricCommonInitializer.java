@@ -127,7 +127,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		MinecartComparatorLogicRegistry.register(ModEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 		ModRecipeTypes.registerRecipeTypes(bind(Registry.RECIPE_SERIALIZER));
 		ModSounds.init(bind(Registry.SOUND_EVENT));
-		ModBrews.registerBrews(bind(BotaniaAPI.instance().getBrewRegistry()));
+		ModBrews.registerBrews();
 		ModPotions.registerPotions(bind(Registry.MOB_EFFECT));
 		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(ModBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));

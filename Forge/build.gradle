@@ -26,6 +26,7 @@ mixin {
     add sourceSets.main, "botania.refmap.json"
 
     config "botania_xplat.mixins.json"
+    config "botania_forge.mixins.json"
 }
 
 repositories {
@@ -49,7 +50,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
-            args "-mixin.config=botania_xplat.mixins.json"
+            args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
             mods {
                 botania {
                     source sourceSets.main
@@ -63,7 +64,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
-            args "-mixin.config=botania_xplat.mixins.json"
+            args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
             mods {
                 botania {
                     source sourceSets.main

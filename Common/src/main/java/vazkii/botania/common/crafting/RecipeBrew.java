@@ -154,8 +154,8 @@ public class RecipeBrew implements IBrewRecipe {
 
 		@Override
 		public RecipeBrew fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
-			int intId = buf.readVarInt();
-			Brew brew = BotaniaAPI.instance().getBrewRegistry().byId(intId);
+			var brewId = buf.readResourceLocation();
+			Brew brew = BotaniaAPI.instance().getBrewRegistry().get(brewId);
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
@@ -165,8 +165,8 @@ public class RecipeBrew implements IBrewRecipe {
 
 		@Override
 		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull RecipeBrew recipe) {
-			int intId = BotaniaAPI.instance().getBrewRegistry().getId(recipe.getBrew());
-			buf.writeVarInt(intId);
+			var brewId = BotaniaAPI.instance().getBrewRegistry().getKey(recipe.getBrew());
+			buf.writeResourceLocation(brewId);
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);
