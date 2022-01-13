@@ -49,7 +49,7 @@ public final class ModSounds {
 	public static final SoundEvent divaCharm = makeSoundEvent("diva_charm");
 	public static final SoundEvent divinationRod = makeSoundEvent("divination_rod");
 	public static final SoundEvent enderAirThrow = makeSoundEvent("ender_air_throw");
-	//public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
+	public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
 	public static final SoundEvent equipElementium = makeSoundEvent("equip_elementium");
 	public static final SoundEvent equipManasteel = makeSoundEvent("equip_manasteel");
 	public static final SoundEvent equipManaweave = makeSoundEvent("equip_manaweave");

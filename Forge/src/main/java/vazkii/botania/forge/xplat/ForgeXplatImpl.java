@@ -71,8 +71,10 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
+import vazkii.botania.forge.integration.CurioIntegration;
 import vazkii.botania.forge.mixin.AccessorRegistry;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
@@ -305,6 +307,16 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 		// so we'd like to avoid the circular dependency.
 		return AccessorRegistry.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
 				LibMisc.MOD_ID + ":fallback", () -> ModBrews.fallbackBrew);
+	}
+
+	@Nullable
+	@Override
+	public EquipmentHandler tryCreateEquipmentHandler() {
+		if (IXplatAbstractions.INSTANCE.isModLoaded("curios")) {
+			CurioIntegration.init();
+			return new CurioIntegration();
+		}
+		return null;
 	}
 
 	@Override

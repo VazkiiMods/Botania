@@ -38,6 +38,10 @@ repositories {
         name = "Jared"
         url = "https://maven.blamejared.com/"
     }
+    maven {
+        name = "C4"
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 minecraft {
@@ -85,6 +89,9 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44")
+
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1")
 }
 
 compileJava {

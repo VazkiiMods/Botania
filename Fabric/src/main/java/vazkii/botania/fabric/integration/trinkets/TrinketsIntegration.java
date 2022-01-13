@@ -95,7 +95,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 	}
 
 	@Override
-	protected void registerComponentEvent(Item item) {
+	public void onInit(Item item) {
 		TrinketsApi.registerTrinket(item, WRAPPER);
 		IProxy.INSTANCE.runOnClient(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
 	}

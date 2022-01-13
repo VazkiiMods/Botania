@@ -48,17 +48,13 @@ public abstract class EquipmentHandler {
 		return instance.findItem(pred, living);
 	}
 
-	public static void initBaubleCap(Item item) {
-		instance.registerComponentEvent(item);
-	}
-
 	protected abstract Container getAllWornItems(LivingEntity living);
 
 	protected abstract ItemStack findItem(Item item, LivingEntity living);
 
 	protected abstract ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living);
 
-	protected abstract void registerComponentEvent(Item item);
+	public abstract void onInit(Item item);
 
 	public boolean isAccessory(ItemStack stack) {
 		return ModTags.Items.RODS.contains(stack.getItem()) || stack.getItem() instanceof ItemBauble || stack.getItem() instanceof IManaItem;
@@ -136,7 +132,7 @@ public abstract class EquipmentHandler {
 		}
 
 		@Override
-		protected void registerComponentEvent(Item item) {}
+		public void onInit(Item item) {}
 
 		private static boolean canEquip(ItemStack stack, LivingEntity player) {
 			return stack.getItem() instanceof ItemBauble && ((ItemBauble) stack.getItem()).canEquip(stack, player);

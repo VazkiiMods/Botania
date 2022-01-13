@@ -44,7 +44,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	public ItemBauble(Properties props) {
 		super(props);
-		EquipmentHandler.initBaubleCap(this);
+		EquipmentHandler.instance.onInit(this);
 	}
 
 	@Override
