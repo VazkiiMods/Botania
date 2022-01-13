@@ -46,7 +46,7 @@ minecraft {
 
     runs {
         client {
-            workingDirectory project.file('../run')
+            workingDirectory project.file('run')
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
@@ -60,7 +60,7 @@ minecraft {
         }
 
         server {
-            workingDirectory project.file('../run')
+            workingDirectory project.file('run')
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"

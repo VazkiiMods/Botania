@@ -5,8 +5,10 @@ Thumbs.db
 .gradle
 build
 
-## ForgeGradle
+## Run directories
 /run
+/Forge/run
+/Fabric/run
 
 ## eclipse
 /.settings

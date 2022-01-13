@@ -23,6 +23,11 @@ loom {
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
             vmArg "-Dfabric-api.datagen.strict-validation"
         }
+
+        configureEach {
+            runDir "run"
+            ideConfigGenerated(true)
+        }
     }
 
 }
