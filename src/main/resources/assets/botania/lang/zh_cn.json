@@ -469,11 +469,11 @@
   "botania.challenge.orechid.desc": "建造一套完全自动化的$(l:functional_flowers/orechid)凝矿兰$(/l)系统。如果输出物品能自动烧炼及分类奖励奖励积分。",
 
   "botania.challenge.mobTower": "刷怪塔",
-  "botania.challenge.mobTower.desc": "创建一个塔状的刷怪场。生物必须被分类在特定的各自的区域内。可以使用刷怪笼.如果不需要玩家交互也能达到100%效率奖励积分。",
+  "botania.challenge.mobTower.desc": "创建一个塔状的刷怪场。生物必须被分类在特定的各自的区域内。可以使用刷怪笼。如果不需要玩家交互也能达到100%效率奖励积分。",
   "botania.challenge.entropinnyumSetup": "热爆装置",
   "botania.challenge.entropinnyumSetup.desc": "建造一套自动合成TNT并且安全喂食$(l:generating_flowers/entropinnyum)热爆花$(/l)来生产魔力的系统.如果TNT需求的沙子和火药不需要手动放置奖励积分。",
   "botania.challenge.spectrolusSetup": "斑斓装置",
-  "botania.challenge.spectrolusSetup.desc": "建造一套自动喂食斑斓花来生产魔力的系统。除了最初的魔力外，任何物品不允许从系统外部输入。如果它能以100%效率运行（从不浪费羊毛）奖励积分。",
+  "botania.challenge.spectrolusSetup.desc": "建造一套自动喂食$(l:generating_flowers/spectrolus)斑斓花$(/l)来生产魔力的系统。除了最初的魔力外，任何物品不允许从系统外部输入。如果它能以100%效率运行（从不浪费羊毛）奖励积分。",
   "botania.challenge.shulkMeNotSetup": "勿落草装置",
   "botania.challenge.shulkMeNotSetup.desc": "建造一套利用$(l:generating_flowers/shulk_me_not)勿落草$(/l)来生产魔力的系统，不能从外部输入魔力、物品或任何实体。如果怪物之间没有意外内讧则奖励积分。",
   "botania.challenge.potionBrewer": "自动酿造",
@@ -2166,7 +2166,7 @@
 
   "botania.entry.solegnolia": "弱磁兰",
   "botania.tagline.solegnolia": "创造一个磁化指环无法工作的地方",
-  "botania.page.solegnolia0": "$(l:baubles/magnet_ring)$(item)磁化指环$(0)$(/l)对于搜集材料的人而言十分便利，但这也会让他们陷入另一个麻烦：总是会捡起不需要的物品。$(p)$(item)弱磁兰$(0)会抑制指环的能力并阻止任何物品被佩戴指环的人吸住。这朵花不会消耗任何$(thing)魔力$(0)",
+  "botania.page.solegnolia0": "$(l:baubles/magnet_ring)$(item)磁化指环$(0)$(/l)对于搜集材料的人而言十分便利，但这也会让他们陷入另一个麻烦：总是会捡起不需要的物品。$(p)$(item)弱磁兰$(0)会抑制指环的能力并阻止任何物品被佩戴指环的人吸住。这朵花不会消耗任何$(thing)魔力$(0)。",
   "botania.page.solegnolia1": "开/关",
 
   "botania.entry.bergamute": "消音柑",
@@ -2274,7 +2274,7 @@
 
   "botania.entry.manaEnchanting": "魔力附魔",
   "botania.tagline.manaEnchanting": "利用魔力来附魔工具",
-  "botania.page.manaEnchanting0": "通过利用$(item)魔法水晶$(0)输出的魔法能量，能建造出一个用附魔书无消耗附魔物品的装置，叫做$(item)魔力附魔台$(0).$(p)建造它需要大量的空间和材料。",
+  "botania.page.manaEnchanting0": "通过利用$(item)魔法水晶$(0)输出的魔法能量，能建造出一个用附魔书无消耗附魔物品的装置，叫做$(item)魔力附魔台$(0)。$(p)建造它需要大量的空间和材料。",
   "botania.page.manaEnchanting1": "建造$(item)魔力附魔台$(0)，需要大量空间，17个$(item)黑曜石$(0)块，10个任意颜色的$(item)神秘花$(0)，6个$(item)魔法水晶$(0)和一个$(item)青金石块$(0).$(p)如何组装的说明在后续页面。",
   "botania.page.manaEnchanting2": "魔力附魔台。",
   "botania.page.manaEnchanting5": "摆放完成后，用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右击青金石块附魔台就成型了.$(p)使用附魔台时，需要将要附魔的物品放入附魔台(通过右击)并在黑曜石圈内扔下$(item)附魔$(0)$(item)书$(0)。",
@@ -2442,7 +2442,7 @@
   "botania.entry.craftCrate": "机巧箱",
   "botania.tagline.craftCrate": "自动合成法",
   "botania.page.craftCrate0": "就如它的名字所示，$(item)机巧箱$(0)对应着$(item)花格箱$(0)但它能像$(item)工作台$(0)那样将物品组装成其他物品。$(p)就像$(item)工作台$(0)那样它有9个物品栏，可以将物品在其中摆成指定合成配方。",
-  "botania.page.craftCrate1": "物品排序遵循由左到右由上至下的原则（过会儿会进一步说明），有一个特殊的物品，叫做$(item)合成占$(0)$(item)位符$(0)，放入时，会算作合成中的空位。用于有空槽的合成（比如熔炉，箱子，镐...）。",
+  "botania.page.craftCrate1": "物品排序遵循由左到右由上至下的原则（过会儿会进一步说明），有一个特殊的物品，叫做$(item)合成占位符$(0)，放入时，会算作合成中的空位。用于有空槽的合成（比如熔炉，箱子，镐...）。",
   "botania.page.craftCrate2": "制作合成占位符",
   "botania.page.craftCrate3": "完成合成，一共需要两步。$(p)首先，在9个栏中填满合成所需的物品或占位符就会显示出合成结果，占位符和任何副产物(比如制作蛋糕时的桶)，这就是最简单的方法。",
   "botania.page.craftCrate4": "用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右击这个箱子(注意:$(item)发射器$(0)也能做到)就会开始用其中的物品合成并喷出产物。$(p)如果该过程失败就会直接喷出其中所有的物品。",
@@ -2711,8 +2711,8 @@
 
   "botania.entry.spellCloth": "封印之布",
   "botania.tagline.spellCloth": "消去物品附魔之布",
-  "botania.page.spellCloth0": "将$(item)羊毛$(0)和一些$(thing)魔力$(0)用$(item)魔力珍$(0)$(item)珠$(0)混合，可以创造一种吸收任何与之接触的$(thing)附魔$(0)的布。$(p)将$(item)封印之布$(0)和任何已附魔的物品在合成栏合成会消耗一些布的耐久并移除物品的全部附魔。",
-  "botania.page.spellCloth1": "书里的老东西",
+  "botania.page.spellCloth0": "将$(l:tools/manaweave)$(item)魔源布匹$(0)$(/l)和一些$(l:mana/pool)$(item)魔力珍珠$(0)$(/l)结合，可以创造一种吸收任何与之接触的$(thing)附魔$(0)的布。$(p)将$(item)封印之布$(0)和任何已附魔的物品在合成栏合成会消耗一些布的耐久并移除物品的全部附魔（包括诅咒）。",
+  "botania.page.spellCloth1": "书里最老的东西",
 
   "botania.entry.thornChakram": "荆棘飞轮",
   "botania.tagline.thornChakram": "反弹与剧毒之飞轮",
@@ -3071,8 +3071,8 @@
 
   "botania.entry.itemFinder": "寻物者",
   "botania.tagline.itemFinder": "从世间寻找追求之物",
-  "botania.page.itemFinder0": "$(item)寻物者$(0)是一个增强穿戴者对世界感知能力的头饰。当你手持某个物品，任何有同种物品的$(thing)容器$(0)(箱子，矿车，带箱子的驴，熔炉等等...)，同种物品的$(thing)掉落物$(0)，装备该物品的$(thing)怪物$(0)$(o)(...)$(0)",
-  "botania.page.itemFinder1": "$(o)(...)$(0)物品栏拥有该物品的$(thing)玩家$(0)和有与该物品相关交易的$(thing)村民$(0)都会闪烁着彩光，使他们更容易被认出。$(p)而潜行时，穿戴者附近所有的掉落物品都会发光，不管是什么种类。",
+  "botania.page.itemFinder0": "$(item)寻物者$(0)是一个增强穿戴者对世界感知能力的头饰。当你手持某个物品，任何有同种物品的$(thing)容器$(0)（箱子，矿车，带箱子的驴，熔炉等等...），同种物品的$(thing)掉落物$(0)，装备该物品的$(thing)怪物$(0)$(o)(...)$(0)",
+  "botania.page.itemFinder1": "(...)$(0)物品栏拥有该物品的$(thing)玩家$(0)和有与该物品相关交易的$(thing)村民$(0)都会闪烁着彩光，使他们更容易被认出。$(p)而潜行时，穿戴者附近所有的掉落物品都会发光，不管是什么种类。",
   "botania.page.itemFinder2": "你听见它们的细语了么？",
 
   "botania.entry.superLavaPendant": "绯红项链",
@@ -3383,7 +3383,7 @@
   "botania.subtitle.unholyCloak": "罪恶斗篷：激活",
 
   "botania.entry.corporeaBlock": "多媒体装饰方块",
-  "botania.page.corporeaBlock0": "普通的$(thing)活石砖$(0)能与一个$(thing)多媒体火花$(0)结合成为一些装饰性方块。除了作为装饰以外，这些方块，即便不能容纳物品，也还可以承载$(thing)多媒体火花$(0)。因此它们可以用来将你的$(thing)多媒体$(0)网络延申很长距离。",
+  "botania.page.corporeaBlock0": "普通的$(thing)活石砖$(0)能与一个$(thing)多媒体火花$(0)结合成为一些装饰性方块。除了作为装饰以外，这些方块，即便不能容纳物品，也还可以承载$(thing)多媒体火花$(0)。因此它们可以用来将你的$(thing)多媒体$(0)网络延伸很长距离。",
   "botania.page.corporeaBlock1": "少媒体",
 
   "botania.subtitle.arcane_rose_disenchant": "阿卡纳蔷薇：吸收",
