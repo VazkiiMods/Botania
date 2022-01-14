@@ -5,6 +5,7 @@
   "package": "vazkii.botania.forge.mixin",
   "mixins": [
     "AccessorRegistry",
+    "ForgeAccessorAbstractFurnaceBlockEntity",
     "MixinItemBauble"
   ],
   "client": [

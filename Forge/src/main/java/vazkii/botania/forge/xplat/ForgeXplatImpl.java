@@ -3,6 +3,7 @@ package vazkii.botania.forge.xplat;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -33,9 +34,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -83,6 +86,7 @@ import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AccessorRegistry;
+import vazkii.botania.forge.mixin.ForgeAccessorAbstractFurnaceBlockEntity;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -389,5 +393,10 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
 		return EntityTypeTags.createOptional(id);
+	}
+
+	@Override
+	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+		return ((ForgeAccessorAbstractFurnaceBlockEntity) furnace).callCanBurn(recipe, items, maxStackSize);
 	}
 }

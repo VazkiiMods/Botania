@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -53,8 +54,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -83,6 +86,7 @@ import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
+import vazkii.botania.fabric.mixin.FabricAccessorAbstractFurnaceBlockEntity;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.network.clientbound.*;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -440,5 +444,10 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
 		return TagFactory.ENTITY_TYPE.create(id);
+	}
+
+	@Override
+	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+		return FabricAccessorAbstractFurnaceBlockEntity.callCanBurn(recipe, items, maxStackSize);
 	}
 }

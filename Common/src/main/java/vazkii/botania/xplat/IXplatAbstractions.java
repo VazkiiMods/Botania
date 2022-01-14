@@ -1,6 +1,7 @@
 package vazkii.botania.xplat;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -26,8 +27,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -137,6 +140,8 @@ public interface IXplatAbstractions {
 	Tag.Named<Block> blockTag(ResourceLocation id);
 	Tag.Named<Item> itemTag(ResourceLocation id);
 	Tag.Named<EntityType<?>> entityTag(ResourceLocation id);
+	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
+	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
 
 	IXplatAbstractions INSTANCE = find();
 
