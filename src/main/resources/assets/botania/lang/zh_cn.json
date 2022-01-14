@@ -835,7 +835,7 @@
   "block.botania.ghost_rail": "幻影轨道",
   "block.botania.spark_changer": "火花工匠台",
   "block.botania.root": "活根",
-  "block.botania.fel_pumpkin": "恶魔头南瓜",
+  "block.botania.fel_pumpkin": "恶魔南瓜头",
   "block.botania.cocoon": "随想之茧",
   "block.botania.light_relay": "微光",
   "block.botania.detector_light_relay": "探测微光",
@@ -1866,8 +1866,8 @@
   "botania.entry.sparks": "火花",
   "botania.tagline.sparks": "简单迅速的短距离魔力传输",
   "botania.page.sparks0": "$(item)火花$(0)是种有趣的实体，它由纯粹的能量与$(thing)魔力$(0)结合而生。能被置于个别容纳或是接收$(thing)魔力$(0)的方块（比如$(l:mana/pool)$(item)魔力池$(0)$(/l)）上方。$(p)有些方块能利用来自$(item)火花$(0)的魔力，但它们的用途现在仍是十分有限的样子。",
-  "botania.page.sparks1": "将两个$(item)火花$(0)分别放置于一个$(l:mana/pool)$(item)魔力池$(0)$(/l)和另一个能接受火花魔力的方块上方便组成了$(item)火花魔力网$(0)。只要它们不要离得太远，后者在需要能量时就能直接使用存储于该$(l:mana/pool)$(item)魔力池$(0)$(/l)中的魔力。$(p)要移除$(l:mana/sparks)$(item)火花$(0)$(/l)，只需手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右击之，右击之则会显示与之配对的$(l:mana/sparks)$(item)火花$(0)$(/l)。",
-  "botania.page.sparks3": "火花可以使用$(item)染料$(0)染色。两种不同颜色的火花不会互相关联。要是$(l:mana/sparks)$(item)火花$(0)$(/l)看上去过于耀眼，可以撒些$(l:misc/phantom_ink)$(item)幻影墨水$(0)$(/l)使得目标$(l:mana/sparks)$(item)火花$(0)$(/l)变得透明。这不会消耗墨水。",
+  "botania.page.sparks1": "将两个$(item)火花$(0)分别放置于一个$(l:mana/pool)$(item)魔力池$(0)$(/l)和另一个能接受火花魔力的方块上方便组成了$(item)火花魔力网$(0)。只要它们不要离得太远，后者在需要能量时就能直接使用存储于该$(l:mana/pool)$(item)魔力池$(0)$(/l)中的魔力。$(p)要移除$(item)火花$(0)，只需手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右击之，右击之则会显示与之配对的$(item)火花$(0)。",
+  "botania.page.sparks3": "火花可以使用$(item)染料$(0)染色。两种不同颜色的火花不会互相关联。要是$(item)火花$(0)看上去过于耀眼，可以撒些$(l:misc/phantom_ink)$(item)幻影墨水$(0)$(/l)使得目标$(item)火花$(0)变得透明。这不会消耗墨水。",
   "botania.page.sparks2": "$(o)举起叉勺$(0)",
 
   "botania.entry.sparkUpgrades": "火花升级",
@@ -2490,13 +2490,13 @@
 
   "botania.entry.avatar": "活木化身",
   "botania.tagline.avatar": "方块中的法杖",
-  "botania.page.avatar0": "将$(l:basics/pure_daisy)$(item)活木$(0)$(/l)雕刻成形并用$(item)魔力钻石$(0)作为其心脏，这样便制作了一个名为$(item)活木化身$(0)的著名设备。它本身并不能做任何事情——除了看起来十分可爱$(p)然而，只要给它一根$(thing)法杖$(0)就能让他施展各种的魔法，这取决于给它法杖的类型。当然，它所需的$(thing)魔力$(0)由发射器供给。",
-  "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(item)天空法杖$(0)，$(item)地狱法杖$(0)以及$(item)彩虹桥法杖$(0)。",
+  "botania.page.avatar0": "将$(l:basics/pure_daisy)$(item)活木$(0)$(/l)雕刻成形并用$(l:mana/pool)$(item)魔力钻石$(0)$(/l)作为其心脏，这样便制作了一个名为$(item)活木化身$(0)的著名设备。它本身并不能做任何事情 - 除了看起来十分可爱。$(p)然而，只要给它一根$(thing)法杖$(0)就能让他施展各种的魔法，这取决于给它法杖的类型。当然，它所需的$(thing)魔力$(0)由发射器供给。",
+  "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(l:tools/tornado_rod$(item)天空法杖$(0)(/l)，$(l:tools/fire_rod)$(item)地狱法杖$(0)$(/l)以及$(l:tools/divining_rod)$(item)彩虹桥法杖$(0)$(/l)。$(p)给化身一个红石信号会阻止它使用法杖。",
   "botania.page.avatar2": "但它有番剧吗？",
 
-  "botania.entry.felPumpkin": "恶魔头南瓜",
+  "botania.entry.felPumpkin": "恶魔南瓜头",
   "botania.tagline.felPumpkin": "生成烈焰人的南瓜",
-  "botania.page.felPumpkin0": "朝$(item)南瓜$(0)里注入怪物疯狂的精神就能制作$(item)恶魔头南瓜$(0)。将这个邪恶南瓜放在两个竖直放置的$(item)铁栏杆$(0)上，这有点像制作$(item)雪傀儡$(0)，但它会生成烈焰人$(0)。$(p)以这种方式生成的$(item)烈焰人$(0)显然只能掉落合理数量的$(item)烈焰粉$(0)而不是一小撮$(item)烈焰棒$(0)。",
+  "botania.page.felPumpkin0": "朝$(item)南瓜$(0)里注入怪物疯狂的精神就能制作$(item)恶魔南瓜头$(0)。将这个邪恶南瓜放在两个竖直放置的$(item)铁栏杆$(0)上，这有点像制作$(item)雪傀儡$(0)，但它会生成烈焰人$(0)。$(p)以这种方式生成的$(item)烈焰人$(0)显然只能掉落合理数量的$(item)烈焰粉$(0)而不是一小撮$(item)烈焰棒$(0)。",
   "botania.page.felPumpkin1": "再次削弱魔法使们",
 
   "botania.entry.animatedTorch": "活化红石火把",
