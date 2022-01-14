@@ -3286,7 +3286,7 @@
   "botania.page.headCreating1": "在游戏中获得你的头",
 
   "botania.entry.azulejo": "阿兹勒赫瓷砖",
-  "botania.tagline.azulejo": "蓝白胖次(装饰)方块",
+  "botania.tagline.azulejo": "蓝白装饰方块",
   "botania.page.azulejo0": "$(item)阿兹勒赫瓷砖$(0)是种装饰方块，它们是被摹制了蓝白相间花纹的瓷砖。要制作它们，只需要一些$(item)青金石$(0)和一个$(item)石英块$(0)即可。$(p)之后，再将它放入合成栏就可以在12种不同的样式之间切换。",
   "botania.page.azulejo1": "花样的图案",
   "botania.page.azulejo2": "制作一个$(item)阿兹勒赫瓷砖$(0)",
@@ -3299,7 +3299,7 @@
 
   "botania.entry.mushrooms": "微光蘑菇",
   "botania.tagline.mushrooms": "摸起来粘粘的，但不会让你恶心",
-  "botania.page.mushrooms0": "在$(item)蘑菇上$(0)撒些$(item)花粉$(0)看起来会起到有趣的效果，它们会变异成相应的颜色并获得新的性状和发出微弱光亮的能力。除了看上去有趣就没什么用了。$(p)它们也有可能在偏远区域的地下深处被发现。",
+  "botania.page.mushrooms0": "在$(item)蘑菇上$(0)撒些$(item)染料$(0)看起来会起到有趣的效果，它们会变异成相应的颜色并获得新的性状和发出微弱光亮的能力。此外，它们还能代替$(l:basics/flowers)$(item)神秘花瓣$(0)$(/l)用于合成。$(p)它们也有可能在偏远区域的地下深处被发现。",
   "botania.page.mushrooms1": "这些蘑菇不会让你变大",
 
   "botania.entry.phantomInk": "幻影墨水",
@@ -3393,7 +3393,7 @@
   "botania.subtitle.doit": "DO IT!!",
   "botania.subtitle.drum": "鼓：咚咚",
   "botania.subtitle.enderAirThrow": "瓶装末地空气：扔出",
-  "botania.subtitle.entropinnyumAngry": "热爆花：不满",
+  "botania.subtitle.entropinnyumAngry": "热爆花：生气",
   "botania.subtitle.entropinnyumHappy": "热爆花：湮灭",
   "botania.subtitle.equipElementium": "源质钢盔甲：铿锵",
   "botania.subtitle.equipManasteel": "魔钢盔甲：铿锵",
@@ -3417,8 +3417,8 @@
   "botania.subtitle.shulkMeNot": "勿落草：爆炸",
   "botania.subtitle.smeltRod": "炽心法杖：烧炼",
   "botania.subtitle.smeltRodSimmer": "炽心法杖：噼啪作响",
-  "botania.subtitle.spreaderCover": "魔力发射器：覆盖",
-  "botania.subtitle.spreaderUncover": "魔力发射器：取下",
+  "botania.subtitle.spreaderCover": "魔力发射器：套上羊毛",
+  "botania.subtitle.spreaderUncover": "魔力发射器：取下羊毛",
   "botania.subtitle.temperanceStoneConfigure": "节制之石：叮咚",
   "botania.subtitle.thornChakramThrow": "荆棘飞轮：投掷",
   "botania.subtitle.tigerseyePacify": "虎之眼：恐吓",
