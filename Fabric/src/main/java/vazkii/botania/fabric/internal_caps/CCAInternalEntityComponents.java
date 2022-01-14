@@ -8,6 +8,7 @@
  */
 package vazkii.botania.fabric.internal_caps;
 
+import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
@@ -20,16 +21,17 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.internal_caps.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class CCAInternalEntityComponents implements EntityComponentInitializer {
-	public static final ComponentKey<CCALooniumComponent> LOONIUM_DROP = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("loonium_drop"), CCALooniumComponent.class);
 	public static final ComponentKey<CCAEthicalComponent> TNT_ETHICAL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("tnt_ethical"), CCAEthicalComponent.class);
-	public static final ComponentKey<CCANarslimmusComponent> NARSLIMMUS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("narslimmus"), CCANarslimmusComponent.class);
-	public static final ComponentKey<CCAItemFlagsComponent> INTERNAL_ITEM = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("iitem"), CCAItemFlagsComponent.class);
 	public static final ComponentKey<CCAGhostRailComponent> GHOST_RAIL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("ghost_rail"), CCAGhostRailComponent.class);
+	public static final ComponentKey<CCAItemFlagsComponent> INTERNAL_ITEM = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("iitem"), CCAItemFlagsComponent.class);
 	public static final ComponentKey<CCAKeptItemsComponent> KEPT_ITEMS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("kept_items"), CCAKeptItemsComponent.class);
+	public static final ComponentKey<CCALooniumComponent> LOONIUM_DROP = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("loonium_drop"), CCALooniumComponent.class);
+	public static final ComponentKey<CCANarslimmusComponent> NARSLIMMUS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("narslimmus"), CCANarslimmusComponent.class);
 	public static final ComponentKey<CCATigerseyeComponent> TIGERSEYE = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("tigerseye_pacified"), CCATigerseyeComponent.class);
 
 	@Override
@@ -45,5 +47,29 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 		registry.registerFor(Creeper.class, TIGERSEYE, creeper -> new CCATigerseyeComponent());
 		// Never copy as we handle it ourselves in ItemKeepIvy.onPlayerRespawn
 		registry.registerForPlayers(KEPT_ITEMS, e -> new CCAKeptItemsComponent(), RespawnCopyStrategy.NEVER_COPY);
+	}
+
+	private static class CCAEthicalComponent extends EthicalComponent implements Component {
+		public CCAEthicalComponent(PrimedTnt entity) {
+			super(entity);
+		}
+	}
+
+	private static class CCAGhostRailComponent extends GhostRailComponent implements Component {
+	}
+
+	private static class CCAItemFlagsComponent extends ItemFlagsComponent implements Component {
+	}
+
+	private static class CCAKeptItemsComponent extends KeptItemsComponent implements Component {
+	}
+
+	private static class CCALooniumComponent extends LooniumComponent implements Component {
+	}
+
+	private static class CCANarslimmusComponent extends NarslimmusComponent implements Component {
+	}
+
+	private static class CCATigerseyeComponent extends TigerseyeComponent implements Component {
 	}
 }

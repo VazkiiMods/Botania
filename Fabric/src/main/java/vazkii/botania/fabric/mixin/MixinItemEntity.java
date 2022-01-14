@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.UUID;
 
@@ -66,6 +66,6 @@ public class MixinItemEntity {
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		CCAInternalEntityComponents.INTERNAL_ITEM.get(self).tick();
+		IXplatAbstractions.INSTANCE.itemFlagsComponent(self).tick();
 	}
 }
