@@ -5,6 +5,8 @@
   "_comment3": "Copying English entries will cause them to become outdated when the main English lang file changes",
   "_comment4": "Untranslated entries will automatically be inherited from en_US",
   "_comment5": "Once again， don't copy from English， and THANK YOU for your hard work!",
+  "_comment6": "请翻译者注意替换全半角标点，包括“,”和“，”、“.”和“。”、“?”和“？”、以及“!”和“！”等。同时，请注意将排列句式中的英文逗号改为顿号。感谢您的贡献。",
+
   "itemGroup.botania": "植物魔法",
   "botania.landing": "魔法，自然也是科技。$(br2)植物魔法是一个以自然魔法为主题的科技Mod，主要通过使用魔法花朵和装置来运用大地之中的$(thing)魔力$()。",
   "botania.desc": "这里便是植物魔法的描述。",
@@ -29,8 +31,8 @@
   "botaniamisc.filter0": "只拾取物品展示框内物品",
   "botaniamisc.filter1": "只拾取物品展示框以外物品",
   "botaniamisc.filter2": "拾取所有物品",
-
-
+  "botaniamisc.retainer.retain_all": "保存请求的原始物品数目",
+  "botaniamisc.retainer.retain_missing": "保存缺失的物品数目",
 
   "botaniamisc.creativePool0": "创造模式魔力池，拥有无限魔力",
   "botaniamisc.creativePool1": "创造模式独享",
@@ -68,10 +70,10 @@
   "botaniamisc.nearIndex1": "你所说的一切都会被",
   "botaniamisc.nearIndex2": "当做请求发送给索引",
   "botaniamisc.cosmeticBauble": "装饰品",
-  "botaniamisc.cosmeticThinking": "真是深奥呢",
+  "botaniamisc.cosmeticThinking": "令人深思",
   "botaniamisc.hasCosmetic": "装饰品: %s",
   "botaniamisc.hasPhantomInk": "被幻影药水染色",
-  "botaniamisc.pinkinatorDesc": "直接对凋零使用",
+  "botaniamisc.pinkinatorDesc": "直接对凋灵使用",
   "botaniamisc.relicUnbound": "\u00a76遗物\u00a77，未绑定",
   "botaniamisc.relicSoulbound": "\u00a76遗物\u00a77，灵魂绑定至\u00a7f%s",
   "botaniamisc.notYourSagittarius": "\u00a74该遗物不属于你",
@@ -1885,7 +1887,7 @@
   "botania.entry.manaVoid": "魔力销毁器",
   "botania.tagline.manaVoid": "销毁一切进来的魔力",
   "botania.page.manaVoid0": "简单来说，$(item)魔力销毁器$(0)是$(thing)魔力$(0)的垃圾桶。所有进入这个方块的$(thing)魔力$(0)都会被虚空永远地吞噬。$(p)在$(l:mana/pool)$(item)魔力池$(0)$(/l)下方放一个这个，就可以让池子在完全注满时也能继续接收（并销毁）多余的$(thing)魔力$(0)。",
-
+  "botania.page.manaVoid1": "Even Chad from accounting?",
 
   "botania.entry.rfGenerator": "魔力转换器",
   "botania.tagline.rfGenerator": "将魔力转化为能量",
@@ -2312,11 +2314,13 @@
   "botania.page.manaAlchemy20": "将$(item)圆石$(0)粉碎成$(item)沙子$(0)",
   "botania.page.manaAlchemy21": "将$(item)硬化粘土$(0)变成$(item)红沙$(0)",
   "botania.page.manaAlchemy22": "粉碎$(item)粘土$(0)$(item)和砖块$(0)",
-  "botania.page.manaAlchemy27": "将$(item)紫颂果$(0)转化为$(item)紫颂花$(0)",
   "botania.page.manaAlchemy23": "制作$(item)劣质土$(0)",
   "botania.page.manaAlchemy24": "$(item)草类$(0)的转化",
   "botania.page.manaAlchemy25": "寻常花的转化",
   "botania.page.manaAlchemy26": "石头的转化",
+  "botania.page.manaAlchemy27": "将$(item)紫颂果$(0)转化为$(item)紫颂花$(0)",
+  "botania.page.manaAlchemy28": "$(item)苹果$(0)和$(item)莓果$(0)的转化",
+
 
 
   "botania.entry.brewery": "植物酿造",
@@ -2395,24 +2399,24 @@
   "botania.entry.openCrate": "花格箱",
   "botania.tagline.openCrate": "物品掉落的简易方式",
   "botania.page.openCrate0": "有时像$(item)漏斗$(0)和$(item)发射器$(0)这样的装置不够快。一个简单的解决方案就是制作一个花格箱然后在底部开洞。$(p)是的，就是这么简单。$(item)花格箱$(0)接收来自$(item)漏斗$(0)或其他途径输送的物品，而且显然，从下面直接漏出物品。",
-  "botania.page.openCrate1": "$(item)花格箱$(0)一个有趣的效果就是，输入红石信号时，它输出的所有物品都比平常多10秒不会被$(item)漏斗花$(0)，$(item)手掌花$(0)和$(item)畜牧花$(0)捡走。",
+  "botania.page.openCrate1": "$(item)花格箱$(0)一个有趣的效果就是，输入红石信号时，它输出的所有物品都比平常多10秒不会被$(l:functional_flowers/hopperhock)$(item)漏斗花$(0)$(/l)、$(l:functional_flowers/rannuncarpus)$(item)手掌花$(0)$(/l)、和$(l:functional_flowers/pollidisiac)$(item)畜牧花$(0)$(/l)捡走。",
   "botania.page.openCrate2": "一个精妙的箱子",
 
   "botania.entry.forestDrum": "狂野之鼓",
   "botania.tagline.forestDrum": "用魔力脉冲的力量将植物连根拔起",
-  "botania.page.forestDrum0": "$(item)狂野之鼓$(0)通俗说，就是打击乐器版的$(item)狂野号角$(0)。它与手持的号角有相同的功能，但是放置在地上的。$(p)要击响它破坏附近的花草，需要向它发射一道$(thing)魔力脉冲$(0)。",
-  "botania.page.forestDrum1": "注意鼓本身并不存储魔力，然而，为了触发它，需要$(item)红石魔$(0)$(item)力发射器$(0)或是$(item)魔力脉冲$(0)。",
+  "botania.page.forestDrum0": "$(item)狂野之鼓$(0)通俗说，就是打击乐器版的$(l:tools/grass_horn)$(item)狂野号角$(0)$(/l)。它与手持的号角有相同的功能，但是放置在地上的。$(p)要击响它破坏附近的花草，需要向它发射一道$(thing)魔力脉冲$(0)。",
+  "botania.page.forestDrum1": "注意鼓本身并不存储魔力，为了触发它，就需要使用$(l:mana/redstone_spreader)$(item)红石魔力发射器$(0)$(/l)或是$(l:tools/mana_blaster)$(item)魔力脉冲枪$(0)$(/l)之类的东西。",
   "botania.page.forestDrum2": "但如果你闭上了眼睛...",
 
   "botania.entry.platform": "奥秘平台",
   "botania.tagline.platform": "可以穿过的伪装平台",
   "botania.page.platform0": "将$(l:basics/pure_daisy)$(item)活木$(0)$(/l)摆成一个十分特殊的形式能做出一种平台，对它上方未潜行的人来说才有碰撞箱。而对于其他人，就好像不在那儿一样。$(thing)魔力脉冲$(0)总能无阻碍的穿过它。$(p)也可以通过右击将它伪装成其他方块。",
   "botania.page.platform2": "用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右击一个已设定的平台会将与其相连的平台都变为所点平台的设定方块，shift右击则会移除所有的设定。",
-  "botania.page.platform1": "本因叫虚无平台的但名字被取过了(神秘工匠)",
+  "botania.page.platform1": "本因叫虚无平台的但名字被取过了",
 
   "botania.entry.manaConjuration": "魔力炼造",
   "botania.tagline.manaConjuration": "用魔力复制你的资源",
-  "botania.page.manaConjuration0": "类似$(thing)魔力炼金$(0)的能力，也存在着$(thing)炼造$(0)的催化器，只利用魔法能量制作材料的魔法。工作的机制类似$(item)炼金催化器$(0)，向下方有催化器的池子投掷物品。",
+  "botania.page.manaConjuration0": "类似$(thing)魔力炼金$(0)的能力，也存在着$(thing)炼造$(0)的催化器，只利用魔法能量制作材料的魔法。类似$(l:devices/mana_alchemy)$(item)炼金催化器$(0)$(/l)，只要将炼造器置于$(l:mana/pool)$(item)魔力池$(0)$(/l)下方，再投掷物品即可。",
   "botania.page.manaConjuration1": "制作催化器",
   "botania.page.manaConjuration2": "炼造$(item)红石$(0)",
   "botania.page.manaConjuration3": "炼造$(item)萤石$(0)",
@@ -2427,12 +2431,12 @@
 
   "botania.entry.spectralPlatform": "幻影平台",
   "botania.tagline.spectralPlatform": "没有实体的伪装平台",
-  "botania.page.spectralPlatform0": "$(item)幻影平台$(0)可不是$(item)奥秘平台$(0)那样的。$(item)奥秘平台$(0)在有些情况下会有碰撞箱，而$(item)幻影平台$(0)则可让一切穿过，不管在什么位置。",
+  "botania.page.spectralPlatform0": "$(item)幻影平台$(0)可不是$(l:devices/platform)$(item)奥秘平台$(0)$(/l)那样的。$(l:devices/platform)$(item)奥秘平台$(0)$(/l)在有些情况下会有碰撞箱，而$(item)幻影平台$(0)则可让一切穿过，不管在什么位置。",
   "botania.page.spectralPlatform1": "这让我想起了一个谜题",
 
   "botania.entry.gatherDrum": "收集之鼓",
   "botania.tagline.gatherDrum": "用魔力剪羊毛挤牛奶",
-  "botania.page.gatherDrum0": "所谓的$(item)收集之鼓$(0)，短期来说，就是一个为牲畜而准备的$(item)狂野$(0)$(item)之鼓$(0)。$(p)当有$(thing)魔力脉冲$(0)撞上它时，它会给周围长毛的$(thing)羊$(0)剪毛。所有的$(thing)牛$(0)，下方若有$(item)空桶$(0)的话，牛奶就会被装入桶中。",
+  "botania.page.gatherDrum0": "所谓的$(item)收集之鼓$(0)，本质上就是一个为牲畜而准备的$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)。$(p)当有$(thing)魔力脉冲$(0)撞上它时，它会给周围长毛的$(thing)羊$(0)剪毛。所有的$(thing)牛$(0)，下方若有$(item)空桶$(0)的话，牛奶就会被装入桶中。",
   "botania.page.gatherDrum1": "轻叩你的土地",
 
   "botania.entry.craftCrate": "机巧箱",
@@ -2454,19 +2458,19 @@
   "botania.page.hourglass1": "沙漏自身有一个物品栏，可通过右击存入最多1组$(item)沙子$(0)，$(item)红$(0)$(item)沙$(0)或$(item)灵魂沙$(0)。再次右击就会取出。放入沙子后，它们就会流向沙漏的另一端，全部流下时输出一个红石脉冲并颠倒沙漏，重置整个计时。",
   "botania.page.hourglass2": "每道脉冲的间隔时间取决于使用的沙子数量和种类。普通的$(item)沙子$(0)每个计做1秒，$(item)红沙$(0)每个计做10秒，$(item)灵魂沙$(0)每个计做1分钟。各种沙子不能混合使用。手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)指向沙漏方块可以查看每次脉冲的间隔时间。",
   "botania.page.hourglass3": "注意沙子是一次性加入的，因此你必须在自己的物品栏内设定好所需的数量。$(p)不能向已有沙子的沙漏内添入新的沙子，否则就会移除之前加入的沙子。沙漏内的沙子可以通过$(item)漏斗$(0)和其他途径取出或添入。",
-  "botania.page.hourglass4": "用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右击则会将它锁定(或解锁)。锁定时，无法添加或移除沙子，以免有人不小心右击到。$(p)如果一道$(thing)魔力脉冲$(0)击中该方块，则会让沙子停止流动，再次击中则会继续流动。",
-  "botania.page.hourglass6": "除了各式沙子，沙漏还可以使用$(item)魔力尘$(0)。魔力尘会让沙漏摇身一变变成$(thing)计数器$(0)。$(p)作为计数器，沙漏不再每隔一段时间翻转一次，而是在有$(thing)魔力脉冲$(0)碰到沙漏时才翻转一次。举例:若沙漏中有十份魔力尘，则沙漏需要被魔力脉冲击中十次才会翻转一次。",
+  "botania.page.hourglass4": "用$(l:basics/wand)$(item)森林法杖$(0)$(/l)右击则会将它锁定（或解锁）。锁定时，无法添加或移除沙子，以免有人不小心右击到。$(p)如果一道$(thing)魔力脉冲$(0)击中该方块，则会让沙子停止流动，再次击中则会继续流动。",
+  "botania.page.hourglass6": "除了各式沙子，沙漏还可以使用$(l:mana/pool)$(item)魔力尘$(0)$(/l)。魔力尘会让沙漏摇身一变变成$(thing)计数器$(0)。$(p)作为计数器，沙漏不再每隔一段时间翻转一次，而是在有$(thing)魔力脉冲$(0)碰到沙漏时才翻转一次。举例:若沙漏中有十份魔力尘，则沙漏需要被魔力脉冲击中十次才会翻转一次。",
   "botania.page.hourglass5": "时光之沙",
 
   "botania.entry.ghostRail": "幻影轨道",
   "botania.tagline.ghostRail": "让矿车飞一会儿",
   "botania.page.ghostRail0": "将$(item)铁轨$(0)铺在$(item)幻影平台$(0)上会给经过其上的$(item)矿车$(0)附加有趣的能力:当它驶过这段轨道时，矿车会略微的浮空，此时它也能穿墙而过。$(p)该效果会在矿车着陆于另一段铁轨或撞上$(item)梦之木$(0)一类的方块时消失。",
-  "botania.page.ghostRail1": "你可以称它:灵魂轨迹",
+  "botania.page.ghostRail1": "你可以说它是灵魂铁轨",
 
   "botania.entry.canopyDrum": "林冠之鼓",
   "botania.tagline.canopyDrum": "用魔力破坏叶子",
-  "botania.page.canopyDrum0": "$(item)林冠之鼓$(0)就像$(item)狂野之鼓$(0)一样，不过它所用的是$(item)林冠号角$(0)。它的功能和手持的号角相同，不过它需要放置下来。$(p)若要让它发出振动破坏周围的树叶，你需要向其发射一道$(thing)魔力脉冲$(0)。",
-  "botania.page.canopyDrum1": "鼓本身不会储存魔力，因此激活它就需要一个$(item)红石魔力发$(0)$(item)射器$(0)或$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)。",
+  "botania.page.canopyDrum0": "$(item)林冠之鼓$(0)就像$(l:devices/forest_drum)$(item)狂野之鼓$(0)$(/l)一样，不过它所用的是$(item)林冠号角$(0)。它的功能和手持的号角相同，不过它需要放置下来。$(p)若要让它发出振动破坏周围的树叶，你需要向其发射一道$(thing)魔力脉冲$(0)。",
+  "botania.page.canopyDrum1": "粉红色的鼓",
 
   "botania.entry.cocoon": "随想之茧",
   "botania.tagline.cocoon": "孵化属于你的动物",
@@ -2482,13 +2486,13 @@
   "botania.entry.teruTeruBozu": "晴天娃娃",
   "botania.tagline.teruTeruBozu": "天气控制以及超人的可爱",
   "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，众所周知，是一种驱散坏天气的护身符。简单地制作一个并将它放在世界上能够减少$(item)雨$(0)或$(item)雷暴s$(0)持续的时间。坏天气的时候，拿着$(item)向日葵$(0)右击他或朝他投掷向日葵会让晴天再临。给予一个$(item)红石比较器$(0)能够让他检测坏天气。",
-  "botania.page.teruTeruBozu1": "虽然很吓人但是好萌啊",
+  "botania.page.teruTeruBozu1": "太阳花又有什么特别的了？",
 
   "botania.entry.avatar": "活木化身",
   "botania.tagline.avatar": "方块中的法杖",
   "botania.page.avatar0": "将$(l:basics/pure_daisy)$(item)活木$(0)$(/l)雕刻成形并用$(item)魔力钻石$(0)作为其心脏，这样便制作了一个名为$(item)活木化身$(0)的著名设备。它本身并不能做任何事情——除了看起来十分可爱$(p)然而，只要给它一根$(thing)法杖$(0)就能让他施展各种的魔法，这取决于给它法杖的类型。当然，它所需的$(thing)魔力$(0)由发射器供给。",
   "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(item)天空法杖$(0)，$(item)地狱法杖$(0)以及$(item)彩虹桥法杖$(0)。",
-  "botania.page.avatar2": "但不是番剧吗？",
+  "botania.page.avatar2": "但它有番剧吗？",
 
   "botania.entry.felPumpkin": "恶魔头南瓜",
   "botania.tagline.felPumpkin": "生成烈焰人的南瓜",
@@ -2504,9 +2508,9 @@
 
   "botania.entry.manaBlaster": "魔力脉冲枪",
   "botania.tagline.manaBlaster": "便携式魔力发射器，有透镜的！",
-  "botania.page.manaBlaster0": "$(item)魔力脉冲枪$(0)就像是个便携的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)，性状做成了手枪一样便于使用，但并不是真的枪，它只是个便携式的发射器。$(p)通过使用使用者物品栏的$(thing)魔$(0)$(thing)力携带品$(0)里的$(thing)魔力$(0)，它能朝所看方向射出一道魔力脉冲。",
+  "botania.page.manaBlaster0": "$(item)魔力脉冲枪$(0)就像是个便携的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)，性状做成了手枪一样便于使用，但并不是真的枪，它只是个便携式的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)。$(p)通过使用使用者物品栏的$(thing)魔力携带品$(0)里的$(thing)魔力$(0)，它能朝所看方向射出一道魔力脉冲。",
   "botania.page.manaBlaster1": "这种脉冲不同于魔力发射器里发出的，它更快，但只有前者四分之三的魔力量。在发射后也只有短暂的冷却时间。",
-  "botania.page.manaBlaster2": "$(item)魔力透镜$(0)也对脉冲枪有效，安装的话，只要将它们放入工作台合成就可以，取下透镜只需把枪放回合成栏。",
+  "botania.page.manaBlaster2": "$(l:mana/lens)$(item)魔力透镜$(0)$(/l)也对脉冲枪有效，安装的话，只要将它们放入工作台合成就可以，取下透镜只需把枪放回合成栏。",
   "botania.page.manaBlaster3": "我们要更猛的枪",
 
   "botania.entry.grassSeeds": "草地之种",
@@ -2534,10 +2538,11 @@
   "botania.entry.manaGear": "魔钢装备",
   "botania.tagline.manaGear": "用魔力自我维护的铁制工具",
   "botania.page.manaGear0": "$(item)魔钢$(0)，和其他金属一样，能做成类似的工具和护甲。$(p)这种金属制作的工具和护甲会保有$(item)铁$(0)的性能，但附魔能力和耐久度优越。当$(item)魔钢$(0)制品受损时，如果物品栏中有可用的$(thing)魔力$(0)(比如$(item)魔力石板$(0))，就会优先消耗魔力。",
-  "botania.page.manaGear10": "部分工具在右击时有特殊功能。$(item)镐子$(0)会将背包中的火把放置下来，$(item)斧子$(0)则会以同样的方式种下树苗，$(item)铲子$(0)会像锄头一样耕地。$(p)要注意的是不同于铁剪刀，魔力材料制作的$(item)剪刀$(0)会触发绊线。",
+  "botania.page.manaGear10": "部分工具在右击时有特殊功能。$(item)镐子$(0)会将背包中的火把放置下来，$(item)斧子$(0)则会以同样的方式种下树苗。$(p)要注意的是不同于铁剪刀，魔力材料制作的$(item)剪刀$(0)会触发绊线。",
   "botania.page.manaGear1": "$(item)魔钢镐$(0)",
   "botania.page.manaGear2": "$(item)魔钢铲$(0)",
   "botania.page.manaGear3": "$(item)魔钢斧$(0)",
+  "botania.page.manaGear3a": "$(item)魔力钢锄$(0)",
   "botania.page.manaGear4": "$(item)魔钢剪刀$(0)",
   "botania.page.manaGear5": "$(item)魔钢剑$(0)",
   "botania.page.manaGear6": "$(item)魔钢头盔$(0)",
@@ -2554,16 +2559,16 @@
 
   "botania.entry.terrasteelArmor": "泰拉钢护甲",
   "botania.tagline.terrasteelArmor": "钻石级的魔钢装",
-  "botania.page.terrasteelArmor0": "由$(item)泰拉钢$(0)制成的护甲，与$(item)魔钢$(0)制成的相似，会消耗物品栏中的$(thing)魔力$(0)抵消磨损。$(p)然而这套护甲，有着$(item)钻石$(0)级别的性能而不是$(item)铁$(0)的，并且穿戴时会增加穿着者的生命值。",
+  "botania.page.terrasteelArmor0": "由$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)制成的护甲，与$(item)魔钢$(0)制成的相似，会消耗物品栏中的$(thing)魔力$(0)抵消磨损。$(p)然而这套护甲，有着$(item)钻石$(0)级别的性能而不是$(item)铁$(0)的，并且穿戴时会增加穿着者的生命值。",
   "botania.page.terrasteelArmor1": "$(item)泰拉钢头盔$(0)",
   "botania.page.terrasteelArmor2": "$(item)泰拉钢胸甲$(0)",
   "botania.page.terrasteelArmor3": "$(item)泰拉钢护腿$(0)",
   "botania.page.terrasteelArmor4": "$(item)泰拉钢靴子$(0)",
 
   "botania.entry.terraSword": "泰拉之刃",
-  "botania.tagline.terraSword": "发射激光的剑",
-  "botania.page.terraSword0": "$(item)泰拉之刃$(0)由$(item)泰拉钢$(0)制作而成，是一把注入了自然之力的剑。不仅有着相当于$(item)钻石剑$(0)的强度，还会像$(item)魔钢工具$(0)一样使用物品栏的$(thing)魔力$(0)，但在挥舞时，有一定几率发出一道相当于近身伤害的光线。",
-  "botania.page.terraSword1": "不会破碎的英雄之剑",
+  "botania.tagline.terraSword": "发射射弹伤害敌怪",
+  "botania.page.terraSword0": "$(item)泰拉之刃$(0)由$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)制作而成，是一把注入了自然之力的剑。不仅有着相当于$(item)钻石剑$(0)的强度，还会像$(item)魔钢工具$(0)一样使用物品栏的$(thing)魔力$(0)。在挥舞时，有一定几率发出一道相当于近身伤害的光线。",
+  "botania.page.terraSword1": "不需要断裂英雄剑",
 
   "botania.entry.terraPick": "泰拉粉碎者",
   "botania.tagline.terraPick": "可升级性的大范围挖掘力",
@@ -2571,7 +2576,8 @@
   "botania.page.terraPick1": "工具里储存的$(thing)魔力$(0)量决定了它的$(thing)阶位$(0)。阶位如下:$(thing)D$(0)，$(thing)C$(0)，$(thing)B$(0)，$(thing)A$(0)，$(thing)S$(0)，$(thing)SS$(0)。$(thing)D$(0)就是默认的阶位。$(p)阶位升级所需的$(thing)魔力$(0)量会随着阶位而增加。例如从$(thing)D$(0)升至$(thing)C$(0)，只需要在$(l:mana/pool)$(item)魔力池$(0)$(/l)待个几秒。",
   "botania.page.terraPick2": "从$(thing)C$(0)升至$(thing)B$(0)，需要一个满的$(item)魔力$(0)$(item)池$(0)，每级是上一级的十倍消耗，最终到达$(thing)SS$(0)。$(p)工具的阶位不会改变它的速度，但会增强$(thing)激活能力$(0)。$(p)可以通过右击开启工具的能力。",
   "botania.page.terraPick3": "当工具激活时，它能破坏区域内的方块。阶位$(thing)C$(0)还是一小块，到了$(thing)B$(0)就成了一个区域，随着阶位升高区域也会增大。注意阶位$(thing)D$(0)的工具不能激活。$(p)激活时会消耗工具储存的$(thing)魔$(0)$(thing)力$(0)，哪怕不是用于挖掘。",
-  "botania.page.terraPick4": "最后，工具每次破坏方块时都会受到磨损，所以最好物品栏有与阶位相应的$(thing)魔力$(0)储存，工具的功能又像$(item)魔钢工具$(0)，因为它使用$(thing)魔力$(0)抵消磨损，制作原料是$(item)泰拉钢$(0)。$(p)它也不会像普通掉落物品那样消失。",
+  "botania.page.terraPick4": "工具每次破坏方块时都会受到磨损，类似$(item)魔钢工具$(0)，因为它使用$(thing)魔力$(0)抵消磨损，所以当位阶较高时，最好能时刻保持物品栏内有充足的$(thing)魔力$(0)储存。$(p)最后，它也不会像普通掉落物品那样消失。",
+  "botania.page.terraPick5": "WE'RE MINING IN THE DATABASE WOW WOW",
 
   "botania.entry.waterRod": "海洋法杖",
   "botania.tagline.waterRod": "制造水的法杖",
@@ -2588,6 +2594,8 @@
   "botania.page.elfGear5": "把东西放在其他东西上",
   "botania.page.elfGear6": "$(item)源质钢斧$(0)也能作为武器使用，如果用在最后一击攻击$(thing)僵尸$(0)，$(thing)骷髅射手$(0)，$(thing)苦力怕$(0)甚至其他$(thing)玩家$(0)，就有几率斩首，留下他们的头。",
   "botania.page.elfGear7": "砍下他们的头",
+  "botania.page.elfGear7a": "$(item)源质钢锄$(0)会瞬间湿润其开垦的土地，无论其附近是否有、甚至是能存在水。对没耐心的农夫来说真是帮大忙了！",
+  "botania.page.elfGear7b": "$(item)源质钢锄$(0)",
   "botania.page.elfGear8": "$(item)源质钢剪$(0)拥有的能力就是，像拿着弓一样拉伸时，会快速剪下持有者为中心大范围内所有羊的毛。",
   "botania.page.elfGear9": "Nui？她是无害的",
   "botania.page.elfGear10": "最后，$(item)源质钢剑$(0)会增加攻击时$(thing)小精灵$(0)生成的机率(即使没有装备$(item)源质钢护甲$(0)也会生成)并增强生成的$(thing)小精灵$(0)。",
@@ -2596,6 +2604,7 @@
   "botania.page.elfGear13": "海猫鸣泣之时",
   "botania.page.elfGear14": "好人死得早",
   "botania.page.elfGear15": "时空轮回",
+
 
   "botania.entry.openBucket": "无底桶",
   "botania.tagline.openBucket": "摧毁一切进入之物",
@@ -2665,6 +2674,7 @@
   "botania.tagline.gravityRod": "举起，扔出生物",
   "botania.page.gravityRod0": "$(item)黑山法杖$(0)是个强力的遗物，传说这些最初和撬棍被发现于一座黑山的山顶。$(p)使用时需要对怪物或是物品右键。松开右键就会扔出选择的实体，左键时则会让它吃发强力的爆破。",
   "botania.page.gravityRod1": "当然这种力量不是免费的，它会消耗使用者相当大量的$(thing)魔力$(0)。",
+  "botania.page.gravityRod2": "来块面包",
 
   "botania.entry.missileRod": "弹幕法杖",
   "botania.tagline.missileRod": "biubiu法杖",
@@ -2781,14 +2791,17 @@
   "botania.tagline.astrolabe": "平面塑造者",
   "botania.page.astrolabe0": "$(item)世界塑造者之星盘$(0)是个相当好用的工具，有了它，你就可以快速铺开大量方块。$(p)首先要用它右击某种方块，如此可设定其要放置的方块种类。$(p)潜行时右击星盘可以调整具体的放置数量。",
   "botania.page.astrolabe1": "手持星盘指向任意方块时，星盘会显示效果预览，藉由此可得知右键放置方块后的效果。$(p)方块放置时会消耗$(thing)魔力$(0)，自然地也会消耗对应的方块；不过你也可以使用能给$(item)移壳法杖$(0)提供方块的物品（比如$(item)深渊法杖s$(0)和$(item)末影之手$(0)）。",
+  "botania.page.astrolabe2": "建造高墙，创造世界。",
 
   "botania.entry.enderAir": "获取末地空气",
   "botania.tagline.enderAir": "制造末地石的可投掷瓶子",
   "botania.page.enderAir0": "$(item)末地$(0)的空气看起来有一些变异的特性。如果在$(item)末地$(0)用空的$(item)玻璃瓶$(0)右击就会收集到那里的空气，它也可以像喷溅药水一样扔出去，着陆点附近的$(item)石头$(0)则会变成$(item)末地石$(0)。",
+  "botania.page.enderAir1": "经“实验”证明，$(item)末地$(0)空气与$(thing)主世界$(0)空气混合时会产生一种对某些$(thing)下界$(0)生物（比如$(item)恶魂$(0)）有剧毒的气体。$(p)尽管$(item)瓶装末地空气$(0)的量还是小了些，以至于造成不了什么实质性的伤害，但用来烦人还是可以的。$(p)特别是弄到它们眼睛里的时候。",
 
   "botania.entry.enderEyeBlock": "末影监视者",
   "botania.tagline.enderEyeBlock": "看着来激活红石信号",
   "botania.page.enderEyeBlock0": "$(thing)末影人$(0)的眼睛被看见时十分敏感。由此制成的方块在64格内被玩家直视时就会发出$(thing)红石信号$(0)。$(p)当然，头戴$(item)南瓜$(0)时可以避免。",
+  "botania.page.enderEyeBlock1": "MY BRAND",
 
   "botania.entry.pistonRelay": "力量传递器",
   "botania.tagline.pistonRelay": "除去活塞推动力",
@@ -2800,6 +2813,7 @@
   "botania.tagline.enderHand": "随时随地的末影箱",
   "botania.page.enderHand0": "$(item)末影之手$(0)让使用者能跨维度触及末界，换言之就是$(item)末影箱$(0)的物品栏。无论何地只需用这个手右击并消耗一些$(thing)魔力$(0)。$(p)若对其他玩家使用则会相应打开$(o)他们的$(0)末影物品栏，消耗更多的$(thing)魔力$(0)。",
   "botania.page.enderHand0a": "$(item)末影之手$(0)让使用者能跨维度触及末界，换言之就是$(item)末影箱$(0)的物品栏。无论何地只需用这个手右击并消耗一些$(thing)魔力$(0)。",
+  "botania.page.enderHand1": "就像5G版的末影箱一样",
   "botania.page.enderHand2": "不仅如此，若玩家的背包中有$(item)末影之手$(0)，那么$(item)移壳杆$(0)就能使用玩家$(item)末影箱$(0)里的方块，这比起平时使用，要消耗更多的$(thing)魔力$(0)。",
 
   "botania.entry.enderDagger": "灵魂匕首",
@@ -2810,8 +2824,9 @@
 
   "botania.entry.spawnerClaw": "生命灌注器",
   "botania.tagline.spawnerClaw": "用魔力生成怪物，即使你不在身边",
-  "botania.page.spawnerClaw0": "$(item)刷怪笼$(0)是个有趣的东西。它们能从稀薄的空气中抽取出生命，但不知何故，只在附近有玩家时才会运行。$(p)当然这会在某些程度上限制它生成生物的速度。",
-  "botania.page.spawnerClaw1": "将一个$(item)生命灌注器$(0)放在刷怪笼的顶端并用$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)提供大量的$(thing)魔力$(0)，当附近无玩家时，$(thing)魔力$(0)就会驱动刷怪笼，就好像有玩家存在一样。",
+  "botania.page.spawnerClaw0": "$(item)刷怪笼$(0)是个有趣的东西。它们能从稀薄的空气中抽取出生命，但不知何故，只在附近有玩家时才会运行。$(p)想要利用这神秘力量的人往往得将自己困在很小的一个空间中才行。",
+  "botania.page.spawnerClaw1": "$(item)生命灌注器$(0)可以代替玩家胜任这个工作。将其放在刷怪笼的顶端并用$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)提供所需的$(thing)魔力$(0)即可。",
+  "botania.page.spawnerClaw2": "就推一小下",
 
   "botania.entry.redString": "红线",
   "botania.tagline.redString": "遥控物品存储，各种遥控",
@@ -3000,6 +3015,7 @@
   "botania.entry.travelBelt": "旅居者腰带",
   "botania.tagline.travelBelt": "更快，更高，更远",
   "botania.page.travelBelt0": "穿越各种地形是个麻烦事。$(item)旅居者腰带$(0)能装备在$(thing)腰带$(0)栏，装备时增加移动速度，跳跃高度和摔落伤害减免。$(p)最后，非潜行时能让装备者自动走上一格高的坡而不需要跳跃。",
+  "botania.page.travelBelt1": "...everell",
 
   "botania.entry.knockbackBelt": "抗击腰带",
   "botania.tagline.knockbackBelt": "阻止一切击退",
@@ -3294,7 +3310,8 @@
   "botania.entry.blazeBlock": "烈焰网",
   "botania.tagline.blazeBlock": "压缩烈焰棒存储，新的黑曜石获取方式",
   "botania.page.blazeBlock0": "将一捆$(item)烈焰棒$(0)压实就能得到一个发光的装饰方块，尽管粗糙，却是个不错的光源。$(p)类似$(item)煤块$(0)，$(item)烈焰网$(0)也能用作燃料。将它放在$(item)白雏菊$(0)旁边则会被转化为$(item)黑曜石$(0)，真是见鬼了。",
-  
+  "botania.page.blazeBlock1": "0x1a4",
+
   "botania.entry.challenges": "挑战",
   "botania.tagline.challenges": "自我挑战",
   "botania.page.challenges0": "$(item)挑战$(0)在$(item)植物魔法辞典$(0)首页的左侧点击性状像杯子的图标进入。这正如其名，玩家只使用$(item)Botania$(0)和$(item)Minecraft$(0)自身的特性来创建一个机制完成挑战。$(p)当然，你也可以运用其它mod的物品来完成，但是那样就没什么乐趣了。",
@@ -3307,6 +3324,7 @@
   "botania.page.cacophonium0": "这是个有趣的设备，$(item)不和谐之音$(0)有着能模仿任何活着的生物声音的能力，为使其\"模仿\"一个生物。你需要拿着它右击一个生物。然后按住右键它就会开始模仿。$(p)为什么有人会想要做这个，这玩意超越了我的伦理观。",
   "botania.page.cacophonium1": "自行车！不和谐之音",
   "botania.page.cacophonium2": "为了最大化这种不和谐，$(item)不和谐之音$(0)潜行右击$(item)音符盒$(0)来使其记录这种声音。$(p)你个怪物。",
+  
   "botania.entry.pavement": "葡萄牙路面",
   "botania.tagline.pavement": "路面建造学",
   "botania.page.pavement0": "$(item)葡萄牙路面$(0)是一种专为路面设计的精美建筑方块。它有很多种颜色，且都能制成半砖和楼梯$(p)对于那些想进行微型方块以及多方块建造的艺术家来讲，这些方块肯定是完美的路面。",
@@ -3364,29 +3382,12 @@
   "botania.subtitle.thermalily": "炽玫瑰：消耗熔岩",
   "botania.subtitle.unholyCloak": "罪恶斗篷：激活",
 
-  "botaniamisc.retainer.retain_all": "保存请求的原始物品数目",
-  "botaniamisc.retainer.retain_missing": "保存缺失的物品数目",
-
-  "botania.page.manaVoid1": "Even Chad from accounting?",
-  "botania.page.manaAlchemy28": "$(item)苹果$(0)和$(item)莓果$(0)的转化",
-  "botania.page.manaGear3a": "$(item)魔力钢锄$(0)",
-  "botania.page.terraPick5": "WE'RE MINING IN THE DATABASE WOW WOW",
-  "botania.page.elfGear7a": "$(item)源质钢锄$(0)会瞬间湿润其开垦的土地，无论其附近是否有、甚至是能存在水。对没耐心的农夫来说真是帮大忙了！",
-  "botania.page.elfGear7b": "$(item)源质钢锄$(0)",
-  "botania.page.gravityRod2": "来块面包",
-  "botania.page.astrolabe2": "Builds walls， creates worlds",
-  "botania.page.enderAir1": "经“实验”证明，$(item)末地$(0)空气与$(thing)主世界$(0)空气混合时会产生一种对某些$(thing)下界$(0)生物（比如$(item)恶魂$(0)）有剧毒的气体。$(p)尽管$(item)瓶装末地空气$(0)的量还是小了些，以至于造成不了什么实质性的伤害，但用来烦人还是可以的。$(p)特别是弄到它们眼睛里的时候。",
-  "botania.page.enderEyeBlock1": "MY BRAND",
-  "botania.page.enderHand1": "就像5G版的末影箱一样",
-  "botania.page.spawnerClaw2": "只要轻轻一推",
   "botania.entry.corporeaBlock": "多媒体装饰方块",
   "botania.page.corporeaBlock0": "普通的$(thing)活石砖$(0)能与一个$(thing)多媒体火花$(0)结合成为一些装饰性方块。除了作为装饰以外，这些方块，即便不能容纳物品，也还可以承载$(thing)多媒体火花$(0)。因此它们可以用来将你的$(thing)多媒体$(0)网络延申很长距离。",
   "botania.page.corporeaBlock1": "少媒体",
-  "botania.page.travelBelt1": "...everell",
-  "botania.page.blazeBlock1": "0x1a4",
 
   "botania.subtitle.arcane_rose_disenchant": "阿卡纳蔷薇：吸收",
-  "botania.subtitle.astrolabeConfigure": "盖世六分仪：喀拉",
+  "botania.subtitle.astrolabeConfigure": "盖世六分仪：铿锵",
   "botania.subtitle.blackHoleTalismanConfigure": "黑洞护符：叮咚",
   "botania.subtitle.diceOfFate": "命运之骰：哐啷哐啷",
   "botania.subtitle.doit": "DO IT!!",
