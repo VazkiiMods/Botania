@@ -15,7 +15,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,16 +23,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
@@ -53,6 +49,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.forge.CapabilityUtil;
 
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -104,7 +101,7 @@ public class CurioIntegration extends EquipmentHandler {
 	}
 
 	public ICapabilityProvider initCapability(ItemStack stack) {
-		return new Provider(stack);
+		return CapabilityUtil.makeProvider(CuriosCapability.ITEM, new Wrapper(stack));
 	}
 
 	@Override
@@ -115,22 +112,6 @@ public class CurioIntegration extends EquipmentHandler {
 	@Override
 	public boolean isAccessory(ItemStack stack) {
 		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM).isPresent();
-	}
-
-	private static class Provider implements ICapabilityProvider {
-		private final LazyOptional<ICurio> capability;
-		private final ItemStack stack;
-
-		private Provider(ItemStack stack) {
-			this.stack = stack;
-			this.capability = LazyOptional.of(() -> new Wrapper(this.stack));
-		}
-
-		@NotNull
-		@Override
-		public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-			return CuriosCapability.ITEM.orEmpty(cap, capability);
-		}
 	}
 
 	public static class Wrapper implements ICurio {
