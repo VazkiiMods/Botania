@@ -1967,7 +1967,7 @@
   "botania.tagline.dreamwoodSpreader": "更强大，更好用，更迅速",
   "botania.page.dreamwoodSpreader0": "归根结底，$(l:alfhomancy/elf_resources)$(item)梦之木$(0)$(/l)引导$(thing)魔力$(0)的能力还是比$(l:basics/pure_daisy)$(item)活木$(0)$(/l)的好太多了。只要稍加改进（比如用$(l:alfhomancy/elf_resources)$(item)源质钢锭$(0)$(/l)来代替$(item)金锭$(0)），就能做成更先进的$(item)精灵魔力发射器$(0)。它一次能发射更多$(thing)魔力$(0)、速度更快、且$(thing)魔力流失$(0)$(p)得更晚。可惜，它没有能用$(item)红石$(0)控制的版本。",
   "botania.page.dreamwoodSpreader1": "更好的发射器就是它了",
-  "botania.page.dreamwoodSpreader2": "将这个足够强力的发射器和一个$(item)盖亚之魂$(0)与一块$(item)龙石$(0)相结合，就能制作出更佳出色的发射器.$(item)盖亚发射器$(0)在诸多的魔力发射器之中居于顶端，有着更优越的性能。",
+  "botania.page.dreamwoodSpreader2": "将这个足够强力的发射器和一个$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)与一块$(item)龙石$(0)相结合，就能制作出更佳出色的发射器.$(item)盖亚发射器$(0)在诸多的魔力发射器之中居于顶端，有着更优越的性能。",
   "botania.page.dreamwoodSpreader3": "终极发射器",
 
   "botania.entry.elvenLenses": "精灵魔力透镜",
@@ -2480,12 +2480,12 @@
 
   "botania.entry.manaBomb": "魔力风暴",
   "botania.tagline.manaBomb": "魔力风暴是爆炸。爆炸爆炸爆炸爆炸爆炸爆炸",
-  "botania.page.manaBomb0": "将$(item)TNT$(0)放在一起再加上$(item)盖亚之魂$(0)来制作一个$(item)魔力风暴$(0)，它是爆炸的化身，毫不夸张的说。让他接受一个$(item)魔力脉冲$(0)，充能器会产生一个不稳定的$(item)魔力风暴震荡$(0)，这会造成一场长时间的$(item)魔力爆发$(0)，并摧毁附近所有方块。$(p)不用说，只有疯子才会在家里附近释放这只摧毁一切的力量",
+  "botania.page.manaBomb0": "将$(item)TNT$(0)放在一起再加上$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)来制作一个$(item)魔力风暴$(0)，它是爆炸的化身，毫不夸张的说。让他接受一个$(item)魔力脉冲$(0)，充能器会产生一个不稳定的$(item)魔力风暴震荡$(0)，这会造成一场长时间的$(item)魔力爆发$(0)，并摧毁附近所有方块。$(p)不用说，只有疯子才会在家里附近释放这只摧毁一切的力量。",
   "botania.page.manaBomb1": "准备面对伟大的存在...",
 
   "botania.entry.teruTeruBozu": "晴天娃娃",
   "botania.tagline.teruTeruBozu": "天气控制以及超人的可爱",
-  "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，众所周知，是一种驱散坏天气的护身符。简单地制作一个并将它放在世界上能够减少$(item)雨$(0)或$(item)雷暴s$(0)持续的时间。坏天气的时候，拿着$(item)向日葵$(0)右击他或朝他投掷向日葵会让晴天再临。给予一个$(item)红石比较器$(0)能够让他检测坏天气。",
+  "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，众所周知，是一种驱散坏天气的护身符。只要制作一个并将它放在世界上能够减少$(item)雨$(0)或$(item)雷暴s$(0)持续的时间。坏天气的时候，拿着$(item)向日葵$(0)右击他或朝他投掷向日葵会让晴天再临。给予一个$(item)红石比较器$(0)能够让他检测坏天气。",
   "botania.page.teruTeruBozu1": "太阳花又有什么特别的了？",
 
   "botania.entry.avatar": "活木化身",
@@ -2572,7 +2572,7 @@
 
   "botania.entry.terraPick": "泰拉粉碎者",
   "botania.tagline.terraPick": "可升级性的大范围挖掘力",
-  "botania.page.terraPick0": "$(item)泰拉粉碎者$(0)是个可以积攒大量魔力的工具，因为制作过程使用了相当的$(item)泰拉钢$(0)。$(p)它的功能有点像$(item)魔力石板$(0)因为它可以通过投入$(l:mana/pool)$(item)魔力池$(0)$(/l)而获取$(item)魔力$(0)，尽管它不能返还$(thing)魔力$(0)，所以它功能又与储存不同。",
+  "botania.page.terraPick0": "$(item)泰拉粉碎者$(0)是个可以积攒大量魔力的工具，因为制作过程使用了相当的$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)。$(p)它的功能有点像$(item)魔力石板$(0)因为它可以通过投入$(l:mana/pool)$(item)魔力池$(0)$(/l)而获取$(item)魔力$(0)，尽管它不能返还$(thing)魔力$(0)，所以它功能又与储存不同。",
   "botania.page.terraPick1": "工具里储存的$(thing)魔力$(0)量决定了它的$(thing)阶位$(0)。阶位如下:$(thing)D$(0)，$(thing)C$(0)，$(thing)B$(0)，$(thing)A$(0)，$(thing)S$(0)，$(thing)SS$(0)。$(thing)D$(0)就是默认的阶位。$(p)阶位升级所需的$(thing)魔力$(0)量会随着阶位而增加。例如从$(thing)D$(0)升至$(thing)C$(0)，只需要在$(l:mana/pool)$(item)魔力池$(0)$(/l)待个几秒。",
   "botania.page.terraPick2": "从$(thing)C$(0)升至$(thing)B$(0)，需要一个满的$(item)魔力$(0)$(item)池$(0)，每级是上一级的十倍消耗，最终到达$(thing)SS$(0)。$(p)工具的阶位不会改变它的速度，但会增强$(thing)激活能力$(0)。$(p)可以通过右击开启工具的能力。",
   "botania.page.terraPick3": "当工具激活时，它能破坏区域内的方块。阶位$(thing)C$(0)还是一小块，到了$(thing)B$(0)就成了一个区域，随着阶位升高区域也会增大。注意阶位$(thing)D$(0)的工具不能激活。$(p)激活时会消耗工具储存的$(thing)魔$(0)$(thing)力$(0)，哪怕不是用于挖掘。",
@@ -2644,7 +2644,7 @@
   "botania.entry.laputaShard": "拉普达碎片",
   "botania.tagline.laputaShard": "将大地抬升为浮空岛",
   "botania.page.laputaShard0": "通过有些复杂的激活程序，结合一些有趣的材料包括$(item)盖亚$(0)$(item)之魂$(0)就能制作一个特殊的碎片，当对土地使用时，就能让附近一个几乎的球形区域升至空中。$(p)这个过程可持续10分钟并且根据土地的质量消耗对应量的碎片。",
-  "botania.page.laputaShard2": "创建的岛的初始半径为14格，换句话说就是直径28格。可通过添加$(item)盖亚之魂$(0)来升级，每个增加1格半径，即2格直径。",
+  "botania.page.laputaShard2": "创建的岛的初始半径为14格，换句话说就是直径28格。可通过添加$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)来升级，每个增加1格半径，即2格直径。",
   "botania.page.laputaShard1": "看呐白，拉普达真的存在！",
   "botania.page.laputaShard3": "大小很重要",
 
@@ -2716,7 +2716,7 @@
 
   "botania.entry.thornChakram": "荆棘飞轮",
   "botania.tagline.thornChakram": "反弹与剧毒之飞轮",
-  "botania.page.thornChakram0": "$(item)荆棘飞轮$(0)是一种用$(item)泰拉钢$(0)和植物制造的一种投掷武器。掷出后，它会刺穿敌人，伤害它们并有时候令其中毒，并在方块上反弹，短暂时间后返回，类似于回旋镖。",
+  "botania.page.thornChakram0": "$(item)荆棘飞轮$(0)是一种用$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)和植物制造的一种投掷武器。掷出后，它会刺穿敌人，伤害它们并有时候令其中毒，并在方块上反弹，短暂时间后返回，类似于回旋镖。",
   "botania.page.thornChakram1": "孢子与毒刺",
 
   "botania.entry.fireChakram": "闪耀飞轮",
@@ -2848,7 +2848,7 @@
 
   "botania.entry.flightTiara": "天翼族之冠",
   "botania.tagline.flightTiara": "飞行的能力...暂时的",
-  "botania.page.flightTiara0": "$(thing)天翼族$(0)一度支配着这片土地，现在却是濒临灭绝的种族，作为弑神者而被创造出来，拥有着飞行的能力。$(p)使用$(item)盖亚之魂$(0)能复制出一点她们的力量，那就是以$(item)天翼族$(0)$(item)之冠$(0)的形式，消耗$(thing)魔力$(0)就能飞行。",
+  "botania.page.flightTiara0": "$(thing)天翼族$(0)一度支配着这片土地，现在却是濒临灭绝的种族，作为弑神者而被创造出来，拥有着飞行的能力。$(p)使用$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)能复制出一点她们的力量，那就是以$(item)天翼族$(0)$(item)之冠$(0)的形式，消耗$(thing)魔力$(0)就能飞行。",
   "botania.page.flightTiara4": "然而并不能彻底完美地再现这项技术，这顶头冠有着缺陷，这意味着它不能持续的飞行。如果你持续飞行30秒而没有让其再充能，它就会停止提供飞行的力量。$(p)一个\"飞行槽\"会出现在HUD上以方便查看。",
   "botania.page.flightTiara5": "除了简单的飞行，天翼族之冠给了穿戴者$(thing)冲刺$(0)和$(thing)滑翔$(0)的能力。飞行时按下冲刺键(默认为CTRL)，将会开始冲刺而不是停止冲刺，将会给穿戴者飞行方向一个加速度。$(p)冲刺每两秒只能使用一次。",
   "botania.page.flightTiara6": "滑翔允许你轻轻地着陆，它有着不错的水平飞行距离。同时防止掉落伤害。要滑翔，只需在掉落的时候按住潜行键。$(p)滑翔即使在飞行槽空时也能使用，但滑翔时飞行槽的回复速度",
@@ -2910,7 +2910,7 @@
 
   "botania.entry.spawnerMover": "生命聚合器",
   "botania.tagline.spawnerMover": "移动刷怪笼",
-  "botania.page.spawnerMover0": "通过特殊形式组合$(l:alfhomancy/elf_resources)$(item)龙石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源质钢锭$(0)$(/l)、$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)和$(item)盖亚之魂$(0)，就能制作出一个可以容纳构成$(item)刷怪笼$(0)的奇异能量，并将它放置在其他地方的装置。$(p)不幸的是，这个装置只要用一次就会碎掉。",
+  "botania.page.spawnerMover0": "通过特殊形式组合$(l:alfhomancy/elf_resources)$(item)龙石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源质钢锭$(0)$(/l)、$(l:ender/ender_air)$(item)瓶装末地空气$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)，就能制作出一个可以容纳构成$(item)刷怪笼$(0)的奇异能量，并将它放置在其他地方的装置。$(p)不幸的是，这个装置只要用一次就会碎掉。",
   "botania.page.spawnerMover1": "刷怪笼宅急送",
 
   "botania.entry.keepIvy": "坚毅之藤",
@@ -3002,7 +3002,7 @@
 
   "botania.entry.manaRing": "魔力之戒",
   "botania.tagline.manaRing": "手指上的魔力石板",
-  "botania.page.manaRing0": "将$(item)魔力石板$(0)和一些$(item)魔钢$(0)组合能做出一个穿戴方便的$(thing)戒指$(0)，就像魔力石板那样的功能，也能当做$(thing)饰品$(0)装备。$(p)用些$(item)泰拉钢$(0)就可以升级，可储存4倍的$(thing)魔力$(0)。",
+  "botania.page.manaRing0": "将$(item)魔力石板$(0)和一些$(item)魔钢$(0)组合能做出一个穿戴方便的$(thing)戒指$(0)，就像魔力石板那样的功能，也能当做$(thing)饰品$(0)装备。$(p)用些$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)就可以升级，可储存4倍的$(thing)魔力$(0)。",
   "botania.page.manaRing1": "制作戒指",
   "botania.page.manaRing2": "升级戒指",
 
@@ -3132,7 +3132,7 @@
 
   "botania.entry.superCloudPendant": "筋斗云护符",
   "botania.tagline.superCloudPendant": "三段跳！",
-  "botania.page.superCloudPendant0": "$(item)筋斗云护符$(0)本身是升级版的$(item)卷云$(0)$(item)护符$(0)。护符中注入了$(item)盖亚之魂$(0)的力量，佩戴者也藉由此获得了$(thing)三$(0)$(thing)段跳$(0)的能力。",
+  "botania.page.superCloudPendant0": "$(item)筋斗云护符$(0)本身是升级版的$(item)卷云$(0)$(item)护符$(0)。护符中注入了$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)的力量，佩戴者也藉由此获得了$(thing)三$(0)$(thing)段跳$(0)的能力。",
   "botania.page.superCloudPendant1": "魔法超越物理",
 
   "botania.entry.thirdEye": "第三只眼",
@@ -3191,7 +3191,7 @@
   "botania.entry.gaiaRitualHardmode": "盖亚仪式II",
   "botania.tagline.gaiaRitualHardmode": "精灵之舞",
   "botania.page.gaiaRitualHardmode0": "有人认为，结合两种已知的最强大能源（$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)），可以制造一种无敌的材料。事实上，当两种材料的能量似乎能刚好互相抵消，创造出来的是一种完全无用的合金。",
-  "botania.page.gaiaRitualHardmode1": "这种锭，由于集中了能量和魔力，或许能召唤出更加强大的$(l:alfhomancy/gaia_ritual)$(item)盖亚守护者$(0)$(/l) - 更强、更快、更坚韧。$(p)因此，它也会比平常的掉落更多的$(item)盖亚之魂$(0)，还有少量稀世珍宝，这都让它成为一个有价值的敌人。",
+  "botania.page.gaiaRitualHardmode1": "这种锭，由于集中了能量和魔力，或许能召唤出更加强大的$(l:alfhomancy/gaia_ritual)$(item)盖亚守护者$(0)$(/l) - 更强、更快、更坚韧。$(p)因此，它也会比平常的掉落更多的$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)，还有少量稀世珍宝，这都让它成为一个有价值的敌人。",
   "botania.page.gaiaRitualHardmode2": "制作$(item)盖亚魂锭$(0)。",
 
   "botania.entry.relics": "诸神的遗物",
@@ -3336,7 +3336,7 @@
   "botania.page.bcIntegration0": "最近在管道技术上的进步使得$(item)BC门$(0)能感知其周围的$(thing)魔力$(0)。$(item)BC门$(0)现可感知一个$(thing)魔力$(0)容器是否为空，满或者是否包含魔力。$(p)$(item)BC门$(0)也可使用$(item)魔力检测器$(0)触发来探测是否有魔力经过管道。而且，它们也可感知$(item)符文祭坛$(0)是否已可合成符文。",
   "botania.entry.banners": "更多旗帜",
   "botania.tagline.banners": "好多新旗帜图案",
-  "botania.page.banners0": "因为未来$(item)旗帜$(0)的存在，$(item)植物魔法$(0)为其添加了$(thing)15$(0)种新图标，这些图标可与既有图案和图标混合搭配使用。$(p)除了染料以外，下列这些物品也可以在工作台中为$(item)旗帜$(0)附加图标：$(item)所有铁质工具$(0)、$(item)火花升级$(0)、$(item)生鱼$(0)、$(item)活木枝和梦之木棍$(0)、$(item)植物魔法辞典$(0)、$(item)泰拉钢$(0)和$(item)小土豆$(0)。",
+  "botania.page.banners0": "因为未来$(item)旗帜$(0)的存在，$(item)植物魔法$(0)为其添加了$(thing)15$(0)种新图标，这些图标可与既有图案和图标混合搭配使用。$(p)除了染料以外，下列这些物品也可以在工作台中为$(item)旗帜$(0)附加图标：$(item)所有铁质工具$(0)、$(l:mana/spark_upgrades)$(item)火花升级$(0)$(/l)、$(item)生鱼$(0)、$(item)活木枝和梦之木棍$(0)、$(l:basics/lexicon)$(item)植物魔法辞典$(0)$(/l)、$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)和$(l:misc/tiny_potato)$(item)小土豆$(0)$(/l)。",
   "botania.page.banners1": "各种旗帜展览",
 
   "botania.entry.preventingDecay": "魔力定量统计",
