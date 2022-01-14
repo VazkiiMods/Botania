@@ -2841,7 +2841,7 @@
   "botania.page.redString8": "$(item)红线施肥器$(0)。",
   "botania.page.redString9": "$(item)红线比较器$(0)可与任何状态可被读取的$(item)容器$(0)，比如$(item)箱子$(0)，$(l:mana/pool)$(item)魔力池$(0)$(/l)，$(l:basics/rune_altar)$(item)符文祭坛$(0)$(/l)等绑定。将一个$(item)比较器$(0)向外指着这个方块放置会发出与$(item)比较器$(0)抵着与之绑定方块放置相同的信号。",
   "botania.page.redString10": "$(item)红线比较器$(0)。",
-  "botania.page.redString11": "$(item)红线继电器$(0)是个有趣的方块。任何带效果的花均可放置于其上。该方块会与任何花绑定。放在该方块顶部的花不会做任何事，而被绑定的花却所有属性，并且将像那朵花一样运作，仿佛其自身就是那花。",
+  "botania.page.redString11": "$(item)红线继电器$(0)是个有趣的方块。任何带效果的花均可放置于其上。该方块会与任何花绑定。放在该方块顶部的花不会失去自己的效果，而被绑定的花会继承那朵花的所有属性，并且将像那朵花一样运作，仿佛其自身就是那朵花。",
   "botania.page.redString12": "$(item)红线继电器$(0)。",
   "botania.page.redString13": "最后，$(item)红线拦截器$(0)可与任何复杂方块绑定（比如$(item)箱子$(0)，$(item)熔炉$(0)，$(item)花药台$(0)，等）。每当它所绑定的方块被玩家右击使用时，拦截器会发射一个红石信号。",
   "botania.page.redString14": "$(item)红线拦截器$(0)。",
