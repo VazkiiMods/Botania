@@ -2485,7 +2485,7 @@
 
   "botania.entry.teruTeruBozu": "晴天娃娃",
   "botania.tagline.teruTeruBozu": "天气控制以及超人的可爱",
-  "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，众所周知，是一种驱散坏天气的护身符。只要制作一个并将它放在世界上能够减少$(item)雨$(0)或$(item)雷暴s$(0)持续的时间。坏天气的时候，拿着$(item)向日葵$(0)右击他或朝他投掷向日葵会让晴天再临。给予一个$(item)红石比较器$(0)能够让他检测坏天气。",
+  "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，众所周知，是一种驱散坏天气的护身符。只要制作一个并将它放在世界上能够减少$(item)雨$(0)或$(item)雷暴$(0)持续的时间。坏天气的时候，拿着$(item)向日葵$(0)右击他或朝他投掷向日葵会让晴天再临。给予一个$(item)红石比较器$(0)能够让他检测坏天气。",
   "botania.page.teruTeruBozu1": "太阳花又有什么特别的了？",
 
   "botania.entry.avatar": "活木化身",
