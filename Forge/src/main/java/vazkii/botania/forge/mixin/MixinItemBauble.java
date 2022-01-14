@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
-import vazkii.botania.forge.integration.CurioIntegration;
+import vazkii.botania.forge.integration.curios.CurioIntegration;
 
 // [SelfMixin] IForgeItem#initCapabilities, which can't exist in common code
 @Mixin(ItemBauble.class)

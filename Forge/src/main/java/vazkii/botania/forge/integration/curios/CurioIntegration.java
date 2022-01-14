@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.forge.integration;
+package vazkii.botania.forge.integration.curios;
 
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;

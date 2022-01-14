@@ -80,7 +80,7 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
-import vazkii.botania.forge.integration.CurioIntegration;
+import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AccessorRegistry;
 import vazkii.botania.forge.network.ForgePacketHandler;
