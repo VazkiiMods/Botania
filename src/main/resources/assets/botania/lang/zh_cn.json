@@ -2598,7 +2598,7 @@
   "botania.page.elfGear7b": "$(item)源质钢锄$(0)",
   "botania.page.elfGear8": "$(item)源质钢剪$(0)拥有的能力就是，像拿着弓一样拉伸时，会快速剪下持有者为中心大范围内所有羊的毛。",
   "botania.page.elfGear9": "Nui？她是无害的",
-  "botania.page.elfGear10": "最后，$(item)源质钢剑$(0)会增加攻击时$(thing)小精灵$(0)生成的机率(即使没有装备$(item)源质钢护甲$(0)也会生成)并增强生成的$(thing)小精灵$(0)。",
+  "botania.page.elfGear10": "最后，$(item)源质钢剑$(0)会增加被击中时$(thing)小精灵$(0)生成的机率（即使没有装备$(item)源质钢护甲$(0)也会生成）并增强生成的$(thing)小精灵$(0)的伤害。",
   "botania.page.elfGear11": "微微摇曳的光",
   "botania.page.elfGear12": "十六夜のフォルトゥーナ",
   "botania.page.elfGear13": "海猫鸣泣之时",
@@ -2719,9 +2719,9 @@
   "botania.page.thornChakram0": "$(item)荆棘飞轮$(0)是一种用$(item)泰拉钢$(0)和植物制造的一种投掷武器。掷出后，它会刺穿敌人，伤害它们并有时候令其中毒，并在方块上反弹，短暂时间后返回，类似于回旋镖。",
   "botania.page.thornChakram1": "孢子与毒刺",
 
-  "botania.entry.fireChakram": "火焰飞轮",
+  "botania.entry.fireChakram": "闪耀飞轮",
   "botania.tagline.fireChakram": "火焰版的荆棘飞轮",
-  "botania.page.fireChakram0": "将一些$(item)烈焰粉$(0)和$(item)精灵尘$(0)用在$(item)荆棘飞轮$(0)上时，奇迹发生了，这让强有力的武器进化成了$(item)火焰飞轮$(0)。$(p)$(item)火焰飞轮$(0)有着和$(item)荆棘飞轮$(0)一样的能力，唯一不同的是它会使得所有生物着火，而且你不能拿它来做培根肉，不是吗？",
+  "botania.page.fireChakram0": "将一些$(item)烈焰粉$(0)和$(l:alfhomancy/elf_resources)$(item)精灵尘$(0)$(/l)用在$(l:tools/thorn_chakram)$(item)荆棘飞轮$(0)$(/l)上，这件强有力的武器就会进化成$(item)闪耀飞轮$(0)。$(p)$(item)闪耀飞轮$(0)有着和$(l:tools/thorn_chakram)$(item)荆棘飞轮$(0)$(/l)一样的能力，唯一不同的是它会使得所有生物着火。毕竟只用蔬菜做不了培根，不是吗？",
   "botania.page.fireChakram1": "如同fenn的专辑",
 
   "botania.entry.overgrowthSeed": "增生之种",
