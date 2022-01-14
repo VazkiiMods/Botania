@@ -12,7 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.block.BlockGhostRail;
 
-public class GhostRailComponent {
+public abstract class GhostRailComponent {
 	public int floatTicks = 0;
 
 	public void readFromNbt(CompoundTag tag) {
@@ -21,5 +21,15 @@ public class GhostRailComponent {
 
 	public void writeToNbt(CompoundTag tag) {
 		tag.putInt(BlockGhostRail.TAG_FLOAT_TICKS, floatTicks);
+	}
+
+	public CompoundTag serializeNBT() {
+		var ret = new CompoundTag();
+		writeToNbt(new CompoundTag());
+		return ret;
+	}
+
+	public void deserializeNBT(CompoundTag nbt) {
+		readFromNbt(nbt);
 	}
 }

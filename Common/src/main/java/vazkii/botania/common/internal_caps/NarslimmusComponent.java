@@ -9,13 +9,10 @@
 package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.monster.Slime;
 
-public class NarslimmusComponent {
+public abstract class NarslimmusComponent {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 	private boolean naturalSpawned = false;
-
-	public NarslimmusComponent(Slime e) {}
 
 	public void readFromNbt(CompoundTag tag) {
 		naturalSpawned = tag.getBoolean(TAG_WORLD_SPAWNED);
@@ -23,6 +20,16 @@ public class NarslimmusComponent {
 
 	public void writeToNbt(CompoundTag tag) {
 		tag.putBoolean(TAG_WORLD_SPAWNED, naturalSpawned);
+	}
+
+	public CompoundTag serializeNBT() {
+		var ret = new CompoundTag();
+		writeToNbt(new CompoundTag());
+		return ret;
+	}
+
+	public void deserializeNBT(CompoundTag nbt) {
+		readFromNbt(nbt);
 	}
 
 	public boolean isNaturalSpawned() {

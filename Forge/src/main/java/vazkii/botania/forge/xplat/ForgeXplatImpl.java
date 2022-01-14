@@ -20,10 +20,15 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -72,9 +77,11 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.integration.CurioIntegration;
+import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AccessorRegistry;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
@@ -189,6 +196,41 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 					return result == FluidAttributes.BUCKET_VOLUME;
 				})
 				.orElse(false);
+	}
+
+	@Override
+	public EthicalComponent ethicalComponent(PrimedTnt tnt) {
+		return tnt.getCapability(ForgeInternalEntityCapabilities.TNT_ETHICAL).orElseThrow(IllegalStateException::new);
+	}
+
+	@Override
+	public GhostRailComponent ghostRailComponent(AbstractMinecart cart) {
+		return cart.getCapability(ForgeInternalEntityCapabilities.GHOST_RAIL).orElseThrow(IllegalStateException::new);
+	}
+
+	@Override
+	public ItemFlagsComponent itemFlagsComponent(ItemEntity item) {
+		return item.getCapability(ForgeInternalEntityCapabilities.INTERNAL_ITEM).orElseThrow(IllegalStateException::new);
+	}
+
+	@Override
+	public KeptItemsComponent keptItemsComponent(Player player) {
+		return player.getCapability(ForgeInternalEntityCapabilities.KEPT_ITEMS).orElseThrow(IllegalStateException::new);
+	}
+
+	@Override
+	public LooniumComponent looniumComponent(LivingEntity entity) {
+		return entity.getCapability(ForgeInternalEntityCapabilities.LOONIUM_DROP).orElseThrow(IllegalStateException::new);
+	}
+
+	@Override
+	public NarslimmusComponent narslimmusComponent(Slime slime) {
+		return slime.getCapability(ForgeInternalEntityCapabilities.NARSLIMMUS).orElseThrow(IllegalStateException::new);
+	}
+
+	@Override
+	public TigerseyeComponent tigersEyeComponent(Creeper creeper) {
+		return creeper.getCapability(ForgeInternalEntityCapabilities.TIGERSEYE).orElseThrow(IllegalStateException::new);
 	}
 
 	@Override

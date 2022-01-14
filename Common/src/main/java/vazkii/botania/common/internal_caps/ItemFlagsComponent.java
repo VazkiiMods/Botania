@@ -15,7 +15,7 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 
 // Component for misc internal Botania flags
-public class ItemFlagsComponent {
+public abstract class ItemFlagsComponent {
 	public boolean spectranthemumTeleported = false;
 	public boolean alfPortalSpawned = false;
 	public boolean apothecarySpawned = false;
@@ -47,6 +47,16 @@ public class ItemFlagsComponent {
 		tag.putBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 		tag.putInt("timeCounter", timeCounter);
 		tag.putInt("manaInfusionCooldown", manaInfusionCooldown);
+	}
+
+	public CompoundTag serializeNBT() {
+		var ret = new CompoundTag();
+		writeToNbt(new CompoundTag());
+		return ret;
+	}
+
+	public void deserializeNBT(CompoundTag nbt) {
+		readFromNbt(nbt);
 	}
 
 	public void tick() {

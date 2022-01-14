@@ -10,7 +10,7 @@ package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 
-public class TigerseyeComponent {
+public abstract class TigerseyeComponent {
 	private static final String TAG_PACIFIED = "botania:tigerseye_pacified";
 	private boolean pacified = false;
 
@@ -30,5 +30,15 @@ public class TigerseyeComponent {
 		if (pacified) {
 			tag.putBoolean(TAG_PACIFIED, true);
 		}
+	}
+
+	public CompoundTag serializeNBT() {
+		var ret = new CompoundTag();
+		writeToNbt(new CompoundTag());
+		return ret;
+	}
+
+	public void deserializeNBT(CompoundTag nbt) {
+		readFromNbt(nbt);
 	}
 }

@@ -43,15 +43,20 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
 	private static final String TAG_LOOT_TABLE = "lootTable";
 	private static final String TAG_ITEMSTACK_TO_DROP = "botania:looniumItemStackToDrop";
+	public static final Set<Class<? extends Monster>> VALID_MOBS = Set.of(
+			Creeper.class,
+			EnderMan.class,
+			Skeleton.class,
+			Spider.class,
+			Zombie.class
+	);
 
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 

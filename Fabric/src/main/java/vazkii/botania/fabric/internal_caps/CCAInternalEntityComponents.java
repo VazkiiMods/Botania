@@ -16,17 +16,10 @@ import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.monster.CaveSpider;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.monster.Husk;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.entity.monster.Spider;
-import net.minecraft.world.entity.monster.Stray;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+
+import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -41,18 +34,12 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		registry.registerFor(EnderMan.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(Creeper.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(Husk.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(Drowned.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(Zombie.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(Stray.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(Skeleton.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(CaveSpider.class, LOONIUM_DROP, e -> new CCALooniumComponent());
-		registry.registerFor(Spider.class, LOONIUM_DROP, e -> new CCALooniumComponent());
+		for (Class<? extends Monster> clz : SubTileLoonuim.VALID_MOBS) {
+			registry.registerFor(clz, LOONIUM_DROP, e -> new CCALooniumComponent());
+		}
 
 		registry.registerFor(PrimedTnt.class, TNT_ETHICAL, CCAEthicalComponent::new);
-		registry.registerFor(Slime.class, NARSLIMMUS, CCANarslimmusComponent::new);
+		registry.registerFor(Slime.class, NARSLIMMUS, e -> new CCANarslimmusComponent());
 		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new CCAItemFlagsComponent());
 		registry.registerFor(AbstractMinecart.class, GHOST_RAIL, e -> new CCAGhostRailComponent());
 		registry.registerFor(Creeper.class, TIGERSEYE, creeper -> new CCATigerseyeComponent());

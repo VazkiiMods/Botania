@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class KeptItemsComponent {
+public abstract class KeptItemsComponent {
 	private final List<ItemStack> stacks = new ArrayList<>();
 
 	public void addAll(Collection<ItemStack> stack) {
@@ -42,5 +42,15 @@ public class KeptItemsComponent {
 			list.add(stack.save(new CompoundTag()));
 		}
 		tag.put("stacks", list);
+	}
+
+	public CompoundTag serializeNBT() {
+		var ret = new CompoundTag();
+		writeToNbt(new CompoundTag());
+		return ret;
+	}
+
+	public void deserializeNBT(CompoundTag nbt) {
+		readFromNbt(nbt);
 	}
 }
