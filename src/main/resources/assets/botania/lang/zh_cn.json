@@ -1770,7 +1770,7 @@
 
   "botania.entry.pureDaisy": "白雏菊",
   "botania.tagline.pureDaisy": "活木，活石与其他的创造者",
-  "botania.page.pureDaisy0": "$(item)白雏菊$(0)不仅是最基础的，也是一个植物魔法师所有的最重要的花。$(p)这种花会将任何相邻的$(item)木头$(0)和$(item)石头$(0)方块净化为$(item)活木$(0)和$(l:basics/pure_daisy)$(item)活石$(0)$(/l)（如下一页所示）。这两种材料都是植物魔法师生涯中不可或缺的素材。",
+  "botania.page.pureDaisy0": "$(item)白雏菊$(0)不仅是最基础的，也是一个植物魔法师所有的最重要的花。$(p)这种花会将任何相邻的$(item)木头$(0)和$(item)石头$(0)方块净化为$(item)活木$(0)和$(item)活石$(0)（如下一页所示）。这两种材料都是植物魔法师生涯中不可或缺的素材。",
   "botania.page.pureDaisy1": "给它$(thing)一分钟$(0)就会...",
   "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
   "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，还有$(item)水$(0)变为$(item)雪$(0)。",
@@ -1778,7 +1778,7 @@
 
   "botania.entry.wand": "森林法杖",
   "botania.tagline.wand": "你最重要的万能扳手",
-  "botania.page.wand0": "对一个植物魔法师而言最重要的工具就是$(item)森林法杖$(0)了。$(p)这个法杖由一对任意颜色的$(item)神秘花瓣$(0)和几根$(item)活木枝$(0)紧紧捆绑制成，许多地方都要用到它。",
+  "botania.page.wand0": "对一个植物魔法师而言最重要的工具就是$(item)森林法杖$(0)了。$(p)这个法杖由一对任意颜色的$(l:basics/flowers)$(item)神秘花瓣$(0)$(/l)和几根$(item)活木枝$(0)紧紧捆绑制成，许多地方都要用到它。",
   "botania.page.wand1": "法杖有两种模式，$(thing)绑定模式$(0)与$(thing)工作模式$(0)。$(thing)绑定模式$(0)下shift右击相应的方块来选择。再次shift右击其他地方来绑定两方块。$(thing)工作模式$(0)下shift右击则不会绑定任何东西。$(p)两模式可通过shift右击空气来切换。",
   "botania.page.wand2": "如果法杖没有绑定到任何对象，shift右击一个方块让它绕着所点击的轴旋转。$(p)比如，点击一个$(item)箱子$(0)的顶部就能旋转它。能被旋转的大多数方块都有效。",
   "botania.page.wand3": "使用的花瓣决定了法杖颜色",
@@ -2958,8 +2958,8 @@
   "botania.page.bIntro2": "注意，如果$(thing)神秘时代$(0)或其他使用Baubles的模组也安装了的话，这个栏会与它们共享。",
   "botania.entry.cosmeticBaubles": "装饰小件",
   "botania.tagline.cosmeticBaubles": "没有力量的配件",
-  "botania.page.cosmeticBaubles0": "有许多$(item)装饰品$(0)能添加到玩家所装备的饰品上。它们既能单独穿戴(项链栏)，也能与其他$(thing)Bauble$(0)的饰品在合成栏合成，给其添加$(thing)装饰层$(0)。将复合后的饰品放入合成栏就能移除$(thing)装$(0)$(thing)饰层$(0)。",
-  "botania.page.cosmeticBaubles1": "制作的方法相当有趣，将特定颜色的花瓣与$(item)蕴魔丝线$(0)编织即可，做出的成品和颜色似乎并无关联。$(p)它的原理也无从得知，看起来做它的人并不想找些更好的材料，谁知道呢。",
+  "botania.page.cosmeticBaubles0": "有许多$(item)装饰品$(0)能添加到玩家所装备的饰品上。它们既能单独穿戴在项链栏，也能与其他$(thing)饰品$(0)在合成栏合成 - 此时与之合成的饰品的功能不变，但外观会变为$(thing)装饰小件$(0)的样子。将复合后的饰品放入合成栏就能移除$(thing)装饰层$(0)。",
+  "botania.page.cosmeticBaubles1": "将特定颜色的花瓣与$(l:mana/pool)$(item)蕴魔丝线$(0)$(/l)编织即可。奇怪的是，做出的成品和所用花瓣颜色似乎并无关联。$(p)装饰小件的工作原理也无从得知，看起来做它的人没想要功夫设计一套更好的系统，谁知道呢。",
   "botania.page.cosmeticBaubles2": "帅气",
   "botania.page.cosmeticBaubles3": "我想要...打破常规",
   "botania.page.cosmeticBaubles4": "多么让人讨厌",
