@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:cracked_livingrock_bricks"
+      "botania:smelting/cracked_livingrock_bricks"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:cracked_livingrock_bricks"
+        "recipe": "botania:smelting/cracked_livingrock_bricks"
       }
     }
   },

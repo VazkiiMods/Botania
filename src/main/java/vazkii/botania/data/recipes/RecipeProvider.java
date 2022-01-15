@@ -2148,21 +2148,26 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
 				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickCracked, 2)
+		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickMossy)
 				.requires(ModBlocks.livingrockBrick)
-				.requires(Items.COBBLESTONE)
+				.requires(Items.MOSS_BLOCK)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickMossy)
 				.requires(ModBlocks.livingrockBrick)
-				.requires(Items.WHEAT_SEEDS)
+				.requires(Items.VINE)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
+				.save(consumer, "botania:mossy_livingrock_bricks_vine");
+		ShapelessRecipeBuilder.shapeless(ModBlocks.livingwoodPlanksMossy)
+				.requires(ModBlocks.livingwoodPlanks)
+				.requires(Items.MOSS_BLOCK)
+				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingwoodPlanks))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModBlocks.livingwoodPlanksMossy)
 				.requires(ModBlocks.livingwoodPlanks)
-				.requires(Items.WHEAT_SEEDS)
+				.requires(Items.VINE)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingwoodPlanks))
-				.save(consumer);
+				.save(consumer, "botania:mossy_livingwood_planks_vine");
 		ShapedRecipeBuilder.shaped(ModBlocks.livingwoodFramed, 4)
 				.define('W', ModBlocks.livingwoodPlanks)
 				.pattern("WW")
@@ -2176,9 +2181,14 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModBlocks.dreamwoodPlanksMossy)
 				.requires(ModBlocks.dreamwoodPlanks)
-				.requires(Items.WHEAT_SEEDS)
+				.requires(Items.MOSS_BLOCK)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.dreamwoodPlanks))
 				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(ModBlocks.dreamwoodPlanksMossy)
+				.requires(ModBlocks.dreamwoodPlanks)
+				.requires(Items.VINE)
+				.unlockedBy("has_item", conditionsFromItem(ModBlocks.dreamwoodPlanks))
+				.save(consumer, "botania:mossy_dreamwood_planks_vine");
 		ShapedRecipeBuilder.shaped(ModBlocks.dreamwoodFramed, 4)
 				.define('W', ModBlocks.dreamwoodPlanks)
 				.pattern("WW")

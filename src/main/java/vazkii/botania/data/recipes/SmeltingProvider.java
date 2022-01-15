@@ -15,6 +15,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 
 import java.util.function.Consumer;
@@ -54,6 +55,9 @@ public class SmeltingProvider extends BotaniaRecipeProvider {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModFluffBlocks.biomeCobblestoneMesa), ModFluffBlocks.biomeStoneMesa, 0.1f, 200)
 				.unlockedBy("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneMesa))
 				.save(consumer, "botania:smelting/metamorphic_mesa_stone");
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModBlocks.livingrockBrick), ModBlocks.livingrockBrickCracked, 0.1f, 200)
+				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
+				.save(consumer, "botania:smelting/cracked_livingrock_bricks");
 	}
 
 	@Override
