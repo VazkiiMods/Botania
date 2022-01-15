@@ -9,6 +9,7 @@
     "MixinAnvilMenu",
     "MixinBeaconBlockEntity",
     "MixinEnchantmentMenu",
+    "MixinEnderMan",
     "MixinExplosion",
     "MixinItem",
     "MixinItemEntity",
