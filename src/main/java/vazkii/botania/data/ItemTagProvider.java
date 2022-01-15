@@ -48,7 +48,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.tag((Tag.Named<Item>) FabricToolTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
 		this.tag((Tag.Named<Item>) FabricToolTags.HOES).add(manasteelHoe, elementiumHoe);
-		this.tag((Tag.Named<Item>) FabricToolTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick);
+		this.tag((Tag.Named<Item>) FabricToolTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 		this.tag((Tag.Named<Item>) FabricToolTags.SHOVELS).add(manasteelShovel, elementiumShovel);
 		this.tag((Tag.Named<Item>) FabricToolTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
 		this.tag((Tag.Named<Item>) FabricToolTags.SHEARS).add(manasteelShears, elementiumShears);
@@ -81,6 +81,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), cacophonium, divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), monocle);
 		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
+		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 
 		this.tag(ModTags.Items.DUSTS_MANA).add(manaPowder);
 
