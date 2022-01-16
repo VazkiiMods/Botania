@@ -58,7 +58,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 	}
 
 	// [SoftImplement] RenderAttachBlockEntity
-	public IFloatingFlower.IslandType getRenderAttachmentData() {
+	public Object getRenderAttachmentData() {
 		return floatingData.getIslandType();
 	}
 }
