@@ -30,7 +30,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.PlayerEntityAccess;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -121,7 +120,6 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 					&& hasAncientWill(stack, AncientWillType.DHAROK)) {
 				float amount = event.getDamageModifier();
 				event.setDamageModifier(amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
-				Botania.LOGGER.info("multiplier now {}", event.getDamageModifier());
 			}
 		}
 	}
