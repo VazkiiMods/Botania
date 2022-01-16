@@ -28,101 +28,101 @@ public final class ModEntities {
 			.sized(0, 0)
 			.updateInterval(10)
 			.clientTrackingRange(6)
-			.build("");
+			.build(LibEntityNames.MANA_BURST.toString());
 	public static final EntityType<EntityPixie> PIXIE = EntityType.Builder.<EntityPixie>of(EntityPixie::new, MobCategory.MISC)
 			.sized(1, 1)
 			.updateInterval(3)
 			.clientTrackingRange(6)
-			.build("");
+			.build(LibEntityNames.PIXIE.toString());
 	public static final EntityType<EntityFlameRing> FLAME_RING = EntityType.Builder.of(EntityFlameRing::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(3)
 			.updateInterval(40)
-			.build("");
+			.build(LibEntityNames.FLAME_RING.toString());
 	public static final EntityType<EntityVineBall> VINE_BALL = EntityType.Builder.<EntityVineBall>of(EntityVineBall::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.VINE_BALL.toString());
 	public static final EntityType<EntityDoppleganger> DOPPLEGANGER = EntityType.Builder.of(EntityDoppleganger::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.8F)
 			.fireImmune()
 			.clientTrackingRange(10)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.DOPPLEGANGER.toString());
 	public static final EntityType<EntityMagicLandmine> MAGIC_LANDMINE = EntityType.Builder.of(EntityMagicLandmine::new, MobCategory.MISC)
 			.sized(5F, 0.1F)
 			.clientTrackingRange(8)
 			.updateInterval(40)
-			.build("");
+			.build(LibEntityNames.MAGIC_LANDMINE.toString());
 	public static final EntityType<EntityManaSpark> SPARK = EntityType.Builder.<EntityManaSpark>of(EntityManaSpark::new, MobCategory.MISC)
 			.sized(0.2F, 0.5F)
 			.fireImmune()
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.SPARK.toString());
 	public static final EntityType<EntityThrownItem> THROWN_ITEM = EntityType.Builder.<EntityThrownItem>of(EntityThrownItem::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
 			.updateInterval(20)
-			.build("");
+			.build(LibEntityNames.THROWN_ITEM.toString());
 	public static final EntityType<EntityMagicMissile> MAGIC_MISSILE = EntityType.Builder.<EntityMagicMissile>of(EntityMagicMissile::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(4)
 			.updateInterval(2)
-			.build("");
+			.build(LibEntityNames.MAGIC_MISSILE.toString());
 	public static final EntityType<EntityThornChakram> THORN_CHAKRAM = EntityType.Builder.<EntityThornChakram>of(EntityThornChakram::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(5)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.THORN_CHAKRAM.toString());
 	public static final EntityType<EntityCorporeaSpark> CORPOREA_SPARK = EntityType.Builder.of(EntityCorporeaSpark::new, MobCategory.MISC)
 			.sized(0.2F, 0.5F)
 			.fireImmune()
 			.clientTrackingRange(4)
 			.updateInterval(40)
-			.build("");
+			.build(LibEntityNames.CORPOREA_SPARK.toString());
 	public static final EntityType<EntityEnderAirBottle> ENDER_AIR_BOTTLE = EntityType.Builder.<EntityEnderAirBottle>of(EntityEnderAirBottle::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.ENDER_AIR_BOTTLE.toString());
 	public static final EntityType<EntityPoolMinecart> POOL_MINECART = EntityType.Builder.<EntityPoolMinecart>of(EntityPoolMinecart::new, MobCategory.MISC)
 			.sized(0.98F, 0.7F)
 			.clientTrackingRange(5)
 			.updateInterval(3)
-			.build("");
+			.build(LibEntityNames.POOL_MINECART.toString());
 	public static final EntityType<EntityPinkWither> PINK_WITHER = EntityType.Builder.of(EntityPinkWither::new, MobCategory.MISC)
 			.sized(0.9F, 3.5F)
 			.clientTrackingRange(6)
 			.updateInterval(3)
-			.build("");
+			.build(LibEntityNames.PINK_WITHER.toString());
 	public static final EntityType<EntityPlayerMover> PLAYER_MOVER = EntityType.Builder.<EntityPlayerMover>of(EntityPlayerMover::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(10)
 			.updateInterval(3)
-			.build("");
+			.build(LibEntityNames.PLAYER_MOVER.toString());
 	public static final EntityType<EntityManaStorm> MANA_STORM = EntityType.Builder.of(EntityManaStorm::new, MobCategory.MISC)
 			.sized(0.98F, 0.98F)
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.MANA_STORM.toString());
 	public static final EntityType<EntityBabylonWeapon> BABYLON_WEAPON = EntityType.Builder.<EntityBabylonWeapon>of(EntityBabylonWeapon::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(6)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.BABYLON_WEAPON.toString());
 	public static final EntityType<EntityFallingStar> FALLING_STAR = EntityType.Builder.<EntityFallingStar>of(EntityFallingStar::new, MobCategory.MISC)
 			.sized(0, 0)
 			.clientTrackingRange(4)
 			.updateInterval(10)
-			.build("");
+			.build(LibEntityNames.FALLING_STAR.toString());
 	public static final EntityType<EntityEnderAir> ENDER_AIR = EntityType.Builder.of(EntityEnderAir::new, MobCategory.MISC)
 			.fireImmune()
 			.sized(1, 1)
 			.clientTrackingRange(4)
 			.updateInterval(Integer.MAX_VALUE)
-			.build("");
+			.build(LibEntityNames.ENDER_AIR.toString());
 
 	public static void registerEntities(BiConsumer<EntityType<?>, ResourceLocation> r) {
 		r.accept(MANA_BURST, LibEntityNames.MANA_BURST);
