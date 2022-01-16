@@ -48,14 +48,10 @@ import net.minecraft.world.level.material.Fluids;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
-import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.advancements.*;
-import vazkii.botania.common.block.BlockPistonRelay;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.tile.*;
@@ -65,7 +61,6 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
-import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -73,8 +68,7 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
-import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
-import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
+import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
@@ -100,10 +94,65 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class FabricCommonInitializer implements ModInitializer {
 	@Override
 	public void onInitialize() {
-		FiberBotaniaConfig.setup();
+		coreInit();
+		registryInit();
 
+		PaintableData.init();
+		DefaultCorporeaMatchers.init();
+
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
+
+		OrechidManager.registerListener();
+		TileCraftCrate.registerListener();
+
+		registerCapabilities();
+		registerEvents();
+	}
+
+	private void coreInit() {
+		FiberBotaniaConfig.setup();
 		EquipmentHandler.init();
+		FabricPacketHandler.init();
+	}
+
+	private void registryInit() {
+		// Core item/block/BE
+		ModSounds.init(bind(Registry.SOUND_EVENT));
+		ModBlocks.registerBlocks(bind(Registry.BLOCK));
+		ModBlocks.registerItemBlocks(bind(Registry.ITEM));
+		ModFluffBlocks.registerBlocks(bind(Registry.BLOCK));
+		ModFluffBlocks.registerItemBlocks(bind(Registry.ITEM));
+		ModTiles.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
+		ModItems.registerItems(bind(Registry.ITEM));
+		ModSubtiles.registerBlocks(bind(Registry.BLOCK));
+		ModSubtiles.registerItemBlocks(bind(Registry.ITEM));
+		ModSubtiles.registerTEs(bind(Registry.BLOCK_ENTITY_TYPE));
+		ModBlocks.addDispenserBehaviours();
+
+		int blazeTime = 2400;
+		FuelRegistry.INSTANCE.add(ModBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
+
+		// GUI and Recipe
+		ModItems.registerMenuTypes(bind(Registry.MENU));
+		ModItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
+		ModRecipeTypes.registerRecipeTypes(bind(Registry.RECIPE_SERIALIZER));
+
+		// Entities
+		ModEntities.registerEntities(bind(Registry.ENTITY_TYPE));
+		ModEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
+		PixieHandler.registerAttribute(bind(Registry.ATTRIBUTE));
+		MinecartComparatorLogicRegistry.register(ModEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
+
+		// Potions
+		ModPotions.registerPotions(bind(Registry.MOB_EFFECT));
+		ModBrews.registerBrews();
+
+		// Worldgen
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
+		SkyblockChunkGenerator.init();
 		if (BotaniaConfig.common().worldgenEnabled()) {
 			BiomeModifications.addFeature(ctx -> {
 				Biome.BiomeCategory category = ctx.getBiome().getBiomeCategory();
@@ -117,84 +166,39 @@ public class FabricCommonInitializer implements ModInitializer {
 					BuiltinRegistries.PLACED_FEATURE.getResourceKey(ModFeatures.MYSTICAL_MUSHROOMS_PLACED).orElseThrow());
 		}
 
-		ModBlocks.registerBlocks(bind(Registry.BLOCK));
-		ModItems.registerItems(bind(Registry.ITEM));
-		ModItems.registerMenuTypes(bind(Registry.MENU));
-		ModItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
-		ModEntities.registerEntities(bind(Registry.ENTITY_TYPE));
-		MinecartComparatorLogicRegistry.register(ModEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
-		ModRecipeTypes.registerRecipeTypes(bind(Registry.RECIPE_SERIALIZER));
-		ModSounds.init(bind(Registry.SOUND_EVENT));
-		ModBrews.registerBrews();
-		ModPotions.registerPotions(bind(Registry.MOB_EFFECT));
-		int blazeTime = 2400;
-		FuelRegistry.INSTANCE.add(ModBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
-		ModBlocks.registerItemBlocks(bind(Registry.ITEM));
-		ModTiles.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
-		ModFluffBlocks.registerBlocks(bind(Registry.BLOCK));
-		ModFluffBlocks.registerItemBlocks(bind(Registry.ITEM));
+		// Rest
+		ModCriteriaTriggers.init();
+		ModLootModifiers.init();
 		ModParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
-		ModSubtiles.registerBlocks(bind(Registry.BLOCK));
-		ModSubtiles.registerItemBlocks(bind(Registry.ITEM));
-		ModSubtiles.registerTEs(bind(Registry.BLOCK_ENTITY_TYPE));
-		PixieHandler.registerAttribute(bind(Registry.ATTRIBUTE));
+		ModStats.init();
+	}
 
-		commonSetup();
-		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
+	private void registerEvents() {
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
+		}
+		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> ((ItemExchangeRod) ModItems.exchangeRod).onLeftClick(player, world, hand, pos, direction));
+		AttackEntityCallback.EVENT.register(ItemGravityRod::onAttack);
+		AttackEntityCallback.EVENT.register(ItemTerraSword::attackEntity);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
+		EntitySleepEvents.ALLOW_SLEEPING.register(SleepingHandler::trySleep);
+		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> LootHandler.lootLoad(id, supplier::withPool));
+		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
+		ServerEntityEvents.ENTITY_LOAD.register(SubTileTigerseye::pacifyAfterLoad);
+		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
-		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
-		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
-		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
+		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
 		ServerPlayerEvents.AFTER_RESPAWN.register(ItemKeepIvy::onPlayerRespawn);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
-		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
-		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
-		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> LootHandler.lootLoad(id, supplier::withPool));
-		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
-		ServerEntityEvents.ENTITY_LOAD.register(SubTileTigerseye::pacifyAfterLoad);
-		AttackEntityCallback.EVENT.register(ItemGravityRod::onAttack);
-		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> ((ItemExchangeRod) ModItems.exchangeRod).onLeftClick(player, world, hand, pos, direction));
+		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
 		ServerTickEvents.END_WORLD_TICK.register(ItemTerraAxe::onTickEnd);
-		AttackEntityCallback.EVENT.register(ItemTerraSword::attackEntity);
-		EntitySleepEvents.ALLOW_SLEEPING.register(SleepingHandler::trySleep);
-		OrechidManager.registerListener();
-		TileCraftCrate.registerListener();
-
-		ModLootModifiers.init();
-		ModCriteriaTriggers.init();
+		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
+		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
+		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
 	}
 
 	private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {
 		return (t, id) -> Registry.register(registry, id, t);
-	}
-
-	private void commonSetup() {
-		FabricPacketHandler.init();
-		PaintableData.init();
-
-		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
-		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
-
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
-			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
-		}
-
-		SkyblockChunkGenerator.init();
-
-		ModEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
-
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
-
-		ModBlocks.addDispenserBehaviours();
-
-		ModStats.init();
-		registerPaintables();
-
-		registerCapabilities();
 	}
 
 	private void registerCapabilities() {
@@ -245,43 +249,6 @@ public class FabricCommonInitializer implements ModInitializer {
 				ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
 				ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI
 		);
-	}
-
-	private void registerPaintables() {
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, ColorHelper.STAINED_GLASS_MAP);
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_MAP.apply(color), ColorHelper.STAINED_GLASS_MAP);
-		}
-
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, ColorHelper.STAINED_GLASS_PANE_MAP);
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_PANE_MAP.apply(color), ColorHelper.STAINED_GLASS_PANE_MAP);
-		}
-
-		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, ColorHelper.TERRACOTTA_MAP);
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.TERRACOTTA_MAP.apply(color), ColorHelper.TERRACOTTA_MAP);
-		}
-
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.GLAZED_TERRACOTTA_MAP.apply(color), ColorHelper.GLAZED_TERRACOTTA_MAP);
-		}
-
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.WOOL_MAP.apply(color), ColorHelper.WOOL_MAP);
-		}
-
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CARPET_MAP.apply(color), ColorHelper.CARPET_MAP);
-		}
-
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_MAP.apply(color), ColorHelper.CONCRETE_MAP);
-		}
-
-		for (DyeColor color : DyeColor.values()) {
-			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_POWDER_MAP.apply(color), ColorHelper.CONCRETE_POWDER_MAP);
-		}
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {
