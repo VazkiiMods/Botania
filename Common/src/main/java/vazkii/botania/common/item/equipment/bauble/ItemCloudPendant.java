@@ -26,8 +26,8 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.network.serverbound.PacketJump;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 

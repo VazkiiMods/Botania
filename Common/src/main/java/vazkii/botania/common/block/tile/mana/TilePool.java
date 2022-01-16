@@ -47,12 +47,12 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.handler.ManaNetworkHandler;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 

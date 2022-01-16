@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.xplat.IXplatAbstractions;
 

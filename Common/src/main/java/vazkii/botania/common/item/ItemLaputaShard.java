@@ -43,11 +43,11 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;

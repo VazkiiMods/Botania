@@ -24,12 +24,12 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.core.helper.VecHelper;
-import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.network.EffectType;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;

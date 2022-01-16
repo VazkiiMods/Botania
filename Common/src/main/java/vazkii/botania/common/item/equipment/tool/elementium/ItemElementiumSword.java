@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;

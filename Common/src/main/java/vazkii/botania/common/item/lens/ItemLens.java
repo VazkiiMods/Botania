@@ -23,8 +23,8 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;

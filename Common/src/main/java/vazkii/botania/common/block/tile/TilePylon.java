@@ -23,7 +23,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Random;

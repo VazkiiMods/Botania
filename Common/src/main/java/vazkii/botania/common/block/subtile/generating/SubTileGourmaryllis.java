@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.helper.DelayHelper;
+import vazkii.botania.common.helper.DelayHelper;
 
 import java.util.LinkedList;
 import java.util.List;

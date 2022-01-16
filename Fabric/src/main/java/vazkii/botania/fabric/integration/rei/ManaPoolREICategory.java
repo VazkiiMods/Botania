@@ -27,7 +27,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;

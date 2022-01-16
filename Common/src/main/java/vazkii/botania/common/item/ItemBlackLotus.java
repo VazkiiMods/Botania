@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;

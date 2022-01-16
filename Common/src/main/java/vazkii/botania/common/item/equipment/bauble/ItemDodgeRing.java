@@ -21,8 +21,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.network.serverbound.PacketDodge;
 import vazkii.botania.xplat.IClientXplatAbstractions;

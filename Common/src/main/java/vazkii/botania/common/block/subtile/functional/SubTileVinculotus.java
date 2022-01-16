@@ -16,7 +16,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.helper.MathHelper;
 
 import javax.annotation.Nullable;
 

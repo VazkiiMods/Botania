@@ -23,7 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.core.handler.ContributorList;
+import vazkii.botania.common.handler.ContributorList;
 
 import javax.annotation.Nonnull;
 

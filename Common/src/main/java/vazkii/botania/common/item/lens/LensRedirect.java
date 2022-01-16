@@ -21,7 +21,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
-import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.helper.MathHelper;
 
 public class LensRedirect extends Lens {
 

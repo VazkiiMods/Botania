@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.helper.MathHelper;
 
 import javax.annotation.Nonnull;
 

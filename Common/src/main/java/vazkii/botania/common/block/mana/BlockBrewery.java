@@ -33,7 +33,7 @@ import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

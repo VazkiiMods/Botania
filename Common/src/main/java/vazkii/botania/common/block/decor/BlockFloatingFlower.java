@@ -32,7 +32,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
-import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;

@@ -38,11 +38,11 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.proxy.IProxy;
 
 import javax.annotation.Nullable;
 

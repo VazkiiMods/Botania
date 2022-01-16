@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
-import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.helper.ColorHelper;
 
 import javax.annotation.Nonnull;
 

@@ -14,7 +14,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 
 /**
  * An inventory that writes into the provided stack's NBT on save

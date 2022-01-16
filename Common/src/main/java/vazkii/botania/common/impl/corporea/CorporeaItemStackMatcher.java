@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 
 public class CorporeaItemStackMatcher implements ICorporeaRequestMatcher {
 	private static final String TAG_REQUEST_STACK = "requestStack";

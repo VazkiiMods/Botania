@@ -31,7 +31,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.helper.ColorHelper;
 
 import javax.annotation.Nullable;
 
@@ -58,7 +58,7 @@ public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 			time += new Random(pool.getBlockPos().getX() ^ pool.getBlockPos().getY() ^ pool.getBlockPos().getZ()).nextInt(100000);
 			time *= 0.005F;
 			int poolColor = ColorHelper.getColorValue(pool.getColor());
-			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(Mth.hsvToRgb(Mth.frac(time), 0.6F, 1F), poolColor);
+			int color = vazkii.botania.common.helper.MathHelper.multiplyColor(Mth.hsvToRgb(Mth.frac(time), 0.6F, 1F), poolColor);
 
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;

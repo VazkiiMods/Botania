@@ -29,7 +29,7 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.proxy.IProxy;
 
 public class ItemKnockbackBelt extends ItemBauble {
 

@@ -26,10 +26,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.ModStats;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.ModStats;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

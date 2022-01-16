@@ -24,7 +24,7 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 
 import java.util.List;
 

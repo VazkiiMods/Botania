@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.advancements.RelicBindTrigger;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
 import java.util.UUID;

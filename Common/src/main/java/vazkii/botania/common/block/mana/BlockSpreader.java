@@ -34,8 +34,8 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;

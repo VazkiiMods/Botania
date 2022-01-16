@@ -41,7 +41,7 @@ import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.helper.DelayHelper;
+import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;

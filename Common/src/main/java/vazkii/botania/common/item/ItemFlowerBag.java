@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;

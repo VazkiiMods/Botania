@@ -79,7 +79,7 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;

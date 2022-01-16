@@ -8,7 +8,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
-import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 

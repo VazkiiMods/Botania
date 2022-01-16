@@ -19,9 +19,9 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityVineBall;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 

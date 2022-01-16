@@ -21,10 +21,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.*;
+import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.core.ModStats;
-import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;

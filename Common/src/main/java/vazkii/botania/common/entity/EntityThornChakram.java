@@ -34,7 +34,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.core.helper.VecHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;

@@ -29,7 +29,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.material.ItemSelfReturning;
 
 import javax.annotation.Nonnull;

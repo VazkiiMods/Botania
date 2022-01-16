@@ -78,17 +78,15 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
-import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.network.*;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.fabric.mixin.FabricAccessorAbstractFurnaceBlockEntity;
 import vazkii.botania.network.IPacket;
-import vazkii.botania.network.clientbound.*;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;

@@ -33,8 +33,8 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.core.helper.DelayHelper;
+import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.DelayHelper;
 
 import java.util.function.Predicate;
 

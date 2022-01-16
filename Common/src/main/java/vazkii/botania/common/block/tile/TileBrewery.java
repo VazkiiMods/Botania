@@ -35,8 +35,8 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.handler.ModSounds;
 
 import javax.annotation.Nullable;
 

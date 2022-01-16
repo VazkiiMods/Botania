@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.mixin.AccessorDamageSource;
 
 import javax.annotation.Nullable;

@@ -19,7 +19,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.gui.SlotLocked;
-import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemBaubleBox;
 import vazkii.botania.common.item.ModItems;
 

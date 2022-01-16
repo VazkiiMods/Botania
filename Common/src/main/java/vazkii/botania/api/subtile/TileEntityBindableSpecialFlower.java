@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.IWandBindable;
-import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.helper.MathHelper;
 
 import javax.annotation.Nullable;
 

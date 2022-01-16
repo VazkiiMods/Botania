@@ -17,10 +17,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.VecHelper;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
+import vazkii.botania.common.proxy.IProxy;
 
 import javax.annotation.Nonnull;
 

@@ -44,11 +44,11 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.forge.CapabilityUtil;
 
 import java.util.UUID;

@@ -32,8 +32,8 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

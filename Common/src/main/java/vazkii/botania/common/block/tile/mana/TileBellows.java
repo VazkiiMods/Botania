@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ExoflameFurnaceHandler;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 
 public class TileBellows extends TileMod {

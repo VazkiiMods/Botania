@@ -15,7 +15,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
-import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.handler.PixieHandler;
 
 import javax.annotation.Nonnull;
 

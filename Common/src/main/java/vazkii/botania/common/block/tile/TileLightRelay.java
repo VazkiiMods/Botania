@@ -42,10 +42,10 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.helper.VecHelper;
 
 import javax.annotation.Nonnull;
 

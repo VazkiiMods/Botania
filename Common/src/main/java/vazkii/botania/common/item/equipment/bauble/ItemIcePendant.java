@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.mixin.AccessorBiome;
 
 public class ItemIcePendant extends ItemBauble {

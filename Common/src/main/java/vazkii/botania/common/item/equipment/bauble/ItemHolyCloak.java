@@ -32,10 +32,10 @@ import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.proxy.IProxy;
 
 public class ItemHolyCloak extends ItemBauble {
 

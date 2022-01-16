@@ -43,8 +43,8 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.mixin.client.AccessorMinecraft;
 
 import java.util.List;

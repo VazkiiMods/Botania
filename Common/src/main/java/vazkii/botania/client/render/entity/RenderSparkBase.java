@@ -22,8 +22,8 @@ import net.minecraft.world.inventory.InventoryMenu;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.entity.EntitySparkBase;
+import vazkii.botania.common.helper.ColorHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

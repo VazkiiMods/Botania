@@ -28,7 +28,7 @@ import net.minecraft.world.level.material.Material;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Set;

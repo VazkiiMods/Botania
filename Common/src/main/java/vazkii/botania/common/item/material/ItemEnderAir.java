@@ -22,9 +22,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityEnderAir;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;

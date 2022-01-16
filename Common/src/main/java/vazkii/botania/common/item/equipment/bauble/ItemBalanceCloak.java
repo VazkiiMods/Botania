@@ -18,7 +18,7 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 
 public class ItemBalanceCloak extends ItemHolyCloak {
 

@@ -26,8 +26,8 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.VecHelper;
+import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.helper.VecHelper;
 
 import javax.annotation.Nonnull;
 

@@ -30,11 +30,11 @@ import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.proxy.IProxy;
 
 import javax.annotation.Nonnull;
 

@@ -20,7 +20,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntityBindableSpecialFlower;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.helper.MathHelper;
 
 import javax.annotation.Nonnull;
 

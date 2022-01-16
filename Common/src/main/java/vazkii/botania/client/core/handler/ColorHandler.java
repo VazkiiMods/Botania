@@ -34,7 +34,7 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
@@ -73,7 +73,7 @@ public final class ColorHandler {
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
 						float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.005F;
 						int fabulousColor = Mth.hsvToRgb(time - (int) time, 0.6F, 1F);
-						return vazkii.botania.common.core.helper.MathHelper.multiplyColor(fabulousColor, color);
+						return vazkii.botania.common.helper.MathHelper.multiplyColor(fabulousColor, color);
 					}
 					return color;
 				},

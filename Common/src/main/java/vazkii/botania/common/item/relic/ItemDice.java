@@ -32,7 +32,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.core.handler.TooltipHandler;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 

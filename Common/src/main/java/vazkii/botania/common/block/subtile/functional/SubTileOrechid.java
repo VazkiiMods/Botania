@@ -22,9 +22,9 @@ import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.handler.OrechidManager;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.OrechidManager;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 

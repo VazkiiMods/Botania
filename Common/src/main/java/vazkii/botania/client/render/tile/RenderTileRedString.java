@@ -24,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.string.TileRedString;
-import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.Random;

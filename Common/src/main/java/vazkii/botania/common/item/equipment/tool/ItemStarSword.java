@@ -21,8 +21,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityFallingStar;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 public class ItemStarSword extends ItemManasteelSword {

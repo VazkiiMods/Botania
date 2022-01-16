@@ -21,10 +21,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.VecHelper;
 
 import javax.annotation.Nonnull;
 

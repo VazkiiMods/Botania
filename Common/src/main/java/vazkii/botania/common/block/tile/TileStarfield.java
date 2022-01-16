@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.proxy.IProxy;
 
 public class TileStarfield extends TileMod {
 	public TileStarfield(BlockPos pos, BlockState state) {

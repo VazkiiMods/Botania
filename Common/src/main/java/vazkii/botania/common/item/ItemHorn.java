@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 

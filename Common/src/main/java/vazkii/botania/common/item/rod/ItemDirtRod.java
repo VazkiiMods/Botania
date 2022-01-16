@@ -30,7 +30,7 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 

@@ -19,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.glfw.GLFW;
 
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemLexicon;
 
 public class KonamiHandler {

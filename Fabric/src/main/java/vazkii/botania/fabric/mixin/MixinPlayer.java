@@ -36,10 +36,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import vazkii.botania.common.core.ModStats;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.ModStats;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;

@@ -20,8 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.MathHelper;
 
 import javax.annotation.Nonnull;
 

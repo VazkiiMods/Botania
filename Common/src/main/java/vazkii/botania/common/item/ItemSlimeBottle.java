@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 
 public class ItemSlimeBottle extends Item {
 	public static final String TAG_ACTIVE = "active";

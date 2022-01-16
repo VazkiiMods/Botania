@@ -36,8 +36,8 @@ import net.minecraft.world.level.block.NoteBlock;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.mixin.AccessorMob;
 
 import javax.annotation.Nonnull;

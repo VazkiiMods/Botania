@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 

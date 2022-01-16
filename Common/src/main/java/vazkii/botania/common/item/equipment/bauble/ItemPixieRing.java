@@ -14,7 +14,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.handler.PixieHandler;
 
 public class ItemPixieRing extends ItemBauble {
 	public ItemPixieRing(Properties props) {

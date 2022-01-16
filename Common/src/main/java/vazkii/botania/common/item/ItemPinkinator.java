@@ -26,9 +26,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.handler.ModSounds;
 
 import javax.annotation.Nonnull;
 

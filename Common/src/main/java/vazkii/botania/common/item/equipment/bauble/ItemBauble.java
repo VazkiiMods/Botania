@@ -26,9 +26,9 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;

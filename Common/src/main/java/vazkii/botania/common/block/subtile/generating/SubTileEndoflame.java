@@ -25,8 +25,8 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.DelayHelper;
+import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.DelayHelper;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private static final String TAG_BURN_TIME = "burnTime";

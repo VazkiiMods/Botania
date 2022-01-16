@@ -43,7 +43,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.xplat.IXplatAbstractions;

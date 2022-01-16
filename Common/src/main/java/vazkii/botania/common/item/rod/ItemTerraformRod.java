@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;

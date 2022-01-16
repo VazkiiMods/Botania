@@ -24,8 +24,8 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;

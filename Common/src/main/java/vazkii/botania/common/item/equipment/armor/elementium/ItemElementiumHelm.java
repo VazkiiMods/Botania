@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaDiscountArmor;
-import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.handler.PixieHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

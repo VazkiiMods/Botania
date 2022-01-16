@@ -29,8 +29,8 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.UUID;

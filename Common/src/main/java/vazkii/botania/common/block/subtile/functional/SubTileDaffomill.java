@@ -26,7 +26,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.helper.DelayHelper;
+import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.network.clientbound.PacketItemAge;
 import vazkii.botania.xplat.IXplatAbstractions;
 

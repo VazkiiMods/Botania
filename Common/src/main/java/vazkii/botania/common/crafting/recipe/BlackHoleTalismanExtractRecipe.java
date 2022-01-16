@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemBlackHoleTalisman;
 import vazkii.botania.common.item.ModItems;
 

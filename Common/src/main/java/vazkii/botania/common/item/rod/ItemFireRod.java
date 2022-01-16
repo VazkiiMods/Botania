@@ -23,9 +23,9 @@ import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.handler.ModSounds;
 
 import javax.annotation.Nonnull;
 

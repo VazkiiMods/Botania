@@ -42,8 +42,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.mixin.AccessorBucketItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 

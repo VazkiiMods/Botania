@@ -35,11 +35,11 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.VecHelper;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.proxy.IProxy;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;

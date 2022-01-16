@@ -28,10 +28,10 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityThrownItem;
+import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 

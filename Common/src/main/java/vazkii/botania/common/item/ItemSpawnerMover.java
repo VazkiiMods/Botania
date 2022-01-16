@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

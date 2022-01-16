@@ -26,9 +26,9 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.handler.ModSounds;
 
 import javax.annotation.Nonnull;
 

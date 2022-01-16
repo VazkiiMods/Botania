@@ -31,10 +31,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.proxy.IProxy;
 
 import java.util.ArrayList;
 import java.util.List;

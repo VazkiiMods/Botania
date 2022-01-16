@@ -35,9 +35,9 @@ import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.core.handler.EquipmentHandler;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.proxy.IProxy;
 
 public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 

@@ -28,7 +28,7 @@ import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.proxy.IProxy;
 
 import java.util.List;
 
