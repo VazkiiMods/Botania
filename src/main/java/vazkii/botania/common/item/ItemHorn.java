@@ -89,7 +89,7 @@ public class ItemHorn extends Item {
 			Block block = world.getBlockState(pos).getBlock();
 			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 
-			if (SubTileBergamute.isBergamuteNearby(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
+			if (SubTileBergamute.isBergamuteNearby(world.getDimensionKey(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
 			}
 			if (harvestable != null

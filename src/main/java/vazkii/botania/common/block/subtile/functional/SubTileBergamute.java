@@ -11,6 +11,8 @@ package vazkii.botania.common.block.subtile.functional;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.client.audio.ISound;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -24,7 +26,8 @@ import java.util.*;
 
 public class SubTileBergamute extends TileEntitySpecialFlower {
 	private static final int RANGE = 4;
-	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SubTileBergamute> clientFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SubTileBergamute> serverFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final Set<ISound> mutedSounds = Collections.newSetFromMap(new WeakHashMap<>());
 	private boolean disabled = false;
 
@@ -36,25 +39,31 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
+		disabled = getWorld().isBlockPowered(getPos());
 		if (getWorld().isRemote) {
-			disabled = getWorld().isBlockPowered(getPos());
-			existingFlowers.add(this);
+			clientFlowers.add(this);
+		} else {
+			serverFlowers.add(this);
 		}
 	}
 
 	@Override
 	public void remove() {
 		super.remove();
-		existingFlowers.remove(this);
+		if (getWorld().isRemote) {
+			clientFlowers.remove(this);
+		} else {
+			serverFlowers.remove(this);
+		}
 	}
 
 	// todo seems expensive when we have lots of sounds cache maybe?
-	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z, int maxCount) {
+	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(RegistryKey<World> world, double x, double y, double z, int maxCount) {
 		int count = 0;
 		SubTileBergamute tile = null;
 
-		for (SubTileBergamute f : existingFlowers) {
-			if (!f.disabled && f.getEffectivePos().distanceSq(x, y, z, true) <= RANGE * RANGE) {
+		for (SubTileBergamute f : world == null ? clientFlowers : serverFlowers) {
+			if (!f.disabled && (world == null || world == f.world.getDimensionKey()) && f.getEffectivePos().distanceSq(x, y, z, true) <= RANGE * RANGE) {
 				count++;
 				if (count == 1) {
 					tile = f;
@@ -67,8 +76,8 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		return Pair.of(count, tile);
 	}
 
-	public static boolean isBergamuteNearby(double x, double y, double z) {
-		return getBergamutesNearby(x, y, z, 1).getFirst() > 0;
+	public static boolean isBergamuteNearby(RegistryKey<World> world, double x, double y, double z) {
+		return getBergamutesNearby(world, x, y, z, 1).getFirst() > 0;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -76,7 +85,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		// We halve the volume for each flower (see MixinSoundEngine)
 		// halving 8 times already brings the multiplier to near zero, so no
 		// need to keep going if we've seen more than 8.
-		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(sound.getX(), sound.getY(), sound.getZ(), 8);
+		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(null, sound.getX(), sound.getY(), sound.getZ(), 8);
 		int count = countAndBerg.getFirst();
 		if (count > 0) {
 			if (mutedSounds.add(sound) && Math.random() < 0.5) {
