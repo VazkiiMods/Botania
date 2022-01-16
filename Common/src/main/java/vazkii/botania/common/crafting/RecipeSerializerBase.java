@@ -9,7 +9,8 @@ import vazkii.botania.common.annotations.SoftImplement;
 import javax.annotation.Nullable;
 
 /**
- * This class exists purely to (soft) implement the IForgeRegistryEntry methods
+ * This class exists purely to (soft) implement the IForgeRegistryEntry methods.
+ * The actual bridge method for setRegistryName on the Forge side is implemented with a mixin.
  */
 public abstract class RecipeSerializerBase<T extends Recipe<?>> implements RecipeSerializer<T> {
 	@Nullable

@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
@@ -183,6 +184,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 		setMana(cmp.getInt(TAG_MANA));
 	}
 
+	@SoftImplement("IForgeMinecart")
 	public int getComparatorLevel() {
 		return TilePool.calculateComparatorLevel(getMana(), TilePool.MAX_MANA);
 	}

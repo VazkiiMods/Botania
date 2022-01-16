@@ -187,7 +187,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ServerEntityEvents.ENTITY_LOAD.register(SubTileTigerseye::pacifyAfterLoad);
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
-		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
+		ServerPlayConnectionEvents.DISCONNECT.register(((handler, server) -> ItemFlightTiara.playerLoggedOut(handler.player)));
 		ServerPlayerEvents.AFTER_RESPAWN.register(ItemKeepIvy::onPlayerRespawn);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);

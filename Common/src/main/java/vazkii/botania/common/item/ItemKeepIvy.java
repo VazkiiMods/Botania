@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +52,7 @@ public class ItemKeepIvy extends Item {
 		}
 	}
 
-	public static void onPlayerRespawn(ServerPlayer oldPlayer, ServerPlayer newPlayer, boolean alive) {
+	public static void onPlayerRespawn(Player oldPlayer, Player newPlayer, boolean alive) {
 		if (!alive) {
 			KeptItemsComponent keeps = IXplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer);
 

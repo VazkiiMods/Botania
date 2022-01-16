@@ -25,8 +25,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -186,8 +185,8 @@ public class ItemFlightTiara extends ItemBauble {
 		}
 	}
 
-	public static void playerLoggedOut(ServerGamePacketListenerImpl handler, MinecraftServer server) {
-		String username = handler.player.getGameProfile().getName();
+	public static void playerLoggedOut(ServerPlayer player) {
+		String username = player.getGameProfile().getName();
 		playersWithFlight.remove(username + ":false");
 		playersWithFlight.remove(username + ":true");
 	}

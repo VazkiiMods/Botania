@@ -12,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -75,7 +77,12 @@ public class ItemLexicon extends ItemModPattern {
 	}
 
 	public static Component getEdition() {
-		return PatchouliAPI.get().getSubtitle(Registry.ITEM.getKey(ModItems.lexicon));
+		try {
+			return PatchouliAPI.get().getSubtitle(Registry.ITEM.getKey(ModItems.lexicon));
+		} catch (Exception e) {
+			BotaniaAPI.LOGGER.error("Failed to get subtitle"); // TODO only to get the game to launch
+			return new TextComponent("?");
+		}
 	}
 
 	public static Component getTitle(ItemStack stack) {

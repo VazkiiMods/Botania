@@ -88,20 +88,26 @@ public class ItemGravityRod extends Item {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 	}
 
-	public static void onEntitySwing(LivingEntity entity) {
+	@SoftImplement("IForgeItem")
+	public boolean onEntitySwing(LivingEntity entity) {
 		if (!(entity instanceof Player player)) {
-			return;
+			return false;
 		}
 		leftClick(player);
+		return false;
 	}
 
 	// Prevent damaging the entity you just held with the rod
+	@SoftImplement("IForgeItem")
+	public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+		return ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0;
+	}
+
+	// Calls hook above on Fabric
 	public static InteractionResult onAttack(Player player, Level level, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(ModItems.gravityRod)) {
-			if (ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0) {
-				return InteractionResult.FAIL;
-			}
+		if (stack.is(ModItems.gravityRod) && ((ItemGravityRod) stack.getItem()).onLeftClickEntity(stack, player, target)) {
+			return InteractionResult.FAIL;
 		}
 		return InteractionResult.PASS;
 	}

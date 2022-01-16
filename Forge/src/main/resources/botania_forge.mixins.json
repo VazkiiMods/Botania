@@ -6,7 +6,8 @@
   "mixins": [
     "AccessorRegistry",
     "ForgeAccessorAbstractFurnaceBlockEntity",
-    "MixinItemBauble"
+    "MixinItemBauble",
+    "MixinRecipeSerializerBase"
   ],
   "client": [
   ],
