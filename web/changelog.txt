@@ -1,4 +1,7 @@
-1.16.5-421
+1.16.5-420.2
+* Fix: Mixin conflict with SpongeForge
+* Fix: Bergamute horn prevention not working on servers
+1.16.5-420.1
 * Info: Barring hotfixes, this will be the final update for Botania Forge 1.16. Thanks for your support!
 * Change: Horns and Drums will not break blocks when in range of an active Bergamute (Alwinfy)
 * Change/Fix: Narslimmus buffer was too small to hold all the mana from large slimes. Reported by million09.
