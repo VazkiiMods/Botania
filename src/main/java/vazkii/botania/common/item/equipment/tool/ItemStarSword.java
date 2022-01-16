@@ -39,7 +39,7 @@ public class ItemStarSword extends ItemManasteelSword {
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		if (entity instanceof Player player) {
-			if (((Player) entity).getAttackStrengthScale(0) == 1.0F && !ItemNBTHelper.getBoolean(stack, STAR_CHARGED, false)) {
+			if (!world.isClientSide && ((Player) entity).getAttackStrengthScale(0) == 1.0F && !ItemNBTHelper.getBoolean(stack, STAR_CHARGED, false)) {
 				ItemNBTHelper.setBoolean(stack, STAR_CHARGED, true);
 			}
 			
@@ -77,7 +77,7 @@ public class ItemStarSword extends ItemManasteelSword {
 			}
 
 			stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-			world.playSound(null, posVec.x, posVec.y, posVec.z, ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY() + 15, player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 	
