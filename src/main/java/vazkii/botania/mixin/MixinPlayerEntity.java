@@ -21,28 +21,25 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.common.core.ModStats;
+import vazkii.botania.common.core.PlayerEntityAccess;
 import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
 @Mixin(PlayerEntity.class)
-public abstract class MixinPlayerEntity {
+public abstract class MixinPlayerEntity implements PlayerEntityAccess {
 	@Shadow
 	public abstract void addStat(ResourceLocation id, int amount);
 
 	@Unique
 	private LivingEntity critTarget;
-
-	@Unique
-	private boolean critting;
 
 	/**
 	 * Registers the pixie spawn chance attribute on players
@@ -65,15 +62,10 @@ public abstract class MixinPlayerEntity {
 		}
 	}
 
-	// Capture the entity we are attacking, at the start of the method part dealing damage.
-	@Inject(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getKnockbackModifier(Lnet/minecraft/entity/LivingEntity;)I"),
-		method = "attackTargetEntityWithCurrentItem"
-	)
-	private void captureTarget(Entity target, CallbackInfo ci) {
-		if (target instanceof LivingEntity) {
-			this.critTarget = (LivingEntity) target;
-		}
+	/** Captures the entity attacked by the player, called from {@link ItemTerrasteelHelm#onCritEvent} */
+	@Override
+	public void botania$setCritTarget(LivingEntity entity) {
+		critTarget = entity;
 	}
 
 	// Clear the entity on any return after the capture.
@@ -83,16 +75,6 @@ public abstract class MixinPlayerEntity {
 	)
 	private void clearTarget(CallbackInfo ci) {
 		this.critTarget = null;
-		this.critting = false;
-	}
-
-	// Multiply the damage on crit. This might be a little bit brittle.
-	// Because of a Mixin bug you can't actually use a slice for LOAD.
-	// See https://github.com/SpongePowered/Mixin/issues/429
-	@ModifyVariable(at = @At(value = "LOAD", ordinal = 2), method = "attackTargetEntityWithCurrentItem", ordinal = 0)
-	private float onCritMul(float f) {
-		this.critting = true;
-		return ((ItemTerrasteelHelm) ModItems.terrasteelHelm).onCritDamageCalc(f, (PlayerEntity) (Object) this);
 	}
 
 	// Perform damage source modifications and apply the potion effects.
@@ -101,7 +83,7 @@ public abstract class MixinPlayerEntity {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;attackEntityFrom(Lnet/minecraft/util/DamageSource;F)Z")
 	)
 	private DamageSource onDamageTarget(DamageSource source, float amount) {
-		if (this.critting && this.critTarget != null) {
+		if (this.critTarget != null) {
 			((ItemTerrasteelHelm) ModItems.terrasteelHelm).onEntityAttacked(source, amount, (PlayerEntity) (Object) this, critTarget);
 		}
 		return source;

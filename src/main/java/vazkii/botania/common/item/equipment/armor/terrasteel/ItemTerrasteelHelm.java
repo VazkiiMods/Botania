@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -21,10 +22,16 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.PlayerEntityAccess;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nullable;
@@ -38,6 +45,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	public ItemTerrasteelHelm(Properties props) {
 		super(EquipmentSlotType.HEAD, props);
+		MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onCritEvent);
 	}
 
 	@Override
@@ -94,15 +102,28 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return false;
 	}
 
-	public float onCritDamageCalc(float amount, PlayerEntity player) {
-		if (hasArmorSet(player)) {
+	public void onCritEvent(CriticalHitEvent event) {
+		Event.Result result = event.getResult();
+		PlayerEntity player = event.getPlayer();
+
+		if (result == Event.Result.DENY
+				|| result == Event.Result.DEFAULT && !event.isVanillaCritical()
+				|| !hasArmorSet(player)) {
+			return;
+		}
+
+		Entity target = event.getTarget();
+		if (target instanceof LivingEntity) {
+			((PlayerEntityAccess) player).botania$setCritTarget((LivingEntity) target);
+
 			ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm
 					&& hasAncientWill(stack, AncientWillType.DHAROK)) {
-				return amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
+				float amount = event.getDamageModifier();
+				event.setDamageModifier(amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
+				Botania.LOGGER.info("multiplier now {}", event.getDamageModifier());
 			}
 		}
-		return amount;
 	}
 
 	public void onEntityAttacked(DamageSource source, float amount, PlayerEntity player, LivingEntity entity) {
