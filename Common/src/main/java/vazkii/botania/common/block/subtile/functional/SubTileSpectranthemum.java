@@ -26,8 +26,8 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
-import vazkii.botania.common.network.EffectType;
 import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 

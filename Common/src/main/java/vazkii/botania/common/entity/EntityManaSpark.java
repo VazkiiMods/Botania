@@ -34,7 +34,7 @@ import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 

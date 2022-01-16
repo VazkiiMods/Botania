@@ -30,7 +30,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
-import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 

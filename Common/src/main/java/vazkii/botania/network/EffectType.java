@@ -1,4 +1,4 @@
-package vazkii.botania.common.network;
+package vazkii.botania.network;
 
 public enum EffectType {
 	PAINT_LENS(1), // Arg: EnumDyeColor

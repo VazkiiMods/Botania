@@ -58,7 +58,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 

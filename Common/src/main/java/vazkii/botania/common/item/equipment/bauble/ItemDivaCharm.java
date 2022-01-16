@@ -33,10 +33,10 @@ import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.EffectType;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.mixin.AccessorCreeper;
 import vazkii.botania.mixin.AccessorEntity;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 

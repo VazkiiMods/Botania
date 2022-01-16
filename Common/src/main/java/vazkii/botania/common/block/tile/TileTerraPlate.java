@@ -33,7 +33,7 @@ import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
-import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;

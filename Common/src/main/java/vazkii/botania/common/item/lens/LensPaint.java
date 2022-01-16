@@ -26,7 +26,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.ISparkEntity;
-import vazkii.botania.common.network.EffectType;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 

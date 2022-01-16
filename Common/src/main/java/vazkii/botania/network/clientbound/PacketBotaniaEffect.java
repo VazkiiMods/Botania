@@ -28,8 +28,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.network.EffectType;
 import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.network.EffectType;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
