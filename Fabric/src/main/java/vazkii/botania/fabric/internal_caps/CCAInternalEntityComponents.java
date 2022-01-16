@@ -49,27 +49,29 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 		registry.registerForPlayers(KEPT_ITEMS, e -> new CCAKeptItemsComponent(), RespawnCopyStrategy.NEVER_COPY);
 	}
 
-	private static class CCAEthicalComponent extends EthicalComponent implements Component {
+	// NB: These all have to be public because CCA generates direct references to them via ASM (but why???)
+
+	public static class CCAEthicalComponent extends EthicalComponent implements Component {
 		public CCAEthicalComponent(PrimedTnt entity) {
 			super(entity);
 		}
 	}
 
-	private static class CCAGhostRailComponent extends GhostRailComponent implements Component {
+	public static class CCAGhostRailComponent extends GhostRailComponent implements Component {
 	}
 
-	private static class CCAItemFlagsComponent extends ItemFlagsComponent implements Component {
+	public static class CCAItemFlagsComponent extends ItemFlagsComponent implements Component {
 	}
 
-	private static class CCAKeptItemsComponent extends KeptItemsComponent implements Component {
+	public static class CCAKeptItemsComponent extends KeptItemsComponent implements Component {
 	}
 
-	private static class CCALooniumComponent extends LooniumComponent implements Component {
+	public static class CCALooniumComponent extends LooniumComponent implements Component {
 	}
 
-	private static class CCANarslimmusComponent extends NarslimmusComponent implements Component {
+	public static class CCANarslimmusComponent extends NarslimmusComponent implements Component {
 	}
 
-	private static class CCATigerseyeComponent extends TigerseyeComponent implements Component {
+	public static class CCATigerseyeComponent extends TigerseyeComponent implements Component {
 	}
 }
