@@ -41,7 +41,7 @@ public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, 
 		super(ctx, new Model(ctx.bakeLayer(ModelLayers.PLAYER)), 0F);
 		this.normalModel = (Model) this.getModel();
 		this.slimModel = new Model(ctx.bakeLayer(ModelLayers.PLAYER_SLIM));
-		// Call this here bc why not
+		// Call this here bc no other place with access to Context
 		ArmorModels.init(ctx);
 	}
 

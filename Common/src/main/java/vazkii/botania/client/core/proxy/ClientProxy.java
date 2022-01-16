@@ -19,6 +19,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.Vec3;
 
+import org.lwjgl.glfw.GLFW;
+
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.fx.BoltParticleOptions;
 import vazkii.botania.client.fx.BoltRenderer;
@@ -26,9 +28,14 @@ import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ClientProxy implements IProxy {
@@ -37,6 +44,23 @@ public class ClientProxy implements IProxy {
 	public static boolean dootDoot = false;
 
 	public static KeyMapping CORPOREA_REQUEST;
+
+	public static void initKeybindings(Consumer<KeyMapping> consumer) {
+		CORPOREA_REQUEST = new KeyMapping("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
+		consumer.accept(CORPOREA_REQUEST);
+	}
+
+	public static void initSeasonal() {
+		if (BotaniaConfig.client().enableSeasonalFeatures()) {
+			LocalDateTime now = LocalDateTime.now();
+			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2) {
+				ClientProxy.jingleTheBells = true;
+			}
+			if (now.getMonth() == Month.OCTOBER) {
+				ClientProxy.dootDoot = true;
+			}
+		}
+	}
 
 	@Override
 	public void runOnClient(Supplier<Runnable> s) {

@@ -15,18 +15,13 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.NoopRenderer;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -34,11 +29,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
-
-import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -63,19 +53,8 @@ import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.model.armor.ArmorModels;
-import vazkii.botania.client.render.entity.RenderBabylonWeapon;
-import vazkii.botania.client.render.entity.RenderCorporeaSpark;
-import vazkii.botania.client.render.entity.RenderDoppleganger;
-import vazkii.botania.client.render.entity.RenderMagicLandmine;
-import vazkii.botania.client.render.entity.RenderManaSpark;
-import vazkii.botania.client.render.entity.RenderManaStorm;
-import vazkii.botania.client.render.entity.RenderPinkWither;
-import vazkii.botania.client.render.entity.RenderPixie;
-import vazkii.botania.client.render.entity.RenderPoolMinecart;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.client.render.BlockRenderLayers;
+import vazkii.botania.client.render.entity.*;
 import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
 import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
@@ -85,7 +64,6 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
-import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.lib.LibMisc;
@@ -93,12 +71,9 @@ import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.mixin.client.AccessorWorldPreset;
-import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.SortedMap;
 import java.util.function.Function;
 
@@ -132,26 +107,16 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> ScreenKeyboardEvents.beforeKeyPress(screen)
 				.register((screen2, key, scancode, modifiers) -> CorporeaInputHandler.buttonPressed(key, scancode)));
 
-		if (BotaniaConfig.client().enableSeasonalFeatures()) {
-			LocalDateTime now = LocalDateTime.now();
-			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2) {
-				ClientProxy.jingleTheBells = true;
-			}
-			if (now.getMonth() == Month.OCTOBER) {
-				ClientProxy.dootDoot = true;
-			}
-		}
-
-		registerRenderTypes();
-		registerEntityRenderers();
-		registerEntityModels();
+		ClientProxy.initSeasonal();
+		ClientProxy.initKeybindings(KeyBindingHelper::registerKeyBinding);
+		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
+		EntityRenderers.init(EntityRendererRegistry::register);
+		ModLayerDefinitions.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
 
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			AccessorWorldPreset.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 		}
 
-		ClientProxy.CORPOREA_REQUEST = new KeyMapping("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
-		KeyBindingHelper.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
 		BotaniaItemProperties.init((i, id, propGetter) -> FabricModelPredicateProviderRegistry.register(i.asItem(), id, propGetter));
 		registerArmors();
 		registerCapabilities();
@@ -201,71 +166,6 @@ public class FabricClientInitializer implements ClientModInitializer {
 			}
 		};
 		ArmorRenderer.register(renderer, armors);
-	}
-
-	private static void registerRenderTypes() {
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.defaultAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.forestAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.plainsAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mountainAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.fungalAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.swampAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.desertAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.taigaAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mesaAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mossyAltar, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ghostRail, RenderType.cutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.solidVines, RenderType.cutout());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.corporeaCrystalCube, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.manaGlass, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.managlassPane, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.elfGlass, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.alfglassPane, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrost, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.bifrostPane, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrostPerm, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderType.translucent());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderType.cutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, RenderType.translucent());
-
-		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
-				.forEach(b -> {
-					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock
-							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom) {
-						BlockRenderLayerMap.INSTANCE.putBlock(b, RenderType.cutout());
-					}
-				});
-	}
-
-	private static void registerEntityRenderers() {
-		EntityRendererRegistry.register(ModEntities.MANA_BURST, NoopRenderer::new);
-		EntityRendererRegistry.register(ModEntities.PLAYER_MOVER, NoopRenderer::new);
-		EntityRendererRegistry.register(ModEntities.FLAME_RING, NoopRenderer::new);
-		EntityRendererRegistry.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
-		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, NoopRenderer::new);
-		EntityRendererRegistry.register(ModEntities.FALLING_STAR, NoopRenderer::new);
-		EntityRendererRegistry.register(ModEntities.ENDER_AIR, NoopRenderer::new);
-		EntityRendererRegistry.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntities.PIXIE, RenderPixie::new);
-		EntityRendererRegistry.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
-		EntityRendererRegistry.register(ModEntities.SPARK, RenderManaSpark::new);
-		EntityRendererRegistry.register(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
-		EntityRendererRegistry.register(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
-		EntityRendererRegistry.register(ModEntities.PINK_WITHER, RenderPinkWither::new);
-		EntityRendererRegistry.register(ModEntities.MANA_STORM, RenderManaStorm::new);
-		EntityRendererRegistry.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
-
-		EntityRendererRegistry.register(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
-		EntityRendererRegistry.register(ModEntities.VINE_BALL, ThrownItemRenderer::new);
-		EntityRendererRegistry.register(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
-	}
-
-	private static void registerEntityModels() {
-		ModLayerDefinitions.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
 	}
 
 	private void loadComplete(Minecraft mc) {
