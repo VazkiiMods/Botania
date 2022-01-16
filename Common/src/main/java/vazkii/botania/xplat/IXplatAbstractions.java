@@ -142,6 +142,7 @@ public interface IXplatAbstractions {
 	Tag.Named<EntityType<?>> entityTag(ResourceLocation id);
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
+	int getSmeltingBurnTime(ItemStack stack);
 
 	IXplatAbstractions INSTANCE = find();
 

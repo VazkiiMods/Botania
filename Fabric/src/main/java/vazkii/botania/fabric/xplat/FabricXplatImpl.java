@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -447,5 +448,11 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		return FabricAccessorAbstractFurnaceBlockEntity.callCanBurn(recipe, items, maxStackSize);
+	}
+
+	@Override
+	public int getSmeltingBurnTime(ItemStack stack) {
+		Integer v = FuelRegistry.INSTANCE.get(stack.getItem());
+		return v == null ? 0 : v;
 	}
 }

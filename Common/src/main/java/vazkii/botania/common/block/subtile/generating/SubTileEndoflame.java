@@ -16,7 +16,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -27,6 +26,7 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -147,7 +147,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		if (stack.isEmpty() || Block.byItem(stack.getItem()) instanceof BlockSpreader) {
 			return 0;
 		} else {
-			return AbstractFurnaceBlockEntity.getFuel().getOrDefault(stack.getItem(), 0);
+			return IXplatAbstractions.INSTANCE.getSmeltingBurnTime(stack);
 		}
 	}
 
