@@ -38,6 +38,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -287,7 +288,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return true;
 	}
 
-	// [SoftImplement] FabricItem
+	@SoftImplement("FabricItem")
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack before, ItemStack after) {
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}

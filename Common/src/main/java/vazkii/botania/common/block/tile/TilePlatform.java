@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.IWandable;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BlockPlatform;
 
 import javax.annotation.Nullable;
@@ -114,7 +115,7 @@ public class TilePlatform extends TileMod implements IWandable {
 		}
 	}
 
-	// [SoftImplement] RenderAttachmentBlockEntity
+	@SoftImplement("RenderAttachmentBlockEntity")
 	public Object getRenderAttachmentData() {
 		return new PlatformData(getBlockPos().immutable(), camoState);
 	}

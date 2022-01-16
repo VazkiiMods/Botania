@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block.FloatingFlowerImpl;
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.block.IFloatingFlowerProvider;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
@@ -57,7 +58,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 		}
 	}
 
-	// [SoftImplement] RenderAttachBlockEntity
+	@SoftImplement("RenderAttachmentBlockEntity")
 	public Object getRenderAttachmentData() {
 		return floatingData.getIslandType();
 	}

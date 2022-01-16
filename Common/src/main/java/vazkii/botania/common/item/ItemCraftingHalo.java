@@ -55,6 +55,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -197,7 +198,7 @@ public class ItemCraftingHalo extends Item {
 		}
 	}
 
-	// [SoftImplement] IForgeItem
+	@SoftImplement("IForgeItem")
 	public boolean onEntitySwing(ItemStack stack, LivingEntity player) {
 		int segment = getSegmentLookedAt(stack, player);
 		if (segment == 0) {

@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
@@ -286,7 +287,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 		return 0;
 	}
 
-	// [SoftImplement] RenderAttachmentBlockEntity
+	@SoftImplement("RenderAttachmentBlockEntity")
 	@Nullable
 	public Object getRenderAttachmentData() {
 		if (isFloating()) {

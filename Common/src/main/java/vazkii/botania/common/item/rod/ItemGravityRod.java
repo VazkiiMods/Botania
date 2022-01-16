@@ -28,6 +28,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
@@ -57,7 +58,7 @@ public class ItemGravityRod extends Item {
 		super(props);
 	}
 
-	// [SoftImplement] FabricItem
+	@SoftImplement("FabricItem")
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return !newStack.is(this);
 	}

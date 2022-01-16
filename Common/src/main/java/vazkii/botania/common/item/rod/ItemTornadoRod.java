@@ -28,6 +28,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -239,7 +240,7 @@ public class ItemTornadoRod extends Item {
 		}
 	}
 
-	// [SoftImplement] FabricItem
+	@SoftImplement("FabricItem")
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		return !newStack.is(this) || isFlying(oldStack) != isFlying(newStack);
 	}
