@@ -27,19 +27,14 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 
@@ -48,6 +43,7 @@ import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ColorHandler;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
@@ -80,7 +76,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
-import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
 import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
@@ -90,24 +85,9 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.ModEntities;
-import vazkii.botania.common.item.ItemBlackHoleTalisman;
-import vazkii.botania.common.item.ItemBottledMana;
-import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ItemSlimeBottle;
-import vazkii.botania.common.item.ItemSpawnerMover;
-import vazkii.botania.common.item.ItemTemperanceStone;
-import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
-import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-import vazkii.botania.common.item.relic.ItemInfiniteFruit;
-import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.fabric.network.FabricPacketHandler;
@@ -119,12 +99,10 @@ import vazkii.patchouli.api.BookDrawScreenCallback;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Locale;
 import java.util.SortedMap;
 import java.util.function.Function;
 
 import static vazkii.botania.common.block.ModSubtiles.*;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricClientInitializer implements ClientModInitializer {
 	@Override
@@ -174,7 +152,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 
 		ClientProxy.CORPOREA_REQUEST = new KeyMapping("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
 		KeyBindingHelper.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
-		registerPropertyGetters();
+		BotaniaItemProperties.init((i, id, propGetter) -> FabricModelPredicateProviderRegistry.register(i.asItem(), id, propGetter));
 		registerArmors();
 		registerCapabilities();
 	}
@@ -223,95 +201,6 @@ public class FabricClientInitializer implements ClientModInitializer {
 			}
 		};
 		ArmorRenderer.register(renderer, armors);
-	}
-
-	private static void registerPropertyGetter(ItemLike item, ResourceLocation id, ClampedItemPropertyFunction propGetter) {
-		FabricModelPredicateProviderRegistry.register(item.asItem(), id, propGetter);
-	}
-
-	private static void registerPropertyGetters() {
-		registerPropertyGetter(ModItems.blackHoleTalisman, prefix("active"),
-				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
-		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
-				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
-
-		ResourceLocation vuvuzelaId = prefix("vuvuzela");
-		ClampedItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
-		registerPropertyGetter(ModItems.grassHorn, vuvuzelaId, isVuvuzela);
-		registerPropertyGetter(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
-		registerPropertyGetter(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
-
-		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living, seed) -> ItemLexicon.isElven(stack) ? 1 : 0);
-		registerPropertyGetter(ModItems.manaCookie, prefix("totalbiscuit"),
-				(stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
-		registerPropertyGetter(ModItems.slimeBottle, prefix("active"),
-				(stack, world, entity, seed) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
-		registerPropertyGetter(ModItems.spawnerMover, prefix("full"),
-				(stack, world, entity, seed) -> ItemSpawnerMover.hasData(stack) ? 1 : 0);
-		registerPropertyGetter(ModItems.temperanceStone, prefix("active"),
-				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
-		registerPropertyGetter(ModItems.twigWand, prefix("bindmode"),
-				(stack, world, entity, seed) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
-
-		ResourceLocation poolFullId = prefix("full");
-		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
-			Block block = ((BlockItem) stack.getItem()).getBlock();
-			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
-			return renderFull ? 1F : 0F;
-		};
-		registerPropertyGetter(ModBlocks.manaPool, poolFullId, poolFull);
-		registerPropertyGetter(ModBlocks.dilutedPool, poolFullId, poolFull);
-		registerPropertyGetter(ModBlocks.creativePool, poolFullId, poolFull);
-		registerPropertyGetter(ModBlocks.fabulousPool, poolFullId, poolFull);
-
-		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
-			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
-			return item.getSwigs() - item.getSwigsLeft(stack);
-		};
-		registerPropertyGetter(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
-		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
-
-		ResourceLocation holidayId = prefix("holiday");
-		ClampedItemPropertyFunction holidayGetter = (stack, worldIn, entityIn, seed) -> ClientProxy.jingleTheBells ? 1 : 0;
-		registerPropertyGetter(ModItems.manaweaveHelm, holidayId, holidayGetter);
-		registerPropertyGetter(ModItems.manaweaveChest, holidayId, holidayGetter);
-		registerPropertyGetter(ModItems.manaweaveBoots, holidayId, holidayGetter);
-		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
-
-		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
-		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);
-		registerPropertyGetter(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
-
-		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
-				(stack, world, entity, seed) -> stack.getHoverName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
-		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
-				(stack, world, entity, seed) -> "the elucidator".equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
-		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
-				(stack, world, entity, seed) -> entity instanceof Player && !ItemTerraAxe.shouldBreak((Player) entity) ? 0 : 1);
-		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),
-				(stack, world, entity, seed) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
-		registerPropertyGetter(ModItems.terraPick, prefix("active"),
-				(stack, world, entity, seed) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
-		registerPropertyGetter(ModItems.infiniteFruit, prefix("boot"),
-				(stack, worldIn, entity, seed) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
-		registerPropertyGetter(ModItems.tornadoRod, prefix("active"),
-				(stack, world, living, seed) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
-
-		ClampedItemPropertyFunction pulling = (ClampedItemPropertyFunction) ItemProperties.getProperty(Items.BOW, new ResourceLocation("pulling"));
-		ClampedItemPropertyFunction pull = (stack, worldIn, entity, seed) -> {
-			if (entity == null) {
-				return 0.0F;
-			} else {
-				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
-				return entity.getUseItem() != stack
-						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
-			}
-		};
-		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
-		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pull"), pull);
-		registerPropertyGetter(ModItems.crystalBow, new ResourceLocation("pulling"), pulling);
-		registerPropertyGetter(ModItems.crystalBow, new ResourceLocation("pull"), pull);
 	}
 
 	private static void registerRenderTypes() {
