@@ -58,7 +58,6 @@
     "client.MixinItemInHandRenderer",
     "client.MixinLevelRenderer",
     "client.MixinRecipeBookComponent",
-    "client.MixinScreen",
     "client.MixinSkullBlockRenderer",
     "client.MixinSoundEngine",
     "client.MixinSplashManager"

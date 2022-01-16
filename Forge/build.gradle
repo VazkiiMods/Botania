@@ -86,12 +86,18 @@ dependencies {
 
     implementation "com.google.code.findbugs:jsr305:3.0.2"
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44")
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1")
+
+    afterEvaluate { // TODO: Remove when Forge updates modlauncher
+        minecraft('cpw.mods:modlauncher:9.0.24') {
+            force = true
+        }
+    }
 }
 
 compileJava {

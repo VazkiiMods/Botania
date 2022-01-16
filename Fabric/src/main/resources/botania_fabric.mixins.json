@@ -33,7 +33,8 @@
     "client.MixinKeyboardHandler",
     "client.MixinMinecraft",
     "client.MixinModelManager",
-    "client.MixinParticleEngine"
+    "client.MixinParticleEngine",
+    "client.MixinScreen"
   ],
   "injectors": {
     "defaultRequire": 1
