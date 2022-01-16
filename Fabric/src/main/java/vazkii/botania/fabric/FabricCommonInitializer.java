@@ -36,7 +36,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
@@ -70,6 +69,7 @@ import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
@@ -90,8 +90,6 @@ import vazkii.botania.data.DataGenerators;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
-import vazkii.patchouli.api.IMultiblock;
-import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
@@ -189,52 +187,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
-
-		String[][] pat = new String[][] {
-				{
-						"P_______P",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"P_______P",
-				},
-				{
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-						"____B____",
-						"_________",
-						"_________",
-						"_________",
-						"_________",
-				},
-				{
-						"_________",
-						"_________",
-						"_________",
-						"___III___",
-						"___I0I___",
-						"___III___",
-						"_________",
-						"_________",
-						"_________",
-				}
-		};
-		IStateMatcher sm = PatchouliAPI.get().predicateMatcher(Blocks.IRON_BLOCK,
-				state -> state.is(BlockTags.BEACON_BASE_BLOCKS));
-		IMultiblock mb = PatchouliAPI.get().makeMultiblock(
-				pat,
-				'P', ModBlocks.gaiaPylon,
-				'B', Blocks.BEACON,
-				'I', sm,
-				'0', sm
-		);
-		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), mb);
+		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
 
 		ModBlocks.addDispenserBehaviours();
 

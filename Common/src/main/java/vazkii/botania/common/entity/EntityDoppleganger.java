@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.entity;
 
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.ChatFormatting;
@@ -32,6 +33,7 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.*;
 import net.minecraft.world.BossEvent;
@@ -56,6 +58,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -76,11 +79,14 @@ import vazkii.botania.mixin.AccessorMobEffect;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.network.clientbound.PacketSpawnDoppleganger;
 import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -92,6 +98,51 @@ public class EntityDoppleganger extends Mob {
 
 	private static final int SPAWN_TICKS = 160;
 	public static final float MAX_HP = 320F;
+	public static final Supplier<IMultiblock> ARENA_MULTIBLOCK = Suppliers.memoize(() -> {
+		var beaconBase = PatchouliAPI.get().predicateMatcher(Blocks.IRON_BLOCK,
+				state -> state.is(BlockTags.BEACON_BASE_BLOCKS));
+		return PatchouliAPI.get().makeMultiblock(
+				new String[][] {
+						{
+								"P_______P",
+								"_________",
+								"_________",
+								"_________",
+								"_________",
+								"_________",
+								"_________",
+								"_________",
+								"P_______P",
+						},
+						{
+								"_________",
+								"_________",
+								"_________",
+								"_________",
+								"____B____",
+								"_________",
+								"_________",
+								"_________",
+								"_________",
+						},
+						{
+								"_________",
+								"_________",
+								"_________",
+								"___III___",
+								"___I0I___",
+								"___III___",
+								"_________",
+								"_________",
+								"_________",
+						}
+				},
+				'P', ModBlocks.gaiaPylon,
+				'B', Blocks.BEACON,
+				'I', beaconBase,
+				'0', beaconBase
+		);
+	});
 
 	private static final int MOB_SPAWN_START_TICKS = 20;
 	private static final int MOB_SPAWN_END_TICKS = 80;
