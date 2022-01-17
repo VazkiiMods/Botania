@@ -95,7 +95,7 @@ dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
     compileOnly project(":Common")
 
-    modImplementation "vazkii.patchouli:Patchouli:1.18.1-61-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.18.1-64-FABRIC"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
