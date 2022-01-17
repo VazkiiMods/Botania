@@ -55,7 +55,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 
 		if (!hasBeenInAir && !level.isClientSide) {
 			BlockState bs = level.getBlockState(new BlockPos(this.getPosition(0F)));
-			hasBeenInAir = bs.isAir();
+			hasBeenInAir = bs.isAir() || isInWater() || isInLava();
 		}
 
 		float dist = 1.5F;
