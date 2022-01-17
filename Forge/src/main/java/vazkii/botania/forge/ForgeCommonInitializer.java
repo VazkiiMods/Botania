@@ -262,7 +262,6 @@ public class ForgeCommonInitializer {
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockCommand.register(dispatcher);
 		}
-//		DataGenerators.registerCommands(dispatcher); TODO Forge datagen
 	}
 
 	private void serverStopping(MinecraftServer server) {

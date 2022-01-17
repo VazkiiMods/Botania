@@ -80,7 +80,6 @@ import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.data.DataGenerators;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -269,7 +268,6 @@ public class FabricCommonInitializer implements ModInitializer {
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockCommand.register(dispatcher);
 		}
-		DataGenerators.registerCommands(dispatcher);
 	}
 
 	private void serverStopping(MinecraftServer server) {
