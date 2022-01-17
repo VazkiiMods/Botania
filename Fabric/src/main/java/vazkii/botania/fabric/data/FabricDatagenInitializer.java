@@ -6,12 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.data;
+package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.data.DataGenerator;
 
+import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {

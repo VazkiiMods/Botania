@@ -1,4 +1,4 @@
-package vazkii.botania.data;
+package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.data.BlockLootProvider;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -1,4 +1,4 @@
-package vazkii.botania.data;
+package vazkii.botania.fabric.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;

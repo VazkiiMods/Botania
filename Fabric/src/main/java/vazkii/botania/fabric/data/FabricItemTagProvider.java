@@ -1,4 +1,4 @@
-package vazkii.botania.data;
+package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.tag.TagFactory;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;

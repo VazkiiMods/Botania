@@ -1,2 +1,2 @@
 @javax.annotation.ParametersAreNonnullByDefault
-package vazkii.botania.data;
+package vazkii.botania.fabric.data;
