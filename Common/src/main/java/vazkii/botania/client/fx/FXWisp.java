@@ -24,7 +24,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.client.core.ExtendedTexture;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -114,13 +114,13 @@ public class FXWisp extends TextureSheetParticle {
 
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
-		((ExtendedTexture) tex).setFilterSave(true, false);
+		IClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon() {
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
-		((ExtendedTexture) tex).restoreLastFilter();
+		IClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 	}

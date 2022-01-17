@@ -3,6 +3,7 @@ package vazkii.botania.forge.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -41,5 +42,15 @@ public class ForgeClientXplatImpl implements IClientXplatAbstractions {
 	@Override
 	public BakedModel wrapPlatformModel(BakedModel original) {
 		return new ForgePlatformModel(original);
+	}
+
+	@Override
+	public void setFilterSave(AbstractTexture texture, boolean filter, boolean mipmap) {
+		texture.setBlurMipmap(filter, mipmap);
+	}
+
+	@Override
+	public void restoreLastFilter(AbstractTexture texture) {
+		texture.restoreLastBlurMipmap();
 	}
 }

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core;
+package vazkii.botania.fabric.client;
 
 public interface ExtendedTexture {
 	void setFilterSave(boolean bilinear, boolean mipmap);

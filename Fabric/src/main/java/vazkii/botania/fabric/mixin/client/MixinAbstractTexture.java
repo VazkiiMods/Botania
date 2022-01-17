@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-import vazkii.botania.client.core.ExtendedTexture;
+import vazkii.botania.fabric.client.ExtendedTexture;
 
 @Mixin(AbstractTexture.class)
 public abstract class MixinAbstractTexture implements ExtendedTexture {

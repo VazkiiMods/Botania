@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -40,5 +41,15 @@ public class FabricClientXplatImpl implements IClientXplatAbstractions {
 	@Override
 	public BakedModel wrapPlatformModel(BakedModel original) {
 		return new FabricPlatformModel(original);
+	}
+
+	@Override
+	public void setFilterSave(AbstractTexture texture, boolean filter, boolean mipmap) {
+		((ExtendedTexture) texture).setFilterSave(filter, mipmap);
+	}
+
+	@Override
+	public void restoreLastFilter(AbstractTexture texture) {
+		((ExtendedTexture) texture).restoreLastFilter();
 	}
 }

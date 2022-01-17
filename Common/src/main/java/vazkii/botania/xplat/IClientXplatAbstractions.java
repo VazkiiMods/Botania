@@ -3,6 +3,7 @@ package vazkii.botania.xplat;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -37,6 +38,8 @@ public interface IClientXplatAbstractions {
 
 	// Rendering stuff
 	BakedModel wrapPlatformModel(BakedModel original);
+	void setFilterSave(AbstractTexture texture, boolean filter, boolean mipmap);
+	void restoreLastFilter(AbstractTexture texture);
 
 	IClientXplatAbstractions INSTANCE = find();
 

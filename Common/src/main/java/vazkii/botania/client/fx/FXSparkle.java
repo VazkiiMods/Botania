@@ -28,8 +28,8 @@ import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.client.core.ExtendedTexture;
 import vazkii.botania.client.core.helper.CoreShaders;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -165,13 +165,13 @@ public class FXSparkle extends TextureSheetParticle {
 		// RenderSystem.disableLighting();
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
-		((ExtendedTexture) tex).setFilterSave(true, false);
+		IClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
 		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon() {
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
-		((ExtendedTexture) tex).restoreLastFilter();
+		IClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 	}
