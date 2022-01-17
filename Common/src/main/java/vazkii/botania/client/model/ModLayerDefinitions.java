@@ -22,7 +22,6 @@ import java.util.function.Supplier;
 
 public class ModLayerDefinitions {
 	public static void init(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> consumer) {
-		ModModelLayers.init(); // this would happen from the accesses below anyways, but good to make the lifecycle explicit
 		consumer.accept(ModModelLayers.AVATAR, () -> LayerDefinition.create(ModelAvatar.createMesh(), 32, 32));
 		consumer.accept(ModModelLayers.BELLOWS, () -> LayerDefinition.create(ModelBellows.createMesh(), 64, 32));
 		consumer.accept(ModModelLayers.BREWERY, () -> LayerDefinition.create(ModelBrewery.createMesh(), 32, 16));

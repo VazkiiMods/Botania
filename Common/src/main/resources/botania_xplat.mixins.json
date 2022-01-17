@@ -47,7 +47,6 @@
     "client.AccessorItemRenderer",
     "client.AccessorMinecraft",
     "client.AccessorModelBakery",
-    "client.AccessorModelLayers",
     "client.AccessorModelManager",
     "client.AccessorRecipeBookComponent",
     "client.AccessorRecipeBookPage",
