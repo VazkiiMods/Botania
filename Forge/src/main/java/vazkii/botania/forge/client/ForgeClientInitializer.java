@@ -1,29 +1,39 @@
 package vazkii.botania.forge.client;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.core.handler.ColorHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.CoreShaders;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.model.ModLayerDefinitions;
@@ -31,19 +41,39 @@ import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.forge.mixin.client.AccessorModelBakery;
+import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
+import java.util.SortedMap;
 import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = BotaniaAPI.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
 	@SubscribeEvent
-	public static void clientEtcInit(FMLClientSetupEvent evt) {
+	public static void clientInit(FMLClientSetupEvent evt) {
+		// GUIs
 		evt.enqueueWork(() -> {
 			MenuScreens.register(ModItems.FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
 			MenuScreens.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 		});
+
+		// Events
+		MinecraftForge.EVENT_BUS.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getPoseStack()));
+		FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLLoadCompleteEvent e) -> loadComplete(Minecraft.getInstance()));
+		MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
+			if (e.phase == TickEvent.Phase.END) {
+				ClientTickHandler.clientTickEnd(Minecraft.getInstance());
+				KonamiHandler.clientTick(Minecraft.getInstance());
+			}
+		});
+		MinecraftForge.EVENT_BUS.addListener((RenderGameOverlayEvent e) -> HUDHandler.onDrawScreenPost(e.getMatrixStack(), e.getPartialTicks()));
+		MinecraftForge.EVENT_BUS.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
+		MinecraftForge.EVENT_BUS.addListener((InputEvent.KeyInputEvent e) -> CorporeaInputHandler.buttonPressed(e.getKey(), e.getScanCode()));
+
+		// Etc
+		MinecraftForgeClient.registerTooltipComponentFactory(ManaBarTooltip.class, ManaBarTooltipComponent::new);
 		ClientProxy.initSeasonal();
 		ClientProxy.initKeybindings(ClientRegistry::registerKeyBinding);
 	}
@@ -90,6 +120,12 @@ public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerItemColors(ColorHandlerEvent.Item evt) {
 		ColorHandler.submitItems(evt.getItemColors()::register);
+	}
+
+	private static void loadComplete(Minecraft mc) {
+		// Needed to prevent mana pools on carts from X-raying through the cart
+		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderBuffers) mc.renderBuffers()).getEntityBuilders();
+		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 
 	@SubscribeEvent

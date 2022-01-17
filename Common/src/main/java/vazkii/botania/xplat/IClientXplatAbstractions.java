@@ -34,7 +34,7 @@ public interface IClientXplatAbstractions {
 
 	// Capability access
 	@Nullable
-	IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 
 	// Rendering stuff
 	BakedModel wrapPlatformModel(BakedModel original);

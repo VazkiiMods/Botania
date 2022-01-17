@@ -47,7 +47,7 @@ public final class ClientTickHandler {
 		RenderTileRedString.tick();
 		ItemsRemainingRenderHandler.tick();
 
-		if (Minecraft.getInstance().level == null) {
+		if (mc.level == null) {
 			ManaNetworkHandler.instance.clear();
 			SubTileVinculotus.existingFlowers.clear();
 		}

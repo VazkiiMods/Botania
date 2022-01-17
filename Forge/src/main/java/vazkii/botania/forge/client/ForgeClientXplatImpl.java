@@ -34,9 +34,9 @@ public class ForgeClientXplatImpl implements IClientXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+	public IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		// todo 1.18-forge lookaside registry for non-BE's
-		return be.getCapability(BotaniaForgeClientCapabilities.WAND_HUD).orElse(null);
+		return be != null ? be.getCapability(BotaniaForgeClientCapabilities.WAND_HUD).orElse(null) : null;
 	}
 
 	@Override
