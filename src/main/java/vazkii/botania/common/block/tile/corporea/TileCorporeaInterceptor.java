@@ -37,30 +37,33 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	@Override
 	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {
 		List<ItemStack> filter = getFilter();
+
+		boolean filterMatch = false;
 		for (ItemStack stack : filter) {
 			if (request.test(stack)) {
-				int missing = count;
-				for (ItemStack stack_ : stacks) {
-					missing -= stack_.getCount();
-				}
-
-				if (missing > 0 && !getBlockState().getValue(BlockStateProperties.POWERED)) {
-					level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true));
-					level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
-
-					BlockPos requestorPos = source.getSparkNode().getPos();
-					for (Direction dir : Direction.values()) {
-						BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-						if (tile instanceof TileCorporeaRetainer) {
-							((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
-						}
-					}
-
-					return;
-				}
+				filterMatch = true;
 			}
 		}
 
+		if (filterMatch || filter.isEmpty()) {
+			int missing = count;
+			for (ItemStack stack_ : stacks) {
+				missing -= stack_.getCount();
+			}
+
+			if (missing > 0 && !getBlockState().getValue(BlockStateProperties.POWERED)) {
+				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true));
+				level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
+
+				BlockPos requestorPos = source.getSparkNode().getPos();
+				for (Direction dir : Direction.values()) {
+					BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
+					if (tile instanceof TileCorporeaRetainer) {
+						((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
+					}
+				}
+			}
+		}
 	}
 
 	private List<ItemStack> getFilter() {
@@ -71,7 +74,10 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 			for (ItemFrame frame : frames) {
 				Direction orientation = frame.getDirection();
 				if (orientation == dir) {
-					filter.add(frame.getItem());
+					ItemStack stack = frame.getItem();
+					if (!stack.isEmpty()) {
+						filter.add(stack);
+					}
 				}
 			}
 		}
