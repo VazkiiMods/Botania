@@ -46,7 +46,7 @@ public class InterceptorTest {
 		assertHasPendingRequest(helper, retainerPos, false);
 	}
 
-	private static void assertHasPendingRequest(GameTestHelper helper, BlockPos retainerPos, Boolean invert) {
+	private static void assertHasPendingRequest(GameTestHelper helper, BlockPos retainerPos, boolean invert) {
 		TileCorporeaRetainer retainer = (TileCorporeaRetainer) helper.getBlockEntity(retainerPos);
 		if (retainer == null) {
 			throw new GameTestAssertPosException("Expected corporea retainer", helper.absolutePos(retainerPos), retainerPos, helper.getTick());
