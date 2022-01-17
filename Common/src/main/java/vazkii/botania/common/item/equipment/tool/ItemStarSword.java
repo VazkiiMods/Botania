@@ -30,8 +30,10 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 public class ItemStarSword extends ItemManasteelSword {
 
 	private static final int MANA_PER_DAMAGE = 120;
-	public static final String STAR_CHARGED = "STAR_CHARGED";
-
+	private static final String STAR_CHARGED = "STAR_CHARGED";
+	/* Number of ticks between two stars */
+	private static final int INTERVAL = 20;
+	
 	public ItemStarSword(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 	}
@@ -39,18 +41,21 @@ public class ItemStarSword extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
-		if (entity instanceof Player player) {
-			if (!world.isClientSide && ((Player) entity).getAttackStrengthScale(0) == 1.0F && !ItemNBTHelper.getBoolean(stack, STAR_CHARGED, false)) {
-				ItemNBTHelper.setBoolean(stack, STAR_CHARGED, true);
-			}
-			
-			MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
-			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
-
-			if (player.getMainHandItem() == stack && player.attackAnim == check && !world.isClientSide && ItemNBTHelper.getBoolean(stack, STAR_CHARGED, false)) {
-				ItemNBTHelper.setBoolean(stack, STAR_CHARGED, false);
-				summonFallingStar(stack, world, player);
-			}
+		if (!(entity instanceof Player player)) {
+			return;
+		}
+		
+		// Initialize timer for new items or items given to another player.
+		if (!ItemNBTHelper.verifyExistance(stack, STAR_CHARGED) || ItemNBTHelper.getInt(stack, STAR_CHARGED, 0) > player.tickCount) {
+			ItemNBTHelper.setInt(stack, STAR_CHARGED, player.tickCount);
+		}
+		
+		MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
+		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
+		
+		if (player.tickCount >= ItemNBTHelper.getInt(stack, STAR_CHARGED, player.tickCount) + INTERVAL && player.getMainHandItem() == stack && player.attackAnim == check && !world.isClientSide) {
+			ItemNBTHelper.setInt(stack, STAR_CHARGED, player.tickCount);
+			summonFallingStar(stack, world, player);
 		}
 	}
 	
@@ -78,7 +83,7 @@ public class ItemStarSword extends ItemManasteelSword {
 			}
 
 			stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-			world.playSound(null, player.getX(), player.getY() + 15, player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 	
