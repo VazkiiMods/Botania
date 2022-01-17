@@ -84,34 +84,44 @@ public class FabricClientInitializer implements ClientModInitializer {
 	public void onInitializeClient() {
 		FabricPacketHandler.initClient();
 
+		// Guis
 		ScreenRegistry.register(ModItems.FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
 		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
-		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
-		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
+
+		// Models
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(MiscellaneousIcons.INSTANCE::onModelRegister);
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(ModelHandler::registerModels);
+		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
+
+		// BE/Entity Renderer
+		ModLayerDefinitions.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
 		ModelHandler.registerRenderers(BlockEntityRendererRegistry::register);
 		ModelHandler.registerBuiltinItemRenderers((item, teisr) -> BuiltinItemRendererRegistry.INSTANCE.register(item, teisr::render));
+		EntityRenderers.init(EntityRendererRegistry::register);
+		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
+
 		ModParticles.FactoryHandler.registerFactories(new ModParticles.FactoryHandler.Consumer() {
 			@Override
 			public <T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor) {
 				ParticleFactoryRegistry.getInstance().register(type, constructor::apply);
 			}
 		});
-		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
-		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
+
+		// Events
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
-		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
+		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
-		TooltipComponentCallback.EVENT.register(ManaBarTooltipComponent::tryConvert);
+		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
+		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
+		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
 		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> ScreenKeyboardEvents.beforeKeyPress(screen)
 				.register((screen2, key, scancode, modifiers) -> CorporeaInputHandler.buttonPressed(key, scancode)));
+		TooltipComponentCallback.EVENT.register(ManaBarTooltipComponent::tryConvert);
+
+		// Etc
 
 		ClientProxy.initSeasonal();
 		ClientProxy.initKeybindings(KeyBindingHelper::registerKeyBinding);
-		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
-		EntityRenderers.init(EntityRendererRegistry::register);
-		ModLayerDefinitions.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
 
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			AccessorWorldPreset.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
