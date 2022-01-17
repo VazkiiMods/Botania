@@ -97,13 +97,13 @@ public interface IXplatAbstractions {
 	@Nullable
 	ICoordBoundItem findCoordBoundItem(ItemStack stack);
 	@Nullable
-	IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be);
+	IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
 	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);

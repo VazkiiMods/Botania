@@ -153,29 +153,29 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
-		return be.getCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE).orElse(null);
+	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return be != null ? be.getCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE).orElse(null) : null;
 	}
 
 	@Nullable
 	@Override
-	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		// todo non-be's need some sort of lookaside registry
-		return be.getCapability(BotaniaForgeCapabilities.HORN_HARVEST).orElse(null);
+		return be != null ? be.getCapability(BotaniaForgeCapabilities.HORN_HARVEST).orElse(null) : null;
 	}
 
 	@Nullable
 	@Override
-	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		// todo non-be's need some sort of lookaside registry
-		return be.getCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER).orElse(null);
+		return be != null ? be.getCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER).orElse(null) : null;
 	}
 
 	@Nullable
 	@Override
-	public IWandable findWandable(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+	public IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		// todo non-be's need some sort of lookaside registry
-		return be.getCapability(BotaniaForgeCapabilities.WANDABLE).orElse(null);
+		return be != null ? be.getCapability(BotaniaForgeCapabilities.WANDABLE).orElse(null) : null;
 	}
 
 	@Override
