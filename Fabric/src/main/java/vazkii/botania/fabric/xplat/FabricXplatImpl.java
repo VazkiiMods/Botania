@@ -1,6 +1,7 @@
 package vazkii.botania.fabric.xplat;
 
 import com.google.common.base.Suppliers;
+import com.google.gson.JsonObject;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
@@ -27,6 +28,9 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -93,6 +97,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -457,6 +462,11 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		return FabricAccessorAbstractFurnaceBlockEntity.callCanBurn(recipe, items, maxStackSize);
+	}
+
+	@Override
+	public void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path) {
+		RecipeProvider.saveAdvancement(cache, json, path);
 	}
 
 	@Override

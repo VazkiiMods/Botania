@@ -8,6 +8,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -18,8 +19,8 @@ import vazkii.botania.xplat.IXplatAbstractions;
 public class ForgeBlockTagProvider extends BlockTagsProvider {
 	public static final Tag.Named<Block> MUSHROOMS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("forge", "mushrooms"));
 
-	public ForgeBlockTagProvider(DataGenerator generator) {
-		super(generator, LibMisc.MOD_ID, null);
+	public ForgeBlockTagProvider(DataGenerator generator, ExistingFileHelper helper) {
+		super(generator, LibMisc.MOD_ID, helper);
 	}
 
 	@Override

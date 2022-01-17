@@ -31,9 +31,4 @@ public interface AccessorRecipeProvider {
 	static void callSaveRecipe(HashCache dataCache, JsonObject jsonObject, Path path) {
 		throw new IllegalStateException();
 	}
-
-	@Invoker("saveAdvancement")
-	static void callSaveRecipeAdvancement(HashCache dataCache, JsonObject jsonObject, Path path) {
-		throw new IllegalStateException();
-	}
 }

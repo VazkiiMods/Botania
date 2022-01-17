@@ -4,12 +4,13 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.lib.LibMisc;
 
 public class ForgeItemTagProvider extends ItemTagsProvider {
-	public ForgeItemTagProvider(DataGenerator generator, BlockTagsProvider blockTags) {
-		super(generator, blockTags, LibMisc.MOD_ID, null);
+	public ForgeItemTagProvider(DataGenerator generator, BlockTagsProvider blockTags, ExistingFileHelper helper) {
+		super(generator, blockTags, LibMisc.MOD_ID, helper);
 	}
 
 	@Override

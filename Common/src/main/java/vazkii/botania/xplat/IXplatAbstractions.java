@@ -1,8 +1,12 @@
 package vazkii.botania.xplat;
 
+import com.google.gson.JsonObject;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.HashCache;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -58,6 +62,7 @@ import vazkii.botania.network.IPacket;
 
 import javax.annotation.Nullable;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.ServiceLoader;
 import java.util.function.BiFunction;
@@ -143,6 +148,8 @@ public interface IXplatAbstractions {
 	Tag.Named<Block> getOreTag();
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
+	// Forge also makes RecipeProvider.saveRecipeAdvancement an instance method >.>
+	void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path);
 	int getSmeltingBurnTime(ItemStack stack);
 
 	IXplatAbstractions INSTANCE = find();

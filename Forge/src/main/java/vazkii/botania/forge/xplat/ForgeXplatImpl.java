@@ -1,10 +1,14 @@
 package vazkii.botania.forge.xplat;
 
+import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceKey;
@@ -90,10 +94,12 @@ import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AccessorRegistry;
 import vazkii.botania.forge.mixin.ForgeAccessorAbstractFurnaceBlockEntity;
+import vazkii.botania.forge.mixin.ForgeAccessorRecipeProvider;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -406,6 +412,12 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		return ((ForgeAccessorAbstractFurnaceBlockEntity) furnace).callCanBurn(recipe, items, maxStackSize);
+	}
+
+	@Override
+	public void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path) {
+		// this is dumb
+		((ForgeAccessorRecipeProvider) new RecipeProvider(generator)).callSaveRecipeAdvancement(cache, json, path);
 	}
 
 	@Override
