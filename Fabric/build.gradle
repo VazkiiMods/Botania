@@ -16,16 +16,23 @@ loom {
             vmArg "-Dfabric-api.gametest=1"
         }
 
-        datagen {
+        xplatDatagen {
+            client()
+            vmArg "-Dbotania.xplat_datagen=1"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.modid=botania"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("../Common/src/generated/resources")}"
+        }
+
+        fabricDatagen {
             client()
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.modid=botania"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
-            vmArg "-Dfabric-api.datagen.strict-validation"
         }
 
         configureEach {
-            runDir "run"
+            runDir "../run"
             ideConfigGenerated(true)
         }
     }

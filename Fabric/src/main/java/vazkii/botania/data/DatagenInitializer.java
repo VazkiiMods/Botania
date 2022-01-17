@@ -14,6 +14,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 public class DatagenInitializer implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
-		DataGenerators.gatherData(generator);
+		if (System.getProperty("botania.xplat_datagen") != null) {
+			DataGenerators.configureXplatDatagen(generator);
+		} else {
+			// TODO Fabric-specific datagen
+		}
 	}
 }

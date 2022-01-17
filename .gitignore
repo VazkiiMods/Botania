@@ -61,7 +61,9 @@ Temporary Items
 .apdisk
 
 # Data Generator cache
-/src/generated/resources/.cache/
+Common/src/generated/resources/.cache/
+Fabric/src/generated/resources/.cache/
+Forge/src/generated/resources/.cache/
 
 # CraftTweaker generated docs
 /docsOut

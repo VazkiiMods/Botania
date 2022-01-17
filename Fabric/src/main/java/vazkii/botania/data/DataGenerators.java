@@ -13,7 +13,7 @@ import net.minecraft.data.DataGenerator;
 import vazkii.botania.data.recipes.*;
 
 public class DataGenerators {
-	static void gatherData(DataGenerator generator) {
+	static void configureXplatDatagen(DataGenerator generator) {
 		generator.addProvider(new BlockLootProvider(generator));
 		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
 		generator.addProvider(blockTagProvider);
