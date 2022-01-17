@@ -13,6 +13,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -86,6 +87,10 @@ public class EntityFallingStar extends EntityThrowableCopy {
     protected void onHitEntity(@Nonnull EntityHitResult hit) {
         super.onHitEntity(hit);
         Entity e = hit.getEntity();
+        // Blacklisting villagers since trading with them counts as a "swing" and will summon a star.
+        if (e instanceof Villager) {
+            return;
+        }
         if (!level.isClientSide) {
             if (e != getOwner() && e.isAlive()) {
                 if (getOwner() instanceof Player player) {
