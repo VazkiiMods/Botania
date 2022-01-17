@@ -139,8 +139,7 @@ public class ForgeCommonInitializer {
 
 		// Entities
 		bind(ForgeRegistries.ENTITIES, ModEntities::registerEntities);
-		MinecraftForge.EVENT_BUS.addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes(
-				(type, builder) -> e.put(type, builder.build())));
+		FMLJavaModLoadingContext.get().getModEventBus().addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
 		bind(ForgeRegistries.ATTRIBUTES, PixieHandler::registerAttribute);
 
 		// Potions
