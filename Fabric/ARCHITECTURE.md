@@ -3,4 +3,4 @@ This is the `Fabric` module of Botania. It contains all Fabric-specific event re
 hooks, integrations, and Mixins.
 
 All Game Tests are also run only in the Fabric module, though this may change in the
-future.
+future. Additionally, all `Xplat` data generation is also done from Fabric.
