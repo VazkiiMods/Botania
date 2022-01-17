@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.internal_caps.GhostRailComponent;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -70,7 +71,8 @@ public class BlockGhostRail extends BaseRailBlock {
 		cart.level.getProfiler().pop();
 	}
 
-	public void onMinecartPass(Level world, AbstractMinecart cart) {
+	@SoftImplement("IForgeBaseRailBlock")
+	public void onMinecartPass(BlockState state, Level world, BlockPos pos, AbstractMinecart cart) {
 		if (!world.isClientSide) {
 			IXplatAbstractions.INSTANCE.ghostRailComponent(cart).floatTicks = 20;
 			updateFloating(cart);

@@ -33,7 +33,7 @@ public class MixinAbstractMinecart {
 	private void handleOnRail(BlockPos pos, BlockState state, CallbackInfo ci) {
 		if (state.is(ModBlocks.ghostRail)) {
 			AbstractMinecart self = (AbstractMinecart) (Object) this;
-			((BlockGhostRail) ModBlocks.ghostRail).onMinecartPass(self.level, self);
+			((BlockGhostRail) ModBlocks.ghostRail).onMinecartPass(state, self.level, pos, self);
 		}
 
 	}
