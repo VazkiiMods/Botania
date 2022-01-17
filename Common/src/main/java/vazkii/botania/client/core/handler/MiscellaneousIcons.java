@@ -14,7 +14,6 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
@@ -83,7 +82,7 @@ public class MiscellaneousIcons {
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
-	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
+	public void onModelRegister(Consumer<ResourceLocation> consumer) {
 		Set<Material> materials = AccessorModelBakery.getMaterials();
 
 		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,

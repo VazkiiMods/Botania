@@ -36,12 +36,9 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ColorHandler;
-import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.KonamiHandler;
-import vazkii.botania.client.core.handler.LayerTerraHelmet;
-import vazkii.botania.client.core.handler.ManaTabletRenderHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
@@ -89,12 +86,12 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 
 		// Models
-		ModelLoadingRegistry.INSTANCE.registerModelProvider(MiscellaneousIcons.INSTANCE::onModelRegister);
+		ModelLoadingRegistry.INSTANCE.registerModelProvider((rm, consumer) -> MiscellaneousIcons.INSTANCE.onModelRegister(consumer));
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(ModelHandler::registerModels);
 		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
 
 		// BE/Entity Renderer
-		ModLayerDefinitions.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
+		ModLayerDefinitions.init((loc, supplier) -> EntityModelLayerRegistry.registerModelLayer(loc, supplier::get));
 		ModelHandler.registerRenderers(BlockEntityRendererRegistry::register);
 		ModelHandler.registerBuiltinItemRenderers((item, teisr) -> BuiltinItemRendererRegistry.INSTANCE.register(item, teisr::render));
 		EntityRenderers.init(EntityRendererRegistry::register);
@@ -119,7 +116,6 @@ public class FabricClientInitializer implements ClientModInitializer {
 		TooltipComponentCallback.EVENT.register(ManaBarTooltipComponent::tryConvert);
 
 		// Etc
-
 		ClientProxy.initSeasonal();
 		ClientProxy.initKeybindings(KeyBindingHelper::registerKeyBinding);
 
@@ -189,10 +185,8 @@ public class FabricClientInitializer implements ClientModInitializer {
 
 	private void initAuxiliaryRender(EntityType<? extends LivingEntity> type, LivingEntityRenderer<?, ?> renderer,
 			LivingEntityFeatureRendererRegistrationCallback.RegistrationHelper helper, EntityRendererProvider.Context ctx) {
-		if (type == EntityType.PLAYER && renderer instanceof PlayerRenderer) {
-			helper.register(new ContributorFancinessHandler((PlayerRenderer) renderer));
-			helper.register(new ManaTabletRenderHandler((PlayerRenderer) renderer));
-			helper.register(new LayerTerraHelmet((PlayerRenderer) renderer));
+		if (type == EntityType.PLAYER && renderer instanceof PlayerRenderer playerRenderer) {
+			EntityRenderers.addAuxiliaryPlayerRenders(playerRenderer, helper::register);
 		}
 	}
 }
