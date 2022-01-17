@@ -53,6 +53,11 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	public void tick() {
 		super.tick();
 
+		if (!hasBeenInAir && !level.isClientSide) {
+			BlockState bs = level.getBlockState(new BlockPos(this.getPosition(0F)));
+			hasBeenInAir = bs.isAir();
+		}
+
 		float dist = 1.5F;
 		SparkleParticleData data = SparkleParticleData.sparkle(2F, 1F, 0.4F, 1F, 6);
 		for (int i = 0; i < 10; i++) {
@@ -100,14 +105,6 @@ public class EntityFallingStar extends EntityThrowableCopy {
 				}
 			}
 			discard();
-		}
-	}
-
-	@Override
-	public void baseTick() {
-		super.baseTick();
-		if (!hasBeenInAir && !level.isClientSide) {
-			hasBeenInAir = level.getBlockState(new BlockPos(this.getPosition(0F))).isAir();
 		}
 	}
 
