@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 
 import java.util.Map;
@@ -71,6 +72,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 	* - Every tick, if the "temp silk touch" flag is present, remove it and remove any silk touch enchants from the stack
 	*/
 
+	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
 		BlockState state = player.level.getBlockState(pos);
 		boolean hasSilk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;

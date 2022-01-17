@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 
@@ -27,6 +28,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
+	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		Level world = player.level;
 		BlockState blockState = world.getBlockState(pos);

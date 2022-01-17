@@ -22,6 +22,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
@@ -74,6 +75,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		return !player.isShiftKeyDown() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 
+	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (raycast.getType() == HitResult.Type.BLOCK) {

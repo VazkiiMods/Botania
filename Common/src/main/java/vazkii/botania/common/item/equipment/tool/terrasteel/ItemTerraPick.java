@@ -150,6 +150,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return Optional.of(new ManaBarTooltip(percent, level));
 	}
 
+	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (!player.level.isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
