@@ -47,8 +47,8 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 
 		if (filterMatch || filter.isEmpty()) {
 			int missing = count;
-			for (ItemStack stack_ : stacks) {
-				missing -= stack_.getCount();
+			for (ItemStack stack : stacks) {
+				missing -= stack.getCount();
 			}
 
 			if (missing > 0 && !getBlockState().getValue(BlockStateProperties.POWERED)) {
