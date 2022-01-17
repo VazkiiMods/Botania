@@ -32,9 +32,9 @@ import java.util.List;
 public class EntityFallingStar extends EntityThrowableCopy {
 
 	/*
-	 * Prevent the star from being discarded on block collisions before its
-	 * first exposure to an air block.
-	 */
+	* Prevent the star from being discarded on block collisions before its
+	* first exposure to an air block.
+	*/
 	private boolean hasBeenInAir = false;
 
 	public EntityFallingStar(EntityType<EntityFallingStar> type, Level world) {
@@ -46,8 +46,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-	}
+	protected void defineSynchedData() {}
 
 	@Override
 	public void tick() {
