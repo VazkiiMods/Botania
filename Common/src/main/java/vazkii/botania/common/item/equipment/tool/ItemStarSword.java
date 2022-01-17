@@ -32,7 +32,7 @@ public class ItemStarSword extends ItemManasteelSword {
 	private static final int MANA_PER_DAMAGE = 120;
 	private static final String STAR_CHARGED = "STAR_CHARGED";
 	/* Number of ticks between two stars */
-	private static final int INTERVAL = 20;
+	private static final int INTERVAL = 12;
 
 	public ItemStarSword(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
