@@ -30,6 +30,7 @@ import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
@@ -66,6 +67,7 @@ public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, 
 		}
 	}
 
+	@SoftImplement("IForgeItem")
 	public void onArmorTick(ItemStack stack, Level world, Player player) {
 		if (!world.isClientSide && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamageValue(stack.getDamageValue() - 1);
@@ -77,8 +79,9 @@ public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, 
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, MANA_PER_DAMAGE);
 	}
 
+	@SoftImplement("IForgeItem")
 	@Nonnull
-	public final String getArmorTexture(ItemStack stack, EquipmentSlot slot) {
+	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}
 
