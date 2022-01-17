@@ -1,18 +1,17 @@
 package vazkii.botania.forge.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,21 +19,37 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ColorHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.gui.bag.GuiFlowerBag;
+import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.entity.EntityRenderers;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.forge.mixin.client.AccessorModelBakery;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
+import java.io.IOException;
 import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid = BotaniaAPI.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
+	@SubscribeEvent
+	public static void clientEtcInit(FMLClientSetupEvent evt) {
+		evt.enqueueWork(() -> {
+			MenuScreens.register(ModItems.FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
+			MenuScreens.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
+		});
+		ClientProxy.initSeasonal();
+		ClientProxy.initKeybindings(ClientRegistry::registerKeyBinding);
+	}
+
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent evt) {
 		ModelLoaderRegistry.registerLoader(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
@@ -43,6 +58,8 @@ public class ForgeClientInitializer {
 		var resourceManager = ((AccessorModelBakery) (Object) ForgeModelBakery.instance()).getResourceManager();
 		ModelHandler.registerModels(resourceManager, ForgeModelBakery::addSpecialModel);
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
+		// todo 1.18-forge there's a  crash and idk why
+		// BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
 
 	@SubscribeEvent
@@ -78,12 +95,6 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
-	public static void clientEtcInit(FMLClientSetupEvent evt) {
-		ClientProxy.initSeasonal();
-		ClientProxy.initKeybindings(ClientRegistry::registerKeyBinding);
-	}
-
-	@SubscribeEvent
 	public static void initAuxiliaryRender(EntityRenderersEvent.AddLayers evt) {
 		for (var playerModelType : evt.getSkins()) {
 			if (evt.getSkin(playerModelType) instanceof PlayerRenderer renderer) {
@@ -91,4 +102,15 @@ public class ForgeClientInitializer {
 			}
 		}
 	}
+
+	@SubscribeEvent
+	public static void registerShaders(RegisterShadersEvent evt) throws IOException {
+		CoreShaders.init(evt.getResourceManager(), p -> evt.registerShader(p.getFirst(), p.getSecond()));
+	}
+
+	@SubscribeEvent
+	public static void onModelBake(ModelBakeEvent evt) {
+		MiscellaneousIcons.INSTANCE.onModelBake(evt.getModelLoader(), evt.getModelRegistry());
+	}
+
 }

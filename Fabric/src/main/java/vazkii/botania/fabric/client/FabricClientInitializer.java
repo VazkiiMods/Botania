@@ -85,10 +85,11 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ScreenRegistry.register(ModItems.FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
 		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 
-		// Models
+		// Blocks and Items
 		ModelLoadingRegistry.INSTANCE.registerModelProvider((rm, consumer) -> MiscellaneousIcons.INSTANCE.onModelRegister(consumer));
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(ModelHandler::registerModels);
 		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
+		BotaniaItemProperties.init((i, id, propGetter) -> FabricModelPredicateProviderRegistry.register(i.asItem(), id, propGetter));
 
 		// BE/Entity Renderer
 		ModLayerDefinitions.init((loc, supplier) -> EntityModelLayerRegistry.registerModelLayer(loc, supplier::get));
@@ -123,7 +124,6 @@ public class FabricClientInitializer implements ClientModInitializer {
 			AccessorWorldPreset.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 		}
 
-		BotaniaItemProperties.init((i, id, propGetter) -> FabricModelPredicateProviderRegistry.register(i.asItem(), id, propGetter));
 		registerArmors();
 		registerCapabilities();
 	}

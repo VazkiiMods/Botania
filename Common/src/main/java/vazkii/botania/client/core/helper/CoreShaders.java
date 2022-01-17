@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class CoreShaders {
@@ -29,36 +28,36 @@ public class CoreShaders {
 	private static ShaderInstance filmGrainParticle;
 
 	public static void init(ResourceManager resourceManager,
-			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
-		registrations.add(Pair.of(
+			Consumer<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__starfield", DefaultVertexFormat.POSITION),
 				inst -> starfieldShaderInstance = inst)
 		);
-		registrations.add(Pair.of(
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__doppleganger", DefaultVertexFormat.NEW_ENTITY),
 				inst -> doppleganger = inst)
 		);
-		registrations.add(Pair.of(
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__mana_pool", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
 				inst -> manaPool = inst)
 		);
-		registrations.add(Pair.of(
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
 				inst -> terraPlate = inst)
 		);
-		registrations.add(Pair.of(
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
 				inst -> enchanter = inst)
 		);
-		registrations.add(Pair.of(
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__pylon", DefaultVertexFormat.NEW_ENTITY),
 				inst -> pylon = inst)
 		);
-		registrations.add(Pair.of(
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__halo", DefaultVertexFormat.POSITION_COLOR_TEX),
 				inst -> halo = inst)
 		);
-		registrations.add(Pair.of(
+		registrations.accept(Pair.of(
 				new ShaderInstance(resourceManager, "botania__film_grain_particle", DefaultVertexFormat.PARTICLE),
 				inst -> filmGrainParticle = inst)
 		);

@@ -80,7 +80,7 @@ public class ItemLexicon extends ItemModPattern {
 		try {
 			return PatchouliAPI.get().getSubtitle(Registry.ITEM.getKey(ModItems.lexicon));
 		} catch (Exception e) {
-			BotaniaAPI.LOGGER.error("Failed to get subtitle"); // TODO only to get the game to launch
+			BotaniaAPI.LOGGER.error("Failed to get subtitle", e); // TODO only to get the game to launch
 			return new TextComponent("?");
 		}
 	}

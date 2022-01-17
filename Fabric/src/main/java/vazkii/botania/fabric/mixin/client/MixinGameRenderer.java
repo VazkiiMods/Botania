@@ -48,7 +48,7 @@ public class MixinGameRenderer {
 			List<Program> _programsToClose,
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> shadersToLoad)
 			throws IOException {
-		CoreShaders.init(resourceManager, shadersToLoad);
+		CoreShaders.init(resourceManager, shadersToLoad::add);
 	}
 
 	@Inject(
