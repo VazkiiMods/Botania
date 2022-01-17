@@ -62,7 +62,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			'P', ModBlocks.terraPlate,
 			'R', "#botania:terra_plate_base",
 			'0', "#botania:terra_plate_base",
-			'L', "#c:lapis_blocks"
+			'L', IXplatAbstractions.INSTANCE.isFabric() ? "#c:lapis_blocks" : "#forge:storage_blocks/lapis"
 	));
 
 	private static final String TAG_MANA = "mana";

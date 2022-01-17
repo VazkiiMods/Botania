@@ -108,6 +108,11 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
+	public boolean isForge() {
+		return true;
+	}
+
+	@Override
 	public boolean isModLoaded(String modId) {
 		return ModList.get().isLoaded(modId);
 	}

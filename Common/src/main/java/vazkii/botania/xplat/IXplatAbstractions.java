@@ -75,6 +75,15 @@ public interface IXplatAbstractions {
 		return isModLoaded(BotaniaAPI.GOG_MODID);
 	}
 
+	// Yes, this forms a loop by default. Each loader overrides their own to break the loop
+	default boolean isFabric() {
+		return !isForge();
+	}
+
+	default boolean isForge() {
+		return !isFabric();
+	}
+
 	boolean isModLoaded(String modId);
 	boolean isDevEnvironment();
 	boolean isPhysicalClient();

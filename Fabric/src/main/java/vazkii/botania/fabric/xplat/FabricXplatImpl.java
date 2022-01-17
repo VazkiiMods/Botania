@@ -109,6 +109,11 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
+	public boolean isFabric() {
+		return true;
+	}
+
+	@Override
 	public boolean isModLoaded(String modId) {
 		return FabricLoader.getInstance().isModLoaded(modId);
 	}

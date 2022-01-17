@@ -39,6 +39,8 @@ sourceSets.main.resources {
 }
 
 processResources {
+    // Exclude datagenerator .cache directory
+    exclude '.cache'
 }
 
 publishing {
