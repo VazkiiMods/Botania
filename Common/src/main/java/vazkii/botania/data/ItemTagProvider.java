@@ -8,8 +8,6 @@
  */
 package vazkii.botania.data;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -45,13 +43,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.FENCES, ItemTags.FENCES);
-
-		this.tag((Tag.Named<Item>) FabricToolTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
-		this.tag((Tag.Named<Item>) FabricToolTags.HOES).add(manasteelHoe, elementiumHoe);
-		this.tag((Tag.Named<Item>) FabricToolTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick);
-		this.tag((Tag.Named<Item>) FabricToolTags.SHOVELS).add(manasteelShovel, elementiumShovel);
-		this.tag((Tag.Named<Item>) FabricToolTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
-		this.tag((Tag.Named<Item>) FabricToolTags.SHEARS).add(manasteelShears, elementiumShears);
 
 		this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
@@ -97,9 +88,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.copy(ModTags.Blocks.BLOCKS_ELEMENTIUM, ModTags.Items.BLOCKS_ELEMENTIUM);
 		this.copy(ModTags.Blocks.BLOCKS_MANASTEEL, ModTags.Items.BLOCKS_MANASTEEL);
-		this.copy(ModTags.Blocks.BLOCKS_QUARTZ, ModTags.Items.BLOCKS_QUARTZ);
 		this.copy(ModTags.Blocks.BLOCKS_TERRASTEEL, ModTags.Items.BLOCKS_TERRASTEEL);
-		// todo 1.16-fabric this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
 		this.tag(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
 		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
@@ -120,7 +109,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 		for (DyeColor color : DyeColor.values()) {
 			Tag.Named<Item> petalTag = ModTags.Items.getPetalTag(color);
 			this.tag(petalTag).add(getPetal(color), ModBlocks.getMushroom(color).asItem());
-			this.tag(ModTags.Items.MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 
@@ -208,83 +196,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 				waterRod
 		);
 		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant);
-
-		this.generateAccessoryTags();
-	}
-
-	private void generateAccessoryTags() {
-		this.tag(accessory("chest/cape")).add(
-				balanceCloak,
-				holyCloak,
-				invisibilityCloak,
-				unholyCloak
-		);
-		this.tag(accessory("chest/necklace")).add(
-				bloodPendant,
-				cloudPendant,
-				divaCharm,
-				goddessCharm,
-				icePendant,
-				lavaPendant,
-				superCloudPendant,
-				superLavaPendant,
-				thirdEye
-		);
-		this.tag(accessory("hand/ring")).add(
-				auraRing,
-				auraRingGreater,
-				dodgeRing,
-				lokiRing,
-				magnetRing,
-				magnetRingGreater,
-				manaRing,
-				manaRingGreater,
-				miningRing,
-				odinRing,
-				pixieRing,
-				reachRing,
-				swapRing,
-				thorRing,
-				waterRing
-		);
-		this.tag(accessory("head/face")).add(
-				itemFinder,
-				monocle,
-				tinyPlanet
-		);
-		this.tag(accessory("head/hat")).add(
-				flightTiara
-		);
-		this.tag(accessory("legs/belt")).add(
-				knockbackBelt,
-				speedUpBelt,
-				superTravelBelt,
-				travelBelt
-		);
-		this.tag(accessory("all")).add(
-				blackBowtie, blackTie,
-				redGlasses, puffyScarf,
-				engineerGoggles, eyepatch,
-				wickedEyepatch, redRibbons,
-				pinkFlowerBud, polkaDottedBows,
-				blueButterfly, catEars,
-				witchPin, devilTail,
-				kamuiEye, googlyEyes,
-				fourLeafClover, clockEye,
-				unicornHorn, devilHorns,
-				hyperPlus, botanistEmblem,
-				ancientMask, eerieMask,
-				alienAntenna, anaglyphGlasses,
-				orangeShades, grouchoGlasses,
-				thickEyebrows, lusitanicShield,
-				tinyPotatoMask, questgiverMark,
-				thinkingHand
-		);
-
-	}
-
-	private static Tag.Named<Item> accessory(String name) {
-		return TagFactory.ITEM.create(new ResourceLocation("trinkets", name));
 	}
 
 	@Nonnull

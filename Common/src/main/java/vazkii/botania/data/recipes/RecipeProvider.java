@@ -2251,11 +2251,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		wallShape(ModFluffBlocks.alfglassPane, ModBlocks.elfGlass, 16).save(consumer);
 		wallShape(ModFluffBlocks.bifrostPane, ModBlocks.bifrostPerm, 16).save(consumer);
 
-		ShapelessRecipeBuilder.shapeless(ModBlocks.azulejo0)
-				.requires(Items.BLUE_DYE)
-				.requires(ModTags.Items.BLOCKS_QUARTZ)
-				.unlockedBy("has_item", conditionsFromItem(Items.BLUE_DYE))
-				.save(consumer);
+		// azulejo0 recipe in loader-specific datagen
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)

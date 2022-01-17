@@ -50,7 +50,7 @@ minecraft {
 
     runs {
         client {
-            workingDirectory project.file('run')
+            workingDirectory file('../run')
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
@@ -64,7 +64,7 @@ minecraft {
         }
 
         server {
-            workingDirectory project.file('run')
+            workingDirectory file('../run')
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
@@ -75,6 +75,21 @@ minecraft {
                     source project(":Common").sourceSets.main
                 }
             }
+        }
+
+        data {
+            workingDirectory project.file('../run')
+            property 'fml.earlyprogresswindow', 'false'
+            ideaModule "${rootProject.name}.${project.name}.main"
+            args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
+            forceExit false
+            mods {
+                botania {
+                    source sourceSets.main
+                    source project(":Common").sourceSets.main
+                }
+            }
+            args '--mod', 'botania', '--all', '--output', '"' + file('src/generated/resources/') + '"'
         }
     }
 }
@@ -103,6 +118,10 @@ dependencies {
 compileJava {
     source(project(":Common").sourceSets.main.allSource)
     options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
 }
 
 processResources {

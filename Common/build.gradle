@@ -34,6 +34,10 @@ test {
     useJUnitPlatform()
 }
 
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
 processResources {
 }
 

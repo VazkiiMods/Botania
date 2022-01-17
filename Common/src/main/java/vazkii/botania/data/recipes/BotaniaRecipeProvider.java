@@ -48,5 +48,5 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 		});
 	}
 
-	abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
+	protected abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
 }

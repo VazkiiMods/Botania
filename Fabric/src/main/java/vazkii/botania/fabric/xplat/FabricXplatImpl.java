@@ -1,5 +1,6 @@
 package vazkii.botania.fabric.xplat;
 
+import com.google.common.base.Suppliers;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
@@ -97,6 +98,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -443,6 +445,13 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
 		return TagFactory.ENTITY_TYPE.create(id);
+	}
+
+	private final Supplier<Tag.Named<Block>> oreTag = Suppliers.memoize(() -> blockTag(new ResourceLocation("c", "ores")));
+
+	@Override
+	public Tag.Named<Block> getOreTag() {
+		return oreTag.get();
 	}
 
 	@Override

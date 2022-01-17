@@ -8,11 +8,9 @@
  */
 package vazkii.botania.data;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
@@ -37,7 +35,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -45,7 +42,7 @@ import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.block.ModSubtiles.*;
 
 public class BlockTagProvider extends BlockTagsProvider {
-	private static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
+	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
 
 	public BlockTagProvider(DataGenerator generator) {
 		super(generator);
@@ -138,10 +135,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
 		tag(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
 		tag(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
-		tag(ModTags.Blocks.BLOCKS_QUARTZ).add(
-				ModFluffBlocks.darkQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.blazeQuartz,
-				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz
-		);
 		tag(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
 
 		tag(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
@@ -164,15 +157,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
 
-		for (DyeColor color : DyeColor.values()) {
-			this.tag(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
-		}
-
-		tag(TagFactory.BLOCK.create(new ResourceLocation("buzzier_bees:flower_blacklist")))
-				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
-				.addTag(ModTags.Blocks.SPECIAL_FLOWERS);
-
-		registerCommonTags();
 		registerMiningTags();
 	}
 
@@ -228,26 +212,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
 				)
 		);
-	}
-
-	private void registerCommonTags() {
-		tag(ModTags.Blocks.LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
-
-		var vanillaTags = List.of(
-				BlockTags.COAL_ORES,
-				BlockTags.IRON_ORES,
-				BlockTags.GOLD_ORES,
-				BlockTags.LAPIS_ORES,
-				BlockTags.REDSTONE_ORES,
-				BlockTags.DIAMOND_ORES,
-				BlockTags.COPPER_ORES,
-				BlockTags.EMERALD_ORES
-		);
-		// We aren't calling vanilla's generation, so need to add dummy calls so that using them below doesn't error out.
-		vanillaTags.forEach(this::tag);
-
-		var oreTag = tag(ModTags.Blocks.ORES);
-		vanillaTags.forEach(oreTag::addTag);
 	}
 
 	@Nonnull

@@ -11,7 +11,6 @@ package vazkii.botania.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -25,9 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -60,6 +57,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -70,9 +68,12 @@ import java.util.function.Function;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockLootProvider implements DataProvider {
-	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
 			.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+	private static final Function<Block, LootTable.Builder> SKIP = b -> {
+		throw new RuntimeException("shouldn't be executed");
+	};
 
 	private final DataGenerator generator;
 	private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
@@ -88,7 +89,8 @@ public class BlockLootProvider implements DataProvider {
 			if (b instanceof SlabBlock) {
 				functionTable.put(b, BlockLootProvider::genSlab);
 			} else if (b instanceof BlockModDoubleFlower) {
-				functionTable.put(b, BlockLootProvider::genDoubleFlower);
+				// Done by loader-specific datagen since it needs loader-specific shears tag
+				functionTable.put(b, SKIP);
 			} else if (b instanceof BlockAltGrass) {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
@@ -139,7 +141,9 @@ public class BlockLootProvider implements DataProvider {
 				continue;
 			}
 			Function<Block, LootTable.Builder> func = functionTable.getOrDefault(b, BlockLootProvider::genRegular);
-			tables.put(id, func.apply(b));
+			if (func != SKIP) {
+				tables.put(id, func.apply(b));
+			}
 		}
 
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
@@ -148,12 +152,17 @@ public class BlockLootProvider implements DataProvider {
 		}
 	}
 
-	protected static Path getPath(Path root, ResourceLocation id) {
+	public static Path getPath(Path root, ResourceLocation id) {
 		return root.resolve("data/" + id.getNamespace() + "/loot_tables/blocks/" + id.getPath() + ".json");
 	}
 
 	protected static LootTable.Builder empty(Block b) {
 		return LootTable.lootTable();
+	}
+
+	@Nullable
+	protected static LootTable.Builder skip(Block b) {
+		return null;
 	}
 
 	protected static LootTable.Builder genCopyNbt(Block b, String... tags) {
@@ -217,15 +226,6 @@ public class BlockLootProvider implements DataProvider {
 						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))))
 				.apply(ApplyExplosionDecay.explosionDecay());
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
-	}
-
-	protected static LootTable.Builder genDoubleFlower(Block b) {
-		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
-				.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(FabricToolTags.SHEARS)));
-		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
-				.when(ExplosionCondition.survivesExplosion());
-		return LootTable.lootTable().withPool(pool);
 	}
 
 	protected static LootTable.Builder genAltGrass(Block b) {

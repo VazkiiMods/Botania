@@ -50,6 +50,7 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -395,6 +396,11 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
 		return EntityTypeTags.createOptional(id);
+	}
+
+	@Override
+	public Tag.Named<Block> getOreTag() {
+		return Tags.Blocks.ORES;
 	}
 
 	@Override

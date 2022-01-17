@@ -46,7 +46,7 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	// TODO: We had an enormous amount of ores defined for mod compat.
 	//       The old data needs to be completely revised.
 	@Override
-	void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	protected void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(stone(Blocks.COAL_ORE, 67415));
 		consumer.accept(stone(Blocks.IRON_ORE, 29371));
 		consumer.accept(stone(Blocks.REDSTONE_ORE, 7654));

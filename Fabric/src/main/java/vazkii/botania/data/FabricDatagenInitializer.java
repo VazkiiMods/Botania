@@ -8,12 +8,31 @@
  */
 package vazkii.botania.data;
 
+import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.data.DataGenerator;
 
 import vazkii.botania.data.recipes.*;
 
-public class DataGenerators {
-	static void configureXplatDatagen(DataGenerator generator) {
+public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
+	@Override
+	public void onInitializeDataGenerator(FabricDataGenerator generator) {
+		if (System.getProperty("botania.xplat_datagen") != null) {
+			configureXplatDatagen(generator);
+		} else {
+			configureFabricDatagen(generator);
+		}
+	}
+
+	private static void configureFabricDatagen(DataGenerator generator) {
+		generator.addProvider(new FabricBlockLootProvider(generator));
+		var blockTagProvider = new FabricBlockTagProvider(generator);
+		generator.addProvider(blockTagProvider);
+		generator.addProvider(new FabricItemTagProvider(generator, blockTagProvider));
+		generator.addProvider(new FabricRecipeProvider(generator));
+	}
+
+	private static void configureXplatDatagen(DataGenerator generator) {
 		generator.addProvider(new BlockLootProvider(generator));
 		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
 		generator.addProvider(blockTagProvider);
@@ -35,5 +54,4 @@ public class DataGenerators {
 		generator.addProvider(new ItemModelProvider(generator));
 		generator.addProvider(new AdvancementProvider(generator));
 	}
-
 }

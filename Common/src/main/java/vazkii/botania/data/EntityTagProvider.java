@@ -8,7 +8,6 @@
  */
 package vazkii.botania.data;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +15,7 @@ import net.minecraft.world.entity.EntityType;
 
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class EntityTagProvider extends EntityTypeTagsProvider {
 	public EntityTagProvider(DataGenerator generator) {
@@ -43,7 +43,7 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				ModEntities.DOPPLEGANGER, ModEntities.FLAME_RING, ModEntities.MAGIC_LANDMINE, ModEntities.MAGIC_MISSILE,
 				ModEntities.MANA_BURST, ModEntities.PINK_WITHER, ModEntities.SPARK, ModEntities.PLAYER_MOVER);
 
-		tag(TagFactory.ENTITY_TYPE.create(new ResourceLocation("c", "bosses")))
+		tag(IXplatAbstractions.INSTANCE.entityTag(new ResourceLocation("c", "bosses")))
 				.add(ModEntities.DOPPLEGANGER);
 	}
 }

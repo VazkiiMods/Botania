@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
@@ -36,7 +35,6 @@ public class ModTags {
 
 		public static final Tag.Named<Item> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
 		public static final Tag.Named<Item> BLOCKS_MANASTEEL = tag("manasteel_blocks");
-		public static final Tag.Named<Item> BLOCKS_QUARTZ = commonTag("quartz_blocks");
 		public static final Tag.Named<Item> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
 
 		public static final Tag.Named<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
@@ -104,7 +102,6 @@ public class ModTags {
 		 * Items in this tag cannot give mana to the terra pick
 		 */
 		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
-		public static final Tag.Named<Item> MUSHROOMS = commonTag("mushrooms");
 		public static final Tag.Named<Item> RODS = tag("rods");
 		/**
 		 * Items in this tag may consume mana
@@ -135,11 +132,6 @@ public class ModTags {
 		private static Tag.Named<Item> tag(String name) {
 			return IXplatAbstractions.INSTANCE.itemTag(prefix(name));
 		}
-
-		private static Tag.Named<Item> commonTag(String name) {
-			// TODO 1.18 fix this for datagen
-			return IXplatAbstractions.INSTANCE.itemTag(new ResourceLocation("c", name));
-		}
 	}
 
 	public static class Blocks {
@@ -164,7 +156,6 @@ public class ModTags {
 
 		public static final Tag.Named<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
 		public static final Tag.Named<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
-		public static final Tag.Named<Block> BLOCKS_QUARTZ = commonTag("quartz_blocks");
 		public static final Tag.Named<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
 
 		/**
@@ -194,18 +185,8 @@ public class ModTags {
 		 */
 		public static final Tag.Named<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
-		public static final Tag.Named<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
-
-		public static final Tag.Named<Block> ORES = commonTag("ores");
-		public static final Tag.Named<Block> MUSHROOMS = commonTag("mushrooms");
-
 		private static Tag.Named<Block> tag(String name) {
 			return IXplatAbstractions.INSTANCE.blockTag(prefix(name));
-		}
-
-		private static Tag.Named<Block> commonTag(String name) {
-			// TODO 1.18 fix this for datagen
-			return IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", name));
 		}
 	}
 

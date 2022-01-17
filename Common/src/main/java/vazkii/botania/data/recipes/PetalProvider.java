@@ -11,7 +11,6 @@ package vazkii.botania.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +25,7 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -143,7 +143,7 @@ public class PetalProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static Ingredient tagIngr(String tag) {
-		return Ingredient.of(TagFactory.ITEM.create(prefix(tag)));
+		return Ingredient.of(IXplatAbstractions.INSTANCE.itemTag(prefix(tag)));
 	}
 
 	protected static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {

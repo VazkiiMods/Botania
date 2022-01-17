@@ -35,7 +35,7 @@
       "vazkii.botania.test.item.CacophoniumTest"
     ],
     "fabric-datagen": [
-      "vazkii.botania.data.DatagenInitializer"
+      "vazkii.botania.data.FabricDatagenInitializer"
     ],
     "cardinal-components-entity": [
       "vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents"
