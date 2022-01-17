@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -68,7 +69,7 @@ public class LensMine extends Lens {
 
 					world.removeBlock(collidePos, false);
 					if (BotaniaConfig.common().blockBreakParticles()) {
-						world.levelEvent(2001, collidePos, Block.getId(state));
+						world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, collidePos, Block.getId(state));
 					}
 
 					boolean sourceless = source.equals(IManaBurst.NO_SOURCE);

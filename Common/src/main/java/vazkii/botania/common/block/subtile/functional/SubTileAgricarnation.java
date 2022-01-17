@@ -13,14 +13,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
-import net.minecraft.world.level.block.StemBlock;
-import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -76,7 +69,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 					addMana(-5);
 					state.randomTick((ServerLevel) level, pos, level.random);
 					if (BotaniaConfig.common().blockBreakParticles()) {
-						getLevel().levelEvent(2005, pos, 6 + getLevel().random.nextInt(4));
+						getLevel().levelEvent(LevelEvent.PARTICLES_PLANT_GROWTH, pos, 6 + getLevel().random.nextInt(4));
 					}
 					getLevel().playSound(null, x, y, z, ModSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 

@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
@@ -95,7 +96,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 					if (recipe.set(world, coords, this)) {
 						if (BotaniaConfig.common().blockBreakParticles()) {
-							getLevel().levelEvent(2001, coords, Block.getId(recipe.getOutputState()));
+							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(recipe.getOutputState()));
 						}
 						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 					}

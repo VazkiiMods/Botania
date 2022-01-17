@@ -20,6 +20,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -115,7 +116,7 @@ public class ItemDirtRod extends Item {
 				BlockState state = world.getBlockState(pos);
 				if (state.isAir()) {
 					world.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
-					world.levelEvent(2001, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
+					world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
 					tile.receiveMana(-COST);
 				}
 			}

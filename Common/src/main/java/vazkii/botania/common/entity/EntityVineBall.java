@@ -24,6 +24,7 @@ import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -102,7 +103,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 						first = false;
 
 						level.setBlockAndUpdate(pos, stateSet);
-						level.levelEvent(2001, pos, Block.getId(stateSet));
+						level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateSet));
 						pos = pos.below();
 					} else {
 						break;

@@ -16,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -97,7 +98,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			BlockPos bpos = hit.getBlockPos();
 			BlockState state = level.getBlockState(bpos);
 			if (BotaniaConfig.common().blockBreakParticles() && !state.isAir()) {
-				level.levelEvent(2001, bpos, Block.getId(state));
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, bpos, Block.getId(state));
 			}
 			discard();
 		}

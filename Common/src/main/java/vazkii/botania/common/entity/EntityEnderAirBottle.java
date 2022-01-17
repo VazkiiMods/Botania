@@ -25,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -63,12 +64,12 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 
 	private void convertStone(@Nonnull BlockPos pos) {
 		List<BlockPos> coordsList = getCoordsToPut(pos);
-		level.levelEvent(2002, blockPosition(), PARTICLE_COLOR);
+		level.levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 
 		for (BlockPos coords : coordsList) {
 			level.setBlockAndUpdate(coords, Blocks.END_STONE.defaultBlockState());
 			if (Math.random() < 0.1) {
-				level.levelEvent(2001, coords, Block.getId(Blocks.END_STONE.defaultBlockState()));
+				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(Blocks.END_STONE.defaultBlockState()));
 			}
 		}
 	}
@@ -91,7 +92,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		}
 		Entity entity = result.getEntity();
 		if (entity.getType() == EntityType.GHAST && level.dimension() == Level.OVERWORLD) {
-			level.levelEvent(2002, blockPosition(), PARTICLE_COLOR);
+			level.levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 			DamageSource source = DamageSource.thrown(this, getOwner());
 			entity.hurt(source, 0);
 

@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -26,7 +27,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger {
 	@Override
 	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
 		if (!burst.isFake() && !world.isClientSide) {
-			world.levelEvent(2001, pos, Block.getId(defaultBlockState()));
+			world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(defaultBlockState()));
 			world.removeBlock(pos, false);
 			EntityManaStorm storm = ModEntities.MANA_STORM.create(world);
 			storm.burstColor = burst.getColor();

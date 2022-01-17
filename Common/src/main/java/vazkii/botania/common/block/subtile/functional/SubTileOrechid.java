@@ -15,6 +15,7 @@ import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -66,7 +67,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 				if (state != null) {
 					getLevel().setBlockAndUpdate(coords, state);
 					if (BotaniaConfig.common().blockBreakParticles()) {
-						getLevel().levelEvent(2001, coords, Block.getId(state));
+						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
 					}
 					playSound(coords);
 

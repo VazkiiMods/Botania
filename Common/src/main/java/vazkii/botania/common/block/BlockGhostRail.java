@@ -16,6 +16,7 @@ import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -54,7 +55,7 @@ public class BlockGhostRail extends BaseRailBlock {
 
 		if (state.is(ModBlocks.dreamwood)
 				|| (!state.is(ModBlocks.ghostRail) && state.is(BlockTags.RAILS))) {
-			cart.level.levelEvent(2003, entPos, 0);
+			cart.level.levelEvent(LevelEvent.PARTICLES_EYE_OF_ENDER_DEATH, entPos, 0);
 			persistentData.floatTicks = 0;
 		} else {
 			BlockPos down = entPos.below();
@@ -65,7 +66,7 @@ public class BlockGhostRail extends BaseRailBlock {
 			}
 			cart.setDeltaMovement(cart.getDeltaMovement().x() * 1.4, 0.2, cart.getDeltaMovement().z() * 1.4);
 			persistentData.floatTicks--;
-			cart.level.levelEvent(2000, entPos, 0);
+			cart.level.levelEvent(LevelEvent.PARTICLES_SHOOT, entPos, 0);
 		}
 
 		cart.level.getProfiler().pop();

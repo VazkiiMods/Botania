@@ -28,10 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -194,7 +191,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 						continue;
 					}
 
-					world.levelEvent(2001, pos_, Block.getId(state));
+					world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos_, Block.getId(state));
 
 					ItemStack copyLens = new ItemStack(this);
 					copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
@@ -305,7 +302,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					}
 
 					entity.level.setBlockAndUpdate(pos, placeState);
-					entity.level.levelEvent(2001, pos, Block.getId(placeState));
+					entity.level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(placeState));
 					if (tile != null) {
 						entity.level.setBlockEntity(tile);
 					}

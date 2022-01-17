@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -83,7 +84,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if (BotaniaConfig.common().blockBreakParticles()) {
-					getLevel().levelEvent(2001, breakCoords, Block.getId(state));
+					getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, breakCoords, Block.getId(state));
 				}
 				addMana(manaPerLeaf);
 			}

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -52,7 +53,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 					int stateId = Block.getId(getLevel().getBlockState(coords));
 					getLevel().removeBlock(coords, false);
 					if (BotaniaConfig.common().blockBreakParticles()) {
-						getLevel().levelEvent(2001, coords, stateId);
+						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, stateId);
 					}
 					ItemEntity item = new ItemEntity(getLevel(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
 					getLevel().addFreshEntity(item);

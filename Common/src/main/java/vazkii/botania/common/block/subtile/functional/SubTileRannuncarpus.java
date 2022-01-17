@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -113,7 +114,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 					if (success) {
 						if (BotaniaConfig.common().blockBreakParticles()) {
 							BlockState state = getLevel().getBlockState(ctx.getClickedPos());
-							getLevel().levelEvent(2001, coords, Block.getId(state));
+							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
 						}
 						if (getMana() > 1) {
 							addMana(-1);

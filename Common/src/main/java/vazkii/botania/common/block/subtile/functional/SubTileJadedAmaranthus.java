@@ -11,6 +11,7 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -50,7 +51,7 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 
 				if (getLevel().isEmptyBlock(up) && flower.canSurvive(getLevel(), up)) {
 					if (BotaniaConfig.common().blockBreakParticles()) {
-						getLevel().levelEvent(2001, up, Block.getId(flower));
+						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, up, Block.getId(flower));
 					}
 					getLevel().setBlockAndUpdate(up, flower);
 					addMana(-COST);
