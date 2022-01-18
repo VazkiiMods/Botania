@@ -11,25 +11,28 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.event.entity.EntityTeleportEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -48,7 +51,9 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
+import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
+import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileCraftCrate;
@@ -64,10 +69,12 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.*;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
-import vazkii.botania.common.item.ItemGrassSeeds;
-import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
+import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
+import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
@@ -237,6 +244,58 @@ public class ForgeCommonInitializer {
 			if (result.getResult().consumesAction()) {
 				e.setCanceled(true);
 				e.setCancellationResult(result.getResult());
+			}
+		});
+
+		// Below here are events implemented via Mixins on the Fabric side, ordered by Mixin name
+		bus.addListener((AnvilUpdateEvent e) -> {
+			if (ItemSpellCloth.shouldDenyAnvil(e.getLeft(), e.getRight())) {
+				e.setCanceled(true);
+			}
+		});
+		bus.addListener((EntityTeleportEvent.EnderEntity e) -> {
+			if (e.getEntityLiving() instanceof EnderMan em) {
+				var newPos = SubTileVinculotus.onEndermanTeleport(em, e.getTargetX(), e.getTargetY(), e.getTargetZ());
+				if (newPos != null) {
+					e.setTargetX(newPos.x());
+					e.setTargetY(newPos.y());
+					e.setTargetZ(newPos.z());
+				}
+			}
+		});
+		bus.addListener((ExplosionEvent e) -> {
+			if (ItemGoddessCharm.shouldProtectExplosion(e.getWorld(), e.getExplosion().getPosition())) {
+				e.getExplosion().clearToBlow();
+			}
+		});
+		bus.addListener((EntityItemPickupEvent e) -> {
+			if (ItemFlowerBag.onPickupItem(e.getItem(), e.getPlayer())) {
+				e.setCanceled(true);
+			}
+		});
+		bus.addListener((LivingDropsEvent e) -> {
+			var living = e.getEntityLiving();
+			ItemElementiumAxe.onEntityDrops(e.isRecentlyHit(), e.getSource(), e.getEntityLiving(), stack -> {
+				var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
+				ent.setDefaultPickUpDelay();
+				e.getDrops().add(ent);
+			});
+			SubTileLoonuim.dropLooniumItems(living, stack -> {
+				e.getDrops().clear();
+				var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
+				ent.setDefaultPickUpDelay();
+				e.getDrops().add(ent);
+			});
+		});
+		bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntityLiving()));
+		{ // todo missing rest of FabricMixinPlayer. remove braces when done.
+			bus.addListener((EntityAttributeModificationEvent e) -> e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE));
+			bus.addListener((ItemTossEvent e) -> ItemMagnetRing.onTossItem(e.getPlayer()));
+		}
+		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getPlayer(), e.getInventory()));
+		bus.addListener((ServerChatEvent e) -> {
+			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage())) {
+				e.setCanceled(true);
 			}
 		});
 	}

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.fabric.mixin;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -22,10 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
 
-import java.util.List;
-
 @Mixin(Explosion.class)
-public class FabricMixinExplosion {
+public abstract class FabricMixinExplosion {
 	@Shadow
 	@Final
 	private Level level;
@@ -43,11 +40,12 @@ public class FabricMixinExplosion {
 	private double z;
 
 	@Shadow
-	@Final
-	private List<BlockPos> toBlow;
+	public abstract void clearToBlow();
 
 	@Inject(method = "finalizeExplosion", at = @At("HEAD"))
 	private void onAffectWorld(boolean particles, CallbackInfo ci) {
-		ItemGoddessCharm.onExplosion(level, new Vec3(x, y, z), toBlow);
+		if (ItemGoddessCharm.shouldProtectExplosion(level, new Vec3(x, y, z))) {
+			clearToBlow();
+		}
 	}
 }

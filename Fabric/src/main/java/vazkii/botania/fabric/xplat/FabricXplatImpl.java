@@ -276,9 +276,10 @@ public class FabricXplatImpl implements IXplatAbstractions {
 		return CCAInternalEntityComponents.KEPT_ITEMS.get(player);
 	}
 
+	@Nullable
 	@Override
 	public LooniumComponent looniumComponent(LivingEntity entity) {
-		return CCAInternalEntityComponents.LOONIUM_DROP.get(entity);
+		return CCAInternalEntityComponents.LOONIUM_DROP.getNullable(entity);
 	}
 
 	@Override

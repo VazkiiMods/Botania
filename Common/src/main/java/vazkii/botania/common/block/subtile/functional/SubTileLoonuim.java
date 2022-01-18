@@ -16,6 +16,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -44,6 +45,7 @@ import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	private static final int COST = 35000;
@@ -196,5 +198,12 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putString(TAG_LOOT_TABLE, lootTable.toString());
+	}
+
+	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
+		var comp = IXplatAbstractions.INSTANCE.looniumComponent(living);
+		if (comp != null && !comp.getDrop().isEmpty()) {
+			consumer.accept(comp.getDrop());
+		}
 	}
 }

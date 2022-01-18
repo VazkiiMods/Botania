@@ -114,6 +114,7 @@ public interface IXplatAbstractions {
 	GhostRailComponent ghostRailComponent(AbstractMinecart cart);
 	ItemFlagsComponent itemFlagsComponent(ItemEntity item);
 	KeptItemsComponent keptItemsComponent(Player player);
+	@Nullable
 	LooniumComponent looniumComponent(LivingEntity entity);
 	NarslimmusComponent narslimmusComponent(Slime slime);
 	TigerseyeComponent tigersEyeComponent(Creeper creeper);

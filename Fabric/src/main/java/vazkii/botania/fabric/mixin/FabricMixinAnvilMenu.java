@@ -33,7 +33,7 @@ public abstract class FabricMixinAnvilMenu extends ItemCombinerMenu {
 
 	@Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
 	private void checkIfCloth(CallbackInfo ci) {
-		if (ItemSpellCloth.shouldDenyAnvil(inputSlots)) {
+		if (ItemSpellCloth.shouldDenyAnvil(inputSlots.getItem(0), inputSlots.getItem(1))) {
 			this.resultSlots.setItem(0, ItemStack.EMPTY);
 			this.cost.set(0);
 			ci.cancel();

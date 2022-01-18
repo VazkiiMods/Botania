@@ -236,9 +236,10 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 		return player.getCapability(ForgeInternalEntityCapabilities.KEPT_ITEMS).orElseThrow(IllegalStateException::new);
 	}
 
+	@Nullable
 	@Override
 	public LooniumComponent looniumComponent(LivingEntity entity) {
-		return entity.getCapability(ForgeInternalEntityCapabilities.LOONIUM_DROP).orElseThrow(IllegalStateException::new);
+		return entity.getCapability(ForgeInternalEntityCapabilities.LOONIUM_DROP).orElse(null);
 	}
 
 	@Override

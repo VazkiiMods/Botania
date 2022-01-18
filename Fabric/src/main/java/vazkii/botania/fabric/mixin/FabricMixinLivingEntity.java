@@ -22,13 +22,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
-import vazkii.botania.common.internal_caps.LooniumComponent;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.rod.ItemGravityRod;
-import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 
 import javax.annotation.Nullable;
 
@@ -45,18 +44,19 @@ public abstract class FabricMixinLivingEntity extends Entity {
 	@Shadow
 	protected int lastHurtByPlayerTime;
 
-	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
-	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
-		LooniumComponent comp = CCAInternalEntityComponents.LOONIUM_DROP.getNullable(this);
-		if (comp != null && !comp.getDrop().isEmpty()) {
-			spawnAtLocation(comp.getDrop());
-			ci.cancel();
-		}
-	}
-
 	@Inject(at = @At("RETURN"), method = "dropAllDeathLoot")
 	private void dropEnd(DamageSource source, CallbackInfo ci) {
-		ItemElementiumAxe.onEntityDrops(lastHurtByPlayerTime, source, (LivingEntity) (Object) this);
+		var self = (LivingEntity) (Object) this;
+		ItemElementiumAxe.onEntityDrops(lastHurtByPlayerTime > 0, source, self, self::spawnAtLocation);
+	}
+
+	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
+	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
+		var self = (LivingEntity) (Object) this;
+		SubTileLoonuim.dropLooniumItems(self, stack -> {
+			self.spawnAtLocation(stack);
+			ci.cancel();
+		});
 	}
 
 	/**

@@ -16,7 +16,6 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -42,16 +41,16 @@ public class ItemGoddessCharm extends ItemBauble {
 		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
-	public static void onExplosion(Level world, Vec3 vec, List<BlockPos> affectedBlocks) {
+	public static boolean shouldProtectExplosion(Level world, Vec3 vec) {
 		List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).inflate(8));
 
 		for (Player player : players) {
 			ItemStack charm = EquipmentHandler.findOrEmpty(ModItems.goddessCharm, player);
 			if (!charm.isEmpty() && ManaItemHandler.instance().requestManaExact(charm, player, COST, true)) {
-				affectedBlocks.clear();
-				return;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public static class Renderer implements AccessoryRenderer {

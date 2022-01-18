@@ -28,6 +28,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class ItemElementiumAxe extends ItemManasteelAxe {
 
@@ -38,25 +39,26 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	// Thanks to SpitefulFox for the drop rates
 	// https://github.com/SpitefulFox/ForbiddenMagic/blob/master/src/com/spiteful/forbidden/FMEventHandler.java
 
-	public static void onEntityDrops(int playerHitTimer, DamageSource source, LivingEntity target) {
-		if (playerHitTimer > 0 && source.getEntity() != null && source.getEntity() instanceof Player) {
+	public static void onEntityDrops(boolean hitRecently, DamageSource source, LivingEntity target,
+			Consumer<ItemStack> consumer) {
+		if (hitRecently && source.getEntity() != null && source.getEntity() instanceof Player) {
 			ItemStack weapon = ((Player) source.getEntity()).getMainHandItem();
 			if (!weapon.isEmpty() && weapon.getItem() instanceof ItemElementiumAxe) {
 				Random rand = target.level.random;
 				int looting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, weapon);
 
 				if (target instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
-					target.spawnAtLocation(new ItemStack(target instanceof WitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
+					consumer.accept(new ItemStack(target instanceof WitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
 				} else if (target instanceof Zombie && !(target instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting) {
-					target.spawnAtLocation(new ItemStack(Items.ZOMBIE_HEAD));
+					consumer.accept(new ItemStack(Items.ZOMBIE_HEAD));
 				} else if (target instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting) {
-					target.spawnAtLocation(new ItemStack(Items.CREEPER_HEAD));
+					consumer.accept(new ItemStack(Items.CREEPER_HEAD));
 				} else if (target instanceof Player && rand.nextInt(11) <= 1 + looting) {
 					ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 					ItemNBTHelper.setString(stack, "SkullOwner", ((Player) target).getGameProfile().getName());
-					target.spawnAtLocation(stack);
+					consumer.accept(stack);
 				} else if (target instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting) {
-					target.spawnAtLocation(new ItemStack(ModBlocks.gaiaHead));
+					consumer.accept(new ItemStack(ModBlocks.gaiaHead));
 				}
 			}
 		}

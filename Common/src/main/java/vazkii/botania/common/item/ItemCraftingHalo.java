@@ -29,6 +29,7 @@ import net.minecraft.recipebook.ServerPlaceRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.*;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
@@ -288,14 +289,15 @@ public class ItemCraftingHalo extends Item {
 		}
 	}
 
-	public static void onItemCrafted(Player player, CraftingContainer inv) {
+	public static void onItemCrafted(Player player, Container inv) {
 		AbstractContainerMenu container = player.containerMenu;
 
-		if (!(container instanceof ContainerCraftingHalo)) {
+		if (!(container instanceof ContainerCraftingHalo) ||
+				!(inv instanceof CraftingContainer cc)) {
 			return;
 		}
 
-		player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, inv, player.level).ifPresent(recipe -> {
+		player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, cc, player.level).ifPresent(recipe -> {
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack stack = player.getInventory().getItem(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof ItemCraftingHalo) {
