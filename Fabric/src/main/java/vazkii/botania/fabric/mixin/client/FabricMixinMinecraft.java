@@ -43,11 +43,6 @@ public abstract class FabricMixinMinecraft {
 
 	}
 
-	@Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render(FJZ)V", shift = At.Shift.AFTER))
-	private void onFrameEnd(boolean tick, CallbackInfo ci) {
-		ClientTickHandler.calcDelta();
-	}
-
 	@Inject(method = "startAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;resetAttackStrengthTicker()V"))
 	private void leftClickEmpty(CallbackInfo ci) {
 		ItemTerraSword.leftClick(player.getMainHandItem());

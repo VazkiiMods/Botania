@@ -120,7 +120,7 @@ public class RenderLexicon {
 		float leftPageAngle = Mth.frac(pageFlip + 0.25F) * 1.6F - 0.3F;
 		float rightPageAngle = Mth.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
 		var model = getModel();
-		model.setupAnim(ClientTickHandler.total, Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
+		model.setupAnim(ClientTickHandler.total(), Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
 		Material mat = ItemLexicon.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.buffer(buffers, RenderType::entitySolid);

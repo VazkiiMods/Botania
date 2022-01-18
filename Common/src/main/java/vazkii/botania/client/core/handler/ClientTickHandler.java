@@ -30,13 +30,9 @@ public final class ClientTickHandler {
 	public static int pageFlipTicks = 0;
 	public static int ticksInGame = 0;
 	public static float partialTicks = 0;
-	public static float delta = 0;
-	public static float total = 0;
 
-	public static void calcDelta() {
-		float oldTotal = total;
-		total = ticksInGame + partialTicks;
-		delta = total - oldTotal;
+	public static float total() {
+		return ticksInGame + partialTicks;
 	}
 
 	public static void renderTick(float renderTickTime) {
@@ -88,8 +84,6 @@ public final class ClientTickHandler {
 				ticksWithLexicaOpen--;
 			}
 		}
-
-		calcDelta();
 	}
 
 	public static void notifyPageChange() {
