@@ -47,6 +47,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
+import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
@@ -207,6 +208,7 @@ public class ForgeCommonInitializer {
 				e.setResult(problem);
 			}
 		});
+		bus.addListener((PlayerEvent.StartTracking e) -> SubTileDaffomill.onItemTrack(e.getEntity(), (ServerPlayer) e.getPlayer()));
 		bus.addListener((LootTableLoadEvent e) -> LootHandler.lootLoad(e.getName(), e.getTable()::addPool));
 		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getBlockEntity(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinWorldEvent e) -> {

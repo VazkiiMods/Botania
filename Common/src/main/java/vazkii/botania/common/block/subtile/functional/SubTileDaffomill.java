@@ -177,7 +177,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWan
 	}
 
 	// Send timeCounter to client to prevent client desync when an item is e.g. dropped by a powered open crate
-	public static void onItemTrack(ServerPlayer player, Entity entity) {
+	public static void onItemTrack(Entity entity, ServerPlayer player) {
 		if (entity instanceof ItemEntity item) {
 			int entityId = entity.getId();
 			int age = IXplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter;
