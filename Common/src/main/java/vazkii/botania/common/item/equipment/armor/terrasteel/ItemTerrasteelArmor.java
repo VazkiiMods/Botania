@@ -18,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -103,5 +105,10 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc0").withStyle(ChatFormatting.GRAY));
 		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc1").withStyle(ChatFormatting.GRAY));
 		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc2").withStyle(ChatFormatting.GRAY));
+	}
+
+	@SoftImplement("IForgeItem")
+	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+		return true;
 	}
 }

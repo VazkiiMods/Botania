@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TilePylon;
 
@@ -82,6 +83,7 @@ public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 		return createTickerHelper(type, ModTiles.PYLON, TilePylon::commonTick);
 	}
 
+	@SoftImplement("IForgeBlock")
 	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
 		return variant.enchantPowerBonus;
 	}

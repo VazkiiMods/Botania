@@ -40,7 +40,7 @@ import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.forge.mixin.client.AccessorModelBakery;
+import vazkii.botania.forge.mixin.client.ForgeAccessorModelBakery;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
@@ -83,7 +83,7 @@ public class ForgeClientInitializer {
 		ModelLoaderRegistry.registerLoader(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
 		MiscellaneousIcons.INSTANCE.onModelRegister(ForgeModelBakery::addSpecialModel);
-		var resourceManager = ((AccessorModelBakery) (Object) ForgeModelBakery.instance()).getResourceManager();
+		var resourceManager = ((ForgeAccessorModelBakery) (Object) ForgeModelBakery.instance()).getResourceManager();
 		ModelHandler.registerModels(resourceManager, ForgeModelBakery::addSpecialModel);
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		// todo 1.18-forge there's a  crash and idk why

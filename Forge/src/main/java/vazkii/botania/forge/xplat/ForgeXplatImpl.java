@@ -92,9 +92,9 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
-import vazkii.botania.forge.mixin.AccessorRegistry;
 import vazkii.botania.forge.mixin.ForgeAccessorAbstractFurnaceBlockEntity;
 import vazkii.botania.forge.mixin.ForgeAccessorRecipeProvider;
+import vazkii.botania.forge.mixin.ForgeAccessorRegistry;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -365,7 +365,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public Registry<Brew> createBrewRegistry() {
 		// The registryKey really belongs on ModBrews, but this method is called from there,
 		// so we'd like to avoid the circular dependency.
-		return AccessorRegistry.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
+		return ForgeAccessorRegistry.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
 				LibMisc.MOD_ID + ":fallback", () -> ModBrews.fallbackBrew);
 	}
 
