@@ -24,7 +24,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaBarTooltip;
@@ -40,6 +39,7 @@ import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.forge.mixin.client.ForgeAccessorModelBakery;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -60,22 +60,42 @@ public class ForgeClientInitializer {
 		});
 
 		// Events
-		MinecraftForge.EVENT_BUS.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getPoseStack()));
-		FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLLoadCompleteEvent e) -> loadComplete(Minecraft.getInstance()));
-		MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
+		var bus = MinecraftForge.EVENT_BUS;
+		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getPoseStack()));
+		bus.addListener((TickEvent.ClientTickEvent e) -> {
 			if (e.phase == TickEvent.Phase.END) {
 				ClientTickHandler.clientTickEnd(Minecraft.getInstance());
 				KonamiHandler.clientTick(Minecraft.getInstance());
 			}
 		});
-		MinecraftForge.EVENT_BUS.addListener((RenderGameOverlayEvent e) -> HUDHandler.onDrawScreenPost(e.getMatrixStack(), e.getPartialTicks()));
-		MinecraftForge.EVENT_BUS.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
-		MinecraftForge.EVENT_BUS.addListener((InputEvent.KeyInputEvent e) -> CorporeaInputHandler.buttonPressed(e.getKey(), e.getScanCode()));
+		bus.addListener((RenderGameOverlayEvent e) -> HUDHandler.onDrawScreenPost(e.getMatrixStack(), e.getPartialTicks()));
+		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
+		bus.addListener((ScreenEvent.KeyboardKeyPressedEvent e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
+
+		// Forge bus events done with Mixins on Fabric
+		bus.addListener((RenderGameOverlayEvent.Text e) -> DebugHandler.onDrawDebugText(e.getLeft()));
+		bus.addListener((InputEvent.KeyInputEvent e) -> {
+			ItemDodgeRing.ClientLogic.onKeyDown();
+			KonamiHandler.handleInput(e.getKey(), e.getAction(), e.getModifiers());
+		});
+		bus.addListener((TickEvent.RenderTickEvent e) -> {
+			if (e.phase == TickEvent.Phase.START) {
+				ClientTickHandler.renderTick(e.renderTickTime);
+			}
+		});
 
 		// Etc
 		MinecraftForgeClient.registerTooltipComponentFactory(ManaBarTooltip.class, ManaBarTooltipComponent::new);
 		ClientProxy.initSeasonal();
 		ClientProxy.initKeybindings(ClientRegistry::registerKeyBinding);
+	}
+
+	@SubscribeEvent
+	public static void loadComplete(FMLLoadCompleteEvent evt) {
+		// Needed to prevent mana pools on carts from X-raying through the cart
+		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderBuffers) Minecraft.getInstance()
+				.renderBuffers()).getEntityBuilders();
+		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 
 	@SubscribeEvent
@@ -119,12 +139,6 @@ public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerItemColors(ColorHandlerEvent.Item evt) {
 		ColorHandler.submitItems(evt.getItemColors()::register);
-	}
-
-	private static void loadComplete(Minecraft mc) {
-		// Needed to prevent mana pools on carts from X-raying through the cart
-		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderBuffers) mc.renderBuffers()).getEntityBuilders();
-		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 
 	@SubscribeEvent
