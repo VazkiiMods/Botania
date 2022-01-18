@@ -94,7 +94,11 @@ public class FabricClientInitializer implements ClientModInitializer {
 		// BE/Entity Renderer
 		ModLayerDefinitions.init((loc, supplier) -> EntityModelLayerRegistry.registerModelLayer(loc, supplier::get));
 		ModelHandler.registerRenderers(BlockEntityRendererRegistry::register);
-		ModelHandler.registerBuiltinItemRenderers((item, teisr) -> BuiltinItemRendererRegistry.INSTANCE.register(item, teisr::render));
+		for (var pair : ModelHandler.BE_ITEM_RENDERER_FACTORIES.entrySet()) {
+			var block = pair.getKey();
+			var renderer = pair.getValue().apply(block);
+			BuiltinItemRendererRegistry.INSTANCE.register(block, renderer::render);
+		}
 		EntityRenderers.init(EntityRendererRegistry::register);
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
 

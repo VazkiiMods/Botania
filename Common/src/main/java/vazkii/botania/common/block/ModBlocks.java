@@ -52,6 +52,7 @@ import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
+import vazkii.botania.common.item.block.ItemBlockWithSpecialRenderer;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.AccessorDispenserBlock;
 
@@ -763,13 +764,13 @@ public final class ModBlocks {
 		r.accept(new BlockItem(bifrostPerm, props), Registry.BLOCK.getKey(bifrostPerm));
 		r.accept(new BlockItem(runeAltar, props), Registry.BLOCK.getKey(runeAltar));
 		r.accept(new BlockItem(enchanter, props), Registry.BLOCK.getKey(enchanter));
-		r.accept(new BlockItem(brewery, props), Registry.BLOCK.getKey(brewery));
+		r.accept(new ItemBlockWithSpecialRenderer(brewery, props), Registry.BLOCK.getKey(brewery));
 		r.accept(new BlockItem(terraPlate, props), Registry.BLOCK.getKey(terraPlate));
 		r.accept(new BlockItem(alfPortal, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(alfPortal));
 
-		r.accept(new BlockItem(manaPylon, props), Registry.BLOCK.getKey(manaPylon));
-		r.accept(new BlockItem(naturaPylon, props), Registry.BLOCK.getKey(naturaPylon));
-		r.accept(new BlockItem(gaiaPylon, props), Registry.BLOCK.getKey(gaiaPylon));
+		r.accept(new ItemBlockWithSpecialRenderer(manaPylon, props), Registry.BLOCK.getKey(manaPylon));
+		r.accept(new ItemBlockWithSpecialRenderer(naturaPylon, props), Registry.BLOCK.getKey(naturaPylon));
+		r.accept(new ItemBlockWithSpecialRenderer(gaiaPylon, props), Registry.BLOCK.getKey(gaiaPylon));
 		r.accept(new BlockItem(distributor, props), Registry.BLOCK.getKey(distributor));
 		r.accept(new BlockItem(manaVoid, props), Registry.BLOCK.getKey(manaVoid));
 		r.accept(new BlockItem(manaDetector, props), Registry.BLOCK.getKey(manaDetector));
@@ -785,7 +786,7 @@ public final class ModBlocks {
 		r.accept(new BlockItem(pump, props), Registry.BLOCK.getKey(pump));
 		r.accept(new BlockItem(sparkChanger, props), Registry.BLOCK.getKey(sparkChanger));
 		r.accept(new BlockItem(manaBomb, props), Registry.BLOCK.getKey(manaBomb));
-		r.accept(new BlockItem(bellows, props), Registry.BLOCK.getKey(bellows));
+		r.accept(new ItemBlockWithSpecialRenderer(bellows, props), Registry.BLOCK.getKey(bellows));
 		r.accept(new BlockItem(openCrate, props), Registry.BLOCK.getKey(openCrate));
 		r.accept(new BlockItem(craftCrate, props), Registry.BLOCK.getKey(craftCrate));
 		r.accept(new BlockItem(forestEye, props), Registry.BLOCK.getKey(forestEye));
@@ -800,7 +801,7 @@ public final class ModBlocks {
 		r.accept(new BlockItem(redStringComparator, props), Registry.BLOCK.getKey(redStringComparator));
 		r.accept(new BlockItem(redStringRelay, props), Registry.BLOCK.getKey(redStringRelay));
 		r.accept(new BlockItem(redStringInterceptor, props), Registry.BLOCK.getKey(redStringInterceptor));
-		r.accept(new BlockItem(corporeaIndex, props), Registry.BLOCK.getKey(corporeaIndex));
+		r.accept(new ItemBlockWithSpecialRenderer(corporeaIndex, props), Registry.BLOCK.getKey(corporeaIndex));
 		r.accept(new BlockItem(corporeaFunnel, props), Registry.BLOCK.getKey(corporeaFunnel));
 		r.accept(new BlockItem(corporeaInterceptor, props), Registry.BLOCK.getKey(corporeaInterceptor));
 		r.accept(new BlockItem(corporeaCrystalCube, props), Registry.BLOCK.getKey(corporeaCrystalCube));
@@ -813,7 +814,7 @@ public final class ModBlocks {
 		r.accept(new BlockItem(corporeaBrickStairs, props), Registry.BLOCK.getKey(corporeaBrickStairs));
 		r.accept(new BlockItem(corporeaBrickWall, props), Registry.BLOCK.getKey(corporeaBrickWall));
 		r.accept(new BlockItem(incensePlate, props), Registry.BLOCK.getKey(incensePlate));
-		r.accept(new BlockItem(hourglass, props), Registry.BLOCK.getKey(hourglass));
+		r.accept(new ItemBlockWithSpecialRenderer(hourglass, props), Registry.BLOCK.getKey(hourglass));
 		r.accept(new BlockItem(ghostRail, props), Registry.BLOCK.getKey(ghostRail));
 		r.accept(new BlockItem(lightRelayDefault, props), Registry.BLOCK.getKey(lightRelayDefault));
 		r.accept(new BlockItem(lightRelayDetector, props), Registry.BLOCK.getKey(lightRelayDetector));
@@ -822,8 +823,8 @@ public final class ModBlocks {
 		r.accept(new BlockItem(lightLauncher, props), Registry.BLOCK.getKey(lightLauncher));
 		r.accept(new BlockItem(cacophonium, props), Registry.BLOCK.getKey(cacophonium));
 		r.accept(new BlockItem(cellBlock, props), Registry.BLOCK.getKey(cellBlock));
-		r.accept(new BlockItem(teruTeruBozu, props), Registry.BLOCK.getKey(teruTeruBozu));
-		r.accept(new BlockItem(avatar, props), Registry.BLOCK.getKey(avatar));
+		r.accept(new ItemBlockWithSpecialRenderer(teruTeruBozu, props), Registry.BLOCK.getKey(teruTeruBozu));
+		r.accept(new ItemBlockWithSpecialRenderer(avatar, props), Registry.BLOCK.getKey(avatar));
 		r.accept(new BlockItem(root, props), Registry.BLOCK.getKey(root));
 		r.accept(new BlockItem(felPumpkin, props), Registry.BLOCK.getKey(felPumpkin));
 		r.accept(new BlockItem(cocoon, props), Registry.BLOCK.getKey(cocoon));

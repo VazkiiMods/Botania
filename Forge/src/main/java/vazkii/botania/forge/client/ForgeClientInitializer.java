@@ -98,7 +98,6 @@ public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers evt) {
 		ModelHandler.registerRenderers(evt::registerBlockEntityRenderer);
-		// todo 1.18-forge teisrs need to be done in a mixin
 		EntityRenderers.init(evt::registerEntityRenderer);
 	}
 

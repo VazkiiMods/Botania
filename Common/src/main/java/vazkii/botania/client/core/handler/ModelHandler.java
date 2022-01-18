@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -27,8 +27,9 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.function.BiConsumer;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -147,17 +148,17 @@ public final class ModelHandler {
 		consumer.register(ModSubtiles.LABELLIA, RenderTileSpecialFlower::new);
 	}
 
-	public static void registerBuiltinItemRenderers(BiConsumer<Item, TEISR> consumer) {
-		consumer.accept(ModBlocks.manaPylon.asItem(), new RenderTilePylon.ItemRenderer(ModBlocks.manaPylon));
-		consumer.accept(ModBlocks.naturaPylon.asItem(), new RenderTilePylon.ItemRenderer(ModBlocks.naturaPylon));
-		consumer.accept(ModBlocks.gaiaPylon.asItem(), new RenderTilePylon.ItemRenderer(ModBlocks.gaiaPylon));
-		consumer.accept(ModBlocks.teruTeruBozu.asItem(), new TEISR(ModBlocks.teruTeruBozu));
-		consumer.accept(ModBlocks.avatar.asItem(), new TEISR(ModBlocks.avatar));
-		consumer.accept(ModBlocks.bellows.asItem(), new TEISR(ModBlocks.bellows));
-		consumer.accept(ModBlocks.brewery.asItem(), new TEISR(ModBlocks.brewery));
-		consumer.accept(ModBlocks.corporeaIndex.asItem(), new TEISR(ModBlocks.corporeaIndex));
-		consumer.accept(ModBlocks.hourglass.asItem(), new TEISR(ModBlocks.hourglass));
-	}
+	public static final Map<Block, Function<Block, TEISR>> BE_ITEM_RENDERER_FACTORIES = Map.of(
+			ModBlocks.manaPylon, RenderTilePylon.ItemRenderer::new,
+			ModBlocks.naturaPylon, RenderTilePylon.ItemRenderer::new,
+			ModBlocks.gaiaPylon, RenderTilePylon.ItemRenderer::new,
+			ModBlocks.teruTeruBozu, TEISR::new,
+			ModBlocks.avatar, TEISR::new,
+			ModBlocks.bellows, TEISR::new,
+			ModBlocks.brewery, TEISR::new,
+			ModBlocks.corporeaIndex, TEISR::new,
+			ModBlocks.hourglass, TEISR::new
+	);
 
 	private static void registerIslands() {
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.GRASS, prefix("block/islands/island_grass"));

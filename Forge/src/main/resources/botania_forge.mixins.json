@@ -11,7 +11,8 @@
     "MixinRecipeSerializerBase"
   ],
   "client": [
-    "client.AccessorModelBakery"
+    "client.AccessorModelBakery",
+    "client.MixinAddTEISR"
   ],
   "injectors": {
     "defaultRequire": 1
