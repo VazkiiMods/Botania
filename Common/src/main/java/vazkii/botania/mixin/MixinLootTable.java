@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin;
+package vazkii.botania.mixin;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +29,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.function.Consumer;
 
 @Mixin(LootTable.class)
-public class FabricMixinLootTable {
+public class MixinLootTable {
 	private static final ResourceLocation GOG_SEEDS = new ResourceLocation(BotaniaAPI.GOG_MODID, "extra_seeds");
 
 	@Unique

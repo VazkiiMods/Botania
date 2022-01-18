@@ -22,13 +22,6 @@ import vazkii.botania.common.block.ModBlocks;
 
 @Mixin(AbstractMinecart.class)
 public class FabricMixinAbstractMinecart {
-	@Inject(at = @At("RETURN"), method = "tick")
-	private void onTick(CallbackInfo ci) {
-		AbstractMinecart self = (AbstractMinecart) (Object) this;
-		((BlockGhostRail) ModBlocks.ghostRail).tickCart(self);
-
-	}
-
 	@Inject(at = @At("HEAD"), method = "moveAlongTrack")
 	private void handleOnRail(BlockPos pos, BlockState state, CallbackInfo ci) {
 		if (state.is(ModBlocks.ghostRail)) {

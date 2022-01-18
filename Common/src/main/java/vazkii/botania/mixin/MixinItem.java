@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin;
+package vazkii.botania.mixin;
 
 import net.minecraft.world.item.Item;
 
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.botania.common.item.material.ItemSelfReturning;
 
 @Mixin(Item.class)
-public class FabricMixinItem {
+public class MixinItem {
 	@Inject(at = @At("HEAD"), method = "getCraftingRemainingItem", cancellable = true)
 	private void returnSelf(CallbackInfoReturnable<Item> cir) {
 		Item self = (Item) (Object) this;

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.fabric.mixin;
+package vazkii.botania.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,7 +20,7 @@ import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 @Mixin(ServerLevel.class)
-public class FabricMixinServerLevel {
+public class MixinServerLevel {
 	@Inject(at = @At("RETURN"), method = "addPlayer")
 	private void onEntityAdd(ServerPlayer entity, CallbackInfo ci) {
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {

@@ -11,17 +11,14 @@
     "FabricMixinEnchantmentMenu",
     "FabricMixinEnderMan",
     "FabricMixinExplosion",
-    "FabricMixinItem",
     "FabricMixinItemEntity",
     "FabricMixinItemPredicate",
     "FabricMixinItemStack",
     "FabricMixinLivingEntity",
-    "FabricMixinLootTable",
     "FabricMixinPiglinAi",
     "FabricMixinPlayer",
     "FabricMixinResultSlot",
     "FabricMixinServerGamePacketListenerImpl",
-    "FabricMixinServerLevel",
     "FabricMixinServerPlayerGameMode"
   ],
   "client": [

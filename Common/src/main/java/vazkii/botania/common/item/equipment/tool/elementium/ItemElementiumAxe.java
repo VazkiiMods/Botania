@@ -38,6 +38,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 	// Thanks to SpitefulFox for the drop rates
 	// https://github.com/SpitefulFox/ForbiddenMagic/blob/master/src/com/spiteful/forbidden/FMEventHandler.java
+	// todo 1.18 consider porting this to a loot table injection?
 
 	public static void onEntityDrops(boolean hitRecently, DamageSource source, LivingEntity target,
 			Consumer<ItemStack> consumer) {
