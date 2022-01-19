@@ -18,6 +18,11 @@ public class ForgeBotaniaCreativeTab extends CreativeModeTab {
 		setBackgroundSuffix(LibResources.GUI_CREATIVE);
 	}
 
+	@Override
+	public boolean hasSearchBar() {
+		return true;
+	}
+
 	@Nonnull
 	@Override
 	public ItemStack makeIcon() {
