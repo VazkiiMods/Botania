@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package vazkii.botania.client.render.world;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -30,6 +30,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;

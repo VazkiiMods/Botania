@@ -33,7 +33,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;

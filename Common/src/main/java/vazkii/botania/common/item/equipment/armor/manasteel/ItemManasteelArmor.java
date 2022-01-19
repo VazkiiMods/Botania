@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.TooltipHandler;
+import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.helper.ItemNBTHelper;

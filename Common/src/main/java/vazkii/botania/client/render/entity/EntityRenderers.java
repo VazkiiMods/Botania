@@ -11,9 +11,6 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 
-import vazkii.botania.client.core.handler.ContributorFancinessHandler;
-import vazkii.botania.client.core.handler.LayerTerraHelmet;
-import vazkii.botania.client.core.handler.ManaTabletRenderHandler;
 import vazkii.botania.common.entity.ModEntities;
 
 import java.util.function.Consumer;

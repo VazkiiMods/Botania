@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IFloatingFlower;
-import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.gui.HUDHandler;
 
 import java.util.Collections;
 import java.util.Map;

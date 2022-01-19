@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.network.IPacket;
 
 import javax.annotation.Nullable;

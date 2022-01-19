@@ -47,7 +47,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;

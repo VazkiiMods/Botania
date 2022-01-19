@@ -24,7 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ItemNBTHelper;

@@ -39,7 +39,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;

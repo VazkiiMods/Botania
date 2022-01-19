@@ -2,8 +2,6 @@ package vazkii.botania.client.render.world;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import vazkii.botania.client.core.handler.AstrolabePreviewHandler;
-import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.render.entity.RenderMagicLandmine;
 import vazkii.botania.common.item.ItemCraftingHalo;

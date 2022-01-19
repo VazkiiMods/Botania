@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.handler.ManaNetworkHandler;

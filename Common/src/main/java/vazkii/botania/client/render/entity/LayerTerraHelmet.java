@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -23,6 +23,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelArmor;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
