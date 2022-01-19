@@ -40,6 +40,7 @@ import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.entity.ModEntities;
@@ -358,12 +359,10 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			setPosRaw(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 		}
 
-		/* todo 1.16-fabric
-		@Override
+		@SoftImplement("IForgeEntity") // todo implement on fabric
 		public boolean shouldRiderSit() {
 			return false;
 		}
-		*/
 
 		@Override
 		public boolean hurt(@Nonnull DamageSource source, float damage) {

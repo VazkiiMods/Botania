@@ -40,6 +40,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.tags.SetTag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -98,6 +99,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import javax.annotation.Nullable;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -465,6 +467,31 @@ public class FabricXplatImpl implements IXplatAbstractions {
 		return oreTag.get();
 	}
 
+	private final Supplier<Tag<Block>> glassTag = Suppliers.memoize(() -> new Tag<Block>() {
+		// No standard so we have to check both :wacko:
+		private final Tag<Block> cGlass = blockTag(new ResourceLocation("c", "glass"));
+		private final Tag<Block> cGlassBlocks = blockTag(new ResourceLocation("c", "glass_blocks"));
+
+		@Override
+		public boolean contains(Block value) {
+			return cGlass.contains(value) || cGlassBlocks.contains(value);
+		}
+
+		@Override public List<Block> getValues() {
+			var cG = cGlass.getValues();
+			var cGB = cGlassBlocks.getValues();
+			var ret = new ArrayList<Block>(cG.size() + cGB.size());
+			ret.addAll(cG);
+			ret.addAll(cGB);
+			return ret;
+		}
+	});
+
+	@Override
+	public Tag<Block> getGlassTag() {
+		return glassTag.get();
+	}
+
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		return FabricAccessorAbstractFurnaceBlockEntity.callCanBurn(recipe, items, maxStackSize);
@@ -479,5 +506,10 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	public int getSmeltingBurnTime(ItemStack stack) {
 		Integer v = FuelRegistry.INSTANCE.get(stack.getItem());
 		return v == null ? 0 : v;
+	}
+
+	@Override
+	public boolean preventsRemoteMovement(ItemEntity entity) {
+		return false;
 	}
 }

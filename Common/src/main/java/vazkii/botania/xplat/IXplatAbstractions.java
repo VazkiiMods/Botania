@@ -156,11 +156,13 @@ public interface IXplatAbstractions {
 	Tag.Named<Item> itemTag(ResourceLocation id);
 	Tag.Named<EntityType<?>> entityTag(ResourceLocation id);
 	Tag.Named<Block> getOreTag();
+	Tag<Block> getGlassTag();
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
 	// Forge also makes RecipeProvider.saveRecipeAdvancement an instance method >.>
 	void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path);
 	int getSmeltingBurnTime(ItemStack stack);
+	boolean preventsRemoteMovement(ItemEntity entity);
 
 	IXplatAbstractions INSTANCE = find();
 

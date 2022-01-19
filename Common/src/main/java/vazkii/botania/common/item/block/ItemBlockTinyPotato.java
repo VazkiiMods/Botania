@@ -12,14 +12,18 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class ItemBlockTinyPotato extends BlockItem /*implements LoomPatternProvider*/ {
@@ -75,11 +79,14 @@ public class ItemBlockTinyPotato extends BlockItem /*implements LoomPatternProvi
 		}
 	}
 
-	/* todo fabric
-	@Override
-	public boolean canEquip(ItemStack stack, EquipmentSlotType armorType, Entity entity) {
-		return armorType == EquipmentSlotType.HEAD && entity instanceof PlayerEntity
-				&& ContributorList.hasFlower(((PlayerEntity) entity).getGameProfile().getName().toLowerCase(Locale.ROOT));
+	@SoftImplement("IForgeItem")
+	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
+		return EquipmentSlot.HEAD;
 	}
-	*/
+
+	@SoftImplement("IForgeItem") // TODO implement on fabric
+	public boolean canEquip(ItemStack stack, EquipmentSlot armorType, Entity entity) {
+		return armorType == getEquipmentSlot(stack) && entity instanceof Player player
+				&& ContributorList.hasFlower(player.getGameProfile().getName().toLowerCase(Locale.ROOT));
+	}
 }

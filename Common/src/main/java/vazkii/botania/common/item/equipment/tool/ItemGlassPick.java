@@ -24,6 +24,7 @@ import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Map;
 
@@ -98,7 +99,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 	}
 
 	private boolean isGlass(BlockState state) {
-		return state.getMaterial() == Material.GLASS; // todo 1.16-fabric || Tags.Blocks.GLASS.contains(state.getBlock());
+		return state.getMaterial() == Material.GLASS || state.is(IXplatAbstractions.INSTANCE.getGlassTag());
 	}
 
 	@Override

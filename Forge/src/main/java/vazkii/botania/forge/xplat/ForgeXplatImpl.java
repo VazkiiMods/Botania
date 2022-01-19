@@ -416,6 +416,11 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
+	public Tag<Block> getGlassTag() {
+		return Tags.Blocks.GLASS;
+	}
+
+	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		return ((ForgeAccessorAbstractFurnaceBlockEntity) furnace).callCanBurn(recipe, items, maxStackSize);
 	}
@@ -429,5 +434,10 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public int getSmeltingBurnTime(ItemStack stack) {
 		return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
+	}
+
+	@Override
+	public boolean preventsRemoteMovement(ItemEntity entity) {
+		return entity.getPersistentData().getBoolean("PreventRemoteMovement");
 	}
 }
