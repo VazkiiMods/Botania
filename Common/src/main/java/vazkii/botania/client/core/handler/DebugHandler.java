@@ -27,18 +27,19 @@ public final class DebugHandler {
 	private static final String PREFIX = ChatFormatting.GREEN + "[Botania] " + ChatFormatting.RESET;
 
 	public static void onDrawDebugText(List<String> left) {
-		Level world = Minecraft.getInstance().level;
-		if (BotaniaConfig.client().debugInfo()) {
+		Minecraft mc = Minecraft.getInstance();
+		Level world = mc.level;
+		if (mc.options.renderDebug && BotaniaConfig.client().debugInfo()) {
 			left.add("");
 			String version = IXplatAbstractions.INSTANCE.getBotaniaVersion();
 
 			left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
 			if (Minecraft.getInstance().hasSingleplayerServer()) {
-				ResourceKey<Level> dim = Minecraft.getInstance().level.dimension();
+				ResourceKey<Level> dim = world.dimension();
 				ResourceLocation dimName = dim.location();
-				if (Minecraft.getInstance().getSingleplayerServer() != null) {
-					Level serverWorld = Minecraft.getInstance().getSingleplayerServer().getLevel(dim);
+				if (mc.getSingleplayerServer() != null) {
+					Level serverWorld = mc.getSingleplayerServer().getLevel(dim);
 					left.add(PREFIX + String.format("(INTEGRATED SERVER %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
