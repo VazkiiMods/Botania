@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
@@ -39,7 +38,7 @@ public class RenderTileTerraPlate implements BlockEntityRenderer<TileTerraPlate>
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
-		IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay.sprite(), 1, 1, alpha);
+		RenderHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay.sprite(), 1, 1, alpha);
 
 		ms.popPose();
 	}

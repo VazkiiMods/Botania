@@ -20,16 +20,9 @@ public final class AccessoryRenderHelper {
 	 */
 	public static void rotateIfSneaking(PoseStack ms, LivingEntity player) {
 		if (player.isCrouching()) {
-			applySneakingRotation(ms);
+			ms.translate(0F, 0.2F, 0F);
+			ms.mulPose(Vector3f.XP.rotationDegrees(90F / (float) Math.PI));
 		}
-	}
-
-	/**
-	 * Rotates the render for a bauble correctly for a sneaking player.
-	 */
-	public static void applySneakingRotation(PoseStack ms) {
-		ms.translate(0F, 0.2F, 0F);
-		ms.mulPose(Vector3f.XP.rotationDegrees(90F / (float) Math.PI));
 	}
 
 }

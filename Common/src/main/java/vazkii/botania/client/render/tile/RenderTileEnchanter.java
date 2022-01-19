@@ -20,7 +20,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.mixin.AccessorItemEntity;
@@ -78,7 +77,7 @@ public class RenderTileEnchanter implements BlockEntityRenderer<TileEnchanter> {
 			}
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.ENCHANTER);
-			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay.sprite(), 5, 5, alpha);
+			RenderHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay.sprite(), 5, 5, alpha);
 		}
 
 		ms.popPose();

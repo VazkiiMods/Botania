@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -423,6 +424,18 @@ public final class RenderHelper extends RenderType {
 		};
 		((AccessorItemRenderer) Minecraft.getInstance().getItemRenderer())
 				.callRenderQuadList(ms, buffer, quads, stack, light, overlay);
+	}
+
+	/**
+	 * Draw an icon into the buffer, using the {@link RenderHelper#ICON_OVERLAY} vertex format
+	 */
+	public static void renderIcon(PoseStack ms, VertexConsumer buffer, int x, int y, TextureAtlasSprite icon, int width, int height, float alpha) {
+		Matrix4f mat = ms.last().pose();
+		int fullbright = 0xF000F0;
+		buffer.vertex(mat, x, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV1()).uv2(fullbright).endVertex();
+		buffer.vertex(mat, x + width, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV1()).uv2(fullbright).endVertex();
+		buffer.vertex(mat, x + width, y, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV0()).uv2(fullbright).endVertex();
+		buffer.vertex(mat, x, y, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV0()).uv2(fullbright).endVertex();
 	}
 
 	private static class AstrolabeLayer extends RenderType {

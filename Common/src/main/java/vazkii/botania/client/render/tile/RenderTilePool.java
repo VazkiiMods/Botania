@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -96,7 +95,7 @@ public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 				ms.scale(s, s, s);
 
 				VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
-				IconHelper.renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
+				RenderHelper.renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
 
 				ms.popPose();
 			}
@@ -110,7 +109,7 @@ public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 			ms.scale(s, s, s);
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
-			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.manaWater.sprite(), 16, 16, 1);
+			RenderHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.manaWater.sprite(), 16, 16, 1);
 
 			ms.popPose();
 		}

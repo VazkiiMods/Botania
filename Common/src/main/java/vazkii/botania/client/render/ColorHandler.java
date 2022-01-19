@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core.handler;
+package vazkii.botania.client.render;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
