@@ -35,7 +35,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.client.gui.KonamiHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
@@ -110,9 +109,8 @@ public class ForgeClientInitializer {
 	public static void onModelRegister(ModelRegistryEvent evt) {
 		ModelLoaderRegistry.registerLoader(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
-		MiscellaneousModels.INSTANCE.onModelRegister(ForgeModelBakery::addSpecialModel);
 		var resourceManager = ((ForgeAccessorModelBakery) (Object) ForgeModelBakery.instance()).getResourceManager();
-		ModelHandler.registerModels(resourceManager, ForgeModelBakery::addSpecialModel);
+		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, ForgeModelBakery::addSpecialModel);
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
@@ -124,8 +122,8 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers evt) {
-		ModelHandler.registerRenderers(evt::registerBlockEntityRenderer);
-		EntityRenderers.init(evt::registerEntityRenderer);
+		EntityRenderers.registerBlockEntityRenderers(evt::registerBlockEntityRenderer);
+		EntityRenderers.registerEntityRenderers(evt::registerEntityRenderer);
 	}
 
 	@SubscribeEvent

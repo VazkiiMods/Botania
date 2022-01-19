@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.IItemRenderProperties;
 
-import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.client.render.tile.TEISR;
 
 import java.util.IdentityHashMap;
@@ -27,7 +27,7 @@ public class ForgeBlockEntityItemRendererHelper {
 				PoseStack ps, MultiBufferSource buffers, int light, int overlay) {
 			var renderer = renderers.computeIfAbsent(stack.getItem(), i -> {
 				var block = Block.byItem(i);
-				return ModelHandler.BE_ITEM_RENDERER_FACTORIES.get(block).apply(block);
+				return EntityRenderers.BE_ITEM_RENDERER_FACTORIES.get(block).apply(block);
 			});
 			renderer.render(stack, transform, ps, buffers, light, overlay);
 		}

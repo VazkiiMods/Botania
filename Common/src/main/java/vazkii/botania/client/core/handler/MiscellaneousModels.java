@@ -14,10 +14,14 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
+import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
@@ -38,6 +42,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class MiscellaneousModels {
 	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
 
+	public boolean registeredModels = false;
 	public final Material alfPortalTex = mainAtlas("block/alfheim_portal_swirl");
 	public final Material lightRelayWorldIcon = mainAtlas("block/light_relay");
 	public final Material lightRelayDetectorWorldIcon = mainAtlas("block/detector_light_relay");
@@ -82,7 +87,7 @@ public class MiscellaneousModels {
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
-	public void onModelRegister(Consumer<ResourceLocation> consumer) {
+	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
 		Set<Material> materials = AccessorModelBakery.getMaterials();
 
 		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
@@ -119,10 +124,50 @@ public class MiscellaneousModels {
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
 			consumer.accept(prefix("icon/tiara_wing_" + (i + 1)));
 		}
+
+		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
+		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
+		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
+		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
+		consumer.accept(prefix("block/pump_head"));
+		consumer.accept(prefix("block/elven_spreader_inside"));
+		consumer.accept(prefix("block/gaia_spreader_inside"));
+		consumer.accept(prefix("block/mana_spreader_inside"));
+		consumer.accept(prefix("block/redstone_spreader_inside"));
+
+		registerIslands();
+		registerTaters(rm, consumer);
+
+		if (!registeredModels) {
+			registeredModels = true;
+		}
+	}
+
+	private static void registerIslands() {
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.GRASS, prefix("block/islands/island_grass"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.PODZOL, prefix("block/islands/island_podzol"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.MYCEL, prefix("block/islands/island_mycel"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.SNOW, prefix("block/islands/island_snow"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.DRY, prefix("block/islands/island_dry"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.GOLDEN, prefix("block/islands/island_golden"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.VIVID, prefix("block/islands/island_vivid"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.SCORCHED, prefix("block/islands/island_scorched"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.INFUSED, prefix("block/islands/island_infused"));
+		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.MUTATED, prefix("block/islands/island_mutated"));
+	}
+
+	private static void registerTaters(ResourceManager rm, Consumer<ResourceLocation> consumer) {
+		for (ResourceLocation model : rm.listResources(LibResources.PREFIX_MODELS + LibResources.PREFIX_TINY_POTATO, s -> s.endsWith(LibResources.ENDING_JSON))) {
+			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
+				String path = model.getPath();
+				path = path.substring(LibResources.PREFIX_MODELS.length(), path.length() - LibResources.ENDING_JSON.length());
+				consumer.accept(new ResourceLocation(LibMisc.MOD_ID, path));
+			}
+		}
 	}
 
 	public void onModelBake(ModelBakery loader, Map<ResourceLocation, BakedModel> map) {
-		if (!ModelHandler.registeredModels) {
+		if (!registeredModels) {
 			BotaniaAPI.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}

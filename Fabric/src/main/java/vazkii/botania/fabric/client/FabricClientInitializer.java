@@ -36,13 +36,12 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
+import vazkii.botania.client.core.handler.KonamiHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.client.gui.KonamiHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
@@ -86,20 +85,19 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 
 		// Blocks and Items
-		ModelLoadingRegistry.INSTANCE.registerModelProvider((rm, consumer) -> MiscellaneousModels.INSTANCE.onModelRegister(consumer));
-		ModelLoadingRegistry.INSTANCE.registerModelProvider(ModelHandler::registerModels);
+		ModelLoadingRegistry.INSTANCE.registerModelProvider(MiscellaneousModels.INSTANCE::onModelRegister);
 		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
 		BotaniaItemProperties.init((i, id, propGetter) -> FabricModelPredicateProviderRegistry.register(i.asItem(), id, propGetter));
 
 		// BE/Entity Renderer
 		ModLayerDefinitions.init((loc, supplier) -> EntityModelLayerRegistry.registerModelLayer(loc, supplier::get));
-		ModelHandler.registerRenderers(BlockEntityRendererRegistry::register);
-		for (var pair : ModelHandler.BE_ITEM_RENDERER_FACTORIES.entrySet()) {
+		EntityRenderers.registerBlockEntityRenderers(BlockEntityRendererRegistry::register);
+		for (var pair : EntityRenderers.BE_ITEM_RENDERER_FACTORIES.entrySet()) {
 			var block = pair.getKey();
 			var renderer = pair.getValue().apply(block);
 			BuiltinItemRendererRegistry.INSTANCE.register(block, renderer::render);
 		}
-		EntityRenderers.init(EntityRendererRegistry::register);
+		EntityRenderers.registerEntityRenderers(EntityRendererRegistry::register);
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
 
 		ModParticles.FactoryHandler.registerFactories(new ModParticles.FactoryHandler.Consumer() {
