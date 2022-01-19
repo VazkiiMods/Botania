@@ -63,6 +63,7 @@ public class SkyblockSkyRenderer {
 		RenderSystem.setShaderColor(1F, 1F, 1F, a * 4 * (1F - insideVoid));
 		ms.mulPose(new Vector3f(0.5F, 0.5F, 0F).rotationDegrees(90));
 		for (int p = 0; p < planetTextures.length; p++) {
+			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderTexture(0, planetTextures[p]);
 			Matrix4f mat = ms.last().pose();
 			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);

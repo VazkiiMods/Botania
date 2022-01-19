@@ -72,6 +72,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), cacophonium, divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), monocle);
 		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
+		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 
 		this.tag(ModTags.Items.DUSTS_MANA).add(manaPowder);
 
