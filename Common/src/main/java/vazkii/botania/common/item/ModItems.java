@@ -224,7 +224,7 @@ public final class ModItems {
 	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackableCustomDamage());
 	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackableCustomDamage());
 	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackableCustomDamage());
-	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultDurability(69) /* todo 1.16-fabric .setNoRepair()*/); // What you looking at?
+	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultDurability(69)); // What you looking at?
 	public static final Item glassPick = new ItemGlassPick(unstackableCustomDamage());
 	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilderCustomDamage().defaultDurability(500));
 	public static final Item crystalBow = new ItemCrystalBow(defaultBuilderCustomDamage().defaultDurability(500));
