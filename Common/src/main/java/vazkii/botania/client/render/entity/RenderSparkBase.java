@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntitySparkBase;
 import vazkii.botania.common.helper.ColorHelper;
@@ -61,7 +61,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		ms.translate(-0.02 + Math.sin(time / 20) * 0.2, 0.24 + Math.cos(time / 20) * 0.2, 0.005);
 		ms.scale(0.2F, 0.2F, 0.2F);
 		int starColor = ColorHelper.getColorValue(tEntity.getNetwork()) | ((int) (a * 255.0F) << 24);
-		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar.sprite(), starColor);
+		renderIcon(ms, buffer, MiscellaneousModels.INSTANCE.corporeaIconStar.sprite(), starColor);
 		ms.popPose();
 
 		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
@@ -76,7 +76,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 	}
 
 	protected TextureAtlasSprite getBaseIcon(T entity) {
-		return MiscellaneousIcons.INSTANCE.sparkWorldIcon.sprite();
+		return MiscellaneousModels.INSTANCE.sparkWorldIcon.sprite();
 	}
 
 	@Nullable

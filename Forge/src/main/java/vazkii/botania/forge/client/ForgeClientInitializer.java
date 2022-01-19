@@ -110,7 +110,7 @@ public class ForgeClientInitializer {
 	public static void onModelRegister(ModelRegistryEvent evt) {
 		ModelLoaderRegistry.registerLoader(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
-		MiscellaneousIcons.INSTANCE.onModelRegister(ForgeModelBakery::addSpecialModel);
+		MiscellaneousModels.INSTANCE.onModelRegister(ForgeModelBakery::addSpecialModel);
 		var resourceManager = ((ForgeAccessorModelBakery) (Object) ForgeModelBakery.instance()).getResourceManager();
 		ModelHandler.registerModels(resourceManager, ForgeModelBakery::addSpecialModel);
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
@@ -164,7 +164,7 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void onModelBake(ModelBakeEvent evt) {
-		MiscellaneousIcons.INSTANCE.onModelBake(evt.getModelLoader(), evt.getModelRegistry());
+		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelLoader(), evt.getModelRegistry());
 	}
 
 }

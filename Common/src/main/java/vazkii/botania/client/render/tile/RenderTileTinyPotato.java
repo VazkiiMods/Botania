@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -309,14 +309,14 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					ms.translate(-0.15, 0.1, 0.4);
 					ms.mulPose(Vector3f.YP.rotationDegrees(90F));
 					ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(20));
-					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
+					renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.phiFlowerModel);
 					ms.popPose();
 					if (name.equals("vazkii")) {
 						ms.scale(1.25F, 1.25F, 1.25F);
 						ms.mulPose(Vector3f.XP.rotationDegrees(180F));
 						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 						ms.translate(0.2, -1.25, 0);
-						renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
+						renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.nerfBatModel);
 					}
 				}
 				case "haighyorkie" -> {
@@ -324,7 +324,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 					ms.translate(-0.5F, -1.2F, -0.075F);
-					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
+					renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.goldfishModel);
 				}
 				case "martysgames", "marty" -> {
 					ms.scale(0.7F, 0.7F, 0.7F);

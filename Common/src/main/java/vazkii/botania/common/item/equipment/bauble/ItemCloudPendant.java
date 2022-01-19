@@ -23,7 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.item.ModItems;
@@ -91,8 +91,8 @@ public class ItemCloudPendant extends ItemBauble {
 			ms.scale(0.5F, -0.5F, -0.5F);
 
 			BakedModel model = stack.is(ModItems.superCloudPendant)
-					? MiscellaneousIcons.INSTANCE.nimbusGem
-					: MiscellaneousIcons.INSTANCE.cirrusGem;
+					? MiscellaneousModels.INSTANCE.nimbusGem
+					: MiscellaneousModels.INSTANCE.cirrusGem;
 			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
 			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);

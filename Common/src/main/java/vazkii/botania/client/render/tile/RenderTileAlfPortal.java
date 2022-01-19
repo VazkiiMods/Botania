@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
@@ -48,7 +48,7 @@ public class RenderTileAlfPortal implements BlockEntityRenderer<TileAlfPortal> {
 		} else {
 			ms.translate(-1, 1, 0.75);
 		}
-		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		renderIcon(ms, buffers, MiscellaneousModels.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 
 		ms.pushPose();
@@ -59,7 +59,7 @@ public class RenderTileAlfPortal implements BlockEntityRenderer<TileAlfPortal> {
 			ms.translate(2, 1, 0.25);
 		}
 		ms.mulPose(Vector3f.YP.rotationDegrees(180));
-		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		renderIcon(ms, buffers, MiscellaneousModels.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 	}
 

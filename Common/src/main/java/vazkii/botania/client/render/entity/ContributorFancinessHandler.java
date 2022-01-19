@@ -23,7 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.handler.ContributorList;
 
 import javax.annotation.Nonnull;
@@ -64,7 +64,7 @@ public final class ContributorFancinessHandler extends RenderLayer<AbstractClien
 		getParentModel().head.translateAndRotate(ms);
 		ms.translate(-0.15F, -0.60F, 0F);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffers.getBuffer(Sheets.translucentCullBlockSheet()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffers.getBuffer(Sheets.translucentCullBlockSheet()), null, MiscellaneousModels.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.popPose();
 	}
 

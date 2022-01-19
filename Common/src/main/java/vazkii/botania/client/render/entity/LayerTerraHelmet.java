@@ -23,7 +23,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelArmor;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
@@ -43,7 +43,7 @@ public class LayerTerraHelmet extends RenderLayer<AbstractClientPlayer, PlayerMo
 				getParentModel().head.translateAndRotate(ms);
 				ms.translate(-0.2, -0.15, -0.3);
 				ms.scale(0.4F, -0.4F, -0.4F);
-				BakedModel model = MiscellaneousIcons.INSTANCE.terrasteelHelmWillModel;
+				BakedModel model = MiscellaneousModels.INSTANCE.terrasteelHelmWillModel;
 				VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
 				Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 						.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);

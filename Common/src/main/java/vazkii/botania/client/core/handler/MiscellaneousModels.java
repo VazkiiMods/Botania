@@ -35,8 +35,8 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class MiscellaneousIcons {
-	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
+public class MiscellaneousModels {
+	public static final MiscellaneousModels INSTANCE = new MiscellaneousModels();
 
 	public final Material alfPortalTex = mainAtlas("block/alfheim_portal_swirl");
 	public final Material lightRelayWorldIcon = mainAtlas("block/light_relay");
@@ -186,5 +186,5 @@ public class MiscellaneousIcons {
 		return new Material(InventoryMenu.BLOCK_ATLAS, prefix(name));
 	}
 
-	private MiscellaneousIcons() {}
+	private MiscellaneousModels() {}
 }

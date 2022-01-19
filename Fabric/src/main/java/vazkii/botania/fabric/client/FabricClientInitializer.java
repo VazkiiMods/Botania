@@ -36,7 +36,7 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -86,7 +86,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 
 		// Blocks and Items
-		ModelLoadingRegistry.INSTANCE.registerModelProvider((rm, consumer) -> MiscellaneousIcons.INSTANCE.onModelRegister(consumer));
+		ModelLoadingRegistry.INSTANCE.registerModelProvider((rm, consumer) -> MiscellaneousModels.INSTANCE.onModelRegister(consumer));
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(ModelHandler::registerModels);
 		BlockRenderLayers.init(BlockRenderLayerMap.INSTANCE::putBlock);
 		BotaniaItemProperties.init((i, id, propGetter) -> FabricModelPredicateProviderRegistry.register(i.asItem(), id, propGetter));

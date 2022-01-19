@@ -27,7 +27,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.entity.EntityMagicMissile;
@@ -89,7 +89,7 @@ public class ItemThirdEye extends ItemBauble {
 
 				ms.translate(-0.3, 0.6, armor ? 0.10 : 0.15);
 				ms.scale(0.6F, -0.6F, -0.6F);
-				BakedModel model = MiscellaneousIcons.INSTANCE.thirdEyeLayers[i];
+				BakedModel model = MiscellaneousModels.INSTANCE.thirdEyeLayers[i];
 				VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
 				Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 						.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);

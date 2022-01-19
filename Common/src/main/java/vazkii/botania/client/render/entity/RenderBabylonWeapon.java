@@ -23,7 +23,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 
@@ -54,7 +54,7 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		ms.mulPose(Vector3f.YP.rotationDegrees(90F)); // Rotate to make it match facing, instead of perpendicular to the circle
 		ms.mulPose(Vector3f.ZP.rotationDegrees(-45F)); // Perpendicular to the ground, instead of the rising 45 deg of the sprite
 
-		BakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
+		BakedModel model = MiscellaneousModels.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
 		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffers.getBuffer(Sheets.translucentItemSheet()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.popPose();
 

@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileManaVoid;
 
@@ -36,7 +36,7 @@ public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, Ent
 
 	@Override
 	public ResourceLocation getIcon(Level world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.manaVoidOverlay.texture();
+		return MiscellaneousModels.INSTANCE.manaVoidOverlay.texture();
 	}
 
 }

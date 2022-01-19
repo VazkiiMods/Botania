@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.tile.TileLightRelay;
@@ -40,10 +40,10 @@ import java.util.Map;
 public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay> {
 
 	private static final Map<LuminizerVariant, Material> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
-		m.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
-		m.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
-		m.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
-		m.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
+		m.put(LuminizerVariant.DEFAULT, MiscellaneousModels.INSTANCE.lightRelayWorldIcon);
+		m.put(LuminizerVariant.DETECTOR, MiscellaneousModels.INSTANCE.lightRelayDetectorWorldIcon);
+		m.put(LuminizerVariant.FORK, MiscellaneousModels.INSTANCE.lightRelayForkWorldIcon);
+		m.put(LuminizerVariant.TOGGLE, MiscellaneousModels.INSTANCE.lightRelayToggleWorldIcon);
 	});
 
 	public RenderTileLightRelay(BlockEntityRendererProvider.Context ctx) {}

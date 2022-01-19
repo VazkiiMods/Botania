@@ -11,7 +11,7 @@ package vazkii.botania.client.render.entity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 
 public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
@@ -22,7 +22,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
-		return entity.isMaster() ? MiscellaneousIcons.INSTANCE.corporeaWorldIconMaster.sprite() : MiscellaneousIcons.INSTANCE.corporeaWorldIcon.sprite();
+		return entity.isMaster() ? MiscellaneousModels.INSTANCE.corporeaWorldIconMaster.sprite() : MiscellaneousModels.INSTANCE.corporeaWorldIcon.sprite();
 	}
 
 }

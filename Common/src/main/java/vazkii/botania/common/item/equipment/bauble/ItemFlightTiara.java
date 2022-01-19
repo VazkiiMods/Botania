@@ -40,7 +40,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -409,11 +409,11 @@ public class ItemFlightTiara extends ItemBauble {
 		@Override
 		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			int meta = getVariant(stack);
-			if (meta <= 0 || meta >= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length + 1) {
+			if (meta <= 0 || meta >= MiscellaneousModels.INSTANCE.tiaraWingIcons.length + 1) {
 				return;
 			}
 
-			BakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+			BakedModel model = MiscellaneousModels.INSTANCE.tiaraWingIcons[meta - 1];
 			boolean flying = living instanceof Player && ((Player) living).getAbilities().flying;
 			float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 

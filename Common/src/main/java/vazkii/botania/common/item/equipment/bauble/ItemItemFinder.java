@@ -35,7 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
@@ -75,7 +75,7 @@ public class ItemItemFinder extends ItemBauble {
 			ms.translate(-0.35, -0.2, armor ? 0.05 : 0.1);
 			ms.scale(0.75F, -0.75F, -0.75F);
 
-			BakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
+			BakedModel model = MiscellaneousModels.INSTANCE.itemFinderGem;
 			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
 			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);

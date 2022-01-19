@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.BlockMod;
 
 public class BlockAlchemyCatalyst extends BlockMod implements IPoolOverlayProvider {
@@ -24,7 +24,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements IPoolOverlayProvid
 
 	@Override
 	public ResourceLocation getIcon(Level world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.alchemyCatalystOverlay.texture();
+		return MiscellaneousModels.INSTANCE.alchemyCatalystOverlay.texture();
 	}
 
 }

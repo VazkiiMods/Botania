@@ -39,7 +39,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.brew.ModBrews;
@@ -123,12 +123,12 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 			ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
 			ms.scale(0.5F, -0.5F, -0.5F);
 
-			BakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
+			BakedModel model = MiscellaneousModels.INSTANCE.bloodPendantChain;
 			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
 			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 
-			model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
+			model = MiscellaneousModels.INSTANCE.bloodPendantGem;
 			int color = ((AccessorMinecraft) Minecraft.getInstance()).getItemColors().getColor(stack, 1);
 			float r = (color >> 16 & 0xFF) / 255F;
 			float g = (color >> 8 & 0xFF) / 255F;

@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.helper.ColorHelper;
@@ -138,10 +138,10 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 
 	private BakedModel getInsideModel(TileSpreader tile) {
 		return switch (tile.getVariant()) {
-			case GAIA -> MiscellaneousIcons.INSTANCE.gaiaSpreaderInside;
-			case REDSTONE -> MiscellaneousIcons.INSTANCE.redstoneSpreaderInside;
-			case ELVEN -> MiscellaneousIcons.INSTANCE.elvenSpreaderInside;
-			case MANA -> MiscellaneousIcons.INSTANCE.manaSpreaderInside;
+			case GAIA -> MiscellaneousModels.INSTANCE.gaiaSpreaderInside;
+			case REDSTONE -> MiscellaneousModels.INSTANCE.redstoneSpreaderInside;
+			case ELVEN -> MiscellaneousModels.INSTANCE.elvenSpreaderInside;
+			case MANA -> MiscellaneousModels.INSTANCE.manaSpreaderInside;
 		};
 	}
 }

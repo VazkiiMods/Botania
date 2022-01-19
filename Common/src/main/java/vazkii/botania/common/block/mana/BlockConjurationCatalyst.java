@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.handler.MiscellaneousModels;
 
 public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 
@@ -22,6 +22,6 @@ public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 
 	@Override
 	public ResourceLocation getIcon(Level world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.conjurationCatalystOverlay.texture();
+		return MiscellaneousModels.INSTANCE.conjurationCatalystOverlay.texture();
 	}
 }
