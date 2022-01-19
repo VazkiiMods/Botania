@@ -1,23 +1,23 @@
 // Add your dependencies here
 
 dependencies {
-    compile("com.github.GTNewHorizons:Baubles:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:Baubles:1.0.1.14:dev")
 
     compile("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
 
-    compileOnly("com.github.GTNewHorizons:Railcraft:master-SNAPSHOT:api") {
+    compileOnly("com.github.GTNewHorizons:Railcraft:9.13.5:api") {
         transitive = false
     }
-    compileOnly("com.github.GTNewHorizons:StorageDrawers:master-SNAPSHOT:api") {
+    compileOnly("com.github.GTNewHorizons:StorageDrawers:1.11.11-GTNH:api") {
         transitive = false
     }
-    compileOnly("com.github.GTNewHorizons:ForgeMultipart:master-SNAPSHOT:dev") {
+    compileOnly("com.github.GTNewHorizons:ForgeMultipart:1.2.7:dev") {
         transitive = false
     }
-    compileOnly("com.github.GTNewHorizons:NotEnoughItems:master-SNAPSHOT:dev") {
+    compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.1.22-GTNH:dev") {
         transitive = false
     }
-    compileOnly("com.github.GTNewHorizons:CodeChickenLib:master-SNAPSHOT:dev") {
+    compileOnly("com.github.GTNewHorizons:CodeChickenLib:1.1.5.1:dev") {
         transitive = false
     }
 
