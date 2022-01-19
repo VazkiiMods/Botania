@@ -13,7 +13,6 @@ public class BotaniaConfig {
 		int spreaderTraceTime();
 		boolean enderPickpocketEnabled();
 		boolean enchanterEnabled();
-		boolean fluxfieldEnabled();
 		boolean relicsEnabled();
 		boolean invertMagnetRing();
 		int harvestLevelWeight();
@@ -75,6 +74,5 @@ public class BotaniaConfig {
 		PatchouliAPI.get().setConfigFlag("botania:relics", common().relicsEnabled());
 		PatchouliAPI.get().setConfigFlag("botania:enchanter", common().enchanterEnabled());
 		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", common().enderPickpocketEnabled());
-		PatchouliAPI.get().setConfigFlag("botania:fluxfield", common().fluxfieldEnabled());
 	}
 }

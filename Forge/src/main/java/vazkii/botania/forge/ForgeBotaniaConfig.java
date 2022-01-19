@@ -213,7 +213,6 @@ public final class ForgeBotaniaConfig {
 		public final ForgeConfigSpec.BooleanValue enderPickpocketEnabled;
 
 		public final ForgeConfigSpec.BooleanValue enchanterEnabled;
-		public final ForgeConfigSpec.BooleanValue fluxfieldEnabled;
 		public final ForgeConfigSpec.BooleanValue relicsEnabled;
 		public final ForgeConfigSpec.BooleanValue invertMagnetRing;
 
@@ -270,9 +269,6 @@ public final class ForgeBotaniaConfig {
 			enchanterEnabled = builder
 					.comment("Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.")
 					.define("manaEnchanter", true);
-			fluxfieldEnabled = builder
-					.comment("Set this to false to disable the Mana Fluxfield (generates FE from mana). This only disables the entry and creation. Old ones that are already in the world will stay.")
-					.define("manaFluxfield", true);
 			relicsEnabled = builder
 					.comment("Set this to false to disable the Relic System. This only disables the entries, drops and achievements. Old ones that are already in the world will stay.")
 					.define("relics", true);
@@ -339,11 +335,6 @@ public final class ForgeBotaniaConfig {
 		@Override
 		public boolean enchanterEnabled() {
 			return enchanterEnabled.get();
-		}
-
-		@Override
-		public boolean fluxfieldEnabled() {
-			return fluxfieldEnabled.get();
 		}
 
 		@Override

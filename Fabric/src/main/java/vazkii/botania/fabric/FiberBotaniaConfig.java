@@ -255,7 +255,6 @@ public final class FiberBotaniaConfig {
 		public final PropertyMirror<Boolean> enderPickpocketEnabled = PropertyMirror.create(BOOLEAN);
 
 		public final PropertyMirror<Boolean> enchanterEnabled = PropertyMirror.create(BOOLEAN);
-		public final PropertyMirror<Boolean> fluxfieldEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> relicsEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> invertMagnetRing = PropertyMirror.create(BOOLEAN);
 
@@ -314,10 +313,6 @@ public final class FiberBotaniaConfig {
 					.beginValue("manaEnchanter", BOOLEAN, true)
 					.withComment("Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.")
 					.finishValue(enchanterEnabled::mirror)
-
-					.beginValue("fluxfieldEnabled", BOOLEAN, true)
-					.withComment("Set this to false to disable the Mana Fluxfield. This only disables the entry and creation. Old ones that are already in the world will stay.")
-					.finishValue(fluxfieldEnabled::mirror)
 
 					.beginValue("relics", BOOLEAN, true)
 					.withComment("Set this to false to disable the Relic System. This only disables the entries, drops and achievements. Old ones that are already in the world will stay.")
@@ -383,11 +378,6 @@ public final class FiberBotaniaConfig {
 		@Override
 		public boolean enchanterEnabled() {
 			return enchanterEnabled.getValue();
-		}
-
-		@Override
-		public boolean fluxfieldEnabled() {
-			return fluxfieldEnabled.getValue();
 		}
 
 		@Override
