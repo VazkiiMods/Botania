@@ -1,11 +1,9 @@
 package vazkii.botania.client;
 
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
@@ -96,7 +94,8 @@ public final class BotaniaItemProperties {
 		consumer.accept(ModItems.tornadoRod, prefix("active"),
 				(stack, world, living, seed) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 
-		ClampedItemPropertyFunction pulling = (ClampedItemPropertyFunction) ItemProperties.getProperty(Items.BOW, new ResourceLocation("pulling"));
+		// [VanillaCopy] ItemProperties.BOW's minecraft:pulling property
+		ClampedItemPropertyFunction pulling = (stack, worldIn, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
 		ClampedItemPropertyFunction pull = (stack, worldIn, entity, seed) -> {
 			if (entity == null) {
 				return 0.0F;

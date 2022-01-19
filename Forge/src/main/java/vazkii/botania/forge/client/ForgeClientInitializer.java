@@ -9,6 +9,7 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -106,8 +108,7 @@ public class ForgeClientInitializer {
 		var resourceManager = ((ForgeAccessorModelBakery) (Object) ForgeModelBakery.instance()).getResourceManager();
 		ModelHandler.registerModels(resourceManager, ForgeModelBakery::addSpecialModel);
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
-		// todo 1.18-forge there's a  crash and idk why
-		// BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
+		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
 
 	@SubscribeEvent
