@@ -40,6 +40,7 @@ import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.entity.EntityRenderers;
+import vazkii.botania.client.render.world.WorldOverlays;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.forge.mixin.client.ForgeAccessorModelBakery;
@@ -76,6 +77,7 @@ public class ForgeClientInitializer {
 
 		// Forge bus events done with Mixins on Fabric
 		bus.addListener((RenderGameOverlayEvent.Text e) -> DebugHandler.onDrawDebugText(e.getLeft()));
+		bus.addListener((RenderLevelLastEvent e) -> WorldOverlays.renderWorldLast(e.getPartialTick(), e.getPoseStack()));
 		bus.addListener((InputEvent.KeyInputEvent e) -> {
 			ItemDodgeRing.ClientLogic.onKeyDown();
 			KonamiHandler.handleInput(e.getKey(), e.getAction(), e.getModifiers());
