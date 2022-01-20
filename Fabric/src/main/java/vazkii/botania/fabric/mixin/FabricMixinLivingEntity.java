@@ -44,7 +44,7 @@ public abstract class FabricMixinLivingEntity extends Entity {
 	@Shadow
 	protected int lastHurtByPlayerTime;
 
-	@Inject(at = @At("RETURN"), method = "dropAllDeathLoot")
+	@Inject(method = "dropAllDeathLoot", at = @At(shift = At.Shift.AFTER, value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;dropFromLootTable(Lnet/minecraft/world/damagesource/DamageSource;Z)V"))
 	private void dropEnd(DamageSource source, CallbackInfo ci) {
 		var self = (LivingEntity) (Object) this;
 		ItemElementiumAxe.onEntityDrops(lastHurtByPlayerTime > 0, source, self, self::spawnAtLocation);

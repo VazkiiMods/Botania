@@ -40,7 +40,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.tags.SetTag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -477,7 +476,8 @@ public class FabricXplatImpl implements IXplatAbstractions {
 			return cGlass.contains(value) || cGlassBlocks.contains(value);
 		}
 
-		@Override public List<Block> getValues() {
+		@Override
+		public List<Block> getValues() {
 			var cG = cGlass.getValues();
 			var cGB = cGlassBlocks.getValues();
 			var ret = new ArrayList<Block>(cG.size() + cGB.size());

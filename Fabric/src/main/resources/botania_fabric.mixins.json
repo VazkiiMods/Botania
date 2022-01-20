@@ -8,6 +8,7 @@
     "FabricMixinAbstractMinecart",
     "FabricMixinAnvilMenu",
     "FabricMixinBeaconBlockEntity",
+    "FabricMixinEnchantment",
     "FabricMixinEnchantmentMenu",
     "FabricMixinEnderMan",
     "FabricMixinExplosion",

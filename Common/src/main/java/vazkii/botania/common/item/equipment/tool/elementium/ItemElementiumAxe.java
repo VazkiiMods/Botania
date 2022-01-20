@@ -8,61 +8,46 @@
  */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.WitherSkeleton;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
+import vazkii.botania.mixin.AccessorLivingEntity;
 
-import java.util.Random;
 import java.util.function.Consumer;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemElementiumAxe extends ItemManasteelAxe {
+	private static final ResourceLocation BEHEADING_LOOT_TABLE = prefix("elementium_axe_beheading");
 
 	public ItemElementiumAxe(Properties props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
-	// Thanks to SpitefulFox for the drop rates
-	// https://github.com/SpitefulFox/ForbiddenMagic/blob/master/src/com/spiteful/forbidden/FMEventHandler.java
-	// todo 1.18 consider porting this to a loot table injection?
-
 	public static void onEntityDrops(boolean hitRecently, DamageSource source, LivingEntity target,
 			Consumer<ItemStack> consumer) {
-		if (hitRecently && source.getEntity() != null && source.getEntity() instanceof Player) {
-			ItemStack weapon = ((Player) source.getEntity()).getMainHandItem();
-			if (!weapon.isEmpty() && weapon.getItem() instanceof ItemElementiumAxe) {
-				Random rand = target.level.random;
-				int looting = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, weapon);
+		var ctx = ((AccessorLivingEntity) target).callCreateLootContext(hitRecently, source);
+		target.level.getServer().getLootTables().get(BEHEADING_LOOT_TABLE)
+				.getRandomItems(ctx.create(LootContextParamSets.ENTITY), consumer);
+	}
 
-				if (target instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting) {
-					consumer.accept(new ItemStack(target instanceof WitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
-				} else if (target instanceof Zombie && !(target instanceof ZombifiedPiglin) && rand.nextInt(26) <= 2 + 2 * looting) {
-					consumer.accept(new ItemStack(Items.ZOMBIE_HEAD));
-				} else if (target instanceof Creeper && rand.nextInt(26) <= 2 + 2 * looting) {
-					consumer.accept(new ItemStack(Items.CREEPER_HEAD));
-				} else if (target instanceof Player && rand.nextInt(11) <= 1 + looting) {
-					ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-					ItemNBTHelper.setString(stack, "SkullOwner", ((Player) target).getGameProfile().getName());
-					consumer.accept(stack);
-				} else if (target instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting) {
-					consumer.accept(new ItemStack(ModBlocks.gaiaHead));
-				}
-			}
+	@SoftImplement("IForgeItem")
+	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+		if (enchantment == Enchantments.MOB_LOOTING) {
+			return true;
+		} else {
+			// Copy the default impl
+			return enchantment.category.canEnchant(this);
 		}
+
 	}
 
 }

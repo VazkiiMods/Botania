@@ -2589,7 +2589,7 @@
   "botania.page.elfGear3": "The $(item)Elementium Pickaxe$(0)",
   "botania.page.elfGear4": "The $(item)Elementium Shovel$(0) will, if the block broken is affected by gravity ($(item)Gravel$(0), $(item)Sand$(0), etc), also destroy all blocks of that material above/below it. No more gravel falling while mining!",
   "botania.page.elfGear5": "The $(item)Elementium Shovel$(0)",
-  "botania.page.elfGear6": "The $(item)Elementium Axe$(0) doubles as a weapon. If used to strike the finishing blow to a $(thing)Zombie$(0), $(thing)Skeleton$(0), $(thing)Creeper$(0), or another $(thing)Player$(0), it might decapitate its victim, leaving a severed head or skull behind.",
+  "botania.page.elfGear6": "The $(item)Elementium Axe$(0) doubles as a weapon. If used to deal the finishing blow to any $(thing)Zombie$(0) or $(thing)Skeleton$(0) variant, $(thing)Creeper$(0), or other $(thing)Player$(0), it may decapitate its victim, leaving a severed head or skull behind.$(p)Unlike usual axes, the $(item)Elementium Axe$(0) supports the $(thing)Looting$() enchantment, which will increase the chance of skull drops.",
   "botania.page.elfGear7": "The $(item)Elementium Axe$(0)",
   "botania.page.elfGear7a": "The $(item)Elementium Hoe$(0) will instantly moisten farmland it creates, regardless of proximity to water, or whether water can even exist in the vicinity. Perfect for impatient farmers!",
   "botania.page.elfGear7b": "The $(item)Elementium Hoe$(0)",
