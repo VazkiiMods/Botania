@@ -17,6 +17,7 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.*;
@@ -42,6 +43,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
@@ -101,7 +103,6 @@ public class ForgeCommonInitializer {
 	public ForgeCommonInitializer() {
 		coreInit();
 		registryInit();
-		registerCapabilities();
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 	}
 
@@ -178,6 +179,8 @@ public class ForgeCommonInitializer {
 
 	private void registerEvents() {
 		IEventBus bus = MinecraftForge.EVENT_BUS;
+		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
+		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
 
 		if (BotaniaConfig.common().worldgenEnabled()) {
 			bus.addListener((BiomeLoadingEvent e) -> {
@@ -300,8 +303,16 @@ public class ForgeCommonInitializer {
 		});
 	}
 
-	private void registerCapabilities() {
-		// TODO Forge caps
+	// TODO Forge caps
+	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
+		var stack = e.getObject();
+		if (stack.is(ModItems.dirtRod)) {
+			e.addCapability(prefix("avatar_wieldable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.AVATAR_WIELDABLE, new ItemDirtRod.AvatarBehavior()));
+		}
+	}
+
+	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
+
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {
