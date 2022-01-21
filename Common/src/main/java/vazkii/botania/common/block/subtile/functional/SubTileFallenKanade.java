@@ -54,8 +54,12 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 	}
 
 	private static boolean canHeal(LivingEntity e) {
-		// heal pets and players
-		return e instanceof Player || e instanceof TamableAnimal && ((TamableAnimal) e).isTame() || e instanceof AbstractHorse && ((AbstractHorse) e).isTamed();
+		// Don't try to heal anything dead
+		if (!e.isAlive()) {
+			return false;
+		}
+		// heal pets and non-spectating players
+		return e instanceof Player player && !player.isSpectator() || e instanceof TamableAnimal && ((TamableAnimal) e).isTame() || e instanceof AbstractHorse && ((AbstractHorse) e).isTamed();
 	}
 
 	@Override
