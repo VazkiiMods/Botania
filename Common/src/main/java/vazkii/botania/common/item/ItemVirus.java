@@ -38,11 +38,10 @@ public class ItemVirus extends Item {
 
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity living, InteractionHand hand) {
-		if (living instanceof Horse) {
+		if (living instanceof Horse horse) {
 			if (player.level.isClientSide) {
 				return InteractionResult.SUCCESS;
 			}
-			AbstractHorse horse = (AbstractHorse) living;
 			if (horse.isTamed()) {
 				SimpleContainer inv = ((AccessorAbstractHorse) horse).getInventory();
 				ItemStack saddle = inv.getItem(0);
@@ -99,8 +98,8 @@ public class ItemVirus extends Item {
 	}
 
 	public static boolean onLivingHurt(LivingEntity entity, DamageSource source) {
-		if (entity.isPassenger() && entity.getVehicle() instanceof LivingEntity) {
-			entity = (LivingEntity) entity.getVehicle();
+		if (entity.isPassenger() && entity.getVehicle() instanceof LivingEntity vehicle) {
+			entity = vehicle;
 		}
 
 		if ((entity instanceof ZombieHorse || entity instanceof SkeletonHorse)

@@ -121,8 +121,8 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		BlockState state = getLevel().getBlockState(coords);
 
 		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(level, ModRecipeTypes.PURE_DAISY_TYPE).values()) {
-			if (recipe instanceof IPureDaisyRecipe && ((IPureDaisyRecipe) recipe).matches(getLevel(), coords, this, state)) {
-				return ((IPureDaisyRecipe) recipe);
+			if (recipe instanceof IPureDaisyRecipe daisyRecipe && daisyRecipe.matches(getLevel(), coords, this, state)) {
+				return daisyRecipe;
 			}
 		}
 

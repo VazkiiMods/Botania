@@ -164,8 +164,8 @@ public class ItemManaMirror extends Item implements IManaItem {
 		Level world = server.getLevel(type);
 		if (world != null) {
 			BlockEntity tile = world.getBlockEntity(pos.pos());
-			if (tile instanceof IManaPool) {
-				return (IManaPool) tile;
+			if (tile instanceof IManaPool pool) {
+				return pool;
 			}
 		}
 

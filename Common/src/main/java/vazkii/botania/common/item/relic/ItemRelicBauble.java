@@ -36,8 +36,8 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean held) {
-		if (entity instanceof Player) {
-			dummy.updateRelic(stack, (Player) entity);
+		if (entity instanceof Player player) {
+			dummy.updateRelic(stack, player);
 		}
 	}
 
@@ -76,6 +76,6 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@Override
 	public boolean canEquip(ItemStack stack, LivingEntity entity) {
-		return entity instanceof Player && dummy.isRightPlayer((Player) entity, stack);
+		return entity instanceof Player player && dummy.isRightPlayer(player, stack);
 	}
 }

@@ -38,7 +38,7 @@ public class TilePrism extends TileExposedSimpleInventory {
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = getItemHandler().getItem(0);
 		boolean active = !getBlockState().getValue(BlockStateProperties.POWERED);
-		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
+		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt excempt) || excempt.shouldPull(lens));
 
 		if (active) {
 			burst.setSourceLens(valid ? lens.copy() : ItemStack.EMPTY);

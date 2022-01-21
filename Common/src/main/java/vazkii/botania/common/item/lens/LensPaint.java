@@ -55,8 +55,8 @@ public class LensPaint extends Lens {
 						}
 					}
 					shouldKill = true;
-				} else if (collidedWith instanceof ISparkEntity) {
-					((ISparkEntity) collidedWith).setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level.random.nextInt(16) : storedColor));
+				} else if (collidedWith instanceof ISparkEntity spark) {
+					spark.setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level.random.nextInt(16) : storedColor));
 				}
 			} else if (pos.getType() == HitResult.Type.BLOCK) {
 				BlockPos hit = ((BlockHitResult) pos).getBlockPos();

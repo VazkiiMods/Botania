@@ -81,8 +81,8 @@ public class EntityPixie extends FlyingMob {
 
 			if (Math.sqrt(d3) < 1F) {
 				if (summoner != null) {
-					if (summoner instanceof Player) {
-						target.hurt(DamageSource.playerAttack((Player) summoner), damage);
+					if (summoner instanceof Player player) {
+						target.hurt(DamageSource.playerAttack(player), damage);
 					} else {
 						target.hurt(DamageSource.mobAttack(summoner), damage);
 					}

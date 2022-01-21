@@ -32,8 +32,8 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
 		if (!target.level.isClientSide
 				&& target instanceof EnderMan
-				&& attacker instanceof Player) {
-			target.hurt(DamageSource.playerAttack((Player) attacker), 20);
+				&& attacker instanceof Player player) {
+			target.hurt(DamageSource.playerAttack(player), 20);
 		}
 
 		stack.hurtAndBreak(1, attacker, e -> e.broadcastBreakEvent(InteractionHand.MAIN_HAND));

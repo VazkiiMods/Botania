@@ -83,7 +83,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 			IManaItem manaItem = (IManaItem) stackInSlot.getItem();
 			if (manaItem.canExportManaToItem(stackInSlot, stack) && manaItem.getMana(stackInSlot) > 0) {
-				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot)) {
+				if (stack.getItem() instanceof IManaItem requestor && !requestor.canReceiveManaFromItem(stack, stackInSlot)) {
 					continue;
 				}
 
@@ -120,7 +120,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
 			if (manaItemSlot.canExportManaToItem(stackInSlot, stack)) {
-				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot)) {
+				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canReceiveManaFromItem(stack, stackInSlot)) {
 					continue;
 				}
 
@@ -162,7 +162,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
 			if (manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot)) {
+				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canExportManaToItem(stack, stackInSlot)) {
 					continue;
 				}
 
@@ -198,7 +198,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
 			if (manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot) && manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot)) {
+				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canExportManaToItem(stack, stackInSlot)) {
 					continue;
 				}
 
@@ -248,7 +248,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
 			int availableMana = manaItemSlot.getMana(stackInSlot);
 			if (manaItemSlot.canExportManaToItem(stackInSlot, stack) && availableMana > cost) {
-				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot)) {
+				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canReceiveManaFromItem(stack, stackInSlot)) {
 					continue;
 				}
 
@@ -264,8 +264,8 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		float discount = 0F;
 		for (int i = 0; i < player.getInventory().armor.size(); i++) {
 			ItemStack armor = player.getInventory().armor.get(i);
-			if (!armor.isEmpty() && armor.getItem() instanceof IManaDiscountArmor) {
-				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player, tool);
+			if (!armor.isEmpty() && armor.getItem() instanceof IManaDiscountArmor discountArmor) {
+				discount += discountArmor.getDiscount(armor, i, player, tool);
 			}
 		}
 

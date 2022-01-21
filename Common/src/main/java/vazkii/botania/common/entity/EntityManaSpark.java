@@ -248,9 +248,9 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 				}
 
 				return InteractionResult.sidedSuccess(level.isClientSide);
-			} else if (stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
+			} else if (stack.getItem() instanceof ItemSparkUpgrade newUpgrade && upgrade == SparkUpgradeType.NONE) {
 				if (!level.isClientSide) {
-					setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
+					setUpgrade(newUpgrade.type);
 					stack.shrink(1);
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide);
@@ -259,8 +259,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 					setInvisible(true);
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide);
-			} else if (stack.getItem() instanceof DyeItem) {
-				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+			} else if (stack.getItem() instanceof DyeItem dye) {
+				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
 					if (!level.isClientSide) {
 						setNetwork(color);
@@ -289,8 +289,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 	@Override
 	public ISparkAttachable getAttachedTile() {
 		BlockEntity tile = level.getBlockEntity(getAttachPos());
-		if (tile instanceof ISparkAttachable) {
-			return (ISparkAttachable) tile;
+		if (tile instanceof ISparkAttachable sparkable) {
+			return sparkable;
 		}
 
 		return null;

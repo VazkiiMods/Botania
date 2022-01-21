@@ -89,8 +89,8 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory) {
-				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
+			if (be instanceof TileSimpleInventory inventory) {
+				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
 		}
@@ -105,8 +105,8 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getBlockEntity(pos);
 		ItemStack stack = changer.getItemHandler().getItem(0);
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade) {
-			return ((ItemSparkUpgrade) stack.getItem()).type.ordinal() + 1;
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade upgrade) {
+			return upgrade.type.ordinal() + 1;
 		}
 		return 0;
 	}

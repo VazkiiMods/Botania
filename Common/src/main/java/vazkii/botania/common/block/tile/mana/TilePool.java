@@ -164,8 +164,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		ItemStack stack = item.getItem();
 
-		if (stack.getItem() instanceof IManaDissolvable) {
-			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
+		if (stack.getItem() instanceof IManaDissolvable dissolvable) {
+			dissolvable.onDissolveTick(this, stack, item);
 		}
 
 		if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown() > 0) {
@@ -287,7 +287,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 					if (self.outputting) {
 						for (Direction dir : Direction.Plane.HORIZONTAL) {
 							BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-							if (tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == self) {
+							if (tile instanceof TileBellows bellows && bellows.getLinkedTile() == self) {
 								bellowCount++;
 							}
 						}
@@ -438,8 +438,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public int getCurrentMana() {
-		if (getBlockState().getBlock() instanceof BlockPool) {
-			return ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
+		if (getBlockState().getBlock() instanceof BlockPool pool) {
+			return pool.variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
 		}
 		return 0;
 	}

@@ -63,8 +63,8 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory) {
-				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
+			if (be instanceof TileSimpleInventory inventory) {
+				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
 		}
@@ -79,8 +79,8 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof TileTinyPotato) {
-			((TileTinyPotato) tile).interact(player, hand, player.getItemInHand(hand), hit.getDirection());
+		if (tile instanceof TileTinyPotato tater) {
+			tater.interact(player, hand, player.getItemInHand(hand), hit.getDirection());
 			if (!world.isClientSide) {
 				AABB box = SHAPE.bounds();
 				((ServerLevel) world).sendParticles(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 1, 0, 0, 0, 0);

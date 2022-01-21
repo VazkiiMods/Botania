@@ -107,8 +107,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		Entity thrower = entity.getOwner();
 
 		for (LivingEntity living : entities) {
-			if (living == thrower || living instanceof Player && thrower instanceof Player
-					&& !((Player) thrower).canHarmPlayer(((Player) living))) {
+			if (living == thrower || living instanceof Player livingPlayer && thrower instanceof Player throwingPlayer
+					&& !throwingPlayer.canHarmPlayer(livingPlayer)) {
 				continue;
 			}
 
@@ -120,10 +120,10 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 					float damage = 4F + BotaniaAPI.instance().getTerrasteelItemTier().getAttackDamageBonus();
 					if (!burst.isFake() && !entity.level.isClientSide) {
 						DamageSource source = DamageSource.MAGIC;
-						if (thrower instanceof Player) {
-							source = DamageSource.playerAttack((Player) thrower);
-						} else if (thrower instanceof LivingEntity) {
-							source = DamageSource.mobAttack((LivingEntity) thrower);
+						if (thrower instanceof Player player) {
+							source = DamageSource.playerAttack(player);
+						} else if (thrower instanceof LivingEntity livingEntity) {
+							source = DamageSource.mobAttack(livingEntity);
 						}
 						living.hurt(source, damage);
 						entity.discard();

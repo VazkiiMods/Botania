@@ -61,8 +61,8 @@ public class ItemCacophonium extends Item {
 
 			if (living instanceof Creeper) {
 				sound = SoundEvents.CREEPER_PRIMED;
-			} else if (living instanceof Slime) {
-				sound = ((Slime) living).isTiny() ? SoundEvents.SLIME_SQUISH_SMALL : SoundEvents.SLIME_SQUISH;
+			} else if (living instanceof Slime slime) {
+				sound = slime.isTiny() ? SoundEvents.SLIME_SQUISH_SMALL : SoundEvents.SLIME_SQUISH;
 			} else {
 				sound = ((AccessorMob) living).botania_getAmbientSound();
 			}

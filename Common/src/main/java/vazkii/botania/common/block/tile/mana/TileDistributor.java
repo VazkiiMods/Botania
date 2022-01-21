@@ -35,8 +35,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 			BlockPos pos = worldPosition.relative(dir);
 			if (level.hasChunkAt(pos)) {
 				BlockEntity tileAt = level.getBlockEntity(pos);
-				if (tileAt instanceof IManaPool && !tileAt.isRemoved()) {
-					IManaReceiver receiver = (IManaReceiver) tileAt;
+				if (tileAt instanceof IManaPool receiver && !tileAt.isRemoved()) {
 					if (!receiver.isFull()) {
 						self.validPools.add(receiver);
 					}

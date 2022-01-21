@@ -91,12 +91,12 @@ public class ItemBlackHoleTalisman extends Item {
 			}
 
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile instanceof Container) {
+			if (tile instanceof Container container) {
 				if (!world.isClientSide) {
 					ItemStack toAdd = new ItemStack(bBlock);
 					int maxSize = toAdd.getMaxStackSize();
 					toAdd.setCount(remove(stack, maxSize));
-					ItemStack remainder = HopperBlockEntity.addItem(null, (Container) tile, toAdd, side);
+					ItemStack remainder = HopperBlockEntity.addItem(null, container, toAdd, side);
 					if (!remainder.isEmpty()) {
 						add(stack, remainder.getCount());
 					}

@@ -57,8 +57,8 @@ public class ItemTerraformRod extends Item {
 
 	@Override
 	public void onUseTick(@Nonnull Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
-		if (count != getUseDuration(stack) && count % 10 == 0 && living instanceof Player) {
-			terraform(stack, world, (Player) living);
+		if (count != getUseDuration(stack) && count % 10 == 0 && living instanceof Player player) {
+			terraform(stack, world, player);
 		}
 	}
 

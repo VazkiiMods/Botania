@@ -78,8 +78,8 @@ public class EntityMagicMissile extends ThrowableProjectile {
 	public LivingEntity getTargetEntity() {
 		int id = entityData.get(TARGET);
 		Entity e = level.getEntity(id);
-		if (e instanceof LivingEntity) {
-			return (LivingEntity) e;
+		if (e instanceof LivingEntity le) {
+			return le;
 		}
 
 		return null;
@@ -137,9 +137,8 @@ public class EntityMagicMissile extends ThrowableProjectile {
 			List<LivingEntity> targetList = level.getEntitiesOfClass(LivingEntity.class, new AABB(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
 			if (targetList.contains(target)) {
 				Entity owner = getOwner();
-				if (owner instanceof LivingEntity) {
-					Player player = owner instanceof Player ? (Player) owner : null;
-					target.hurt(player == null ? DamageSource.mobAttack((LivingEntity) owner) : DamageSource.playerAttack(player), evil ? 12 : 7);
+				if (owner instanceof LivingEntity livingOwner) {
+					target.hurt(owner instanceof Player playerOwner ? DamageSource.playerAttack(playerOwner) : DamageSource.mobAttack(livingOwner), evil ? 12 : 7);
 				} else {
 					target.hurt(DamageSource.GENERIC, evil ? 12 : 7);
 				}
@@ -203,11 +202,11 @@ public class EntityMagicMissile extends ThrowableProjectile {
 
 	public static boolean shouldTarget(Entity owner, LivingEntity e) {
 		// always defend yourself
-		if (e instanceof Mob && isHostile(owner, ((Mob) e).getTarget())) {
+		if (e instanceof Mob mob && isHostile(owner, mob.getTarget())) {
 			return true;
 		}
 		// don't target tamed creatures...
-		if (e instanceof TamableAnimal && ((TamableAnimal) e).isTame() || e instanceof AbstractHorse && ((AbstractHorse) e).isTamed()) {
+		if (e instanceof TamableAnimal animal && animal.isTame() || e instanceof AbstractHorse horse && horse.isTamed()) {
 			return false;
 		}
 
@@ -217,7 +216,7 @@ public class EntityMagicMissile extends ThrowableProjectile {
 
 	public static boolean isHostile(Entity owner, Entity attackTarget) {
 		// if the owner can attack the target thru PvP...
-		if (owner instanceof Player && attackTarget instanceof Player && ((Player) owner).canHarmPlayer((Player) attackTarget)) {
+		if (owner instanceof Player ownerPlayer && attackTarget instanceof Player targetedPlayer && ownerPlayer.canHarmPlayer(targetedPlayer)) {
 			// ... then only defend self
 			return owner == attackTarget;
 		}

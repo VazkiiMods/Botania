@@ -37,7 +37,7 @@ public class ItemWaterRing extends ItemBauble {
 			}
 
 			if (!living.level.isClientSide) {
-				if (living instanceof Player && !ManaItemHandler.instance().requestManaExact(stack, (Player) living, COST, true)) {
+				if (living instanceof Player player && !ManaItemHandler.instance().requestManaExact(stack, player, COST, true)) {
 					onUnequipped(stack, living);
 				} else {
 					addEffect(living, MobEffects.CONDUIT_POWER);
