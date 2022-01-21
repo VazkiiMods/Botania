@@ -59,7 +59,7 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 			return false;
 		}
 		// heal pets and non-spectating players
-		return e instanceof Player player && !player.isSpectator() || e instanceof TamableAnimal && ((TamableAnimal) e).isTame() || e instanceof AbstractHorse && ((AbstractHorse) e).isTamed();
+		return e instanceof Player player && !player.isSpectator() || e instanceof TamableAnimal animal && animal.isTame() || e instanceof AbstractHorse horse && horse.isTamed();
 	}
 
 	@Override
