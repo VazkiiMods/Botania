@@ -110,6 +110,7 @@ public class ForgeCommonInitializer {
 		ForgePacketHandler.init();
 		registerEvents();
 
+		ModBlocks.addDispenserBehaviours();
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
@@ -139,7 +140,6 @@ public class ForgeCommonInitializer {
 		bind(ForgeRegistries.BLOCKS, ModSubtiles::registerBlocks);
 		bind(ForgeRegistries.ITEMS, ModSubtiles::registerItemBlocks);
 		bind(ForgeRegistries.BLOCK_ENTITIES, ModSubtiles::registerTEs);
-		ModBlocks.addDispenserBehaviours();
 
 		// GUI and Recipe
 		bind(ForgeRegistries.CONTAINERS, ModItems::registerMenuTypes);
