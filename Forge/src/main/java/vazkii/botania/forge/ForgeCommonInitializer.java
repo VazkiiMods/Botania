@@ -15,11 +15,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
@@ -44,6 +46,9 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
+import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
@@ -80,6 +85,7 @@ import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
+import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
@@ -93,8 +99,10 @@ import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -303,11 +311,55 @@ public class ForgeCommonInitializer {
 		});
 	}
 
-	// TODO Forge caps
+	private static <T> Consumer<T> bindCap(AttachCapabilitiesEvent<ItemStack> event,
+			ResourceLocation id, Capability<T> cap) {
+		return impl -> event.addCapability(id, CapabilityUtil.makeProvider(cap, impl));
+	}
+
+	// Attaching caps requires dispatching off the item, which is a huge pain because it generates long if-else
+	// chains on items, and also doesn't match how Fabric is set up.
+	// Instead, let's declare ahead of time what items get which caps, similar to how we do it for Fabric.
+	private static final Map<Item, Function<ItemStack, IAvatarWieldable>> AVATAR_WIELDABLES = Map.of(
+			ModItems.dirtRod, s -> new ItemDirtRod.AvatarBehavior(),
+			ModItems.diviningRod, s -> new ItemDiviningRod.AvatarBehavior(),
+			ModItems.fireRod, s -> new ItemFireRod.AvatarBehavior(),
+			ModItems.missileRod, s -> new ItemMissileRod.AvatarBehavior(),
+			ModItems.rainbowRod, s -> new ItemRainbowRod.AvatarBehavior(),
+			ModItems.tornadoRod, s -> new ItemTornadoRod.AvatarBehavior()
+	);
+
+	private static final Map<Item, Function<ItemStack, IBlockProvider>> BLOCK_PROVIDER = Map.of(
+			ModItems.dirtRod, ItemDirtRod.BlockProvider::new,
+			ModItems.blackHoleTalisman, ItemBlackHoleTalisman.BlockProvider::new,
+			ModItems.cobbleRod, s -> new ItemCobbleRod.BlockProvider(),
+			ModItems.enderHand, ItemEnderHand.BlockProvider::new,
+			ModItems.terraformRod, s -> new ItemTerraformRod.BlockProvider()
+	);
+
+	private static final Map<Item, Function<ItemStack, ICoordBoundItem>> COORD_BOUND_ITEM = Map.of(
+			ModItems.flugelEye, ItemFlugelEye.CoordBoundItem::new,
+			ModItems.manaMirror, ItemManaMirror.CoordBoundItem::new,
+			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new
+	);
+
 	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
 		var stack = e.getObject();
-		if (stack.is(ModItems.dirtRod)) {
-			e.addCapability(prefix("avatar_wieldable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.AVATAR_WIELDABLE, new ItemDirtRod.AvatarBehavior()));
+		var makeAvatarWieldable = AVATAR_WIELDABLES.get(stack.getItem());
+		if (makeAvatarWieldable != null) {
+			e.addCapability(prefix("avatar_wieldable"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.AVATAR_WIELDABLE, makeAvatarWieldable.apply(stack)));
+		}
+
+		var makeBlockProvider = BLOCK_PROVIDER.get(stack.getItem());
+		if (makeBlockProvider != null) {
+			e.addCapability(prefix("block_provider"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.BLOCK_PROVIDER, makeBlockProvider.apply(stack)));
+		}
+
+		var makeCoordBoundItem = COORD_BOUND_ITEM.get(stack.getItem());
+		if (makeCoordBoundItem != null) {
+			e.addCapability(prefix("coord_bound_item"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.COORD_BOUND_ITEM, makeCoordBoundItem.apply(stack)));
 		}
 	}
 
