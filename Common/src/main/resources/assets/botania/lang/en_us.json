@@ -2068,8 +2068,8 @@
 
   "botania.entry.fallenKanade": "Fallen Kanade",
   "botania.tagline.fallenKanade": "Powerful, short range regeneration",
-  "botania.page.fallenKanade0": "The $(item)Fallen Kanade$(0) is a flower with angelic properties; it creates an aura of healing from $(thing)Mana$(0) to apply a regeneration effect to any $(thing)players$(0) nearby.",
-  "botania.page.fallenKanade0a": "The $(item)Fallen Kanade$(0) is a flower with angelic properties; it creates an aura of healing from $(thing)Mana$(0) to apply a regeneration effect to any $(thing)players$(0) nearby.$(p)Interestingly enough, $(thing)Blood Mages$(0) have been known to place odd hexes on their altars which cause this flower to malfunction. That might be something to keep in mind.",
+  "botania.page.fallenKanade0": "The $(item)Fallen Kanade$(0) is a flower with angelic properties; it creates an aura of healing from $(thing)Mana$(0) to apply a regeneration effect to any $(thing)players$(0) and $(thing)tamed pets$(0) nearby.",
+  "botania.page.fallenKanade0a": "The $(item)Fallen Kanade$(0) is a flower with angelic properties; it creates an aura of healing from $(thing)Mana$(0) to apply a regeneration effect to any $(thing)players$(0) and $(thing)tamed pets$(0) nearby.$(p)Interestingly enough, $(thing)Blood Mages$(0) have been known to place odd hexes on their altars which cause this flower to malfunction. That might be something to keep in mind.",
   "botania.page.fallenKanade1": "$(o)Hand Sonic, version four$().",
 
   "botania.entry.exoflame": "Exoflame",

@@ -11,6 +11,9 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,10 +39,10 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 
 		if (!getLevel().isClientSide && getLevel().dimension() != Level.END) {
 			boolean did = false;
-			List<Player> players = getLevel().getEntitiesOfClass(Player.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
-			for (Player player : players) {
-				if (player.getEffect(MobEffects.REGENERATION) == null && getMana() >= COST) {
-					player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, 2, true, true));
+			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), SubTileFallenKanade::canHeal);
+			for (LivingEntity toHeal : entities) {
+				if (toHeal.getEffect(MobEffects.REGENERATION) == null && getMana() >= COST) {
+					toHeal.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, 2, true, true));
 					addMana(-COST);
 					did = true;
 				}
@@ -48,6 +51,15 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 				sync();
 			}
 		}
+	}
+
+	private static boolean canHeal(LivingEntity e) {
+		// Don't try to heal anything dead
+		if (!e.isAlive()) {
+			return false;
+		}
+		// heal pets and non-spectating players
+		return e instanceof Player player && !player.isSpectator() || e instanceof TamableAnimal animal && animal.isTame() || e instanceof AbstractHorse horse && horse.isTamed();
 	}
 
 	@Override
