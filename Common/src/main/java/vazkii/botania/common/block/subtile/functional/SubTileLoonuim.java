@@ -96,7 +96,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			BlockPos pos = new BlockPos(xp, yp - 1, zp);
 			do {
 				pos = pos.above();
-				if (pos.getY() >= 254) {
+				if (pos.getY() >= world.getMaxBuildHeight()) {
 					return;
 				}
 			} while (world.getBlockState(pos).isSuffocating(world, pos));
