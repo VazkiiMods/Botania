@@ -19,6 +19,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,6 +48,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
+import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
@@ -188,6 +191,7 @@ public class ForgeCommonInitializer {
 
 	private void registerEvents() {
 		IEventBus bus = MinecraftForge.EVENT_BUS;
+		registerBlockLookasides();
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
 
@@ -360,8 +364,21 @@ public class ForgeCommonInitializer {
 		}
 	}
 
-	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
+	private void registerBlockLookasides() {
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
+				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
+				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
+		// todo the rest
+	}
 
+	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
+		var be = e.getObject();
+		if (be instanceof AbstractFurnaceBlockEntity furnace) {
+			e.addCapability(prefix("exoflame_heatable"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.EXOFLAME_HEATABLE,
+							new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
+		}
+		// todo the rest
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {

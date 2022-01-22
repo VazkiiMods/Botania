@@ -89,6 +89,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
@@ -154,28 +155,25 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Nullable
 	@Override
 	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
 	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		// todo non-be's need some sort of lookaside registry
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.HORN_HARVEST).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HORN_HARVEST, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
 	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		// todo non-be's need some sort of lookaside registry
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
 	public IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		// todo non-be's need some sort of lookaside registry
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.WANDABLE).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.WANDABLE, level, pos, state, be);
 	}
 
 	@Override
