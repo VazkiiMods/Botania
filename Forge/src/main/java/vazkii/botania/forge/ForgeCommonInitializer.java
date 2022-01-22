@@ -1,5 +1,6 @@
 package vazkii.botania.forge;
 
+import com.google.common.base.Suppliers;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.commands.CommandSourceStack;
@@ -103,6 +104,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -311,52 +313,48 @@ public class ForgeCommonInitializer {
 		});
 	}
 
-	private static <T> Consumer<T> bindCap(AttachCapabilitiesEvent<ItemStack> event,
-			ResourceLocation id, Capability<T> cap) {
-		return impl -> event.addCapability(id, CapabilityUtil.makeProvider(cap, impl));
-	}
-
 	// Attaching caps requires dispatching off the item, which is a huge pain because it generates long if-else
 	// chains on items, and also doesn't match how Fabric is set up.
 	// Instead, let's declare ahead of time what items get which caps, similar to how we do it for Fabric.
-	private static final Map<Item, Function<ItemStack, IAvatarWieldable>> AVATAR_WIELDABLES = Map.of(
+	// Needs to be lazy since items aren't initialized yet
+	private static final Supplier<Map<Item, Function<ItemStack, IAvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
 			ModItems.dirtRod, s -> new ItemDirtRod.AvatarBehavior(),
 			ModItems.diviningRod, s -> new ItemDiviningRod.AvatarBehavior(),
 			ModItems.fireRod, s -> new ItemFireRod.AvatarBehavior(),
 			ModItems.missileRod, s -> new ItemMissileRod.AvatarBehavior(),
 			ModItems.rainbowRod, s -> new ItemRainbowRod.AvatarBehavior(),
 			ModItems.tornadoRod, s -> new ItemTornadoRod.AvatarBehavior()
-	);
+	));
 
-	private static final Map<Item, Function<ItemStack, IBlockProvider>> BLOCK_PROVIDER = Map.of(
+	private static final Supplier<Map<Item, Function<ItemStack, IBlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
 			ModItems.dirtRod, ItemDirtRod.BlockProvider::new,
 			ModItems.blackHoleTalisman, ItemBlackHoleTalisman.BlockProvider::new,
 			ModItems.cobbleRod, s -> new ItemCobbleRod.BlockProvider(),
 			ModItems.enderHand, ItemEnderHand.BlockProvider::new,
 			ModItems.terraformRod, s -> new ItemTerraformRod.BlockProvider()
-	);
+	));
 
-	private static final Map<Item, Function<ItemStack, ICoordBoundItem>> COORD_BOUND_ITEM = Map.of(
+	private static final Supplier<Map<Item, Function<ItemStack, ICoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
 			ModItems.flugelEye, ItemFlugelEye.CoordBoundItem::new,
 			ModItems.manaMirror, ItemManaMirror.CoordBoundItem::new,
 			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new
-	);
+	));
 
 	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
 		var stack = e.getObject();
-		var makeAvatarWieldable = AVATAR_WIELDABLES.get(stack.getItem());
+		var makeAvatarWieldable = AVATAR_WIELDABLES.get().get(stack.getItem());
 		if (makeAvatarWieldable != null) {
 			e.addCapability(prefix("avatar_wieldable"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.AVATAR_WIELDABLE, makeAvatarWieldable.apply(stack)));
 		}
 
-		var makeBlockProvider = BLOCK_PROVIDER.get(stack.getItem());
+		var makeBlockProvider = BLOCK_PROVIDER.get().get(stack.getItem());
 		if (makeBlockProvider != null) {
 			e.addCapability(prefix("block_provider"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.BLOCK_PROVIDER, makeBlockProvider.apply(stack)));
 		}
 
-		var makeCoordBoundItem = COORD_BOUND_ITEM.get(stack.getItem());
+		var makeCoordBoundItem = COORD_BOUND_ITEM.get().get(stack.getItem());
 		if (makeCoordBoundItem != null) {
 			e.addCapability(prefix("coord_bound_item"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.COORD_BOUND_ITEM, makeCoordBoundItem.apply(stack)));
