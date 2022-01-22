@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Forge sources" pattern="!ext[Gradle: loom_mappings_*:*:*]:*/&amp;&amp;!ext[Gradle: net.fabricmc:*:*]:*/&amp;&amp;!ext[Gradle: net.fabricmc:*:*]:*/&amp;&amp;!ext[Gradle: net.minecraft:joined*:*]:*/&amp;&amp;!ext[Gradle: net.minecraft:mappings_official:zip:*]:*/&amp;&amp;!ext[Gradle: net.minecraft:minecraft-project-*:*]:*/" />
+</component>

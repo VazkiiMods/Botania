@@ -23,7 +23,8 @@ build
 
 ## intellij
 out
-/.idea
+/.idea/*
+!/.idea/scopes
 /atlassian-ide-plugin.xml
 /*.ipr
 /*.iws
