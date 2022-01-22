@@ -187,31 +187,45 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
 		return item.getItem().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var result = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var extracted = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					return result.getFluid() == fluid && result.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					if (success) {
+						item.setItem(h.getContainer());
+					}
+					return success;
 				})
 				.orElse(false);
 	}
 
 	@Override
 	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
-		return player.getItemInHand(hand).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+		var stack = player.getItemInHand(hand);
+		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var result = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var extracted = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					return result.getFluid() == fluid && result.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					if (success && !player.getAbilities().instabuild) {
+						player.setItemInHand(hand, h.getContainer());
+					}
+					return success;
 				})
 				.orElse(false);
 	}
 
 	@Override
 	public boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
-		return player.getItemInHand(hand).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+		var stack = player.getItemInHand(hand);
+		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var result = h.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var filled = h.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					return result == FluidAttributes.BUCKET_VOLUME;
+					var success = filled == FluidAttributes.BUCKET_VOLUME;
+					if (success && !player.getAbilities().instabuild) {
+						player.setItemInHand(hand, h.getContainer());
+					}
+					return success;
 				})
 				.orElse(false);
 	}
