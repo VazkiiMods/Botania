@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "botania:knockback_belt",
+    "botania:speed_up_belt",
+    "botania:super_travel_belt",
+    "botania:travel_belt"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:blue_dye"
+    },
+    {
+      "tag": "forge:storage_blocks/quartz"
+    }
+  ],
+  "result": {
+    "item": "botania:azulejo_0"
+  }
+}

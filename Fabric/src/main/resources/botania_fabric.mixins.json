@@ -1,0 +1,39 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "package": "vazkii.botania.fabric.mixin",
+  "mixins": [
+    "FabricAccessorAbstractFurnaceBlockEntity",
+    "FabricMixinAbstractMinecart",
+    "FabricMixinAnvilMenu",
+    "FabricMixinBeaconBlockEntity",
+    "FabricMixinEnchantment",
+    "FabricMixinEnchantmentMenu",
+    "FabricMixinEnderMan",
+    "FabricMixinExplosion",
+    "FabricMixinItemEntity",
+    "FabricMixinItemPredicate",
+    "FabricMixinItemStack",
+    "FabricMixinLivingEntity",
+    "FabricMixinPiglinAi",
+    "FabricMixinPlayer",
+    "FabricMixinResultSlot",
+    "FabricMixinServerGamePacketListenerImpl",
+    "FabricMixinServerPlayerGameMode"
+  ],
+  "client": [
+    "client.FabricMixinAbstractTexture",
+    "client.FabricMixinBlockModelDeserializer",
+    "client.FabricMixinDebugScreenOverlay",
+    "client.FabricMixinGameRenderer",
+    "client.FabricMixinKeyboardHandler",
+    "client.FabricMixinMinecraft",
+    "client.FabricMixinModelManager",
+    "client.FabricMixinParticleEngine",
+    "client.FabricMixinScreen"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

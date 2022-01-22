@@ -1,237 +1,72 @@
-plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
-    id 'maven-publish'
-    id 'com.diffplug.spotless' version '5.8.2'
-    id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
-    id 'pmd'
-}
-
-ext.configFile = file('build.properties')
-ext.config = parseConfig(configFile)
-ext.priv = parseConfig(file('private.properties'))
-
-def mc_version = "1.18.1"
-version = "${mc_version}-${config.build_number}-FABRIC"
-if (System.getenv().RELEASE_MODE == null) {
-    version += '-SNAPSHOT'
-}
-
-group = "vazkii.botania"
-archivesBaseName = "${ext.config.mod_name}"
-
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
-
-loom {
-    accessWidenerPath = file("src/main/resources/botania.accesswidener")
-    runs {
-        gameTest {
-            server()
-            vmArg "-Dfabric-api.gametest=1"
-        }
-
-        datagen {
-            client()
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=botania"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
-            vmArg "-Dfabric-api.datagen.strict-validation"
-        }
-    }
-
-}
-
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-}
-
-repositories {
-    maven {
-        name = "Modmuss"
-        url = "https://maven.modmuss50.me/"
-    }
-    maven {
-        name = "Jared"
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        url = "https://maven.terraformersmc.com/" // for trinkets
-    }
-    maven {
-          name = "Ladysnake Libs"
-          url = 'https://ladysnake.jfrog.io/artifactory/mods'
-    }
-    maven {
-        name = "BuildCraft" // for LBA
-        url = "https://mod-buildcraft.com/maven"
-    }
-    maven {
-        name "entity reach"
-        url "https://maven.jamieswhiteshirt.com/libs-release/"
-    }
-    maven {
-        url "https://jitpack.io" // for step height eam
-    }
-    maven {
-        url "https://maven.shedaniel.me/" // for rei
-    }
-    maven {
-        url "https://server.bbkr.space/artifactory/libs-release/" // for bannerplusplus
-    }
-    maven {
-        name = "ParchmentMC"
-        url = "https://maven.parchmentmc.net/"
-    }
-}
-
-test {
-    useJUnitPlatform()
-}
-
-dependencies {
-    minecraft "com.mojang:minecraft:${mc_version}"
-    mappings loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.18.1:2021.12.19@zip")
-    }
-
-    modImplementation "net.fabricmc:fabric-loader:0.12.8"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.44.0+1.18"
-
-    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-
-    modImplementation "vazkii.patchouli:Patchouli:1.18.1-61-FABRIC"
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
-
-    modImplementation "me.zeroeightsix:fiber:0.23.0-2"
-    include "me.zeroeightsix:fiber:0.23.0-2"
-
-    // Don't include base and entity as Trinkets includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:4.0.1"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:4.0.1"
-
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.1"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:4.0.1"
-
-    compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
-
-    modImplementation "dev.emi:trinkets:3.1.0"
-
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
-    include "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
-
-    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
-    include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
-
-    /*
-    modImplementation "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
-    include "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
-    */
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
-}
-
-spotless {
-    enforceCheck = false // workaround around jenkins having wrong line endings in some files
-                         // we explicitly check in github actions builds
-    java {
-        indentWithTabs()
-        licenseHeaderFile('spotless/license_template.txt')
-        eclipse().configFile 'spotless/eclipseformat.xml'
-        removeUnusedImports()
-        importOrderFile 'spotless/eclipse.importorder'
-    }
-}
-
-pmd {
-    toolVersion '6.37.0'
-    incrementalAnalysis.set(true)
-    ruleSets.clear()
-    ruleSetFiles = files("spotless/pmd-ruleset.xml")
-}
-
-task checkSyntax (group: "verification") {
-    dependsOn spotlessJavaCheck, pmdMain
-}
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-
-    // Exclude datagenerator .cache directory
-    exclude '.cache'
-
-    // Exclude Forge-specific metadata on Fabric only
-    exclude 'META-INF/mods.toml'
-    exclude 'META-INF/accesstransformer.cfg'
-
-    filesMatching('data/botania/patchouli_books/lexicon/book.json') {
-        filter {
-            it.replaceAll("buildNumber", config.build_number)
-        }
-    }
-}
-
-task incrementBuildNumber {
-    doFirst {
-        config.build_number = (config.build_number.toString().toInteger()) + 1
-        configFile.withWriter {
-            config.toProperties().store(it, "")
-        }
-    }
-}
-
-def parseConfig(File config) {
-	if(config.exists()){
-		config.withReader {
-			def prop = new Properties()
-			prop.load(it)
-			return (new ConfigSlurper().parse(prop))
-		}
-	} else {
-		return null
-	}
-}
-
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-java {
-    withSourcesJar()
-}
-jar {
-    from "LICENSE"
-
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.ase"
-    exclude "**/*.exe"
-}
-tasks.withType(GenerateModuleMetadata) {
-    enabled = false
-}
-
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-
-    // select the repositories you want to publish to
+buildscript {
     repositories {
         maven {
-            url "file://" + System.getenv("local_maven")
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:5.12.5"
+    }
+}
+/* TODO someone please fix this I hate gradle so much
+        I fixed it - Jared
+*/
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'pmd'
+    apply plugin: "com.diffplug.spotless"
+    apply plugin: 'maven-publish'
+    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+    java.withSourcesJar()
+    archivesBaseName = "${mod_name}"
+
+    repositories {
+        mavenCentral()
+
+        maven {
+            name = 'Sponge / Mixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = 'UTF-8'
+        it.options.release = 17
+        it.options.compilerArgs << "-Xmaxerrs" << "1000"
+    }
+
+    tasks.withType(GenerateModuleMetadata).configureEach {
+        it.enabled = false
+    }
+
+    pmd {
+        toolVersion '6.35.0'
+        incrementalAnalysis.set(true)
+        ruleSets.clear()
+        ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
+    }
+
+    jar {
+        from "LICENSE"
+
+        exclude "**/*.bat"
+        exclude "**/*.psd"
+        exclude "**/*.ase"
+        exclude "**/*.exe"
+        exclude "**/unused"
+
+        exclude ".cache"
+    }
+
+    spotless {
+        enforceCheck = false // workaround around jenkins having wrong line endings in some files
+        // we explicitly check in github actions builds
+        java {
+            indentWithTabs()
+            eclipse().configFile rootProject.file('spotless/eclipseformat.xml')
+            removeUnusedImports()
+            importOrderFile rootProject.file('spotless/eclipse.importorder')
         }
     }
 }
-
-defaultTasks 'clean', 'checkSyntax', 'build'

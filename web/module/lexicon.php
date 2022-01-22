@@ -6,13 +6,13 @@
 <div class='warning-txt'>
 	<ul>
 		<li>This page is a verbatim copy of the Lexica Botania you can craft ingame by combining a Book with any type of Sapling. It, however, does not contain any recipes or images. Usage of the ingame guide is encouraged.</li>
-		<li>The contents of this page are fed from the <a href="https://github.com/Vazkii/Botania/blob/master/src/main/resources/assets/botania/lang/en_us.json"> bleeding-edge lang file</a> and may be ahead of the Botania version currently out.</li>
+		<li>The contents of this page are fed from the <a href="https://github.com/Vazkii/Botania/blob/master/Common/src/main/resources/assets/botania/lang/en_us.json"> bleeding-edge lang file</a> and may be ahead of the Botania version currently out.</li>
 		<li>This page contains spoilers for unlockables!</li>
 	</ul>
 </div>
 
 <?php
-	$file = file_get_contents("https://raw.githubusercontent.com/Vazkii/Botania/master/src/main/resources/assets/botania/lang/en_us.json");
+	$file = file_get_contents("https://raw.githubusercontent.com/Vazkii/Botania/master/Common/src/main/resources/assets/botania/lang/en_us.json");
 	$json = json_decode($file, true);
 	$default_keys = [
 		'botania_corporea_request' => 'c',
