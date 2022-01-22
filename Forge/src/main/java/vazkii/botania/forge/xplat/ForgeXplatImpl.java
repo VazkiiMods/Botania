@@ -89,6 +89,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
@@ -154,28 +155,25 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Nullable
 	@Override
 	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
 	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		// todo non-be's need some sort of lookaside registry
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.HORN_HARVEST).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HORN_HARVEST, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
 	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		// todo non-be's need some sort of lookaside registry
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
 	public IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		// todo non-be's need some sort of lookaside registry
-		return be != null ? be.getCapability(BotaniaForgeCapabilities.WANDABLE).orElse(null) : null;
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.WANDABLE, level, pos, state, be);
 	}
 
 	@Override
@@ -187,31 +185,45 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
 		return item.getItem().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var result = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var extracted = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					return result.getFluid() == fluid && result.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					if (success) {
+						item.setItem(h.getContainer());
+					}
+					return success;
 				})
 				.orElse(false);
 	}
 
 	@Override
 	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
-		return player.getItemInHand(hand).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+		var stack = player.getItemInHand(hand);
+		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var result = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var extracted = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					return result.getFluid() == fluid && result.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					if (success && !player.getAbilities().instabuild) {
+						player.setItemInHand(hand, h.getContainer());
+					}
+					return success;
 				})
 				.orElse(false);
 	}
 
 	@Override
 	public boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
-		return player.getItemInHand(hand).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+		var stack = player.getItemInHand(hand);
+		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var result = h.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var filled = h.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					return result == FluidAttributes.BUCKET_VOLUME;
+					var success = filled == FluidAttributes.BUCKET_VOLUME;
+					if (success && !player.getAbilities().instabuild) {
+						player.setItemInHand(hand, h.getContainer());
+					}
+					return success;
 				})
 				.orElse(false);
 	}

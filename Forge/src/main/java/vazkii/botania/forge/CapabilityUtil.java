@@ -1,8 +1,13 @@
 package vazkii.botania.forge;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -11,10 +16,13 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 public final class CapabilityUtil {
 	public static <T, U extends T> ICapabilityProvider makeProvider(Capability<T> cap, U instance) {
@@ -22,7 +30,7 @@ public final class CapabilityUtil {
 		return new ICapabilityProvider() {
 			@Nonnull
 			@Override
-			public <C> LazyOptional<C> getCapability(@NotNull Capability<C> queryCap, @Nullable Direction side) {
+			public <C> LazyOptional<C> getCapability(@Nonnull Capability<C> queryCap, @Nullable Direction side) {
 				return cap.orEmpty(queryCap, lazyInstanceButNotReally);
 			}
 		};
@@ -43,6 +51,40 @@ public final class CapabilityUtil {
 		public boolean canDrainFluidType(FluidStack fluid) {
 			return fluid.getFluid() == Fluids.WATER;
 		}
+	}
+
+	public interface Provider<T> {
+		@Nullable
+		T find(Level level, BlockPos pos, BlockState state);
+	}
+
+	private static final Map<Capability<?>, Map<Block, Provider<?>>> BLOCK_LOOKASIDE = new IdentityHashMap<>();
+
+	public static <T> void registerBlockLookaside(Capability<T> cap, Provider<T> provider, Block... blocks) {
+		var inner = BLOCK_LOOKASIDE.computeIfAbsent(cap, k -> new HashMap<>());
+		for (var block : blocks) {
+			inner.put(block, provider);
+		}
+	}
+
+	@Nullable
+	public static <T> T findCapability(Capability<T> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		if (be != null) {
+			var instance = be.getCapability(capability);
+			if (instance.isPresent()) {
+				return instance.orElseThrow(NullPointerException::new);
+			}
+		}
+
+		var provider = BLOCK_LOOKASIDE.getOrDefault(capability, Collections.emptyMap())
+				.get(state.getBlock());
+		if (provider != null) {
+			@SuppressWarnings("unchecked") // provider was typechecked on register
+			T instance = (T) provider.find(level, pos, state);
+			return instance;
+		}
+
+		return null;
 	}
 
 	private CapabilityUtil() {}

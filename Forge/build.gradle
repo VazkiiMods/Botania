@@ -54,7 +54,6 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
-            args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
             mods {
                 botania {
                     source sourceSets.main
@@ -68,7 +67,6 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'fml.earlyprogresswindow', 'false'
             ideaModule "${rootProject.name}.${project.name}.main"
-            args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
             mods {
                 botania {
                     source sourceSets.main
@@ -95,7 +93,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-39.0.5"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-39.0.58"
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
@@ -107,12 +105,6 @@ dependencies {
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1")
-
-    afterEvaluate { // TODO: Remove when Forge updates modlauncher
-        minecraft('cpw.mods:modlauncher:9.0.24') {
-            force = true
-        }
-    }
 }
 
 compileJava {
@@ -134,10 +126,6 @@ processResources {
 
     // Exclude datagenerator .cache directory
     exclude '.cache'
-
-    filesMatching('*.mixins.json') {
-        expand "refmap_target": "botania."
-    }
 }
 jar {
     manifest {

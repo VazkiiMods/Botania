@@ -10,6 +10,8 @@ if (System.getenv().RELEASE_MODE == null) {
 
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")
+    mixin.defaultRefmapName = "botania.refmap.json"
+
     runs {
         gameTest {
             server()
@@ -142,11 +144,5 @@ processResources {
         filter {
             it.replaceAll("buildNumber", build_number)
         }
-    }
-
-    filesMatching("*.mixins.json") {
-        // In Fabric, all refmaps are merged together and the refmap name is pre-set by Loom
-        // Make sure everyone uses that name
-        expand "refmap_target": archivesBaseName + "-"
     }
 }

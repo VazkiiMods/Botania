@@ -92,7 +92,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 			if (dir.getAxis() != Direction.Axis.Y) {
 				BlockPos pos = hit.getBlockPos().relative(dir);
 				boolean first = true;
-				while (pos.getY() > 0) {
+				while (pos.getY() > level.dimensionType().minY()) {
 					BlockState state = level.getBlockState(pos);
 					if (state.isAir()) {
 						BlockState stateSet = ModBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);

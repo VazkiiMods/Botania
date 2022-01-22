@@ -55,10 +55,16 @@ public class ForgePacketHandler {
 	}
 
 	private static <T> BiConsumer<T, Supplier<NetworkEvent.Context>> makeServerBoundHandler(TriConsumer<T, MinecraftServer, ServerPlayer> handler) {
-		return (m, ctx) -> handler.accept(m, ctx.get().getSender().getServer(), ctx.get().getSender());
+		return (m, ctx) -> {
+			handler.accept(m, ctx.get().getSender().getServer(), ctx.get().getSender());
+			ctx.get().setPacketHandled(true);
+		};
 	}
 
 	private static <T> BiConsumer<T, Supplier<NetworkEvent.Context>> makeClientBoundHandler(Consumer<T> consumer) {
-		return (m, _ctx) -> consumer.accept(m);
+		return (m, ctx) -> {
+			consumer.accept(m);
+			ctx.get().setPacketHandled(true);
+		};
 	}
 }

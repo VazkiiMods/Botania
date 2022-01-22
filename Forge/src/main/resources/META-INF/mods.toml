@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="[39,)"
 license="Botania License"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues"
 logoFile="logo.png"
@@ -19,17 +19,17 @@ configBackground="botania:textures/block/livingrock_bricks.png" # background for
 [[dependencies.botania]]
     modId="forge"
     mandatory=true
-    versionRange="[36.1.52,)"
+    versionRange="[39.0.44,)"
 
 [[dependencies.botania]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.16.4-48,)"
+    versionRange="[1.18.1-64,)"
 
 [[dependencies.botania]]
     modId="curios"
     mandatory=true
-    versionRange="[1.16.4-4.0.3.5,)"
+    versionRange="[1.18.1-5.0.5.1,)"
 
 [[dependencies.botania]]
     modId="gardenofglass"

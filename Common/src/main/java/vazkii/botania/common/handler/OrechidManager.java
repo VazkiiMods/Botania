@@ -9,7 +9,7 @@
 package vazkii.botania.common.handler;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.ListMultimap;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
@@ -28,7 +28,7 @@ import java.util.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class OrechidManager implements ResourceManagerReloadListener {
-	private static final Map<RecipeType<? extends IOrechidRecipe>, Multimap<Block, ? extends IOrechidRecipe>> DATA = new HashMap<>();
+	private static final Map<RecipeType<? extends IOrechidRecipe>, ListMultimap<Block, ? extends IOrechidRecipe>> DATA = new HashMap<>();
 
 	public static void registerListener() {
 		IXplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("orechid"), new OrechidManager());
@@ -39,10 +39,10 @@ public class OrechidManager implements ResourceManagerReloadListener {
 		DATA.clear();
 	}
 
-	public static Multimap<Block, ? extends IOrechidRecipe> getFor(MinecraftServer server,
+	public static ListMultimap<Block, ? extends IOrechidRecipe> getFor(MinecraftServer server,
 			RecipeType<? extends IOrechidRecipe> type) {
 		return DATA.computeIfAbsent(type, t -> {
-			Multimap<Block, IOrechidRecipe> map = ArrayListMultimap.create();
+			ListMultimap<Block, IOrechidRecipe> map = ArrayListMultimap.create();
 			for (var recipe : server.getRecipeManager().getAllRecipesFor(t)) {
 				map.put(recipe.getInput(), recipe);
 			}
