@@ -128,10 +128,6 @@ processResources {
 
     // Exclude datagenerator .cache directory
     exclude '.cache'
-
-    filesMatching('*.mixins.json') {
-        expand "refmap_target": "botania."
-    }
 }
 jar {
     manifest {
