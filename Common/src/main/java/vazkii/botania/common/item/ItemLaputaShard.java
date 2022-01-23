@@ -99,7 +99,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		if (!world.isClientSide && pos.getY() < 160 && !world.dimensionType().ultraWarm()) {
+		if (!world.isClientSide && pos.getY() < world.getMaxBuildHeight() - BASE_OFFSET && !world.dimensionType().hasCeiling()) {
 			world.playSound(null, pos, ModSounds.laputaStart, SoundSource.BLOCKS, 1.0F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = ctx.getItemInHand();
 			spawnFirstBurst(world, pos, stack);
