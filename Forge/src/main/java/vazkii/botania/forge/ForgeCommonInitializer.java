@@ -79,6 +79,7 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.*;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
@@ -97,6 +98,7 @@ import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -133,6 +135,7 @@ public class ForgeCommonInitializer {
 
 		OrechidManager.registerListener();
 		TileCraftCrate.registerListener();
+		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
 	}
 
 	private void coreInit() {
