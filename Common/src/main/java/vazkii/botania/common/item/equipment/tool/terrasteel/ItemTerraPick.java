@@ -289,8 +289,17 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return true;
 	}
 
+	@SoftImplement("IForgeItem")
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return reequipAnimation(oldStack, newStack);
+	}
+
 	@SoftImplement("FabricItem")
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack before, ItemStack after) {
+		return reequipAnimation(before, after);
+	}
+
+	private boolean reequipAnimation(ItemStack before, ItemStack after) {
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
 

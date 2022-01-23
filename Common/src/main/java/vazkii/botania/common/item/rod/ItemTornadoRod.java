@@ -240,9 +240,18 @@ public class ItemTornadoRod extends Item {
 		}
 	}
 
+	@SoftImplement("IForgeItem")
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		return reequipAnimation(oldStack, newStack);
+	}
+
 	@SoftImplement("FabricItem")
 	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
-		return !newStack.is(this) || isFlying(oldStack) != isFlying(newStack);
+		return reequipAnimation(oldStack, newStack);
+	}
+
+	private boolean reequipAnimation(ItemStack before, ItemStack after) {
+		return !before.is(this) || isFlying(before) != isFlying(after);
 	}
 
 }
