@@ -23,11 +23,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
-import vazkii.botania.common.components.EntityComponents;
-import vazkii.botania.common.components.GhostRailComponent;
-import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.internal_caps.GhostRailComponent;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;

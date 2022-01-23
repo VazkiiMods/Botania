@@ -161,10 +161,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
 
-		for (DyeColor color : DyeColor.values()) {
-			this.tag(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
-		}
-
 		tag(BlockTags.PLANKS).add(livingwoodPlanks, livingwoodPlanksMossy, livingwoodFramed, livingwoodPatternFramed,
 				dreamwoodPlanks, dreamwoodPlanksMossy, dreamwoodFramed, dreamwoodPatternFramed, shimmerwoodPlanks);
 
@@ -183,11 +179,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(ModTags.Blocks.GHOST_RAIL_BARRIER).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
 
-		tag(new TagDelegate<>(new ResourceLocation("buzzier_bees:flower_blacklist"), BlockTags::getAllTags))
-				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
-				.addTag(ModTags.Blocks.SPECIAL_FLOWERS);
-
-		registerCommonTags();
 		registerMiningTags();
 	}
 

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -38,7 +37,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.api.block.IPetalApothecary;
@@ -58,10 +56,10 @@ import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockWithSpecialRenderer;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.AccessorDispenserBlock;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
-import java.util.*;
 import java.util.Locale;
 import java.util.function.BiConsumer;
 
@@ -70,8 +68,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public final class ModBlocks {
 	private static final BlockBehaviour.StateArgumentPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
 	private static final BlockBehaviour.StatePredicate NO_SUFFOCATION = (state, world, pos) -> false;
-
-	private static final Map<Block, Block> CUSTOM_STRIPPING = new LinkedHashMap<>();
 
 	public static final Block whiteFlower = new BlockModFlower(DyeColor.WHITE, BlockBehaviour.Properties.of(Material.PLANT).noCollission().strength(0).sound(SoundType.GRASS));
 	public static final Block orangeFlower = new BlockModFlower(DyeColor.ORANGE, BlockBehaviour.Properties.copy(whiteFlower));
@@ -947,33 +943,22 @@ public final class ModBlocks {
 	}
 
 	public static void addAxeStripping() {
-		StrippableBlockRegistry.register(livingwoodLog, livingwoodLogStripped);
-		StrippableBlockRegistry.register(livingwoodLogGlimmering, livingwoodLogStrippedGlimmering);
-		StrippableBlockRegistry.register(livingwood, livingwoodStripped);
-		StrippableBlockRegistry.register(livingwoodGlimmering, livingwoodStrippedGlimmering);
-		StrippableBlockRegistry.register(dreamwoodLog, dreamwoodLogStripped);
-		StrippableBlockRegistry.register(dreamwoodLogGlimmering, dreamwoodLogStrippedGlimmering);
-		StrippableBlockRegistry.register(dreamwood, dreamwoodStripped);
-		StrippableBlockRegistry.register(dreamwoodGlimmering, dreamwoodStrippedGlimmering);
+		IXplatAbstractions xplat = IXplatAbstractions.INSTANCE;
+		xplat.addAxeStripping(livingwoodLog, livingwoodLogStripped);
+		xplat.addAxeStripping(livingwoodLogGlimmering, livingwoodLogStrippedGlimmering);
+		xplat.addAxeStripping(livingwood, livingwoodStripped);
+		xplat.addAxeStripping(livingwoodGlimmering, livingwoodStrippedGlimmering);
+		xplat.addAxeStripping(dreamwoodLog, dreamwoodLogStripped);
+		xplat.addAxeStripping(dreamwoodLogGlimmering, dreamwoodLogStrippedGlimmering);
+		xplat.addAxeStripping(dreamwood, dreamwoodStripped);
+		xplat.addAxeStripping(dreamwoodGlimmering, dreamwoodStrippedGlimmering);
 
-		CUSTOM_STRIPPING.put(ModFluffBlocks.livingwoodStairs, ModFluffBlocks.livingwoodStrippedStairs);
-		CUSTOM_STRIPPING.put(ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodStrippedSlab);
-		CUSTOM_STRIPPING.put(ModFluffBlocks.livingwoodWall, ModFluffBlocks.livingwoodStrippedWall);
-		CUSTOM_STRIPPING.put(ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodStrippedStairs);
-		CUSTOM_STRIPPING.put(ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.dreamwoodStrippedSlab);
-		CUSTOM_STRIPPING.put(ModFluffBlocks.dreamwoodWall, ModFluffBlocks.dreamwoodStrippedWall);
-	}
-
-	public static Map<Block, Block> getCustomStripping() {
-		return Collections.unmodifiableMap(CUSTOM_STRIPPING);
-	}
-
-	public static BlockState getStrippedBlock(BlockState state) {
-		Block block = CUSTOM_STRIPPING.get(state.getBlock());
-		if (block == null) {
-			return null;
-		}
-		return block.withPropertiesOf(state);
+		xplat.addAxeStripping(ModFluffBlocks.livingwoodStairs, ModFluffBlocks.livingwoodStrippedStairs);
+		xplat.addAxeStripping(ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodStrippedSlab);
+		xplat.addAxeStripping(ModFluffBlocks.livingwoodWall, ModFluffBlocks.livingwoodStrippedWall);
+		xplat.addAxeStripping(ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodStrippedStairs);
+		xplat.addAxeStripping(ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.dreamwoodStrippedSlab);
+		xplat.addAxeStripping(ModFluffBlocks.dreamwoodWall, ModFluffBlocks.dreamwoodStrippedWall);
 	}
 
 	public static Block getFlower(DyeColor color) {

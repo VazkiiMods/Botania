@@ -48,7 +48,7 @@ import vazkii.botania.common.block.decor.BlockMotifFlower;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.string.BlockRedString;
-import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorBlockModelGenerators;

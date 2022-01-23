@@ -163,6 +163,7 @@ public interface IXplatAbstractions {
 	void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path);
 	int getSmeltingBurnTime(ItemStack stack);
 	boolean preventsRemoteMovement(ItemEntity entity);
+	void addAxeStripping(Block input, Block output);
 
 	IXplatAbstractions INSTANCE = find();
 

@@ -41,10 +41,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.*;
@@ -53,6 +53,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 import javax.annotation.Nullable;
 
@@ -143,7 +144,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipeTerraPlate.class, TerraPlateREIDisplay::new);
 
 		try {
-			for (var entry : ModBlocks.getCustomStripping().entrySet()) {
+			for (var entry : FabricXplatImpl.CUSTOM_STRIPPING.entrySet()) {
 				helper.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
 			}
 		} catch (Exception e) {
