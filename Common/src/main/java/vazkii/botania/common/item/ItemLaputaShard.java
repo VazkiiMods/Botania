@@ -107,9 +107,10 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) ctx.getPlayer(), stack, (ServerLevel) world, pos.getX(), pos.getY(), pos.getZ());
 			}
 			stack.shrink(1);
+			return InteractionResult.SUCCESS;
 		}
 
-		return InteractionResult.SUCCESS;
+		return InteractionResult.PASS;
 	}
 
 	private int getRange(ItemStack shard) {
