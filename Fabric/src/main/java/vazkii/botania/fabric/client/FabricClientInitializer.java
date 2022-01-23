@@ -31,8 +31,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
@@ -51,15 +49,8 @@ import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.*;
-import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
-import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
-import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
-import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.block.tile.mana.TilePrism;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
-import vazkii.botania.common.block.tile.mana.TileTurntable;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.lib.LibMisc;
@@ -131,31 +122,8 @@ public class FabricClientInitializer implements ClientModInitializer {
 	}
 
 	private static void registerCapabilities() {
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileAnimatedTorch.WandHud((TileAnimatedTorch) be), ModTiles.ANIMATED_TORCH);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileBrewery.WandHud((TileBrewery) be), ModTiles.BREWERY);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileCorporeaRetainer.WandHud((TileCorporeaRetainer) be), ModTiles.CORPOREA_RETAINER);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileCraftCrate.WandHud((TileCraftCrate) be), ModTiles.CRAFT_CRATE);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileEnchanter.WandHud((TileEnchanter) be), ModTiles.ENCHANTER);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileHourglass.WandHud((TileHourglass) be), ModTiles.HOURGLASS);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TilePool.WandHud((TilePool) be), ModTiles.POOL);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TilePrism.WandHud((TilePrism) be), ModTiles.PRISM);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileSpreader.WandHud((TileSpreader) be), ModTiles.SPREADER);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileTurntable.WandHud((TileTurntable) be), ModTiles.TURNTABLE);
-
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileEntityGeneratingFlower.GeneratingWandHud<>((TileEntityGeneratingFlower) be),
-				HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,
-				DANDELIFEON, RAFFLOWSIA, SHULK_ME_NOT);
-
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileHopperhock.WandHud((SubTileHopperhock) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new SubTileRannuncarpus.WandHud((SubTileRannuncarpus) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
-		BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> new TileEntityFunctionalFlower.FunctionalWandHud<>((TileEntityFunctionalFlower) be),
-				BELLETHORNE, BELLETHORNE_CHIBI, BERGAMUTE, DREADTHORN, HEISEI_DREAM, TIGERSEYE,
-				JADED_AMARANTHUS, ORECHID, FALLEN_KANADE, EXOFLAME, AGRICARNATION, AGRICARNATION_CHIBI,
-				TANGLEBERRIE, TANGLEBERRIE_CHIBI, JIYUULIA, JIYUULIA_CHIBI, HYACIDUS, POLLIDISIAC,
-				CLAYCONIA, CLAYCONIA_CHIBI, LOONIUM, DAFFOMILL, VINCULOTUS, SPECTRANTHEMUM, MEDUMONE,
-				MARIMORPHOSIS, MARIMORPHOSIS_CHIBI, BUBBELL, BUBBELL_CHIBI, SOLEGNOLIA, SOLEGNOLIA_CHIBI,
-				ORECHID_IGNEM, LABELLIA);
+		ModTiles.registerWandHudCaps((factory, types) -> BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> factory.apply(be), types));
+		ModSubtiles.registerWandHudCaps((factory, types) -> BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> factory.apply(be), types));
 	}
 
 	private static void registerArmors() {
