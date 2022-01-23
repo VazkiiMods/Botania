@@ -522,7 +522,6 @@ public final class ModBlocks {
 		r.accept(dreamwoodPlanksMossy, prefix(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY));
 		r.accept(dreamwoodFramed, prefix(LibBlockNames.DREAM_WOOD_FRAMED));
 		r.accept(dreamwoodPatternFramed, prefix(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED));
-		r.accept(dreamwoodGlimmering, prefix(LibBlockNames.DREAM_WOOD_GLIMMERING));
 		r.accept(manaSpreader, prefix(LibBlockNames.SPREADER));
 		r.accept(redstoneSpreader, prefix(LibBlockNames.SPREADER_REDSTONE));
 		r.accept(elvenSpreader, prefix(LibBlockNames.SPREADER_ELVEN));
