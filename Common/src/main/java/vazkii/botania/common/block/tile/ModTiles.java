@@ -11,8 +11,10 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.*;
 import vazkii.botania.common.block.tile.mana.*;
@@ -22,6 +24,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -134,5 +137,22 @@ public class ModTiles {
 		r.accept(TERU_TERU_BOZU, prefix(LibBlockNames.TERU_TERU_BOZU));
 		r.accept(AVATAR, prefix(LibBlockNames.AVATAR));
 		r.accept(ANIMATED_TORCH, prefix(LibBlockNames.ANIMATED_TORCH));
+	}
+
+	public interface BECapConsumer<T> {
+		void accept(Function<BlockEntity, T> factory, BlockEntityType<?>... types);
+	}
+
+	public static void registerWandHudCaps(BECapConsumer<IWandHUD> consumer) {
+		consumer.accept(be -> new TileAnimatedTorch.WandHud((TileAnimatedTorch) be), ModTiles.ANIMATED_TORCH);
+		consumer.accept(be -> new TileBrewery.WandHud((TileBrewery) be), ModTiles.BREWERY);
+		consumer.accept(be -> new TileCorporeaRetainer.WandHud((TileCorporeaRetainer) be), ModTiles.CORPOREA_RETAINER);
+		consumer.accept(be -> new TileCraftCrate.WandHud((TileCraftCrate) be), ModTiles.CRAFT_CRATE);
+		consumer.accept(be -> new TileEnchanter.WandHud((TileEnchanter) be), ModTiles.ENCHANTER);
+		consumer.accept(be -> new TileHourglass.WandHud((TileHourglass) be), ModTiles.HOURGLASS);
+		consumer.accept(be -> new TilePool.WandHud((TilePool) be), ModTiles.POOL);
+		consumer.accept(be -> new TilePrism.WandHud((TilePrism) be), ModTiles.PRISM);
+		consumer.accept(be -> new TileSpreader.WandHud((TileSpreader) be), ModTiles.SPREADER);
+		consumer.accept(be -> new TileTurntable.WandHud((TileTurntable) be), ModTiles.TURNTABLE);
 	}
 }

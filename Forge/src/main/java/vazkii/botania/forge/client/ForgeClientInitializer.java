@@ -1,5 +1,6 @@
 package vazkii.botania.forge.client;
 
+import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 
 import net.minecraft.client.Minecraft;
@@ -12,6 +13,8 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -19,6 +22,7 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,6 +31,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaForgeClientCapabilities;
+import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
@@ -44,16 +50,25 @@ import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.client.render.world.WorldOverlays;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.mixin.client.ForgeAccessorModelBakery;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod.EventBusSubscriber(modid = BotaniaAPI.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
@@ -95,6 +110,32 @@ public class ForgeClientInitializer {
 		MinecraftForgeClient.registerTooltipComponentFactory(ManaBarTooltip.class, ManaBarTooltipComponent::new);
 		ClientProxy.initSeasonal();
 		ClientProxy.initKeybindings(ClientRegistry::registerKeyBinding);
+		MinecraftForge.EVENT_BUS.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
+	}
+
+	private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, IWandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
+		var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, IWandHUD>>();
+		ModTiles.registerWandHudCaps((factory, types) -> {
+			for (var type : types) {
+				ret.put(type, factory);
+			}
+		});
+		ModSubtiles.registerWandHudCaps((factory, types) -> {
+			for (var type : types) {
+				ret.put(type, factory);
+			}
+		});
+		return Collections.unmodifiableMap(ret);
+	});
+
+	private static void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
+		var be = e.getObject();
+
+		var makeWandHud = WAND_HUD.get().get(be.getType());
+		if (makeWandHud != null) {
+			e.addCapability(prefix("wand_hud"),
+					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(be)));
+		}
 	}
 
 	@SubscribeEvent

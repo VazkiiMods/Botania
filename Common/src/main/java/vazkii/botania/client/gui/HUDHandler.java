@@ -349,6 +349,10 @@ public final class HUDHandler {
 		mc.getItemRenderer().renderAndDecorateItem(bindDisplay, x, y);
 
 		RenderSystem.disableDepthTest();
+		ms.pushPose();
+		// renderAndDecorateItem draws at blitOffset + 50, + 200 (further down the call stack).
+		// We want the checkmark on top of that. yeah these numbers are pretty arbitrary and dumb
+		ms.translate(0, 0, mc.getItemRenderer().blitOffset + 50 + 200 + 1);
 		if (properlyBound) {
 			mc.font.drawShadow(ms, "\u2714", x + 10, y + 9, 0x004C00);
 			mc.font.drawShadow(ms, "\u2714", x + 10, y + 8, 0x0BD20D);
@@ -356,6 +360,7 @@ public final class HUDHandler {
 			mc.font.drawShadow(ms, "\u2718", x + 10, y + 9, 0x4C0000);
 			mc.font.drawShadow(ms, "\u2718", x + 10, y + 8, 0xD2080D);
 		}
+		ms.popPose();
 		RenderSystem.enableDepthTest();
 	}
 

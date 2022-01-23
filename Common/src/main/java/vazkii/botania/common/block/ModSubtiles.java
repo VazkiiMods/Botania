@@ -17,10 +17,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.*;
 import vazkii.botania.common.block.subtile.generating.*;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -595,5 +599,22 @@ public class ModSubtiles {
 		r.accept(SOLEGNOLIA_CHIBI, getId(solegnoliaChibi));
 		r.accept(ORECHID_IGNEM, getId(orechidIgnem));
 		r.accept(LABELLIA, getId(labellia));
+	}
+
+	public static void registerWandHudCaps(ModTiles.BECapConsumer<IWandHUD> consumer) {
+		consumer.accept(be -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);
+		consumer.accept(be -> new TileEntityGeneratingFlower.GeneratingWandHud<>((TileEntityGeneratingFlower) be),
+				HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,
+				DANDELIFEON, RAFFLOWSIA, SHULK_ME_NOT);
+
+		consumer.accept(be -> new SubTileHopperhock.WandHud((SubTileHopperhock) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
+		consumer.accept(be -> new SubTileRannuncarpus.WandHud((SubTileRannuncarpus) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
+		consumer.accept(be -> new TileEntityFunctionalFlower.FunctionalWandHud<>((TileEntityFunctionalFlower) be),
+				BELLETHORNE, BELLETHORNE_CHIBI, BERGAMUTE, DREADTHORN, HEISEI_DREAM, TIGERSEYE,
+				JADED_AMARANTHUS, ORECHID, FALLEN_KANADE, EXOFLAME, AGRICARNATION, AGRICARNATION_CHIBI,
+				TANGLEBERRIE, TANGLEBERRIE_CHIBI, JIYUULIA, JIYUULIA_CHIBI, HYACIDUS, POLLIDISIAC,
+				CLAYCONIA, CLAYCONIA_CHIBI, LOONIUM, DAFFOMILL, VINCULOTUS, SPECTRANTHEMUM, MEDUMONE,
+				MARIMORPHOSIS, MARIMORPHOSIS_CHIBI, BUBBELL, BUBBELL_CHIBI, SOLEGNOLIA, SOLEGNOLIA_CHIBI,
+				ORECHID_IGNEM, LABELLIA);
 	}
 }

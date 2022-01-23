@@ -7,12 +7,12 @@
     "ForgeAccessorRegistry",
     "ForgeAccessorAbstractFurnaceBlockEntity",
     "ForgeAccessorRecipeProvider",
-    "ForgeMixinForCaps",
     "ForgeMixinRecipeSerializerBase"
   ],
   "client": [
     "client.ForgeAccessorModelBakery",
-    "client.ForgeMixinItemBlockWithSpecialRenderer"
+    "client.ForgeMixinItemBlockWithSpecialRenderer",
+    "client.ForgeMixinItemManasteelArmor"
   ],
   "injectors": {
     "defaultRequire": 1
