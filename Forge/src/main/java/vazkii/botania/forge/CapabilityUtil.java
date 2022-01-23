@@ -67,6 +67,7 @@ public final class CapabilityUtil {
 		}
 	}
 
+	// todo this might need to be exposed in the API
 	@Nullable
 	public static <T> T findCapability(Capability<T> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		if (be != null) {

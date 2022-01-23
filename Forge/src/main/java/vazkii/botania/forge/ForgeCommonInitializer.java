@@ -1,6 +1,7 @@
 package vazkii.botania.forge;
 
 import com.google.common.base.Suppliers;
+import com.google.common.collect.ImmutableSet;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.commands.CommandSourceStack;
@@ -16,12 +17,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.*;
@@ -49,6 +53,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
@@ -56,6 +61,7 @@ import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.ModCriteriaTriggers;
+import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -64,11 +70,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
-import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.block.tile.TileCraftCrate;
-import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
@@ -78,6 +80,7 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.*;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
+import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
@@ -102,7 +105,9 @@ import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -379,8 +384,21 @@ public class ForgeCommonInitializer {
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
-		// todo the rest
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
+				Arrays.stream(DyeColor.values()).map(ModBlocks::getMushroom).toArray(Block[]::new));
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
+				Arrays.stream(DyeColor.values()).map(ModBlocks::getShinyFlower).toArray(Block[]::new));
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.WANDABLE,
+				(world, pos, state) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
+				ModBlocks.pistonRelay);
 	}
+
+	private static final Supplier<Set<BlockEntityType<?>>> SELF_WANDADBLE_BES = Suppliers.memoize(() -> ImmutableSet.of(ModTiles.ALF_PORTAL, ModTiles.ANIMATED_TORCH, ModTiles.CORPOREA_CRYSTAL_CUBE, ModTiles.CORPOREA_RETAINER,
+			ModTiles.CRAFT_CRATE, ModTiles.ENCHANTER, ModTiles.HOURGLASS, ModTiles.PLATFORM, ModTiles.POOL,
+			ModTiles.RUNE_ALTAR, ModTiles.SPREADER, ModTiles.TURNTABLE,
+			ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
+			ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI)
+	);
 
 	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
 		var be = e.getObject();
@@ -389,7 +407,16 @@ public class ForgeCommonInitializer {
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.EXOFLAME_HEATABLE,
 							new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
 		}
-		// todo the rest
+
+		if (be.getType() == ModTiles.ANIMATED_TORCH) {
+			e.addCapability(prefix("hourglass_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.HOURGLASS_TRIGGER,
+					hourglass -> ((TileAnimatedTorch) be).toggle()));
+		}
+
+		if (SELF_WANDADBLE_BES.get().contains(be.getType())) {
+			e.addCapability(prefix("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
+					(IWandable) be));
+		}
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {
