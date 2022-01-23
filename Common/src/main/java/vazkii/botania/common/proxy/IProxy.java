@@ -27,7 +27,6 @@ public interface IProxy {
 	IProxy INSTANCE = make();
 
 	private static IProxy make() {
-		// todo check this in prod
 		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
 			return new ClientProxy();
 		} else {

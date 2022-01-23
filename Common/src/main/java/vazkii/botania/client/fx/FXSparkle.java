@@ -160,9 +160,6 @@ public class FXSparkle extends TextureSheetParticle {
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-		// todo 1.17 needed?
-		// RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-		// RenderSystem.disableLighting();
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		IClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
