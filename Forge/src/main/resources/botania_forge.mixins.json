@@ -7,7 +7,6 @@
     "ForgeAccessorRegistry",
     "ForgeAccessorAbstractFurnaceBlockEntity",
     "ForgeAccessorRecipeProvider",
-    "ForgeMixinForCaps",
     "ForgeMixinRecipeSerializerBase"
   ],
   "client": [

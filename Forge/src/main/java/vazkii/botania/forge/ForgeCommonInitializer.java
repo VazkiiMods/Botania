@@ -81,10 +81,7 @@ import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
-import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
-import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
@@ -99,6 +96,7 @@ import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
+import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -348,6 +346,16 @@ public class ForgeCommonInitializer {
 
 	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
 		var stack = e.getObject();
+
+		if (stack.getItem() instanceof ItemBauble
+				&& EquipmentHandler.instance instanceof CurioIntegration ci) {
+			e.addCapability(prefix("curio"), ci.initCapability(stack));
+		}
+
+		if (stack.is(ModItems.waterBowl)) {
+			e.addCapability(prefix("water_bowl"), new CapabilityUtil.WaterBowlFluidHandler(stack));
+		}
+
 		var makeAvatarWieldable = AVATAR_WIELDABLES.get().get(stack.getItem());
 		if (makeAvatarWieldable != null) {
 			e.addCapability(prefix("avatar_wieldable"),
