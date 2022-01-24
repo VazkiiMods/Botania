@@ -20,6 +20,7 @@ public class ForgeDatagenInitializer {
 			generator.addProvider(blockTagProvider);
 			generator.addProvider(new ForgeItemTagProvider(generator, blockTagProvider, disabledHelper));
 			generator.addProvider(new ForgeRecipeProvider(generator));
+			generator.addProvider(new ForgeBlockLootProvider(generator));
 		}
 	}
 }
