@@ -57,11 +57,11 @@ public class BlockPistonRelay extends BlockMod {
 			var data = WorldData.get(world);
 
 			if (isMoving && newState.is(Blocks.MOVING_PISTON)) {
-				var direction = newState.getValue(MovingPistonBlock.FACING);
+				var moveDirection = newState.getValue(MovingPistonBlock.FACING);
 
 				var destPos = data.mapping.get(pos);
 				if (destPos != null) {
-					BlockPos newSrcPos = pos.relative(direction);
+					BlockPos newSrcPos = pos.relative(moveDirection);
 
 					{
 						// Move source side of our binding along
@@ -72,9 +72,9 @@ public class BlockPistonRelay extends BlockMod {
 
 					if (newState.getValue(MovingPistonBlock.TYPE) == PistonType.DEFAULT) {
 						// Move the actual bound blocks
-						LensPiston.moveBlocks(world, destPos.relative(direction.getOpposite()), direction);
+						LensPiston.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection);
 						// Move dest side of our binding
-						data.mapping.put(newSrcPos, data.mapping.get(newSrcPos).relative(direction));
+						data.mapping.put(newSrcPos, data.mapping.get(newSrcPos).relative(moveDirection));
 					}
 				}
 			} else {
@@ -121,6 +121,7 @@ public class BlockPistonRelay extends BlockMod {
 
 		private static final String ID = "PistonRelayPairs";
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
+		public final Map<BlockPos, Integer> scheduled = new HashMap<>();
 
 		public WorldData(@Nonnull CompoundTag cmp) {
 			ListTag list = cmp.getList("list", 11);

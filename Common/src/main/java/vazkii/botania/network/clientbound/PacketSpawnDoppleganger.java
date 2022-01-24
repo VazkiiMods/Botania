@@ -9,7 +9,6 @@
 package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
@@ -61,7 +60,7 @@ public record PacketSpawnDoppleganger(ClientboundAddMobPacket inner, int playerC
 			UUID bossInfoUuid = packet.bossInfoId();
 
 			Minecraft.getInstance().execute(() -> {
-				LocalPlayer player = Minecraft.getInstance().player;
+				var player = Minecraft.getInstance().player;
 				if (player != null) {
 					player.connection.handleAddMob(inner);
 					Entity e = player.level.getEntity(inner.getId());
