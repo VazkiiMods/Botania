@@ -26,7 +26,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
