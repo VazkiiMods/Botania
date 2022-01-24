@@ -304,6 +304,7 @@ public final class ModItems {
 	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(/*ModPatterns.SPARK_ISOLATED, */defaultBuilder(), SparkUpgradeType.ISOLATED);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
+	public static final Item corporeaSparkCreative = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item blackerLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.EPIC));
 	public static final Item worldSeed = new ItemWorldSeed(defaultBuilder());
@@ -630,6 +631,7 @@ public final class ModItems {
 		r.accept(sparkUpgradeIsolated, prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT)));
 		r.accept(corporeaSpark, prefix(LibItemNames.CORPOREA_SPARK));
 		r.accept(corporeaSparkMaster, prefix(LibItemNames.CORPOREA_SPARK_MASTER));
+		r.accept(corporeaSparkCreative, prefix(LibItemNames.CORPOREA_SPARK_CREATIVE));
 		r.accept(blackLotus, prefix(LibItemNames.BLACK_LOTUS));
 		r.accept(blackerLotus, prefix(LibItemNames.BLACKER_LOTUS));
 		r.accept(worldSeed, prefix(LibItemNames.WORLD_SEED));

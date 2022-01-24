@@ -8,10 +8,14 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
@@ -22,6 +26,9 @@ import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import java.util.List;
 
 public class ItemCorporeaSpark extends Item {
 
@@ -45,6 +52,9 @@ public class ItemCorporeaSpark extends Item {
 		if (stack.is(ModItems.corporeaSparkMaster)) {
 			spark.setMaster(true);
 		}
+		if (stack.is(ModItems.corporeaSparkCreative)) {
+			spark.setCreative(true);
+		}
 		spark.setPos(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
 
 		if (canPlace(world, spark) && !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
@@ -55,5 +65,12 @@ public class ItemCorporeaSpark extends Item {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
+		if (stack.is(ModItems.corporeaSparkCreative)) {
+			tooltip.add(new TranslatableComponent("botaniamisc.creativeSpark").withStyle(ChatFormatting.GRAY));
+		}
 	}
 }

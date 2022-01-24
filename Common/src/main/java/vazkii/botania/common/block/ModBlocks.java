@@ -880,6 +880,7 @@ public final class ModBlocks {
 		DispenseItemBehavior behavior = new BehaviourCorporeaSpark();
 		DispenserBlock.registerBehavior(ModItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(ModItems.corporeaSparkMaster, behavior);
+		DispenserBlock.registerBehavior(ModItems.corporeaSparkCreative, behavior);
 		DispenserBlock.registerBehavior(ModItems.enderAirBottle, new AbstractProjectileDispenseBehavior() {
 			@Nonnull
 			@Override
