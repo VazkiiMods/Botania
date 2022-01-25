@@ -3,12 +3,17 @@ package vazkii.botania.forge.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
@@ -26,6 +31,17 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 
 	public ForgePlatformModel(BakedModel originalModel) {
 		super(originalModel);
+	}
+
+	@NotNull
+	@Override
+	public IModelData getModelData(@NotNull BlockAndTintGetter world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull IModelData tileData) {
+		if (world.getBlockEntity(pos) instanceof TilePlatform platform) {
+			return new ModelDataMap.Builder()
+					.withInitial(PROPERTY, new TilePlatform.PlatformData(platform))
+					.build();
+		}
+		return tileData;
 	}
 
 	@Nonnull
@@ -50,7 +66,7 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 
 			BakedModel model = Minecraft.getInstance().getBlockRenderer()
 					.getBlockModelShaper().getBlockModel(heldState);
-			return model.getQuads(state, side, rand, EmptyModelData.INSTANCE);
+			return model.getQuads(heldState, side, rand, EmptyModelData.INSTANCE);
 		}
 	}
 }
