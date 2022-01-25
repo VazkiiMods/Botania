@@ -10,6 +10,7 @@ package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.protocol.game.ClientboundLevelEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -22,6 +23,8 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -94,6 +97,8 @@ public final class ToolCommons {
 		if (!world.isClientSide && !unminable && filter.test(blockstate) && !blockstate.isAir()) {
 			ItemStack save = player.getMainHandItem();
 			player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+			((ServerPlayer) player).connection.send(
+					new ClientboundLevelEventPacket(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(blockstate), false));
 			((ServerPlayer) player).gameMode.destroyBlock(pos);
 			player.setItemInHand(InteractionHand.MAIN_HAND, save);
 		}
