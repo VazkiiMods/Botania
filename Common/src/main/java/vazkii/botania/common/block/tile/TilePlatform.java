@@ -64,6 +64,7 @@ public class TilePlatform extends TileMod implements IWandable {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			if (!level.isClientSide) {
 				level.blockUpdated(worldPosition, getBlockState().getBlock());
+				setChanged();
 			}
 		}
 	}
