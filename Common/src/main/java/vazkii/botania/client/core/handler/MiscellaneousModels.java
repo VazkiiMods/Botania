@@ -56,6 +56,7 @@ public class MiscellaneousModels {
 	public final Material terraPlateOverlay = mainAtlas("block/terra_plate_overlay");
 	public final Material corporeaWorldIcon = mainAtlas("item/corporea_spark");
 	public final Material corporeaWorldIconMaster = mainAtlas("item/corporea_spark_master");
+	public final Material corporeaWorldIconCreative = mainAtlas("item/corporea_spark_creative");
 	public final Material corporeaIconStar = mainAtlas("item/corporea_spark_star");
 	public final Material sparkWorldIcon = mainAtlas("item/spark");
 
@@ -93,7 +94,7 @@ public class MiscellaneousModels {
 		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
 				lightRelayForkWorldIcon, lightRelayToggleWorldIcon, alchemyCatalystOverlay, conjurationCatalystOverlay,
 				enchanterOverlay, manaVoidOverlay, manaWater, terraPlateOverlay, corporeaWorldIcon, corporeaWorldIconMaster,
-				corporeaIconStar, sparkWorldIcon));
+				corporeaWorldIconCreative, corporeaIconStar, sparkWorldIcon));
 		materials.addAll(Arrays.asList(sparkUpgradeIcons));
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
