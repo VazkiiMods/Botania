@@ -22,6 +22,8 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;
 
+import java.util.function.Consumer;
+
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger(Properties props) {
@@ -43,4 +45,8 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {}
 
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return amount;
+	}
 }
