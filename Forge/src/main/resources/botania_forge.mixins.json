@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "package": "vazkii.botania.forge.mixin",
+  "mixins": [
+    "ForgeAccessorRegistry",
+    "ForgeAccessorAbstractFurnaceBlockEntity",
+    "ForgeAccessorRecipeProvider",
+    "ForgeMixinRecipeSerializerBase"
+  ],
+  "client": [
+    "client.ForgeAccessorModelBakery",
+    "client.ForgeMixinItemBlockWithSpecialRenderer",
+    "client.ForgeMixinItemManasteelArmor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "botania.refmap.json"
+}

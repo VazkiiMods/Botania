@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "botania:blood_pendant",
+    "botania:cloud_pendant",
+    "botania:ice_pendant",
+    "botania:lava_pendant",
+    "botania:super_cloud_pendant",
+    "botania:super_lava_pendant"
+  ]
+}

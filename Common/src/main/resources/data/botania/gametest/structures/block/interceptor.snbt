@@ -1,0 +1,29 @@
+{
+    DataVersion: 2865,
+    size: [11, 9, 11],
+    data: [
+        {pos: [4, 4, 4], state: "botania:corporea_funnel{powered:false}", nbt: {id: "botania:corporea_funnel"}},
+        {pos: [4, 4, 6], state: "botania:corporea_interceptor{powered:false}", nbt: {id: "botania:corporea_interceptor"}},
+        {pos: [4, 4, 7], state: "botania:corporea_retainer{powered:false}", nbt: {id: "botania:corporea_retainer", requestX: 0, requestY: 0, requestZ: 0, retainMissing: 0b}},
+        {pos: [6, 4, 4], state: "botania:corporea_funnel{powered:false}", nbt: {id: "botania:corporea_funnel"}},
+        {pos: [6, 4, 6], state: "botania:corporea_interceptor{powered:false}", nbt: {id: "botania:corporea_interceptor"}},
+        {pos: [6, 4, 7], state: "botania:corporea_retainer{powered:false}", nbt: {id: "botania:corporea_retainer", requestX: 0, requestY: 0, requestZ: 0, retainMissing: 0b}},
+        {pos: [4, 5, 4], state: "minecraft:stone_button{face:floor,facing:south,powered:false}"},
+        {pos: [6, 5, 4], state: "minecraft:stone_button{face:floor,facing:south,powered:false}"},
+    ],
+    entities: [
+        {blockPos: [4, 5, 4], pos: [4.5d, 5.25d, 4.5d], nbt: {Air: 300s, FallDistance: 0.0f, Fire: -1s, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [263.5d, 76.25d, 50.5d], Rotation: [0.0f, 0.0f], UUID: [I; 896255166, 982600884, -1164864919, 1410547968], id: "botania:corporea_spark", invis: 0b, master: 1b, network: 0}},
+        {blockPos: [6, 5, 4], pos: [6.5d, 5.25d, 4.5d], nbt: {Air: 300s, FallDistance: 0.0f, Fire: -1s, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [265.5d, 76.25d, 50.5d], Rotation: [0.0f, 0.0f], UUID: [I; -1338313328, 165302185, -1263230498, -1424081198], id: "botania:corporea_spark", invis: 0b, master: 0b, network: 0}},
+        {blockPos: [4, 5, 6], pos: [4.5d, 5.25d, 6.5d], nbt: {Air: 300s, FallDistance: 0.0f, Fire: -1s, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [263.5d, 76.25d, 52.5d], Rotation: [0.0f, 0.0f], UUID: [I; 1125199127, 1268336104, -1324767593, 1866321318], id: "botania:corporea_spark", invis: 0b, master: 0b, network: 0}},
+        {blockPos: [4, 4, 3], pos: [4.5d, 4.5d, 3.96875d], nbt: {Air: 300s, Facing: 2b, FallDistance: 0.0f, Fire: -1s, Fixed: 0b, Invisible: 0b, Invulnerable: 0b, Item: {Count: 1b, id: "minecraft:leather_boots", tag: {Damage: 0}}, ItemDropChance: 1.0f, ItemRotation: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [263.5d, 75.5d, 49.96875d], Rotation: [180.0f, 0.0f], TileX: 263, TileY: 75, TileZ: 49, UUID: [I; 758824977, 1515602350, -1837768469, 466005697], id: "minecraft:item_frame"}},
+        {blockPos: [6, 4, 3], pos: [6.5d, 4.5d, 3.96875d], nbt: {Air: 300s, Facing: 2b, FallDistance: 0.0f, Fire: -1s, Fixed: 0b, Invisible: 0b, Invulnerable: 0b, Item: {Count: 1b, id: "minecraft:apple"}, ItemDropChance: 1.0f, ItemRotation: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [265.5d, 75.5d, 49.96875d], Rotation: [180.0f, 0.0f], TileX: 265, TileY: 75, TileZ: 49, UUID: [I; -1002335347, 1978485627, -2140463835, 1875901683], id: "minecraft:item_frame"}},
+        {blockPos: [4, 4, 5], pos: [4.5d, 4.5d, 5.96875d], nbt: {Air: 300s, Facing: 2b, FallDistance: 0.0f, Fire: -1s, Fixed: 0b, Invisible: 0b, Invulnerable: 0b, Item: {Count: 1b, id: "minecraft:leather_boots", tag: {Damage: 0}}, ItemDropChance: 1.0f, ItemRotation: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [263.5d, 75.5d, 51.96875d], Rotation: [180.0f, 0.0f], TileX: 263, TileY: 75, TileZ: 51, UUID: [I; 1937602546, -555855999, -1888189294, -649053370], id: "minecraft:item_frame"}},
+        {blockPos: [6, 5, 6], pos: [6.5d, 5.25d, 6.5d], nbt: {Air: 300s, FallDistance: 0.0f, Fire: -1s, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [265.5d, 76.25d, 52.5d], Rotation: [0.0f, 0.0f], UUID: [I; 1472548934, -1910816509, -2091601340, 2101353564], id: "botania:corporea_spark", invis: 0b, master: 0b, network: 0}}
+    ],
+    palette: [
+        "minecraft:stone_button{face:floor,facing:south,powered:false}",
+        "botania:corporea_funnel{powered:false}",
+        "botania:corporea_interceptor{powered:false}",
+        "botania:corporea_retainer{powered:false}"
+    ]
+}

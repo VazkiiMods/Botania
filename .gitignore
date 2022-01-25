@@ -2,11 +2,13 @@
 Thumbs.db
 
 ## gradle
-/.gradle
-/build
+.gradle
+build
 
-## ForgeGradle
+## Run directories
 /run
+/Forge/run
+/Fabric/run
 
 ## eclipse
 /.settings
@@ -20,8 +22,9 @@ Thumbs.db
 /*.launch
 
 ## intellij
-/out
-/.idea
+out
+/.idea/*
+!/.idea/scopes
 /atlassian-ide-plugin.xml
 /*.ipr
 /*.iws
@@ -59,7 +62,9 @@ Temporary Items
 .apdisk
 
 # Data Generator cache
-/src/generated/resources/.cache/
+Common/src/generated/resources/.cache/
+Fabric/src/generated/resources/.cache/
+Forge/src/generated/resources/.cache/
 
 # CraftTweaker generated docs
 /docsOut

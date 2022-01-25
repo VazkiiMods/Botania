@@ -1,0 +1,174 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven {
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+            content { includeGroup "org.spongepowered" }
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'org.spongepowered.mixin'
+
+version = "${minecraft_version}-${build_number}"
+if (System.getenv().RELEASE_MODE == null) {
+    version += '-SNAPSHOT'
+}
+
+mixin {
+    add sourceSets.main, "botania.refmap.json"
+
+    config "botania_xplat.mixins.json"
+    config "botania_forge.mixins.json"
+}
+
+repositories {
+    maven {
+        name = "JEI"
+        url "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        name = "Jared"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "C4"
+        url = "https://maven.theillusivec4.top/"
+    }
+}
+
+minecraft {
+    mappings channel: 'official', version: minecraft_version
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory file('../run')
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
+            ideaModule "${rootProject.name}.${project.name}.main"
+            mods {
+                botania {
+                    source sourceSets.main
+                    source project(":Common").sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory file('../run')
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
+            ideaModule "${rootProject.name}.${project.name}.main"
+            mods {
+                botania {
+                    source sourceSets.main
+                    source project(":Common").sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('../run')
+            property 'fml.earlyprogresswindow', 'false'
+            ideaModule "${rootProject.name}.${project.name}.main"
+            args "-mixin.config=botania_xplat.mixins.json", "-mixin.config=botania_forge.mixins.json"
+            forceExit false
+            mods {
+                botania {
+                    source sourceSets.main
+                    source project(":Common").sourceSets.main
+                }
+            }
+            args '--mod', 'botania', '--all', '--output', '"' + file('src/generated/resources/') + '"'
+        }
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-39.0.58"
+    compileOnly project(":Common")
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.1-64")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:9.1.0.44")
+
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.5.1")
+}
+
+compileJava {
+    source(project(":Common").sourceSets.main.allSource)
+    options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
+processResources {
+    from project(":Common").sourceSets.main.resources
+    inputs.property "version", project.version
+
+    filesMatching("mods.toml") {
+        expand "version": project.version
+    }
+
+    // Exclude datagenerator .cache directory
+    exclude '.cache'
+}
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "${mod_name}",
+                "Specification-Vendor": "vazkii",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": "${mod_name}",
+                "Implementation-Version": "${archiveVersion.get()}",
+                "Implementation-Vendor" :"vazkii"
+        ])
+    }
+    finalizedBy 'reobfJar'
+}
+
+task apiJar(type: Jar, dependsOn: classes) {
+    // Sources included because of MinecraftForge/ForgeGradle#369
+    from(sourceSets.main.allJava)
+    from(sourceSets.main.output)
+    include 'vazkii/botania/api/**'
+
+    archiveClassifier = 'api'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            artifact jar
+            artifact sourcesJar
+            artifact apiJar
+            pom.withXml {
+                def node = asNode()
+                if(node.dependencies.size() > 0)
+                    node.remove(node.dependencies) // Remove deps, as they are all mappings-dependent and/or forge
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "file://" + System.getenv("local_maven")
+        }
+    }
+}

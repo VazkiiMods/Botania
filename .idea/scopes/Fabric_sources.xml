@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Fabric sources" pattern="!ext[Gradle: cpw.mods:*:*]:*/&amp;&amp;!ext[Gradle: mezz.jei:*:*:*]:*/&amp;&amp;!ext[Gradle: net.jodah:typetools:*]:*/&amp;&amp;!ext[Gradle: net.minecraft:client:extra:*]:*/&amp;&amp;!ext[Gradle: net.minecraft:joined*:*]:*/&amp;&amp;!ext[Gradle: net.minecraft:mappings_official:zip:*]:*/&amp;&amp;!ext[Gradle: net.minecraftforge:*:*]:*/" />
+</component>
