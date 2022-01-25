@@ -190,8 +190,8 @@ public class TileCraftCrate extends TileOpenCrate implements IWandable {
 			Recipe<CraftingContainer> recipe = ((AccessorRecipeManager) level.getRecipeManager())
 					.botania_getAll(RecipeType.CRAFTING)
 					.get(currentRecipe);
-			if (recipe instanceof CraftingRecipe && recipe.matches(craft, level)) {
-				return Optional.of((CraftingRecipe) recipe);
+			if (recipe instanceof CraftingRecipe craftingRecipe && recipe.matches(craft, level)) {
+				return Optional.of(craftingRecipe);
 			}
 		}
 		Optional<CraftingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craft, level);

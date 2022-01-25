@@ -414,7 +414,7 @@ public class ItemFlightTiara extends ItemBauble {
 			}
 
 			BakedModel model = MiscellaneousModels.INSTANCE.tiaraWingIcons[meta - 1];
-			boolean flying = living instanceof Player && ((Player) living).getAbilities().flying;
+			boolean flying = living instanceof Player player && player.getAbilities().flying;
 			float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 
 			switch (meta) {

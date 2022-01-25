@@ -126,8 +126,8 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 
 	private int getCellGeneration(BlockPos pos) {
 		BlockEntity tile = getLevel().getBlockEntity(pos);
-		if (tile instanceof TileCell) {
-			return ((TileCell) tile).isSameFlower(this) ? ((TileCell) tile).getGeneration() : 0;
+		if (tile instanceof TileCell cell) {
+			return cell.isSameFlower(this) ? cell.getGeneration() : 0;
 		}
 
 		return -1;

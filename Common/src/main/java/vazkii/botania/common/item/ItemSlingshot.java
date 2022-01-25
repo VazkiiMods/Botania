@@ -39,7 +39,7 @@ public class ItemSlingshot extends Item {
 	public void releaseUsing(ItemStack stack, Level world, LivingEntity living, int duration) {
 		int j = getUseDuration(stack) - duration;
 
-		if (!world.isClientSide && (!(living instanceof Player) || ((Player) living).getAbilities().instabuild || PlayerHelper.hasAmmo((Player) living, AMMO_FUNC))) {
+		if (!world.isClientSide && (!(living instanceof Player player) || player.getAbilities().instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC))) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
@@ -47,8 +47,8 @@ public class ItemSlingshot extends Item {
 				return;
 			}
 
-			if (living instanceof Player && !((Player) living).getAbilities().instabuild) {
-				PlayerHelper.consumeAmmo((Player) living, AMMO_FUNC);
+			if (living instanceof Player player && !player.getAbilities().instabuild) {
+				PlayerHelper.consumeAmmo(player, AMMO_FUNC);
 			}
 
 			EntityVineBall ball = new EntityVineBall(living, false);

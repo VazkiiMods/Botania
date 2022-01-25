@@ -39,7 +39,7 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof ICosmeticBauble && !foundCosmetic) {
 					foundCosmetic = true;
 				} else if (!foundAttachable) {
-					if (stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty()) {
+					if (stack.getItem() instanceof ICosmeticAttachable attachable && !(stack.getItem() instanceof ICosmeticBauble) && attachable.getCosmeticItem(stack).isEmpty()) {
 						foundAttachable = true;
 					} else {
 						return false;

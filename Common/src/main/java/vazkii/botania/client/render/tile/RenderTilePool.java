@@ -85,8 +85,8 @@ public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 
 		if (pool != null) {
 			Block below = pool.getLevel().getBlockState(pool.getBlockPos().below()).getBlock();
-			if (below instanceof IPoolOverlayProvider) {
-				var overlaySpriteId = ((IPoolOverlayProvider) below).getIcon(pool.getLevel(), pool.getBlockPos());
+			if (below instanceof IPoolOverlayProvider overlayProvider) {
+				var overlaySpriteId = overlayProvider.getIcon(pool.getLevel(), pool.getBlockPos());
 				var overlayIcon = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
 				ms.pushPose();
 				float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);

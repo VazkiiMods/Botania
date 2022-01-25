@@ -29,20 +29,20 @@ public class TileRedStringFertilizer extends TileRedString {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 
-		return block instanceof BonemealableBlock && ((BonemealableBlock) block).isValidBonemealTarget(world, binding, world.getBlockState(binding), isClient);
+		return block instanceof BonemealableBlock mealable && mealable.isValidBonemealTarget(world, binding, world.getBlockState(binding), isClient);
 	}
 
 	public boolean canUseBonemeal(Level world, Random rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
-		return block instanceof BonemealableBlock && ((BonemealableBlock) block).isBonemealSuccess(world, rand, binding, world.getBlockState(binding));
+		return block instanceof BonemealableBlock mealable && mealable.isBonemealSuccess(world, rand, binding, world.getBlockState(binding));
 	}
 
 	public void grow(ServerLevel world, Random rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
-		if (block instanceof BonemealableBlock) {
-			((BonemealableBlock) block).performBonemeal(world, rand, binding, world.getBlockState(binding));
+		if (block instanceof BonemealableBlock mealable) {
+			mealable.performBonemeal(world, rand, binding, world.getBlockState(binding));
 		}
 	}
 

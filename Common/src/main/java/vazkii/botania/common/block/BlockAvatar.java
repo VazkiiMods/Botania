@@ -92,8 +92,8 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
 		if (!state.is(newstate.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory) {
-				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
+			if (be instanceof TileSimpleInventory inventory) {
+				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newstate, isMoving);
 		}

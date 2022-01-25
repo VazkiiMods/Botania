@@ -83,8 +83,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			level.setBlockAndUpdate(getBlockPos(), ModBlocks.mossyAltar.defaultBlockState());
 
 			BlockEntity newAltar = level.getBlockEntity(getBlockPos());
-			if (newAltar instanceof TileAltar) {
-				((TileAltar) newAltar).readPacketNBT(tmp);
+			if (newAltar instanceof TileAltar altar) {
+				altar.readPacketNBT(tmp);
 			}
 
 			return true;
@@ -92,9 +92,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
-			if (stack.getItem() instanceof MobBucketItem && ((AccessorBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
+			if (stack.getItem() instanceof MobBucketItem bucketItem && ((AccessorBucketItem) bucketItem).getFluid() == Fluids.WATER) {
 				setFluid(State.WATER);
-				((MobBucketItem) stack.getItem()).checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
+				bucketItem.checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
 				return true;
 			}
@@ -159,8 +159,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	@Nullable
 	private ICustomApothecaryColor getFlowerComponent(ItemStack stack) {
 		ICustomApothecaryColor c = null;
-		if (stack.getItem() instanceof ICustomApothecaryColor) {
-			c = (ICustomApothecaryColor) stack.getItem();
+		if (stack.getItem() instanceof ICustomApothecaryColor color) {
+			c = color;
 		}
 		return c;
 	}

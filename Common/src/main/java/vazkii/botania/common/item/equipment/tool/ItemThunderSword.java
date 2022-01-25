@@ -57,8 +57,8 @@ public class ItemThunderSword extends ItemManasteelSword {
 				}
 
 				LivingEntity target = (LivingEntity) entities.get(rand.nextInt(entities.size()));
-				if (attacker instanceof Player) {
-					target.hurt(DamageSource.playerAttack((Player) attacker), dmg);
+				if (attacker instanceof Player player) {
+					target.hurt(DamageSource.playerAttack(player), dmg);
 				} else {
 					target.hurt(DamageSource.mobAttack(attacker), dmg);
 				}

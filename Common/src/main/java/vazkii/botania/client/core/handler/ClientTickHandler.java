@@ -57,8 +57,8 @@ public final class ClientTickHandler {
 			if (player != null) {
 				if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
 					for (BlockEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().level))) {
-						if (tile instanceof IManaCollector) {
-							((IManaCollector) tile).onClientDisplayTick();
+						if (tile instanceof IManaCollector collector) {
+							collector.onClientDisplayTick();
 						}
 					}
 				}

@@ -137,9 +137,9 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			BlockEntity plate = world.getBlockEntity(pos);
-			if (plate instanceof TileIncensePlate && !((TileIncensePlate) plate).burning) {
-				Containers.dropContents(world, pos, ((TileIncensePlate) plate).getItemHandler());
+			BlockEntity block = world.getBlockEntity(pos);
+			if (block instanceof TileIncensePlate plate && !plate.burning) {
+				Containers.dropContents(world, pos, plate.getItemHandler());
 			}
 		}
 		super.onRemove(state, world, pos, newState, isMoving);

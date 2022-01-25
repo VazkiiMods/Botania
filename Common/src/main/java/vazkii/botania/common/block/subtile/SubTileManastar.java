@@ -46,8 +46,8 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 				BlockPos pos = getEffectivePos().relative(dir);
 				if (getLevel().hasChunkAt(pos)) {
 					BlockEntity tile = getLevel().getBlockEntity(pos);
-					if (tile instanceof IManaPool) {
-						mana += ((IManaPool) tile).getCurrentMana();
+					if (tile instanceof IManaPool pool) {
+						mana += pool.getCurrentMana();
 					}
 				}
 			}

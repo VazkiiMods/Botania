@@ -79,13 +79,14 @@ public abstract class EquipmentHandler {
 				ItemStack current = inv.getItem(i);
 
 				if (!ItemStack.matches(old, current)) {
-					if (old.getItem() instanceof ItemBauble) {
-						player.getAttributes().removeAttributeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
-						((ItemBauble) old.getItem()).onUnequipped(old, player);
+					if (old.getItem() instanceof ItemBauble bauble) {
+						player.getAttributes().removeAttributeModifiers(bauble.getEquippedAttributeModifiers(old));
+						bauble.onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
-						player.getAttributes().addTransientAttributeModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
-						((ItemBauble) current.getItem()).onEquipped(current, player);
+						ItemBauble bauble = (ItemBauble) current.getItem();
+						player.getAttributes().addTransientAttributeModifiers(bauble.getEquippedAttributeModifiers(current));
+						bauble.onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,
 					// making it empty and failing the equality check - let's avoid that
@@ -105,8 +106,8 @@ public abstract class EquipmentHandler {
 
 		@Override
 		protected ItemStack findItem(Item item, LivingEntity living) {
-			if (living instanceof Player) {
-				Inventory inv = ((Player) living).getInventory();
+			if (living instanceof Player player) {
+				Inventory inv = player.getInventory();
 				for (int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getItem(i);
 					if (stack.is(item) && canEquip(stack, living)) {
@@ -119,8 +120,8 @@ public abstract class EquipmentHandler {
 
 		@Override
 		protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
-			if (living instanceof Player) {
-				Inventory inv = ((Player) living).getInventory();
+			if (living instanceof Player player) {
+				Inventory inv = player.getInventory();
 				for (int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getItem(i);
 					if (pred.test(stack) && canEquip(stack, living)) {
@@ -135,7 +136,7 @@ public abstract class EquipmentHandler {
 		public void onInit(Item item) {}
 
 		private static boolean canEquip(ItemStack stack, LivingEntity player) {
-			return stack.getItem() instanceof ItemBauble && ((ItemBauble) stack.getItem()).canEquip(stack, player);
+			return stack.getItem() instanceof ItemBauble bauble && bauble.canEquip(stack, player);
 		}
 	}
 }

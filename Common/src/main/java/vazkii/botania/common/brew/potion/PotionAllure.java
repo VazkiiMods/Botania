@@ -29,8 +29,8 @@ public class PotionAllure extends MobEffect {
 
 	@Override
 	public void applyEffectTick(@Nonnull LivingEntity living, int amplified) {
-		if (living instanceof Player) {
-			FishingHook hook = ((Player) living).fishing;
+		if (living instanceof Player player) {
+			FishingHook hook = player.fishing;
 			if (hook != null) {
 				hook.tick();
 			}

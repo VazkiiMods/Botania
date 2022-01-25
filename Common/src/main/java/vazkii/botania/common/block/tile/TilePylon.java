@@ -77,8 +77,8 @@ public class TilePylon extends BlockEntity {
 				Vec3 movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 				Block block = level.getBlockState(worldPosition.below()).getBlock();
-				if (block instanceof BlockModFlower) {
-					int hex = ColorHelper.getColorValue(((BlockModFlower) block).color);
+				if (block instanceof BlockModFlower flower) {
+					int hex = ColorHelper.getColorValue(flower.color);
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;

@@ -37,20 +37,20 @@ public class VanillaNodeDetector implements ICorporeaNodeDetector {
 		BlockPos blockPos = spark.getAttachPos();
 		BlockState blockState = level.getBlockState(blockPos);
 		Block block = blockState.getBlock();
-		if (block instanceof WorldlyContainerHolder) {
-			container = ((WorldlyContainerHolder) block).getContainer(blockState, level, blockPos);
+		if (block instanceof WorldlyContainerHolder worldlyContainer) {
+			container = worldlyContainer.getContainer(blockState, level, blockPos);
 		} else if (blockState.hasBlockEntity()) {
 			BlockEntity blockEntity = level.getBlockEntity(blockPos);
-			if (blockEntity instanceof Container) {
-				container = (Container) blockEntity;
-				if (container instanceof ChestBlockEntity && block instanceof ChestBlock) {
-					container = ChestBlock.getContainer((ChestBlock) block, blockState, level, blockPos, true);
+			if (blockEntity instanceof Container beContainer) {
+				container = beContainer;
+				if (container instanceof ChestBlockEntity && block instanceof ChestBlock chest) {
+					container = ChestBlock.getContainer(chest, blockState, level, blockPos, true);
 				}
 			}
 		}
 
-		if (container instanceof WorldlyContainer) {
-			return new SidedVanillaCorporeaNode(level, spark.getAttachPos(), spark, (WorldlyContainer) container, Direction.UP);
+		if (container instanceof WorldlyContainer worldlyContainer) {
+			return new SidedVanillaCorporeaNode(level, spark.getAttachPos(), spark, worldlyContainer, Direction.UP);
 		} else if (container != null) {
 			return new VanillaCorporeaNode(level, spark.getAttachPos(), container, spark);
 		}

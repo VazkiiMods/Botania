@@ -24,9 +24,9 @@ public class ItemAuraRing extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (!player.level.isClientSide && player instanceof Player && player.tickCount % interval == 0) {
-			ManaItemHandler.instance().dispatchManaExact(stack, (Player) player, 5, true);
+	public void onWornTick(ItemStack stack, LivingEntity entity) {
+		if (!entity.level.isClientSide && entity instanceof Player player && player.tickCount % interval == 0) {
+			ManaItemHandler.instance().dispatchManaExact(stack, player, 5, true);
 		}
 	}
 }

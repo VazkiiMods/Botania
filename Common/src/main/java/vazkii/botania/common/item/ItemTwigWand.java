@@ -86,8 +86,8 @@ public class ItemTwigWand extends Item {
 			setBindingAttempt(stack, UNBOUND_POS);
 
 			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src);
-			if (srcTile instanceof IWandBindable) {
-				if (((IWandBindable) srcTile).bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
+			if (srcTile instanceof IWandBindable bindable) {
+				if (bindable.bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
 					doParticleBeamWithOffset(ctx.getLevel(), src, dest);
 					setBindingAttempt(stack, UNBOUND_POS);
 				}
@@ -395,8 +395,8 @@ public class ItemTwigWand extends Item {
 			HitResult pos = Minecraft.getInstance().hitResult;
 			if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
 				BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
-				if (tile instanceof ITileBound) {
-					return ((ITileBound) tile).getBinding();
+				if (tile instanceof ITileBound boundTile) {
+					return boundTile.getBinding();
 				}
 			}
 

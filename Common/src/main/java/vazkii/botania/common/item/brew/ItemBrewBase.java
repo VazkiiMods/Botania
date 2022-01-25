@@ -103,7 +103,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 			}
 
 			int swigs = getSwigsLeft(stack);
-			if (living instanceof Player && !((Player) living).getAbilities().instabuild) {
+			if (living instanceof Player player && !player.getAbilities().instabuild) {
 				if (swigs == 1) {
 					ItemStack result = getBaseStack();
 					if (!((Player) living).getInventory().add(result)) {

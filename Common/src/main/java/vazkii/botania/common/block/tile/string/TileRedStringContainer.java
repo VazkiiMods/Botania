@@ -132,8 +132,8 @@ public class TileRedStringContainer extends TileRedString implements WorldlyCont
 	@Override
 	public int[] getSlotsForFace(Direction side) {
 		Container inv = getInventoryAtBinding();
-		if (inv instanceof WorldlyContainer) {
-			return ((WorldlyContainer) inv).getSlotsForFace(side);
+		if (inv instanceof WorldlyContainer worldlyContainer) {
+			return worldlyContainer.getSlotsForFace(side);
 		} else if (inv != null) {
 			return IntStream.range(0, inv.getContainerSize()).toArray();
 		} else {
@@ -144,8 +144,8 @@ public class TileRedStringContainer extends TileRedString implements WorldlyCont
 	@Override
 	public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
 		Container inv = getInventoryAtBinding();
-		if (inv instanceof WorldlyContainer) {
-			return ((WorldlyContainer) inv).canPlaceItemThroughFace(slot, stack, dir);
+		if (inv instanceof WorldlyContainer worldlyContainer) {
+			return worldlyContainer.canPlaceItemThroughFace(slot, stack, dir);
 		} else {
 			return inv != null;
 		}
@@ -154,8 +154,8 @@ public class TileRedStringContainer extends TileRedString implements WorldlyCont
 	@Override
 	public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction dir) {
 		Container inv = getInventoryAtBinding();
-		if (inv instanceof WorldlyContainer) {
-			return ((WorldlyContainer) inv).canTakeItemThroughFace(slot, stack, dir);
+		if (inv instanceof WorldlyContainer worldlyContainer) {
+			return worldlyContainer.canTakeItemThroughFace(slot, stack, dir);
 		} else {
 			return inv != null;
 		}

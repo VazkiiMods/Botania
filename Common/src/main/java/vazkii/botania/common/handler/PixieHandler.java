@@ -66,7 +66,7 @@ public final class PixieHandler {
 	}
 
 	public static void onDamageTaken(Player player, DamageSource source) {
-		if (!player.level.isClientSide && source.getEntity() instanceof LivingEntity) {
+		if (!player.level.isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
 			double chance = player.getAttributeValue(PIXIE_SPAWN_CHANCE);
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(ModItems.elementiumSword));
 
@@ -83,7 +83,7 @@ public final class PixieHandler {
 					dmg += 2;
 				}
 
-				pixie.setProps((LivingEntity) source.getEntity(), player, 0, dmg);
+				pixie.setProps(livingSource, player, 0, dmg);
 				pixie.finalizeSpawn((ServerLevelAccessor) player.level, player.level.getCurrentDifficultyAt(pixie.blockPosition()),
 						MobSpawnType.EVENT, null, null);
 				player.level.addFreshEntity(pixie);

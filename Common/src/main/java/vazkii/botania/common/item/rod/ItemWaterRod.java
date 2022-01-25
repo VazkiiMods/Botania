@@ -61,8 +61,8 @@ public class ItemWaterRod extends Item {
 								&& ((BucketItem) Items.WATER_BUCKET).emptyContents(player, level, blockPos3, blockHitResult);
 				if (success) {
 					// No extra content for water buckets - this.checkExtraContent(player, level, itemStack, blockPos3);
-					if (player instanceof ServerPlayer) {
-						CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) player, blockPos3, itemStack);
+					if (player instanceof ServerPlayer serverPlayer) {
+						CriteriaTriggers.PLACED_BLOCK.trigger(serverPlayer, blockPos3, itemStack);
 					}
 
 					player.awardStat(Stats.ITEM_USED.get(this));

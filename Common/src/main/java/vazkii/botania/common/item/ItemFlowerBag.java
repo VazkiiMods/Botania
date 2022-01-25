@@ -68,8 +68,8 @@ public class ItemFlowerBag extends Item {
 
 	public static boolean onPickupItem(ItemEntity entity, Player player) {
 		ItemStack entityStack = entity.getItem();
-		if (Block.byItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
-			int color = ((BlockModFlower) Block.byItem(entityStack.getItem())).color.getId();
+		if (Block.byItem(entityStack.getItem()) instanceof BlockModFlower flower && entityStack.getCount() > 0) {
+			int color = flower.color.getId();
 
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				if (i == player.getInventory().selected) {
@@ -135,8 +135,8 @@ public class ItemFlowerBag extends Item {
 		if (tile != null) {
 			if (!world.isClientSide) {
 				Container tileInv;
-				if (tile instanceof Container) {
-					tileInv = (Container) tile;
+				if (tile instanceof Container container) {
+					tileInv = container;
 				} else {
 					return InteractionResult.FAIL;
 				}

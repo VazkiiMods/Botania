@@ -60,8 +60,8 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 			if (state.is(Blocks.MOVING_PISTON)) {
 				movingPistons++;
 				BlockEntity te = e.level.getBlockEntity(pos);
-				if (te instanceof PistonMovingBlockEntity) {
-					state = ((PistonMovingBlockEntity) te).getMovedState();
+				if (te instanceof PistonMovingBlockEntity piston) {
+					state = piston.getMovedState();
 				}
 			}
 

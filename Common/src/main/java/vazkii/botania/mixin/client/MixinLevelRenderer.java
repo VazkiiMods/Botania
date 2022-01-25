@@ -46,7 +46,7 @@ public class MixinLevelRenderer {
 	@Unique
 	private static boolean isGogSky() {
 		Level world = Minecraft.getInstance().level;
-		boolean isGog = world.getLevelData() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getLevelData()).isGardenOfGlass();
+		boolean isGog = world.getLevelData() instanceof SkyblockWorldInfo skyblockInfo && skyblockInfo.isGardenOfGlass();
 		return BotaniaConfig.client().enableFancySkybox()
 				&& world.dimension() == Level.OVERWORLD
 				&& (BotaniaConfig.client().enableFancySkyboxInNormalWorlds() || isGog);

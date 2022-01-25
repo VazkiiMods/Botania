@@ -27,7 +27,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import javax.annotation.Nonnull;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class ItemElementiumShears extends ItemManasteelShears {
 
@@ -60,12 +59,11 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 		if (count != getUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			Predicate<Entity> shearablePred = e -> e instanceof Shearable;
-			List<Entity> shearable = world.getEntitiesOfClass(Entity.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), shearablePred);
-			if (shearable.size() > 0) {
-				for (Entity entity : shearable) {
-					if (entity instanceof Shearable && ((Shearable) entity).readyForShearing()) {
-						((Shearable) entity).shear(living.getSoundSource());
+			List<Entity> shearables = world.getEntitiesOfClass(Entity.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), Shearable.class::isInstance);
+			if (shearables.size() > 0) {
+				for (Entity entity : shearables) {
+					if (entity instanceof Shearable shearable && shearable.readyForShearing()) {
+						shearable.shear(living.getSoundSource());
 						stack.hurtAndBreak(1, living, l -> l.broadcastBreakEvent(l.getUsedItemHand()));
 						break;
 					}

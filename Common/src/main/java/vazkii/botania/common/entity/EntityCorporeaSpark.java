@@ -244,8 +244,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 					}
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide);
-			} else if (stack.getItem() instanceof DyeItem) {
-				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+			} else if (stack.getItem() instanceof DyeItem dye) {
+				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
 					if (!level.isClientSide) {
 						setNetwork(color);

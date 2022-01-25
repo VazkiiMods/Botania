@@ -28,7 +28,7 @@ public abstract class LooniumComponent {
 		if (this == obj) {
 			return true;
 		}
-		return obj instanceof LooniumComponent && ItemStack.matches(((LooniumComponent) obj).toDrop, toDrop);
+		return obj instanceof LooniumComponent component && ItemStack.matches(component.toDrop, toDrop);
 	}
 
 	@Override

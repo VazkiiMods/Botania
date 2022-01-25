@@ -63,7 +63,7 @@ public class ItemTinyPlanet extends ItemBauble {
 		for (ThrowableProjectile entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
-			if (lens != null && lens.getItem() instanceof ITinyPlanetExcempt && !((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens)) {
+			if (lens != null && lens.getItem() instanceof ITinyPlanetExcempt excempt && !excempt.shouldPull(lens)) {
 				continue;
 			}
 
