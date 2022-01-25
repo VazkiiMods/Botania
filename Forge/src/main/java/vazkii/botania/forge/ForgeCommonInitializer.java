@@ -172,6 +172,9 @@ public class ForgeCommonInitializer {
 		// Entities
 		bind(ForgeRegistries.ENTITIES, ModEntities::registerEntities);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
+		FMLJavaModLoadingContext.get().getModEventBus().addListener((EntityAttributeModificationEvent e) -> {
+			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
+		});
 		bind(ForgeRegistries.ATTRIBUTES, PixieHandler::registerAttribute);
 
 		// Potions
@@ -316,7 +319,6 @@ public class ForgeCommonInitializer {
 		});
 		bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntityLiving()));
 		{ // todo missing rest of FabricMixinPlayer. remove braces when done.
-			bus.addListener((EntityAttributeModificationEvent e) -> e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE));
 			bus.addListener((LivingAttackEvent e) -> {
 				if (e.getEntityLiving() instanceof Player player
 						&& ItemOdinRing.onPlayerAttacked(player, e.getSource())) {
