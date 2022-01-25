@@ -15,6 +15,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
@@ -46,6 +47,8 @@ import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -64,6 +67,7 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
+import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.ModCriteriaTriggers;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
@@ -88,6 +92,7 @@ import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
+import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
@@ -354,7 +359,18 @@ public class ForgeCommonInitializer {
 				}
 			});
 			// todo keepivy
-			// todo critical hits
+			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
+				Event.Result result = e.getResult();
+				if (e.getPlayer().level.isClientSide
+						|| result == Event.Result.DENY
+						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
+						|| !ItemTerrasteelHelm.hasTerraArmorSet(e.getPlayer())
+						|| !(e.getTarget() instanceof LivingEntity target)) {
+					return;
+				}
+				e.setDamageModifier(e.getDamageModifier() * ItemTerrasteelHelm.getCritDamageMult(e.getPlayer()));
+				((PlayerAccess) e.getPlayer()).botania$setCritTarget(target);
+			});
 
 		}
 		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getPlayer(), e.getInventory()));
