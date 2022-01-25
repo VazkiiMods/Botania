@@ -61,9 +61,8 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	public static boolean onPlayerAttacked(Player player, DamageSource src) {
-		boolean negate = damageNegations.contains(src.msgId);
-		boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
-		return negate && hasRing;
+		return damageNegations.contains(src.msgId)
+				&& !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 	}
 
 	@Override

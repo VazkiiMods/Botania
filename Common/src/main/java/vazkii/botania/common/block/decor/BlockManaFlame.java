@@ -73,8 +73,8 @@ public class BlockManaFlame extends BlockMod implements EntityBlock {
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TileManaFlame) {
-			int color = ((TileManaFlame) te).getColor();
+		if (te instanceof TileManaFlame flame) {
+			int color = flame.getColor();
 			float v = 0.1F;
 
 			float r = (float) (color >> 16 & 0xFF) / 0xFF;

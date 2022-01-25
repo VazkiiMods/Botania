@@ -83,8 +83,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		if (!(e instanceof ItemEntity)) {
 			mover.playSound(ModSounds.lightRelay, 1F, (float) Math.random() * 0.3F + 0.7F);
 		}
-		if (e instanceof ServerPlayer) {
-			PlayerHelper.grantCriterion((ServerPlayer) e, prefix("main/luminizer_ride"), "code_triggered");
+		if (e instanceof ServerPlayer serverPlayer) {
+			PlayerHelper.grantCriterion(serverPlayer, prefix("main/luminizer_ride"), "code_triggered");
 		}
 	}
 
@@ -171,8 +171,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			}
 
 			BlockEntity tile = level.getBlockEntity(coords);
-			if (tile != null && tile instanceof TileLightRelay) {
-				relay = (TileLightRelay) tile;
+			if (tile != null && tile instanceof TileLightRelay tileRelay) {
+				relay = tileRelay;
 			} else {
 				return lastCoords;
 			}

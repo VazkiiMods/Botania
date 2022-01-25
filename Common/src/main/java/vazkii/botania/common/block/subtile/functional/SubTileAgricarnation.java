@@ -106,8 +106,8 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 		}
 
 		return MATERIALS.contains(state.getMaterial())
-				&& block instanceof BonemealableBlock
-				&& ((BonemealableBlock) block).isValidBonemealTarget(getLevel(), pos, state, getLevel().isClientSide);
+				&& block instanceof BonemealableBlock mealable
+				&& mealable.isValidBonemealTarget(getLevel(), pos, state, getLevel().isClientSide);
 	}
 
 	@Override

@@ -192,8 +192,8 @@ public class TileAlfPortal extends TileMod implements IWandable {
 
 			if (!level.isClientSide && self.breadPlayer != null) {
 				Player entity = level.getPlayerByUUID(self.breadPlayer);
-				if (entity instanceof ServerPlayer) {
-					AlfPortalBreadTrigger.INSTANCE.trigger((ServerPlayer) entity, worldPosition);
+				if (entity instanceof ServerPlayer serverPlayer) {
+					AlfPortalBreadTrigger.INSTANCE.trigger(serverPlayer, worldPosition);
 				}
 			}
 			self.breadPlayer = null;
@@ -203,7 +203,7 @@ public class TileAlfPortal extends TileMod implements IWandable {
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
 		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (recipe instanceof IElvenTradeRecipe && ((IElvenTradeRecipe) recipe).containsItem(inputStack)) {
+			if (recipe instanceof IElvenTradeRecipe tradeRecipe && tradeRecipe.containsItem(inputStack)) {
 				return true;
 			}
 		}

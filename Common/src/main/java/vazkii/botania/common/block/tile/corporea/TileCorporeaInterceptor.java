@@ -58,8 +58,8 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				BlockPos requestorPos = source.getSparkNode().getPos();
 				for (Direction dir : Direction.values()) {
 					BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-					if (tile instanceof TileCorporeaRetainer) {
-						((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
+					if (tile instanceof TileCorporeaRetainer retainer) {
+						retainer.remember(requestorPos, request, count, missing);
 					}
 				}
 			}

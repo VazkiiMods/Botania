@@ -37,8 +37,8 @@ public class ItemRelic extends Item implements IRelic {
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-		if (!world.isClientSide && entity instanceof Player) {
-			updateRelic(stack, (Player) entity);
+		if (!world.isClientSide && entity instanceof Player player) {
+			updateRelic(stack, player);
 		}
 	}
 
@@ -68,14 +68,14 @@ public class ItemRelic extends Item implements IRelic {
 
 		if (!hasUUID(stack)) {
 			bindToUUID(player.getUUID(), stack);
-			if (player instanceof ServerPlayer) {
-				RelicBindTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
+			if (player instanceof ServerPlayer serverPlayer) {
+				RelicBindTrigger.INSTANCE.trigger(serverPlayer, stack);
 			}
 		} else if (!getSoulbindUUID(stack).equals(player.getUUID())) {
 			rightPlayer = false;
 		}
 
-		if (!rightPlayer && player.tickCount % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())) {
+		if (!rightPlayer && player.tickCount % 10 == 0 && (!(stack.getItem() instanceof ItemRelic relic) || relic.shouldDamageWrongPlayer())) {
 			player.hurt(damageSource(), 2);
 		}
 	}

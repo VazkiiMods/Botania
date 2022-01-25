@@ -38,8 +38,8 @@ public class LensLight extends Lens {
 				entity.level.setBlockAndUpdate(neighborPos, ModBlocks.manaFlame.defaultBlockState());
 				BlockEntity tile = entity.level.getBlockEntity(neighborPos);
 
-				if (tile instanceof TileManaFlame) {
-					((TileManaFlame) tile).setColor(burst.getColor());
+				if (tile instanceof TileManaFlame manaFlame) {
+					manaFlame.setColor(burst.getColor());
 				}
 			}
 		}

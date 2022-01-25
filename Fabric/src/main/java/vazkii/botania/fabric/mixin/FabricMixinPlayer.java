@@ -8,7 +8,6 @@
  */
 package vazkii.botania.fabric.mixin;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -33,11 +32,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import vazkii.botania.common.ModStats;
-import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.ItemKeepIvy;
@@ -53,9 +49,6 @@ public abstract class FabricMixinPlayer extends LivingEntity {
 	protected FabricMixinPlayer(EntityType<? extends LivingEntity> entityType, Level world) {
 		super(entityType, world);
 	}
-
-	@Shadow
-	public abstract void awardStat(ResourceLocation stat, int amount);
 
 	@Shadow
 	@Final
@@ -82,19 +75,6 @@ public abstract class FabricMixinPlayer extends LivingEntity {
 	private void odinRing(DamageSource src, CallbackInfoReturnable<Boolean> cir) {
 		if (ItemOdinRing.onPlayerAttacked((Player) (Object) this, src)) {
 			cir.setReturnValue(true);
-		}
-	}
-
-	/**
-	 * Updates the distance by luminizer stat
-	 */
-	@Inject(
-		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/entity/player/Player;getVehicle()Lnet/minecraft/world/entity/Entity;"),
-		method = "checkRidingStatistics", locals = LocalCapture.CAPTURE_FAILSOFT
-	)
-	private void trackLuminizerTravel(double dx, double dy, double dz, CallbackInfo ci, int cm, Entity mount) {
-		if (mount.getType() == ModEntities.PLAYER_MOVER) {
-			awardStat(ModStats.LUMINIZER_ONE_CM, cm);
 		}
 	}
 

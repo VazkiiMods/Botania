@@ -164,10 +164,10 @@ public final class ItemNBTHelper {
 	 * any size.
 	 */
 	public static boolean matchTag(@Nullable Tag template, @Nullable Tag target) {
-		if (template instanceof CompoundTag && target instanceof CompoundTag) {
-			return matchTagCompound((CompoundTag) template, (CompoundTag) target);
-		} else if (template instanceof ListTag && target instanceof ListTag) {
-			return matchTagList((ListTag) template, (ListTag) target);
+		if (template instanceof CompoundTag templateCompound && target instanceof CompoundTag targetCompound) {
+			return matchTagCompound(templateCompound, targetCompound);
+		} else if (template instanceof ListTag templateList && target instanceof ListTag targetList) {
+			return matchTagList(templateList, targetList);
 		} else {
 			return template == null || (target != null && target.equals(template));
 		}

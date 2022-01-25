@@ -22,6 +22,8 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;
 
+import java.util.function.Consumer;
+
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger(Properties props) {
@@ -32,8 +34,8 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
 		if (!target.level.isClientSide
 				&& target instanceof EnderMan
-				&& attacker instanceof Player) {
-			target.hurt(DamageSource.playerAttack((Player) attacker), 20);
+				&& attacker instanceof Player player) {
+			target.hurt(DamageSource.playerAttack(player), 20);
 		}
 
 		stack.hurtAndBreak(1, attacker, e -> e.broadcastBreakEvent(InteractionHand.MAIN_HAND));
@@ -43,4 +45,8 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {}
 
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		return amount;
+	}
 }

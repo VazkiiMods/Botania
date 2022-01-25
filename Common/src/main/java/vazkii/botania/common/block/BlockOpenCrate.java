@@ -38,8 +38,8 @@ public class BlockOpenCrate extends BlockMod implements EntityBlock {
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!newState.is(state.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory) {
-				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
+			if (be instanceof TileSimpleInventory inventory) {
+				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
 		}

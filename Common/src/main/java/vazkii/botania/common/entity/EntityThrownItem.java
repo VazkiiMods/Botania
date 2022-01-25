@@ -66,8 +66,8 @@ public class EntityThrownItem extends ItemEntity {
 				teleported = true;
 			} else if (blockState.is(Blocks.END_GATEWAY)) {
 				BlockEntity blockEntity = this.level.getBlockEntity(blockPos);
-				if (blockEntity instanceof TheEndGatewayBlockEntity && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-					TheEndGatewayBlockEntity.teleportEntity(this.level, blockPos, blockState, this, (TheEndGatewayBlockEntity) blockEntity);
+				if (blockEntity instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
+					TheEndGatewayBlockEntity.teleportEntity(this.level, blockPos, blockState, this, gateway);
 				}
 
 				teleported = true;

@@ -110,7 +110,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					if (entity instanceof MushroomCow) {
 						convertNearby(entity, Items.BOWL, Items.MUSHROOM_STEW);
 					}
-				} else if (entity instanceof Shearable && ((Shearable) entity).readyForShearing()) {
+				} else if (entity instanceof Shearable shearable && shearable.readyForShearing()) {
 					shearables.add(entity);
 				}
 			}
@@ -123,8 +123,8 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					break;
 				}
 
-				if (entity instanceof Shearable) {
-					((Shearable) entity).shear(SoundSource.BLOCKS);
+				if (entity instanceof Shearable shearable) {
+					shearable.shear(SoundSource.BLOCKS);
 				}
 
 				++sheared;

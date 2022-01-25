@@ -104,11 +104,11 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 					BlockPlaceContext ctx = new RannuncarpusPlaceContext(getLevel(), stack, ray, worldPosition);
 
 					boolean success = false;
-					if (stackItem instanceof IFlowerPlaceable) {
-						success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
+					if (stackItem instanceof IFlowerPlaceable flowerPlaceable) {
+						success = flowerPlaceable.tryPlace(this, ctx);
 					}
-					if (!success && stackItem instanceof BlockItem) {
-						success = ((BlockItem) stackItem).place(ctx).consumesAction();
+					if (!success && stackItem instanceof BlockItem blockItem) {
+						success = blockItem.place(ctx).consumesAction();
 					}
 
 					if (success) {

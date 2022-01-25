@@ -81,8 +81,8 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	@Override
 	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TilePlatform && ((TilePlatform) te).getCamoState() != null) {
-			return ((TilePlatform) te).getCamoState().getShape(world, pos);
+		if (te instanceof TilePlatform platform && platform.getCamoState() != null) {
+			return platform.getCamoState().getShape(world, pos);
 		} else {
 			return super.getShape(state, world, pos, context);
 		}

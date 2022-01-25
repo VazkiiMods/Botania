@@ -37,7 +37,7 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && !((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty()) {
+				if (stack.getItem() instanceof ICosmeticAttachable attachable && !(stack.getItem() instanceof ICosmeticBauble) && !attachable.getCosmeticItem(stack).isEmpty()) {
 					foundAttachable = true;
 				} else {
 					return false;
@@ -86,8 +86,8 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.getItem() instanceof ItemBauble) {
-				ItemStack stack = ((ItemBauble) s.getItem()).getCosmeticItem(s);
+			if (s.getItem() instanceof ItemBauble bauble) {
+				ItemStack stack = bauble.getCosmeticItem(s);
 				stack.setCount(1);
 				return stack;
 			}

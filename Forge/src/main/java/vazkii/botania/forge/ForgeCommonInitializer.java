@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
@@ -36,8 +37,11 @@ import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
@@ -94,6 +98,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.loot.LootHandler;
@@ -172,6 +177,9 @@ public class ForgeCommonInitializer {
 		// Entities
 		bind(ForgeRegistries.ENTITIES, ModEntities::registerEntities);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
+		FMLJavaModLoadingContext.get().getModEventBus().addListener((EntityAttributeModificationEvent e) -> {
+			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
+		});
 		bind(ForgeRegistries.ATTRIBUTES, PixieHandler::registerAttribute);
 
 		// Potions
@@ -325,8 +333,43 @@ public class ForgeCommonInitializer {
 		});
 		bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntityLiving()));
 		{ // todo missing rest of FabricMixinPlayer. remove braces when done.
-			bus.addListener((EntityAttributeModificationEvent e) -> e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE));
+			bus.addListener((LivingAttackEvent e) -> {
+				if (e.getEntityLiving() instanceof Player player
+						&& ItemOdinRing.onPlayerAttacked(player, e.getSource())) {
+					e.setCanceled(true);
+				}
+			});
 			bus.addListener((ItemTossEvent e) -> ItemMagnetRing.onTossItem(e.getPlayer()));
+			bus.addListener((LivingHurtEvent e) -> {
+				if (e.getEntityLiving() instanceof Player player) {
+					Container worn = EquipmentHandler.getAllWorn(player);
+					for (int i = 0; i < worn.getContainerSize(); i++) {
+						ItemStack stack = worn.getItem(i);
+						if (stack.getItem() instanceof ItemHolyCloak cloak) {
+							e.setAmount(cloak.onPlayerDamage(player, e.getSource(), e.getAmount()));
+						}
+					}
+
+					PixieHandler.onDamageTaken(player, e.getSource());
+				}
+				if (e.getSource().getDirectEntity() instanceof Player player) {
+					ItemDivaCharm.onEntityDamaged(player, e.getEntity());
+				}
+			});
+			bus.addListener((LivingEvent.LivingUpdateEvent e) -> {
+				if (e.getEntityLiving() instanceof Player player) {
+					ItemFlightTiara.updatePlayerFlyStatus(player);
+					ItemTravelBelt.updatePlayerStepStatus(player);
+				}
+			});
+			bus.addListener((LivingFallEvent e) -> {
+				if (e.getEntityLiving() instanceof Player player) {
+					e.setDistance(ItemTravelBelt.onPlayerFall(player, e.getDistance()));
+				}
+			});
+			// todo keepivy
+			// todo critical hits
+
 		}
 		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getPlayer(), e.getInventory()));
 		bus.addListener((ServerChatEvent e) -> {

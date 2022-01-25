@@ -74,8 +74,8 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 			self.isFloating = !self.isFloating;
 		}
 		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
-		if (tileBelow instanceof TileRedStringRelay) {
-			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
+		if (tileBelow instanceof TileRedStringRelay relay) {
+			BlockPos coords = relay.getBinding();
 			if (coords != null) {
 				self.positionOverride = coords;
 				self.tickFlower();

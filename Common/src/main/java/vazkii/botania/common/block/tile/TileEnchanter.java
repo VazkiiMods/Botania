@@ -222,10 +222,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 			}
 		} else if (mana >= manaRequired) {
 			manaRequired = 0;
-			for (BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
-				BlockEntity te = level.getBlockEntity(worldPosition.offset(pylon));
-				if (te instanceof TilePylon) {
-					((TilePylon) te).activated = false;
+			for (BlockPos offset : PYLON_LOCATIONS.get(axis)) {
+				BlockEntity te = level.getBlockEntity(worldPosition.offset(offset));
+				if (te instanceof TilePylon pylon) {
+					pylon.activated = false;
 				}
 			}
 
@@ -246,12 +246,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, IWandabl
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileEnchanter self) {
 		Direction.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
 
-		for (BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
-			BlockEntity tile = level.getBlockEntity(worldPosition.offset(pylon));
-			if (tile instanceof TilePylon) {
-				((TilePylon) tile).activated = self.stage == State.GATHER_MANA;
+		for (BlockPos offset : PYLON_LOCATIONS.get(axis)) {
+			BlockEntity tile = level.getBlockEntity(worldPosition.offset(offset));
+			if (tile instanceof TilePylon pylon) {
+				pylon.activated = self.stage == State.GATHER_MANA;
 				if (self.stage == State.GATHER_MANA) {
-					((TilePylon) tile).centerPos = worldPosition;
+					pylon.centerPos = worldPosition;
 				}
 			}
 		}

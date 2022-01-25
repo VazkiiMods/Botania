@@ -83,8 +83,8 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, wool), target.getX(), target.getY() + target.getEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 				sheep.setHealth(0);
-			} else if (target instanceof ItemEntity) {
-				ItemStack stack = ((ItemEntity) target).getItem();
+			} else if (target instanceof ItemEntity item) {
+				ItemStack stack = item.getItem();
 
 				if (!stack.isEmpty() && ColorHelper.isWool(Block.byItem(stack.getItem()))) {
 					Block expected = ColorHelper.WOOL_MAP.apply(nextColor);

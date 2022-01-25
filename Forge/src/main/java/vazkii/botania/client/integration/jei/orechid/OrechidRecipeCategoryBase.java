@@ -21,11 +21,11 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
@@ -99,7 +99,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 	protected abstract RecipeType<? extends IOrechidRecipe> recipeType();
 
 	protected List<? extends IOrechidRecipe> getOreWeights(Block input) {
-		ListMultimap<Block, ? extends IOrechidRecipe> multimap = OrechidManager.getFor(ServerLifecycleHooks.getCurrentServer(), recipeType());
+		ListMultimap<Block, ? extends IOrechidRecipe> multimap = OrechidManager.getFor(Minecraft.getInstance().level.getRecipeManager(), recipeType());
 		return multimap.get(input);
 	}
 

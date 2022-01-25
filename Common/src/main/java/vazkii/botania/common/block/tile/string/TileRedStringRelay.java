@@ -41,8 +41,8 @@ public class TileRedStringRelay extends TileRedString {
 	}
 
 	private static boolean isValidPlant(Block block) {
-		if (block instanceof FlowerPotBlock) {
-			block = ((FlowerPotBlock) block).getContent();
+		if (block instanceof FlowerPotBlock flowerPot) {
+			block = flowerPot.getContent();
 		}
 		return block instanceof FlowerBlock || block instanceof HugeMushroomBlock || block instanceof DoublePlantBlock;
 	}

@@ -72,8 +72,8 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 
 	public static boolean isValidBubbell(Level world, BlockPos pos) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof SubTileBubbell) {
-			return ((SubTileBubbell) tile).getMana() > COST_PER_TICK;
+		if (tile instanceof SubTileBubbell bubbell) {
+			return bubbell.getMana() > COST_PER_TICK;
 		}
 
 		return false;

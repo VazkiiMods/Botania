@@ -132,8 +132,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 					break;
 				}
 			}
-			if (successes > 0 && player instanceof ServerPlayer) {
-				LokiPlaceTrigger.INSTANCE.trigger((ServerPlayer) player, lokiRing, successes);
+			if (successes > 0 && player instanceof ServerPlayer serverPlayer) {
+				LokiPlaceTrigger.INSTANCE.trigger(serverPlayer, lokiRing, successes);
 			}
 			return successes > 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
 		}

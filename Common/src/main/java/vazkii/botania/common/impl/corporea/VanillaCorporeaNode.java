@@ -53,7 +53,12 @@ public class VanillaCorporeaNode extends AbstractCorporeaNode {
 
 					if (doit) {
 						ItemStack copy = stackAt.copy();
-						builder.addAll(breakDownBigStack(inv.removeItem(i, rem)));
+						copy.setCount(rem);
+						if (getSpark().isCreative()) {
+							builder.add(copy);
+						} else {
+							builder.addAll(breakDownBigStack(inv.removeItem(i, rem)));
+						}
 						getSpark().onItemExtracted(copy);
 						request.trackExtracted(rem);
 					} else {

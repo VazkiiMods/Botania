@@ -85,7 +85,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	@Nullable
 	private BlockState getOreToPut(BlockPos coords, BlockState state) {
 		List<Output> values = new ArrayList<>();
-		for (IOrechidRecipe recipe : OrechidManager.getFor(getLevel().getServer(), getRecipeType())
+		for (IOrechidRecipe recipe : OrechidManager.getFor(getLevel().getRecipeManager(), getRecipeType())
 				.get(state.getBlock())) {
 			Output output = new Output(recipe, recipe.getWeight(getLevel(), coords));
 			values.add(output);
@@ -137,7 +137,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	}
 
 	public Predicate<BlockState> getReplaceMatcher() {
-		var map = OrechidManager.getFor(getLevel().getServer(), getRecipeType());
+		var map = OrechidManager.getFor(getLevel().getRecipeManager(), getRecipeType());
 		return state -> map.containsKey(state.getBlock());
 	}
 

@@ -122,7 +122,7 @@ public class ItemFlugelEye extends ItemRelic {
 
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getX(), living.getY(), living.getZ()) * 10);
 
-		if (!(living instanceof Player) || ManaItemHandler.instance().requestManaExact(stack, (Player) living, cost, true)) {
+		if (!(living instanceof Player player) || ManaItemHandler.instance().requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(living);
 			living.teleportTo(x + 0.5, y + 1.5, z + 0.5);
 			moveParticlesAndSound(living);

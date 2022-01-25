@@ -11,8 +11,6 @@ package vazkii.botania.network.clientbound;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.network.IPacket;
@@ -39,15 +37,22 @@ public record PacketAvatarTornadoRod(boolean elytra) implements IPacket {
 	public static class Handler {
 		public static void handle(PacketAvatarTornadoRod packet) {
 			boolean elytra = packet.elytra();
-			Minecraft.getInstance().execute(() -> {
-				Player player = Minecraft.getInstance().player;
-				Level world = Minecraft.getInstance().level;
-				if (elytra) {
-					ItemTornadoRod.doAvatarElytraBoost(player, world);
-				} else {
-					ItemTornadoRod.doAvatarJump(player, world);
-				}
-			});
+			// Lambda trips verifier on forge
+			Minecraft.getInstance().execute(
+					new Runnable() {
+						@Override
+						public void run() {
+							var player = Minecraft.getInstance().player;
+							var world = Minecraft.getInstance().level;
+							if (elytra) {
+								ItemTornadoRod.doAvatarElytraBoost(player, world);
+							} else {
+								ItemTornadoRod.doAvatarJump(player, world);
+							}
+						}
+					}
+
+			);
 		}
 	}
 }

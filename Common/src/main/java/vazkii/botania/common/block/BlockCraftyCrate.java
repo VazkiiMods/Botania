@@ -44,9 +44,9 @@ public class BlockCraftyCrate extends BlockOpenCrate {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		BlockEntity crate = world.getBlockEntity(pos);
-		if (crate instanceof TileCraftCrate) {
-			return ((TileCraftCrate) crate).getSignal();
+		BlockEntity block = world.getBlockEntity(pos);
+		if (block instanceof TileCraftCrate crate) {
+			return crate.getSignal();
 		}
 		return 0;
 	}

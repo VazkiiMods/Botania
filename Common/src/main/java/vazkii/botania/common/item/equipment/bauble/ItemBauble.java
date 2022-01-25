@@ -109,8 +109,8 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	public void onWornTick(ItemStack stack, LivingEntity entity) {}
 
 	public void onEquipped(ItemStack stack, LivingEntity entity) {
-		if (!entity.level.isClientSide && entity instanceof ServerPlayer) {
-			PlayerHelper.grantCriterion((ServerPlayer) entity, prefix("main/bauble_wear"), "code_triggered");
+		if (!entity.level.isClientSide && entity instanceof ServerPlayer player) {
+			PlayerHelper.grantCriterion(player, prefix("main/bauble_wear"), "code_triggered");
 		}
 	}
 

@@ -153,10 +153,10 @@ public class ItemBottledMana extends Item {
 
 			}
 			case 15 -> { // Drop own Head
-				if (!living.level.isClientSide && living instanceof Player) {
+				if (!living.level.isClientSide && living instanceof Player player) {
 					living.hurt(DamageSource.MAGIC, living.getHealth() - 1);
 					ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
-					ItemNBTHelper.setString(skull, "SkullOwner", ((Player) living).getGameProfile().getName());
+					ItemNBTHelper.setString(skull, "SkullOwner", player.getGameProfile().getName());
 					living.spawnAtLocation(skull, 0);
 				}
 			}

@@ -92,10 +92,10 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock {
 	public InteractionResult use(@Nonnull BlockState state, Level world, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
 		BlockEntity te = world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.getItem() instanceof DyeItem && te instanceof TilePool) {
-			DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
-			if (color != ((TilePool) te).getColor()) {
-				((TilePool) te).setColor(color);
+		if (stack.getItem() instanceof DyeItem dye && te instanceof TilePool pool) {
+			DyeColor color = dye.getDyeColor();
+			if (color != pool.getColor()) {
+				pool.setColor(color);
 				stack.shrink(1);
 				return InteractionResult.SUCCESS;
 			}
@@ -128,9 +128,9 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock {
 
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-		if (entity instanceof ItemEntity) {
+		if (entity instanceof ItemEntity item) {
 			TilePool tile = (TilePool) world.getBlockEntity(pos);
-			tile.collideEntityItem((ItemEntity) entity);
+			tile.collideEntityItem(item);
 		}
 	}
 

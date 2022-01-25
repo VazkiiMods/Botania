@@ -45,8 +45,10 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	private static final int SCAN_RANGE = 8;
 
 	private static final String TAG_MASTER = "master";
+	private static final String TAG_CREATIVE = "creative";
 
 	private static final EntityDataAccessor<Boolean> MASTER = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> CREATIVE = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new SparkArrayList<>();
@@ -61,12 +63,13 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		entityData.define(MASTER, false);
+		entityData.define(CREATIVE, false);
 	}
 
 	@Nonnull
 	@Override
 	public ItemStack getPickResult() {
-		return isMaster() ? new ItemStack(ModItems.corporeaSparkMaster) : new ItemStack(ModItems.corporeaSpark);
+		return new ItemStack(isCreative() ? ModItems.corporeaSparkCreative : isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark);
 	}
 
 	@Override
@@ -103,7 +106,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void dropAndKill() {
-		spawnAtLocation(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
+		spawnAtLocation(new ItemStack(isCreative() ? ModItems.corporeaSparkCreative : isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
 		discard();
 	}
 
@@ -228,6 +231,15 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		return entityData.get(MASTER);
 	}
 
+	public void setCreative(boolean creative) {
+		entityData.set(CREATIVE, creative);
+	}
+
+	@Override
+	public boolean isCreative() {
+		return entityData.get(CREATIVE);
+	}
+
 	@Override
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
@@ -244,8 +256,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 					}
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide);
-			} else if (stack.getItem() instanceof DyeItem) {
-				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+			} else if (stack.getItem() instanceof DyeItem dye) {
+				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
 					if (!level.isClientSide) {
 						setNetwork(color);
@@ -288,12 +300,14 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	protected void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setMaster(cmp.getBoolean(TAG_MASTER));
+		setCreative(cmp.getBoolean(TAG_CREATIVE));
 	}
 
 	@Override
 	protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
+		cmp.putBoolean(TAG_CREATIVE, isCreative());
 	}
 
 }

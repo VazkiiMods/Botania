@@ -83,13 +83,13 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		BlockEntity te = world.getBlockEntity(pos);
-		if (!stack.isEmpty() && te instanceof IFloatingFlowerProvider && ((IFloatingFlowerProvider) te).getFloatingData() != null) {
+		if (!stack.isEmpty() && te instanceof IFloatingFlowerProvider provider && provider.getFloatingData() != null) {
 			IFloatingFlower flower = ((IFloatingFlowerProvider) te).getFloatingData();
 			IslandType type = null;
 			if (stack.is(Items.SNOWBALL)) {
 				type = IslandType.SNOW;
-			} else if (stack.getItem() instanceof IFloatingFlowerVariant) {
-				IslandType newType = ((IFloatingFlowerVariant) stack.getItem()).getIslandType(stack);
+			} else if (stack.getItem() instanceof IFloatingFlowerVariant floatingFlower) {
+				IslandType newType = floatingFlower.getIslandType(stack);
 				if (newType != null) {
 					type = newType;
 				}

@@ -84,7 +84,7 @@ public final class BotaniaItemProperties {
 		consumer.accept(ModItems.manasteelSword, prefix("elucidator"),
 				(stack, world, entity, seed) -> "the elucidator".equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
 		consumer.accept(ModItems.terraAxe, prefix("active"),
-				(stack, world, entity, seed) -> entity instanceof Player && !ItemTerraAxe.shouldBreak((Player) entity) ? 0 : 1);
+				(stack, world, entity, seed) -> entity instanceof Player player && !ItemTerraAxe.shouldBreak(player) ? 0 : 1);
 		consumer.accept(ModItems.terraPick, prefix("tipped"),
 				(stack, world, entity, seed) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
 		consumer.accept(ModItems.terraPick, prefix("active"),

@@ -134,7 +134,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 			if (level == 0) {
 				setEnabled(stack, false);
-			} else if (entity instanceof Player && !((Player) entity).swinging) {
+			} else if (entity instanceof Player player && !player.swinging) {
 				addMana(stack, -level);
 			}
 		}

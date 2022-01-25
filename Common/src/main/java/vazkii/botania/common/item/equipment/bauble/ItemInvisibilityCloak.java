@@ -31,10 +31,10 @@ public class ItemInvisibilityCloak extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof Player && !player.level.isClientSide) {
+	public void onWornTick(ItemStack stack, LivingEntity entity) {
+		if (entity instanceof Player player && !player.level.isClientSide) {
 			int manaCost = 2;
-			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (Player) player, manaCost, true);
+			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, player, manaCost, true);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {

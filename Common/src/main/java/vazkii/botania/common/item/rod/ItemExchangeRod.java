@@ -304,8 +304,8 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 			}
 		}
 
-		if (requested instanceof BlockItem) {
-			Block block = ((BlockItem) requested).getBlock();
+		if (requested instanceof BlockItem blockItem) {
+			Block block = blockItem.getBlock();
 			for (IBlockProvider prov : providers) {
 				if (prov.provideBlock(player, tool, block, doit)) {
 					return new ItemStack(requested);
@@ -364,8 +364,8 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 			}
 
 			var prov = IXplatAbstractions.INSTANCE.findBlockProvider(invStack);
-			if (prov != null && requested instanceof BlockItem) {
-				int provCount = prov.getBlockCount(player, stack, ((BlockItem) requested).getBlock());
+			if (prov != null && requested instanceof BlockItem blockItem) {
+				int provCount = prov.getBlockCount(player, stack, blockItem.getBlock());
 				if (provCount == -1) {
 					return -1;
 				}

@@ -61,9 +61,9 @@ public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, 
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {
-		if (player instanceof Player) {
-			onArmorTick(stack, world, (Player) player);
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		if (entity instanceof Player player) {
+			onArmorTick(stack, world, player);
 		}
 	}
 

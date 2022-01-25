@@ -154,6 +154,7 @@ public final class LibItemNames {
 	public static final String ANCIENT_WILL_PREFIX = "ancient_will_";
 	public static final String CORPOREA_SPARK = "corporea_spark";
 	public static final String CORPOREA_SPARK_MASTER = "corporea_spark_master";
+	public static final String CORPOREA_SPARK_CREATIVE = "corporea_spark_creative";
 	public static final String LIVINGWOOD_BOW = "livingwood_bow";
 	public static final String CRYSTAL_BOW = "crystal_bow";
 	public static final String COSMETIC_PREFIX = "cosmetic_";

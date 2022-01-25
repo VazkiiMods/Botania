@@ -139,8 +139,8 @@ public class ItemLivingwoodBow extends BowItem implements ICustomDamageItem {
 	void onFire(ItemStack bow, LivingEntity living, boolean infinity, AbstractArrow arrow) {}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {
-		if (!world.isClientSide && player instanceof Player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (Player) player, MANA_PER_DAMAGE * 2, true)) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		if (!world.isClientSide && entity instanceof Player player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
 	}

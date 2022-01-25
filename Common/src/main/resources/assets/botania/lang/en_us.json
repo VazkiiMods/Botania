@@ -34,6 +34,7 @@
 
   "botaniamisc.creativePool0": "Creative Mana Pool, has infinite Mana",
   "botaniamisc.creativePool1": "Worthy of an Egoist",
+  "botaniamisc.creativeSpark": "Duplicates items in attached block upon request",
   "botaniamisc.toolRank": "%s\u00a77 Rank",
   "botaniamisc.lexiconcover0": "The official guide for",
   "botaniamisc.lexiconcover1": "all your Botania needs!",
@@ -1334,6 +1335,7 @@
   "item.botania.ancient_will_karil": "Will of Karil",
   "item.botania.corporea_spark": "Corporea Spark",
   "item.botania.corporea_spark_master": "Master Corporea Spark",
+  "item.botania.corporea_spark_creative": "Creative Corporea Spark",
   "item.botania.ender_air_bottle": "Ender Air Bottle",
   "item.botania.livingwood_bow": "Livingwood Bow",
   "item.botania.crystal_bow": "Crystal Bow",

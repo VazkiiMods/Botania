@@ -80,4 +80,9 @@ public interface ICorporeaSpark extends ISparkEntity {
 	 */
 	boolean isMaster();
 
+	/**
+	 * Gets if this spark is considered a creative spark.
+	 */
+	boolean isCreative();
+
 }

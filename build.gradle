@@ -1,16 +1,6 @@
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:5.12.5"
-    }
+plugins {
+    id 'com.diffplug.spotless' version '5.12.5' apply false
 }
-/* TODO someone please fix this I hate gradle so much
-        I fixed it - Jared
-*/
 
 subprojects {
     apply plugin: 'java'

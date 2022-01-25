@@ -27,8 +27,8 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 		@Override
 		public ItemStack getDisplayStack() {
 			Block b = getBlockState().getBlock();
-			if (b instanceof BlockFloatingFlower) {
-				return new ItemStack(ModBlocks.getShinyFlower(((BlockFloatingFlower) b).color));
+			if (b instanceof BlockFloatingFlower floatingFlower) {
+				return new ItemStack(ModBlocks.getShinyFlower(floatingFlower.color));
 			} else {
 				return ItemStack.EMPTY;
 			}
