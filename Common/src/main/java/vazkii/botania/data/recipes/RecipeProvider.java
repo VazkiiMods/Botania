@@ -2155,14 +2155,9 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickMossy)
 				.requires(ModBlocks.livingrockBrick)
-				.requires(Items.MOSS_BLOCK)
+				.requires(Items.WHEAT_SEEDS)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
 				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickMossy)
-				.requires(ModBlocks.livingrockBrick)
-				.requires(Items.VINE)
-				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
-				.save(consumer, "botania:mossy_livingrock_bricks_vine");
 		ShapelessRecipeBuilder.shapeless(ModBlocks.shimmerrock)
 				.requires(ModBlocks.livingrock)
 				.requires(ModBlocks.bifrostPerm)
@@ -2527,14 +2522,9 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		slabShape(planksSlab, planks).save(consumer);
 		ShapelessRecipeBuilder.shapeless(mossyPlanks)
 				.requires(planks)
-				.requires(Items.MOSS_BLOCK)
+				.requires(Items.WHEAT_SEEDS)
 				.unlockedBy("has_item", conditionsFromItem(planks))
 				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(mossyPlanks)
-				.requires(planks)
-				.requires(Items.VINE)
-				.unlockedBy("has_item", conditionsFromItem(planks))
-				.save(consumer, "botania:mossy_" + variant + "_planks_vine");
 		ShapedRecipeBuilder.shaped(framed, 4)
 				.define('W', planks)
 				.pattern("W W")
