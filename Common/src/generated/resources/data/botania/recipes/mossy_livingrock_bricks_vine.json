@@ -5,11 +5,10 @@
       "item": "botania:livingrock_bricks"
     },
     {
-      "item": "minecraft:cobblestone"
+      "item": "minecraft:vine"
     }
   ],
   "result": {
-    "item": "botania:cracked_livingrock_bricks",
-    "count": 2
+    "item": "botania:mossy_livingrock_bricks"
   }
 }
