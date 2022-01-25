@@ -304,7 +304,7 @@ public final class ModItems {
 	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(/*ModPatterns.SPARK_ISOLATED, */defaultBuilder(), SparkUpgradeType.ISOLATED);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
-	public static final Item corporeaSparkCreative = new ItemCorporeaSpark(defaultBuilder());
+	public static final Item corporeaSparkCreative = new ItemCorporeaSpark(defaultBuilder().rarity(Rarity.EPIC));
 	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item blackerLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.EPIC));
 	public static final Item worldSeed = new ItemWorldSeed(defaultBuilder());
