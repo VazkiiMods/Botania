@@ -41,6 +41,7 @@
     "MixinItemEntity",
     "MixinLootTable",
     "MixinNaturalSpawner",
+    "MixinPlayer",
     "MixinPollinateGoal",
     "MixinServerLevel",
     "MixinServerPlayer",
