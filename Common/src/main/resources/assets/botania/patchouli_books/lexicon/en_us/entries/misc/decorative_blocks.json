@@ -21,9 +21,9 @@
       "recipe2": "botania:mossy_livingrock_bricks_vine"
     },
     {
-      "type": "crafting",
+      "type": "smelting",
       "text": "botania.page.decorativeBlocks3",
-      "recipe": "botania:cracked_livingrock_bricks"
+      "recipe": "botania:smelting/cracked_livingrock_bricks"
     },
     {
       "type": "crafting",

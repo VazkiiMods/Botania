@@ -2148,16 +2148,16 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
 				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickCracked, 2)
+		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickMossy)
 				.requires(ModBlocks.livingrockBrick)
-				.requires(Items.COBBLESTONE)
+				.requires(Items.MOSS_BLOCK)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModBlocks.livingrockBrickMossy)
 				.requires(ModBlocks.livingrockBrick)
-				.requires(Items.WHEAT_SEEDS)
+				.requires(Items.VINE)
 				.unlockedBy("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
-				.save(consumer);
+				.save(consumer, "botania:mossy_livingrock_bricks_vine");
 		ShapelessRecipeBuilder.shapeless(ModBlocks.shimmerrock)
 				.requires(ModBlocks.livingrock)
 				.requires(ModBlocks.bifrostPerm)
@@ -2443,14 +2443,14 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 	protected void registerForWood(Consumer<FinishedRecipe> consumer, String variant) {
 
 		Tag<Item> tag = variant.contains("livingwood") ? ModTags.Items.LIVINGWOOD_LOGS : ModTags.Items.DREAMWOOD_LOGS;
-		Block log = Registry.BLOCK.getOptional(prefix(variant + "_log")).orElseThrow(); //
-		Block bark = Registry.BLOCK.getOptional(prefix(variant)).orElseThrow(); //
-		Block strippedLog = Registry.BLOCK.getOptional(prefix("stripped_" + variant + "_log")).orElseThrow(); //
-		Block strippedBark = Registry.BLOCK.getOptional(prefix("stripped_" + variant)).orElseThrow(); //
+		Block log = Registry.BLOCK.getOptional(prefix(variant + "_log")).orElseThrow();
+		Block wood = Registry.BLOCK.getOptional(prefix(variant)).orElseThrow();
+		Block strippedLog = Registry.BLOCK.getOptional(prefix("stripped_" + variant + "_log")).orElseThrow();
+		Block strippedWood = Registry.BLOCK.getOptional(prefix("stripped_" + variant)).orElseThrow();
 		Block glimmeringLog = Registry.BLOCK.getOptional(prefix("glimmering_" + variant + "_log")).orElseThrow();
-		Block glimmeringBark = Registry.BLOCK.getOptional(prefix("glimmering_" + variant)).orElseThrow();
+		Block glimmeringWood = Registry.BLOCK.getOptional(prefix("glimmering_" + variant)).orElseThrow();
 		Block glimmeringStrippedLog = Registry.BLOCK.getOptional(prefix("glimmering_stripped_" + variant + "_log")).orElseThrow();
-		Block glimmeringStrippedBark = Registry.BLOCK.getOptional(prefix("glimmering_stripped_" + variant)).orElseThrow();
+		Block glimmeringStrippedWood = Registry.BLOCK.getOptional(prefix("glimmering_stripped_" + variant)).orElseThrow();
 		Block stairs = Registry.BLOCK.getOptional(prefix(variant + "_stairs")).orElseThrow();
 		Block slab = Registry.BLOCK.getOptional(prefix(variant + "_slab")).orElseThrow();
 		Block wall = Registry.BLOCK.getOptional(prefix(variant + "_wall")).orElseThrow();
@@ -2469,62 +2469,71 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 		ShapelessRecipeBuilder.shapeless(planks, 4).requires(tag).group("planks")
 				.unlockedBy("has_item", conditionsFromTag(tag)).save(consumer);
-		ShapedRecipeBuilder.shaped(bark, 3).group("bark").unlockedBy("has_log", conditionsFromItem(log))
+		ShapedRecipeBuilder.shaped(wood, 3).group("wood").unlockedBy("has_log", conditionsFromItem(log))
 				.define('#', log)
 				.pattern("##")
-				.pattern("##").save(consumer);
-		ShapedRecipeBuilder.shaped(strippedBark, 3).group("bark").unlockedBy("has_log", conditionsFromItem(strippedLog))
+				.pattern("##")
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(strippedWood, 3).group("wood").unlockedBy("has_log", conditionsFromItem(strippedLog))
 				.define('#', strippedLog)
 				.pattern("##")
-				.pattern("##").save(consumer);
+				.pattern("##")
+				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(glimmeringLog).group("botania:glimmering_" + variant)
 				.requires(log)
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromItem(log))
 				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(glimmeringBark).group("botania:glimmering_" + variant)
-				.requires(bark)
+		ShapelessRecipeBuilder.shapeless(glimmeringWood).group("botania:glimmering_" + variant)
+				.requires(wood)
 				.requires(Items.GLOWSTONE_DUST)
-				.unlockedBy("has_item", conditionsFromItem(bark))
+				.unlockedBy("has_item", conditionsFromItem(wood))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(glimmeringStrippedLog).group("botania:glimmering_" + variant)
 				.requires(strippedLog)
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromItem(strippedLog))
 				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(glimmeringStrippedBark).group("botania:glimmering_" + variant)
-				.requires(strippedBark)
+		ShapelessRecipeBuilder.shapeless(glimmeringStrippedWood).group("botania:glimmering_" + variant)
+				.requires(strippedWood)
 				.requires(Items.GLOWSTONE_DUST)
-				.unlockedBy("has_item", conditionsFromItem(strippedBark))
+				.unlockedBy("has_item", conditionsFromItem(strippedWood))
 				.save(consumer);
-		ShapedRecipeBuilder.shaped(glimmeringBark, 3).group("botania:glimmering_" + variant)
+		ShapedRecipeBuilder.shaped(glimmeringWood, 3).group("botania:glimmering_" + variant)
 				.unlockedBy("has_log", conditionsFromItem(glimmeringLog))
 				.define('#', glimmeringLog)
 				.pattern("##")
-				.pattern("##").save(consumer, prefix("glimmering_" + variant + "_alt"));
-		ShapedRecipeBuilder.shaped(glimmeringStrippedBark, 3).group("botania:glimmering_" + variant)
+				.pattern("##")
+				.save(consumer, prefix("glimmering_" + variant + "_from_log"));
+		ShapedRecipeBuilder.shaped(glimmeringStrippedWood, 3).group("botania:glimmering_" + variant)
 				.unlockedBy("has_log", conditionsFromItem(glimmeringStrippedLog))
 				.define('#', glimmeringStrippedLog)
 				.pattern("##")
-				.pattern("##").save(consumer, prefix("glimmering_stripped_" + variant + "_alt"));
+				.pattern("##")
+				.save(consumer, prefix("glimmering_stripped_" + variant + "_from_log"));
 
-		stairs(stairs, bark).save(consumer);
-		slabShape(slab, bark).save(consumer);
-		wallShape(wall, bark, 6).save(consumer);
+		stairs(stairs, wood).save(consumer);
+		slabShape(slab, wood).save(consumer);
+		wallShape(wall, wood, 6).save(consumer);
 		fence(fence, planks).save(consumer);
 		fenceGate(fenceGate, planks).save(consumer);
 
-		stairs(strippedStairs, strippedBark).save(consumer);
-		slabShape(strippedSlab, strippedBark).save(consumer);
-		wallShape(strippedWall, strippedBark, 6).save(consumer);
+		stairs(strippedStairs, strippedWood).save(consumer);
+		slabShape(strippedSlab, strippedWood).save(consumer);
+		wallShape(strippedWall, strippedWood, 6).save(consumer);
 
 		stairs(planksStairs, planks).save(consumer);
 		slabShape(planksSlab, planks).save(consumer);
 		ShapelessRecipeBuilder.shapeless(mossyPlanks)
 				.requires(planks)
-				.requires(Items.WHEAT_SEEDS)
+				.requires(Items.MOSS_BLOCK)
 				.unlockedBy("has_item", conditionsFromItem(planks))
 				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(mossyPlanks)
+				.requires(planks)
+				.requires(Items.VINE)
+				.unlockedBy("has_item", conditionsFromItem(planks))
+				.save(consumer, prefix("mossy_" + variant + "_planks_vine"));
 		ShapedRecipeBuilder.shaped(framed, 4)
 				.define('W', planks)
 				.pattern("W W")

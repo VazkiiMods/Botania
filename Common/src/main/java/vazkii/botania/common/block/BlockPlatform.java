@@ -99,6 +99,11 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 		}
 	}
 
+	@Override
+	public float getShadeBrightness(BlockState state, BlockGetter level, BlockPos pos) {
+		return 1.0F;
+	}
+
 	@Nonnull
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {

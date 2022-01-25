@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:glimmering_livingwood_alt"
+      "botania:smelting/cracked_livingrock_bricks"
     ]
   },
   "criteria": {
-    "has_log": {
+    "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "botania:glimmering_livingwood_log"
+              "botania:livingrock_bricks"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:glimmering_livingwood_alt"
+        "recipe": "botania:smelting/cracked_livingrock_bricks"
       }
     }
   },
   "requirements": [
     [
-      "has_log",
+      "has_item",
       "has_the_recipe"
     ]
   ]

@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:cracked_livingrock_bricks"
+      "botania:glimmering_stripped_dreamwood_from_log"
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_log": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "botania:livingrock_bricks"
+              "botania:glimmering_stripped_dreamwood_log"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:cracked_livingrock_bricks"
+        "recipe": "botania:glimmering_stripped_dreamwood_from_log"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_log",
       "has_the_recipe"
     ]
   ]

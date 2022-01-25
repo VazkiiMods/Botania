@@ -64,6 +64,7 @@ public class TilePlatform extends TileMod implements IWandable {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			if (!level.isClientSide) {
 				level.blockUpdated(worldPosition, getBlockState().getBlock());
+				setChanged();
 			}
 		}
 	}
@@ -117,9 +118,12 @@ public class TilePlatform extends TileMod implements IWandable {
 
 	@SoftImplement("RenderAttachmentBlockEntity")
 	public Object getRenderAttachmentData() {
-		return new PlatformData(getBlockPos().immutable(), camoState);
+		return new PlatformData(this);
 	}
 
 	public record PlatformData(BlockPos pos, @Nullable BlockState state) {
+		public PlatformData(TilePlatform tile) {
+			this(tile.getBlockPos().immutable(), tile.camoState);
+		}
 	}
 }
