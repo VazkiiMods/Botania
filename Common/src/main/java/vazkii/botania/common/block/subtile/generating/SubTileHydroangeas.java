@@ -56,7 +56,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 			cooldown--;
 			for (int i = 0; i < 3; i++) {
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
-				level.addParticle(data, getEffectivePos().getX() + 0.5 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.5 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
+				emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
 			}
 		}
 
@@ -117,7 +117,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	public void doBurnParticles() {
 		WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.05F, 0.05F, 0.7F, 1);
-		level.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
+		emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.55 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 60, 0);
 	}
 
 	public Tag<Fluid> getMaterialToSearchFor() {

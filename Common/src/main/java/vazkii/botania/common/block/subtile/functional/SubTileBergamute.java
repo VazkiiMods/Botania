@@ -83,7 +83,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		float green = (color >> 8 & 0xFF) / 255F;
 		float blue = (color & 0xFF) / 255F;
 		SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
-		berg.getLevel().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
+		berg.emitParticle(data, 0.3 + Math.random() * 0.5, 0.5 + Math.random() * 0.5, 0.3 + Math.random() * 0.5, 0, 0, 0);
 	}
 
 	@Override

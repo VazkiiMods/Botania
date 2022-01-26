@@ -38,7 +38,7 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 				float r = state == INCREASING ? 0.05F : 1F;
 				float b = state == INCREASING ? 1F : 0.05F;
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 7, r, 0.05F, b, 1);
-				level.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 50, 0);
+				emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.75 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 50, 0);
 			}
 		} else {
 			int mana = 0;
