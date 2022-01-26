@@ -350,7 +350,7 @@ public class ForgeCommonInitializer {
 			bus.addListener((LivingEvent.LivingUpdateEvent e) -> {
 				if (e.getEntityLiving() instanceof Player player) {
 					ItemFlightTiara.updatePlayerFlyStatus(player);
-					ItemTravelBelt.updatePlayerStepStatus(player);
+					ItemTravelBelt.tickBelt(player);
 				}
 			});
 			bus.addListener((LivingFallEvent e) -> {

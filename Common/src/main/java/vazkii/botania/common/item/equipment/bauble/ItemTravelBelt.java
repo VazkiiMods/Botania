@@ -83,16 +83,14 @@ public class ItemTravelBelt extends ItemBauble {
 		this.fallBuffer = fallBuffer;
 	}
 
-	public static void updatePlayerStepStatus(Player player) {
+	public static void tickBelt(Player player) {
 		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
-		var reachDist = IXplatAbstractions.INSTANCE.getStepHeightAttribute();
-		if (reachDist == null) {
-			// TODO 1.18-forge step height is not yet an attribute. PR?
-			return;
-		}
-		AttributeInstance attrib = player.getAttribute(reachDist);
-		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
+		var stepHeight = IXplatAbstractions.INSTANCE.getStepHeightAttribute();
+		/* TODO 1.18-forge step height is not yet an attribute. See Forge PR #8389
+			Remove all these null checks when it's merged */
+		AttributeInstance attrib = stepHeight != null ? player.getAttribute(stepHeight) : null;
+		boolean hasBoost = attrib != null && attrib.hasModifier(STEP_BOOST);
 
 		if (tryConsumeMana(player)) {
 			if (player.level.isClientSide) {
@@ -115,7 +113,9 @@ public class ItemTravelBelt extends ItemBauble {
 					}
 				} else {
 					if (!hasBoost) {
-						attrib.addTransientModifier(STEP_BOOST);
+						if (attrib != null) { // temporary while Nullable on forge
+							attrib.addTransientModifier(STEP_BOOST);
+						}
 					}
 				}
 			}

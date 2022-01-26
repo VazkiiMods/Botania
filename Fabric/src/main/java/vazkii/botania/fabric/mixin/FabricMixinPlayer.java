@@ -107,7 +107,7 @@ public abstract class FabricMixinPlayer extends LivingEntity {
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void tickBeltTiara(CallbackInfo ci) {
 		ItemFlightTiara.updatePlayerFlyStatus((Player) (Object) this);
-		ItemTravelBelt.updatePlayerStepStatus((Player) (Object) this);
+		ItemTravelBelt.tickBelt((Player) (Object) this);
 	}
 
 	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"))
