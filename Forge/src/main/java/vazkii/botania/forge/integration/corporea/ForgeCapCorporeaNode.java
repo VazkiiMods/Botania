@@ -45,7 +45,7 @@ public class ForgeCapCorporeaNode extends AbstractCorporeaNode {
 
 					if (doit) {
 						ItemStack copy = stackAt.copy();
-						builder.addAll(breakDownBigStack(inv.extractItem(i, rem, false)));
+						builder.addAll(breakDownBigStack(inv.extractItem(i, rem, getSpark().isCreative())));
 						getSpark().onItemExtracted(copy);
 						request.trackExtracted(rem);
 					} else {
