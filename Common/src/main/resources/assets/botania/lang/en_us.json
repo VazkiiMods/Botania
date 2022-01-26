@@ -2580,7 +2580,7 @@
 
   "botania.entry.waterRod": "Rod of the Seas",
   "botania.tagline.waterRod": "A rod for creating water",
-  "botania.page.waterRod0": "Similarly to its land-themed counterpart, the $(item)Rod of the Seas$(0) will (at the cost of some $(thing)Mana$(0)) place a block of $(item)Water$(0) wherever it's used. Furthermore, it can refill a $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l).",
+  "botania.page.waterRod0": "Similarly to its land-themed counterpart, the $(item)Rod of the Seas$(0) will (at the cost of some $(thing)Mana$(0)) place a block of $(item)Water$(0) wherever it's used. Furthermore, it can refill a $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l), as well as empty $(item)Buckets$(0) in the inventory.",
   "botania.page.waterRod1": "Keep the Earth clean, it isn't Uranus",
 
   "botania.entry.elfGear": "Elementium Equipment",
