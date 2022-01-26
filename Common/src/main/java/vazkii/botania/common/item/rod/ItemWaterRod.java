@@ -15,7 +15,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -81,4 +84,40 @@ public class ItemWaterRod extends Item {
 		}
 	}
 
+	@Override
+	public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
+		if (action != ClickAction.SECONDARY) {
+			return false;
+		}
+		ItemStack other = slot.getItem();
+		if (other.is(Items.BUCKET) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
+			if (other.getCount() == 1) {
+				slot.set(new ItemStack(Items.WATER_BUCKET));
+			} else {
+				other.shrink(1);
+				player.getInventory().placeItemBackInInventory(new ItemStack(Items.WATER_BUCKET));
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
+		if (action != ClickAction.SECONDARY) {
+			return false;
+		}
+		if (other.is(Items.BUCKET) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
+			if (other.getCount() == 1) {
+				access.set(new ItemStack(Items.WATER_BUCKET));
+			} else {
+				other.shrink(1);
+				player.getInventory().placeItemBackInInventory(new ItemStack(Items.WATER_BUCKET));
+			}
+			return true;
+		}
+
+		return false;
+	}
 }

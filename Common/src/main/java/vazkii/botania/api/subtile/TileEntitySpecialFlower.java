@@ -11,6 +11,7 @@ package vazkii.botania.api.subtile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.*;
@@ -294,5 +296,18 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 			return floatingData.getIslandType();
 		}
 		return null;
+	}
+
+	public void emitParticle(ParticleOptions options, double xOffset, double yOffset, double zOffset, double xSpeed, double ySpeed, double zSpeed) {
+		if (!level.isClientSide) {
+			return;
+		}
+		Vec3 offset = level.getBlockState(getEffectivePos()).getOffset(level, getEffectivePos());
+		level.addParticle(options,
+				getEffectivePos().getX() + offset.x + xOffset,
+				getEffectivePos().getY() + offset.y + yOffset,
+				getEffectivePos().getZ() + offset.z + zOffset,
+				xSpeed, ySpeed, zSpeed
+		);
 	}
 }

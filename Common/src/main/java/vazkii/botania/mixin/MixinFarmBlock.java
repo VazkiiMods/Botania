@@ -24,7 +24,7 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 @Mixin(FarmBlock.class)
 public class MixinFarmBlock {
 	@Inject(
-		method = "canSurvive", at = @At(value = "RETURN"),
+		method = "canSurvive", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/LevelReader;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"),
 		cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT
 	)
 	private void floatingFlowerOverride(BlockState state, LevelReader worldIn, BlockPos pos,

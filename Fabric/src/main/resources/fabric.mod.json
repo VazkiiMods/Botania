@@ -8,7 +8,8 @@
   "authors": [
     "Vazkii",
     "williewillus",
-    "Hubry"
+    "Hubry",
+    "Alwinfy"
   ],
   "contact": {
     "homepage": "https://botaniamod.net",
@@ -52,7 +53,7 @@
   "accessWidener": "botania.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.8",
+    "fabricloader": ">=0.12",
     "fabric": ">=0.44",
     "minecraft": ">=1.18.1",
     "trinkets" : ">=3",

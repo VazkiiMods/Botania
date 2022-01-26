@@ -56,7 +56,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWan
 
 		if (getLevel().random.nextInt(4) == 0) {
 			WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
-			level.addParticle(data, getEffectivePos().getX() + Math.random(), getEffectivePos().getY() + Math.random(), getEffectivePos().getZ() + Math.random(), orientation.getStepX() * 0.1F, orientation.getStepY() * 0.1F, orientation.getStepZ() * 0.1F);
+			emitParticle(data, Math.random(), Math.random(), Math.random(), orientation.getStepX() * 0.1F, orientation.getStepY() * 0.1F, orientation.getStepZ() * 0.1F);
 		}
 
 		if (windTicks == 0 && getMana() > 0) {

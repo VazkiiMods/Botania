@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -50,8 +49,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 		if (getLevel().isClientSide) {
 			if (burnTime > 0 && getLevel().random.nextInt(10) == 0) {
-				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.4, 0.7, 0.4);
-				getLevel().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+				emitParticle(ParticleTypes.FLAME, 0.4 + Math.random() * 0.2, 0.7, 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}

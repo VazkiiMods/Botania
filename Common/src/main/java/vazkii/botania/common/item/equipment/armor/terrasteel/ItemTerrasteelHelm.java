@@ -24,6 +24,7 @@ import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorDamageSource;
 
 import javax.annotation.Nullable;
@@ -92,34 +93,38 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return false;
 	}
 
-	public float onCritDamageCalc(float amount, Player player) {
-		if (hasArmorSet(player)) {
-			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
-			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm
-					&& hasAncientWill(stack, AncientWillType.DHAROK)) {
-				return amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
-			}
-		}
-		return amount;
+	public static boolean hasTerraArmorSet(Player player) {
+		return ((ItemTerrasteelHelm) ModItems.terrasteelHelm).hasArmorSet(player);
 	}
 
-	public void onEntityAttacked(DamageSource source, float amount, Player player, LivingEntity entity) {
-		if (hasArmorSet(player)) {
+	public static float getCritDamageMult(Player player) {
+		if (hasTerraArmorSet(player)) {
+			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm
+					&& hasAncientWill_(stack, AncientWillType.DHAROK)) {
+				return 1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F;
+			}
+		}
+		return 1.0F;
+	}
+
+	public static void onEntityAttacked(DamageSource source, float amount, Player player, LivingEntity entity) {
+		if (hasTerraArmorSet(player)) {
 			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
-				if (hasAncientWill(stack, AncientWillType.AHRIM)) {
+				if (hasAncientWill_(stack, AncientWillType.AHRIM)) {
 					entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1));
 				}
-				if (hasAncientWill(stack, AncientWillType.GUTHAN)) {
+				if (hasAncientWill_(stack, AncientWillType.GUTHAN)) {
 					player.heal(amount * 0.25F);
 				}
-				if (hasAncientWill(stack, AncientWillType.TORAG)) {
+				if (hasAncientWill_(stack, AncientWillType.TORAG)) {
 					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1));
 				}
-				if (hasAncientWill(stack, AncientWillType.VERAC)) {
+				if (hasAncientWill_(stack, AncientWillType.VERAC)) {
 					((AccessorDamageSource) source).botania_setBypassArmor();
 				}
-				if (hasAncientWill(stack, AncientWillType.KARIL)) {
+				if (hasAncientWill_(stack, AncientWillType.KARIL)) {
 					entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1));
 				}
 			}

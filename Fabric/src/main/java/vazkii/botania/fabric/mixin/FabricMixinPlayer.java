@@ -23,7 +23,6 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -34,10 +33,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
+import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.bauble.*;
@@ -53,12 +52,6 @@ public abstract class FabricMixinPlayer extends LivingEntity {
 	@Shadow
 	@Final
 	private Inventory inventory;
-
-	@Unique
-	private LivingEntity critTarget;
-
-	@Unique
-	private boolean critting;
 
 	/**
 	 * Registers the pixie spawn chance attribute on players
@@ -114,7 +107,7 @@ public abstract class FabricMixinPlayer extends LivingEntity {
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void tickBeltTiara(CallbackInfo ci) {
 		ItemFlightTiara.updatePlayerFlyStatus((Player) (Object) this);
-		ItemTravelBelt.updatePlayerStepStatus((Player) (Object) this);
+		ItemTravelBelt.tickBelt((Player) (Object) this);
 	}
 
 	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"))
@@ -142,45 +135,18 @@ public abstract class FabricMixinPlayer extends LivingEntity {
 		ItemKeepIvy.onPlayerDrops((Player) (Object) this);
 	}
 
-	// Capture the entity we are attacking, at the start of the method part dealing damage.
-	@Inject(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getKnockbackBonus(Lnet/minecraft/world/entity/LivingEntity;)I"),
-		method = "attack"
+	// Multiply the damage on crit. Targets the first float LOAD after the sprint check for the crit.
+	// Stores the entity for further handling in the common Player mixin.
+	@ModifyVariable(
+		at = @At(value = "LOAD", ordinal = 0),
+		slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSprinting()Z", ordinal = 1)),
+		method = "attack", ordinal = 0
 	)
-	private void captureTarget(Entity target, CallbackInfo ci) {
-		if (target instanceof LivingEntity) {
-			this.critTarget = (LivingEntity) target;
+	private float onCritMul(float f, Entity target) {
+		if (target instanceof LivingEntity living) {
+			((PlayerAccess) this).botania$setCritTarget(living);
+			return f * ItemTerrasteelHelm.getCritDamageMult((Player) (Object) this);
 		}
-	}
-
-	// Clear the entity on any return after the capture.
-	@Inject(
-		at = @At(value = "RETURN"), method = "attack",
-		slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getKnockbackBonus(Lnet/minecraft/world/entity/LivingEntity;)I"))
-	)
-	private void clearTarget(CallbackInfo ci) {
-		this.critTarget = null;
-		this.critting = false;
-	}
-
-	// Multiply the damage on crit. This might be a little bit brittle.
-	// Because of a Mixin bug you can't actually use a slice for LOAD.
-	// See https://github.com/SpongePowered/Mixin/issues/429
-	@ModifyVariable(at = @At(value = "LOAD", ordinal = 2), method = "attack", ordinal = 0)
-	private float onCritMul(float f) {
-		this.critting = true;
-		return ((ItemTerrasteelHelm) ModItems.terrasteelHelm).onCritDamageCalc(f, (Player) (Object) this);
-	}
-
-	// Perform damage source modifications and apply the potion effects.
-	@ModifyArg(
-		method = "attack",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z")
-	)
-	private DamageSource onDamageTarget(DamageSource source, float amount) {
-		if (this.critting && this.critTarget != null) {
-			((ItemTerrasteelHelm) ModItems.terrasteelHelm).onEntityAttacked(source, amount, (Player) (Object) this, critTarget);
-		}
-		return source;
+		return f;
 	}
 }
