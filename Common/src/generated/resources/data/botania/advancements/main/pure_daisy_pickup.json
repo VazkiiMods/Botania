@@ -1,7 +1,7 @@
 {
   "parent": "botania:main/flower_pickup",
   "criteria": {
-    "lexicon": {
+    "daisy": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -16,7 +16,7 @@
   },
   "requirements": [
     [
-      "lexicon"
+      "daisy"
     ]
   ]
 }

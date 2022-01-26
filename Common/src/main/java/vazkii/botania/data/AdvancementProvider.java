@@ -277,15 +277,17 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		// Lexicon locks
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
-				.addCriterion("lexicon", onPickup(ModBlocks.defaultAltar))
+				.addCriterion("apothecary", onPickup(ModBlocks.defaultAltar))
 				.save(consumer, mainId("apothecary_pickup"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
-				.addCriterion("lexicon", onPickup(ModSubtiles.pureDaisy))
+				.addCriterion("daisy", onPickup(ModSubtiles.pureDaisy))
 				.save(consumer, mainId("pure_daisy_pickup"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
-				.addCriterion("lexicon", onPickup(ModBlocks.runeAltar))
+				.addCriterion("altar", onPickup(ModBlocks.runeAltar))
+				.addCriterion("rune", onPickup(ModTags.Items.RUNES))
+				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("runic_altar_pickup"));
 
 		var elvenLexiconUnlock = new CompoundTag();
