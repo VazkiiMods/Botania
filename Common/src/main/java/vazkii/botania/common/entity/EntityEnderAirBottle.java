@@ -36,6 +36,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +63,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		super(ModEntities.ENDER_AIR_BOTTLE, x, y, z, world);
 	}
 
-	private void convertStone(@Nonnull BlockPos pos) {
+	private void convertBlock(@Nonnull BlockPos pos) {
 		List<BlockPos> coordsList = getCoordsToPut(pos);
 		level.levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 
@@ -80,7 +81,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		if (level.isClientSide) {
 			return;
 		}
-		convertStone(result.getBlockPos());
+		convertBlock(result.getBlockPos());
 		discard();
 	}
 
@@ -119,7 +120,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 				item.setDeltaMovement(item.getDeltaMovement().add(vec.scale(0.4)));
 			}
 		} else {
-			convertStone(new BlockPos(result.getLocation()));
+			convertBlock(new BlockPos(result.getLocation()));
 		}
 		discard();
 	}
@@ -132,7 +133,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
 				pos.offset(range, rangeY, range))) {
 			BlockState state = level.getBlockState(bPos);
-			if (state.is(Blocks.STONE)) {
+			if (state.is(ModTags.Blocks.ENDER_AIR_CONVERTABLE)) {
 				possibleCoords.add(bPos.immutable());
 			}
 		}

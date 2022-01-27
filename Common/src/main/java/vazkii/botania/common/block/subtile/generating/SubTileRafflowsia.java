@@ -37,11 +37,10 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 	private static final int RANGE = 5;
 
-	// Below table generated from the function:
-	// f(x) = round(-401.45 + 7.03436 x + 16.0932 x^2 + 7.64878 * 1.25226^x, 100),
-	// where x is the number of unique flowers in the streak.
+	// Below table generated from this spreadsheet:
+	// https://docs.google.com/spreadsheets/d/1D5qvYRrwm6-czKnXVIEjakt93I0asICgxnPJ_q6UCc0
 	// Function created from a best-fit approximation on the sorted raw mana costs of production of each flower.
-	private static final int[] STREAK_OUTPUTS = { 300, 1100, 1900, 2700, 3500, 4400, 5300, 6300, 7300, 8300, 9400, 10500, 11600, 12800, 14000, 15200, 16500, 17900, 19200, 20700, 22200, 23800, 25400, 27100, 29000, 30900, 33000, 35200, 37700, 40300, 43200, 46500, 50200, 54300, 59100, 64600, 71100, 78600, 87600, 98400 };
+	private static final int[] STREAK_OUTPUTS = { 2000, 2100, 2200, 2300, 3280, 4033, 4657, 5150, 6622, 7860, 10418, 12600, 14769, 16671, 19000, 25400, 33471, 40900, 47579, 53600, 59057, 64264, 69217, 74483, 79352, 83869, 88059, 92129, 96669, 100940, 105239, 112044, 118442, 124612, 130583, 136228, 141703, 178442, 213959, 247725, 279956, 313671, 345833, 377227, 437689, 495526, 553702, 638554 };
 
 	public SubTileRafflowsia(BlockPos pos, BlockState state) {
 		super(ModSubtiles.RAFFLOWSIA, pos, state);

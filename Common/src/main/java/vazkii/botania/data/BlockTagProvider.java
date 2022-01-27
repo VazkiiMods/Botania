@@ -157,6 +157,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
 
+		tag(ModTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
+
 		registerMiningTags();
 	}
 

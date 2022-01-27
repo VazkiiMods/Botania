@@ -56,14 +56,14 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 		consumer.accept(stone(Blocks.LAPIS_ORE, 1079));
 		consumer.accept(stone(Blocks.DIAMOND_ORE, 883));
 
-		consumer.accept(deepslate(Blocks.DEEPSLATE_COAL_ORE, 67415));
-		consumer.accept(deepslate(Blocks.DEEPSLATE_IRON_ORE, 29371));
-		consumer.accept(deepslate(Blocks.DEEPSLATE_REDSTONE_ORE, 7654));
-		consumer.accept(deepslate(Blocks.DEEPSLATE_COPPER_ORE, 7000));
-		consumer.accept(deepslate(Blocks.DEEPSLATE_GOLD_ORE, 2647));
-		consumer.accept(deepslate(Blocks.DEEPSLATE_EMERALD_ORE, 1239));
-		consumer.accept(deepslate(Blocks.DEEPSLATE_LAPIS_ORE, 1079));
-		consumer.accept(deepslate(Blocks.DEEPSLATE_DIAMOND_ORE, 883));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_COAL_ORE, 75));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_IRON_ORE, 250));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_REDSTONE_ORE, 150));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_COPPER_ORE, 75));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_GOLD_ORE, 125));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_EMERALD_ORE, 50));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_LAPIS_ORE, 175));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_DIAMOND_ORE, 100));
 
 		consumer.accept(netherrack(Blocks.NETHER_QUARTZ_ORE, 19600));
 		consumer.accept(netherrack(Blocks.NETHER_GOLD_ORE, 3635));
