@@ -9,16 +9,17 @@ body:
   - type: dropdown
     id: modloader
     attributes:
-      label: Mod loader
+      label: Mod Loader
       options:
         - Forge
         - Fabric
+        - Both Fabric and Forge (I confirm that I have tested both loaders and will specify both loader versions below)
     validations:
       required: true
   - type: input
     id: mc-version
     attributes:
-      label: Minecraft version
+      label: Minecraft Version
       placeholder: eg. 1.17.1
     validations:
       required: true
