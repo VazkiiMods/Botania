@@ -17,7 +17,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,10 +38,8 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 
 	public static final int LINK_RANGE = 6;
 	private static final String TAG_MANA = "mana";
-	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
 	private int mana;
-	public int passiveDecayTicks;
 
 	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state, IManaCollector.class);
@@ -51,14 +48,6 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
-
-		if (!getLevel().isClientSide && canGeneratePassively()) {
-			int delay = getDelayBetweenPassiveGeneration();
-			if (delay > 0 && ticksExisted % delay == 0) {
-				addMana(getValueForPassiveGeneration());
-			}
-		}
-		emptyManaIntoCollector();
 
 		if (getLevel().isClientSide) {
 			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
@@ -74,21 +63,8 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 				double z = getBlockPos().getZ() + offset.z;
 				BotaniaAPI.instance().sparkleFX(getLevel(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
-		} else {
-			boolean passive = isPassiveFlower();
-			int muhBalance = BotaniaAPI.instance().getPassiveFlowerDecay();
-
-			if (passive) {
-				passiveDecayTicks++;
-			}
-
-			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				getLevel().destroyBlock(getBlockPos(), false);
-				if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
-					getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());
-				}
-			}
 		}
+		emptyManaIntoCollector();
 	}
 
 	@Override
@@ -122,22 +98,6 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 		return mana;
 	}
 
-	public boolean isPassiveFlower() {
-		return false;
-	}
-
-	public boolean canGeneratePassively() {
-		return false;
-	}
-
-	public int getDelayBetweenPassiveGeneration() {
-		return 20;
-	}
-
-	public int getValueForPassiveGeneration() {
-		return 1;
-	}
-
 	public int getMaxMana() {
 		return 20;
 	}
@@ -150,23 +110,16 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
-		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 	}
 
 	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, getMana());
-		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 	}
 
 	public ItemStack getHudIcon() {
 		return Registry.ITEM.getOptional(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
-	}
-
-	@Override
-	public boolean isOvergrowthAffected() {
-		return !isPassiveFlower();
 	}
 
 	public static class GeneratingWandHud<T extends TileEntityGeneratingFlower> implements IWandHUD {

@@ -213,13 +213,6 @@ public interface BotaniaAPI {
 		return DummyManaNetwork.instance;
 	}
 
-	/**
-	 * @return How many ticks a passive flower can have before it decays
-	 */
-	default int getPassiveFlowerDecay() {
-		return 0;
-	}
-
 	default Container getAccessoriesInventory(Player player) {
 		return new SimpleContainer(0);
 	}

@@ -9,108 +9,40 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-public class SubTileHydroangeas extends TileEntityGeneratingFlower {
-	private static final String TAG_BURN_TIME = "burnTime";
-	public static final String TAG_COOLDOWN = "cooldown";
+public class SubTileHydroangeas extends SubTileFluidGenerator {
+	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
 	private static final BlockPos[] OFFSETS = { new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(-1, 0, 1), new BlockPos(-1, 0, -1), new BlockPos(1, 0, 1), new BlockPos(1, 0, -1) };
 
-	int burnTime, cooldown;
+	public static final int DECAY_TIME = 72000;
+
+	private int passiveDecayTicks;
 
 	public SubTileHydroangeas(BlockPos pos, BlockState state) {
-		this(ModSubtiles.HYDROANGEAS, pos, state);
-	}
-
-	protected SubTileHydroangeas(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+		super(ModSubtiles.HYDROANGEAS, pos, state, FluidTags.WATER, 40, 1, 0);
 	}
 
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (cooldown > 0) {
-			cooldown--;
-			for (int i = 0; i < 3; i++) {
-				WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
-				emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 30, 0);
-			}
-		}
-
-		if (burnTime == 0) {
-			if (getMana() < getMaxMana() && !getLevel().isClientSide) {
-				List<BlockPos> offsets = Arrays.asList(OFFSETS);
-				Collections.shuffle(offsets);
-
-				for (BlockPos offset : offsets) {
-					BlockPos pos = getEffectivePos().offset(offset);
-
-					BlockState bstate = getLevel().getBlockState(pos);
-					FluidState fstate = getLevel().getFluidState(pos);
-					Tag<Fluid> search = getMaterialToSearchFor();
-					if (fstate.is(search) && fstate.isSource()) {
-						if (search != FluidTags.WATER) {
-							getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-						} else {
-							int waterAround = 0;
-							for (Direction dir : Direction.values()) {
-								if (getLevel().getFluidState(pos.relative(dir)).is(search)) {
-									waterAround++;
-								}
-							}
-
-							if (waterAround < 2) {
-								if (bstate.getBlock() instanceof BucketPickup bucketPickup) {
-									bucketPickup.pickupBlock(getLevel(), pos, bstate);
-								} else {
-									getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-								}
-							}
-						}
-
-						if (cooldown == 0) {
-							burnTime += getBurnTime();
-						} else {
-							cooldown = getCooldown();
-						}
-
-						sync();
-						playSound();
-						break;
-					}
+		if (!getLevel().isClientSide) {
+			if (++passiveDecayTicks > DECAY_TIME) {
+				getLevel().destroyBlock(getBlockPos(), false);
+				if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
+					getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());
 				}
-			}
-		} else {
-			if (getLevel().random.nextInt(8) == 0) {
-				doBurnParticles();
-			}
-			burnTime--;
-			if (burnTime == 0) {
-				cooldown = getCooldown();
-				sync();
 			}
 		}
 	}
@@ -120,22 +52,10 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.55 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 60, 0);
 	}
 
-	public Tag<Fluid> getMaterialToSearchFor() {
-		return FluidTags.WATER;
-	}
-
+	@Override
 	public void playSound() {
 		//Usage of vanilla sound event: Subtitle is "Sipping", generic sounds are meant to be reused.
 		getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_DRINK, SoundSource.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
-	}
-
-	public int getBurnTime() {
-		return 40;
-	}
-
-	@Override
-	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), 1);
 	}
 
 	@Override
@@ -149,39 +69,25 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
-
-		cmp.putInt(TAG_BURN_TIME, burnTime);
-		cmp.putInt(TAG_COOLDOWN, cooldown);
-	}
-
-	@Override
 	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
-
-		burnTime = cmp.getInt(TAG_BURN_TIME);
-		cooldown = cmp.getInt(TAG_COOLDOWN);
+		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 	}
 
 	@Override
-	public boolean canGeneratePassively() {
-		return burnTime > 0;
+	public void writeToPacketNBT(CompoundTag cmp) {
+		super.writeToPacketNBT(cmp);
+		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 	}
 
 	@Override
-	public int getDelayBetweenPassiveGeneration() {
+	public int getGenerationDelay() {
 		boolean rain = getLevel().getBiome(getEffectivePos()).getPrecipitation() == Biome.Precipitation.RAIN && (getLevel().isRaining() || getLevel().isThundering());
 		return rain ? 2 : 3;
 	}
 
-	public int getCooldown() {
-		return 0;
-	}
-
 	@Override
-	public boolean isPassiveFlower() {
-		return true;
+	public boolean isOvergrowthAffected() {
+		return false;
 	}
-
 }
