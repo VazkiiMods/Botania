@@ -61,7 +61,7 @@ public class LensMine extends Lens {
 		BlockPos source = burst.getBurstSourceBlockPos();
 		if (!isManaBlock
 				&& canHarvest(harvestLevel, state)
-				&& hardness != -1 && hardness < 50F
+				&& hardness != -1
 				&& (burst.isFake() || mana >= 24)) {
 			if (!burst.hasAlreadyCollidedAt(collidePos)) {
 				if (!burst.isFake()) {
