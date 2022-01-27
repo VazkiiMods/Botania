@@ -82,7 +82,11 @@ public class ItemBottledMana extends Item {
 			}
 			case 5 -> { // Randomly set HP
 				if (!living.level.isClientSide) {
-					living.setHealth(living.level.random.nextInt(19) + 1);
+					float nextHealth = living.level.random.nextFloat(living.getMaxHealth());
+					if (Mth.equal(nextHealth, 0.0F)) {
+						nextHealth = 0.5F;
+					}
+					living.setHealth(nextHealth);
 				}
 			}
 			case 6 -> { // Lots O' Hearts
