@@ -26,7 +26,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -79,9 +78,8 @@ public class ItemLexicon extends ItemModPattern {
 	public static Component getEdition() {
 		try {
 			return PatchouliAPI.get().getSubtitle(Registry.ITEM.getKey(ModItems.lexicon));
-		} catch (Exception e) {
-			BotaniaAPI.LOGGER.error("Failed to get subtitle", e); // TODO only to get the game to launch
-			return new TextComponent("?");
+		} catch (IllegalArgumentException e) {
+			return new TextComponent(""); // TODO Adjust Patchouli because first search tree creation is too early to get the edition
 		}
 	}
 
