@@ -11,6 +11,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -42,7 +43,6 @@ public class LensMine extends Lens {
 
 		BlockPos collidePos = ((BlockHitResult) rtr).getBlockPos();
 		BlockState state = world.getBlockState(collidePos);
-		Block block = state.getBlock();
 
 		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
 		boolean warp = !composite.isEmpty() && composite.is(ModItems.lensWarp);
@@ -61,7 +61,7 @@ public class LensMine extends Lens {
 		BlockPos source = burst.getBurstSourceBlockPos();
 		if (!isManaBlock
 				&& canHarvest(harvestLevel, state)
-				&& hardness != -1 && hardness < 50F
+				&& hardness != -1
 				&& (burst.isFake() || mana >= 24)) {
 			if (!burst.hasAlreadyCollidedAt(collidePos)) {
 				if (!burst.isFake()) {
@@ -90,13 +90,30 @@ public class LensMine extends Lens {
 		return shouldKill;
 	}
 
-	private static final List<ItemStack> HARVEST_TOOLS = Stream.of(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE,
-			Items.IRON_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE)
-			.map(ItemStack::new).toList();
+	private static List<ItemStack> stacks(Item... items) {
+		return Stream.of(items).map(ItemStack::new).toList();
+	}
+
+	private static final List<List<ItemStack>> HARVEST_TOOLS_BY_LEVEL = List.of(
+			stacks(Items.WOODEN_PICKAXE, Items.WOODEN_AXE, Items.WOODEN_HOE, Items.WOODEN_SHOVEL),
+			stacks(Items.STONE_PICKAXE, Items.STONE_AXE, Items.STONE_HOE, Items.STONE_SHOVEL),
+			stacks(Items.IRON_PICKAXE, Items.IRON_AXE, Items.IRON_HOE, Items.IRON_SHOVEL),
+			stacks(Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_HOE, Items.DIAMOND_SHOVEL),
+			stacks(Items.NETHERITE_PICKAXE, Items.NETHERITE_AXE, Items.NETHERITE_HOE, Items.NETHERITE_SHOVEL)
+	);
 
 	public static boolean canHarvest(int harvestLevel, BlockState state) {
-		return !state.requiresCorrectToolForDrops()
-				// todo 1.18 check this
-				|| HARVEST_TOOLS.get(harvestLevel).isCorrectToolForDrops(state);
+		if (!state.requiresCorrectToolForDrops()) {
+			return true;
+		}
+
+		int idx = Math.min(harvestLevel, HARVEST_TOOLS_BY_LEVEL.size() - 1);
+		for (var tool : HARVEST_TOOLS_BY_LEVEL.get(idx)) {
+			if (tool.isCorrectToolForDrops(state)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

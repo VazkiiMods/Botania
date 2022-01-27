@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -49,8 +48,8 @@ public class ItemBottledMana extends Item {
 		super(props);
 	}
 
-	public void effect(ItemStack stack, LivingEntity living, int id) {
-		switch (id) {
+	private void effect(ItemStack stack, LivingEntity living) {
+		switch (new Random(getSeed(stack)).nextInt(16)) {
 			case 0 -> { // Random motion
 				living.setDeltaMovement((Math.random() - 0.5) * 3, living.getDeltaMovement().y(),
 						(Math.random() - 0.5) * 3);
@@ -82,7 +81,11 @@ public class ItemBottledMana extends Item {
 			}
 			case 5 -> { // Randomly set HP
 				if (!living.level.isClientSide) {
-					living.setHealth(living.level.random.nextInt(19) + 1);
+					float nextHealth = living.level.random.nextFloat(living.getMaxHealth());
+					if (Mth.equal(nextHealth, 0.0F)) {
+						nextHealth = 0.5F;
+					}
+					living.setHealth(nextHealth);
 				}
 			}
 			case 6 -> { // Lots O' Hearts
@@ -92,15 +95,7 @@ public class ItemBottledMana extends Item {
 			}
 			case 7 -> { // All your inventory is belong to us
 				if (!living.level.isClientSide && living instanceof Player player) {
-					for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-						ItemStack stackAt = player.getInventory().getItem(i);
-						if (stackAt != stack) {
-							if (!stackAt.isEmpty()) {
-								player.spawnAtLocation(stackAt, 0);
-							}
-							player.getInventory().setItem(i, ItemStack.EMPTY);
-						}
-					}
+					player.getInventory().dropAll();
 				}
 
 			}
@@ -112,12 +107,10 @@ public class ItemBottledMana extends Item {
 			case 9 -> { // Highest Possible
 				int x = Mth.floor(living.getX());
 				int z = Mth.floor(living.getZ());
-				for (int i = 256; i > 0; i--) {
+				for (int i = living.level.getMaxBuildHeight(); i > living.level.getMinBuildHeight(); i--) {
 					BlockState state = living.level.getBlockState(new BlockPos(x, i, z));
 					if (!state.isAir()) {
-						if (living instanceof ServerPlayer mp) {
-							mp.connection.teleport(living.getX(), i, living.getZ(), living.getYRot(), living.getXRot());
-						}
+						living.teleportTo(living.getX(), i, living.getZ());
 						break;
 					}
 				}
@@ -163,10 +156,6 @@ public class ItemBottledMana extends Item {
 		}
 	}
 
-	private void randomEffect(LivingEntity player, ItemStack stack) {
-		effect(stack, player, new Random(getSeed(stack)).nextInt(16));
-	}
-
 	private long getSeed(ItemStack stack) {
 		long seed = ItemNBTHelper.getLong(stack, TAG_SEED, -1);
 		if (seed == -1) {
@@ -195,7 +184,7 @@ public class ItemBottledMana extends Item {
 	@Nonnull
 	@Override
 	public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level world, LivingEntity living) {
-		randomEffect(living, stack);
+		effect(stack, living);
 		int left = getSwigsLeft(stack);
 		if (left <= 1) {
 			return new ItemStack(Items.GLASS_BOTTLE);

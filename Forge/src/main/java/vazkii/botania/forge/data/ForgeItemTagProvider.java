@@ -28,6 +28,7 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 	protected void addTags() {
 		this.copy(ForgeBlockTagProvider.MUSHROOMS, Tags.Items.MUSHROOMS);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS_QUARTZ, Tags.Items.STORAGE_BLOCKS_QUARTZ);
+		tag(Tags.Items.SHEARS).add(manasteelShears, elementiumShears);
 		generateAccessoryTags();
 	}
 

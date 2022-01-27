@@ -130,6 +130,9 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		}
 
 		if (storedColor == 16) {
+			if (level == null) {
+				return 0xFFFFFF;
+			}
 			return Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		}
 

@@ -11,17 +11,15 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
 
-public class SubTileThermalily extends SubTileHydroangeas {
+public class SubTileThermalily extends SubTileFluidGenerator {
 	public SubTileThermalily(BlockPos pos, BlockState state) {
-		super(ModSubtiles.THERMALILY, pos, state);
+		super(ModSubtiles.THERMALILY, pos, state, FluidTags.LAVA, 900, 20, 6000);
 	}
 
 	@Override
@@ -36,42 +34,12 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	}
 
 	@Override
-	public Tag<Fluid> getMaterialToSearchFor() {
-		return FluidTags.LAVA;
-	}
-
-	@Override
 	public void playSound() {
 		getLevel().playSound(null, getEffectivePos(), ModSounds.thermalily, SoundSource.BLOCKS, 1F, 1F);
 	}
 
 	@Override
-	public int getDelayBetweenPassiveGeneration() {
-		return 1;
-	}
-
-	@Override
-	public int getBurnTime() {
-		return 900;
-	}
-
-	@Override
-	public int getValueForPassiveGeneration() {
-		return 20;
-	}
-
-	@Override
 	public int getMaxMana() {
 		return 500;
-	}
-
-	@Override
-	public int getCooldown() {
-		return 6000;
-	}
-
-	@Override
-	public boolean isPassiveFlower() {
-		return false;
 	}
 }

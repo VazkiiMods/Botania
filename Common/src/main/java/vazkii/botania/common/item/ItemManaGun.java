@@ -38,6 +38,7 @@ import vazkii.botania.common.advancements.ManaGunTrigger;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.proxy.IProxy;
 
 import javax.annotation.Nonnull;
 
@@ -170,7 +171,7 @@ public class ItemManaGun extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<Component> lensTip = lens.getTooltipLines(null, TooltipFlag.Default.NORMAL);
+			List<Component> lensTip = lens.getTooltipLines(IProxy.INSTANCE.getClientPlayer(), TooltipFlag.Default.NORMAL);
 			if (lensTip.size() > 1) {
 				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}

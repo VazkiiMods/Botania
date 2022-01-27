@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
-@Mixin(ServerGamePacketListenerImpl.class)
+@Mixin(value = ServerGamePacketListenerImpl.class, priority = 950)
 public class FabricMixinServerGamePacketListenerImpl {
 	@Shadow
 	public ServerPlayer player;

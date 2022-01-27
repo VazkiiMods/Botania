@@ -13,9 +13,9 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
@@ -53,9 +54,11 @@ public class ItemSpawnerMover extends Item {
 		CompoundTag tag = stack.getTagElement(TAG_SPAWNER);
 		if (tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
-			if (tag.contains(TAG_ID)) {
-				return ResourceLocation.tryParse(tag.getString(TAG_ID));
-			}
+			var spawnData = SpawnData.CODEC.parse(NbtOps.INSTANCE, tag);
+			return spawnData.result()
+					.filter(sd -> sd.getEntityToSpawn().contains(TAG_ID))
+					.map(sd -> ResourceLocation.tryParse(sd.getEntityToSpawn().getString(TAG_ID)))
+					.orElse(null);
 		}
 
 		return null;
@@ -130,7 +133,10 @@ public class ItemSpawnerMover extends Item {
 				world.destroyBlock(pos, false);
 				if (player != null) {
 					player.getCooldowns().addCooldown(this, 20);
-					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) world, pos.getX(), pos.getY(), pos.getZ());
+					if (player instanceof ServerPlayer serverPlayer) {
+						UseItemSuccessTrigger.INSTANCE.trigger(serverPlayer, stack, serverPlayer.getLevel(),
+								pos.getX(), pos.getY(), pos.getZ());
+					}
 					player.broadcastBreakEvent(ctx.getHand());
 				}
 			} else {

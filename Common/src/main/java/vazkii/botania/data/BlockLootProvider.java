@@ -46,7 +46,6 @@ import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -119,8 +118,8 @@ public class BlockLootProvider implements DataProvider {
 		// Flower NBT saving
 		functionTable.put(ModSubtiles.gourmaryllis, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOODS, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT, SubTileGourmaryllis.TAG_STREAK_LENGTH));
 		functionTable.put(ModSubtiles.gourmaryllisFloating, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOODS, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT, SubTileGourmaryllis.TAG_STREAK_LENGTH));
-		functionTable.put(ModSubtiles.hydroangeas, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
-		functionTable.put(ModSubtiles.hydroangeasFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(ModSubtiles.hydroangeas, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, SubTileHydroangeas.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(ModSubtiles.hydroangeasFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, SubTileHydroangeas.TAG_PASSIVE_DECAY_TICKS));
 		functionTable.put(ModSubtiles.munchdew, b -> genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
 		functionTable.put(ModSubtiles.munchdewFloating, b -> genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
 		functionTable.put(ModSubtiles.rafflowsia, b -> genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWERS, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));

@@ -52,6 +52,10 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 				emitParticle(ParticleTypes.FLAME, 0.4 + Math.random() * 0.2, 0.7, 0.4 + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
+		} else {
+			if (burnTime > 0 && ticksExisted % 2 == 0) {
+				addMana(3);
+			}
 		}
 
 		if (isValidBinding()) {
@@ -103,11 +107,6 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public int getValueForPassiveGeneration() {
-		return 3;
-	}
-
-	@Override
 	public int getColor() {
 		return 0x785000;
 	}
@@ -129,16 +128,6 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		super.readFromPacketNBT(cmp);
 
 		burnTime = cmp.getInt(TAG_BURN_TIME);
-	}
-
-	@Override
-	public boolean canGeneratePassively() {
-		return burnTime > 0;
-	}
-
-	@Override
-	public int getDelayBetweenPassiveGeneration() {
-		return 2;
 	}
 
 	private int getBurnTime(ItemStack stack) {

@@ -34,7 +34,9 @@
       "vazkii.botania.test.block.OpenCrateTest",
       "vazkii.botania.test.block.PistonRelayTest",
       "vazkii.botania.test.block.InterceptorTest",
-      "vazkii.botania.test.item.CacophoniumTest"
+      "vazkii.botania.test.item.CacophoniumTest",
+      "vazkii.botania.test.item.SpawnerMoverTest",
+      "vazkii.botania.test.item.lens.LensMineTest"
     ],
     "fabric-datagen": [
       "vazkii.botania.fabric.data.FabricDatagenInitializer"

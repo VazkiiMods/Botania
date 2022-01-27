@@ -1,5 +1,6 @@
 package vazkii.botania.xplat;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
@@ -54,18 +55,22 @@ public class BotaniaConfig {
 		return clientConfig;
 	}
 
+	private static boolean notUnderGameTest() {
+		return System.getProperty("fabric-api.gametest") == null;
+	}
+
 	public static void setCommon(ConfigAccess access) {
 		if (config != null) {
-			throw new IllegalStateException("ConfigAccess was already set to "
-					+ config.getClass().getName());
+			BotaniaAPI.LOGGER.warn("ConfigAccess was replaced! Old {} New {}",
+					config.getClass().getName(), access.getClass().getName());
 		}
 		config = access;
 	}
 
 	public static void setClient(ClientConfigAccess access) {
 		if (clientConfig != null) {
-			throw new IllegalStateException("ClientConfigAccess was already set to "
-					+ clientConfig.getClass().getName());
+			BotaniaAPI.LOGGER.warn("ClientConfigAccess was replaced! Old {} New {}",
+					clientConfig.getClass().getName(), access.getClass().getName());
 		}
 		clientConfig = access;
 	}

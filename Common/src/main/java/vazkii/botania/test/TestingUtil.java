@@ -31,6 +31,9 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class TestingUtil {
+	// Copied from FabricGameTest. Needs to be replaced if we ever run tests on both loaders
+	public static final String EMPTY_STRUCTURE = "fabric-gametest-api-v1:empty";
+
 	public static void throwPositionedAssertion(GameTestHelper helper, BlockPos relativePos, Supplier<String> msg) {
 		//A couple of GameTestHelper's assertion errors throw this exception, but it's inconvenient to throw yourself
 		throw new GameTestAssertPosException(msg.get(), helper.absolutePos(relativePos), relativePos, helper.getTick());

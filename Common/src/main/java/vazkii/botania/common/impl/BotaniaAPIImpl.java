@@ -41,7 +41,6 @@ import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -228,11 +227,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public IManaNetwork getManaNetworkInstance() {
 		return ManaNetworkHandler.instance;
-	}
-
-	@Override
-	public int getPassiveFlowerDecay() {
-		return LibMisc.PASSIVE_FLOWER_DECAY;
 	}
 
 	@Override
