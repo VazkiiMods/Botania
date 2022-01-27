@@ -158,7 +158,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 				default -> {}
 			}
 
-			List<Player> players = world.getNearbyPlayers(Player.class, axis);
+			List<Player> players = world.getEntitiesOfClass(Player.class, axis);
 			for (Player p : players) {
 				int px = Mth.floor(p.getX());
 				int py = Mth.floor(p.getY()) - 1;
