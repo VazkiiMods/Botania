@@ -47,6 +47,7 @@ public class SubTileHydroangeas extends SubTileFluidGenerator {
 		}
 	}
 
+	@Override
 	public void doBurnParticles() {
 		WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.05F, 0.05F, 0.7F, 1);
 		emitParticle(data, 0.5 + Math.random() * 0.2 - 0.1, 0.55 + Math.random() * 0.2 - 0.1, 0.5 + Math.random() * 0.2 - 0.1, 0, (float) Math.random() / 60, 0);
