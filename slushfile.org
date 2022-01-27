@@ -1,0 +1,22 @@
+#-*- mode: org -*-
+Current new features TODO: 
+* Manaweave Cloths are used in combat to disable armor
+  - Activate by hitting someone with a full attack charge bar
+  - Debuff applies for 10 seconds, stack up to 30?
+  - Impl requires some careful mixin/edgecasing
+    - On apply, set a counter and rename Enchantments tag
+    - on tick past counter, rename tag back
+* Some way to auto-insert to Black Hole Talismans
+  - Idea: dropped cobble BHT merges with dropped cobble? Causes problems with Crafty Crate outputs, since they output next to one another
+  - Idea: Crafting recipe, cobble BHT + cobble => fuller cobble BHT? (Ran into recipe technical limitations before; might be fixed now)
+* New relics (or maybe craftables?)
+  - Reifactory Halo: Ass. Halo which accesses local Corporea net
+    - [C] keybind works when held or table opened
+    - Maybe chat also works when held?
+    - Registered items/recipes will pull pre-crafted from net
+      - Register items slightly different? Right-click with item in offhand to set?
+    - Pull ingredients from net automatically?
+  - Branch of Yggdrasil: Voxel sniper
+    - Shift-use to bind to block; then use to place from afar
+* Do something new with Gaia spirits
+  - Used in advanced Plate recipes perhaps?
