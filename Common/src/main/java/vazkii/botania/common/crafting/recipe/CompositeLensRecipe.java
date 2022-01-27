@@ -79,7 +79,10 @@ public class CompositeLensRecipe extends CustomRecipe {
 			}
 
 			ItemStack lensCopy = lens.copy();
-			lensItem.setCompositeLens(lensCopy, secondLens);
+			ItemStack secondCopy = secondLens.copy();
+			lensCopy.setCount(1);
+			secondCopy.setCount(1);
+			lensItem.setCompositeLens(lensCopy, secondCopy);
 
 			return lensCopy;
 		}
