@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 /**
  * The basic class for a Functional Flower.
  */
-public class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<IManaPool> {
+public abstract class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<IManaPool> {
 	private static final ResourceLocation POOL_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_pool");
 
 	public static final int LINK_RANGE = 10;
@@ -112,13 +112,9 @@ public class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<
 		setChanged();
 	}
 
-	public int getMaxMana() {
-		return 20;
-	}
+	public abstract int getMaxMana();
 
-	public int getColor() {
-		return 0xFFFFFF;
-	}
+	public abstract int getColor();
 
 	@Override
 	public void readFromPacketNBT(CompoundTag cmp) {
