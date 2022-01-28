@@ -72,7 +72,6 @@ public final class ModItems {
 	public static final ItemLexicon lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item twigWand = new ItemTwigWand(unstackable().rarity(Rarity.RARE));
 	public static final Item obedienceStick = new ItemObedienceStick(unstackable());
-	public static final Item pestleAndMortar = new ItemSelfReturning(unstackable());
 	public static final Item fertilizer = new ItemFertilizer(defaultBuilder());
 
 	public static final Item whitePetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.WHITE), DyeColor.WHITE, defaultBuilder());
@@ -414,7 +413,6 @@ public final class ModItems {
 		r.accept(lexicon, prefix(LibItemNames.LEXICON));
 		r.accept(twigWand, prefix(LibItemNames.TWIG_WAND));
 		r.accept(obedienceStick, prefix(LibItemNames.OBEDIENCE_STICK));
-		r.accept(pestleAndMortar, prefix(LibItemNames.PESTLE_AND_MORTAR));
 		r.accept(fertilizer, prefix(LibItemNames.FERTILIZER));
 		r.accept(whitePetal, prefix("white" + LibItemNames.PETAL_SUFFIX));
 		r.accept(orangePetal, prefix("orange" + LibItemNames.PETAL_SUFFIX));
