@@ -15,6 +15,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -226,9 +227,24 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		return collidedTile;
 	}
 
+	@Nullable
+	@Override
+	public Entity changeDimension(@Nonnull ServerLevel level) {
+		if (fake) {
+			return null;
+		} else {
+			return super.changeDimension(level);
+		}
+	}
+
 	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
+		if (fake) {
+			var msg = String.format("Fake bursts should never be saved at any time! Source pos %s, owner %s",
+					getBurstSourceBlockPos(), getOwner());
+			throw new IllegalStateException(msg);
+		}
 		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
 		tag.putInt(TAG_COLOR, getColor());
 		tag.putInt(TAG_MANA, getMana());
