@@ -44,12 +44,14 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.proxy.IProxy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -84,6 +86,7 @@ public class ItemFlightTiara extends ItemBauble {
 
 	public ItemFlightTiara(Properties props) {
 		super(props);
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
