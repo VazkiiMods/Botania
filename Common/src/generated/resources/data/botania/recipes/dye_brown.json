@@ -4,9 +4,6 @@
   "ingredients": [
     {
       "tag": "botania:petals/brown"
-    },
-    {
-      "item": "botania:pestle_and_mortar"
     }
   ],
   "result": {

@@ -44,11 +44,6 @@
       ]
     },
     {
-      "type": "crafting",
-      "text": "botania.page.flowers4",
-      "recipe": "botania:pestle_and_mortar"
-    },
-    {
       "type": "botania:crafting_multi",
       "text": "botania.page.flowers5",
       "recipes": [
@@ -156,6 +151,6 @@
   ],
   "extra_recipe_mappings": {
     "tag:botania:mystical_flowers": 1,
-    "tag:botania:double_mystical_flowers": 10
+    "tag:botania:double_mystical_flowers": 9
   }
 }

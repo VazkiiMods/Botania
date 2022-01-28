@@ -196,6 +196,11 @@ public class ModTags {
 		public static final Tag.Named<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 		public static final Tag.Named<Block> GHOST_RAIL_BARRIER = tag("ghost_rail_barrier");
 
+		/**
+		 * Blocks in this tag can be turned into end stone by ender air
+		 */
+		public static final Tag.Named<Block> ENDER_AIR_CONVERTABLE = tag("ender_air_convertable");
+
 		private static Tag.Named<Block> tag(String name) {
 			return IXplatAbstractions.INSTANCE.blockTag(prefix(name));
 		}

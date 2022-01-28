@@ -944,7 +944,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 					.save(consumer, "botania:petal_" + color.getName());
 			ShapelessRecipeBuilder.shapeless(DyeItem.byColor(color))
 					.requires(Ingredient.of(ModTags.Items.getPetalTag(color)))
-					.requires(ModItems.pestleAndMortar)
 					.group("botania:dye")
 					.unlockedBy("has_item", conditionsFromItem(ModItems.getPetal(color)))
 					.save(consumer, "botania:dye_" + color.getName());
@@ -1180,15 +1179,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 					.save(consumer);
 		}
 
-		ShapedRecipeBuilder.shaped(ModItems.pestleAndMortar)
-				.define('B', Items.BOWL)
-				.define('S', Items.STICK)
-				.define('W', ItemTags.PLANKS)
-				.pattern(" S")
-				.pattern("W ")
-				.pattern("B ")
-				.unlockedBy("has_item", conditionsFromTag(ItemTags.PLANKS))
-				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModItems.manaGun)
 				.define('S', ModBlocks.redstoneSpreader)
 				.define('D', ModTags.Items.GEMS_MANA_DIAMOND)

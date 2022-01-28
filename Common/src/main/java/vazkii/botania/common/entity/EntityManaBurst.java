@@ -227,8 +227,18 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	@Override
+	public boolean canChangeDimensions() {
+		return !fake;
+	}
+
+	@Override
 	public void addAdditionalSaveData(CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
+		if (fake) {
+			var msg = String.format("Fake bursts should never be saved at any time! Source pos %s, owner %s",
+					getBurstSourceBlockPos(), getOwner());
+			throw new IllegalStateException(msg);
+		}
 		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
 		tag.putInt(TAG_COLOR, getColor());
 		tag.putInt(TAG_MANA, getMana());

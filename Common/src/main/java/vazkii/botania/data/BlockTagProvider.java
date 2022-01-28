@@ -179,6 +179,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(ModTags.Blocks.GHOST_RAIL_BARRIER).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
 
+		tag(ModTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
+
 		registerMiningTags();
 	}
 

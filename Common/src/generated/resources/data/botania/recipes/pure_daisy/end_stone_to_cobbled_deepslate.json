@@ -5,7 +5,7 @@
     "block": "minecraft:end_stone"
   },
   "output": {
-    "name": "minecraft:cobblestone"
+    "name": "minecraft:cobbled_deepslate"
   },
   "success_function": "botania:ender_air_release"
 }
