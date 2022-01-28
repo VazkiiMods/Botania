@@ -44,6 +44,7 @@ import javax.annotation.Nullable;
 
 public class BlockSpreader extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 16, 16);
+	private static final VoxelShape RENDER_SHAPE = box(2, 2, 2, 14, 14, 14);
 
 	public enum Variant {
 		MANA(160, 1000, 0x20FF20, 0x00FF00, 60, 4f, 1f),
@@ -86,7 +87,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 	@Nonnull
 	@Override
 	public VoxelShape getOcclusionShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos) {
-		return SHAPE;
+		return RENDER_SHAPE;
 	}
 
 	@Override
