@@ -29,8 +29,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.api.internal.IManaBurst;
@@ -225,8 +227,18 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	@Override
+	public boolean isNonBoss() { // real Mojmap name is "canChangeDimension"
+		return !fake;
+	}
+
+	@Override
 	public void writeAdditional(CompoundNBT tag) {
 		super.writeAdditional(tag);
+		if (fake) {
+			String msg = String.format("Fake bursts should never be saved at any time! Source pos %s, owner %s",
+				getBurstSourceBlockPos(), func_234616_v_());
+			throw new IllegalStateException(msg);
+		}
 		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
 		tag.putInt(TAG_COLOR, getColor());
 		tag.putInt(TAG_MANA, getMana());
