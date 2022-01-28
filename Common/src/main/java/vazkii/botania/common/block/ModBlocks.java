@@ -218,7 +218,7 @@ public final class ModBlocks {
 	public static final Block livingwoodStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogStrippedGlimmering));
 	public static final Block livingwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwoodLog));
 	public static final Block livingwoodPlanksMossy = new BlockMod(BlockBehaviour.Properties.copy(livingwoodLog));
-	public static final Block livingwoodFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block livingwoodFramed = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
 	public static final Block livingwoodPatternFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwoodLog));
 
 	public static final Block dreamwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
@@ -231,7 +231,7 @@ public final class ModBlocks {
 	public static final Block dreamwoodStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogStrippedGlimmering));
 	public static final Block dreamwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block dreamwoodPlanksMossy = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block dreamwoodFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block dreamwoodFramed = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block dreamwoodPatternFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
 
 	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
