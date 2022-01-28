@@ -9,7 +9,6 @@
 package vazkii.botania.api.subtile;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -18,7 +17,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -42,7 +40,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower block entities
  */
-public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider {
+public abstract class TileEntitySpecialFlower extends BlockEntity implements IFloatingFlowerProvider {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -214,22 +212,11 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {}
 
 	/**
-	 * Gets the block coordinates this is bound to, for use with the wireframe render
-	 * when the sub tile is being hovered with a wand of the forest.
-	 */
-	@Override
-	public BlockPos getBinding() {
-		return null;
-	}
-
-	/**
 	 * Returns a descriptor for the radius of this sub tile. This is called while a player
 	 * is looking at the block with a Manaseer Monocle.
 	 */
 	@Nullable
-	public RadiusDescriptor getRadius() {
-		return null;
-	}
+	public abstract RadiusDescriptor getRadius();
 
 	/**
 	 * Returns a descriptor for this flower's secondary radius.
@@ -239,22 +226,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	@Nullable
 	public RadiusDescriptor getSecondaryRadius() {
 		return null;
-	}
-
-	/**
-	 * @see IWandBindable#canSelect(Player, ItemStack, net.minecraft.core.BlockPos, Direction)
-	 */
-	@Override
-	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return false;
-	}
-
-	/**
-	 * @see IWandBindable#bindTo(Player, ItemStack, net.minecraft.core.BlockPos, Direction)
-	 */
-	@Override
-	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return false;
 	}
 
 	/**

@@ -91,7 +91,7 @@ public class ForgeClientInitializer {
 		});
 		bus.addListener((RenderGameOverlayEvent e) -> HUDHandler.onDrawScreenPost(e.getMatrixStack(), e.getPartialTicks()));
 		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
-		bus.addListener((ScreenEvent.KeyboardKeyPressedEvent e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
+		bus.addListener((ScreenEvent.KeyboardKeyPressedEvent.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
 
 		// Forge bus events done with Mixins on Fabric
 		bus.addListener((RenderGameOverlayEvent.Text e) -> DebugHandler.onDrawDebugText(e.getLeft()));

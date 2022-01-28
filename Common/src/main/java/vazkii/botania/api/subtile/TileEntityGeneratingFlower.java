@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 /**
  * The basic class for a Generating Flower.
  */
-public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<IManaCollector> {
+public abstract class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<IManaCollector> {
 	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
@@ -98,13 +98,9 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 		return mana;
 	}
 
-	public int getMaxMana() {
-		return 20;
-	}
+	public abstract int getMaxMana();
 
-	public int getColor() {
-		return 0xFFFFFF;
-	}
+	public abstract int getColor();
 
 	@Override
 	public void readFromPacketNBT(CompoundTag cmp) {

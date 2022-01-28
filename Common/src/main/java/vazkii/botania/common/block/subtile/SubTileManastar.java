@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
@@ -73,4 +74,9 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 		}
 	}
 
+	@Override
+	public RadiusDescriptor getRadius() {
+		// Manastar is the only flower to not have an AoE as such
+		return null;
+	}
 }
