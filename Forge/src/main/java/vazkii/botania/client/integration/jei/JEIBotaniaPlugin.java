@@ -25,7 +25,7 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -241,7 +241,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			return ItemStack.EMPTY;
 		};
 
-		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof ContainerScreen || gui instanceof IRecipesGui;
+		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen<?> || gui instanceof IRecipesGui;
 	}
 
 	@Nonnull
