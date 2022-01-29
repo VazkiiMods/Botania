@@ -3,17 +3,12 @@ package vazkii.botania.test.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.*;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.test.DelegatingConfigAccess;
 import vazkii.botania.test.TestingUtil;
-import vazkii.botania.xplat.BotaniaConfig;
 
 public class TargetBlockTest {
 	public static final String ARENA = "botania:block/target_block_trigger";
