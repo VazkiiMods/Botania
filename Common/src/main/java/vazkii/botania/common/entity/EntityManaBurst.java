@@ -423,7 +423,9 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 	@Override
 	protected void onHitBlock(@Nonnull BlockHitResult hit) {
-		super.onHitBlock(hit);
+		if (!isFake()) {
+			super.onHitBlock(hit);
+		}
 		BlockPos collidePos = hit.getBlockPos();
 		if (collidePos.equals(lastCollision)) {
 			return;
