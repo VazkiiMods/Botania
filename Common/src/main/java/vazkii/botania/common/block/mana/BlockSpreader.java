@@ -91,6 +91,11 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 	}
 
 	@Override
+	public float getShadeBrightness(BlockState state, BlockGetter level, BlockPos pos) {
+		return 1.0F;
+	}
+
+	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		Direction orientation = placer == null ? Direction.WEST : Direction.orderedByNearest(placer)[0].getOpposite();
 		TileSpreader spreader = (TileSpreader) world.getBlockEntity(pos);
