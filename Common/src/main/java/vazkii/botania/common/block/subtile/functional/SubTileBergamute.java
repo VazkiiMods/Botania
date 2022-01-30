@@ -11,7 +11,6 @@ package vazkii.botania.common.block.subtile.functional;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -55,12 +54,14 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		}
 	}
 
-	public static Pair<Integer, SubTileBergamute> getBergamutesNearby(ResourceKey<Level> level, double x, double y, double z, int maxCount) {
+	public static Pair<Integer, SubTileBergamute> getBergamutesNearby(Level level, double x, double y, double z, int maxCount) {
 		int count = 0;
 		SubTileBergamute tile = null;
 
-		for (SubTileBergamute f : level == null ? clientFlowers : serverFlowers) {
-			if (!f.disabled && (level == null || level == f.level.dimension()) && f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
+		for (SubTileBergamute f : level.isClientSide ? clientFlowers : serverFlowers) {
+			if (!f.disabled
+					&& level == f.level
+					&& f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
 				count++;
 				if (count == 1) {
 					tile = f;
@@ -73,7 +74,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		return Pair.of(count, tile);
 	}
 
-	public static boolean isBergamuteNearby(ResourceKey<Level> level, double x, double y, double z) {
+	public static boolean isBergamuteNearby(Level level, double x, double y, double z) {
 		return getBergamutesNearby(level, x, y, z, 1).getFirst() > 0;
 	}
 
