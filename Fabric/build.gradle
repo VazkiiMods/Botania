@@ -145,4 +145,21 @@ processResources {
             it.replaceAll("buildNumber", build_number)
         }
     }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                groupId project.group
+                artifactId project.archivesBaseName
+                version project.version
+                from components.java
+            }
+        }
+
+        repositories {
+            maven {
+                url "file://" + System.getenv("local_maven")
+            }
+        }
+    }
 }

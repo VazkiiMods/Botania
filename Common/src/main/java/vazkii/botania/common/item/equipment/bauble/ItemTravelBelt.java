@@ -54,7 +54,6 @@ public class ItemTravelBelt extends ItemBauble {
 
 	public ItemTravelBelt(Properties props) {
 		this(props, 0.035F, 0.2F, 2F);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static float onPlayerFall(Player entity, float dist) {
@@ -81,6 +80,7 @@ public class ItemTravelBelt extends ItemBauble {
 		this.speed = speed;
 		this.jump = jump;
 		this.fallBuffer = fallBuffer;
+		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static void tickBelt(Player player) {
