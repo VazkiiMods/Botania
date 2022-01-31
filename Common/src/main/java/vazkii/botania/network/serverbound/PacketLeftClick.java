@@ -37,6 +37,8 @@ public class PacketLeftClick implements IPacket {
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
+		// The swing packet will run on the netty thread immediately,
+		// so we need to fetch the attack strength ahead of time
 		float scale = player.getAttackStrengthScale(0F);
 		server.execute(() -> ItemTerraSword.trySpawnBurst(player, scale));
 	}
