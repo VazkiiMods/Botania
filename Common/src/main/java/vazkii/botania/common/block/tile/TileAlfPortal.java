@@ -353,11 +353,9 @@ public class TileAlfPortal extends TileMod implements IWandable {
 	public List<BlockPos> locatePylons() {
 		int range = 5;
 
-		BlockState pylonState = ModBlocks.naturaPylon.defaultBlockState();
-
 		return BlockPos.betweenClosedStream(getBlockPos().offset(-range, -range, -range), getBlockPos().offset(range, range, range))
 				.filter(level::hasChunkAt)
-				.filter(p -> level.getBlockState(p) == pylonState && level.getBlockState(p.below()).getBlock() instanceof BlockPool)
+				.filter(p -> level.getBlockState(p).is(ModBlocks.naturaPylon) && level.getBlockState(p.below()).getBlock() instanceof BlockPool)
 				.map(BlockPos::immutable)
 				.collect(Collectors.toList());
 	}
