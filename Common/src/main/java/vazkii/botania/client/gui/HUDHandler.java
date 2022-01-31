@@ -68,6 +68,9 @@ public final class HUDHandler {
 
 	public static void onDrawScreenPost(PoseStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
+		if (mc.options.hideGui) {
+			return;
+		}
 		ProfilerFiller profiler = mc.getProfiler();
 		ItemStack main = mc.player.getMainHandItem();
 		ItemStack offhand = mc.player.getOffhandItem();
