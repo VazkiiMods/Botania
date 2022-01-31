@@ -137,7 +137,7 @@ public class ForgeCommonInitializer {
 		ForgePacketHandler.init();
 		registerEvents();
 
-		ModBlocks.addDispenserBehaviours();
+		evt.enqueueWork(ModBlocks::addDispenserBehaviours);
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
