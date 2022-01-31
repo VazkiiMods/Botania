@@ -374,7 +374,7 @@ public class ForgeCommonInitializer {
 
 		}
 		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getPlayer(), e.getInventory()));
-		bus.addListener((ServerChatEvent e) -> {
+		bus.addListener(EventPriority.HIGH, (ServerChatEvent e) -> {
 			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage())) {
 				e.setCanceled(true);
 			}
