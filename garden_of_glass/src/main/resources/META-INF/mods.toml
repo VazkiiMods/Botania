@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="[38,)"
 license="Botania License"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues"
 logoFile="logo_gog.png"
@@ -16,6 +16,6 @@ itemIcon="botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod li
 
 [[dependencies.gardenofglass]]
     modId="botania"
-    versionRange="[1.16.4-413,)"
+    versionRange="[1.18.1-426,)"
     mandatory=true
     ordering="AFTER"
