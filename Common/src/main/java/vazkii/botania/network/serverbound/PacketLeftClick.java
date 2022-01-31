@@ -37,6 +37,7 @@ public class PacketLeftClick implements IPacket {
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
-		server.execute(() -> ItemTerraSword.trySpawnBurst(player));
+		float scale = player.getAttackStrengthScale(0F);
+		server.execute(() -> ItemTerraSword.trySpawnBurst(player, scale));
 	}
 }
