@@ -195,6 +195,7 @@ public class CurioIntegration extends EquipmentHandler {
 				return;
 			}
 
+			matrixStack.pushPose();
 			ItemStack cosmetic = item.getCosmeticItem(stack);
 			if (!cosmetic.isEmpty()) {
 				CuriosRendererRegistry.getRenderer(item)
@@ -209,6 +210,7 @@ public class CurioIntegration extends EquipmentHandler {
 							partialTicks, ageInTicks, netHeadYaw, headPitch);
 				}
 			}
+			matrixStack.popPose();
 		}
 	}
 
