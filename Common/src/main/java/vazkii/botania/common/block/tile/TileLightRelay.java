@@ -250,6 +250,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		}
 
 		bindPos = pos;
+		setChanged();
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		return true;
 	}
