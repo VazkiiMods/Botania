@@ -111,11 +111,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 					if (canAccept) {
 						boolean priority = !filter.isEmpty();
 
-						setInv: {
-							if (priorityInv && !priority) {
-								break setInv;
-							}
-
+						if (!priorityInv || priority) {
 							invToPutItemIn = inv;
 							priorityInv = priority;
 							amountToPutIn = availablePut;
