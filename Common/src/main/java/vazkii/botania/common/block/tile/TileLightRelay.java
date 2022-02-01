@@ -356,7 +356,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				level.addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
 			}
 
-			setPosRaw(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
+			setPos(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 		}
 
 		@SoftImplement("IForgeEntity") // todo implement on fabric
