@@ -2,7 +2,7 @@
   "name": "botania.entry.manaEnchanting",
   "category": "botania:devices",
   "icon": "botania:enchanter",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "flag": "botania:enchanter",
   "pages": [
     {

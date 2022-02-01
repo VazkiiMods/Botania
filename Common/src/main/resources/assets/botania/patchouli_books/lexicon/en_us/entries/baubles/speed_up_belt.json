@@ -2,7 +2,7 @@
   "name": "botania.entry.speedUpBelt",
   "category": "botania:baubles",
   "icon": "botania:speed_up_belt",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

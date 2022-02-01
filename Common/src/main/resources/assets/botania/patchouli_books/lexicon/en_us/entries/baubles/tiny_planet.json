@@ -2,7 +2,7 @@
   "name": "botania.entry.tinyPlanet",
   "category": "botania:baubles",
   "icon": "botania:tiny_planet",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

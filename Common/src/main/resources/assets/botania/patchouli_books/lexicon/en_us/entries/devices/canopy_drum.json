@@ -2,7 +2,7 @@
   "name": "botania.entry.canopyDrum",
   "category": "botania:devices",
   "icon": "botania:drum_canopy",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

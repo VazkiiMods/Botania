@@ -2,7 +2,7 @@
   "name": "botania.entry.pylon",
   "category": "botania:devices",
   "icon": "botania:mana_pylon",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

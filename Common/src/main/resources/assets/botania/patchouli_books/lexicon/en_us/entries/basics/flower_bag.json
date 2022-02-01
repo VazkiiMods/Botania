@@ -2,7 +2,7 @@
   "name": "botania.entry.flowerBag",
   "category": "botania:basics",
   "icon": "botania:flower_bag",
-  "advancement": "botania:main/flower_pickup",
+  "advancement": "botania:main/flower_pickup_lexicon",
   "pages": [
     {
       "type": "text",

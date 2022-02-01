@@ -2,7 +2,7 @@
   "name": "botania.entry.forestEye",
   "category": "botania:devices",
   "icon": "botania:forest_eye",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

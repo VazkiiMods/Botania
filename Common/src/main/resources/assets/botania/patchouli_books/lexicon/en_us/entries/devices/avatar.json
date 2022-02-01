@@ -2,7 +2,7 @@
   "name": "botania.entry.avatar",
   "category": "botania:devices",
   "icon": "botania:avatar",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

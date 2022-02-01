@@ -2,7 +2,7 @@
   "name": "botania.entry.thornChakram",
   "category": "botania:tools",
   "icon": "botania:thorn_chakram",
-  "advancement": "botania:main/terrasteel_pickup",
+  "advancement": "botania:main/terrasteel_pickup_lexicon",
   "pages": [
     {
       "type": "text",

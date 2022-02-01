@@ -3,7 +3,7 @@
   "category": "botania:challenges",
   "icon": "botania:spectrolus",
   "read_by_default": true,
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "entry_color": "aa0000",
   "sortnum": 5,
   "pages": [

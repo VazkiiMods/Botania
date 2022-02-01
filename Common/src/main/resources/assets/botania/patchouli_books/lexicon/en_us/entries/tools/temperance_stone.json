@@ -2,7 +2,7 @@
   "name": "botania.entry.temperanceStone",
   "category": "botania:tools",
   "icon": "botania:temperance_stone",
-  "advancement": "botania:main/terrasteel_pickup",
+  "advancement": "botania:main/terrasteel_pickup_lexicon",
   "pages": [
     {
       "type": "text",
