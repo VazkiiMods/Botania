@@ -4,7 +4,7 @@
   "icon": "botania:terrasteel_ingot",
   "priority": true,
   "advancement": "botania:main/runic_altar_pickup",
-  "turnin": "botania:main/terrasteel_pickup",
+  "turnin": "botania:main/terrasteel_pickup_lexicon",
   "pages": [
     {
       "type": "text",

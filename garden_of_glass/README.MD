@@ -11,4 +11,5 @@ Yes, this *could* be a proper Gradle subproject, but it's too small to be worth 
 
 So to test, simply `gradlew build` then copy it to your main Botania workspace's mods/ folder and run from there.
 
-Note that since nothing touches vanilla code, there's no need for a deobf JAR.
+Note that since nothing touches vanilla code, there's no need for a deobf JAR or even ForgeGradle/Loom themselves.
+We use the pure Java plugin and depend only on the artifact that provides Forge's @Mod annotation, and nothing else.

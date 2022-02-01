@@ -2,7 +2,7 @@
   "name": "botania.entry.invisibilityCloak",
   "category": "botania:baubles",
   "icon": "botania:invisibility_cloak",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

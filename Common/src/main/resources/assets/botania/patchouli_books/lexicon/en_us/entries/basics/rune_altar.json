@@ -3,7 +3,7 @@
   "category": "botania:basics",
   "icon": "botania:runic_altar",
   "priority": true,
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "turnin": "botania:main/runic_altar_pickup",
   "pages": [
     {

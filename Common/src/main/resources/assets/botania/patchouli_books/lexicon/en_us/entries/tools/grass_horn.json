@@ -2,7 +2,7 @@
   "name": "botania.entry.grassHorn",
   "category": "botania:tools",
   "icon": "botania:horn_grass",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

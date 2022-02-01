@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.common.world.ForgeWorldPreset;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
@@ -111,6 +113,7 @@ import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.network.ForgePacketHandler;
@@ -141,7 +144,7 @@ public class ForgeCommonInitializer {
 		ForgePacketHandler.init();
 		registerEvents();
 
-		ModBlocks.addDispenserBehaviours();
+		evt.enqueueWork(ModBlocks::addDispenserBehaviours);
 		ModBlocks.addAxeStripping();
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
@@ -162,6 +165,7 @@ public class ForgeCommonInitializer {
 	}
 
 	private void registryInit() {
+		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		// Core item/block/BE
 		bind(ForgeRegistries.SOUND_EVENTS, ModSounds::init);
 		bind(ForgeRegistries.BLOCKS, ModBlocks::registerBlocks);
@@ -181,8 +185,8 @@ public class ForgeCommonInitializer {
 
 		// Entities
 		bind(ForgeRegistries.ENTITIES, ModEntities::registerEntities);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
-		FMLJavaModLoadingContext.get().getModEventBus().addListener((EntityAttributeModificationEvent e) -> {
+		modBus.addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
+		modBus.addListener((EntityAttributeModificationEvent e) -> {
 			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
 		});
 		bind(ForgeRegistries.ATTRIBUTES, PixieHandler::registerAttribute);
@@ -194,6 +198,16 @@ public class ForgeCommonInitializer {
 		// Worldgen
 		bind(ForgeRegistries.FEATURES, ModFeatures::registerFeatures);
 		SkyblockChunkGenerator.init();
+		modBus.addGenericListener(ForgeWorldPreset.class, (RegistryEvent.Register<ForgeWorldPreset> e) -> {
+			ForgeWorldPreset preset = new ForgeWorldPreset(WorldTypeSkyblock.INSTANCE::generator) {
+				@Override
+				public String getTranslationKey() {
+					return "generator.botania-skyblock";
+				}
+			};
+			preset.setRegistryName(prefix("gardenofglass"));
+			e.getRegistry().register(preset);
+		});
 
 		// Rest
 		ModCriteriaTriggers.init();
@@ -239,8 +253,13 @@ public class ForgeCommonInitializer {
 		});
 
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
-			bus.addListener((PlayerInteractEvent.RightClickBlock e) -> SkyblockWorldEvents.onPlayerInteract(
-					e.getPlayer(), e.getWorld(), e.getHand(), e.getHitVec()));
+			bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
+				InteractionResult result = SkyblockWorldEvents.onPlayerInteract(e.getPlayer(), e.getWorld(), e.getHand(), e.getHitVec());
+				if (result == InteractionResult.SUCCESS) {
+					e.setCanceled(true);
+					e.setCancellationResult(InteractionResult.SUCCESS);
+				}
+			});
 		}
 		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ItemExchangeRod) ModItems.exchangeRod).onLeftClick(
 				e.getPlayer(), e.getWorld(), e.getHand(), e.getPos(), e.getFace()));
@@ -388,7 +407,7 @@ public class ForgeCommonInitializer {
 
 		}
 		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getPlayer(), e.getInventory()));
-		bus.addListener((ServerChatEvent e) -> {
+		bus.addListener(EventPriority.HIGH, (ServerChatEvent e) -> {
 			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage())) {
 				e.setCanceled(true);
 			}

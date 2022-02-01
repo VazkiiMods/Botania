@@ -89,7 +89,11 @@ public class ForgeClientInitializer {
 				KonamiHandler.clientTick(Minecraft.getInstance());
 			}
 		});
-		bus.addListener((RenderGameOverlayEvent e) -> HUDHandler.onDrawScreenPost(e.getMatrixStack(), e.getPartialTicks()));
+		bus.addListener((RenderGameOverlayEvent.Post e) -> {
+			if (e.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+				HUDHandler.onDrawScreenPost(e.getMatrixStack(), e.getPartialTicks());
+			}
+		});
 		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
 		bus.addListener((ScreenEvent.KeyboardKeyPressedEvent.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
 

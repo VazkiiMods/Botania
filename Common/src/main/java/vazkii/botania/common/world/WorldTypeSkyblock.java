@@ -16,14 +16,14 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 public class WorldTypeSkyblock extends WorldPreset {
-	public static final WorldPreset INSTANCE = new WorldTypeSkyblock();
+	public static final WorldTypeSkyblock INSTANCE = new WorldTypeSkyblock();
 
 	private WorldTypeSkyblock() {
 		super("botania-skyblock");
 	}
 
 	@Override
-	protected ChunkGenerator generator(RegistryAccess registryAccess, long seed) {
+	public ChunkGenerator generator(RegistryAccess registryAccess, long seed) {
 		return new SkyblockChunkGenerator(
 				registryAccess.registryOrThrow(Registry.NOISE_REGISTRY),
 				MultiNoiseBiomeSource.Preset.OVERWORLD.biomeSource(registryAccess.registryOrThrow(Registry.BIOME_REGISTRY)),

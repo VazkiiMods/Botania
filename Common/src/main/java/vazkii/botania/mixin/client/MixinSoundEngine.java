@@ -10,6 +10,7 @@ package vazkii.botania.mixin.client;
 
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.sounds.SoundSource;
@@ -54,7 +55,10 @@ public class MixinSoundEngine {
 			// We halve the volume for each flower (see return below)
 			// halving 8 times already brings the multiplier to near zero, so no
 			// need to keep going if we've seen more than 8.
-			Pair<Integer, SubTileBergamute> countAndBerg = SubTileBergamute.getBergamutesNearby(null, tmpSound.getX(), tmpSound.getY(), tmpSound.getZ(), 8);
+			var level = Minecraft.getInstance().level;
+			Pair<Integer, SubTileBergamute> countAndBerg = level == null
+					? Pair.of(0, null)
+					: SubTileBergamute.getBergamutesNearby(level, tmpSound.getX(), tmpSound.getY(), tmpSound.getZ(), 8);
 			int count = countAndBerg.getFirst();
 			if (count > 0) {
 				if (mutedSounds == null) {

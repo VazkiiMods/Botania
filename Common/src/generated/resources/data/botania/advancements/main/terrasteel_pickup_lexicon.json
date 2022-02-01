@@ -1,13 +1,13 @@
 {
   "parent": "botania:main/flower_pickup",
   "criteria": {
-    "daisy": {
+    "terrasteel": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "botania:pure_daisy"
+              "botania:terrasteel_ingot"
             ]
           }
         ]
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "daisy",
+      "terrasteel",
       "elven_lexicon"
     ]
   ]

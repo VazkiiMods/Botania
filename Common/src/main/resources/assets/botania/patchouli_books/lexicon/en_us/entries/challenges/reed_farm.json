@@ -3,7 +3,7 @@
   "category": "botania:challenges",
   "icon": "minecraft:sugar_cane",
   "read_by_default": true,
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "sortnum": 1,
   "pages": [
     {

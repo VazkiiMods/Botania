@@ -3,7 +3,7 @@
   "category": "botania:basics",
   "icon": "botania:pure_daisy",
   "priority": true,
-  "advancement": "botania:main/flower_pickup",
+  "advancement": "botania:main/flower_pickup_lexicon",
   "turnin": "botania:main/pure_daisy_pickup",
   "pages": [
     {

@@ -20,13 +20,12 @@ public class LensExplosive extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
-		if (!entity.level.isClientSide && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
-			if (!isManaBlock) {
+		if (pos.getType() == HitResult.Type.BLOCK) {
+			if (!entity.level.isClientSide && !burst.isFake() && !isManaBlock) {
 				entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(),
 						burst.getMana() / 50F, Explosion.BlockInteraction.BREAK);
 			}
-		} else {
-			shouldKill = false;
+			return true;
 		}
 
 		return shouldKill;

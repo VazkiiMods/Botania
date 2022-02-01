@@ -2,7 +2,7 @@
   "name": "botania.entry.manaAlchemy",
   "category": "botania:devices",
   "icon": "botania:alchemy_catalyst",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

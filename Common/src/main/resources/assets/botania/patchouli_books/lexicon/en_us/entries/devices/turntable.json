@@ -2,7 +2,7 @@
   "name": "botania.entry.turntable",
   "category": "botania:devices",
   "icon": "botania:turntable",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

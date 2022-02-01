@@ -59,9 +59,13 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	}
 
 	public static void trySpawnBurst(Player player) {
+		trySpawnBurst(player, player.getAttackStrengthScale(0F));
+	}
+
+	public static void trySpawnBurst(Player player, float attackStrength) {
 		if (!player.getMainHandItem().isEmpty()
 				&& player.getMainHandItem().is(ModItems.terraSword)
-				&& player.getAttackStrengthScale(0) == 1) {
+				&& attackStrength == 1) {
 			EntityManaBurst burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);
 			player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));

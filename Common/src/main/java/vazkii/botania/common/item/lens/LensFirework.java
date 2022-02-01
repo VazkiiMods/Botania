@@ -24,15 +24,14 @@ public class LensFirework extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.level.isClientSide && !burst.isFake()) {
-			if (pos.getType() == HitResult.Type.BLOCK && !isManaBlock) {
+		if (pos.getType() == HitResult.Type.BLOCK) {
+			if (!entity.level.isClientSide && !burst.isFake() && !isManaBlock) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
 				entity.level.addFreshEntity(rocket);
 			}
-		} else {
-			shouldKill = false;
+			return true;
 		}
 
 		return shouldKill;

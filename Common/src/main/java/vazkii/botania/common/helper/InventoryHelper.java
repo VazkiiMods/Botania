@@ -8,19 +8,17 @@
  */
 package vazkii.botania.common.helper;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.mixin.AccessorHopperBlockEntity;
 
@@ -95,15 +93,6 @@ public class InventoryHelper {
 		return stack;
 	}
 
-	@Nullable
-	public static Container getInventory(Level world, BlockPos pos, Direction side) {
-		Container ret = HopperBlockEntity.getContainerAt(world, pos);
-		if (ret instanceof Entity) {
-			return null;
-		}
-		return ret;
-	}
-
 	public static void withdrawFromInventory(TileSimpleInventory inv, Player player) {
 		for (int i = inv.inventorySize() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getItemHandler().getItem(i);
@@ -147,6 +136,12 @@ public class InventoryHelper {
 			}
 		}
 		return false;
+	}
+
+	public static void checkEmpty(ItemStack remainder) {
+		if (!remainder.isEmpty()) {
+			BotaniaAPI.LOGGER.warn("Remainder was not empty after insert, item may have been lost: {}", remainder);
+		}
 	}
 
 }

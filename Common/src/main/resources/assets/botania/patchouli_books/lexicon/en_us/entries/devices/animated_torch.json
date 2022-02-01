@@ -2,7 +2,7 @@
   "name": "botania.entry.animatedTorch",
   "category": "botania:devices",
   "icon": "botania:animated_torch",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

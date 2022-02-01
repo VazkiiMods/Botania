@@ -2,7 +2,7 @@
   "name": "botania.entry.bergamute",
   "category": "botania:functional_flowers",
   "icon": "botania:bergamute",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

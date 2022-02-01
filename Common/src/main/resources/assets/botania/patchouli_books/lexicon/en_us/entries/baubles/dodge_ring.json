@@ -2,7 +2,7 @@
   "name": "botania.entry.dodgeRing",
   "category": "botania:baubles",
   "icon": "botania:dodge_ring",
-  "advancement": "botania:main/mana_pool_pickup",
+  "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

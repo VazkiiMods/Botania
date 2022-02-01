@@ -4,7 +4,7 @@
   "icon": "botania:mana_pool",
   "priority": true,
   "advancement": "botania:main/pure_daisy_pickup",
-  "turnin": "botania:main/mana_pool_pickup",
+  "turnin": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
     {
       "type": "text",

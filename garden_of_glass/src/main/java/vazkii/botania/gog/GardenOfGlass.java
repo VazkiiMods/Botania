@@ -6,7 +6,10 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common;
+package vazkii.botania.gog;
 
+import net.minecraftforge.fml.common.Mod;
+
+@Mod("gardenofglass")
 public class GardenOfGlass {
 }
