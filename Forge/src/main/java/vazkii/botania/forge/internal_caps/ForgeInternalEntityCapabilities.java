@@ -51,28 +51,28 @@ public final class ForgeInternalEntityCapabilities {
 			var entity = evt.getObject();
 
 			if (entity instanceof PrimedTnt tnt) {
-				evt.addCapability(prefix("tnt_ethical"), CapabilityUtil.makeProvider(TNT_ETHICAL, new ForgeEthicalCap(tnt)));
+				evt.addCapability(prefix("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new ForgeEthicalCap(tnt)));
 			}
 			if (entity instanceof AbstractMinecart) {
-				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeProvider(GHOST_RAIL, new ForgeGhostRailCap()));
+				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new ForgeGhostRailCap()));
 			}
 			if (entity instanceof ItemEntity) {
-				evt.addCapability(prefix("iitem"), CapabilityUtil.makeProvider(INTERNAL_ITEM, new ForgeItemFlagsCap()));
+				evt.addCapability(prefix("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ForgeItemFlagsCap()));
 			}
 			if (entity instanceof Player) {
-				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeProvider(KEPT_ITEMS, new ForgeKeptItemsCap()));
+				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new ForgeKeptItemsCap()));
 			}
 			for (Class<?> clz : SubTileLoonuim.VALID_MOBS) {
 				if (clz.isInstance(entity)) {
-					evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeProvider(LOONIUM_DROP, new ForgeLooniumCap()));
+					evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new ForgeLooniumCap()));
 					break;
 				}
 			}
 			if (entity instanceof Slime) {
-				evt.addCapability(prefix("narslimmus"), CapabilityUtil.makeProvider(NARSLIMMUS, new ForgeNarslimmusCap()));
+				evt.addCapability(prefix("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new ForgeNarslimmusCap()));
 			}
 			if (entity instanceof Creeper) {
-				evt.addCapability(prefix("tigerseye_pacified"), CapabilityUtil.makeProvider(TIGERSEYE, new ForgeTigerseyeCap()));
+				evt.addCapability(prefix("tigerseye_pacified"), CapabilityUtil.makeSavedProvider(TIGERSEYE, new ForgeTigerseyeCap()));
 			}
 		}
 	}

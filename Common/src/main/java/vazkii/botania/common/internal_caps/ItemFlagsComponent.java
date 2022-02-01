@@ -15,7 +15,7 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 
 // Component for misc internal Botania flags
-public abstract class ItemFlagsComponent {
+public abstract class ItemFlagsComponent extends SerializableComponent {
 	public boolean spectranthemumTeleported = false;
 	public boolean alfPortalSpawned = false;
 	public boolean apothecarySpawned = false;
@@ -33,6 +33,7 @@ public abstract class ItemFlagsComponent {
 	private int manaInfusionCooldown = 0;
 	public static final int INITIAL_MANA_INFUSION_COOLDOWN = 25;
 
+	@Override
 	public void readFromNbt(CompoundTag tag) {
 		spectranthemumTeleported = tag.getBoolean(SubTileSpectranthemum.TAG_TELEPORTED);
 		alfPortalSpawned = tag.getBoolean(TileAlfPortal.TAG_PORTAL_FLAG);
@@ -41,22 +42,13 @@ public abstract class ItemFlagsComponent {
 		manaInfusionCooldown = tag.getInt("manaInfusionCooldown");
 	}
 
+	@Override
 	public void writeToNbt(CompoundTag tag) {
 		tag.putBoolean(SubTileSpectranthemum.TAG_TELEPORTED, spectranthemumTeleported);
 		tag.putBoolean(TileAlfPortal.TAG_PORTAL_FLAG, alfPortalSpawned);
 		tag.putBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 		tag.putInt("timeCounter", timeCounter);
 		tag.putInt("manaInfusionCooldown", manaInfusionCooldown);
-	}
-
-	public CompoundTag serializeNBT() {
-		var ret = new CompoundTag();
-		writeToNbt(new CompoundTag());
-		return ret;
-	}
-
-	public void deserializeNBT(CompoundTag nbt) {
-		readFromNbt(nbt);
 	}
 
 	public void tick() {

@@ -2,6 +2,7 @@ package vazkii.botania.forge;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -11,10 +12,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
+
+import vazkii.botania.common.internal_caps.SerializableComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,13 +31,11 @@ import java.util.Map;
 public final class CapabilityUtil {
 	public static <T, U extends T> ICapabilityProvider makeProvider(Capability<T> cap, U instance) {
 		LazyOptional<T> lazyInstanceButNotReally = LazyOptional.of(() -> instance);
-		return new ICapabilityProvider() {
-			@Nonnull
-			@Override
-			public <C> LazyOptional<C> getCapability(@Nonnull Capability<C> queryCap, @Nullable Direction side) {
-				return cap.orEmpty(queryCap, lazyInstanceButNotReally);
-			}
-		};
+		return new CapProvider<>(cap, lazyInstanceButNotReally);
+	}
+
+	public static <T extends SerializableComponent, U extends T> ICapabilityProvider makeSavedProvider(Capability<T> cap, T instance) {
+		return new CapProviderSerializable<>(cap, instance);
 	}
 
 	public static class WaterBowlFluidHandler extends FluidHandlerItemStackSimple.SwapEmpty {
@@ -89,4 +91,36 @@ public final class CapabilityUtil {
 	}
 
 	private CapabilityUtil() {}
+
+	private static class CapProvider<T> implements ICapabilityProvider {
+		protected final Capability<T> cap;
+		protected final LazyOptional<T> lazyInstanceButNotReally;
+
+		public CapProvider(Capability<T> cap, LazyOptional<T> instance) {
+			this.cap = cap;
+			this.lazyInstanceButNotReally = instance;
+		}
+
+		@Nonnull
+		@Override
+		public <C> LazyOptional<C> getCapability(@Nonnull Capability<C> queryCap, @Nullable Direction side) {
+			return cap.orEmpty(queryCap, lazyInstanceButNotReally);
+		}
+	}
+
+	private static class CapProviderSerializable<T extends SerializableComponent> extends CapProvider<T> implements INBTSerializable<CompoundTag> {
+		public CapProviderSerializable(Capability<T> cap, T instance) {
+			super(cap, LazyOptional.of(() -> instance));
+		}
+
+		@Override
+		public CompoundTag serializeNBT() {
+			return lazyInstanceButNotReally.map(SerializableComponent::serializeNBT).orElse(null);
+		}
+
+		@Override
+		public void deserializeNBT(CompoundTag nbt) {
+			lazyInstanceButNotReally.ifPresent(i -> i.deserializeNBT(nbt));
+		}
+	}
 }
