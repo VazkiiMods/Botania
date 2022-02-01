@@ -10,12 +10,9 @@ package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -25,6 +22,9 @@ import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.InventoryHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
+
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,37 +75,33 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
-		Container inv = getInv();
+		BlockPos invPos = getInvPos();
 
 		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack reqStack : stacks) {
-			if (inv != null && InventoryHelper.simulateTransfer(inv, reqStack, Direction.UP).isEmpty()) {
-				HopperBlockEntity.addItem(null, inv, reqStack, Direction.UP);
+			if (invPos != null
+					&& IXplatAbstractions.INSTANCE.insertToInventory(level, invPos, Direction.UP, reqStack, true).isEmpty()) {
+				InventoryHelper.checkEmpty(
+						IXplatAbstractions.INSTANCE.insertToInventory(level, invPos, Direction.UP, reqStack, false)
+				);
 			} else {
-				ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, reqStack);
+				ItemEntity item = new ItemEntity(level, spark.entity().getX(), spark.entity().getY(), spark.entity().getZ(), reqStack);
 				level.addFreshEntity(item);
 			}
 		}
 	}
 
-	private Container getInv() {
-		BlockEntity te = level.getBlockEntity(worldPosition.below());
-		Container ret = InventoryHelper.getInventory(level, worldPosition.below(), Direction.UP);
-		if (ret == null) {
-			ret = InventoryHelper.getInventory(level, worldPosition.below(), null);
-		}
-		if (ret != null && !(te instanceof TileCorporeaFunnel)) {
-			return ret;
+	@Nullable
+	private BlockPos getInvPos() {
+		BlockPos downOne = worldPosition.below();
+		if (IXplatAbstractions.INSTANCE.hasInventory(level, downOne, Direction.UP)) {
+			return downOne;
 		}
 
-		te = level.getBlockEntity(worldPosition.below(2));
-		ret = InventoryHelper.getInventory(level, worldPosition.below(2), Direction.UP);
-		if (ret == null) {
-			ret = InventoryHelper.getInventory(level, worldPosition.below(2), null);
-		}
-		if (ret != null && !(te instanceof TileCorporeaFunnel)) {
-			return ret;
+		BlockPos downTwo = worldPosition.below(2);
+		if (IXplatAbstractions.INSTANCE.hasInventory(level, downTwo, Direction.UP)) {
+			return downTwo;
 		}
 
 		return null;

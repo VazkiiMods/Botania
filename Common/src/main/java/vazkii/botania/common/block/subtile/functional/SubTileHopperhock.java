@@ -27,13 +27,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -119,11 +119,10 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 
 			if (direction != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
-				var afterInsert = IXplatAbstractions.INSTANCE.insertToInventory(level, pos.relative(direction),
-						direction.getOpposite(), stack.split(amountToPutIn), false);
-				if (!afterInsert.isEmpty()) {
-					BotaniaAPI.LOGGER.warn("Unable to fully insert stack even after simulating. Item may have been lost: {}", afterInsert);
-				}
+				InventoryHelper.checkEmpty(
+						IXplatAbstractions.INSTANCE.insertToInventory(level, pos.relative(direction),
+								direction.getOpposite(), stack.split(amountToPutIn), false)
+				);
 
 				item.setItem(stack); // Force resync
 				pulledAny = true;
