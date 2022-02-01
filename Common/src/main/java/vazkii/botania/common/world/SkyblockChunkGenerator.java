@@ -12,6 +12,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.RegistryLookupCodec;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.WorldGenRegion;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -47,6 +49,15 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 
 	public static void init() {
 		Registry.register(Registry.CHUNK_GENERATOR, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
+	}
+
+	public static ChunkGenerator createForWorldType(RegistryAccess registryAccess, long seed) {
+		return new SkyblockChunkGenerator(
+				registryAccess.registryOrThrow(Registry.NOISE_REGISTRY),
+				MultiNoiseBiomeSource.Preset.OVERWORLD.biomeSource(registryAccess.registryOrThrow(Registry.BIOME_REGISTRY)),
+				seed,
+				() -> registryAccess.registryOrThrow(Registry.NOISE_GENERATOR_SETTINGS_REGISTRY).getOrThrow(NoiseGeneratorSettings.OVERWORLD)
+		);
 	}
 
 	private final Registry<NormalNoise.NoiseParameters> noises;
