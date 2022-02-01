@@ -16,7 +16,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -24,18 +23,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.AABB;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
-import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -90,41 +88,44 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 			}
 
 			ItemStack stack = item.getItem();
-			Container invToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
 			Direction direction = null;
 
 			for (Direction dir : Direction.values()) {
-				BlockPos pos_ = pos.relative(dir);
+				BlockPos inventoryPos = pos.relative(dir);
+				Direction sideOfInventory = dir.getOpposite();
 
-				Container inv = InventoryHelper.getInventory(getLevel(), pos_, dir.getOpposite());
-				if (inv != null) {
-					List<ItemStack> filter = getFilterForInventory(pos_, true);
+				if (IXplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
+					List<ItemStack> filter = getFilterForInventory(inventoryPos, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
-					ItemStack simulate = InventoryHelper.simulateTransfer(inv, stack, dir.getOpposite());
-					int availablePut = stack.getCount() - simulate.getCount();
+					ItemStack simulate = IXplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, true);
+					int inserted = stack.getCount() - simulate.getCount();
 
-					canAccept &= availablePut > 0;
+					canAccept = canAccept && inserted > 0;
 
 					if (canAccept) {
 						boolean priority = !filter.isEmpty();
 
 						if (!priorityInv || priority) {
-							invToPutItemIn = inv;
 							priorityInv = priority;
-							amountToPutIn = availablePut;
+							amountToPutIn = inserted;
 							direction = dir;
 						}
 					}
 				}
 			}
 
-			if (invToPutItemIn != null && item.isAlive()) {
+			if (direction != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
-				HopperBlockEntity.addItem(null, invToPutItemIn, stack.split(amountToPutIn), direction.getOpposite());
-				item.setItem(stack); // Just in case someone subclasses ItemEntity and changes something important.
+				var afterInsert = IXplatAbstractions.INSTANCE.insertToInventory(level, pos.relative(direction),
+						direction.getOpposite(), stack.split(amountToPutIn), false);
+				if (!afterInsert.isEmpty()) {
+					BotaniaAPI.LOGGER.warn("Unable to fully insert stack even after simulating. Item may have been lost: {}", afterInsert);
+				}
+
+				item.setItem(stack); // Force resync
 				pulledAny = true;
 			}
 		}

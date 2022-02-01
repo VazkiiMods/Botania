@@ -21,11 +21,14 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -255,6 +258,41 @@ public class FabricXplatImpl implements IXplatAbstractions {
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos) {
+		var state = level.getBlockState(pos);
+		var be = level.getBlockEntity(pos);
+		return ItemStorage.SIDED.find(level, pos, state, be, sideOfPos) != null;
+	}
+
+	@Override
+	public ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate) {
+		var state = level.getBlockState(pos);
+		var be = level.getBlockEntity(pos);
+		var storage = ItemStorage.SIDED.find(level, pos, state, be, sideOfPos);
+		if (storage == null) {
+			return toInsert;
+		}
+
+		var itemVariant = ItemVariant.of(toInsert);
+		try (Transaction txn = Transaction.openOuter()) {
+			// Truncation to int ok since the value passed in was an int
+			// and that value should only decrease or stay same
+			int inserted = (int) storage.insert(itemVariant, toInsert.getCount(), txn);
+			if (!simulate) {
+				txn.commit();
+			}
+
+			if (inserted == toInsert.getCount()) {
+				return ItemStack.EMPTY;
+			} else {
+				var ret = toInsert.copy();
+				ret.setCount(toInsert.getCount() - inserted);
+				return ret;
+			}
+		}
 	}
 
 	@Override

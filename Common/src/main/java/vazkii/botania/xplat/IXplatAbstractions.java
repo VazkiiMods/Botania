@@ -3,6 +3,7 @@ package vazkii.botania.xplat;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -108,6 +109,8 @@ public interface IXplatAbstractions {
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
 	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);
 	boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid);
+	boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos);
+	ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate);
 
 	// Capability access (internal caps)
 	EthicalComponent ethicalComponent(PrimedTnt tnt);

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -63,6 +64,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
@@ -226,6 +229,25 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 					return success;
 				})
 				.orElse(false);
+	}
+
+	@Override
+	public boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos) {
+		var be = level.getBlockEntity(pos);
+		return be != null
+				&& be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, sideOfPos).isPresent();
+	}
+
+	@Override
+	public ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate) {
+		var be = level.getBlockEntity(pos);
+		if (be == null) {
+			return toInsert;
+		}
+
+		var cap = be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, sideOfPos);
+		return cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, toInsert, simulate))
+				.orElse(toInsert);
 	}
 
 	@Override
