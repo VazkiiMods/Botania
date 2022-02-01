@@ -9,11 +9,8 @@
 package vazkii.botania.common.world;
 
 import net.minecraft.client.gui.screens.worldselection.WorldPreset;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 public class WorldTypeSkyblock extends WorldPreset {
 	public static final WorldTypeSkyblock INSTANCE = new WorldTypeSkyblock();
@@ -23,12 +20,7 @@ public class WorldTypeSkyblock extends WorldPreset {
 	}
 
 	@Override
-	public ChunkGenerator generator(RegistryAccess registryAccess, long seed) {
-		return new SkyblockChunkGenerator(
-				registryAccess.registryOrThrow(Registry.NOISE_REGISTRY),
-				MultiNoiseBiomeSource.Preset.OVERWORLD.biomeSource(registryAccess.registryOrThrow(Registry.BIOME_REGISTRY)),
-				seed,
-				() -> registryAccess.registryOrThrow(Registry.NOISE_GENERATOR_SETTINGS_REGISTRY).getOrThrow(NoiseGeneratorSettings.OVERWORLD)
-		);
+	protected ChunkGenerator generator(RegistryAccess registryAccess, long seed) {
+		return SkyblockChunkGenerator.createForWorldType(registryAccess, seed);
 	}
 }

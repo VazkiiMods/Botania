@@ -113,7 +113,6 @@ import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.network.ForgePacketHandler;
@@ -199,7 +198,7 @@ public class ForgeCommonInitializer {
 		bind(ForgeRegistries.FEATURES, ModFeatures::registerFeatures);
 		SkyblockChunkGenerator.init();
 		modBus.addGenericListener(ForgeWorldPreset.class, (RegistryEvent.Register<ForgeWorldPreset> e) -> {
-			ForgeWorldPreset preset = new ForgeWorldPreset(WorldTypeSkyblock.INSTANCE::generator) {
+			ForgeWorldPreset preset = new ForgeWorldPreset(SkyblockChunkGenerator::createForWorldType) {
 				@Override
 				public String getTranslationKey() {
 					return "generator.botania-skyblock";

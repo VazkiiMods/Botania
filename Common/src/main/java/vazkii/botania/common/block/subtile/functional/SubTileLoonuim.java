@@ -51,11 +51,11 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
 	private static final String TAG_LOOT_TABLE = "lootTable";
-	private static final String TAG_ITEMSTACK_TO_DROP = "botania:looniumItemStackToDrop";
 	public static final Set<Class<? extends Monster>> VALID_MOBS = Set.of(
 			Creeper.class,
 			EnderMan.class,
 			Skeleton.class,
+			Stray.class,
 			Spider.class,
 			Zombie.class
 	);
