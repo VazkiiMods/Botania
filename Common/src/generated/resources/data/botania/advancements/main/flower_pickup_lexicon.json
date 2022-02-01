@@ -1,14 +1,12 @@
 {
-  "parent": "botania:main/flower_pickup",
+  "parent": "botania:main/root",
   "criteria": {
-    "daisy": {
+    "flower": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:pure_daisy"
-            ]
+            "tag": "botania:mystical_flowers"
           }
         ]
       }
@@ -29,7 +27,7 @@
   },
   "requirements": [
     [
-      "daisy",
+      "flower",
       "elven_lexicon"
     ]
   ]

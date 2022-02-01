@@ -1,13 +1,16 @@
 {
-  "parent": "botania:main/flower_pickup",
+  "parent": "botania:main/root",
   "criteria": {
-    "daisy": {
+    "pickup": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "botania:pure_daisy"
+              "botania:mana_pool",
+              "botania:creative_pool",
+              "botania:diluted_pool",
+              "botania:fabulous_pool"
             ]
           }
         ]
@@ -29,7 +32,7 @@
   },
   "requirements": [
     [
-      "daisy",
+      "pickup",
       "elven_lexicon"
     ]
   ]

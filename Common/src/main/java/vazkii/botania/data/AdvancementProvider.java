@@ -59,6 +59,12 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 	}
 
 	private static void mainAdvancements(Consumer<Advancement> consumer) {
+		var elvenLexiconUnlock = new CompoundTag();
+		elvenLexiconUnlock.putBoolean(ItemLexicon.TAG_ELVEN_UNLOCK, true);
+		InventoryChangeTrigger.TriggerInstance elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
+				ItemPredicate.Builder.item().of(ModItems.lexicon).hasNbt(elvenLexiconUnlock).build()
+		);
+
 		// Main progression line
 		Advancement root = Advancement.Builder.advancement()
 				.display(rootDisplay(ModItems.lexicon, "itemGroup.botania",
@@ -276,28 +282,45 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 		// Lexicon locks
 		Advancement.Builder.advancement()
+				.parent(root)
+				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
+				.addCriterion("elven_lexicon", elvenLexicon)
+				.requirements(RequirementsStrategy.OR)
+				.save(consumer, mainId("flower_pickup_lexicon"));
+		Advancement.Builder.advancement()
 				.parent(flowerPickup)
 				.addCriterion("apothecary", onPickup(ModBlocks.defaultAltar))
+				.addCriterion("elven_lexicon", elvenLexicon)
+				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("apothecary_pickup"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
 				.addCriterion("daisy", onPickup(ModSubtiles.pureDaisy))
+				.addCriterion("elven_lexicon", elvenLexicon)
+				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("pure_daisy_pickup"));
+		Advancement.Builder.advancement()
+				.parent(root)
+				.addCriterion("pickup", onPickup(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool))
+				.addCriterion("elven_lexicon", elvenLexicon)
+				.requirements(RequirementsStrategy.OR)
+				.save(consumer, mainId("mana_pool_pickup_lexicon"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
 				.addCriterion("altar", onPickup(ModBlocks.runeAltar))
 				.addCriterion("rune", onPickup(ModTags.Items.RUNES))
+				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("runic_altar_pickup"));
-
-		var elvenLexiconUnlock = new CompoundTag();
-		elvenLexiconUnlock.putBoolean(ItemLexicon.TAG_ELVEN_UNLOCK, true);
-
+		Advancement.Builder.advancement()
+				.parent(flowerPickup)
+				.addCriterion("terrasteel", onPickup(ModItems.terrasteel))
+				.addCriterion("elven_lexicon", elvenLexicon)
+				.requirements(RequirementsStrategy.OR)
+				.save(consumer, mainId("terrasteel_pickup_lexicon"));
 		Advancement.Builder.advancement()
 				.parent(elfPortalOpen)
-				.addCriterion("lexicon", InventoryChangeTrigger.TriggerInstance.hasItems(
-						ItemPredicate.Builder.item().of(ModItems.lexicon).hasNbt(elvenLexiconUnlock).build()
-				))
+				.addCriterion("lexicon", elvenLexicon)
 				.save(consumer, mainId("elf_lexicon_pickup"));
 	}
 
