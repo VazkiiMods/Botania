@@ -28,6 +28,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.minecraft.client.Minecraft;
@@ -80,6 +81,8 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, ModSubtiles.orechidIgnem),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, ModSubtiles.marimorphosis)
 		));
+
+		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModItems.craftingHalo), EntryStacks.of(ModItems.autocraftingHalo));
 		Set<ItemLike> apothecaries = ImmutableSet.of(
 				ModBlocks.defaultAltar,
 				ModBlocks.desertAltar,
