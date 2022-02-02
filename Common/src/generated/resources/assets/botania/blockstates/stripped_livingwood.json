@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "botania:block/stripped_livingwood_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "botania:block/stripped_livingwood"
+    },
+    "axis=z": {
+      "model": "botania:block/stripped_livingwood_horizontal",
+      "x": 90
+    }
+  }
+}

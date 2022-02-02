@@ -35,5 +35,6 @@ jar {
 
     exclude "**/*.bat"
     exclude "**/*.psd"
+    exclude "**/*.ase"
     exclude "**/*.exe"
 }

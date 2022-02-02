@@ -6,7 +6,7 @@
   ],
   "key": {
     "D": {
-      "item": "botania:dreamwood"
+      "tag": "botania:dreamwood_logs"
     },
     "L": {
       "item": "botania:light_relay"

@@ -2,7 +2,9 @@
   "parent": "botania:block/shapes/spreader_item",
   "textures": {
     "side": "botania:block/mana_spreader_side",
-    "material": "botania:block/livingwood",
-    "inside": "botania:block/mana_spreader_inside"
+    "back": "botania:block/mana_spreader_back",
+    "inside": "botania:block/stripped_livingwood_log",
+    "outside": "botania:block/livingwood_log",
+    "core": "botania:block/mana_spreader_core"
   }
 }

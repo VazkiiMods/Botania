@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "botania:block/livingwood"
+    "wall": "botania:block/livingwood_log"
   }
 }

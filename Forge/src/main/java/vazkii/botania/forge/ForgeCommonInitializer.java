@@ -29,8 +29,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.world.ForgeWorldPreset;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -48,6 +50,7 @@ import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -113,6 +116,7 @@ import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.network.ForgePacketHandler;
+import vazkii.botania.forge.xplat.ForgeXplatImpl;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -140,6 +144,7 @@ public class ForgeCommonInitializer {
 		registerEvents();
 
 		evt.enqueueWork(ModBlocks::addDispenserBehaviours);
+		ModBlocks.addAxeStripping();
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
@@ -304,6 +309,15 @@ public class ForgeCommonInitializer {
 		bus.addListener((AnvilUpdateEvent e) -> {
 			if (ItemSpellCloth.shouldDenyAnvil(e.getLeft(), e.getRight())) {
 				e.setCanceled(true);
+			}
+		});
+		bus.addListener((BlockEvent.BlockToolInteractEvent e) -> {
+			if (e.getToolAction() == ToolActions.AXE_STRIP) {
+				BlockState input = e.getState();
+				Block output = ForgeXplatImpl.CUSTOM_STRIPPABLES.get(input.getBlock());
+				if (output != null) {
+					e.setFinalState(output.withPropertiesOf(input));
+				}
 			}
 		});
 		bus.addListener((EntityTeleportEvent.EnderEntity e) -> {

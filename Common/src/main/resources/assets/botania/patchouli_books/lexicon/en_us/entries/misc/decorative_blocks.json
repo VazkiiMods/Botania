@@ -55,7 +55,8 @@
     {
       "type": "crafting",
       "text": "botania.page.decorativeBlocks9",
-      "recipe": "botania:glimmering_livingwood"
+      "recipe": "botania:glimmering_livingwood",
+      "recipe2": "botania:glimmering_livingwood_log"
     },
     {
       "type": "text",

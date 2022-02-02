@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:livingwood"
+    ]
+  },
+  "criteria": {
+    "has_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:livingwood_log"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:livingwood"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_log",
+      "has_the_recipe"
+    ]
+  ]
+}

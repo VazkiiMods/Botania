@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "botania:block/livingwood_log_top",
+    "side": "botania:block/livingwood_log"
+  }
+}

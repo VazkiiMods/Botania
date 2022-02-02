@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:stripped_livingwood"
+    ]
+  },
+  "criteria": {
+    "has_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:stripped_livingwood_log"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:stripped_livingwood"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_log",
+      "has_the_recipe"
+    ]
+  ]
+}

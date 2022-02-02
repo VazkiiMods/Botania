@@ -41,6 +41,7 @@ subprojects {
 
         exclude "**/*.bat"
         exclude "**/*.psd"
+        exclude "**/*.ase"
         exclude "**/*.exe"
         exclude "**/unused"
 

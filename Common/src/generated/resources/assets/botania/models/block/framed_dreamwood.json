@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "botania:block/framed_dreamwood"
+    "end": "botania:block/pattern_framed_dreamwood",
+    "side": "botania:block/framed_dreamwood"
   }
 }

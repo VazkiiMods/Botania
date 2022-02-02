@@ -22,6 +22,8 @@
     "botania:metamorphic_swamp_cobblestone_wall",
     "botania:metamorphic_taiga_bricks_wall",
     "botania:metamorphic_taiga_cobblestone_wall",
-    "botania:mossy_livingrock_bricks_wall"
+    "botania:mossy_livingrock_bricks_wall",
+    "botania:stripped_dreamwood_wall",
+    "botania:stripped_livingwood_wall"
   ]
 }

@@ -6,7 +6,8 @@
       "uvlock": true
     },
     "facing=east,half=bottom,shape=inner_right": {
-      "model": "botania:block/red_pavement_stairs_inner"
+      "model": "botania:block/red_pavement_stairs_inner",
+      "uvlock": true
     },
     "facing=east,half=bottom,shape=outer_left": {
       "model": "botania:block/red_pavement_stairs_outer",
@@ -14,10 +15,12 @@
       "uvlock": true
     },
     "facing=east,half=bottom,shape=outer_right": {
-      "model": "botania:block/red_pavement_stairs_outer"
+      "model": "botania:block/red_pavement_stairs_outer",
+      "uvlock": true
     },
     "facing=east,half=bottom,shape=straight": {
-      "model": "botania:block/red_pavement_stairs"
+      "model": "botania:block/red_pavement_stairs",
+      "uvlock": true
     },
     "facing=east,half=top,shape=inner_left": {
       "model": "botania:block/red_pavement_stairs_inner",
@@ -100,7 +103,8 @@
       "uvlock": true
     },
     "facing=south,half=bottom,shape=inner_left": {
-      "model": "botania:block/red_pavement_stairs_inner"
+      "model": "botania:block/red_pavement_stairs_inner",
+      "uvlock": true
     },
     "facing=south,half=bottom,shape=inner_right": {
       "model": "botania:block/red_pavement_stairs_inner",
@@ -108,7 +112,8 @@
       "uvlock": true
     },
     "facing=south,half=bottom,shape=outer_left": {
-      "model": "botania:block/red_pavement_stairs_outer"
+      "model": "botania:block/red_pavement_stairs_outer",
+      "uvlock": true
     },
     "facing=south,half=bottom,shape=outer_right": {
       "model": "botania:block/red_pavement_stairs_outer",

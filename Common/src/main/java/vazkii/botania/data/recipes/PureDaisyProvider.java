@@ -11,10 +11,12 @@ package vazkii.botania.data.recipes;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -38,7 +40,10 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 
 		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Blocks.STONE), ModBlocks.livingrock.defaultBlockState()));
-		consumer.accept(new FinishedRecipe(id("livingwood"), StateIngredientHelper.of(BlockTags.LOGS), ModBlocks.livingwood.defaultBlockState()));
+		consumer.accept(new StateCopyingRecipe(id("livingwood"),
+				StateIngredientHelper.tagExcluding(BlockTags.LOGS,
+						StateIngredientHelper.of(ModBlocks.livingwoodLog), StateIngredientHelper.of(ModBlocks.livingwood)),
+				ModBlocks.livingwoodLog));
 
 		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredientHelper.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState()));
 		consumer.accept(new FinishedRecipe(id("end_stone_to_cobbled_deepslate"), StateIngredientHelper.of(Blocks.END_STONE), Blocks.COBBLED_DEEPSLATE.defaultBlockState(), FinishedRecipe.DEFAULT_TIME, prefix("ender_air_release")));
@@ -61,10 +66,10 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		public static final int DEFAULT_TIME = 150;
 
-		private final ResourceLocation id;
-		private final StateIngredient input;
-		private final BlockState outputState;
-		private final int time;
+		protected final ResourceLocation id;
+		protected final StateIngredient input;
+		protected final BlockState outputState;
+		protected final int time;
 		@Nullable
 		private final ResourceLocation function;
 
@@ -117,6 +122,26 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		@Override
 		public ResourceLocation getAdvancementId() {
 			return null;
+		}
+	}
+
+	protected static class StateCopyingRecipe extends FinishedRecipe {
+		public StateCopyingRecipe(ResourceLocation id, StateIngredient input, Block block) {
+			super(id, input, block.defaultBlockState());
+		}
+
+		@Override
+		public void serializeRecipeData(JsonObject json) {
+			json.add("input", input.serialize());
+			json.addProperty("output", Registry.BLOCK.getKey(outputState.getBlock()).toString());
+			if (time != DEFAULT_TIME) {
+				json.addProperty("time", time);
+			}
+		}
+
+		@Override
+		public RecipeSerializer<?> getType() {
+			return ModRecipeTypes.COPYING_PURE_DAISY_SERIALIZER;
 		}
 	}
 }

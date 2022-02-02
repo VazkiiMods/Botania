@@ -94,6 +94,11 @@ public class ModTags {
 
 		public static final Tag.Named<Item> RUNES = tag("runes");
 
+		public static final Tag.Named<Item> LIVINGWOOD_LOGS = tag("livingwood_logs");
+		public static final Tag.Named<Item> DREAMWOOD_LOGS = tag("dreamwood_logs");
+		public static final Tag.Named<Item> LIVINGWOOD_LOGS_GLIMMERING = tag("glimmering_livingwood_logs");
+		public static final Tag.Named<Item> DREAMWOOD_LOGS_GLIMMERING = tag("glimmering_dreamwood_logs");
+
 		/**
 		 * Items in this tag allow wearing players to see bursts through walls and flower radii
 		 */
@@ -154,6 +159,11 @@ public class ModTags {
 		 */
 		public static final Tag.Named<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
 
+		public static final Tag.Named<Block> LIVINGWOOD_LOGS = tag("livingwood_logs");
+		public static final Tag.Named<Block> DREAMWOOD_LOGS = tag("dreamwood_logs");
+		public static final Tag.Named<Block> LIVINGWOOD_LOGS_GLIMMERING = tag("glimmering_livingwood_logs");
+		public static final Tag.Named<Block> DREAMWOOD_LOGS_GLIMMERING = tag("glimmering_dreamwood_logs");
+
 		public static final Tag.Named<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
 		public static final Tag.Named<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
 		public static final Tag.Named<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
@@ -184,6 +194,7 @@ public class ModTags {
 		 * Blocks in this tag can sub for livingrock in the terra plate multiblock
 		 */
 		public static final Tag.Named<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
+		public static final Tag.Named<Block> GHOST_RAIL_BARRIER = tag("ghost_rail_barrier");
 
 		/**
 		 * Blocks in this tag can be turned into end stone by ender air

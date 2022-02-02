@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -55,6 +56,7 @@ import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockWithSpecialRenderer;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.AccessorDispenserBlock;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -206,20 +208,31 @@ public final class ModBlocks {
 	public static final Block livingrockBrickCracked = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickMossy = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 
-	// TODO 1.16+ livingwood/dreamwood should support leaves?
-	public static final Block livingwood = new BlockMod(BlockBehaviour.Properties.of(Material.WOOD).strength(2).sound(SoundType.WOOD));
-	public static final Block livingwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block livingwoodPlanksMossy = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block livingwoodFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block livingwoodPatternFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block livingwoodGlimmering = new BlockMod(BlockBehaviour.Properties.copy(livingwood).lightLevel(s -> 12));
+	public static final Block livingwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2).sound(SoundType.WOOD)); // TODO color
+	public static final Block livingwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block livingwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog).lightLevel(b -> 12));
+	public static final Block livingwoodLogStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog).lightLevel(b -> 8));
+	public static final Block livingwood = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block livingwoodStripped = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block livingwoodGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogGlimmering));
+	public static final Block livingwoodStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogStrippedGlimmering));
+	public static final Block livingwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block livingwoodPlanksMossy = new BlockMod(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block livingwoodFramed = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block livingwoodPatternFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwoodLog));
 
-	public static final Block dreamwood = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block dreamwoodLog = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block dreamwoodLogStripped = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block dreamwoodLogGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogGlimmering));
+	public static final Block dreamwoodLogStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogStrippedGlimmering));
+	public static final Block dreamwood = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block dreamwoodStripped = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLog));
+	public static final Block dreamwoodGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogGlimmering));
+	public static final Block dreamwoodStrippedGlimmering = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwoodLogStrippedGlimmering));
 	public static final Block dreamwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block dreamwoodPlanksMossy = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block dreamwoodFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block dreamwoodFramed = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block dreamwoodPatternFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block dreamwoodGlimmering = new BlockMod(BlockBehaviour.Properties.copy(livingwoodGlimmering));
 
 	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
 	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
@@ -485,18 +498,30 @@ public final class ModBlocks {
 		r.accept(livingrockBrickChiseled, prefix(LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
 		r.accept(livingrockBrickCracked, prefix(LibBlockNames.LIVING_ROCK_BRICK_CRACKED));
 		r.accept(livingrockBrickMossy, prefix(LibBlockNames.LIVING_ROCK_BRICK_MOSSY));
+		r.accept(livingwoodLog, prefix(LibBlockNames.LIVING_WOOD_LOG));
+		r.accept(livingwoodLogStripped, prefix(LibBlockNames.LIVING_WOOD_LOG_STRIPPED));
+		r.accept(livingwoodLogGlimmering, prefix(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING));
+		r.accept(livingwoodLogStrippedGlimmering, prefix(LibBlockNames.LIVING_WOOD_LOG_GLIMMERING_STRIPPED));
 		r.accept(livingwood, prefix(LibBlockNames.LIVING_WOOD));
+		r.accept(livingwoodGlimmering, prefix(LibBlockNames.LIVING_WOOD_GLIMMERING));
+		r.accept(livingwoodStripped, prefix(LibBlockNames.LIVING_WOOD_STRIPPED));
+		r.accept(livingwoodStrippedGlimmering, prefix(LibBlockNames.LIVING_WOOD_GLIMMERING_STRIPPED));
 		r.accept(livingwoodPlanks, prefix(LibBlockNames.LIVING_WOOD_PLANKS));
 		r.accept(livingwoodPlanksMossy, prefix(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY));
 		r.accept(livingwoodFramed, prefix(LibBlockNames.LIVING_WOOD_FRAMED));
 		r.accept(livingwoodPatternFramed, prefix(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED));
-		r.accept(livingwoodGlimmering, prefix(LibBlockNames.LIVING_WOOD_GLIMMERING));
+		r.accept(dreamwoodLog, prefix(LibBlockNames.DREAM_WOOD_LOG));
+		r.accept(dreamwoodLogGlimmering, prefix(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING));
+		r.accept(dreamwoodLogStripped, prefix(LibBlockNames.DREAM_WOOD_LOG_STRIPPED));
+		r.accept(dreamwoodLogStrippedGlimmering, prefix(LibBlockNames.DREAM_WOOD_LOG_GLIMMERING_STRIPPED));
 		r.accept(dreamwood, prefix(LibBlockNames.DREAM_WOOD));
+		r.accept(dreamwoodGlimmering, prefix(LibBlockNames.DREAM_WOOD_GLIMMERING));
+		r.accept(dreamwoodStripped, prefix(LibBlockNames.DREAM_WOOD_STRIPPED));
+		r.accept(dreamwoodStrippedGlimmering, prefix(LibBlockNames.DREAM_WOOD_GLIMMERING_STRIPPED));
 		r.accept(dreamwoodPlanks, prefix(LibBlockNames.DREAM_WOOD_PLANKS));
 		r.accept(dreamwoodPlanksMossy, prefix(LibBlockNames.DREAM_WOOD_PLANKS_MOSSY));
 		r.accept(dreamwoodFramed, prefix(LibBlockNames.DREAM_WOOD_FRAMED));
 		r.accept(dreamwoodPatternFramed, prefix(LibBlockNames.DREAM_WOOD_PATTERN_FRAMED));
-		r.accept(dreamwoodGlimmering, prefix(LibBlockNames.DREAM_WOOD_GLIMMERING));
 		r.accept(manaSpreader, prefix(LibBlockNames.SPREADER));
 		r.accept(redstoneSpreader, prefix(LibBlockNames.SPREADER_REDSTONE));
 		r.accept(elvenSpreader, prefix(LibBlockNames.SPREADER_ELVEN));
@@ -732,13 +757,25 @@ public final class ModBlocks {
 		r.accept(new BlockItem(livingrockBrickChiseled, props), Registry.BLOCK.getKey(livingrockBrickChiseled));
 		r.accept(new BlockItem(livingrockBrickCracked, props), Registry.BLOCK.getKey(livingrockBrickCracked));
 		r.accept(new BlockItem(livingrockBrickMossy, props), Registry.BLOCK.getKey(livingrockBrickMossy));
+		r.accept(new BlockItem(livingwoodLog, props), Registry.BLOCK.getKey(livingwoodLog));
+		r.accept(new BlockItem(livingwoodLogStripped, props), Registry.BLOCK.getKey(livingwoodLogStripped));
+		r.accept(new BlockItem(livingwoodLogGlimmering, props), Registry.BLOCK.getKey(livingwoodLogGlimmering));
+		r.accept(new BlockItem(livingwoodLogStrippedGlimmering, props), Registry.BLOCK.getKey(livingwoodLogStrippedGlimmering));
 		r.accept(new BlockItem(livingwood, props), Registry.BLOCK.getKey(livingwood));
+		r.accept(new BlockItem(livingwoodStripped, props), Registry.BLOCK.getKey(livingwoodStripped));
+		r.accept(new BlockItem(livingwoodStrippedGlimmering, props), Registry.BLOCK.getKey(livingwoodStrippedGlimmering));
 		r.accept(new BlockItem(livingwoodPlanks, props), Registry.BLOCK.getKey(livingwoodPlanks));
 		r.accept(new BlockItem(livingwoodPlanksMossy, props), Registry.BLOCK.getKey(livingwoodPlanksMossy));
 		r.accept(new BlockItem(livingwoodFramed, props), Registry.BLOCK.getKey(livingwoodFramed));
 		r.accept(new BlockItem(livingwoodPatternFramed, props), Registry.BLOCK.getKey(livingwoodPatternFramed));
 		r.accept(new BlockItem(livingwoodGlimmering, props), Registry.BLOCK.getKey(livingwoodGlimmering));
+		r.accept(new BlockItem(dreamwoodLog, props), Registry.BLOCK.getKey(dreamwoodLog));
+		r.accept(new BlockItem(dreamwoodLogGlimmering, props), Registry.BLOCK.getKey(dreamwoodLogGlimmering));
+		r.accept(new BlockItem(dreamwoodLogStripped, props), Registry.BLOCK.getKey(dreamwoodLogStripped));
+		r.accept(new BlockItem(dreamwoodLogStrippedGlimmering, props), Registry.BLOCK.getKey(dreamwoodLogStrippedGlimmering));
 		r.accept(new BlockItem(dreamwood, props), Registry.BLOCK.getKey(dreamwood));
+		r.accept(new BlockItem(dreamwoodStripped, props), Registry.BLOCK.getKey(dreamwoodStripped));
+		r.accept(new BlockItem(dreamwoodStrippedGlimmering, props), Registry.BLOCK.getKey(dreamwoodStrippedGlimmering));
 		r.accept(new BlockItem(dreamwoodPlanks, props), Registry.BLOCK.getKey(dreamwoodPlanks));
 		r.accept(new BlockItem(dreamwoodPlanksMossy, props), Registry.BLOCK.getKey(dreamwoodPlanksMossy));
 		r.accept(new BlockItem(dreamwoodFramed, props), Registry.BLOCK.getKey(dreamwoodFramed));
@@ -903,6 +940,25 @@ public final class ModBlocks {
 		});
 
 		SeedBehaviours.init();
+	}
+
+	public static void addAxeStripping() {
+		IXplatAbstractions xplat = IXplatAbstractions.INSTANCE;
+		xplat.addAxeStripping(livingwoodLog, livingwoodLogStripped);
+		xplat.addAxeStripping(livingwoodLogGlimmering, livingwoodLogStrippedGlimmering);
+		xplat.addAxeStripping(livingwood, livingwoodStripped);
+		xplat.addAxeStripping(livingwoodGlimmering, livingwoodStrippedGlimmering);
+		xplat.addAxeStripping(dreamwoodLog, dreamwoodLogStripped);
+		xplat.addAxeStripping(dreamwoodLogGlimmering, dreamwoodLogStrippedGlimmering);
+		xplat.addAxeStripping(dreamwood, dreamwoodStripped);
+		xplat.addAxeStripping(dreamwoodGlimmering, dreamwoodStrippedGlimmering);
+
+		xplat.addAxeStripping(ModFluffBlocks.livingwoodStairs, ModFluffBlocks.livingwoodStrippedStairs);
+		xplat.addAxeStripping(ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodStrippedSlab);
+		xplat.addAxeStripping(ModFluffBlocks.livingwoodWall, ModFluffBlocks.livingwoodStrippedWall);
+		xplat.addAxeStripping(ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodStrippedStairs);
+		xplat.addAxeStripping(ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.dreamwoodStrippedSlab);
+		xplat.addAxeStripping(ModFluffBlocks.dreamwoodWall, ModFluffBlocks.dreamwoodStrippedWall);
 	}
 
 	public static Block getFlower(DyeColor color) {

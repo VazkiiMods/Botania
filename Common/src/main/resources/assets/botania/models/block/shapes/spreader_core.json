@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#core"
+  },
+  "elements": [
+    {
+      "name": "core",
+      "from": [5, 5, 5],
+      "to": [11, 11, 11],
+      "faces": {
+        "north": { "texture": "#core" },
+        "east": { "texture": "#core" },
+        "south": { "texture": "#core" },
+        "west": { "texture": "#core" },
+        "up": { "texture": "#core" },
+        "down": { "texture": "#core" }
+      }
+    }
+  ]
+}

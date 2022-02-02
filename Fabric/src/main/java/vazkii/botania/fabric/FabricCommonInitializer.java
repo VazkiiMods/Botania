@@ -132,6 +132,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ModSubtiles.registerItemBlocks(bind(Registry.ITEM));
 		ModSubtiles.registerTEs(bind(Registry.BLOCK_ENTITY_TYPE));
 		ModBlocks.addDispenserBehaviours();
+		ModBlocks.addAxeStripping();
 
 		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(ModBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));

@@ -2,7 +2,9 @@ Thanks for improving Botania with your artwork!
 
 Some things to keep in mind:
 1. Keep your textures in powers of two dimensions
-2. Edit the jsons in models/block, not the ones in blockstates/
+2. Edit the jsons in models/block/, not the ones in blockstates/
 3. Clean up after yourself - no texture errors on startup!
+4. Some common palettes are provided in aseprite format in the textures/palettes folder, please keep the palette consistent between textures.
+5. Please save your sprites in RGB color mode, not indexed (In Aseprite: Sprite > Color Mode > RGB Color)
 
 Thanks and have at it!

@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/spreader_core",
+  "textures": {
+    "core": "botania:block/mana_spreader_core"
+  }
+}

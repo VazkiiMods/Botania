@@ -42,6 +42,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+		consumer.accept(new FinishedRecipe(id("dreamwood_log"), new ItemStack(ModBlocks.dreamwoodLog), Ingredient.of(ModBlocks.livingwoodLog)));
 		consumer.accept(new FinishedRecipe(id("dreamwood"), new ItemStack(ModBlocks.dreamwood), Ingredient.of(ModBlocks.livingwood)));
 
 		Ingredient manaDiamond = Ingredient.of(ModTags.Items.GEMS_MANA_DIAMOND);

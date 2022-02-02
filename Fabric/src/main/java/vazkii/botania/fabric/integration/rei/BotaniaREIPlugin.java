@@ -29,6 +29,7 @@ import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
+import me.shedaniel.rei.plugin.common.displays.DefaultStrippingDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.minecraft.client.Minecraft;
@@ -41,6 +42,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
@@ -52,6 +54,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 import javax.annotation.Nullable;
 
@@ -142,6 +145,14 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipePureDaisy.class, PureDaisyREIDisplay::new);
 		helper.registerFiller(RecipeRuneAltar.class, RunicAltarREIDisplay::new);
 		helper.registerFiller(RecipeTerraPlate.class, TerraPlateREIDisplay::new);
+
+		try {
+			for (var entry : FabricXplatImpl.CUSTOM_STRIPPING.entrySet()) {
+				helper.add(new DefaultStrippingDisplay(EntryStacks.of(entry.getKey()), EntryStacks.of(entry.getValue())));
+			}
+		} catch (Exception e) {
+			BotaniaAPI.LOGGER.error("Error adding strippable entry to REI", e);
+		}
 
 		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
 		helper.registerRecipeFiller(RecipeOrechid.class, ModRecipeTypes.ORECHID_TYPE,

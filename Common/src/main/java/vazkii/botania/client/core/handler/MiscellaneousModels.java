@@ -16,6 +16,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -33,6 +34,7 @@ import vazkii.botania.mixin.client.AccessorModelBakery;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -81,10 +83,12 @@ public class MiscellaneousModels {
 			cirrusGem,
 			nimbusGem,
 			terrasteelHelmWillModel,
-			elvenSpreaderInside,
-			gaiaSpreaderInside,
-			manaSpreaderInside,
-			redstoneSpreaderInside;
+			elvenSpreaderCore,
+			gaiaSpreaderCore,
+			manaSpreaderCore,
+			redstoneSpreaderCore;
+
+	public HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
@@ -131,10 +135,13 @@ public class MiscellaneousModels {
 		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
 		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
 		consumer.accept(prefix("block/pump_head"));
-		consumer.accept(prefix("block/elven_spreader_inside"));
-		consumer.accept(prefix("block/gaia_spreader_inside"));
-		consumer.accept(prefix("block/mana_spreader_inside"));
-		consumer.accept(prefix("block/redstone_spreader_inside"));
+		consumer.accept(prefix("block/elven_spreader_core"));
+		consumer.accept(prefix("block/gaia_spreader_core"));
+		consumer.accept(prefix("block/mana_spreader_core"));
+		consumer.accept(prefix("block/redstone_spreader_core"));
+		for (DyeColor color : DyeColor.values()) {
+			consumer.accept(prefix("block/" + color.toString() + "_spreader_padding"));
+		}
 
 		registerIslands();
 		registerTaters(rm, consumer);
@@ -198,10 +205,15 @@ public class MiscellaneousModels {
 
 		RenderTileCorporeaCrystalCube.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
 		RenderTilePump.headModel = map.get(prefix("block/pump_head"));
-		elvenSpreaderInside = map.get(prefix("block/elven_spreader_inside"));
-		gaiaSpreaderInside = map.get(prefix("block/gaia_spreader_inside"));
-		manaSpreaderInside = map.get(prefix("block/mana_spreader_inside"));
-		redstoneSpreaderInside = map.get(prefix("block/redstone_spreader_inside"));
+
+		// Spreader cores and paddings
+		elvenSpreaderCore = map.get(prefix("block/elven_spreader_core"));
+		gaiaSpreaderCore = map.get(prefix("block/gaia_spreader_core"));
+		manaSpreaderCore = map.get(prefix("block/mana_spreader_core"));
+		redstoneSpreaderCore = map.get(prefix("block/redstone_spreader_core"));
+		for (DyeColor color : DyeColor.values()) {
+			spreaderPaddings.put(color, map.get(prefix("block/" + color.getName() + "_spreader_padding")));
+		}
 
 		// Icons
 		goldfishModel = map.get(prefix("icon/goldfish"));

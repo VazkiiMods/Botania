@@ -104,7 +104,9 @@ import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
@@ -473,5 +475,12 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean preventsRemoteMovement(ItemEntity entity) {
 		return entity.getPersistentData().getBoolean("PreventRemoteMovement");
+	}
+
+	public static final Map<Block, Block> CUSTOM_STRIPPABLES = new HashMap<>();
+
+	@Override
+	public void addAxeStripping(Block input, Block output) {
+		CUSTOM_STRIPPABLES.put(input, output);
 	}
 }

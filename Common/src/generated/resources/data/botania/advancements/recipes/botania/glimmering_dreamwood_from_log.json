@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "botania:glimmering_dreamwood_from_log"
+    ]
+  },
+  "criteria": {
+    "has_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:glimmering_dreamwood_log"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "botania:glimmering_dreamwood_from_log"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_log",
+      "has_the_recipe"
+    ]
+  ]
+}

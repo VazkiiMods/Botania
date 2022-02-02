@@ -61,7 +61,9 @@ public class LensFlare extends Lens {
 		float b = (hex & 0xFF) / 255F;
 
 		WispParticleData data = WispParticleData.wisp(0.4F, r, g, b);
-		tile.getLevel().addParticle(data, tile.getBlockPos().getX() + 0.5, tile.getBlockPos().getY() + 0.5, tile.getBlockPos().getZ() + 0.5, mx, my, mz);
+		// The start position is set a bit away from the spreader (along the burst's motion vector), as to not
+		// collide with the spreader itself.
+		tile.getLevel().addParticle(data, tile.getBlockPos().getX() + 0.5 + mx * 4.5, tile.getBlockPos().getY() + 0.5 + my * 4.5, tile.getBlockPos().getZ() + 0.5 + mz * 4.5, mx, my, mz);
 	}
 
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "group": "botania:glimmering_dreamwood",
   "ingredients": [
     {
       "item": "botania:dreamwood"

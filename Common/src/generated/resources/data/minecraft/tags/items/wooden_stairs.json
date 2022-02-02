@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "botania:dreamwood_planks_stairs",
+    "botania:dreamwood_stairs",
+    "botania:livingwood_planks_stairs",
+    "botania:livingwood_stairs",
+    "botania:shimmerwood_planks_stairs",
+    "botania:stripped_dreamwood_stairs",
+    "botania:stripped_livingwood_stairs"
+  ]
+}

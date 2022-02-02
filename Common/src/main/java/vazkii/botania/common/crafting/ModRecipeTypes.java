@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
+import vazkii.botania.common.crafting.recipe.StateCopyPureDaisyRecipe;
 import vazkii.botania.mixin.AccessorRecipeManager;
 
 import java.util.Map;
@@ -36,6 +37,7 @@ public class ModRecipeTypes {
 
 	public static final RecipeType<IPureDaisyRecipe> PURE_DAISY_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipePureDaisy> PURE_DAISY_SERIALIZER = new RecipePureDaisy.Serializer();
+	public static final RecipeSerializer<StateCopyPureDaisyRecipe> COPYING_PURE_DAISY_SERIALIZER = new StateCopyPureDaisyRecipe.Serializer();
 
 	public static final RecipeType<IBrewRecipe> BREW_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeBrew> BREW_SERIALIZER = new RecipeBrew.Serializer();
@@ -72,6 +74,7 @@ public class ModRecipeTypes {
 		id = IPureDaisyRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, PURE_DAISY_TYPE);
 		r.accept(PURE_DAISY_SERIALIZER, id);
+		r.accept(COPYING_PURE_DAISY_SERIALIZER, prefix("state_copying_pure_daisy"));
 
 		id = IBrewRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, BREW_TYPE);

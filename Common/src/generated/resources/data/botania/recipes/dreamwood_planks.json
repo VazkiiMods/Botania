@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "group": "planks",
   "ingredients": [
     {
-      "item": "botania:dreamwood"
+      "tag": "botania:dreamwood_logs"
     }
   ],
   "result": {

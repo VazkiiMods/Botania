@@ -14,16 +14,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block.IWandable;
@@ -37,10 +42,13 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.api.TriPredicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -50,18 +58,49 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements IWandable {
-	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
-			new String[][] {
-					{ "_", "W", "G", "W", "_" },
-					{ "W", " ", " ", " ", "W" },
-					{ "G", " ", " ", " ", "G" },
-					{ "W", " ", " ", " ", "W" },
-					{ "_", "W", "0", "W", "_" }
-			},
-			'W', ModBlocks.livingwood,
-			'G', ModBlocks.livingwoodGlimmering,
-			'0', ModBlocks.alfPortal
-	));
+	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> {
+		record Matcher(Tag<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
+			@Override
+			public BlockState getDisplayedState(int ticks) {
+				List<Block> blocks = tag().getValues();
+				if (blocks.isEmpty()) {
+					return Blocks.BEDROCK.defaultBlockState();
+				}
+
+				BlockState block = blocks.contains(defaultBlock)
+						? defaultBlock.defaultBlockState()
+						: blocks.get((ticks / 20) % blocks.size()).defaultBlockState();
+
+				return block.hasProperty(BlockStateProperties.AXIS)
+						? block.setValue(BlockStateProperties.AXIS, displayedRotation())
+						: block;
+			}
+
+			@Override
+			public TriPredicate<BlockGetter, BlockPos, BlockState> getStatePredicate() {
+				return (blockGetter, pos, state) -> state.is(tag());
+			}
+		}
+		var horizontal = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, ModBlocks.livingwoodLog);
+		var vertical = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, ModBlocks.livingwoodLog);
+		var horizontalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, ModBlocks.livingwoodLogGlimmering);
+		var verticalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, ModBlocks.livingwoodLogGlimmering);
+
+		return PatchouliAPI.get().makeMultiblock(
+				new String[][] {
+						{ "_", "w", "g", "w", "_" },
+						{ "W", " ", " ", " ", "W" },
+						{ "G", " ", " ", " ", "G" },
+						{ "W", " ", " ", " ", "W" },
+						{ "_", "w", "0", "w", "_" }
+				},
+				'W', vertical,
+				'w', horizontal,
+				'G', verticalGlimmer,
+				'g', horizontalGlimmer,
+				'0', ModBlocks.alfPortal
+		);
+	});
 
 	public static final int MANA_COST = 500;
 	private static final String TAG_TICKS_OPEN = "ticksOpen";

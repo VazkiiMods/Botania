@@ -1,10 +1,18 @@
 {
-  "type": "botania:pure_daisy",
+  "type": "botania:state_copying_pure_daisy",
   "input": {
-    "type": "tag",
-    "tag": "minecraft:logs"
+    "type": "tag_excluding",
+    "tag": "minecraft:logs",
+    "exclude": [
+      {
+        "type": "block",
+        "block": "botania:livingwood_log"
+      },
+      {
+        "type": "block",
+        "block": "botania:livingwood"
+      }
+    ]
   },
-  "output": {
-    "name": "botania:livingwood"
-  }
+  "output": "botania:livingwood_log"
 }

@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -52,9 +53,12 @@ public class BlockTagProvider extends BlockTagsProvider {
 	protected void addTags() {
 		tag(BlockTags.RAILS).add(ModBlocks.ghostRail);
 		tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
+		tag(BlockTags.WOODEN_SLABS).add(getModBlocks(b -> b instanceof SlabBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
 		tag(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairBlock));
+		tag(BlockTags.WOODEN_STAIRS).add(getModBlocks(b -> b instanceof StairBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
 		tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
 		tag(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
+		tag(BlockTags.WOODEN_FENCES).add(getModBlocks(b -> b instanceof FenceBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
 		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
 		tag(BlockTags.DRAGON_IMMUNE).add(ModBlocks.infrangiblePlatform);
 		tag(BlockTags.WITHER_IMMUNE).add(ModBlocks.infrangiblePlatform);
@@ -156,6 +160,24 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 
 		tag(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
+
+		tag(BlockTags.PLANKS).add(livingwoodPlanks, livingwoodPlanksMossy, livingwoodFramed, livingwoodPatternFramed,
+				dreamwoodPlanks, dreamwoodPlanksMossy, dreamwoodFramed, dreamwoodPatternFramed, shimmerwoodPlanks);
+
+		tag(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING).add(livingwoodGlimmering, livingwoodLogGlimmering,
+				livingwoodStrippedGlimmering, livingwoodLogStrippedGlimmering);
+		tag(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING).add(dreamwoodGlimmering, dreamwoodLogGlimmering,
+				dreamwoodStrippedGlimmering, dreamwoodLogStrippedGlimmering);
+
+		tag(ModTags.Blocks.LIVINGWOOD_LOGS)
+				.add(livingwoodLog, livingwood, livingwoodLogStripped, livingwoodStripped)
+				.addTag(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING);
+		tag(ModTags.Blocks.DREAMWOOD_LOGS)
+				.add(dreamwoodLog, dreamwood, dreamwoodLogStripped, dreamwoodStripped)
+				.addTag(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING);
+		tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.LIVINGWOOD_LOGS).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
+
+		tag(ModTags.Blocks.GHOST_RAIL_BARRIER).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
 
 		tag(ModTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
 

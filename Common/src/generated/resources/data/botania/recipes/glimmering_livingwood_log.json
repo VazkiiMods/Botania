@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "botania:glimmering_livingwood",
+  "ingredients": [
+    {
+      "item": "botania:livingwood_log"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "result": {
+    "item": "botania:glimmering_livingwood_log"
+  }
+}

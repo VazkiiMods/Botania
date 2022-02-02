@@ -10,7 +10,7 @@
       "tag": "botania:elementium_ingots"
     },
     "W": {
-      "item": "botania:dreamwood"
+      "tag": "botania:dreamwood_logs"
     },
     "L": {
       "item": "minecraft:leather"

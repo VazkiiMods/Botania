@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -70,6 +71,7 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
@@ -102,7 +104,9 @@ import javax.annotation.Nullable;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
@@ -549,5 +553,17 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public boolean preventsRemoteMovement(ItemEntity entity) {
 		return false;
+	}
+
+	public static final Map<Block, Block> CUSTOM_STRIPPING = new LinkedHashMap<>();
+
+	@Override
+	public void addAxeStripping(Block input, Block output) {
+		if (input.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)
+				&& output.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)) {
+			StrippableBlockRegistry.register(input, output);
+		} else {
+			CUSTOM_STRIPPING.put(input, output);
+		}
 	}
 }

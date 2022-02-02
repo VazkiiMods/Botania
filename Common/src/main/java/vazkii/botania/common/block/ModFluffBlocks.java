@@ -40,6 +40,9 @@ public final class ModFluffBlocks {
 	public static final Block livingwoodWall = new WallBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodFence = new FenceBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStrippedStairs = new BlockModStairs(livingwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodPlankStairs = new BlockModStairs(livingwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(livingwoodPlanks));
 	public static final Block livingwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwoodPlanks));
 
@@ -58,6 +61,9 @@ public final class ModFluffBlocks {
 	public static final Block dreamwoodWall = new WallBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodFence = new FenceBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStrippedStairs = new BlockModStairs(dreamwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodPlankStairs = new BlockModStairs(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwoodPlanks));
 	public static final Block dreamwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwoodPlanks));
 
@@ -246,11 +252,13 @@ public final class ModFluffBlocks {
 		r.accept(livingwoodStairs, prefix(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX));
 		r.accept(livingwoodSlab, prefix(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX));
 		r.accept(livingwoodWall, prefix(LibBlockNames.LIVING_WOOD + WALL_SUFFIX));
-		r.accept(livingwoodFence, prefix(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX));
-		r.accept(livingwoodFenceGate, prefix(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX));
-
+		r.accept(livingwoodStrippedStairs, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + STAIR_SUFFIX));
+		r.accept(livingwoodStrippedSlab, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + SLAB_SUFFIX));
+		r.accept(livingwoodStrippedWall, prefix(LibBlockNames.LIVING_WOOD_STRIPPED + WALL_SUFFIX));
 		r.accept(livingwoodPlankStairs, prefix(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX));
 		r.accept(livingwoodPlankSlab, prefix(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX));
+		r.accept(livingwoodFence, prefix(LibBlockNames.LIVING_WOOD + FENCE_SUFFIX));
+		r.accept(livingwoodFenceGate, prefix(LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX));
 
 		r.accept(livingrockStairs, prefix(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX));
 		r.accept(livingrockSlab, prefix(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX));
@@ -267,11 +275,13 @@ public final class ModFluffBlocks {
 		r.accept(dreamwoodStairs, prefix(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX));
 		r.accept(dreamwoodSlab, prefix(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX));
 		r.accept(dreamwoodWall, prefix(LibBlockNames.DREAM_WOOD + WALL_SUFFIX));
-		r.accept(dreamwoodFence, prefix(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX));
-		r.accept(dreamwoodFenceGate, prefix(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX));
-
+		r.accept(dreamwoodStrippedStairs, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + STAIR_SUFFIX));
+		r.accept(dreamwoodStrippedSlab, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + SLAB_SUFFIX));
+		r.accept(dreamwoodStrippedWall, prefix(LibBlockNames.DREAM_WOOD_STRIPPED + WALL_SUFFIX));
 		r.accept(dreamwoodPlankStairs, prefix(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX));
 		r.accept(dreamwoodPlankSlab, prefix(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX));
+		r.accept(dreamwoodFence, prefix(LibBlockNames.DREAM_WOOD + FENCE_SUFFIX));
+		r.accept(dreamwoodFenceGate, prefix(LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX));
 
 		r.accept(darkQuartz, prefix(QUARTZ_DARK));
 		r.accept(darkQuartzChiseled, prefix("chiseled_" + QUARTZ_DARK));
@@ -463,6 +473,10 @@ public final class ModFluffBlocks {
 		r.accept(new BlockItem(livingwoodFence, props), Registry.BLOCK.getKey(livingwoodFence));
 		r.accept(new BlockItem(livingwoodFenceGate, props), Registry.BLOCK.getKey(livingwoodFenceGate));
 
+		r.accept(new BlockItem(livingwoodStrippedStairs, props), Registry.BLOCK.getKey(livingwoodStrippedStairs));
+		r.accept(new BlockItem(livingwoodStrippedSlab, props), Registry.BLOCK.getKey(livingwoodStrippedSlab));
+		r.accept(new BlockItem(livingwoodStrippedWall, props), Registry.BLOCK.getKey(livingwoodStrippedWall));
+
 		r.accept(new BlockItem(livingwoodPlankStairs, props), Registry.BLOCK.getKey(livingwoodPlankStairs));
 		r.accept(new BlockItem(livingwoodPlankSlab, props), Registry.BLOCK.getKey(livingwoodPlankSlab));
 
@@ -483,6 +497,10 @@ public final class ModFluffBlocks {
 		r.accept(new BlockItem(dreamwoodWall, props), Registry.BLOCK.getKey(dreamwoodWall));
 		r.accept(new BlockItem(dreamwoodFence, props), Registry.BLOCK.getKey(dreamwoodFence));
 		r.accept(new BlockItem(dreamwoodFenceGate, props), Registry.BLOCK.getKey(dreamwoodFenceGate));
+
+		r.accept(new BlockItem(dreamwoodStrippedStairs, props), Registry.BLOCK.getKey(dreamwoodStrippedStairs));
+		r.accept(new BlockItem(dreamwoodStrippedSlab, props), Registry.BLOCK.getKey(dreamwoodStrippedSlab));
+		r.accept(new BlockItem(dreamwoodStrippedWall, props), Registry.BLOCK.getKey(dreamwoodStrippedWall));
 
 		r.accept(new BlockItem(dreamwoodPlankStairs, props), Registry.BLOCK.getKey(dreamwoodPlankStairs));
 		r.accept(new BlockItem(dreamwoodPlankSlab, props), Registry.BLOCK.getKey(dreamwoodPlankSlab));
