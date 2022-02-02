@@ -82,7 +82,7 @@ public class BlockGhostRail extends BaseRailBlock {
 	}
 
 	public void tickCart(AbstractMinecart c) {
-		if (c.level.isClientSide) {
+		if (c.level.isClientSide || c.isRemoved()) {
 			return;
 		}
 
