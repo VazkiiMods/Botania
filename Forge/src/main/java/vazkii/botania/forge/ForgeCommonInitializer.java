@@ -58,6 +58,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -497,6 +499,10 @@ public class ForgeCommonInitializer {
 			e.addCapability(prefix("exoflame_heatable"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.EXOFLAME_HEATABLE,
 							new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
+		}
+
+		if (be instanceof TileExposedSimpleInventory inv) {
+			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, new SidedInvWrapper(inv, null)));
 		}
 
 		if (be.getType() == ModTiles.ANIMATED_TORCH) {
