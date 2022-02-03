@@ -34,7 +34,7 @@ public class MixinSplashManager {
 	 */
 	@Inject(at = @At("RETURN"), method = "apply(Ljava/util/List;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V")
 	public void addSplashes(List<String> splashes, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
-		if (BotaniaConfig.client().splashesEnabled()) {
+		if (BotaniaConfig.client() != null && BotaniaConfig.client().splashesEnabled()) {
 			this.splashes.add("Do not feed bread to elves!");
 		}
 	}
