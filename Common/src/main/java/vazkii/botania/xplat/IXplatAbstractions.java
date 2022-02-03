@@ -30,6 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -164,6 +165,8 @@ public interface IXplatAbstractions {
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
 	// Forge also makes RecipeProvider.saveRecipeAdvancement an instance method >.>
 	void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path);
+	// Forge patches BucketItem to use a supplier for the fluid, and exposes it, while Fabric needs an accessor
+	Fluid getBucketFluid(BucketItem item);
 	int getSmeltingBurnTime(ItemStack stack);
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);

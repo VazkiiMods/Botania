@@ -5,6 +5,7 @@
   "package": "vazkii.botania.fabric.mixin",
   "mixins": [
     "FabricAccessorAbstractFurnaceBlockEntity",
+    "FabricAccessorBucketItem",
     "FabricMixinAbstractMinecart",
     "FabricMixinAnvilMenu",
     "FabricMixinAxeItem",

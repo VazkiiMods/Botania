@@ -62,6 +62,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -97,6 +98,7 @@ import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.fabric.mixin.FabricAccessorAbstractFurnaceBlockEntity;
+import vazkii.botania.fabric.mixin.FabricAccessorBucketItem;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -542,6 +544,11 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path) {
 		RecipeProvider.saveAdvancement(cache, json, path);
+	}
+
+	@Override
+	public Fluid getBucketFluid(BucketItem item) {
+		return ((FabricAccessorBucketItem) item).getContent();
 	}
 
 	@Override

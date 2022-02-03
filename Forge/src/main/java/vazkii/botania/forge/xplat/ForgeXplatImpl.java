@@ -37,6 +37,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -465,6 +466,11 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path) {
 		// this is dumb
 		((ForgeAccessorRecipeProvider) new RecipeProvider(generator)).callSaveRecipeAdvancement(cache, json, path);
+	}
+
+	@Override
+	public Fluid getBucketFluid(BucketItem item) {
+		return item.getFluid();
 	}
 
 	@Override
