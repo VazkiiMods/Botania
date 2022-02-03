@@ -10,10 +10,8 @@ package vazkii.botania.fabric.mixin.client;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.renderer.texture.TextureManager;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,8 +33,8 @@ public class FabricMixinParticleEngine {
 	@Shadow
 	private static List<ParticleRenderType> RENDER_ORDER;
 
-	@Inject(at = @At("RETURN"), method = "<init>")
-	private void addTypes(ClientLevel world, TextureManager textureManager, CallbackInfo ci) {
+	@Inject(at = @At("RETURN"), method = "<clinit>")
+	private static void addTypes(CallbackInfo ci) {
 		RENDER_ORDER = ImmutableList.<ParticleRenderType>builder().addAll(RENDER_ORDER)
 				.add(FXWisp.NORMAL_RENDER, FXWisp.DIW_RENDER)
 				.add(FXSparkle.NORMAL_RENDER, FXSparkle.CORRUPT_RENDER)
