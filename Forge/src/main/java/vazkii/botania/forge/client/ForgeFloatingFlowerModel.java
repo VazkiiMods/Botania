@@ -2,18 +2,21 @@ package vazkii.botania.forge.client;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
@@ -109,6 +112,12 @@ public class ForgeFloatingFlowerModel implements IModelGeometry<ForgeFloatingFlo
 			ret.addAll(flower);
 			ret.addAll(island);
 			return ret;
+		}
+
+		@Nonnull
+		@Override
+		public BakedModel handlePerspective(@Nonnull ItemTransforms.TransformType cameraTransformType, @Nonnull PoseStack poseStack) {
+			return ForgeHooksClient.handlePerspective(this, cameraTransformType, poseStack);
 		}
 	}
 
