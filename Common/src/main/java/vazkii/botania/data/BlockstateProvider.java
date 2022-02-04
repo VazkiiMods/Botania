@@ -421,7 +421,9 @@ public class BlockstateProvider implements DataProvider {
 		var spreaderCoreTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_core")), Optional.of("_core"),
 				coreSlot);
 		var spreaderPaddingTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_padding")),
-				Optional.empty(), TextureSlot.ALL);
+				Optional.empty(), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE);
+		var spreaderScaffoldingTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_scaffolding")),
+				Optional.of("_scaffolding"), TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.BOTTOM);
 		takeAll(remainingBlocks, manaSpreader, redstoneSpreader, gaiaSpreader, elvenSpreader).forEach(b -> {
 			ResourceLocation outside;
 			if (b == redstoneSpreader || b == manaSpreader) {
@@ -446,12 +448,21 @@ public class BlockstateProvider implements DataProvider {
 					.put(outsideSlot, outside), this.modelOutput));
 			spreaderCoreTemplate.create(b, new TextureMapping()
 					.put(coreSlot, getBlockTexture(b, "_core")), this.modelOutput);
+			if (b != redstoneSpreader) {
+				spreaderScaffoldingTemplate.create(b, new TextureMapping()
+						.put(TextureSlot.TOP, getBlockTexture(b, "_scaffolding_top"))
+						.put(TextureSlot.SIDE, getBlockTexture(b, "_scaffolding_side"))
+						.put(TextureSlot.BOTTOM, getBlockTexture(b, "_scaffolding_bottom")), this.modelOutput);
+			}
 		});
 		for (DyeColor color : DyeColor.values()) {
 			Block wool = ColorHelper.WOOL_MAP.apply(color);
 			spreaderPaddingTemplate.create(prefix("block/" + color.getName() + "_spreader_padding"),
-					new TextureMapping().put(TextureSlot.ALL, getBlockTexture(wool)), this.modelOutput
-			);
+					new TextureMapping()
+							.put(TextureSlot.FRONT, getBlockTexture(wool))
+							.put(TextureSlot.BACK, getBlockTexture(wool))
+							.put(TextureSlot.SIDE, getBlockTexture(wool)),
+					this.modelOutput);
 		}
 
 		var liquidSlot = AccessorTextureSlot.make("liquid");

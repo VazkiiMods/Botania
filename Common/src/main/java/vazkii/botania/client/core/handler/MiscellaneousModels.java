@@ -86,7 +86,10 @@ public class MiscellaneousModels {
 			elvenSpreaderCore,
 			gaiaSpreaderCore,
 			manaSpreaderCore,
-			redstoneSpreaderCore;
+			redstoneSpreaderCore,
+			manaSpreaderScaffolding,
+			elvenSpreaderScaffolding,
+			gaiaSpreaderScaffolding;
 
 	public HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
 
@@ -139,6 +142,9 @@ public class MiscellaneousModels {
 		consumer.accept(prefix("block/gaia_spreader_core"));
 		consumer.accept(prefix("block/mana_spreader_core"));
 		consumer.accept(prefix("block/redstone_spreader_core"));
+		consumer.accept(prefix("block/mana_spreader_scaffolding"));
+		consumer.accept(prefix("block/elven_spreader_scaffolding"));
+		consumer.accept(prefix("block/gaia_spreader_scaffolding"));
 		for (DyeColor color : DyeColor.values()) {
 			consumer.accept(prefix("block/" + color.toString() + "_spreader_padding"));
 		}
@@ -206,11 +212,14 @@ public class MiscellaneousModels {
 		RenderTileCorporeaCrystalCube.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
 		RenderTilePump.headModel = map.get(prefix("block/pump_head"));
 
-		// Spreader cores and paddings
+		// Spreader cores, paddings and scaffoldings
 		elvenSpreaderCore = map.get(prefix("block/elven_spreader_core"));
 		gaiaSpreaderCore = map.get(prefix("block/gaia_spreader_core"));
 		manaSpreaderCore = map.get(prefix("block/mana_spreader_core"));
 		redstoneSpreaderCore = map.get(prefix("block/redstone_spreader_core"));
+		manaSpreaderScaffolding = map.get(prefix("block/mana_spreader_scaffolding"));
+		elvenSpreaderScaffolding = map.get(prefix("block/elven_spreader_scaffolding"));
+		gaiaSpreaderScaffolding = map.get(prefix("block/gaia_spreader_scaffolding"));
 		for (DyeColor color : DyeColor.values()) {
 			spreaderPaddings.put(color, map.get(prefix("block/" + color.getName() + "_spreader_padding")));
 		}

@@ -34,6 +34,9 @@ public final class BotaniaStateProps {
 	// BlockPrism
 	public static final BooleanProperty HAS_LENS = BooleanProperty.create("has_lens");
 
+	// BlockSpreader
+	public static final BooleanProperty HAS_SCAFFOLDING = BooleanProperty.create("has_scaffolding");
+
 	private BotaniaStateProps() {}
 
 }

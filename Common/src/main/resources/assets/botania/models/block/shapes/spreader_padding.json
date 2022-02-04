@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "#all"
+    "particle": "#side"
   },
   "elements": [
     {
@@ -9,12 +9,11 @@
       "from": [1, 1, 1],
       "to": [2, 15, 15],
       "faces": {
-        "north": { "texture": "#all" },
-        "east": { "texture": "#all" },
-        "south": { "texture": "#all" },
-        "west": { "texture": "#all" },
-        "up": { "texture": "#all" },
-        "down": { "texture": "#all" }
+        "north": { "texture": "#side" },
+        "east": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west": { "texture": "#side" },
+        "up": { "texture": "#front" }
       }
     },
     {
@@ -22,42 +21,39 @@
       "from": [14, 1, 1],
       "to": [15, 15, 15],
       "faces": {
-        "north": { "texture": "#all" },
-        "east": { "texture": "#all" },
-        "south": { "texture": "#all" },
-        "west": { "texture": "#all" },
-        "up": { "texture": "#all" },
-        "down": { "texture": "#all" }
+        "north": { "texture": "#side" },
+        "east": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west": { "texture": "#side" },
+        "up": { "texture": "#front" }
       }
     },
     {
-      "name": "top",
-      "from": [2, 14, 1],
+      "name": "south",
+      "from": [2, 1, 14],
       "to": [14, 15, 15],
       "faces": {
-        "north": { "texture": "#all" },
-        "south": { "texture": "#all" },
-        "up": { "texture": "#all" },
-        "down": { "texture": "#all" }
+        "north": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "up": { "texture": "#front" }
+      }
+    },
+    {
+      "name": "north",
+      "from": [2, 1, 1],
+      "to": [14, 15, 2],
+      "faces": {
+        "north": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "up": { "texture": "#front" }
       }
     },
     {
       "name": "bottom",
-      "from": [2, 1, 1],
-      "to": [14, 2, 15],
+      "from": [1, 1, 1],
+      "to": [15, 2, 15],
       "faces": {
-        "north": { "texture": "#all" },
-        "south": { "texture": "#all" },
-        "up": { "texture": "#all" },
-        "down": { "texture": "#all" }
-      }
-    },
-    {
-      "name": "back",
-      "from": [2, 2, 14],
-      "to": [14, 14, 15],
-      "faces": {
-        "south": { "texture": "#all" }
+        "down": { "texture": "#back", "rotation": 180 }
       }
     }
   ]
