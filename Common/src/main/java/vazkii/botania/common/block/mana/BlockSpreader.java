@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -175,6 +176,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 				world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, true));
+				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
 				world.playSound(player, pos, ModSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
 			}
@@ -189,6 +191,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 			ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
 			player.getInventory().placeItemBackInInventory(scaffolding);
 			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, false));
+			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
 			world.playSound(player, pos, ModSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
 

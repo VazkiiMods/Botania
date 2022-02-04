@@ -1859,7 +1859,7 @@
   "botania.page.spreader11": "Applying a $(thing)Redstone Signal$(0) to a spreader will pause its firing of bursts. If finer control is required, a $(l:mana/redstone_spreader)$(item)Pulse Mana Spreader$(0)$(/l) is recommended, as it fires upon a redstone signal in lieu of a target.",
   "botania.page.spreader5": "Crafting the $(item)Mana Spreader$(0)",
   "botania.page.spreader10": "Right-clicking the spreader with a piece of $(item)Wool$(0) will sleeve it. In addition to making the spreader look fancier, it'll also muffle the sound when a burst is shot, reducing the potential noise of a large number of spreaders in one area.$(p)Right-clicking will remove the sleeve.",
-  "botania.page.spreader12": "Similarly, right-clicking it while holding $(item)Scaffolding$(0) will surround it in a sturdy frame. This allows it to support fragile redstone components like buttons and levers on all sides. Redstone dust, repeaters, and similar can also be placed on top of it.$(p)Right-click while sneaking to remove the scaffolding again.",
+  "botania.page.spreader12": "Similarly, right-clicking it while holding $(item)Scaffolding$(0) will surround it in a sturdy frame. This allows it to support fragile redstone components like buttons and levers on all sides. Redstone dust, repeaters, and similar can also be placed on top of it. This also seems to allow the spreader to entirely contain water placed inside it.$(p)Right-click while sneaking to remove the scaffolding again.",
 
   "botania.entry.pool": "Mana Pool",
   "botania.tagline.pool": "Mana storage for the masses",
