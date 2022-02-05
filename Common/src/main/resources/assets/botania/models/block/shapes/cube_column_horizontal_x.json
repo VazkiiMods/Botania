@@ -1,0 +1,21 @@
+{
+  "__comment": "Horizontal-oriented column",
+  "parent": "block/block",
+  "textures": {
+    "particle": "#side"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": { "texture": "#side", "rotation": 90, "uv": [0, 16, 16, 0], "cullface": "down" },
+        "up": { "texture": "#side", "rotation": 90, "uv": [0, 16, 16, 0], "cullface": "up" },
+        "north": { "texture": "#side", "rotation": 90, "uv": [0, 16, 16, 0], "cullface": "north" },
+        "south": { "texture": "#side", "rotation": 90, "uv": [0, 16, 16, 0], "cullface": "south" },
+        "west": { "texture": "#end", "cullface": "west" },
+        "east": { "texture": "#end", "cullface": "east" }
+      }
+    }
+  ]
+}

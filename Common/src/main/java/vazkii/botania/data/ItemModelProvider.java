@@ -366,6 +366,11 @@ public class ItemModelProvider implements DataProvider {
 			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(prefix("block/petal_block")));
 		});
 
+		takeAll(itemBlocks, ModBlocks.livingwoodFramed.asItem(), ModBlocks.dreamwoodFramed.asItem()).forEach(i -> {
+			String name = i == ModBlocks.livingwoodFramed.asItem() ? "livingwood" : "dreamwood";
+			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(prefix("block/framed_" + name + "_horizontal_x")));
+		});
+
 		takeAll(itemBlocks, i -> i.getBlock() instanceof IronBarsBlock).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
 			String baseName = name.substring(0, name.length() - "_pane".length());
