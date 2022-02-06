@@ -1,16 +1,13 @@
 {
   "variants": {
     "axis=x": {
-      "model": "botania:block/framed_dreamwood_horizontal",
-      "x": 90,
-      "y": 90
+      "model": "botania:block/framed_dreamwood_horizontal_x"
     },
     "axis=y": {
       "model": "botania:block/framed_dreamwood"
     },
     "axis=z": {
-      "model": "botania:block/framed_dreamwood_horizontal",
-      "x": 90
+      "model": "botania:block/framed_dreamwood_horizontal_z"
     }
   }
 }

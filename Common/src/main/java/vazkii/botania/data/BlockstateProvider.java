@@ -340,8 +340,8 @@ public class BlockstateProvider implements DataProvider {
 		pillar(remainingBlocks, livingwoodLogStrippedGlimmering, getBlockTexture(livingwoodLogStripped, "_top"), getBlockTexture(livingwoodLogStrippedGlimmering));
 		pillar(remainingBlocks, livingwoodStrippedGlimmering, getBlockTexture(livingwoodLogStrippedGlimmering), getBlockTexture(livingwoodLogStrippedGlimmering));
 
-		pillar(remainingBlocks, livingwoodFramed, getBlockTexture(livingwoodPatternFramed), getBlockTexture(livingwoodFramed));
-		pillar(remainingBlocks, dreamwoodFramed, getBlockTexture(dreamwoodPatternFramed), getBlockTexture(dreamwoodFramed));
+		pillarAlt(remainingBlocks, livingwoodFramed, getBlockTexture(livingwoodPatternFramed), getBlockTexture(livingwoodFramed));
+		pillarAlt(remainingBlocks, dreamwoodFramed, getBlockTexture(dreamwoodPatternFramed), getBlockTexture(dreamwoodFramed));
 
 		stairsBlock(remainingBlocks, livingwoodStairs, getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog));
 		stairsBlock(remainingBlocks, livingwoodStrippedStairs, getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped));
@@ -863,29 +863,66 @@ public class BlockstateProvider implements DataProvider {
 			throw new IllegalArgumentException("Arrays must have equal length");
 		}
 		ResourceLocation[] topModels = new ResourceLocation[length];
-		ResourceLocation[] sideModels = new ResourceLocation[length];
+		ResourceLocation[] horizontalModels = new ResourceLocation[length];
 		for (int i = 0; i < length; i++) {
 			String suffix = length == 1 ? "" : "_" + (i + 1);
 			ResourceLocation modelIdTop = getModelLocation(block, suffix);
-			ResourceLocation modelIdSide = getModelLocation(block, "_horizontal" + suffix);
+			ResourceLocation modelIdHorizontal = getModelLocation(block, "_horizontal" + suffix);
 			topModels[i] = ModelTemplates.CUBE_COLUMN.create(modelIdTop, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
-			sideModels[i] = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelIdSide, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+			horizontalModels[i] = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelIdHorizontal, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
 		}
-		pillarWithModels(blocks, block, topModels, sideModels);
+		pillarWithModels(blocks, block, topModels, horizontalModels);
 	}
 
-	protected void pillarWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] sideModels) {
+	protected void pillarWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] horizontalModels) {
 		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
 				PropertyDispatch.property(BlockStateProperties.AXIS)
 						.select(Direction.Axis.Y, Stream.of(topModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
-						.select(Direction.Axis.Z, Stream.of(sideModels).map(rl -> Variant.variant()
+						.select(Direction.Axis.Z, Stream.of(horizontalModels).map(rl -> Variant.variant()
 								.with(VariantProperties.MODEL, rl)
 								.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).toList())
-						.select(Direction.Axis.X, Stream.of(sideModels).map(rl -> Variant.variant()
+						.select(Direction.Axis.X, Stream.of(horizontalModels).map(rl -> Variant.variant()
 								.with(VariantProperties.MODEL, rl)
 								.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).toList()
 						)));
+		blocks.remove(block);
+	}
+
+	// Alternative pillar model that rotates and mirrors some additional faces
+	protected void pillarAlt(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
+		pillarAltWithVariants(blocks, block, new ResourceLocation[] { top }, new ResourceLocation[] { side });
+	}
+
+	protected void pillarAltWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures) {
+		int length = topTextures.length;
+		if (length != sideTextures.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		ResourceLocation[] topModels = new ResourceLocation[length];
+		ResourceLocation[] horizontalXModels = new ResourceLocation[length];
+		ResourceLocation[] horizontalZModels = new ResourceLocation[length];
+		ModelTemplate horizontalXTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_horizontal_x")), Optional.of("_horizontal_x"), TextureSlot.END, TextureSlot.SIDE);
+		ModelTemplate horizontalZTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_horizontal_z")), Optional.of("_horizontal_z"), TextureSlot.END, TextureSlot.SIDE);
+		for (int i = 0; i < length; i++) {
+			String suffix = length == 1 ? "" : "_" + (i + 1);
+			ResourceLocation modelIdTop = getModelLocation(block, suffix);
+			ResourceLocation modelIdHorizontalX = getModelLocation(block, "_horizontal_x" + suffix);
+			ResourceLocation modelIdHorizontalZ = getModelLocation(block, "_horizontal_z" + suffix);
+			topModels[i] = ModelTemplates.CUBE_COLUMN.create(modelIdTop, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+			horizontalXModels[i] = horizontalXTemplate.create(modelIdHorizontalX, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+			horizontalZModels[i] = horizontalZTemplate.create(modelIdHorizontalZ, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+		}
+		pillarAltWithModels(blocks, block, topModels, horizontalXModels, horizontalZModels);
+	}
+
+	protected void pillarAltWithModels(Set<Block> blocks, Block block, ResourceLocation[] yModels, ResourceLocation[] xModels, ResourceLocation[] zModels) {
+		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+				PropertyDispatch.property(BlockStateProperties.AXIS)
+						.select(Direction.Axis.Y, Stream.of(yModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
+						.select(Direction.Axis.X, Stream.of(xModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
+						.select(Direction.Axis.Z, Stream.of(zModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
+		));
 		blocks.remove(block);
 	}
 
