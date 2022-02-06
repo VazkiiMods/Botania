@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -25,6 +26,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -33,6 +35,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
@@ -107,6 +110,24 @@ public class ForgeClientInitializer {
 		bus.addListener((TickEvent.RenderTickEvent e) -> {
 			if (e.phase == TickEvent.Phase.START) {
 				ClientTickHandler.renderTick(e.renderTickTime);
+			}
+		});
+		bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {
+			if (!(e.getItemStack().getItem() instanceof IManaItem)) {
+				return;
+			}
+			// Forge does not pass the tooltip width to any tooltip event.
+			// To avoid a mixin here, we just duplicate the width checking part.
+			int width = 0;
+			ManaBarTooltipComponent manaBar = null;
+			for (ClientTooltipComponent component : e.getComponents()) {
+				width = Math.max(width, component.getWidth(e.getFont()));
+				if (component instanceof ManaBarTooltipComponent c) {
+					manaBar = c;
+				}
+			}
+			if (manaBar != null) {
+				manaBar.setContext(e.getX(), e.getY(), width);
 			}
 		});
 
