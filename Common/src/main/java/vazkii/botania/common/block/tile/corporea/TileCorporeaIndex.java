@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 	public static final double RADIUS = 2.5;
+	public static final int MAX_REQUEST = 1 << 16;
 
 	private static InputHandler input;
 	private static final Set<TileCorporeaIndex> serverIndexes = Collections.newSetFromMap(new WeakHashMap<>());
@@ -195,7 +196,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		addPattern("(?:all|every) (?:(?:of|the) )?(.+)", new IRegexStacker() {
 			@Override
 			public int getCount(Matcher m) {
-				return Integer.MAX_VALUE;
+				return MAX_REQUEST;
 			}
 
 			@Override
@@ -385,7 +386,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 							Matcher matcher = pattern.matcher(msg);
 							if (matcher.matches()) {
 								IRegexStacker stacker = patterns.get(pattern);
-								count = stacker.getCount(matcher);
+								count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
 								name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
 							}
 						}
@@ -415,7 +416,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public interface IRegexStacker {
-
 		int getCount(Matcher m);
 
 		String getName(Matcher m);
