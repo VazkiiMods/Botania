@@ -16,18 +16,18 @@
     "hidden": false
   },
   "criteria": {
-    "over_fifty_thousand": {
+    "big_request": {
       "trigger": "botania:corporea_index_request",
       "conditions": {
         "extracted": {
-          "min": 50000
+          "min": 65536
         }
       }
     }
   },
   "requirements": [
     [
-      "over_fifty_thousand"
+      "big_request"
     ]
   ]
 }

@@ -224,7 +224,7 @@
   "advancement.botania:rankSSPick": "六兆年と一夜物語",
   "advancement.botania:rankSSPick.desc": "ランクSSのテラシャッテラーをつかう",
   "advancement.botania:superCorporeaRequest": "いんべーだーがーる",
-  "advancement.botania:superCorporeaRequest.desc": "コーポリアの索引で、50,000個以上の一種類のアイテムのリクエストに成功する",
+  "advancement.botania:superCorporeaRequest.desc": "コーポリアの索引で、65,536個の一種類のアイテムのリクエストに成功する",
   "advancement.botania:pinkinator.desc": "ピンキネーターをつかう",
 
   "advancement.botania:infiniteFruit": "イノセンティア",
