@@ -78,7 +78,7 @@ public abstract class FabricMixinLivingEntity extends Entity {
 			if (stack.getItem() instanceof ItemCraftingHalo halo && halo.onEntitySwing(stack, self)) {
 				ci.cancel();
 			} else if (stack.getItem() instanceof ItemGravityRod rod) {
-				rod.onEntitySwing(self);
+				rod.onEntitySwing(stack, self);
 			}
 		}
 	}

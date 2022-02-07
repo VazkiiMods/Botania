@@ -98,7 +98,7 @@ public class ItemGravityRod extends Item {
 	}
 
 	@SoftImplement("IForgeItem")
-	public boolean onEntitySwing(LivingEntity entity) {
+	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
 		if (entity instanceof Player player) {
 			leftClick(player);
 		}
