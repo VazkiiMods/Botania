@@ -11,6 +11,7 @@
     "minecraft:fox",
     "minecraft:panda",
     "minecraft:turtle",
+    "minecraft:goat",
     {
       "id": "quark:frog",
       "required": false
