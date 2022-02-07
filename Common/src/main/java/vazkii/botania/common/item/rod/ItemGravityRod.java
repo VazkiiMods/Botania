@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -176,6 +178,8 @@ public class ItemGravityRod extends Item {
 				}
 
 				if (ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
+					boolean targetIsPlayer = target instanceof Player;
+
 					if (target instanceof ItemEntity item) {
 						item.setPickUpDelay(5);
 					}
@@ -183,7 +187,8 @@ public class ItemGravityRod extends Item {
 					if (target instanceof LivingEntity living) {
 						living.fallDistance = 0.0F;
 						if (living.getEffect(MobEffects.MOVEMENT_SLOWDOWN) == null) {
-							living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 3, true, true));
+							living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,
+									targetIsPlayer ? 20 : 2, targetIsPlayer ? 1 : 3, true, true));
 						}
 					}
 
@@ -206,6 +211,9 @@ public class ItemGravityRod extends Item {
 					}
 
 					MathHelper.setEntityMotionFromVector(target, target3, 0.3333333F);
+					if (targetIsPlayer && target instanceof ServerPlayer p) {
+						p.connection.send(new ClientboundSetEntityMotionPacket(p));
+					}
 
 					ItemNBTHelper.setInt(stack, TAG_TARGET, target.getId());
 					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
