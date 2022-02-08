@@ -73,6 +73,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 	private static final String TAG_EXTRA_RANGE = "extraRange";
 	private static final String TAG_SWAP_HIT_VEC = "swapHitVec";
 	private static final String TAG_SWAP_DIRECTION = "swapDirection";
+	private static final String TAG_SWAP_CLICKED_AXIS = "swapClickAxis";
 	private static final String TAG_TEMPERANCE_STONE = "temperanceStone";
 
 	public ItemExchangeRod(Properties props) {
@@ -95,7 +96,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 					&& (wstate.canOcclude() || block instanceof AbstractGlassBlock || block instanceof IronBarsBlock)
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());
-				setSwapDirection(stack, ctx.getClickedFace());
+				setSwapTemplateDirection(stack, ctx.getClickedFace());
 				setHitPos(stack, ctx.getClickLocation());
 
 				displayRemainderCounter(player, stack);
@@ -109,6 +110,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 				ItemNBTHelper.setInt(stack, TAG_SELECT_X, pos.getX());
 				ItemNBTHelper.setInt(stack, TAG_SELECT_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_SELECT_Z, pos.getZ());
+				setSwapClickDirection(stack, ctx.getClickedFace());
 				setTarget(stack, block);
 			}
 		}
@@ -173,7 +175,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 			int y = ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0);
 			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
 			Block target = getTargetState(stack);
-			List<BlockPos> swap = getTargetPositions(world, stack, replacement, new BlockPos(x, y, z), target, getSwapDirection(stack));
+			List<BlockPos> swap = getTargetPositions(world, stack, replacement, new BlockPos(x, y, z), target, getSwapClickDirection(stack));
 			if (swap.size() == 0) {
 				endSwapping(stack);
 				return;
@@ -252,7 +254,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 				float hardness = stateAt.getDestroySpeed(world, pos);
 				if (!world.isClientSide) {
 					world.destroyBlock(pos, !player.getAbilities().instabuild);
-					BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapDirection(rod), pos, false);
+					BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapTemplateDirection(rod), pos, false);
 					InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
 					// TODO: provide an use context that overrides player facing direction/yaw?
 					//  currently it pulls from the player directly
@@ -407,12 +409,20 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 				pos.getZ() + list.getDouble(2));
 	}
 
-	private void setSwapDirection(ItemStack stack, Direction direction) {
+	private void setSwapTemplateDirection(ItemStack stack, Direction direction) {
 		stack.getOrCreateTag().putInt(TAG_SWAP_DIRECTION, direction.get3DDataValue());
 	}
 
-	private Direction getSwapDirection(ItemStack stack) {
+	private Direction getSwapTemplateDirection(ItemStack stack) {
 		return Direction.from3DDataValue(stack.getOrCreateTag().getInt(TAG_SWAP_DIRECTION));
+	}
+
+	private void setSwapClickDirection(ItemStack stack, Direction direction) {
+		stack.getOrCreateTag().putInt(TAG_SWAP_CLICKED_AXIS, direction.get3DDataValue());
+	}
+
+	private Direction getSwapClickDirection(ItemStack stack) {
+		return Direction.from3DDataValue(stack.getOrCreateTag().getInt(TAG_SWAP_CLICKED_AXIS));
 	}
 
 	private int getRange(ItemStack stack, Direction.Axis clickAxis, Direction.Axis rangeAxis) {
@@ -428,6 +438,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 		ItemNBTHelper.removeEntry(stack, TAG_SELECT_Y);
 		ItemNBTHelper.removeEntry(stack, TAG_SELECT_Z);
 		ItemNBTHelper.removeEntry(stack, TAG_TARGET_BLOCK_NAME);
+		ItemNBTHelper.removeEntry(stack, TAG_SWAP_CLICKED_AXIS);
 	}
 
 	@Nonnull
