@@ -106,6 +106,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
+		if (hand == InteractionHand.MAIN_HAND && player.isShiftKeyDown() && !player.getOffhandItem().isEmpty()) {
+			return InteractionResultHolder.pass(stack);
+		}
 
 		getMana(stack);
 		int level = getLevel(stack);
@@ -123,7 +126,14 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Nonnull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
-		return ctx.getPlayer() == null || ctx.getPlayer().isShiftKeyDown() ? super.useOn(ctx)
+		Player player = ctx.getPlayer();
+		if (player == null) {
+			return super.useOn(ctx);
+		} else if (ctx.getHand() == InteractionHand.MAIN_HAND && !player.getOffhandItem().isEmpty()) {
+			return InteractionResult.PASS;
+		}
+		return player.isShiftKeyDown()
+				? super.useOn(ctx)
 				: InteractionResult.PASS;
 	}
 

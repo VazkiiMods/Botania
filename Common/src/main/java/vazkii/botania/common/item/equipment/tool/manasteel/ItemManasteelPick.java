@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
@@ -58,6 +60,10 @@ public class ItemManasteelPick extends PickaxeItem implements ICustomDamageItem,
 		Player player = ctx.getPlayer();
 
 		if (player != null) {
+			if (ctx.getHand() == InteractionHand.MAIN_HAND && player.getOffhandItem().getItem() instanceof BlockItem) {
+				return InteractionResult.PASS;
+			}
+
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack stackAt = player.getInventory().getItem(i);
 				if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
