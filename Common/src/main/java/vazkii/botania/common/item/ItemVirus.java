@@ -38,7 +38,7 @@ public class ItemVirus extends Item {
 
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity living, InteractionHand hand) {
-		if (living instanceof Horse horse) {
+		if (living.isAlive() && living instanceof Horse horse) {
 			if (player.level.isClientSide) {
 				return InteractionResult.SUCCESS;
 			}
