@@ -2124,7 +2124,7 @@
   "botania.entry.rannuncarpus": "Rannuncarpus",
   "botania.tagline.rannuncarpus": "Places blocks down",
   "botania.page.rannuncarpus0": "Quite a handy flower indeed, the $(item)Rannuncarpus$(0) will pick up nearby placeable items and place them within a large radius around itself as blocks, preferably facing them towards itself. However, it will only place blocks on top of a specific block type at a time; to specify this block, place it right below the soil the flower rests on.",
-  "botania.page.rannuncarpus1": "Items such as $(item)Sugar Cane$(0) can be placed as well, but only where a player could.$(p)$(thing)Mana$(0) for the flower is optional, but will increase its range if provided.",
+  "botania.page.rannuncarpus1": "Items such as $(item)Sugar Cane$(0) can be placed as well, but only where a player could.$(p)$(thing)Mana$(0) for the flower is optional, but will increase its range if provided.$(p)Finally, placing item frames on the block under the soil will restrict the items the $(item)Rannuncarpus$(0) will pick up, similarly to a $(l:functional_flowers/hopperhock)$(item)Hopperhock$(0)$(/l).",
   "botania.page.rannuncarpus2": "$(o)Find it in a sandpit$()?",
 
   "botania.entry.hyacidus": "Hyacidus",

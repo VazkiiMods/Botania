@@ -82,12 +82,18 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 		if (ticksExisted % 10 == 0) {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getEffectivePos().offset(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
 
+			List<ItemStack> filter = SubTileHopperhock.getFilterForInventory(getLevel(), getFilterPos(), false);
+
 			for (ItemEntity item : items) {
 				if (!DelayHelper.canInteractWith(this, item)) {
 					continue;
 				}
 
 				ItemStack stack = item.getItem();
+				if (!SubTileHopperhock.canAcceptItem(stack, filter, 0)) {
+					continue;
+				}
+
 				Item stackItem = stack.getItem();
 				ResourceLocation id = Registry.ITEM.getKey(stackItem);
 				if (BotaniaConfig.common().rannuncarpusModBlacklist().contains(id.getNamespace())
@@ -126,8 +132,12 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 		}
 	}
 
+	private BlockPos getFilterPos() {
+		return getEffectivePos().below(isFloating() ? 1 : 2);
+	}
+
 	public BlockState getUnderlyingBlock() {
-		return getLevel().getBlockState(getEffectivePos().below(isFloating() ? 1 : 2));
+		return getLevel().getBlockState(getFilterPos());
 	}
 
 	@Nullable

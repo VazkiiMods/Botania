@@ -21,6 +21,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -97,7 +98,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 				Direction sideOfInventory = dir.getOpposite();
 
 				if (IXplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
-					List<ItemStack> filter = getFilterForInventory(inventoryPos, true);
+					List<ItemStack> filter = getFilterForInventory(getLevel(), inventoryPos, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
 					ItemStack simulate = IXplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, true);
@@ -134,7 +135,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 		}
 	}
 
-	public boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
+	public static boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -189,18 +190,18 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 		return mana <= fuzz ? 0 : (mana + fuzz < item.getMaxMana(stack) ? 1 : 2);
 	}
 
-	public List<ItemStack> getFilterForInventory(BlockPos pos, boolean recursiveForDoubleChests) {
+	public static List<ItemStack> getFilterForInventory(Level level, BlockPos pos, boolean recursiveForDoubleChests) {
 		List<ItemStack> filter = new ArrayList<>();
 
 		if (recursiveForDoubleChests) {
-			BlockState chest = getLevel().getBlockState(pos);
+			BlockState chest = level.getBlockState(pos);
 
 			if (chest.hasProperty(ChestBlock.TYPE)) {
 				ChestType type = chest.getValue(ChestBlock.TYPE);
 				if (type != ChestType.SINGLE) {
 					BlockPos other = pos.relative(ChestBlock.getConnectedDirection(chest));
-					if (getLevel().getBlockState(other).is(chest.getBlock())) {
-						filter.addAll(getFilterForInventory(other, false));
+					if (level.getBlockState(other).is(chest.getBlock())) {
+						filter.addAll(getFilterForInventory(level, other, false));
 					}
 				}
 			}
@@ -208,7 +209,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 
 		for (Direction dir : Direction.values()) {
 			AABB aabb = new AABB(pos.relative(dir));
-			List<ItemFrame> frames = getLevel().getEntitiesOfClass(ItemFrame.class, aabb);
+			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, aabb);
 			for (ItemFrame frame : frames) {
 				if (frame.getDirection() == dir) {
 					filter.add(frame.getItem());
