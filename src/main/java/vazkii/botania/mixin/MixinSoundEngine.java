@@ -33,7 +33,8 @@ public class MixinSoundEngine {
 
 	@Unique
 	private static boolean shouldSilence(ISound sound) {
-		return sound.getCategory() != SoundCategory.VOICE
+		return sound != null
+				&& sound.getCategory() != SoundCategory.VOICE
 				&& sound.getCategory() != SoundCategory.MUSIC
 				&& sound.getCategory() != SoundCategory.RECORDS
 				&& sound.getCategory() != SoundCategory.AMBIENT;
