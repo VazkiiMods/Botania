@@ -10,8 +10,8 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -58,12 +58,14 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 	}
 
 	// todo seems expensive when we have lots of sounds cache maybe?
-	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(RegistryKey<World> world, double x, double y, double z, int maxCount) {
+	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(World world, double x, double y, double z, int maxCount) {
 		int count = 0;
 		SubTileBergamute tile = null;
 
-		for (SubTileBergamute f : world == null ? clientFlowers : serverFlowers) {
-			if (!f.disabled && (world == null || world == f.world.getDimensionKey()) && f.getEffectivePos().distanceSq(x, y, z, true) <= RANGE * RANGE) {
+		for (SubTileBergamute f : world.isRemote ? clientFlowers : serverFlowers) {
+			if (!f.disabled
+					&& world == f.world
+					&& f.getEffectivePos().distanceSq(x, y, z, true) <= RANGE * RANGE) {
 				count++;
 				if (count == 1) {
 					tile = f;
@@ -76,7 +78,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		return Pair.of(count, tile);
 	}
 
-	public static boolean isBergamuteNearby(RegistryKey<World> world, double x, double y, double z) {
+	public static boolean isBergamuteNearby(World world, double x, double y, double z) {
 		return getBergamutesNearby(world, x, y, z, 1).getFirst() > 0;
 	}
 
@@ -85,7 +87,11 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		// We halve the volume for each flower (see MixinSoundEngine)
 		// halving 8 times already brings the multiplier to near zero, so no
 		// need to keep going if we've seen more than 8.
-		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(null, sound.getX(), sound.getY(), sound.getZ(), 8);
+		World world = Minecraft.getInstance().world;
+		if (world == null) {
+			return 0;
+		}
+		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(world, sound.getX(), sound.getY(), sound.getZ(), 8);
 		int count = countAndBerg.getFirst();
 		if (count > 0) {
 			if (mutedSounds.add(sound) && Math.random() < 0.5) {

@@ -101,7 +101,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		} else {
 			int range = 10;
-			List<MobEntity> entities = world.getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(world.getDimensionKey(), e.getPosX(), e.getPosY(), e.getPosZ()));
+			List<MobEntity> entities = world.getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(world, e.getPosX(), e.getPosY(), e.getPosZ()));
 			List<MobEntity> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
