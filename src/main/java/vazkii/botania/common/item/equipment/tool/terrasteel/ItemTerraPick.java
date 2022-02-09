@@ -199,7 +199,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
-				state -> stack.getDestroySpeed(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
+				state -> (!state.getRequiresTool() || stack.canHarvestBlock(state))
+						&& (stack.getDestroySpeed(state) > 1.0F) || MATERIALS.contains(state.getMaterial()));
 
 		if (origLevel == 5) {
 			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("challenge/rank_ss_pick"), "code_triggered");
