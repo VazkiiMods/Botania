@@ -58,7 +58,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	@Override
 	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
-		if (ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
+		if (entity.isAlive() && ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
 			if (!player.world.isRemote) {
 				PlayerEntity other = (PlayerEntity) entity;
 				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {

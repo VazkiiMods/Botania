@@ -36,7 +36,7 @@ public class ItemVirus extends Item {
 
 	@Override
 	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity living, Hand hand) {
-		if (living instanceof HorseEntity) {
+		if (living.isAlive() && living instanceof HorseEntity) {
 			if (player.world.isRemote) {
 				return ActionResultType.SUCCESS;
 			}
