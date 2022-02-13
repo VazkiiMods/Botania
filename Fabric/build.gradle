@@ -98,7 +98,9 @@ dependencies {
     compileOnly project(":Common")
 
     modImplementation "vazkii.patchouli:Patchouli:1.18.1-64-FABRIC"
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
+
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
+    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
