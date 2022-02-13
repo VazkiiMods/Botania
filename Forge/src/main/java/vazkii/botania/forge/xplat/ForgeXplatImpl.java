@@ -522,6 +522,6 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 				}
 			}
 		}
-		return 0;
+		return energy;
 	}
 }
