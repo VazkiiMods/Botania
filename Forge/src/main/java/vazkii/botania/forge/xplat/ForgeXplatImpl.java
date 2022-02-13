@@ -524,4 +524,9 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 		}
 		return energy;
 	}
+
+	@Override
+	public int getEnergyMultiplier() {
+		return 10;
+	}
 }

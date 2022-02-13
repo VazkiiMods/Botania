@@ -171,6 +171,7 @@ public interface IXplatAbstractions {
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
+	int getEnergyMultiplier();
 
 	IXplatAbstractions INSTANCE = find();
 

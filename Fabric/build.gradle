@@ -121,6 +121,8 @@ dependencies {
     modImplementation "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
     include "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
     */
+
+    modCompileOnly 'teamreborn:energy:2.1.0'
 }
 
 compileJava {

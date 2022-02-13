@@ -95,6 +95,7 @@ import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
+import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.fabric.mixin.FabricAccessorAbstractFurnaceBlockEntity;
@@ -576,7 +577,14 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {
-		// todo fabric pick an energy api (may need to also adjust the conversion ratio in the block entity code)
+		if (isModLoaded("team_reborn_energy")) {
+			return FluxfieldTRStorage.transferEnergyToNeighbors(level, pos, energy);
+		}
 		return energy;
+	}
+
+	@Override
+	public int getEnergyMultiplier() {
+		return 3;
 	}
 }

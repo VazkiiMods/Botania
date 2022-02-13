@@ -19,7 +19,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class TileRFGenerator extends TileMod implements IManaReceiver {
-	private static final int MANA_TO_FE = 10;
+	private static final int MANA_TO_FE = IXplatAbstractions.INSTANCE.getEnergyMultiplier();
 	public static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
 	private static final String TAG_MANA = "mana";
@@ -32,7 +32,10 @@ public class TileRFGenerator extends TileMod implements IManaReceiver {
 	public static void serverTick(Level level, BlockPos pos, BlockState state, TileRFGenerator self) {
 		int toTransfer = Math.min(self.energy, 160 * MANA_TO_FE);
 		int unconsumed = IXplatAbstractions.INSTANCE.transferEnergyToNeighbors(level, pos, toTransfer);
-		self.energy -= (toTransfer - unconsumed);
+		if (unconsumed != toTransfer) {
+			self.energy -= (toTransfer - unconsumed);
+			self.setChanged();
+		}
 	}
 
 	@Override

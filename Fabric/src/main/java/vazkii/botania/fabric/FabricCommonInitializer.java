@@ -82,6 +82,7 @@ import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -252,6 +253,10 @@ public class FabricCommonInitializer implements ModInitializer {
 				ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
 				ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI
 		);
+
+		if (IXplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
+			FluxfieldTRStorage.register();
+		}
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {
