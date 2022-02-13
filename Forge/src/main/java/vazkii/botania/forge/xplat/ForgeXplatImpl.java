@@ -58,6 +58,9 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -488,5 +491,37 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public void addAxeStripping(Block input, Block output) {
 		CUSTOM_STRIPPABLES.put(input, output);
+	}
+
+	@Override
+	public int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {
+		for (Direction e : Direction.values()) {
+			BlockPos neighbor = pos.relative(e);
+			if (!level.hasChunkAt(neighbor)) {
+				continue;
+			}
+
+			BlockEntity be = level.getBlockEntity(neighbor);
+			if (be == null) {
+				continue;
+			}
+
+			LazyOptional<IEnergyStorage> storage = LazyOptional.empty();
+
+			if (be.getCapability(CapabilityEnergy.ENERGY, e.getOpposite()).isPresent()) {
+				storage = be.getCapability(CapabilityEnergy.ENERGY, e.getOpposite());
+			} else if (be.getCapability(CapabilityEnergy.ENERGY, null).isPresent()) {
+				storage = be.getCapability(CapabilityEnergy.ENERGY, null);
+			}
+
+			if (storage.isPresent()) {
+				energy -= storage.orElseThrow(NullPointerException::new).receiveEnergy(energy, false);
+
+				if (energy <= 0) {
+					return 0;
+				}
+			}
+		}
+		return 0;
 	}
 }

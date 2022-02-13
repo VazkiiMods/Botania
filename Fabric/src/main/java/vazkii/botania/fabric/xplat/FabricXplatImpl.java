@@ -573,4 +573,10 @@ public class FabricXplatImpl implements IXplatAbstractions {
 			CUSTOM_STRIPPING.put(input, output);
 		}
 	}
+
+	@Override
+	public int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {
+		// todo fabric pick an energy api (may need to also adjust the conversion ratio in the block entity code)
+		return energy;
+	}
 }

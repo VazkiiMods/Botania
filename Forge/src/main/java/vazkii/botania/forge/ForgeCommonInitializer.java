@@ -34,6 +34,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.world.ForgeWorldPreset;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
@@ -87,6 +89,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.command.SkyblockCommand;
@@ -503,6 +506,42 @@ public class ForgeCommonInitializer {
 
 		if (be instanceof TileExposedSimpleInventory inv) {
 			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, new SidedInvWrapper(inv, null)));
+		}
+
+		if (be instanceof TileRFGenerator gen) {
+			// we only provide a view of the energy level, no interaction allowed
+			var energyStorage = new IEnergyStorage() {
+				@Override
+				public int getEnergyStored() {
+					return gen.getEnergy();
+				}
+
+				@Override
+				public int getMaxEnergyStored() {
+					return TileRFGenerator.MAX_ENERGY;
+				}
+
+				@Override
+				public boolean canExtract() {
+					return false;
+				}
+
+				@Override
+				public int extractEnergy(int maxExtract, boolean simulate) {
+					return 0;
+				}
+
+				@Override
+				public int receiveEnergy(int maxReceive, boolean simulate) {
+					return 0;
+				}
+
+				@Override
+				public boolean canReceive() {
+					return false;
+				}
+			};
+			e.addCapability(prefix("fe"), CapabilityUtil.makeProvider(CapabilityEnergy.ENERGY, energyStorage));
 		}
 
 		if (be.getType() == ModTiles.ANIMATED_TORCH) {

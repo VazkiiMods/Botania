@@ -170,6 +170,7 @@ public interface IXplatAbstractions {
 	int getSmeltingBurnTime(ItemStack stack);
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);
+	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
 
 	IXplatAbstractions INSTANCE = find();
 
