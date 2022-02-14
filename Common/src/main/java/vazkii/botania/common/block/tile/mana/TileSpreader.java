@@ -398,9 +398,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				double angle = y * 180;
 				rotationY = -(float) angle;
 
-				checkForReceiver();
+				setChanged();
 				requestsClientUpdate = true;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
 		return true;
@@ -672,8 +671,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		}
 		rotationY = (float) angle;
 
-		checkForReceiver();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		setChanged();
 		return true;
 	}
 
