@@ -90,6 +90,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
+import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.command.SkyblockCommand;
@@ -120,6 +121,7 @@ import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
+import vazkii.botania.forge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.forge.xplat.ForgeXplatImpl;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -552,6 +554,10 @@ public class ForgeCommonInitializer {
 		if (SELF_WANDADBLE_BES.get().contains(be.getType())) {
 			e.addCapability(prefix("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
 					(IWandable) be));
+		}
+
+		if (be instanceof TileRedStringContainer container) {
+			e.addCapability(prefix("red_string"), new RedStringContainerCapProvider(container));
 		}
 	}
 

@@ -587,4 +587,10 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	public int getEnergyMultiplier() {
 		return 3;
 	}
+
+	@Override
+	public boolean isRedStringContainerTarget(BlockEntity be) {
+		// TODO Detect transfer api exposure
+		return false;
+	}
 }

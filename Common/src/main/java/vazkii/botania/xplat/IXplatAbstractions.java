@@ -173,6 +173,9 @@ public interface IXplatAbstractions {
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
 	int getEnergyMultiplier();
 
+	// Red string container
+	boolean isRedStringContainerTarget(BlockEntity be);
+
 	IXplatAbstractions INSTANCE = find();
 
 	private static IXplatAbstractions find() {

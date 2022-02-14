@@ -529,4 +529,14 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public int getEnergyMultiplier() {
 		return 10;
 	}
+
+	@Override
+	public boolean isRedStringContainerTarget(BlockEntity be) {
+		for (Direction dir : Direction.values()) {
+			if (be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir).isPresent()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

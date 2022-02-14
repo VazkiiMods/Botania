@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -39,12 +40,16 @@ public class TileRedStringContainer extends TileRedString implements WorldlyCont
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
 		BlockEntity tile = level.getBlockEntity(pos);
-		return tile instanceof Container;
+		return tile != null &&
+				(tile instanceof Container || IXplatAbstractions.INSTANCE.isRedStringContainerTarget(tile));
 	}
 
 	@Nullable
 	private Container getInventoryAtBinding() {
-		return (Container) getTileAtBinding();
+		if (getTileAtBinding() instanceof Container container) {
+			return container;
+		}
+		return null;
 	}
 
 	@Override
