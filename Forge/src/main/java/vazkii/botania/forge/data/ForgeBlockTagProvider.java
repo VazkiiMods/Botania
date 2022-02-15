@@ -14,10 +14,12 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
-import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ForgeBlockTagProvider extends BlockTagsProvider {
-	public static final Tag.Named<Block> MUSHROOMS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("forge", "mushrooms"));
+	public static final Tag.Named<Block> MUSHROOMS = forge("mushrooms");
+	public static final Tag.Named<Block> ELEMENTIUM = forge("storage_blocks/elementium");
+	public static final Tag.Named<Block> MANASTEEL = forge("storage_blocks/manasteel");
+	public static final Tag.Named<Block> TERRASTEEL = forge("storage_blocks/terrasteel");
 
 	public ForgeBlockTagProvider(DataGenerator generator, ExistingFileHelper helper) {
 		super(generator, LibMisc.MOD_ID, helper);
@@ -42,5 +44,14 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.createOptional(new ResourceLocation("buzzier_bees", "flower_blacklist")))
 				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
 				.addTag(ModTags.Blocks.SPECIAL_FLOWERS);
+
+		tag(ELEMENTIUM).addTag(ModTags.Blocks.BLOCKS_ELEMENTIUM);
+		tag(MANASTEEL).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
+		tag(TERRASTEEL).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
+		tag(Tags.Blocks.STORAGE_BLOCKS).addTag(ELEMENTIUM).addTag(MANASTEEL).addTag(TERRASTEEL);
+	}
+
+	private static Tag.Named<Block> forge(String name) {
+		return BlockTags.createOptional(new ResourceLocation("forge", name));
 	}
 }
