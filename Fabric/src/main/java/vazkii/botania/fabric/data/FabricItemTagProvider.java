@@ -11,6 +11,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import static vazkii.botania.common.item.ModItems.*;
@@ -37,6 +38,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 		this.copy(FabricBlockTagProvider.QUARTZ_BLOCKS, QUARTZ_BLOCKS);
 		generateToolTags();
 		generateAccessoryTags();
+		generateCompatTags();
 	}
 
 	private void generateToolTags() {
@@ -116,7 +118,13 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 				tinyPotatoMask, questgiverMark,
 				thinkingHand
 		);
+	}
 
+	private void generateCompatTags() {
+		this.tag(TagFactory.ITEM.create(new ResourceLocation("modern_industrialization", "replicator_blacklist")))
+				.add(ItemDice.getRelics())
+				.add(dice, manaTablet, manaRing, manaRingGreater, blackerLotus, blackHoleTalisman, flowerBag,
+						spawnerMover, terraPick, ModBlocks.terrasteelBlock.asItem());
 	}
 
 	private static Tag.Named<Item> accessory(String name) {
