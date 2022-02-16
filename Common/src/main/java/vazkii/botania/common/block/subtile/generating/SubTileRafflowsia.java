@@ -47,7 +47,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	}
 
 	private int getMaxStreak() {
-		return STREAK_OUTPUTS.length;
+		return STREAK_OUTPUTS.length - 1;
 	}
 
 	private int getValueForStreak(int index) {
