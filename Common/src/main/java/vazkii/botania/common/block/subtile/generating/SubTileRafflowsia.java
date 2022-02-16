@@ -145,7 +145,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getMaxMana() {
-		return  STREAK_OUTPUTS[STREAK_OUTPUTS.length - 1];
+		return STREAK_OUTPUTS[STREAK_OUTPUTS.length - 1];
 	}
 
 }
