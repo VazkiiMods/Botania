@@ -92,6 +92,7 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
+import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
@@ -538,5 +539,10 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public TileRedStringContainer newRedStringContainer(BlockPos pos, BlockState state) {
+		return new TileRedStringContainer(pos, state);
 	}
 }

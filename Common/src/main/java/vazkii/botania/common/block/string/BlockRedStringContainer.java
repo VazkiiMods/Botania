@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,7 +36,7 @@ public class BlockRedStringContainer extends BlockRedString {
 	@Nonnull
 	@Override
 	public TileRedString newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-		return new TileRedStringContainer(pos, state);
+		return IXplatAbstractions.INSTANCE.newRedStringContainer(pos, state);
 	}
 
 	@Nullable

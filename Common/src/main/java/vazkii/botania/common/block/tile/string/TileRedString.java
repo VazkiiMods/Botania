@@ -23,6 +23,8 @@ import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nullable;
 
+import java.util.Objects;
+
 public abstract class TileRedString extends TileMod implements ITileBound {
 
 	private BlockPos binding;
@@ -50,11 +52,14 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 
 			if (self.acceptBlock(pos_)) {
 				self.setBinding(pos_);
-				if (currBinding == null || !currBinding.equals(pos_)) {
+				if (!Objects.equals(currBinding, pos_)) {
 					self.onBound(pos_);
 				}
-				break;
+				return;
 			}
+		}
+		if (!level.isClientSide && !Objects.equals(currBinding, self.binding)) {
+			self.onBound(self.binding);
 		}
 	}
 
@@ -64,7 +69,7 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 
 	public abstract boolean acceptBlock(BlockPos pos);
 
-	public void onBound(BlockPos pos) {}
+	public void onBound(@Nullable BlockPos pos) {}
 
 	@Nullable
 	@Override

@@ -60,7 +60,7 @@ public class ModTiles {
 	public static final BlockEntityType<TileRFGenerator> FLUXFIELD = type(TileRFGenerator::new, rfGenerator);
 	public static final BlockEntityType<TileBrewery> BREWERY = type(TileBrewery::new, brewery);
 	public static final BlockEntityType<TileTerraPlate> TERRA_PLATE = type(TileTerraPlate::new, terraPlate);
-	public static final BlockEntityType<TileRedStringContainer> RED_STRING_CONTAINER = type(TileRedStringContainer::new, redStringContainer);
+	public static final BlockEntityType<TileRedStringContainer> RED_STRING_CONTAINER = type(IXplatAbstractions.INSTANCE::newRedStringContainer, redStringContainer);
 	public static final BlockEntityType<TileRedStringDispenser> RED_STRING_DISPENSER = type(TileRedStringDispenser::new, redStringDispenser);
 	public static final BlockEntityType<TileRedStringFertilizer> RED_STRING_FERTILIZER = type(TileRedStringFertilizer::new, redStringFertilizer);
 	public static final BlockEntityType<TileRedStringComparator> RED_STRING_COMPARATOR = type(TileRedStringComparator::new, redStringComparator);
