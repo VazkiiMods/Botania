@@ -49,6 +49,8 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 		tag(MANASTEEL).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
 		tag(TERRASTEEL).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
 		tag(Tags.Blocks.STORAGE_BLOCKS).addTag(ELEMENTIUM).addTag(MANASTEEL).addTag(TERRASTEEL);
+		tag(Tags.Blocks.GLASS).add(ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm);
+		tag(Tags.Blocks.GLASS_PANES).add(ModFluffBlocks.managlassPane, ModFluffBlocks.alfglassPane, ModFluffBlocks.bifrostPane);
 	}
 
 	private static Tag.Named<Block> forge(String name) {

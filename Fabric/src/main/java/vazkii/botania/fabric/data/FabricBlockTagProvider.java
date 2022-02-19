@@ -17,6 +17,10 @@ import java.util.List;
 public class FabricBlockTagProvider extends BlockTagsProvider {
 	public static final Tag.Named<Block> QUARTZ_BLOCKS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "quartz_blocks"));
 	public static final Tag.Named<Block> MUSHROOMS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "mushrooms"));
+	public static final Tag.Named<Block> GLASS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass"));
+	public static final Tag.Named<Block> GLASS_ALT = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass_blocks"));
+	public static final Tag.Named<Block> GLASS_PANE = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass_pane"));
+	public static final Tag.Named<Block> GLASS_PANE_ALT = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass_panes"));
 
 	public FabricBlockTagProvider(DataGenerator dataGenerator) {
 		super(dataGenerator);
@@ -33,6 +37,8 @@ public class FabricBlockTagProvider extends BlockTagsProvider {
 				ModFluffBlocks.darkQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.blazeQuartz,
 				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz
 		);
+		List.of(GLASS, GLASS_ALT).forEach(t -> tag(t).add(ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm));
+		List.of(GLASS_PANE, GLASS_PANE_ALT).forEach(t -> tag(t).add(ModFluffBlocks.managlassPane, ModFluffBlocks.alfglassPane, ModFluffBlocks.bifrostPane));
 
 		for (DyeColor color : DyeColor.values()) {
 			this.tag(MUSHROOMS).add(ModBlocks.getMushroom(color));

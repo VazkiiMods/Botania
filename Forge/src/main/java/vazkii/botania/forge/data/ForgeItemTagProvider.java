@@ -57,6 +57,8 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		this.copy(ForgeBlockTagProvider.MUSHROOMS, Tags.Items.MUSHROOMS);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS_QUARTZ, Tags.Items.STORAGE_BLOCKS_QUARTZ);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+		this.copy(Tags.Blocks.GLASS, Tags.Items.GLASS);
+		this.copy(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
 
 		generateAccessoryTags();
 	}
