@@ -66,25 +66,6 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 			return otherStacks;
 		}
 
-		@Override
-		public boolean contains(Collection<PositionedStack> ingredients, ItemStack ingredient) {
-			if(ingredients == inputs) {
-				boolean skippedPool = false;
-
-				for(PositionedStack stack : ingredients) {
-					if(!skippedPool) {
-						skippedPool = true;
-						continue;
-					}
-
-					if(stack.contains(ingredient))
-						return true;
-				}
-			}
-
-			return super.contains(ingredients, ingredient);
-		}
-
 	}
 
 	@Override
@@ -136,7 +117,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 			if(recipe == null)
 				continue;
 
-			if(NEIServerUtils.areStacksSameTypeCrafting(recipe.getOutput(), result))
+			if(NEIServerUtils.areStacksSameTypeCraftingWithNBT(recipe.getOutput(), result))
 				arecipes.add(new CachedManaPoolRecipe(recipe));
 		}
 	}
@@ -148,7 +129,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 				continue;
 
 			CachedManaPoolRecipe crecipe = new CachedManaPoolRecipe(recipe);
-			if(crecipe.contains(crecipe.getIngredients(), ingredient) || crecipe.contains(crecipe.getOtherStacks(), ingredient))
+			if(crecipe.containsWithNBT(crecipe.getIngredients(), ingredient) || crecipe.containsWithNBT(crecipe.getOtherStacks(), ingredient))
 				arecipes.add(crecipe);
 		}
 	}
