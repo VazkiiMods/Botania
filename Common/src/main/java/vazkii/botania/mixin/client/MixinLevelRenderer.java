@@ -152,8 +152,7 @@ public class MixinLevelRenderer {
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/systems/RenderSystem;applyModelViewMatrix()V",
 			ordinal = 1 // after debugRenderer, before a long sequence of endBatch calls
-		),
-		remap = false
+		)
 	)
 	private void renderOverlays(PoseStack ps, float partialTicks, long unknown, boolean drawBlockOutline,
 			Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f projMat, CallbackInfo ci) {
