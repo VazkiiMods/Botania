@@ -181,6 +181,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(ModTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
 
+		tag(ModTags.Blocks.WEIGHT_LENS_WHITELIST);
+
 		registerMiningTags();
 	}
 

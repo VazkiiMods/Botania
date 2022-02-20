@@ -201,6 +201,11 @@ public class ModTags {
 		 */
 		public static final Tag.Named<Block> ENDER_AIR_CONVERTABLE = tag("ender_air_convertable");
 
+		/**
+		 * Blocks in this tag are affected by the weight lens even if they don't drop themselves with silk touch.
+		 */
+		public static final Tag.Named<Block> WEIGHT_LENS_WHITELIST = tag("weight_lens_whitelist");
+
 		private static Tag.Named<Block> tag(String name) {
 			return IXplatAbstractions.INSTANCE.blockTag(prefix(name));
 		}

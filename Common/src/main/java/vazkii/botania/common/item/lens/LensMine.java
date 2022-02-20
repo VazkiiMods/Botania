@@ -103,17 +103,25 @@ public class LensMine extends Lens {
 	);
 
 	public static boolean canHarvest(int harvestLevel, BlockState state) {
+		return !getTool(harvestLevel, state).isEmpty();
+	}
+
+	public static ItemStack getHarvestToolStack(int harvestLevel, BlockState state) {
+		return getTool(harvestLevel, state).copy();
+	}
+
+	private static ItemStack getTool(int harvestLevel, BlockState state) {
 		if (!state.requiresCorrectToolForDrops()) {
-			return true;
+			return HARVEST_TOOLS_BY_LEVEL.get(0).get(0);
 		}
 
 		int idx = Math.min(harvestLevel, HARVEST_TOOLS_BY_LEVEL.size() - 1);
 		for (var tool : HARVEST_TOOLS_BY_LEVEL.get(idx)) {
 			if (tool.isCorrectToolForDrops(state)) {
-				return true;
+				return tool;
 			}
 		}
 
-		return false;
+		return ItemStack.EMPTY;
 	}
 }
