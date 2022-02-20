@@ -1003,6 +1003,10 @@ public class EntityDoppleganger extends Mob {
 		return bossInfoUUID;
 	}
 
+	public boolean isHardMode() {
+		return hardMode;
+	}
+
 	public void readSpawnData(int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUUID) {
 		this.playerCount = playerCount;
 		this.hardMode = hardMode;

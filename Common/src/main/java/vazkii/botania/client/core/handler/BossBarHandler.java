@@ -18,6 +18,7 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -80,35 +81,16 @@ public final class BossBarHandler {
 	}
 
 	private static void drawHealthBar(PoseStack ms, EntityDoppleganger currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
-		/* todo shader
-		if (program != null) {
-			ShaderCallback callback = currentBoss.getBossBarShaderCallback(bg);
-			barUniformCallback.set(u, v, callback);
-			ShaderHelper.useShader(program, barUniformCallback);
+		var shader = CoreShaders.dopplegangerBar();
+		if (shader != null) {
+			float time = currentBoss.getInvulTime();
+			float grainIntensity = time > 20 ? 1F : Math.max(currentBoss.isHardMode() ? 0.5F : 0F, time / 20F);
+			shader.safeGetUniform("grainIntensity").set(grainIntensity);
+			shader.safeGetUniform("hpFract").set(currentBoss.getHealth() / currentBoss.getMaxHealth());
 		}
-		
-		int grainIntensityUniform = GlStateManager._glGetUniformLocation(shader1, "grainIntensity");
-				int hpFractUniform = GlStateManager._glGetUniformLocation(shader1, "hpFract");
-		
-				float time = getInvulTime();
-				float grainIntensity = time > 20 ? 1F : Math.max(hardMode ? 0.5F : 0F, time / 20F);
-		
-				ShaderHelper.FLOAT_BUF.position(0);
-				ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-				RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
-		
-				ShaderHelper.FLOAT_BUF.position(0);
-				ShaderHelper.FLOAT_BUF.put(0, getHealth() / getMaxHealth());
-				RenderSystem.glUniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
-		*/
 
+		/* todo set shader */
 		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, w, h);
-
-		/* todo shader
-		if (program != null) {
-			ShaderHelper.releaseShader();
-		}
-		*/
 	}
 
 }

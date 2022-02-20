@@ -26,6 +26,7 @@ public class CoreShaders {
 	private static ShaderInstance pylon;
 	private static ShaderInstance halo;
 	private static ShaderInstance filmGrainParticle;
+	private static ShaderInstance dopplegangerBar;
 
 	public static void init(ResourceManager resourceManager,
 			Consumer<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
@@ -61,6 +62,10 @@ public class CoreShaders {
 				new ShaderInstance(resourceManager, "botania__film_grain_particle", DefaultVertexFormat.PARTICLE),
 				inst -> filmGrainParticle = inst)
 		);
+		registrations.accept(Pair.of(
+				new ShaderInstance(resourceManager, "botania__doppleganger_bar", DefaultVertexFormat.POSITION_TEX),
+				inst -> dopplegangerBar = inst
+		));
 	}
 
 	public static ShaderInstance starfield() {
@@ -93,5 +98,9 @@ public class CoreShaders {
 
 	public static ShaderInstance filmGrainParticle() {
 		return filmGrainParticle;
+	}
+
+	public static ShaderInstance dopplegangerBar() {
+		return dopplegangerBar;
 	}
 }
