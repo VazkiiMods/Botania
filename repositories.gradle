@@ -1,10 +1,21 @@
-// Add any additional repositories for your dependencies here
-
 repositories {
     maven {
-        url "https://cursemaven.com"
+        name 'GTNH Maven'
+        url 'http://jenkins.usrv.eu:8081/nexus/content/groups/public/'
+        allowInsecureProtocol
     }
     maven {
-        url = "https://jitpack.io"
+        name 'ic2'
+        url 'https://maven.ic2.player.to/'
+        metadataSources {
+            mavenPom()
+            artifact()
+        }
+    }
+    maven {
+        url 'https://cursemaven.com'
+    }
+    maven {
+        url 'https://jitpack.io'
     }
 }
