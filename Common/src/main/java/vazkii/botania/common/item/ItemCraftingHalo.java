@@ -14,9 +14,11 @@ import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -340,7 +342,7 @@ public class ItemCraftingHalo extends Item {
 	}
 
 	public static class Rendering {
-		public static void onRenderWorldLast(float partialTicks, PoseStack ms) {
+		public static void onRenderWorldLast(Camera camera, float partialTicks, PoseStack ms, RenderBuffers buffers) {
 			Player player = Minecraft.getInstance().player;
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
 			if (stack.isEmpty()) {
@@ -348,11 +350,11 @@ public class ItemCraftingHalo extends Item {
 			}
 
 			Minecraft mc = Minecraft.getInstance();
-			MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
+			MultiBufferSource.BufferSource bufferSource = buffers.bufferSource();
 
-			double renderPosX = mc.getEntityRenderDispatcher().camera.getPosition().x();
-			double renderPosY = mc.getEntityRenderDispatcher().camera.getPosition().y();
-			double renderPosZ = mc.getEntityRenderDispatcher().camera.getPosition().z();
+			double renderPosX = camera.getPosition().x();
+			double renderPosY = camera.getPosition().y();
+			double renderPosZ = camera.getPosition().z();
 
 			ms.pushPose();
 			float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;
@@ -400,7 +402,7 @@ public class ItemCraftingHalo extends Item {
 
 					ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
 					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI,
-							0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
+							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getId());
 				}
 				ms.popPose();
 
@@ -416,7 +418,7 @@ public class ItemCraftingHalo extends Item {
 					r = g = b = 0.6F;
 				}
 
-				VertexConsumer buffer = buffers.getBuffer(layer);
+				VertexConsumer buffer = bufferSource.getBuffer(layer);
 				for (int i = 0; i < segAngles; i++) {
 					Matrix4f mat = ms.last().pose();
 					float ang = i + seg * segAngles + shift;
@@ -436,7 +438,7 @@ public class ItemCraftingHalo extends Item {
 				ms.popPose();
 			}
 			ms.popPose();
-			buffers.endBatch();
+			bufferSource.endBatch();
 		}
 
 		public static void renderHUD(PoseStack ms, Player player, ItemStack stack) {

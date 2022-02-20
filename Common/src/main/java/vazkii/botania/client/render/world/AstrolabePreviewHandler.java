@@ -13,6 +13,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
@@ -30,12 +31,11 @@ import vazkii.botania.common.item.ItemAstrolabe;
 import java.util.List;
 
 public final class AstrolabePreviewHandler {
-	public static void onWorldRenderLast(PoseStack ms) {
-		Level world = Minecraft.getInstance().level;
-		MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
-		VertexConsumer buffer = buffers.getBuffer(RenderHelper.ASTROLABE_PREVIEW);
+	public static void onWorldRenderLast(PoseStack ms, RenderBuffers buffers, Level level) {
+		MultiBufferSource.BufferSource bufferSource = buffers.bufferSource();
+		VertexConsumer buffer = bufferSource.getBuffer(RenderHelper.ASTROLABE_PREVIEW);
 
-		for (Player player : world.players()) {
+		for (Player player : level.players()) {
 			ItemStack currentStack = player.getMainHandItem();
 			if (currentStack.isEmpty() || !(currentStack.getItem() instanceof ItemAstrolabe)) {
 				currentStack = player.getOffhandItem();
@@ -49,7 +49,7 @@ public final class AstrolabePreviewHandler {
 			}
 		}
 
-		buffers.endBatch(RenderHelper.ASTROLABE_PREVIEW);
+		bufferSource.endBatch(RenderHelper.ASTROLABE_PREVIEW);
 	}
 
 	private static void renderPlayerLook(PoseStack ms, VertexConsumer buffer, Player player, ItemStack stack) {

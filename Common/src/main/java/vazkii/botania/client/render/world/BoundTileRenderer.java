@@ -15,6 +15,7 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.Util;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -51,14 +52,16 @@ public final class BoundTileRenderer {
 
 	private BoundTileRenderer() {}
 
-	public static void onWorldRenderLast(PoseStack ms) {
-		if (!BotaniaConfig.client().boundBlockWireframe()) {
+	public static void onWorldRenderLast(Camera camera, PoseStack ms, Level level) {
+		Player player = Minecraft.getInstance().player;
+		if (!BotaniaConfig.client().boundBlockWireframe()
+				|| player == null
+				|| player.level != level) {
 			return;
 		}
 
 		ms.pushPose();
 
-		Player player = Minecraft.getInstance().player;
 		int color = 0xFF000000 | Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if (!player.getMainHandItem().isEmpty()) {
@@ -66,7 +69,7 @@ public final class BoundTileRenderer {
 			if (coordBoundItem != null) {
 				BlockPos coords = coordBoundItem.getBinding(player.level);
 				if (coords != null) {
-					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color);
 				}
 			}
 		}
@@ -76,52 +79,52 @@ public final class BoundTileRenderer {
 			if (coordBoundItem != null) {
 				BlockPos coords = coordBoundItem.getBinding(player.level);
 				if (coords != null) {
-					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color);
 				}
 			}
 		}
 
-		renderWireframeProviders(player.getInventory(), player, ms, color);
-		renderWireframeProviders(BotaniaAPI.instance().getAccessoriesInventory(player), player, ms, color);
+		renderWireframeProviders(camera, player.getInventory(), player, ms, color);
+		renderWireframeProviders(camera, BotaniaAPI.instance().getAccessoriesInventory(player), player, ms, color);
 
 		ms.popPose();
 		RenderSystem.disableDepthTest();
 		LINE_BUFFERS.endBatch();
 	}
 
-	private static void renderWireframeProviders(Container inv, Player player, PoseStack ms, int color) {
+	private static void renderWireframeProviders(Camera camera, Container inv,
+			Player player, PoseStack ms, int color) {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stackInSlot = inv.getItem(i);
 
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider provider) {
 				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
 				for (BlockPos coords : coordsList) {
-					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color);
 				}
 
 				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
 				if (coords != null && coords.getY() != Integer.MIN_VALUE) {
-					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color, true);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color, true);
 				}
 			}
 		}
 	}
 
-	private static void renderBlockOutlineAt(PoseStack ms, MultiBufferSource buffers, BlockPos pos, int color) {
-		renderBlockOutlineAt(ms, buffers, pos, color, false);
+	private static void renderBlockOutlineAt(Camera camera, PoseStack ms, MultiBufferSource buffers, Level level, BlockPos pos, int color) {
+		renderBlockOutlineAt(camera, ms, buffers, level, pos, color, false);
 	}
 
-	private static void renderBlockOutlineAt(PoseStack ms, MultiBufferSource buffers, BlockPos pos, int color, boolean thick) {
-		double renderPosX = Minecraft.getInstance().getEntityRenderDispatcher().camera.getPosition().x();
-		double renderPosY = Minecraft.getInstance().getEntityRenderDispatcher().camera.getPosition().y();
-		double renderPosZ = Minecraft.getInstance().getEntityRenderDispatcher().camera.getPosition().z();
+	private static void renderBlockOutlineAt(Camera camera, PoseStack ms, MultiBufferSource buffers, Level level, BlockPos pos, int color, boolean thick) {
+		double renderPosX = camera.getPosition().x();
+		double renderPosY = camera.getPosition().y();
+		double renderPosZ = camera.getPosition().z();
 
 		ms.pushPose();
 		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ);
 
-		Level world = Minecraft.getInstance().level;
-		BlockState state = world.getBlockState(pos);
-		List<AABB> list = state.getShape(world, pos).toAabbs();
+		BlockState state = level.getBlockState(pos);
+		List<AABB> list = state.getShape(level, pos).toAabbs();
 
 		if (!list.isEmpty()) {
 			VertexConsumer buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);

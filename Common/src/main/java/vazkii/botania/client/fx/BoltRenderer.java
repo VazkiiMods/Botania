@@ -19,8 +19,10 @@ import com.mojang.math.Matrix4f;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -49,14 +51,14 @@ public class BoltRenderer {
 
 	private final List<BoltOwnerData> boltOwners = new LinkedList<>();
 
-	public static void onWorldRenderLast(float partialTicks, PoseStack ps) {
+	public static void onWorldRenderLast(Camera camera, float partialTicks, PoseStack ps, RenderBuffers buffers) {
 		ps.pushPose();
 		// here we translate based on the inverse position of the client viewing camera to get back to 0, 0, 0
-		Vec3 camVec = BoltRenderer.INSTANCE.minecraft.gameRenderer.getMainCamera().getPosition();
+		Vec3 camVec = camera.getPosition();
 		ps.translate(-camVec.x, -camVec.y, -camVec.z);
-		MultiBufferSource.BufferSource buffers = BoltRenderer.INSTANCE.minecraft.renderBuffers().bufferSource();
-		BoltRenderer.INSTANCE.render(partialTicks, ps, buffers);
-		buffers.endBatch(RenderHelper.LIGHTNING);
+		var bufferSource = buffers.bufferSource();
+		BoltRenderer.INSTANCE.render(partialTicks, ps, bufferSource);
+		bufferSource.endBatch(RenderHelper.LIGHTNING);
 		ps.popPose();
 	}
 

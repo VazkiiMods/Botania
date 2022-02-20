@@ -9,7 +9,6 @@
 package vazkii.botania.fabric.mixin.client;
 
 import com.mojang.blaze3d.shaders.Program;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.client.renderer.GameRenderer;
@@ -23,7 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.render.world.WorldOverlays;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,17 +43,5 @@ public class FabricMixinGameRenderer {
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> shadersToLoad)
 			throws IOException {
 		CoreShaders.init(resourceManager, shadersToLoad::add);
-	}
-
-	@Inject(
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/LevelRenderer;renderLevel(Lcom/mojang/blaze3d/vertex/PoseStack;FJZLnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lcom/mojang/math/Matrix4f;)V",
-			shift = At.Shift.AFTER
-		),
-		method = "renderLevel"
-	)
-	private void renderWorldLast(float tickDelta, long limitTime, PoseStack matrix, CallbackInfo ci) {
-		WorldOverlays.renderWorldLast(tickDelta, matrix);
 	}
 }
