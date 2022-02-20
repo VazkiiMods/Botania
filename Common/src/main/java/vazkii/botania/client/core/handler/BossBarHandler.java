@@ -85,8 +85,8 @@ public final class BossBarHandler {
 		if (shader != null) {
 			float time = currentBoss.getInvulTime();
 			float grainIntensity = time > 20 ? 1F : Math.max(currentBoss.isHardMode() ? 0.5F : 0F, time / 20F);
-			shader.safeGetUniform("grainIntensity").set(grainIntensity);
-			shader.safeGetUniform("hpFract").set(currentBoss.getHealth() / currentBoss.getMaxHealth());
+			shader.safeGetUniform("BotaniaGrainIntensity").set(grainIntensity);
+			shader.safeGetUniform("BotaniaHpFract").set(currentBoss.getHealth() / currentBoss.getMaxHealth());
 		}
 
 		float minU = u / 256.0F;
