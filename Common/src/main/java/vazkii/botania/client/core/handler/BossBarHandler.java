@@ -33,7 +33,7 @@ public final class BossBarHandler {
 	public static final Set<EntityDoppleganger> bosses = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(LibResources.GUI_BOSS_BAR);
 
-	public static OptionalInt onBarRender(PoseStack ps, int x, int y, BossEvent bossEvent) {
+	public static OptionalInt onBarRender(PoseStack ps, int x, int y, BossEvent bossEvent, boolean drawName) {
 		for (EntityDoppleganger currentBoss : bosses) {
 			if (currentBoss.getBossInfoUuid().equals(bossEvent.getId())) {
 				Minecraft mc = Minecraft.getInstance();
@@ -42,7 +42,6 @@ public final class BossBarHandler {
 				int frameWidth = 185, frameHeight = 15;
 				int healthU = 0, healthV = frameV + frameHeight;
 				int healthWidth = 181, healthHeight = 7;
-				Component name = bossEvent.getName();
 				int healthX = x + (frameWidth - healthWidth) / 2;
 				int healthY = y + (frameHeight - healthHeight) / 2;
 
@@ -54,11 +53,14 @@ public final class BossBarHandler {
 				drawHealthBar(ps, currentBoss, healthX, healthY, healthU, healthV,
 						(int) (healthWidth * bossEvent.getProgress()), healthHeight, false);
 
-				int centerX = mc.getWindow().getGuiScaledWidth() / 2;
-				int nameX = centerX - mc.font.width(name) / 2;
-				mc.font.drawShadow(ps, name, nameX, y - 10, 0xA2018C);
+				if (drawName) {
+					Component name = bossEvent.getName();
+					int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+					int nameX = centerX - mc.font.width(name) / 2;
+					mc.font.drawShadow(ps, name, nameX, y - 10, 0xA2018C);
+				}
 
-				return OptionalInt.of(frameHeight + playerCountHeight + mc.font.lineHeight /* for boss name */);
+				return OptionalInt.of(frameHeight + playerCountHeight + (drawName ? mc.font.lineHeight : 0));
 			}
 		}
 

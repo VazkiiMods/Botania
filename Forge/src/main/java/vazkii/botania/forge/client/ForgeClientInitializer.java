@@ -101,7 +101,8 @@ public class ForgeClientInitializer {
 
 		// Forge bus events done with Mixins on Fabric
 		bus.addListener((RenderGameOverlayEvent.BossInfo e) -> {
-			var result = BossBarHandler.onBarRender(e.getMatrixStack(), e.getX(), e.getY(), e.getBossEvent());
+			var result = BossBarHandler.onBarRender(e.getMatrixStack(), e.getX(), e.getY(),
+					e.getBossEvent(), true);
 			result.ifPresent(increment -> {
 				e.setCanceled(true);
 				e.setIncrement(increment);

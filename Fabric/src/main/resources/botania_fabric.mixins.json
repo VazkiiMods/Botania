@@ -27,6 +27,7 @@
   "client": [
     "client.FabricMixinAbstractTexture",
     "client.FabricMixinBlockModelDeserializer",
+    "client.FabricMixinBossHealthOverlay",
     "client.FabricMixinDebugScreenOverlay",
     "client.FabricMixinGameRenderer",
     "client.FabricMixinKeyboardHandler",
