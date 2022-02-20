@@ -351,7 +351,10 @@ public final class ConfigHandler {
 	private static void verifyPotionArray() {
 		if(Loader.isModLoaded("DragonAPI"))
 			potionArrayLimit = Potion.potionTypes.length;
-		else potionArrayLimit = 127;
+		else if(Loader.isModLoaded("hodgepodge"))
+			potionArrayLimit = 255;
+		else
+			potionArrayLimit = 127;
 
 		verifiedPotionArray = true;
 	}
