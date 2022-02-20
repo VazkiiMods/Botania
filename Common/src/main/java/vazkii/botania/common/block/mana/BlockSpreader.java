@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,11 +28,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
@@ -43,8 +47,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockSpreader extends BlockModWaterloggable implements EntityBlock {
-	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 16, 16);
-	private static final VoxelShape RENDER_SHAPE = box(2, 2, 2, 14, 14, 14);
+	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
+	private static final VoxelShape SHAPE_PADDING = box(1, 1, 1, 15, 15, 15);
+	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);
 
 	public enum Variant {
 		MANA(160, 1000, 0x20FF20, 0x00FF00, 60, 4f, 1f),
@@ -75,19 +80,30 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 
 	public BlockSpreader(Variant v, Properties builder) {
 		super(builder);
+		registerDefaultState(defaultBlockState().setValue(BotaniaStateProps.HAS_SCAFFOLDING, false));
 		this.variant = v;
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BotaniaStateProps.HAS_SCAFFOLDING);
 	}
 
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-		return SHAPE;
+		if (blockState.getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
+			return SHAPE_SCAFFOLDING;
+		}
+		TileSpreader spreader = (TileSpreader) blockGetter.getBlockEntity(blockPos);
+		return spreader != null && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
 	}
 
 	@Nonnull
 	@Override
 	public VoxelShape getOcclusionShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos) {
-		return RENDER_SHAPE;
+		return SHAPE;
 	}
 
 	@Override
@@ -134,53 +150,64 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 			return InteractionResult.PASS;
 		}
 
-		ItemStack lens = spreader.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
-		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
-		boolean wool = !heldItem.isEmpty() && ColorHelper.isWool(Block.byItem(heldItem.getItem()));
-
-		if (!heldItem.isEmpty()) {
-			if (heldItem.is(ModItems.twigWand)) {
-				return InteractionResult.PASS;
-			}
+		if (heldItem.is(ModItems.twigWand)) {
+			return InteractionResult.PASS;
 		}
 
-		if (lens.isEmpty() && isHeldItemLens) {
-			ItemStack toInsert;
-			if (!player.getAbilities().instabuild) {
-				toInsert = heldItem.split(1);
-			} else {
-				toInsert = heldItem.copy();
+		ItemStack lens = spreader.getItemHandler().getItem(0);
+		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
+		boolean playerHasWool = !heldItem.isEmpty() && ColorHelper.isWool(Block.byItem(heldItem.getItem()));
+		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.getItem().equals(Items.SCAFFOLDING);
+		boolean shouldInsert = (playerHasLens && lens.isEmpty())
+				|| (playerHasWool && spreader.paddingColor == null)
+				|| (playerHasScaffolding && !state.getValue(BotaniaStateProps.HAS_SCAFFOLDING));
+
+		if (shouldInsert) {
+			if (playerHasLens) {
+				ItemStack toInsert = heldItem.copy();
 				toInsert.setCount(1);
+				spreader.getItemHandler().setItem(0, toInsert);
+				world.playSound(player, pos, ModSounds.spreaderAddLens, SoundSource.BLOCKS, 1F, 1F);
+			} else if (playerHasWool) {
+				Block block = Block.byItem(heldItem.getItem());
+				spreader.paddingColor = ColorHelper.getWoolColor(block);
+				spreader.setChanged();
+				world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
+			} else { // playerHasScaffolding
+				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, true));
+				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+
+				world.playSound(player, pos, ModSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
 			}
-
-			spreader.getItemHandler().setItem(0, toInsert);
-
-			return InteractionResult.SUCCESS;
-		} else if (!lens.isEmpty() && !wool) {
-			player.getInventory().placeItemBackInInventory(lens);
-			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
-
-			return InteractionResult.SUCCESS;
-		}
-
-		if (wool && spreader.paddingColor == null) {
-			Block block = Block.byItem(heldItem.getItem());
-			spreader.paddingColor = ColorHelper.getWoolColor(block);
 
 			if (!player.getAbilities().instabuild) {
 				heldItem.shrink(1);
-				if (heldItem.isEmpty()) {
-					player.setItemInHand(hand, ItemStack.EMPTY);
-				}
 			}
+			return InteractionResult.SUCCESS;
+		}
 
-			world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
+		if (state.getValue(BotaniaStateProps.HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
+			ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
+			player.getInventory().placeItemBackInInventory(scaffolding);
+			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, false));
+			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+
+			world.playSound(player, pos, ModSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
-		} else if (wool || heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
-			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
-			player.getInventory().placeItemBackInInventory(pad);
+		}
+		if (!lens.isEmpty()) {
+			player.getInventory().placeItemBackInInventory(lens);
+			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
+
+			world.playSound(player, pos, ModSounds.spreaderRemoveLens, SoundSource.BLOCKS, 1F, 1F);
+
+			return InteractionResult.SUCCESS;
+		}
+		if (spreader.paddingColor != null) {
+			ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
+			player.getInventory().placeItemBackInInventory(wool);
 			spreader.paddingColor = null;
 			spreader.setChanged();
 
@@ -196,16 +223,21 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (!(tile instanceof TileSpreader inv)) {
+			if (!(tile instanceof TileSpreader spreader)) {
 				return;
 			}
 
-			if (inv.paddingColor != null) {
-				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.apply(inv.paddingColor));
+			if (spreader.paddingColor != null) {
+				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
 				world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 			}
 
-			Containers.dropContents(world, pos, inv.getItemHandler());
+			if (state.getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
+				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
+				world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), scaffolding));
+			}
+
+			Containers.dropContents(world, pos, spreader.getItemHandler());
 
 			super.onRemove(state, world, pos, newState, isMoving);
 		}

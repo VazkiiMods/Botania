@@ -24,6 +24,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.mana.BlockSpreader;
@@ -83,20 +84,36 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 			ms.mulPose(Vector3f.ZP.rotationDegrees(180));
 			ms.mulPose(Vector3f.XP.rotationDegrees(180));
 			// Prevents z-fighting. Otherwise not noticeable.
-			ms.scale(0.999F, 0.999F, 1F);
+			ms.scale(0.997F, 0.997F, 1F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
 					light, overlay, ms, buffers, 0);
 			ms.popPose();
 		}
 
 		if (spreader.paddingColor != null) {
-			BakedModel model = getPaddingModel(spreader.paddingColor);
+			ms.pushPose();
+			// The padding model is facing up so that the textures are rotated the correct way
+			// It's simpler to do this than mess with rotation and UV in the json model
+			ms.translate(0.5F, 0.5F, 0.5F);
+			ms.mulPose(Vector3f.XP.rotationDegrees(-90));
+			ms.mulPose(Vector3f.YP.rotationDegrees(180));
+			ms.translate(-0.5F, -0.5F, -0.5F);
+			BakedModel paddingModel = getPaddingModel(spreader.paddingColor);
 			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 					.renderModel(ms.last(), buffer, spreader.getBlockState(),
-							model, r, g, b, light, overlay);
+							paddingModel, r, g, b, light, overlay);
+			ms.popPose();
 		}
 
 		ms.popPose();
+
+		if (spreader.getBlockState().getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
+			BakedModel scaffolding = getScaffoldingModel(spreader);
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+					.renderModel(ms.last(), buffer, spreader.getBlockState(),
+							scaffolding, r, g, b, light, overlay);
+		}
+
 	}
 
 	private BakedModel getCoreModel(TileSpreader tile) {
@@ -110,5 +127,13 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 
 	private BakedModel getPaddingModel(DyeColor color) {
 		return MiscellaneousModels.INSTANCE.spreaderPaddings.get(color);
+	}
+
+	private BakedModel getScaffoldingModel(TileSpreader tile) {
+		return switch (tile.getVariant()) {
+			case MANA, REDSTONE -> MiscellaneousModels.INSTANCE.manaSpreaderScaffolding;
+			case ELVEN -> MiscellaneousModels.INSTANCE.elvenSpreaderScaffolding;
+			case GAIA -> MiscellaneousModels.INSTANCE.gaiaSpreaderScaffolding;
+		};
 	}
 }

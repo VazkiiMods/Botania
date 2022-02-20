@@ -33,9 +33,13 @@ public final class ModSounds {
 	public static final SoundEvent redStringInterceptorClick = makeSoundEvent("red_string_interceptor_click");
 	public static final SoundEvent runeAltarCraft = makeSoundEvent("rune_altar_craft");
 	public static final SoundEvent runeAltarStart = makeSoundEvent("rune_altar_start");
+	public static final SoundEvent spreaderAddLens = makeSoundEvent("spreader_add_lens");
+	public static final SoundEvent spreaderRemoveLens = makeSoundEvent("spreader_remove_lens");
 	public static final SoundEvent spreaderCover = makeSoundEvent("spreader_cover");
-	public static final SoundEvent spreaderFire = makeSoundEvent("spreader_fire");
 	public static final SoundEvent spreaderUncover = makeSoundEvent("spreader_uncover");
+	public static final SoundEvent spreaderScaffold = makeSoundEvent("spreader_scaffold");
+	public static final SoundEvent spreaderUnScaffold = makeSoundEvent("spreader_un_scaffold");
+	public static final SoundEvent spreaderFire = makeSoundEvent("spreader_fire");
 	public static final SoundEvent terrasteelCraft = makeSoundEvent("terrasteel_craft");
 
 	//items, rods, and trinkets

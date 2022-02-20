@@ -523,6 +523,24 @@
 		],
 		"subtitle": "botania.subtitle.smeltRodSimmer"
 	},
+	"spreader_add_lens": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.glass.place"
+			}
+		],
+		"subtitle": "botania.subtitle.spreaderAddLens"
+	},
+	"spreader_remove_lens": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.glass.place"
+			}
+		],
+		"subtitle": "botania.subtitle.spreaderRemoveLens"
+	},
 	"spreader_cover": {
 		"sounds": [
 			{
@@ -532,10 +550,6 @@
 		],
 		"subtitle": "botania.subtitle.spreaderCover"
 	},
-	"spreader_fire": {
-		"sounds": ["botania:spreaderfire"],
-		"subtitle": "botania.subtitle.spreaderFire"
-	},
 	"spreader_uncover": {
 		"sounds": [
 			{
@@ -544,6 +558,28 @@
 			}
 		],
 		"subtitle": "botania.subtitle.spreaderUncover"
+	},
+	"spreader_scaffold": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.scaffolding.place"
+			}
+		],
+		"subtitle": "botania.subtitle.spreaderScaffold"
+	},
+	"spreader_un_scaffold": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.scaffolding.break"
+			}
+		],
+		"subtitle": "botania.subtitle.spreaderUnScaffold"
+	},
+	"spreader_fire": {
+		"sounds": ["botania:spreaderfire"],
+		"subtitle": "botania.subtitle.spreaderFire"
 	},
 	"starcaller": {
 		"sounds": [

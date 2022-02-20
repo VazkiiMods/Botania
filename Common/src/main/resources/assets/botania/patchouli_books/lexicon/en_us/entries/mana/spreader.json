@@ -40,6 +40,10 @@
     {
       "type": "text",
       "text": "botania.page.spreader10"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.spreader12"
     }
   ]
 }
