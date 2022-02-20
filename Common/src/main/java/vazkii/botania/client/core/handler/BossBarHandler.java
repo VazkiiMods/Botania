@@ -9,7 +9,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ public final class BossBarHandler {
 
 	// Only access on the client thread!
 	public static final Set<EntityDoppleganger> bosses = Collections.newSetFromMap(new WeakHashMap<>());
-	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
+	private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(LibResources.GUI_BOSS_BAR);
 
 	public static OptionalInt onBarRender(PoseStack ps, int x, int y, BossEvent bossEvent) {
 		for (EntityDoppleganger currentBoss : bosses) {
@@ -48,7 +48,7 @@ public final class BossBarHandler {
 
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				int playerCountHeight = drawPlayerCount(currentBoss.getPlayerCount(), ps, x, y);
-				RenderSystem.setShaderTexture(0, defaultBossBar);
+				RenderSystem.setShaderTexture(0, BAR_TEXTURE);
 				RenderHelper.drawTexturedModalRect(ps, x, y, frameU, frameV,
 						frameWidth, frameHeight);
 				drawHealthBar(ps, currentBoss, healthX, healthY, healthU, healthV,
@@ -89,8 +89,21 @@ public final class BossBarHandler {
 			shader.safeGetUniform("hpFract").set(currentBoss.getHealth() / currentBoss.getMaxHealth());
 		}
 
-		/* todo set shader */
-		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, w, h);
+		float minU = u / 256.0F;
+		float maxU = (u + w) / 256.0F;
+		float minV = v / 256.0F;
+		float maxV = (v + h) / 256.0F;
+
+		var matrix = ms.last().pose();
+		RenderSystem.setShader(CoreShaders::dopplegangerBar);
+		BufferBuilder builder = Tesselator.getInstance().getBuilder();
+		builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		builder.vertex(matrix, x, y + h, 0).uv(minU, maxV).endVertex();
+		builder.vertex(matrix, x + w, y + h, 0).uv(maxU, maxV).endVertex();
+		builder.vertex(matrix, x + w, y, 0).uv(maxU, minV).endVertex();
+		builder.vertex(matrix, x, y, 0).uv(minU, minV).endVertex();
+		builder.end();
+		BufferUploader.end(builder);
 	}
 
 }

@@ -1,7 +1,7 @@
 #version 150
 
 uniform sampler2D Sampler0;
-uniform int GameTime;
+uniform float GameTime;
 
 uniform vec4 ColorModulator;
 
@@ -47,8 +47,7 @@ void main() {
 
     if(grainIntensity > 0) {
         float gs = rand(vec2(texCoord0.x + time, texCoord0.y));
-        float mult = (1 - grainIntensity) + gs * grainIntensity;
-        newColor *= mult;
+        newColor = mix(newColor, vec3(gs, gs, gs), grainIntensity);
     }
 
     fragColor = vec4(newColor, color.a) * ColorModulator;
