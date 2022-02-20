@@ -205,15 +205,6 @@
   "worldgen.flower.tallChance": "Worldgen lange bloemen kans",
   "worldgen.mushroom.quantity": "Worldgen Paddenstoel hoeveelheid",
 
-  "botania.versioning.outdated": "Je gebruikt Botania versie %s, de laatste versie is %s.",
-  "botania.versioning.updateMessage": "[\"Klik voor... [\",{\"text\":\"Download\",\"color\":\"green\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Hier klikken om automatisch bij te werken naar de laatste versie\",\"color\":\"green\"}},\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest\"}},\"] [\",{\"text\":\"Website\",\"color\":\"green\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Klik hier om naar de website van de mod te gaan\",\"color\":\"green\"}},\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://minecraft.curseforge.com/projects/botania-unofficial\"}},\"] [\",{\"text\":\"Changelog\",\"color\":\"green\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Klik hier om de lijst met wijzigingen te zien\",\"color\":\"green\"}},\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://github.com/williewillus/Botania/releases/tag/%s\"}},\"]\"]",
-  "botania.versioning.startingDownload": "[{\"text\":\"Begin met downloaden van %s. Koppel je hardeschijf niet af. Plezier van \",\"color\":\"aqua\"},{\"text\":\"Botania\",\"color\":\"green\"},{\"text\":\"? Overweeg \",\"color\":\"aqua\"},{\"text\":\"Vazkii\",\"color\":\"light_purple\"},{\"text\":\" te ondersteunen op [\",\"color\":\"aqua\"},{\"text\":\"Patreon\",\"color\":\"gold\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Klik hier om naar Vazkii's Patreon te gaan\",\"color\":\"light_purple\"}},\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://www.patreon.com/Vazkii\"}},{\"text\":\"]!\",\"color\":\"aqua\"}]",
-  "botania.versioning.doneDownloading": "Klaar met downloaden van %s. Verwijder de oude Botania .jar en start het spel opnieuw om bij te werken.",
-  "botania.versioning.downloadedAlready": "De laatste versie is al gedownload. Sluit het spel, verwijder de oude versie uit de mods folder en start het spel opnieuw om bij te werken!",
-  "botania.versioning.downloadingAlready": "De update wordt al gedownload, even geduld alstublieft.",
-  "botania.versioning.error": "Oei! Het lijkt erop dat er iets is misgegaan tijdens het downloaden van de Botania update. Is botaniamod.net uit de lucht?",
-  "botania.versioning.disabled": "Sorry. Deze optie is uitgeschakeld wegens server problemen, het zou binnenkort weer moeten werken.",
-
   "botania.baubletype.amulet": "Te gebruiken in het &aAmulet&7 slot",
   "botania.baubletype.ring": "Te gebruiken in het &aRing&7 slot",
   "botania.baubletype.belt": "Te gebruiken in het &aRiem&7 slot",
