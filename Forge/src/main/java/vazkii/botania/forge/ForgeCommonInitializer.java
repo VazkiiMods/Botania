@@ -204,16 +204,18 @@ public class ForgeCommonInitializer {
 		// Worldgen
 		bind(ForgeRegistries.FEATURES, ModFeatures::registerFeatures);
 		SkyblockChunkGenerator.init();
-		modBus.addGenericListener(ForgeWorldPreset.class, (RegistryEvent.Register<ForgeWorldPreset> e) -> {
-			ForgeWorldPreset preset = new ForgeWorldPreset(SkyblockChunkGenerator::createForWorldType) {
-				@Override
-				public String getTranslationKey() {
-					return "generator.botania-skyblock";
-				}
-			};
-			preset.setRegistryName(prefix("gardenofglass"));
-			e.getRegistry().register(preset);
-		});
+		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+			modBus.addGenericListener(ForgeWorldPreset.class, (RegistryEvent.Register<ForgeWorldPreset> e) -> {
+				ForgeWorldPreset preset = new ForgeWorldPreset(SkyblockChunkGenerator::createForWorldType) {
+					@Override
+					public String getTranslationKey() {
+						return "generator.botania-skyblock";
+					}
+				};
+				preset.setRegistryName(prefix("gardenofglass"));
+				e.getRegistry().register(preset);
+			});
+		}
 
 		// Rest
 		ModCriteriaTriggers.init();
