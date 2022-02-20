@@ -151,6 +151,7 @@ public class MixinLevelRenderer {
 			shift = At.Shift.AFTER,
 			value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/systems/RenderSystem;applyModelViewMatrix()V",
+			remap = false,
 			ordinal = 1 // after debugRenderer, before a long sequence of endBatch calls
 		)
 	)
