@@ -443,8 +443,9 @@ public final class BotaniaAPI {
 	 * @see BotaniaAPI#registerManaInfusionRecipe
 	 */
 	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Object input, int mana) {
-		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
+		RecipeManaInfusion recipe = new RecipeManaInfusion(output, input, mana);
 		recipe.setAlchemy(true);
+		manaInfusionRecipes.add(0, recipe);
 		return recipe;
 	}
 
@@ -454,8 +455,9 @@ public final class BotaniaAPI {
 	 * @see BotaniaAPI#registerManaInfusionRecipe
 	 */
 	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Object input, int mana) {
-		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
+		RecipeManaInfusion recipe = new RecipeManaInfusion(output, input, mana);
 		recipe.setConjuration(true);
+		manaInfusionRecipes.add(0, recipe);
 		return recipe;
 	}
 
