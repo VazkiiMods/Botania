@@ -100,6 +100,13 @@ public class ForgeClientInitializer {
 		bus.addListener((ScreenEvent.KeyboardKeyPressedEvent.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
 
 		// Forge bus events done with Mixins on Fabric
+		bus.addListener((RenderGameOverlayEvent.BossInfo e) -> {
+			var result = BossBarHandler.onBarRender(e.getMatrixStack(), e.getX(), e.getY(), e.getBossEvent());
+			result.ifPresent(increment -> {
+				e.setCanceled(true);
+				e.setIncrement(increment);
+			});
+		});
 		bus.addListener((RenderGameOverlayEvent.Text e) -> DebugHandler.onDrawDebugText(e.getLeft()));
 		bus.addListener((InputEvent.KeyInputEvent e) -> {
 			ItemDodgeRing.ClientLogic.onKeyDown();

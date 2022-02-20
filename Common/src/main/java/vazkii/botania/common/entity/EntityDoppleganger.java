@@ -567,6 +567,10 @@ public class EntityDoppleganger extends Mob {
 		return level.getEntitiesOfClass(Player.class, getArenaBB(source), player -> isTruePlayer(player) && !player.isSpectator());
 	}
 
+	public int getPlayerCount() {
+		return playerCount;
+	}
+
 	private static int countGaiaGuardiansAround(Level world, BlockPos source) {
 		List<EntityDoppleganger> l = world.getEntitiesOfClass(EntityDoppleganger.class, getArenaBB(source));
 		return l.size();
@@ -995,68 +999,9 @@ public class EntityDoppleganger extends Mob {
 		}
 	}
 
-	/* TODO 1.18 custom boss bar
-	public ResourceLocation getBossBarTexture() {
-		return BossBarHandler.defaultBossBar;
-	}
-	
-	public Rect2i getBossBarTextureRect() {
-		return new Rect2i(0, 0, 185, 15);
-	}
-	
-	public Rect2i getBossBarHPTextureRect() {
-		Rect2i barRect = getBossBarTextureRect();
-		return new Rect2i(0, barRect.getY() + barRect.getHeight(), 181, 7);
-	}
-	
-	public int bossBarRenderCallback(PoseStack ms, int x, int y) {
-		ms.pushPose();
-		int px = x + 160;
-		int py = y + 12;
-	
-		Minecraft mc = Minecraft.getInstance();
-		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-		mc.getItemRenderer().renderGuiItem(stack, px, py);
-	
-		mc.font.drawShadow(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
-		ms.popPose();
-	
-		return 5;
-	}
-	
 	public UUID getBossInfoUuid() {
 		return bossInfoUUID;
 	}
-	
-	@Nullable
-	public ShaderHelper.BotaniaShader getBossBarShaderProgram(boolean background) {
-		return background ? null : ShaderHelper.BotaniaShader.DOPPLEGANGER_BAR;
-	}
-	
-	private ShaderCallback shaderCallback;
-	
-	public ShaderCallback getBossBarShaderCallback(boolean background) {
-		if (shaderCallback == null) {
-			shaderCallback = shader1 -> {
-				int grainIntensityUniform = GlStateManager._glGetUniformLocation(shader1, "grainIntensity");
-				int hpFractUniform = GlStateManager._glGetUniformLocation(shader1, "hpFract");
-	
-				float time = getInvulTime();
-				float grainIntensity = time > 20 ? 1F : Math.max(hardMode ? 0.5F : 0F, time / 20F);
-	
-				ShaderHelper.FLOAT_BUF.position(0);
-				ShaderHelper.FLOAT_BUF.put(0, grainIntensity);
-				RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
-	
-				ShaderHelper.FLOAT_BUF.position(0);
-				ShaderHelper.FLOAT_BUF.put(0, getHealth() / getMaxHealth());
-				RenderSystem.glUniform1(hpFractUniform, ShaderHelper.FLOAT_BUF);
-			};
-		}
-	
-		return background ? null : shaderCallback;
-	}
-	*/
 
 	public void readSpawnData(int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUUID) {
 		this.playerCount = playerCount;
