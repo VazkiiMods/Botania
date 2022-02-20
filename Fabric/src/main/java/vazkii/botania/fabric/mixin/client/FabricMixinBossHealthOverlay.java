@@ -19,7 +19,7 @@ public class FabricMixinBossHealthOverlay {
 		// todo fabric hack: pass drawName=false because it's not easy to disable vanilla's name rendering via mixin
 		var increment = BossBarHandler.onBarRender(poseStack, x, y, bossEvent, false);
 		if (increment.isPresent()) {
-			// todo fabric no clean way of communicating increment to outer code, and we double-draw
+			// todo fabric no clean way of communicating increment to outer code
 			ci.cancel();
 		}
 
