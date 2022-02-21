@@ -315,11 +315,13 @@ public class ForgeCommonInitializer {
 		});
 
 		// Below here are events implemented via Mixins on the Fabric side, ordered by Mixin name
+		// FabricMixinAnvilMenu
 		bus.addListener((AnvilUpdateEvent e) -> {
 			if (ItemSpellCloth.shouldDenyAnvil(e.getLeft(), e.getRight())) {
 				e.setCanceled(true);
 			}
 		});
+		// FabricMixinAxeItem
 		bus.addListener((BlockEvent.BlockToolInteractEvent e) -> {
 			if (e.getToolAction() == ToolActions.AXE_STRIP) {
 				BlockState input = e.getState();
@@ -329,6 +331,7 @@ public class ForgeCommonInitializer {
 				}
 			}
 		});
+		// FabricMixinEnderMan
 		bus.addListener((EntityTeleportEvent.EnderEntity e) -> {
 			if (e.getEntityLiving() instanceof EnderMan em) {
 				var newPos = SubTileVinculotus.onEndermanTeleport(em, e.getTargetX(), e.getTargetY(), e.getTargetZ());
@@ -339,32 +342,38 @@ public class ForgeCommonInitializer {
 				}
 			}
 		});
+		// FabricMixinExplosion
 		bus.addListener((ExplosionEvent e) -> {
 			if (ItemGoddessCharm.shouldProtectExplosion(e.getWorld(), e.getExplosion().getPosition())) {
 				e.getExplosion().clearToBlow();
 			}
 		});
+		// FabricMixinItemEntity
 		bus.addListener((EntityItemPickupEvent e) -> {
 			if (ItemFlowerBag.onPickupItem(e.getItem(), e.getPlayer())) {
 				e.setCanceled(true);
 			}
 		});
-		bus.addListener((LivingDropsEvent e) -> {
-			var living = e.getEntityLiving();
-			ItemElementiumAxe.onEntityDrops(e.isRecentlyHit(), e.getSource(), e.getEntityLiving(), stack -> {
-				var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
-				ent.setDefaultPickUpDelay();
-				e.getDrops().add(ent);
+		// FabricMixinLivingEntity
+		{
+			bus.addListener((LivingDropsEvent e) -> {
+				var living = e.getEntityLiving();
+				ItemElementiumAxe.onEntityDrops(e.isRecentlyHit(), e.getSource(), e.getEntityLiving(), stack -> {
+					var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
+					ent.setDefaultPickUpDelay();
+					e.getDrops().add(ent);
+				});
+				SubTileLoonuim.dropLooniumItems(living, stack -> {
+					e.getDrops().clear();
+					var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
+					ent.setDefaultPickUpDelay();
+					e.getDrops().add(ent);
+				});
 			});
-			SubTileLoonuim.dropLooniumItems(living, stack -> {
-				e.getDrops().clear();
-				var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
-				ent.setDefaultPickUpDelay();
-				e.getDrops().add(ent);
-			});
-		});
-		bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntityLiving()));
-		{ // todo missing rest of FabricMixinPlayer. remove braces when done.
+			bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntityLiving()));
+		}
+		// FabricMixinPlayer (TODO incomplete)
+		{
 			bus.addListener((LivingAttackEvent e) -> {
 				if (e.getEntityLiving() instanceof Player player
 						&& ItemOdinRing.onPlayerAttacked(player, e.getSource())) {
@@ -414,7 +423,9 @@ public class ForgeCommonInitializer {
 			});
 
 		}
+		// FabricMixinResultSlot
 		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getPlayer(), e.getInventory()));
+		// FabricMixinServerGamePacketListenerImpl
 		bus.addListener(EventPriority.HIGH, (ServerChatEvent e) -> {
 			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage())) {
 				e.setCanceled(true);
