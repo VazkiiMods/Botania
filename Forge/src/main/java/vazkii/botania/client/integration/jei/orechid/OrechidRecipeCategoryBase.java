@@ -45,16 +45,14 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 	private final IDrawableStatic overlay;
 	private final IDrawable icon;
 	private final ItemStack iconStack;
-	private final ItemStack inputStack;
 
-	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, ItemStack inputStack, Component localizedName) {
+	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, Component localizedName) {
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
 		background = guiHelper.createBlankDrawable(96, 44);
 		this.localizedName = localizedName;
 		this.icon = guiHelper.createDrawableIngredient(iconStack);
 		this.iconStack = iconStack;
-		this.inputStack = inputStack;
 	}
 
 	@Nonnull
@@ -77,7 +75,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 
 	@Override
 	public void setIngredients(IOrechidRecipe recipe, IIngredients ingredients) {
-		ingredients.setInput(VanillaTypes.ITEM, inputStack);
+		ingredients.setInput(VanillaTypes.ITEM, new ItemStack(recipe.getInput(), 64));
 
 		final int myWeight = recipe.getWeight();
 		final int amount = Math.max(1, Math.round((float) myWeight * 64 / getTotalOreWeight(getOreWeights(recipe.getInput()), myWeight)));

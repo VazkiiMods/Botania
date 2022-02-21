@@ -1,11 +1,3 @@
-/*
- * This class is distributed as part of the Botania Mod.
- * Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- */
 package vazkii.botania.client.integration.jei.orechid;
 
 import mezz.jei.api.helpers.IGuiHelper;
@@ -18,17 +10,17 @@ import net.minecraft.world.item.crafting.RecipeType;
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.crafting.RecipeOrechid;
+import vazkii.botania.common.crafting.RecipeMarimorphosis;
 
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class OrechidRecipeCategory extends OrechidRecipeCategoryBase {
-	public static final ResourceLocation UID = prefix("orechid");
+public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase {
+	public static final ResourceLocation UID = prefix("marimorphosis");
 
-	public OrechidRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(ModSubtiles.orechid), new TranslatableComponent("botania.nei.orechid"));
+	public MarimorphosisRecipeCategory(IGuiHelper guiHelper) {
+		super(guiHelper, new ItemStack(ModSubtiles.marimorphosis), new TranslatableComponent("botania.nei.marimorphosis"));
 	}
 
 	@Nonnull
@@ -40,11 +32,11 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase {
 	@Nonnull
 	@Override
 	public Class<? extends IOrechidRecipe> getRecipeClass() {
-		return RecipeOrechid.class;
+		return RecipeMarimorphosis.class;
 	}
 
 	@Override
 	protected RecipeType<? extends IOrechidRecipe> recipeType() {
-		return ModRecipeTypes.ORECHID_TYPE;
+		return ModRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
 }

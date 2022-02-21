@@ -46,6 +46,7 @@ import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
+import vazkii.botania.client.integration.jei.orechid.MarimorphosisRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
@@ -114,6 +115,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				new BreweryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new MarimorphosisRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new TerraPlateRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 		);
 	}
@@ -138,6 +140,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		Comparator<IOrechidRecipe> comp = BY_INPUT.thenComparing(BY_WEIGHT).thenComparing(BY_ID);
 		registry.addRecipes(sortRecipes(ModRecipeTypes.ORECHID_TYPE, comp), OrechidRecipeCategory.UID);
 		registry.addRecipes(sortRecipes(ModRecipeTypes.ORECHID_IGNEM_TYPE, comp), OrechidIgnemRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.MARIMORPHOSIS_TYPE, comp), MarimorphosisRecipeCategory.UID);
 	}
 
 	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
@@ -194,6 +197,10 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidFloating), OrechidRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnem), OrechidIgnemRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnemFloating), OrechidIgnemRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosis), MarimorphosisRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisChibi), MarimorphosisRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisFloating), MarimorphosisRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisChibiFloating), MarimorphosisRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisy), PureDaisyRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.UID);
 
