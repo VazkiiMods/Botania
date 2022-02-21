@@ -294,7 +294,7 @@ public class ForgeCommonInitializer {
 		bus.addListener((ServerAboutToStartEvent e) -> this.serverAboutToStart(e.getServer()));
 		bus.addListener((ServerStoppingEvent e) -> this.serverStopping(e.getServer()));
 		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ItemFlightTiara.playerLoggedOut((ServerPlayer) e.getPlayer()));
-		bus.addListener((PlayerEvent.PlayerRespawnEvent e) -> ItemKeepIvy.onPlayerRespawn(e.getPlayer(), e.getPlayer(), e.isEndConquered())); // TODO: This is probably incorrect
+		bus.addListener((PlayerEvent.Clone e) -> ItemKeepIvy.onPlayerRespawn(e.getOriginal(), e.getPlayer(), !e.isWasDeath()));
 		bus.addListener((TickEvent.WorldTickEvent e) -> {
 			if (e.phase == TickEvent.Phase.END && e.world instanceof ServerLevel level) {
 				CommonTickHandler.onTick(level);
@@ -408,7 +408,6 @@ public class ForgeCommonInitializer {
 					e.setDistance(ItemTravelBelt.onPlayerFall(player, e.getDistance()));
 				}
 			});
-			// todo keepivy
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
 				Event.Result result = e.getResult();
 				if (e.getPlayer().level.isClientSide

@@ -36,7 +36,7 @@ public class ItemKeepIvy extends Item {
 	}
 
 	// Accessories are handled in the integration code
-	public static void onPlayerDrops(Player player) {
+	public static void keepDropsOnDeath(Player player) {
 		List<ItemStack> keeps = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stack = player.getInventory().getItem(i);
@@ -46,10 +46,8 @@ public class ItemKeepIvy extends Item {
 			}
 		}
 
-		if (keeps.size() > 0) {
-			KeptItemsComponent data = IXplatAbstractions.INSTANCE.keptItemsComponent(player);
-			data.addAll(keeps);
-		}
+		KeptItemsComponent data = IXplatAbstractions.INSTANCE.keptItemsComponent(player);
+		data.addAll(keeps);
 	}
 
 	public static void onPlayerRespawn(Player oldPlayer, Player newPlayer, boolean alive) {

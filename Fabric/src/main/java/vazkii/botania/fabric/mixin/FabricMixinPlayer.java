@@ -36,7 +36,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
-import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.bauble.*;
@@ -128,11 +127,6 @@ public abstract class FabricMixinPlayer extends LivingEntity {
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;setLastHurtMob(Lnet/minecraft/world/entity/Entity;)V"), method = "attack")
 	private void onAttack(Entity target, CallbackInfo ci) {
 		ItemDivaCharm.onEntityDamaged((Player) (Object) this, target);
-	}
-
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;dropAll()V"), method = "dropEquipment")
-	private void keepIvy(CallbackInfo ci) {
-		ItemKeepIvy.onPlayerDrops((Player) (Object) this);
 	}
 
 	// Multiply the damage on crit. Targets the first float LOAD after the sprint check for the crit.

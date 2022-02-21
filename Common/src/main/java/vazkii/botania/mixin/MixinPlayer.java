@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
 @Mixin(Player.class)
@@ -73,5 +74,13 @@ public abstract class MixinPlayer extends LivingEntity implements PlayerAccess {
 	)
 	private void clearCritTarget(CallbackInfo ci) {
 		this.terraWillCritTarget = null;
+	}
+
+	@Inject(
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;dropAll()V"),
+		method = "dropEquipment"
+	)
+	private void captureIvyDrops(CallbackInfo ci) {
+		ItemKeepIvy.keepDropsOnDeath((Player) (Object) this);
 	}
 }
