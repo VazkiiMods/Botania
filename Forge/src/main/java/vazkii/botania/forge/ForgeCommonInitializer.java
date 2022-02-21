@@ -372,7 +372,7 @@ public class ForgeCommonInitializer {
 			});
 			bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntityLiving()));
 		}
-		// FabricMixinPlayer (TODO incomplete)
+		// FabricMixinPlayer
 		{
 			bus.addListener((LivingAttackEvent e) -> {
 				if (e.getEntityLiving() instanceof Player player
