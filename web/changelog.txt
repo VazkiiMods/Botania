@@ -1,7 +1,6 @@
 1.18.1-428
 * <b>Initial release for Forge on 1.18.1</b>, supporting both Fabric and Forge using the groundwork laid by Jared and Darkhax in the <a href="https://github.com/jaredlll08/MultiLoader-Template">MultiLoader template</a>.
-* This involved a lot of internal changes - please report any regression from the previous
-1.18 Fabric release and from 1.16 releases (team)
+* This involved a lot of internal changes - please report any regression from the previous 1.18 Fabric release and from 1.16 releases (team)
 * Add: Livingwood and Dreamwood now have log variants and a set of new textures (artemisSystem)
 * Add: Spreaders now have smaller hitboxes, which can be expanded by adding scaffolding onto them to allow placing redstone on top of them (artemisSystem)
 * Add: Creative Corporea Spark, which provides its items by copying them
