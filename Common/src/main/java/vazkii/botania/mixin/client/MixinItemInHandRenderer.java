@@ -29,7 +29,7 @@ public class MixinItemInHandRenderer {
 	@Inject(method = "renderItem", at = @At("HEAD"), cancellable = true)
 	private void renderFirstPersonItem(LivingEntity livingEntity, ItemStack stack, ItemTransforms.TransformType transformType,
 			boolean leftHanded, PoseStack poseStack, MultiBufferSource buffers, int light, CallbackInfo ci) {
-		if (RenderLexicon.renderHand(stack, leftHanded, poseStack, buffers, light)) {
+		if (RenderLexicon.renderHand(stack, transformType, leftHanded, poseStack, buffers, light)) {
 			ci.cancel();
 		}
 	}
