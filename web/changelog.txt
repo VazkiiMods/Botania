@@ -1,3 +1,63 @@
+1.18.1-428
+* <b>Initial release for Forge on 1.18.1</b>, supporting both Fabric and Forge using the groundwork laid by Jared and Darkhax in the <a href="https://github.com/jaredlll08/MultiLoader-Template">MultiLoader template</a>.
+* This involved a lot of internal changes - please report any regression from the previous
+1.18 Fabric release and from 1.16 releases (team)
+* Add: Livingwood and Dreamwood now have log variants and a set of new textures (artemisSystem)
+* Add: Spreaders now have smaller hitboxes, which can be expanded by adding scaffolding onto them to allow placing redstone on top of them (artemisSystem)
+* Add: Creative Corporea Spark, which provides its items by copying them
+* Add: Fallen Kanade's regen applies to pets
+* Add: Rod of the Seas can now be used like bundles to refill empty buckets in inventory
+* Change: Orechid now produces rare ores more often from deepslate, which can now be produced from end stone purification (artemisSystem)
+* Change: Rebalance Rafflowsia around Orechid diamond production and extend the max streak to the maximum amount of existing flowers (artemisSystem)
+* Change: Remove Pestle and Mortar (artemisSystem)
+* Change: Allow Corporea Interceptors to intercept any failed request (artemisSystem)
+* Change: Blacklisted some items from the Modern Industrialization duplicator
+* Change: Make recipes for cracked and mossy things vanilla-consistent (artemisSystem)
+* Change: Most inventory interactions now use loader-specifc inventory APIs
+* Change: Managlass, Alfglass and Bifrost blocks and panes are now tagged as glass
+* Change: Move Elementium Axe beheading to a loot table, and also allow it to receive Looting
+* Change: Obtaining an elven Lexica Botania bypasses most book unlocks, and picking up a later step unlocks everything the previous ones did
+* Change: On Fabric, Mana Fluxfield now produces Tech Reborn energy if that API is present
+* Change: Prioritize blocks held in offhand over mana tools' block placement
+* Change: Rod of Shaded Mesa now works on players
+* Change: Soulscribe can now be repaired in anvils
+* Fix: A few lenses refusing to autofire bursts in certain positions
+* Fix: Add Botania pickaxes to "cluster_max_harvestables" tag (artemisSystem)
+* Fix: Alfheim portal not allowing waterlogged pylons
+* Fix: Bergamute horn prevention not working on servers
+* Fix: Bergamute muting effect not distinguishing dimensions
+* Fix: Change insertion check for Lithium compat
+* Fix: Endoflames using the wrong delay check
+* Fix: Fail the interaction properly when Shard of Laputa checks don't pass
+* Fix: GUI overlays (eg. mana bar) rendering if the GUI is hidden in some circumstances
+* Fix: Gaia Guardian not using the custom boss bar (on Fabric, the bar may still overlap
+with other boss-bars on screen)
+* Fix: GoG skybox planet rendering (UltrusBot)
+* Fix: Hopperhock inserting into the wrong side (atakle)
+* Fix: Life Aggregator not working
+* Fix: Luminizer bounding boxes never updating
+* Fix: Mana Prism eating right clicks even it nothing happened (artemisSystem)
+* Fix: Many particles on flowers not using the block offset
+* Fix: No sound/particles when mining with the shatterer/truncator
+* Fix: One Mana Bottle effect now picks a health value dependent on the entity max health
+* Fix: REI catalysts for crafting missing the crafting halos
+* Fix: Rafflowsia NBT writing full registry keys instead of just flower block IDs
+* Fix: Rannuncarpus trying to place even if IFlowerPlaceable worked
+* Fix: Requesting 'all *' with the Corporea Index
+* Fix: Rod of Shifting Crust wireframe mismatching the actual area sometimes
+* Fix: Some buggy behaviors of fake mana bursts
+* Fix: Some item interactions not ignoring dead entities
+* Fix: Some miscellaneous block entity state changes not marking the chunk as changed
+* Fix: Some trinket/curio renderers missing
+* Fix: Soulscribe repairing itself with mana
+* Fix: Spawning strays with the loonium crashing
+* Fix: Spreader binding inconsistency when binding to blocks with smaller hitboxes, eg. skulls attached to different block faces
+* Fix: Terra Blade burst spawning being very unreliable
+* Fix: Terra Shatterer AoE voiding blocks it can't mine
+* Fix: Various world height related bugs
+* Fix: Weight and Bore lens harvest level checks
+* Fix: Weight lens working on blocks that cannot be silk touched. (Blocks can be added to the tag "botania:weight_lens_whitelist" to bypass this check.)
+* Fix: World overlays not rendering on fabulous mode
 1.18.1-427
 * Fix: Crash on mixin application on client
 * Fix: Crash with Rod of Unstable Reservoir targetting certain entities
@@ -50,7 +110,10 @@
 * Fix: After years of being broken, reimplement lightning bolts using Mekanism's code. Still some rough edges to work out.
 * Fix: Adjust some lens models to prevent Z-fighting (artemisSystem)
 * Fix: Refactor and overall improve binding logic, preventing various directionality bugs with flower binding range (quat)
-1.16.5-421
+1.16.5-420.2
+* Fix: Mixin conflict with SpongeForge
+* Fix: Bergamute horn prevention not working on servers
+1.16.5-420.1
 * Info: Barring hotfixes, this will be the final update for Botania Forge 1.16. Thanks for your support!
 * Change: Horns and Drums will not break blocks when in range of an active Bergamute (Alwinfy)
 * Change/Fix: Narslimmus buffer was too small to hold all the mana from large slimes. Reported by million09.
