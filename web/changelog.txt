@@ -29,8 +29,7 @@
 * Fix: Endoflames using the wrong delay check
 * Fix: Fail the interaction properly when Shard of Laputa checks don't pass
 * Fix: GUI overlays (eg. mana bar) rendering if the GUI is hidden in some circumstances
-* Fix: Gaia Guardian not using the custom boss bar (on Fabric, the bar may still overlap
-with other boss-bars on screen)
+* Fix: Gaia Guardian not using the custom boss bar (on Fabric, the bar may still overlap with other boss-bars on screen)
 * Fix: GoG skybox planet rendering (UltrusBot)
 * Fix: Hopperhock inserting into the wrong side (atakle)
 * Fix: Life Aggregator not working
