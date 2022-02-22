@@ -73,7 +73,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(builder::add);
 
-		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), cacophonium, divaCharm,
+		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), monocle);
 		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
