@@ -2329,7 +2329,7 @@
   "botania.page.manaAlchemy18": "Creating $(item)Ender Pearls$(0)",
   "botania.page.manaAlchemy19": "Converting between $(item)Glowstone$(0) and $(item)Redstone$(0)",
   "botania.page.manaAlchemy20": "Breaking $(item)Cobblestone$(0) into $(item)Sand$(0)",
-  "botania.page.manaAlchemy21": "Breaking $(item)Hardened Clay$(0) into $(item)Red Sand$(0)",
+  "botania.page.manaAlchemy21": "Breaking $(item)Terracotta$(0) into $(item)Red Sand$(0)",
   "botania.page.manaAlchemy22": "Breaking down $(item)Clay$(0) and $(item)Bricks$(0)",
   "botania.page.manaAlchemy23": "Making $(item)Coarse Dirt$(0)",
   "botania.page.manaAlchemy24": "Transmuting $(item)Tall Grasses$(0)",
