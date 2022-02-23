@@ -16,8 +16,8 @@ import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class DelayHelper {
-	private static final int FUNCTIONAL_INHERENT_DELAY = 60;
-	private static final int GENERATING_INHERENT_DELAY = FUNCTIONAL_INHERENT_DELAY - 1;
+	public static final int FUNCTIONAL_INHERENT_DELAY = 60;
+	public static final int GENERATING_INHERENT_DELAY = FUNCTIONAL_INHERENT_DELAY - 1;
 
 	/**
 	 * Like {@link #canInteractWith}, but does not use inherent delay
