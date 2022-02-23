@@ -1,0 +1,43 @@
+{
+    DataVersion: 2865,
+    size: [5, 5, 5],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [0, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [0, 0, 2], state: "minecraft:polished_andesite"},
+        {pos: [0, 0, 3], state: "minecraft:polished_andesite"},
+        {pos: [0, 0, 4], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 2], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 3], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 4], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 2], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 3], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 4], state: "minecraft:polished_andesite"},
+        {pos: [3, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [3, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [3, 0, 2], state: "minecraft:stone"},
+        {pos: [3, 0, 3], state: "minecraft:polished_andesite"},
+        {pos: [3, 0, 4], state: "minecraft:polished_andesite"},
+        {pos: [4, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [4, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [4, 0, 2], state: "minecraft:polished_andesite"},
+        {pos: [4, 0, 3], state: "minecraft:polished_andesite"},
+        {pos: [4, 0, 4], state: "minecraft:polished_andesite"},
+        {pos: [2, 1, 2], state: "minecraft:stone"},
+        {pos: [3, 1, 2], state: "minecraft:air"},
+        {pos: [2, 2, 2], state: "botania:floating_rannuncarpus_chibi{waterlogged:false}", nbt: {floating: {islandType: "GRASS"}, id: "botania:rannuncarpus_chibi", mana: 0, stateSensitive: 0b, ticksExisted: 6972}}
+    ],
+    entities: [
+        {blockPos: [2, 2, 2], pos: [2.5d, 2.03125d, 2.5d], nbt: {Air: 300s, Facing: 1b, FallDistance: 0.0f, Fire: -1s, Fixed: 0b, Invisible: 0b, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], OnGround: 0b, PortalCooldown: 0, Pos: [63.5d, 67.03125d, 259.5d], Rotation: [0.0f, -90.0f], TileX: 63, TileY: 67, TileZ: 259, UUID: [I; -80474638, -498315888, -2132965157, -1185783300], id: "minecraft:item_frame"}}
+    ],
+    palette: [
+        "minecraft:polished_andesite",
+        "minecraft:stone",
+        "minecraft:air",
+        "botania:floating_rannuncarpus_chibi{waterlogged:false}"
+    ]
+}
