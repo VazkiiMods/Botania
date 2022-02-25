@@ -26,5 +26,15 @@ jobs:
       run: ./gradlew pmdMain spotlessJavaCheck build
     - name: Run GameTests (Fabric)
       run: ./gradlew :Fabric:runGameTest
+    - name: Archive Fabric Binaries
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabric
+        path: Fabric/build/libs/*.jar
+    - name: Archive Forge Binaries
+      uses: actions/upload-artifact@v2
+      with:
+        name: Forge
+        path: Forge/build/libs/*.jar
     - name: Cleanup
       run: ./gradlew --stop
