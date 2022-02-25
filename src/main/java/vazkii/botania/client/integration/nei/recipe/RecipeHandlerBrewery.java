@@ -131,7 +131,7 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 				continue;
 
 			CachedBreweryRecipe crecipe = new CachedBreweryRecipe(recipe);
-			if(crecipe.contains(crecipe.inputs, ingredient))
+			if(crecipe.containsWithNBT(crecipe.inputs, ingredient))
 				arecipes.add(crecipe);
 		}
 	}
