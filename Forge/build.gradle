@@ -112,6 +112,10 @@ compileJava {
     options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
 }
 
+sourcesJar {
+    from project(":Common").sourceSets.main.allJava
+}
+
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
@@ -143,8 +147,10 @@ jar {
 
 task apiJar(type: Jar, dependsOn: classes) {
     // Sources included because of MinecraftForge/ForgeGradle#369
+    from project(":Common").sourceSets.main.allJava
     from(sourceSets.main.allJava)
     from(sourceSets.main.output)
+
     include 'vazkii/botania/api/**'
 
     archiveClassifier = 'api'

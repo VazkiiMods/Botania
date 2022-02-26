@@ -133,6 +133,10 @@ compileJava {
 
 }
 
+sourcesJar {
+    from project(":Common").sourceSets.main.allJava
+}
+
 processResources {
     from project(":Common").sourceSets.main.resources
     inputs.property "version", project.version
