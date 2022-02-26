@@ -1,3 +1,11 @@
+1.18.1-429
+* Add: You can now filter what the Rannuncarpus picks up by placing item frames on the block below the dirt
+* Change: Corporea requests are now capped at 65536 items
+* Change: "Invader Girl" advancement now requires the maximum of 65536 items
+* Change: Remove Cacophonium from piglin_loved tag as it's now crafted with copper
+* Fix: Terrasteel being :uncraftable: on Fabric
+* Fix: Rare client crash when using the Exchange rod
+* Dev: Fix xplat code not being included into loader-specific source jars
 1.18.1-428
 * <b>Initial release for Forge on 1.18.1</b>, supporting both Fabric and Forge using the groundwork laid by Jared and Darkhax in the <a href="https://github.com/jaredlll08/MultiLoader-Template">MultiLoader template</a>.
 * This involved a lot of internal changes - please report any regression from the previous 1.18 Fabric release and from 1.16 releases (team)
