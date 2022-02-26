@@ -96,8 +96,8 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		if (blockState.getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
 			return SHAPE_SCAFFOLDING;
 		}
-		TileSpreader spreader = (TileSpreader) blockGetter.getBlockEntity(blockPos);
-		return spreader != null && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
+		BlockEntity be = blockGetter.getBlockEntity(blockPos);
+		return be instanceof TileSpreader spreader && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
 	}
 
 	@Nonnull
