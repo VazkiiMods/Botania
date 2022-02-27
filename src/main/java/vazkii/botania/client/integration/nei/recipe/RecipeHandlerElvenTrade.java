@@ -23,6 +23,7 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 
@@ -131,7 +132,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 				if(recipe == null)
 					continue;
 
-				if(NEIServerUtils.areStacksSameTypeCraftingWithNBT(recipe.getOutput(), result))
+				if(ItemNBTHelper.areStacksSameTypeCraftingWithNBT(recipe.getOutput(), result))
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 			}
 		}
@@ -145,7 +146,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 					continue;
 
 				CachedElvenTradeRecipe crecipe = new CachedElvenTradeRecipe(recipe);
-				if(crecipe.containsWithNBT(crecipe.inputs, ingredient))
+				if(ItemNBTHelper.cachedRecipeContainsWithNBT(crecipe.inputs, ingredient))
 					arecipes.add(crecipe);
 			}
 		}

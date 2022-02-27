@@ -13,9 +13,16 @@
  */
 package vazkii.botania.common.core.helper;
 
+import codechicken.nei.PositionedStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.oredict.OreDictionary;
+
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Set;
 
 public final class ItemNBTHelper {
 
@@ -136,4 +143,100 @@ public final class ItemNBTHelper {
 		return verifyExistance(stack, tag) ? getNBT(stack).getTagList(tag, objtype) : nullifyOnFail ? null : new NBTTagList();
 	}
 
+	// Utils ///////////////////////////////////////////////////////////////////
+
+	/**
+	 * NBT-friendly version of {@link codechicken.nei.NEIServerUtils#areStacksSameType(ItemStack, ItemStack)}
+	 * @param stack1 The {@link ItemStack} being compared.
+	 * @param stack2 The {@link ItemStack} to compare to.
+	 * @return whether the two items are the same in terms of itemID, damage and NBT.
+	 */
+	public static boolean areStacksSameTypeWithNBT(ItemStack stack1, ItemStack stack2) {
+		return stack1 != null && stack2 != null &&
+				stack1.getItem() == stack2.getItem() &&
+				(!stack2.getHasSubtypes() || stack2.getItemDamage() == stack1.getItemDamage()) &&
+				matchTag(stack1.getTagCompound(), stack2.getTagCompound());
+	}
+
+	/**
+	 * NBT-friendly version of {@link codechicken.nei.NEIServerUtils#areStacksSameTypeCrafting(ItemStack, ItemStack)}
+	 * @param stack1 The {@link ItemStack} being compared.
+	 * @param stack2 The {@link ItemStack} to compare to.
+	 * @return whether the two items are the same from the perspective of a crafting inventory.
+	 */
+	public static boolean areStacksSameTypeCraftingWithNBT(ItemStack stack1, ItemStack stack2) {
+		return stack1 != null && stack2 != null &&
+				stack1.getItem() == stack2.getItem() &&
+				(
+						stack1.getItemDamage() == stack2.getItemDamage() ||
+								stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE ||
+								stack2.getItemDamage() == OreDictionary.WILDCARD_VALUE ||
+								stack1.getItem().isDamageable()
+				) &&
+				matchTag(stack1.getTagCompound(), stack2.getTagCompound());
+	}
+
+	/**
+	 * Returns true if the `target` tag contains all of the tags and values present in the `template` tag. Recurses into
+	 * compound tags and matches all template keys and values; recurses into list tags and matches the template against
+	 * the first elements of target. Empty lists and compounds in the template will match target lists and compounds of
+	 * any size.
+	 */
+	public static boolean matchTag(@Nullable NBTBase template, @Nullable NBTBase target) {
+		if (template instanceof NBTTagCompound && target instanceof NBTTagCompound) {
+			return matchTagCompound((NBTTagCompound) template, (NBTTagCompound) target);
+		} else if (template instanceof NBTTagList && target instanceof NBTTagList) {
+			return matchTagList((NBTTagList) template, (NBTTagList) target);
+		} else {
+			return template == null || (target != null && target.equals(template));
+		}
+	}
+
+	private static boolean matchTagCompound(NBTTagCompound template, NBTTagCompound target) {
+		if (template.tagMap.size() > target.tagMap.size()) return false;
+
+		//noinspection unchecked
+		for (String key : (Set<String>) template.func_150296_c()) {
+			if (!matchTag(template.getTag(key), target.getTag(key))) return false;
+		}
+
+		return true;
+	}
+
+	private static boolean matchTagList(NBTTagList template, NBTTagList target) {
+		if (template.tagCount() > target.tagCount()) return false;
+
+		for (int i = 0; i < template.tagCount(); i++) {
+			if (!matchTag(get(template, i), get(target, i))) return false;
+		}
+
+		return true;
+	}
+
+	private static NBTBase get(NBTTagList tag, int idx)
+	{
+		return idx >= 0 && idx < tag.tagList.size() ? (NBTBase)tag.tagList.get(idx) : null;
+	}
+
+	/**
+	 * NBT-friendly version of {@link codechicken.nei.recipe.TemplateRecipeHandler.CachedRecipe#contains(Collection, ItemStack)}
+	 */
+	public static boolean cachedRecipeContainsWithNBT(Collection<PositionedStack> ingredients, ItemStack ingredient) {
+		for (PositionedStack stack : ingredients)
+			if (positionedStackContainsWithNBT(stack, ingredient))
+				return true;
+
+		return false;
+	}
+
+	/**
+	 * NBT-friendly version of {@link codechicken.nei.PositionedStack#contains(ItemStack)}
+	 */
+	public static boolean positionedStackContainsWithNBT(PositionedStack stack, ItemStack ingredient) {
+		for(ItemStack item : stack.items)
+			if(areStacksSameTypeCraftingWithNBT(item, ingredient))
+				return true;
+
+		return false;
+	}
 }
