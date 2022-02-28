@@ -26,6 +26,8 @@ jobs:
       run: ./gradlew pmdMain spotlessJavaCheck build
     - name: Run GameTests (Fabric)
       run: ./gradlew :Fabric:runGameTest
+    - name: Check lang files
+      run: ./scripts/check_lang.sh
     - name: Archive Fabric Binaries
       uses: actions/upload-artifact@v2
       with:
