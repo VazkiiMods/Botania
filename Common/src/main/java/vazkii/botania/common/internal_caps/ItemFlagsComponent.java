@@ -15,7 +15,7 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 
 // Component for misc internal Botania flags
-public abstract class ItemFlagsComponent extends SerializableComponent {
+public class ItemFlagsComponent extends SerializableComponent {
 	public boolean spectranthemumTeleported = false;
 	public boolean alfPortalSpawned = false;
 	public boolean apothecarySpawned = false;

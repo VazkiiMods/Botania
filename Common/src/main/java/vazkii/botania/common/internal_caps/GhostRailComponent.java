@@ -12,7 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.block.BlockGhostRail;
 
-public abstract class GhostRailComponent extends SerializableComponent {
+public class GhostRailComponent extends SerializableComponent {
 	public int floatTicks = 0;
 
 	@Override
