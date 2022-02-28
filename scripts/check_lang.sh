@@ -14,4 +14,6 @@ done
 if [ "${FAILED}" -ne 0 ]
 then
     exit 1
+else
+    echo "Lang files ok"
 fi
