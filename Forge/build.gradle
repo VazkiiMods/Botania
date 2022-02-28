@@ -93,7 +93,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-39.0.58"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-39.0.88"
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
