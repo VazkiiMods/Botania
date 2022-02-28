@@ -269,7 +269,8 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public ItemFlagsComponent itemFlagsComponent(ItemEntity item) {
-		return item.getCapability(ForgeInternalEntityCapabilities.INTERNAL_ITEM).orElseThrow(IllegalStateException::new);
+		// If missing, just give a fresh instance - works around Create's Ponder fake world
+		return item.getCapability(ForgeInternalEntityCapabilities.INTERNAL_ITEM).orElseGet(ItemFlagsComponent::new);
 	}
 
 	@Override
