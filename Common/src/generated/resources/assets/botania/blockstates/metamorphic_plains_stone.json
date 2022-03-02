@@ -1,7 +1,20 @@
 {
   "variants": {
-    "": {
-      "model": "botania:block/metamorphic_plains_stone"
-    }
+    "": [
+      {
+        "model": "botania:block/metamorphic_plains_stone"
+      },
+      {
+        "model": "botania:block/metamorphic_plains_stone_mirrored"
+      },
+      {
+        "model": "botania:block/metamorphic_plains_stone",
+        "y": 180
+      },
+      {
+        "model": "botania:block/metamorphic_plains_stone_mirrored",
+        "y": 180
+      }
+    ]
   }
 }

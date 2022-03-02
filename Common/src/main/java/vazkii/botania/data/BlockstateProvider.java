@@ -23,10 +23,7 @@ import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.blockstates.VariantProperties;
-import net.minecraft.data.models.model.ModelTemplate;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
@@ -524,7 +521,7 @@ public class BlockstateProvider implements DataProvider {
 
 			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
 			Block base = Registry.BLOCK.getOptional(baseId).get();
-			cubeAll(base);
+			rotatedMirroredVariantBlock(base);
 
 			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
 			Block cobble = Registry.BLOCK.getOptional(cobbleId).get();
@@ -858,6 +855,12 @@ public class BlockstateProvider implements DataProvider {
 	protected void cubeAll(Block b) {
 		var model = ModelTemplates.CUBE_ALL.create(b, TextureMapping.cube(b), this.modelOutput);
 		singleVariantBlockState(b, model);
+	}
+
+	protected void rotatedMirroredVariantBlock(Block block) {
+		ResourceLocation model = TexturedModel.CUBE.create(block, this.modelOutput);
+		ResourceLocation mirroredModel = TexturedModel.CUBE_MIRRORED.create(block, this.modelOutput);
+		this.blockstates.add(AccessorBlockModelGenerators.createRotatedVariant(block, model, mirroredModel));
 	}
 
 	protected void singleVariantBlockState(Block b, ResourceLocation model) {
