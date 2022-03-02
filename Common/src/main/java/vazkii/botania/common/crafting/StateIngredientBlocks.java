@@ -82,7 +82,7 @@ public class StateIngredientBlocks implements StateIngredient {
 	}
 
 	@Nonnull
-	protected List<Block> getBlocks() {
+	public List<Block> getBlocks() {
 		return blocks.asList();
 	}
 

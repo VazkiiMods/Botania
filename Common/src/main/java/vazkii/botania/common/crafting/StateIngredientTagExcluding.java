@@ -92,7 +92,7 @@ public class StateIngredientTagExcluding extends StateIngredientTag {
 
 	@NotNull
 	@Override
-	protected List<Block> getBlocks() {
+	public List<Block> getBlocks() {
 		return super.getBlocks().stream()
 				.filter(b -> isNotExcluded(b.defaultBlockState()))
 				.toList();
