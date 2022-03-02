@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.mIntro",
   "category": "botania:mana",
-  "icon": "minecraft:air",
+  "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "advancement": "botania:main/pure_daisy_pickup",
   "pages": [

@@ -2154,7 +2154,7 @@
 
   "botania.entry.vinculotus": "Vinculotus",
   "botania.tagline.vinculotus": "Intercepts Enderman teleportation",
-  "botania.page.vinculotus0": "The $(item)Vinculotus$(0) uses $(5)Mana$(0) to hijack the powers of any $(thing)Enderman$(0) within a large radius around it. Whenever an $(thing)Enderman$(0) attempts a teleport within said radius, it's instead forced to the location of the $(item)Vinculotus$(0).",
+  "botania.page.vinculotus0": "The $(item)Vinculotus$(0) uses $(thing)Mana$(0) to hijack the powers of any $(thing)Enderman$(0) within a large radius around it. Whenever an $(thing)Enderman$(0) attempts a teleport within said radius, it's instead forced to the location of the $(item)Vinculotus$(0).",
   "botania.page.vinculotus1": "$(o)Touch this black lotus with your fingers$().",
 
   "botania.entry.spectranthemum": "Spectranthemum",

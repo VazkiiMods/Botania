@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.fIntro",
   "category": "botania:functional_flowers",
-  "icon": "minecraft:air",
+  "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup_lexicon",
   "pages": [
