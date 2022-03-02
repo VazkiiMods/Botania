@@ -26,6 +26,11 @@ jobs:
       run: ./scripts/check_lang.sh
     - name: Build with Gradle
       run: ./gradlew pmdMain spotlessJavaCheck build
+    - name: PMD report
+      uses: jwgmeligmeyling/pmd-github-action@v1
+      if: failure()
+      with:
+        path: '**/reports/pmd/main.xml'
     - name: Run GameTests (Fabric)
       run: ./gradlew :Fabric:runGameTest
     - name: Archive Fabric Binaries
