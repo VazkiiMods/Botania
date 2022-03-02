@@ -53,7 +53,6 @@ import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 import javax.annotation.Nullable;
@@ -138,7 +137,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 
 		helper.registerFiller(RecipePetals.class, PetalApothecaryREIDisplay::new);
 		helper.registerFiller(RecipeBrew.class, BreweryREIDisplay::new);
-		Predicate<? extends RecipeElvenTrade> pred = recipe -> recipe.getId().getNamespace().equals(LibMisc.MOD_ID) && !recipe.getId().getPath().contains("return");
+		Predicate<? extends RecipeElvenTrade> pred = recipe -> !recipe.isReturnRecipe();
 		helper.registerFiller(RecipeElvenTrade.class, pred, ElvenTradeREIDisplay::new);
 		helper.registerFiller(LexiconElvenTradeRecipe.class, ElvenTradeREIDisplay::new);
 		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
