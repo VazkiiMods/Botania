@@ -876,22 +876,29 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 		ShapedRecipeBuilder.shaped(ModBlocks.defaultAltar)
 				.define('P', ModTags.Items.PETALS)
-				.define('S', Items.COBBLESTONE_SLAB)
 				.define('C', Items.COBBLESTONE)
-				.pattern("SPS")
+				.pattern("CPC")
+				.pattern(" C ")
+				.pattern("CCC")
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.PETALS))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(ModBlocks.mossyAltar)
+				.define('P', ModTags.Items.PETALS)
+				.define('C', Items.MOSSY_COBBLESTONE)
+				.pattern("CPC")
 				.pattern(" C ")
 				.pattern("CCC")
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.PETALS))
 				.save(consumer);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			Block altar = Registry.BLOCK.getOptional(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
+			Block apothecary = Registry.BLOCK.getOptional(prefix("apothecary_" + metamorphicVariant)).get();
 			Block cobble = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
-			ShapedRecipeBuilder.shaped(altar)
-					.define('A', ModBlocks.defaultAltar)
-					.define('S', cobble)
-					.pattern("SSS")
-					.pattern("SAS")
-					.pattern("SSS")
+			ShapedRecipeBuilder.shaped(apothecary)
+					.define('P', ModTags.Items.PETALS)
+					.define('C', cobble)
+					.pattern("CPC")
+					.pattern(" C ")
+					.pattern("CCC")
 					.group("botania:metamorphic_apothecary")
 					.unlockedBy("has_item", conditionsFromItem(cobble))
 					.unlockedBy("has_flower_item", conditionsFromItem(ModSubtiles.marimorphosis))
