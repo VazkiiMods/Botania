@@ -91,16 +91,16 @@ dependencies {
         parchment("org.parchmentmc.data:parchment-1.18.1:2021.12.19@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:0.12.8"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.44.0+1.18"
+    modImplementation "net.fabricmc:fabric-loader:0.13.3"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.47.8+1.18.2"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
     compileOnly project(":Common")
 
-    modImplementation "vazkii.patchouli:Patchouli:1.18.1-64-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.18.2-66-FABRIC-SNAPSHOT"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
-    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
+    // modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
@@ -111,7 +111,7 @@ dependencies {
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation "dev.emi:trinkets:3.1.0"
+    modImplementation "dev.emi:trinkets:3.3.0"
 
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
     include "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
