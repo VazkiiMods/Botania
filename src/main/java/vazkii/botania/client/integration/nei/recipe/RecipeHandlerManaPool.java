@@ -23,6 +23,7 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 
@@ -117,7 +118,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 			if(recipe == null)
 				continue;
 
-			if(NEIServerUtils.areStacksSameTypeCraftingWithNBT(recipe.getOutput(), result))
+			if(ItemNBTHelper.areStacksSameTypeCraftingWithNBT(recipe.getOutput(), result))
 				arecipes.add(new CachedManaPoolRecipe(recipe));
 		}
 	}
@@ -129,7 +130,7 @@ public class RecipeHandlerManaPool extends TemplateRecipeHandler {
 				continue;
 
 			CachedManaPoolRecipe crecipe = new CachedManaPoolRecipe(recipe);
-			if(crecipe.containsWithNBT(crecipe.getIngredients(), ingredient) || crecipe.containsWithNBT(crecipe.getOtherStacks(), ingredient))
+			if(ItemNBTHelper.cachedRecipeContainsWithNBT(crecipe.getIngredients(), ingredient) || ItemNBTHelper.cachedRecipeContainsWithNBT(crecipe.getOtherStacks(), ingredient))
 				arecipes.add(crecipe);
 		}
 	}

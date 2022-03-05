@@ -15,6 +15,7 @@ import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
@@ -131,7 +132,7 @@ public class RecipeHandlerBrewery extends TemplateRecipeHandler {
 				continue;
 
 			CachedBreweryRecipe crecipe = new CachedBreweryRecipe(recipe);
-			if(crecipe.containsWithNBT(crecipe.inputs, ingredient))
+			if(ItemNBTHelper.cachedRecipeContainsWithNBT(crecipe.inputs, ingredient))
 				arecipes.add(crecipe);
 		}
 	}
