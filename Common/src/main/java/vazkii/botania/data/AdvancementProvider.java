@@ -20,7 +20,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -424,7 +424,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, id);
 	}
 
-	protected static InventoryChangeTrigger.TriggerInstance onPickup(Tag<Item> tag) {
+	protected static InventoryChangeTrigger.TriggerInstance onPickup(TagKey<Item> tag) {
 		return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tag).build());
 	}
 

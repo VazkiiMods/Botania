@@ -11,6 +11,7 @@ package vazkii.botania.common.handler;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.DefaultUncaughtExceptionHandler;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
@@ -35,6 +36,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.StreamSupport;
 
 public class ContributorList {
 	private static final ImmutableMap<String, String> LEGACY_FLOWER_NAMES = ImmutableMap.<String, String>builder()
@@ -89,9 +91,11 @@ public class ContributorList {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				Item item = ModTags.Items.CONTRIBUTOR_HEADFLOWERS.getValues().stream()
-						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
-						.findFirst().orElse(Items.POPPY);
+				var item = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.CONTRIBUTOR_HEADFLOWERS).spliterator(), false)
+						.filter(h -> h.is(resKey -> resKey.location().getPath().equals(flowerName)))
+						.findFirst()
+						.map(Holder::value)
+						.orElse(Items.POPPY);
 				stack = cachedStacks.computeIfAbsent(item, ContributorList::configureStack);
 			}
 			m.put(key, stack);

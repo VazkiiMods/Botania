@@ -34,7 +34,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.*;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
@@ -160,7 +160,7 @@ public class EntityDoppleganger extends Mob {
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final Tag.Named<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
+	private static final TagKey<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
 
 	private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(EntityDoppleganger.class, EntityDataSerializers.INT);
 
@@ -323,7 +323,7 @@ public class EntityDoppleganger extends Mob {
 						trippedPositions.add(pos.below());
 					}
 
-					if (!allowBlockHere && isBlockHere && !BLACKLIST.contains(state.getBlock())) //ceiling is obstructed in this column
+					if (!allowBlockHere && isBlockHere && !state.is(BLACKLIST)) //ceiling is obstructed in this column
 					{
 						trippedPositions.add(pos);
 					}
@@ -645,7 +645,7 @@ public class EntityDoppleganger extends Mob {
 						level.destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks
-						if (BLACKLIST.contains(block)) {
+						if (state.is(BLACKLIST)) {
 							continue;
 						}
 						//don't break the floor

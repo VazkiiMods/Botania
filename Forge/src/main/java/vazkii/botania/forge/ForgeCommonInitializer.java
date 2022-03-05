@@ -245,10 +245,10 @@ public class ForgeCommonInitializer {
 			bus.addListener((BiomeLoadingEvent e) -> {
 				Biome.BiomeCategory category = e.getCategory();
 				if (!ModFeatures.TYPE_BLACKLIST.contains(category)) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.MYSTICAL_FLOWERS_PLACED);
+					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalFlowersPlaced);
 				}
 				if (category != Biome.BiomeCategory.THEEND) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.MYSTICAL_MUSHROOMS_PLACED);
+					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalMushroomsPlaced);
 				}
 			});
 		}

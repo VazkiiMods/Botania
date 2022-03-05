@@ -16,7 +16,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -228,10 +227,10 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				// Then, go through all of the adjacent blocks and look if
 				// any of them are any good.
 				for (BlockPos adj : adjacent(cand.coordinates)) {
-					Block block = world.getBlockState(adj).getBlock();
+					var state = world.getBlockState(adj);
 
-					boolean isWood = BlockTags.LOGS.contains(block);
-					boolean isLeaf = BlockTags.LEAVES.contains(block);
+					boolean isWood = state.is(BlockTags.LOGS);
+					boolean isLeaf = state.is(BlockTags.LEAVES);
 
 					// If it's not wood or a leaf, we aren't interested.
 					if (!isWood && !isLeaf) {

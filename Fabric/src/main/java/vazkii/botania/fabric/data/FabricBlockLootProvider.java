@@ -1,6 +1,5 @@
 package vazkii.botania.fabric.data;
 
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Registry;
@@ -8,6 +7,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -60,7 +60,7 @@ public class FabricBlockLootProvider implements DataProvider {
 	protected static LootTable.Builder genDoubleFlower(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
 				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
-				.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(FabricToolTags.SHEARS)));
+				.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("fabric", "shears")))));
 		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion());
 		return LootTable.lootTable().withPool(pool);

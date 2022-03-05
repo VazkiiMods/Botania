@@ -11,9 +11,11 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerType;
@@ -23,6 +25,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.lib.ModTags;
+
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +84,7 @@ public class TileCocoon extends TileMod {
 			} else if (Math.random() < villagerChance) {
 				Villager villager = EntityType.VILLAGER.create(level);
 				if (villager != null) {
-					VillagerType type = VillagerType.byBiome(level.getBiomeName(worldPosition));
+					VillagerType type = VillagerType.byBiome(level.getBiome(worldPosition));
 					villager.setVillagerData(villager.getVillagerData().setType(type));
 				}
 				entity = villager;
@@ -128,8 +132,16 @@ public class TileCocoon extends TileMod {
 		timePassed = Math.max(timePassed, TOTAL_TIME / 2);
 	}
 
-	private Mob random(Tag<EntityType<?>> tag) {
-		EntityType<?> type = tag.getRandomElement(level.random);
+	@Nullable
+	private Mob random(TagKey<EntityType<?>> tag) {
+		EntityType<?> type = Registry.ENTITY_TYPE.getTag(tag)
+				.flatMap(t -> t.getRandomElement(level.random))
+				.map(Holder::value)
+				.orElse(null);
+		if (type == null) {
+			return null;
+		}
+
 		if (type == EntityType.COW && level.random.nextFloat() < 0.01) {
 			type = EntityType.MOOSHROOM;
 		}

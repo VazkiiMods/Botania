@@ -20,7 +20,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
@@ -105,7 +105,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		return AccessorRecipeProvider.botania_condition(preds);
 	}
 
-	private static InventoryChangeTrigger.TriggerInstance conditionsFromTag(Tag<Item> tag) {
+	private static InventoryChangeTrigger.TriggerInstance conditionsFromTag(TagKey<Item> tag) {
 		return AccessorRecipeProvider.botania_condition(ItemPredicate.Builder.item().of(tag).build());
 	}
 
@@ -2388,7 +2388,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer, prefix("conversions/" + name));
 	}
 
-	protected void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, Tag<Item> input, String name) {
+	protected void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, TagKey<Item> input, String name) {
 		ShapelessRecipeBuilder.shapeless(output, 9)
 				.unlockedBy("has_item", conditionsFromItem(output))
 				.requires(input)
@@ -2432,7 +2432,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 	protected void registerForWood(Consumer<FinishedRecipe> consumer, String variant) {
 
-		Tag<Item> tag = variant.contains("livingwood") ? ModTags.Items.LIVINGWOOD_LOGS : ModTags.Items.DREAMWOOD_LOGS;
+		TagKey<Item> tag = variant.contains("livingwood") ? ModTags.Items.LIVINGWOOD_LOGS : ModTags.Items.DREAMWOOD_LOGS;
 		Block log = Registry.BLOCK.getOptional(prefix(variant + "_log")).orElseThrow();
 		Block wood = Registry.BLOCK.getOptional(prefix(variant)).orElseThrow();
 		Block strippedLog = Registry.BLOCK.getOptional(prefix("stripped_" + variant + "_log")).orElseThrow();
@@ -2593,7 +2593,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
 	}
 
-	private ShapedRecipeBuilder compression(ItemLike output, Tag<Item> input) {
+	private ShapedRecipeBuilder compression(ItemLike output, TagKey<Item> input) {
 		return ShapedRecipeBuilder.shaped(output)
 				.define('I', input)
 				.pattern("III")

@@ -35,7 +35,6 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.DyeColor;
@@ -165,11 +164,11 @@ public class FabricCommonInitializer implements ModInitializer {
 				return !ModFeatures.TYPE_BLACKLIST.contains(category);
 			},
 					GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.PLACED_FEATURE.getResourceKey(ModFeatures.MYSTICAL_FLOWERS_PLACED).orElseThrow());
+					ModFeatures.MYSTICAL_FLOWERS_ID);
 			BiomeModifications.addFeature(
 					ctx -> ctx.getBiome().getBiomeCategory() != Biome.BiomeCategory.THEEND,
 					GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.PLACED_FEATURE.getResourceKey(ModFeatures.MYSTICAL_MUSHROOMS_PLACED).orElseThrow());
+					ModFeatures.MYSTICAL_MUSHROOMS_ID);
 		}
 
 		// Rest

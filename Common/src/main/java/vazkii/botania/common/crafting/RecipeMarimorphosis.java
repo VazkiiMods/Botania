@@ -20,7 +20,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.block.Block;
 
@@ -42,10 +41,12 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 
 	@Override
 	public int getWeight(@Nonnull Level level, @Nonnull BlockPos pos) {
+		/* TODO 1.18.2 refactor this to use tags
 		Biome biome = level.getBiome(pos);
 		if (biomes.contains(biome.getBiomeCategory())) {
 			return getWeight() + weightBonus;
 		}
+		*/
 		return getWeight();
 	}
 

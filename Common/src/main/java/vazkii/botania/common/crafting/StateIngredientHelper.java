@@ -20,7 +20,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -48,8 +48,8 @@ public class StateIngredientHelper {
 		return new StateIngredientBlockState(state);
 	}
 
-	public static StateIngredient of(Tag.Named<Block> tag) {
-		return of(tag.getName());
+	public static StateIngredient of(TagKey<Block> tag) {
+		return of(tag.location());
 	}
 
 	public static StateIngredient of(ResourceLocation id) {
@@ -60,8 +60,8 @@ public class StateIngredientHelper {
 		return new StateIngredientBlocks(blocks);
 	}
 
-	public static StateIngredient tagExcluding(Tag.Named<Block> tag, StateIngredient... excluded) {
-		return new StateIngredientTagExcluding(tag.getName(), List.of(excluded));
+	public static StateIngredient tagExcluding(TagKey<Block> tag, StateIngredient... excluded) {
+		return new StateIngredientTagExcluding(tag.location(), List.of(excluded));
 	}
 
 	public static StateIngredient deserialize(JsonObject object) {
@@ -98,7 +98,7 @@ public class StateIngredientHelper {
 	public static StateIngredient tryDeserialize(JsonObject object) {
 		StateIngredient ingr = deserialize(object);
 		if (ingr instanceof StateIngredientTag sit) {
-			if (sit.resolve().getValues().isEmpty()) {
+			if (sit.resolve().findAny().isEmpty()) {
 				return null;
 			}
 			return ingr;

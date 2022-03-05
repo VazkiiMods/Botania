@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -36,10 +36,10 @@ public abstract class SubTileFluidGenerator extends TileEntityGeneratingFlower {
 
 	public static final int DECAY_TIME = 72000;
 	private int burnTime, cooldown;
-	private final Tag<Fluid> consumedFluid;
+	private final TagKey<Fluid> consumedFluid;
 	private final int startBurnTime, manaPerTick, maxCooldown;
 
-	protected SubTileFluidGenerator(BlockEntityType<?> type, BlockPos pos, BlockState state, Tag<Fluid> consumedFluid, int startBurnTime, int manaPerTick, int maxCooldown) {
+	protected SubTileFluidGenerator(BlockEntityType<?> type, BlockPos pos, BlockState state, TagKey<Fluid> consumedFluid, int startBurnTime, int manaPerTick, int maxCooldown) {
 		super(type, pos, state);
 		this.consumedFluid = consumedFluid;
 		this.startBurnTime = startBurnTime;

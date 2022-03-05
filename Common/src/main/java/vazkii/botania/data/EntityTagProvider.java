@@ -8,14 +8,15 @@
  */
 package vazkii.botania.data;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.ModTags;
-import vazkii.botania.xplat.IXplatAbstractions;
 
 public class EntityTagProvider extends EntityTypeTagsProvider {
 	public EntityTagProvider(DataGenerator generator) {
@@ -45,7 +46,7 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				ModEntities.CORPOREA_SPARK, ModEntities.DOPPLEGANGER, ModEntities.FLAME_RING, ModEntities.MAGIC_LANDMINE,
 				ModEntities.MAGIC_MISSILE, ModEntities.MANA_BURST, ModEntities.PINK_WITHER, ModEntities.SPARK, ModEntities.PLAYER_MOVER);
 
-		tag(IXplatAbstractions.INSTANCE.entityTag(new ResourceLocation("c", "bosses")))
-				.add(ModEntities.DOPPLEGANGER);
+		var bosses = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("c", "bosses"));
+		tag(bosses).add(ModEntities.DOPPLEGANGER);
 	}
 }

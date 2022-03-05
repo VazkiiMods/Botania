@@ -15,7 +15,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -198,7 +198,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	@Override
-	public boolean updateFluidHeightAndDoFluidPushing(Tag<Fluid> fluid, double mag) {
+	public boolean updateFluidHeightAndDoFluidPushing(TagKey<Fluid> fluid, double mag) {
 		return false;
 	}
 

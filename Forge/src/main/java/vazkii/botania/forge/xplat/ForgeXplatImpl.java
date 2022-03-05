@@ -18,14 +18,10 @@ import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -446,28 +442,13 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public Tag.Named<Block> blockTag(ResourceLocation id) {
-		return BlockTags.createOptional(id);
-	}
-
-	@Override
-	public Tag.Named<Item> itemTag(ResourceLocation id) {
-		return ItemTags.createOptional(id);
-	}
-
-	@Override
-	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
-		return EntityTypeTags.createOptional(id);
-	}
-
-	@Override
-	public Tag.Named<Block> getOreTag() {
+	public TagKey<Block> getOreTag() {
 		return Tags.Blocks.ORES;
 	}
 
 	@Override
-	public Tag<Block> getGlassTag() {
-		return Tags.Blocks.GLASS;
+	public boolean isInGlassTag(BlockState state) {
+		return state.is(Tags.Blocks.GLASS);
 	}
 
 	@Override

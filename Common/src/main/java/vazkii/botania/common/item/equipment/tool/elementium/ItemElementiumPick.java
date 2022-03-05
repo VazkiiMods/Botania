@@ -36,10 +36,10 @@ public class ItemElementiumPick extends ItemManasteelPick {
 			return false;
 		}
 
-		return ModTags.Items.DISPOSABLE.contains(stack.getItem());
+		return stack.is(ModTags.Items.DISPOSABLE);
 	}
 
 	private static boolean isSemiDisposable(ItemStack stack) {
-		return ModTags.Items.SEMI_DISPOSABLE.contains(stack.getItem());
+		return stack.is(ModTags.Items.SEMI_DISPOSABLE);
 	}
 }

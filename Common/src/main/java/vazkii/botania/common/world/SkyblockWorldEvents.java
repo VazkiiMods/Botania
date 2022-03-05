@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -49,7 +49,7 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final ResourceLocation PEBBLE_SOURCES = new ResourceLocation("gardenofglass:pebble_sources");
+	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("gardenofglass:pebble_sources"));
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level);
@@ -79,8 +79,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = world.getBlockState(hit.getBlockPos());
 				Block block = state.getBlock();
 
-				Tag<Block> tag = world.getTagManager().getOrEmpty(Registry.BLOCK_REGISTRY).getTagOrEmpty(PEBBLE_SOURCES);
-				if (tag.contains(block)) {
+				if (state.is(PEBBLE_SOURCES)) {
 					SoundType st = state.getSoundType();
 					SoundEvent sound = ((AccessorSoundType) st).botania_getBreakSound();
 					player.playSound(sound, st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));

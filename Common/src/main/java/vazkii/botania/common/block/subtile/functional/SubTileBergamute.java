@@ -61,7 +61,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		for (SubTileBergamute f : level.isClientSide ? clientFlowers : serverFlowers) {
 			if (!f.disabled
 					&& level == f.level
-					&& f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
+					&& f.getEffectivePos().distToCenterSqr(x, y, z) <= RANGE * RANGE) {
 				count++;
 				if (count == 1) {
 					tile = f;

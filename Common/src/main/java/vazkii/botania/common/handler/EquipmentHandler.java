@@ -57,7 +57,7 @@ public abstract class EquipmentHandler {
 	public abstract void onInit(Item item);
 
 	public boolean isAccessory(ItemStack stack) {
-		return ModTags.Items.RODS.contains(stack.getItem()) || stack.getItem() instanceof ItemBauble || stack.getItem() instanceof IManaItem;
+		return stack.is(ModTags.Items.RODS) || stack.getItem() instanceof ItemBauble || stack.getItem() instanceof IManaItem;
 	}
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.

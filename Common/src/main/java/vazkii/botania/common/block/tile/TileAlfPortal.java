@@ -12,9 +12,11 @@ import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -56,20 +58,23 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class TileAlfPortal extends TileMod implements IWandable {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> {
-		record Matcher(Tag<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
+		record Matcher(TagKey<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
 			@Override
-			public BlockState getDisplayedState(int ticks) {
-				List<Block> blocks = tag().getValues();
+			public BlockState getDisplayedState(long ticks) {
+				var blocks = StreamSupport.stream(Registry.BLOCK.getTagOrEmpty(this.tag).spliterator(), false)
+						.map(Holder::value)
+						.toList();
 				if (blocks.isEmpty()) {
 					return Blocks.BEDROCK.defaultBlockState();
 				}
 
 				BlockState block = blocks.contains(defaultBlock)
 						? defaultBlock.defaultBlockState()
-						: blocks.get((ticks / 20) % blocks.size()).defaultBlockState();
+						: blocks.get((int) ((ticks / 20) % blocks.size())).defaultBlockState();
 
 				return block.hasProperty(BlockStateProperties.AXIS)
 						? block.setValue(BlockStateProperties.AXIS, displayedRotation())

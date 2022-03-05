@@ -86,7 +86,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 					Collections.shuffle(stacks);
 					stack = stacks.get(0);
 				}
-			} while (stack.isEmpty() || ModTags.Items.LOONIUM_BLACKLIST.contains(stack.getItem()));
+			} while (stack.isEmpty() || stack.is(ModTags.Items.LOONIUM_BLACKLIST));
 
 			int bound = RANGE * 2 + 1;
 			int xp = getEffectivePos().getX() - RANGE + rand.nextInt(bound);
