@@ -33,7 +33,7 @@ import me.shedaniel.rei.plugin.common.displays.DefaultStrippingDisplay;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -53,15 +53,14 @@ import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import java.util.stream.StreamSupport;
 
 public class BotaniaREIPlugin implements REIClientPlugin {
 	public BotaniaREIPlugin() {
@@ -192,13 +191,13 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	}
 
 	void registerCompositeLensRecipeWrapper(DisplayRegistry helper) {
-		List<ItemStack> lensStacks = ItemTags.getAllTags().getTagOrEmpty(prefix("lens"))
-				.getValues().stream()
-				.map(ItemStack::new)
-				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
-				.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
-				.collect(Collectors.toList());
-		List<Item> lenses = lensStacks.stream().map(ItemStack::getItem).collect(Collectors.toList());
+		List<ItemStack> lensStacks =
+				StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.LENS).spliterator(), false)
+						.map(ItemStack::new)
+						.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
+						.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
+						.toList();
+		List<Item> lenses = lensStacks.stream().map(ItemStack::getItem).toList();
 		List<EntryIngredient> inputs = Arrays.asList(EntryIngredients.ofItemStacks(lensStacks), EntryIngredients.of(new ItemStack(Items.SLIME_BALL)), EntryIngredients.ofItemStacks(lensStacks));
 		int end = lenses.size() - 1;
 
