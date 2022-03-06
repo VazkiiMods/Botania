@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -16,10 +15,12 @@ import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
@@ -31,16 +32,12 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -56,7 +53,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		localizedName = new TranslatableComponent("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
 		overlay = guiHelper.createDrawable(prefix("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
-		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.alfPortal));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.alfPortal));
 	}
 
 	@Nonnull
@@ -90,17 +87,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	}
 
 	@Override
-	public void setIngredients(IElvenTradeRecipe recipe, IIngredients iIngredients) {
-		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-		for (Ingredient i : recipe.getIngredients()) {
-			builder.add(Arrays.asList(i.getItems()));
-		}
-		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
-		iIngredients.setOutputs(VanillaTypes.ITEM, ImmutableList.copyOf(recipe.getOutputs()));
-	}
-
-	@Override
-	public void draw(IElvenTradeRecipe recipe, PoseStack matrices, double mouseX, double mouseY) {
+	public void draw(@Nonnull IElvenTradeRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack matrices, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(matrices, 0, 4);
 		RenderSystem.disableBlend();
@@ -124,19 +111,19 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IElvenTradeRecipe recipe, @Nonnull IIngredients ingredients) {
-		int index = 0, posX = 42;
-		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
-			recipeLayout.getItemStacks().init(index, true, posX, 0);
-			recipeLayout.getItemStacks().set(index, o);
-			index++;
+	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IElvenTradeRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+		int posX = 42;
+		for (var ingr : recipe.getIngredients()) {
+			builder.addSlot(RecipeIngredientRole.INPUT, posX, 0)
+					.addIngredients(ingr);
 			posX += 18;
 		}
 
-		for (int i = 0; i < ingredients.getOutputs(VanillaTypes.ITEM).size(); i++) {
-			List<ItemStack> stacks = ingredients.getOutputs(VanillaTypes.ITEM).get(i);
-			recipeLayout.getItemStacks().init(index + i, false, 93 + i % 2 * 20, 41 + i / 2 * 20);
-			recipeLayout.getItemStacks().set(index + i, stacks);
+		int outIdx = 0;
+		for (var stack : recipe.getOutputs()) {
+			builder.addSlot(RecipeIngredientRole.OUTPUT, 93 + outIdx % 2 * 20, 41 + outIdx / 2 * 20)
+					.addItemStack(stack);
+			outIdx++;
 		}
 	}
 }

@@ -48,7 +48,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 		ResourceLocation location = prefix("textures/gui/nei_brewery.png");
 		background = guiHelper.createDrawable(location, 28, 6, 131, 55);
 		localizedName = new TranslatableComponent("botania.nei.brewery");
-		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.brewery));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.brewery));
 	}
 
 	@Nonnull
