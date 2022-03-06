@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.relic;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
@@ -21,7 +23,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -35,35 +36,37 @@ import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ItemDice extends ItemRelic {
 	public ItemDice(Properties props) {
 		super(props);
 	}
 
-	public static Item[] getRelics() {
-		return new Item[] {
-				ModItems.infiniteFruit,
-				ModItems.kingKey,
-				ModItems.flugelEye,
-				ModItems.thorRing,
-				ModItems.odinRing,
-				ModItems.lokiRing
-		};
-	}
+	public static final Supplier<List<ItemStack>> RELIC_STACKS = Suppliers.memoize(() -> List.of(
+			new ItemStack(ModItems.infiniteFruit),
+			new ItemStack(ModItems.kingKey),
+			new ItemStack(ModItems.flugelEye),
+			new ItemStack(ModItems.thorRing),
+			new ItemStack(ModItems.odinRing),
+			new ItemStack(ModItems.lokiRing)
+	)
+	);
 
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
+		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
 
-		if (isRightPlayer(player, stack)) {
+		if (relic != null && relic.isRightPlayer(player)) {
 			if (world.isClientSide) {
 				return InteractionResultHolder.success(stack);
 			}
@@ -78,9 +81,10 @@ public class ItemDice extends ItemRelic {
 			}
 
 			if (!possible.isEmpty()) {
-				int relic = possible.get(world.random.nextInt(possible.size()));
-				player.sendMessage(new TranslatableComponent("botaniamisc.diceRoll", relic + 1).withStyle(ChatFormatting.DARK_GREEN), Util.NIL_UUID);
-				return InteractionResultHolder.success(new ItemStack(getRelics()[relic]));
+				int relicIdx = possible.get(world.random.nextInt(possible.size()));
+				player.sendMessage(new TranslatableComponent("botaniamisc.diceRoll", relicIdx + 1).withStyle(ChatFormatting.DARK_GREEN), Util.NIL_UUID);
+				var toGive = RELIC_STACKS.get().get(relicIdx).copy();
+				return InteractionResultHolder.success(toGive);
 			} else {
 				int roll = world.random.nextInt(6) + 1;
 				ResourceLocation tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
@@ -120,9 +124,13 @@ public class ItemDice extends ItemRelic {
 		});
 	}
 
-	@Override
-	public boolean shouldDamageWrongPlayer() {
-		return false;
+	public static IRelic makeRelic(ItemStack stack) {
+		return new RelicImpl(stack, null) {
+			@Override
+			public boolean shouldDamageWrongPlayer() {
+				return false;
+			}
+		};
 	}
 
 	private boolean hasRelicAlready(Player player, int relic) {
@@ -130,8 +138,8 @@ public class ItemDice extends ItemRelic {
 			return true;
 		}
 
-		Item item = getRelics()[relic];
-		ResourceLocation advId = ((IRelic) item).getAdvancement();
+		var stack = RELIC_STACKS.get().get(relic);
+		ResourceLocation advId = IXplatAbstractions.INSTANCE.findRelic(stack).getAdvancement();
 
 		if (advId != null) {
 			Advancement adv = player.level.getServer().getAdvancements().getAdvancement(advId);

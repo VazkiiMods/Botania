@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
 
@@ -23,9 +23,8 @@ public class ItemThorRing extends ItemRelicBauble {
 		super(props);
 	}
 
-	@Override
-	public ResourceLocation getAdvancement() {
-		return prefix("challenge/thor_ring");
+	public static IRelic makeRelic(ItemStack stack) {
+		return new RelicImpl(stack, prefix("challenge/thor_ring"));
 	}
 
 	public static ItemStack getThorRing(Player player) {

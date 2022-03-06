@@ -85,6 +85,7 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
@@ -158,6 +159,12 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public ICoordBoundItem findCoordBoundItem(ItemStack stack) {
 		return BotaniaFabricCapabilities.COORD_BOUND_ITEM.find(stack, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IRelic findRelic(ItemStack stack) {
+		return BotaniaFabricCapabilities.RELIC.find(stack, Unit.INSTANCE);
 	}
 
 	@Nullable

@@ -24,7 +24,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -128,7 +127,10 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 
 		ItemStack stack = item.getItem();
-		if (stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || stack.is(ModTags.Items.MAGNET_RING_BLACKLIST)) {
+		if (stack.isEmpty()
+				|| stack.getItem() instanceof IManaItem
+				|| IXplatAbstractions.INSTANCE.findRelic(stack) != null
+				|| stack.is(ModTags.Items.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 

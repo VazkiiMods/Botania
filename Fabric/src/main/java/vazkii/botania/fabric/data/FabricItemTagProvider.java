@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.relic.ItemDice;
@@ -137,7 +138,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 
 	private void generateCompatTags() {
 		this.tag(itemTag(new ResourceLocation("modern_industrialization", "replicator_blacklist")))
-				.add(ItemDice.getRelics())
+				.add(ItemDice.RELIC_STACKS.get().stream().map(ItemStack::getItem).toArray(Item[]::new))
 				.add(dice, manaTablet, manaRing, manaRingGreater, blackerLotus, blackHoleTalisman, flowerBag,
 						spawnerMover, terraPick, ModBlocks.terrasteelBlock.asItem());
 	}

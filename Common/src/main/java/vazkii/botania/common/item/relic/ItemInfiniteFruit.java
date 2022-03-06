@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,8 +17,10 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.AccessorLivingEntity;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +49,8 @@ public class ItemInfiniteFruit extends ItemRelic {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (player.canEat(false) && isRightPlayer(player, stack)) {
+		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
+		if (player.canEat(false) && relic != null && relic.isRightPlayer(player)) {
 			return ItemUtils.startUsingInstantly(world, player, hand);
 		}
 		return InteractionResultHolder.pass(stack);
@@ -77,9 +79,8 @@ public class ItemInfiniteFruit extends ItemRelic {
 		return name.equals("das boot");
 	}
 
-	@Override
-	public ResourceLocation getAdvancement() {
-		return prefix("challenge/infinite_fruit");
+	public static IRelic makeRelic(ItemStack stack) {
+		return new RelicImpl(stack, prefix("challenge/infinite_fruit"));
 	}
 
 }

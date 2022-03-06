@@ -73,8 +73,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
-import vazkii.botania.common.item.relic.ItemFlugelEye;
-import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.loot.ModLootModifiers;
@@ -228,6 +227,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemFlugelEye.CoordBoundItem(st), ModItems.flugelEye);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemManaMirror.CoordBoundItem(st), ModItems.manaMirror);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItem(st), ModItems.twigWand);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemDice.makeRelic(st), ModItems.dice);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemFlugelEye.makeRelic(st), ModItems.flugelEye);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemInfiniteFruit.makeRelic(st), ModItems.infiniteFruit);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemKingKey.makeRelic(st), ModItems.kingKey);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemLokiRing.makeRelic(st), ModItems.lokiRing);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemOdinRing.makeRelic(st), ModItems.odinRing);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemThorRing.makeRelic(st), ModItems.thorRing);
 
 		BotaniaFabricCapabilities.EXOFLAME_HEATABLE.registerFallback((world, pos, state, blockEntity, context) -> {
 			if (blockEntity instanceof AbstractFurnaceBlockEntity furnace) {

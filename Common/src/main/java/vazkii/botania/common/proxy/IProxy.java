@@ -21,6 +21,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 
+import javax.annotation.Nullable;
+
 import java.util.function.Supplier;
 
 public interface IProxy {
@@ -36,6 +38,7 @@ public interface IProxy {
 
 	default void runOnClient(Supplier<Runnable> s) {}
 
+	@Nullable
 	default Player getClientPlayer() {
 		return null;
 	}

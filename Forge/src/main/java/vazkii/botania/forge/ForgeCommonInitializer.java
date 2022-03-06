@@ -73,6 +73,7 @@ import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
@@ -109,9 +110,7 @@ import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
-import vazkii.botania.common.item.relic.ItemFlugelEye;
-import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.item.relic.ItemOdinRing;
+import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.loot.LootHandler;
@@ -459,6 +458,16 @@ public class ForgeCommonInitializer {
 			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new
 	));
 
+	private static final Supplier<Map<Item, Function<ItemStack, IRelic>>> RELIC = Suppliers.memoize(() -> Map.of(
+			ModItems.dice, ItemDice::makeRelic,
+			ModItems.flugelEye, ItemFlugelEye::makeRelic,
+			ModItems.infiniteFruit, ItemInfiniteFruit::makeRelic,
+			ModItems.kingKey, ItemKingKey::makeRelic,
+			ModItems.lokiRing, ItemLokiRing::makeRelic,
+			ModItems.odinRing, ItemOdinRing::makeRelic,
+			ModItems.thorRing, ItemThorRing::makeRelic
+	));
+
 	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
 		var stack = e.getObject();
 
@@ -487,6 +496,12 @@ public class ForgeCommonInitializer {
 		if (makeCoordBoundItem != null) {
 			e.addCapability(prefix("coord_bound_item"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.COORD_BOUND_ITEM, makeCoordBoundItem.apply(stack)));
+		}
+
+		var makeRelic = RELIC.get().get(stack.getItem());
+		if (makeRelic != null) {
+			e.addCapability(prefix("relic"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.RELIC, makeRelic.apply(stack)));
 		}
 	}
 

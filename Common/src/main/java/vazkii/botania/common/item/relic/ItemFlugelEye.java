@@ -15,7 +15,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,6 +30,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.handler.ModSounds;
@@ -193,9 +193,8 @@ public class ItemFlugelEye extends ItemRelic {
 		}
 	}
 
-	@Override
-	public ResourceLocation getAdvancement() {
-		return prefix("challenge/flugel_eye");
+	public static IRelic makeRelic(ItemStack stack) {
+		return new RelicImpl(stack, prefix("challenge/flugel_eye"));
 	}
 
 }

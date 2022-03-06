@@ -11,7 +11,6 @@ package vazkii.botania.common.item.relic;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -19,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
 
@@ -65,9 +65,8 @@ public class ItemOdinRing extends ItemRelicBauble {
 				&& !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 	}
 
-	@Override
-	public ResourceLocation getAdvancement() {
-		return prefix("challenge/odin_ring");
+	public static IRelic makeRelic(ItemStack stack) {
+		return new RelicImpl(stack, prefix("challenge/odin_ring"));
 	}
 
 }

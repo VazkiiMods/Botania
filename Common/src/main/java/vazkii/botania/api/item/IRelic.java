@@ -9,33 +9,39 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
 
 import java.util.UUID;
 
 /**
- * An item that implements this counts as a Relic item. This is purely for interaction
- * and other mod items should not implement this interface.
+ * An item that has this capability counts as a Relic item. This is purely for interaction
+ * and other mod items should not reuse this capability.
  */
 public interface IRelic {
 
 	/**
 	 * Binds to the UUID passed in.
 	 */
-	void bindToUUID(UUID uuid, ItemStack stack);
+	void bindToUUID(UUID uuid);
 
 	/**
 	 * Gets the UUID of the person this relic is bound to, or null if a well-formed UUID could not be found
 	 */
 	@Nullable
-	UUID getSoulbindUUID(ItemStack stack);
+	UUID getSoulbindUUID();
 
 	/**
 	 * Checks if the relic contains a well-formed UUID.
 	 */
-	boolean hasUUID(ItemStack stack);
+	@Deprecated // Just null check getSoulbindUUID directly
+	boolean hasUUID();
+
+	/**
+	 * Attempts to bind to a player, or damage them if it's not theirs
+	 */
+	void tickBinding(Player player);
 
 	/**
 	 * Get the advancement granted when this relic binds
@@ -44,5 +50,11 @@ public interface IRelic {
 	default ResourceLocation getAdvancement() {
 		return null;
 	}
+
+	default boolean shouldDamageWrongPlayer() {
+		return true;
+	}
+
+	boolean isRightPlayer(Player player);
 
 }
