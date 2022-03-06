@@ -420,7 +420,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 		// The registryKey really belongs on ModBrews, but this method is called from there,
 		// so we'd like to avoid the circular dependency.
 		return ForgeAccessorRegistry.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
-				LibMisc.MOD_ID + ":fallback", () -> ModBrews.fallbackBrew);
+				LibMisc.MOD_ID + ":fallback", registry -> ModBrews.fallbackBrew);
 	}
 
 	@Nullable

@@ -16,33 +16,33 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICustomCraftingCategoryExtension;
 
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+import java.util.stream.StreamSupport;
 
 public class CompositeLensRecipeWrapper implements ICustomCraftingCategoryExtension {
 	private final List<List<ItemStack>> inputs;
 	private final List<Item> lenses;
 
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
-		List<ItemStack> lensStacks = ItemTags.getAllTags().getTagOrEmpty(prefix("lens"))
-				.getValues().stream()
-				.map(ItemStack::new)
-				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
-				.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
-				.collect(Collectors.toList());
+		var lensStacks =
+				StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.LENS).spliterator(), false)
+						.map(ItemStack::new)
+						.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
+						.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
+						.toList();
 		lenses = lensStacks.stream().map(ItemStack::getItem).collect(Collectors.toList());
 		inputs = ImmutableList.of(lensStacks, ImmutableList.of(new ItemStack(Items.SLIME_BALL)), lensStacks);
 	}
