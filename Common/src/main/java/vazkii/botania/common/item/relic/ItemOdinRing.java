@@ -36,12 +36,8 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 		damageNegations.add(DamageSource.DROWN.msgId);
 		damageNegations.add(DamageSource.FALL.msgId);
-		damageNegations.add(DamageSource.LAVA.msgId);
 		damageNegations.add(DamageSource.IN_WALL.msgId);
 		damageNegations.add(DamageSource.STARVE.msgId);
-		damageNegations.add(DamageSource.IN_FIRE.msgId);
-		damageNegations.add(DamageSource.ON_FIRE.msgId);
-		damageNegations.add(DamageSource.HOT_FLOOR.msgId);
 		damageNegations.add(DamageSource.FLY_INTO_WALL.msgId);
 	}
 
@@ -61,7 +57,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	public static boolean onPlayerAttacked(Player player, DamageSource src) {
-		return damageNegations.contains(src.msgId)
+		return (src.isFire() || damageNegations.contains(src.msgId))
 				&& !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 	}
 
