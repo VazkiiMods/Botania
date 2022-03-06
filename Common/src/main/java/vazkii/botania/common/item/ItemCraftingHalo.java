@@ -202,14 +202,14 @@ public class ItemCraftingHalo extends Item {
 	}
 
 	@SoftImplement("IForgeItem")
-	public boolean onEntitySwing(ItemStack stack, LivingEntity player) {
-		int segment = getSegmentLookedAt(stack, player);
+	public boolean onEntitySwing(ItemStack stack, LivingEntity living) {
+		int segment = getSegmentLookedAt(stack, living);
 		if (segment == 0) {
 			return false;
 		}
 
-		Recipe<?> recipe = getSavedRecipe(player.level, stack, segment);
-		if (recipe != null && player.isShiftKeyDown()) {
+		Recipe<?> recipe = getSavedRecipe(living.level, stack, segment);
+		if (recipe != null && living.isShiftKeyDown()) {
 			saveRecipe(stack, null, segment);
 			return true;
 		}
@@ -217,8 +217,8 @@ public class ItemCraftingHalo extends Item {
 		return false;
 	}
 
-	private static int getSegmentLookedAt(ItemStack stack, LivingEntity player) {
-		float yaw = getCheckingAngle(player, getRotationBase(stack));
+	private static int getSegmentLookedAt(ItemStack stack, LivingEntity living) {
+		float yaw = getCheckingAngle(living, getRotationBase(stack));
 
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
@@ -231,14 +231,14 @@ public class ItemCraftingHalo extends Item {
 		return -1;
 	}
 
-	private static float getCheckingAngle(LivingEntity player) {
-		return getCheckingAngle(player, 0F);
+	private static float getCheckingAngle(LivingEntity living) {
+		return getCheckingAngle(living, 0F);
 	}
 
 	// Screw the way minecraft handles rotation
 	// Really...
-	private static float getCheckingAngle(LivingEntity player, float base) {
-		float yaw = Mth.wrapDegrees(player.getYRot()) + 90F;
+	private static float getCheckingAngle(LivingEntity living, float base) {
+		float yaw = Mth.wrapDegrees(living.getYRot()) + 90F;
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
 		float shift = segAngles / 2;

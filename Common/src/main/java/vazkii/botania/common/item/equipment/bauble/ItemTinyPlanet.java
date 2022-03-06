@@ -39,12 +39,12 @@ public class ItemTinyPlanet extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
-		double x = player.getX();
-		double y = player.getY() + player.getEyeHeight();
-		double z = player.getZ();
+	public void onWornTick(ItemStack stack, LivingEntity living) {
+		double x = living.getX();
+		double y = living.getY() + living.getEyeHeight();
+		double z = living.getZ();
 
-		applyEffect(player.level, x, y, z);
+		applyEffect(living.level, x, y, z);
 	}
 
 	public static class Renderer implements AccessoryRenderer {

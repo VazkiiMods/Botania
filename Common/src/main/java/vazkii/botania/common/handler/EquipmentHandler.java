@@ -135,8 +135,8 @@ public abstract class EquipmentHandler {
 		@Override
 		public void onInit(Item item) {}
 
-		private static boolean canEquip(ItemStack stack, LivingEntity player) {
-			return stack.getItem() instanceof ItemBauble bauble && bauble.canEquip(stack, player);
+		private static boolean canEquip(ItemStack stack, LivingEntity living) {
+			return stack.getItem() instanceof ItemBauble bauble && bauble.canEquip(stack, living);
 		}
 	}
 }

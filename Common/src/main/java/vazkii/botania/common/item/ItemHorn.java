@@ -62,12 +62,12 @@ public class ItemHorn extends Item {
 	}
 
 	@Override
-	public void onUseTick(Level world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int time) {
+	public void onUseTick(Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int time) {
 		if (!world.isClientSide) {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
-				breakGrass(world, stack, player.blockPosition());
+				breakGrass(world, stack, living.blockPosition());
 			}
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 

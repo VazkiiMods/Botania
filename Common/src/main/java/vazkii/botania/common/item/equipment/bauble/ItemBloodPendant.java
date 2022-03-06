@@ -94,22 +94,22 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
+	public void onWornTick(ItemStack stack, LivingEntity living) {
 		Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
-		if (brew != ModBrews.fallbackBrew && player instanceof Player eplayer && !player.level.isClientSide) {
+		if (brew != ModBrews.fallbackBrew && living instanceof Player player && !living.level.isClientSide) {
 			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
-			if (ManaItemHandler.instance().requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
-				MobEffectInstance currentEffect = player.getEffect(effect.getEffect());
+			if (ManaItemHandler.instance().requestManaExact(stack, player, (int) Math.ceil(cost), false)) {
+				MobEffectInstance currentEffect = living.getEffect(effect.getEffect());
 				boolean nightVision = effect.getEffect() == MobEffects.NIGHT_VISION;
 				if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
 					MobEffectInstance applyEffect = new MobEffectInstance(effect.getEffect(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
-					player.addEffect(applyEffect);
+					living.addEffect(applyEffect);
 				}
 
 				if (!doRand || Math.random() < cost) {
-					ManaItemHandler.instance().requestManaExact(stack, eplayer, (int) Math.ceil(cost), true);
+					ManaItemHandler.instance().requestManaExact(stack, player, (int) Math.ceil(cost), true);
 				}
 			}
 		}
@@ -117,8 +117,8 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	public static class Renderer implements AccessoryRenderer {
 		@Override
-		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-			boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			boolean armor = !living.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
 			bipedModel.body.translateAndRotate(ms);
 			ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
 			ms.scale(0.5F, -0.5F, -0.5F);

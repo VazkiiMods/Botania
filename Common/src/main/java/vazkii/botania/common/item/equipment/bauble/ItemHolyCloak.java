@@ -83,10 +83,10 @@ public class ItemHolyCloak extends ItemBauble {
 		private static ModelCloak model = null;
 
 		@Override
-		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
-			AccessoryRenderHelper.rotateIfSneaking(ms, player);
-			boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+			AccessoryRenderHelper.rotateIfSneaking(ms, living);
+			boolean armor = !living.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
 			ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			if (model == null) {

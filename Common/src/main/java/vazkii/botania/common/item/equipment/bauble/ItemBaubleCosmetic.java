@@ -76,7 +76,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	public static class Renderer implements AccessoryRenderer {
 		@Override
-		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
 			if (variant.isHead) {
 				bipedModel.head.translateAndRotate(ms);
@@ -185,7 +185,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 						ms.translate(0, -0.3, -0.3);
 						ms.scale(0.7F, -0.7F, -0.7F);
 						int color = 0xFFFFFF | (178 << 24);
-						RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY);
+						RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY);
 					}
 					case GROUCHO_GLASSES -> {
 						ms.translate(0, -0.1, -0.3);
@@ -254,7 +254,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 						ms.translate(-0.4, 0.1, -0.2);
 						ms.mulPose(Vector3f.YP.rotationDegrees(180F));
 						ms.scale(0.5F, -0.5F, -0.5F);
-						RenderHelper.renderItemCustomColor(player, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.NO_OVERLAY);
+						RenderHelper.renderItemCustomColor(living, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.NO_OVERLAY);
 					}
 					case FOUR_LEAF_CLOVER -> {
 						ms.translate(0.1, 0.1, -0.13);

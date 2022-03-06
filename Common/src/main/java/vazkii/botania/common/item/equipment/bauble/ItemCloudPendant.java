@@ -48,10 +48,10 @@ public class ItemCloudPendant extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
+	public void onWornTick(ItemStack stack, LivingEntity living) {
 		IProxy.INSTANCE.runOnClient(() -> () -> {
-			if (player == Minecraft.getInstance().player) {
-				LocalPlayer playerSp = (LocalPlayer) player;
+			if (living == Minecraft.getInstance().player) {
+				LocalPlayer playerSp = (LocalPlayer) living;
 
 				if (playerSp.isOnGround()) {
 					timesJumped = 0;
@@ -84,8 +84,8 @@ public class ItemCloudPendant extends ItemBauble {
 
 	public static class Renderer implements AccessoryRenderer {
 		@Override
-		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-			boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			boolean armor = !living.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
 			bipedModel.body.translateAndRotate(ms);
 			ms.translate(-0.3, 0.4, armor ? 0.05 : 0.12);
 			ms.scale(0.5F, -0.5F, -0.5F);
