@@ -27,6 +27,9 @@ import net.minecraft.world.level.levelgen.blending.Blender;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
+import vazkii.botania.mixin.AccessorBeardifier;
+import vazkii.botania.mixin.AccessorNoiseChunk;
+
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
@@ -101,10 +104,10 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 		}), Util.backgroundExecutor());
 	}
 
-	private void doCreateBiomes(Blender blender, StructureFeatureManager p_204588_, ChunkAccess chunkAccess) {
-		NoiseChunk noisechunk = chunkAccess.getOrCreateNoiseChunk(this.router, () -> new Beardifier(p_204588_, chunkAccess), this.settings.value(), this.globalFluidPicker, blender);
+	private void doCreateBiomes(Blender blender, StructureFeatureManager sfm, ChunkAccess chunkAccess) {
+		NoiseChunk chunk = chunkAccess.getOrCreateNoiseChunk(this.router, () -> AccessorBeardifier.botania_make(sfm, chunkAccess), this.settings.value(), this.globalFluidPicker, blender);
 		BiomeResolver biomeresolver = BelowZeroRetrogen.getBiomeResolver(blender.getBiomeResolver(this.runtimeBiomeSource), chunkAccess);
-		chunkAccess.fillBiomesFromNoise(biomeresolver, noisechunk.cachedClimateSampler(this.router));
+		chunkAccess.fillBiomesFromNoise(biomeresolver, ((AccessorNoiseChunk) chunk).botania_cachedClimateSampler(this.router));
 	}
 
 	@VisibleForDebug
