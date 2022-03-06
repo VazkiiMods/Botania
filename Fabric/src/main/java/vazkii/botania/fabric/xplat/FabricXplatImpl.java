@@ -556,11 +556,6 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public int getEnergyMultiplier() {
-		return 3;
-	}
-
-	@Override
 	public boolean isRedStringContainerTarget(BlockEntity be) {
 		if (be.getLevel().isClientSide) {
 			return false;

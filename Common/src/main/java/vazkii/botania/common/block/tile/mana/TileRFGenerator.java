@@ -19,7 +19,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class TileRFGenerator extends TileMod implements IManaReceiver {
-	private static final int MANA_TO_FE = IXplatAbstractions.INSTANCE.getEnergyMultiplier();
+	private static final int MANA_TO_FE = IXplatAbstractions.INSTANCE.isForge() ? 10 : 3;
 	public static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
 	private static final String TAG_MANA = "mana";
