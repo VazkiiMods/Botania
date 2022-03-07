@@ -50,11 +50,6 @@ public class RelicImpl implements IRelic {
 		return null;
 	}
 
-	@Override
-	public boolean hasUUID() {
-		return getSoulbindUUID() != null;
-	}
-
 	@Nullable
 	@Override
 	public ResourceLocation getAdvancement() {

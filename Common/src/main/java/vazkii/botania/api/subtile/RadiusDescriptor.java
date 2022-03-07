@@ -15,73 +15,13 @@ import net.minecraft.world.phys.AABB;
  * This object describes the Radius of a SubTileEntity. It can either be
  * a circle or rectangle.
  */
-public class RadiusDescriptor {
-
-	private final BlockPos subtileCoords;
-
-	public RadiusDescriptor(BlockPos subtileCoords) {
-		this.subtileCoords = subtileCoords;
+public sealed interface RadiusDescriptor permits RadiusDescriptor.Circle,RadiusDescriptor.Rectangle {
+	record Circle(BlockPos subtileCoords, double radius) implements RadiusDescriptor {
 	}
 
-	public BlockPos getSubtileCoords() {
-		return subtileCoords;
-	}
-
-	public boolean isCircle() {
-		return false;
-	}
-
-	public double getCircleRadius() {
-		return 0;
-	}
-
-	public AABB getAABB() {
-		return null;
-	}
-
-	public static class Circle extends RadiusDescriptor {
-
-		final double radius;
-
-		public Circle(BlockPos subtileCoords, double radius) {
-			super(subtileCoords);
-			this.radius = radius;
+	record Rectangle(BlockPos subtileCoords, AABB aabb) implements RadiusDescriptor {
+		public static Rectangle square(BlockPos subtileCoords, int expand) {
+			return new Rectangle(subtileCoords, new AABB(subtileCoords.offset(-expand, 0, -expand), subtileCoords.offset(expand + 1, 0, expand + 1)));
 		}
-
-		@Override
-		public boolean isCircle() {
-			return true;
-		}
-
-		@Override
-		public double getCircleRadius() {
-			return radius;
-		}
-
 	}
-
-	public static class Rectangle extends RadiusDescriptor {
-
-		final AABB aabb;
-
-		public Rectangle(BlockPos subtileCoords, AABB aabb) {
-			super(subtileCoords);
-			this.aabb = aabb;
-		}
-
-		@Override
-		public AABB getAABB() {
-			return aabb;
-		}
-
-	}
-
-	public static class Square extends Rectangle {
-
-		public Square(BlockPos subtileCoords, int expand) {
-			super(subtileCoords, new AABB(subtileCoords.offset(-expand, 0, -expand), subtileCoords.offset(expand + 1, 0, expand + 1)));
-		}
-
-	}
-
 }

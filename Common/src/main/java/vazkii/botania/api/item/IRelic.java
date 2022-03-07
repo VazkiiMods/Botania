@@ -35,8 +35,10 @@ public interface IRelic {
 	/**
 	 * Checks if the relic contains a well-formed UUID.
 	 */
-	@Deprecated // Just null check getSoulbindUUID directly
-	boolean hasUUID();
+	@Deprecated(forRemoval = true) // Just null check getSoulbindUUID directly
+	default boolean hasUUID() {
+		return getSoulbindUUID() != null;
+	}
 
 	/**
 	 * Attempts to bind to a player, or damage them if it's not theirs

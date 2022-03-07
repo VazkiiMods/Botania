@@ -108,12 +108,12 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), RENAME_RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RENAME_RANGE);
 	}
 
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), PICKUP_RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), PICKUP_RANGE);
 	}
 
 	@Override

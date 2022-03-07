@@ -97,12 +97,12 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
 	}
 
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), BIND_RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), BIND_RANGE);
 	}
 
 	@Override

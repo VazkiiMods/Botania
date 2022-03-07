@@ -145,6 +145,6 @@ public abstract class SubTileFluidGenerator extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), 1);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), 1);
 	}
 }
