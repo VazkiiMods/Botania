@@ -2159,7 +2159,7 @@
 
   "botania.entry.spectranthemum": "Spectranthemum",
   "botania.tagline.spectranthemum": "Teleports items",
-  "botania.page.spectranthemum0": "Long-distance item transport can be an arduous task; at some point, water channels and $(l:functional_flowers/daffomill)$(item)Daffomills$(0)$(/l) just won't cut it. The $(item)Spectranthemum$(0) uses $(thing)Mana$(0) to warp the fabric of reality around any items near it, teleporting them elsewhere in the world. Note that $(thing)Mana-containing and already-teleported items interfere with the warp; neither of these can be teleported.",
+  "botania.page.spectranthemum0": "Long-distance item transport can be an arduous task; at some point, water channels and $(l:functional_flowers/daffomill)$(item)Daffomills$(0)$(/l) just won't cut it. The $(item)Spectranthemum$(0) uses $(thing)Mana$(0) to warp the fabric of reality around any items near it, teleporting them elsewhere in the world. Note that $(thing)Mana$(0)-containing and already-teleported items interfere with the warp; neither of these can be teleported.",
   "botania.page.spectranthemum1": "To specify the destination of warped items, use a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) in $(thing)Bind Mode$(0) to bind the flower to a location within 12 blocks, the same way one would to a pool. To view what block the flower is bound to (as opposed to the pool it's pulling $(thing)Mana$(0) from), sneak while looking at it with a wand.",
   "botania.page.spectranthemum2": "This flower is bound by the $(thing)axiom of chunkloading$(0); i.e. it won't send items to unloaded chunks. This topic, however, is beyond the scope of this lexicon.",
   "botania.page.spectranthemum3": "$(o)(n)spooky(n+2)me$().",
