@@ -109,7 +109,7 @@ dependencies {
 
 compileJava {
     source(project(":Common").sourceSets.main.allSource)
-    options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
+    options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" //<< "-Werror"
 }
 
 sourcesJar {

@@ -39,9 +39,9 @@ public abstract class MixinClientLevelData implements SkyblockWorldInfo {
 	}
 
 	@Inject(at = @At("HEAD"), method = "getClearColorScale", cancellable = true)
-	private void gogFog(CallbackInfoReturnable<Double> cir) {
+	private void gogFog(CallbackInfoReturnable<Float> cir) {
 		if (gardenOfGlass) {
-			cir.setReturnValue(1.0);
+			cir.setReturnValue(1.0F);
 		}
 	}
 

@@ -52,6 +52,7 @@ public class ModFeatures {
 
 		mysticalFlowersPlaced = PlacementUtils.register(flowersId.toString(), configuredFlowers);
 		mysticalMushroomsPlaced = PlacementUtils.register(mushroomsId.toString(), configuredMushrooms);
+		SkyblockChunkGenerator.init();
 	}
 
 }

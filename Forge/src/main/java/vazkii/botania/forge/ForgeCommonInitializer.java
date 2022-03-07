@@ -202,7 +202,6 @@ public class ForgeCommonInitializer {
 
 		// Worldgen
 		bind(ForgeRegistries.FEATURES, ModFeatures::registerFeatures);
-		SkyblockChunkGenerator.init();
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			modBus.addGenericListener(ForgeWorldPreset.class, (RegistryEvent.Register<ForgeWorldPreset> e) -> {
 				ForgeWorldPreset preset = new ForgeWorldPreset(SkyblockChunkGenerator::createForWorldType) {
@@ -218,9 +217,14 @@ public class ForgeCommonInitializer {
 
 		// Rest
 		ModCriteriaTriggers.init();
-		ModLootModifiers.init();
 		bind(ForgeRegistries.PARTICLE_TYPES, ModParticles::registerParticles);
-		ModStats.init();
+
+		// Anything that touches vanilla registries needs to happen during *a* registry event
+		// So just use a random one
+		modBus.addGenericListener(Block.class, (RegistryEvent.Register<Block> e) -> {
+			ModLootModifiers.init();
+			ModStats.init();
+		});
 	}
 
 	private static <T extends IForgeRegistryEntry<T>> void bind(IForgeRegistry<T> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
