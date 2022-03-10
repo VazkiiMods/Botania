@@ -9,6 +9,9 @@ Current new features TODO:
 * Some way to auto-insert to Black Hole Talismans
   - Idea: dropped cobble BHT merges with dropped cobble? Causes problems with Crafty Crate outputs, since they output next to one another
   - Idea: Crafting recipe, cobble BHT + cobble => fuller cobble BHT? (Ran into recipe technical limitations before; might be fixed now)
+* Kekimurus buff (long overdue)
+  - Streaks?
+  - Vazkii mentioned "potion cakes" i.e. cakes as a base in the Brewery. Maybe that???
 * New relics (or maybe craftables?)
   - Reifactory Halo: Ass. Halo which accesses local Corporea net
     - [C] keybind works when held or table opened
