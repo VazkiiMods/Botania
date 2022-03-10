@@ -10,6 +10,7 @@
     },
     {
       "type": "botania:crafting_multi",
+      "heading":"botania.entry.mushrooms",
       "text": "botania.page.mushrooms1",
       "recipes": [
         "botania:mushroom_0",
