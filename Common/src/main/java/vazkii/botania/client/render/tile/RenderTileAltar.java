@@ -41,7 +41,7 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 	@Override
 	public void render(@Nonnull TileAltar altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
-		ms.translate(0.5, 1.5, 0.5);
+		ms.translate(0.5, 1.25, 0.5);
 
 		boolean water = altar.getFluid() == IPetalApothecary.State.WATER;
 		boolean lava = altar.getFluid() == IPetalApothecary.State.LAVA;
@@ -71,7 +71,7 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 					float offsetPerPetal = 360 / petals;
 
 					ms.pushPose();
-					ms.translate(-0.05F, -0.5F, 0F);
+					ms.translate(-0.05F, -0.38F, 0F);
 					ms.scale(v, v, v);
 					for (int i = 0; i < petals; i++) {
 						float offset = offsetPerPetal * i;
@@ -107,7 +107,7 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 
 			float alpha = lava ? 1F : 0.7F;
 
-			ms.translate(w, -0.3F, w);
+			ms.translate(w, -0.3125F, w);
 			ms.mulPose(Vector3f.XP.rotationDegrees(90));
 			ms.scale(s, s, s);
 
