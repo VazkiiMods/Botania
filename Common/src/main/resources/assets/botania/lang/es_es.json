@@ -35,7 +35,6 @@
   "botaniamisc.bottleTooltip": "Tiene un gusto refinado",
   "botaniamisc.shardLevel": "Potencia de lasca %s",
   "botaniamisc.lexiconIndex": "Índice del lexicón",
-  "botaniamisc.hasIvy": "Tiene hiedra eterna",
   "botaniamisc.drop": "Deja caer",
   "botaniamisc.dropTip0": "Consejo: puedes presionar %s en tu inventario para dejarlo caer",
   "botaniamisc.dropTip1": "CTRL-%s dejará caer el montón entero",
@@ -993,7 +992,6 @@
   "item.botania.spark_upgrade_isolated": "Aumento de chispa: Aislada",
   "item.botania.divining_rod": "Vara de manto abundante",
   "item.botania.gravity_rod": "Vara de mesa sombría",
-  "item.botania.regenivy": "Hiedra eterna",
   "item.botania.vial": "Vial de manacristal",
   "item.botania.flask": "Matraz de alfcristal",
   "item.botania.brew_vial": "Vial de %s (%s)",
@@ -1920,11 +1918,6 @@
   "botania.page.gravityRod0": "La $(item)vara de mesa sombría$(0) es una reliquia poderosa, la leyenda cuenta que el primero de estos dispositivos fue encontrado en un bioma de mesa sombrío.$(p)Para usarlo, se debe hacer clic derecho mantenido sobre el monstruo o objeto a coger. Soltando el clic dejará caer la entidad, mientras que con el izquierdo lo disparará con gran impulso.",
   "botania.page.gravityRod1": "Por supuesto, este poder no es gratis. Requiere de importantes cantidades de $(thing)maná$(0) del inventario de usuario.",
   "botania.page.gravityRod2": "Chocolate, por favor",
-
-  "botania.entry.regenIvy": "Hiedra eterna",
-  "botania.page.regenIvy0": "Mientras que las herramientas de $(item)manacero$(0) o el $(item)elementio$(0) tienen la habilidad de captar $(thing)maná$(0) para protegerse, otras herramientas o armaduras no poseen esta habilidad.$(p)Un poco de $(item)hiedra eterna$(0) se puede añadir virtualmente a cualquier objeto permitiéndole repararse con $(item)maná$(0).",
-  "botania.page.regenIvy1": "Para aplicarla, se debe crear la herramienta en cuestión con la hiedra eterna y 3 objetos que se usen para repararla en un yunque (ej. $(item)diamantes$(0) para un $(item)pico de diamante$(0)).$(p)Al no estar en contacto directo con el material, la cantidad de $(thing)maná$(0) usado por la hiedra en comparación con el $(item)manacero$(0) es bastante alta.",
-  "botania.page.regenIvy2": "Trae tu azuela del infierno",
 
   "botania.entry.missileRod": "Vara de la reserva inestable",
   "botania.page.missileRod0": "La $(item)vara de la reserva inestable$(0) es un arma bastante poderosa contra un grupo grande de enemigos. Canalizando su poder materializará incontable número de misiles arcanos que alcanzaran a los objetivos al azar, con un alto coste de $(thing)maná$(0).",
