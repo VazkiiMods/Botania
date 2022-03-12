@@ -38,7 +38,6 @@
   "botaniamisc.bottleTooltip": "Het heeft een verworven smaak",
   "botaniamisc.shardLevel": "Schervenkracht %s",
   "botaniamisc.lexiconIndex": "Lexicon Index",
-  "botaniamisc.hasIvy": "Heeft Tijdloze Klimop",
   "botaniamisc.drop": "Laten vallen",
   "botaniamisc.dropTip0": "Tip: Druk toets %s in je inventaris om te laten vallen",
   "botaniamisc.dropTip1": "CTRL-%s laat een hele stapel vallen",
@@ -1086,7 +1085,6 @@
   "item.botania.spark_upgrade_isolated": "Vonk Uitbreiding: Geïsoleerd",
   "item.botania.divining_rod": "Wichelroede",
   "item.botania.gravity_rod": "Staf van het Schaduw Plateau",
-  "item.botania.regenivy": "Tijdloze Klimop",
   "item.botania.vial": "Flacon Managlas",
   "item.botania.flask": "Flesje Elvenglas",
   "item.botania.brew_vial": "Flacon %s (%s)",
@@ -2440,12 +2438,6 @@
   "botania.page.gravityRod0": "De $(item)Staf van het Schaduw Plateau$(0) is een krachtig voorwerp. De legende zegt dat het werd gevonden op de top van een duister plateau. Om het apparaat te gebruiken, moet de gebruiker een rechts-klik vasthouden op een monster of een voorwerp. Het loslaten van rechts-klik zal het monster of voorwerp laten vallen, terwijl een links-klik het zal afvuren in een krachtige stoot.",
   "botania.page.gravityRod1": "Maar deze kracht is niet gratis, natuurlijk. Het heeft redelijk wat $(thing)Mana$(0) nodig uit de inventory van de gebruiker.",
   "botania.page.gravityRod2": "Staf van het Schaduw Plateau",
-
-  "botania.entry.regenIvy": "Tijdloze Klimop",
-  "botania.tagline.regenIvy": "Klimop die kan worden vastgemaakt aan voorwerpen voor reparatie met mana",
-  "botania.page.regenIvy0": "$(item)Manastaal$(0) en $(item)Elementium$(0) gereedschappen hebben de eigenschap om $(thing)Mana$(0) te kunnen gebruiken om zichzelf te beschermen, maar dat hebben niet alle gereedschappen.$(p)Een handvol $(item)Tijdloze Klimop$(0) kan worden vastgemaakt aan praktisch elk voorwerp, wat toelaat dat het kan worden gerepareerd met $(thing)Mana$(0).",
-  "botania.page.regenIvy1": "Om de klimop te bevestigen, moet het gereedschap simpelweg gecombineerd worden met de klimop, en 3 blokken van de stof die nodig is om het gereedschap te repareren op een aambeeld (bv. $(item)Diamanten$(0) for a $(item)Diamanten Houweel$(0)).$(p)Doordat het materiaal geen direct contact maakt, is de hoeveelheid $(thing)Mana$(0) verbruikt door de klimop vrij hoog vergeleken met $(item)Manastaal$(0).",
-  "botania.page.regenIvy2": "Breng je eigen inferno",
 
   "botania.entry.missileRod": "Staf van het Instabiele Reservoir",
   "botania.tagline.missileRod": "Een staf om te schieten",
