@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -99,13 +100,14 @@ public class ItemMissileRod extends Item {
 	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
-			BlockEntity te = tile.tileEntity();
+			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			BlockPos pos = te.getBlockPos();
-			if (tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
+			IManaReceiver receiver = (IManaReceiver) te;
+			if (receiver.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
 				if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
 					if (!world.isClientSide) {
-						tile.receiveMana(-COST_AVATAR);
+						receiver.receiveMana(-COST_AVATAR);
 					}
 					SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
 					world.addParticle(data, pos.getX() + 0.5, pos.getY() + 2.5, pos.getZ() + 0.5, 0, 0, 0);

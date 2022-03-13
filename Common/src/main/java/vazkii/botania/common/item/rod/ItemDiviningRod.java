@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -84,9 +85,10 @@ public class ItemDiviningRod extends Item {
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			if (tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
+			IManaReceiver receiver = (IManaReceiver) tile;
+			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 				ItemDiviningRod.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
-				tile.receiveMana(-COST);
+				receiver.receiveMana(-COST);
 			}
 		}
 

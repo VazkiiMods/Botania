@@ -11,9 +11,11 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
- * A TileEntity that implements this is considered a Mana Block.
- * Just being a Mana Block doesn't mean much, look at the other IMana
- * interfaces.
+ * Just a common interface to expose getCurrentMana from
+ * {@link IManaSpreader} and {@link IManaReceiver}.
+ * This interface is probably not very useful, see the two aforementioned.
+ * There is no guarantee whether this interface is exposed via capabilities
+ * or direct implementation.
  */
 public interface IManaBlock {
 

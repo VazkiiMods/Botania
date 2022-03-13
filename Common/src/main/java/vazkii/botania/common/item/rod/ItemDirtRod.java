@@ -28,6 +28,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -109,15 +110,16 @@ public class ItemDirtRod extends Item {
 	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
-			BlockEntity te = tile.tileEntity();
+			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
-				BlockPos pos = ((BlockEntity) tile).getBlockPos().relative(tile.getAvatarFacing());
+			IManaReceiver receiver = (IManaReceiver) te;
+			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
+				BlockPos pos = te.getBlockPos().relative(tile.getAvatarFacing());
 				BlockState state = world.getBlockState(pos);
 				if (state.isAir()) {
 					world.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
 					world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
-					tile.receiveMana(-COST);
+					receiver.receiveMana(-COST);
 				}
 			}
 		}

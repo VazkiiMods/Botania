@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
@@ -136,10 +137,11 @@ public class ItemRainbowRod extends ItemSelfReturning {
 	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
-			BlockEntity te = tile.tileEntity();
+			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
+			IManaReceiver receiver = (IManaReceiver) te;
 
-			if (world.isClientSide || tile.getCurrentMana() < MANA_COST_AVATAR * 25
+			if (world.isClientSide || receiver.getCurrentMana() < MANA_COST_AVATAR * 25
 					|| !tile.isEnabled() || world.isOutsideBuildHeight(te.getBlockPos().getY() - 1)) {
 				return;
 			}
@@ -180,13 +182,13 @@ public class ItemRainbowRod extends ItemSelfReturning {
 							if (world.setBlockAndUpdate(pos, ModBlocks.bifrost.defaultBlockState())) {
 								TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
 								tileBifrost.ticks = 10;
-								tile.receiveMana(-MANA_COST_AVATAR);
+								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
 						} else if (state.is(ModBlocks.bifrost)) {
 							TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
 							if (tileBifrost.ticks < 2) {
 								tileBifrost.ticks += 10;
-								tile.receiveMana(-MANA_COST_AVATAR);
+								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
 						}
 					}

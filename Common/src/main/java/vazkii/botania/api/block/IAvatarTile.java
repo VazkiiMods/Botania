@@ -11,15 +11,13 @@ package vazkii.botania.api.block;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 
-import vazkii.botania.api.mana.IManaReceiver;
-
 import java.util.Map;
 import java.util.UUID;
 
 /**
  * Base interface for the Avatar Block Entity
  */
-public interface IAvatarTile extends IManaReceiver {
+public interface IAvatarTile {
 
 	/**
 	 * Gets the avatar's inventory
