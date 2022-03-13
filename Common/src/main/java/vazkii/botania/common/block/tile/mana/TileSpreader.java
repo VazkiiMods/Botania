@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable {
+public class TileSpreader extends TileExposedSimpleInventory implements IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 

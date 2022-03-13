@@ -16,7 +16,7 @@ import java.util.UUID;
  * Any TileEntity that implements this is considered a Mana Spreader,
  * by which can fire mana bursts as a spreader.
  */
-public interface IManaSpreader extends IManaBlock {
+public interface IManaSpreader extends IManaCollector {
 
 	void setCanShoot(boolean canShoot);
 
