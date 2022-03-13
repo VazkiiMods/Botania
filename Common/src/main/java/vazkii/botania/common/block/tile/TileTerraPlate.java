@@ -26,6 +26,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable {
+public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaReceiver {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{

@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
@@ -121,7 +122,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 								receivingStacks = receivingPlayers.get(player);
 							}
 
-							int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
+							var receiver = (IManaReceiver) getAttachedTile();
+							int recv = Math.min(receiver.getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
 							if (recv > 0) {
 								receivingStacks.put(stack, recv);
 								if (add) {
@@ -140,9 +142,10 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 					Map<ItemStack, Integer> items = receivingPlayers.get(player);
 					ItemStack stack = items.keySet().iterator().next();
 					int cost = items.get(stack);
-					int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);
+					var receiver = (IManaReceiver) getAttachedTile();
+					int manaToPut = Math.min(receiver.getCurrentMana(), cost);
 					((IManaItem) stack.getItem()).addMana(stack, manaToPut);
-					getAttachedTile().receiveMana(-manaToPut);
+					receiver.receiveMana(-manaToPut);
 					particlesTowards(player);
 				}
 
@@ -174,25 +177,27 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 		}
 
 		if (!transfers.isEmpty()) {
-			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), tile.getCurrentMana());
+			var receiver = (IManaReceiver) tile;
+			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), receiver.getCurrentMana());
 			int count = transfers.size();
 			int manaSpent = 0;
 
 			if (manaTotal > 0) {
 				for (IManaSpark spark : transfers) {
 					count--;
-					if (spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone()) {
+					ISparkAttachable attached = spark.getAttachedTile();
+					var attachedReceiver = (IManaReceiver) attached;
+					if (attached == null || attachedReceiver.isFull() || spark.areIncomingTransfersDone()) {
 						continue;
 					}
 
-					ISparkAttachable attached = spark.getAttachedTile();
 					int spend = Math.min(attached.getAvailableSpaceForMana(), (manaTotal - manaSpent) / (count + 1));
-					attached.receiveMana(spend);
+					attachedReceiver.receiveMana(spend);
 					manaSpent += spend;
 
 					particlesTowards(spark.entity());
 				}
-				tile.receiveMana(-manaSpent);
+				receiver.receiveMana(-manaSpent);
 			}
 		}
 
@@ -303,13 +308,14 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 			SparkUpgradeType upgr = getUpgrade();
 			SparkUpgradeType supgr = spark.getUpgrade();
 			ISparkAttachable atile = spark.getAttachedTile();
+			IManaReceiver arecv = (IManaReceiver) atile;
 
 			if (spark == this
 					|| !((Entity) spark).isAlive()
 					|| spark.areIncomingTransfersDone()
 					|| getNetwork() != spark.getNetwork()
 					|| atile == null
-					|| atile.isFull()
+					|| arecv.isFull()
 					|| !(upgr == SparkUpgradeType.NONE && supgr == SparkUpgradeType.DOMINANT
 							|| upgr == SparkUpgradeType.RECESSIVE && (supgr == SparkUpgradeType.NONE || supgr == SparkUpgradeType.DISPERSIVE)
 							|| !(atile instanceof IManaPool))) {
