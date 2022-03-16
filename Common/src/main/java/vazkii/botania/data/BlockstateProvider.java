@@ -520,8 +520,20 @@ public class BlockstateProvider implements DataProvider {
 				"plains", "swamp", "taiga" }) {
 
 			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
-			Block base = Registry.BLOCK.getOptional(baseId).get();
-			rotatedMirroredVariantBlock(base);
+			Block stone = Registry.BLOCK.getOptional(baseId).get();
+			if (stone == biomeStoneMountain) {
+				rotatedMirroredWithVariants(remainingBlocks, stone, new ResourceLocation[]{
+						getBlockTexture(stone, "_1"),
+						getBlockTexture(stone, "_2")
+				}, new Integer[]{ 5, 1 });
+			} else if (stone == biomeStoneTaiga) {
+				rotatedMirroredWithVariants(remainingBlocks, stone, new ResourceLocation[]{
+						getBlockTexture(stone, "_1"),
+						getBlockTexture(stone, "_2")
+				});
+			} else {
+				rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
+			}
 
 			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
 			Block cobble = Registry.BLOCK.getOptional(cobbleId).get();
@@ -543,8 +555,8 @@ public class BlockstateProvider implements DataProvider {
 			Block chiseledBricks = Registry.BLOCK.getOptional(chiseledBricksId).get();
 			cubeAll(chiseledBricks);
 
-			// stairs and slabs handled above already, walls get removed automatically
-			remainingBlocks.removeAll(Arrays.asList(base, cobble, brick, chiseledBricks));
+			// stairs and slabs handled above already, walls and stone get removed automatically
+			remainingBlocks.removeAll(Arrays.asList(cobble, brick, chiseledBricks));
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
@@ -857,14 +869,61 @@ public class BlockstateProvider implements DataProvider {
 		singleVariantBlockState(b, model);
 	}
 
-	protected void rotatedMirroredVariantBlock(Block block) {
-		ResourceLocation model = TexturedModel.CUBE.create(block, this.modelOutput);
-		ResourceLocation mirroredModel = TexturedModel.CUBE_MIRRORED.create(block, this.modelOutput);
-		this.blockstates.add(AccessorBlockModelGenerators.createRotatedVariant(block, model, mirroredModel));
-	}
-
 	protected void singleVariantBlockState(Block b, ResourceLocation model) {
 		this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, model)));
+	}
+
+	protected void rotatedMirrored(Set<Block> blocks, Block block, ResourceLocation texture) {
+		rotatedMirroredWithVariants(blocks, block, new ResourceLocation[] { texture });
+	}
+
+	protected void rotatedMirroredWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
+		var weights = new Integer[textures.length];
+		Arrays.fill(weights, 1);
+		rotatedMirroredWithVariants(blocks, block, textures, weights);
+	}
+
+	protected void rotatedMirroredWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
+		int length = textures.length;
+		if (length != weights.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		ResourceLocation[] models = new ResourceLocation[length];
+		ResourceLocation[] mirroredModels = new ResourceLocation[length];
+		for (int i = 0; i < length; i++) {
+			String suffix = length == 1 ? "" : "_" + (i + 1);
+			ResourceLocation modelId = getModelLocation(block, suffix);
+			ResourceLocation mirriredModelId = getModelLocation(block, "_mirrored" + suffix);
+			models[i] = ModelTemplates.CUBE_ALL.create(modelId, TextureMapping.cube(textures[i]), this.modelOutput);
+			mirroredModels[i] = ModelTemplates.CUBE_MIRRORED_ALL.create(mirriredModelId, TextureMapping.cube(textures[i]), this.modelOutput);
+		}
+		rotatedMirroredWithModels(blocks, block, models, mirroredModels, weights);
+	}
+
+	protected void rotatedMirroredWithModels(Set<Block> blocks, Block block, ResourceLocation[] models, ResourceLocation[] mirroredModels, Integer[] weights) {
+		int length = models.length;
+		if (length != mirroredModels.length || length != weights.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		Variant[] variants = new Variant[length * 4];
+		for (int i = 0; i < length; i++) {
+			int vi = i * 4;
+			variants[vi] = Variant.variant().with(VariantProperties.MODEL, models[i]);
+			variants[vi + 1] = Variant.variant().with(VariantProperties.MODEL, mirroredModels[i]);
+			variants[vi + 2] = Variant.variant()
+					.with(VariantProperties.MODEL, models[i])
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
+			variants[vi + 3] = Variant.variant()
+					.with(VariantProperties.MODEL, mirroredModels[i])
+					.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
+			if (weights[i] != 1) {
+				for (int v = 0; v < 4; v++) {
+					variants[vi + v].with(VariantProperties.WEIGHT, weights[i]);
+				}
+			}
+		}
+		this.blockstates.add(MultiVariantGenerator.multiVariant(block, variants));
+		blocks.remove(block);
 	}
 
 	protected void pillar(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
