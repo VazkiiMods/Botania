@@ -2,6 +2,9 @@
   "variants": {
     "type=bottom": [
       {
+        "model": "botania:block/stripped_dreamwood_slab"
+      },
+      {
         "model": "botania:block/stripped_dreamwood_slab_1"
       },
       {
@@ -15,12 +18,12 @@
       },
       {
         "model": "botania:block/stripped_dreamwood_slab_5"
-      },
-      {
-        "model": "botania:block/stripped_dreamwood_slab_6"
       }
     ],
     "type=double": [
+      {
+        "model": "botania:block/stripped_dreamwood"
+      },
       {
         "model": "botania:block/stripped_dreamwood_1"
       },
@@ -35,12 +38,12 @@
       },
       {
         "model": "botania:block/stripped_dreamwood_5"
-      },
-      {
-        "model": "botania:block/stripped_dreamwood_6"
       }
     ],
     "type=top": [
+      {
+        "model": "botania:block/stripped_dreamwood_slab_top"
+      },
       {
         "model": "botania:block/stripped_dreamwood_slab_top_1"
       },
@@ -55,9 +58,6 @@
       },
       {
         "model": "botania:block/stripped_dreamwood_slab_top_5"
-      },
-      {
-        "model": "botania:block/stripped_dreamwood_slab_top_6"
       }
     ]
   }

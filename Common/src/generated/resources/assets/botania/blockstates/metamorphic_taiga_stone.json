@@ -2,6 +2,20 @@
   "variants": {
     "": [
       {
+        "model": "botania:block/metamorphic_taiga_stone"
+      },
+      {
+        "model": "botania:block/metamorphic_taiga_stone_mirrored"
+      },
+      {
+        "model": "botania:block/metamorphic_taiga_stone",
+        "y": 180
+      },
+      {
+        "model": "botania:block/metamorphic_taiga_stone_mirrored",
+        "y": 180
+      },
+      {
         "model": "botania:block/metamorphic_taiga_stone_1"
       },
       {
@@ -13,20 +27,6 @@
       },
       {
         "model": "botania:block/metamorphic_taiga_stone_mirrored_1",
-        "y": 180
-      },
-      {
-        "model": "botania:block/metamorphic_taiga_stone_2"
-      },
-      {
-        "model": "botania:block/metamorphic_taiga_stone_mirrored_2"
-      },
-      {
-        "model": "botania:block/metamorphic_taiga_stone_2",
-        "y": 180
-      },
-      {
-        "model": "botania:block/metamorphic_taiga_stone_mirrored_2",
         "y": 180
       }
     ]

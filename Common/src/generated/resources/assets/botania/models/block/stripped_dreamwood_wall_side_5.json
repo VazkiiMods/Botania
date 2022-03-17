@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "botania:block/stripped_dreamwood_log/5"
+    "wall": "botania:block/stripped_dreamwood_log_5"
   }
 }

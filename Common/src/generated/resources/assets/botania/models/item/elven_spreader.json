@@ -3,8 +3,8 @@
   "textures": {
     "side": "botania:block/elven_spreader_side",
     "back": "botania:block/elven_spreader_back",
-    "inside": "botania:block/stripped_dreamwood_log/4",
-    "outside": "botania:block/dreamwood_log/4",
+    "inside": "botania:block/stripped_dreamwood_log_3",
+    "outside": "botania:block/dreamwood_log_3",
     "core": "botania:block/elven_spreader_core"
   }
 }

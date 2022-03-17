@@ -301,15 +301,15 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] strippedLogModels = new ResourceLocation[6];
 
 		for (int i = 0; i < 6; i++) {
-			int index = i + 1;
-			sideTexs[i] = getBlockTexture(dreamwoodLog, "/" + index);
+			String suffix = i == 0 ? "" : "_" + i;
+			sideTexs[i] = getBlockTexture(dreamwoodLog, suffix);
 			topTexs[i] = getBlockTexture(dreamwoodLog, "_top");
-			sideStrippedTexs[i] = getBlockTexture(dreamwoodLogStripped, "/" + index);
+			sideStrippedTexs[i] = getBlockTexture(dreamwoodLogStripped, suffix);
 			topStrippedTexs[i] = getBlockTexture(dreamwoodLogStripped, "_top");
-			sideGlimmeringTexs[i] = getBlockTexture(dreamwoodLogGlimmering, "/" + index);
-			sideGlimmeringStrippedTexs[i] = getBlockTexture(dreamwoodLogStrippedGlimmering, "/" + index);
-			logModels[i] = getModelLocation(dreamwood, "_" + index);
-			strippedLogModels[i] = getModelLocation(dreamwoodStripped, "_" + index);
+			sideGlimmeringTexs[i] = getBlockTexture(dreamwoodLogGlimmering, suffix);
+			sideGlimmeringStrippedTexs[i] = getBlockTexture(dreamwoodLogStrippedGlimmering, suffix);
+			logModels[i] = getModelLocation(dreamwood, suffix);
+			strippedLogModels[i] = getModelLocation(dreamwoodStripped, suffix);
 		}
 
 		pillarWithVariants(remainingBlocks, dreamwoodLog, topTexs, sideTexs);
@@ -426,7 +426,7 @@ public class BlockstateProvider implements DataProvider {
 			if (b == redstoneSpreader || b == manaSpreader) {
 				outside = getBlockTexture(livingwoodLog);
 			} else if (b == elvenSpreader) {
-				outside = getBlockTexture(dreamwoodLog, "/4");
+				outside = getBlockTexture(dreamwoodLog, "_3");
 			} else {
 				outside = getBlockTexture(b, "_outside");
 			}
@@ -434,7 +434,7 @@ public class BlockstateProvider implements DataProvider {
 			if (b == redstoneSpreader || b == manaSpreader) {
 				inside = getBlockTexture(livingwoodLogStripped);
 			} else if (b == elvenSpreader) {
-				inside = getBlockTexture(dreamwoodLogStripped, "/4");
+				inside = getBlockTexture(dreamwoodLogStripped, "_3");
 			} else {
 				inside = getBlockTexture(b, "_inside");
 			}
@@ -523,13 +523,13 @@ public class BlockstateProvider implements DataProvider {
 			Block stone = Registry.BLOCK.getOptional(baseId).get();
 			if (stone == biomeStoneMountain) {
 				rotatedMirroredWithVariants(remainingBlocks, stone, new ResourceLocation[]{
-						getBlockTexture(stone, "_1"),
-						getBlockTexture(stone, "_2")
+						getBlockTexture(stone),
+						getBlockTexture(stone, "_1")
 				}, new Integer[]{ 5, 1 });
 			} else if (stone == biomeStoneTaiga) {
 				rotatedMirroredWithVariants(remainingBlocks, stone, new ResourceLocation[]{
-						getBlockTexture(stone, "_1"),
-						getBlockTexture(stone, "_2")
+						getBlockTexture(stone),
+						getBlockTexture(stone, "_1")
 				});
 			} else {
 				rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
@@ -690,7 +690,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] straightModels = new ResourceLocation[length];
 		ResourceLocation[] outerModels = new ResourceLocation[length];
 		for (int i = 0; i < length; i++) {
-			String suffix = length == 1 ? "" : "_" + (i + 1);
+			String suffix = i == 0 ? "" : "_" + i;
 			var mapping = new TextureMapping()
 					.put(TextureSlot.SIDE, sideTextures[i])
 					.put(TextureSlot.BOTTOM, bottomTextures[i])
@@ -769,7 +769,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] bottomModels = new ResourceLocation[length];
 		ResourceLocation[] topModels = new ResourceLocation[length];
 		for (int i = 0; i < length; i++) {
-			String suffix = length == 1 ? "" : "_" + (i + 1);
+			String suffix = i == 0 ? "" : "_" + i;
 			var mapping = new TextureMapping()
 					.put(TextureSlot.SIDE, sideTextures[i])
 					.put(TextureSlot.BOTTOM, bottomTextures[i])
@@ -802,7 +802,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] lowModels = new ResourceLocation[length];
 		ResourceLocation[] tallModels = new ResourceLocation[length];
 		for (int i = 0; i < length; i++) {
-			String suffix = length == 1 ? "" : "_" + (i + 1);
+			String suffix = i == 0 ? "" : "_" + i;
 			var mapping = new TextureMapping()
 					.put(TextureSlot.WALL, sideTextures[i]);
 			ResourceLocation modelIdPost = getModelLocation(block, "_post" + suffix);
@@ -891,7 +891,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] models = new ResourceLocation[length];
 		ResourceLocation[] mirroredModels = new ResourceLocation[length];
 		for (int i = 0; i < length; i++) {
-			String suffix = length == 1 ? "" : "_" + (i + 1);
+			String suffix = i == 0 ? "" : "_" + i;
 			ResourceLocation modelId = getModelLocation(block, suffix);
 			ResourceLocation mirriredModelId = getModelLocation(block, "_mirrored" + suffix);
 			models[i] = ModelTemplates.CUBE_ALL.create(modelId, TextureMapping.cube(textures[i]), this.modelOutput);
@@ -938,7 +938,7 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] topModels = new ResourceLocation[length];
 		ResourceLocation[] horizontalModels = new ResourceLocation[length];
 		for (int i = 0; i < length; i++) {
-			String suffix = length == 1 ? "" : "_" + (i + 1);
+			String suffix = i == 0 ? "" : "_" + i;
 			ResourceLocation modelIdTop = getModelLocation(block, suffix);
 			ResourceLocation modelIdHorizontal = getModelLocation(block, "_horizontal" + suffix);
 			topModels[i] = ModelTemplates.CUBE_COLUMN.create(modelIdTop, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
@@ -978,7 +978,7 @@ public class BlockstateProvider implements DataProvider {
 		ModelTemplate horizontalXTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_horizontal_x")), Optional.of("_horizontal_x"), TextureSlot.END, TextureSlot.SIDE);
 		ModelTemplate horizontalZTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_horizontal_z")), Optional.of("_horizontal_z"), TextureSlot.END, TextureSlot.SIDE);
 		for (int i = 0; i < length; i++) {
-			String suffix = length == 1 ? "" : "_" + (i + 1);
+			String suffix = i == 0 ? "" : "_" + i;
 			ResourceLocation modelIdTop = getModelLocation(block, suffix);
 			ResourceLocation modelIdHorizontalX = getModelLocation(block, "_horizontal_x" + suffix);
 			ResourceLocation modelIdHorizontalZ = getModelLocation(block, "_horizontal_z" + suffix);

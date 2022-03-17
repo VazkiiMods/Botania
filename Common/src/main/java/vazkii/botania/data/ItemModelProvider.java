@@ -412,9 +412,6 @@ public class ItemModelProvider implements DataProvider {
 
 					String name = Registry.ITEM.getKey(i).getPath();
 					String baseName = name.substring(0, name.length() - "_wall".length()) + "_log";
-					if (baseName.contains("dreamwood")) {
-						baseName += "/1";
-					}
 					ModelTemplates.WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(i),
 							new TextureMapping().put(TextureSlot.WALL, prefix("block/" + baseName)), consumer);
 				});
@@ -430,7 +427,7 @@ public class ItemModelProvider implements DataProvider {
 			String name = Registry.ITEM.getKey(i).getPath();
 			String outside;
 			if (i.getBlock() == ModBlocks.elvenSpreader) {
-				outside = "dreamwood_log/4";
+				outside = "dreamwood_log_3";
 			} else if (i.getBlock() == ModBlocks.gaiaSpreader) {
 				outside = name + "_outside";
 			} else {
@@ -438,7 +435,7 @@ public class ItemModelProvider implements DataProvider {
 			}
 			String inside;
 			if (i.getBlock() == ModBlocks.elvenSpreader) {
-				inside = "stripped_dreamwood_log/4";
+				inside = "stripped_dreamwood_log_3";
 			} else if (i.getBlock() == ModBlocks.gaiaSpreader) {
 				inside = name + "_inside";
 			} else {
@@ -462,20 +459,6 @@ public class ItemModelProvider implements DataProvider {
 		takeAll(itemBlocks, i -> i instanceof ItemPetal).forEach(i -> {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(prefix("item/petal")), consumer);
 		});
-
-		takeAll(itemBlocks, Stream.of(ModBlocks.dreamwoodLog, ModBlocks.dreamwood, ModBlocks.dreamwoodLogStripped,
-				ModBlocks.dreamwoodStripped, ModBlocks.dreamwoodLogGlimmering, ModBlocks.dreamwoodGlimmering,
-				ModBlocks.dreamwoodLogStrippedGlimmering, ModBlocks.dreamwoodStrippedGlimmering,
-				ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodStrippedStairs, ModFluffBlocks.dreamwoodSlab,
-				ModFluffBlocks.dreamwoodStrippedSlab)
-				.map(Block::asItem)
-				.map(i -> (BlockItem) i)
-				.toArray(BlockItem[]::new))
-						.forEach(i -> {
-							var defaultId = ModelLocationUtils.getModelLocation(i.getBlock());
-							var variantId = new ResourceLocation(defaultId.getNamespace(), defaultId.getPath() + "_1");
-							consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(variantId));
-						});
 
 		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(ModFluffBlocks.dreamwoodFence.asItem()),
 				TextureMapping.defaultTexture(ModBlocks.dreamwoodPlanks), consumer);
