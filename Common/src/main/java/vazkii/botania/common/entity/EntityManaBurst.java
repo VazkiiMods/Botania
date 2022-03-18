@@ -435,9 +435,12 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		BlockState state = level.getBlockState(collidePos);
 		Block block = state.getBlock();
 
-		if (block instanceof IManaCollisionGhost ghost
-				&& ghost.isGhost(state, level, collidePos)
-				&& !(block instanceof IManaTrigger)
+		IManaCollisionGhost.Behaviour ghostBehaviour = IManaCollisionGhost.Behaviour.RUN_ALL;
+		if (block instanceof IManaCollisionGhost ghost) {
+			ghostBehaviour = ghost.getGhostBehaviour(state, level, collidePos);
+		}
+
+		if (ghostBehaviour == IManaCollisionGhost.Behaviour.SKIP_ALL
 				|| block instanceof BushBlock
 				|| block instanceof LeavesBlock) {
 			return;
@@ -460,7 +463,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			trigger.onBurstCollision(this, level, collidePos);
 		}
 
-		if (block instanceof IManaCollisionGhost) {
+		if (ghostBehaviour == IManaCollisionGhost.Behaviour.RUN_RECEIVER_TRIGGER) {
 			return;
 		}
 

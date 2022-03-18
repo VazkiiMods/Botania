@@ -49,10 +49,8 @@ public class BlockManaDetector extends BlockMod implements IManaTrigger, IManaCo
 	}
 
 	@Override
-	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
-		// The burst will call onBurstCollision, but will still pass through this block.
-		// TODO clarify the relationship between IManaTrigger and IManaCollisionGhost
-		return false;
+	public Behaviour getGhostBehaviour(BlockState state, Level world, BlockPos pos) {
+		return Behaviour.RUN_RECEIVER_TRIGGER;
 	}
 
 	@Override

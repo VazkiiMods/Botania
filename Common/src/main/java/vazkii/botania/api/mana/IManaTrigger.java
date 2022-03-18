@@ -15,7 +15,6 @@ import vazkii.botania.api.internal.IManaBurst;
 
 /**
  * Have a block implement this class to make it do something when a mana burst collides with it.
- * This interface overrides {@link IManaCollisionGhost}.
  */
 public interface IManaTrigger {
 

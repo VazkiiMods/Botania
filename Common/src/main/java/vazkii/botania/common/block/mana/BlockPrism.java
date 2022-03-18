@@ -175,7 +175,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 	}
 
 	@Override
-	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
-		return true;
+	public Behaviour getGhostBehaviour(BlockState state, Level world, BlockPos pos) {
+		return Behaviour.RUN_RECEIVER_TRIGGER;
 	}
 }
