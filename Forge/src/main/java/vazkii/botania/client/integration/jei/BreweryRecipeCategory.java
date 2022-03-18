@@ -8,15 +8,14 @@
  */
 package vazkii.botania.client.integration.jei;
 
-import com.google.common.collect.ImmutableList;
-
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
@@ -31,7 +30,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -82,59 +81,45 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 	}
 
 	@Override
-	public void setIngredients(IBrewRecipe recipe, IIngredients iIngredients) {
-		ImmutableList.Builder<List<ItemStack>> inputBuilder = ImmutableList.builder();
-		ImmutableList.Builder<ItemStack> outputBuilder = ImmutableList.builder();
-		ImmutableList.Builder<ItemStack> containers = ImmutableList.builder();
+	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IBrewRecipe recipe, @Nonnull IFocusGroup focuses) {
+		List<ItemStack> outputs = new ArrayList<>();
+		List<ItemStack> containers = new ArrayList<>();
 
-		final List<ItemStack> inputs = Arrays.asList(new ItemStack(ModItems.vial),
-				new ItemStack(ModItems.flask), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
-		for (ItemStack stack : inputs) {
-			ItemStack brewed = recipe.getOutput(stack);
+		for (var container : new ItemStack[] {
+				new ItemStack(ModItems.vial), new ItemStack(ModItems.flask),
+				new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant)
+		}) {
+			ItemStack brewed = recipe.getOutput(container);
 			if (!brewed.isEmpty()) {
-				containers.add(stack);
-				outputBuilder.add(brewed);
+				containers.add(container);
+				outputs.add(brewed);
 			}
 		}
-		inputBuilder.add(containers.build());
 
-		for (Ingredient i : recipe.getIngredients()) {
-			inputBuilder.add(Arrays.asList(i.getItems()));
-		}
+		IFocus<ItemStack> outputFocus = focuses.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.OUTPUT).findAny().orElse(null);
+		IFocus<ItemStack> inputFocus = focuses.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.INPUT).findAny().orElse(null);
 
-		iIngredients.setInputLists(VanillaTypes.ITEM, inputBuilder.build());
-		iIngredients.setOutputLists(VanillaTypes.ITEM, ImmutableList.of(outputBuilder.build()));
-	}
+		builder.addSlot(RecipeIngredientRole.INPUT, 10, 35)
+				.addItemStacks(getItemMatchingFocus(outputFocus, outputs, containers));
 
-	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IBrewRecipe recipe, @Nonnull IIngredients ingredients) {
-
-		List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
-		List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);
-		IFocus<ItemStack> focus = recipeLayout.getFocus(VanillaTypes.ITEM);
-
-		recipeLayout.getItemStacks().init(0, true, 10, 35);
-		recipeLayout.getItemStacks().set(0, getItemMatchingFocus(focus, IFocus.Mode.OUTPUT, outputs.get(0), inputs.get(0)));
-
-		int index = 1, posX = 76 - (inputs.size() * 9);
-		for (int i = 1; i < inputs.size(); i++) {
-			List<ItemStack> o = inputs.get(i);
-			recipeLayout.getItemStacks().init(index, true, posX, 0);
-			recipeLayout.getItemStacks().set(index, o);
-			index++;
+		var inputs = recipe.getIngredients();
+		int posX = 67 - (inputs.size() * 9);
+		for (var ingr : inputs) {
+			builder.addSlot(RecipeIngredientRole.INPUT, posX, 0)
+					.addIngredients(ingr);
 			posX += 18;
 		}
 
-		recipeLayout.getItemStacks().init(7, false, 58, 35);
-		recipeLayout.getItemStacks().set(7, getItemMatchingFocus(focus, IFocus.Mode.INPUT, inputs.get(0), outputs.get(0)));
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 58, 35)
+				.addItemStacks(getItemMatchingFocus(inputFocus, containers, outputs));
 	}
 
 	/**
 	 * If an item in this recipe is focused, returns the corresponding item instead of all the containers/results.
 	 */
-	private List<ItemStack> getItemMatchingFocus(IFocus<ItemStack> focus, IFocus.Mode mode, List<ItemStack> focused, List<ItemStack> other) {
-		if (focus != null && focus.getMode() == mode) {
-			ItemStack focusStack = focus.getValue();
+	private List<ItemStack> getItemMatchingFocus(IFocus<ItemStack> focus, List<ItemStack> focused, List<ItemStack> other) {
+		if (focus != null) {
+			ItemStack focusStack = focus.getTypedValue().getIngredient();
 			for (int i = 0; i < focused.size(); i++) {
 				if (focusStack.sameItem(focused.get(i))) {
 					return Collections.singletonList(other.get(i));
