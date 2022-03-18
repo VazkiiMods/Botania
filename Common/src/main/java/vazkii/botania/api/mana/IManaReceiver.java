@@ -8,10 +8,23 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
+
 /**
  * Any TileEntity that implements this can receive mana from mana bursts.
  */
-public interface IManaReceiver extends IManaBlock {
+public interface IManaReceiver {
+	/**
+	 * Gets the amount of mana currently in this block.
+	 */
+	int getCurrentMana();
+
+	/**
+	 * @return the TileEntity underlying this Mana Block
+	 */
+	default BlockEntity tileEntity() {
+		return (BlockEntity) this;
+	}
 
 	/**
 	 * Is this Mana Receiver is full? Being full means no mana bursts will be sent.
