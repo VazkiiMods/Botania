@@ -173,8 +173,9 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 			return false;
 		}
 
-		if (item instanceof IManaItem manaItem) {
-			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
+		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		if (manaItem != null) {
+			return getFullness(manaItem) == getFullness(manaItem);
 		} else {
 			return ItemStack.tagMatches(filter, stack);
 		}
@@ -184,10 +185,10 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 	 * Returns the fullness of the mana item:
 	 * 0 if empty, 1 if partially full, 2 if full.
 	 */
-	public static int getFullness(IManaItem item, ItemStack stack) {
-		int mana = item.getMana(stack);
+	public static int getFullness(IManaItem item) {
+		int mana = item.getMana();
 		int fuzz = 10;
-		return mana <= fuzz ? 0 : (mana + fuzz < item.getMaxMana(stack) ? 1 : 2);
+		return mana <= fuzz ? 0 : (mana + fuzz < item.getMaxMana() ? 1 : 2);
 	}
 
 	public static List<ItemStack> getFilterForInventory(Level level, BlockPos pos, boolean recursiveForDoubleChests) {

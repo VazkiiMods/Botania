@@ -35,7 +35,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.BotaniaItemProperties;
 import vazkii.botania.client.core.handler.*;
@@ -60,6 +59,7 @@ import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.mixin.client.ForgeAccessorModelBakery;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
@@ -119,7 +119,8 @@ public class ForgeClientInitializer {
 			}
 		});
 		bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {
-			if (!(e.getItemStack().getItem() instanceof IManaItem)) {
+			var manaItem = IXplatAbstractions.INSTANCE.findManaItem(e.getItemStack());
+			if (manaItem == null) {
 				return;
 			}
 			// Forge does not pass the tooltip width to any tooltip event.

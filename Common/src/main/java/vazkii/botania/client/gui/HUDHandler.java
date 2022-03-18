@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.gui;
 
+import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -23,7 +24,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +33,6 @@ import net.minecraft.world.phys.HitResult;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -57,6 +56,7 @@ import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
@@ -185,20 +185,12 @@ public final class HUDHandler {
 			}
 
 			List<ItemStack> items = ManaItemHandler.instance().getManaItems(player);
-			for (ItemStack stack : items) {
-				Item item = stack.getItem();
-				if (!((IManaItem) item).isNoExport(stack)) {
-					totalMana += ((IManaItem) item).getMana(stack);
-					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
-				}
-			}
-
 			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
-			for (ItemStack stack : acc) {
-				Item item = stack.getItem();
-				if (!((IManaItem) item).isNoExport(stack)) {
-					totalMana += ((IManaItem) item).getMana(stack);
-					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+			for (ItemStack stack : Iterables.concat(items, acc)) {
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				if (!manaItem.isNoExport()) {
+					totalMana += manaItem.getMana();
+					totalMaxMana += manaItem.getMaxMana();
 				}
 			}
 

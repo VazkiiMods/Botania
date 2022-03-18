@@ -94,7 +94,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 			case DISPERSIVE -> {
 				List<Player> players = SparkHelper.getEntitiesAround(Player.class, level, getX(), getY() + (getBbHeight() / 2.0), getZ());
 
-				Map<Player, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
+				Map<Player, Map<IManaItem, Integer>> receivingPlayers = new HashMap<>();
 
 				ItemStack input = new ItemStack(ModItems.spark);
 				for (Player player : players) {
@@ -108,12 +108,13 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 					}
 
 					for (ItemStack stack : stacks) {
-						if (stack.isEmpty() || !(stack.getItem() instanceof IManaItem manaItem)) {
+						var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+						if (stack.isEmpty() || manaItem == null) {
 							continue;
 						}
 
-						if (manaItem.canReceiveManaFromItem(stack, input)) {
-							Map<ItemStack, Integer> receivingStacks;
+						if (manaItem.canReceiveManaFromItem(input)) {
+							Map<IManaItem, Integer> receivingStacks;
 							boolean add = false;
 							if (!receivingPlayers.containsKey(player)) {
 								add = true;
@@ -123,9 +124,9 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 							}
 
 							var receiver = (IManaReceiver) getAttachedTile();
-							int recv = Math.min(receiver.getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
+							int recv = Math.min(receiver.getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana() - manaItem.getMana()));
 							if (recv > 0) {
-								receivingStacks.put(stack, recv);
+								receivingStacks.put(manaItem, recv);
 								if (add) {
 									receivingPlayers.put(player, receivingStacks);
 								}
@@ -139,12 +140,13 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 					Collections.shuffle(keys);
 					Player player = keys.iterator().next();
 
-					Map<ItemStack, Integer> items = receivingPlayers.get(player);
-					ItemStack stack = items.keySet().iterator().next();
-					int cost = items.get(stack);
+					Map<IManaItem, Integer> items = receivingPlayers.get(player);
+					var e = items.entrySet().iterator().next();
+					IManaItem manaItem = e.getKey();
+					int cost = e.getValue();
 					var receiver = (IManaReceiver) getAttachedTile();
 					int manaToPut = Math.min(receiver.getCurrentMana(), cost);
-					((IManaItem) stack.getItem()).addMana(stack, manaToPut);
+					manaItem.addMana(manaToPut);
 					receiver.receiveMana(-manaToPut);
 					particlesTowards(player);
 				}

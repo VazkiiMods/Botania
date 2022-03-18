@@ -163,6 +163,12 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
+	public IManaItem findManaItem(ItemStack stack) {
+		return BotaniaFabricCapabilities.MANA_ITEM.find(stack, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
 	public IRelic findRelic(ItemStack stack) {
 		return BotaniaFabricCapabilities.RELIC.find(stack, Unit.INSTANCE);
 	}

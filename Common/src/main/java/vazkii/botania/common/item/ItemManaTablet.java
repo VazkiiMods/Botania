@@ -25,13 +25,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ItemManaTablet extends Item implements IManaItem {
+public class ItemManaTablet extends Item {
 
 	public static final int MAX_MANA = 500000;
 
@@ -89,49 +90,57 @@ public class ItemManaTablet extends Item implements IManaItem {
 		return ItemNBTHelper.getBoolean(stack, TAG_CREATIVE, false);
 	}
 
-	@Override
-	public int getMana(ItemStack stack) {
-		if (isStackCreative(stack)) {
-			return getMaxMana(stack);
+	public static class ManaItem implements IManaItem {
+		private final ItemStack stack;
+
+		public ManaItem(ItemStack stack) {
+			this.stack = stack;
 		}
-		return ItemNBTHelper.getInt(stack, TAG_MANA, 0) * stack.getCount();
-	}
 
-	@Override
-	public int getMaxMana(ItemStack stack) {
-		return (isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA) * stack.getCount();
-	}
-
-	@Override
-	public void addMana(ItemStack stack, int mana) {
-		if (!isStackCreative(stack)) {
-			setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)) / stack.getCount());
+		@Override
+		public int getMana() {
+			if (isStackCreative(stack)) {
+				return getMaxMana();
+			}
+			return ItemNBTHelper.getInt(stack, TAG_MANA, 0) * stack.getCount();
 		}
-	}
 
-	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
-		return !ItemNBTHelper.getBoolean(stack, TAG_ONE_USE, false);
-	}
+		@Override
+		public int getMaxMana() {
+			return (isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA) * stack.getCount();
+		}
 
-	@Override
-	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return !isStackCreative(stack);
-	}
+		@Override
+		public void addMana(int mana) {
+			if (!isStackCreative(stack)) {
+				setMana(stack, Math.min(getMana() + mana, getMaxMana()) / stack.getCount());
+			}
+		}
 
-	@Override
-	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
-		return true;
-	}
+		@Override
+		public boolean canReceiveManaFromPool(BlockEntity pool) {
+			return !ItemNBTHelper.getBoolean(stack, TAG_ONE_USE, false);
+		}
 
-	@Override
-	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
-		return true;
-	}
+		@Override
+		public boolean canReceiveManaFromItem(ItemStack otherStack) {
+			return !isStackCreative(stack);
+		}
 
-	@Override
-	public boolean isNoExport(ItemStack stack) {
-		return false;
+		@Override
+		public boolean canExportManaToPool(BlockEntity pool) {
+			return true;
+		}
+
+		@Override
+		public boolean canExportManaToItem(ItemStack otherStack) {
+			return true;
+		}
+
+		@Override
+		public boolean isNoExport() {
+			return false;
+		}
 	}
 
 	@Override
@@ -141,11 +150,13 @@ public class ItemManaTablet extends Item implements IManaItem {
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(this, stack));
+		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(this, stack) / 3.0F, 1.0F, 1.0F);
+		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
 	}
 }

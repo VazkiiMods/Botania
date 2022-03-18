@@ -12,11 +12,13 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.mana.IManaItem;
 
 public final class BotaniaForgeCapabilities {
 	public static final Capability<IAvatarWieldable> AVATAR_WIELDABLE = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IBlockProvider> BLOCK_PROVIDER = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<ICoordBoundItem> COORD_BOUND_ITEM = CapabilityManager.get(new CapabilityToken<>() {});
+	public static final Capability<IManaItem> MANA_ITEM = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IRelic> RELIC = CapabilityManager.get(new CapabilityToken<>() {});
 
 	public static final Capability<IExoflameHeatable> EXOFLAME_HEATABLE = CapabilityManager.get(new CapabilityToken<>() {});

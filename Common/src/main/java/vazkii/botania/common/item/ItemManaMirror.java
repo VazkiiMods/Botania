@@ -34,13 +34,14 @@ import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Optional;
 
-public class ItemManaMirror extends Item implements IManaItem {
+public class ItemManaMirror extends Item {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -59,12 +60,14 @@ public class ItemManaMirror extends Item implements IManaItem {
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(this, stack));
+		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(this, stack) / 3.0F, 1.0F, 1.0F);
+		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -103,32 +106,16 @@ public class ItemManaMirror extends Item implements IManaItem {
 		return InteractionResult.PASS;
 	}
 
-	@Override
-	public int getMana(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
-	}
-
-	public void setMana(ItemStack stack, int mana) {
+	protected static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, mana));
 	}
 
-	public int getManaBacklog(ItemStack stack) {
+	protected static int getManaBacklog(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_MANA_BACKLOG, 0);
 	}
 
-	public void setManaBacklog(ItemStack stack, int backlog) {
+	protected static void setManaBacklog(ItemStack stack, int backlog) {
 		ItemNBTHelper.setInt(stack, TAG_MANA_BACKLOG, backlog);
-	}
-
-	@Override
-	public int getMaxMana(ItemStack stack) {
-		return TilePool.MAX_MANA;
-	}
-
-	@Override
-	public void addMana(ItemStack stack, int mana) {
-		setMana(stack, getMana(stack) + mana);
-		setManaBacklog(stack, getManaBacklog(stack) + mana);
 	}
 
 	public void bindPool(ItemStack stack, BlockEntity pool) {
@@ -172,24 +159,53 @@ public class ItemManaMirror extends Item implements IManaItem {
 		return null;
 	}
 
-	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
-		return false;
-	}
+	public static class ManaItem implements IManaItem {
+		private final ItemStack stack;
 
-	@Override
-	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return false;
-	}
+		public ManaItem(ItemStack stack) {
+			this.stack = stack;
+		}
 
-	@Override
-	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
-		return false;
-	}
+		@Override
+		public int getMana() {
+			return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
+		}
 
-	@Override
-	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
-		return true;
+		@Override
+		public int getMaxMana() {
+			return TilePool.MAX_MANA;
+		}
+
+		@Override
+		public void addMana(int mana) {
+			setMana(stack, getMana() + mana);
+			setManaBacklog(stack, getManaBacklog(stack) + mana);
+		}
+
+		@Override
+		public boolean canReceiveManaFromPool(BlockEntity pool) {
+			return false;
+		}
+
+		@Override
+		public boolean canReceiveManaFromItem(ItemStack otherStack) {
+			return false;
+		}
+
+		@Override
+		public boolean canExportManaToPool(BlockEntity pool) {
+			return false;
+		}
+
+		@Override
+		public boolean canExportManaToItem(ItemStack otherStack) {
+			return true;
+		}
+
+		@Override
+		public boolean isNoExport() {
+			return false;
+		}
 	}
 
 	private static class DummyPool implements IManaPool {
@@ -225,11 +241,6 @@ public class ItemManaMirror extends Item implements IManaItem {
 		@Override
 		public void setColor(DyeColor color) {}
 
-	}
-
-	@Override
-	public boolean isNoExport(ItemStack stack) {
-		return false;
 	}
 
 	public static class CoordBoundItem implements ICoordBoundItem {

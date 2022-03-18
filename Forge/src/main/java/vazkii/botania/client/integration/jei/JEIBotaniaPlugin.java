@@ -36,7 +36,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.api.recipe.IOrechidRecipe;
@@ -65,6 +64,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -97,10 +97,16 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			}
 			return String.valueOf(ItemTerraPick.getLevel(stack)) + ItemTerraPick.isTipped(stack);
 		});
-		registry.registerSubtypeInterpreter(ModItems.manaTablet, (stack, ctx) -> String.valueOf(((IManaItem) ModItems.manaTablet).getMana(stack)) + ItemManaTablet.isStackCreative(stack));
+		registry.registerSubtypeInterpreter(ModItems.manaTablet, (stack, ctx) -> {
+			int mana = IXplatAbstractions.INSTANCE.findManaItem(stack).getMana();
+			return String.valueOf(mana) + ItemManaTablet.isStackCreative(stack);
+		});
 
 		for (Item item : new Item[] { ModItems.manaRing, ModItems.manaRingGreater }) {
-			registry.registerSubtypeInterpreter(item, (stack, ctx) -> String.valueOf(((IManaItem) item).getMana(stack)));
+			registry.registerSubtypeInterpreter(item, (stack, ctx) -> {
+				int mana = IXplatAbstractions.INSTANCE.findManaItem(stack).getMana();
+				return String.valueOf(mana);
+			});
 		}
 	}
 

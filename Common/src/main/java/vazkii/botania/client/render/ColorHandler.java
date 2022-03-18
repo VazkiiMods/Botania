@@ -42,6 +42,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.mixin.client.AccessorMinecraft;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public final class ColorHandler {
 	public interface BlockHandlerConsumer {
@@ -137,9 +138,21 @@ public final class ColorHandler {
 				ModBlocks.petalBlockBrown, ModBlocks.petalBlockGreen, ModBlocks.petalBlockRed, ModBlocks.petalBlockBlack,
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool, ModBlocks.gaiaSpreader);
 
-		items.register((s, t) -> t == 1 ? Mth.hsvToRgb(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
+		items.register((s, t) -> {
+			if (t == 1) {
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(s);
+				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) TilePool.MAX_MANA, 1F);
+			}
+			return -1;
+		}, ModItems.manaMirror);
 
-		items.register((s, t) -> t == 1 ? Mth.hsvToRgb(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
+		items.register((s, t) -> {
+			if (t == 1) {
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(s);
+				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ItemManaTablet.MAX_MANA, 1F);
+			}
+			return -1;
+		}, ModItems.manaTablet);
 
 		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(0.55F, ((float) s.getMaxDamage() - (float) s.getDamageValue()) / (float) s.getMaxDamage() * 0.5F, 1F) : -1, ModItems.spellCloth);
 

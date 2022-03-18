@@ -74,6 +74,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
@@ -108,6 +109,7 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.*;
@@ -462,6 +464,14 @@ public class ForgeCommonInitializer {
 			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new
 	));
 
+	private static final Supplier<Map<Item, Function<ItemStack, IManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
+			ModItems.manaMirror, ItemManaMirror.ManaItem::new,
+			ModItems.manaRing, ItemManaRing.ManaItem::new,
+			ModItems.manaRingGreater, ItemGreaterManaRing.GreaterManaItem::new,
+			ModItems.manaTablet, ItemManaTablet.ManaItem::new,
+			ModItems.terraPick, ItemTerraPick.ManaItem::new
+	));
+
 	private static final Supplier<Map<Item, Function<ItemStack, IRelic>>> RELIC = Suppliers.memoize(() -> Map.of(
 			ModItems.dice, ItemDice::makeRelic,
 			ModItems.flugelEye, ItemFlugelEye::makeRelic,
@@ -500,6 +510,12 @@ public class ForgeCommonInitializer {
 		if (makeCoordBoundItem != null) {
 			e.addCapability(prefix("coord_bound_item"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.COORD_BOUND_ITEM, makeCoordBoundItem.apply(stack)));
+		}
+
+		var makeManaItem = MANA_ITEM.get().get(stack.getItem());
+		if (makeManaItem != null) {
+			e.addCapability(prefix("mana_item"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, makeManaItem.apply(stack)));
 		}
 
 		var makeRelic = RELIC.get().get(stack.getItem());

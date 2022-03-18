@@ -56,6 +56,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBlockType;
 import vazkii.botania.api.mana.ManaNetworkAction;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
@@ -99,6 +100,8 @@ public interface IXplatAbstractions {
 	IBlockProvider findBlockProvider(ItemStack stack);
 	@Nullable
 	ICoordBoundItem findCoordBoundItem(ItemStack stack);
+	@Nullable
+	IManaItem findManaItem(ItemStack stack);
 	@Nullable
 	IRelic findRelic(ItemStack stack);
 	@Nullable

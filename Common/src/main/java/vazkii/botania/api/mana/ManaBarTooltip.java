@@ -11,6 +11,8 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.xplat.IXplatAbstractions;
+
 /**
  * Items with this tooltip component will render a mana bar above the tooltip.
  */
@@ -21,18 +23,19 @@ public class ManaBarTooltip implements TooltipComponent {
 	/**
 	 * Constructs a tooltip component directly from a stack of mana items.
 	 * 
-	 * @throws IllegalArgumentException if the item is not an {@link IManaItem}
+	 * @throws IllegalArgumentException if the item does not have the {@link IManaItem} capability.
 	 */
 	public static ManaBarTooltip fromManaItem(ItemStack stack) {
-		if (stack.getItem() instanceof IManaItem item) {
-			return new ManaBarTooltip(getFractionForDisplay(item, stack));
+		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		if (manaItem != null) {
+			return new ManaBarTooltip(getFractionForDisplay(manaItem));
 		}
-		throw new IllegalArgumentException("Item is not an instance of " + IManaItem.class.getName());
+		throw new IllegalArgumentException("Item does not have the capability " + IManaItem.class.getName());
 	}
 
 	/** Convenience method to calculate how full is the mana storing item. */
-	public static float getFractionForDisplay(IManaItem item, ItemStack stack) {
-		return item.getMana(stack) / (float) item.getMaxMana(stack);
+	public static float getFractionForDisplay(IManaItem item) {
+		return item.getMana() / (float) item.getMaxMana();
 	}
 
 	public ManaBarTooltip(float percentageFull) {
