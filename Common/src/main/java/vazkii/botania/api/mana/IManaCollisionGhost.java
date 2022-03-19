@@ -8,12 +8,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-
 /**
- * Any Block implementing this has custom collision logic for bursts.
+ * Any Block or Block Entity with this capability has custom collision logic for bursts.
  */
 public interface IManaCollisionGhost {
 	enum Behaviour {
@@ -33,6 +29,6 @@ public interface IManaCollisionGhost {
 		RUN_RECEIVER_TRIGGER,
 	}
 
-	Behaviour getGhostBehaviour(BlockState state, Level world, BlockPos pos);
+	Behaviour getGhostBehaviour();
 
 }

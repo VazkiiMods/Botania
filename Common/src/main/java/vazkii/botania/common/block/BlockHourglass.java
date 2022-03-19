@@ -33,8 +33,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -45,7 +43,7 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, EntityBlock {
+public class BlockHourglass extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 18.4, 12);
 
@@ -139,13 +137,5 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.HOURGLASS, TileHourglass::commonTick);
-	}
-
-	@Override
-	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
-		if (!burst.isFake()) {
-			TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
-			tile.onManaCollide();
-		}
 	}
 }

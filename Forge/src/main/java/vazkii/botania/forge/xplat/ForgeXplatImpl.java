@@ -192,6 +192,18 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
+	public IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_GHOST, level, pos, state, be);
+	}
+
+	@Nullable
+	@Override
+	public IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_TRIGGER, level, pos, state, be);
+	}
+
+	@Nullable
+	@Override
 	public IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.WANDABLE, level, pos, state, be);
 	}

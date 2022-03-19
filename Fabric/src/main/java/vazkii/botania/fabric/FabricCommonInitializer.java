@@ -48,11 +48,14 @@ import net.minecraft.world.level.material.Fluids;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.mana.BlockForestDrum;
+import vazkii.botania.common.block.mana.BlockManaDetector;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
@@ -258,6 +261,25 @@ public class FabricCommonInitializer implements ModInitializer {
 			var torch = (TileAnimatedTorch) be;
 			return hourglass -> torch.toggle();
 		}, ModTiles.ANIMATED_TORCH);
+		BotaniaFabricCapabilities.MANA_GHOST.registerForBlocks(
+				(level, pos, state, be, context) -> ((IManaCollisionGhost) state.getBlock()),
+				ModBlocks.manaDetector,
+				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
+				ModBlocks.prism, ModBlocks.tinyPlanet
+		);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
+				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
+				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.wildDrum
+		);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
+				(level, pos, state, be, context) -> new BlockManaBomb.ManaTrigger(level, pos, state),
+				ModBlocks.manaBomb
+		);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
+				(level, pos, state, be, context) -> new BlockManaDetector.ManaTrigger(level, pos, state),
+				ModBlocks.manaDetector
+		);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(ModTiles.ANIMATED_TORCH, ModTiles.HOURGLASS, ModTiles.PRISM);
 		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(
 				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay

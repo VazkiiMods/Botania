@@ -12,7 +12,9 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.IManaTrigger;
 
 public final class BotaniaForgeCapabilities {
 	public static final Capability<IAvatarWieldable> AVATAR_WIELDABLE = CapabilityManager.get(new CapabilityToken<>() {});
@@ -24,6 +26,8 @@ public final class BotaniaForgeCapabilities {
 	public static final Capability<IExoflameHeatable> EXOFLAME_HEATABLE = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IHornHarvestable> HORN_HARVEST = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IHourglassTrigger> HOURGLASS_TRIGGER = CapabilityManager.get(new CapabilityToken<>() {});
+	public static final Capability<IManaCollisionGhost> MANA_GHOST = CapabilityManager.get(new CapabilityToken<>() {});
+	public static final Capability<IManaTrigger> MANA_TRIGGER = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IWandable> WANDABLE = CapabilityManager.get(new CapabilityToken<>() {});
 
 	private BotaniaForgeCapabilities() {}

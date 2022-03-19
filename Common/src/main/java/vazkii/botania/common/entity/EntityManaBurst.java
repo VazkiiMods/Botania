@@ -42,6 +42,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -435,10 +436,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		BlockState state = level.getBlockState(collidePos);
 		Block block = state.getBlock();
 
-		IManaCollisionGhost.Behaviour ghostBehaviour = IManaCollisionGhost.Behaviour.RUN_ALL;
-		if (block instanceof IManaCollisionGhost ghost) {
-			ghostBehaviour = ghost.getGhostBehaviour(state, level, collidePos);
-		}
+		var ghost = IXplatAbstractions.INSTANCE.findManaGhost(level, collidePos, state, tile);
+		var ghostBehaviour = ghost != null ? ghost.getGhostBehaviour() : IManaCollisionGhost.Behaviour.RUN_ALL;
 
 		if (ghostBehaviour == IManaCollisionGhost.Behaviour.SKIP_ALL
 				|| block instanceof BushBlock
@@ -459,8 +458,9 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			onReceiverImpact(receiver);
 		}
 
-		if (block instanceof IManaTrigger trigger) {
-			trigger.onBurstCollision(this, level, collidePos);
+		var trigger = IXplatAbstractions.INSTANCE.findManaTrigger(level, collidePos, state, tile);
+		if (trigger != null) {
+			trigger.onBurstCollision(this);
 		}
 
 		if (ghostBehaviour == IManaCollisionGhost.Behaviour.RUN_RECEIVER_TRIGGER) {

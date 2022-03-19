@@ -13,7 +13,9 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.IManaTrigger;
 
 public final class BotaniaFabricCapabilities {
 	public static final ItemApiLookup<IAvatarWieldable, Unit> AVATAR_WIELDABLE = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "avatar_wieldable"), IAvatarWieldable.class, Unit.class);
@@ -28,6 +30,8 @@ public final class BotaniaFabricCapabilities {
 	public static final BlockApiLookup<IExoflameHeatable, Unit> EXOFLAME_HEATABLE = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "exoflame_heatable"), IExoflameHeatable.class, Unit.class);
 	public static final BlockApiLookup<IHornHarvestable, Unit> HORN_HARVEST = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable"), IHornHarvestable.class, Unit.class);
 	public static final BlockApiLookup<IHourglassTrigger, Unit> HOURGLASS_TRIGGER = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "hourglass_trigger"), IHourglassTrigger.class, Unit.class);
+	public static final BlockApiLookup<IManaCollisionGhost, Unit> MANA_GHOST = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "mana_ghost"), IManaCollisionGhost.class, Unit.class);
+	public static final BlockApiLookup<IManaTrigger, Unit> MANA_TRIGGER = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "mana_trigger"), IManaTrigger.class, Unit.class);
 	public static final BlockApiLookup<IWandable, Unit> WANDABLE = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "wandable"), IWandable.class, Unit.class);
 
 	private BotaniaFabricCapabilities() {}

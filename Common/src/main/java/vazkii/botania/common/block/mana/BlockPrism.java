@@ -30,10 +30,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
-import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -44,7 +42,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IManaTrigger, IManaCollisionGhost {
+public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IManaCollisionGhost {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
 	public BlockPrism(Properties builder) {
@@ -167,15 +165,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof TilePrism prism) {
-			prism.onBurstCollision(burst);
-		}
-	}
-
-	@Override
-	public Behaviour getGhostBehaviour(BlockState state, Level world, BlockPos pos) {
+	public Behaviour getGhostBehaviour() {
 		return Behaviour.RUN_RECEIVER_TRIGGER;
 	}
 }

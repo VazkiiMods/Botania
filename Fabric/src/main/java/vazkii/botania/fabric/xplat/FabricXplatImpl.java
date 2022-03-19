@@ -193,6 +193,18 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
+	public IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return BotaniaFabricCapabilities.MANA_GHOST.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return BotaniaFabricCapabilities.MANA_TRIGGER.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
 	public IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}

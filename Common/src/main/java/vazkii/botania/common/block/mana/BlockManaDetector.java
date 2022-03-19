@@ -26,7 +26,7 @@ import vazkii.botania.common.block.BlockMod;
 
 import java.util.Random;
 
-public class BlockManaDetector extends BlockMod implements IManaTrigger, IManaCollisionGhost {
+public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 
 	public BlockManaDetector(Properties builder) {
 		super(builder);
@@ -49,17 +49,28 @@ public class BlockManaDetector extends BlockMod implements IManaTrigger, IManaCo
 	}
 
 	@Override
-	public Behaviour getGhostBehaviour(BlockState state, Level world, BlockPos pos) {
+	public Behaviour getGhostBehaviour() {
 		return Behaviour.RUN_RECEIVER_TRIGGER;
 	}
 
-	@Override
-	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
-		if (!world.isClientSide && !burst.isFake()) {
-			BlockState state = world.getBlockState(pos);
-			if (!state.getValue(BlockStateProperties.POWERED) && !world.getBlockTicks().hasScheduledTick(pos, this)) {
-				world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
-				world.scheduleTick(pos, this, 4);
+	public static class ManaTrigger implements IManaTrigger {
+		private final Level world;
+		private final BlockPos pos;
+		private final BlockState state;
+
+		public ManaTrigger(Level world, BlockPos pos, BlockState state) {
+			this.world = world;
+			this.pos = pos;
+			this.state = state;
+		}
+
+		@Override
+		public void onBurstCollision(IManaBurst burst) {
+			if (!world.isClientSide && !burst.isFake()) {
+				if (!state.getValue(BlockStateProperties.POWERED) && !world.getBlockTicks().hasScheduledTick(pos, state.getBlock())) {
+					world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
+					world.scheduleTick(pos, state.getBlock(), 4);
+				}
 			}
 		}
 	}

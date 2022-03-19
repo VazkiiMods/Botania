@@ -26,13 +26,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
-public class TileHourglass extends TileExposedSimpleInventory implements IWandable {
+public class TileHourglass extends TileExposedSimpleInventory implements IManaTrigger, IWandable {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -98,8 +100,9 @@ public class TileHourglass extends TileExposedSimpleInventory implements IWandab
 		}
 	}
 
-	public void onManaCollide() {
-		if (!level.isClientSide) {
+	@Override
+	public void onBurstCollision(IManaBurst burst) {
+		if (!level.isClientSide && !burst.isFake()) {
 			if (isDust()) {
 				time++;
 			} else {

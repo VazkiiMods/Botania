@@ -24,17 +24,19 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 
-public class TilePrism extends TileExposedSimpleInventory {
+public class TilePrism extends TileExposedSimpleInventory implements IManaTrigger {
 	public TilePrism(BlockPos pos, BlockState state) {
 		super(ModTiles.PRISM, pos, state);
 	}
 
+	@Override
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = getItemHandler().getItem(0);
 		boolean active = !getBlockState().getValue(BlockStateProperties.POWERED);

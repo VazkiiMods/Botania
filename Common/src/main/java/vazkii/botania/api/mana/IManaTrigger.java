@@ -8,16 +8,14 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-
 import vazkii.botania.api.internal.IManaBurst;
 
 /**
- * Have a block implement this class to make it do something when a mana burst collides with it.
+ * A Block or Block Entity with this capability will receive a callback when a burst
+ * collides with it.
  */
 public interface IManaTrigger {
 
-	void onBurstCollision(IManaBurst burst, Level world, BlockPos pos);
+	void onBurstCollision(IManaBurst burst);
 
 }

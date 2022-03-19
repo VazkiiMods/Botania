@@ -26,7 +26,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nullable;
@@ -34,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod implements IWandable {
+public class TileAnimatedTorch extends TileMod implements IManaTrigger, IWandable {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -127,6 +129,13 @@ public class TileAnimatedTorch extends TileMod implements IWandable {
 		level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
 		for (Direction e : Direction.values()) {
 			level.updateNeighborsAt(getBlockPos().relative(e), getBlockState().getBlock());
+		}
+	}
+
+	@Override
+	public void onBurstCollision(IManaBurst burst) {
+		if (!burst.isFake()) {
+			toggle();
 		}
 	}
 
