@@ -267,6 +267,11 @@ public class FabricCommonInitializer implements ModInitializer {
 				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
 				ModBlocks.prism, ModBlocks.tinyPlanet
 		);
+		BotaniaFabricCapabilities.MANA_RECEIVER.registerSelf(
+				ModTiles.AVATAR, ModTiles.BREWERY, ModTiles.DISTRIBUTOR, ModTiles.ENCHANTER,
+				ModTiles.MANA_VOID, ModTiles.POOL, ModTiles.FLUXFIELD, ModTiles.RUNE_ALTAR,
+				ModTiles.SPAWNER_CLAW, ModTiles.SPREADER, ModTiles.TERRA_PLATE
+		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
 				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.wildDrum

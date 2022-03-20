@@ -74,10 +74,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
-import vazkii.botania.api.mana.IManaCollisionGhost;
-import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
@@ -558,6 +555,12 @@ public class ForgeCommonInitializer {
 			ModTiles.ANIMATED_TORCH, ModTiles.HOURGLASS, ModTiles.PRISM
 	));
 
+	private static final Supplier<Set<BlockEntityType<?>>> SELF_MANA_RECEIVER_BES = Suppliers.memoize(() -> ImmutableSet.of(
+			ModTiles.AVATAR, ModTiles.BREWERY, ModTiles.DISTRIBUTOR, ModTiles.ENCHANTER,
+			ModTiles.MANA_VOID, ModTiles.POOL, ModTiles.FLUXFIELD, ModTiles.RUNE_ALTAR,
+			ModTiles.SPAWNER_CLAW, ModTiles.SPREADER, ModTiles.TERRA_PLATE
+	));
+
 	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
 		var be = e.getObject();
 		if (be instanceof AbstractFurnaceBlockEntity furnace) {
@@ -622,6 +625,10 @@ public class ForgeCommonInitializer {
 
 		if (SELF_MANA_TRIGGER_BES.get().contains(be.getType())) {
 			e.addCapability(prefix("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (IManaTrigger) be));
+		}
+
+		if (SELF_MANA_RECEIVER_BES.get().contains(be.getType())) {
+			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (IManaReceiver) be));
 		}
 	}
 

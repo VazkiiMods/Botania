@@ -33,6 +33,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -112,7 +113,7 @@ public class ItemDirtRod extends Item {
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			IManaReceiver receiver = (IManaReceiver) te;
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
 				BlockPos pos = te.getBlockPos().relative(tile.getAvatarFacing());
 				BlockState state = world.getBlockState(pos);

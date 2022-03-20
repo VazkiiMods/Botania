@@ -32,6 +32,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.material.ItemSelfReturning;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -139,7 +140,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			IManaReceiver receiver = (IManaReceiver) te;
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 
 			if (world.isClientSide || receiver.getCurrentMana() < MANA_COST_AVATAR * 25
 					|| !tile.isEnabled() || world.isOutsideBuildHeight(te.getBlockPos().getY() - 1)) {

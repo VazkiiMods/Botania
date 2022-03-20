@@ -30,6 +30,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -103,7 +104,7 @@ public class ItemMissileRod extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			BlockPos pos = te.getBlockPos();
-			IManaReceiver receiver = (IManaReceiver) te;
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (receiver.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
 				if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
 					if (!world.isClientSide) {

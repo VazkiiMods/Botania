@@ -235,7 +235,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttac
 			IManaSpark spark = getAttachedSpark();
 			if (spark != null) {
 				SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
-						.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedTile() instanceof IManaPool)
+						.filter(otherSpark -> spark != otherSpark && IXplatAbstractions.INSTANCE.findManaReceiver(level, otherSpark.getAttachPos(), null) instanceof IManaPool)
 						.forEach(os -> os.registerTransfer(spark));
 			}
 			if (stageTicks % 5 == 0) {

@@ -110,6 +110,14 @@ public interface IXplatAbstractions {
 	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
 	IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+
+	@Nullable
+	default IManaReceiver findManaReceiver(Level level, BlockPos pos, @Nullable Direction direction) {
+		return findManaReceiver(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), direction);
+	}
+
+	@Nullable
+	IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
 	@Nullable
 	IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable

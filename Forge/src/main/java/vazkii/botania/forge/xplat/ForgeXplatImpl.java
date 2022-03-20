@@ -198,6 +198,12 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
+	public IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction) {
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_RECEIVER, level, pos, state, be, direction);
+	}
+
+	@Nullable
+	@Override
 	public IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_TRIGGER, level, pos, state, be);
 	}

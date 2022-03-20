@@ -159,7 +159,7 @@ public class ItemTornadoRod extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
-			IManaReceiver receiver = (IManaReceiver) te;
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 
 			if (!world.isClientSide) {
 				decAvatarCooldowns(cooldowns);

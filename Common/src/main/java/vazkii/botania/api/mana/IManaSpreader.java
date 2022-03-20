@@ -13,7 +13,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import java.util.UUID;
 
 /**
- * Any TileEntity that implements this is considered a Mana Spreader,
+ * Any {@link IManaCollector} that also implements this is considered a Mana Spreader,
  * by which can fire mana bursts as a spreader.
  */
 public interface IManaSpreader extends IManaCollector {

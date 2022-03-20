@@ -85,7 +85,7 @@ public class ItemDiviningRod extends Item {
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			IManaReceiver receiver = (IManaReceiver) tile;
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 				ItemDiviningRod.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
 				receiver.receiveMana(-COST);

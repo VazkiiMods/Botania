@@ -96,9 +96,9 @@ public class ItemManaMirror extends Item {
 		Player player = ctx.getPlayer();
 
 		if (player != null && player.isShiftKeyDown() && !world.isClientSide) {
-			BlockEntity tile = world.getBlockEntity(ctx.getClickedPos());
-			if (tile instanceof IManaPool) {
-				bindPool(ctx.getItemInHand(), tile);
+			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, ctx.getClickedPos(), null);
+			if (receiver instanceof IManaPool pool) {
+				bindPool(ctx.getItemInHand(), pool);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundSource.PLAYERS, 1F, 1F);
 				return InteractionResult.SUCCESS;
 			}
@@ -119,8 +119,8 @@ public class ItemManaMirror extends Item {
 		ItemNBTHelper.setInt(stack, TAG_MANA_BACKLOG, backlog);
 	}
 
-	public void bindPool(ItemStack stack, BlockEntity pool) {
-		GlobalPos pos = GlobalPos.of(pool.getLevel().dimension(), pool.getBlockPos());
+	public void bindPool(ItemStack stack, IManaPool pool) {
+		GlobalPos pos = GlobalPos.of(pool.getManaReceiverLevel().dimension(), pool.getManaReceiverPos());
 		Tag ser = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 		ItemNBTHelper.set(stack, TAG_POS, ser);
 	}
@@ -151,8 +151,8 @@ public class ItemManaMirror extends Item {
 		ResourceKey<Level> type = pos.dimension();
 		Level world = server.getLevel(type);
 		if (world != null) {
-			BlockEntity tile = world.getBlockEntity(pos.pos());
-			if (tile instanceof IManaPool pool) {
+			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
+			if (receiver instanceof IManaPool pool) {
 				return pool;
 			}
 		}

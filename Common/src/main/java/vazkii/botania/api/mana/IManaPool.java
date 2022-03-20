@@ -11,11 +11,12 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.item.DyeColor;
 
 /**
- * Any TileEntity that implements this is considered a Mana Pool,
+ * Any {@link IManaReceiver} that also implements this is considered a Mana Pool,
  * by which nearby functional flowers will pull mana from it.<br>
  * Mana Distributors will also accept it as valid output.<br>
  * <br>
  * <b>Implementation Instructions:</b><br>
+ * TODO update this
  * - Override invalidate() and onChunkUnload(), calling <i>ManaNetworkEvent.removePool(this);</i> on both.<br>
  * - On the first tick of onUpdate(), call <i>ManaNetworkEvent.addPool(this);</i>
  */

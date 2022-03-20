@@ -27,6 +27,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -70,7 +71,7 @@ public class ItemFireRod extends Item {
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			IManaReceiver receiver = (IManaReceiver) te;
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 
 			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 				EntityFlameRing entity = ModEntities.FLAME_RING.create(world);

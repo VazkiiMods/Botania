@@ -10,7 +10,6 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IManaPool;
@@ -18,6 +17,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class SubTileManastar extends TileEntitySpecialFlower {
 	private static final int SET_STATE_EVENT = 0;
@@ -46,8 +46,8 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 			for (Direction dir : Direction.Plane.HORIZONTAL) {
 				BlockPos pos = getEffectivePos().relative(dir);
 				if (getLevel().hasChunkAt(pos)) {
-					BlockEntity tile = getLevel().getBlockEntity(pos);
-					if (tile instanceof IManaPool pool) {
+					var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(getLevel(), pos, dir.getOpposite());
+					if (receiver instanceof IManaPool pool) {
 						mana += pool.getCurrentMana();
 					}
 				}

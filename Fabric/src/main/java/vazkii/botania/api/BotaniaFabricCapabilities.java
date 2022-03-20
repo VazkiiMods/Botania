@@ -2,6 +2,7 @@ package vazkii.botania.api;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 
@@ -15,6 +16,7 @@ import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaTrigger;
 
 public final class BotaniaFabricCapabilities {
@@ -31,6 +33,7 @@ public final class BotaniaFabricCapabilities {
 	public static final BlockApiLookup<IHornHarvestable, Unit> HORN_HARVEST = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable"), IHornHarvestable.class, Unit.class);
 	public static final BlockApiLookup<IHourglassTrigger, Unit> HOURGLASS_TRIGGER = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "hourglass_trigger"), IHourglassTrigger.class, Unit.class);
 	public static final BlockApiLookup<IManaCollisionGhost, Unit> MANA_GHOST = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "mana_ghost"), IManaCollisionGhost.class, Unit.class);
+	public static final BlockApiLookup<IManaReceiver, /* @Nullable */ Direction> MANA_RECEIVER = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "mana_receiver"), IManaReceiver.class, Direction.class);
 	public static final BlockApiLookup<IManaTrigger, Unit> MANA_TRIGGER = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "mana_trigger"), IManaTrigger.class, Unit.class);
 	public static final BlockApiLookup<IWandable, Unit> WANDABLE = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "wandable"), IWandable.class, Unit.class);
 

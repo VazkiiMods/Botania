@@ -11,7 +11,6 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -22,28 +21,31 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class LensRedirect extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		BlockPos coords = burst.getBurstSourceBlockPos();
+		BlockPos sourcePos = burst.getBurstSourceBlockPos();
 		Entity entity = burst.entity();
+		var hitPos = ((BlockHitResult) pos).getBlockPos();
 		if (!entity.level.isClientSide && pos.getType() == HitResult.Type.BLOCK
-				&& coords.getY() != Integer.MIN_VALUE
-				&& !((BlockHitResult) pos).getBlockPos().equals(coords)) {
-			BlockEntity tile = entity.level.getBlockEntity(((BlockHitResult) pos).getBlockPos());
-			if (tile instanceof IManaSpreader spreader) {
+				&& sourcePos.getY() != Integer.MIN_VALUE
+				&& !hitPos.equals(sourcePos)) {
+			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(entity.level, hitPos,
+					entity.level.getBlockState(hitPos), entity.level.getBlockEntity(hitPos), ((BlockHitResult) pos).getDirection());
+			if (receiver instanceof IManaSpreader spreader) {
 				if (!burst.isFake()) {
-					Vec3 tileVec = Vec3.atCenterOf(tile.getBlockPos());
-					Vec3 sourceVec = Vec3.atCenterOf(coords);
+					Vec3 tileVec = Vec3.atCenterOf(hitPos);
+					Vec3 sourceVec = Vec3.atCenterOf(sourcePos);
 
 					AABB axis;
-					VoxelShape collideShape = entity.level.getBlockState(coords).getCollisionShape(entity.level, coords);
+					VoxelShape collideShape = entity.level.getBlockState(sourcePos).getCollisionShape(entity.level, sourcePos);
 					if (collideShape.isEmpty()) {
-						axis = new AABB(coords, coords.offset(1, 1, 1));
+						axis = new AABB(sourcePos, sourcePos.offset(1, 1, 1));
 					} else {
-						axis = collideShape.bounds().move(coords);
+						axis = collideShape.bounds().move(sourcePos);
 					}
 
 					if (!axis.contains(sourceVec)) {
