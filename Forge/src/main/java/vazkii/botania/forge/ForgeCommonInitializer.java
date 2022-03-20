@@ -80,6 +80,7 @@ import vazkii.botania.common.advancements.ModCriteriaTriggers;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.mana.BlockForestDrum;
 import vazkii.botania.common.block.mana.BlockManaDetector;
+import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
@@ -532,6 +533,7 @@ public class ForgeCommonInitializer {
 				ModBlocks.manaDetector,
 				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
 				ModBlocks.prism, ModBlocks.tinyPlanet);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, BlockManaVoid.ManaReceiver::new, ModBlocks.manaVoid);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockForestDrum.ManaTrigger::new,
 				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.gatheringDrum);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaBomb.ManaTrigger::new, ModBlocks.manaBomb);

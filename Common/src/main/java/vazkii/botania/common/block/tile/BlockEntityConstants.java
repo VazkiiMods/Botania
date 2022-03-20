@@ -22,7 +22,7 @@ public final class BlockEntityConstants {
 
 	public static final Set<BlockEntityType<?>> SELF_MANA_RECEIVER_BES = ImmutableSet.of(
 			ModTiles.AVATAR, ModTiles.BREWERY, ModTiles.DISTRIBUTOR, ModTiles.ENCHANTER,
-			ModTiles.MANA_VOID, ModTiles.POOL, ModTiles.FLUXFIELD, ModTiles.RUNE_ALTAR,
+			ModTiles.POOL, ModTiles.FLUXFIELD, ModTiles.RUNE_ALTAR,
 			ModTiles.SPAWNER_CLAW, ModTiles.SPREADER, ModTiles.TERRA_PLATE
 	);
 

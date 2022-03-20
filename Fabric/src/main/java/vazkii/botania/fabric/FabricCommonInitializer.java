@@ -57,6 +57,7 @@ import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.mana.BlockForestDrum;
 import vazkii.botania.common.block.mana.BlockManaDetector;
+import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
@@ -271,6 +272,9 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerSelf(
 				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
 		);
+		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
+				(level, pos, state, be, side) -> new BlockManaVoid.ManaReceiver(level, pos, state),
+				ModBlocks.manaVoid);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
 				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.wildDrum
