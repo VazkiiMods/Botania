@@ -10,7 +10,9 @@ package vazkii.botania.api.internal;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
+
+import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.IManaPool;
 
 import java.util.Collections;
 import java.util.Set;
@@ -23,22 +25,22 @@ public class DummyManaNetwork implements IManaNetwork {
 	public void clear() {}
 
 	@Override
-	public BlockEntity getClosestPool(BlockPos pos, Level world, int limit) {
+	public IManaPool getClosestPool(BlockPos pos, Level world, int limit) {
 		return null;
 	}
 
 	@Override
-	public BlockEntity getClosestCollector(BlockPos pos, Level world, int limit) {
+	public IManaCollector getClosestCollector(BlockPos pos, Level world, int limit) {
 		return null;
 	}
 
 	@Override
-	public Set<BlockEntity> getAllCollectorsInWorld(Level world) {
+	public Set<IManaCollector> getAllCollectorsInWorld(Level world) {
 		return Collections.emptySet();
 	}
 
 	@Override
-	public Set<BlockEntity> getAllPoolsInWorld(Level world) {
+	public Set<IManaPool> getAllPoolsInWorld(Level world) {
 		return Collections.emptySet();
 	}
 

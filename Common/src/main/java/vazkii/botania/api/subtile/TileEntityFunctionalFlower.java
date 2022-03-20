@@ -19,7 +19,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -85,11 +84,12 @@ public abstract class TileEntityFunctionalFlower extends TileEntityBindableSpeci
 		return LINK_RANGE;
 	}
 
+	@Nullable
 	@Override
-	public @Nullable BlockPos findClosestTarget() {
+	public BlockPos findClosestTarget() {
 		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-		BlockEntity closestPool = network.getClosestPool(getBlockPos(), getLevel(), getBindingRadius());
-		return closestPool == null ? null : closestPool.getBlockPos();
+		var closestPool = network.getClosestPool(getBlockPos(), getLevel(), getBindingRadius());
+		return closestPool == null ? null : closestPool.getManaReceiverPos();
 	}
 
 	public void drawManaFromPool() {

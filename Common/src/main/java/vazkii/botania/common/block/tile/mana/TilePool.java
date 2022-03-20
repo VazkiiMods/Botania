@@ -121,7 +121,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.REMOVE);
+		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(level, this, ManaBlockType.POOL, ManaNetworkAction.REMOVE);
 	}
 
 	public static int calculateComparatorLevel(int mana, int max) {
@@ -241,8 +241,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if (manaCap == -1) {
 			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
-		if (!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved()) {
-			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
+		if (!ManaNetworkHandler.instance.isPoolIn(level, this) && !isRemoved()) {
+			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(level, this, ManaBlockType.POOL, ManaNetworkAction.ADD);
 		}
 	}
 

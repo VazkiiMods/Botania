@@ -138,7 +138,7 @@ public interface IXplatAbstractions {
 	float fireManaDiscountEvent(Player player, float discount, ItemStack tool);
 	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
-	void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action);
+	void fireManaNetworkEvent(Level level, IManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 
 	// Networking
 	Packet<?> toVanillaClientboundPacket(IPacket packet);

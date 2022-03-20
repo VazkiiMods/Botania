@@ -391,8 +391,8 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
-		ManaNetworkCallback.EVENT.invoker().onNetworkChange(be, type, action);
+	public void fireManaNetworkEvent(Level level, IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+		ManaNetworkCallback.EVENT.invoker().onNetworkChange(level, thing, type, action);
 	}
 
 	@Override

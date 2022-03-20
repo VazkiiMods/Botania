@@ -12,9 +12,7 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.render.tile.RenderTileRedString;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
@@ -56,10 +54,8 @@ public final class ClientTickHandler {
 			Player player = mc.player;
 			if (player != null) {
 				if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-					for (BlockEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().level))) {
-						if (tile instanceof IManaCollector collector) {
-							collector.onClientDisplayTick();
-						}
+					for (var collector : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().level))) {
+						collector.onClientDisplayTick();
 					}
 				}
 			}

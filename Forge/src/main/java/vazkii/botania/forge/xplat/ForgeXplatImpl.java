@@ -359,8 +359,8 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
-		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(be, type, action));
+	public void fireManaNetworkEvent(Level level, IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(level, thing, type, action));
 	}
 
 	@Override

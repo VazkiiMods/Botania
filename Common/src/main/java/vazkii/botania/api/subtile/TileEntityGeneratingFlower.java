@@ -17,7 +17,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -72,11 +71,12 @@ public abstract class TileEntityGeneratingFlower extends TileEntityBindableSpeci
 		return LINK_RANGE;
 	}
 
+	@Nullable
 	@Override
-	public @Nullable BlockPos findClosestTarget() {
+	public BlockPos findClosestTarget() {
 		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-		BlockEntity closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), getBindingRadius());
-		return closestCollector == null ? null : closestCollector.getBlockPos();
+		var closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), getBindingRadius());
+		return closestCollector == null ? null : closestCollector.getManaReceiverPos();
 	}
 
 	public void emptyManaIntoCollector() {

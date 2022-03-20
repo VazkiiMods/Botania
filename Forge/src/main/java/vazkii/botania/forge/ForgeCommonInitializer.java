@@ -290,7 +290,7 @@ public class ForgeCommonInitializer {
 		});
 		bus.addListener((PlayerEvent.StartTracking e) -> SubTileDaffomill.onItemTrack(e.getEntity(), (ServerPlayer) e.getPlayer()));
 		bus.addListener((LootTableLoadEvent e) -> LootHandler.lootLoad(e.getName(), e.getTable()::addPool));
-		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getBlockEntity(), e.getType(), e.getAction()));
+		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getLevel(), e.getReceiver(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinWorldEvent e) -> {
 			if (!e.getWorld().isClientSide) {
 				SubTileTigerseye.pacifyAfterLoad(e.getEntity(), (ServerLevel) e.getWorld());
