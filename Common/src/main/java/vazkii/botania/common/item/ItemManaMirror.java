@@ -225,6 +225,11 @@ public class ItemManaMirror extends Item {
 		}
 
 		@Override
+		public Level getManaReceiverLevel() {
+			return null;
+		}
+
+		@Override
 		public BlockPos getManaReceiverPos() {
 			return IManaBurst.NO_SOURCE;
 		}

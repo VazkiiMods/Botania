@@ -151,14 +151,14 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(level, this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
+		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileSpreader self) {
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(level, self);
 		boolean wasInNetwork = inNetwork;
 		if (!inNetwork && !self.isRemoved()) {
-			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(level, self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
+			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
 		}
 
 		boolean powered = false;
@@ -362,6 +362,11 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 	@Override
 	public boolean canReceiveManaFromBursts() {
 		return true;
+	}
+
+	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
 	}
 
 	@Override

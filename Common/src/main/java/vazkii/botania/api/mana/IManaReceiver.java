@@ -9,12 +9,15 @@
 package vazkii.botania.api.mana;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * Any TileEntity that implements this can receive mana from mana bursts.
  */
 public interface IManaReceiver {
+	Level getManaReceiverLevel();
+
 	BlockPos getManaReceiverPos();
 
 	/**

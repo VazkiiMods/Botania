@@ -194,6 +194,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaRe
 	}
 
 	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
+	}
+
+	@Override
 	public BlockPos getManaReceiverPos() {
 		return getBlockPos();
 	}

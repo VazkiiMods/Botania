@@ -26,20 +26,20 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	private final Map<Level, Set<IManaPool>> manaPools = new WeakHashMap<>();
 	private final Map<Level, Set<IManaCollector>> manaCollectors = new WeakHashMap<>();
 
-	public void onNetworkEvent(Level level, IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+	public void onNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		switch (type) {
 			case COLLECTOR -> {
 				if (action == ManaNetworkAction.ADD) {
-					add(manaCollectors, level, (IManaCollector) thing);
+					add(manaCollectors, thing.getManaReceiverLevel(), (IManaCollector) thing);
 				} else {
-					remove(manaCollectors, level, (IManaCollector) thing);
+					remove(manaCollectors, thing.getManaReceiverLevel(), (IManaCollector) thing);
 				}
 			}
 			case POOL -> {
 				if (action == ManaNetworkAction.ADD) {
-					add(manaPools, level, (IManaPool) thing);
+					add(manaPools, thing.getManaReceiverLevel(), (IManaPool) thing);
 				} else {
-					remove(manaPools, level, (IManaPool) thing);
+					remove(manaPools, thing.getManaReceiverLevel(), (IManaPool) thing);
 				}
 			}
 		}

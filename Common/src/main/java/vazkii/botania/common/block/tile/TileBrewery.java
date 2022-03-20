@@ -226,6 +226,11 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	}
 
 	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
+	}
+
+	@Override
 	public BlockPos getManaReceiverPos() {
 		return getBlockPos();
 	}

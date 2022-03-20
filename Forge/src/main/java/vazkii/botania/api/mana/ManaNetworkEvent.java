@@ -8,24 +8,17 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.world.level.Level;
 import net.minecraftforge.eventbus.api.Event;
 
 public class ManaNetworkEvent extends Event {
-	private final Level level;
 	private final IManaReceiver thing;
 	private final ManaBlockType type;
 	private final ManaNetworkAction action;
 
-	public ManaNetworkEvent(Level level, IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
-		this.level = level;
+	public ManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		this.thing = thing;
 		this.type = type;
 		this.action = action;
-	}
-
-	public Level getLevel() {
-		return level;
 	}
 
 	/**

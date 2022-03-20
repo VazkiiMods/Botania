@@ -45,6 +45,11 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 	}
 
 	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
+	}
+
+	@Override
 	public BlockPos getManaReceiverPos() {
 		return getBlockPos();
 	}

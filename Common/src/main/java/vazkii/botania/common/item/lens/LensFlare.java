@@ -11,7 +11,6 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
@@ -49,9 +48,9 @@ public class LensFlare extends Lens {
 		int storedColor = ItemLens.getStoredColor(stack);
 		int hex = -1;
 
-		BlockEntity tile = spreader.tileEntity();
+		var level = spreader.getManaReceiverLevel();
 		if (storedColor == 16) {
-			hex = Mth.hsvToRgb(tile.getLevel().getGameTime() * 2 % 360 / 360F, 1F, 1F);
+			hex = Mth.hsvToRgb(level.getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if (storedColor >= 0) {
 			hex = ColorHelper.getColorValue(DyeColor.byId(storedColor));
 		}
@@ -63,7 +62,8 @@ public class LensFlare extends Lens {
 		WispParticleData data = WispParticleData.wisp(0.4F, r, g, b);
 		// The start position is set a bit away from the spreader (along the burst's motion vector), as to not
 		// collide with the spreader itself.
-		tile.getLevel().addParticle(data, tile.getBlockPos().getX() + 0.5 + mx * 4.5, tile.getBlockPos().getY() + 0.5 + my * 4.5, tile.getBlockPos().getZ() + 0.5 + mz * 4.5, mx, my, mz);
+		var pos = spreader.getManaReceiverPos();
+		level.addParticle(data, pos.getX() + 0.5 + mx * 4.5, pos.getY() + 0.5 + my * 4.5, pos.getZ() + 0.5 + mz * 4.5, mx, my, mz);
 	}
 
 }
