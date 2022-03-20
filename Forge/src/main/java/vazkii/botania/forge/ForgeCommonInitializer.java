@@ -1,7 +1,6 @@
 package vazkii.botania.forge;
 
 import com.google.common.base.Suppliers;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.commands.CommandSourceStack;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
@@ -129,7 +127,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -544,23 +541,6 @@ public class ForgeCommonInitializer {
 				ModBlocks.pistonRelay);
 	}
 
-	private static final Supplier<Set<BlockEntityType<?>>> SELF_WANDADBLE_BES = Suppliers.memoize(() -> ImmutableSet.of(ModTiles.ALF_PORTAL, ModTiles.ANIMATED_TORCH, ModTiles.CORPOREA_CRYSTAL_CUBE, ModTiles.CORPOREA_RETAINER,
-			ModTiles.CRAFT_CRATE, ModTiles.ENCHANTER, ModTiles.HOURGLASS, ModTiles.PLATFORM, ModTiles.POOL,
-			ModTiles.RUNE_ALTAR, ModTiles.SPREADER, ModTiles.TURNTABLE,
-			ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
-			ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI)
-	);
-
-	private static final Supplier<Set<BlockEntityType<?>>> SELF_MANA_TRIGGER_BES = Suppliers.memoize(() -> ImmutableSet.of(
-			ModTiles.ANIMATED_TORCH, ModTiles.HOURGLASS, ModTiles.PRISM
-	));
-
-	private static final Supplier<Set<BlockEntityType<?>>> SELF_MANA_RECEIVER_BES = Suppliers.memoize(() -> ImmutableSet.of(
-			ModTiles.AVATAR, ModTiles.BREWERY, ModTiles.DISTRIBUTOR, ModTiles.ENCHANTER,
-			ModTiles.MANA_VOID, ModTiles.POOL, ModTiles.FLUXFIELD, ModTiles.RUNE_ALTAR,
-			ModTiles.SPAWNER_CLAW, ModTiles.SPREADER, ModTiles.TERRA_PLATE
-	));
-
 	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
 		var be = e.getObject();
 		if (be instanceof AbstractFurnaceBlockEntity furnace) {
@@ -614,7 +594,7 @@ public class ForgeCommonInitializer {
 					hourglass -> ((TileAnimatedTorch) be).toggle()));
 		}
 
-		if (SELF_WANDADBLE_BES.get().contains(be.getType())) {
+		if (BlockEntityConstants.SELF_WANDADBLE_BES.contains(be.getType())) {
 			e.addCapability(prefix("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
 					(IWandable) be));
 		}
@@ -623,11 +603,11 @@ public class ForgeCommonInitializer {
 			e.addCapability(prefix("red_string"), new RedStringContainerCapProvider(container));
 		}
 
-		if (SELF_MANA_TRIGGER_BES.get().contains(be.getType())) {
+		if (BlockEntityConstants.SELF_MANA_TRIGGER_BES.contains(be.getType())) {
 			e.addCapability(prefix("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (IManaTrigger) be));
 		}
 
-		if (SELF_MANA_RECEIVER_BES.get().contains(be.getType())) {
+		if (BlockEntityConstants.SELF_MANA_RECEIVER_BES.contains(be.getType())) {
 			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (IManaReceiver) be));
 		}
 	}

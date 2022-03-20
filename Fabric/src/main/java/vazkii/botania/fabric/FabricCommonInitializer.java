@@ -42,6 +42,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
@@ -268,9 +269,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				ModBlocks.prism, ModBlocks.tinyPlanet
 		);
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerSelf(
-				ModTiles.AVATAR, ModTiles.BREWERY, ModTiles.DISTRIBUTOR, ModTiles.ENCHANTER,
-				ModTiles.MANA_VOID, ModTiles.POOL, ModTiles.FLUXFIELD, ModTiles.RUNE_ALTAR,
-				ModTiles.SPAWNER_CLAW, ModTiles.SPREADER, ModTiles.TERRA_PLATE
+				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
@@ -284,18 +283,14 @@ public class FabricCommonInitializer implements ModInitializer {
 				(level, pos, state, be, context) -> new BlockManaDetector.ManaTrigger(level, pos, state),
 				ModBlocks.manaDetector
 		);
-		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(ModTiles.ANIMATED_TORCH, ModTiles.HOURGLASS, ModTiles.PRISM);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(
+				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(
 				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay
 		);
 		BotaniaFabricCapabilities.WANDABLE.registerSelf(
-				ModTiles.ALF_PORTAL, ModTiles.ANIMATED_TORCH, ModTiles.CORPOREA_CRYSTAL_CUBE, ModTiles.CORPOREA_RETAINER,
-				ModTiles.CRAFT_CRATE, ModTiles.ENCHANTER, ModTiles.HOURGLASS, ModTiles.PLATFORM, ModTiles.POOL,
-				ModTiles.RUNE_ALTAR, ModTiles.SPREADER, ModTiles.TURNTABLE,
-				ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
-				ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI
-		);
+				BlockEntityConstants.SELF_WANDADBLE_BES.toArray(BlockEntityType[]::new));
 		ItemStorage.SIDED.registerForBlockEntity(FabricTileRedStringContainer::getStorage, ModTiles.RED_STRING_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, ModTiles.RED_STRING_DISPENSER);
 
