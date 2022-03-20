@@ -39,6 +39,11 @@ public class TileRFGenerator extends TileMod implements IManaReceiver {
 	}
 
 	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
+	}
+
+	@Override
 	public int getCurrentMana() {
 		return energy / MANA_TO_FE;
 	}

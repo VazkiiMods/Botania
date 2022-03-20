@@ -27,6 +27,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -221,6 +222,11 @@ public class ItemManaMirror extends Item {
 		@Override
 		public boolean canReceiveManaFromBursts() {
 			return false;
+		}
+
+		@Override
+		public BlockPos getManaReceiverPos() {
+			return IManaBurst.NO_SOURCE;
 		}
 
 		@Override

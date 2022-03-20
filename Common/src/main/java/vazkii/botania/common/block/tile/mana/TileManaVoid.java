@@ -24,6 +24,11 @@ public class TileManaVoid extends TileMod implements IManaReceiver {
 	}
 
 	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
+	}
+
+	@Override
 	public int getCurrentMana() {
 		return 0;
 	}

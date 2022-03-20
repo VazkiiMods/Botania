@@ -114,17 +114,20 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		entityData.define(LEFT_SOURCE_POS, false);
 	}
 
-	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this(ModEntities.MANA_BURST, ((BlockEntity) spreader).getLevel());
-
-		BlockEntity tile = spreader.tileEntity();
+	public EntityManaBurst(Level level, BlockPos pos, float rotX, float rotY, boolean fake) {
+		this(ModEntities.MANA_BURST, level);
 
 		this.fake = fake;
 
-		setBurstSourceCoords(tile.getBlockPos());
-		moveTo(tile.getBlockPos().getX() + 0.5, tile.getBlockPos().getY() + 0.5, tile.getBlockPos().getZ() + 0.5, 0, 0);
-		setYRot(-(spreader.getRotationX() + 90F));
-		setXRot(spreader.getRotationY());
+		setBurstSourceCoords(pos);
+		moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0);
+		/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
+		* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
+		* to respectively mean "rotation *around* the X and Y axes".
+		* TODO consider renaming our versions to match vanilla
+		*/
+		setYRot(-(rotX + 90F));
+		setXRot(rotY);
 
 		float f = 0.4F;
 		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;

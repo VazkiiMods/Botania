@@ -128,6 +128,11 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, IMan
 	}
 
 	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
+	}
+
+	@Override
 	public int getCurrentMana() {
 		return mana;
 	}

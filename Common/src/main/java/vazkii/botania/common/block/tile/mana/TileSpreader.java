@@ -274,9 +274,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
 
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.tileEntity().getBlockPos().getX());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? Integer.MIN_VALUE : receiver.tileEntity().getBlockPos().getY());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.tileEntity().getBlockPos().getZ());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.getManaReceiverPos().getX());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? Integer.MIN_VALUE : receiver.getManaReceiverPos().getY());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.getManaReceiverPos().getZ());
 
 		cmp.putBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
 		cmp.putInt(TAG_FORCED_COLOR, mmForcedColor);
@@ -362,6 +362,11 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 	@Override
 	public boolean canReceiveManaFromBursts() {
 		return true;
+	}
+
+	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
 	}
 
 	@Override
@@ -493,7 +498,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 		}
 
 		if (getCurrentMana() >= props.maxMana || fake) {
-			EntityManaBurst burst = new EntityManaBurst(this, fake);
+			EntityManaBurst burst = new EntityManaBurst(getLevel(), getBlockPos(), getRotationX(), getRotationY(), fake);
 			burst.setSourceLens(lens);
 
 			if (mapmakerOverride) {
@@ -555,8 +560,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 			}
 
 			if (spreader.receiver != null) {
-				BlockEntity receiverTile = spreader.receiver.tileEntity();
-				ItemStack recieverStack = new ItemStack(spreader.level.getBlockState(receiverTile.getBlockPos()).getBlock());
+				var receiverPos = spreader.receiver.getManaReceiverPos();
+				ItemStack recieverStack = new ItemStack(spreader.level.getBlockState(receiverPos).getBlock());
 				if (!recieverStack.isEmpty()) {
 					String stackName = recieverStack.getHoverName().getString();
 					int width = 16 + mc.font.width(stackName) / 2;
@@ -617,8 +622,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 			return null;
 		}
 
-		BlockEntity tile = receiver.tileEntity();
-		return tile.getBlockPos();
+		return receiver.getManaReceiverPos();
 	}
 
 	@Override

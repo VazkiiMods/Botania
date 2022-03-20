@@ -342,6 +342,11 @@ public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttac
 	}
 
 	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
+	}
+
+	@Override
 	public int getCurrentMana() {
 		return mana;
 	}

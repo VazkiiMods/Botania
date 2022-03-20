@@ -438,6 +438,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
+	}
+
+	@Override
 	public int getCurrentMana() {
 		if (getBlockState().getBlock() instanceof BlockPool pool) {
 			return pool.variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
