@@ -45,7 +45,6 @@
   "botaniamisc.shardLevel": "Shard Power %s",
   "botaniamisc.shardRange": "Radius: %s",
   "botaniamisc.lexiconIndex": "Lexicon Index",
-  "botaniamisc.hasIvy": "Has Timeless Ivy",
   "botaniamisc.drop": "Drop",
   "botaniamisc.dropTip0": "Tip: You can press %s over an item in your inventory to drop one of it",
   "botaniamisc.dropTip1": "CTRL-%s will drop a full stack",
@@ -1291,7 +1290,6 @@
   "item.botania.spark_upgrade_isolated": "Spark Augment: Isolated",
   "item.botania.divining_rod": "Rod of the Plentiful Mantle",
   "item.botania.gravity_rod": "Rod of the Shaded Mesa",
-  "item.botania.regenivy": "Timeless Ivy",
   "item.botania.vial": "Managlass Vial",
   "item.botania.flask": "Alfglass Flask",
   "item.botania.brew_vial": "Vial of %s (%s)",
@@ -2056,7 +2054,7 @@
 
   "botania.entry.bellethorne": "Bellethorne",
   "botania.tagline.bellethorne": "Damages mobs",
-  "botania.page.bellethorne0": "The $(item)Bellethorne$(0) is a malevelous flower. It twists any $(thing)Mana$(0) provided to slowly inflict harm in any living beings (save for $(thing)players$(0)) around it.",
+  "botania.page.bellethorne0": "The $(item)Bellethorne$(0) is a malevolent flower. It twists any $(thing)Mana$(0) provided to slowly inflict harm in any living beings (save for $(thing)players$(0)) around it.",
   "botania.page.bellethorne1": "$(o)Every rose has its thorn$().",
 
   "botania.entry.dreadthorne": "Dreadthorne",
@@ -3258,9 +3256,9 @@
   "botania.page.elvenLore2": "It began when Nidavellir was struck by an earthquake that collapsed the majority of the realm. While the Dwarves' incredible strength and durability allowed them to survive and preserve certain things, most of their technology and culture was lost to the void between worlds.",
   "botania.page.elvenLore3": "This disturbance caused Muspelheim to break free from its tether on the World Tree herself. It crashed into the far realm of Midgard, fusing with it in a storm of fire that left no life remaining there. Many of us believe that the goddess Hel had a hand in Muspelheim's fall, but no concrete evidence was ever found.",
   "botania.page.elvenLore4": "The quakes managed to reach Jotunheim, cracking the earth and massacring the Giants. We do not know whether they have truly died out, but the Giants have not resurfaced since. Niflheim remained perfectly still, despite Muspelheim's fall-- a major factor in the theories about Hel. However, since it contains no known life besides the goddess herself, we are unworried about any damage incurred there.",
-  "botania.page.elvenLore5": "We of Alfheim were dealt a great blow, but some worse than others. As the Salamander and Undine clans depend greatly on their respective volcanic and aquatic environments, the disroption of those environments decimated the population. Conversely, the Sylph, being a nomadic clan who preferred the sky to the land, remained largely unscathed. Their cousins the Spriggan, nomads as well, were also able to survive relatively intact.",
+  "botania.page.elvenLore5": "We of Alfheim were dealt a great blow, but some worse than others. As the Salamander and Undine clans depend greatly on their respective volcanic and aquatic environments, the disruption of those environments decimated the population. Conversely, the Sylph, being a nomadic clan who preferred the sky to the land, remained largely unscathed. Their cousins the Spriggan, nomads as well, were also able to survive relatively intact.",
   "botania.page.elvenLore5a": "At that time, we had little true structure to our civilization, living in simple huts of Dreamwood. This made rebuilding little more than a chore of gathering materials, especially as we had prior warning.",
-  "botania.page.elvenLore6": "Our Sylph emmissary to Asgard, Allewyn, witnessed the beginning of it all: Thor turning Mjölnir upon the Bifrost, shattering it. Her command to evacute our entire Midgardian population saved thousands of lives. Although she seemed outwardly unharmed as she arrived on the crest of a wave of crumbling Bifrost to warn us, the toll of the journey caused her to pass away shortly after.",
+  "botania.page.elvenLore6": "Our Sylph emissary to Asgard, Allewyn, witnessed the beginning of it all: Thor turning Mjölnir upon the Bifrost, shattering it. Her command to evacuate our entire Midgardian population saved thousands of lives. Although she seemed outwardly unharmed as she arrived on the crest of a wave of crumbling Bifrost to warn us, the toll of the journey caused her to pass away shortly after.",
   "botania.page.elvenLore7": "What concerns us now is the state of Midgard. As the Bifrost can no longer give us access to that world, we cannot observe it directly. However, the Mana left behind as we fled surely has brought about new life, as it always does. Whether it be animal, floral, or fungal, and whether it be natural or magical in nature, we hope that life will be intelligent enough to harness what we left behind.",
 
   "botania.entry.decorativeBlocks": "Decorative Blocks",
