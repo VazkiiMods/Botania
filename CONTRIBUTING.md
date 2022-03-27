@@ -37,7 +37,7 @@ public modpack that is not officially maintained or supported by the Botania dev
 5. Run `./gradlew incrementBuildNumber --no-daemon` to increment the build number of the
    next release. Commit this and the changelog.
 6. Push: `git push origin master --tags`
-7. Go to [Jenkins](https://ci.blamejared.com/job/Botania/view/tags/) and wait for the tag
+7. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and wait for the tag
    you just pushed to be compiled and built
 8. Download the JAR and submit it to CurseForge
 9. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote
