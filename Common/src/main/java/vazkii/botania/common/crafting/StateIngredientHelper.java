@@ -33,11 +33,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class StateIngredientHelper {
 	public static StateIngredient of(Block block) {
@@ -58,6 +54,28 @@ public class StateIngredientHelper {
 
 	public static StateIngredient of(Collection<Block> blocks) {
 		return new StateIngredientBlocks(blocks);
+	}
+
+	// Can't be 'of' because of type erasure.
+	public static StateIngredient compound(Collection<StateIngredient> ingredients) {
+		return new StateIngredientCompound(ingredients);
+	}
+
+	public static StateIngredient combine(StateIngredient firstIngredient, StateIngredient secondIngredient) {
+		List<StateIngredient> ingredients = new ArrayList<>();
+		// Flatten the ingredients
+		if (firstIngredient instanceof StateIngredientCompound compound) {
+			ingredients.addAll(compound.getIngredients());
+		} else {
+			ingredients.add(firstIngredient);
+		}
+		if (secondIngredient instanceof StateIngredientCompound compound) {
+			ingredients.addAll(compound.getIngredients());
+		} else {
+			ingredients.add(secondIngredient);
+		}
+
+		return new StateIngredientCompound(ingredients);
 	}
 
 	public static StateIngredient tagExcluding(TagKey<Block> tag, StateIngredient... excluded) {
@@ -85,6 +103,15 @@ public class StateIngredientHelper {
 					ingr.add(deserialize(GsonHelper.convertToJsonObject(element, "exclude entry")));
 				}
 				return new StateIngredientTagExcluding(tag, ingr);
+			case "compound":
+				List<StateIngredient> stateIngredients = new ArrayList<>();
+				for (JsonElement ingredient : GsonHelper.getAsJsonArray(object, "ingredients")) {
+					if (!ingredient.isJsonObject()) {
+						throw new JsonParseException("Unknown ingredient in compound state ingredient: " + ingredient);
+					}
+					stateIngredients.add(deserialize(ingredient.getAsJsonObject()));
+				}
+				return new StateIngredientCompound(stateIngredients);
 			default:
 				throw new JsonParseException("Unknown type!");
 		}
@@ -96,18 +123,21 @@ public class StateIngredientHelper {
 	 */
 	@Nullable
 	public static StateIngredient tryDeserialize(JsonObject object) {
-		StateIngredient ingr = deserialize(object);
-		if (ingr instanceof StateIngredientTag sit) {
+		return clearTheAir(deserialize(object));
+	}
+
+	public static StateIngredient clearTheAir(StateIngredient ingredient) {
+		if (ingredient instanceof StateIngredientTag sit) {
 			if (sit.resolve().findAny().isEmpty()) {
 				return null;
 			}
-			return ingr;
+			return ingredient;
 		}
-		if (ingr instanceof StateIngredientBlock || ingr instanceof StateIngredientBlockState) {
-			if (ingr.test(Blocks.AIR.defaultBlockState())) {
+		if (ingredient instanceof StateIngredientBlock || ingredient instanceof StateIngredientBlockState) {
+			if (ingredient.test(Blocks.AIR.defaultBlockState())) {
 				return null;
 			}
-		} else if (ingr instanceof StateIngredientBlocks sib) {
+		} else if (ingredient instanceof StateIngredientBlocks sib) {
 			Collection<Block> blocks = sib.blocks;
 			List<Block> list = new ArrayList<>(blocks);
 			if (list.removeIf(b -> b == Blocks.AIR)) {
@@ -116,8 +146,14 @@ public class StateIngredientHelper {
 				}
 				return of(list);
 			}
+		} else if (ingredient instanceof StateIngredientCompound sic) {
+			List<StateIngredient> newIngredients = sic.getIngredients().stream().map(StateIngredientHelper::clearTheAir).filter(Objects::nonNull).toList();
+			if (newIngredients.isEmpty()) {
+				return null;
+			}
+			return compound(newIngredients);
 		}
-		return ingr;
+		return ingredient;
 	}
 
 	public static StateIngredient read(FriendlyByteBuf buffer) {
@@ -135,6 +171,13 @@ public class StateIngredientHelper {
 				return new StateIngredientBlock(Registry.BLOCK.byId(buffer.readVarInt()));
 			case 2:
 				return new StateIngredientBlockState(Block.stateById(buffer.readVarInt()));
+			case 3:
+				int ingredientCount = buffer.readVarInt();
+				Set<StateIngredient> ingredientSet = new HashSet<>();
+				for (int i = 0; i < ingredientCount; i++) {
+					ingredientSet.add(read(buffer));
+				}
+				return new StateIngredientCompound(ingredientSet);
 			default:
 				throw new IllegalArgumentException("Unknown input discriminator!");
 		}
