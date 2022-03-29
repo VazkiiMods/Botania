@@ -23,6 +23,7 @@
     },
     {
       "type": "botania:crafting_multi",
+      "heading":"botania.entry.apothecary",
       "text": "botania.page.marimorphosis3",
       "recipes": [
         "botania:apothecary_forest",

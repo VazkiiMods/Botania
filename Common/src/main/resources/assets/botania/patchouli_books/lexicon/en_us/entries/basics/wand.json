@@ -19,6 +19,7 @@
     },
     {
       "type": "crafting",
+      "title":"botania.entry.wand",
       "text": "botania.page.wand3",
       "recipe": "botania:twig_wand"
     }
