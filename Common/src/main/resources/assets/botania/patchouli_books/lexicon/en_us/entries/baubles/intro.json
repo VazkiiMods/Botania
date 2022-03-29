@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.bIntro",
   "category": "botania:baubles",
-  "icon": "minecraft:air",
+  "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "pages": [
     {
