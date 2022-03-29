@@ -74,7 +74,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	@Nonnull
 	@Override
 	public List<Block> getBlocks() {
-		return resolve().getValues();
+		return resolve().toList();
 	}
 
 	@Override
