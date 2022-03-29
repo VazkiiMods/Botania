@@ -275,7 +275,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				ModBlocks.manaVoid);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
-				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.wildDrum
+				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new BlockManaBomb.ManaTrigger(level, pos, state),
