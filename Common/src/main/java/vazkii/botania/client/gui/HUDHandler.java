@@ -53,7 +53,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.ModTags;
-import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -154,7 +153,7 @@ public final class HUDHandler {
 			profiler.endSection();
 		}*/
 
-		if (IProxy.INSTANCE.isClientPlayerWearingMonocle()) {
+		if (ItemMonocle.hasMonocle(mc.player)) {
 			profiler.push("monocle");
 			ItemMonocle.Hud.render(ms, mc.player);
 			profiler.pop();

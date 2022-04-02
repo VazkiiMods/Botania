@@ -43,10 +43,6 @@ public interface IProxy {
 		return null;
 	}
 
-	default boolean isClientPlayerWearingMonocle() {
-		return false;
-	}
-
 	default void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
 		lightningFX(vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
 	}

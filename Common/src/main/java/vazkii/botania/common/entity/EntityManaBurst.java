@@ -40,6 +40,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -368,7 +369,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 				level.addParticle(data, true, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
-			boolean depth = !IProxy.INSTANCE.isClientPlayerWearingMonocle();
+			Player player = IProxy.INSTANCE.getClientPlayer();
+			boolean depth = player == null || !ItemMonocle.hasMonocle(player);
 
 			if (BotaniaConfig.client().subtlePowerSystem()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);

@@ -26,7 +26,6 @@ import vazkii.botania.client.fx.BoltParticleOptions;
 import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -70,11 +69,6 @@ public class ClientProxy implements IProxy {
 	@Override
 	public Player getClientPlayer() {
 		return Minecraft.getInstance().player;
-	}
-
-	@Override
-	public boolean isClientPlayerWearingMonocle() {
-		return ItemMonocle.hasMonocle(Minecraft.getInstance().player);
 	}
 
 	@Override
