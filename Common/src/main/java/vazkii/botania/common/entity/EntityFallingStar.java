@@ -65,7 +65,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			level.addParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
+			level.addAlwaysVisibleParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
 		}
 
 		Entity thrower = getOwner();
