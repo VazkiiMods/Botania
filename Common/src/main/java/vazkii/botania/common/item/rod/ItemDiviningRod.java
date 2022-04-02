@@ -29,7 +29,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.handler.ModSounds;
-import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
@@ -73,10 +72,7 @@ public class ItemDiviningRod extends Item {
 			if (state.is(IXplatAbstractions.INSTANCE.getOreTag())) {
 				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
-				IProxy.INSTANCE.addParticleForce(world, data, pos_.getX() + world.random.nextFloat(),
-						pos_.getY() + world.random.nextFloat(),
-						pos_.getZ() + world.random.nextFloat(),
-						0, 0, 0);
+				world.addParticle(data, true, pos_.getX() + world.random.nextFloat(), pos_.getY() + world.random.nextFloat(), pos_.getZ() + world.random.nextFloat(), 0, 0, 0);
 			}
 		}
 	}

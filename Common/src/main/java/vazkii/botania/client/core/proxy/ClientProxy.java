@@ -99,15 +99,10 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void addParticleForce(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-		world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
-	}
-
-	@Override
 	public void addParticleForceNear(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 		Camera info = Minecraft.getInstance().gameRenderer.getMainCamera();
 		if (info.isInitialized() && info.getPosition().distanceToSqr(x, y, z) <= 1024.0D) {
-			addParticleForce(world, particleData, x, y, z, xSpeed, ySpeed, zSpeed);
+			world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
 		}
 	}
 

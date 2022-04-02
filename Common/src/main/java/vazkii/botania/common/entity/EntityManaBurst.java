@@ -365,7 +365,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 			if (!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				IProxy.INSTANCE.addParticleForce(level, data, getX(), getY(), getZ(), 0, 0, 0);
+				level.addParticle(data, true, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
 			boolean depth = !IProxy.INSTANCE.isClientPlayerWearingMonocle();

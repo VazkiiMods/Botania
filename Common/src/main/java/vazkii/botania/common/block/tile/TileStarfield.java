@@ -44,7 +44,7 @@ public class TileStarfield extends TileMod {
 			int m = 50;
 
 			SparkleParticleData data = SparkleParticleData.sparkle(s, r, g, b, m);
-			IProxy.INSTANCE.addParticleForce(level, data, x, y, z, 0, 0, 0);
+			level.addParticle(data, true, x, y, z, 0, 0, 0);
 		}
 	}
 

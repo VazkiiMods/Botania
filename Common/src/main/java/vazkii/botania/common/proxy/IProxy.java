@@ -67,10 +67,7 @@ public interface IProxy {
 		return 0;
 	}
 
-	/** Side-safe version of world.addParticle with the unlimited distance flag, ignoring reduced particle settings. */
-	default void addParticleForce(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
-
-	/** A version of {@link IProxy#addParticleForce} that culls particles below 32 block distances. */
+	/** Same as {@code world.addParticle(data, true, ...)}, but culls particles below 32 block distances. */
 	default void addParticleForceNear(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
 
 	default void showMultiblock(IMultiblock mb, Component name, BlockPos anchor, Rotation rot) {}
