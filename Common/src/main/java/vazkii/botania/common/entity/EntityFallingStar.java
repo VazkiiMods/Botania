@@ -9,6 +9,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -31,6 +32,7 @@ import java.util.List;
 
 public class EntityFallingStar extends EntityThrowableCopy {
 
+	private static final String TAG_HAS_BEEN_IN_AIR = "hasBeenInAir";
 	/*
 	* Prevent the star from being discarded on block collisions before its
 	* first exposure to an air block.
@@ -53,7 +55,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		super.tick();
 
 		if (!hasBeenInAir && !level.isClientSide) {
-			BlockState bs = level.getBlockState(new BlockPos(this.getPosition(0F)));
+			var bs = getFeetBlockState();
 			hasBeenInAir = bs.isAir() || isInWater() || isInLava();
 		}
 
@@ -120,5 +122,17 @@ public class EntityFallingStar extends EntityThrowableCopy {
 				discard();
 			}
 		}
+	}
+
+	@Override
+	protected void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
+		tag.putBoolean(TAG_HAS_BEEN_IN_AIR, hasBeenInAir);
+	}
+
+	@Override
+	protected void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
+		this.hasBeenInAir = tag.getBoolean(TAG_HAS_BEEN_IN_AIR);
 	}
 }
