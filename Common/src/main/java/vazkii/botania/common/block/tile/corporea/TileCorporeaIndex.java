@@ -273,10 +273,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		self.hasCloseby = false;
-		for (Player player : players) {
-			if (isInRangeOfIndex(player, self)) {
-				self.hasCloseby = true;
-				break;
+		if (self.getSpark() != null) {
+			for (Player player : players) {
+				if (self.isInRange(player)) {
+					self.hasCloseby = true;
+					break;
+				}
 			}
 		}
 
@@ -293,6 +295,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		if (!self.isRemoved()) {
 			addIndex(self);
 		}
+	}
+
+	public static List<TileCorporeaIndex> getNearbyValidIndexes(Player player) {
+		return (player.level.isClientSide ? clientIndexes : serverIndexes)
+				.stream().filter(i -> i.getSpark() != null && i.isInRange(player))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -319,8 +327,10 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		return result;
 	}
 
-	public static boolean isInRangeOfIndex(Player player, TileCorporeaIndex index) {
-		return player.level.dimension() == index.level.dimension() && MathHelper.pointDistancePlane(index.getBlockPos().getX() + 0.5, index.getBlockPos().getZ() + 0.5, player.getX(), player.getZ()) < RADIUS && Math.abs(index.getBlockPos().getY() + 0.5 - player.getY() + (player.level.isClientSide ? 0 : 1.6)) < 5;
+	private boolean isInRange(Player player) {
+		return player.level.dimension() == level.dimension()
+				&& MathHelper.pointDistancePlane(getBlockPos().getX() + 0.5, getBlockPos().getZ() + 0.5, player.getX(), player.getZ()) < RADIUS
+				&& Math.abs(getBlockPos().getY() + 0.5 - player.getY()) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -374,32 +384,29 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 				return false;
 			}
 
-			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(player);
+			List<TileCorporeaIndex> nearbyIndexes = getNearbyValidIndexes(player);
 			if (!nearbyIndexes.isEmpty()) {
 				String msg = message.toLowerCase(Locale.ROOT).trim();
 				for (TileCorporeaIndex index : nearbyIndexes) {
-					ICorporeaSpark spark = index.getSpark();
-					if (spark != null) {
-						String name = "";
-						int count = 0;
-						for (Pattern pattern : patterns.keySet()) {
-							Matcher matcher = pattern.matcher(msg);
-							if (matcher.matches()) {
-								IRegexStacker stacker = patterns.get(pattern);
-								count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
-								name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
-							}
+					String name = "";
+					int count = 0;
+					for (Pattern pattern : patterns.keySet()) {
+						Matcher matcher = pattern.matcher(msg);
+						if (matcher.matches()) {
+							IRegexStacker stacker = patterns.get(pattern);
+							count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
+							name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
 						}
-
-						if (name.equals("this")) {
-							ItemStack stack = player.getMainHandItem();
-							if (!stack.isEmpty()) {
-								name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
-							}
-						}
-
-						index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(name), count);
 					}
+
+					if (name.equals("this")) {
+						ItemStack stack = player.getMainHandItem();
+						if (!stack.isEmpty()) {
+							name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
+						}
+					}
+
+					index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(name), count);
 				}
 
 				return true;
@@ -408,11 +415,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			return false;
 		}
 
-		public static List<TileCorporeaIndex> getNearbyIndexes(Player player) {
-			return (player.level.isClientSide ? clientIndexes : serverIndexes)
-					.stream().filter(i -> isInRangeOfIndex(player, i))
-					.collect(Collectors.toList());
-		}
 	}
 
 	public interface IRegexStacker {

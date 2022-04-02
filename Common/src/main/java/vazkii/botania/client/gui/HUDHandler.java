@@ -42,7 +42,6 @@ import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex.InputHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -125,7 +124,7 @@ public final class HUDHandler {
 		}
 
 		TileCorporeaIndex.getInputHandler();
-		if (!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.screen instanceof ChatScreen) {
+		if (!TileCorporeaIndex.getNearbyValidIndexes(mc.player).isEmpty() && mc.screen instanceof ChatScreen) {
 			profiler.push("nearIndex");
 			renderNearIndexDisplay(ms);
 			profiler.pop();

@@ -43,7 +43,7 @@ public class CorporeaInputHandler {
 
 		if (mc.level == null || !supportedGuiFilter.test(mc.screen)
 				|| !ClientProxy.CORPOREA_REQUEST.matches(keyCode, scanCode)
-				|| TileCorporeaIndex.InputHandler.getNearbyIndexes(mc.player).isEmpty()) {
+				|| TileCorporeaIndex.getNearbyValidIndexes(mc.player).isEmpty()) {
 			return false;
 		}
 
