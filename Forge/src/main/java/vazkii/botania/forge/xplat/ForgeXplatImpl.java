@@ -302,13 +302,13 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public KeptItemsComponent keptItemsComponent(Player player) {
-		if (!player.isAlive()) {
+	public KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps) {
+		if (reviveCaps) {
 			// See the javadoc on reviveCaps for why this is necessary
 			player.reviveCaps();
 		}
 		var ret = player.getCapability(ForgeInternalEntityCapabilities.KEPT_ITEMS).orElseThrow(IllegalStateException::new);
-		if (!player.isAlive()) {
+		if (reviveCaps) {
 			player.invalidateCaps();
 		}
 		return ret;

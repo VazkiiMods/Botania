@@ -346,7 +346,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public KeptItemsComponent keptItemsComponent(Player player) {
+	public KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps) {
 		return CCAInternalEntityComponents.KEPT_ITEMS.get(player);
 	}
 

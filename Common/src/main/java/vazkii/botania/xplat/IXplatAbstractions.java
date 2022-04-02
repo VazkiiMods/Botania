@@ -133,7 +133,7 @@ public interface IXplatAbstractions {
 	EthicalComponent ethicalComponent(PrimedTnt tnt);
 	GhostRailComponent ghostRailComponent(AbstractMinecart cart);
 	ItemFlagsComponent itemFlagsComponent(ItemEntity item);
-	KeptItemsComponent keptItemsComponent(Player player);
+	KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps);
 	@Nullable
 	LooniumComponent looniumComponent(LivingEntity entity);
 	NarslimmusComponent narslimmusComponent(Slime slime);

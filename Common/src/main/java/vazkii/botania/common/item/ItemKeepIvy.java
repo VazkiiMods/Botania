@@ -46,13 +46,16 @@ public class ItemKeepIvy extends Item {
 			}
 		}
 
-		KeptItemsComponent data = IXplatAbstractions.INSTANCE.keptItemsComponent(player);
+		// The capabilities are not yet invalidated at this point, no need to do reviveCaps
+		KeptItemsComponent data = IXplatAbstractions.INSTANCE.keptItemsComponent(player, false);
 		data.addAll(keeps);
 	}
 
 	public static void onPlayerRespawn(Player oldPlayer, Player newPlayer, boolean alive) {
 		if (!alive) {
-			KeptItemsComponent keeps = IXplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer);
+			// At this point, the Forge capabilities have been invalidated and are no longer
+			// accessible unless we do a hacky reviveCaps() call, see ForgeXplatImpl for details.
+			KeptItemsComponent keeps = IXplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer, true);
 
 			for (ItemStack stack : keeps.getStacks()) {
 				ItemStack copy = stack.copy();
