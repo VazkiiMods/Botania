@@ -23,11 +23,15 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.entity.EntityFallingStar;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 public class ItemStarSword extends ItemManasteelSword {
 
 	private static final int MANA_PER_DAMAGE = 120;
+	private static final String STAR_CHARGED = "STAR_CHARGED";
+	/* Number of ticks between two stars */
+	private static final int INTERVAL = 12;
 
 	public ItemStarSword(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
@@ -36,37 +40,49 @@ public class ItemStarSword extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
-		if (entity instanceof Player player) {
-			MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
-			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
+		if (!(entity instanceof Player player)) {
+			return;
+		}
 
-			if (player.getMainHandItem() == stack && player.attackAnim == check && !world.isClientSide) {
-				BlockHitResult pos = ToolCommons.raytraceFromEntity(player, 48, false);
-				if (pos.getType() == HitResult.Type.BLOCK) {
-					Vec3 posVec = Vec3.atLowerCornerOf(pos.getBlockPos());
-					Vec3 motVec = new Vec3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
-					posVec = posVec.add(motVec);
-					motVec = motVec.normalize().reverse().scale(1.5);
+		// Initialize timer for new items or items given to another player.
+		if (!ItemNBTHelper.verifyExistance(stack, STAR_CHARGED) || ItemNBTHelper.getInt(stack, STAR_CHARGED, 0) > player.tickCount) {
+			ItemNBTHelper.setInt(stack, STAR_CHARGED, player.tickCount);
+		}
 
-					EntityFallingStar star = new EntityFallingStar(player, world);
-					star.setPos(posVec.x, posVec.y, posVec.z);
-					star.setDeltaMovement(motVec);
-					world.addFreshEntity(star);
+		MobEffectInstance haste = player.getEffect(MobEffects.DIG_SPEED);
+		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
-					if (!world.isRaining()
-							&& Math.abs(world.getDayTime() - 18000) < 1800
-							&& Math.random() < 0.125) {
-						EntityFallingStar bonusStar = new EntityFallingStar(player, world);
-						bonusStar.setPos(posVec.x, posVec.y, posVec.z);
-						bonusStar.setDeltaMovement(motVec.x + Math.random() - 0.5,
-								motVec.y + Math.random() - 0.5, motVec.z + Math.random() - 0.5);
-						world.addFreshEntity(bonusStar);
-					}
+		if (player.tickCount >= ItemNBTHelper.getInt(stack, STAR_CHARGED, player.tickCount) + INTERVAL && player.getMainHandItem() == stack && player.attackAnim == check && !world.isClientSide) {
+			ItemNBTHelper.setInt(stack, STAR_CHARGED, player.tickCount);
+			summonFallingStar(stack, world, player);
+		}
+	}
 
-					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
-				}
+	private void summonFallingStar(ItemStack stack, Level world, Player player) {
+		BlockHitResult pos = ToolCommons.raytraceFromEntity(player, 48, false);
+		if (pos.getType() == HitResult.Type.BLOCK) {
+			Vec3 posVec = Vec3.atLowerCornerOf(pos.getBlockPos());
+			Vec3 motVec = new Vec3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
+			posVec = posVec.add(motVec);
+			motVec = motVec.normalize().reverse().scale(1.5);
+
+			EntityFallingStar star = new EntityFallingStar(player, world);
+			star.setPos(posVec.x, posVec.y, posVec.z);
+			star.setDeltaMovement(motVec);
+			world.addFreshEntity(star);
+
+			if (!world.isRaining()
+					&& Math.abs(world.getDayTime() - 18000) < 1800
+					&& Math.random() < 0.125) {
+				EntityFallingStar bonusStar = new EntityFallingStar(player, world);
+				bonusStar.setPos(posVec.x, posVec.y, posVec.z);
+				bonusStar.setDeltaMovement(motVec.x + Math.random() - 0.5,
+						motVec.y + Math.random() - 0.5, motVec.z + Math.random() - 0.5);
+				world.addFreshEntity(bonusStar);
 			}
+
+			stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 
