@@ -60,7 +60,7 @@
   "depends": {
     "fabricloader": ">=0.12",
     "fabric": ">=0.44",
-    "minecraft": ">=1.18.1",
+    "minecraft": ">=1.18.2",
     "trinkets" : ">=3",
     "patchouli": "*"
   },

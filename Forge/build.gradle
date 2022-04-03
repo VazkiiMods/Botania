@@ -99,7 +99,7 @@ dependencies {
 
     implementation "com.google.code.findbugs:jsr305:3.0.2"
 
-    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-66-SNAPSHOT")
+    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
     compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.4.3.122:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.4.3.122")
 
