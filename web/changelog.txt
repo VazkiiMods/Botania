@@ -14,8 +14,7 @@
 * Change: Mossy petal apothecary is now crafted instead of being made by throwing a vine (artemisSystem)
 * Change: Metamorphic petal apothecary recipes made consistent with the default apothecary recipe (artemisSystem)
 * Change: Falling stars are now noclip until they touch air or liquid for the first time (aquila-zyy)
-* API: A bunch of interfaces are now capabilities, exposed via the Forge capability system
-or Fabric API lookup system
+* API: A bunch of interfaces are now capabilities, exposed via the Forge capability system or Fabric API lookup system
 * API: Reshuffle a bunch of the mana block interfaces
 * API: RadiusDescriptor is now sealed
 * API: Add StateIngredientCompound, a StateIngredient that composes two other ones (BlameJared)
