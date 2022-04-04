@@ -1,0 +1,39 @@
+Notes for the Botania on Multiloader experience report talk, given at BlanketCon 2022
+
+Eventually this should all make its way into the presentation one way or another
+
+* History and Motivations
+ Botania was a Forge mod for most of its life (late 1.6 to 1.16)
+ Fabric work was first floated around 1.16, and a 1.16 branch was started
+ Botania-fabric 1.16 was actually playable enough to have a private skyblock test world, but was never publicly released
+ In 1.17, Fabric actually became the primary branch as Forge broke Mixins and was taking forever to fix them
+ Forge never received a 1.17 version as a result
+ In 1.18, we moved to a multiloader setup which unified both loaders' codebases into one repository/branch, leaving us where we are today
+* The process of porting to Fabric
+** Port Patchouli
+   see willie's old blog post experience report
+   fairly painless, most of Patchouli is loader-agnostic already (modulo mappings)
+** Remap to Yarn
+   Used ramidzkh's yarnforge-plugin
+   A gradle plugin you apply to a Forge project, which spits out yarn-remapped source
+** Easy substitutions
+   @SideOnly -> @Environment
+** Remove Forge API usages
+   Fabric API where available, Mixin otherwise
+* The process of moving to multiloader
+** A brief explanation of multiloader
+   - Xplat module: Can only interface with vanilla
+   - Forge/Fabric module: Can interact with loader-specific code, Xplat code "pasted" into it
+   - Mojmap is a must
+** Port Patchouli (again)
+   Notice a pattern? Patchouli is our testbed
+   <Patchouli per-module line count>
+** Implementation techniques
+** Porting techniques
+** End state
+   <Botania per-module line count>
+* Acknowledgements
+** BlameJared, Darkhax et al.
+** Vazkii and team
+** Mojang
+   for Mojmap
