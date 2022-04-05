@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -71,10 +72,7 @@ public class ItemDiviningRod extends Item {
 			if (state.is(IXplatAbstractions.INSTANCE.getOreTag())) {
 				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
-				world.addParticle(data, pos_.getX() + world.random.nextFloat(),
-						pos_.getY() + world.random.nextFloat(),
-						pos_.getZ() + world.random.nextFloat(),
-						0, 0, 0);
+				world.addParticle(data, true, pos_.getX() + world.random.nextFloat(), pos_.getY() + world.random.nextFloat(), pos_.getZ() + world.random.nextFloat(), 0, 0, 0);
 			}
 		}
 	}
@@ -84,9 +82,10 @@ public class ItemDiviningRod extends Item {
 		public void onAvatarUpdate(IAvatarTile tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			if (tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
+			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 				ItemDiviningRod.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
-				tile.receiveMana(-COST);
+				receiver.receiveMana(-COST);
 			}
 		}
 

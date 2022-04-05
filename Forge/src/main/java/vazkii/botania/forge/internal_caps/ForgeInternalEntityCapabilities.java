@@ -1,6 +1,5 @@
 package vazkii.botania.forge.internal_caps;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
@@ -9,7 +8,6 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -51,54 +49,30 @@ public final class ForgeInternalEntityCapabilities {
 			var entity = evt.getObject();
 
 			if (entity instanceof PrimedTnt tnt) {
-				evt.addCapability(prefix("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new ForgeEthicalCap(tnt)));
+				evt.addCapability(prefix("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new EthicalComponent(tnt)));
 			}
 			if (entity instanceof AbstractMinecart) {
-				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new ForgeGhostRailCap()));
+				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new GhostRailComponent()));
 			}
 			if (entity instanceof ItemEntity) {
-				evt.addCapability(prefix("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ForgeItemFlagsCap()));
+				evt.addCapability(prefix("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ItemFlagsComponent()));
 			}
 			if (entity instanceof Player) {
-				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new ForgeKeptItemsCap()));
+				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new KeptItemsComponent()));
 			}
 			for (Class<?> clz : SubTileLoonuim.VALID_MOBS) {
 				if (clz.isInstance(entity)) {
-					evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new ForgeLooniumCap()));
+					evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
 					break;
 				}
 			}
 			if (entity instanceof Slime) {
-				evt.addCapability(prefix("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new ForgeNarslimmusCap()));
+				evt.addCapability(prefix("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new NarslimmusComponent()));
 			}
 			if (entity instanceof Creeper) {
-				evt.addCapability(prefix("tigerseye_pacified"), CapabilityUtil.makeSavedProvider(TIGERSEYE, new ForgeTigerseyeCap()));
+				evt.addCapability(prefix("tigerseye_pacified"), CapabilityUtil.makeSavedProvider(TIGERSEYE, new TigerseyeComponent()));
 			}
 		}
-	}
-
-	private static class ForgeEthicalCap extends EthicalComponent implements INBTSerializable<CompoundTag> {
-		public ForgeEthicalCap(PrimedTnt entity) {
-			super(entity);
-		}
-	}
-
-	private static class ForgeGhostRailCap extends GhostRailComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	private static class ForgeItemFlagsCap extends ItemFlagsComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	private static class ForgeKeptItemsCap extends KeptItemsComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	private static class ForgeLooniumCap extends LooniumComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	private static class ForgeNarslimmusCap extends NarslimmusComponent implements INBTSerializable<CompoundTag> {
-	}
-
-	private static class ForgeTigerseyeCap extends TigerseyeComponent implements INBTSerializable<CompoundTag> {
 	}
 
 	private ForgeInternalEntityCapabilities() {}

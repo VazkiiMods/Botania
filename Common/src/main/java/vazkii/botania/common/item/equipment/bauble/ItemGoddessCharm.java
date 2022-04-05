@@ -55,13 +55,13 @@ public class ItemGoddessCharm extends ItemBauble {
 
 	public static class Renderer implements AccessoryRenderer {
 		@Override
-		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			bipedModel.head.translateAndRotate(ms);
 			ms.translate(0.275, -0.4, 0);
 			ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 			ms.scale(0.55F, -0.55F, -0.55F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());
 		}
 	}
 

@@ -8,8 +8,15 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,8 +24,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IRelic;
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -50,6 +55,17 @@ public class ItemMagnetRing extends ItemBauble {
 		if (!ring.isEmpty()) {
 			setCooldown(ring, 100);
 		}
+	}
+
+	@Override
+	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		if (IXplatAbstractions.INSTANCE.isModLoaded("malum")) {
+			Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+			attributes.put(Registry.ATTRIBUTE.get(new ResourceLocation("malum", "spirit_reach")),
+					new AttributeModifier(getBaubleUUID(stack), "Magnet Ring reach boost", 0.5, AttributeModifier.Operation.MULTIPLY_BASE));
+			return attributes;
+		}
+		return super.getEquippedAttributeModifiers(stack);
 	}
 
 	@Override
@@ -110,17 +126,20 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 
 		ItemStack stack = item.getItem();
-		if (stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.contains(stack.getItem())) {
+		if (stack.isEmpty()
+				|| IXplatAbstractions.INSTANCE.findManaItem(stack) != null
+				|| IXplatAbstractions.INSTANCE.findRelic(stack) != null
+				|| stack.is(ModTags.Items.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 
 		BlockPos pos = item.blockPosition();
 
-		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.level.getBlockState(pos).getBlock())) {
+		if (item.level.getBlockState(pos).is(ModTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 
-		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.level.getBlockState(pos.below()).getBlock())) {
+		if (item.level.getBlockState(pos.below()).is(ModTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 

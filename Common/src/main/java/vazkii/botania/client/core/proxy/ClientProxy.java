@@ -26,7 +26,6 @@ import vazkii.botania.client.fx.BoltParticleOptions;
 import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -73,11 +72,6 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public boolean isClientPlayerWearingMonocle() {
-		return ItemMonocle.hasMonocle(Minecraft.getInstance().player);
-	}
-
-	@Override
 	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		// todo wip, params are ignored
 		BoltRenderer.INSTANCE.add(new BoltParticleOptions(vectorStart, vectorEnd).size(0.08F), ClientTickHandler.partialTicks);
@@ -99,15 +93,10 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void addParticleForce(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-		world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
-	}
-
-	@Override
 	public void addParticleForceNear(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 		Camera info = Minecraft.getInstance().gameRenderer.getMainCamera();
 		if (info.isInitialized() && info.getPosition().distanceToSqr(x, y, z) <= 1024.0D) {
-			addParticleForce(world, particleData, x, y, z, xSpeed, ySpeed, zSpeed);
+			world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
 		}
 	}
 

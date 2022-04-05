@@ -84,7 +84,8 @@ public class MixinLevelRenderer {
 		),
 		require = 0
 	)
-	private void renderExtras(PoseStack ms, Matrix4f projMat, float partialTicks, Runnable resetFog, CallbackInfo ci) {
+	private void renderExtras(PoseStack ms, Matrix4f projMat, float partialTicks, Camera camera,
+			boolean foggy, Runnable resetFog, CallbackInfo ci) {
 		if (isGogSky()) {
 			SkyblockSkyRenderer.renderExtra(ms, Minecraft.getInstance().level, partialTicks, 0);
 		}
@@ -139,7 +140,8 @@ public class MixinLevelRenderer {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getStarBrightness(F)F"),
 		require = 0
 	)
-	private void renderExtraStars(PoseStack ms, Matrix4f projMat, float partialTicks, Runnable resetFog, CallbackInfo ci) {
+	private void renderExtraStars(PoseStack ms, Matrix4f projMat, float partialTicks, Camera camera,
+			boolean foggy, Runnable resetFog, CallbackInfo ci) {
 		if (isGogSky()) {
 			SkyblockSkyRenderer.renderStars(starBuffer, ms, projMat, partialTicks, resetFog);
 		}

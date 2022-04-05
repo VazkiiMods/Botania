@@ -135,7 +135,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
 	}
 
 	@Override

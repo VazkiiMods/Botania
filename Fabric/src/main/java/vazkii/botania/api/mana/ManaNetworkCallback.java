@@ -10,15 +10,18 @@ package vazkii.botania.api.mana;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 public interface ManaNetworkCallback {
 	Event<ManaNetworkCallback> EVENT = EventFactory.createArrayBacked(ManaNetworkCallback.class,
-			listeners -> (be, typ, act) -> {
+			listeners -> (thing, typ, act) -> {
 				for (ManaNetworkCallback listener : listeners) {
-					listener.onNetworkChange(be, typ, act);
+					listener.onNetworkChange(thing, typ, act);
 				}
 			});
 
-	void onNetworkChange(BlockEntity be, ManaBlockType type, ManaNetworkAction action);
+	/**
+	 * @param thing If {@code type} is {@link ManaBlockType#COLLECTOR}, an {@link IManaCollector},
+	 *              otherwise if {@code type} is {@link ManaBlockType#POOL}, an {@link IManaPool}
+	 */
+	void onNetworkChange(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 }

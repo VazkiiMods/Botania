@@ -5,7 +5,7 @@ import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
@@ -104,15 +104,15 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		);
 	}
 
-	private static Tag.Named<Item> accessory(String name) {
-		return ItemTags.createOptional(new ResourceLocation("curios", name));
+	private static TagKey<Item> accessory(String name) {
+		return ItemTags.create(new ResourceLocation("curios", name));
 	}
 
-	private static Tag.Named<Item> forge(String name) {
-		return ItemTags.createOptional(new ResourceLocation("forge", name));
+	private static TagKey<Item> forge(String name) {
+		return ItemTags.create(new ResourceLocation("forge", name));
 	}
 
-	private void copyToSameName(Tag.Named<Block> source) {
-		this.copy(source, ItemTags.createOptional(source.getName()));
+	private void copyToSameName(TagKey<Block> source) {
+		this.copy(source, ItemTags.create(source.location()));
 	}
 }

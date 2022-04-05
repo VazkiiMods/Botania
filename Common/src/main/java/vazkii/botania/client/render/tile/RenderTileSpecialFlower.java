@@ -79,10 +79,10 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> implemen
 		if (descriptor != null) {
 			ms.pushPose();
 			ms.translate(-tile.getBlockPos().getX(), -tile.getBlockPos().getY(), -tile.getBlockPos().getZ());
-			if (descriptor.isCircle()) {
-				renderCircle(ms, buffers, descriptor.getSubtileCoords(), descriptor.getCircleRadius());
-			} else {
-				renderRectangle(ms, buffers, descriptor.getAABB(), true, null, (byte) 32);
+			if (descriptor instanceof RadiusDescriptor.Circle circle) {
+				renderCircle(ms, buffers, circle.subtileCoords(), circle.radius());
+			} else if (descriptor instanceof RadiusDescriptor.Rectangle rectangle) {
+				renderRectangle(ms, buffers, rectangle.aabb(), true, null, (byte) 32);
 			}
 			ms.popPose();
 		}

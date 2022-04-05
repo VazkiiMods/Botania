@@ -11,7 +11,9 @@ package vazkii.botania.client.integration.jei.crafting;
 import com.google.common.collect.ImmutableList;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +26,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension {
@@ -40,9 +43,9 @@ public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension
 	}
 
 	@Override
-	public void setIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputLists(VanillaTypes.ITEM, inputs);
-		ingredients.setOutput(VanillaTypes.ITEM, output);
+	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focuses) {
+		helper.setInputs(builder, VanillaTypes.ITEM, inputs, 0, 0);
+		helper.setOutputs(builder, VanillaTypes.ITEM, Collections.singletonList(output));
 	}
 
 	@Nullable

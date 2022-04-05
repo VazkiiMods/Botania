@@ -13,7 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -31,9 +31,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemBlockSpecialFlower extends BlockItem {
-	private static final Tag.Named<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
-	private static final Tag.Named<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
-	private static final Tag.Named<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
+	private static final TagKey<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
+	private static final TagKey<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
+	private static final TagKey<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
 
 	public ItemBlockSpecialFlower(Block block1, Properties props) {
 		super(block1, props);
@@ -44,11 +44,11 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		// Prevent crash when tooltips queried before configs load
 		if (BotaniaConfig.client() != null) {
 			if (world != null) {
-				if (GENERATING.contains(this)) {
+				if (stack.is(GENERATING)) {
 					tooltip.add(new TranslatableComponent("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
-				} else if (FUNCTIONAL.contains(this)) {
+				} else if (stack.is(FUNCTIONAL)) {
 					tooltip.add(new TranslatableComponent("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
-				} else if (MISC.contains(this)) {
+				} else if (stack.is(MISC)) {
 					tooltip.add(new TranslatableComponent("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				}
 			}

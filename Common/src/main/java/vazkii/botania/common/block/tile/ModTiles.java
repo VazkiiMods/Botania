@@ -42,7 +42,6 @@ public class ModTiles {
 	public static final BlockEntityType<TileRuneAltar> RUNE_ALTAR = type(TileRuneAltar::new, runeAltar);
 	public static final BlockEntityType<TilePylon> PYLON = type(TilePylon::new, manaPylon, naturaPylon, gaiaPylon);
 	public static final BlockEntityType<TileDistributor> DISTRIBUTOR = type(TileDistributor::new, distributor);
-	public static final BlockEntityType<TileManaVoid> MANA_VOID = type(TileManaVoid::new, manaVoid);
 	public static final BlockEntityType<TileEnchanter> ENCHANTER = type(TileEnchanter::new, enchanter);
 	public static final BlockEntityType<TileTurntable> TURNTABLE = type(TileTurntable::new, turntable);
 	public static final BlockEntityType<TileTinyPlanet> TINY_PLANET = type(TileTinyPlanet::new, tinyPlanet);
@@ -99,7 +98,6 @@ public class ModTiles {
 		r.accept(RUNE_ALTAR, prefix(LibBlockNames.RUNE_ALTAR));
 		r.accept(PYLON, prefix(LibBlockNames.PYLON));
 		r.accept(DISTRIBUTOR, prefix(LibBlockNames.DISTRIBUTOR));
-		r.accept(MANA_VOID, prefix(LibBlockNames.MANA_VOID));
 		r.accept(ENCHANTER, prefix(LibBlockNames.ENCHANTER));
 		r.accept(TURNTABLE, prefix(LibBlockNames.TURNTABLE));
 		r.accept(TINY_PLANET, prefix(LibBlockNames.TINY_PLANET));

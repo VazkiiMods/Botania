@@ -47,11 +47,9 @@ public class LensWeight extends Lens {
 					&& state.getDestroySpeed(level, bPos) != -1
 					&& level.getBlockEntity(bPos) == null
 					&& canSilkTouch(level, bPos, state, harvestLevel, entity.getOwner())) {
-				FallingBlockEntity falling = new FallingBlockEntity(level, bPos.getX() + 0.5, bPos.getY(), bPos.getZ() + 0.5, state);
+				FallingBlockEntity falling = FallingBlockEntity.fall(level, bPos, state);
 				falling.time = 1;
-				level.removeBlock(bPos, false);
 				level.sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
-				level.addFreshEntity(falling);
 			}
 		}
 

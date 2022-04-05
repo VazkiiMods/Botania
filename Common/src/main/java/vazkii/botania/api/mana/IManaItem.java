@@ -12,25 +12,24 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
- * An item that implements this can be counted as an item that can
- * contain mana.
+ * An item that has this capability can contain mana.
  */
 public interface IManaItem {
 
 	/**
 	 * Gets the amount of mana this item contains
 	 */
-	int getMana(ItemStack stack);
+	int getMana();
 
 	/**
 	 * Gets the max amount of mana this item can hold.
 	 */
-	int getMaxMana(ItemStack stack);
+	int getMaxMana();
 
 	/**
 	 * Adds mana to this item.
 	 */
-	void addMana(ItemStack stack, int mana);
+	void addMana(int mana);
 
 	/**
 	 * Can this item receive mana from a mana Pool?
@@ -38,12 +37,12 @@ public interface IManaItem {
 	 * @param pool The pool it's receiving mana from, can be casted to IManaPool.
 	 * @see IManaPool#isOutputtingPower()
 	 */
-	boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool);
+	boolean canReceiveManaFromPool(BlockEntity pool);
 
 	/**
 	 * Can this item recieve mana from another item?
 	 */
-	boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack);
+	boolean canReceiveManaFromItem(ItemStack otherStack);
 
 	/**
 	 * Can this item export mana to a mana Pool?
@@ -51,18 +50,18 @@ public interface IManaItem {
 	 * @param pool The pool it's exporting mana to, can be casted to IManaPool.
 	 * @see IManaPool#isOutputtingPower()
 	 */
-	boolean canExportManaToPool(ItemStack stack, BlockEntity pool);
+	boolean canExportManaToPool(BlockEntity pool);
 
 	/**
 	 * Can this item export mana to another item?
 	 */
-	boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
+	boolean canExportManaToItem(ItemStack otherStack);
 
 	/**
 	 * If this item simply does not export mana at all, set this to true. This is
 	 * used to skip items that contain mana but can't export it when drawing the
 	 * mana bar above the XP bar.
 	 */
-	boolean isNoExport(ItemStack stack);
+	boolean isNoExport();
 
 }

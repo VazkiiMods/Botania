@@ -1,12 +1,14 @@
 package vazkii.botania.fabric.data;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -15,12 +17,17 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.List;
 
 public class FabricBlockTagProvider extends BlockTagsProvider {
-	public static final Tag.Named<Block> QUARTZ_BLOCKS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "quartz_blocks"));
-	public static final Tag.Named<Block> MUSHROOMS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "mushrooms"));
-	public static final Tag.Named<Block> GLASS = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass"));
-	public static final Tag.Named<Block> GLASS_ALT = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass_blocks"));
-	public static final Tag.Named<Block> GLASS_PANE = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass_pane"));
-	public static final Tag.Named<Block> GLASS_PANE_ALT = IXplatAbstractions.INSTANCE.blockTag(new ResourceLocation("c", "glass_panes"));
+	public static final TagKey<Block> LAPIS_BLOCKS = blockTag(new ResourceLocation("c", "lapis_blocks"));
+	public static final TagKey<Block> QUARTZ_BLOCKS = blockTag(new ResourceLocation("c", "quartz_blocks"));
+	public static final TagKey<Block> MUSHROOMS = blockTag(new ResourceLocation("c", "mushrooms"));
+	public static final TagKey<Block> GLASS = blockTag(new ResourceLocation("c", "glass"));
+	public static final TagKey<Block> GLASS_ALT = blockTag(new ResourceLocation("c", "glass_blocks"));
+	public static final TagKey<Block> GLASS_PANE = blockTag(new ResourceLocation("c", "glass_pane"));
+	public static final TagKey<Block> GLASS_PANE_ALT = blockTag(new ResourceLocation("c", "glass_panes"));
+
+	private static TagKey<Block> blockTag(ResourceLocation location) {
+		return TagKey.create(Registry.BLOCK_REGISTRY, location);
+	}
 
 	public FabricBlockTagProvider(DataGenerator dataGenerator) {
 		super(dataGenerator);
@@ -33,6 +40,7 @@ public class FabricBlockTagProvider extends BlockTagsProvider {
 
 	@Override
 	protected void addTags() {
+		tag(LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 		tag(QUARTZ_BLOCKS).add(
 				ModFluffBlocks.darkQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.blazeQuartz,
 				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz

@@ -50,11 +50,14 @@ public class ItemFlowerBag extends Item {
 		super(props);
 	}
 
+	private static boolean isMysticalFlower(ItemStack stack) {
+		Block blk = Block.byItem(stack.getItem());
+		return !stack.isEmpty() && blk.getClass() == BlockModFlower.class;
+	}
+
 	public static boolean isValid(int slot, ItemStack stack) {
 		Block blk = Block.byItem(stack.getItem());
-		return !stack.isEmpty()
-				&& blk.getClass() == BlockModFlower.class
-				&& slot == ((BlockModFlower) blk).color.getId();
+		return isMysticalFlower(stack) && slot == ((BlockModFlower) blk).color.getId();
 	}
 
 	public static SimpleContainer getInventory(ItemStack stack) {
@@ -68,8 +71,8 @@ public class ItemFlowerBag extends Item {
 
 	public static boolean onPickupItem(ItemEntity entity, Player player) {
 		ItemStack entityStack = entity.getItem();
-		if (Block.byItem(entityStack.getItem()) instanceof BlockModFlower flower && entityStack.getCount() > 0) {
-			int color = flower.color.getId();
+		if (isMysticalFlower(entityStack) && entityStack.getCount() > 0) {
+			int color = ((BlockModFlower) Block.byItem(entityStack.getItem())).color.getId();
 
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				if (i == player.getInventory().selected) {

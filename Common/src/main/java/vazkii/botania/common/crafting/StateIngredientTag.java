@@ -11,10 +11,10 @@ package vazkii.botania.common.crafting;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.SerializationTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -25,32 +25,34 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class StateIngredientTag extends StateIngredientBlocks {
-	private final ResourceLocation tag;
+	private final TagKey<Block> tag;
 
-	public StateIngredientTag(ResourceLocation id) {
+	public StateIngredientTag(ResourceLocation tag) {
 		super(ImmutableSet.of());
-		this.tag = id;
+		this.tag = TagKey.create(Registry.BLOCK_REGISTRY, tag);
 	}
 
-	@Nonnull
-	protected Tag<Block> resolve() {
-		return SerializationTags.getInstance().getOrEmpty(Registry.BLOCK_REGISTRY).getTagOrEmpty(tag);
+	public Stream<Block> resolve() {
+		return StreamSupport.stream(Registry.BLOCK.getTagOrEmpty(tag).spliterator(), false)
+				.map(Holder::value);
 	}
 
 	@Override
 	public boolean test(BlockState state) {
-		return resolve().contains(state.getBlock());
+		return state.getBlock().builtInRegistryHolder().is(tag);
 	}
 
 	@Override
 	public BlockState pick(Random random) {
-		Tag<Block> tag = resolve();
-		if (tag.getValues().isEmpty()) {
+		var values = resolve().toList();
+		if (values.isEmpty()) {
 			return null;
 		}
-		return tag.getRandomElement(random).defaultBlockState();
+		return values.get(random.nextInt(values.size())).defaultBlockState();
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Override
 	public List<ItemStack> getDisplayedStacks() {
-		return resolve().getValues().stream()
+		return resolve()
 				.filter(b -> b.asItem() != Items.AIR)
 				.map(ItemStack::new)
 				.collect(Collectors.toList());
@@ -71,17 +73,17 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Nonnull
 	@Override
-	protected List<Block> getBlocks() {
-		return resolve().getValues();
+	public List<Block> getBlocks() {
+		return resolve().toList();
 	}
 
 	@Override
 	public List<BlockState> getDisplayed() {
-		return resolve().getValues().stream().map(Block::defaultBlockState).collect(Collectors.toList());
+		return resolve().map(Block::defaultBlockState).collect(Collectors.toList());
 	}
 
 	public ResourceLocation getTagId() {
-		return tag;
+		return tag.location();
 	}
 
 	@Override

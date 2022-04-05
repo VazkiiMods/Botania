@@ -15,7 +15,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -40,8 +40,10 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -113,17 +115,20 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		entityData.define(LEFT_SOURCE_POS, false);
 	}
 
-	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this(ModEntities.MANA_BURST, ((BlockEntity) spreader).getLevel());
-
-		BlockEntity tile = spreader.tileEntity();
+	public EntityManaBurst(Level level, BlockPos pos, float rotX, float rotY, boolean fake) {
+		this(ModEntities.MANA_BURST, level);
 
 		this.fake = fake;
 
-		setBurstSourceCoords(tile.getBlockPos());
-		moveTo(tile.getBlockPos().getX() + 0.5, tile.getBlockPos().getY() + 0.5, tile.getBlockPos().getZ() + 0.5, 0, 0);
-		setYRot(-(spreader.getRotationX() + 90F));
-		setXRot(spreader.getRotationY());
+		setBurstSourceCoords(pos);
+		moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0);
+		/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
+		* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
+		* to respectively mean "rotation *around* the X and Y axes".
+		* TODO consider renaming our versions to match vanilla
+		*/
+		setYRot(-(rotX + 90F));
+		setXRot(rotY);
 
 		float f = 0.4F;
 		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
@@ -198,7 +203,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	@Override
-	public boolean updateFluidHeightAndDoFluidPushing(Tag<Fluid> fluid, double mag) {
+	public boolean updateFluidHeightAndDoFluidPushing(TagKey<Fluid> fluid, double mag) {
 		return false;
 	}
 
@@ -207,10 +212,10 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		return false;
 	}
 
-	private BlockEntity collidedTile = null;
+	private IManaReceiver collidedTile = null;
 	private boolean noParticles = false;
 
-	public BlockEntity getCollidedTile(boolean noParticles) {
+	public IManaReceiver getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
 
 		int iterations = 0;
@@ -361,10 +366,11 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 			if (!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				IProxy.INSTANCE.addParticleForce(level, data, getX(), getY(), getZ(), 0, 0, 0);
+				level.addParticle(data, true, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
-			boolean depth = !IProxy.INSTANCE.isClientPlayerWearingMonocle();
+			Player player = IProxy.INSTANCE.getClientPlayer();
+			boolean depth = player == null || !ItemMonocle.hasMonocle(player);
 
 			if (BotaniaConfig.client().subtlePowerSystem()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
@@ -435,9 +441,10 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		BlockState state = level.getBlockState(collidePos);
 		Block block = state.getBlock();
 
-		if (block instanceof IManaCollisionGhost ghost
-				&& ghost.isGhost(state, level, collidePos)
-				&& !(block instanceof IManaTrigger)
+		var ghost = IXplatAbstractions.INSTANCE.findManaGhost(level, collidePos, state, tile);
+		var ghostBehaviour = ghost != null ? ghost.getGhostBehaviour() : IManaCollisionGhost.Behaviour.RUN_ALL;
+
+		if (ghostBehaviour == IManaCollisionGhost.Behaviour.SKIP_ALL
 				|| block instanceof BushBlock
 				|| block instanceof LeavesBlock) {
 			return;
@@ -448,19 +455,25 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			return;
 		}
 
-		collidedTile = tile;
+		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, collidePos, state, tile, hit.getDirection());
+		collidedTile = receiver;
 
-		if (!fake && !noParticles && !level.isClientSide
-				&& tile instanceof IManaReceiver receiver
-				&& receiver.canReceiveManaFromBursts()) {
-			onReceiverImpact(receiver);
+		if (!fake && !noParticles && !level.isClientSide) {
+			if (receiver != null && receiver.canReceiveManaFromBursts() && onReceiverImpact(receiver)) {
+				if (tile instanceof IThrottledPacket throttledPacket) {
+					throttledPacket.markDispatchable();
+				} else if (tile != null) {
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+				}
+			}
 		}
 
-		if (block instanceof IManaTrigger trigger) {
-			trigger.onBurstCollision(this, level, collidePos);
+		var trigger = IXplatAbstractions.INSTANCE.findManaTrigger(level, collidePos, state, tile);
+		if (trigger != null) {
+			trigger.onBurstCollision(this);
 		}
 
-		if (block instanceof IManaCollisionGhost) {
+		if (ghostBehaviour == IManaCollisionGhost.Behaviour.RUN_RECEIVER_TRIGGER) {
 			return;
 		}
 
@@ -480,8 +493,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	private void onHitCommon(HitResult hit, boolean shouldKill) {
 		ILensEffect lens = getLensInstance();
 		if (lens != null) {
-			shouldKill = lens.collideBurst(this, hit, collidedTile instanceof IManaReceiver receiver
-					&& receiver.canReceiveManaFromBursts(), shouldKill, getSourceLens());
+			shouldKill = lens.collideBurst(this, hit, collidedTile != null
+					&& collidedTile.canReceiveManaFromBursts(), shouldKill, getSourceLens());
 		}
 
 		if (shouldKill && isAlive()) {
@@ -509,9 +522,9 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		}
 	}
 
-	private void onReceiverImpact(IManaReceiver tile) {
+	private boolean onReceiverImpact(IManaReceiver receiver) {
 		if (hasWarped()) {
-			return;
+			return false;
 		}
 
 		ILensEffect lens = getLensInstance();
@@ -519,20 +532,19 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 		if (lens != null) {
 			ItemStack stack = getSourceLens();
-			mana = lens.getManaToTransfer(this, stack, tile);
+			mana = lens.getManaToTransfer(this, stack, receiver);
 		}
 
-		if (tile instanceof IManaCollector collector) {
+		if (receiver instanceof IManaCollector collector) {
 			mana *= collector.getManaYieldMultiplier(this);
 		}
 
-		tile.receiveMana(mana);
-
-		if (tile instanceof IThrottledPacket throttledPacket) {
-			throttledPacket.markDispatchable();
-		} else {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile.tileEntity());
+		if (mana > 0) {
+			receiver.receiveMana(mana);
+			return true;
 		}
+
+		return false;
 	}
 
 	@Override
@@ -540,8 +552,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		super.remove(reason);
 
 		if (!fake) {
-			BlockEntity tile = getShooter();
-			if (tile instanceof IManaSpreader spreader) {
+			var spreader = getShooter();
+			if (spreader != null) {
 				spreader.setCanShoot(true);
 			}
 		} else {
@@ -549,8 +561,10 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		}
 	}
 
-	private BlockEntity getShooter() {
-		return level.getBlockEntity(getBurstSourceBlockPos());
+	@Nullable
+	private IManaSpreader getShooter() {
+		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, getBurstSourceBlockPos(), null);
+		return receiver instanceof IManaSpreader spreader ? spreader : null;
 	}
 
 	@Override
@@ -699,8 +713,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 	@Override
 	public void ping() {
-		BlockEntity tile = getShooter();
-		if (tile instanceof IManaSpreader spreader) {
+		var spreader = getShooter();
+		if (spreader != null) {
 			spreader.pingback(this, getShooterUUID());
 		}
 	}
@@ -751,15 +765,15 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			return true;
 		}
 
-		BlockEntity tile = getShooter();
-		return tile instanceof IManaSpreader spreader
+		var spreader = getShooter();
+		return spreader != null
 				&& (getMana() != getStartingMana() && fullManaLastTick
 						|| Math.abs(spreader.getBurstParticleTick() - getTicksExisted()) < 4);
 	}
 
 	private void incrementFakeParticleTick() {
-		BlockEntity tile = getShooter();
-		if (tile instanceof IManaSpreader spreader) {
+		var spreader = getShooter();
+		if (spreader != null) {
 			spreader.setBurstParticleTick(spreader.getBurstParticleTick() + 2);
 			if (spreader.getLastBurstDeathTick() != -1 && spreader.getBurstParticleTick() > spreader.getLastBurstDeathTick()) {
 				spreader.setBurstParticleTick(0);
@@ -768,9 +782,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	private void setDeathTicksForFakeParticle() {
-		BlockPos coords = getBurstSourceBlockPos();
-		BlockEntity tile = level.getBlockEntity(coords);
-		if (tile instanceof IManaSpreader spreader) {
+		var spreader = getShooter();
+		if (spreader != null) {
 			spreader.setLastBurstDeathTick(getTicksExisted());
 		}
 	}

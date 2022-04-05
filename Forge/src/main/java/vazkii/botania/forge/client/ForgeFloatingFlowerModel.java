@@ -12,9 +12,11 @@ import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.BakedModelWrapper;
@@ -22,11 +24,14 @@ import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.common.block.tile.TileFloatingFlower;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -89,6 +94,22 @@ public class ForgeFloatingFlowerModel implements IModelGeometry<ForgeFloatingFlo
 		Baked(BakedModel flower, Map<IFloatingFlower.IslandType, BakedModel> islands) {
 			super(flower);
 			this.islands = islands;
+		}
+
+		@Nonnull
+		@Override
+		public IModelData getModelData(@Nonnull BlockAndTintGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull IModelData modelData) {
+			var be = level.getBlockEntity(pos);
+			if (be instanceof TileFloatingFlower floating) {
+				return new ModelDataMap.Builder()
+						.withInitial(FLOATING_PROPERTY, floating.getFloatingData())
+						.build();
+			} else if (be instanceof TileEntitySpecialFlower special && special.isFloating()) {
+				return new ModelDataMap.Builder()
+						.withInitial(FLOATING_PROPERTY, special.getFloatingData())
+						.build();
+			}
+			return modelData;
 		}
 
 		@Nonnull

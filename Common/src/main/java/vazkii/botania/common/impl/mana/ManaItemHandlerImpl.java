@@ -38,7 +38,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		List<ItemStack> toReturn = new ArrayList<>();
 
 		for (ItemStack stackInSlot : Iterables.concat(player.getInventory().items, player.getInventory().offhand)) {
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
+			if (!stackInSlot.isEmpty() && IXplatAbstractions.INSTANCE.findManaItem(stackInSlot) != null) {
 				toReturn.add(stackInSlot);
 			}
 		}
@@ -60,7 +60,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		for (int slot = 0; slot < acc.getContainerSize(); slot++) {
 			ItemStack stackInSlot = acc.getItem(slot);
 
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
+			if (!stackInSlot.isEmpty() && IXplatAbstractions.INSTANCE.findManaItem(stackInSlot) != null) {
 				toReturn.add(stackInSlot);
 			}
 		}
@@ -81,16 +81,17 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItem = (IManaItem) stackInSlot.getItem();
-			if (manaItem.canExportManaToItem(stackInSlot, stack) && manaItem.getMana(stackInSlot) > 0) {
-				if (stack.getItem() instanceof IManaItem requestor && !requestor.canReceiveManaFromItem(stack, stackInSlot)) {
+			var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			if (manaItem.canExportManaToItem(stack) && manaItem.getMana() > 0) {
+				var requestor = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				if (requestor != null && !requestor.canReceiveManaFromItem(stackInSlot)) {
 					continue;
 				}
 
-				int mana = Math.min(manaToGet - manaReceived, manaItem.getMana(stackInSlot));
+				int mana = Math.min(manaToGet - manaReceived, manaItem.getMana());
 
 				if (remove) {
-					manaItem.addMana(stackInSlot, -mana);
+					manaItem.addMana(-mana);
 				}
 
 				manaReceived += mana;
@@ -113,21 +114,22 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		List<ItemStack> items = getManaItems(player);
 		List<ItemStack> acc = getManaAccesories(player);
 		int manaReceived = 0;
-		Object2IntMap<ItemStack> manaToRemove = new Object2IntOpenHashMap<>();
+		Object2IntMap<IManaItem> manaToRemove = new Object2IntOpenHashMap<>();
 		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			if (manaItemSlot.canExportManaToItem(stackInSlot, stack)) {
-				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canReceiveManaFromItem(stack, stackInSlot)) {
+			var manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			if (manaItemSlot.canExportManaToItem(stack)) {
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				if (manaItem != null && !manaItem.canReceiveManaFromItem(stackInSlot)) {
 					continue;
 				}
 
-				int mana = Math.min(manaToGet - manaReceived, manaItemSlot.getMana(stackInSlot));
+				int mana = Math.min(manaToGet - manaReceived, manaItemSlot.getMana());
 
 				if (remove) {
-					manaToRemove.put(stackInSlot, mana);
+					manaToRemove.put(manaItemSlot, mana);
 				}
 
 				manaReceived += mana;
@@ -139,8 +141,8 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		}
 
 		if (manaReceived == manaToGet) {
-			for (Object2IntMap.Entry<ItemStack> entry : manaToRemove.object2IntEntrySet()) {
-				((IManaItem) entry.getKey().getItem()).addMana(entry.getKey(), -entry.getIntValue());
+			for (var e : manaToRemove.object2IntEntrySet()) {
+				e.getKey().addMana(-e.getIntValue());
 			}
 			return true;
 		}
@@ -160,21 +162,22 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			if (manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canExportManaToItem(stack, stackInSlot)) {
+			IManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			if (manaItemSlot.canReceiveManaFromItem(stack)) {
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
 					continue;
 				}
 
 				int received;
-				if (manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot)) {
+				if (manaItemSlot.getMana() + manaToSend <= manaItemSlot.getMaxMana()) {
 					received = manaToSend;
 				} else {
-					received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
+					received = manaToSend - (manaItemSlot.getMana() + manaToSend - manaItemSlot.getMaxMana());
 				}
 
 				if (add) {
-					manaItemSlot.addMana(stackInSlot, manaToSend);
+					manaItemSlot.addMana(manaToSend);
 				}
 
 				return received;
@@ -196,14 +199,15 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			if (manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot) && manaItemSlot.canReceiveManaFromItem(stackInSlot, stack)) {
-				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canExportManaToItem(stack, stackInSlot)) {
+			IManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			if (manaItemSlot.getMana() + manaToSend <= manaItemSlot.getMaxMana() && manaItemSlot.canReceiveManaFromItem(stack)) {
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
 					continue;
 				}
 
 				if (add) {
-					manaItemSlot.addMana(stackInSlot, manaToSend);
+					manaItemSlot.addMana(manaToSend);
 				}
 
 				return true;
@@ -245,10 +249,11 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
-			int availableMana = manaItemSlot.getMana(stackInSlot);
-			if (manaItemSlot.canExportManaToItem(stackInSlot, stack) && availableMana > cost) {
-				if (stack.getItem() instanceof IManaItem manaItem && !manaItem.canReceiveManaFromItem(stack, stackInSlot)) {
+			IManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			int availableMana = manaItemSlot.getMana();
+			if (manaItemSlot.canExportManaToItem(stack) && availableMana > cost) {
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				if (manaItem != null && !manaItem.canReceiveManaFromItem(stackInSlot)) {
 					continue;
 				}
 

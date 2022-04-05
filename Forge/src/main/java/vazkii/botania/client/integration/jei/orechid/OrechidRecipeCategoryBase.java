@@ -13,12 +13,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
@@ -28,12 +29,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.IOrechidRecipe;
-import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.handler.OrechidManager;
 
 import javax.annotation.Nonnull;
 
-import java.util.Collections;
 import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -51,7 +50,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 				0, 0, 64, 44);
 		background = guiHelper.createBlankDrawable(96, 44);
 		this.localizedName = localizedName;
-		this.icon = guiHelper.createDrawableIngredient(iconStack);
+		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, iconStack);
 		this.iconStack = iconStack;
 	}
 
@@ -73,21 +72,6 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 		return icon;
 	}
 
-	@Override
-	public void setIngredients(IOrechidRecipe recipe, IIngredients ingredients) {
-		ingredients.setInput(VanillaTypes.ITEM, new ItemStack(recipe.getInput(), 64));
-
-		final int myWeight = recipe.getWeight();
-		final int amount = Math.max(1, Math.round((float) myWeight * 64 / getTotalOreWeight(getOreWeights(recipe.getInput()), myWeight)));
-
-		// Shouldn't ever return an empty list since the ore weight
-		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = recipe.getOutput().getDisplayedStacks();
-
-		stackList.forEach(s -> s.setCount(amount));
-		ingredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(stackList));
-	}
-
 	public static float getTotalOreWeight(List<? extends IOrechidRecipe> weights, int myWeight) {
 		return weights.stream()
 				.map(IOrechidRecipe::getWeight)
@@ -102,31 +86,25 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IOrechidRecipe recipe, @Nonnull IIngredients ingredients) {
-		final IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
+	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IOrechidRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+		builder.addSlot(RecipeIngredientRole.INPUT, 9, 12).addItemStack(new ItemStack(recipe.getInput(), 64));
+		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12).addItemStack(iconStack);
 
-		itemStacks.init(0, true, 9, 12);
-		itemStacks.set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
+		final int myWeight = recipe.getWeight();
+		final int amount = Math.max(1, Math.round((float) myWeight * 64 / getTotalOreWeight(getOreWeights(recipe.getInput()), myWeight)));
 
-		itemStacks.init(1, true, 39, 12);
-		itemStacks.set(1, iconStack);
+		// Shouldn't ever return an empty list since the ore weight
+		// list is filtered to only have ores with ItemBlocks
+		List<ItemStack> stackList = recipe.getOutput().getDisplayedStacks();
+		stackList.forEach(s -> s.setCount(amount));
 
-		itemStacks.init(2, true, 68, 12);
-		itemStacks.set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-
-		StateIngredient catalyst = recipe.getOutput();
-		List<Component> description = catalyst.descriptionTooltip();
-		if (!description.isEmpty()) {
-			recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-				if (slotIndex == 2) {
-					tooltip.addAll(description);
-				}
-			});
-		}
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
+				.addItemStacks(stackList)
+				.addTooltipCallback((view, tooltip) -> tooltip.addAll(recipe.getOutput().descriptionTooltip()));
 	}
 
 	@Override
-	public void draw(IOrechidRecipe recipe, PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@Nonnull IOrechidRecipe recipe, @Nonnull IRecipeSlotsView view, @Nonnull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 17, 0);
 		RenderSystem.disableBlend();

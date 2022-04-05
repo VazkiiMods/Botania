@@ -9,6 +9,9 @@ Current new features TODO:
 * Some way to auto-insert to Black Hole Talismans
   - Idea: dropped cobble BHT merges with dropped cobble? Causes problems with Crafty Crate outputs, since they output next to one another
   - Idea: Crafting recipe, cobble BHT + cobble => fuller cobble BHT? (Ran into recipe technical limitations before; might be fixed now)
+* Kekimurus buff (long overdue)
+  - Streaks?
+  - Vazkii mentioned "potion cakes" i.e. cakes as a base in the Brewery. Maybe that???
 * New relics (or maybe craftables?)
   - Reifactory Halo: Ass. Halo which accesses local Corporea net
     - [C] keybind works when held or table opened
@@ -20,3 +23,12 @@ Current new features TODO:
     - Shift-use to bind to block; then use to place from afar
 * Do something new with Gaia spirits
   - Used in advanced Plate recipes perhaps?
+* Amethyst flower
+  - AMETHYSTLE
+  - new Amethyst Core block (or reuse another?)
+  - Place core inside geode, flower outside geode
+  - flower must be axis aligned w/ exactly 1 core
+  - every second, flower destroys all amethyst blocks around it with no drops
+  - If the destroyed blocks match the buds in relative position exactly, gen
+
+

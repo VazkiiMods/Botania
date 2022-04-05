@@ -55,15 +55,15 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (!(player instanceof Player)) {
+	public void onWornTick(ItemStack stack, LivingEntity living) {
+		if (!(living instanceof Player player)) {
 			return;
 		}
 
-		if (player.level.isClientSide) {
-			this.tickClient(stack, (Player) player);
+		if (living.level.isClientSide) {
+			this.tickClient(stack, player);
 		} else {
-			this.tickServer(stack, (Player) player);
+			this.tickServer(stack, player);
 		}
 	}
 

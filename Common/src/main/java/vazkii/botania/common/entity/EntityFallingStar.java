@@ -9,14 +9,15 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -30,6 +31,14 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityFallingStar extends EntityThrowableCopy {
+
+	private static final String TAG_HAS_BEEN_IN_AIR = "hasBeenInAir";
+	/*
+	* Prevent the star from being discarded on block collisions before its
+	* first exposure to an air block.
+	*/
+	private boolean hasBeenInAir = false;
+
 	public EntityFallingStar(EntityType<EntityFallingStar> type, Level world) {
 		super(type, world);
 	}
@@ -45,13 +54,18 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	public void tick() {
 		super.tick();
 
+		if (!hasBeenInAir && !level.isClientSide) {
+			var bs = getFeetBlockState();
+			hasBeenInAir = bs.isAir() || isInWater() || isInLava();
+		}
+
 		float dist = 1.5F;
 		SparkleParticleData data = SparkleParticleData.sparkle(2F, 1F, 0.4F, 1F, 6);
 		for (int i = 0; i < 10; i++) {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			level.addParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
+			level.addAlwaysVisibleParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
 		}
 
 		Entity thrower = getOwner();
@@ -79,6 +93,10 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	protected void onHitEntity(@Nonnull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		Entity e = hit.getEntity();
+		// Blacklisting villagers since trading with them counts as a "swing" and will summon a star.
+		if (e instanceof Villager) {
+			return;
+		}
 		if (!level.isClientSide) {
 			if (e != getOwner() && e.isAlive()) {
 				if (getOwner() instanceof Player player) {
@@ -97,10 +115,24 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if (!level.isClientSide) {
 			BlockPos bpos = hit.getBlockPos();
 			BlockState state = level.getBlockState(bpos);
-			if (BotaniaConfig.common().blockBreakParticles() && !state.isAir()) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, bpos, Block.getId(state));
+			if (hasBeenInAir) {
+				if (BotaniaConfig.common().blockBreakParticles() && !state.isAir()) {
+					level.levelEvent(2001, bpos, Block.getId(state));
+				}
+				discard();
 			}
-			discard();
 		}
+	}
+
+	@Override
+	protected void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
+		tag.putBoolean(TAG_HAS_BEEN_IN_AIR, hasBeenInAir);
+	}
+
+	@Override
+	protected void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
+		this.hasBeenInAir = tag.getBoolean(TAG_HAS_BEEN_IN_AIR);
 	}
 }

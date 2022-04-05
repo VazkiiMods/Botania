@@ -53,7 +53,7 @@ public class BlockTinyPlanet extends BlockModWaterloggable implements IManaColli
 	}
 
 	@Override
-	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
-		return true;
+	public Behaviour getGhostBehaviour() {
+		return Behaviour.SKIP_ALL;
 	}
 }

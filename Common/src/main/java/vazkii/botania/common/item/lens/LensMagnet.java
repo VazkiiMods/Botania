@@ -11,11 +11,10 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.Predicate;
 
@@ -31,16 +30,22 @@ public class LensMagnet extends Lens {
 		BlockPos source = burst.getBurstSourceBlockPos();
 		final boolean sourceless = source.equals(IManaBurst.NO_SOURCE);
 
-		Predicate<BlockEntity> predicate = tile -> tile instanceof IManaReceiver
-				&& (sourceless || tile.getBlockPos().distSqr(source) > 9)
-				&& ((IManaReceiver) tile).canReceiveManaFromBursts()
-				&& !((IManaReceiver) tile).isFull();
+		Predicate<BlockPos> predicate = pos -> {
+			var state = entity.level.getBlockState(pos);
+			var be = entity.level.getBlockEntity(pos);
+			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(entity.level, pos, state, be, null);
+			return receiver != null
+					&& (sourceless || pos.distSqr(source) > 9)
+					&& receiver.canReceiveManaFromBursts()
+					&& !receiver.isFull();
+		};
 
-		BlockEntity tile = null;
+		// todo: clean this logic up
+		BlockPos target = null;
 		if (magnetized) {
-			tile = entity.level.getBlockEntity(burst.getMagnetizedPos());
-			if (!predicate.test(tile)) {
-				tile = null;
+			target = burst.getMagnetizedPos();
+			if (!predicate.test(target)) {
+				target = null;
 				burst.setMagnetizePos(null);
 				magnetized = false;
 			}
@@ -49,20 +54,20 @@ public class LensMagnet extends Lens {
 		if (!magnetized) {
 			for (BlockPos pos : BlockPos.betweenClosed(basePos.offset(-range, -range, -range),
 					basePos.offset(range, range, range))) {
-				tile = entity.level.getBlockEntity(pos);
-				if (predicate.test(tile)) {
+				target = pos;
+				if (predicate.test(target)) {
 					break;
 				}
-				tile = null;
+				target = null;
 			}
 		}
 
-		if (tile == null) {
+		if (target == null) {
 			return;
 		}
 
 		Vec3 burstVec = entity.position();
-		Vec3 tileVec = Vec3.atCenterOf(tile.getBlockPos()).add(0, -0.1, 0);
+		Vec3 tileVec = Vec3.atCenterOf(target).add(0, -0.1, 0);
 		Vec3 motionVec = entity.getDeltaMovement();
 
 		Vec3 normalMotionVec = motionVec.normalize();
@@ -72,7 +77,7 @@ public class LensMagnet extends Lens {
 		Vec3 finalMotionVec = motionVec.subtract(differenceVec);
 		if (!magnetized) {
 			finalMotionVec = finalMotionVec.scale(0.75);
-			burst.setMagnetizePos(tile.getBlockPos());
+			burst.setMagnetizePos(target.immutable());
 		}
 
 		entity.setDeltaMovement(finalMotionVec);

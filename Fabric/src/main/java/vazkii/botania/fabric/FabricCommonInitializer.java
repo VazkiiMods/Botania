@@ -35,7 +35,6 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.DyeColor;
@@ -44,17 +43,22 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.mana.BlockForestDrum;
+import vazkii.botania.common.block.mana.BlockManaDetector;
+import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
@@ -72,16 +76,17 @@ import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
+import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
-import vazkii.botania.common.item.relic.ItemFlugelEye;
-import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
-import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
@@ -158,24 +163,23 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		// Worldgen
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
-		SkyblockChunkGenerator.init();
 		if (BotaniaConfig.common().worldgenEnabled()) {
 			BiomeModifications.addFeature(ctx -> {
-				Biome.BiomeCategory category = ctx.getBiome().getBiomeCategory();
+				var category = Biome.getBiomeCategory(ctx.getBiomeRegistryEntry());
 				return !ModFeatures.TYPE_BLACKLIST.contains(category);
 			},
 					GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.PLACED_FEATURE.getResourceKey(ModFeatures.MYSTICAL_FLOWERS_PLACED).orElseThrow());
+					ModFeatures.MYSTICAL_FLOWERS_ID);
 			BiomeModifications.addFeature(
-					ctx -> ctx.getBiome().getBiomeCategory() != Biome.BiomeCategory.THEEND,
+					ctx -> Biome.getBiomeCategory(ctx.getBiomeRegistryEntry()) != Biome.BiomeCategory.THEEND,
 					GenerationStep.Decoration.VEGETAL_DECORATION,
-					BuiltinRegistries.PLACED_FEATURE.getResourceKey(ModFeatures.MYSTICAL_MUSHROOMS_PLACED).orElseThrow());
+					ModFeatures.MYSTICAL_MUSHROOMS_ID);
 		}
 
 		// Rest
 		ModCriteriaTriggers.init();
-		ModLootModifiers.init();
 		ModParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
+		ModLootModifiers.init();
 		ModStats.init();
 	}
 
@@ -227,6 +231,18 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemFlugelEye.CoordBoundItem(st), ModItems.flugelEye);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemManaMirror.CoordBoundItem(st), ModItems.manaMirror);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItem(st), ModItems.twigWand);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaMirror.ManaItem(st), ModItems.manaMirror);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaRing.ManaItem(st), ModItems.manaRing);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemGreaterManaRing.ManaItem(st), ModItems.manaRingGreater);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaTablet.ManaItem(st), ModItems.manaTablet);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemTerraPick.ManaItem(st), ModItems.terraPick);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemDice.makeRelic(st), ModItems.dice);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemFlugelEye.makeRelic(st), ModItems.flugelEye);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemInfiniteFruit.makeRelic(st), ModItems.infiniteFruit);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemKingKey.makeRelic(st), ModItems.kingKey);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemLokiRing.makeRelic(st), ModItems.lokiRing);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemOdinRing.makeRelic(st), ModItems.odinRing);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemThorRing.makeRelic(st), ModItems.thorRing);
 
 		BotaniaFabricCapabilities.EXOFLAME_HEATABLE.registerFallback((world, pos, state, blockEntity, context) -> {
 			if (blockEntity instanceof AbstractFurnaceBlockEntity furnace) {
@@ -245,17 +261,38 @@ public class FabricCommonInitializer implements ModInitializer {
 			var torch = (TileAnimatedTorch) be;
 			return hourglass -> torch.toggle();
 		}, ModTiles.ANIMATED_TORCH);
+		BotaniaFabricCapabilities.MANA_GHOST.registerForBlocks(
+				(level, pos, state, be, context) -> ((IManaCollisionGhost) state.getBlock()),
+				ModBlocks.manaDetector,
+				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
+				ModBlocks.prism, ModBlocks.tinyPlanet
+		);
+		BotaniaFabricCapabilities.MANA_RECEIVER.registerSelf(
+				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
+		);
+		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
+				(level, pos, state, be, side) -> new BlockManaVoid.ManaReceiver(level, pos, state),
+				ModBlocks.manaVoid);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
+				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
+				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum
+		);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
+				(level, pos, state, be, context) -> new BlockManaBomb.ManaTrigger(level, pos, state),
+				ModBlocks.manaBomb
+		);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
+				(level, pos, state, be, context) -> new BlockManaDetector.ManaTrigger(level, pos, state),
+				ModBlocks.manaDetector
+		);
+		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(
+				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(
 				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay
 		);
 		BotaniaFabricCapabilities.WANDABLE.registerSelf(
-				ModTiles.ALF_PORTAL, ModTiles.ANIMATED_TORCH, ModTiles.CORPOREA_CRYSTAL_CUBE, ModTiles.CORPOREA_RETAINER,
-				ModTiles.CRAFT_CRATE, ModTiles.ENCHANTER, ModTiles.HOURGLASS, ModTiles.PLATFORM, ModTiles.POOL,
-				ModTiles.RUNE_ALTAR, ModTiles.SPREADER, ModTiles.TURNTABLE,
-				ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
-				ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI
-		);
+				BlockEntityConstants.SELF_WANDADBLE_BES.toArray(BlockEntityType[]::new));
 		ItemStorage.SIDED.registerForBlockEntity(FabricTileRedStringContainer::getStorage, ModTiles.RED_STRING_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, ModTiles.RED_STRING_DISPENSER);
 

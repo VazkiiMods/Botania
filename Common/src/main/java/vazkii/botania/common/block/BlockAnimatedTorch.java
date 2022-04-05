@@ -28,15 +28,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IManaTrigger {
+public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
@@ -57,13 +55,6 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		((TileAnimatedTorch) world.getBlockEntity(pos)).onPlace(entity);
-	}
-
-	@Override
-	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
-		if (!burst.isFake()) {
-			((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
-		}
 	}
 
 	@Override

@@ -15,7 +15,6 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -118,7 +117,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		TagAppender<Item> allPetals = this.tag(ModTags.Items.PETALS);
 		for (DyeColor color : DyeColor.values()) {
-			Tag.Named<Item> petalTag = ModTags.Items.getPetalTag(color);
+			var petalTag = ModTags.Items.getPetalTag(color);
 			this.tag(petalTag).add(getPetal(color), ModBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}

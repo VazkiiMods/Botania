@@ -8,94 +8,72 @@
  */
 package vazkii.botania.client.integration.jei.crafting;
 
-import com.google.common.collect.ImmutableList;
-
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IFocus;
-import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICustomCraftingCategoryExtension;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-public class CompositeLensRecipeWrapper implements ICustomCraftingCategoryExtension {
-	private final List<List<ItemStack>> inputs;
-	private final List<Item> lenses;
+public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
+	private final List<Item> allLenses;
 
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
-		List<ItemStack> lensStacks = ItemTags.getAllTags().getTagOrEmpty(prefix("lens"))
-				.getValues().stream()
+		allLenses = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.LENS).spliterator(), false)
 				.map(ItemStack::new)
 				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
 				.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
-				.collect(Collectors.toList());
-		lenses = lensStacks.stream().map(ItemStack::getItem).collect(Collectors.toList());
-		inputs = ImmutableList.of(lensStacks, ImmutableList.of(new ItemStack(Items.SLIME_BALL)), lensStacks);
+				.map(ItemStack::getItem)
+				.toList();
 	}
 
 	@Override
-	public void setIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputLists(VanillaTypes.ITEM, inputs);
-	}
-
-	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IIngredients ingredients) {
-		recipeLayout.getItemStacks().set(ingredients);
-		recipeLayout.setShapeless();
-		IFocus<ItemStack> focus = recipeLayout.getFocus(VanillaTypes.ITEM);
-		if (focus != null) {
-			ItemStack stack = focus.getValue();
-			int idx = lenses.indexOf(stack.getItem());
-			if (idx != -1) {
-				setLenses(recipeLayout, idx, idx);
-				return;
-			}
+	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focusGroup) {
+		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.INPUT)
+				.filter(f -> allLenses.contains(f.getTypedValue().getIngredient().getItem()))
+				.map(f -> f.getTypedValue().getIngredient().getItem())
+				.toList();
+		if (possibleFirstLenses.isEmpty()) {
+			possibleFirstLenses = allLenses;
 		}
-		setLenses(recipeLayout, 1, lenses.size() - 1);
-	}
 
-	private void setLenses(IRecipeLayout recipeLayout, int start, int end) {
 		List<ItemStack> firstInput = new ArrayList<>();
 		List<ItemStack> secondInput = new ArrayList<>();
 		List<ItemStack> outputs = new ArrayList<>();
 
-		if (end >= lenses.size()) {
-			end = lenses.size() - 1;
-		}
-
-		for (int i = start; i <= end; i++) {
-			ItemStack firstLens = new ItemStack(lenses.get(i));
-			for (Item secondLens : lenses) {
-				if (secondLens == firstLens.getItem()) {
+		for (var firstLens : possibleFirstLenses) {
+			var firstLensStack = new ItemStack(firstLens);
+			for (var secondLens : allLenses) {
+				if (secondLens == firstLens) {
 					continue;
 				}
 
 				ItemStack secondLensStack = new ItemStack(secondLens);
-				if (((ItemLens) firstLens.getItem()).canCombineLenses(firstLens, secondLensStack)) {
-					firstInput.add(firstLens);
+				if (((ItemLens) firstLens).canCombineLenses(firstLensStack, secondLensStack)) {
+					firstInput.add(firstLensStack);
 					secondInput.add(secondLensStack);
-					outputs.add(((ItemLens) firstLens.getItem()).setCompositeLens(firstLens.copy(), secondLensStack));
+					outputs.add(((ItemLens) firstLens).setCompositeLens(firstLensStack.copy(), secondLensStack));
 				}
 			}
-
 		}
-		recipeLayout.getItemStacks().set(1, firstInput);
-		recipeLayout.getItemStacks().set(3, secondInput);
-		recipeLayout.getItemStacks().set(0, outputs);
-	}
 
+		helper.setInputs(builder, VanillaTypes.ITEM,
+				List.of(firstInput, List.of(new ItemStack(Items.SLIME_BALL)), secondInput), 0, 0);
+		helper.setOutputs(builder, VanillaTypes.ITEM, outputs);
+	}
 }

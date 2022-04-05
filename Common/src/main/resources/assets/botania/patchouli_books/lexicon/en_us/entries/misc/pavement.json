@@ -9,6 +9,7 @@
     },
     {
       "type": "botania:crafting_multi",
+      "heading":"botania.entry.pavement",
       "text": "botania.page.pavement1",
       "recipes": [
         "botania:white_pavement",

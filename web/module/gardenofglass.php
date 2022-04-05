@@ -9,7 +9,7 @@ This addon is designed so that every single item in the game can be acquired leg
 The jarfile required to play in this gamemode is a mod, but contains no code and behaves like a glorified datapack.<br>
 It contains some datapack additions to the base game, and tells the base Botania mod to enable other GoG features.<br>
 
-To generate a server world with Garden of Glass, set <span style="font-family:monospace;">level-type</span> to <span style="font-family:monospace;">botania:gardenofglass</span> in your server.properties file.
+To generate a server world with Garden of Glass, set <span style="font-family:monospace;">level-type</span> to <span style="font-family:monospace;">botania:gardenofglass</span> in your server.properties file. On Fabric, modded level types are not supported by default, so you'll have to generate a GoG world in single player then upload it to the server.<br />
 
 <a class="btn btn-lg btn-material-cyan" href="https://minecraft.curseforge.com/projects/botania-garden-of-glass" role="button" style="width:500px">Download Garden of Glass</a>
 <hr>

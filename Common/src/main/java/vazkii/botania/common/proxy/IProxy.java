@@ -21,6 +21,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 
+import javax.annotation.Nullable;
+
 import java.util.function.Supplier;
 
 public interface IProxy {
@@ -36,12 +38,9 @@ public interface IProxy {
 
 	default void runOnClient(Supplier<Runnable> s) {}
 
+	@Nullable
 	default Player getClientPlayer() {
 		return null;
-	}
-
-	default boolean isClientPlayerWearingMonocle() {
-		return false;
 	}
 
 	default void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
@@ -64,10 +63,7 @@ public interface IProxy {
 		return 0;
 	}
 
-	/** Side-safe version of world.addParticle with the unlimited distance flag, ignoring reduced particle settings. */
-	default void addParticleForce(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
-
-	/** A version of {@link IProxy#addParticleForce} that culls particles below 32 block distances. */
+	/** Same as {@code world.addParticle(data, true, ...)}, but culls particles below 32 block distances. */
 	default void addParticleForceNear(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
 
 	default void showMultiblock(IMultiblock mb, Component name, BlockPos anchor, Rotation rot) {}

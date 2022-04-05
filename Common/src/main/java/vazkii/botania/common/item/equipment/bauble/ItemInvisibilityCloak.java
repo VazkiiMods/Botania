@@ -23,10 +23,10 @@ public class ItemInvisibilityCloak extends ItemBauble {
 	}
 
 	@Override
-	public void onUnequipped(ItemStack stack, LivingEntity player) {
-		MobEffectInstance effect = player.getEffect(MobEffects.INVISIBILITY);
-		if (effect != null && player instanceof Player && effect.getAmplifier() == -42) {
-			player.removeEffect(MobEffects.INVISIBILITY);
+	public void onUnequipped(ItemStack stack, LivingEntity living) {
+		MobEffectInstance effect = living.getEffect(MobEffects.INVISIBILITY);
+		if (effect != null && effect.getAmplifier() == -42) {
+			living.removeEffect(MobEffects.INVISIBILITY);
 		}
 	}
 

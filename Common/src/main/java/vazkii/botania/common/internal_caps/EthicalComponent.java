@@ -13,7 +13,7 @@ import net.minecraft.world.entity.item.PrimedTnt;
 
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 
-public abstract class EthicalComponent extends SerializableComponent {
+public class EthicalComponent extends SerializableComponent {
 	protected static final String TAG_UNETHICAL = "botania:unethical";
 	protected boolean unethical;
 

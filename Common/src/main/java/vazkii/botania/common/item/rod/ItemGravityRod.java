@@ -10,7 +10,7 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -46,10 +46,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ItemGravityRod extends Item {
-	private static final Tag.Named<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
+	private static final TagKey<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
-	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !BLACKLIST.contains(e.getType());
+	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !e.getType().is(BLACKLIST);
 
 	private static final String TAG_TICKS_TILL_EXPIRE = "ticksTillExpire";
 	private static final String TAG_TICKS_COOLDOWN = "ticksCooldown";
@@ -173,7 +173,7 @@ public class ItemGravityRod extends Item {
 			}
 
 			if (target != null) {
-				if (BLACKLIST.contains(target.getType())) {
+				if (target.getType().is(BLACKLIST)) {
 					return InteractionResultHolder.fail(stack);
 				}
 

@@ -42,8 +42,8 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 
 	@Override
 	public int getWeight(@Nonnull Level level, @Nonnull BlockPos pos) {
-		Biome biome = level.getBiome(pos);
-		if (biomes.contains(biome.getBiomeCategory())) {
+		var biome = level.getBiome(pos);
+		if (biomes.contains(Biome.getBiomeCategory(biome))) {
 			return getWeight() + weightBonus;
 		}
 		return getWeight();

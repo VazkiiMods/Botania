@@ -224,50 +224,50 @@ public class ItemFlightTiara extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof Player p) {
-			boolean flying = p.getAbilities().flying;
+	public void onWornTick(ItemStack stack, LivingEntity living) {
+		if (living instanceof Player player) {
+			boolean flying = player.getAbilities().flying;
 
 			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
-			boolean isSprinting = p.isSprinting();
+			boolean isSprinting = player.isSprinting();
 			if (isSprinting != wasSprting) {
 				ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
 			}
 
 			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 			int newTime = time;
-			Vec3 look = p.getLookAngle().multiply(1, 0, 1).normalize();
+			Vec3 look = player.getLookAngle().multiply(1, 0, 1).normalize();
 
 			if (flying) {
-				if (time > 0 && !p.isSpectator() && !p.isCreative()
+				if (time > 0 && !player.isSpectator() && !player.isCreative()
 						&& !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false)) {
 					newTime--;
 				}
 				final int maxCd = 80;
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if (!wasSprting && isSprinting && cooldown == 0) {
-					p.setDeltaMovement(p.getDeltaMovement().add(look.x, 0, look.z));
-					p.level.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
+					player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if (cooldown > 0) {
 					if (ItemNBTHelper.getBoolean(stack, TAG_BOOST_PENDING, false)) {
-						player.moveRelative(5F, new Vec3(0F, 0F, 1F));
+						living.moveRelative(5F, new Vec3(0F, 0F, 1F));
 						ItemNBTHelper.removeEntry(stack, TAG_BOOST_PENDING);
 					}
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
 				}
 			} else {
 				boolean wasGliding = ItemNBTHelper.getBoolean(stack, TAG_GLIDING, false);
-				boolean doGlide = player.isShiftKeyDown() && !player.isOnGround() && (player.getDeltaMovement().y() < -.7F || wasGliding);
-				if (time < MAX_FLY_TIME && player.tickCount % (doGlide ? 6 : 2) == 0) {
+				boolean doGlide = living.isShiftKeyDown() && !living.isOnGround() && (living.getDeltaMovement().y() < -.7F || wasGliding);
+				if (time < MAX_FLY_TIME && living.tickCount % (doGlide ? 6 : 2) == 0) {
 					newTime++;
 				}
 
 				if (doGlide) {
 					float mul = 0.6F;
-					player.setDeltaMovement(look.x * mul, Math.max(-0.15F, player.getDeltaMovement().y()), look.z * mul);
-					player.fallDistance = 2F;
+					living.setDeltaMovement(look.x * mul, Math.max(-0.15F, living.getDeltaMovement().y()), look.z * mul);
+					living.fallDistance = 2F;
 				}
 				ItemNBTHelper.setBoolean(stack, TAG_GLIDING, doGlide);
 			}
@@ -459,7 +459,7 @@ public class ItemFlightTiara extends ItemBauble {
 	}
 
 	public static class ClientLogic {
-		public static void renderHalo(@Nullable HumanoidModel<?> model, @Nullable LivingEntity player, PoseStack ms, MultiBufferSource buffers, float partialTicks) {
+		public static void renderHalo(@Nullable HumanoidModel<?> model, @Nullable LivingEntity living, PoseStack ms, MultiBufferSource buffers, float partialTicks) {
 			if (model != null) {
 				model.body.translateAndRotate(ms);
 			}
@@ -467,8 +467,8 @@ public class ItemFlightTiara extends ItemBauble {
 			ms.translate(0.2, -0.65, 0);
 			ms.mulPose(Vector3f.ZP.rotationDegrees(30));
 
-			if (player != null) {
-				ms.mulPose(Vector3f.YP.rotationDegrees(player.tickCount + partialTicks));
+			if (living != null) {
+				ms.mulPose(Vector3f.YP.rotationDegrees(living.tickCount + partialTicks));
 			} else {
 				ms.mulPose(Vector3f.YP.rotationDegrees(ClientTickHandler.ticksInGame));
 			}

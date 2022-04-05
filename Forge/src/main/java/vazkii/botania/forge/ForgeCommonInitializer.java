@@ -1,7 +1,6 @@
 package vazkii.botania.forge;
 
 import com.google.common.base.Suppliers;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.commands.CommandSourceStack;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
@@ -73,15 +71,16 @@ import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.mana.ManaNetworkEvent;
+import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.ModCriteriaTriggers;
-import vazkii.botania.common.block.BlockPistonRelay;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.mana.BlockForestDrum;
+import vazkii.botania.common.block.mana.BlockManaDetector;
+import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
@@ -107,11 +106,10 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
-import vazkii.botania.common.item.relic.ItemFlugelEye;
-import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.item.relic.ItemOdinRing;
+import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.loot.LootHandler;
@@ -130,7 +128,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -203,7 +200,6 @@ public class ForgeCommonInitializer {
 
 		// Worldgen
 		bind(ForgeRegistries.FEATURES, ModFeatures::registerFeatures);
-		SkyblockChunkGenerator.init();
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			modBus.addGenericListener(ForgeWorldPreset.class, (RegistryEvent.Register<ForgeWorldPreset> e) -> {
 				ForgeWorldPreset preset = new ForgeWorldPreset(SkyblockChunkGenerator::createForWorldType) {
@@ -219,9 +215,14 @@ public class ForgeCommonInitializer {
 
 		// Rest
 		ModCriteriaTriggers.init();
-		ModLootModifiers.init();
 		bind(ForgeRegistries.PARTICLE_TYPES, ModParticles::registerParticles);
-		ModStats.init();
+
+		// Anything that touches vanilla registries needs to happen during *a* registry event
+		// So just use a random one
+		modBus.addGenericListener(Block.class, (RegistryEvent.Register<Block> e) -> {
+			ModLootModifiers.init();
+			ModStats.init();
+		});
 	}
 
 	private static <T extends IForgeRegistryEntry<T>> void bind(IForgeRegistry<T> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
@@ -245,10 +246,10 @@ public class ForgeCommonInitializer {
 			bus.addListener((BiomeLoadingEvent e) -> {
 				Biome.BiomeCategory category = e.getCategory();
 				if (!ModFeatures.TYPE_BLACKLIST.contains(category)) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.MYSTICAL_FLOWERS_PLACED);
+					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalFlowersPlaced);
 				}
 				if (category != Biome.BiomeCategory.THEEND) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.MYSTICAL_MUSHROOMS_PLACED);
+					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalMushroomsPlaced);
 				}
 			});
 		}
@@ -284,7 +285,7 @@ public class ForgeCommonInitializer {
 		});
 		bus.addListener((PlayerEvent.StartTracking e) -> SubTileDaffomill.onItemTrack(e.getEntity(), (ServerPlayer) e.getPlayer()));
 		bus.addListener((LootTableLoadEvent e) -> LootHandler.lootLoad(e.getName(), e.getTable()::addPool));
-		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getBlockEntity(), e.getType(), e.getAction()));
+		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getReceiver(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinWorldEvent e) -> {
 			if (!e.getWorld().isClientSide) {
 				SubTileTigerseye.pacifyAfterLoad(e.getEntity(), (ServerLevel) e.getWorld());
@@ -459,6 +460,24 @@ public class ForgeCommonInitializer {
 			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new
 	));
 
+	private static final Supplier<Map<Item, Function<ItemStack, IManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
+			ModItems.manaMirror, ItemManaMirror.ManaItem::new,
+			ModItems.manaRing, ItemManaRing.ManaItem::new,
+			ModItems.manaRingGreater, ItemGreaterManaRing.GreaterManaItem::new,
+			ModItems.manaTablet, ItemManaTablet.ManaItem::new,
+			ModItems.terraPick, ItemTerraPick.ManaItem::new
+	));
+
+	private static final Supplier<Map<Item, Function<ItemStack, IRelic>>> RELIC = Suppliers.memoize(() -> Map.of(
+			ModItems.dice, ItemDice::makeRelic,
+			ModItems.flugelEye, ItemFlugelEye::makeRelic,
+			ModItems.infiniteFruit, ItemInfiniteFruit::makeRelic,
+			ModItems.kingKey, ItemKingKey::makeRelic,
+			ModItems.lokiRing, ItemLokiRing::makeRelic,
+			ModItems.odinRing, ItemOdinRing::makeRelic,
+			ModItems.thorRing, ItemThorRing::makeRelic
+	));
+
 	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
 		var stack = e.getObject();
 
@@ -488,6 +507,18 @@ public class ForgeCommonInitializer {
 			e.addCapability(prefix("coord_bound_item"),
 					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.COORD_BOUND_ITEM, makeCoordBoundItem.apply(stack)));
 		}
+
+		var makeManaItem = MANA_ITEM.get().get(stack.getItem());
+		if (makeManaItem != null) {
+			e.addCapability(prefix("mana_item"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_ITEM, makeManaItem.apply(stack)));
+		}
+
+		var makeRelic = RELIC.get().get(stack.getItem());
+		if (makeRelic != null) {
+			e.addCapability(prefix("relic"),
+					CapabilityUtil.makeProvider(BotaniaForgeCapabilities.RELIC, makeRelic.apply(stack)));
+		}
 	}
 
 	private void registerBlockLookasides() {
@@ -498,17 +529,19 @@ public class ForgeCommonInitializer {
 				Arrays.stream(DyeColor.values()).map(ModBlocks::getMushroom).toArray(Block[]::new));
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
 				Arrays.stream(DyeColor.values()).map(ModBlocks::getShinyFlower).toArray(Block[]::new));
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_GHOST, (w, p, s) -> ((IManaCollisionGhost) s.getBlock()),
+				ModBlocks.manaDetector,
+				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
+				ModBlocks.prism, ModBlocks.tinyPlanet);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, BlockManaVoid.ManaReceiver::new, ModBlocks.manaVoid);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockForestDrum.ManaTrigger::new,
+				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.gatheringDrum);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaBomb.ManaTrigger::new, ModBlocks.manaBomb);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaDetector.ManaTrigger::new, ModBlocks.manaDetector);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.WANDABLE,
 				(world, pos, state) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay);
 	}
-
-	private static final Supplier<Set<BlockEntityType<?>>> SELF_WANDADBLE_BES = Suppliers.memoize(() -> ImmutableSet.of(ModTiles.ALF_PORTAL, ModTiles.ANIMATED_TORCH, ModTiles.CORPOREA_CRYSTAL_CUBE, ModTiles.CORPOREA_RETAINER,
-			ModTiles.CRAFT_CRATE, ModTiles.ENCHANTER, ModTiles.HOURGLASS, ModTiles.PLATFORM, ModTiles.POOL,
-			ModTiles.RUNE_ALTAR, ModTiles.SPREADER, ModTiles.TURNTABLE,
-			ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
-			ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI)
-	);
 
 	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {
 		var be = e.getObject();
@@ -563,13 +596,21 @@ public class ForgeCommonInitializer {
 					hourglass -> ((TileAnimatedTorch) be).toggle()));
 		}
 
-		if (SELF_WANDADBLE_BES.get().contains(be.getType())) {
+		if (BlockEntityConstants.SELF_WANDADBLE_BES.contains(be.getType())) {
 			e.addCapability(prefix("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
 					(IWandable) be));
 		}
 
 		if (be instanceof TileRedStringContainer container) {
 			e.addCapability(prefix("red_string"), new RedStringContainerCapProvider(container));
+		}
+
+		if (BlockEntityConstants.SELF_MANA_TRIGGER_BES.contains(be.getType())) {
+			e.addCapability(prefix("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (IManaTrigger) be));
+		}
+
+		if (BlockEntityConstants.SELF_MANA_RECEIVER_BES.contains(be.getType())) {
+			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (IManaReceiver) be));
 		}
 	}
 

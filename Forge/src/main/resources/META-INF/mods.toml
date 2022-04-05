@@ -19,17 +19,17 @@ configBackground="botania:textures/block/livingrock_bricks.png" # background for
 [[dependencies.botania]]
     modId="forge"
     mandatory=true
-    versionRange="[39.0.44,)"
+    versionRange="[40.0.35,)"
 
 [[dependencies.botania]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.18.1-64,)"
+    versionRange="[1.18.2-67,)"
 
 [[dependencies.botania]]
     modId="curios"
     mandatory=true
-    versionRange="[1.18.1-5.0.5.1,)"
+    versionRange="[1.18.2-5.0.6.3,)"
 
 [[dependencies.botania]]
     modId="gardenofglass"

@@ -1,16 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "SPS",
+    "CPC",
     " C ",
     "CCC"
   ],
   "key": {
     "P": {
       "tag": "botania:petals"
-    },
-    "S": {
-      "item": "minecraft:cobblestone_slab"
     },
     "C": {
       "item": "minecraft:cobblestone"

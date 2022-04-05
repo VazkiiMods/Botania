@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -155,14 +156,15 @@ public class ItemTornadoRod extends Item {
 	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
 		public void onAvatarUpdate(IAvatarTile tile) {
-			BlockEntity te = tile.tileEntity();
+			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 
 			if (!world.isClientSide) {
 				decAvatarCooldowns(cooldowns);
 			}
-			if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.isEnabled()) {
+			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.isEnabled()) {
 				int range = 5;
 				int rangeY = 3;
 				List<Player> players = world.getEntitiesOfClass(Player.class,
@@ -176,12 +178,12 @@ public class ItemTornadoRod extends Item {
 					if (!p.isShiftKeyDown() && cooldown <= 0) {
 						if (p.getDeltaMovement().length() > 0.2 && p.getDeltaMovement().length() < 5 && p.isFallFlying()) {
 							doAvatarElytraBoost(p, world);
-							doAvatarMiscEffects(p, tile);
+							doAvatarMiscEffects(p, receiver);
 							cooldowns.put(p.getUUID(), 20);
 							te.setChanged();
 						} else if (p.getDeltaMovement().y() > 0.3 && p.getDeltaMovement().y() < 2 && !p.isFallFlying()) {
 							doAvatarJump(p, world);
-							doAvatarMiscEffects(p, tile);
+							doAvatarMiscEffects(p, receiver);
 						}
 					}
 				}
@@ -223,7 +225,7 @@ public class ItemTornadoRod extends Item {
 		}
 	}
 
-	private static void doAvatarMiscEffects(Player p, IAvatarTile tile) {
+	private static void doAvatarMiscEffects(Player p, IManaReceiver tile) {
 		p.level.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 		p.addEffect(new MobEffectInstance(ModPotions.featherfeet, 100, 0));
 		tile.receiveMana(-COST);

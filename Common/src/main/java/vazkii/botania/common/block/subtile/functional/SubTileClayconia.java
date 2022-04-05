@@ -89,7 +89,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), getRange());
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getRange());
 	}
 
 	public int getRange() {

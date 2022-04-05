@@ -1,6 +1,5 @@
 package vazkii.botania.fabric.xplat;
 
-import com.google.common.base.Suppliers;
 import com.google.gson.JsonObject;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
@@ -17,7 +16,6 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -44,13 +42,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -88,6 +85,7 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
@@ -108,7 +106,6 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import javax.annotation.Nullable;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,7 +113,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -167,6 +163,18 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
+	public IManaItem findManaItem(ItemStack stack) {
+		return BotaniaFabricCapabilities.MANA_ITEM.find(stack, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IRelic findRelic(ItemStack stack) {
+		return BotaniaFabricCapabilities.RELIC.find(stack, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
 	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.EXOFLAME_HEATABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}
@@ -181,6 +189,24 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.HOURGLASS_TRIGGER.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return BotaniaFabricCapabilities.MANA_GHOST.find(level, pos, state, be, Unit.INSTANCE);
+	}
+
+	@Nullable
+	@Override
+	public IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction direction) {
+		return BotaniaFabricCapabilities.MANA_RECEIVER.find(level, pos, state, be, direction);
+	}
+
+	@Nullable
+	@Override
+	public IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return BotaniaFabricCapabilities.MANA_TRIGGER.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
 	@Nullable
@@ -320,7 +346,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public KeptItemsComponent keptItemsComponent(Player player) {
+	public KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps) {
 		return CCAInternalEntityComponents.KEPT_ITEMS.get(player);
 	}
 
@@ -371,8 +397,8 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
-		ManaNetworkCallback.EVENT.invoker().onNetworkChange(be, type, action);
+	public void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+		ManaNetworkCallback.EVENT.invoker().onNetworkChange(thing, type, action);
 	}
 
 	@Override
@@ -491,52 +517,20 @@ public class FabricXplatImpl implements IXplatAbstractions {
 		return StepHeightEntityAttributeMain.STEP_HEIGHT;
 	}
 
+	private final TagKey<Block> oreTag = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "ores"));
+
 	@Override
-	public Tag.Named<Block> blockTag(ResourceLocation id) {
-		return TagFactory.BLOCK.create(id);
+	public TagKey<Block> getOreTag() {
+		return oreTag;
 	}
 
-	@Override
-	public Tag.Named<Item> itemTag(ResourceLocation id) {
-		return TagFactory.ITEM.create(id);
-	}
+	// No standard so we have to check both :wacko:
+	private final TagKey<Block> cGlass = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass"));
+	private final TagKey<Block> cGlassBlocks = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
 
 	@Override
-	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
-		return TagFactory.ENTITY_TYPE.create(id);
-	}
-
-	private final Supplier<Tag.Named<Block>> oreTag = Suppliers.memoize(() -> blockTag(new ResourceLocation("c", "ores")));
-
-	@Override
-	public Tag.Named<Block> getOreTag() {
-		return oreTag.get();
-	}
-
-	private final Supplier<Tag<Block>> glassTag = Suppliers.memoize(() -> new Tag<Block>() {
-		// No standard so we have to check both :wacko:
-		private final Tag<Block> cGlass = blockTag(new ResourceLocation("c", "glass"));
-		private final Tag<Block> cGlassBlocks = blockTag(new ResourceLocation("c", "glass_blocks"));
-
-		@Override
-		public boolean contains(Block value) {
-			return cGlass.contains(value) || cGlassBlocks.contains(value);
-		}
-
-		@Override
-		public List<Block> getValues() {
-			var cG = cGlass.getValues();
-			var cGB = cGlassBlocks.getValues();
-			var ret = new ArrayList<Block>(cG.size() + cGB.size());
-			ret.addAll(cG);
-			ret.addAll(cGB);
-			return ret;
-		}
-	});
-
-	@Override
-	public Tag<Block> getGlassTag() {
-		return glassTag.get();
+	public boolean isInGlassTag(BlockState state) {
+		return state.is(cGlass) || state.is(cGlassBlocks);
 	}
 
 	@Override
@@ -583,11 +577,6 @@ public class FabricXplatImpl implements IXplatAbstractions {
 			return FluxfieldTRStorage.transferEnergyToNeighbors(level, pos, energy);
 		}
 		return energy;
-	}
-
-	@Override
-	public int getEnergyMultiplier() {
-		return 3;
 	}
 
 	@Override

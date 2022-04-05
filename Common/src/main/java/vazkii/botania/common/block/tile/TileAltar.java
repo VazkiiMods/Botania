@@ -15,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,8 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
@@ -41,7 +38,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BlockAltar;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -72,21 +68,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		ItemStack stack = item.getItem();
 		if (level.isClientSide || stack.isEmpty() || !item.isAlive()) {
 			return false;
-		}
-
-		if (getBlockState().is(ModBlocks.defaultAltar) && stack.is(Blocks.VINE.asItem())) {
-			CompoundTag tmp = new CompoundTag();
-			writePacketNBT(tmp);
-
-			stack.shrink(1);
-			level.setBlockAndUpdate(getBlockPos(), ModBlocks.mossyAltar.defaultBlockState());
-
-			BlockEntity newAltar = level.getBlockEntity(getBlockPos());
-			if (newAltar instanceof TileAltar altar) {
-				altar.readPacketNBT(tmp);
-			}
-
-			return true;
 		}
 
 		if (getFluid() == State.EMPTY) {

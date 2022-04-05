@@ -47,7 +47,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 			return;
 		}
 
-		BlockPos pos = pool.tileEntity().getBlockPos();
+		BlockPos pos = pool.getManaReceiverPos();
 		boolean t2 = stack.is(ModItems.blackerLotus);
 
 		if (!item.level.isClientSide) {

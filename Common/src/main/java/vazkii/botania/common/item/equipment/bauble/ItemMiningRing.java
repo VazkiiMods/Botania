@@ -44,10 +44,10 @@ public class ItemMiningRing extends ItemBauble {
 	}
 
 	@Override
-	public void onUnequipped(ItemStack stack, LivingEntity player) {
-		MobEffectInstance effect = player.getEffect(MobEffects.DIG_SPEED);
+	public void onUnequipped(ItemStack stack, LivingEntity living) {
+		MobEffectInstance effect = living.getEffect(MobEffects.DIG_SPEED);
 		if (effect != null && effect.getAmplifier() == 1) {
-			player.removeEffect(MobEffects.DIG_SPEED);
+			living.removeEffect(MobEffects.DIG_SPEED);
 		}
 	}
 

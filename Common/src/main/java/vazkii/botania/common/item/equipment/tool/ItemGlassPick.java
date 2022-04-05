@@ -99,7 +99,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 	}
 
 	private boolean isGlass(BlockState state) {
-		return state.getMaterial() == Material.GLASS || state.is(IXplatAbstractions.INSTANCE.getGlassTag());
+		return state.getMaterial() == Material.GLASS || IXplatAbstractions.INSTANCE.isInGlassTag(state);
 	}
 
 	@Override

@@ -11,13 +11,12 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +33,24 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pos = worldPosition.relative(dir);
 			if (level.hasChunkAt(pos)) {
-				BlockEntity tileAt = level.getBlockEntity(pos);
-				if (tileAt instanceof IManaPool receiver && !tileAt.isRemoved()) {
+				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, pos, dir.getOpposite());
+				if (receiver != null) {
 					if (!receiver.isFull()) {
 						self.validPools.add(receiver);
 					}
 				}
 			}
 		}
+	}
+
+	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
+	}
+
+	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
 	}
 
 	@Override

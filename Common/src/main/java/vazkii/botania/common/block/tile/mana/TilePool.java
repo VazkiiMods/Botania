@@ -241,7 +241,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if (manaCap == -1) {
 			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
-		if (!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved()) {
+		if (!ManaNetworkHandler.instance.isPoolIn(level, this) && !isRemoved()) {
 			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
 		}
 	}
@@ -279,8 +279,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			}
 
 			ItemStack stack = item.getItem();
-			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem mana) {
-				if (self.outputting && mana.canReceiveManaFromPool(stack, self) || !self.outputting && mana.canExportManaToPool(stack, self)) {
+			var mana = IXplatAbstractions.INSTANCE.findManaItem(stack);
+			if (!stack.isEmpty() && mana != null) {
+				if (self.outputting && mana.canReceiveManaFromPool(self) || !self.outputting && mana.canExportManaToPool(self)) {
 					boolean didSomething = false;
 
 					int bellowCount = 0;
@@ -296,25 +297,25 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 					if (self.outputting) {
 						if (self.canSpare) {
-							if (self.getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack)) {
+							if (self.getCurrentMana() > 0 && mana.getMana() < mana.getMaxMana()) {
 								didSomething = true;
 							}
 
-							int manaVal = Math.min(transfRate, Math.min(self.getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
-							mana.addMana(stack, manaVal);
+							int manaVal = Math.min(transfRate, Math.min(self.getCurrentMana(), mana.getMaxMana() - mana.getMana()));
+							mana.addMana(manaVal);
 							self.receiveMana(-manaVal);
 						}
 					} else {
 						if (self.canAccept) {
-							if (mana.getMana(stack) > 0 && !self.isFull()) {
+							if (mana.getMana() > 0 && !self.isFull()) {
 								didSomething = true;
 							}
 
-							int manaVal = Math.min(transfRate, Math.min(self.manaCap - self.getCurrentMana(), mana.getMana(stack)));
+							int manaVal = Math.min(transfRate, Math.min(self.manaCap - self.getCurrentMana(), mana.getMana()));
 							if (manaVal == 0 && self.level.getBlockState(worldPosition.below()).is(ModBlocks.manaVoid)) {
-								manaVal = Math.min(transfRate, mana.getMana(stack));
+								manaVal = Math.min(transfRate, mana.getMana());
 							}
-							mana.addMana(stack, -manaVal);
+							mana.addMana(-manaVal);
 							self.receiveMana(manaVal);
 						}
 					}
@@ -434,6 +435,16 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public boolean isOutputtingPower() {
 		return outputting;
+	}
+
+	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
+	}
+
+	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
 	}
 
 	@Override

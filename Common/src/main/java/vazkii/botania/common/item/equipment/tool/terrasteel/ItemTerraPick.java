@@ -48,6 +48,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -56,7 +57,7 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
+public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreaker {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";
@@ -97,7 +98,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));
 		Component rankFormat = new TranslatableComponent("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
-		if (getMana(stack) == Integer.MAX_VALUE) {
+		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		if (manaItem != null && manaItem.getMana() == Integer.MAX_VALUE) {
 			stacks.add(new TranslatableComponent("botaniamisc.getALife").withStyle(ChatFormatting.RED));
 		}
 	}
@@ -110,7 +112,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			return InteractionResultHolder.pass(stack);
 		}
 
-		getMana(stack);
 		int level = getLevel(stack);
 
 		if (level != 0) {
@@ -146,7 +147,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			if (level == 0) {
 				setEnabled(stack, false);
 			} else if (entity instanceof Player player && !player.swinging) {
-				addMana(stack, -level);
+				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				manaItem.addMana(-level);
 			}
 		}
 	}
@@ -246,11 +248,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
 	}
 
-	@Override
-	public int getMana(ItemStack stack) {
-		return getMana_(stack) * stack.getCount();
-	}
-
 	public static int getMana_(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
 	}
@@ -266,39 +263,52 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return 0;
 	}
 
-	@Override
-	public int getMaxMana(ItemStack stack) {
-		return MAX_MANA * stack.getCount();
-	}
+	public static class ManaItem implements IManaItem {
+		private final ItemStack stack;
 
-	@Override
-	public void addMana(ItemStack stack, int mana) {
-		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)) / stack.getCount());
-	}
+		public ManaItem(ItemStack stack) {
+			this.stack = stack;
+		}
 
-	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
-		return true;
-	}
+		@Override
+		public int getMana() {
+			return getMana_(stack) * stack.getCount();
+		}
 
-	@Override
-	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return !otherStack.is(ModTags.Items.TERRA_PICK_BLACKLIST);
-	}
+		@Override
+		public int getMaxMana() {
+			return MAX_MANA * stack.getCount();
+		}
 
-	@Override
-	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
-		return false;
-	}
+		@Override
+		public void addMana(int mana) {
+			setMana(stack, Math.min(getMana() + mana, getMaxMana()) / stack.getCount());
+		}
 
-	@Override
-	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
-		return false;
-	}
+		@Override
+		public boolean canReceiveManaFromPool(BlockEntity pool) {
+			return true;
+		}
 
-	@Override
-	public boolean isNoExport(ItemStack stack) {
-		return true;
+		@Override
+		public boolean canReceiveManaFromItem(ItemStack otherStack) {
+			return !otherStack.is(ModTags.Items.TERRA_PICK_BLACKLIST);
+		}
+
+		@Override
+		public boolean canExportManaToPool(BlockEntity pool) {
+			return false;
+		}
+
+		@Override
+		public boolean canExportManaToItem(ItemStack otherStack) {
+			return false;
+		}
+
+		@Override
+		public boolean isNoExport() {
+			return true;
+		}
 	}
 
 	@SoftImplement("IForgeItem")

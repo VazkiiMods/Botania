@@ -22,9 +22,26 @@ jobs:
           ~/.gradle/wrapper
           ./.gradle/loom-cache/remapped-mods
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', '**/gradle-wrapper.properties') }}
+    - name: Check lang files
+      run: ./scripts/check_lang.sh
     - name: Build with Gradle
       run: ./gradlew pmdMain spotlessJavaCheck build
+    - name: PMD report
+      uses: jwgmeligmeyling/pmd-github-action@v1
+      if: failure()
+      with:
+        path: '**/reports/pmd/main.xml'
     - name: Run GameTests (Fabric)
       run: ./gradlew :Fabric:runGameTest
+    - name: Archive Fabric Binaries
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabric
+        path: Fabric/build/libs/*.jar
+    - name: Archive Forge Binaries
+      uses: actions/upload-artifact@v2
+      with:
+        name: Forge
+        path: Forge/build/libs/*.jar
     - name: Cleanup
       run: ./gradlew --stop

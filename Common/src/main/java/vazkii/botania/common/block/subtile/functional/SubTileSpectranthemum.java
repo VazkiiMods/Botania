@@ -14,13 +14,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -68,8 +66,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 				}
 
 				ItemStack stack = item.getItem();
-				Item sitem = stack.getItem();
-				if (sitem instanceof IManaItem) {
+				if (IXplatAbstractions.INSTANCE.findManaItem(stack) != null) {
 					continue;
 				}
 
@@ -97,12 +94,12 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
 	}
 
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), BIND_RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), BIND_RANGE);
 	}
 
 	@Override

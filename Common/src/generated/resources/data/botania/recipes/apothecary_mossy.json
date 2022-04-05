@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CPC",
+    " C ",
+    "CCC"
+  ],
+  "key": {
+    "P": {
+      "tag": "botania:petals"
+    },
+    "C": {
+      "item": "minecraft:mossy_cobblestone"
+    }
+  },
+  "result": {
+    "item": "botania:apothecary_mossy"
+  }
+}

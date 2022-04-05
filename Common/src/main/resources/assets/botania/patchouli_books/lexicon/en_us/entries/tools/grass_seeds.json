@@ -29,6 +29,7 @@
     },
     {
       "type": "botania:crafting_multi",
+      "heading":"botania.entry.grassSeeds",
       "text": "botania.page.grassSeeds5",
       "recipes": [
         "botania:dry_seeds",

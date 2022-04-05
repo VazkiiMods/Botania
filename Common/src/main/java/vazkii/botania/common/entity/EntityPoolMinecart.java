@@ -31,6 +31,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -121,10 +122,11 @@ public class EntityPoolMinecart extends AbstractMinecart {
 			BlockPos pumpPos = pos.relative(dir);
 			BlockState pumpState = level.getBlockState(pumpPos);
 			if (pumpState.is(ModBlocks.pump)) {
-				BlockPos poolPos = pumpPos.relative(dir);
 				TilePump pump = (TilePump) level.getBlockEntity(pumpPos);
+				BlockPos poolPos = pumpPos.relative(dir);
+				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
 
-				if (level.getBlockEntity(poolPos) instanceof IManaPool pool) {
+				if (receiver instanceof IManaPool pool) {
 					Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
 					boolean did = false;
 					boolean can = false;

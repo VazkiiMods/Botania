@@ -26,6 +26,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable {
+public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaReceiver {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{
@@ -86,7 +87,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				IManaSpark spark = self.getAttachedSpark();
 				if (spark != null) {
 					SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
-							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedTile() instanceof IManaPool)
+							.filter(otherSpark -> spark != otherSpark && IXplatAbstractions.INSTANCE.findManaReceiver(level, otherSpark.getAttachPos(), null) instanceof IManaPool)
 							.forEach(os -> os.registerTransfer(spark));
 				}
 				if (self.mana > 0) {
@@ -190,6 +191,16 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
 		mana = cmp.getInt(TAG_MANA);
+	}
+
+	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
+	}
+
+	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
 	}
 
 	@Override

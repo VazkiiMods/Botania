@@ -92,4 +92,15 @@ public interface IElvenTradeRecipe extends Recipe<Container> {
 	default boolean isSpecial() {
 		return true;
 	}
+
+	/**
+	 * Checks if this recipe is a "return" recipe, meaning that it returns the item that was thrown into it.
+	 *
+	 * @return {@code true} if recipe is a return recipe, {@code false} otherwise.
+	 */
+	default boolean isReturnRecipe() {
+		return this.getOutputs().size() == 1
+				&& this.getIngredients().size() == 1
+				&& this.containsItem(this.getOutputs().get(0));
+	}
 }

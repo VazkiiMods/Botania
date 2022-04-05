@@ -10,7 +10,7 @@ package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 
-public abstract class NarslimmusComponent extends SerializableComponent {
+public class NarslimmusComponent extends SerializableComponent {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 	private boolean naturalSpawned = false;
 

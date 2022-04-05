@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigger {
+public class BlockForestDrum extends BlockModWaterloggable {
 
 	public enum Variant {
 		WILD,
@@ -65,7 +65,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		return SHAPE;
 	}
 
-	public void convertNearby(Entity entity, Item from, Item to) {
+	private static void convertNearby(Entity entity, Item from, Item to) {
 		Level world = entity.level;
 		List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, entity.getBoundingBox());
 		for (ItemEntity item : items) {
@@ -85,54 +85,66 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		}
 	}
 
-	@Override
-	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
-		if (burst.isFake()) {
-			return;
-		}
-		if (world.isClientSide) {
-			world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
-			return;
-		}
-		if (variant == Variant.WILD) {
-			ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos);
-		} else if (variant == Variant.CANOPY) {
-			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
-		} else {
-			int range = 10;
-			List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(world, e.getX(), e.getY(), e.getZ()));
-			List<Mob> shearables = new ArrayList<>();
-			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
+	public static class ManaTrigger implements IManaTrigger {
+		private final Level world;
+		private final BlockPos pos;
+		private final Variant variant;
 
-			for (Mob entity : entities) {
-				if (entity instanceof Cow) {
-					convertNearby(entity, Items.BUCKET, Items.MILK_BUCKET);
-					if (entity instanceof MushroomCow) {
-						convertNearby(entity, Items.BOWL, Items.MUSHROOM_STEW);
+		public ManaTrigger(Level world, BlockPos pos, BlockState state) {
+			this.world = world;
+			this.pos = pos;
+			this.variant = ((BlockForestDrum) state.getBlock()).variant;
+		}
+
+		@Override
+		public void onBurstCollision(IManaBurst burst) {
+			if (burst.isFake()) {
+				return;
+			}
+			if (world.isClientSide) {
+				world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
+				return;
+			}
+			if (variant == Variant.WILD) {
+				ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos);
+			} else if (variant == Variant.CANOPY) {
+				ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
+			} else {
+				int range = 10;
+				List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(world, e.getX(), e.getY(), e.getZ()));
+				List<Mob> shearables = new ArrayList<>();
+				ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
+
+				for (Mob entity : entities) {
+					if (entity instanceof Cow) {
+						convertNearby(entity, Items.BUCKET, Items.MILK_BUCKET);
+						if (entity instanceof MushroomCow) {
+							convertNearby(entity, Items.BOWL, Items.MUSHROOM_STEW);
+						}
+					} else if (entity instanceof Shearable shearable && shearable.readyForShearing()) {
+						shearables.add(entity);
 					}
-				} else if (entity instanceof Shearable shearable && shearable.readyForShearing()) {
-					shearables.add(entity);
+				}
+
+				Collections.shuffle(shearables);
+				int sheared = 0;
+
+				for (Mob entity : shearables) {
+					if (sheared > 4) {
+						break;
+					}
+
+					if (entity instanceof Shearable shearable) {
+						shearable.shear(SoundSource.BLOCKS);
+					}
+
+					++sheared;
 				}
 			}
 
-			Collections.shuffle(shearables);
-			int sheared = 0;
-
-			for (Mob entity : shearables) {
-				if (sheared > 4) {
-					break;
-				}
-
-				if (entity instanceof Shearable shearable) {
-					shearable.shear(SoundSource.BLOCKS);
-				}
-
-				++sheared;
+			for (int i = 0; i < 10; i++) {
+				world.playSound(null, pos, ModSounds.drum, SoundSource.BLOCKS, 1F, 1F);
 			}
-		}
-
-		for (int i = 0; i < 10; i++) {
-			world.playSound(null, pos, ModSounds.drum, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 }

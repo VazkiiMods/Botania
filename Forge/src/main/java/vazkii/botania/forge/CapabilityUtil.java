@@ -72,8 +72,13 @@ public final class CapabilityUtil {
 	// todo this might need to be exposed in the API
 	@Nullable
 	public static <T> T findCapability(Capability<T> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+		return findCapability(capability, level, pos, state, be, null);
+	}
+
+	@Nullable
+	public static <T> T findCapability(Capability<T> capability, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction) {
 		if (be != null) {
-			var instance = be.getCapability(capability);
+			var instance = be.getCapability(capability, direction);
 			if (instance.isPresent()) {
 				return instance.orElseThrow(NullPointerException::new);
 			}

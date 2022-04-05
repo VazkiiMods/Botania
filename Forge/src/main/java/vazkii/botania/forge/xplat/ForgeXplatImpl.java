@@ -18,14 +18,10 @@ import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -75,7 +71,6 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.block.IExoflameHeatable;
@@ -90,6 +85,7 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
@@ -107,6 +103,8 @@ import vazkii.botania.forge.mixin.ForgeAccessorRegistry;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
+
+import javax.annotation.Nullable;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -164,6 +162,18 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
+	public IManaItem findManaItem(ItemStack stack) {
+		return stack.getCapability(BotaniaForgeCapabilities.MANA_ITEM).orElse(null);
+	}
+
+	@Nullable
+	@Override
+	public IRelic findRelic(ItemStack stack) {
+		return stack.getCapability(BotaniaForgeCapabilities.RELIC).orElse(null);
+	}
+
+	@Nullable
+	@Override
 	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE, level, pos, state, be);
 	}
@@ -178,6 +188,24 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Override
 	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, level, pos, state, be);
+	}
+
+	@Nullable
+	@Override
+	public IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_GHOST, level, pos, state, be);
+	}
+
+	@Nullable
+	@Override
+	public IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction) {
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_RECEIVER, level, pos, state, be, direction);
+	}
+
+	@Nullable
+	@Override
+	public IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
+		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_TRIGGER, level, pos, state, be);
 	}
 
 	@Nullable
@@ -269,17 +297,18 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public ItemFlagsComponent itemFlagsComponent(ItemEntity item) {
-		return item.getCapability(ForgeInternalEntityCapabilities.INTERNAL_ITEM).orElseThrow(IllegalStateException::new);
+		// If missing, just give a fresh instance - works around Create's Ponder fake world
+		return item.getCapability(ForgeInternalEntityCapabilities.INTERNAL_ITEM).orElseGet(ItemFlagsComponent::new);
 	}
 
 	@Override
-	public KeptItemsComponent keptItemsComponent(Player player) {
-		if (!player.isAlive()) {
+	public KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps) {
+		if (reviveCaps) {
 			// See the javadoc on reviveCaps for why this is necessary
 			player.reviveCaps();
 		}
 		var ret = player.getCapability(ForgeInternalEntityCapabilities.KEPT_ITEMS).orElseThrow(IllegalStateException::new);
-		if (!player.isAlive()) {
+		if (reviveCaps) {
 			player.invalidateCaps();
 		}
 		return ret;
@@ -336,8 +365,8 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action) {
-		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(be, type, action));
+	public void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(thing, type, action));
 	}
 
 	@Override
@@ -416,7 +445,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 		// The registryKey really belongs on ModBrews, but this method is called from there,
 		// so we'd like to avoid the circular dependency.
 		return ForgeAccessorRegistry.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
-				LibMisc.MOD_ID + ":fallback", () -> ModBrews.fallbackBrew);
+				LibMisc.MOD_ID + ":fallback", registry -> ModBrews.fallbackBrew);
 	}
 
 	@Nullable
@@ -445,28 +474,13 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public Tag.Named<Block> blockTag(ResourceLocation id) {
-		return BlockTags.createOptional(id);
-	}
-
-	@Override
-	public Tag.Named<Item> itemTag(ResourceLocation id) {
-		return ItemTags.createOptional(id);
-	}
-
-	@Override
-	public Tag.Named<EntityType<?>> entityTag(ResourceLocation id) {
-		return EntityTypeTags.createOptional(id);
-	}
-
-	@Override
-	public Tag.Named<Block> getOreTag() {
+	public TagKey<Block> getOreTag() {
 		return Tags.Blocks.ORES;
 	}
 
 	@Override
-	public Tag<Block> getGlassTag() {
-		return Tags.Blocks.GLASS;
+	public boolean isInGlassTag(BlockState state) {
+		return state.is(Tags.Blocks.GLASS);
 	}
 
 	@Override
@@ -532,11 +546,6 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 			}
 		}
 		return energy;
-	}
-
-	@Override
-	public int getEnergyMultiplier() {
-		return 10;
 	}
 
 	@Override

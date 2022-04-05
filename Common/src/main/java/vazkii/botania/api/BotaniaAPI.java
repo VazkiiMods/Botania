@@ -30,8 +30,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
@@ -48,14 +48,14 @@ import java.util.function.Supplier;
 public interface BotaniaAPI {
 	String MODID = "botania";
 	String GOG_MODID = "gardenofglass";
-	Logger LOGGER = LogManager.getLogger(MODID);
+	Logger LOGGER = LoggerFactory.getLogger(MODID);
 
 	Supplier<BotaniaAPI> INSTANCE = Suppliers.memoize(() -> {
 		try {
 			return (BotaniaAPI) Class.forName("vazkii.botania.common.impl.BotaniaAPIImpl")
 					.getDeclaredConstructor().newInstance();
 		} catch (ReflectiveOperationException e) {
-			LogManager.getLogger().warn("Unable to find BotaniaAPIImpl, using a dummy");
+			LOGGER.warn("Unable to find BotaniaAPIImpl, using a dummy");
 			return new BotaniaAPI() {};
 		}
 	});

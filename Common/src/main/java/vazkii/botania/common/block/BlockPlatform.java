@@ -111,8 +111,8 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	}
 
 	@Override
-	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
-		return true;
+	public Behaviour getGhostBehaviour() {
+		return Behaviour.SKIP_ALL;
 	}
 
 	public static boolean isValidBlock(@Nullable BlockState state, Level world, BlockPos pos) {

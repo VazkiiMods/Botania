@@ -86,7 +86,7 @@ public class ItemTerraformRod extends Item {
 				continue;
 			}
 
-			if (ModTags.Blocks.TERRAFORMABLE.contains(state.getBlock())) {
+			if (state.is(ModTags.Blocks.TERRAFORMABLE)) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
 				for (Direction dir : Direction.Plane.HORIZONTAL) {

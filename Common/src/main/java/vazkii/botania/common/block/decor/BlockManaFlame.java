@@ -58,7 +58,7 @@ public class BlockManaFlame extends BlockMod implements EntityBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			ItemStack stack = player.getItemInHand(hand);
-			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.getInventory().contains(new ItemStack(ModItems.lexicon))) {
+			if (!stack.isEmpty() && stack.is(ItemTags.SAPLINGS) && !player.getInventory().contains(new ItemStack(ModItems.lexicon))) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
 					player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.lexicon));

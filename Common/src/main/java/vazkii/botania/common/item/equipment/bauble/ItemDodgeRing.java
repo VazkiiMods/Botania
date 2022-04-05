@@ -107,7 +107,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, LivingEntity player) {
+	public void onWornTick(ItemStack stack, LivingEntity living) {
 		int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
 		if (cd > 0) {
 			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);

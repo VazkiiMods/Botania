@@ -21,6 +21,7 @@ import vazkii.botania.api.subtile.TileEntityBindableSpecialFlower;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -39,9 +40,11 @@ public class ItemObedienceStick extends Item {
 	}
 
 	public static boolean applyStick(Level world, BlockPos pos) {
-		BlockEntity tileAt = world.getBlockEntity(pos);
-		if (tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
-			int range = tileAt instanceof IManaPool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
+		var state = world.getBlockState(pos);
+		var be = world.getBlockEntity(pos);
+		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, pos, state, be, null);
+		if (receiver instanceof IManaPool || receiver instanceof IManaCollector) {
+			int range = receiver instanceof IManaPool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
 			for (BlockPos iterPos : BlockPos.betweenClosed(pos.offset(-range, -range, -range), pos.offset(range, range, range))) {
 				if (MathHelper.distSqr(iterPos, pos) > range * range) {

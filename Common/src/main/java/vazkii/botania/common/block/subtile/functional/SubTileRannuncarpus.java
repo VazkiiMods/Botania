@@ -233,7 +233,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), getPlaceRange());
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getPlaceRange());
 	}
 
 	@Override
@@ -241,7 +241,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 		if (getPlaceRange() == PICKUP_RANGE) {
 			return null;
 		}
-		return new RadiusDescriptor.Square(getEffectivePos(), PICKUP_RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), PICKUP_RANGE);
 	}
 
 	public int getPlaceRange() {

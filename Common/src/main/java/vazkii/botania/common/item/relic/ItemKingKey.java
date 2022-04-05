@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,6 +19,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.handler.ModSounds;
@@ -131,9 +131,7 @@ public class ItemKingKey extends ItemRelic {
 		ItemNBTHelper.setInt(stack, TAG_WEAPONS_SPAWNED, count);
 	}
 
-	@Override
-	public ResourceLocation getAdvancement() {
-		return prefix("challenge/king_key");
+	public static IRelic makeRelic(ItemStack stack) {
+		return new RelicImpl(stack, prefix("challenge/king_key"));
 	}
-
 }

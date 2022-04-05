@@ -36,6 +36,7 @@
       "text": "botania.page.runeAltar22"
     },
     {
+      "anchor": "rune",
       "type": "botania:runic_altar",
       "text": "botania.page.runeAltar4",
       "recipe": "botania:runic_altar/water"

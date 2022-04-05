@@ -11,10 +11,11 @@ package vazkii.botania.api.mana;
 import vazkii.botania.api.internal.IManaBurst;
 
 /**
- * Any TileEntity that implements this is considered a mana collector, by
+ * Any {@link IManaReceiver} that also implements this is considered a mana collector, by
  * which nearby generating flowers will pump mana into it.<br>
  * <br>
  * <b>Implementation Instructions:</b><br>
+ * TODO update this
  * - Override invalidate() and onChunkUnload(), calling <i>ManaNetworkEvent.removeCollector(this);</i> on both.<br>
  * - On the first tick of update() (or onLoad() in Forge build 1606 or higher), call
  * </i>ManaNetworkEvent.addCollector(this);<i>

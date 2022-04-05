@@ -83,7 +83,8 @@ public class SubTileHydroangeas extends SubTileFluidGenerator {
 
 	@Override
 	public int getGenerationDelay() {
-		boolean rain = getLevel().getBiome(getEffectivePos()).getPrecipitation() == Biome.Precipitation.RAIN && (getLevel().isRaining() || getLevel().isThundering());
+		boolean rain = getLevel().getBiome(getEffectivePos()).value().getPrecipitation() == Biome.Precipitation.RAIN
+				&& (getLevel().isRaining() || getLevel().isThundering());
 		return rain ? 2 : 3;
 	}
 

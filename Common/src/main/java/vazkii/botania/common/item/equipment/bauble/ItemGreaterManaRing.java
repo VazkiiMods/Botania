@@ -8,7 +8,11 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+
+import javax.annotation.Nonnull;
 
 public class ItemGreaterManaRing extends ItemManaRing {
 
@@ -19,8 +23,24 @@ public class ItemGreaterManaRing extends ItemManaRing {
 	}
 
 	@Override
-	public int getMaxMana(ItemStack stack) {
-		return MAX_MANA * stack.getCount();
+	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if (allowdedIn(tab)) {
+			stacks.add(new ItemStack(this));
+
+			ItemStack full = new ItemStack(this);
+			setMana(full, MAX_MANA);
+			stacks.add(full);
+		}
 	}
 
+	public static class GreaterManaItem extends ItemManaRing.ManaItem {
+		public GreaterManaItem(ItemStack stack) {
+			super(stack);
+		}
+
+		@Override
+		public int getMaxMana() {
+			return MAX_MANA * stack.getCount();
+		}
+	}
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class KeptItemsComponent extends SerializableComponent {
+public class KeptItemsComponent extends SerializableComponent {
 	private final List<ItemStack> stacks = new ArrayList<>();
 
 	public void addAll(Collection<ItemStack> stack) {

@@ -11,7 +11,7 @@ package vazkii.botania.common.internal_caps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
-public abstract class LooniumComponent extends SerializableComponent {
+public class LooniumComponent extends SerializableComponent {
 	protected static final String TAG_TODROP = "toDrop";
 	private ItemStack toDrop = ItemStack.EMPTY;
 

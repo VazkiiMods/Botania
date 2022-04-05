@@ -14,11 +14,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -56,8 +55,8 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.mana.ManaBlockType;
-import vazkii.botania.api.mana.ManaNetworkAction;
+import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.mana.*;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
@@ -100,11 +99,27 @@ public interface IXplatAbstractions {
 	@Nullable
 	ICoordBoundItem findCoordBoundItem(ItemStack stack);
 	@Nullable
+	IManaItem findManaItem(ItemStack stack);
+	@Nullable
+	IRelic findRelic(ItemStack stack);
+	@Nullable
 	IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
 	IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
 	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	@Nullable
+	IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+
+	@Nullable
+	default IManaReceiver findManaReceiver(Level level, BlockPos pos, @Nullable Direction direction) {
+		return findManaReceiver(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), direction);
+	}
+
+	@Nullable
+	IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
+	@Nullable
+	IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
 	IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);
@@ -118,7 +133,7 @@ public interface IXplatAbstractions {
 	EthicalComponent ethicalComponent(PrimedTnt tnt);
 	GhostRailComponent ghostRailComponent(AbstractMinecart cart);
 	ItemFlagsComponent itemFlagsComponent(ItemEntity item);
-	KeptItemsComponent keptItemsComponent(Player player);
+	KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps);
 	@Nullable
 	LooniumComponent looniumComponent(LivingEntity entity);
 	NarslimmusComponent narslimmusComponent(Slime slime);
@@ -131,7 +146,7 @@ public interface IXplatAbstractions {
 	float fireManaDiscountEvent(Player player, float discount, ItemStack tool);
 	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
-	void fireManaNetworkEvent(BlockEntity be, ManaBlockType type, ManaNetworkAction action);
+	void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 
 	// Networking
 	Packet<?> toVanillaClientboundPacket(IPacket packet);
@@ -157,11 +172,8 @@ public interface IXplatAbstractions {
 	void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> buf);
 	Attribute getReachDistanceAttribute();
 	Attribute getStepHeightAttribute();
-	Tag.Named<Block> blockTag(ResourceLocation id);
-	Tag.Named<Item> itemTag(ResourceLocation id);
-	Tag.Named<EntityType<?>> entityTag(ResourceLocation id);
-	Tag.Named<Block> getOreTag();
-	Tag<Block> getGlassTag();
+	TagKey<Block> getOreTag();
+	boolean isInGlassTag(BlockState state);
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
 	// Forge also makes RecipeProvider.saveRecipeAdvancement an instance method >.>
@@ -172,7 +184,6 @@ public interface IXplatAbstractions {
 	boolean preventsRemoteMovement(ItemEntity entity);
 	void addAxeStripping(Block input, Block output);
 	int transferEnergyToNeighbors(Level level, BlockPos pos, int energy);
-	int getEnergyMultiplier();
 
 	// Red string container
 	boolean isRedStringContainerTarget(BlockEntity be);

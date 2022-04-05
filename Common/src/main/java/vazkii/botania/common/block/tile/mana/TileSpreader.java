@@ -29,7 +29,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,7 +59,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable {
+public class TileSpreader extends TileExposedSimpleInventory implements IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -155,7 +154,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileSpreader self) {
-		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(self);
+		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(level, self);
 		boolean wasInNetwork = inNetwork;
 		if (!inNetwork && !self.isRemoved()) {
 			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
@@ -164,24 +163,27 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		boolean powered = false;
 
 		for (Direction dir : Direction.values()) {
-			BlockEntity tileAt = level.getBlockEntity(worldPosition.relative(dir));
-			if (level.hasChunkAt(worldPosition.relative(dir)) && tileAt instanceof IManaPool pool) {
-				if (wasInNetwork && (pool != self.receiver || self.getVariant() == BlockSpreader.Variant.REDSTONE)) {
-					if (pool instanceof IKeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
-						continue;
-					}
+			var relPos = worldPosition.relative(dir);
+			if (level.hasChunkAt(relPos)) {
+				var receiverAt = IXplatAbstractions.INSTANCE.findManaReceiver(level, relPos,
+						level.getBlockState(relPos), level.getBlockEntity(relPos), null);
+				if (receiverAt instanceof IManaPool pool) {
+					if (wasInNetwork && (pool != self.receiver || self.getVariant() == BlockSpreader.Variant.REDSTONE)) {
+						if (pool instanceof IKeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
+							continue;
+						}
 
-					int manaInPool = pool.getCurrentMana();
-					if (manaInPool > 0 && !self.isFull()) {
-						int manaMissing = self.getMaxMana() - self.mana;
-						int manaToRemove = Math.min(manaInPool, manaMissing);
-						pool.receiveMana(-manaToRemove);
-						self.receiveMana(manaToRemove);
+						int manaInPool = pool.getCurrentMana();
+						if (manaInPool > 0 && !self.isFull()) {
+							int manaMissing = self.getMaxMana() - self.mana;
+							int manaToRemove = Math.min(manaInPool, manaMissing);
+							pool.receiveMana(-manaToRemove);
+							self.receiveMana(manaToRemove);
+						}
 					}
 				}
+				powered = powered || level.hasSignal(relPos, dir);
 			}
-
-			powered = powered || level.hasSignal(worldPosition.relative(dir), dir);
 		}
 
 		if (self.needsNewBurstSimulation()) {
@@ -274,9 +276,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
 
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.tileEntity().getBlockPos().getX());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? Integer.MIN_VALUE : receiver.tileEntity().getBlockPos().getY());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.tileEntity().getBlockPos().getZ());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.getManaReceiverPos().getX());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? Integer.MIN_VALUE : receiver.getManaReceiverPos().getY());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.getManaReceiverPos().getZ());
 
 		cmp.putBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
 		cmp.putInt(TAG_FORCED_COLOR, mmForcedColor);
@@ -343,12 +345,10 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			int y = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Y);
 			int z = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Z);
 			if (y != Integer.MIN_VALUE) {
-				BlockEntity tile = level.getBlockEntity(new BlockPos(x, y, z));
-				if (tile instanceof IManaReceiver r) {
-					receiver = r;
-				} else {
-					receiver = null;
-				}
+				var pos = new BlockPos(x, y, z);
+				var state = level.getBlockState(pos);
+				var be = level.getBlockEntity(pos);
+				receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, pos, state, be, null);
 			} else {
 				receiver = null;
 			}
@@ -362,6 +362,16 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	@Override
 	public boolean canReceiveManaFromBursts() {
 		return true;
+	}
+
+	@Override
+	public Level getManaReceiverLevel() {
+		return getLevel();
+	}
+
+	@Override
+	public BlockPos getManaReceiverPos() {
+		return getBlockPos();
 	}
 
 	@Override
@@ -462,12 +472,10 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 		EntityManaBurst fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
-		BlockEntity receiver = fakeBurst.getCollidedTile(true);
+		IManaReceiver receiver = fakeBurst.getCollidedTile(true);
 
-		if (receiver instanceof IManaReceiver
-				&& receiver.hasLevel()
-				&& receiver.getLevel().hasChunkAt(receiver.getBlockPos())) {
-			this.receiver = (IManaReceiver) receiver;
+		if (receiver != null && receiver.getManaReceiverLevel().hasChunkAt(receiver.getManaReceiverPos())) {
+			this.receiver = receiver;
 		} else {
 			this.receiver = null;
 		}
@@ -493,7 +501,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		}
 
 		if (getCurrentMana() >= props.maxMana || fake) {
-			EntityManaBurst burst = new EntityManaBurst(this, fake);
+			EntityManaBurst burst = new EntityManaBurst(getLevel(), getBlockPos(), getRotationX(), getRotationY(), fake);
 			burst.setSourceLens(lens);
 
 			if (mapmakerOverride) {
@@ -555,8 +563,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			}
 
 			if (spreader.receiver != null) {
-				BlockEntity receiverTile = spreader.receiver.tileEntity();
-				ItemStack recieverStack = new ItemStack(spreader.level.getBlockState(receiverTile.getBlockPos()).getBlock());
+				var receiverPos = spreader.receiver.getManaReceiverPos();
+				ItemStack recieverStack = new ItemStack(spreader.level.getBlockState(receiverPos).getBlock());
 				if (!recieverStack.isEmpty()) {
 					String stackName = recieverStack.getHoverName().getString();
 					int width = 16 + mc.font.width(stackName) / 2;
@@ -617,8 +625,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			return null;
 		}
 
-		BlockEntity tile = receiver.tileEntity();
-		return tile.getBlockPos();
+		return receiver.getManaReceiverPos();
 	}
 
 	@Override
