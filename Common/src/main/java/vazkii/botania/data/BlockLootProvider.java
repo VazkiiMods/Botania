@@ -25,6 +25,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -88,8 +90,7 @@ public class BlockLootProvider implements DataProvider {
 			if (b instanceof SlabBlock) {
 				functionTable.put(b, BlockLootProvider::genSlab);
 			} else if (b instanceof BlockModDoubleFlower) {
-				// Done by loader-specific datagen since it needs loader-specific shears tag
-				functionTable.put(b, SKIP);
+				functionTable.put(b, BlockLootProvider::genDoubleFlower);
 			} else if (b instanceof BlockAltGrass) {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
@@ -225,6 +226,14 @@ public class BlockLootProvider implements DataProvider {
 						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))))
 				.apply(ApplyExplosionDecay.explosionDecay());
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
+	}
+
+	protected static LootTable.Builder genDoubleFlower(Block b) {
+		var entry = LootItem.lootTableItem(b)
+				.when(ExplosionCondition.survivesExplosion())
+				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b)
+						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER)));
+		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(entry));
 	}
 
 	protected static LootTable.Builder genAltGrass(Block b) {

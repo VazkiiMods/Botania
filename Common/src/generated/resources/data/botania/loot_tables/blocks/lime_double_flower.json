@@ -9,25 +9,17 @@
           "type": "minecraft:item",
           "conditions": [
             {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
               "condition": "minecraft:block_state_property",
-              "block": "botania:white_double_flower",
+              "block": "botania:lime_double_flower",
               "properties": {
                 "half": "lower"
               }
-            },
-            {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "tag": "fabric:shears"
-              }
             }
           ],
-          "name": "botania:white_double_flower"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "name": "botania:lime_double_flower"
         }
       ]
     }

@@ -9,25 +9,17 @@
           "type": "minecraft:item",
           "conditions": [
             {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
               "condition": "minecraft:block_state_property",
-              "block": "botania:yellow_double_flower",
+              "block": "botania:brown_double_flower",
               "properties": {
                 "half": "lower"
               }
-            },
-            {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "tag": "forge:shears"
-              }
             }
           ],
-          "name": "botania:yellow_double_flower"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "name": "botania:brown_double_flower"
         }
       ]
     }
