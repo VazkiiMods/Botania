@@ -13,7 +13,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
 
 public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 
@@ -67,7 +65,10 @@ public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 				int x = this.leftPos + slot.x;
 				int y = this.topPos + slot.y;
 				mc.getItemRenderer().renderGuiItem(stack, x, y);
+				ms.pushPose();
+				ms.translate(0, 0, mc.getItemRenderer().blitOffset + 200); // similar to ItemRenderer.renderGuiItemDecorations
 				mc.font.drawShadow(ms, "0", x + 11, y + 9, 0xFF6666);
+				ms.popPose();
 			}
 		}
 	}
