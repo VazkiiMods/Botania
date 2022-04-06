@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockModDoubleFlower extends TallFlowerBlock {
-	private final DyeColor color;
+	public final DyeColor color;
 
 	public BlockModDoubleFlower(DyeColor color, Properties builder) {
 		super(builder);
