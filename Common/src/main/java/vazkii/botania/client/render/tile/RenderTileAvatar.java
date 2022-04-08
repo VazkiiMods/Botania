@@ -70,15 +70,17 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 				ms.popPose();
 
 				IAvatarWieldable wieldable = IXplatAbstractions.INSTANCE.findAvatarWieldable(stack);
-				buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar)));
-				s = 1.01F;
+				if (wieldable != null) {
+					buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar)));
+					s = 1.01F;
 
-				ms.pushPose();
-				ms.scale(s, s, s);
-				ms.translate(0F, -0.01F, 0F);
-				float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
-				model.renderToBuffer(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
-				ms.popPose();
+					ms.pushPose();
+					ms.scale(s, s, s);
+					ms.translate(0F, -0.01F, 0F);
+					float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
+					model.renderToBuffer(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
+					ms.popPose();
+				}
 			}
 		}
 		ms.popPose();

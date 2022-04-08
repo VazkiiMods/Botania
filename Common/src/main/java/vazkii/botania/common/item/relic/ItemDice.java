@@ -133,16 +133,16 @@ public class ItemDice extends ItemRelic {
 		};
 	}
 
-	private boolean hasRelicAlready(Player player, int relic) {
-		if (relic < 0 || relic > 6 || !(player instanceof ServerPlayer mpPlayer)) {
+	private boolean hasRelicAlready(Player player, int relicId) {
+		if (relicId < 0 || relicId > 6 || !(player instanceof ServerPlayer mpPlayer)) {
 			return true;
 		}
 
-		var stack = RELIC_STACKS.get().get(relic);
-		ResourceLocation advId = IXplatAbstractions.INSTANCE.findRelic(stack).getAdvancement();
+		var stack = RELIC_STACKS.get().get(relicId);
+		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
 
-		if (advId != null) {
-			Advancement adv = player.level.getServer().getAdvancements().getAdvancement(advId);
+		if (relic != null && relic.getAdvancement() != null) {
+			Advancement adv = player.level.getServer().getAdvancements().getAdvancement(relic.getAdvancement());
 			return adv != null && mpPlayer.getAdvancements().getOrStartProgress(adv).isDone();
 		}
 
