@@ -221,4 +221,9 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return null;
 	}
 
+	@Override
+	public BlockPos getRealFlowerPos(TileEntity supertile) {
+		return supertile.getPos();
+	}
+
 }

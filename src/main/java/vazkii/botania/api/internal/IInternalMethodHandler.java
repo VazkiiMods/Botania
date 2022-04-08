@@ -130,4 +130,6 @@ public interface IInternalMethodHandler {
 	 */
 	List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories);
 
+	public BlockPos getRealFlowerPos(TileEntity supertile);
+
 }

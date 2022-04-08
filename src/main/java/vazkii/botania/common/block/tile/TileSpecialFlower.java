@@ -45,6 +45,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 
 	public String subTileName = "";
 	private SubTileEntity subTile;
+	private BlockPos originalFlowerPos;
 
 	@Override
 	public SubTileEntity getSubTile() {
@@ -82,10 +83,12 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			if(tileBelow instanceof TileRedStringRelay) {
 				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 				if(coords != null) {
+					originalFlowerPos = pos;
 					BlockPos currPos = pos;
 					setPos(coords);
 					subTile.onUpdate();
 					setPos(currPos);
+					originalFlowerPos = null;
 
 					world.profiler.endSection();
 					return;
@@ -105,6 +108,10 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			subTile.overgrowthBoost = false;
 			world.profiler.endSection();
 		}
+	}
+
+	public BlockPos getRealFlowerPos() {
+		return originalFlowerPos != null ? originalFlowerPos : getPos();
 	}
 
 	public boolean isOnSpecialSoil() {

@@ -96,7 +96,10 @@ public class SubTileEntity {
 	public void readFromPacketNBT(NBTTagCompound cmp) { }
 
 	public void sync() {
+		BlockPos effectivePos = supertile.getPos();
+		supertile.setPos(BotaniaAPI.internalHandler.getRealFlowerPos(supertile));
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(supertile);
+		supertile.setPos(effectivePos);
 	}
 
 	public String getUnlocalizedName() {

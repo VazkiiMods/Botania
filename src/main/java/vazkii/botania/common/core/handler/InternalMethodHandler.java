@@ -54,6 +54,7 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -281,4 +282,14 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		}
 		return arrayList;
 	}
+
+	@Override
+	public BlockPos getRealFlowerPos(TileEntity supertile) {
+		if (supertile instanceof TileSpecialFlower) {
+			return ((TileSpecialFlower) supertile).getRealFlowerPos();
+		} else {
+			return supertile.getPos();
+		}
+	}
+
 }
