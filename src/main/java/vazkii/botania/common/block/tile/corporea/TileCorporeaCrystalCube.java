@@ -134,6 +134,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		NBTTagCompound cmp = par1nbtTagCompound.getCompoundTag(TAG_REQUEST_TARGET);
 		requestTarget = new ItemStack(cmp);
 		itemCount = par1nbtTagCompound.getInteger(TAG_ITEM_COUNT);
+		compValue = CorporeaHelper.signalStrengthForRequestSize(itemCount);
 		locked = par1nbtTagCompound.getBoolean(TAG_LOCK);
 	}
 
