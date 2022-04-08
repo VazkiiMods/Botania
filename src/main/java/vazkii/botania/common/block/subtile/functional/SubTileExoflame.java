@@ -23,12 +23,17 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubTileExoflame extends SubTileFunctional {
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;
+
+	private List<BlockPos> cachedPositions;
+	private int cachedPositionsTime = -1;
 
 	@Override
 	public void onUpdate() {
@@ -39,7 +44,20 @@ public class SubTileExoflame extends SubTileFunctional {
 
 		boolean did = false;
 
-		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+		if (cachedPositions == null || ticksExisted - cachedPositionsTime >= 40) {
+			cachedPositions = new ArrayList<BlockPos>();
+			cachedPositionsTime = ticksExisted;
+
+			for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+				TileEntity tile = supertile.getWorld().getTileEntity(pos);
+				Block block = supertile.getWorld().getBlockState(pos).getBlock();
+				if (tile instanceof TileEntityFurnace || tile instanceof IExoflameHeatable) {
+					cachedPositions.add(pos);
+				}
+			}
+		}
+
+		for(BlockPos pos : cachedPositions) {
 			TileEntity tile = supertile.getWorld().getTileEntity(pos);
 			Block block = supertile.getWorld().getBlockState(pos).getBlock();
 			if(tile != null) {
