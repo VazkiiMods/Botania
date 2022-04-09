@@ -84,7 +84,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 				superLavaPendant,
 				thirdEye
 		);
-		this.tag(accessory("hand/ring")).add(
+		Item[] rings = {
 				auraRing,
 				auraRingGreater,
 				dodgeRing,
@@ -100,7 +100,9 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 				swapRing,
 				thorRing,
 				waterRing
-		);
+		};
+		this.tag(accessory("hand/ring")).add(rings);
+		this.tag(accessory("offhand/ring")).add(rings);
 		this.tag(accessory("head/face")).add(
 				itemFinder,
 				monocle,
