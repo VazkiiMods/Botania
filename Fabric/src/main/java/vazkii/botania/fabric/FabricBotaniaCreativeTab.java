@@ -8,7 +8,7 @@
  */
 package vazkii.botania.fabric;
 
-import net.fabricmc.fabric.impl.item.group.ItemGroupExtensions;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
@@ -18,19 +18,22 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public final class FabricBotaniaCreativeTab extends CreativeModeTab {
+	public static final FabricBotaniaCreativeTab INSTANCE;
+	static {
+		// Use FabricItemGroupBuilder#build only for its side-effect of expanding the size of the global static array of CreativeModeTabs by one.
+		CreativeModeTab sacrificial = FabricItemGroupBuilder.build(prefix("sacrificial_tab"), () -> new ItemStack(ModItems.thinkingHand));
 
-	public static final FabricBotaniaCreativeTab INSTANCE = new FabricBotaniaCreativeTab();
-
-	public FabricBotaniaCreativeTab() {
-		super(computeIndex(), LibMisc.MOD_ID);
-		hideTitle();
-		setBackgroundSuffix(LibResources.GUI_CREATIVE);
+		// Slot a new creative tab into its place. (CreativeModeTab does this in its constructor.)
+		INSTANCE = new FabricBotaniaCreativeTab(sacrificial.getId(), LibMisc.MOD_ID);
 	}
 
-	private static int computeIndex() {
-		((ItemGroupExtensions) CreativeModeTab.TAB_BUILDING_BLOCKS).fabric_expandArray();
-		return CreativeModeTab.TABS.length - 1;
+	public FabricBotaniaCreativeTab(int index, String langId) {
+		super(index, langId);
+		hideTitle();
+		setBackgroundSuffix(LibResources.GUI_CREATIVE);
 	}
 
 	@Nonnull
