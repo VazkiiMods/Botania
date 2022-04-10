@@ -13,7 +13,7 @@ public class ForgeBotaniaCreativeTab extends CreativeModeTab {
 	public static final ForgeBotaniaCreativeTab INSTANCE = new ForgeBotaniaCreativeTab();
 
 	private ForgeBotaniaCreativeTab() {
-		super(LibMisc.MOD_ID);
+		super(LibMisc.MOD_ID + ".tab");
 		hideTitle();
 		setBackgroundSuffix(LibResources.GUI_CREATIVE);
 	}

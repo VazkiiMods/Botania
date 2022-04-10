@@ -12,6 +12,7 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -37,7 +38,9 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -53,6 +56,7 @@ import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
@@ -102,6 +106,12 @@ import java.util.function.BiConsumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricCommonInitializer implements ModInitializer {
+	public static final CreativeModeTab CREATIVE_TAB = FabricItemGroupBuilder.create(prefix("tab"))
+			.icon(() -> new ItemStack(ModItems.lexicon))
+			.build()
+			.hideTitle()
+			.setBackgroundSuffix(LibResources.GUI_CREATIVE);
+
 	@Override
 	public void onInitialize() {
 		coreInit();

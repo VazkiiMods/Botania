@@ -93,7 +93,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.fabric.FabricBotaniaCreativeTab;
+import vazkii.botania.fabric.FabricCommonInitializer;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
@@ -451,7 +451,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public FabricItemSettings defaultItemBuilder() {
-		return new FabricItemSettings().group(FabricBotaniaCreativeTab.INSTANCE);
+		return new FabricItemSettings().group(FabricCommonInitializer.CREATIVE_TAB);
 	}
 
 	@Override
