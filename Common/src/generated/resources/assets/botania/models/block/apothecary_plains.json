@@ -2,7 +2,7 @@
   "parent": "botania:block/shapes/petal_apothecary",
   "textures": {
     "side": "botania:block/apothecary_plains_side",
-    "goblet": "botania:block/apothecary_plains_goblet",
-    "top_bottom": "botania:block/apothecary_plains_top_bottom"
+    "top": "botania:block/apothecary_plains_top",
+    "bottom": "botania:block/apothecary_plains_bottom"
   }
 }
