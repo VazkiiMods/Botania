@@ -166,7 +166,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 			var relPos = worldPosition.relative(dir);
 			if (level.hasChunkAt(relPos)) {
 				var receiverAt = IXplatAbstractions.INSTANCE.findManaReceiver(level, relPos,
-						level.getBlockState(relPos), level.getBlockEntity(relPos), null);
+						level.getBlockState(relPos), level.getBlockEntity(relPos), dir.getOpposite());
 				if (receiverAt instanceof IManaPool pool) {
 					if (wasInNetwork && (pool != self.receiver || self.getVariant() == BlockSpreader.Variant.REDSTONE)) {
 						if (pool instanceof IKeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {

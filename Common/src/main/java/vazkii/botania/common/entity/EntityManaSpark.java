@@ -87,7 +87,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 			dropAndKill();
 			return;
 		}
-		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, getAttachPos(), ((BlockEntity) tile).getBlockState(), ((BlockEntity) tile), null);
+		var receiver = getAttachedManaReceiver();
 
 		SparkUpgradeType upgrade = getUpgrade();
 		Collection<IManaSpark> transfers = getTransfers();
@@ -156,7 +156,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 				List<IManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 						.filter(s -> {
 							SparkUpgradeType otherUpgrade = s.getUpgrade();
-							return s != this && otherUpgrade == SparkUpgradeType.NONE && IXplatAbstractions.INSTANCE.findManaReceiver(level, s.getAttachPos(), null) instanceof IManaPool;
+							return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedManaReceiver() instanceof IManaPool;
 						})
 						.collect(Collectors.toList());
 				if (validSparks.size() > 0) {
@@ -187,7 +187,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 				for (IManaSpark spark : transfers) {
 					count--;
 					ISparkAttachable attached = spark.getAttachedTile();
-					var attachedReceiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, spark.getAttachPos(), ((BlockEntity) attached).getBlockState(), ((BlockEntity) attached), null);
+					var attachedReceiver = spark.getAttachedManaReceiver();
 					if (attachedReceiver == null || attachedReceiver.isFull() || spark.areIncomingTransfersDone()) {
 						continue;
 					}
@@ -303,20 +303,12 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 			IManaSpark spark = iter.next();
 			SparkUpgradeType upgr = getUpgrade();
 			SparkUpgradeType supgr = spark.getUpgrade();
-			ISparkAttachable atile = spark.getAttachedTile();
-			IManaReceiver arecv;
-			if (atile == null) {
-				arecv = null;
-			} else {
-				var be = (BlockEntity) atile;
-				arecv = IXplatAbstractions.INSTANCE.findManaReceiver(level, be.getBlockPos(), be.getBlockState(), be, null);
-			}
+			IManaReceiver arecv = spark.getAttachedManaReceiver();
 
 			if (spark == this
 					|| !((Entity) spark).isAlive()
 					|| spark.areIncomingTransfersDone()
 					|| getNetwork() != spark.getNetwork()
-					|| atile == null
 					|| arecv == null
 					|| arecv.isFull()
 					|| !(upgr == SparkUpgradeType.NONE && supgr == SparkUpgradeType.DOMINANT
@@ -357,12 +349,11 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 
 	@Override
 	public boolean areIncomingTransfersDone() {
-		ISparkAttachable attachable = getAttachedTile();
-		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, getAttachPos(),
-				level.getBlockState(getAttachPos()), (BlockEntity) attachable, null);
-		if (receiver instanceof IManaPool) {
+		if (getAttachedManaReceiver() instanceof IManaPool) {
 			return removeTransferants > 0;
 		}
+
+		ISparkAttachable attachable = getAttachedTile();
 		return attachable != null && attachable.areIncomingTranfersDone();
 	}
 
