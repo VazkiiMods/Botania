@@ -87,6 +87,7 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -201,6 +202,12 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	@Override
 	public IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, Direction direction) {
 		return BotaniaFabricCapabilities.MANA_RECEIVER.find(level, pos, state, be, direction);
+	}
+
+	@Nullable
+	@Override
+	public ISparkAttachable findSparkAttachable(Level level, BlockPos pos, BlockState blockState, @Nullable BlockEntity be, Direction direction) {
+		return BotaniaFabricCapabilities.SPARK_ATTACHABLE.find(level, pos, blockState, be, direction);
 	}
 
 	@Nullable

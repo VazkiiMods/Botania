@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -20,6 +19,7 @@ import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,8 +38,9 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 		ItemStack changeStack = getItemHandler().getItem(0);
 		List<ISparkAttachable> attachables = new ArrayList<>();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
-			BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-			if (tile instanceof ISparkAttachable attach) {
+			var pos = worldPosition.relative(dir);
+			var attach = IXplatAbstractions.INSTANCE.findSparkAttachable(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), dir.getOpposite());
+			if (attach != null) {
 				IManaSpark spark = attach.getAttachedSpark();
 				if (spark != null) {
 					SparkUpgradeType upg = spark.getUpgrade();

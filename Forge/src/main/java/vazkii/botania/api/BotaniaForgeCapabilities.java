@@ -16,6 +16,7 @@ import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
 
 public final class BotaniaForgeCapabilities {
 	public static final Capability<IAvatarWieldable> AVATAR_WIELDABLE = CapabilityManager.get(new CapabilityToken<>() {});
@@ -29,6 +30,7 @@ public final class BotaniaForgeCapabilities {
 	public static final Capability<IHourglassTrigger> HOURGLASS_TRIGGER = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IManaCollisionGhost> MANA_GHOST = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IManaReceiver> MANA_RECEIVER = CapabilityManager.get(new CapabilityToken<>() {});
+	public static final Capability<ISparkAttachable> SPARK_ATTACHABLE = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IManaTrigger> MANA_TRIGGER = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<IWandable> WANDABLE = CapabilityManager.get(new CapabilityToken<>() {});
 
