@@ -23,7 +23,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
