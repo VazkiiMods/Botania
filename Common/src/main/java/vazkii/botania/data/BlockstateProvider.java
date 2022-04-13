@@ -20,11 +20,7 @@ import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -518,6 +514,27 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeStoneMountainSlab, mountainModels, mountainTextures, mountainTextures, mountainTextures, mountainWeights);
 		wallBlockWithVariants(remainingBlocks, biomeStoneMountainWall, mountainTextures, mountainWeights);
 
+		var mountainBrickTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickMountain),
+				getBlockTexture(biomeBrickMountain, "_1"),
+				getBlockTexture(biomeBrickMountain, "_2"),
+				getBlockTexture(biomeBrickMountain, "_3"),
+				getBlockTexture(biomeBrickMountain, "_4"),
+				getBlockTexture(biomeBrickMountain, "_5")
+		};
+		var mountainBrickModels = new ResourceLocation[] {
+				getModelLocation(biomeBrickMountain),
+				getModelLocation(biomeBrickMountain, "_1"),
+				getModelLocation(biomeBrickMountain, "_2"),
+				getModelLocation(biomeBrickMountain, "_3"),
+				getModelLocation(biomeBrickMountain, "_4"),
+				getModelLocation(biomeBrickMountain, "_5"),
+		};
+		cubeAllWithVariants(remainingBlocks, biomeBrickMountain, mountainBrickTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickMountainStairs, mountainBrickTextures, mountainBrickTextures, mountainBrickTextures);
+		slabBlockWithVariants(remainingBlocks, biomeBrickMountainSlab, mountainBrickModels, mountainBrickTextures, mountainBrickTextures, mountainBrickTextures);
+		wallBlockWithVariants(remainingBlocks, biomeBrickMountainWall, mountainBrickTextures);
+
 		var taigaTextures = new ResourceLocation[] { getBlockTexture(biomeStoneTaiga), getBlockTexture(biomeStoneTaiga, "_1") };
 		var taigaModels = new ResourceLocation[] { getModelLocation(biomeStoneTaiga), getModelLocation(biomeStoneTaiga, "_1") };
 		rotatedMirroredWithVariants(remainingBlocks, biomeStoneTaiga, taigaTextures);
@@ -525,39 +542,8 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeStoneTaigaSlab, taigaModels, taigaTextures, taigaTextures, taigaTextures);
 		wallBlockWithVariants(remainingBlocks, biomeStoneTaigaWall, taigaTextures);
 
-		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain", "plains", "swamp", "taiga" }) {
-
-			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
-			Block stone = Registry.BLOCK.getOptional(baseId).get();
-			if (stone != biomeStoneMountain && stone != biomeStoneTaiga) {
-				rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
-				ResourceLocation stoneWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX);
-				Block stoneWall = Registry.BLOCK.getOptional(stoneWallId).get();
-				wallBlock(remainingBlocks, stoneWall, getBlockTexture(stone));
-			}
-
-			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
-			Block cobble = Registry.BLOCK.getOptional(cobbleId).get();
-			cubeAll(cobble);
-
-			ResourceLocation cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
-			Block cobbleWall = Registry.BLOCK.getOptional(cobbleWallId).get();
-			wallBlock(remainingBlocks, cobbleWall, getBlockTexture(cobble));
-
-			ResourceLocation brickId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block brick = Registry.BLOCK.getOptional(brickId).get();
-			cubeAll(brick);
-
-			ResourceLocation brickWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX);
-			Block brickWall = Registry.BLOCK.getOptional(brickWallId).get();
-			wallBlock(remainingBlocks, brickWall, getBlockTexture(brick));
-
-			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block chiseledBricks = Registry.BLOCK.getOptional(chiseledBricksId).get();
-			cubeAll(chiseledBricks);
-
-			// stairs and slabs get handled automatically, walls and stone get removed automatically
-			remainingBlocks.removeAll(Arrays.asList(cobble, brick, chiseledBricks));
+		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
+			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
@@ -662,7 +648,15 @@ public class BlockstateProvider implements DataProvider {
 			}
 		});
 
-		remainingBlocks.forEach(this::cubeAll);
+		takeAll(remainingBlocks, b -> b instanceof WallBlock).forEach(wallBlock -> {
+			String name = Registry.BLOCK.getKey(wallBlock).getPath();
+			String baseName = name.substring(0, name.length() - LibBlockNames.WALL_SUFFIX.length());
+			Block base = Registry.BLOCK.getOptional(prefix(baseName)).get();
+			var baseTexture = getBlockTexture(base);
+			wallBlock(new HashSet<>(), wallBlock, baseTexture);
+		});
+
+		remainingBlocks.forEach(this::cubeAllNoRemove);
 	}
 
 	protected void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
@@ -885,9 +879,45 @@ public class BlockstateProvider implements DataProvider {
 		this.blockstates.add(AccessorBlockModelGenerators.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel));
 	}
 
-	protected void cubeAll(Block b) {
-		var model = ModelTemplates.CUBE_ALL.create(b, TextureMapping.cube(b), this.modelOutput);
-		singleVariantBlockState(b, model);
+	protected void cubeAllNoRemove(Block block) {
+		cubeAll(new HashSet<>(), block);
+	}
+
+	protected void cubeAll(Set<Block> blocks, Block block) {
+		ResourceLocation texture = getBlockTexture(block);
+		cubeAllWithVariants(blocks, block, new ResourceLocation[]{ texture });
+	}
+
+	protected void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
+		var weights = new Integer[textures.length];
+		Arrays.fill(weights, 1);
+		cubeAllWithVariants(blocks, block, textures, weights);
+	}
+
+	protected void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
+		int length = textures.length;
+		if (length != weights.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		ResourceLocation[] models = new ResourceLocation[length];
+		for (int i = 0; i < length; i++) {
+			String suffix = i == 0 ? "" : "_" + i;
+			ResourceLocation modelId = getModelLocation(block, suffix);
+			models[i] = ModelTemplates.CUBE_ALL.create(modelId, TextureMapping.cube(textures[i]), this.modelOutput);
+		}
+		cubeAllWithModels(blocks, block, models, weights);
+	}
+
+	protected void cubeAllWithModels(Set<Block> blocks, Block block, ResourceLocation[] models, Integer[] weights) {
+		int length = models.length;
+		if (length != weights.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		var indices = IntStream.range(0, length).boxed();
+		this.blockstates.add(MultiVariantGenerator.multiVariant(block, indices.map(i ->
+				maybeWeight(weights[i], Variant.variant().with(VariantProperties.MODEL, models[i]))
+		).toArray(Variant[]::new)));
+		blocks.remove(block);
 	}
 
 	protected void singleVariantBlockState(Block b, ResourceLocation model) {
