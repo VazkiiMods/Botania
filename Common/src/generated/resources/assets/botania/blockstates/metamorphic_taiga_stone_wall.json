@@ -1,0 +1,149 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_post"
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_post_1"
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": "low"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side",
+          "y": 90,
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_1",
+          "y": 90,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": "tall"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall",
+          "y": 90,
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall_1",
+          "y": 90,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "west": "low"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side",
+          "y": 270,
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_1",
+          "y": 270,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "west": "tall"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall",
+          "y": 270,
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall_1",
+          "y": 270,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "south": "low"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side",
+          "y": 180,
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_1",
+          "y": 180,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "south": "tall"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall",
+          "y": 180,
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall_1",
+          "y": 180,
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "north": "low"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side",
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_1",
+          "uvlock": true
+        }
+      ]
+    },
+    {
+      "when": {
+        "north": "tall"
+      },
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall",
+          "uvlock": true
+        },
+        {
+          "model": "botania:block/metamorphic_taiga_stone_wall_side_tall_1",
+          "uvlock": true
+        }
+      ]
+    }
+  ]
+}

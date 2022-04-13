@@ -516,12 +516,14 @@ public class BlockstateProvider implements DataProvider {
 		rotatedMirroredWithVariants(remainingBlocks, biomeStoneMountain, mountainTextures, mountainWeights);
 		stairsBlockWithVariants(remainingBlocks, biomeStoneMountainStairs, mountainTextures, mountainTextures, mountainTextures, mountainWeights);
 		slabBlockWithVariants(remainingBlocks, biomeStoneMountainSlab, mountainModels, mountainTextures, mountainTextures, mountainTextures, mountainWeights);
+		wallBlockWithVariants(remainingBlocks, biomeStoneMountainWall, mountainTextures, mountainWeights);
 
 		var taigaTextures = new ResourceLocation[] { getBlockTexture(biomeStoneTaiga), getBlockTexture(biomeStoneTaiga, "_1") };
 		var taigaModels = new ResourceLocation[] { getModelLocation(biomeStoneTaiga), getModelLocation(biomeStoneTaiga, "_1") };
 		rotatedMirroredWithVariants(remainingBlocks, biomeStoneTaiga, taigaTextures);
 		stairsBlockWithVariants(remainingBlocks, biomeStoneTaigaStairs, taigaTextures, taigaTextures, taigaTextures);
 		slabBlockWithVariants(remainingBlocks, biomeStoneTaigaSlab, taigaModels, taigaTextures, taigaTextures, taigaTextures);
+		wallBlockWithVariants(remainingBlocks, biomeStoneTaigaWall, taigaTextures);
 
 		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain", "plains", "swamp", "taiga" }) {
 
@@ -529,6 +531,9 @@ public class BlockstateProvider implements DataProvider {
 			Block stone = Registry.BLOCK.getOptional(baseId).get();
 			if (stone != biomeStoneMountain && stone != biomeStoneTaiga) {
 				rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
+				ResourceLocation stoneWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX);
+				Block stoneWall = Registry.BLOCK.getOptional(stoneWallId).get();
+				wallBlock(remainingBlocks, stoneWall, getBlockTexture(stone));
 			}
 
 			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
