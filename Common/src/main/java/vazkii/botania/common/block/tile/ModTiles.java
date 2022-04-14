@@ -25,6 +25,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -33,115 +35,74 @@ import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModTiles {
-	public static final BlockEntityType<TileAltar> ALTAR = type(TileAltar::new,
+	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();
+	public static final BlockEntityType<TileAltar> ALTAR = type(prefix(LibBlockNames.ALTAR), TileAltar::new,
 			defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
 			swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar
 	);
-	public static final BlockEntityType<TileSpreader> SPREADER = type(TileSpreader::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader);
-	public static final BlockEntityType<TilePool> POOL = type(TilePool::new, manaPool, dilutedPool, fabulousPool, creativePool);
-	public static final BlockEntityType<TileRuneAltar> RUNE_ALTAR = type(TileRuneAltar::new, runeAltar);
-	public static final BlockEntityType<TilePylon> PYLON = type(TilePylon::new, manaPylon, naturaPylon, gaiaPylon);
-	public static final BlockEntityType<TileDistributor> DISTRIBUTOR = type(TileDistributor::new, distributor);
-	public static final BlockEntityType<TileEnchanter> ENCHANTER = type(TileEnchanter::new, enchanter);
-	public static final BlockEntityType<TileTurntable> TURNTABLE = type(TileTurntable::new, turntable);
-	public static final BlockEntityType<TileTinyPlanet> TINY_PLANET = type(TileTinyPlanet::new, tinyPlanet);
-	public static final BlockEntityType<TileOpenCrate> OPEN_CRATE = type(TileOpenCrate::new, openCrate);
-	public static final BlockEntityType<TileCraftCrate> CRAFT_CRATE = type(TileCraftCrate::new, craftCrate);
-	public static final BlockEntityType<TileForestEye> FORSET_EYE = type(TileForestEye::new, forestEye);
-	public static final BlockEntityType<TilePlatform> PLATFORM = type(TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform);
-	public static final BlockEntityType<TileAlfPortal> ALF_PORTAL = type(TileAlfPortal::new, alfPortal);
-	public static final BlockEntityType<TileBifrost> BIFROST = type(TileBifrost::new, bifrost);
-	public static final BlockEntityType<TileFloatingFlower> MINI_ISLAND = type(TileFloatingFlower::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new));
-	public static final BlockEntityType<TileTinyPotato> TINY_POTATO = type(TileTinyPotato::new, tinyPotato);
-	public static final BlockEntityType<TileSpawnerClaw> SPAWNER_CLAW = type(TileSpawnerClaw::new, spawnerClaw);
-	public static final BlockEntityType<TileEnderEye> ENDER_EYE = type(TileEnderEye::new, enderEye);
-	public static final BlockEntityType<TileStarfield> STARFIELD = type(TileStarfield::new, starfield);
-	public static final BlockEntityType<TileRFGenerator> FLUXFIELD = type(TileRFGenerator::new, rfGenerator);
-	public static final BlockEntityType<TileBrewery> BREWERY = type(TileBrewery::new, brewery);
-	public static final BlockEntityType<TileTerraPlate> TERRA_PLATE = type(TileTerraPlate::new, terraPlate);
-	public static final BlockEntityType<TileRedStringContainer> RED_STRING_CONTAINER = type(IXplatAbstractions.INSTANCE::newRedStringContainer, redStringContainer);
-	public static final BlockEntityType<TileRedStringDispenser> RED_STRING_DISPENSER = type(TileRedStringDispenser::new, redStringDispenser);
-	public static final BlockEntityType<TileRedStringFertilizer> RED_STRING_FERTILIZER = type(TileRedStringFertilizer::new, redStringFertilizer);
-	public static final BlockEntityType<TileRedStringComparator> RED_STRING_COMPARATOR = type(TileRedStringComparator::new, redStringComparator);
-	public static final BlockEntityType<TileRedStringRelay> RED_STRING_RELAY = type(TileRedStringRelay::new, redStringRelay);
-	public static final BlockEntityType<TileManaFlame> MANA_FLAME = type(TileManaFlame::new, manaFlame);
-	public static final BlockEntityType<TilePrism> PRISM = type(TilePrism::new, prism);
-	public static final BlockEntityType<TileCorporeaIndex> CORPOREA_INDEX = type(TileCorporeaIndex::new, corporeaIndex);
-	public static final BlockEntityType<TileCorporeaFunnel> CORPOREA_FUNNEL = type(TileCorporeaFunnel::new, corporeaFunnel);
-	public static final BlockEntityType<TilePump> PUMP = type(TilePump::new, pump);
-	public static final BlockEntityType<TileFakeAir> FAKE_AIR = type(TileFakeAir::new, fakeAir);
-	public static final BlockEntityType<TileCorporeaInterceptor> CORPOREA_INTERCEPTOR = type(TileCorporeaInterceptor::new, corporeaInterceptor);
-	public static final BlockEntityType<TileCorporeaCrystalCube> CORPOREA_CRYSTAL_CUBE = type(TileCorporeaCrystalCube::new, corporeaCrystalCube);
-	public static final BlockEntityType<TileIncensePlate> INCENSE_PLATE = type(TileIncensePlate::new, incensePlate);
-	public static final BlockEntityType<TileHourglass> HOURGLASS = type(TileHourglass::new, hourglass);
-	public static final BlockEntityType<TileSparkChanger> SPARK_CHANGER = type(TileSparkChanger::new, sparkChanger);
-	public static final BlockEntityType<TileCocoon> COCOON = type(TileCocoon::new, cocoon);
-	public static final BlockEntityType<TileLightRelay> LIGHT_RELAY = type(TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork);
-	public static final BlockEntityType<TileCacophonium> CACOPHONIUM = type(TileCacophonium::new, cacophonium);
-	public static final BlockEntityType<TileBellows> BELLOWS = type(TileBellows::new, bellows);
-	public static final BlockEntityType<TileCell> CELL_BLOCK = type(TileCell::new, cellBlock);
-	public static final BlockEntityType<TileRedStringInterceptor> RED_STRING_INTERCEPTOR = type(TileRedStringInterceptor::new, redStringInterceptor);
-	public static final BlockEntityType<TileGaiaHead> GAIA_HEAD = type(TileGaiaHead::new, gaiaHead, gaiaHeadWall);
-	public static final BlockEntityType<TileCorporeaRetainer> CORPOREA_RETAINER = type(TileCorporeaRetainer::new, corporeaRetainer);
-	public static final BlockEntityType<TileTeruTeruBozu> TERU_TERU_BOZU = type(TileTeruTeruBozu::new, teruTeruBozu);
-	public static final BlockEntityType<TileAvatar> AVATAR = type(TileAvatar::new, avatar);
-	public static final BlockEntityType<TileAnimatedTorch> ANIMATED_TORCH = type(TileAnimatedTorch::new, animatedTorch);
+	public static final BlockEntityType<TileSpreader> SPREADER = type(prefix(LibBlockNames.SPREADER), TileSpreader::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader);
+	public static final BlockEntityType<TilePool> POOL = type(prefix(LibBlockNames.POOL), TilePool::new, manaPool, dilutedPool, fabulousPool, creativePool);
+	public static final BlockEntityType<TileRuneAltar> RUNE_ALTAR = type(prefix(LibBlockNames.RUNE_ALTAR), TileRuneAltar::new, runeAltar);
+	public static final BlockEntityType<TilePylon> PYLON = type(prefix(LibBlockNames.PYLON), TilePylon::new, manaPylon, naturaPylon, gaiaPylon);
+	public static final BlockEntityType<TileDistributor> DISTRIBUTOR = type(prefix(LibBlockNames.DISTRIBUTOR), TileDistributor::new, distributor);
+	public static final BlockEntityType<TileEnchanter> ENCHANTER = type(prefix(LibBlockNames.ENCHANTER), TileEnchanter::new, enchanter);
+	public static final BlockEntityType<TileTurntable> TURNTABLE = type(prefix(LibBlockNames.TURNTABLE), TileTurntable::new, turntable);
+	public static final BlockEntityType<TileTinyPlanet> TINY_PLANET = type(prefix(LibBlockNames.TINY_PLANET), TileTinyPlanet::new, tinyPlanet);
+	public static final BlockEntityType<TileOpenCrate> OPEN_CRATE = type(prefix(LibBlockNames.OPEN_CRATE), TileOpenCrate::new, openCrate);
+	public static final BlockEntityType<TileCraftCrate> CRAFT_CRATE = type(prefix(LibBlockNames.CRAFT_CRATE), TileCraftCrate::new, craftCrate);
+	public static final BlockEntityType<TileForestEye> FORSET_EYE = type(prefix(LibBlockNames.FOREST_EYE), TileForestEye::new, forestEye);
+	public static final BlockEntityType<TilePlatform> PLATFORM = type(prefix(LibBlockNames.PLATFORM), TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform);
+	public static final BlockEntityType<TileAlfPortal> ALF_PORTAL = type(prefix(LibBlockNames.ALF_PORTAL), TileAlfPortal::new, alfPortal);
+	public static final BlockEntityType<TileBifrost> BIFROST = type(prefix(LibBlockNames.BIFROST), TileBifrost::new, bifrost);
+	public static final BlockEntityType<TileFloatingFlower> MINI_ISLAND = type(prefix(LibBlockNames.MINI_ISLAND), TileFloatingFlower::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new));
+	public static final BlockEntityType<TileTinyPotato> TINY_POTATO = type(prefix(LibBlockNames.TINY_POTATO), TileTinyPotato::new, tinyPotato);
+	public static final BlockEntityType<TileSpawnerClaw> SPAWNER_CLAW = type(prefix(LibBlockNames.SPAWNER_CLAW), TileSpawnerClaw::new, spawnerClaw);
+	public static final BlockEntityType<TileEnderEye> ENDER_EYE = type(prefix(LibBlockNames.ENDER_EYE_BLOCK), TileEnderEye::new, enderEye);
+	public static final BlockEntityType<TileStarfield> STARFIELD = type(prefix(LibBlockNames.STARFIELD), TileStarfield::new, starfield);
+	public static final BlockEntityType<TileRFGenerator> FLUXFIELD = type(prefix(LibBlockNames.FLUXFIELD), TileRFGenerator::new, rfGenerator);
+	public static final BlockEntityType<TileBrewery> BREWERY = type(prefix(LibBlockNames.BREWERY), TileBrewery::new, brewery);
+	public static final BlockEntityType<TileTerraPlate> TERRA_PLATE = type(prefix(LibBlockNames.TERRA_PLATE), TileTerraPlate::new, terraPlate);
+	public static final BlockEntityType<TileRedStringContainer> RED_STRING_CONTAINER = type(prefix(LibBlockNames.RED_STRING_CONTAINER), IXplatAbstractions.INSTANCE::newRedStringContainer, redStringContainer);
+	public static final BlockEntityType<TileRedStringDispenser> RED_STRING_DISPENSER = type(prefix(LibBlockNames.RED_STRING_DISPENSER), TileRedStringDispenser::new, redStringDispenser);
+	public static final BlockEntityType<TileRedStringFertilizer> RED_STRING_FERTILIZER = type(prefix(LibBlockNames.RED_STRING_FERTILIZER), TileRedStringFertilizer::new, redStringFertilizer);
+	public static final BlockEntityType<TileRedStringComparator> RED_STRING_COMPARATOR = type(prefix(LibBlockNames.RED_STRING_COMPARATOR), TileRedStringComparator::new, redStringComparator);
+	public static final BlockEntityType<TileRedStringRelay> RED_STRING_RELAY = type(prefix(LibBlockNames.RED_STRING_RELAY), TileRedStringRelay::new, redStringRelay);
+	public static final BlockEntityType<TileManaFlame> MANA_FLAME = type(prefix(LibBlockNames.MANA_FLAME), TileManaFlame::new, manaFlame);
+	public static final BlockEntityType<TilePrism> PRISM = type(prefix(LibBlockNames.PRISM), TilePrism::new, prism);
+	public static final BlockEntityType<TileCorporeaIndex> CORPOREA_INDEX = type(prefix(LibBlockNames.CORPOREA_INDEX), TileCorporeaIndex::new, corporeaIndex);
+	public static final BlockEntityType<TileCorporeaFunnel> CORPOREA_FUNNEL = type(prefix(LibBlockNames.CORPOREA_FUNNEL), TileCorporeaFunnel::new, corporeaFunnel);
+	public static final BlockEntityType<TilePump> PUMP = type(prefix(LibBlockNames.PUMP), TilePump::new, pump);
+	public static final BlockEntityType<TileFakeAir> FAKE_AIR = type(prefix(LibBlockNames.FAKE_AIR), TileFakeAir::new, fakeAir);
+	public static final BlockEntityType<TileCorporeaInterceptor> CORPOREA_INTERCEPTOR = type(prefix(LibBlockNames.CORPOREA_INTERCEPTOR), TileCorporeaInterceptor::new, corporeaInterceptor);
+	public static final BlockEntityType<TileCorporeaCrystalCube> CORPOREA_CRYSTAL_CUBE = type(prefix(LibBlockNames.CORPOREA_CRYSTAL_CUBE), TileCorporeaCrystalCube::new, corporeaCrystalCube);
+	public static final BlockEntityType<TileIncensePlate> INCENSE_PLATE = type(prefix(LibBlockNames.INCENSE_PLATE), TileIncensePlate::new, incensePlate);
+	public static final BlockEntityType<TileHourglass> HOURGLASS = type(prefix(LibBlockNames.HOURGLASS), TileHourglass::new, hourglass);
+	public static final BlockEntityType<TileSparkChanger> SPARK_CHANGER = type(prefix(LibBlockNames.SPARK_CHANGER), TileSparkChanger::new, sparkChanger);
+	public static final BlockEntityType<TileCocoon> COCOON = type(prefix(LibBlockNames.COCOON), TileCocoon::new, cocoon);
+	public static final BlockEntityType<TileLightRelay> LIGHT_RELAY = type(prefix(LibBlockNames.LIGHT_RELAY), TileLightRelay::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork);
+	public static final BlockEntityType<TileCacophonium> CACOPHONIUM = type(prefix(LibBlockNames.CACOPHONIUM), TileCacophonium::new, cacophonium);
+	public static final BlockEntityType<TileBellows> BELLOWS = type(prefix(LibBlockNames.BELLOWS), TileBellows::new, bellows);
+	public static final BlockEntityType<TileCell> CELL_BLOCK = type(prefix(LibBlockNames.CELL_BLOCK), TileCell::new, cellBlock);
+	public static final BlockEntityType<TileRedStringInterceptor> RED_STRING_INTERCEPTOR = type(prefix(LibBlockNames.RED_STRING_INTERCEPTOR), TileRedStringInterceptor::new, redStringInterceptor);
+	public static final BlockEntityType<TileGaiaHead> GAIA_HEAD = type(prefix(LibBlockNames.GAIA_HEAD), TileGaiaHead::new, gaiaHead, gaiaHeadWall);
+	public static final BlockEntityType<TileCorporeaRetainer> CORPOREA_RETAINER = type(prefix(LibBlockNames.CORPOREA_RETAINER), TileCorporeaRetainer::new, corporeaRetainer);
+	public static final BlockEntityType<TileTeruTeruBozu> TERU_TERU_BOZU = type(prefix(LibBlockNames.TERU_TERU_BOZU), TileTeruTeruBozu::new, teruTeruBozu);
+	public static final BlockEntityType<TileAvatar> AVATAR = type(prefix(LibBlockNames.AVATAR), TileAvatar::new, avatar);
+	public static final BlockEntityType<TileAnimatedTorch> ANIMATED_TORCH = type(prefix(LibBlockNames.ANIMATED_TORCH), TileAnimatedTorch::new, animatedTorch);
 
-	private static <T extends BlockEntity> BlockEntityType<T> type(BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
-		return IXplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);
+	private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
+		var ret = IXplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);
+		var old = ALL.put(id, ret);
+		if (old != null) {
+			throw new IllegalArgumentException("Duplicate id " + id);
+		}
+		return ret;
 	}
 
 	public static void registerTiles(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {
-		r.accept(ALTAR, prefix(LibBlockNames.ALTAR));
-		r.accept(SPREADER, prefix(LibBlockNames.SPREADER));
-		r.accept(POOL, prefix(LibBlockNames.POOL));
-		r.accept(RUNE_ALTAR, prefix(LibBlockNames.RUNE_ALTAR));
-		r.accept(PYLON, prefix(LibBlockNames.PYLON));
-		r.accept(DISTRIBUTOR, prefix(LibBlockNames.DISTRIBUTOR));
-		r.accept(ENCHANTER, prefix(LibBlockNames.ENCHANTER));
-		r.accept(TURNTABLE, prefix(LibBlockNames.TURNTABLE));
-		r.accept(TINY_PLANET, prefix(LibBlockNames.TINY_PLANET));
-		r.accept(OPEN_CRATE, prefix(LibBlockNames.OPEN_CRATE));
-		r.accept(CRAFT_CRATE, prefix(LibBlockNames.CRAFT_CRATE));
-		r.accept(FORSET_EYE, prefix(LibBlockNames.FOREST_EYE));
-		r.accept(PLATFORM, prefix(LibBlockNames.PLATFORM));
-		r.accept(ALF_PORTAL, prefix(LibBlockNames.ALF_PORTAL));
-		r.accept(BIFROST, prefix(LibBlockNames.BIFROST));
-		r.accept(MINI_ISLAND, prefix(LibBlockNames.MINI_ISLAND));
-		r.accept(TINY_POTATO, prefix(LibBlockNames.TINY_POTATO));
-		r.accept(SPAWNER_CLAW, prefix(LibBlockNames.SPAWNER_CLAW));
-		r.accept(ENDER_EYE, prefix(LibBlockNames.ENDER_EYE_BLOCK));
-		r.accept(STARFIELD, prefix(LibBlockNames.STARFIELD));
-		r.accept(FLUXFIELD, prefix(LibBlockNames.FLUXFIELD));
-		r.accept(BREWERY, prefix(LibBlockNames.BREWERY));
-		r.accept(TERRA_PLATE, prefix(LibBlockNames.TERRA_PLATE));
-		r.accept(RED_STRING_CONTAINER, prefix(LibBlockNames.RED_STRING_CONTAINER));
-		r.accept(RED_STRING_DISPENSER, prefix(LibBlockNames.RED_STRING_DISPENSER));
-		r.accept(RED_STRING_FERTILIZER, prefix(LibBlockNames.RED_STRING_FERTILIZER));
-		r.accept(RED_STRING_COMPARATOR, prefix(LibBlockNames.RED_STRING_COMPARATOR));
-		r.accept(RED_STRING_RELAY, prefix(LibBlockNames.RED_STRING_RELAY));
-		r.accept(MANA_FLAME, prefix(LibBlockNames.MANA_FLAME));
-		r.accept(PRISM, prefix(LibBlockNames.PRISM));
-		r.accept(CORPOREA_INDEX, prefix(LibBlockNames.CORPOREA_INDEX));
-		r.accept(CORPOREA_FUNNEL, prefix(LibBlockNames.CORPOREA_FUNNEL));
-		r.accept(PUMP, prefix(LibBlockNames.PUMP));
-		r.accept(FAKE_AIR, prefix(LibBlockNames.FAKE_AIR));
-		r.accept(CORPOREA_INTERCEPTOR, prefix(LibBlockNames.CORPOREA_INTERCEPTOR));
-		r.accept(CORPOREA_CRYSTAL_CUBE, prefix(LibBlockNames.CORPOREA_CRYSTAL_CUBE));
-		r.accept(INCENSE_PLATE, prefix(LibBlockNames.INCENSE_PLATE));
-		r.accept(HOURGLASS, prefix(LibBlockNames.HOURGLASS));
-		r.accept(SPARK_CHANGER, prefix(LibBlockNames.SPARK_CHANGER));
-		r.accept(COCOON, prefix(LibBlockNames.COCOON));
-		r.accept(LIGHT_RELAY, prefix(LibBlockNames.LIGHT_RELAY));
-		r.accept(CACOPHONIUM, prefix(LibBlockNames.CACOPHONIUM));
-		r.accept(BELLOWS, prefix(LibBlockNames.BELLOWS));
-		r.accept(CELL_BLOCK, prefix(LibBlockNames.CELL_BLOCK));
-		r.accept(RED_STRING_INTERCEPTOR, prefix(LibBlockNames.RED_STRING_INTERCEPTOR));
-		r.accept(GAIA_HEAD, prefix(LibBlockNames.GAIA_HEAD));
-		r.accept(CORPOREA_RETAINER, prefix(LibBlockNames.CORPOREA_RETAINER));
-		r.accept(TERU_TERU_BOZU, prefix(LibBlockNames.TERU_TERU_BOZU));
-		r.accept(AVATAR, prefix(LibBlockNames.AVATAR));
-		r.accept(ANIMATED_TORCH, prefix(LibBlockNames.ANIMATED_TORCH));
+		for (var e : ALL.entrySet()) {
+			r.accept(e.getValue(), e.getKey());
+		}
 	}
 
 	public interface BECapConsumer<T> {
