@@ -52,6 +52,7 @@ import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
@@ -273,6 +274,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
 				(level, pos, state, be, side) -> new BlockManaVoid.ManaReceiver(level, pos, state),
 				ModBlocks.manaVoid);
+		BotaniaFabricCapabilities.SPARK_ATTACHABLE.registerFallback((world, pos, state, blockEntity, context) -> {
+			if (blockEntity instanceof ISparkAttachable sparkAttachable) {
+				return sparkAttachable;
+			}
+
+			return null;
+		});
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
 				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum

@@ -87,7 +87,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaRe
 				IManaSpark spark = self.getAttachedSpark();
 				if (spark != null) {
 					SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
-							.filter(otherSpark -> spark != otherSpark && IXplatAbstractions.INSTANCE.findManaReceiver(level, otherSpark.getAttachPos(), null) instanceof IManaPool)
+							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof IManaPool)
 							.forEach(os -> os.registerTransfer(spark));
 				}
 				if (self.mana > 0) {

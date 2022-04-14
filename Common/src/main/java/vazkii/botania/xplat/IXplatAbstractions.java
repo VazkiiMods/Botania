@@ -57,6 +57,7 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
@@ -118,6 +119,10 @@ public interface IXplatAbstractions {
 
 	@Nullable
 	IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
+
+	@Nullable
+	ISparkAttachable findSparkAttachable(Level level, BlockPos pos, BlockState blockState, @Nullable BlockEntity be, Direction direction);
+
 	@Nullable
 	IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
