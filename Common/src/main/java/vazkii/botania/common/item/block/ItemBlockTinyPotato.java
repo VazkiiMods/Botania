@@ -10,6 +10,7 @@ package vazkii.botania.common.item.block;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -22,6 +23,8 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.helper.ItemNBTHelper;
+
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -77,6 +80,16 @@ public class ItemBlockTinyPotato extends BlockItem /*implements LoomPatternProvi
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}
+	}
+
+	public static boolean isEnchantedName(@Nonnull Component name) {
+		var str = name.getString();
+		return str.equals("enchanted") || str.startsWith("enchanted ");
+	}
+
+	@Override
+	public boolean isFoil(@Nonnull ItemStack stack) {
+		return super.isFoil(stack) || isEnchantedName(stack.getHoverName());
 	}
 
 	@SoftImplement("IForgeItem")
