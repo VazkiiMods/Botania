@@ -34,7 +34,7 @@ public final class CapabilityUtil {
 		return new CapProvider<>(cap, lazyInstanceButNotReally);
 	}
 
-	public static <T extends SerializableComponent, U extends T> ICapabilityProvider makeSavedProvider(Capability<T> cap, T instance) {
+	public static <T extends SerializableComponent> ICapabilityProvider makeSavedProvider(Capability<T> cap, T instance) {
 		return new CapProviderSerializable<>(cap, instance);
 	}
 
