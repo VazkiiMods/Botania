@@ -10,6 +10,8 @@ package vazkii.botania.api.mana.spark;
 
 import vazkii.botania.api.item.ISparkEntity;
 
+import javax.annotation.Nullable;
+
 import java.util.Collection;
 
 /**
@@ -17,9 +19,9 @@ import java.util.Collection;
  */
 public interface IManaSpark extends ISparkEntity {
 	/**
-	 * Which TileEntity is this Spark attached to? A common implementation is checking the block below.
-	 * using world.getTileEntity(new BlockPos(this).down())
+	 * Get the thing this spark is attached to, if any
 	 */
+	@Nullable
 	ISparkAttachable getAttachedTile();
 
 	/**

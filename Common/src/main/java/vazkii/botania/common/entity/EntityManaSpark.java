@@ -187,7 +187,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 					count--;
 					ISparkAttachable attached = spark.getAttachedTile();
 					var attachedReceiver = spark.getAttachedManaReceiver();
-					if (attachedReceiver == null || attachedReceiver.isFull() || spark.areIncomingTransfersDone()) {
+					if (attached == null || attachedReceiver == null || attachedReceiver.isFull() || spark.areIncomingTransfersDone()) {
 						continue;
 					}
 

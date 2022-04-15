@@ -11,8 +11,8 @@ package vazkii.botania.api.mana.spark;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * A TileEntity that implements this can have a Spark attached to it.
- * For the Spark to be allowed to have upgrades, it needs to be an IManaPool.
+ * A block entity with this capability can have a mana spark attached to it.
+ * For the Spark to be allowed to have upgrades, the same block position must also have an IManaPool capability
  */
 public interface ISparkAttachable {
 

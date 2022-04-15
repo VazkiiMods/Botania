@@ -614,8 +614,8 @@ public class ForgeCommonInitializer {
 			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (IManaReceiver) be));
 		}
 
-		if (be instanceof ISparkAttachable attachable) {
-			e.addCapability(prefix("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, attachable));
+		if (BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.contains(be.getType())) {
+			e.addCapability(prefix("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, (ISparkAttachable) be));
 		}
 	}
 
