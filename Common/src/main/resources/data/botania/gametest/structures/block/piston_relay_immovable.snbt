@@ -1,0 +1,31 @@
+{
+    DataVersion: 2975,
+    size: [3, 3, 3],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [0, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [0, 0, 2], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [1, 0, 2], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 0], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 1], state: "minecraft:polished_andesite"},
+        {pos: [2, 0, 2], state: "minecraft:polished_andesite"},
+        {pos: [0, 1, 0], state: "minecraft:bedrock"},
+        {pos: [0, 1, 1], state: "minecraft:air"},
+        {pos: [1, 1, 0], state: "minecraft:cobblestone"},
+        {pos: [1, 1, 1], state: "botania:piston_relay"},
+        {pos: [2, 1, 1], state: "minecraft:piston{extended:false,facing:west}"},
+        {pos: [2, 1, 2], state: "minecraft:lever{face:floor,facing:south,powered:false}"}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:polished_andesite",
+        "minecraft:bedrock",
+        "minecraft:cobblestone",
+        "botania:piston_relay",
+        "minecraft:piston{extended:false,facing:west}",
+        "minecraft:air",
+        "minecraft:lever{face:floor,facing:south,powered:false}"
+    ]
+}

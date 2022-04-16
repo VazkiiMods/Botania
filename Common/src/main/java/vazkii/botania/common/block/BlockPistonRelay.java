@@ -72,9 +72,10 @@ public class BlockPistonRelay extends BlockMod {
 
 					if (newState.getValue(MovingPistonBlock.TYPE) == PistonType.DEFAULT) {
 						// Move the actual bound blocks
-						LensPiston.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection);
-						// Move dest side of our binding
-						data.mapping.put(newSrcPos, data.mapping.get(newSrcPos).relative(moveDirection));
+						if (LensPiston.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection)) {
+							// Move dest side of our binding
+							data.mapping.put(newSrcPos, data.mapping.get(newSrcPos).relative(moveDirection));
+						}
 					}
 				}
 			} else {

@@ -58,7 +58,7 @@ public class LensPiston extends Lens {
 	}
 
 	// [VanillaCopy] Based on PistonBaseBlock
-	public static void moveBlocks(Level level, BlockPos pistonPos, Direction direction) {
+	public static boolean moveBlocks(Level level, BlockPos pistonPos, Direction direction) {
 		PistonStructureResolver pistonStructureResolver = new PistonStructureResolver(level, pistonPos, direction, true);
 		if (pistonStructureResolver.resolve()) {
 			Map<BlockPos, BlockState> map = Maps.newHashMap();
@@ -129,7 +129,11 @@ public class LensPiston extends Lens {
 			if (!level.isClientSide) {
 				level.playSound(null, pistonPos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.25F + 0.6F);
 			}
+
+			return true;
 		}
+
+		return false;
 	}
 
 }
