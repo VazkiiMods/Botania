@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    "MCG",
+    " M "
+  ],
+  "key": {
+    "C": {
+      "tag": "c:wooden_chests"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "M": {
+      "tag": "botania:manasteel_ingots"
+    }
+  },
+  "result": {
+    "item": "botania:bauble_box"
+  }
+}

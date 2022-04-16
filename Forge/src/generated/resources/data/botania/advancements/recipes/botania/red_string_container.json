@@ -23,9 +23,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:chest"
-            ]
+            "tag": "forge:chests/wooden"
           }
         ]
       }

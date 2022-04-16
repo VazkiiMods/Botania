@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:chest"
+      "tag": "c:wooden_chests"
     },
     {
       "item": "botania:corporea_spark"

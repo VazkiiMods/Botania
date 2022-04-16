@@ -105,7 +105,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		return AccessorRecipeProvider.botania_condition(preds);
 	}
 
-	private static InventoryChangeTrigger.TriggerInstance conditionsFromTag(TagKey<Item> tag) {
+	public static InventoryChangeTrigger.TriggerInstance conditionsFromTag(TagKey<Item> tag) {
 		return AccessorRecipeProvider.botania_condition(ItemPredicate.Builder.item().of(tag).build());
 	}
 
@@ -1428,15 +1428,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("III")
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
-		ShapedRecipeBuilder.shaped(ModItems.baubleBox)
-				.define('C', Items.CHEST)
-				.define('G', Items.GOLD_INGOT)
-				.define('M', ModTags.Items.INGOTS_MANASTEEL)
-				.pattern(" M ")
-				.pattern("MCG")
-				.pattern(" M ")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModItems.astrolabe)
 				.define('D', ModTags.Items.DREAMWOOD_LOGS)
 				.define('E', ModTags.Items.INGOTS_ELEMENTIUM)
@@ -1783,7 +1774,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:red_string")
 				.unlockedBy("has_item", conditionsFromItem(ModItems.enderAirBottle))
 				.save(consumer, "botania:red_string_alt");
-		registerRedStringBlock(consumer, ModBlocks.redStringContainer, Ingredient.of(Items.CHEST), conditionsFromItem(Items.CHEST));
 		registerRedStringBlock(consumer, ModBlocks.redStringDispenser, Ingredient.of(Items.DISPENSER), conditionsFromItem(Items.DISPENSER));
 		registerRedStringBlock(consumer, ModBlocks.redStringFertilizer, Ingredient.of(ModItems.fertilizer), conditionsFromItem(ModItems.fertilizer));
 		registerRedStringBlock(consumer, ModBlocks.redStringComparator, Ingredient.of(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
@@ -1828,11 +1818,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("C")
 				.pattern("G")
 				.pattern("W")
-				.unlockedBy("has_item", conditionsFromItem(ModItems.corporeaSpark))
-				.save(consumer);
-		ShapelessRecipeBuilder.shapeless(ModBlocks.corporeaRetainer)
-				.requires(Items.CHEST)
-				.requires(ModItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(ModItems.corporeaSpark))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(ModBlocks.corporeaBlock, 8)
@@ -2365,7 +2350,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, consumer));
 	}
 
-	protected void registerRedStringBlock(Consumer<FinishedRecipe> consumer, ItemLike output, Ingredient input, CriterionTriggerInstance criterion) {
+	public static void registerRedStringBlock(Consumer<FinishedRecipe> consumer, ItemLike output, Ingredient input, CriterionTriggerInstance criterion) {
 		ShapedRecipeBuilder.shaped(output)
 				.define('R', ModBlocks.livingrock)
 				.define('S', ModItems.redString)

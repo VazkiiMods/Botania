@@ -7,7 +7,7 @@
   ],
   "key": {
     "C": {
-      "item": "minecraft:chest"
+      "tag": "forge:chests/wooden"
     },
     "G": {
       "item": "minecraft:gold_ingot"
