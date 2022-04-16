@@ -30,5 +30,7 @@ Current new features TODO:
   - flower must be axis aligned w/ exactly 1 core
   - every second, flower destroys all amethyst blocks around it with no drops
   - If the destroyed blocks match the buds in relative position exactly, gen
-
-
+* April Fool's: Return of the daybloom
+  - Gen mana in day, pull mana *out* of nearby pools at night
+  - Decay if no mana nearby?
+  - Net negative if left unattended. Lmao
