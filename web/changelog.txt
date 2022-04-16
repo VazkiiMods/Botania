@@ -1,3 +1,16 @@
+1.18.2-431
+* Add: Flower pouch has been expanded to hold tall mystical flowers
+* Add: Tiny Potatoes that have the "enchanted" name prefix also glint in hand
+* Change: Tall mystical flowers no longer require shears and simply drop themselves
+* Change: On Fabric, add one hand/ring and one offhand/ring slot, instead of two hand/ring
+* Change: Stop using internal Fabric creative tab details (quat1024)
+* Fix: Flower pouch 0 tooltips rendering under the flower items
+* Fix: Some NPE crashes
+* Fix: Crashes on newer Fabric API versions
+* Fix: Elementium pick mixin is less invasive and less likely to conflict with other mods
+* Fix: Certain recipes not taking modded chests
+* Fix: Force Relays would move their destination binding even if the destination block was unable to be moved
+* API: ISparkAttachable is now a capability (ramidzkh)
 1.18.2-430
 * Add: Update to 1.18.2
 * Fix: Timeless Ivy lang fixes (Aegide)
