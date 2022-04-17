@@ -6,7 +6,8 @@
       },
       "apply": [
         {
-          "model": "botania:block/metamorphic_mountain_stone_wall_post"
+          "model": "botania:block/metamorphic_mountain_stone_wall_post",
+          "weight": 5
         },
         {
           "model": "botania:block/metamorphic_mountain_stone_wall_post_1"

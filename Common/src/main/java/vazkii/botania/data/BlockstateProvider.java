@@ -838,8 +838,9 @@ public class BlockstateProvider implements DataProvider {
 			throw new IllegalArgumentException("Arrays must have equal length");
 		}
 		var multiPartGenerator = MultiPartGenerator.multiPart(block);
+		var indicesPost = IntStream.range(0, length).boxed();
 		multiPartGenerator.with(Condition.condition().term(BlockStateProperties.UP, true),
-				Stream.of(postModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList());
+				indicesPost.map(i -> maybeWeight(weights[i], Variant.variant().with(VariantProperties.MODEL, postModels[i]))).toArray(Variant[]::new));
 		var wallSides = List.of(BlockStateProperties.EAST_WALL, BlockStateProperties.WEST_WALL, BlockStateProperties.SOUTH_WALL, BlockStateProperties.NORTH_WALL);
 		for (EnumProperty<WallSide> wallSide : wallSides) {
 			VariantProperties.Rotation yRot =
