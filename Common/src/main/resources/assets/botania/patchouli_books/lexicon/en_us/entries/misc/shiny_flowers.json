@@ -15,7 +15,7 @@
     {
       "anchor": "shiny",
       "type": "botania:crafting_multi",
-      "heading": "TODO",
+      "heading": "botania.page.shinyFlowers4",
       "text": "botania.page.shinyFlowers1",
       "recipes": [
         "botania:white_shiny_flower",
@@ -39,7 +39,7 @@
     {
       "anchor": "floating",
       "type": "botania:crafting_multi",
-      "heading": "TODO",
+      "heading": "botania.page.shinyFlowers5",
       "text": "botania.page.shinyFlowers2",
       "recipes": [
         "botania:white_floating_flower",

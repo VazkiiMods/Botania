@@ -23,7 +23,7 @@
     },
     {
       "type": "botania:crafting_multi",
-      "heading": "TODO",
+      "heading": "botania.page.flowers14",
       "text": "botania.page.flowers3",
       "recipes": [
         "botania:petal_white",
@@ -46,7 +46,7 @@
     },
     {
       "type": "botania:crafting_multi",
-      "heading": "TODO",
+      "heading": "botania.page.flowers15",
       "text": "botania.page.flowers5",
       "recipes": [
         "botania:dye_white",
@@ -86,7 +86,7 @@
     },
     {
       "type": "botania:crafting_multi",
-      "heading": "TODO",
+      "heading": "botania.page.flowers14",
       "text": "botania.page.flowers11",
       "recipes": [
         "botania:petal_white_double",
@@ -109,7 +109,7 @@
     },
     {
       "type": "botania:crafting_multi",
-      "heading": "TODO",
+      "heading": "botania.page.flowers16",
       "text": "botania.page.flowers9",
       "recipes": [
         "botania:white_petal_block",
@@ -132,7 +132,7 @@
     },
     {
       "type": "botania:crafting_multi",
-      "heading": "TODO",
+      "heading": "botania.page.flowers14",
       "text": "botania.page.flowers13",
       "recipes": [
         "botania:conversions/white_petal_block_deconstruct",

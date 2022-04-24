@@ -1761,13 +1761,16 @@
   "botania.page.flowers0": "Around the world, you may stumble upon a large variety of $(item)Mystical Flowers$(0). Spotting these flowers doesn't take much work, as they glow faintly and sparkle.$(p)They come in a total of $(thing)16$(0) different colors.$(p)These flowers can also be grown with $(item)Floral Fertilizer$(0) (read on).",
   "botania.page.flowers1": "Flowers as far as the eye can see...",
   "botania.page.flowers2": "These flowers can be plucked for $(item)Mystical Petals$(0), which are used in the creation of magical instruments and plants.$(p)Right-clicking a petal upon the ground will $(thing)bury it$(0), making it emit particles.$(p)These petals can also be crushed into the corresponding $(item)Dyes$(0).",
+  "botania.page.flowers14": "Mystical Petal",
   "botania.page.flowers3": "Plucking petals off flowers.",
+  "botania.page.flowers15": "Dye",
   "botania.page.flowers5": "Grinding Petals into Dye.",
   "botania.page.flowers6": "By mixing $(item)Dye$(0) with some $(item)Bone Meal$(0), you'll create a different type of fertilizer. This $(item)Floral Fertilizer$(0) will grow a few $(item)Mystical Flowers$(0) in the nearby vicinity, if you ever run low on those.",
   "botania.page.flowers8": "Using any combination of typical flower substances will work",
   "botania.page.flowers10": "There're also some taller variants of the typical $(item)Mystical Flowers$(0) around the world. These can only be gathered with $(item)Shears$(0), but can be plucked for twice the petals a normal flower would yield.",
   "botania.page.flowers12": "Tall flower variants can be made manually by fertilizing a $(item)Mystical Flower$(0) or a $(item)Buried Petal$(0) with $(item)Bone Meal$(0).$(p)If you find yourself running low on a particular color, try burying a petal of that color and using $(item)Bone Meal$(0) on it.",
   "botania.page.flowers11": "Prepare for trouble",
+  "botania.page.flowers16": "Petal Block",
   "botania.page.flowers9": "Petals can also be made into blocks",
   "botania.page.flowers13": "And the other way around",
 
@@ -2462,6 +2465,7 @@
   "botania.page.craftCrate5": "An example of crafting a $(item)Diamond Pickaxe$(0)",
   "botania.page.craftCrate6": "Assembly line in a box",
   "botania.page.craftCrate8": "The $(item)Crafty Crate$(0) can also be augmented with patterns. A pattern locks specific slots in the recipe, disallowing items from entering those slots as if there were placeholders there.$(p)There are several patterns, each of which can be applied by right-clicking on the crate (this doesn't consume the pattern).",
+  "botania.page.craftCrate10": "Crafting Pattern",
   "botania.page.craftCrate9": "9 different patterns",
 
   "botania.entry.hourglass": "Hovering Hourglass",
@@ -3288,7 +3292,9 @@
   "botania.tagline.shinyFlowers": "Shiny flowers and floating flowers",
   "botania.page.shinyFlowers0": "$(item)Glowstone Dust$(0) can be sprinkled over $(l:basics/flowers)$(item)Mystical Flowers$(0)$(/l) to turn them into $(item)Glimmering Flowers$(0), which sparkle bright enough to emit actual light (at the same brightness as $(item)Glowstone Block$(0) does).$(p)Combining one of these with some $(item)Dirt$(0) and $(l:tools/grass_seeds)$(item)Pasture Seeds$(0)$(/l) yields a $(item)Floating Flower$(0), a miniature floating island that emits light and looks quite fancy indeed.",
   "botania.page.shinyFlowers3": "Crafting a $(item)Floating Flower$(0) with a $(thing)Functional$(0) or $(thing)Generating Flower$(0) will plant the latter on the former, yielding the looks and properties of a $(item)Floating Flower$(0) and the effects of the other flower, all rolled into one tiny island. Right-clicking a $(thing)Floating Flower$(0) with $(l:tools/grass_seeds)$(item)Pasture Seeds$(0)$(/l) or a $(item)Snowball$(0) will change its appearance.",
+  "botania.page.shinyFlowers4": "Glimmering Flower",
   "botania.page.shinyFlowers1": "Pretty Pretty Shiny Shiny",
+  "botania.page.shinyFlowers5": "Floating Flower",
   "botania.page.shinyFlowers2": "Like Laputa but (a lot) tinier",
 
   "botania.entry.tinyPotato": "Tiny Potato",
@@ -3318,6 +3324,7 @@
   "botania.entry.mushrooms": "Shimmering Mushrooms",
   "botania.tagline.mushrooms": "Touch fuzzy, but don't get dizzy",
   "botania.page.mushrooms0": "Sprinkling some $(item)Dye$(0) on a $(item)Mushrooms$(0) seems to mutate the latter. The $(item)Mushroom$(0) changes shape, takes on the color of the dye, and glows dimly; in addition, it's usable as a substitute $(l:basics/flowers)$(item)Mystical Petal$(0)$(/l). $(p)$(item)Shimmering Mushrooms$(0) can also be seldom found deep underground in isolated patches.",
+  "botania.page.mushrooms2": "Shimmering Mushroom",
   "botania.page.mushrooms1": "They don't make you bigger",
 
   "botania.entry.phantomInk": "Phantom Ink",
