@@ -38,6 +38,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.pool16",
       "text": "botania.page.pool3",
       "recipes": [
         "botania:mana_infusion/manasteel",
