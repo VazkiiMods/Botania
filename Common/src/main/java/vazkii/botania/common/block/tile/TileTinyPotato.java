@@ -144,7 +144,12 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 
 	@Override
 	protected SimpleContainer createItemHandler() {
-		return new SimpleContainer(6);
+		return new SimpleContainer(6) {
+			@Override
+			public int getMaxStackSize() {
+				return 1;
+			}
+		};
 	}
 
 	@Nonnull
