@@ -88,11 +88,15 @@ public class TileCorporeaRetainer extends TileMod implements IWandable {
 		if (spark != null) {
 			BlockEntity te = spark.getSparkNode().getWorld().getBlockEntity(spark.getSparkNode().getPos());
 			if (te instanceof ICorporeaRequestor requestor) {
-				requestor.doCorporeaRequest(request, requestCount, spark);
+				ICorporeaRequestMatcher requestToPerform = request;
+				int requestCountToPerform = requestCount;
 
 				request = null;
 				requestCount = 0;
 				compValue = 0;
+
+				requestor.doCorporeaRequest(requestToPerform, requestCountToPerform, spark);
+
 				setChanged();
 			}
 		}
