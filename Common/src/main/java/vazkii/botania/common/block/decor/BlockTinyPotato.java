@@ -60,6 +60,20 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 	}
 
 	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof TileTinyPotato tater) {
+			return tater.getAnalogOutputSignal();
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
