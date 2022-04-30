@@ -98,7 +98,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 		IFocus<ItemStack> outputFocus = focuses.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.OUTPUT).findAny().orElse(null);
 		IFocus<ItemStack> inputFocus = focuses.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.INPUT).findAny().orElse(null);
 
-		builder.addSlot(RecipeIngredientRole.INPUT, 10, 35)
+		builder.addSlot(RecipeIngredientRole.INPUT, 11, 36)
 				.addItemStacks(getItemMatchingFocus(outputFocus, outputs, containers));
 
 		var inputs = recipe.getIngredients();
@@ -109,7 +109,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 			posX += 18;
 		}
 
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 58, 35)
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 59, 36)
 				.addItemStacks(getItemMatchingFocus(inputFocus, containers, outputs));
 	}
 
