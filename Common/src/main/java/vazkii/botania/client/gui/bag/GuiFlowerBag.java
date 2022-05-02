@@ -13,7 +13,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.item.ModItems;
 
 public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 
@@ -31,6 +29,10 @@ public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 
 	public GuiFlowerBag(ContainerFlowerBag container, Inventory playerInv, Component title) {
 		super(container, playerInv, title);
+		imageHeight += 36;
+
+		// recompute, same as super
+		inventoryLabelY = imageHeight - 94;
 	}
 
 	@Override
@@ -38,13 +40,6 @@ public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderTooltip(ms, mouseX, mouseY);
-	}
-
-	@Override
-	protected void renderLabels(PoseStack ms, int mouseX, int mouseY) {
-		String s = I18n.get(ModItems.flowerBag.getDescriptionId());
-		font.draw(ms, s, imageWidth / 2 - font.width(s) / 2, 6, 4210752);
-		font.draw(ms, I18n.get("container.inventory"), 8, imageHeight - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -58,12 +53,22 @@ public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 
 		for (Slot slot : menu.slots) {
 			if (slot.container == menu.flowerBagInv && !slot.hasItem()) {
-				DyeColor color = DyeColor.byId(slot.index);
-				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
+				ItemStack stack;
+				if (slot.index < 16) {
+					var color = DyeColor.byId(slot.index);
+					stack = new ItemStack(ModBlocks.getFlower(color));
+				} else {
+					var color = DyeColor.byId(slot.index - 16);
+					stack = new ItemStack(ModBlocks.getDoubleFlower(color));
+				}
+
 				int x = this.leftPos + slot.x;
 				int y = this.topPos + slot.y;
 				mc.getItemRenderer().renderGuiItem(stack, x, y);
+				ms.pushPose();
+				ms.translate(0, 0, mc.getItemRenderer().blitOffset + 200); // similar to ItemRenderer.renderGuiItemDecorations
 				mc.font.drawShadow(ms, "0", x + 11, y + 9, 0xFF6666);
+				ms.popPose();
 			}
 		}
 	}

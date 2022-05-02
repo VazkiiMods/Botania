@@ -175,7 +175,12 @@ public class ItemFlugelEye extends ItemRelic {
 			return;
 		}
 
-		BlockPos binding = IXplatAbstractions.INSTANCE.findCoordBoundItem(stack).getBinding(world);
+		var coordBoundItem = IXplatAbstractions.INSTANCE.findCoordBoundItem(stack);
+		if (coordBoundItem == null) {
+			return;
+		}
+
+		BlockPos binding = coordBoundItem.getBinding(world);
 		Component worldText = new TextComponent(world.dimension().location().toString()).withStyle(ChatFormatting.GREEN);
 
 		if (binding == null) {

@@ -31,12 +31,13 @@ public modpack that is not officially maintained or supported by the Botania dev
 1. Pull from remote, test all changes, and commit everything.
 2. `git tag -a release-<VERSION>`. All Botania versions *must* follow the version format
    `<MC-VER>-INT`, so it'll probably look like `git tag -a release-1.16.3-407`.
+   If you don't remember which version is next, look at the `build_number` in `gradle.properties`.
 3. In the Git editor that pops up, write the changelog. Finish the tag process (usually by
    saving and closing the editor).
 4. Copy the changelog to the webpage version under `web/changelog.txt`.`
-5. Run `./gradlew incrementBuildNumber --no-daemon` to increment the build number of the
-   next release. Commit this and the changelog.
-6. Push: `git push origin master --tags`
+5. Increment the `build_number` in `gradle.properties` to the next version
+   (one greater than the version you just tagged). Commit this and the changelog.
+6. Push the branch and the tag you just made: `git push origin <branch> <release tag>`
 7. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and wait for the tag
    you just pushed to be compiled and built
 8. Download the JAR and submit it to CurseForge

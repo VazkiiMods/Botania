@@ -49,17 +49,21 @@ public class ItemIcePendant extends ItemBauble {
 			FrostWalkerEnchantment.onEntityMoved(entity, entity.level, entity.blockPosition(), 8);
 			entity.setOnGround(lastOnGround);
 
-			int x = Mth.floor(entity.getX());
+			int x;
 			int y = Mth.floor(entity.getY());
-			int z = Mth.floor(entity.getZ());
+			int z;
 			BlockState blockstate = Blocks.SNOW.defaultBlockState();
 
 			for (int l = 0; l < 4; ++l) {
 				x = Mth.floor(entity.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
 				z = Mth.floor(entity.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
-				if (entity.level.isEmptyBlock(blockpos) && ((AccessorBiome) (Object) (entity.level.getBiome(blockpos))).callGetTemperature(blockpos) < 0.9F && blockstate.canSurvive(entity.level, blockpos)) {
-					entity.level.setBlockAndUpdate(blockpos, blockstate);
+
+				if (entity.level.isEmptyBlock(blockpos) && blockstate.canSurvive(entity.level, blockpos)) {
+					var biome = entity.level.getBiome(blockpos);
+					if (((AccessorBiome) (Object) biome.value()).callGetTemperature(blockpos) < 0.9F) {
+						entity.level.setBlockAndUpdate(blockpos, blockstate);
+					}
 				}
 			}
 		} else if (entity.level.isClientSide && !entity.isShiftKeyDown()) {

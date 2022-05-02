@@ -273,6 +273,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
 				(level, pos, state, be, side) -> new BlockManaVoid.ManaReceiver(level, pos, state),
 				ModBlocks.manaVoid);
+		BotaniaFabricCapabilities.SPARK_ATTACHABLE.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
 				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum

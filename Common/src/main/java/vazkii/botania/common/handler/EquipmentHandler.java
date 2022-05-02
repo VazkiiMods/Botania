@@ -29,7 +29,11 @@ public abstract class EquipmentHandler {
 	public static EquipmentHandler instance;
 
 	public static void init() {
-		instance = IXplatAbstractions.INSTANCE.tryCreateEquipmentHandler();
+		if (instance == null) {
+			instance = IXplatAbstractions.INSTANCE.tryCreateEquipmentHandler();
+		}
+
+		// Fall back to hotbar
 		if (instance == null) {
 			instance = new InventoryEquipmentHandler();
 		}

@@ -26,5 +26,9 @@ public final class BlockEntityConstants {
 			ModTiles.SPAWNER_CLAW, ModTiles.SPREADER, ModTiles.TERRA_PLATE
 	);
 
+	public static final Set<BlockEntityType<?>> SELF_SPARK_ATTACHABLE_BES = ImmutableSet.of(
+			ModTiles.ENCHANTER, ModTiles.POOL, ModTiles.TERRA_PLATE
+	);
+
 	private BlockEntityConstants() {}
 }

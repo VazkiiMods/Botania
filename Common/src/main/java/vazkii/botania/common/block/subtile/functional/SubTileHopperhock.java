@@ -42,6 +42,7 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWandable {
 	private static final String TAG_FILTER_TYPE = "filterType";
@@ -74,20 +75,15 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 
 		BlockPos pos = getEffectivePos();
 
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)));
+		Predicate<ItemEntity> shouldPickup = item -> DelayHelper.canInteractWith(this, item)
+				// Hopperhocks additionally don't pick up items that have been newly infused (5 ticks),
+				// to facilitate multiple infusions
+				&& IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown()
+						<= ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5
+				&& !IXplatAbstractions.INSTANCE.preventsRemoteMovement(item);
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), shouldPickup);
 
 		for (ItemEntity item : items) {
-			if (!DelayHelper.canInteractWith(this, item)) {
-				continue;
-			}
-
-			// Hopperhocks additionally don't pick up items that have been newly infused (5 ticks),
-			// to facilitate multiple infusions
-			if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown()
-					> ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5) {
-				continue;
-			}
-
 			ItemStack stack = item.getItem();
 			boolean priorityInv = false;
 			int amountToPutIn = 0;

@@ -73,6 +73,7 @@ import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
@@ -611,6 +612,10 @@ public class ForgeCommonInitializer {
 
 		if (BlockEntityConstants.SELF_MANA_RECEIVER_BES.contains(be.getType())) {
 			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (IManaReceiver) be));
+		}
+
+		if (BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.contains(be.getType())) {
+			e.addCapability(prefix("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, (ISparkAttachable) be));
 		}
 	}
 

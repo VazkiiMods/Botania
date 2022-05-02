@@ -9,13 +9,11 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.ColorHelper;
@@ -26,24 +24,11 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockModDoubleFlower extends TallFlowerBlock {
-	private final DyeColor color;
+	public final DyeColor color;
 
 	public BlockModDoubleFlower(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
-	}
-
-	// Normally, when an upper block is broken, the lower block recognizes the plant is no longer whole and automatically breaks itself.
-	// But since we require shears, this is needed to pass the breaking context (tool, etc.) to the lower block.
-	@Override
-	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-		if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-			BlockState lower = world.getBlockState(pos.below());
-			if (lower.is(this) && lower.getValue(HALF) == DoubleBlockHalf.LOWER) {
-				lower.getBlock().playerWillDestroy(world, pos.below(), lower, player);
-			}
-		}
-		super.playerWillDestroy(world, pos, state, player);
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
+import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -44,7 +46,7 @@ import javax.annotation.Nonnull;
 import java.util.stream.IntStream;
 
 public class ItemFlowerBag extends Item {
-	public static final int SIZE = 16;
+	public static final int SIZE = 2 * DyeColor.values().length;
 
 	public ItemFlowerBag(Properties props) {
 		super(props);
@@ -52,12 +54,17 @@ public class ItemFlowerBag extends Item {
 
 	private static boolean isMysticalFlower(ItemStack stack) {
 		Block blk = Block.byItem(stack.getItem());
+		// Direct class compare needed because glimmering flowers also extend BlockModFlower
 		return !stack.isEmpty() && blk.getClass() == BlockModFlower.class;
 	}
 
 	public static boolean isValid(int slot, ItemStack stack) {
 		Block blk = Block.byItem(stack.getItem());
-		return isMysticalFlower(stack) && slot == ((BlockModFlower) blk).color.getId();
+		if (slot < 16) {
+			return isMysticalFlower(stack) && slot == ((BlockModFlower) blk).color.getId();
+		} else {
+			return blk instanceof BlockModDoubleFlower flower && (slot - 16) == flower.color.getId();
+		}
 	}
 
 	public static SimpleContainer getInventory(ItemStack stack) {
@@ -71,8 +78,16 @@ public class ItemFlowerBag extends Item {
 
 	public static boolean onPickupItem(ItemEntity entity, Player player) {
 		ItemStack entityStack = entity.getItem();
-		if (isMysticalFlower(entityStack) && entityStack.getCount() > 0) {
-			int color = ((BlockModFlower) Block.byItem(entityStack.getItem())).color.getId();
+		var block = Block.byItem(entityStack.getItem());
+		if ((isMysticalFlower(entityStack) || block instanceof BlockModDoubleFlower)
+				&& entityStack.getCount() > 0) {
+
+			int slot;
+			if (block instanceof BlockModDoubleFlower flower) {
+				slot = 16 + flower.color.getId();
+			} else {
+				slot = ((BlockModFlower) block).color.getId();
+			}
 
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				if (i == player.getInventory().selected) {
@@ -82,14 +97,14 @@ public class ItemFlowerBag extends Item {
 				ItemStack bag = player.getInventory().getItem(i);
 				if (!bag.isEmpty() && bag.is(ModItems.flowerBag)) {
 					SimpleContainer bagInv = getInventory(bag);
-					ItemStack existing = bagInv.getItem(color);
+					ItemStack existing = bagInv.getItem(slot);
 					int newCount = Math.min(existing.getCount() + entityStack.getCount(),
 							Math.min(existing.getMaxStackSize(), bagInv.getMaxStackSize()));
 					int numPickedUp = newCount - existing.getCount();
 
 					if (numPickedUp > 0) {
 						if (existing.isEmpty()) {
-							bagInv.setItem(color, entityStack.split(numPickedUp));
+							bagInv.setItem(slot, entityStack.split(numPickedUp));
 						} else {
 							existing.grow(numPickedUp);
 							entityStack.shrink(numPickedUp);

@@ -65,17 +65,13 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 
-	private static boolean matches(String name, String match) {
-		return name.equals(match) || name.startsWith(match + " ");
-	}
-
 	private static String removeFromFront(String name, String match) {
 		return name.substring(match.length()).trim();
 	}
 
 	public static BakedModel getModelFromDisplayName(Component displayName) {
 		var name = displayName.getString().trim().toLowerCase(Locale.ROOT);
-		if (matches(name, "enchanted")) {
+		if (ItemBlockTinyPotato.isEnchantedName(displayName)) {
 			name = removeFromFront(name, "enchanted");
 		}
 		return getModel(name);
@@ -110,7 +106,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		ms.pushPose();
 
 		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
-		boolean enchanted = matches(name, "enchanted");
+		boolean enchanted = ItemBlockTinyPotato.isEnchantedName(potato.name);
 		if (enchanted) {
 			name = removeFromFront(name, "enchanted");
 		}

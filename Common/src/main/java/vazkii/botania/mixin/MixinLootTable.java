@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -44,12 +44,8 @@ public class MixinLootTable {
 		}
 	}
 
-	@ModifyArg(
-		method = "getRandomItems(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItemsRaw(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V"),
-		index = 1
-	)
-	private Consumer<ItemStack> filterDisposables(LootContext context, Consumer<ItemStack> inner) {
+	@ModifyVariable(method = "getRandomItemsRaw", at = @At("HEAD"), argsOnly = true)
+	private Consumer<ItemStack> filterDisposables(Consumer<ItemStack> inner, LootContext context) {
 		return stack -> {
 			Entity e = context.getParamOrNull(LootContextParams.THIS_ENTITY);
 			ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);

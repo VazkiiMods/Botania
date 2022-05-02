@@ -54,4 +54,26 @@ public class PistonRelayTest {
 			TestingUtil.assertThat(!data.mapping.containsKey(relayPos), () -> "Removing relay should remove internal mapping");
 		}).thenSucceed();
 	}
+
+	@GameTest(template = "botania:block/piston_relay_immovable")
+	public void testImmovable(GameTestHelper helper) {
+		var initialRelay = new BlockPos(1, 2, 1);
+		var initialCobble = new BlockPos(1, 2, 0);
+
+		var data = BlockPistonRelay.WorldData.get(helper.getLevel());
+		data.mapping.put(helper.absolutePos(initialRelay), helper.absolutePos(initialCobble));
+
+		helper.startSequence().thenExecute(() -> {
+			var lever = new BlockPos(2, 2, 2);
+			helper.pullLever(lever);
+		}).thenExecuteAfter(4, () -> {
+			var relayAfter = new BlockPos(0, 2, 1);
+			helper.assertBlockPresent(ModBlocks.pistonRelay, relayAfter);
+			helper.assertBlockPresent(Blocks.COBBLESTONE, initialCobble);
+			TestingUtil.assertEquals(data.mapping.get(helper.absolutePos(relayAfter)),
+					helper.absolutePos(initialCobble),
+					() -> "If destination block cannot move, the relay should move but retain " +
+							"binding to the destination block's original position");
+		}).thenSucceed();
+	}
 }

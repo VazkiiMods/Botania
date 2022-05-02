@@ -9,6 +9,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.relic.ItemDice;
@@ -22,6 +23,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 	private static final TagKey<Item> GLASS_ALT = itemTag(new ResourceLocation("c", "glass_blocks"));
 	private static final TagKey<Item> GLASS_PANE = itemTag(new ResourceLocation("c", "glass_pane"));
 	private static final TagKey<Item> GLASS_PANE_ALT = itemTag(new ResourceLocation("c", "glass_panes"));
+	public static final TagKey<Item> WOODEN_CHESTS = itemTag(new ResourceLocation("c", "wooden_chests"));
 
 	private static TagKey<Item> itemTag(ResourceLocation location) {
 		return TagKey.create(Registry.ITEM_REGISTRY, location);
@@ -47,6 +49,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 		this.copy(FabricBlockTagProvider.GLASS_ALT, GLASS_ALT);
 		this.copy(FabricBlockTagProvider.GLASS_PANE, GLASS_PANE);
 		this.copy(FabricBlockTagProvider.GLASS_PANE_ALT, GLASS_PANE_ALT);
+		this.tag(WOODEN_CHESTS).add(Items.CHEST, Items.TRAPPED_CHEST);
 		generateToolTags();
 		generateAccessoryTags();
 		generateCompatTags();
@@ -84,7 +87,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 				superLavaPendant,
 				thirdEye
 		);
-		this.tag(accessory("hand/ring")).add(
+		Item[] rings = {
 				auraRing,
 				auraRingGreater,
 				dodgeRing,
@@ -100,7 +103,9 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 				swapRing,
 				thorRing,
 				waterRing
-		);
+		};
+		this.tag(accessory("hand/ring")).add(rings);
+		this.tag(accessory("offhand/ring")).add(rings);
 		this.tag(accessory("head/face")).add(
 				itemFinder,
 				monocle,

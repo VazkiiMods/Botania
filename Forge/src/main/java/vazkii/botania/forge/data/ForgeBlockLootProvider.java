@@ -1,28 +1,14 @@
 package vazkii.botania.forge.data;
 
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraftforge.common.Tags;
 
-import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.BlockLootProvider;
 
@@ -46,24 +32,13 @@ public class ForgeBlockLootProvider implements DataProvider {
 				continue;
 			}
 
-			if (b instanceof BlockModDoubleFlower) {
-				tables.put(id, genDoubleFlower(b));
-			}
+			// Nothing for now
 		}
 
 		for (var e : tables.entrySet()) {
 			Path path = BlockLootProvider.getPath(generator.getOutputFolder(), e.getKey());
 			DataProvider.save(BlockLootProvider.GSON, cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path);
 		}
-	}
-
-	protected static LootTable.Builder genDoubleFlower(Block b) {
-		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
-				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
-				.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS)));
-		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
-				.when(ExplosionCondition.survivesExplosion());
-		return LootTable.lootTable().withPool(pool);
 	}
 
 	@Override
