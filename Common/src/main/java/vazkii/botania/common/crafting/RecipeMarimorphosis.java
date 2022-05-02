@@ -104,4 +104,11 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 		}
 	}
 
+	public int getWeightBonus() {
+		return weightBonus;
+	}
+
+	public Set<BiomeCategory> getBiomes() {
+		return biomes;
+	}
 }
