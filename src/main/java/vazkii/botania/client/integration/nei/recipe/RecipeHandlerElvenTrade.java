@@ -2,6 +2,7 @@ package vazkii.botania.client.integration.nei.recipe;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -115,7 +116,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if(outputId.equals("botania.elvenTrade") && hasElvenKnowledge()) {
 			if(hasElvenKnowledge()) {
-				for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+				for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
 					if(recipe == null)
 						continue;
 
@@ -128,7 +129,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
 		if(hasElvenKnowledge()) {
-			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+			for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
 				if(recipe == null)
 					continue;
 
@@ -141,7 +142,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
 		if(hasElvenKnowledge()) {
-			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+			for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
 				if(recipe == null)
 					continue;
 
@@ -149,6 +150,30 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 				if(ItemNBTHelper.cachedRecipeContainsWithNBT(crecipe.inputs, ingredient))
 					arecipes.add(crecipe);
 			}
+		}
+	}
+
+	// hide dummy recipes
+	private List<RecipeElvenTrade> filteredElvenTradeRecipes() {
+		List<RecipeElvenTrade> list = new ArrayList<>();
+		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+			if (recipe == null)
+				continue;
+
+			if (recipe.getInputs().size() == 1 && stackSame(recipe.getOutput(), recipe.getInputs().get(0))) {
+				continue;
+			}
+
+			list.add(recipe);
+		}
+		return list;
+	}
+
+	private boolean stackSame(ItemStack stack, Object obj) {
+		if (obj instanceof String) {
+			return OreDictionary.getOres((String) obj).stream().anyMatch(s -> ItemNBTHelper.areStacksSameTypeCraftingWithNBT(stack, s));
+		} else {
+			return Arrays.stream(NEIServerUtils.extractRecipeItems(obj)).anyMatch(s -> ItemNBTHelper.areStacksSameTypeCraftingWithNBT(stack, s));
 		}
 	}
 
