@@ -62,8 +62,7 @@
     "fabric": ">=0.50",
     "minecraft": ">=1.18.2",
     "trinkets" : ">=3",
-    "patchouli": "*",
-    "crafttweaker": ">=9.1.116"
+    "patchouli": "*"
   },
 
   "custom": {
