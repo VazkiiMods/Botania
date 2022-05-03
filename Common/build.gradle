@@ -30,6 +30,9 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 
     compileOnly 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
+
+    annotationProcessor 'com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.18.2:2.0.0.123'
+    annotationProcessor 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
 }
 
 test {
@@ -38,6 +41,11 @@ test {
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.compilerArgs.add("-Acrafttweaker.processor.document.output_directory=${new File(rootProject.buildDir, "docsOut")}")
+    it.options.compilerArgs.add("-Acrafttweaker.processor.document.multi_source=true")
 }
 
 processResources {
