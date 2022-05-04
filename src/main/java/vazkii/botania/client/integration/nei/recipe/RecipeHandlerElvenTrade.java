@@ -4,11 +4,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
@@ -16,7 +15,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.BlockAlfPortal;
@@ -117,9 +115,6 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 		if(outputId.equals("botania.elvenTrade") && hasElvenKnowledge()) {
 			if(hasElvenKnowledge()) {
 				for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
-					if(recipe == null)
-						continue;
-
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 				}
 			}
@@ -130,9 +125,6 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	public void loadCraftingRecipes(ItemStack result) {
 		if(hasElvenKnowledge()) {
 			for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
-				if(recipe == null)
-					continue;
-
 				if(ItemNBTHelper.areStacksSameTypeCraftingWithNBT(recipe.getOutput(), result))
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 			}
@@ -143,9 +135,6 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	public void loadUsageRecipes(ItemStack ingredient) {
 		if(hasElvenKnowledge()) {
 			for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
-				if(recipe == null)
-					continue;
-
 				CachedElvenTradeRecipe crecipe = new CachedElvenTradeRecipe(recipe);
 				if(ItemNBTHelper.cachedRecipeContainsWithNBT(crecipe.inputs, ingredient))
 					arecipes.add(crecipe);
@@ -155,18 +144,18 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 
 	// hide dummy recipes
 	private List<RecipeElvenTrade> filteredElvenTradeRecipes() {
-		List<RecipeElvenTrade> list = new ArrayList<>();
-		for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
-			if (recipe == null)
-				continue;
-
-			if (recipe.getInputs().size() == 1 && stackSame(recipe.getOutput(), recipe.getInputs().get(0))) {
-				continue;
-			}
-
-			list.add(recipe);
-		}
-		return list;
+		return BotaniaAPI.elvenTradeRecipes
+			.stream()
+			.filter(recipe -> {
+				if (recipe == null) {
+					return false;
+				}
+				if (recipe.getInputs().size() == 1) {
+					return !stackSame(recipe.getOutput(), recipe.getInputs().get(0));
+				}
+				return true;
+			})
+			.collect(Collectors.toList());
 	}
 
 	private boolean stackSame(ItemStack stack, Object obj) {
