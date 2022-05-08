@@ -81,7 +81,6 @@
       "type": "botania:mana_infusion",
       "text": "botania.page.manaAlchemy12",
       "recipes": [
-        "botania:mana_infusion/wheat_seeds_to_potato",
         "botania:mana_infusion/potato_unpoison"
       ]
     },
