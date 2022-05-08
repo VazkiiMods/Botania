@@ -15,7 +15,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -229,12 +228,12 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 
 			if (spreader.paddingColor != null) {
 				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
-				world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
+				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), padding);
 			}
 
 			if (state.getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
 				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
-				world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), scaffolding));
+				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), scaffolding);
 			}
 
 			Containers.dropContents(world, pos, spreader.getItemHandler());
