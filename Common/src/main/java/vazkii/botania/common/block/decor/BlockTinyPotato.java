@@ -17,6 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -67,7 +68,7 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
 		if (level.getBlockEntity(pos) instanceof TileTinyPotato tater) {
-			return tater.getAnalogOutputSignal();
+			return AbstractContainerMenu.getRedstoneSignalFromContainer(tater);
 		} else {
 			return 0;
 		}
@@ -79,6 +80,7 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
+				world.updateNeighbourForOutputSignal(pos, this);
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
 		}

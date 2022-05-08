@@ -21,7 +21,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,13 +40,11 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class TileTinyPotato extends TileExposedSimpleInventory implements Nameable {
 	private static final String TAG_NAME = "name";
-	private static final String TAG_SIGNAL = "signal";
 	private static final int JUMP_EVENT = 0;
 
 	public int jumpTicks = 0;
 	public Component name = new TextComponent("");
 	private int nextDoIt = 0;
-	private int comparatorSignal = 0;
 
 	public TileTinyPotato(BlockPos pos, BlockState state) {
 		super(ModTiles.TINY_POTATO, pos, state);
@@ -137,27 +134,22 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 	public void writePacketNBT(CompoundTag cmp) {
 		super.writePacketNBT(cmp);
 		cmp.putString(TAG_NAME, Component.Serializer.toJson(name));
-		cmp.putInt(TAG_SIGNAL, comparatorSignal);
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
 		super.readPacketNBT(cmp);
 		name = Component.Serializer.fromJson(cmp.getString(TAG_NAME));
-		comparatorSignal = cmp.getInt(TAG_SIGNAL);
 	}
 
 	@Override
 	protected SimpleContainer createItemHandler() {
-		SimpleContainer container = new SimpleContainer(6) {
+		return new SimpleContainer(6) {
 			@Override
 			public int getMaxStackSize() {
 				return 1;
 			}
 		};
-
-		container.addListener(cont -> comparatorSignal = AbstractContainerMenu.getRedstoneSignalFromContainer(cont));
-		return container;
 	}
 
 	@Nonnull
@@ -178,7 +170,4 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 		return hasCustomName() ? getCustomName() : getName();
 	}
 
-	public int getAnalogOutputSignal() {
-		return comparatorSignal;
-	}
 }
