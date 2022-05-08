@@ -39,7 +39,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 		}).toArray(Ingredient[]::new)), result);
 	}
 
-	private WaterBottleMatchingRecipe(ShapedRecipe recipe) {
+	public WaterBottleMatchingRecipe(ShapedRecipe recipe) {
 		this(recipe.getId(), recipe.getGroup(), recipe.getWidth(), recipe.getHeight(), recipe.getIngredients(), recipe.getResultItem());
 	}
 

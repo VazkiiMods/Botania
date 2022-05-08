@@ -125,6 +125,8 @@ dependencies {
     */
 
     modCompileOnly 'teamreborn:energy:2.1.0'
+
+    modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
 }
 
 compileJava {

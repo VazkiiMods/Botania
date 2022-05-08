@@ -39,4 +39,4 @@ configBackground="botania:textures/block/livingrock_bricks.png" # background for
 [[dependencies.botania]]
     modId="crafttweaker"
     mandatory=false
-    versionRange="[7.1.2.448,)"
+    versionRange="[9.1.116,)"
