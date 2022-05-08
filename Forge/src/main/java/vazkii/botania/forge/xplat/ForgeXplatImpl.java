@@ -477,7 +477,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public Attribute getStepHeightAttribute() {
-		return null;
+		return ForgeMod.STEP_HEIGHT_ADDITION.get();
 	}
 
 	@Override

@@ -87,10 +87,8 @@ public class ItemTravelBelt extends ItemBauble {
 		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 		var stepHeight = IXplatAbstractions.INSTANCE.getStepHeightAttribute();
-		/* TODO 1.18-forge step height is not yet an attribute. See Forge PR #8389
-			Remove all these null checks when it's merged */
-		AttributeInstance attrib = stepHeight != null ? player.getAttribute(stepHeight) : null;
-		boolean hasBoost = attrib != null && attrib.hasModifier(STEP_BOOST);
+		AttributeInstance attrib = player.getAttribute(stepHeight);
+		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
 
 		if (tryConsumeMana(player)) {
 			if (player.level.isClientSide) {
@@ -113,9 +111,7 @@ public class ItemTravelBelt extends ItemBauble {
 					}
 				} else {
 					if (!hasBoost) {
-						if (attrib != null) { // temporary while Nullable on forge
-							attrib.addTransientModifier(STEP_BOOST);
-						}
+						attrib.addTransientModifier(STEP_BOOST);
 					}
 				}
 			}
