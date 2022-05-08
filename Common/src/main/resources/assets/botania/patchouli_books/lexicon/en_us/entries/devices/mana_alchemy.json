@@ -20,11 +20,13 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy29",
       "text": "botania.page.manaAlchemy3",
       "group": "botania:log_cycle"
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy30",
       "text": "botania.page.manaAlchemy4",
       "group": "botania:sapling_cycle"
     },
@@ -38,6 +40,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy31",
       "text": "botania.page.manaAlchemy6",
       "recipes": [
         "botania:mana_infusion/quartz_deconstruct",
@@ -61,6 +64,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy32",
       "text": "botania.page.manaAlchemy9",
       "recipes": [
         "botania:mana_infusion/vine_to_lily_pad",
@@ -69,11 +73,13 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy33",
       "text": "botania.page.manaAlchemy10",
       "group": "botania:fish_cycle"
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy34",
       "text": "botania.page.manaAlchemy11",
       "group": "botania:crop_cycle"
     },
@@ -107,6 +113,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy35",
       "text": "botania.page.manaAlchemy17",
       "recipes": [
         "botania:mana_infusion/cactus_to_slime",
@@ -120,6 +127,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy36",
       "text": "botania.page.manaAlchemy19",
       "recipes": [
         "botania:mana_infusion/glowstone_dust_to_redstone",
@@ -139,6 +147,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy37",
       "text": "botania.page.manaAlchemy26",
       "recipes": [
         "botania:mana_infusion/granite_to_andesite",
@@ -149,6 +158,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy38",
       "text": "botania.page.manaAlchemy22",
       "recipes": [
         "botania:mana_infusion/clay_deconstruct",
@@ -162,11 +172,13 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy39",
       "text": "botania.page.manaAlchemy24",
       "group": "botania:shrub_cycle"
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy40",
       "text": "botania.page.manaAlchemy25",
       "group": "botania:flower_cycle"
     },
@@ -177,6 +189,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy41",
       "text": "botania.page.manaAlchemy28",
       "group": "botania:berry_cycle"
     }

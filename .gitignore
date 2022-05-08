@@ -31,6 +31,10 @@ out
 /*.iml
 /classes
 
+## vscode
+.favorites.json
+.vscode/settings.json
+ 
 ## Private Stuffs
 /private.properties
 
@@ -68,3 +72,6 @@ Forge/src/generated/resources/.cache/
 
 # CraftTweaker generated docs
 /docsOut
+
+# Logs
+Common/logs/latest.log

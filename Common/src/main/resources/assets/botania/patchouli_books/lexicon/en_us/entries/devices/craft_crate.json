@@ -48,6 +48,7 @@
     },
     {
       "type": "botania:crafting_multi",
+      "heading": "botania.page.craftCrate10",
       "text": "botania.page.craftCrate9",
       "recipes": [
         "botania:pattern_1_1",
