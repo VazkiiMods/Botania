@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -56,7 +57,7 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 
 							addMana(-MANA_COST);
 							animal.setInLoveTime(1200);
-							getLevel().broadcastEntityEvent(animal, (byte) 18);
+							getLevel().broadcastEntityEvent(animal, EntityEvent.IN_LOVE_HEARTS);
 							break;
 						}
 					}
