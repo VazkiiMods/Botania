@@ -35,9 +35,9 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if (!getLevel().isClientSide) {
-
-			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
-			List<Animal> animals = getLevel().getEntitiesOfClass(Animal.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			var bounds = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
+			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, bounds);
+			List<Animal> animals = getLevel().getEntitiesOfClass(Animal.class, bounds);
 
 			for (Animal animal : animals) {
 				if (getMana() < MANA_COST) {
@@ -57,6 +57,7 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 							addMana(-MANA_COST);
 							animal.setInLoveTime(1200);
 							getLevel().broadcastEntityEvent(animal, (byte) 18);
+							break;
 						}
 					}
 				}
