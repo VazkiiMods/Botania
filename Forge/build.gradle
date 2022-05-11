@@ -57,7 +57,7 @@ minecraft {
             mods {
                 botania {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
+                    source project(":Xplat").sourceSets.main
                 }
             }
         }
@@ -70,7 +70,7 @@ minecraft {
             mods {
                 botania {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
+                    source project(":Xplat").sourceSets.main
                 }
             }
         }
@@ -84,7 +84,7 @@ minecraft {
             mods {
                 botania {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
+                    source project(":Xplat").sourceSets.main
                 }
             }
             args '--mod', 'botania', '--all', '--output', '"' + file('src/generated/resources/') + '"'
@@ -94,7 +94,7 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-40.1.19"
-    compileOnly project(":Common")
+    compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation "com.google.code.findbugs:jsr305:3.0.2"
@@ -110,12 +110,12 @@ dependencies {
 }
 
 compileJava {
-    source(project(":Common").sourceSets.main.allSource)
+    source(project(":Xplat").sourceSets.main.allSource)
     options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
 }
 
 sourcesJar {
-    from project(":Common").sourceSets.main.allJava
+    from project(":Xplat").sourceSets.main.allJava
 }
 
 sourceSets.main.resources {
@@ -123,7 +123,7 @@ sourceSets.main.resources {
 }
 
 processResources {
-    from project(":Common").sourceSets.main.resources
+    from project(":Xplat").sourceSets.main.resources
     inputs.property "version", project.version
 
     filesMatching("mods.toml") {
@@ -149,7 +149,7 @@ jar {
 
 task apiJar(type: Jar, dependsOn: classes) {
     // Sources included because of MinecraftForge/ForgeGradle#369
-    from project(":Common").sourceSets.main.allJava
+    from project(":Xplat").sourceSets.main.allJava
     from(sourceSets.main.allJava)
     from(sourceSets.main.output)
 

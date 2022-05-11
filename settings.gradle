@@ -17,4 +17,4 @@ pluginManagement {
     }
 }
 rootProject.name = 'Botania'
-include("Common", "Fabric", "Forge")
+include("Xplat", "Fabric", "Forge")
