@@ -29,12 +29,12 @@ public class LensRedirect extends Lens {
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		BlockPos sourcePos = burst.getBurstSourceBlockPos();
 		Entity entity = burst.entity();
-		var hitPos = ((BlockHitResult) pos).getBlockPos();
-		if (!entity.level.isClientSide && pos.getType() == HitResult.Type.BLOCK
+		if (!entity.level.isClientSide && pos instanceof BlockHitResult result
 				&& sourcePos.getY() != Integer.MIN_VALUE
-				&& !hitPos.equals(sourcePos)) {
+				&& result.getBlockPos().equals(sourcePos)) {
+			var hitPos = result.getBlockPos();
 			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(entity.level, hitPos,
-					entity.level.getBlockState(hitPos), entity.level.getBlockEntity(hitPos), ((BlockHitResult) pos).getDirection());
+					entity.level.getBlockState(hitPos), entity.level.getBlockEntity(hitPos), result.getDirection());
 			if (receiver instanceof IManaSpreader spreader) {
 				if (!burst.isFake()) {
 					Vec3 tileVec = Vec3.atCenterOf(hitPos);
