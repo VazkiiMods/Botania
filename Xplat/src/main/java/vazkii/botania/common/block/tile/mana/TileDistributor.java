@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
@@ -34,7 +35,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 			BlockPos pos = worldPosition.relative(dir);
 			if (level.hasChunkAt(pos)) {
 				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, pos, dir.getOpposite());
-				if (receiver != null) {
+				if (receiver instanceof IManaPool) {
 					if (!receiver.isFull()) {
 						self.validPools.add(receiver);
 					}
