@@ -16,7 +16,7 @@ import vazkii.botania.common.brew.ModBrews;
 import java.util.List;
 
 @ZenRegister()
-@Document("mods/botania/Brew")
+@Document("mods/Botania/Brew")
 @NativeTypeRegistration(value = Brew.class, zenCodeName = "mods.botania.Brew")
 @TaggableElement("botania:brews")
 public class ExpandBrew {
