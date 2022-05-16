@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/template_wall_side_tall",
+  "parent": "botania:block/shapes/wall_side_tall",
   "textures": {
-    "wall": "botania:block/livingwood_log"
+    "wall": "botania:block/livingwood_log",
+    "bottom": "botania:block/livingwood_log",
+    "top": "botania:block/livingwood_log"
   }
 }

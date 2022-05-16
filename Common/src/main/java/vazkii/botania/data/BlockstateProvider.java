@@ -542,6 +542,14 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeStoneTaigaSlab, taigaModels, taigaTextures, taigaTextures, taigaTextures);
 		wallBlockWithVariants(remainingBlocks, biomeStoneTaigaWall, taigaTextures);
 
+		var plainsBrickSide = getBlockTexture(biomeBrickPlains);
+		var plainsBrickTop = getBlockTexture(biomeBrickPlains, "_top");
+		pillarAlt(remainingBlocks, biomeBrickPlains, plainsBrickTop, plainsBrickSide);
+		stairsBlock(remainingBlocks, biomeBrickPlainsStairs, plainsBrickSide, plainsBrickTop, plainsBrickTop);
+		slabBlock(remainingBlocks, biomeBrickPlainsSlab, getModelLocation(biomeBrickPlains), plainsBrickSide, plainsBrickTop, plainsBrickTop);
+		wallBlock(remainingBlocks, biomeBrickPlainsWall, plainsBrickSide, plainsBrickTop, plainsBrickTop);
+
+		// Slabs, stairs, walls are handled automatically.
 		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
 			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
 		}
@@ -801,18 +809,30 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	protected void wallBlock(Set<Block> blocks, Block block, ResourceLocation texture) {
-		wallBlockWithVariants(blocks, block, new ResourceLocation[] { texture });
+		wallBlock(blocks, block, texture, texture, texture);
 	}
 
-	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures) {
+	protected void wallBlock(Set<Block> blocks, Block block, ResourceLocation sideTexture, ResourceLocation bottomTexture, ResourceLocation topTexture) {
+		wallBlockWithVariants(blocks, block, new ResourceLocation[] { sideTexture }, new ResourceLocation[] { bottomTexture }, new ResourceLocation[] { topTexture });
+	}
+
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
+		wallBlockWithVariants(blocks, block, textures, textures, textures);
+	}
+
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
+		wallBlockWithVariants(blocks, block, textures, textures, textures, weights);
+	}
+
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
 		var weights = new Integer[sideTextures.length];
 		Arrays.fill(weights, 1);
-		wallBlockWithVariants(blocks, block, sideTextures, weights);
+		wallBlockWithVariants(blocks, block, sideTextures, bottomTextures, topTextures, weights);
 	}
 
-	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, Integer[] weights) {
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
 		int length = sideTextures.length;
-		if (length != weights.length) {
+		if (length != bottomTextures.length && length != topTextures.length && length  != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
 		}
 		ResourceLocation[] postModels = new ResourceLocation[length];
@@ -821,13 +841,21 @@ public class BlockstateProvider implements DataProvider {
 		for (int i = 0; i < length; i++) {
 			String suffix = i == 0 ? "" : "_" + i;
 			var mapping = new TextureMapping()
-					.put(TextureSlot.WALL, sideTextures[i]);
+					.put(TextureSlot.WALL, sideTextures[i])
+					.put(TextureSlot.BOTTOM, bottomTextures[i])
+					.put(TextureSlot.TOP, topTextures[i]);
 			ResourceLocation modelIdPost = getModelLocation(block, "_post" + suffix);
 			ResourceLocation modelIdLow = getModelLocation(block, "_side" + suffix);
 			ResourceLocation modelIdTall = getModelLocation(block, "_side_tall" + suffix);
-			postModels[i] = ModelTemplates.WALL_POST.create(modelIdPost, mapping, this.modelOutput);
-			lowModels[i] = ModelTemplates.WALL_LOW_SIDE.create(modelIdLow, mapping, this.modelOutput);
-			tallModels[i] = ModelTemplates.WALL_TALL_SIDE.create(modelIdTall, mapping, this.modelOutput);
+			var postTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/wall_post")), Optional.of("_post"),
+					TextureSlot.WALL, TextureSlot.BOTTOM, TextureSlot.TOP);
+			var sideTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/wall_side")), Optional.of("_side"),
+					TextureSlot.WALL, TextureSlot.BOTTOM, TextureSlot.TOP);
+			var sideTallTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/wall_side_tall")), Optional.of("_side_tall"),
+					TextureSlot.WALL, TextureSlot.BOTTOM, TextureSlot.TOP);
+			postModels[i] = postTemplate.create(modelIdPost, mapping, this.modelOutput);
+			lowModels[i] = sideTemplate.create(modelIdLow, mapping, this.modelOutput);
+			tallModels[i] = sideTallTemplate.create(modelIdTall, mapping, this.modelOutput);
 		}
 		wallBlockWithModels(blocks, block, postModels, lowModels, tallModels, weights);
 	}

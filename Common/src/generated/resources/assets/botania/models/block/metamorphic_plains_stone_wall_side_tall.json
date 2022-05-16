@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/template_wall_side_tall",
+  "parent": "botania:block/shapes/wall_side_tall",
   "textures": {
-    "wall": "botania:block/metamorphic_plains_stone"
+    "wall": "botania:block/metamorphic_plains_stone",
+    "bottom": "botania:block/metamorphic_plains_stone",
+    "top": "botania:block/metamorphic_plains_stone"
   }
 }

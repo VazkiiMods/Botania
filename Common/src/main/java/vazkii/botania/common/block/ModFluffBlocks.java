@@ -155,7 +155,7 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeCobblestonePlainsStairs = new BlockModStairs(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeCobblestonePlainsWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
-	public static final Block biomeBrickPlains = new BlockMod(BlockBehaviour.Properties.copy(biomeStonePlains));
+	public static final Block biomeBrickPlains = new RotatedPillarBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeBrickPlainsSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeBrickPlainsStairs = new BlockModStairs(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeBrickPlainsWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
