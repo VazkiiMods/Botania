@@ -324,7 +324,7 @@ public class ForgeCommonInitializer {
 			}
 		});
 		// FabricMixinAxeItem
-		bus.addListener((BlockEvent.BlockToolInteractEvent e) -> {
+		bus.addListener((BlockEvent.BlockToolModificationEvent e) -> {
 			if (e.getToolAction() == ToolActions.AXE_STRIP) {
 				BlockState input = e.getState();
 				Block output = ForgeXplatImpl.CUSTOM_STRIPPABLES.get(input.getBlock());

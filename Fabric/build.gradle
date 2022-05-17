@@ -23,7 +23,7 @@ loom {
             vmArg "-Dbotania.xplat_datagen=1"
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.modid=botania"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("../Common/src/generated/resources")}"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("../Xplat/src/generated/resources")}"
         }
 
         fabricDatagen {
@@ -95,7 +95,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.50.0+1.18.2"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-    compileOnly project(":Common")
+    compileOnly project(":Xplat")
 
     modImplementation "vazkii.patchouli:Patchouli:1.18.2-67-FABRIC"
 
@@ -125,20 +125,22 @@ dependencies {
     */
 
     modCompileOnly 'teamreborn:energy:2.1.0'
+
+    modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
 }
 
 compileJava {
-	source(project(":Common").sourceSets.main.allSource)
+	source(project(":Xplat").sourceSets.main.allSource)
 	options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
 
 }
 
 sourcesJar {
-    from project(":Common").sourceSets.main.allJava
+    from project(":Xplat").sourceSets.main.allJava
 }
 
 processResources {
-    from project(":Common").sourceSets.main.resources
+    from project(":Xplat").sourceSets.main.resources
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {

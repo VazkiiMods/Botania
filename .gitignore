@@ -31,6 +31,10 @@ out
 /*.iml
 /classes
 
+## vscode
+.favorites.json
+.vscode/settings.json
+ 
 ## Private Stuffs
 /private.properties
 
@@ -62,9 +66,12 @@ Temporary Items
 .apdisk
 
 # Data Generator cache
-Common/src/generated/resources/.cache/
+Xplat/src/generated/resources/.cache/
 Fabric/src/generated/resources/.cache/
 Forge/src/generated/resources/.cache/
 
 # CraftTweaker generated docs
 /docsOut
+
+# Logs
+Xplat/logs/latest.log

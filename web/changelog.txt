@@ -1,3 +1,16 @@
+1.18.2-432
+* Add: Reintroduce CraftTweaker support (Jared)
+* Add: Tiny Potato can now be read by comparators (quat)
+* Fix: Snowflake Pendant crashing the game
+* Fix: Docs for tall flowers not being updated for the shears change
+* Fix: Some Patchouli page titles being too specific (only showing one color of a multicolor item, e.g.) (Aegide)
+* Fix: Brewery JEI stack positioning being slightly off
+* Fix: Step height boost not working on Forge
+* Fix: Pollidisiac wasting food when animals are already in love mode
+* Fix: Empty stacks appearing in Corporea results, causing crashes on Fabric
+* Change: Hopperhocks now respect the preventRemoteMovement flag on Forge
+* Change: Tweaks to livingwood plank and derived textures (artemisSystem)
+* Change: Tiny Potatos can only store one item per side instead of 64 (quat)
 1.18.2-431
 * Add: Flower pouch has been expanded to hold tall mystical flowers
 * Add: Tiny Potatoes that have the "enchanted" name prefix also glint in hand

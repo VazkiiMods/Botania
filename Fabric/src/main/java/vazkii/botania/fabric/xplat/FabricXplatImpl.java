@@ -311,6 +311,11 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate) {
+		if (toInsert.isEmpty()) {
+			//It is valid for Storage#insert implementations to crash when provided empty variants
+			return toInsert;
+		}
+
 		var state = level.getBlockState(pos);
 		var be = level.getBlockEntity(pos);
 		var storage = ItemStorage.SIDED.find(level, pos, state, be, sideOfPos);
