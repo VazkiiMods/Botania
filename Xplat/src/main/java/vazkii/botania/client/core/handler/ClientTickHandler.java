@@ -19,7 +19,7 @@ import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.ItemTwigWand;
 
 public final class ClientTickHandler {
 
@@ -53,7 +53,7 @@ public final class ClientTickHandler {
 
 			Player player = mc.player;
 			if (player != null) {
-				if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
+				if (PlayerHelper.hasHeldItemClass(player, ItemTwigWand.class)) {
 					for (var collector : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().level))) {
 						collector.onClientDisplayTick();
 					}

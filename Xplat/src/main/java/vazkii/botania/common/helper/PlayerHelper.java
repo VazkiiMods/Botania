@@ -69,8 +69,8 @@ public final class PlayerHelper {
 		}
 	}
 
-	public static ItemStack getFirstHeldItemClass(Player player, Class<?> template) {
-		return getFirstHeldItem(player, s -> template.isAssignableFrom(s.getItem().getClass()));
+	public static ItemStack getFirstHeldItemClass(LivingEntity living, Class<?> template) {
+		return getFirstHeldItem(living, s -> template.isAssignableFrom(s.getItem().getClass()));
 	}
 
 	public static ItemStack getAmmo(Player player, Predicate<ItemStack> ammoFunc) {
@@ -110,6 +110,20 @@ public final class PlayerHelper {
 			}
 		}
 		return false;
+	}
+
+	public static ItemStack getItemFromInventory(Player player, Predicate<ItemStack> itemPred) {
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			ItemStack item = player.getInventory().getItem(i);
+			if (itemPred.test(item)) {
+				return item;
+			}
+		}
+		return ItemStack.EMPTY;
+	}
+
+	public static ItemStack getItemClassFromInventory(Player player, Class<?> template) {
+		return getItemFromInventory(player, s -> template.isAssignableFrom(s.getItem().getClass()));
 	}
 
 	public static void grantCriterion(ServerPlayer player, ResourceLocation advancementId, String criterion) {

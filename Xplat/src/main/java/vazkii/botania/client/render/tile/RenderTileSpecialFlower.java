@@ -31,7 +31,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 
 import javax.annotation.Nullable;
@@ -89,7 +88,7 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> implemen
 	}
 
 	public static boolean hasBindingAttempt(LivingEntity view, BlockPos tilePos) {
-		ItemStack stackHeld = PlayerHelper.getFirstHeldItem(view, ModItems.twigWand);
+		ItemStack stackHeld = PlayerHelper.getFirstHeldItemClass(view, ItemTwigWand.class);
 		if (!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
 			return ItemTwigWand.getBindingAttempt(stackHeld).filter(tilePos::equals).isPresent();
 		}

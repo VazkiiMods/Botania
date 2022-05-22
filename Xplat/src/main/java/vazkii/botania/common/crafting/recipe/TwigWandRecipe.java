@@ -22,7 +22,6 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemPetal;
 
 import javax.annotation.Nonnull;
@@ -53,16 +52,10 @@ public class TwigWandRecipe extends ShapedRecipe {
 			if (first == -1) {
 				first = colorId;
 			} else {
-				return ItemTwigWand.forColors(first, colorId);
+				return ItemTwigWand.setColors(getResultItem().copy(), first, colorId);
 			}
 		}
-		return ItemTwigWand.forColors(first != -1 ? first : 0, 0);
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getResultItem() {
-		return new ItemStack(ModItems.twigWand);
+		return ItemTwigWand.setColors(getResultItem().copy(), first != -1 ? first : 0, 0);
 	}
 
 	@Nonnull

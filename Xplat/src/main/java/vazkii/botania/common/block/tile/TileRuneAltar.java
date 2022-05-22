@@ -40,6 +40,8 @@ import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.proxy.IProxy;
@@ -72,7 +74,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (cooldown > 0 || stack.is(ModItems.twigWand) || stack.is(ModItems.lexicon)) {
+		if (cooldown > 0 || stack.getItem() instanceof ItemTwigWand || stack.is(ModItems.lexicon)) {
 			return false;
 		}
 
@@ -390,7 +392,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 						pose.pushPose();
 						pose.translate(0, 0, 100);
 						RenderSystem.applyModelViewMatrix();
-						mc.getItemRenderer().renderGuiItem(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
+						// If the player is holding an ItemTwigWand or has one in their inventory, render that instead of a generic twigWand
+						ItemStack playerWand = PlayerHelper.getFirstHeldItemClass(mc.player, ItemTwigWand.class);
+						if (playerWand.isEmpty()) {
+							playerWand = PlayerHelper.getItemClassFromInventory(mc.player, ItemTwigWand.class);
+						}
+						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(ModItems.twigWand) : playerWand;
+						mc.getItemRenderer().renderGuiItem(wandToRender, xc + radius + 24, yc + 8);
 						pose.popPose();
 						RenderSystem.applyModelViewMatrix();
 					}

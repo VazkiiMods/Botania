@@ -30,7 +30,7 @@ import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.ItemTwigWand;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -61,7 +61,7 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty()) {
-			if (stack.is(ModItems.twigWand) && player.isShiftKeyDown()) {
+			if (stack.getItem() instanceof ItemTwigWand && player.isShiftKeyDown()) {
 				return InteractionResult.PASS;
 			}
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);

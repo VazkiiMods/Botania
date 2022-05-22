@@ -323,7 +323,7 @@ public class ItemTwigWand extends Item {
 	public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> stacks) {
 		if (allowdedIn(group)) {
 			for (int i = 0; i < 16; i++) {
-				stacks.add(forColors(i, i));
+				stacks.add(setColors(new ItemStack(ModItems.twigWand), i, i));
 			}
 		}
 	}
@@ -336,12 +336,11 @@ public class ItemTwigWand extends Item {
 		return super.getName(stack).plainCopy().append(mode);
 	}
 
-	public static ItemStack forColors(int color1, int color2) {
-		ItemStack stack = new ItemStack(ModItems.twigWand);
-		ItemNBTHelper.setInt(stack, TAG_COLOR1, color1);
-		ItemNBTHelper.setInt(stack, TAG_COLOR2, color2);
+	public static ItemStack setColors(ItemStack wand, int color1, int color2) {
+		ItemNBTHelper.setInt(wand, TAG_COLOR1, color1);
+		ItemNBTHelper.setInt(wand, TAG_COLOR2, color2);
 
-		return stack;
+		return wand;
 	}
 
 	public static int getColor1(ItemStack stack) {

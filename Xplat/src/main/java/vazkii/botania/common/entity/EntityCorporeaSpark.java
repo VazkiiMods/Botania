@@ -33,6 +33,7 @@ import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
@@ -244,7 +245,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
-			if (stack.is(ModItems.twigWand)) {
+			if (stack.getItem() instanceof ItemTwigWand) {
 				if (!level.isClientSide) {
 					if (player.isShiftKeyDown()) {
 						dropAndKill();
