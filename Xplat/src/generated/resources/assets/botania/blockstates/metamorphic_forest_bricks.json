@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
-      "model": "botania:block/metamorphic_forest_bricks"
-    }
+    "": [
+      {
+        "model": "botania:block/metamorphic_forest_bricks",
+        "weight": 2
+      },
+      {
+        "model": "botania:block/metamorphic_forest_bricks_1"
+      }
+    ]
   }
 }
