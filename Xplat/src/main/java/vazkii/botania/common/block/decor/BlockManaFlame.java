@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockManaFlame extends BlockMod implements EntityBlock {
+public class BlockManaFlame extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 4, 4, 12, 12, 12);
 

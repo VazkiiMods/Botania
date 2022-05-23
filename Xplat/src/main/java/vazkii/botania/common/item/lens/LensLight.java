@@ -9,10 +9,11 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -35,10 +36,12 @@ public class LensLight extends Lens {
 			if (stateAt.is(ModBlocks.manaFlame)) {
 				entity.level.removeBlock(rtr.getBlockPos(), false);
 			} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
-				entity.level.setBlockAndUpdate(neighborPos, ModBlocks.manaFlame.defaultBlockState());
-				BlockEntity tile = entity.level.getBlockEntity(neighborPos);
+				var fluid = entity.level.getFluidState(neighborPos);
+				var water = fluid.isSource() && fluid.is(FluidTags.WATER);
+				entity.level.setBlockAndUpdate(neighborPos,
+						ModBlocks.manaFlame.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, water));
 
-				if (tile instanceof TileManaFlame manaFlame) {
+				if (entity.level.getBlockEntity(neighborPos) instanceof TileManaFlame manaFlame) {
 					manaFlame.setColor(burst.getColor());
 				}
 			}
