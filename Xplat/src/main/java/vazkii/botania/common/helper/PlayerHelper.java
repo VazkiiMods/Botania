@@ -43,11 +43,6 @@ public final class PlayerHelper {
 	}
 
 	// Checks main hand, then off hand for this item class.
-	public static boolean hasHeldItemClass(Player player, Item template) {
-		return hasHeldItemClass(player, template.getClass());
-	}
-
-	// Checks main hand, then off hand for this item class.
 	public static boolean hasHeldItemClass(Player player, Class<?> template) {
 		return !player.getMainHandItem().isEmpty() && template.isAssignableFrom(player.getMainHandItem().getItem().getClass())
 				|| !player.getOffhandItem().isEmpty() && template.isAssignableFrom(player.getOffhandItem().getItem().getClass());
@@ -101,15 +96,6 @@ public final class PlayerHelper {
 		if (!ammo.isEmpty()) {
 			ammo.shrink(1);
 		}
-	}
-
-	public static boolean hasItem(Player player, Predicate<ItemStack> itemFunc) {
-		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-			if (itemFunc.test(player.getInventory().getItem(i))) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public static ItemStack getItemFromInventory(Player player, Predicate<ItemStack> itemPred) {

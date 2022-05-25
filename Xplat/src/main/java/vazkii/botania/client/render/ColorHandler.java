@@ -124,12 +124,7 @@ public final class ColorHandler {
 		items.register((s, t) -> t == 1 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor1(s)))
 				: t == 2 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor2(s)))
 				: -1,
-				ModItems.twigWand);
-
-		items.register((s, t) -> t == 1 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor1(s)))
-				: t == 2 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor2(s)))
-				: -1,
-				ModItems.dreamwoodWand);
+				ModItems.twigWand, ModItems.dreamwoodWand);
 
 		ItemColor petalHandler = (s, t) -> t == 0 ? ColorHelper.getColorValue(((ItemPetal) s.getItem()).color) : -1;
 		for (DyeColor color : DyeColor.values()) {
