@@ -2,12 +2,12 @@ package vazkii.botania.client.integration.nei.recipe;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
@@ -15,7 +15,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.BlockAlfPortal;
@@ -115,10 +114,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	public void loadCraftingRecipes(String outputId, Object... results) {
 		if(outputId.equals("botania.elvenTrade") && hasElvenKnowledge()) {
 			if(hasElvenKnowledge()) {
-				for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
-					if(recipe == null)
-						continue;
-
+				for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 				}
 			}
@@ -128,10 +124,7 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	@Override
 	public void loadCraftingRecipes(ItemStack result) {
 		if(hasElvenKnowledge()) {
-			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
-				if(recipe == null)
-					continue;
-
+			for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
 				if(ItemNBTHelper.areStacksSameTypeCraftingWithNBT(recipe.getOutput(), result))
 					arecipes.add(new CachedElvenTradeRecipe(recipe));
 			}
@@ -141,14 +134,35 @@ public class RecipeHandlerElvenTrade extends TemplateRecipeHandler {
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient) {
 		if(hasElvenKnowledge()) {
-			for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
-				if(recipe == null)
-					continue;
-
+			for(RecipeElvenTrade recipe : filteredElvenTradeRecipes()) {
 				CachedElvenTradeRecipe crecipe = new CachedElvenTradeRecipe(recipe);
 				if(ItemNBTHelper.cachedRecipeContainsWithNBT(crecipe.inputs, ingredient))
 					arecipes.add(crecipe);
 			}
+		}
+	}
+
+	// hide dummy recipes
+	private List<RecipeElvenTrade> filteredElvenTradeRecipes() {
+		return BotaniaAPI.elvenTradeRecipes
+			.stream()
+			.filter(recipe -> {
+				if (recipe == null) {
+					return false;
+				}
+				if (recipe.getInputs().size() == 1) {
+					return !stackSame(recipe.getOutput(), recipe.getInputs().get(0));
+				}
+				return true;
+			})
+			.collect(Collectors.toList());
+	}
+
+	private boolean stackSame(ItemStack stack, Object obj) {
+		if (obj instanceof String) {
+			return OreDictionary.getOres((String) obj).stream().anyMatch(s -> ItemNBTHelper.areStacksSameTypeCraftingWithNBT(stack, s));
+		} else {
+			return Arrays.stream(NEIServerUtils.extractRecipeItems(obj)).anyMatch(s -> ItemNBTHelper.areStacksSameTypeCraftingWithNBT(stack, s));
 		}
 	}
 
