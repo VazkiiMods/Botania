@@ -76,8 +76,11 @@ public class ItemTwigWand extends Item {
 	private static final String TAG_BIND_MODE = "bindMode";
 	private static final BlockPos UNBOUND_POS = new BlockPos(0, Integer.MIN_VALUE, 0);
 
-	public ItemTwigWand(Item.Properties builder) {
+	public ChatFormatting modeChatFormatting;
+
+	public ItemTwigWand(ChatFormatting formatting, Item.Properties builder) {
 		super(builder);
+		this.modeChatFormatting = formatting;
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
@@ -323,7 +326,7 @@ public class ItemTwigWand extends Item {
 	public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> stacks) {
 		if (allowdedIn(group)) {
 			for (int i = 0; i < 16; i++) {
-				stacks.add(setColors(new ItemStack(ModItems.twigWand), i, i));
+				stacks.add(setColors(new ItemStack(this), i, i));
 			}
 		}
 	}
@@ -331,7 +334,7 @@ public class ItemTwigWand extends Item {
 	@Override
 	public Component getName(@Nonnull ItemStack stack) {
 		Component mode = new TextComponent(" (")
-				.append(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.DARK_GREEN))
+				.append(new TranslatableComponent(getModeString(stack)).withStyle(modeChatFormatting))
 				.append(")");
 		return super.getName(stack).plainCopy().append(mode);
 	}

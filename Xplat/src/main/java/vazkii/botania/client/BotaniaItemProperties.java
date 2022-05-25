@@ -49,6 +49,8 @@ public final class BotaniaItemProperties {
 				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
 		consumer.accept(ModItems.twigWand, prefix("bindmode"),
 				(stack, world, entity, seed) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
+		consumer.accept(ModItems.dreamwoodWand, prefix("bindmode"),
+				(stack, world, entity, seed) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
 
 		ResourceLocation poolFullId = prefix("full");
 		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {

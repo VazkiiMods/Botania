@@ -458,7 +458,8 @@ public class ForgeCommonInitializer {
 	private static final Supplier<Map<Item, Function<ItemStack, ICoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
 			ModItems.flugelEye, ItemFlugelEye.CoordBoundItem::new,
 			ModItems.manaMirror, ItemManaMirror.CoordBoundItem::new,
-			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new
+			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new,
+			ModItems.dreamwoodWand, ItemTwigWand.CoordBoundItem::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, IManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(

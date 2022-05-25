@@ -901,6 +901,7 @@ public final class ModBlocks {
 
 	public static void addDispenserBehaviours() {
 		DispenserBlock.registerBehavior(ModItems.twigWand, new BehaviourWand());
+		DispenserBlock.registerBehavior(ModItems.dreamwoodWand, new BehaviourWand());
 		DispenserBlock.registerBehavior(ModItems.obedienceStick, new BehaviourStick());
 		DispenserBlock.registerBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());

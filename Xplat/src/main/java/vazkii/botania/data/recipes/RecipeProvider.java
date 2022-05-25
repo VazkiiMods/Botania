@@ -973,6 +973,15 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:twig_wand")
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.PETALS))
 				.save(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
+		ShapedRecipeBuilder.shaped(ModItems.dreamwoodWand)
+				.define('P', ModTags.Items.PETALS)
+				.define('S', ModItems.dreamwoodTwig)
+				.pattern(" PS")
+				.pattern(" SP")
+				.pattern("S  ")
+				.group("botania:twig_wand")
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.PETALS))
+				.save(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
 		ShapedRecipeBuilder.shaped(ModItems.manaTablet)
 				.define('P', AccessorIngredient.callFromValues(Stream.of(
 						new Ingredient.ItemValue(new ItemStack(ModItems.manaPearl)),
