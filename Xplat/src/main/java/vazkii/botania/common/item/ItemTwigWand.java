@@ -74,7 +74,6 @@ public class ItemTwigWand extends Item {
 	private static final String TAG_BOUND_TILE_Y = "boundTileY";
 	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 	private static final String TAG_BIND_MODE = "bindMode";
-	private static final BlockPos UNBOUND_POS = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	public ChatFormatting modeChatFormatting;
 
@@ -86,13 +85,13 @@ public class ItemTwigWand extends Item {
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
 		BlockPos dest = ctx.getClickedPos();
 		if (!dest.equals(src)) {
-			setBindingAttempt(stack, UNBOUND_POS);
+			setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 
 			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src);
 			if (srcTile instanceof IWandBindable bindable) {
 				if (bindable.bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
 					doParticleBeamWithOffset(ctx.getLevel(), src, dest);
-					setBindingAttempt(stack, UNBOUND_POS);
+					setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 				}
 				return true;
 			}
@@ -197,7 +196,7 @@ public class ItemTwigWand extends Item {
 
 		if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
 			if (boundPos.filter(pos::equals).isPresent()) {
-				setBindingAttempt(stack, UNBOUND_POS);
+				setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 			} else {
 				setBindingAttempt(stack, pos);
 			}
@@ -302,7 +301,7 @@ public class ItemTwigWand extends Item {
 		getBindingAttempt(stack).ifPresent(coords -> {
 			BlockEntity tile = world.getBlockEntity(coords);
 			if (!(tile instanceof IWandBindable)) {
-				setBindingAttempt(stack, UNBOUND_POS);
+				setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 			}
 		});
 	}

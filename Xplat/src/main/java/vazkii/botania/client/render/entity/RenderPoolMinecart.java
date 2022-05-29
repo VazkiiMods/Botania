@@ -16,9 +16,9 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;
 import vazkii.botania.common.block.ModBlocks;
@@ -28,7 +28,7 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 import javax.annotation.Nonnull;
 
 public class RenderPoolMinecart extends MinecartRenderer<EntityPoolMinecart> {
-	private static final TilePool DUMMY = new TilePool(new BlockPos(0, Integer.MIN_VALUE, 0), ModBlocks.manaPool.defaultBlockState());
+	private static final TilePool DUMMY = new TilePool(IManaBurst.NO_SOURCE, ModBlocks.manaPool.defaultBlockState());
 
 	public RenderPoolMinecart(EntityRendererProvider.Context ctx) {
 		super(ctx, ModelLayers.MINECART);

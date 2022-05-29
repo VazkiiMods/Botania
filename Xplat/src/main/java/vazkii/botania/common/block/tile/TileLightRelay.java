@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -63,7 +64,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	private static final String TAG_BIND_Z = "bindZ";
 	private static final String TAG_NO_PARTICLE = "noParticle";
 
-	private BlockPos bindPos = new BlockPos(0, Integer.MIN_VALUE, 0);
+	private BlockPos bindPos = ITileBound.UNBOUND_POS;
 	private int ticksElapsed = 0;
 	private boolean noParticle = false;
 
