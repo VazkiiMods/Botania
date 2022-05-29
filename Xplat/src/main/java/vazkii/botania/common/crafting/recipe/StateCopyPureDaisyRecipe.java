@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting.recipe;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -33,7 +34,7 @@ import javax.annotation.Nullable;
  */
 public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 	public StateCopyPureDaisyRecipe(ResourceLocation id, StateIngredient input, Block block, int time) {
-		super(id, input, block.defaultBlockState(), time, null);
+		super(id, input, block.defaultBlockState(), time, CommandFunction.CacheableFunction.NONE);
 	}
 
 	@Override

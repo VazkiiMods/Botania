@@ -21,6 +21,7 @@ import com.blamejared.crafttweaker.api.util.StringUtil;
 import com.blamejared.crafttweaker.natives.block.ExpandBlockState;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 
+import net.minecraft.commands.CommandFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -64,7 +65,7 @@ public class PureDaisyRecipeManager implements IRecipeManager<IPureDaisyRecipe>,
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe<>(this,
-				new RecipePureDaisy(resourceLocation, CTPlugin.blockIngredientToStateIngredient(input), output, time, null)));
+				new RecipePureDaisy(resourceLocation, CTPlugin.blockIngredientToStateIngredient(input), output, time, CommandFunction.CacheableFunction.NONE)));
 	}
 
 	/**

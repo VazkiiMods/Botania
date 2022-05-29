@@ -50,7 +50,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	 * @param function An mcfunction to run at the converted block after finish. If you don't want one, pass
 	 *                 CommandFunction.CacheableFunction.NONE
 	 */
-	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state, int time, @Nullable CommandFunction.CacheableFunction function) {
+	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state, int time, CommandFunction.CacheableFunction function) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.id = id;
 		this.input = input;
