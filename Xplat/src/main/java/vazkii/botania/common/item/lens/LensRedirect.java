@@ -23,6 +23,8 @@ import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
+import javax.annotation.Nullable;
+
 public class LensRedirect extends Lens {
 
 	@Override
@@ -32,16 +34,47 @@ public class LensRedirect extends Lens {
 		if (!entity.level.isClientSide) {
 			if (pos instanceof BlockHitResult result
 					&& result.getType() != HitResult.Type.MISS
-					&& !sourcePos.equals(IManaBurst.NO_SOURCE)
 					&& !result.getBlockPos().equals(sourcePos)) {
-				handleHitBlock(burst, sourcePos, result);
+				handleHitBlock(burst, result);
 			}
 		}
 
 		return shouldKill;
 	}
 
-	private void handleHitBlock(IManaBurst burst, BlockPos sourcePos, BlockHitResult result) {
+	@Nullable
+	private static Vec3 getSourceVec(IManaBurst burst) {
+		var entity = burst.entity();
+		var owner = entity.getOwner();
+		var sourcePos = burst.getBurstSourceBlockPos();
+		if (!sourcePos.equals(IManaBurst.NO_SOURCE)) {
+			var sourceVec = Vec3.atCenterOf(sourcePos);
+			AABB axis;
+			VoxelShape collideShape = entity.level.getBlockState(sourcePos).getCollisionShape(entity.level, sourcePos);
+			if (collideShape.isEmpty()) {
+				axis = new AABB(sourcePos, sourcePos.offset(1, 1, 1));
+			} else {
+				axis = collideShape.bounds().move(sourcePos);
+			}
+
+			if (!axis.contains(sourceVec)) {
+				sourceVec = new Vec3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
+			}
+			return sourceVec;
+		} else if (owner != null) {
+			return owner.getEyePosition();
+		} else {
+			// No block nor entity source, should never happen but don't crash
+			return null;
+		}
+	}
+
+	private void handleHitBlock(IManaBurst burst, BlockHitResult result) {
+		var sourceVec = getSourceVec(burst);
+		if (sourceVec == null) {
+			return;
+		}
+
 		var entity = burst.entity();
 		var hitPos = result.getBlockPos();
 		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(entity.level, hitPos,
@@ -49,20 +82,6 @@ public class LensRedirect extends Lens {
 		if (receiver instanceof IManaSpreader spreader) {
 			if (!burst.isFake()) {
 				Vec3 tileVec = Vec3.atCenterOf(hitPos);
-				Vec3 sourceVec = Vec3.atCenterOf(sourcePos);
-
-				AABB axis;
-				VoxelShape collideShape = entity.level.getBlockState(sourcePos).getCollisionShape(entity.level, sourcePos);
-				if (collideShape.isEmpty()) {
-					axis = new AABB(sourcePos, sourcePos.offset(1, 1, 1));
-				} else {
-					axis = collideShape.bounds().move(sourcePos);
-				}
-
-				if (!axis.contains(sourceVec)) {
-					sourceVec = new Vec3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
-				}
-
 				Vec3 diffVec = sourceVec.subtract(tileVec);
 				Vec3 diffVec2D = new Vec3(diffVec.x, diffVec.z, 0);
 				Vec3 rotVec = new Vec3(0, 1, 0);
