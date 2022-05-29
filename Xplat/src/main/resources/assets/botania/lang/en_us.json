@@ -2063,7 +2063,7 @@
   "botania.page.elvenLenses2": "Paintslinger Lens",
   "botania.page.elvenLenses3": "The $(item)Warp Lens$(0) is an interesting one. A burst under its effects that collides with a $(l:ender/piston_relay)$(item)Force Relay$(0)$(/l) will teleport to the target of said $(l:ender/piston_relay)$(item)Force Relay$(0)$(/l), maintaining its momentum, but making its $(thing)Mana$(0) irrecoverable.$(p)Furthermore, when it's combined with a $(item)Bore Lens$(0) (the $(item)Bore Lens$(0) must be first), it'll prevent bursts from breaking $(l:ender/piston_relay)$(item)Force Relays$(0)$(/l) or $(item)Pistons$(0), and teleport any blocks broken by the $(item)Bore Lens$(0) to the burst's origin.",
   "botania.page.elvenLenses4": "Warp Lens",
-  "botania.page.elvenLenses5": "The $(item)Redirective Lens$(0) will only take effect when fired from a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l). Any burst under its effects that collides with a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) will (apart from transferring $(thing)Mana$(0) like normal) make the receiving spreader point towards the one that fired the burst.",
+  "botania.page.elvenLenses5": "A burst affected by the $(item)Redirective Lens$(0) will make any $(l:mana/spreader)$(item)Mana Spreaders$(0)$(/l) or entities it collides with face towards the block or entity that fired the burst.",
   "botania.page.elvenLenses6": "Redirective Lens",
   "botania.page.elvenLenses7": "The $(item)Celebratory Lens$(0) functions much like the common $(item)Entropic Lens$(0); however, instead of an explosion, it creates a festive firework dyed the color of the burst.",
   "botania.page.elvenLenses8": "Celebratory Lens",
