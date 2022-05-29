@@ -31,7 +31,7 @@ public class LensRedirect extends Lens {
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide && pos instanceof BlockHitResult result
 				&& sourcePos.getY() != Integer.MIN_VALUE
-				&& result.getBlockPos().equals(sourcePos)) {
+				&& !result.getBlockPos().equals(sourcePos)) {
 			var hitPos = result.getBlockPos();
 			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(entity.level, hitPos,
 					entity.level.getBlockState(hitPos), entity.level.getBlockEntity(hitPos), result.getDirection());
