@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
@@ -45,6 +44,7 @@ import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BlockPistonRelay;
@@ -394,9 +394,9 @@ public class ItemTwigWand extends Item {
 				return bound.get();
 			}
 
-			HitResult pos = Minecraft.getInstance().hitResult;
-			if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
-				BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
+			var pos = ClientProxy.INSTANCE.getClientHit();
+			if (pos instanceof BlockHitResult bHit && pos.getType() == HitResult.Type.BLOCK) {
+				BlockEntity tile = world.getBlockEntity(bHit.getBlockPos());
 				if (tile instanceof ITileBound boundTile) {
 					return boundTile.getBinding();
 				}

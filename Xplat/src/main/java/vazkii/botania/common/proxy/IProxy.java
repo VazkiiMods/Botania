@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -69,4 +70,9 @@ public interface IProxy {
 	default void showMultiblock(IMultiblock mb, Component name, BlockPos anchor, Rotation rot) {}
 
 	default void clearSextantMultiblock() {}
+
+	@Nullable
+	default HitResult getClientHit() {
+		return null;
+	}
 }

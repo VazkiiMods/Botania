@@ -157,7 +157,7 @@ public class ItemFlugelEye extends ItemRelic {
 		@Nullable
 		@Override
 		public BlockPos getBinding(Level world) {
-			String tag = TAG_TARGET_PREFIX + world.dimension().location().toString();
+			String tag = TAG_TARGET_PREFIX + world.dimension().location();
 			Tag nbt = ItemNBTHelper.get(stack, tag);
 			if (nbt != null) {
 				return BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result()
