@@ -557,6 +557,13 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeBrickForestSlab, forestBrickModels, forestBrickTextures, forestBrickTextures, forestBrickTextures, forestBrickWeights);
 		wallBlockWithVariants(remainingBlocks, biomeBrickForestWall, forestBrickTextures, forestBrickWeights);
 
+		var fungalBrickTextures = new ResourceLocation[] { getBlockTexture(biomeBrickFungal), getBlockTexture(biomeBrickFungal, "_1") };
+		var fungalBrickModels = new ResourceLocation[] { getModelLocation(biomeBrickFungal), getModelLocation(biomeBrickFungal, "_1") };
+		cubeAllWithVariants(remainingBlocks, biomeBrickFungal, fungalBrickTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickFungalStairs, fungalBrickTextures, fungalBrickTextures, fungalBrickTextures);
+		slabBlockWithVariants(remainingBlocks, biomeBrickFungalSlab, fungalBrickModels, fungalBrickTextures, fungalBrickTextures, fungalBrickTextures);
+		wallBlockWithVariants(remainingBlocks, biomeBrickFungalWall, fungalBrickTextures);
+
 		// Slabs, stairs, walls are handled automatically.
 		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
 			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
@@ -840,7 +847,7 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
 		int length = sideTextures.length;
-		if (length != bottomTextures.length && length != topTextures.length && length  != weights.length) {
+		if (length != bottomTextures.length && length != topTextures.length && length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
 		}
 		ResourceLocation[] postModels = new ResourceLocation[length];
@@ -922,7 +929,7 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void cubeAll(Set<Block> blocks, Block block) {
 		ResourceLocation texture = getBlockTexture(block);
-		cubeAllWithVariants(blocks, block, new ResourceLocation[]{ texture });
+		cubeAllWithVariants(blocks, block, new ResourceLocation[] { texture });
 	}
 
 	protected void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
@@ -951,8 +958,7 @@ public class BlockstateProvider implements DataProvider {
 			throw new IllegalArgumentException("Arrays must have equal length");
 		}
 		var indices = IntStream.range(0, length).boxed();
-		this.blockstates.add(MultiVariantGenerator.multiVariant(block, indices.map(i ->
-				maybeWeight(weights[i], Variant.variant().with(VariantProperties.MODEL, models[i]))
+		this.blockstates.add(MultiVariantGenerator.multiVariant(block, indices.map(i -> maybeWeight(weights[i], Variant.variant().with(VariantProperties.MODEL, models[i]))
 		).toArray(Variant[]::new)));
 		blocks.remove(block);
 	}
