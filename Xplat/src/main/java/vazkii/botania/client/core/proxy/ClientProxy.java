@@ -117,6 +117,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Nullable
+	@Override
 	public HitResult getClientHit() {
 		return Minecraft.getInstance().hitResult;
 	}
