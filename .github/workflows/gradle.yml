@@ -31,6 +31,8 @@ jobs:
       if: failure()
       with:
         path: '**/reports/pmd/main.xml'
+    - name: Check generated files up to date
+      run: ./scripts/check_datagen.sh
     - name: Run GameTests (Fabric)
       run: ./gradlew :Fabric:runGameTest
     - name: Archive Fabric Binaries
