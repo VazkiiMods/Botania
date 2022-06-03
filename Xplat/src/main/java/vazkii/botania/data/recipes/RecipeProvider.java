@@ -266,7 +266,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RSR")
 				.unlockedBy("has_item", conditionsFromItem(Items.COMPARATOR))
 				.unlockedBy("has_alt_item", conditionsFromItem(ModBlocks.livingrock))
-				.save(consumer, "botania:red_string_old");
+				.save(consumer, "botania:mana_detector_old");
 		ShapedRecipeBuilder.shaped(ModBlocks.turntable)
 				.define('P', Items.STICKY_PISTON)
 				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
