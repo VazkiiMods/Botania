@@ -248,6 +248,17 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.manaDetector)
 				.define('R', Items.REDSTONE)
+				.define('T', Blocks.TARGET)
+				.define('S', ModBlocks.livingrock)
+				.pattern("RSR")
+				.pattern("STS")
+				.pattern("RSR")
+				.unlockedBy("has_item", conditionsFromItem(Blocks.TARGET))
+				.unlockedBy("has_alt_item", conditionsFromItem(ModBlocks.livingrock))
+				.save(consumer);
+		// todo 1.19 remove this
+		ShapedRecipeBuilder.shaped(ModBlocks.manaDetector)
+				.define('R', Items.REDSTONE)
 				.define('C', Items.COMPARATOR)
 				.define('S', ModBlocks.livingrock)
 				.pattern("RSR")
@@ -255,7 +266,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RSR")
 				.unlockedBy("has_item", conditionsFromItem(Items.COMPARATOR))
 				.unlockedBy("has_alt_item", conditionsFromItem(ModBlocks.livingrock))
-				.save(consumer);
+				.save(consumer, "botania:red_string_old");
 		ShapedRecipeBuilder.shaped(ModBlocks.turntable)
 				.define('P', Items.STICKY_PISTON)
 				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
