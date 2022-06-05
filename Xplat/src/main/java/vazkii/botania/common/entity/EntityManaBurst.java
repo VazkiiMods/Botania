@@ -797,8 +797,12 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			return coords.equals(props.coords);
 		}
 
+		public boolean isInvalidIn(Level level) {
+			return !level.hasChunkAt(coords);
+		}
+
 		public boolean contentsEqual(Level world) {
-			if (!world.hasChunkAt(coords)) {
+			if (isInvalidIn(world)) {
 				return false;
 			}
 
