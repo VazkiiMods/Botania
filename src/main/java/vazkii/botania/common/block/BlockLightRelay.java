@@ -29,9 +29,11 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileLightRelay;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
@@ -62,13 +64,25 @@ public class BlockLightRelay extends BlockModWaterloggable implements ITileEntit
 
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		if (player.getHeldItem(hand).getItem() != Items.ENDER_PEARL) {
-			TileEntity te = world.getTileEntity(pos);
-			if (te instanceof TileLightRelay) {
-				((TileLightRelay) te).mountEntity(player);
+		ItemStack held = player.getHeldItem(hand);
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileLightRelay) {
+			TileLightRelay relay = (TileLightRelay) te;
+			if (held.getItem() == ModItems.phantomInk && !relay.isNoParticle()) {
+				if (!world.isRemote) {
+					relay.setNoParticle();
+					if (!player.isCreative()) {
+						held.shrink(1);
+					}
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(relay);
+				}
+				return ActionResultType.SUCCESS;
+			} else if (!(held.getItem() == Items.ENDER_PEARL)) {
+				relay.mountEntity(player);
 				return ActionResultType.SUCCESS;
 			}
 		}
+
 		return ActionResultType.PASS;
 	}
 
