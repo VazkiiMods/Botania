@@ -44,6 +44,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -660,6 +661,14 @@ public final class ModBlocks {
 		BotaniaAPI.instance().registerHornHarvestableBlock(greenMushroom.getRegistryName(), DefaultHornHarvestable.INSTANCE);
 		BotaniaAPI.instance().registerHornHarvestableBlock(redMushroom.getRegistryName(), DefaultHornHarvestable.INSTANCE);
 		BotaniaAPI.instance().registerHornHarvestableBlock(blackShinyFlower.getRegistryName(), DefaultHornHarvestable.INSTANCE);
+
+		//1.18 backport (less the CAVE_VINES, since those don't exist yet)
+		IHornHarvestable isCanopy = (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY;
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.VINE.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.TWISTING_VINES.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.TWISTING_VINES_PLANT.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.WEEPING_VINES.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.WEEPING_VINES_PLANT.getRegistryName(), isCanopy);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {

@@ -16,6 +16,7 @@ import net.minecraft.world.World;
  * This interface handles uprooting by the various horns in Botania.
  * Implementations can be registered via BotaniaAPI#registerHornHarvestableBlock
  */
+@FunctionalInterface
 public interface IHornHarvestable {
 
 	/**
@@ -29,13 +30,15 @@ public interface IHornHarvestable {
 	 * block breaking method.
 	 * Note that the stack param can be empty if it's a drum breaking it.
 	 */
-	boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType);
+	default boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+		return false;
+	}
 
 	/**
 	 * Called to harvest by a horn.
 	 * Note that the stack param can be empty if it's a drum breaking it.
 	 */
-	void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType);
+	default void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
 	enum EnumHornType {
 
