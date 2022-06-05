@@ -135,6 +135,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
 				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
+				sync();
 			}
 		}
 	}
@@ -259,7 +260,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		int range = 6;
 		range *= range;
 
-		double dist = pos.distanceSq(getPos());
+		double dist = vazkii.botania.common.core.helper.MathHelper.distSqr(pos, getPos());
 		if (range >= dist) {
 			TileEntity tile = player.world.getTileEntity(pos);
 			if (tile instanceof IManaCollector) {
