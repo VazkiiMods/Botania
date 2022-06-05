@@ -36,6 +36,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -663,7 +664,24 @@ public final class ModBlocks {
 		BotaniaAPI.instance().registerHornHarvestableBlock(blackShinyFlower.getRegistryName(), DefaultHornHarvestable.INSTANCE);
 
 		//1.18 backport (less the CAVE_VINES, since those don't exist yet)
-		IHornHarvestable isCanopy = (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY;
+		//This is much less messy in 1.18 due to most of these methods having default impls
+		//In the interest of not changing the API classes (in case someone is repackaging them), have this mess:
+		IHornHarvestable isCanopy = new IHornHarvestable() {
+			@Override
+			public boolean canHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+				return hornType == IHornHarvestable.EnumHornType.CANOPY;
+			}
+
+			@Override
+			public boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+				return false;
+			}
+
+			@Override
+			public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+
+			}
+		};
 		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.VINE.getRegistryName(), isCanopy);
 		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.TWISTING_VINES.getRegistryName(), isCanopy);
 		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.TWISTING_VINES_PLANT.getRegistryName(), isCanopy);
