@@ -93,7 +93,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		self.ticksElapsed++;
 
 		BlockPos nextDest = self.getNextDestination();
-		if (self.isNoParticle() && nextDest != null && nextDest.getY() != Integer.MIN_VALUE && self.isValidBinding()) {
+		if (!self.isNoParticle() && nextDest != null && nextDest.getY() != Integer.MIN_VALUE && self.isValidBinding()) {
 			Vec3 vec = self.getMovementVector();
 			if (vec != null) {
 				double dist = 0.1;
