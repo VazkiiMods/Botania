@@ -120,7 +120,7 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-36.2.35"
+    minecraft "net.minecraftforge:forge:${mc_version}-36.1.58"
 
     compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.6-46.85")
     compileOnly fg.deobf("vazkii.quark:Quark:r2.4-276.1408")
