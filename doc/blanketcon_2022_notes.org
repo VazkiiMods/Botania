@@ -12,7 +12,7 @@ This talk is mainly oriented toward the technical and modder audiences. I will t
 briefly define terms before I use them, but deeper understanding will require knowledge
 of writing mods.
 
-* The Rest of The Talk
+* Some History
 Let's start with a brief overview of Botania's history. Botania started life as a mod
 for Forge 1.6, though quickly ported to 1.7, and has remained a Forge mod since then
 up to 1.16.x.
@@ -24,7 +24,7 @@ A Fabric edition of Patchouli was first floated by me (williewillus) in late 201
 Fabric 1.15.x, and was completed and released soon afterward. Porting Patchouli served as
 a way for me to get my feet wet with Fabric modding, but one important thing to keep in
 mind is that the bulk of Patchouli's code is self-contained and thus was easy to port.
-I published a blog post about this experience which you can see here. TODO insert link
+I published a blog post about this experience which you can see [[https://www.vincent-lee.net/blog/2019-12-31-fabric/][here]].
 
 You'll notice a recurring theme later on, where Patchouli is often used as the testbed
 for new techniques we'd like to use in Botania. For this port though, the process was
@@ -49,10 +49,17 @@ mapping set (known as "Mojmap") as json files in the launcher,
 though the modding community as a whole did not adopt them due to questions regarding
 the wording of some of the legalese. We'll see Mojmap later in this journey.
 
+
+* Preparing for Fabric
 Back to Botania. A Fabric version was first floated by myself for 1.16 in early- to mid-
 2020:
 
-https://discord.com/channels/154261184701267969/154261184701267969/725710309553340467
+#+BEGIN_EXAMPLE
+Violet Moon Discord #general, June 25, 2020
+
+williewillus: > btw, I want to see botania for fabric
+williewillus: stay tuned :tm:
+#+END_EXAMPLE
 
 I had been mulling this for a while, and began making changes in the Forge codebase
 in anticipation. A lot of this prep work was done even before a Fabric branch was ever
@@ -70,8 +77,9 @@ major learning when porting mods across loaders: *Do preparatory work in a works
 can still be run and tested*.  Each step of change done here was run on Forge,
 tested to make sure nothing broke, and verified in production releases.
 
+* Fabric Work Begins
 On July 20, 2020, the first true bit of Fabric work began (commit da723df4be3c39fbafd5365ed596469fb36489a4).
-We used a tool called yarnforge-plugin written by ramidzkh. It's a ForgeGradle plugin that
+We used a tool called [[https://github.com/ramidzkh/yarnforge-plugin][yarnforge-plugin]] written by ramidzkh. It's a ForgeGradle plugin that
 you install into your existing Forge project, which reads the MCP source, remaps it to
 Yarn, and dumps it. From there, the work left was to replace usages of Forge-only events
 and hooks, either with Mixins or with Fabric's own events. This progressed evenly over
@@ -92,6 +100,7 @@ systemtically eliminated just by following this strategy, leaving you with the "
 errors that need to be dealt with. Whenever you fix an issue, you should search the entire
 rest of the codebase to see if the same issue can be fixed elsewhere.
 
+* Growing Pains
 Back to Botania again. At the same time as Fabric work was progressing, feature,
 bug-fixing, and 1.16.2-1.16.5 porting continued on the Forge branch. This started exposing
 some serious pain in the process of maintaining two copies of the mod. At this time, the
@@ -133,21 +142,99 @@ Date:   Sun May 30 11:34:06 2021 -0500
 
 This was, mentally-speaking, the hardest part of the Fabric port by far.
 
+* Fabric takes over as upstream
 But anyways, let's get back to the history. Mojang released 1.17 in mid-2021, and updated
 the Mojmap license text in such a way that Forge found it now acceptable to use instead
-of MCP names. By this time, Botania-fabric was now essentially a "real" project that
-we intended to see to its completion. In order to reduce the effort of merging changes
+of MCP names. By this time, Botania-fabric (endearingly called "Fabritania")
+was now a "real" project that the dev team
+intended to see to its completion. In order to reduce the effort of merging changes
 back and forth, we decided it would be the best to use Mojmap on Fabric as well, since we'd
-essentially be forced to use it on Forge anyways.
+essentially be forced to use it on Forge anyways. This was a simple remap using automated
+tooling.
 
-At this time, Forge's 1.17 release was held up due to Mixin being broken, so it was at this
+At this time, Forge's 1.17 release was delayed due to Mixin being broken, so it was at this
 time that the Fabric branch took over as the upstream, receiving new feature changes
 and bugfixes. Forge would never get a 1.17 release, as by the time we were done stabilizing
-it on Fabric 1.17, 1.18 was just around the corner, and interest from the community in 1.17 was low.
+it on Fabric 1.17, 1.18 was just around the corner, and interest from the Forge community in 1.17 was low.
 
-TODO remaining things
-talk about the journey to multiloader, how we discovered it, the systematic way in which we migrated,
-and how the forge port was essentially killed and reborn. fill in links to thinks.
+* Multiloader Beginnings
+Later in 2021, we were made known of the Multiloader Template, a Gradle setup template
+made by Darkhax and BlameJared. How it works is that you have a "Common" module, which
+compiles only against vanilla with raw Mojmap. In my documentation, I prefer the word
+"Xplat" (cross-platform), in order to distinguish it from the old meaning of "Common"
+as "shared between client and server".
+
+Then, for Forge and Fabric, you have a separate Gradle module that essentially pastes
+in all the Xplat code, but can further access loader-specific code.
+
+Work was started on a "unified-experimental" branch on January 1, 2022, shortly after
+the main Fabric branch was ported to 1.18. As before, it was better to do some preparatory
+work before actually forking, such as removing all uses of ~@Environment~ on methods
+in favor of physical-side-specific helper classes.
+
+Again, the porting process here was methodical. What we did was create empty shell "Xplat"
+and "Forge" modules. All the existing Fabric 1.18 code was placed in the "Fabric" module,
+where it, most importantly, could still be compiled and run.
+
+From there, we created something called ~IXplatAbstractions~. It's an interface that lives
+in the Xplat module and provides abstracted access to loader-specific API's. We then create
+an implementation of this interface in the Fabric module, and refactor direct calls of
+such API's to call the interface instead. This includes things from firing events,
+querying what mods are loaded, accessing capabilities or API-lookup objects, etc.
+
+At this point, there should be no functional or runtime-observable behaviour change, we're
+just going through an extra method call.
+
+From here, we simply began moving pieces of the mod bit by bit from Fabric into Xplat,
+usually starting with utility classes and other helpers that depended solely on vanilla
+code and not on loader-specific code. All the while, we were able to run the Fabric
+dev environment Minecraft instance to make sure things were still working.
+
+Once we reached a certain "tipping point", I went ahead and moved all eligible remaining
+code to the Xplat module. What I mean by tipping point is that the remaining issues
+of Xplat code accessing Fabric-specific API's were few enough that we could just spot
+fix them after moving.
+
+* Multiloader Maturity
+So after some weeks of this work, we finally got back to where we were before: Fabric
+launches. But what did we gain? Nearly all of our code now depends only on vanilla itself,
+and calls to loader specific API's are neatly all gathered in one place.
+
+So here comes the Forge part: simply implement ~IXplatAbstractions~ for Forge, and fill
+in the entry points for mod startup, event handlers, etc. with calls to Xplat code. As you
+will see later, this is surprisingly little code.
+
+In essence, our Forge port essentially died and was reborn completely, with little direct
+lineage from the 1.16 Forge branch. The speed at which we were able to readd Forge support
+after Xplat and Fabric were properly separated was very impressive: we released a build
+compiled from this unified repository to the public on February 21, 2022, so it took
+less than two months to "port" this mod from Fabric back to Forge, thanks to properly-
+abstracted references to loader-specific API's, and relying as much as possible on Vanilla
+and Mojmap.
+
+* Today
+Today, the dev experience on Botania is great for a large mod compatible with both
+loaders.  Logical changes are made only *once* in Xplat code, and there is never any need
+for merging changes back and forth between loader-specific branches. A ~gradle build~
+command produces outputs for both loaders.
+
+I think it's worth discussing a bit more how this migration was able to be pulled off so
+smoothly for us. There's a couple reasons:
+
+- Botania is a mostly feature-complete and stable mod. Occasionally, there will be larger
+  new features, but the overall churn is low. Having a stable base when porting makes
+  life much easier.
+- Botania's coding philosophy emphasizes staying close to vanilla as much as possible,
+  as long as doing so doesn't unreasonably hurt mod compatibility. This means doing things
+  like using vanilla's registry or data generator API's instead of whatever bespoke
+  implementations Forge has, for example.
+- Mojmap. There needs to be a /lingua franca/ across the modules, and it's Mojmap. This is
+  a hard requirement, so sorry Yarn fans.
+- There was will from the maintainers (mostly myself) to make it happen, and we all belong
+  in the same first-party dev team. If your Forge or Fabric fork is maintained by a
+  separate team, in a separate repo, from the upstream, that precludes doing multi-loader
+  by definition. You'll have to convince upstream to let you join the team, and convince
+  them to support the other loader as a first-class citizen.
 
 * Cool Stats
 Here's some cool stats on how much code is in each of Botania's platform modules, produced
@@ -159,8 +246,8 @@ by running ~tokei~ on commit 595d4940eba55d1a9d195101bb376344cdeb9ef9:
 | Forge  |                   4277 |                    603 |
 | Fabric |                   4341 |                    745 |
 
-As you can see, the overwhelming majority of Botania's code is cross-platform and reliant
-only on vanilla. This means that we can easily handle future changes to the game
+As you can see, the overwhelming majority of Botania's Java (88.7%) is cross-platform and
+reliant only on vanilla. This means that we can easily handle future changes to the game
 quickly and flexibly, including supporting potential future loaders.
 
 * Acknowledgements
@@ -176,3 +263,13 @@ maintain a large mod for long periods of time.
 For showing us the Multiloader template, a key component of our modern-day workflow.
 It would not be exaggeration to say our lives would be hell having to maintain so many
 branches of the mod for different loaders and game versions.
+
+* Questions
+** Preemptive Questions
+*** Will Quark get a Fabric port?
+If you're interested, talk to us. The short answer right now is "not likely". Botania
+and Quark are maintained by different sub-teams, and I'm not sure if Vazkii is keen on
+having to support Fabric as well.
+
+** Live Questions
+Will be filled in after the talk if any questions were asked.
