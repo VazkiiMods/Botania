@@ -1909,8 +1909,8 @@
   "botania.page.manaVoid1": "Even Chad from accounting?",
 
   "botania.entry.rfGenerator": "Mana Fluxfield",
-  "botania.tagline.rfGenerator": "Converts Mana into Forge Energy",
-  "botania.page.rfGenerator0": "Passing $(thing)Mana$(0) through a field of redstone charge converts it from natural energy to $(thing)Forge Energy$(0).$(p)Any $(thing)Mana Bursts$(0) received by the Fluxfield are converted into $(thing)FE$(0) and sent to any adjacent $(thing)FE$(0) acceptors.",
+  "botania.tagline.rfGenerator": "Converts Mana into Energy",
+  "botania.page.rfGenerator0": "Passing $(thing)Mana$(0) through a field of redstone charge converts it from natural energy to $(thing)Forge Energy$(0) or $(thing)Tech Reborn Energy$(0), whichever is present.$(p)Any $(thing)Mana Bursts$(0) received by the Fluxfield are converted into $(thing)Energy$(0) and sent to any adjacent acceptors.",
   "botania.page.rfGenerator1": "Challenging the fabric of magic mod reality",
 
   "botania.entry.lens": "Mana Lenses",
