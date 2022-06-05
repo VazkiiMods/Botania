@@ -94,7 +94,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		String bifrostPermName = Registry.BLOCK.getKey(bifrostPerm).getPath();
 		simpleBlock(bifrostPerm, models().cubeAll(bifrostPermName, prefix("block/bifrost")));
 		remainingBlocks.remove(bifrostPerm);
-		
+
 		/* manual (cherry-picked from 1.17 where datagen is much different)
 		singleVariantBlockState(cacophonium,
 				ModelTemplates.CUBE_TOP.create(cacophonium, (new TextureMapping())
