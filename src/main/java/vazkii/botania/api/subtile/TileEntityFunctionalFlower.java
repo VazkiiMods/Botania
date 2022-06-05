@@ -225,7 +225,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		int range = 10;
 		range *= range;
 
-		double dist = pos.distanceSq(getPos());
+		double dist = vazkii.botania.common.core.helper.MathHelper.distSqr(pos, getPos());
 		if (range >= dist) {
 			TileEntity tile = player.world.getTileEntity(pos);
 			if (tile instanceof IManaPool) {

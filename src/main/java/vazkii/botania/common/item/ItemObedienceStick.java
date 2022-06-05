@@ -20,6 +20,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +49,7 @@ public class ItemObedienceStick extends Item {
 
 			for (BlockPos iterPos : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
 					pos.add(range, range, range))) {
-				if (iterPos.distanceSq(pos) > range * range) {
+				if (MathHelper.distSqr(iterPos, pos) > range * range) {
 					continue;
 				}
 
