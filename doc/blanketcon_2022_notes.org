@@ -264,6 +264,12 @@ For showing us the Multiloader template, a key component of our modern-day workf
 It would not be exaggeration to say our lives would be hell having to maintain so many
 branches of the mod for different loaders and game versions.
 
+* Ads
+I'd like to take a bit of time at the end here to also advertise the fundraiser we have
+to commission a retexture of Botania into the modern 1.14+ style, as the current textures
+are in the 1.12 style and have been showing their age. Please check out gofundme.com/botania-retexture
+and the Botania booth for more details.
+
 * Questions
 ** Preemptive Questions
 *** Will Quark get a Fabric port?
