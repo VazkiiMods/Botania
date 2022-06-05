@@ -135,6 +135,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
 				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
+				sync();
 			}
 		}
 	}

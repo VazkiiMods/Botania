@@ -130,6 +130,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
 				linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
+				sync();
 			}
 		}
 
