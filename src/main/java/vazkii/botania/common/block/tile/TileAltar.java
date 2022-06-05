@@ -23,10 +23,8 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -79,17 +77,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if (getBlockState().getBlock() == ModBlocks.defaultAltar && stack.getItem() == Blocks.VINE.asItem()) {
-			CompoundNBT tmp = new CompoundNBT();
-			writePacketNBT(tmp);
-
 			stack.shrink(1);
 			world.setBlockState(getPos(), ModBlocks.mossyAltar.getDefaultState());
-
-			TileEntity newAltar = world.getTileEntity(getPos());
-			if (newAltar instanceof TileAltar) {
-				((TileAltar) newAltar).readPacketNBT(tmp);
-			}
-
 			return true;
 		}
 
