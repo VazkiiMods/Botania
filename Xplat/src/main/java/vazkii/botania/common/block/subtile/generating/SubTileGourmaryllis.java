@@ -42,7 +42,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 
 	private int cooldown = 0;
 	private int digestingMana = 0;
-	private List<ItemStack> lastFoods = new LinkedList<>();
+	private final List<ItemStack> lastFoods = new LinkedList<>();
 	private int streakLength = -1;
 	private int lastFoodCount = 0;
 

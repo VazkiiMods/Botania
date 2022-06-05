@@ -65,5 +65,5 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull ArmorUpgradeRecipe recipe) {
 			SHAPED_RECIPE.toNetwork(buffer, recipe);
 		}
-	};
+	}
 }

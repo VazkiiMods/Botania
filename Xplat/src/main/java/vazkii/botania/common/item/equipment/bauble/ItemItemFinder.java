@@ -89,8 +89,8 @@ public class ItemItemFinder extends ItemBauble {
 
 		ListTag blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, 4, false);
 
-		for (int i = 0; i < blocks.size(); i++) {
-			BlockPos pos = BlockPos.of(((LongTag) blocks.get(i)).getAsLong());
+		for (var block : blocks) {
+			BlockPos pos = BlockPos.of(((LongTag) block).getAsLong());
 			float m = 0.02F;
 			WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), false);
 			player.level.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));

@@ -122,7 +122,6 @@ public class BlockPistonRelay extends BlockMod {
 
 		private static final String ID = "PistonRelayPairs";
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
-		public final Map<BlockPos, Integer> scheduled = new HashMap<>();
 
 		public WorldData(@Nonnull CompoundTag cmp) {
 			ListTag list = cmp.getList("list", 11);

@@ -39,7 +39,6 @@ public class LensInfluence extends Lens {
 			var primedTnt = entity.level.getEntitiesOfClass(PrimedTnt.class, bounds);
 			var bursts = entity.level.getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(IManaBurst.class));
 
-			@SuppressWarnings("unchecked")
 			var concat = Iterables.concat(items, expOrbs, arrows, fallingBlocks, primedTnt, bursts);
 			for (Entity movable : concat) {
 				if (movable == burst) {

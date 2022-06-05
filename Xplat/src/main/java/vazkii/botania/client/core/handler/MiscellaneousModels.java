@@ -91,7 +91,7 @@ public class MiscellaneousModels {
 			elvenSpreaderScaffolding,
 			gaiaSpreaderScaffolding;
 
-	public HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
+	public final HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 

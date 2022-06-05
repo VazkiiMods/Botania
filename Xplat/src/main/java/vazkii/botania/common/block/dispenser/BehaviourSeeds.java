@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import javax.annotation.Nonnull;
 
 public class BehaviourSeeds extends OptionalDispenseItemBehavior {
-	private Block block;
+	private final Block block;
 
 	public BehaviourSeeds(Block block) {
 		this.block = block;

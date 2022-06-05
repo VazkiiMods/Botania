@@ -27,7 +27,7 @@ import vazkii.botania.common.crafting.RecipeSerializerBase;
 import javax.annotation.Nonnull;
 
 public class NbtOutputRecipe {
-	public static RecipeSerializer<Recipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
+	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
 
 	private static class Serializer extends RecipeSerializerBase<Recipe<?>> {
 		@Nonnull

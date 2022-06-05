@@ -92,7 +92,7 @@ public class SparkleParticleData implements ParticleOptions {
 				Registry.PARTICLE_TYPE.getKey(this.getType()), this.size, this.r, this.g, this.b, this.m, this.noClip, this.fake, this.corrupt);
 	}
 
-	public static final Deserializer<SparkleParticleData> DESERIALIZER = new Deserializer<SparkleParticleData>() {
+	public static final Deserializer<SparkleParticleData> DESERIALIZER = new Deserializer<>() {
 		@Nonnull
 		@Override
 		public SparkleParticleData fromCommand(@Nonnull ParticleType<SparkleParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {

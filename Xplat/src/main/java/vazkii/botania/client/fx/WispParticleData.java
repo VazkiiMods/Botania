@@ -97,7 +97,7 @@ public class WispParticleData implements ParticleOptions {
 				Registry.PARTICLE_TYPE.getKey(getType()), this.size, this.r, this.g, this.b, this.maxAgeMul, this.depthTest);
 	}
 
-	public static final Deserializer<WispParticleData> DESERIALIZER = new Deserializer<WispParticleData>() {
+	public static final Deserializer<WispParticleData> DESERIALIZER = new Deserializer<>() {
 		@Nonnull
 		@Override
 		public WispParticleData fromCommand(@Nonnull ParticleType<WispParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {

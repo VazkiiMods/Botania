@@ -327,10 +327,11 @@ public final class FiberBotaniaConfig {
 					.finishValue(gogSpawnWithLexicon::mirror)
 
 					.beginValue("gardenOfGlass.islandScaleMultiplier", INTEGER.withMinimum(1).withMaximum(512), 8)
-					.withComment("The multiplier for island distances for multiplayer Garden of Glass worlds.\n" +
-							"Islands are placed on a grid with 256 blocks between points, with the spawn island always being placed on 256, 256.\n" +
-							"By default, the scale is 8, putting each island on points separated by 2048 blocks.\n" +
-							"Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.")
+					.withComment("""
+						The multiplier for island distances for multiplayer Garden of Glass worlds.
+						Islands are placed on a grid with 256 blocks between points, with the spawn island always being placed on 256, 256.
+						By default, the scale is 8, putting each island on points separated by 2048 blocks.
+						Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.""")
 					.finishValue(gogIslandScaleMultiplier::mirror)
 
 					.beginValue("rannuncarpusItemBlackList", ConfigTypes.makeList(STRING), Collections.emptyList())

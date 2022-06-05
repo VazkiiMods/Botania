@@ -75,7 +75,7 @@ public class ItemTwigWand extends Item {
 	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 	private static final String TAG_BIND_MODE = "bindMode";
 
-	public ChatFormatting modeChatFormatting;
+	public final ChatFormatting modeChatFormatting;
 
 	public ItemTwigWand(ChatFormatting formatting, Item.Properties builder) {
 		super(builder);

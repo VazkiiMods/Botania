@@ -186,7 +186,7 @@ public class EntityDoppleganger extends Mob {
 	private boolean hardMode = false;
 	private BlockPos source = BlockPos.ZERO;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(ModEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);;
+	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(ModEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
 	private UUID bossInfoUUID = bossInfo.getId();
 	public Player trueKiller = null;
 

@@ -55,10 +55,6 @@ public class BotaniaConfig {
 		return clientConfig;
 	}
 
-	private static boolean notUnderGameTest() {
-		return System.getProperty("fabric-api.gametest") == null;
-	}
-
 	public static void setCommon(ConfigAccess access) {
 		if (config != null) {
 			BotaniaAPI.LOGGER.warn("ConfigAccess was replaced! Old {} New {}",
