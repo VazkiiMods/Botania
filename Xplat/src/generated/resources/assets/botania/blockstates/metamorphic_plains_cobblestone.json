@@ -1,7 +1,12 @@
 {
   "variants": {
-    "": {
-      "model": "botania:block/metamorphic_plains_cobblestone"
-    }
+    "": [
+      {
+        "model": "botania:block/metamorphic_plains_cobblestone"
+      },
+      {
+        "model": "botania:block/metamorphic_plains_cobblestone_1"
+      }
+    ]
   }
 }

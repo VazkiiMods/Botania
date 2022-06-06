@@ -542,6 +542,13 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeStoneTaigaSlab, taigaModels, taigaTextures, taigaTextures, taigaTextures);
 		wallBlockWithVariants(remainingBlocks, biomeStoneTaigaWall, taigaTextures);
 
+		var plainsCobbleTextures = new ResourceLocation[] { getBlockTexture(biomeCobblestonePlains), getBlockTexture(biomeCobblestonePlains, "_1") };
+		var plainsCobbleModels = new ResourceLocation[] { getModelLocation(biomeCobblestonePlains), getModelLocation(biomeCobblestonePlains, "_1") };
+		cubeAllWithVariants(remainingBlocks, biomeCobblestonePlains, plainsCobbleTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickFungalStairs, plainsCobbleTextures, plainsCobbleTextures, plainsCobbleTextures);
+		slabBlockWithVariants(remainingBlocks, biomeBrickFungalSlab, plainsCobbleModels, plainsCobbleTextures, plainsCobbleTextures, plainsCobbleTextures);
+		wallBlockWithVariants(remainingBlocks, biomeBrickFungalWall, plainsCobbleTextures);
+
 		var plainsBrickSide = getBlockTexture(biomeBrickPlains);
 		var plainsBrickTop = getBlockTexture(biomeBrickPlains, "_top");
 		pillarAlt(remainingBlocks, biomeBrickPlains, plainsBrickTop, plainsBrickSide);
