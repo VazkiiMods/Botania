@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.glfw.GLFW;
@@ -31,6 +32,8 @@ import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
+
+import javax.annotation.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -111,5 +114,11 @@ public class ClientProxy implements IProxy {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.get().clearMultiblock();
 		}
+	}
+
+	@Nullable
+	@Override
+	public HitResult getClientHit() {
+		return Minecraft.getInstance().hitResult;
 	}
 }

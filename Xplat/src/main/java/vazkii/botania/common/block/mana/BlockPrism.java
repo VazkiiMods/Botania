@@ -130,7 +130,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 		Level world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 		boolean power = world.getBestNeighborSignal(pos) > 0 || world.getBestNeighborSignal(pos.above()) > 0;
-		return this.defaultBlockState().setValue(BlockStateProperties.POWERED, power);
+		return super.getStateForPlacement(context).setValue(BlockStateProperties.POWERED, power);
 	}
 
 	@Override

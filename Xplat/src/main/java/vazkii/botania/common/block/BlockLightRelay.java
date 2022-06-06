@@ -70,7 +70,7 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 		ItemStack stack = player.getItemInHand(hand);
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TileLightRelay relay) {
-			if (stack.is(ModItems.phantomInk) && relay.isNoParticle()) {
+			if (stack.is(ModItems.phantomInk) && !relay.isNoParticle()) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
 					relay.setNoParticle();

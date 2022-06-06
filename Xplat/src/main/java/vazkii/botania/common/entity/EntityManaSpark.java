@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
@@ -234,7 +235,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
 			SparkUpgradeType upgrade = getUpgrade();
-			if (stack.is(ModItems.twigWand)) {
+			if (stack.getItem() instanceof ItemTwigWand) {
 				if (!level.isClientSide) {
 					if (player.isShiftKeyDown()) {
 						if (upgrade != SparkUpgradeType.NONE) {

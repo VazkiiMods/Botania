@@ -43,11 +43,6 @@ public final class PlayerHelper {
 	}
 
 	// Checks main hand, then off hand for this item class.
-	public static boolean hasHeldItemClass(Player player, Item template) {
-		return hasHeldItemClass(player, template.getClass());
-	}
-
-	// Checks main hand, then off hand for this item class.
 	public static boolean hasHeldItemClass(Player player, Class<?> template) {
 		return !player.getMainHandItem().isEmpty() && template.isAssignableFrom(player.getMainHandItem().getItem().getClass())
 				|| !player.getOffhandItem().isEmpty() && template.isAssignableFrom(player.getOffhandItem().getItem().getClass());
@@ -69,8 +64,8 @@ public final class PlayerHelper {
 		}
 	}
 
-	public static ItemStack getFirstHeldItemClass(Player player, Class<?> template) {
-		return getFirstHeldItem(player, s -> template.isAssignableFrom(s.getItem().getClass()));
+	public static ItemStack getFirstHeldItemClass(LivingEntity living, Class<?> template) {
+		return getFirstHeldItem(living, s -> template.isAssignableFrom(s.getItem().getClass()));
 	}
 
 	public static ItemStack getAmmo(Player player, Predicate<ItemStack> ammoFunc) {
@@ -103,13 +98,18 @@ public final class PlayerHelper {
 		}
 	}
 
-	public static boolean hasItem(Player player, Predicate<ItemStack> itemFunc) {
+	public static ItemStack getItemFromInventory(Player player, Predicate<ItemStack> itemPred) {
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-			if (itemFunc.test(player.getInventory().getItem(i))) {
-				return true;
+			ItemStack item = player.getInventory().getItem(i);
+			if (itemPred.test(item)) {
+				return item;
 			}
 		}
-		return false;
+		return ItemStack.EMPTY;
+	}
+
+	public static ItemStack getItemClassFromInventory(Player player, Class<?> template) {
+		return getItemFromInventory(player, s -> template.isAssignableFrom(s.getItem().getClass()));
 	}
 
 	public static void grantCriterion(ServerPlayer player, ResourceLocation advancementId, String criterion) {

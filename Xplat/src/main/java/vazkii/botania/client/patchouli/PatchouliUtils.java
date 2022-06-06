@@ -56,9 +56,10 @@ public class PatchouliUtils {
 		if (!crafttweakerInfoNote) {
 			crafttweakerInfoNote = true;
 			if (IXplatAbstractions.INSTANCE.isModLoaded("crafttweaker")) {
-				BotaniaAPI.LOGGER.info("To add a recipe that replaces a builtin recipe with CT, \n" +
-						"add one with the same type, named the same as the path of the missing recipe.\n" +
-						"eg. for recipe {}, add a recipe named \"{}\".", id, id.getPath());
+				BotaniaAPI.LOGGER.info("""
+					To add a recipe that replaces a builtin recipe with CT,\s
+					add one with the same type, named the same as the path of the missing recipe.
+					eg. for recipe {}, add a recipe named "{}".""", id, id.getPath());
 			}
 		}
 		return null;

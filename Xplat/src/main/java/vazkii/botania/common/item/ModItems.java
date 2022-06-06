@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -73,7 +74,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public final class ModItems {
 	private static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>(); // Preserve insertion order
 	public static final ItemLexicon lexicon = make(prefix(LibItemNames.LEXICON), new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON)));
-	public static final Item twigWand = make(prefix(LibItemNames.TWIG_WAND), new ItemTwigWand(unstackable().rarity(Rarity.RARE)));
+	public static final Item twigWand = make(prefix(LibItemNames.TWIG_WAND), new ItemTwigWand(ChatFormatting.DARK_GREEN, unstackable().rarity(Rarity.RARE)));
+	public static final Item dreamwoodWand = make(prefix(LibItemNames.DREAMWOOD_WAND), new ItemTwigWand(ChatFormatting.LIGHT_PURPLE, unstackable().rarity(Rarity.RARE)));
 	public static final Item obedienceStick = make(prefix(LibItemNames.OBEDIENCE_STICK), new ItemObedienceStick(unstackable()));
 	public static final Item fertilizer = make(prefix(LibItemNames.FERTILIZER), new ItemFertilizer(defaultBuilder()));
 

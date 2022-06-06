@@ -1,3 +1,12 @@
+1.18.2-433
+* Add: Mana Flames are now waterloggable, and the flash lens will place them in water
+* Add: Wand of the Elven Forest (artemisSystem)
+* Change: Mana Detector can now be crafted with a Target Block in the middle
+* Fix: Redirect lenses crashing when hitting an entity
+* Fix: Mana splitters working on things other than pools, causing crashes
+* Fix: CraftTweaker docs for brews (BlameJared)
+* Fix: Mana Prism not being waterlogged when placed directly into water
+* Fix: Fix luminizer particles being wrong (quat)
 1.18.2-432
 * Add: Reintroduce CraftTweaker support (Jared)
 * Add: Tiny Potato can now be read by comparators (quat)

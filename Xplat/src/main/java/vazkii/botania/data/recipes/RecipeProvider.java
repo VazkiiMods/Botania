@@ -248,6 +248,17 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.manaDetector)
 				.define('R', Items.REDSTONE)
+				.define('T', Blocks.TARGET)
+				.define('S', ModBlocks.livingrock)
+				.pattern("RSR")
+				.pattern("STS")
+				.pattern("RSR")
+				.unlockedBy("has_item", conditionsFromItem(Blocks.TARGET))
+				.unlockedBy("has_alt_item", conditionsFromItem(ModBlocks.livingrock))
+				.save(consumer);
+		// todo 1.19 remove this
+		ShapedRecipeBuilder.shaped(ModBlocks.manaDetector)
+				.define('R', Items.REDSTONE)
 				.define('C', Items.COMPARATOR)
 				.define('S', ModBlocks.livingrock)
 				.pattern("RSR")
@@ -255,7 +266,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RSR")
 				.unlockedBy("has_item", conditionsFromItem(Items.COMPARATOR))
 				.unlockedBy("has_alt_item", conditionsFromItem(ModBlocks.livingrock))
-				.save(consumer);
+				.save(consumer, "botania:mana_detector_old");
 		ShapedRecipeBuilder.shaped(ModBlocks.turntable)
 				.define('P', Items.STICKY_PISTON)
 				.define('W', ModTags.Items.LIVINGWOOD_LOGS)
@@ -967,6 +978,15 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(ModItems.twigWand)
 				.define('P', ModTags.Items.PETALS)
 				.define('S', ModItems.livingwoodTwig)
+				.pattern(" PS")
+				.pattern(" SP")
+				.pattern("S  ")
+				.group("botania:twig_wand")
+				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.PETALS))
+				.save(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
+		ShapedRecipeBuilder.shaped(ModItems.dreamwoodWand)
+				.define('P', ModTags.Items.PETALS)
+				.define('S', ModItems.dreamwoodTwig)
 				.pattern(" PS")
 				.pattern(" SP")
 				.pattern("S  ")

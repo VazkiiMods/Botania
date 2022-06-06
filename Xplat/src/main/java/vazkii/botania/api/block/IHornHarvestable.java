@@ -56,6 +56,6 @@ public interface IHornHarvestable {
 		 * Horn of the Covering, for snow
 		 */
 		COVERING
-	};
+	}
 
 }

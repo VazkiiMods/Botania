@@ -8,8 +8,6 @@
  */
 package vazkii.botania.api.state;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -26,7 +24,7 @@ public final class BotaniaStateProps {
 	public static final EnumProperty<AlfPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfPortalState.class);
 
 	// BlockEnchanter
-	public static final EnumProperty<Direction.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", Direction.Axis.class, Predicates.not(Predicates.equalTo(Direction.Axis.Y)));
+	public static final EnumProperty<Direction.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", Direction.Axis.class, a -> a != Direction.Axis.Y);
 
 	// BlockCraftyCrate
 	public static final EnumProperty<CratePattern> CRATE_PATTERN = EnumProperty.create("pattern", CratePattern.class);

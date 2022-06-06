@@ -30,7 +30,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.ItemTwigWand;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,7 +63,7 @@ public class BlockEnchanter extends BlockMod implements EntityBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.is(ModItems.twigWand)) {
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemTwigWand) {
 			return InteractionResult.PASS;
 		}
 

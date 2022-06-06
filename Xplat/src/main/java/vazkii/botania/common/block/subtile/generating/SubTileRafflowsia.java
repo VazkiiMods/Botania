@@ -31,7 +31,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	public static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 	public static final String TAG_STREAK_LENGTH = "streakLength";
 
-	private List<Block> lastFlowers = new LinkedList<>();
+	private final List<Block> lastFlowers = new LinkedList<>();
 	private int streakLength = -1;
 	private int lastFlowerCount = 0;
 

@@ -31,7 +31,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemHorn;
@@ -113,7 +112,6 @@ public class BlockForestDrum extends BlockModWaterloggable {
 				int range = 10;
 				List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(world, e.getX(), e.getY(), e.getZ()));
 				List<Mob> shearables = new ArrayList<>();
-				ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
 				for (Mob entity : entities) {
 					if (entity instanceof Cow) {

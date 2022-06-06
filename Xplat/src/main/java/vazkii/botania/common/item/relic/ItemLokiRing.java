@@ -30,6 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -240,7 +241,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static void exitBindingMode(ItemStack stack) {
-		setBindingCenter(stack, new BlockPos(0, Integer.MIN_VALUE, 0));
+		setBindingCenter(stack, ITileBound.UNBOUND_POS);
 	}
 
 	private static void setBindingCenter(ItemStack stack, BlockPos pos) {

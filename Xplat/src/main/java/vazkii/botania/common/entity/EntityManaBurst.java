@@ -190,7 +190,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		fullManaLastTick = getMana() == getStartingMana();
 
 		if (scanBeam) {
-			PositionProperties props = new PositionProperties(this);
+			PositionProperties props = PositionProperties.fromEntity(this);
 			if (propsList.isEmpty()) {
 				propsList.add(props);
 			} else {
@@ -788,41 +788,25 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		}
 	}
 
-	public static class PositionProperties {
-
-		public final BlockPos coords;
-		public final BlockState state;
-
-		public boolean invalid = false;
-
-		public PositionProperties(Entity entity) {
-			coords = entity.blockPosition();
-			state = entity.getFeetBlockState();
+	public record PositionProperties(BlockPos coords, BlockState state) {
+		public static PositionProperties fromEntity(Entity entity) {
+			return new PositionProperties(entity.blockPosition(), entity.getFeetBlockState());
 		}
 
 		public boolean coordsEqual(PositionProperties props) {
 			return coords.equals(props.coords);
 		}
 
+		public boolean isInvalidIn(Level level) {
+			return !level.hasChunkAt(coords);
+		}
+
 		public boolean contentsEqual(Level world) {
-			if (!world.hasChunkAt(coords)) {
-				invalid = true;
+			if (isInvalidIn(world)) {
 				return false;
 			}
 
 			return world.getBlockState(coords) == state;
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(coords, state);
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			return o instanceof PositionProperties
-					&& ((PositionProperties) o).state == state
-					&& ((PositionProperties) o).coords.equals(coords);
 		}
 	}
 

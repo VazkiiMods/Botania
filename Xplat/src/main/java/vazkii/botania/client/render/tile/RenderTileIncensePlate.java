@@ -33,7 +33,6 @@ public class RenderTileIncensePlate implements BlockEntityRenderer<TileIncensePl
 
 	public RenderTileIncensePlate(BlockEntityRendererProvider.Context ctx) {}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void render(@Nonnull TileIncensePlate plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ItemStack stack = plate.getItemHandler().getItem(0);

@@ -16,6 +16,7 @@ public final class LibItemNames {
 	public static final String DYE = "dye";
 	public static final String DYE_SUFFIX = "_" + DYE;
 	public static final String TWIG_WAND = "twig_wand";
+	public static final String DREAMWOOD_WAND = "dreamwood_wand";
 
 	public static final String RUNE_WATER = "rune_water";
 	public static final String RUNE_FIRE = "rune_fire";

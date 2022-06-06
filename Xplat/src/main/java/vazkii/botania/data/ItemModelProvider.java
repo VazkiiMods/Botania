@@ -90,7 +90,7 @@ public class ItemModelProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(HashCache cache) {
 		Set<Item> items = Registry.ITEM.stream().filter(i -> LibMisc.MOD_ID.equals(Registry.ITEM.getKey(i).getNamespace()))
 				.collect(Collectors.toSet());
 		Map<ResourceLocation, Supplier<JsonElement>> map = new HashMap<>();
@@ -339,6 +339,20 @@ public class ItemModelProvider implements DataProvider {
 						.add(twigWandBind, Pair.of(prefix("bindmode"), 1.0)),
 				consumer);
 		items.remove(twigWand);
+
+		TextureMapping dreamwoodWandTextures = TextureMapping.layer0(dreamwoodWand)
+				.put(LAYER1, TextureMapping.getItemTexture(dreamwoodWand, "_top"))
+				.put(LAYER2, TextureMapping.getItemTexture(dreamwoodWand, "_bottom"));
+		ResourceLocation dreamwoodWandBind = ModelLocationUtils.getModelLocation(dreamwoodWand, "_bind");
+		HANDHELD_3.create(dreamwoodWandBind,
+				dreamwoodWandTextures.copyAndUpdate(LAYER3, TextureMapping.getItemTexture(dreamwoodWand, "_bind")),
+				consumer);
+		HANDHELD_OVERRIDES_2.create(ModelLocationUtils.getModelLocation(dreamwoodWand),
+				dreamwoodWandTextures,
+				new OverrideHolder()
+						.add(dreamwoodWandBind, Pair.of(prefix("bindmode"), 1.0)),
+				consumer);
+		items.remove(dreamwoodWand);
 	}
 
 	private void registerItemBlocks(Set<BlockItem> itemBlocks, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {

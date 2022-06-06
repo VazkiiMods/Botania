@@ -231,6 +231,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemFlugelEye.CoordBoundItem(st), ModItems.flugelEye);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemManaMirror.CoordBoundItem(st), ModItems.manaMirror);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItem(st), ModItems.twigWand);
+		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItem(st), ModItems.dreamwoodWand);
 		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaMirror.ManaItem(st), ModItems.manaMirror);
 		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaRing.ManaItem(st), ModItems.manaRing);
 		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemGreaterManaRing.ManaItem(st), ModItems.manaRingGreater);

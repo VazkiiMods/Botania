@@ -73,5 +73,5 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull ManaUpgradeRecipe recipe) {
 			SHAPED_RECIPE.toNetwork(buffer, recipe);
 		}
-	};
+	}
 }

@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
@@ -45,6 +44,7 @@ import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BlockPistonRelay;
@@ -74,22 +74,24 @@ public class ItemTwigWand extends Item {
 	private static final String TAG_BOUND_TILE_Y = "boundTileY";
 	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 	private static final String TAG_BIND_MODE = "bindMode";
-	private static final BlockPos UNBOUND_POS = new BlockPos(0, Integer.MIN_VALUE, 0);
 
-	public ItemTwigWand(Item.Properties builder) {
+	public final ChatFormatting modeChatFormatting;
+
+	public ItemTwigWand(ChatFormatting formatting, Item.Properties builder) {
 		super(builder);
+		this.modeChatFormatting = formatting;
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
 		BlockPos dest = ctx.getClickedPos();
 		if (!dest.equals(src)) {
-			setBindingAttempt(stack, UNBOUND_POS);
+			setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 
 			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src);
 			if (srcTile instanceof IWandBindable bindable) {
 				if (bindable.bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
 					doParticleBeamWithOffset(ctx.getLevel(), src, dest);
-					setBindingAttempt(stack, UNBOUND_POS);
+					setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 				}
 				return true;
 			}
@@ -194,7 +196,7 @@ public class ItemTwigWand extends Item {
 
 		if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
 			if (boundPos.filter(pos::equals).isPresent()) {
-				setBindingAttempt(stack, UNBOUND_POS);
+				setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 			} else {
 				setBindingAttempt(stack, pos);
 			}
@@ -299,7 +301,7 @@ public class ItemTwigWand extends Item {
 		getBindingAttempt(stack).ifPresent(coords -> {
 			BlockEntity tile = world.getBlockEntity(coords);
 			if (!(tile instanceof IWandBindable)) {
-				setBindingAttempt(stack, UNBOUND_POS);
+				setBindingAttempt(stack, ITileBound.UNBOUND_POS);
 			}
 		});
 	}
@@ -323,7 +325,7 @@ public class ItemTwigWand extends Item {
 	public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> stacks) {
 		if (allowdedIn(group)) {
 			for (int i = 0; i < 16; i++) {
-				stacks.add(forColors(i, i));
+				stacks.add(setColors(new ItemStack(this), i, i));
 			}
 		}
 	}
@@ -331,17 +333,16 @@ public class ItemTwigWand extends Item {
 	@Override
 	public Component getName(@Nonnull ItemStack stack) {
 		Component mode = new TextComponent(" (")
-				.append(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.DARK_GREEN))
+				.append(new TranslatableComponent(getModeString(stack)).withStyle(modeChatFormatting))
 				.append(")");
 		return super.getName(stack).plainCopy().append(mode);
 	}
 
-	public static ItemStack forColors(int color1, int color2) {
-		ItemStack stack = new ItemStack(ModItems.twigWand);
-		ItemNBTHelper.setInt(stack, TAG_COLOR1, color1);
-		ItemNBTHelper.setInt(stack, TAG_COLOR2, color2);
+	public static ItemStack setColors(ItemStack wand, int color1, int color2) {
+		ItemNBTHelper.setInt(wand, TAG_COLOR1, color1);
+		ItemNBTHelper.setInt(wand, TAG_COLOR2, color2);
 
-		return stack;
+		return wand;
 	}
 
 	public static int getColor1(ItemStack stack) {
@@ -392,9 +393,9 @@ public class ItemTwigWand extends Item {
 				return bound.get();
 			}
 
-			HitResult pos = Minecraft.getInstance().hitResult;
-			if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
-				BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
+			var pos = ClientProxy.INSTANCE.getClientHit();
+			if (pos instanceof BlockHitResult bHit && pos.getType() == HitResult.Type.BLOCK) {
+				BlockEntity tile = world.getBlockEntity(bHit.getBlockPos());
 				if (tile instanceof ITileBound boundTile) {
 					return boundTile.getBinding();
 				}

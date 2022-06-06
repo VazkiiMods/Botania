@@ -16,7 +16,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
@@ -41,7 +40,7 @@ import javax.annotation.Nullable;
 
 public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape SHAPE = box(3, 0, 3, 13, 14, 13);;
+	private static final VoxelShape SHAPE = box(3, 0, 3, 13, 14, 13);
 
 	protected BlockCocoon(Properties builder) {
 		super(builder);
@@ -79,7 +78,6 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 
 	private InteractionResult addStack(Level world, BlockPos pos, ItemStack stack, boolean creative) {
 		TileCocoon cocoon = (TileCocoon) world.getBlockEntity(pos);
-		Item item = stack.getItem();
 
 		if (cocoon != null && (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(ModItems.lifeEssence))) {
 			if (!world.isClientSide) {

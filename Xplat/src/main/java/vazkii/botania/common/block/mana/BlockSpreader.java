@@ -40,7 +40,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.ItemTwigWand;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -150,7 +150,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		}
 
 		ItemStack heldItem = player.getItemInHand(hand);
-		if (heldItem.is(ModItems.twigWand)) {
+		if (heldItem.getItem() instanceof ItemTwigWand) {
 			return InteractionResult.PASS;
 		}
 

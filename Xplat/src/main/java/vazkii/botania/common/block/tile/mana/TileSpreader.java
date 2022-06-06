@@ -426,7 +426,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 
 		for (PositionProperties props : lastTentativeBurst) {
 			if (!props.contentsEqual(level)) {
-				invalidTentativeBurst = props.invalid;
+				invalidTentativeBurst = props.isInvalidIn(level);
 				return !invalidTentativeBurst;
 			}
 		}

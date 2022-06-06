@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:item/dreamwood_wand",
+    "layer1": "botania:item/dreamwood_wand_top",
+    "layer2": "botania:item/dreamwood_wand_bottom"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:bindmode": 1.0
+      },
+      "model": "botania:item/dreamwood_wand_bind"
+    }
+  ]
+}

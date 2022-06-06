@@ -16,13 +16,11 @@
       "recipes": "botania:elven_trade/dreamwood"
     },
     {
-      "type": "text",
-      "text": "botania.page.elfResources2"
-    },
-    {
       "type": "crafting",
-      "text": "botania.page.elfResources10",
-      "recipe": "botania:dreamwood_twig"
+      "title": "botania.page.elfResources2.title",
+      "recipe": "botania:dreamwood_twig",
+      "recipe2": "botania:dreamwood_wand",
+      "text": "item.botania.dreamwood_wand"
     },
     {
       "type": "botania:elven_trade",

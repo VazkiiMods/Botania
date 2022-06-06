@@ -77,7 +77,7 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(HashCache hashCache) throws IOException {
+	public void run(HashCache hashCache) {
 		try {
 			registerStatesAndModels();
 		} catch (Exception e) {

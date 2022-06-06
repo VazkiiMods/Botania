@@ -36,7 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.ItemTwigWand;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,7 +69,7 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 		TileHourglass hourglass = (TileHourglass) world.getBlockEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.is(ModItems.twigWand)) {
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemTwigWand) {
 			return InteractionResult.PASS;
 		}
 

@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "RSR",
-    "SCS",
+    "STS",
     "RSR"
   ],
   "key": {
     "R": {
       "item": "minecraft:redstone"
     },
-    "C": {
-      "item": "minecraft:comparator"
+    "T": {
+      "item": "minecraft:target"
     },
     "S": {
       "item": "botania:livingrock"

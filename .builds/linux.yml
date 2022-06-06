@@ -1,0 +1,13 @@
+image: debian/bullseye
+packages:
+  - openjdk-17-jdk-headless
+  - jq
+sources:
+  - https://git.sr.ht/~williewillus/botania
+tasks:
+  - check_lang: |
+      cd botania && ./scripts/check_lang.sh
+  - build: |
+      cd botania && ./gradlew pmdMain spotlessJavaCheck build
+  - test: |
+      cd botania && ./gradlew :Fabric:runGameTest

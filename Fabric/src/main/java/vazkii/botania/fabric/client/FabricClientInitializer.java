@@ -64,8 +64,6 @@ import vazkii.patchouli.api.BookDrawScreenCallback;
 import java.util.SortedMap;
 import java.util.function.Function;
 
-import static vazkii.botania.common.block.ModSubtiles.*;
-
 public class FabricClientInitializer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {

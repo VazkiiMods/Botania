@@ -10,6 +10,8 @@ package vazkii.botania.api.block;
 
 import net.minecraft.core.BlockPos;
 
+import vazkii.botania.api.internal.IManaBurst;
+
 import javax.annotation.Nullable;
 
 /**
@@ -18,6 +20,7 @@ import javax.annotation.Nullable;
  * over with a Wand of the Forest.
  */
 public interface ITileBound {
+	BlockPos UNBOUND_POS = IManaBurst.NO_SOURCE;
 
 	/**
 	 * Gets where this block is bound to

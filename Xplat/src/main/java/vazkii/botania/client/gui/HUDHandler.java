@@ -47,6 +47,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -100,7 +101,7 @@ public final class HUDHandler {
 			BlockEntity tile = mc.level.getBlockEntity(bpos);
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
-				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
+				if (PlayerHelper.hasHeldItemClass(mc.player, ItemTwigWand.class)) {
 					var hud = IClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("wandItem");

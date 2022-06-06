@@ -75,7 +75,7 @@ public class ItemFlugelEye extends ItemRelic {
 			} else {
 				ItemStack stack = ctx.getItemInHand();
 				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
-				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location().toString(), nbt);
+				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location(), nbt);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
 			}
 
@@ -105,7 +105,7 @@ public class ItemFlugelEye extends ItemRelic {
 	@Nonnull
 	@Override
 	public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level world, LivingEntity living) {
-		String tag = TAG_TARGET_PREFIX + world.dimension().location().toString();
+		String tag = TAG_TARGET_PREFIX + world.dimension().location();
 		Tag nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt == null) {
 			return stack;
@@ -157,7 +157,7 @@ public class ItemFlugelEye extends ItemRelic {
 		@Nullable
 		@Override
 		public BlockPos getBinding(Level world) {
-			String tag = TAG_TARGET_PREFIX + world.dimension().location().toString();
+			String tag = TAG_TARGET_PREFIX + world.dimension().location();
 			Tag nbt = ItemNBTHelper.get(stack, tag);
 			if (nbt != null) {
 				return BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result()
