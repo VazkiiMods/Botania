@@ -1,0 +1,43 @@
+---
+layout: "default"
+title: "License"
+---
+
+<div class='section-header'>
+	<span class='glyphicon glyphicon-briefcase'></span>
+	Botania License
+</div>
+
+<b>Botania is distributed under a reasonably open license. You probably want to have a read through this if you want to do something with it other than just play.</b><br>
+You are completely free and have the right to <b>Use</b>, <b>Share</b> and <b>Adapt</b> the mod. These rights can not be removed from you as long as follow the license terms.<br>
+If you simply wish to play with the mod and do nothing else, go for it, this page is of no use to you.
+
+{% for section in site.data.license.sections %}
+<hr>
+<div class='license-point'>
+  <div class='license-point-header'>
+	<span class='text-muted'>{{ section.header }}</span>
+  </div>
+  <div class='license-point-info'>
+	{{ section.description }}
+  </div>
+
+  <div class='license-clauses'>
+    {% for clause in section.clauses %}
+    <div class='license-clause'>
+	  <div class='license-clause-icon'>
+		<span class='glyphicon glyphicon-{{ clause.icon }}'></span>
+	  </div>
+	  <div class='license-clause-info'>
+		<div class='license-clause-name'>
+		  <span class='text-muted'><b>{{ clause.name }}</b> Clause</span>
+		</div>
+		<div class='license-clause-desc'>
+          {{ clause.value }}
+		</div>
+	  </div>
+	</div>
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
