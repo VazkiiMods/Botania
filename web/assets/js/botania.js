@@ -4,10 +4,12 @@ var animating = false;
 $(function() {
 	setInterval(changeCensor, 100);
 	
+/*
 	var hash = document.location.hash.substring(1);
 	var offset = $("#" + hash + "-fake").offset();
 	if(offset != undefined)
 		$('html, body').animate({ scrollTop: offset.top - 72 }, 1000);
+*/
 		
 	$.material.init();
 });
