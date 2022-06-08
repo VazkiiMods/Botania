@@ -1,5 +1,5 @@
 summary { display: list-item; }
-blockquote { border-color: #bbb; }
+blockquote { border-color: #ddd; }
 
 blockquote.crafting-info {
   font-size: inherit;
@@ -11,16 +11,19 @@ a.toggle-link {
 
 .book-icon {
   vertical-align: middle;
-  margin-right: 0.25em;
+  margin: 0.25em;
 }
 
 .page-header {
-  padding: 0 20px;
+  border-image: linear-gradient(to right, #ddd, transparent) 1;
+}
+figure {
+  text-align: center;
 }
 a.permalink {
   /* margin-left: 0.5em; */
-  margin-left: -1.5em;
-  margin-right: 0.5em;
+  margin-left: -1.25em;
+  margin-right: 0.25em;
   position: relative;
   top: -0.08em;
   color: #33691e;
@@ -32,9 +35,6 @@ span.anchor {
   padding-top: 70px;
   margin-top: -70px;
   visibility: hidden;
-}
-.entry-body {
-  padding: 0 20px;
 }
 p {
   margin: 0.2ex 0;
@@ -64,7 +64,7 @@ p.todo-note {
 }
 .img-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
 }

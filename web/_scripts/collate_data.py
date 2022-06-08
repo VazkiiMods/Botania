@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 from sys import argv, stdout, stderr
 from collections import namedtuple
-import json  # codec
-import re  # parsing
-import os  # listdir
+import json # codec
+import re # parsing
+import os # listdir
 
 # extra info :(
 lang = "en_us"
@@ -175,6 +175,10 @@ def slurp(filename):
     with open(filename, "r") as fh:
         return json.load(fh)
 
+def dedup(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if not (x in seen or seen_add(x))]
 
 FormatTree = namedtuple("FormatTree", ["style", "children"])
 Style = namedtuple("Style", ["type", "value"])
@@ -393,11 +397,11 @@ page_types = {
     ),
     "patchouli:crafting": lambda rd, page: page.__setitem__(
         "item_name",
-        [
+        dedup(
             localize_item(rd, fetch_recipe_result(rd, page[ty]))
             for ty in ("recipe", "recipe2")
             if ty in page
-        ],
+        ),
     ),
     "patchouli:smelting": fetch_smelt,
     "patchouli:spotlight": lambda rd, page: page.__setitem__(
@@ -405,17 +409,17 @@ page_types = {
     ),
     "botania:crafting_multi": lambda rd, page: page.__setitem__(
         "item_name",
-        [
+        dedup(
             localize_item(rd, fetch_recipe_result(rd, recipe))
             for recipe in page["recipes"]
-        ],
+        ),
     ),
     "botania:brew": lambda rd, page: page.__setitem__(
         "brew_name", localize_brew(rd, fetch_recipe(rd, page["recipe"]))
     ),
     "botania:elven_trade": lambda rd, page: page.__setitem__(
         "item_name",
-        [
+        dedup(
             localize_item(rd, out["item"])
             for recipe in (
                 [page["recipes"]]
@@ -423,7 +427,7 @@ page_types = {
                 else page["recipes"]
             )
             for out in fetch_recipe(rd, recipe)["output"]
-        ],
+        ),
     ),
     "botania:runic_altar": lambda rd, page: page.__setitem__(
         "item_name",
@@ -685,17 +689,19 @@ def write_page(out, pageid, page):
                 out.text(".")
             # if "text" in page: write_block(out, page["text"])
         elif ty == "patchouli:image":
-            with out.pair_tag("div", clazz="img-container"):
-                for img in page["images"]:
-                    modid, coords = img.split(":")
-                    out.empty_pair_tag(
-                        "span",
-                        clazz="img-wrapper"
-                        + (" bordered-image" if page.get("border", False) else ""),
-                        style=f"background-image: url({repo_names[modid]}/assets/{modid}/{coords});",
-                    )
-            if "text" in page:
-                write_block(out, page["text"])
+            with out.pair_tag("figure"):
+                with out.pair_tag("div", clazz="img-container"):
+                    for img in page["images"]:
+                        modid, coords = img.split(":")
+                        out.empty_pair_tag(
+                            "span",
+                            clazz="img-wrapper"
+                            + (" bordered-image" if page.get("border", False) else ""),
+                            style=f"background-image: url({repo_names[modid]}/assets/{modid}/{coords});",
+                        )
+                if "text" in page:
+                    with out.pair_tag("figcaption"):
+                        write_block(out, page["text"])
         elif ty == "patchouli:multiblock":
             # hell no
             pass
@@ -730,9 +736,10 @@ def write_page(out, pageid, page):
                             out.text(i["out"])
                     if len(recipes) > 2:
                         out.text(",")
-                    out.text(" and ")
-                    with out.pair_tag("code"):
-                        out.text(recipes[-1]["out"])
+                    if len(recipes) > 1:
+                        out.text(" and ")
+                        with out.pair_tag("code"):
+                            out.text(recipes[-1]["out"])
                 out.text(" in a mana pool")
                 if "catalyst" in recipes[0]:
                     out.text(" using the ")
@@ -769,7 +776,8 @@ def write_page(out, pageid, page):
         elif ty == "botania:crafting_multi":
             recipes = page["item_name"]
             with out.pair_tag("blockquote", clazz="crafting-info"):
-                out.text(f"Recipes in the book: crafting the ")
+                # HACK: if we have a crafting-multi with 1, assume they were all squished
+                out.text(f"Recipes in the book: crafting {'several varieties of' if len(recipes) == 1 else 'the'} ")
                 with out.pair_tag("code"):
                     out.text(recipes[0])
                 for i in recipes[1:-1]:
@@ -778,9 +786,10 @@ def write_page(out, pageid, page):
                         out.text(i)
                 if len(recipes) > 2:
                     out.text(",")
-                out.text(" and ")
-                with out.pair_tag("code"):
-                    out.text(recipes[-1])
+                if len(recipes) > 1:
+                    out.text(" and ")
+                    with out.pair_tag("code"):
+                        out.text(recipes[-1])
                 out.text(".")
             if "text" in page:
                 write_block(out, page["text"])
