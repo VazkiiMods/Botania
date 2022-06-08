@@ -1,0 +1,3 @@
+* Make biome modifiers for marimorphosis/orechid recipes use biome tags instead of biome categories
+* Make marimorphosis/orechid recipes accept block tags like the pure daisy
+* Remove/change clayconia (because vanilla renewable clay now)? i think there was some talk about this in discord
