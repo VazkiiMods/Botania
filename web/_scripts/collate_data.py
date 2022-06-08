@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 from sys import argv, stdout, stderr
 from collections import namedtuple
-import json # codec
-import re # parsing
-import os # listdir
-
-log = open("log", "w")
+import json  # codec
+import re  # parsing
+import os  # listdir
 
 # extra info :(
 lang = "en_us"
@@ -117,7 +115,7 @@ extra_i18n = {
     "item.minecraft.wheat_seeds": "Wheat Seeds",
     "item.minecraft.white_dye": "White Dye",
     "item.minecraft.white_tulip": "White Tulip",
-    "item.minecraft.yellow_dye": "Yellow Dye"
+    "item.minecraft.yellow_dye": "Yellow Dye",
 }
 
 default_macros = {
@@ -172,14 +170,15 @@ keys = {
     "sprint": "Left Control",
 }
 
-bind1 = (lambda: None).__get__(0).__class__
 
 def slurp(filename):
     with open(filename, "r") as fh:
         return json.load(fh)
 
+
 FormatTree = namedtuple("FormatTree", ["style", "children"])
 Style = namedtuple("Style", ["type", "value"])
+
 
 def parse_style(sty):
     if sty == "br":
@@ -208,17 +207,21 @@ def parse_style(sty):
         return "", Style("base", None)
     if sty in types:
         return "", Style(types[sty], True)
-    if sty in colors:   
+    if sty in colors:
         return "", Style("color", colors[sty])
     if sty.startswith("#") and len(sty) in [4, 7]:
         return "", Style("color", sty[1:])
     # TODO more style parse
     raise ValueError("Unknown style: " + sty)
 
+
 def localize(i18n, string):
     return i18n.get(string, string) if i18n else string
 
+
 format_re = re.compile(r"\$\(([^)]*)\)")
+
+
 def format_string(root_data, string):
     # resolve lang
     string = localize(root_data["i18n"], string)
@@ -228,7 +231,8 @@ def format_string(root_data, string):
         old_string = string
         for macro, replace in root_data["macros"].items():
             string = string.replace(macro, replace)
-        else: break
+        else:
+            break
 
     # lex out parsed styles
     text_nodes = []
@@ -237,7 +241,7 @@ def format_string(root_data, string):
     extra_text = ""
     for mobj in re.finditer(format_re, string):
         bonus_text, sty = parse_style(mobj.group(1))
-        text = string[last_end:mobj.start()] + bonus_text
+        text = string[last_end : mobj.start()] + bonus_text
         if sty:
             styles.append(sty)
             text_nodes.append(extra_text + text)
@@ -248,8 +252,11 @@ def format_string(root_data, string):
     text_nodes.append(extra_text + string[last_end:])
     first_node, *text_nodes = text_nodes
 
-    # parse 
-    style_stack = [FormatTree(Style("base", True), []), FormatTree(Style("para", {}), [first_node])]
+    # parse
+    style_stack = [
+        FormatTree(Style("base", True), []),
+        FormatTree(Style("para", {}), [first_node]),
+    ]
     for style, text in zip(styles, text_nodes):
         tmp_stylestack = []
         if style.type == "base":
@@ -266,7 +273,8 @@ def format_string(root_data, string):
         for sty in tmp_stylestack:
             style_stack.append(FormatTree(sty, []))
         if style.value is None:
-            if text: style_stack[-1].children.append(text)
+            if text:
+                style_stack[-1].children.append(text)
         else:
             style_stack.append(FormatTree(style, [text] if text else []))
     while len(style_stack) >= 2:
@@ -275,31 +283,35 @@ def format_string(root_data, string):
 
     return style_stack[0]
 
-test_root = {"i18n": {}, "macros": default_macros, "resource_dir": "Xplat/src/main/resources", "modid": "botania"}
-#test_str = "Write the given iota to my $(l:patterns/readwrite#hexcasting:write/local)$(#490)local$().$(br)The $(l:patterns/readwrite#hexcasting:write/local)$(#490)local$() is a lot like a $(l:items/focus)$(#b0b)Focus$(). It's cleared when I stop casting a Hex, starts with $(l:casting/influences)$(#490)Null$() in it, and is preserved between casts of $(l:patterns/meta#hexcasting:for_each)$(#fc77be)Thoth's Gambit$(). "
 
 def do_localize(root_data, obj, *names):
     for name in names:
         if name in obj:
             obj[name] = localize(root_data["i18n"], obj[name])
 
+
 def do_format(root_data, obj, *names):
     for name in names:
         if name in obj:
             obj[name] = format_string(root_data, obj[name])
 
-def identity(x): return x
 
 # TODO kind of a hack
 resource_dir_bases = {
-    "botania": ["../../generated/resources", "../../../../Forge/src/generated/resources"],
+    "botania": [
+        "../../generated/resources",
+        "../../../../Forge/src/generated/resources",
+    ],
     "gardenofglass": ["../../../../garden_of_glass/src/main/resources"],
 }
+
 
 def fetch_recipe(root_data, recipe):
     modid, recipeid = recipe.split(":")
     for base in resource_dir_bases[modid]:
-        recipe_path = f"{root_data['resource_dir']}/{base}/data/{modid}/recipes/{recipeid}.json"
+        recipe_path = (
+            f"{root_data['resource_dir']}/{base}/data/{modid}/recipes/{recipeid}.json"
+        )
         if not os.path.isfile(recipe_path):
             continue
         data = slurp(recipe_path)
@@ -309,6 +321,8 @@ def fetch_recipe(root_data, recipe):
             data = data["base"]
         return data
     raise ValueError("Recipe " + recipe + " not found")
+
+
 def fetch_recipe_result(root_data, recipe):
     data = fetch_recipe(root_data, recipe)
     if "result" in data:
@@ -318,22 +332,27 @@ def fetch_recipe_result(root_data, recipe):
     print(data, file=stderr)
     raise ValueError
 
+
 def localize_item(root_data, item):
     # TODO hack
     item = re.sub("{.*", "", item.replace(":", "."))
     block = "block." + item
     block_l = localize(root_data["i18n"], block)
-    if block_l != block: return block_l
+    if block_l != block:
+        return block_l
     return localize(root_data["i18n"], "item." + item)
+
 
 def localize_brew(root_data, brew):
     modid, name = brew["brew"].split(":")
     return localize(root_data["i18n"], f"{modid}.brew.{name}")
 
+
 def fetch_smelt(rd, page):
     data = fetch_recipe(rd, page["recipe"])
     page["in"] = localize_item(rd, data["ingredient"]["item"])
     page["out"] = localize_item(rd, data["result"])
+
 
 def fetch_infusion_groups(root_data):
     group_cache = {}
@@ -344,10 +363,12 @@ def fetch_infusion_groups(root_data):
             group_cache.setdefault(recipe["group"], []).append(recipe)
     return group_cache
 
+
 def resolve_group(root_data, name):
     if "group_cache" not in root_data:
         root_data["group_cache"] = fetch_infusion_groups(root_data)
     return root_data["group_cache"][name]
+
 
 def fetch_infusion(rd, page):
     page["loc_recipes"] = []
@@ -364,30 +385,68 @@ def fetch_infusion(rd, page):
             rec["catalyst"] = localize_item(rd, recipe["catalyst"]["block"])
         page["loc_recipes"].append(rec)
 
+
 page_types = {
     "patchouli:link": lambda rd, page: do_localize(rd, page, "link_text"),
-    "patchouli:quest": lambda rd, page: page.__setitem__("title", "QUEST: " + page["title"]),
-    "patchouli:crafting": lambda rd, page: page.__setitem__("item_name", [localize_item(rd, fetch_recipe_result(rd, page[ty])) for ty in ("recipe", "recipe2") if ty in page]),
+    "patchouli:quest": lambda rd, page: page.__setitem__(
+        "title", "QUEST: " + page["title"]
+    ),
+    "patchouli:crafting": lambda rd, page: page.__setitem__(
+        "item_name",
+        [
+            localize_item(rd, fetch_recipe_result(rd, page[ty]))
+            for ty in ("recipe", "recipe2")
+            if ty in page
+        ],
+    ),
     "patchouli:smelting": fetch_smelt,
-    "patchouli:spotlight": lambda rd, page: page.__setitem__("item_name", localize_item(rd, page["item"])),
-    "botania:crafting_multi": lambda rd, page: page.__setitem__("item_name", [localize_item(rd, fetch_recipe_result(rd, recipe)) for recipe in page["recipes"]]),
-    "botania:brew": lambda rd, page: page.__setitem__("brew_name", localize_brew(rd, fetch_recipe(rd, page["recipe"]))),
-    "botania:elven_trade": lambda rd, page: page.__setitem__("item_name", [localize_item(rd, out["item"]) for recipe in ([page["recipes"]] if isinstance(page["recipes"], str) else page["recipes"]) for out in fetch_recipe(rd, recipe)["output"]]),
-    "botania:runic_altar": lambda rd, page: page.__setitem__("item_name", localize_item(rd, fetch_recipe(rd, page["recipe"])["output"]["item"])),
-    "botania:petal_apothecary": lambda rd, page: page.__setitem__("item_name", localize_item(rd, fetch_recipe(rd, page["recipe"])["output"]["item"])),
+    "patchouli:spotlight": lambda rd, page: page.__setitem__(
+        "item_name", localize_item(rd, page["item"])
+    ),
+    "botania:crafting_multi": lambda rd, page: page.__setitem__(
+        "item_name",
+        [
+            localize_item(rd, fetch_recipe_result(rd, recipe))
+            for recipe in page["recipes"]
+        ],
+    ),
+    "botania:brew": lambda rd, page: page.__setitem__(
+        "brew_name", localize_brew(rd, fetch_recipe(rd, page["recipe"]))
+    ),
+    "botania:elven_trade": lambda rd, page: page.__setitem__(
+        "item_name",
+        [
+            localize_item(rd, out["item"])
+            for recipe in (
+                [page["recipes"]]
+                if isinstance(page["recipes"], str)
+                else page["recipes"]
+            )
+            for out in fetch_recipe(rd, recipe)["output"]
+        ],
+    ),
+    "botania:runic_altar": lambda rd, page: page.__setitem__(
+        "item_name",
+        localize_item(rd, fetch_recipe(rd, page["recipe"])["output"]["item"]),
+    ),
+    "botania:petal_apothecary": lambda rd, page: page.__setitem__(
+        "item_name",
+        localize_item(rd, fetch_recipe(rd, page["recipe"])["output"]["item"]),
+    ),
     "botania:mana_infusion": fetch_infusion,
 }
 
+
 def walk_dir(root_dir, prefix):
-    search_dir = root_dir + '/' + prefix
+    search_dir = root_dir + "/" + prefix
     for fh in os.scandir(search_dir):
         if fh.is_dir():
-            yield from walk_dir(root_dir, prefix + fh.name + '/')
+            yield from walk_dir(root_dir, prefix + fh.name + "/")
         elif fh.name.endswith(".json"):
             yield prefix + fh.name
 
+
 def parse_entry(root_data, entry_path, ent_name):
-    print(ent_name, file=log)
     data = slurp(f"{entry_path}")
     do_localize(root_data, data, "name")
     for i, page in enumerate(data["pages"]):
@@ -405,6 +464,7 @@ def parse_entry(root_data, entry_path, ent_name):
 
     return data
 
+
 def parse_category(root_data, base_dir, cat_name):
     data = slurp(f"{base_dir}/categories/{cat_name}.json")
     do_localize(root_data, data, "name")
@@ -415,18 +475,30 @@ def parse_category(root_data, base_dir, cat_name):
     for filename in os.listdir(entry_dir):
         if filename.endswith(".json"):
             basename = filename[:-5]
-            entries.append(parse_entry(root_data, f"{entry_dir}/{filename}", cat_name + "/" + basename))
-    entries.sort(key=lambda ent: (not ent.get("priority", False), ent.get("sortnum", 0), ent["name"]))
+            entries.append(
+                parse_entry(
+                    root_data, f"{entry_dir}/{filename}", cat_name + "/" + basename
+                )
+            )
+    entries.sort(
+        key=lambda ent: (
+            not ent.get("priority", False),
+            ent.get("sortnum", 0),
+            ent["name"],
+        )
+    )
     data["entries"] = entries
     data["id"] = cat_name
 
     return data
 
+
 def parse_sortnum(cats, name):
-    if '/' in name:
-        ix = name.rindex('/')
+    if "/" in name:
+        ix = name.rindex("/")
         return parse_sortnum(cats, name[:ix]) + (cats[name].get("sortnum", 0),)
-    return cats[name].get("sortnum", 0),
+    return (cats[name].get("sortnum", 0),)
+
 
 def parse_book(root, mod_name, book_name):
     base_dir = f"{root}/assets/{mod_name}/patchouli_books/{book_name}"
@@ -457,26 +529,40 @@ def parse_book(root, mod_name, book_name):
 
     return root_info
 
+
 def tag_args(kwargs):
-    return "".join(f" {'class' if key == 'clazz' else key.replace('_', '-')}={repr(value)}" for key, value in kwargs.items())
+    return "".join(
+        f" {'class' if key == 'clazz' else key.replace('_', '-')}={repr(value)}"
+        for key, value in kwargs.items()
+    )
+
 
 class PairTag:
     __slots__ = ["stream", "name", "kwargs"]
+
     def __init__(self, stream, name, **kwargs):
         self.stream = stream
         self.name = name
         self.kwargs = tag_args(kwargs)
+
     def __enter__(self):
         print(f"<{self.name}{self.kwargs}>", file=self.stream, end="")
+
     def __exit__(self, _1, _2, _3):
         print(f"</{self.name}>", file=self.stream, end="")
 
+
 class Empty:
-    def __enter__(self): pass
-    def __exit__(self, _1, _2, _3): pass
+    def __enter__(self):
+        pass
+
+    def __exit__(self, _1, _2, _3):
+        pass
+
 
 class Stream:
     __slots__ = ["stream", "thunks"]
+
     def __init__(self, stream):
         self.stream = stream
         self.thunks = []
@@ -493,11 +579,13 @@ class Stream:
         return self.pair_tag(name, **kwargs) if cond else Empty()
 
     def empty_pair_tag(self, name, **kwargs):
-        with self.pair_tag(name, **kwargs): pass
+        with self.pair_tag(name, **kwargs):
+            pass
 
     def text(self, txt):
         print(txt, file=self.stream, end="")
         return self
+
 
 def get_format(out, ty, value):
     if ty == "para":
@@ -512,7 +600,9 @@ def get_format(out, ty, value):
     if ty == "tooltip":
         return out.pair_tag("span", clazz="has-tooltip", title=value)
     if ty == "cmd_click":
-        return out.pair_tag("span", clazz="has-cmd_click", title="When clicked, would execute: "+value)
+        return out.pair_tag(
+            "span", clazz="has-cmd_click", title="When clicked, would execute: " + value
+        )
     if ty == "obf":
         return out.pair_tag("span", clazz="obfuscated")
     if ty == "bold":
@@ -525,11 +615,14 @@ def get_format(out, ty, value):
         return out.pair_tag("span", style="text-decoration: underline")
     raise ValueError("Unknown format type: " + ty)
 
+
 def entry_spoilered(root_info, entry):
     return entry.get("advancement", None) in root_info["spoilers"]
 
+
 def category_spoilered(root_info, category):
     return all(entry_spoilered(root_info, ent) for ent in category["entries"])
+
 
 def write_block(out, block):
     if isinstance(block, str):
@@ -537,24 +630,29 @@ def write_block(out, block):
         return
     sty_type = block.style.type
     if sty_type == "base":
-        for child in block.children: write_block(out, child)
+        for child in block.children:
+            write_block(out, child)
         return
     tag = get_format(out, sty_type, block.style.value)
     with tag:
         for child in block.children:
             write_block(out, child)
 
+
 # TODO proper table
 def write_page(out, pageid, page):
     if "anchor" in page:
         anchor_id = pageid + "@" + page["anchor"]
-    else: anchor_id = None
+    else:
+        anchor_id = None
 
     with out.pair_tag_if(anchor_id, "div"):
         if "header" in page or "title" in page:
             with out.pair_tag("h4"):
                 if anchor_id:
-                    with out.pair_tag("a", href="#" + anchor_id, clazz="permalink small"):
+                    with out.pair_tag(
+                        "a", href="#" + anchor_id, clazz="permalink small"
+                    ):
                         out.empty_pair_tag("i", clazz="glyphicon glyphicon-bookmark")
                     out.empty_pair_tag("span", id=anchor_id, clazz="anchor")
                 out.text(page.get("header", page.get("title", None)))
@@ -562,7 +660,8 @@ def write_page(out, pageid, page):
         ty = page["type"]
         if ty in ("patchouli:text", "patchouli:quest"):
             write_block(out, page["text"])
-        elif ty == "patchouli:empty": pass
+        elif ty == "patchouli:empty":
+            pass
         elif ty == "patchouli:link":
             write_block(out, page["text"])
             with out.pair_tag("h4", clazz="linkout"):
@@ -571,32 +670,43 @@ def write_page(out, pageid, page):
         elif ty == "patchouli:spotlight":
             with out.pair_tag("h4", clazz="spotlight-title page-header"):
                 out.text(page["item_name"])
-            if "text" in page: write_block(out, page["text"])
+            if "text" in page:
+                write_block(out, page["text"])
         elif ty == "patchouli:crafting":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: crafting the ")
                 first = True
                 for name in page["item_name"]:
-                    if not first: out.text(" and ")
+                    if not first:
+                        out.text(" and ")
                     first = False
-                    with out.pair_tag("code"): out.text(name)
+                    with out.pair_tag("code"):
+                        out.text(name)
                 out.text(".")
-            #if "text" in page: write_block(out, page["text"])
+            # if "text" in page: write_block(out, page["text"])
         elif ty == "patchouli:image":
             with out.pair_tag("div", clazz="img-container"):
                 for img in page["images"]:
                     modid, coords = img.split(":")
-                    out.empty_pair_tag("span", clazz="img-wrapper" + (" bordered-image" if page.get("border", False) else ""), style=f"background-image: url({repo_names[modid]}/assets/{modid}/{coords});")
-            if "text" in page: write_block(out, page["text"])
+                    out.empty_pair_tag(
+                        "span",
+                        clazz="img-wrapper"
+                        + (" bordered-image" if page.get("border", False) else ""),
+                        style=f"background-image: url({repo_names[modid]}/assets/{modid}/{coords});",
+                    )
+            if "text" in page:
+                write_block(out, page["text"])
         elif ty == "patchouli:multiblock":
             # hell no
             pass
         elif ty == "patchouli:smelting":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: smelting ")
-                with out.pair_tag("code"): out.text(page["in"])
+                with out.pair_tag("code"):
+                    out.text(page["in"])
                 out.text(" into ")
-                with out.pair_tag("code"): out.text(page["out"])
+                with out.pair_tag("code"):
+                    out.text(page["out"])
                 out.text(".")
         elif ty == "botania:lore_page":
             if "text" in page:
@@ -608,40 +718,50 @@ def write_page(out, pageid, page):
                 if len(recipes) == 1:
                     recipe = recipes[0]
                     out.text(f"Recipe in the book: creating ")
-                    with out.pair_tag("code"): out.text(recipe["out"])
+                    with out.pair_tag("code"):
+                        out.text(recipe["out"])
                 else:
                     out.text(f"Recipes in the book: creating ")
-                    with out.pair_tag("code"): out.text(recipes[0]["out"])
+                    with out.pair_tag("code"):
+                        out.text(recipes[0]["out"])
                     for i in recipes[1:-1]:
                         out.text(", ")
-                        with out.pair_tag("code"): out.text(i["out"])
-                    if len(recipes) > 2: out.text(",")
+                        with out.pair_tag("code"):
+                            out.text(i["out"])
+                    if len(recipes) > 2:
+                        out.text(",")
                     out.text(" and ")
-                    with out.pair_tag("code"): out.text(recipes[-1]["out"])
+                    with out.pair_tag("code"):
+                        out.text(recipes[-1]["out"])
                 out.text(" in a mana pool")
                 if "catalyst" in recipes[0]:
                     out.text(" using the ")
-                    with out.pair_tag("code"): out.text(recipes[0]["catalyst"])
+                    with out.pair_tag("code"):
+                        out.text(recipes[0]["catalyst"])
                 out.text(".")
         elif ty == "botania:runic_altar":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: creating the ")
-                with out.pair_tag("code"): out.text(page["item_name"])
+                with out.pair_tag("code"):
+                    out.text(page["item_name"])
                 out.text(" on a Runic Altar.")
         elif ty == "botania:petal_apothecary":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: Creating the ")
-                with out.pair_tag("code"): out.text(page["item_name"])
+                with out.pair_tag("code"):
+                    out.text(page["item_name"])
                 out.text(" in a Petal Apothecary.")
         elif ty == "botania:brew":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: brewing a Brew of ")
-                with out.pair_tag("code"): out.text(page["brew_name"])
+                with out.pair_tag("code"):
+                    out.text(page["brew_name"])
                 out.text(".")
         elif ty == "botania:elven_trade":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: An elven trade resulting in ")
-                with out.pair_tag("code"): out.text(page["item_name"][0])
+                with out.pair_tag("code"):
+                    out.text(page["item_name"][0])
                 out.text(".")
         elif ty == "botania:terrasteel":
             with out.pair_tag("blockquote", clazz="crafting-info"):
@@ -650,15 +770,20 @@ def write_page(out, pageid, page):
             recipes = page["item_name"]
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipes in the book: crafting the ")
-                with out.pair_tag("code"): out.text(recipes[0])
+                with out.pair_tag("code"):
+                    out.text(recipes[0])
                 for i in recipes[1:-1]:
                     out.text(", ")
-                    with out.pair_tag("code"): out.text(i)
-                if len(recipes) > 2: out.text(",")
+                    with out.pair_tag("code"):
+                        out.text(i)
+                if len(recipes) > 2:
+                    out.text(",")
                 out.text(" and ")
-                with out.pair_tag("code"): out.text(recipes[-1])
+                with out.pair_tag("code"):
+                    out.text(recipes[-1])
                 out.text(".")
-            if "text" in page: write_block(out, page["text"])
+            if "text" in page:
+                write_block(out, page["text"])
         else:
             with out.pair_tag("p", clazz="todo-note"):
                 out.text("TODO: Missing processor for type: " + ty)
@@ -666,8 +791,11 @@ def write_page(out, pageid, page):
                 write_block(out, page["text"])
     out.tag("br")
 
+
 def anchor_entry(entry):
     return entry["id"]
+
+
 """
     # TODO hack
     if entry["id"] == "challenges/welcome": return "challengeWelcome"
@@ -677,6 +805,7 @@ def anchor_entry(entry):
     *_, entry_name = entry["id"].split("/")
     return re.sub(r"_(\w)", lambda m: m.group(1).upper(), entry_name)
 """
+
 
 def write_entry(out, book, entry):
     with out.pair_tag("div"):
@@ -691,18 +820,24 @@ def write_entry(out, book, entry):
                 for page in entry["pages"]:
                     write_page(out, anchor, page)
 
+
 def write_category(out, book, category):
     with out.pair_tag("section"):
-        with out.pair_tag_if(category_spoilered(book, category), "div", clazz="spoilered"):
+        with out.pair_tag_if(
+            category_spoilered(book, category), "div", clazz="spoilered"
+        ):
             with out.pair_tag("h2", clazz="category-title page-header"):
-                with out.pair_tag("a", href="#" + category["id"], clazz="permalink small"):
+                with out.pair_tag(
+                    "a", href="#" + category["id"], clazz="permalink small"
+                ):
                     out.empty_pair_tag("i", clazz="glyphicon glyphicon-bookmark")
                 out.empty_pair_tag("span", id=category["id"], clazz="anchor")
                 write_block(out, category["name"])
-            #write_block(out, category["description"])
+            # write_block(out, category["description"])
         for entry in category["entries"]:
             if entry["id"] not in book["blacklist"]:
-                    write_entry(out, book, entry)
+                write_entry(out, book, entry)
+
 
 def write_toc(out, book):
     with out.pair_tag("h2", clazz="page-header"):
@@ -710,19 +845,35 @@ def write_toc(out, book):
             out.empty_pair_tag("i", clazz="glyphicon glyphicon-bookmark")
         out.empty_pair_tag("span", id="table-of-contents", clazz="anchor")
         out.text("Table of Contents")
-        with out.pair_tag("a", href="javascript:void(0)", clazz="toggle-link small", data_target="toc-category"):
+        with out.pair_tag(
+            "a",
+            href="javascript:void(0)",
+            clazz="toggle-link small",
+            data_target="toc-category",
+        ):
             out.text("(toggle all)")
     with out.pair_tag("div", clazz="entry-body"):
         for category in book["categories"]:
             with out.pair_tag("details", clazz="toc-category"):
                 with out.pair_tag("summary"):
-                    with out.pair_tag("a", href="#" + category["id"], clazz="spoilered" if category_spoilered(book, category) else ""):
+                    with out.pair_tag(
+                        "a",
+                        href="#" + category["id"],
+                        clazz="spoilered" if category_spoilered(book, category) else "",
+                    ):
                         out.text(category["name"])
                 with out.pair_tag("ul"):
                     for entry in category["entries"]:
                         with out.pair_tag("li"):
-                            with out.pair_tag("a", href="#" + anchor_entry(entry), clazz="spoilered" if entry_spoilered(book, entry) else ""):
+                            with out.pair_tag(
+                                "a",
+                                href="#" + anchor_entry(entry),
+                                clazz="spoilered"
+                                if entry_spoilered(book, entry)
+                                else "",
+                            ):
                                 out.text(entry["name"])
+
 
 def write_book(out, book):
     with out.pair_tag("div", clazz="container"):
@@ -737,6 +888,7 @@ def write_book(out, book):
             for category in book["categories"]:
                 write_category(out, book, category)
 
+
 def main(argv):
     if len(argv) < 4:
         print(f"Usage: {argv[0]} <resources dir> <mod name> <book name> [<output>]")
@@ -747,7 +899,8 @@ def main(argv):
     book = parse_book(root, mod_name, book_name)
     with stdout if len(argv) < 5 else open(argv[4], "w") as out:
         write_book(Stream(out), book)
-        print('', file=out)
+        print("", file=out)
+
 
 if __name__ == "__main__":
     main(argv)
