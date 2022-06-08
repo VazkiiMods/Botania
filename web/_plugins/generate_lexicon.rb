@@ -9,7 +9,7 @@ module GenLexicon
 
       script_run = `#{script} #{base_path} #{mod_name} #{book_name}`
 
-      lexicon = site.pages.find { |page| page.name == 'lexicon.md'}
+      lexicon = site.pages.find { |page| page.name == 'lexicon.html'}
 
       lexicon.data['body'] = script_run
     end

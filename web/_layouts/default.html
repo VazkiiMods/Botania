@@ -9,7 +9,11 @@
 	<link rel="stylesheet" href="{{ "/assets/css/ripples.min.css" | relative_url }}">
     <link rel="stylesheet" href="{{ "/assets/css/material-wfont.min.css" | relative_url }}">
 	<link rel="stylesheet" href="{{ "/assets/css/botania.css" | relative_url }}">
-	<link rel="stylesheet" href="{{ "/assets/css/minecraft-pallette.css" | relative_url }}">
+    {% if page.title == "Lexicon" %}
+    <link rel="stylesheet" href="{{ "/assets/css/lexicon.css" | relative_url }}">
+    {% else %}
+    <link rel="stylesheet" href="{{ "/assets/css/minecraft-pallette.css" | relative_url }}">
+    {% endif %}
   </head>
   <body>
     {% include header.html %}
@@ -22,5 +26,8 @@
 	<script src="{{ "/assets/js/ripples.min.js" | relative_url }}"></script>
 	<script src="{{ "/assets/js/material.min.js" | relative_url }}"></script>
 	<script src="{{ "/assets/js/botania.js" | relative_url }}"></script>
+    {% if page.title == "Lexicon" %}
+    <script src="{{ "/assets/js/lexicon.js" | relative_url }}"></script>
+    {% endif %}
   </body>
 </html>
