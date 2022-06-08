@@ -1,0 +1,80 @@
+summary { display: list-item; }
+blockquote { border-color: #bbb; }
+
+blockquote.crafting-info {
+  font-size: inherit;
+  margin: 0 0;
+}
+a.toggle-link {
+  margin-left: 0.5em;
+}
+
+.book-icon {
+  vertical-align: middle;
+  margin-right: 0.25em;
+}
+
+.page-header {
+  padding: 0 20px;
+}
+a.permalink {
+  /* margin-left: 0.5em; */
+  margin-left: -1.5em;
+  margin-right: 0.5em;
+  position: relative;
+  top: -0.08em;
+  color: #33691e;
+}
+a.permalink:hover {
+  color: #4aa825;
+}
+span.anchor {
+  padding-top: 70px;
+  margin-top: -70px;
+  visibility: hidden;
+}
+.entry-body {
+  padding: 0 20px;
+}
+p {
+  margin: 0.2ex 0;
+}
+p.fake-li {
+  margin: 0;
+}
+p.fake-li::before {
+  content: "\2022";
+  margin: 1ex;
+}
+.linkout::before {
+  content: "Link: ";
+}
+p.todo-note {
+  font-style: italic;
+  color: lightgray;
+}
+.obfuscated {
+  filter: blur(1em);
+}
+.elven-decor {
+  background: beige;
+  padding: 0.4em;
+  border-radius: 2px;
+  font-family: cursive;
+}
+.img-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.img-wrapper {
+  width: 200px;
+  height: 200px;
+  /* border: 2px blue solid; */
+  display: inline-block;
+  flex-shrink: 0;
+}
+.bordered-image {
+  border: 3px darkgray solid;
+}
