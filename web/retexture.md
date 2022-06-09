@@ -26,6 +26,10 @@ I (williewillus) have set up a GoFundMe at [this link][fundraiser] .
 Treat the presence of this webpage as proof that the fundraiser is legitimate, as only
 Botania maintainers can modify this website.
 
+If excess funds remain after the retexture is complete, they will be donated to a
+charity of the Violet Moon Modding team's choice. This donation will be announced
+by the Violet Moon Twitter.
+
 # Gallery
 
 [BlanketCon](https://blanketcon.modfest.net) is taking place the weekend of June
@@ -34,11 +38,11 @@ lots of other cool mods!
 
 Here are some teasers with the new textures:
 
-![]({{ "/assets/img/retexture/livingwood.png" | relative_url }}){:width="100%"}
-![]({{ "/assets/img/retexture/mossy_apothecary.png" | relative_url }}){:width="100%"}
-![]({{ "/assets/img/retexture/metamorphic_apothecary.png" | relative_url }}){:width="100%"}
-![]({{ "/assets/img/retexture/metamorphic_bricks.png" | relative_url }}){:width="100%"}
-![]({{ "/assets/img/retexture/metamorphic_cave.png" | relative_url }}){:width="100%"}
-![]({{ "/assets/img/retexture/all_metamorphic.png" | relative_url }}){:width="100%"}
+![the new livingwoods]({{ "/assets/img/retexture/livingwood.png" | relative_url }}){:width="100%"}
+![the new mossy apothecary]({{ "/assets/img/retexture/mossy_apothecary.png" | relative_url }}){:width="100%"}
+![one of the new apothecaries]({{ "/assets/img/retexture/metamorphic_apothecary.png" | relative_url }}){:width="100%"}
+![metamorphic bricks]({{ "/assets/img/retexture/metamorphic_bricks.png" | relative_url }}){:width="100%"}
+![a cave remodeled with metamorphic blocks]({{ "/assets/img/retexture/metamorphic_cave.png" | relative_url }}){:width="100%"}
+![all the metamorphic blocks and apothecaries]({{ "/assets/img/retexture/all_metamorphic.png" | relative_url }}){:width="100%"}
 
 [fundraiser]: https://www.gofundme.com/f/botania-retexture
