@@ -693,12 +693,12 @@ def write_page(out, pageid, page):
                 with out.pair_tag("div", clazz="img-container"):
                     for img in page["images"]:
                         modid, coords = img.split(":")
-                        out.empty_pair_tag(
+                        with out.pair_tag(
                             "span",
                             clazz="img-wrapper"
                             + (" bordered-image" if page.get("border", False) else ""),
-                            style=f"background-image: url({repo_names[modid]}/assets/{modid}/{coords});",
-                        )
+                        ):
+                            out.tag("img", clazz="patchy-image", src=f"{repo_names[modid]}/assets/{modid}/{coords}"),
                 if "text" in page:
                     with out.pair_tag("figcaption"):
                         write_block(out, page["text"])

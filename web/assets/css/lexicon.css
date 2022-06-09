@@ -70,13 +70,15 @@ p.todo-note {
   gap: 1em;
 }
 .img-wrapper {
-  width: 200px;
-  height: 200px;
-  /* border: 2px blue solid; */
   display: inline-block;
   flex-shrink: 0;
-  color-adjust: exact !important;
+  overflow: hidden;
 }
 .bordered-image {
   border: 3px darkgray solid;
+}
+img.patchy-image {
+  height: 200px;
+  width: 200px;
+  transform: translate(-50%, -50%) scale(1.28) translate(50%, 50%);
 }
