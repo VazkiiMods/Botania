@@ -60,7 +60,8 @@ p.todo-note {
   background: beige;
   padding: 0.4em;
   border-radius: 2px;
-  font-family: cursive;
+  font-family: "Satisfy", cursive;
+  font-size: 150%;
 }
 .img-container {
   display: flex;
@@ -74,6 +75,7 @@ p.todo-note {
   /* border: 2px blue solid; */
   display: inline-block;
   flex-shrink: 0;
+  color-adjust: exact !important;
 }
 .bordered-image {
   border: 3px darkgray solid;

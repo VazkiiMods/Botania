@@ -5,14 +5,23 @@
     <meta charset="utf-8">
     <title>{{ site.title }} - {{ page.title }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="{{ "/assets/css/ripples.min.css" | relative_url }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{ "/assets/css/ripples.min.css" | relative_url }}">
     <link rel="stylesheet" href="{{ "/assets/css/material-wfont.min.css" | relative_url }}">
-	<link rel="stylesheet" href="{{ "/assets/css/botania.css" | relative_url }}">
-    {% if page.title == "Lexicon" %}
+    <link rel="stylesheet" href="{{ "/assets/css/botania.css" | relative_url }}">
+    {% if page.lexicon %}
     <link rel="stylesheet" href="{{ "/assets/css/lexicon.css" | relative_url }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap">
     {% else %}
     <link rel="stylesheet" href="{{ "/assets/css/minecraft-pallette.css" | relative_url }}">
+    {% endif %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="{{ "/assets/js/ripples.min.js" | relative_url }}"></script>
+    <script src="{{ "/assets/js/material.min.js" | relative_url }}"></script>
+    <script src="{{ "/assets/js/botania.js" | relative_url }}"></script>
+    {% if page.lexicon %}
+    <script src="{{ "/assets/js/lexicon.js" | relative_url }}"></script>
     {% endif %}
   </head>
   <body>
@@ -21,13 +30,5 @@
       {{ content }}
     </div>
     {% include footer.html %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="{{ "/assets/js/ripples.min.js" | relative_url }}"></script>
-	<script src="{{ "/assets/js/material.min.js" | relative_url }}"></script>
-	<script src="{{ "/assets/js/botania.js" | relative_url }}"></script>
-    {% if page.title == "Lexicon" %}
-    <script src="{{ "/assets/js/lexicon.js" | relative_url }}"></script>
-    {% endif %}
   </body>
 </html>
