@@ -1,16 +1,18 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ItemNBTHelper;
+
+import java.util.List;
 
 public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png");
@@ -28,7 +30,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
 		if (recipe.getRecipeCatalyst() != null) {
 			this.catalysts = List.of(EmiIngredient.of(recipe.getRecipeCatalyst().getDisplayed().stream()
-				.map(s -> EmiStack.of(s.getBlock())).toList()));
+					.map(s -> EmiStack.of(s.getBlock())).toList()));
 		}
 		this.output = List.of(EmiStack.of(recipe.getResultItem()));
 		mana = recipe.getManaToConsume();
@@ -55,5 +57,5 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 		}
 		widgets.addSlot(output.get(0), 79, 13).drawBack(false).recipeContext(this);
 	}
-	
+
 }

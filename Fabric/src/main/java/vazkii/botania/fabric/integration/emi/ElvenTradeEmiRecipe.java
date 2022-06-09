@@ -10,12 +10,14 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.Widget;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 
 public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
@@ -69,7 +71,7 @@ public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
 		@Override
 		public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
 			TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-				.apply(new ResourceLocation("botania", "block/alfheim_portal_swirl"));
+					.apply(new ResourceLocation("botania", "block/alfheim_portal_swirl"));
 			MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 			VertexConsumer v = immediate.getBuffer(RenderType.solid());
 			int startX = x;

@@ -1,13 +1,15 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import net.minecraft.world.item.ItemStack;
+
 import vazkii.botania.api.recipe.IOrechidRecipe;
+
+import java.util.List;
 
 public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 	private final EmiIngredient orechid;
@@ -19,7 +21,7 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 		this.input = List.of(EmiStack.of(new ItemStack(recipe.getInput(), 64)));
 		try {
 			this.output = recipe.getOutput().getDisplayed().stream()
-				.map(s -> EmiStack.of(new ItemStack(s.getBlock(), amount))).toList();
+					.map(s -> EmiStack.of(new ItemStack(s.getBlock(), amount))).toList();
 		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}

@@ -1,13 +1,14 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
+
+import java.util.List;
 
 public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 	private static final EmiStack PLATE = EmiStack.of(ModBlocks.terraPlate);

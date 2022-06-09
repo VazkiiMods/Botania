@@ -1,17 +1,19 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-import java.util.stream.Stream;
-
-import org.jetbrains.annotations.Nullable;
-
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.IBrewRecipe;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/nei_brewery.png");
@@ -26,8 +28,8 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 		ResourceLocation id = recipe.getId();
 		ResourceLocation itemId = Registry.ITEM.getKey(container.getItem());
 		this.id = new ResourceLocation("emi", "botania/botanical_brewery/"
-			+ id.getNamespace() + "/" + id.getPath() + "/"
-			+ itemId.getNamespace() + "/" + itemId.getPath());
+				+ id.getNamespace() + "/" + id.getPath() + "/"
+				+ itemId.getNamespace() + "/" + itemId.getPath());
 	}
 
 	@Override

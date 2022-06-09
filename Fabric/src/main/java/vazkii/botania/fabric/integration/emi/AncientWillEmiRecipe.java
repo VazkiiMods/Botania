@@ -1,14 +1,17 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-import net.minecraft.world.item.ItemStack;
 import dev.emi.emi.api.recipe.EmiPatternCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.GeneratedSlotWidget;
 import dev.emi.emi.api.widget.SlotWidget;
+
+import net.minecraft.world.item.ItemStack;
+
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.item.ItemAncientWill;
+
+import java.util.List;
 
 public class AncientWillEmiRecipe extends EmiPatternCraftingRecipe {
 	private final EmiStack container;

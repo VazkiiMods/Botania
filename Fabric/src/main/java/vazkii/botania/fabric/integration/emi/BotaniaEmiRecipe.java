@@ -1,14 +1,16 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Recipe;
-import org.jetbrains.annotations.Nullable;
-
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
+
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public abstract class BotaniaEmiRecipe implements EmiRecipe {
 	private final EmiRecipeCategory category;

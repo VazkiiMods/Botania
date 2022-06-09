@@ -1,12 +1,13 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.util.List;
 
 public class PetalApothecaryEmiRecipe extends BotaniaEmiRecipe {
 	private static final EmiStack APOTHECARY = EmiStack.of(ModBlocks.defaultAltar);

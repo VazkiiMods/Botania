@@ -1,15 +1,17 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import net.minecraft.resources.ResourceLocation;
+
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.common.block.ModSubtiles;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png");

@@ -1,14 +1,17 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import dev.emi.emi.api.recipe.EmiPatternCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.GeneratedSlotWidget;
 import dev.emi.emi.api.widget.SlotWidget;
+
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+
 import vazkii.botania.common.item.lens.ItemLens;
+
+import java.util.List;
 
 public class CompositeLensEmiRecipe extends EmiPatternCraftingRecipe {
 	private static final EmiStack SLIME = EmiStack.of(Items.SLIME_BALL);
@@ -45,5 +48,5 @@ public class CompositeLensEmiRecipe extends EmiPatternCraftingRecipe {
 			((ItemLens) a.getItem()).setCompositeLens(a.copy(), b);
 			return EmiStack.of(a);
 		}, unique, x, y);
-	}	
+	}
 }

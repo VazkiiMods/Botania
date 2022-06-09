@@ -1,17 +1,19 @@
 package vazkii.botania.fabric.integration.emi;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+
 import net.minecraft.resources.ResourceLocation;
+
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.material.ItemRune;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/petal_overlay.png");
@@ -45,7 +47,7 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	public int getDisplayWidth() {
 		return 106;
 	}
-	
+
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		widgets.add(new ManaWidget(2, 100, mana, TilePool.MAX_MANA / 10));
@@ -59,7 +61,7 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 		for (int i = 0; i < input.size(); i++) {
 			EmiIngredient ing = input.get(i);
 			widgets.addSlot(ing, BotaniaEmiPlugin.rotateXAround(44, 8, 44, 40, step * i),
-				BotaniaEmiPlugin.rotateYAround(44, 8, 44, 40, step * i)).drawBack(false);
+					BotaniaEmiPlugin.rotateYAround(44, 8, 44, 40, step * i)).drawBack(false);
 		}
 		widgets.addSlot(altar, 44, 41).drawBack(false).catalyst(true);
 		widgets.addSlot(output, 44 + 38, 5).drawBack(false).recipeContext(recipe);
