@@ -36,7 +36,7 @@ by the Violet Moon Twitter.
 10th, 2022. Hop on the server to hear talks, see the new textures in-game, and check out
 lots of other cool mods!
 
-Here are some teasers with the new textures:
+Here are some teasers with the new textures (subject to change):
 
 ![the new livingwoods]({{ "/assets/img/retexture/livingwood.png" | relative_url }}){:width="100%"}
 ![the new mossy apothecary]({{ "/assets/img/retexture/mossy_apothecary.png" | relative_url }}){:width="100%"}
@@ -44,5 +44,11 @@ Here are some teasers with the new textures:
 ![metamorphic bricks]({{ "/assets/img/retexture/metamorphic_bricks.png" | relative_url }}){:width="100%"}
 ![a cave remodeled with metamorphic blocks]({{ "/assets/img/retexture/metamorphic_cave.png" | relative_url }}){:width="100%"}
 ![all the metamorphic blocks and apothecaries]({{ "/assets/img/retexture/all_metamorphic.png" | relative_url }}){:width="100%"}
+![mystical flowers]({{ "/assets/img/retexture/flower1.png" | relative_url }}){:width="100%"}
+![mushrooms and magical flowers]({{ "/assets/img/retexture/flower2.png" | relative_url }}){:width="100%"}
+![all mystical flowers]({{ "/assets/img/retexture/all_flower.png" | relative_url }}){:width="100%"}
+![all tall flowers]({{ "/assets/img/retexture/all_flower_tall.png" | relative_url }}){:width="100%"}
+
+
 
 [fundraiser]: https://www.gofundme.com/f/botania-retexture
