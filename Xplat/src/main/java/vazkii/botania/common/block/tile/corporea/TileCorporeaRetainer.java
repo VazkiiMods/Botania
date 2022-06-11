@@ -59,16 +59,18 @@ public class TileCorporeaRetainer extends TileMod implements IWandable {
 	}
 
 	public void remember(BlockPos pos, ICorporeaRequestMatcher request, int count, int missing) {
-		if (hasPendingRequest()) {
-			return;
-		}
-
 		this.requestPos = pos;
 		this.request = request;
 		this.requestCount = retainMissing ? missing : count;
 
 		compValue = CorporeaHelper.instance().signalStrengthForRequestSize(requestCount);
 		setChanged();
+	}
+
+	public void forget() {
+		request = null;
+		requestCount = 0;
+		compValue = 0;
 	}
 
 	public int getComparatorValue() {
@@ -90,9 +92,7 @@ public class TileCorporeaRetainer extends TileMod implements IWandable {
 			if (te instanceof ICorporeaRequestor requestor) {
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
-				request = null;
-				requestCount = 0;
-				compValue = 0;
+				forget();
 				setChanged();
 			}
 		}
