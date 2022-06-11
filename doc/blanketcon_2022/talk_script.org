@@ -281,5 +281,16 @@ If you're interested, talk to us. The short answer right now is "not likely". Di
 Violet Moon mods are maintained by different subteams, and each will make their own
 decisions independently depending on interest.
 
+*** Why not Architectury?
+One of things I've learned over the years is that core dependencies are risky. Remember
+when Botania used to be held up due to Baubles (a required dep) not updating?
+
+I don't want to stake the life of our mods on a third-party compatibility layer, whose
+surface for potential bugs is much larger than our much lighter-weight xplat abstractions
+layer, which only provides what we need and no more.
+
+Of course, we gladly accept dependencies for extra integrations, but they must be optional
+and easily disabled without refactoring the entire mod.
+
 ** Live Questions
 Will be filled in after the talk if any questions were asked.
