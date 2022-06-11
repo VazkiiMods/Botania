@@ -20,9 +20,9 @@
   \begin{itemize}
   \item Started life as a Forge 1.6/1.7 mod, remained there since up to 1.16.x
   \item 1.14+ depends on \textit{Patchouli} for lexicon
-  \item Patchouli is much smaller, a test bed for our ideas
+  \item Patchouli is smaller, test bed
   \item Patchouli ported to Fabric 1.15, made a standalone post about it at the time
-  \item Mojmap already available then, but had licensing ambiguity
+  \item Mojmap already available then, license ambiguous
   \end{itemize}
 \end{frame}
 
@@ -30,10 +30,10 @@
 \begin{frame}{Preparations}
   Lots of prep work in \textit{Forge codebase}:
   \begin{itemize}
-  \item Removing uses of Forge API's (ObjectHolder, EventBusSubscriber, Registry API's, IItemHandler)
-  \item Reverting things from Forge interfaces/overloads back to vanilla ones
-  \item Switching things to Mixins after Forge added them
-  \item Using helper methods to smooth over MCP/Yarn mapping differences
+  \item Removing uses of Forge API's
+  \item Reverting things from Forge interfaces/overloads back to vanilla
+  \item Switching things to Mixins
+  \item Using helper methods to smooth over mapping differences
   \end{itemize}
 
   \textbf{Takeaway}: Always do preparatory work while your current codebase can still be
@@ -57,8 +57,8 @@
   \begin{itemize}
   \item Another \textbf{key takeaway}: Work systematically and leverage automation
   \item Don't open files and randomly snipe compile errors
-  \item Identify a class of problems and eliminate them all at once
-  \item Continue methodically until you have the ``real'' long tail of issues
+  \item Identify an eliminate classes of problems
+  \item Continue methodically
   \end{itemize}
 \end{frame}
 
@@ -104,10 +104,10 @@
 \section{Fabric As Upstream}
 \begin{frame}{Fabric As Upstream}
   \begin{itemize}
-  \item 1.17 released mid-2021, updated Mojmap license now deemed acceptable by Forge
-  \item ``Fabritania'' now a real project we intended to see to completion
+  \item 1.17 released mid-2021, new Mojmap license
+  \item ``Fabritania'' now a real project
   \item Switched Fabric to Mojmap to reduce diffs with Forge
-  \item At this time, Forge 1.17 had broken Mixins, so Fabric branch took over as upstream
+  \item Early Forge 1.17 had broken Mixins, so Fabric branch took over as upstream
   \item Forge never got 1.17 release since by the time we were stabilized, 1.18 was coming
   \item Did not look forward to more back-and-forth merge-hell
   \end{itemize}
@@ -139,11 +139,11 @@
 
 \begin{frame}{Downcalls To Platform}
   \begin{center}
-    \begin{tikzpicture}[node distance=1.2cm]
+    \begin{tikzpicture}[node distance=3cm]
       \node (xplat) [std] {Xplat Code};
-      \node (ixplat) [std, below of=xplat] {\texttt{IXplatAbstractions}};
-      \node (forge) [std, below = of ixplat] {\texttt{ModList::isLoaded()}};
-      \node (fabric) [std, right = of forge] {\texttt{FabricLoader::isModLoaded}};
+      \node (ixplat) [std, node distance = 2cm, below of=xplat] {\texttt{IXplatAbstractions}};
+      \node (forge) [std, below left of=ixplat, xshift = -1cm] {\texttt{ModList::isLoaded}};
+      \node (fabric) [std, below right of=ixplat] {\texttt{FabricLoader::isModLoaded}};
 
       \draw [arrow] (xplat) -- node[anchor=west] {\texttt{isModLoaded()}} (ixplat);
       \draw [arrow] (ixplat) -- node[anchor=east] {\texttt{ForgeXplatImpl}} (forge);
@@ -157,7 +157,7 @@
   Recall key takeaway: Refactor in an environment where you can test each step of the way:
   \begin{itemize}
   \item Create empty ``shell'' Xplat and Forge modules, dump \textbf{working} codebase into Fabric module
-  \item Incrementally move pieces from Fabric to Xplat, compiling and running to test every step of the way
+  \item Incrementally move pieces to Xplat, compile/test every step of the way
   \item Took a couple months to go from running on Fabric...to running on Fabric. Useless?
   \item No! Now it's super clear what needs to be done for Forge: Implement \texttt{ForgeXplatImpl}, and hook up all the entry points and event handlers.
   \end{itemize}
@@ -205,6 +205,7 @@
   \begin{itemize}
   \item Botania Team (Hubry, Alwinfy, myself)
   \item BlameJared, Darkhax et al.
+  \item All patrons and vip's who helped test
   \end{itemize}
 
   Please support the fundraiser to retexture Botania!
@@ -212,7 +213,9 @@
 \end{frame}
 
 \begin{frame}
-  Questions
+  \begin{center}
+    \Huge Questions
+  \end{center}
 \end{frame}
 
 \end{document}
