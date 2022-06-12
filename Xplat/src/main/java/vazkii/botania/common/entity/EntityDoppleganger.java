@@ -1036,7 +1036,7 @@ public class EntityDoppleganger extends Mob {
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();
 			this.z = guardian.getSource().getZ();
-			// this.repeat = true; disabled due to unknown vanilla/LWJGL bug where track glitches and repeats early
+			this.looping = true;
 		}
 
 		public static void play(EntityDoppleganger guardian) {
