@@ -14,7 +14,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -41,31 +40,33 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class BotaniaEmiPlugin implements EmiPlugin {
-	public static EmiRecipeCategory PETAL_APOTHECARY = new EmiRecipeCategory(new ResourceLocation("botania:petal_apothecary"),
+	public static EmiRecipeCategory PETAL_APOTHECARY = new EmiRecipeCategory(prefix("petal_apothecary"),
 			EmiStack.of(ModBlocks.defaultAltar));
-	public static EmiRecipeCategory MANA_INFUSION = new EmiRecipeCategory(new ResourceLocation("botania:mana_infusion"),
+	public static EmiRecipeCategory MANA_INFUSION = new EmiRecipeCategory(prefix("mana_infusion"),
 			EmiStack.of(ModBlocks.manaPool));
-	public static EmiRecipeCategory RUNIC_ALTAR = new EmiRecipeCategory(new ResourceLocation("botania:runic_altar"),
+	public static EmiRecipeCategory RUNIC_ALTAR = new EmiRecipeCategory(prefix("runic_altar"),
 			EmiStack.of(ModBlocks.runeAltar));
-	public static EmiRecipeCategory TERRESTRIAL_AGGLOMERATION = new EmiRecipeCategory(new ResourceLocation("botania:terrestrial_agglomeration"),
+	public static EmiRecipeCategory TERRESTRIAL_AGGLOMERATION = new EmiRecipeCategory(prefix("terrestrial_agglomeration"),
 			EmiStack.of(ModBlocks.terraPlate));
-	public static EmiRecipeCategory ELVEN_TRADE = new EmiRecipeCategory(new ResourceLocation("botania:elven_trade"),
+	public static EmiRecipeCategory ELVEN_TRADE = new EmiRecipeCategory(prefix("elven_trade"),
 			EmiStack.of(ModBlocks.alfPortal));
-	public static EmiRecipeCategory BOTANICAL_BREWERY = new EmiRecipeCategory(new ResourceLocation("botania:botanical_brewery"),
+	public static EmiRecipeCategory BOTANICAL_BREWERY = new EmiRecipeCategory(prefix("botanical_brewery"),
 			EmiStack.of(ModBlocks.brewery));
-	public static EmiRecipeCategory PURE_DAISY = new EmiRecipeCategory(new ResourceLocation("botania:pure_daisy"),
+	public static EmiRecipeCategory PURE_DAISY = new EmiRecipeCategory(prefix("pure_daisy"),
 			EmiStack.of(ModSubtiles.pureDaisy));
-	public static EmiRecipeCategory ORECHID = new EmiRecipeCategory(new ResourceLocation("botania:orechid"),
+	public static EmiRecipeCategory ORECHID = new EmiRecipeCategory(prefix("orechid"),
 			EmiStack.of(ModSubtiles.orechid));
-	public static EmiRecipeCategory ORECHID_IGNEM = new EmiRecipeCategory(new ResourceLocation("botania:orechid_ignem"),
+	public static EmiRecipeCategory ORECHID_IGNEM = new EmiRecipeCategory(prefix("orechid_ignem"),
 			EmiStack.of(ModSubtiles.orechidIgnem));
-	public static EmiRecipeCategory MARIMORPHOSIS = new EmiRecipeCategory(new ResourceLocation("botania:marimorphosis"),
+	public static EmiRecipeCategory MARIMORPHOSIS = new EmiRecipeCategory(prefix("marimorphosis"),
 			EmiStack.of(ModSubtiles.marimorphosis));
 
 	@Override
 	public void register(EmiRegistry registry) {
-		CorporeaInputHandler.jeiPanelSupplier = () -> {
+		CorporeaInputHandler.hoveredStackGetter = () -> {
 			EmiIngredient stack = EmiApi.getHoveredStack(true).getStack();
 			if (stack.getEmiStacks().size() > 0) {
 				return stack.getEmiStacks().get(0).getItemStack();

@@ -14,8 +14,10 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png");
+	private static final ResourceLocation TEXTURE = prefix("textures/gui/pure_daisy_overlay.png");
 	private static final EmiStack POOL;
 	private final int mana;
 

@@ -15,8 +15,10 @@ import vazkii.botania.api.recipe.IBrewRecipe;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/nei_brewery.png");
+	private static final ResourceLocation TEXTURE = prefix("textures/gui/nei_brewery.png");
 	private final List<EmiIngredient> ingredients;
 	private final ResourceLocation id;
 

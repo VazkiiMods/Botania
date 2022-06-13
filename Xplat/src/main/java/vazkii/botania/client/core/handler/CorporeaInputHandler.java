@@ -32,8 +32,7 @@ import java.util.function.Supplier;
 
 public class CorporeaInputHandler {
 
-	/** Replaced in JEIBotaniaPlugin when JEI's loaded to provide stacks from the JEI item panel. */
-	public static Supplier<ItemStack> jeiPanelSupplier = () -> ItemStack.EMPTY;
+	public static Supplier<ItemStack> hoveredStackGetter = () -> ItemStack.EMPTY;
 
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
 	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen;
@@ -95,6 +94,6 @@ public class CorporeaInputHandler {
 			}
 		}
 
-		return jeiPanelSupplier.get();
+		return hoveredStackGetter.get();
 	}
 }

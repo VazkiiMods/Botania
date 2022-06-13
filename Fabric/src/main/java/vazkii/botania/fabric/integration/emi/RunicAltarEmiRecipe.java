@@ -15,8 +15,10 @@ import vazkii.botania.common.item.material.ItemRune;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/petal_overlay.png");
+	private static final ResourceLocation TEXTURE = prefix("textures/gui/petal_overlay.png");
 	private static final EmiStack LIVINGROCK = EmiStack.of(ModBlocks.livingrock);
 	private static final EmiStack ALTAR = EmiStack.of(ModBlocks.runeAltar);
 	private final List<EmiIngredient> ingredients;

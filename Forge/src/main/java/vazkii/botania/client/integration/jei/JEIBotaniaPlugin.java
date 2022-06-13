@@ -237,7 +237,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		recipeManager.byKey(prefix("petal_apothecary/nightshade_motif"))
 				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
 
-		CorporeaInputHandler.jeiPanelSupplier = () -> {
+		CorporeaInputHandler.hoveredStackGetter = () -> {
 			ItemStack stack = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM);
 
 			if (stack == null && Minecraft.getInstance().screen == jeiRuntime.getRecipesGui()) {

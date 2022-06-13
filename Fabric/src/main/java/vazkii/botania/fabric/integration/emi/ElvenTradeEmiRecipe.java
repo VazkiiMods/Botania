@@ -20,8 +20,10 @@ import net.minecraft.world.inventory.InventoryMenu;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
-	private static final ResourceLocation TEXTURE = new ResourceLocation("botania", "textures/gui/elven_trade_overlay.png");
+	private static final ResourceLocation TEXTURE = prefix("textures/gui/elven_trade_overlay.png");
 
 	public ElvenTradeEmiRecipe(IElvenTradeRecipe recipe) {
 		super(BotaniaEmiPlugin.ELVEN_TRADE, recipe);
@@ -71,7 +73,7 @@ public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
 		@Override
 		public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
 			TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-					.apply(new ResourceLocation("botania", "block/alfheim_portal_swirl"));
+					.apply(prefix("block/alfheim_portal_swirl"));
 			MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
 			VertexConsumer v = immediate.getBuffer(RenderType.solid());
 			int startX = x;
