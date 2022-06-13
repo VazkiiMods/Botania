@@ -1669,6 +1669,159 @@ title: "Changelog"
 * **And that's it for my important note. I'm back to Botania, and I hope you carry on enjoying it.**
 
 ---
+---
+
+## Botania Unofficial Era
+During this era of Botania's life, the mod was ported externally by williewillus
+(who was not yet a member of the team at the time), through Minecraft versions
+1.8 up to 1.10.2, encompassing all versions after 249 up to and including 321.
+This section of the page is an archive of the changelogs of those versions of Botania
+Unofficial for posterity. Hope you enjoy the history!
+
+{% include changelog_header.html version="r1.8 321" %}
+
+Changes:
+* Code/asset cleanups
+
+Fix:
+* Fix avatar and cocoon being invisible in inventory
+* Fix bergamute making custom sound classes infinite loop (RFTools, Dynamic Surroundings)
+
+{% include changelog_header.html version="r1.8 320" %}
+
+This is getting ridiculous ><
+
+Fixes:
+* Crash when putting petal in petal apothecary
+* Stars not showing in GoG skybox
+
+{% include changelog_header.html version="r1.8 319" %}
+
+Important: If you use Natural Pledge, be sure to update to Natural Pledge 1.5 or above!
+
+Hotfix on the hotfix, ugh. See build 318/317 for full changelog.
+
+Fix:
+* Fix crash due to particels spawning serverside
+* Fix Botania's banner patterns not showing up on shields (LGcommisar)
+* Floral powder is now registered to oredict name "dye" (pau101)
+
+Enjoy
+
+{% include changelog_header.html version="r1.8 318" %}
+
+Once again, use the next build :/
+
+Important: If you use Natural Pledge, be sure to update to Natural Pledge 1.5 or above!
+
+Hotfix. See previous build 317 for full release notes.
+
+Fix:
+* Gaia Guardian crashing with ConcurrentModificationException
+
+{% include changelog_header.html version="r1.8 317" %}
+
+Use next build pls
+
+Important: If you use Natural Pledge, be sure to update to Natural Pledge 1.5 or above!
+
+Small build, but school is starting tomorrow so I want to get this out before a drop in activity.
+
+Java 8, Baubles, Forge 2053+, JEI 3.7.8
+
+Changes:
+* zh_CN lang updates (3TUSK)
+* Lexicon picture for crafty crate shows updated Crafting Placeholder texture (Luxor5393)
+* Internal cleanups
+* Optimized floating flower model, it should render faster now when animated, I will continue to explore options to optimize the animated ones
+* Also added a config option to render floating flowers statically. This means they don't animate but render not just faster but A LOT faster. This option makes them render as fast as normal blocks like fences.
+
+Fixes:
+* Fixed Bergamute having flower particle colour not matching what the flower looks like (this doesn't affect the particles it makes when it absorbs a sound)
+* Fixed Bergamute not working on ticking sounds like minecarts
+* Fix orechid running clientside and being weird
+* Fix pixies despawning immediately clientside, meaning they were invisible and couldn't be attacked
+* Fix pixies flying too slowly towards their targets
+* Fix banner back-textures not being reversed like they should be
+
+Enjoy!
+
+{% include changelog_header.html version="r1.8 316" %}
+
+new Build!
+
+Java 8, Baubles, Forge 2053+, JEI 3.7.8
+
+Changes:
+
+* [API] Elven trade recipes now can output multiple (shadowfacts)
+* Added a special tiny potato for me :D
+* Bubbell now less laggy
+* Magic flower recipes now show properly in JEI
+* Mana blaster now shows the active lens on the barrel
+* Corporea no longer runs clientside
+* Mana Enchanter is now more lax about what can go on an item:
+  Before, used Enchanting Table rules to determine if item can be enchanted, now uses anvil rules
+  Lets you apply unbreaking to shields, etc.
+* Remove vineball + cobble -> moss stone recipe (there's a cheaper vanilla one)
+* Remove old tooltips from Coarse Dirt and Mob Spawner
+
+Fixes:
+* All special tiny potatoes should now render properly
+* Fix CTRL+SHIFT crash for some blocks
+* Fix dupe glitches due to old code assuming player only has one hand
+* Fix shaded-mesa-thrown items not having proper pickup delay
+* Fix crash when digging flowers
+* Fix spark animation when requesting items from Corporea being missing
+* Fix flare lens not working
+* Fix comparator not working with corporea retainer
+* Fix livingroot blocks looking weird in world
+* Fix things like the mana tooltip bar not matching with the item's actual tooltip
+* Fix Ender Hand being desync-y
+* Fix some missing sideonly's causing crashes with Sponge or other reflecting mods
+
+Enjoy!
+
+---
+
+# TODO builds 300 to 316
+
+{% include changelog_header.html version="r1.8 299" %}
+
+Welcome to Botania unofficial 1.8! This is my unofficial port and continuation of Vazkii's wonderful mod Botania.
+This will serve as our "release candidate" for the real 1.8 release. I've incremented the build number by 50. This is if there are any more patches to 1.7.10, they won't run into our numbers.
+
+Built on Java 8, MinecraftForge 1763, Baubles 1.1.3.0
+
+Changes since last build:
+
+* Fix corporea funnel auto output
+* Fix corporea index stars being too bright
+* Rabbits can now spawn from cocoon of caprice
+* Storage drawers now work with corporea again
+* Fix mana prism redstone control being inverted
+* Fix spreaders not animating smoothly on turntable
+* Fix mana prism not syncing when its inventory changes
+* Possible fixes for crashes when entering chunks with botania blocks in them
+* Workaround JEI integration where things showed up in the wrong category
+* Fix corporea sparks crashing when attempting to be placed on invalid blocks
+* Fix smokey quartz slab model
+* Fix endoflame crash
+* Fix mana pump textures
+* Fix terra pick mining the wrong block positions
+* Fix itemfinder crashes
+* Bring back the version checker from upstream and revert to upstream versioning style
+* Bring back the 3d lexicon model (!!)
+
+
+---
+
+TODO pre-release Unofficial builds before 299
+
+---
+
+---
+
 
 {% include changelog_header.html version="r1.8 249" %}
 
