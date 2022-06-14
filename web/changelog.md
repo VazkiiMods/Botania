@@ -1695,6 +1695,8 @@ Fixes:
 * Crash when putting petal in petal apothecary
 * Stars not showing in GoG skybox
 
+---
+
 {% include changelog_header.html version="r1.8 319" %}
 
 Important: If you use Natural Pledge, be sure to update to Natural Pledge 1.5 or above!
@@ -1708,6 +1710,8 @@ Fix:
 
 Enjoy
 
+---
+
 {% include changelog_header.html version="r1.8 318" %}
 
 Once again, use the next build :/
@@ -1718,6 +1722,8 @@ Hotfix. See previous build 317 for full release notes.
 
 Fix:
 * Gaia Guardian crashing with ConcurrentModificationException
+
+---
 
 {% include changelog_header.html version="r1.8 317" %}
 
@@ -1745,6 +1751,8 @@ Fixes:
 * Fix banner back-textures not being reversed like they should be
 
 Enjoy!
+
+---
 
 {% include changelog_header.html version="r1.8 316" %}
 
@@ -1784,7 +1792,486 @@ Enjoy!
 
 ---
 
-# TODO builds 300 to 316
+{% include changelog_header.html version="r1.8 315" %}
+
+Small build but again I need some fires to get put out
+
+Java 8, JEI 3.7.8, Forge 2044+
+
+IMPORTANT
+
+* Fix blocks disappearing, transforming, or becoming missing models on chunk reload
+* Forge fixed a pretty serious vanilla bug in the blockstate ID map in 2027, that a lot of mods were unintentionally relying upon. However, that fix was incomplete and was not completely resolved until 2044. If you are running the mod in a version in this range of buggy Forges from 2027-2044 (I'm looking at you Unstable >.>) be aware that I've had users report blocks disappearing or transforming when upgrading out of that range. You've been warned, and I'm very sorry for the bugs.
+
+Changes:
+
+* More json and model registration cleanup
+* Lexicon 3D model is back! Looks a bit wonky in the left hand but works good enough
+* Removed option to "disable 1.8 stones" (they were removed). The mana infusion recipes for the vanilla versions are now always-on
+* Black Hole Talisman uses capabilities to deposit things.
+* Version checker now just piggybacks off the Forge version checker
+* Small performance boost to the very laggy floating flower rendering. A more effective solution is being worked on
+
+Fixes:
+
+* Fix said 1.8 stone mana infusion recipes acting weird in the presence of the Ore Dict
+
+---
+
+{% include changelog_header.html version="r1.8 314" %}
+
+Small build, but necessary to put out some fires.
+
+For 1.10.2 only!
+
+Built on Java 8, Forge 2041 (anything above 2018 should work), JEI 3.7.8
+
+Changes:
+
+* Made a bunch of eventhandlers static. That probably means nothing to most of you, other than things will run negligibly faster :P
+* The day is here: All blocks duplicated from vanilla/Quark have been removed. The nag is gone as well - you're welcome ;). PLEASE ensure you have heeded the nag if you've built with these blocks as they'll disappear!
+* Added ManaDiscountEvent (Flaxbeard)
+* Mana Enchanter costs more to apply treasure enchantments.
+* Remove some log spam from Mana Enchanter.
+
+Fixes:
+
+* Fix blocks turning into other blocks when being placed (Forge fixed a vanilla bug I was unintentionally relying on)
+* Fix cacophonium not working at all
+* Fix slingshot not working properly
+* Fix walls being flipped around in inventory
+* model cleanups ongoing
+* code cleanups as obfuscated lambdas work now
+
+---
+
+{% include changelog_header.html version="r1.8 313" %}
+
+This will be the final build for 1.9.4.
+
+Built on Java 8, Forge 1965, Baubles 1.2, and JEI 3.6
+
+Changes:
+
+* Blacklist TC aura nodes from Rod of Shaded Mesa
+* Added the Bergamute, a sound muffler. Will be tweaked in the future (texture: Tiktalik)
+
+Fixes:
+
+* Fix two Rings of Chordata behaving weirdly (howtonotwin)
+* Fix starcaller not working
+* Fix halos crashing
+* Fix rod of bifrost going batshit and generating thousands of chunks out
+* Fix crash when using a Wand of the Forest on a Crafty Crate from a dispenser
+* Fix sparks duping when they unload
+* Fix bows being OP in 1.10
+* Made secret feature X more reliable
+* Fix some particle effects being missing
+* Fix ancient wills not working
+
+---
+
+{% include changelog_header.html version="r1.8 312" %}
+
+Small build for the update to 1.10.2
+
+This jar supports both 1.9.4 and 1.10.2.
+
+Not tested nor supported on 1.10.0 though it should in theory work fine there.
+
+Built on Java 8, Forge 1965, Baubles 1.2, and JEI 3.6
+
+Changes:
+
+* Pick block for pool cart, sparks
+* Can now fill an apothecary using a fluid cap supporting containers
+
+Fixes:
+
+* Fix burst ranges being much shorter than they should really be
+* Fix magic flowers emitting light
+* Fix glitch flower achievement showing a missing texture instead of poppy
+* Fix desync when withdrawing from runic altar
+* Fix drums having the wrong sound
+* Fix weapons in Key of King's Law aiming weird
+* Fix some items looking awkward in 3rd person
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 311" %}
+
+This build _should_ work in BOTH 1.9.4 AND 1.10! Woohoo!
+
+Main dev will continue on 1.9.4 but if you have 1.10 problems please let me know.
+
+Built on Java 8, Forge 1965, Baubles 1.2, and JEI 3.6
+
+Changes:
+- Made compatible with MC 1.10
+- Made Quats and Vector3's immutable (they were already being copied around like crazy)
+- Gaia Guardian now spawns each players' drops at that player
+- Gaia Guardian's magic landmines now deal magic damage
+- Gaia Guardian now deals physical damage if it teleports on a path that goes through you
+- Gaia Guardian can now be damaged by non-melee player damage sources. Damage cap still applies.
+- Gaia Guardian can no longer be shoved when spawning
+- Optimize Spectator network traffic even more
+- Mana Enchanter no longer runs logic clientside
+- The Soulscribe is only effective when 1.9 attack bar is fully charged
+
+Fixes:
+- Fix some broken color fading
+- Fix flare chakrams reverting to normal ones on world reload / dimension change
+- Fix flugel tiara conflicting with spectator mode
+- Fix threading issues in special flower models
+- Remove some checks that forge now has
+- Fix TE's sending too much stuff to the client 
+- Fix GG spawned mobs not getting fire resistance for as long as they should be
+- Fix potion effects the GG removed not syncing to clients
+- Fix format error in armor tooltips
+- Fix items on runic altar being too far away and small
+- Fix terrasteel pick tooltip darkening screen sometimes
+- Fix some of the tools of the Key of King's Law bouncing back
+- Fix bad portuguese brick stairs/slabs recipes
+- Fix solegnolia not working on dedicated servers
+- Fix elementium pick not voiding 1.8 stones
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 310" %}
+
+I need sleep edition
+
+Hotfix -.-
+
+Fix:
+- Fix crash with other mods
+- Tweak some models
+- Fix flowers popping off relay and mycelium
+
+---
+
+{% include changelog_header.html version="r1.8 309" %}
+
+please use the next build due to a crash with other mods
+
+New build!
+
+Forge 1965, JEI 3.4+, Java 8, Baubles 1.1.2.0
+
+Changes:
+- Added support for Forge's lightweight update-checker system
+- Gaia Head and Gaia Guardian now truly look like whoever's looking at it. Spoopy.
+- [API] Lexicon recipe mappings now accept wildcard meta (yrsegal)
+- Some technical blocks like lit redstone ore and lit redstone lamp now drop their non-technical counterpart (again?)
+- Removed ColoredLights support (simply for clean code. will be readded if coloredlights ever updates)
+- Lang file cleanup
+- Apothecary now respects new fluid capability items (no, you can't pipe into them)
+- Decrease log spam
+- buff terrasteel armor slightly
+- Some tweaks to early lexicon entries
+- **new mana blaster model** (wiiv)
+  - Not fully done - the eventual idea is that you can see the lens you have equipped on the gun and the backup lenses on the clip
+  - No new fancy model for the desu gun - bug wiiv if you want that ;)
+- fr_FR lang update (isambourgg)
+- Mana sparks now run logic only on the server
+- Gaia Head can now be worn
+- Terra Blade can no longer be spam clicked (only fires mana burst when your 1.9 attack bar is full)
+
+Fixes:
+- Fix Gaia Head render looking weird
+- Fix exploit with Mending spell cloths
+- Fix bad spawnpoint being set in GoG
+- Fix chakrams behaving weirdly due to desyncs
+- Fix pool crafting particles not quite matching 1.7
+- Fix BH talisman consuming blocks even when placement was invalid (howtonotwin)
+- Fix minor blending issue in lexicon
+- Fix some armor being too strong
+- Fix crash in assembly halo, and tweak the visuals in item/block rendering slightly
+- Fix contributors that have a addon-added flower showing missing model when that addon is absent
+- Fix helmets looking strange on armorstands
+- Fix floating flowers looking weird in inventory
+- Fix Baubles looking wrong when sneaking (yrsegal)
+- Fix Bauble renders (yrsegal)
+- Fix flower pouch and bauble box crashing in offhand
+- Fix crafty crate creating ghost items
+- Fix pylons being shifted in inventory
+- Fix buffer overflow when too many lightning particles are being rendered
+- Fix tooltip crash with some keybindings
+- Fix crash with overgrowth seed
+- Fix solegnolia having a lower range than shown
+
+---
+
+{% include changelog_header.html version="r1.8 308" %}
+
+Hotfix
+
+Fix:
+- Fix chest carts being wiped and loot regenerated on open due to a left-in debug statement
+
+See previous build notes for more info 
+
+---
+
+{% include changelog_header.html version="r1.8 307" %}
+
+Quick bugfix build for 1.9.4.
+
+Req: Forge 1922+, Baubles 1.2.1.0+, Java 8
+
+Opt: JEI 3.4+
+
+ IMPORTANT: Do NOT open your minecart chests in this or any earlier 1.9.x version! I accidentally left debug code active that deletes everything inside and respawns the loot. A hotfix is now out (build 308)
+
+Changes:
+- Lang updates for ja_JP, zh_TW
+- Mana pools now try catalyst recipes first before noncatalyst ones. Fixes not being able to register infusion recipes that match one of Botania's but adds a catalyst.
+
+Fixes:
+- Actually fix the log spam from last time
+- Fix TE's not syncing to clientside properly
+- Don't reinvent the wheel with packet syncing
+- Fix mana cookie lasting 1 tick instead of 1 second (yrsegal)
+- Fix flower pouches not playing sound and animation on pickup
+- Workaround for particles being culled at render distance for starfield, beacon, flares - the particles just spawn at the edge of the player's render distance, whatever that may be
+- Fix crash with VarInt bits
+- Cleanup some deprecated stuff
+- Fix ender air bottle affecting too few blocks
+- Fix axes not digging fast
+- Cleanups
+
+---
+
+{% include changelog_header.html version="r1.8 306" %}
+
+We're on 1.9.4 now!
+
+Req: Forge 1909+, Baubles 1.2.1.0+, Java 8
+
+Opt: JEI 3.4+
+
+Changes:
+- Update to 1.9.4
+- API: Move IManaCollisionGhost to be on Blocks instead of Tiles
+
+Fixes:
+- Fix some log spam
+
+---
+
+{% include changelog_header.html version="r1.8 305" %}
+
+(Most likely) the last 1.9.0 build 
+
+Req: Forge 1901+, Java 8, Baubles 1.2.0.0+
+
+Opt: JEI 3.3.3+
+
+Changes:
+- Fix botania dungeon loot
+- Loonium subtile NBT now has a field for a custom loot table (the item form doesn't have this yet)
+- Optimize network traffic for The Spectator heavily
+- Make clientside boss collection weak to protect against memory leaks
+- Many flowers no longer run extraneous logic clientside
+- Minor memory optimizations
+
+Fixes:
+- Fix petal burying crashing
+- Fix hopperhock not working on vanilla single chests
+- Fix picking root block giving missing texture item
+- Fix terra axe icon not changing when disabled by temperance / crouching
+- Fix GOG pebble-ing not working on a dedicated server
+- Fix dirt path not having proper bounding box
+- Fix binding spreader to something with no bounding box crashing
+
+---
+
+{% include changelog_header.html version="r1.8 304" %}
+
+Changes:
+- Fix server crash on startup
+
+See previous changelog for detailed changes
+
+---
+
+{% include changelog_header.html version="r1.8 303" %}
+
+First 1.9 curse build!
+
+Requires Forge 1898 (VERY recent at time of writing!) and Java 8
+
+Built on JEI 3.3.3 and Baubles 1.2.0.0
+
+Changes:
+- Added subtitles for Botania sounds
+- Some balance changes
+  - Glass pick: Boost attack speed, Lower attack damage
+  - Thundercaller: Boost attack speed, boosted number of lightning bolts spawned during a storm
+  - Starcaller: 
+    - Removed random chance for stars summoning (you always get them now). The "not getting a star half the time" felt like a bug to me.
+    - Stars now deal half as much dmg (2.5 hearts), with a 25% chance to deal 5 hearts
+    - On clear skies near midnight, have a small chance to get an extra star
+    - Decrease drift of summoned star. Hopefully this will make it more useful when moving, though you still need skill to line things up right
+  - Soulscribe: Boost attack speed
+  - More to come!
+- Make some items use the new 1.9-style cooldowns
+- Platforms now go fully invisible with managlass again. All other translucent blocks still work directly.
+- TilePool no longer runs logic clientside
+- Non-fabulous pools now render like a normal block -> performance improvements!
+- GG no longer runs extraneous logic clientside
+- Buffed GG slightly: mobs spawned in spawning phase now receive 30s of fire resistance if they do not resist fire already
+- Update futureazoo resource pack to 1.9
+- Remove useless synchronization in Mana Network -> minor performance improvement
+- Assembly halos now support JEI [+] button
+- Removed item forms of buried petals and mana flame - seeing a missing item screen on update is OKAY
+- Update JEI dependency, add support for recipe category crafting items
+- API: Fold some interfaces together. There's wayyy too many .-.
+- Add reverse petal block recipes from block -> petals
+- Preliminary work on new loot system (not done yet)
+- Pool cart now emits mana particles like an actual pool
+
+Fixes:
+- Platforms now respect direction sensitive blocks
+  - May break with some mods that are doing things wrong, report if that happens.
+- Fix kekimurus crash
+- Fix GG not being marked as a boss
+- Fix incorrect sound on the horns
+- Fix missing texture on fungal apothecary's base
+- Fix version checker links
+- Fix paint lens particles not showing up
+- Fix Corporea Crystal Cube rendering/crashing
+- Fix several blocks looking weird in hand/inventory
+- Resync the Hovering Hourglass whenever it flips over. Hopefully this will help avoid desyncs.
+- Fix digging some blocks in survival crashing
+- Fix potion rendering in the ingame HUD
+- Fix floating flower models breaking terribly when doing F3+T
+- Fix Jaded Amaranthus not working
+- Fix incense looking weird on incense plate
+- Get rid of some log spam
+- Fix pump rendering
+- Fix pool cart rendering
+
+Upcoming:
+- Possible: Livingwood/dreamwood chests
+- New mana blaster model
+- Possible: 3D lexicon model reimplementation
+- Possible: new items to experiment with 1.9 combat
+- More optimizations and cleanups!
+
+---
+
+{% include changelog_header.html version="r1.8 302" %}
+
+Note: Exams for school are coming up, and I have a full time job this summer.
+I expect to be able to mod on the weekends and in evenings in the summer, but for the next couple weeks I will be busy with exams, hang in there and keep reporting bugs!
+
+Another alpha build for MC 1.9!
+
+Built on Java 8, Baubles 1.2.0.0, Forge 1865
+
+**MAJOR CHANGE:**
+- Decorative blocks duplicated by vanilla and Quark will be REMOVED in a future build
+- Migration recipes have been added to vanilla and Quark
+- In the next build, I might add an item that you can use to convert blocks in-place in the world so you don't have to dig them all up
+
+Changes:
+- Gaia Guardian now uses loot tables! (see https://github.com/williewillus/Botania/tree/MC19/src/main/resources/assets/botania/loot_tables and http://minecraft.gamepedia.com/Loot_tables for more information)
+- Armor retains enchants when upgraded (yrsegal)
+- Ice Pendant now uses an effect equivalent to Frost Walker VIII
+- Change armor equip sounds 
+- Make thundercaller attack speed faster
+- Code cleanups
+- Mana Band and Terra Pick now retain mana used to craft them (yrsegal)
+
+Bug fixes:
+- Fix stairs rendering weirdly in some cases
+- Fix vine balls and other throwable items not working
+- Fix solid vines appearing gray
+- Fix rebinding things using the wand of the forest not working
+- Fix boss bars
+- Fix GG music not playing
+- Fix gaia spirit ingot and gaia spirit not being rainbow
+- Fix Livingwood Bow not firing
+- Fix crash with Fruit of Grisaia
+- Fix some duplicate drops when using with Psi
+- Potions show on the proper row in the ingame HUD
+- Fix overlapping of tooltip in lexicon's ingame crosshair HUD
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 301" %}
+
+Another alpha build for MC 1.9!
+
+Built on Java 8, Baubles 1.2.0.0, Forge 1841
+
+Changes:
+- Update lang files
+- Some better textures (wiiv)
+- Fix server crash
+- Fix pane models
+- Fix walls appearing in vanilla creative tab
+- Fix burst coloring discrepancies between 1.7 (wiresegal)
+- Kekimurus now eats the new slice of cake added in 1.8+
+- API cleanup (Incremented version)
+- Fix contributor renders
+- Fix multiblock renders being ugly af (alpha not working) (thanks Paleocrafter)
+- Mana guns now allow the offhand item to be used when recoiling, so you can dual wield them pretty effectively!
+- All interact events are back
+- Fix spreader item model
+- Fix munchdew not working
+- Fix mana tablet on player render
+- Fix Terra rod not working
+- API: Allow any catalyst for infusion recipes
+- Added vanilla flowers + mortar and pestle -> floral powder recipes
+- Fix top half of double mystical flowers not emitting the right colored particle
+- Fix shifting in bauble box gui
+- Fix mana pool's north wall being too tall
+- Fix pump model (mostly)
+- Horses now drop everything in inventory except their saddle when being virused
+- Fix red string interceptor not working at all
+- JEI/Lexicon now render pool as full, like in 1.7
+- Some brews now compute their color by averaging all the potion colors
+- Experimental conversion of mana network to use a set instead of list (avoids linear time lookups)
+- Tweak heisei dream internals
+
+Enjoy and bugtest!
+
+---
+
+{% include changelog_header.html version="r1.8 300" %}
+
+This is an alpha build for MC 1.9
+Built on Forge 1811, Baubles 1.2.0.0
+
+Changes since build 299:
+- Fix red string comparator not binding
+- Minor memory optimization
+- Fixed JEI integration for magic flowers
+- Fix pump trying to animate serverside
+- Make water bowl look fancier
+- Fix drinking a brew with Sponge installed spamming tons of vials/flasks
+- Minor cleanups
+
+Known issues:
+- Axes don't work properly
+- Gaia guardian is probably extremely broken
+- Several interact events are out waiting on one of my forge PR's
+- Auxiliary renders are wrong again
+- Lexicon 3D model out again
+- Some things look weird in inventory (TESRs and floating flowers)
+- Cannot open the lexicon right now because I'm a dumbass
+
+Enjoy!
+
+---
 
 {% include changelog_header.html version="r1.8 299" %}
 
@@ -1816,7 +2303,500 @@ Changes since last build:
 
 ---
 
-TODO pre-release Unofficial builds before 299
+Note: In the time before build 299 was released, I used a bespoke decimal
+version-numbering scheme that didn't match with the Botania numbering style. Here I've
+just called them `r1.8 298-<0.0.xxx>` to fit in the changelog.
+
+{% include changelog_header.html version="r1.8 298-0.6.4.2" %}
+
+Hotfix on the hotfix
+
+Changes:
+- Retrofit corporea to work with forge capabilities
+- Corporea will query for "TOP" side capability first and fall back on null side.
+- Fix spark icon not being colored based on which network it's on
+- Added a reference to our favourite magician
+
+Note: Some semi-major code shuffling is going on internally, especially pertaining to interaction with inventories. Please report any bugs you find, and thanks for helping out!
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.6.4.1" %}
+
+Don't use this release, corporea is broken. Please wait for the next. Sorry for the inconvenience!
+
+Hotfix
+
+Changes:
+- Fix bad entries in shedding config crashing the lexicon
+- Fix multiple tile entities crashing clientside when unloading. Because Minecraft is dumb.
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.6.4" %}
+
+Don't use this release, corporea is broken. Please wait for the next (0.6.4.2). Sorry for the inconvenience!
+
+Your next weekly build
+
+Changes:
+- Fix pools and other te's suddenly getting wiped clientside when lots of blocks change (e.g. when a tree grows)
+- This should mean that that entire "receiveMana" crash should no longer happen (\o/)
+  - The hacky guard against that fix has been removed, if the crash doesn't happen this release then that means it's been fixed
+- Fel pumpkins can now be placed from dispensers to form blazes, like vanilla 1.8 allows for pumpkins and golems
+- Mobs can no longer ride the mana pool cart :P
+- Work around a massive memory consumption issue in vanilla (8 million objects created every few seconds per player). Servers should run more smoothly now
+- Update lang file (translators please see issue #159 
+- [API] Misc cleanups, bump version
+- Spreaders have their item models back
+- Fix pools looking weird when held in third person
+- Revert first person lexicon model to the normal one for now until I figure the fancy one out
+- [experimental] Made many tile entities use the new Forge capabilities. Please report if any of your automation seems to be going weird (hopper/dropper interactions mainly)
+- [experimental] Cleaned up tile entity code to no longer use BlockContainer (legacy vanilla stuff). Please report if any tile entities are horribly broken/don't work
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.6.3" %}
+
+New build!
+
+Changes:
+- Merge upstream final release
+  - Corporea support for StorageDrawers (Vindex)
+  - Lang updates
+  - ...
+- [API] Pure Daisy now allows the time to be set for the recipe
+- Floating flowers now spin correctly again (tterrag, gigaherz)
+- Fix Planestrider's sash being broken
+- Update mana ring to use NBT instead of meta (blacksmithgu)
+- Fix pink wither being aggressive
+- Fix armor models not animating when breaking blocks
+- Fix brews/incense crashing or randomly getting other potion effects
+- Bore + warp lens should no longer break the warp destination
+- Fix platform crashes under some situations
+- Fix chiseled brick recipe conflicts for metamorphic stone and future stone
+  - Chiseled bricks craftable now
+  - Four bricks to make chiseled bricks
+  - Two of every slab always recombines into original block
+- Fix corporea funnel lexicon entry running off the page
+- Fix glass panes looking a bit weird (vanilla bug)
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.6.2" %}
+
+Small build this time
+
+Built on latest recommended Forge 1.8.9, Java 8, Baubles 1.1.3.0
+
+Changes:
+- Merge changes from 1.7 branch
+  - Some entities blacklisted from gravity rod
+  - Update langs (NatsuArashi)
+  - Botanurgist's Inkwell now shows bar immediately after being infused (howtonotwin)
+  - Fix marimorphosis range (PikaDudeNo1)
+  - Add Clayconia Petite
+- Fix vineball vines being unclimbable on some sides (kevsgrove)
+- Fix some UUID crashes (let me know if they still occur or if other ownership issues arise)
+- Fix life aggregator (spawner mover) being completely broken
+- Update lots of things to use methodhandles instead of reflection. Things should run a bit faster.
+- Slightly tweak corporea cube rendering
+- Minor cleanups
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.6.1" %}
+
+Minor build to upload to curse:
+
+Also new naming scheme, no more commit IDs
+- Fix rare crash in F3 debug
+- Tweak corporea cube renderer
+- Fix dark quartz being disabled crashing the client (Renari)
+
+Enjoy!
+
+PS: I want to start testing backward compat. If you play Botania alone, please try copying your 1.7 world and loading it in 1.8 and seeing if things still work. If something's broken, drop me an issue report. Thanks!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.6" %}
+
+New build!
+
+Java 8, Baubles 1.1.3.0, Forge 1722
+
+Changes:
+- Relics use UUIDs to identify their owners, and fall back on usernames (Katrix-)
+- Update lexicon entry to reflect new item frame corporea values
+- Partial fix for platforms crashing with chisel blocks
+- Very slightly nerf path block speed boost
+- Fix star particle not rendering (corporea index in range, manastorm charge)
+- A bit of the pump textures
+- Update to official RF API, should work with other mods now (Girafi, KaseiFR)
+- Migrated Corporea Crystal Cube to JSON. Animation doesn't quite line up right now, but it'll be tweaked
+- All apothecaries have their textures back 
+- Minor code cleanups
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5.4.1" %}
+
+Hotfix
+
+Changes:
+- Fix server crashing on startup
+- Mossy apothecary has textures back
+- Fix floating flowers getLightLevel crash.
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5.4" %}
+
+Please use the next build
+
+New build! 
+
+Based on latest recommended Forge for Minecraft 1.8.9, Botania 1.7 b248, Java 8, Baubles 1.1.3.0
+
+Changes:
+- Bump up to recommended forge
+- Fix trodden dirt being wonky
+- Tweak corporea item frame filters again. In clockwise order, they are now **1**, 2, **4**, 8, **16**, 32, **48**, 64
+- Fix heisei dream being completely broken
+- All baubles should now render on player (they look weird when crouching still)
+- Fix thorn chakram rendering as white box
+- Made thorn chakrams remember the stack used to throw them (i.e. they will now retain their name when you throw then catch it)
+- Fix some color leaks
+- Cleanups to life imbuer code
+- Cleanups to some jsons
+- Cleanups to code (get rid of most unchecked warnings)
+- Fully restore Thaumcraft integration and fix crashes in the lexicon related to that (update thaumcraft to latest)
+- Fix lexicon crashes when looking at certain kinds of blocks (BC pipes, etc.)
+- Fix OreDictionary crashes in multiple places
+- Fix multiblock renderer crashing in rare cases
+- Fix Rod of the Skies not working on an avatar
+- Rods should no longer spam the reequip animation
+- Made terraforming rod respect the world-specific sea level instead of hardcoding it at 62
+- Mesa apothecary has its texture back
+
+Info:
+- Lexicon will look weird in the next few builds - I'm starting to make attempts to bring back the 3d animated model. Thanks for sticking with it!
+- Futureazoo's alternate flower textures have been split out into a resource pack here: https://github.com/williewillus/Botania/tree/MC18/alt_resources. Unfortunately, the way rendering has changed it's too complicated to switch the textures out using a config option. Sorry!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5.3" %}
+
+New build with some various bugfixes
+
+Built on Java 8, MinecraftForge 1722 (latest stable 1.8.9, REQUIRED), Baubles 1.1.2.0, Botania 1.7.10 b248
+
+Changes:
+- Minor code cleanups
+- Optimize incense plate and red string TESRs
+- Fix pylons not showing their fancy particles
+- Minor optimization to hourglass
+- Fix rod of the seas crashing
+- Fix water bowl being unobtainable
+- Fix hovering over unbound functional flowers crashing
+- Fix pick block on tall mystical flowers
+- MAJOR: Corporea Funnel change to accomodate 1.8 item frames
+  - Item frames in 1.7 had four possible states, up right down and left. This corresponded with the funnel pulling 1, 16, 32, and 64 items. Going above four rotations crashes in previous 1.8 builds
+  - In 1.8, the intermediate directions are also available, so the funnel's item frame filters have changed to accommodate this. In clock wise order, the items pulled by the funnel are now ~~**1**, 16, **24**, 32, **40**, 48, **56**, and 64.~~ These values will be changed the next release, don't get comfortable with them
+
+Known issues:
+- Some apothecaries missing texture, spreaders missing texture
+- Pump missing texture right now, I'm working on migrating it to JSON, which is what you see ;)
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5.2.2" %}
+
+_sighs_
+
+Changes:
+
+The stupid receiveMana crash should no longer happen ever, but only because I've suppressed the symptoms, not the cause. <b>I need your help</b>:
+
+Where it would've crashed in past builds, I've now put an obnoxious message saying "CLIENT TICK FAILED". If you see this, PLEASE REPORT it to this thread: https://github.com/williewillus/Botania/issues/71. Please include if you are on SP or MP, and what kind of machine (as in what kind of in game contraption) it errored on. If you notice a recurring pattern in what coordinates this occurs at, a certain type of flower, etc. please include that as well
+
+Thank you so much for helping me hunt this down!
+
+Enjoy
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5.2.1" %}
+
+Bonus release today!
+
+Built on Forge 1.8.9 build 1710, Java 8, Botania MC1.7.10 b248, Baubles 1.1.2.0
+
+Same as last one, just had some more fixes that I thought were worth a new build
+
+Changes:
+- Updated Garden of Glass
+- Fix GoG worldgen crash
+- Fix GoG sky renderer leaking state
+- Fix GoG worldgen error spam
+
+In other words, Garden of Ass should now be playable in 1.8.9!  <sup>huehuehue</sup>
+
+The updated GoG jar can be found here and can be used with all future 1.8 builds  (click "GardenOfGlass.jar"): https://github.com/williewillus/Botania/tree/MC18
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5.2" %}
+
+Based on Forge 1.8.9 build 1710 (bumped!)
+
+Botania 1.7.10 build 248, Java 8
+
+Changes:
+- Merge upstream
+- Actually fix the thorn chakram crash
+- Fix many recipes not taking vanilla prismarine
+- Another hopeful bandaid for the client crashes
+- Make the distributor server side only, fixing a client crash
+- Fix fab pools all having the same color at the same time
+- A bunch of more baubles should render properly
+- Placeholder model for spreader so it shows up in JEI
+- Monocle now uses blockstates to read redstone
+- Improve brewery JEI integration
+- Bandaid for crash with Thaumcraft - for now the warp ward brew will not be available.
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5.1" %}
+
+Quick fix for some issues
+- Fix crash with magic missiles in GG 2
+- Fix thorn chakram crash
+- Fix divining rod looking up blocks with no item form in the OD (Crash)
+- (!) Fix dependency cycle with latest Thaumcraft.
+
+School has just started for me, so builds might become more sporadic. I'll do my best to keep up the work on this though. Test test, report report!
+
+Enjoy!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.5" %}
+
+Beta!
+
+Based on Java 8, Forge 1688 for Minecraft 1.8.9, and Botania 1.7.10 b248
+
+Changes:
+- Desert, forest, and fungal apothecaries have their textures back
+- Fix flash lens desync and crash
+- Fix piston lens not working at all
+- Fully fix contributor special renders and mana tablet renders on belt
+- Fix mana gun held weird in third person
+- Fix more client chunk unload crashes (please tell me if they keep happening)
+- Fix two multiblock crashes, preventing the WorldShaper's Sextant from working properly
+- All non-cosmetic baubles now render properly on the player again, cosmetic ones still in progress.
+
+Enjoy!
+
+Shameless Plugs:
+- Vazkii and wiiv, creators of this awesome mod: https://patreon.com/Vazkii | https://patreon.com/wiiv
+- me! I spent my entire winter break porting this mod. I don't seek to gain anything from it, but if you like, you can support me at https://patreon.com/williewillus . If you prefer not having recurring donations, https://www.paypal.me/williewillus will work too. Again, please don't feel obliged, I'm just throwing this up :p
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.4.1" %}
+
+Hotfix
+- Fix texture atlas being dumped every time you fire an arrow. This was a debug feature, sorry!
+- If you want to see the atlas for fun, it's located in your root minecraft folder/atlas.png
+
+Changes
+- Fix some easter egg item models I missed
+- Fully fix pool model lighting. They should look nice and pretty again!
+- Fix mana pool cart rendering
+- Fix gourmaryllis spawning eating particles infinitely but not deleting the item when a powered open crate releases that item.
+- Fix passive flowers decaying directly into nothing instead of to a dead bush
+- Fix gourmaryllis spamming packets once it's done eating.
+
+Sorry, again!
+
+Shameless Plugs:
+- Vazkii and wiiv, creators of this awesome mod: https://patreon.com/Vazkii | https://patreon.com/wiiv
+- me! I spent my entire winter break porting this mod. I don't seek to gain anything from it, but if you like, you can support me at https://patreon.com/williewillus . If you prefer not having recurring donations, https://www.paypal.me/williewillus will work too. Again, please don't feel obliged, I'm just throwing this up in the shameless plug section :p
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.4" %}
+
+Please use the next build
+
+New build!
+
+Based on: Java 8, Botania b248, MinecraftForge 1.8.9 b1688, should work on 1.8.8.
+
+Changes:
+- Changes in upstream since release b248 (check upstream)
+- Fix tiny potato special renders (thanks Girafi!)
+- Fix drum crash
+- Cocoon of caprice model
+- Fix bellows crash
+- Fix tossing sunflower at teru teru bozu not work
+- Give a bunch of TE's mining particles
+- Fix terra shatterer tooltip darkening whole screen
+- Now use potion registry internally
+- Fix hopperhock putting items in inventories one block further away than it should
+- Gaia TESR no longer registered on vanilla skulls
+- Possible fix for particles losing their alpha transparency 
+- Fix items colliding awkwardly with the petal apothecary
+- Made Laputa shard use string block ID's instead of integer ID's
+- Fix many crashes and many possible crashes related to [MOP's](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Mop.svg/2000px-Mop.svg.png)
+
+Known issues:
+- I am currently working on destitching the textures for the petal apothecary. Thus, all apothecaries besides the default cobblestone one have temporarily lost their textures. They'll be back within the next 1-2 builds. Sorry about that!
+
+Note:
+- No more deobf jars, since FML is now able to load obf jars in dev fully without need for CCC or any of that.
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.3.3" %}
+
+Hotfix on the hotfix, yay.
+
+Built on Java 8, Botania 1.7.10 build 248, Baubles 1.8.8-1.1.2.0, MinecraftForge 1.8.9 build 1656, should work in 1.8.8
+
+- Fixes item renderers either crashing the game or causing JEI to kick you out of an SP game.
+
+My deepest apologies
+
+Enjoy!!
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.3.2" %}
+
+EDIT: DO NOT USE THIS RELEASE. It doesn't launch due to an issue reobfuscating lambdas. Use the next one, thanks!
+
+Hotfix on previous build
+
+Based on Botania 248, MinecraftForge 1.8.9 b1656, should run on 1.8.8.
+
+- Fix Ender Air Bottle looking like manasteel ingot when thrown
+- (!!!) The mod now requires Java 8
+- Added a shitton of checks so no weird things happen when chunks unload and TE's get extra ticks.
+
+Enjoy! Please report if you continue to get crashes on chunk unload/reload
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.3.1" %}
+
+New build!
+
+Based on Botania 1.7.10 Build 248
+
+Built on MinecraftForge 1.8.9 1656, should work on 1.8.8.
+
+Changes 
+- Mana pool now renders using JSON model
+  - Ambient Occlusion is not working on it yet, will be fixed soon
+- All Platforms should work again, and better than they did in 1.7! (Translucent blocks now mimicked properly)
+- Fix incorrect wand of the forest model
+- Fix double flowers not dropping when sheared on the bottom
+- Fix pylon and pool rendering in multiblock highlights
+- Fix recipes for 1.9 ender brick (purpur) stairs and slabs not being registered (upstream issue)
+- Fix a variety of blockstate and lighting crashes
+- Fix Craft Crate world models for when it has a pattern.
+- Fix wool sleeves not rendering on spreaders.
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.3" %}
+
+New build!
+
+Based on fresh out of the oven Botania 1.7.10 build 248, read all about that upstream! (http://botaniamod.net)
+
+Built on MinecraftForge 1.8.9 build 1656, should run on 1.8.8.
+
+Changes:
+- Fix hourglass having inverted redstone signal. How come nobody caught this?!!
+- Life Imbuer moved to JSON
+- Spreader turntable model
+- Item models for a bunch of TESRs (Hourglass, avatar, teru teru bozu, brewery, gaia head, bellows, pump). These are temporary while JSONs are created for the ones that we can convert. More will become JSON after Fry finishes his animation API
+- Fix the pylon models rendering weirdly in world
+- Fix fabulous pool leaking its fabulousness to others. MY FABULOUSNESS IS MINE.
+- Mana flash, mana inkwell, water bowl item models
+- Fix AlfPortal not rendering
+- Incense plate moved to JSON
+- (!!) Revert relics back to using usernames, as a better solution will be pulled upstream later
+- Update InteralMethodHandler to modernify old icon methods
+
+Again, sorry for filenamegore.
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.2" %}
+
+New build
+
+Based on Botania 1.7.10 build 247
+
+Built on MinecraftForge 1.8.9 build 1656, should run on 1.8.8.
+
+Changes:
+- Fix santaweave inventory icons
+- Fix all armor rendering on-player. Thanks primetoxinz!
+- Fix all crashy Thaumcraft integration
+- Fix helmets of revealing models
+- Item models for Corporea Crystal Cube and Corporea Index
+- Item models for mana pools
+- Item model for Tiny Potato
+- [REGRESSION] Tiny Potato special renders in wrong place. If anyone wants to help, find me on #ProjectE or #vazkii
+- Fix pylon crash with wawla 
+- Add 1:1 botania -> vanilla conversion recipes for all botania-added vanilla items
+- Remove botania crafting recipes for prismarine
+- Made all botania-added recipes (stairs/slabs/walls/etc) take vanilla 1.8 items and blocks as well as botania ones.
+- Fix some tessellator bugs and a possible alfportal crash
+- Fix some GL coloring mistakes, fix flower particles because I'm dumb
+- Tweak Crystal Bow pullback animation
+- Made Starfield item model match upstream
+- Fix dedicated server crash getting age of items
+- Update API: now dedicated-server safe. Icon methods removed from SubTileSignature
+- **FULL** integration for mezz's wonderful mod [JustEnoughItems](https://github.com/mezz/JustEnoughItems), an inventory editor and recipe viewer that is faster, simpler, and less hacky than NEI.
+
+Enjoy!
+
+Sorry, the filenamegore will stay for now. I don't want to use build numbers since it will be confused with upstream build numbers, so it's going to be commit ID's. The filename on last build was also wrong, should've been 247 not 248.
+
+---
+
+{% include changelog_header.html version="r1.8 298-0.1" %}
+
+Based on Botania 1.7.10, build 247.
+
+See https://www.reddit.com/r/feedthebeast/comments/3yy7u4/my_new_years_gift_to_you_botania_18x_first_alpha/  for more info.
+
+Sorry for the titlegore in the file name :p
+
+Enjoy, and Happy New Year!
+
+---
+
+This concludes the release notes for the Botania Unofficial releases made by williewillus
+in the Minecraft 1.8-1.10 era.
 
 ---
 
