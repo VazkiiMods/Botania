@@ -113,8 +113,8 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
-		if (stack.hasCustomHoverName()) {
-			((TileTinyPotato) world.getBlockEntity(pos)).name = stack.getHoverName();
+		if (stack.hasCustomHoverName() && world.getBlockEntity(pos) instanceof TileTinyPotato tater) {
+			tater.name = stack.getHoverName();
 		}
 	}
 

@@ -51,8 +51,8 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 	}
 
 	public void interact(Player player, InteractionHand hand, ItemStack stack, Direction side) {
-		int index = side.get3DDataValue();
-		if (index >= 0) {
+		if (!level.isClientSide) {
+			int index = side.get3DDataValue();
 			ItemStack stackAt = getItemHandler().getItem(index);
 			if (!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setItemInHand(hand, stackAt);
@@ -68,9 +68,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 
 				getItemHandler().setItem(index, copy);
 			}
-		}
 
-		if (!level.isClientSide) {
 			jump();
 
 			if (name.getString().toLowerCase(Locale.ROOT).trim().endsWith("shia labeouf") && nextDoIt == 0) {
@@ -79,8 +77,8 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 			}
 
 			for (int i = 0; i < inventorySize(); i++) {
-				ItemStack stackAt = getItemHandler().getItem(i);
-				if (!stackAt.isEmpty() && stackAt.is(ModBlocks.tinyPotato.asItem())) {
+				var son = getItemHandler().getItem(i);
+				if (!son.isEmpty() && son.is(ModBlocks.tinyPotato.asItem())) {
 					player.sendMessage(new TextComponent("Don't talk to me or my son ever again."), Util.NIL_UUID);
 					return;
 				}
