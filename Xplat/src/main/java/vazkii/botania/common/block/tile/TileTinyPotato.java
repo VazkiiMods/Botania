@@ -8,43 +8,65 @@
  */
 package vazkii.botania.common.block.tile;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrays;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.helper.VecHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class TileTinyPotato extends TileExposedSimpleInventory implements Nameable {
+	private static final ResourceLocation BIRTHDAY_ADVANCEMENT = prefix("challenge/tiny_potato_birthday");
+	private static final boolean IS_BIRTHDAY = isTinyPotatoBirthday();
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 
 	public int jumpTicks = 0;
 	public Component name = new TextComponent("");
 	private int nextDoIt = 0;
+	private int birthdayTick = 0;
 
 	public TileTinyPotato(BlockPos pos, BlockState state) {
 		super(ModTiles.TINY_POTATO, pos, state);
@@ -117,6 +139,72 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 			if (self.nextDoIt > 0) {
 				self.nextDoIt--;
 			}
+			if (IS_BIRTHDAY) {
+				self.tickBirthday();
+			}
+		}
+	}
+
+	private void tickBirthday() {
+		var facing = getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
+		var facingPos = getBlockPos().relative(facing);
+
+		if (level.hasChunkAt(facingPos)) {
+			var facingState = level.getBlockState(facingPos);
+			var cakeColor = getLitCakeColor(facingState, level.getRandom());
+			var players = PlayerHelper.getRealPlayersIn(level,
+					VecHelper.boxForRange(Vec3.atCenterOf(getBlockPos()), 8));
+			players.removeIf(p -> PlayerHelper.hasAdvancement((ServerPlayer) p, BIRTHDAY_ADVANCEMENT));
+
+			if (cakeColor != null && !players.isEmpty()) {
+				birthdayTick++;
+
+				// 3.5s per message, initial delay of 5s
+				var messageTimes = List.of(100, 170, 240, 310, 380);
+				var messageIndex = messageTimes.indexOf(birthdayTick);
+				if (messageIndex != -1) {
+					Object[] args = messageIndex == 1 ? new Object[] { getTinyPotatoAge() } : ObjectArrays.EMPTY_ARRAY;
+					var message = new TextComponent("<")
+							.append(getDisplayName())
+							.append("> ")
+							.append(new TranslatableComponent("botania.tater_birthday." + messageIndex, args));
+
+					for (var player : players) {
+						player.sendMessage(message, Util.NIL_UUID);
+					}
+					jump();
+					BlockTinyPotato.spawnHearts((ServerLevel) level, getBlockPos());
+				}
+
+				if (messageIndex == messageTimes.size() - 1) {
+					CompoundTag explosion = new CompoundTag();
+					explosion.putByte("Type", (byte) FireworkRocketItem.Shape.LARGE_BALL.getId());
+					explosion.putBoolean("Flicker", true);
+					explosion.putBoolean("Trail", true);
+					explosion.putIntArray("Colors", List.of(
+							cakeColor.getFireworkColor(),
+							0xD260A5, 0xE4AFCD, 0xFEFEFE, 0x57CEF8
+					));
+
+					ListTag explosions = new ListTag();
+					explosions.add(explosion);
+
+					ItemStack rocket = new ItemStack(Items.FIREWORK_ROCKET);
+					CompoundTag rocketFireworks = rocket.getOrCreateTagElement("Fireworks");
+					rocketFireworks.putByte("Flight", (byte) 0);
+					rocketFireworks.put("Explosions", explosions);
+
+					level.addFreshEntity(new FireworkRocketEntity(level, facingPos.getX() + 0.5, facingPos.getY() + 0.5, facingPos.getZ() + 0.5, rocket));
+					level.removeBlock(facingPos, false);
+					level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, facingPos, Block.getId(facingState));
+					// Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
+					level.playSound(null, getBlockPos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+
+					for (var player : players) {
+						PlayerHelper.grantCriterion((ServerPlayer) player, BIRTHDAY_ADVANCEMENT, "code_triggered");
+					}
+				}
+			}
 		}
 	}
 
@@ -153,7 +241,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 	@Nonnull
 	@Override
 	public Component getName() {
-		return new TranslatableComponent(ModBlocks.tinyPotato.getDescriptionId());
+		return ModBlocks.tinyPotato.getName();
 	}
 
 	@Nullable
@@ -168,4 +256,41 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 		return hasCustomName() ? getCustomName() : getName();
 	}
 
+	private static final List<Block> ALL_CANDLE_CAKES = List.of(
+			Blocks.WHITE_CANDLE_CAKE, Blocks.ORANGE_CANDLE_CAKE, Blocks.MAGENTA_CANDLE_CAKE, Blocks.LIGHT_BLUE_CANDLE_CAKE,
+			Blocks.YELLOW_CANDLE_CAKE, Blocks.LIME_CANDLE_CAKE, Blocks.PINK_CANDLE_CAKE, Blocks.GRAY_CANDLE_CAKE,
+			Blocks.LIGHT_GRAY_CANDLE_CAKE, Blocks.CYAN_CANDLE_CAKE, Blocks.PURPLE_CANDLE_CAKE, Blocks.BLUE_CANDLE_CAKE,
+			Blocks.BROWN_CANDLE_CAKE, Blocks.GREEN_CANDLE_CAKE, Blocks.RED_CANDLE_CAKE, Blocks.BLACK_CANDLE_CAKE,
+			Blocks.CANDLE_CAKE
+	);
+
+	@Nullable
+	private static DyeColor getLitCakeColor(BlockState state, Random rand) {
+		var idx = ALL_CANDLE_CAKES.indexOf(state.getBlock());
+		if (idx == -1) {
+			return null;
+		}
+
+		if (!state.getValue(CandleCakeBlock.LIT)) {
+			return null;
+		}
+
+		if (idx == 16) { // Uncolored candle cake, choose a random color
+			return DyeColor.byId(rand.nextInt(16));
+		}
+
+		return DyeColor.byId(idx);
+	}
+
+	private static boolean isTinyPotatoBirthday() {
+		// Tiny Potato was added in commit c225a134043922724e6ff141ff26f31097d4d9d0,
+		// created on July 19, 2014
+		var now = LocalDateTime.now();
+		return now.getMonth() == Month.JULY && now.getDayOfMonth() == 19;
+	}
+
+	private static int getTinyPotatoAge() {
+		var now = LocalDateTime.now();
+		return now.getYear() - 2014;
+	}
 }

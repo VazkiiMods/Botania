@@ -410,7 +410,11 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.parent(root)
 				.addCriterion("bread", new AlfPortalBreadTrigger.Instance(EntityPredicate.Composite.ANY, LocationPredicate.ANY))
 				.save(consumer, challengeId("alf_portal_bread"));
-
+		Advancement.Builder.advancement()
+				.display(simple(ModBlocks.tinyPotato, "tinyPotatoBirthday", FrameType.CHALLENGE))
+				.parent(root)
+				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
+				.save(consumer, challengeId("tiny_potato_birthday"));
 	}
 
 	private static Advancement relicBindAdvancement(Consumer<Advancement> consumer, Advancement parent, Item relicItem,

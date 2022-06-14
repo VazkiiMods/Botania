@@ -127,6 +127,11 @@
   "botaniamisc.invalidDodge": "Invalid Dodge Packet",
   "botaniamisc.rannuncarpus.state_sensitive": "Match Exact State",
   "botaniamisc.rannuncarpus.state_insensitive": "Match Block Only",
+  "botania.tater_birthday.0": "Wow, is this for me?",
+  "botania.tater_birthday.1": "It's my birthday today; I'm %d years old now!",
+  "botania.tater_birthday.2": "Thank you so much! I hope this has been a good year for you too.",
+  "botania.tater_birthday.3": "Always remember: I believe in you, and you can do the thing! \u2764",
+  "botania.tater_birthday.4": "Woohoo!!!",
 
   "botania.nei.brewery": "Botanical Brewery",
   "botania.nei.elvenTrade": "Elven Trade",
@@ -494,6 +499,8 @@
 
   "advancement.botania:desuGun": "Two-Faced Lovers",
   "advancement.botania:desuGun.desc": "ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN",
+  "advancement.botania:tinyPotatoBirthday": "Blessing",
+  "advancement.botania:tinyPotatoBirthday.desc": "Celebrate Tiny Potato's Birthday on July 19th",
 
   "botania.challengelevel.easy": "Easy",
   "botania.challengelevel.normal": "Normal",

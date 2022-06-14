@@ -20,7 +20,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 
@@ -34,7 +34,7 @@ public class RealPlayerCondition implements LootItemCondition {
 	@Override
 	public boolean test(LootContext lootContext) {
 		Player player = lootContext.getParamOrNull(LootContextParams.LAST_DAMAGE_PLAYER);
-		return EntityDoppleganger.isTruePlayer(player);
+		return PlayerHelper.isTruePlayer(player);
 	}
 
 	@Nonnull

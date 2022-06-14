@@ -12,7 +12,6 @@ import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -34,6 +33,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -142,8 +142,7 @@ public class ItemDice extends ItemRelic {
 		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
 
 		if (relic != null && relic.getAdvancement() != null) {
-			Advancement adv = player.level.getServer().getAdvancements().getAdvancement(relic.getAdvancement());
-			return adv != null && mpPlayer.getAdvancements().getOrStartProgress(adv).isDone();
+			return PlayerHelper.hasAdvancement(mpPlayer, relic.getAdvancement());
 		}
 
 		return false;
