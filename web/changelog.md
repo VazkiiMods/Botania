@@ -1687,6 +1687,8 @@ Fix:
 * Fix avatar and cocoon being invisible in inventory
 * Fix bergamute making custom sound classes infinite loop (RFTools, Dynamic Surroundings)
 
+---
+
 {% include changelog_header.html version="r1.8 320" %}
 
 This is getting ridiculous ><
