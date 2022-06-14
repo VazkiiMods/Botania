@@ -10,6 +10,9 @@
       "text": "botania.page.luminizerTransport0"
     },
     {
+      "type": "patchouli:empty"
+    },
+    {
       "type": "text",
       "text": "botania.page.luminizerTransport1"
     },
@@ -34,7 +37,7 @@
     {
       "type": "crafting",
       "text": "botania.page.luminizerTransport8",
-      "recipe": "botania:fork_light_relay"
+      "recipe": "botania:toggle_light_relay"
     },
     {
       "type": "text",
@@ -47,7 +50,7 @@
     {
       "type": "crafting",
       "text": "botania.page.luminizerTransport11",
-      "recipe": "botania:toggle_light_relay"
+      "recipe": "botania:fork_light_relay"
     },
     {
       "type": "text",
