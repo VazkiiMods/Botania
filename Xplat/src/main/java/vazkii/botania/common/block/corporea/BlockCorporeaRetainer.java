@@ -37,7 +37,7 @@ public class BlockCorporeaRetainer extends BlockMod implements EntityBlock {
 
 	@Override
 	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getBestNeighborSignal(pos) > 0 || world.getBestNeighborSignal(pos.above()) > 0;
+		boolean power = world.getBestNeighborSignal(pos) > 0;
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
