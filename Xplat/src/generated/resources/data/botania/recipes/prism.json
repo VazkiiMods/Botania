@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GPG",
-    "GSG",
-    "GPG"
-  ],
   "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
     "P": {
       "item": "minecraft:prismarine_crystals"
     },
     "S": {
       "item": "botania:spectral_platform"
-    },
-    "G": {
-      "item": "minecraft:glass"
     }
   },
+  "pattern": [
+    "GPG",
+    "GSG",
+    "GPG"
+  ],
   "result": {
     "item": "botania:prism"
   }

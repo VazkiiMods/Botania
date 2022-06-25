@@ -26,7 +26,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.recipebook.ServerPlaceRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -462,7 +461,7 @@ public class ItemCraftingHalo extends Item {
 				boolean setRecipe = false;
 
 				if (recipe == null) {
-					label = new TranslatableComponent("botaniamisc.unsetRecipe");
+					label = Component.translatable("botaniamisc.unsetRecipe");
 					recipe = getLastRecipe(player.level, stack);
 				} else {
 					label = recipe.getResultItem().getHoverName();

@@ -15,6 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nonnull;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -47,7 +47,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	}
 
 	@Override
-	public BlockState pick(Random random) {
+	public BlockState pick(RandomSource random) {
 		var values = resolve().toList();
 		if (values.isEmpty()) {
 			return null;

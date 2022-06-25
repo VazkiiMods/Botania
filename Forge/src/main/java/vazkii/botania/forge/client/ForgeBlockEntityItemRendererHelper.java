@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.client.render.tile.TEISR;
@@ -33,14 +33,14 @@ public class ForgeBlockEntityItemRendererHelper {
 		}
 	};
 
-	private static final IItemRenderProperties PROPS = new IItemRenderProperties() {
+	private static final IClientItemExtensions PROPS = new IClientItemExtensions() {
 		@Override
-		public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+		public BlockEntityWithoutLevelRenderer getCustomRenderer() {
 			return ForgeBlockEntityItemRendererHelper.RENDERER;
 		}
 	};
 
-	public static void initItem(Consumer<IItemRenderProperties> consumer) {
+	public static void initItem(Consumer<IClientItemExtensions> consumer) {
 		consumer.accept(PROPS);
 	}
 }

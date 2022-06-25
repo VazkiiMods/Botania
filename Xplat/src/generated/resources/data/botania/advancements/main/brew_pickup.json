@@ -1,23 +1,7 @@
 {
   "parent": "botania:main/rune_pickup",
-  "display": {
-    "icon": {
-      "item": "botania:brewery"
-    },
-    "title": {
-      "translate": "advancement.botania:brewPickup"
-    },
-    "description": {
-      "translate": "advancement.botania:brewPickup.desc"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "pickup": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -27,7 +11,23 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.botania:brewPickup.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:brewery"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.botania:brewPickup"
     }
   },
   "requirements": [

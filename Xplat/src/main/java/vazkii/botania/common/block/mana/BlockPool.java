@@ -11,7 +11,6 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -76,7 +75,7 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock {
 		super.appendHoverText(stack, world, tooltip, flag);
 		if (variant == BlockPool.Variant.CREATIVE) {
 			for (int i = 0; i < 2; i++) {
-				tooltip.add(new TranslatableComponent("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
+				tooltip.add(Component.translatable("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}

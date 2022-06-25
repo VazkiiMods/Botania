@@ -36,7 +36,7 @@ public class ItemManaRing extends ItemBauble {
 
 	@Override
 	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if (allowdedIn(tab)) {
+		if (allowedIn(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack full = new ItemStack(this);

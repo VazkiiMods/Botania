@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -20,15 +21,13 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.decor.BlockModGlass;
 
-import java.util.Random;
-
 public class BlockBifrostPerm extends BlockModGlass implements BeaconBeamBlock {
 	public BlockBifrostPerm(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		if (rand.nextBoolean()) {
 			SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
 			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);

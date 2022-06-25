@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:kekimurus"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/white"
@@ -28,5 +25,8 @@
     {
       "item": "botania:pixie_dust"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:kekimurus"
+  }
 }

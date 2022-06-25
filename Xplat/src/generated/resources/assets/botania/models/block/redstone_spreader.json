@@ -1,9 +1,9 @@
 {
   "parent": "botania:block/shapes/spreader",
   "textures": {
-    "side": "botania:block/redstone_spreader_side",
     "back": "botania:block/redstone_spreader_back",
     "inside": "botania:block/stripped_livingwood_log",
-    "outside": "botania:block/livingwood_log"
+    "outside": "botania:block/livingwood_log",
+    "side": "botania:block/redstone_spreader_side"
   }
 }

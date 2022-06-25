@@ -7,8 +7,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -58,8 +58,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.ModList;
@@ -230,9 +230,9 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
 		return item.getItem().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success) {
 						item.setItem(h.getContainer());
 					}
@@ -246,9 +246,9 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 		var stack = player.getItemInHand(hand);
 		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var extracted = h.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidAttributes.BUCKET_VOLUME;
+					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
 					if (success && !player.getAbilities().instabuild) {
 						player.setItemInHand(hand, h.getContainer());
 					}
@@ -262,9 +262,9 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 		var stack = player.getItemInHand(hand);
 		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
 				.map(h -> {
-					var filled = h.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME),
+					var filled = h.fill(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
-					var success = filled == FluidAttributes.BUCKET_VOLUME;
+					var success = filled == FluidType.BUCKET_VOLUME;
 					if (success && !player.getAbilities().instabuild) {
 						player.setItemInHand(hand, h.getContainer());
 					}
@@ -467,7 +467,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> writeInitialData) {
-		NetworkHooks.openGui(player, menu, writeInitialData);
+		NetworkHooks.openScreen(player, menu, writeInitialData);
 	}
 
 	@Override
@@ -496,7 +496,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path) {
+	public void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path) {
 		// this is dumb
 		((ForgeAccessorRecipeProvider) new RecipeProvider(generator)).callSaveRecipeAdvancement(cache, json, path);
 	}

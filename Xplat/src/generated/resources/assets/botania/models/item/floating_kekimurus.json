@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
-  "loader": "botania:floating_flower",
   "flower": {
     "parent": "botania:block/kekimurus"
-  }
+  },
+  "loader": "botania:floating_flower"
 }

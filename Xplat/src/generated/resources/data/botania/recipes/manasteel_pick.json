@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SSS",
-    " T ",
-    " T "
-  ],
   "key": {
     "S": {
       "tag": "botania:manasteel_ingots"
@@ -13,6 +8,11 @@
       "item": "botania:livingwood_twig"
     }
   },
+  "pattern": [
+    "SSS",
+    " T ",
+    " T "
+  ],
   "result": {
     "item": "botania:manasteel_pick"
   }

@@ -1,24 +1,7 @@
 {
   "parent": "botania:main/gaia_guardian_kill",
-  "display": {
-    "icon": {
-      "item": "botania:flight_tiara",
-      "nbt": "{variant:1}"
-    },
-    "title": {
-      "translate": "advancement.botania:tiaraWings"
-    },
-    "description": {
-      "translate": "advancement.botania:tiaraWings.desc"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "tiara_1": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -28,10 +11,10 @@
             "nbt": "{variant:1}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "tiara_2": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -41,10 +24,10 @@
             "nbt": "{variant:2}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "tiara_3": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -54,10 +37,10 @@
             "nbt": "{variant:3}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "tiara_4": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -67,10 +50,10 @@
             "nbt": "{variant:4}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "tiara_5": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -80,10 +63,10 @@
             "nbt": "{variant:5}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "tiara_6": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -93,10 +76,10 @@
             "nbt": "{variant:6}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "tiara_7": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -106,10 +89,10 @@
             "nbt": "{variant:7}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "tiara_8": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -119,7 +102,24 @@
             "nbt": "{variant:8}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.botania:tiaraWings.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:flight_tiara",
+      "nbt": "{variant:1}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.botania:tiaraWings"
     }
   },
   "requirements": [

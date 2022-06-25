@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "botania:metamorphic_apothecary",
+  "key": {
+    "C": {
+      "item": "botania:metamorphic_taiga_cobblestone"
+    },
+    "P": {
+      "tag": "botania:petals"
+    }
+  },
   "pattern": [
     "CPC",
     " C ",
     "CCC"
   ],
-  "key": {
-    "P": {
-      "tag": "botania:petals"
-    },
-    "C": {
-      "item": "botania:metamorphic_taiga_cobblestone"
-    }
-  },
   "result": {
     "item": "botania:apothecary_taiga"
   }

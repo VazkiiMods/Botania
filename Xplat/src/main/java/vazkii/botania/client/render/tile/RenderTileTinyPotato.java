@@ -26,7 +26,6 @@ import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -327,7 +326,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 					ms.translate(-0.3F, -2.7F, -1.2F);
 					ms.mulPose(Vector3f.ZP.rotationDegrees(15F));
-					renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setHoverName(new TextComponent("das boot")));
+					renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setHoverName(Component.literal("das boot")));
 				}
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);

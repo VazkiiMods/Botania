@@ -252,10 +252,4 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new);
 	}
-
-	@Nonnull
-	@Override
-	public String getName() {
-		return "Botania block tags";
-	}
 }

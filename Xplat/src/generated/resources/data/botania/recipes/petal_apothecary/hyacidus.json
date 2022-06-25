@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:hyacidus"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/purple"
@@ -28,5 +25,8 @@
     {
       "item": "botania:redstone_root"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:hyacidus"
+  }
 }

@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -62,7 +61,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		list.add(new TranslatableComponent("botaniamisc.lotusDesc").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botaniamisc.lotusDesc").withStyle(ChatFormatting.GRAY));
 	}
 
 }

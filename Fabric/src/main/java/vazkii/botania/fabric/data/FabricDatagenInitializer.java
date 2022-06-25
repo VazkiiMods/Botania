@@ -26,33 +26,34 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	}
 
 	private static void configureFabricDatagen(DataGenerator generator) {
-		generator.addProvider(new FabricBlockLootProvider(generator));
+		generator.addProvider(true, new FabricBlockLootProvider(generator));
 		var blockTagProvider = new FabricBlockTagProvider(generator);
-		generator.addProvider(blockTagProvider);
-		generator.addProvider(new FabricItemTagProvider(generator, blockTagProvider));
-		generator.addProvider(new FabricRecipeProvider(generator));
+		generator.addProvider(true, blockTagProvider);
+		generator.addProvider(true, new FabricItemTagProvider(generator, blockTagProvider));
+		generator.addProvider(true, new FabricRecipeProvider(generator));
 	}
 
 	private static void configureXplatDatagen(DataGenerator generator) {
-		generator.addProvider(new BlockLootProvider(generator));
+		generator.addProvider(true, new BlockLootProvider(generator));
 		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
-		generator.addProvider(blockTagProvider);
-		generator.addProvider(new ItemTagProvider(generator, blockTagProvider));
-		generator.addProvider(new EntityTagProvider(generator));
-		generator.addProvider(new StonecuttingProvider(generator));
-		generator.addProvider(new RecipeProvider(generator));
-		generator.addProvider(new SmeltingProvider(generator));
-		generator.addProvider(new ElvenTradeProvider(generator));
-		generator.addProvider(new ManaInfusionProvider(generator));
-		generator.addProvider(new PureDaisyProvider(generator));
-		generator.addProvider(new BrewProvider(generator));
-		generator.addProvider(new PetalProvider(generator));
-		generator.addProvider(new RuneProvider(generator));
-		generator.addProvider(new TerraPlateProvider(generator));
-		generator.addProvider(new OrechidProvider(generator));
-		generator.addProvider(new BlockstateProvider(generator));
-		generator.addProvider(new FloatingFlowerModelProvider(generator));
-		generator.addProvider(new ItemModelProvider(generator));
-		generator.addProvider(new AdvancementProvider(generator));
+		generator.addProvider(true, blockTagProvider);
+		generator.addProvider(true, new ItemTagProvider(generator, blockTagProvider));
+		generator.addProvider(true, new EntityTagProvider(generator));
+		generator.addProvider(true, new BannerTagProvider(generator));
+		generator.addProvider(true, new StonecuttingProvider(generator));
+		generator.addProvider(true, new RecipeProvider(generator));
+		generator.addProvider(true, new SmeltingProvider(generator));
+		generator.addProvider(true, new ElvenTradeProvider(generator));
+		generator.addProvider(true, new ManaInfusionProvider(generator));
+		generator.addProvider(true, new PureDaisyProvider(generator));
+		generator.addProvider(true, new BrewProvider(generator));
+		generator.addProvider(true, new PetalProvider(generator));
+		generator.addProvider(true, new RuneProvider(generator));
+		generator.addProvider(true, new TerraPlateProvider(generator));
+		generator.addProvider(true, new OrechidProvider(generator));
+		generator.addProvider(true, new BlockstateProvider(generator));
+		generator.addProvider(true, new FloatingFlowerModelProvider(generator));
+		generator.addProvider(true, new ItemModelProvider(generator));
+		generator.addProvider(true, new AdvancementProvider(generator));
 	}
 }

@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " G ",
-    "MDM",
-    " G "
-  ],
   "key": {
     "D": {
       "tag": "botania:mana_diamond_gems"
@@ -16,6 +11,11 @@
       "tag": "botania:manasteel_ingots"
     }
   },
+  "pattern": [
+    " G ",
+    "MDM",
+    " G "
+  ],
   "result": {
     "item": "botania:mana_pylon"
   }

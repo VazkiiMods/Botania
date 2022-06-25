@@ -10,7 +10,6 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -78,7 +77,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill(stack, type)) {
-				list.add(new TranslatableComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}

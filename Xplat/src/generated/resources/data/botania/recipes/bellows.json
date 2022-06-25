@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SSS",
-    "RL ",
-    "SSS"
-  ],
   "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
     "R": {
       "item": "botania:rune_air"
     },
     "S": {
       "item": "botania:livingwood_slab"
-    },
-    "L": {
-      "item": "minecraft:leather"
     }
   },
+  "pattern": [
+    "SSS",
+    "RL ",
+    "SSS"
+  ],
   "result": {
     "item": "botania:bellows"
   }

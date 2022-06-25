@@ -14,8 +14,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 
 import vazkii.botania.common.internal_caps.SerializableComponent;
@@ -40,8 +40,8 @@ public final class CapabilityUtil {
 
 	public static class WaterBowlFluidHandler extends FluidHandlerItemStackSimple.SwapEmpty {
 		public WaterBowlFluidHandler(ItemStack stack) {
-			super(stack, new ItemStack(Items.BOWL), FluidAttributes.BUCKET_VOLUME);
-			setFluid(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME));
+			super(stack, new ItemStack(Items.BOWL), FluidType.BUCKET_VOLUME);
+			setFluid(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME));
 		}
 
 		@Override

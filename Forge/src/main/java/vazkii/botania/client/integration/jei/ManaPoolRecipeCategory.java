@@ -18,11 +18,10 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
@@ -30,6 +29,7 @@ import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -37,7 +37,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionRecipe> {
 
-	public static final ResourceLocation UID = prefix("mana_pool");
+	public static final RecipeType<IManaInfusionRecipe> TYPE =
+			RecipeType.create(LibMisc.MOD_ID, "mana_pool", IManaInfusionRecipe.class);
 	private final IDrawable background;
 	private final Component localizedName;
 	private final IDrawable overlay;
@@ -46,23 +47,17 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(142, 55);
-		localizedName = new TranslatableComponent("botania.nei.manaPool");
+		localizedName = Component.translatable("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, renderStack.copy());
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, renderStack.copy());
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
-	}
-
-	@Nonnull
-	@Override
-	public Class<? extends IManaInfusionRecipe> getRecipeClass() {
-		return IManaInfusionRecipe.class;
+	public RecipeType<IManaInfusionRecipe> getRecipeType() {
+		return TYPE;
 	}
 
 	@Nonnull

@@ -10,7 +10,6 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -71,7 +70,7 @@ public class ItemPinkinator extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-		tooltip.add(new TranslatableComponent("botaniamisc.pinkinatorDesc").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("botaniamisc.pinkinatorDesc").withStyle(ChatFormatting.GRAY));
 	}
 
 }

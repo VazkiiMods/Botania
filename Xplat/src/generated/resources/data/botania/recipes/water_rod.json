@@ -1,10 +1,5 @@
 {
   "type": "botania:water_bottle_matching_shaped",
-  "pattern": [
-    "  B",
-    " T ",
-    "R  "
-  ],
   "key": {
     "B": {
       "item": "minecraft:potion"
@@ -16,6 +11,11 @@
       "item": "botania:livingwood_twig"
     }
   },
+  "pattern": [
+    "  B",
+    " T ",
+    "R  "
+  ],
   "result": {
     "item": "botania:water_rod"
   }

@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " P ",
-    "ICI",
-    " I "
-  ],
   "key": {
-    "P": {
-      "item": "botania:mana_pearl"
-    },
     "C": {
       "item": "minecraft:crafting_table"
     },
     "I": {
       "tag": "botania:manasteel_ingots"
+    },
+    "P": {
+      "item": "botania:mana_pearl"
     }
   },
+  "pattern": [
+    " P ",
+    "ICI",
+    " I "
+  ],
   "result": {
     "item": "botania:crafting_halo"
   }

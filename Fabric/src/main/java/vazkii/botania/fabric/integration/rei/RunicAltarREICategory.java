@@ -21,7 +21,6 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -51,7 +50,7 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 
 	@Override
 	public @Nonnull Component getTitle() {
-		return new TranslatableComponent("botania.nei.runicAltar");
+		return Component.translatable("botania.nei.runicAltar");
 	}
 
 	@Override

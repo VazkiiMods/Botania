@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "RER",
-    "EOE",
-    "RER"
-  ],
   "key": {
-    "R": {
-      "item": "minecraft:redstone"
-    },
     "E": {
       "item": "minecraft:ender_eye"
     },
     "O": {
       "item": "minecraft:obsidian"
+    },
+    "R": {
+      "item": "minecraft:redstone"
     }
   },
+  "pattern": [
+    "RER",
+    "EOE",
+    "RER"
+  ],
   "result": {
     "item": "botania:ender_eye_block"
   }

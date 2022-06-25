@@ -92,7 +92,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public int getClientRenderDistance() {
-		return Minecraft.getInstance().options.renderDistance;
+		return Minecraft.getInstance().options.renderDistance().get();
 	}
 
 	@Override

@@ -1,14 +1,14 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "botania:item/lexicon"
-  },
   "overrides": [
     {
+      "model": "botania:item/lexicon_elven",
       "predicate": {
         "botania:elven": 1.0
-      },
-      "model": "botania:item/lexicon_elven"
+      }
     }
-  ]
+  ],
+  "textures": {
+    "layer0": "botania:item/lexicon"
+  }
 }

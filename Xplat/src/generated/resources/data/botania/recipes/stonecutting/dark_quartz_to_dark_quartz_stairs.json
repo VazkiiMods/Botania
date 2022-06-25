@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": {
     "item": "botania:dark_quartz"
   },
-  "result": "botania:dark_quartz_stairs",
-  "count": 1
+  "result": "botania:dark_quartz_stairs"
 }

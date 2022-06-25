@@ -10,6 +10,7 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -31,8 +32,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
-
-import java.util.Random;
 
 public class BlockManaFlame extends BlockModWaterloggable implements EntityBlock {
 
@@ -71,7 +70,7 @@ public class BlockManaFlame extends BlockModWaterloggable implements EntityBlock
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TileManaFlame flame) {
 			int color = flame.getColor();

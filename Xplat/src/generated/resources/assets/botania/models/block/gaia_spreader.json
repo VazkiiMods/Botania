@@ -1,9 +1,9 @@
 {
   "parent": "botania:block/shapes/spreader",
   "textures": {
-    "side": "botania:block/gaia_spreader_side",
     "back": "botania:block/gaia_spreader_back",
     "inside": "botania:block/gaia_spreader_inside",
-    "outside": "botania:block/gaia_spreader_outside"
+    "outside": "botania:block/gaia_spreader_outside",
+    "side": "botania:block/gaia_spreader_side"
   }
 }

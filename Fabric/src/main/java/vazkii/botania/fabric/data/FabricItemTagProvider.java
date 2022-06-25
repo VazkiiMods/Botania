@@ -34,11 +34,6 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 	}
 
 	@Override
-	public String getName() {
-		return "Botania item tags (Fabric-specific)";
-	}
-
-	@Override
 	protected void addTags() {
 		for (var color : DyeColor.values()) {
 			this.tag(MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());

@@ -15,7 +15,6 @@ import net.minecraft.ResourceLocationException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -104,9 +103,9 @@ public class ItemCacophonium extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		if (isDOIT(stack)) {
-			list.add(new TranslatableComponent("botaniamisc.justDoIt").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("botaniamisc.justDoIt").withStyle(ChatFormatting.GRAY));
 		} else if (getSound(stack) != null) {
-			list.add(new TranslatableComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).withStyle(ChatFormatting.GRAY));
 		}
 	}
 

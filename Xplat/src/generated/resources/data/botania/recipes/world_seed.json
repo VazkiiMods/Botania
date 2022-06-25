@@ -1,23 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "G",
-    "S",
-    "D"
-  ],
   "key": {
-    "S": {
-      "item": "minecraft:wheat_seeds"
-    },
     "D": {
       "tag": "botania:dragonstone_gems"
     },
     "G": {
       "item": "minecraft:grass_block"
+    },
+    "S": {
+      "item": "minecraft:wheat_seeds"
     }
   },
+  "pattern": [
+    "G",
+    "S",
+    "D"
+  ],
   "result": {
-    "item": "botania:world_seed",
-    "count": 4
+    "count": 4,
+    "item": "botania:world_seed"
   }
 }

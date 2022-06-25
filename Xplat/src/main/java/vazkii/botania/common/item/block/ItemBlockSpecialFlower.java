@@ -12,7 +12,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
@@ -45,17 +44,17 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		if (BotaniaConfig.client() != null) {
 			if (world != null) {
 				if (stack.is(GENERATING)) {
-					tooltip.add(new TranslatableComponent("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+					tooltip.add(Component.translatable("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				} else if (stack.is(FUNCTIONAL)) {
-					tooltip.add(new TranslatableComponent("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+					tooltip.add(Component.translatable("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				} else if (stack.is(MISC)) {
-					tooltip.add(new TranslatableComponent("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+					tooltip.add(Component.translatable("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				}
 			}
 
 			if (BotaniaConfig.client().referencesEnabled()) {
 				String key = getDescriptionId() + ".reference";
-				MutableComponent lore = new TranslatableComponent(key);
+				MutableComponent lore = Component.translatable(key);
 				if (!lore.getString().equals(key)) {
 					tooltip.add(lore.withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 				}

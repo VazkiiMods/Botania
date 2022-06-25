@@ -1,9 +1,5 @@
 {
   "type": "botania:runic_altar",
-  "output": {
-    "item": "botania:rune_summer"
-  },
-  "mana": 8000,
   "ingredients": [
     {
       "item": "botania:rune_earth"
@@ -23,5 +19,9 @@
     {
       "item": "minecraft:melon_slice"
     }
-  ]
+  ],
+  "mana": 8000,
+  "output": {
+    "item": "botania:rune_summer"
+  }
 }

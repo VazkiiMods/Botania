@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "botania:block/blue_pavement",
-    "top": "botania:block/blue_pavement",
-    "side": "botania:block/blue_pavement"
+    "side": "botania:block/blue_pavement",
+    "top": "botania:block/blue_pavement"
   }
 }

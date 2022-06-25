@@ -14,8 +14,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -199,13 +197,13 @@ public class ItemBlackHoleTalisman extends Item {
 		Block block = getBlock(stack);
 		if (block != null) {
 			int count = getBlockCount(stack);
-			stacks.add(new TextComponent(count + " ").append(new ItemStack(block).getHoverName()).withStyle(ChatFormatting.GRAY));
+			stacks.add(Component.literal(count + " ").append(new ItemStack(block).getHoverName()).withStyle(ChatFormatting.GRAY));
 		}
 
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
-			stacks.add(new TranslatableComponent("botaniamisc.active"));
+			stacks.add(Component.translatable("botaniamisc.active"));
 		} else {
-			stacks.add(new TranslatableComponent("botaniamisc.inactive"));
+			stacks.add(Component.translatable("botaniamisc.inactive"));
 		}
 	}
 

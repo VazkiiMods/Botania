@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,8 +40,6 @@ import vazkii.botania.common.item.ItemTwigWand;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import java.util.Random;
 
 public class BlockHourglass extends BlockModWaterloggable implements EntityBlock {
 
@@ -75,7 +73,7 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 
 		if (hourglass.lock) {
 			if (!player.level.isClientSide && hand == InteractionHand.OFF_HAND) {
-				player.sendMessage(new TranslatableComponent("botaniamisc.hourglassLock"), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.hourglassLock"));
 			}
 			return InteractionResult.FAIL;
 		}
@@ -104,7 +102,7 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
 		if (state.getValue(BlockStateProperties.POWERED)) {
 			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 		}

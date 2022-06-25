@@ -15,8 +15,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -122,7 +120,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 
 	@Override
 	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-		if (allowdedIn(tab)) {
+		if (allowedIn(tab)) {
 			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
 				if (brew == ModBrews.fallbackBrew) {
 					continue;
@@ -137,18 +135,18 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Nonnull
 	@Override
 	public Component getName(@Nonnull ItemStack stack) {
-		return new TranslatableComponent(getDescriptionId(), new TranslatableComponent(getBrew(stack).getTranslationKey(stack)),
-				new TextComponent(Integer.toString(getSwigsLeft(stack))).withStyle(ChatFormatting.BOLD));
+		return Component.translatable(getDescriptionId(), Component.translatable(getBrew(stack).getTranslationKey(stack)),
+				Component.literal(Integer.toString(getSwigsLeft(stack))).withStyle(ChatFormatting.BOLD));
 	}
 
 	// [VanillaCopy] PotionUtils.addPotionTooltip, with custom effect list
 	public static void addPotionTooltip(List<MobEffectInstance> list, List<Component> lores, float durationFactor) {
 		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
 		if (list.isEmpty()) {
-			lores.add((new TranslatableComponent("effect.none")).withStyle(ChatFormatting.GRAY));
+			lores.add((Component.translatable("effect.none")).withStyle(ChatFormatting.GRAY));
 		} else {
 			for (MobEffectInstance effectinstance : list) {
-				MutableComponent iformattabletextcomponent = new TranslatableComponent(effectinstance.getDescriptionId());
+				MutableComponent iformattabletextcomponent = Component.translatable(effectinstance.getDescriptionId());
 				MobEffect effect = effectinstance.getEffect();
 				Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();
 				if (!map.isEmpty()) {
@@ -160,11 +158,11 @@ public class ItemBrewBase extends Item implements IBrewItem {
 				}
 
 				if (effectinstance.getAmplifier() > 0) {
-					iformattabletextcomponent = new TranslatableComponent("potion.withAmplifier", iformattabletextcomponent, new TranslatableComponent("potion.potency." + effectinstance.getAmplifier()));
+					iformattabletextcomponent = Component.translatable("potion.withAmplifier", iformattabletextcomponent, Component.translatable("potion.potency." + effectinstance.getAmplifier()));
 				}
 
 				if (effectinstance.getDuration() > 20) {
-					iformattabletextcomponent = new TranslatableComponent("potion.withDuration", iformattabletextcomponent, MobEffectUtil.formatDuration(effectinstance, durationFactor));
+					iformattabletextcomponent = Component.translatable("potion.withDuration", iformattabletextcomponent, MobEffectUtil.formatDuration(effectinstance, durationFactor));
 				}
 
 				lores.add(iformattabletextcomponent.withStyle(effect.getCategory().getTooltipFormatting()));
@@ -172,8 +170,8 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		}
 
 		if (!list1.isEmpty()) {
-			lores.add(TextComponent.EMPTY);
-			lores.add((new TranslatableComponent("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
+			lores.add(Component.empty());
+			lores.add((Component.translatable("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
 
 			for (Pair<Attribute, AttributeModifier> pair : list1) {
 				AttributeModifier attributemodifier2 = pair.getSecond();
@@ -186,10 +184,10 @@ public class ItemBrewBase extends Item implements IBrewItem {
 				}
 
 				if (d0 > 0.0D) {
-					lores.add((new TranslatableComponent("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
+					lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
 				} else if (d0 < 0.0D) {
 					d1 = d1 * -1.0D;
-					lores.add((new TranslatableComponent("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
+					lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
 				}
 			}
 		}

@@ -10,7 +10,6 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -31,7 +30,7 @@ public class ItemAncientWill extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flag) {
-		list.add(new TranslatableComponent("botaniamisc.craftToAddWill").withStyle(ChatFormatting.GREEN));
-		list.add(new TranslatableComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botaniamisc.craftToAddWill").withStyle(ChatFormatting.GREEN));
+		list.add(Component.translatable("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc").withStyle(ChatFormatting.GRAY));
 	}
 }

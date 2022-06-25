@@ -21,6 +21,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.client.Minecraft;
@@ -28,13 +29,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;
@@ -43,29 +43,23 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeRecipe> {
 
-	public static final ResourceLocation UID = prefix("elven_trade");
+	public static final RecipeType<IElvenTradeRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "elven_trade", IElvenTradeRecipe.class);
 	private final Component localizedName;
 	private final IDrawable background;
 	private final IDrawable overlay;
 	private final IDrawable icon;
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
-		localizedName = new TranslatableComponent("botania.nei.elvenTrade");
+		localizedName = Component.translatable("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
 		overlay = guiHelper.createDrawable(prefix("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.alfPortal));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.alfPortal));
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
-	}
-
-	@Nonnull
-	@Override
-	public Class<? extends IElvenTradeRecipe> getRecipeClass() {
-		return IElvenTradeRecipe.class;
+	public RecipeType<IElvenTradeRecipe> getRecipeType() {
+		return TYPE;
 	}
 
 	@Nonnull

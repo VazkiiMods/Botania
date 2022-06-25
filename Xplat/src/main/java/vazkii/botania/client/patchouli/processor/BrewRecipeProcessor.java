@@ -8,7 +8,7 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -40,7 +40,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 			}
 			return null;
 		} else if (key.equals("heading")) {
-			return IVariable.from(new TranslatableComponent("botaniamisc.brewOf", new TranslatableComponent(recipe.getBrew().getTranslationKey())));
+			return IVariable.from(Component.translatable("botaniamisc.brewOf", Component.translatable(recipe.getBrew().getTranslationKey())));
 		} else if (key.equals("vial")) {
 			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.vial)));
 		} else if (key.equals("flask")) {

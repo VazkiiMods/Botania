@@ -2,7 +2,7 @@
   "parent": "minecraft:block/outer_stairs",
   "textures": {
     "bottom": "botania:block/red_pavement",
-    "top": "botania:block/red_pavement",
-    "side": "botania:block/red_pavement"
+    "side": "botania:block/red_pavement",
+    "top": "botania:block/red_pavement"
   }
 }

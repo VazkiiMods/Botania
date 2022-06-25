@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SBS",
-    "SBS"
-  ],
   "key": {
     "B": {
       "item": "botania:dreamwood_planks"
@@ -12,8 +8,12 @@
       "item": "minecraft:stick"
     }
   },
+  "pattern": [
+    "SBS",
+    "SBS"
+  ],
   "result": {
-    "item": "botania:dreamwood_fence_gate",
-    "count": 3
+    "count": 3,
+    "item": "botania:dreamwood_fence_gate"
   }
 }

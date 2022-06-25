@@ -11,6 +11,7 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -25,8 +26,6 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
 
 import javax.annotation.Nonnull;
 
-import java.util.Random;
-
 public class BlockCorporeaInterceptor extends BlockMod implements EntityBlock {
 
 	public BlockCorporeaInterceptor(BlockBehaviour.Properties builder) {
@@ -40,7 +39,7 @@ public class BlockCorporeaInterceptor extends BlockMod implements EntityBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
 		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 	}
 

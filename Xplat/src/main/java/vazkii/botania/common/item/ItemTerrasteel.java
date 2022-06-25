@@ -8,17 +8,19 @@
  */
 package vazkii.botania.common.item;
 
-import vazkii.botania.common.item.material.ItemManaResource;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
-public class ItemTerrasteel extends ItemManaResource /*implements LoomPatternProvider*/ {
+import vazkii.botania.common.item.material.ItemManaResource;
+import vazkii.botania.common.lib.ModTags;
+
+public class ItemTerrasteel extends ItemManaResource implements ItemWithBannerPattern {
 	public ItemTerrasteel(Properties props) {
 		super(props);
 	}
 
-	/*
 	@Override
-	public LoomPattern getPattern() {
-		return ModPatterns.LOGO;
+	public TagKey<BannerPattern> getBannerPattern() {
+		return ModTags.BannerPatterns.PATTERN_ITEM_TERRASTEEL;
 	}
-	*/
 }

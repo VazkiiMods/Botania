@@ -9,7 +9,7 @@
 package vazkii.botania.network.serverbound;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -49,7 +49,7 @@ public class PacketDodge implements IPacket {
 
 			ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);
 			if (ringStack.isEmpty()) {
-				player.connection.disconnect(new TranslatableComponent("botaniamisc.invalidDodge"));
+				player.connection.disconnect(Component.translatable("botaniamisc.invalidDodge"));
 				return;
 			}
 

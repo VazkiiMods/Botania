@@ -6,8 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -182,7 +182,7 @@ public interface IXplatAbstractions {
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
 	// Forge also makes RecipeProvider.saveRecipeAdvancement an instance method >.>
-	void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path);
+	void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path);
 	// Forge patches BucketItem to use a supplier for the fluid, and exposes it, while Fabric needs an accessor
 	Fluid getBucketFluid(BucketItem item);
 	int getSmeltingBurnTime(ItemStack stack);

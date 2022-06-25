@@ -1,7 +1,7 @@
 package vazkii.botania.forge.mixin.client;
 
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -17,7 +17,7 @@ public abstract class ForgeMixinItemBlockWithSpecialRenderer extends Item {
 	}
 
 	@Override
-	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
 		ForgeBlockEntityItemRendererHelper.initItem(consumer);
 	}
 }

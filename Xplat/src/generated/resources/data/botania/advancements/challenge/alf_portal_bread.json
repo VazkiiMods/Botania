@@ -1,24 +1,24 @@
 {
   "parent": "botania:challenge/root",
+  "criteria": {
+    "bread": {
+      "conditions": {},
+      "trigger": "botania:alf_portal_bread"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "minecraft:bread"
-    },
-    "title": {
-      "translate": "advancement.botania:alfPortalBread"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.botania:alfPortalBread.desc"
     },
     "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:bread"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": true
-  },
-  "criteria": {
-    "bread": {
-      "trigger": "botania:alf_portal_bread",
-      "conditions": {}
+    "title": {
+      "translate": "advancement.botania:alfPortalBread"
     }
   },
   "requirements": [

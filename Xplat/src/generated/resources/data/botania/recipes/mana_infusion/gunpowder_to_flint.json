@@ -1,14 +1,14 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:gunpowder"
-  },
-  "output": {
-    "item": "minecraft:flint"
-  },
-  "mana": 200,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:gunpowder"
+  },
+  "mana": 200,
+  "output": {
+    "item": "minecraft:flint"
   }
 }

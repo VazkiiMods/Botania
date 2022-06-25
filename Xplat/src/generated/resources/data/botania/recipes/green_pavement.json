@@ -16,7 +16,7 @@
     }
   ],
   "result": {
-    "item": "botania:green_pavement",
-    "count": 3
+    "count": 3,
+    "item": "botania:green_pavement"
   }
 }

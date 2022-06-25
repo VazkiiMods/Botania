@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:coal"
-  },
-  "output": {
-    "item": "minecraft:coal",
-    "count": 2
-  },
-  "mana": 2100,
   "catalyst": {
     "type": "block",
     "block": "botania:conjuration_catalyst"
+  },
+  "input": {
+    "item": "minecraft:coal"
+  },
+  "mana": 2100,
+  "output": {
+    "count": 2,
+    "item": "minecraft:coal"
   }
 }

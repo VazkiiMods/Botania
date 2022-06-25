@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -39,8 +40,6 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
-import java.util.Random;
-
 public class BlockFloatingFlower extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
@@ -67,7 +66,7 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

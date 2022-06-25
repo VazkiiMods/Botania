@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:sunflower"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
   "pattern": [
     "QQQ",
     "QCQ",
     "QQQ"
   ],
-  "key": {
-    "Q": {
-      "item": "minecraft:quartz"
-    },
-    "C": {
-      "item": "minecraft:sunflower"
-    }
-  },
   "result": {
-    "item": "botania:quartz_sunny",
-    "count": 8
+    "count": 8,
+    "item": "botania:quartz_sunny"
   }
 }

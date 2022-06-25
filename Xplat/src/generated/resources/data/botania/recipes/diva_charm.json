@@ -1,14 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "LGP",
-    " HG",
-    " GL"
-  ],
   "key": {
-    "P": {
-      "item": "botania:tiny_planet"
-    },
     "G": {
       "item": "minecraft:gold_ingot"
     },
@@ -17,8 +9,16 @@
     },
     "L": {
       "item": "botania:life_essence"
+    },
+    "P": {
+      "item": "botania:tiny_planet"
     }
   },
+  "pattern": [
+    "LGP",
+    " HG",
+    " GL"
+  ],
   "result": {
     "item": "botania:diva_charm"
   }

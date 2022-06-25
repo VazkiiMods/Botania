@@ -14,7 +14,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -81,7 +80,7 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 
 	@Override
 	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
-		if (allowdedIn(tab)) {
+		if (allowedIn(tab)) {
 			for (int mana : CREATIVE_MANA) {
 				ItemStack stack = new ItemStack(this);
 				setMana(stack, mana);
@@ -96,12 +95,12 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
-		Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));
-		Component rankFormat = new TranslatableComponent("botaniamisc.toolRank", rank);
+		Component rank = Component.translatable("botania.rank" + getLevel(stack));
+		Component rankFormat = Component.translatable("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
 		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
 		if (manaItem != null && manaItem.getMana() == Integer.MAX_VALUE) {
-			stacks.add(new TranslatableComponent("botaniamisc.getALife").withStyle(ChatFormatting.RED));
+			stacks.add(Component.translatable("botaniamisc.getALife").withStyle(ChatFormatting.RED));
 		}
 	}
 

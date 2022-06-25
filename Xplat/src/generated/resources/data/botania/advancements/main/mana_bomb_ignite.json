@@ -1,23 +1,7 @@
 {
   "parent": "botania:main/gaia_guardian_kill",
-  "display": {
-    "icon": {
-      "item": "botania:mana_bomb"
-    },
-    "title": {
-      "translate": "advancement.botania:manaBombIgnite"
-    },
-    "description": {
-      "translate": "advancement.botania:manaBombIgnite.desc"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "bomb": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -26,7 +10,23 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.botania:manaBombIgnite.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:mana_bomb"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.botania:manaBombIgnite"
     }
   },
   "requirements": [

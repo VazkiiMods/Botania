@@ -14,6 +14,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -43,7 +44,7 @@ public class StateIngredientCompound implements StateIngredient {
 	}
 
 	@Override
-	public BlockState pick(Random random) {
+	public BlockState pick(RandomSource random) {
 		return new ArrayList<>(getBlocks()).get(random.nextInt(getBlocks().size()));
 	}
 

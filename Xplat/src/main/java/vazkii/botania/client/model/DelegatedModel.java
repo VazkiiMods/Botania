@@ -14,12 +14,12 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
 import java.util.List;
-import java.util.Random;
 
 public class DelegatedModel implements BakedModel {
 	protected final BakedModel originalModel;
@@ -64,7 +64,7 @@ public class DelegatedModel implements BakedModel {
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand) {
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
 		return null;
 	}
 }

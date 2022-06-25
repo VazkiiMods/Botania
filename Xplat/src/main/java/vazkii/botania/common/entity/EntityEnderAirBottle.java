@@ -138,7 +138,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 			}
 		}
 
-		Collections.shuffle(possibleCoords, random);
+		Collections.shuffle(possibleCoords);
 
 		return possibleCoords.stream().limit(64).collect(Collectors.toList());
 	}

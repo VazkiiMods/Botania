@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -24,7 +23,8 @@
           ],
           "name": "botania:cell_block"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

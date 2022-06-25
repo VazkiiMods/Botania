@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:gourmaryllis"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/light_gray"
@@ -25,5 +22,8 @@
     {
       "item": "botania:rune_summer"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:gourmaryllis"
+  }
 }

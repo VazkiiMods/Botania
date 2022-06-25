@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,8 +23,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-
-import java.util.Random;
 
 public class BlockAltGrass extends BlockMod {
 
@@ -56,7 +55,7 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
 		if (!world.isClientSide && state.is(this) && world.getMaxLocalRawBrightness(pos.above()) >= 9) {
 			for (int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.offset(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
@@ -70,7 +69,7 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random r) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource r) {
 		switch (variant) {
 			case DRY:
 				break;

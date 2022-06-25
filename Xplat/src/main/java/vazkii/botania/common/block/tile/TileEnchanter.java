@@ -117,7 +117,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttac
 			'L', Blocks.LAPIS_BLOCK,
 			'B', OBSIDIAN_MATCHER.get(),
 			'0', OBSIDIAN_MATCHER.get(),
-			'F', PatchouliAPI.get().predicateMatcher(ModBlocks.whiteFlower, state -> state.is(ModTags.Blocks.ENCHANTER_FLOWERS))
+			'F', PatchouliAPI.get().tagMatcher(ModTags.Blocks.ENCHANTER_FLOWERS)
 	));
 
 	private static final Supplier<IMultiblock> FORMED_MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(

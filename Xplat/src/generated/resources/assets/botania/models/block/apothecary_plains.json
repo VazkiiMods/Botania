@@ -1,8 +1,8 @@
 {
   "parent": "botania:block/shapes/petal_apothecary",
   "textures": {
+    "bottom": "botania:block/apothecary_plains_bottom",
     "side": "botania:block/apothecary_plains_side",
-    "top": "botania:block/apothecary_plains_top",
-    "bottom": "botania:block/apothecary_plains_bottom"
+    "top": "botania:block/apothecary_plains_top"
   }
 }

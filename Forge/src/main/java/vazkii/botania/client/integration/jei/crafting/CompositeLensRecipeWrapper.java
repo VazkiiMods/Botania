@@ -44,7 +44,7 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focusGroup) {
-		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.INPUT)
+		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
 				.filter(f -> allLenses.contains(f.getTypedValue().getIngredient().getItem()))
 				.map(f -> f.getTypedValue().getIngredient().getItem())
 				.toList();
@@ -72,8 +72,8 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 			}
 		}
 
-		helper.setInputs(builder, VanillaTypes.ITEM,
+		helper.setInputs(builder, VanillaTypes.ITEM_STACK,
 				List.of(firstInput, List.of(new ItemStack(Items.SLIME_BALL)), secondInput), 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM, outputs);
+		helper.setOutputs(builder, VanillaTypes.ITEM_STACK, outputs);
 	}
 }

@@ -19,16 +19,16 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +36,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalRecipe> {
 
-	public static final ResourceLocation UID = prefix("petals");
+	public static final RecipeType<IPetalRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", IPetalRecipe.class);
 	private final IDrawableStatic background;
 	private final Component localizedName;
 	private final IDrawableStatic overlay;
@@ -44,22 +44,16 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 97);
-		localizedName = new TranslatableComponent("botania.nei.petalApothecary");
+		localizedName = Component.translatable("botania.nei.petalApothecary");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.defaultAltar));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.defaultAltar));
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
-	}
-
-	@Nonnull
-	@Override
-	public Class<? extends IPetalRecipe> getRecipeClass() {
-		return IPetalRecipe.class;
+	public RecipeType<IPetalRecipe> getRecipeType() {
+		return TYPE;
 	}
 
 	@Nonnull

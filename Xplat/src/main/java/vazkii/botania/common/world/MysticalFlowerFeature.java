@@ -23,8 +23,6 @@ import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 
-import java.util.Random;
-
 public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	public MysticalFlowerFeature() {
 		super(MysticalFlowerConfig.CODEC);
@@ -33,7 +31,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	@Override
 	public boolean place(@Nonnull FeaturePlaceContext<MysticalFlowerConfig> ctx) {
 		WorldGenLevel level = ctx.level();
-		Random rand = ctx.random();
+		var rand = ctx.random();
 		MysticalFlowerConfig config = ctx.config();
 		BlockPos pos = ctx.origin();
 		boolean any = false;

@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:blaze_powder"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
   "pattern": [
     "QQQ",
     "QCQ",
     "QQQ"
   ],
-  "key": {
-    "Q": {
-      "item": "minecraft:quartz"
-    },
-    "C": {
-      "item": "minecraft:blaze_powder"
-    }
-  },
   "result": {
-    "item": "botania:quartz_blaze",
-    "count": 8
+    "count": 8,
+    "item": "botania:quartz_blaze"
   }
 }

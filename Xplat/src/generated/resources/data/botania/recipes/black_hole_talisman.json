@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " G ",
-    "EAE",
-    " E "
-  ],
   "key": {
     "A": {
       "item": "botania:ender_air_bottle"
@@ -16,6 +11,11 @@
       "item": "botania:life_essence"
     }
   },
+  "pattern": [
+    " G ",
+    "EAE",
+    " E "
+  ],
   "result": {
     "item": "botania:black_hole_talisman"
   }

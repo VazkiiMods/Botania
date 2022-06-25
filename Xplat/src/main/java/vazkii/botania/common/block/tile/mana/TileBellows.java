@@ -13,8 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -71,7 +69,7 @@ public class TileBellows extends TileMod {
 			}
 
 			if (tile instanceof AbstractFurnaceBlockEntity furnace) {
-				if (canSmelt(furnace)) {
+				if (ExoflameFurnaceHandler.canSmelt(furnace)) {
 					AccessorAbstractFurnaceBlockEntity mFurnace = (AccessorAbstractFurnaceBlockEntity) furnace;
 					mFurnace.setCookingProgress(Math.min(mFurnace.getCookingTotalTime() - 1, mFurnace.getCookingProgress() + 20));
 					mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
@@ -140,12 +138,6 @@ public class TileBellows extends TileMod {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
-	}
-
-	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace) {
-		RecipeType<? extends AbstractCookingRecipe> rt = ExoflameFurnaceHandler.getRecipeType(furnace);
-		AbstractCookingRecipe recipe = furnace.getLevel().getRecipeManager().getRecipeFor(rt, furnace, furnace.getLevel()).orElse(null);
-		return recipe != null && ExoflameFurnaceHandler.canSmelt(furnace, recipe);
 	}
 
 }

@@ -1,14 +1,14 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "botania:item/manaweave_leggings"
-  },
   "overrides": [
     {
+      "model": "botania:item/manaweave_leggings_holiday",
       "predicate": {
         "botania:holiday": 1.0
-      },
-      "model": "botania:item/manaweave_leggings_holiday"
+      }
     }
-  ]
+  ],
+  "textures": {
+    "layer0": "botania:item/manaweave_leggings"
+  }
 }

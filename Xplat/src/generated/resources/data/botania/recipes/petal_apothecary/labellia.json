@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:labellia"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/yellow"
@@ -28,5 +25,8 @@
     {
       "item": "botania:pixie_dust"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:labellia"
+  }
 }

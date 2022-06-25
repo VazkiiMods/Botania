@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -22,7 +23,6 @@ import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePlatform;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class FabricPlatformModel extends ForwardingBakedModel {
@@ -36,7 +36,7 @@ public class FabricPlatformModel extends ForwardingBakedModel {
 	}
 
 	@Override
-	public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+	public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<RandomSource> randomSupplier, RenderContext context) {
 		if (!(state.getBlock() instanceof BlockPlatform)) {
 			context.fallbackConsumer().accept(Minecraft.getInstance().getBlockRenderer()
 					.getBlockModelShaper().getModelManager().getMissingModel());

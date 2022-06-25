@@ -1,14 +1,20 @@
 {
   "type": "botania:marimorphosis",
+  "biome_bonus": 11,
+  "biome_bonus_tag": "botania:marimorphosis_desert_bonus",
   "input": "minecraft:stone",
   "output": {
     "type": "block",
     "block": "botania:metamorphic_desert_stone"
   },
+<<<<<<< HEAD
   "weight": 1,
   "biomes": [
     "desert",
     "savanna"
   ],
   "biome_bonus": 11
+=======
+  "weight": 1
+>>>>>>> 097c20cd4 (Regenerate xplat and fabric data)
 }

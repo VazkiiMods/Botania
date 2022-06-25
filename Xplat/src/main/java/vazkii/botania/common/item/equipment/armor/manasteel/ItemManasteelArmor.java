@@ -13,8 +13,6 @@ import com.google.common.base.Suppliers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -100,13 +98,13 @@ public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, 
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();
 		for (ItemStack armor : stacks) {
-			MutableComponent cmp = new TextComponent(" - ").append(armor.getHoverName());
+			MutableComponent cmp = Component.literal(" - ").append(armor.getHoverName());
 			EquipmentSlot slot = ((ArmorItem) armor.getItem()).getSlot();
 			cmp.withStyle(hasArmorSetItem(player, slot) ? ChatFormatting.GREEN : ChatFormatting.GRAY);
 			list.add(cmp);
 		}
 		if (hasPhantomInk(stack)) {
-			list.add(new TranslatableComponent("botaniamisc.hasPhantomInk").withStyle(ChatFormatting.GRAY));
+			list.add(Component.translatable("botaniamisc.hasPhantomInk").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -157,20 +155,20 @@ public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, 
 	}
 
 	public MutableComponent getArmorSetName() {
-		return new TranslatableComponent("botania.armorset.manasteel.name");
+		return Component.translatable("botania.armorset.manasteel.name");
 	}
 
 	private Component getArmorSetTitle(Player player) {
 		Component end = getArmorSetName()
 				.append(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")")
 				.withStyle(ChatFormatting.GRAY);
-		return new TranslatableComponent("botaniamisc.armorset")
+		return Component.translatable("botaniamisc.armorset")
 				.append(" ")
 				.append(end);
 	}
 
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
-		list.add(new TranslatableComponent("botania.armorset.manasteel.desc").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.manasteel.desc").withStyle(ChatFormatting.GRAY));
 	}
 
 	@Override

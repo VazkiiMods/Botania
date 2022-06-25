@@ -1,11 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "botania:craft_pattern",
-  "pattern": [
-    "RRP",
-    "RRP",
-    "PPP"
-  ],
   "key": {
     "P": {
       "item": "botania:placeholder"
@@ -14,6 +9,11 @@
       "item": "minecraft:redstone"
     }
   },
+  "pattern": [
+    "RRP",
+    "RRP",
+    "PPP"
+  ],
   "result": {
     "item": "botania:pattern_2_2"
   }

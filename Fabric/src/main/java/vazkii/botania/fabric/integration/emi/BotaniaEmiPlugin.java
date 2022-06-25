@@ -192,7 +192,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		}
 	}
 
-	public static Object2IntMap<Block> getWeights(RecipeType<IOrechidRecipe> type, RecipeManager manager) {
+	public static Object2IntMap<Block> getWeights(RecipeType<? extends IOrechidRecipe> type, RecipeManager manager) {
 		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
 		for (IOrechidRecipe recipe : manager.getAllRecipesFor(type)) {
 			map.addTo(recipe.getInput(), recipe.getWeight());

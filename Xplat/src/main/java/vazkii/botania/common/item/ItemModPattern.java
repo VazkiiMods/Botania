@@ -8,22 +8,20 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
-import java.util.List;
+public class ItemModPattern extends Item implements ItemWithBannerPattern {
+	private final TagKey<BannerPattern> pattern;
 
-public class ItemModPattern extends Item {
-	// todo 1.18
-	public ItemModPattern(/*LoomPattern pattern, */Properties settings) {
+	public ItemModPattern(TagKey<BannerPattern> pattern, Properties settings) {
 		super(settings);
+		this.pattern = pattern;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> lines, TooltipFlag ctx) {
-		//no-op
+	public TagKey<BannerPattern> getBannerPattern() {
+		return pattern;
 	}
 }

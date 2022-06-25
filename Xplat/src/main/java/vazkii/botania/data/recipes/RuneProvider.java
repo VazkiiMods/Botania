@@ -57,7 +57,7 @@ public class RuneProvider extends BotaniaRecipeProvider {
 		Ingredient coalBlock = Ingredient.of(Blocks.COAL_BLOCK);
 		consumer.accept(new FinishedRecipe(idFor("earth"), new ItemStack(ModItems.runeEarth, 2), costTier1, manaPowder, manaSteel, stone, coalBlock, Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM)));
 
-		consumer.accept(new FinishedRecipe(idFor("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.of(ItemTags.CARPETS), Ingredient.of(Items.FEATHER), Ingredient.of(Items.STRING)));
+		consumer.accept(new FinishedRecipe(idFor("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.of(ItemTags.WOOL_CARPETS), Ingredient.of(Items.FEATHER), Ingredient.of(Items.STRING)));
 
 		Ingredient fire = Ingredient.of(ModItems.runeFire);
 		Ingredient water = Ingredient.of(ModItems.runeWater);

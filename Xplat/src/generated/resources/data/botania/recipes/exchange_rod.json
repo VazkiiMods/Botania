@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " SR",
-    " TS",
-    "T  "
-  ],
   "key": {
     "R": {
       "item": "botania:rune_sloth"
@@ -16,6 +11,11 @@
       "item": "botania:livingwood_twig"
     }
   },
+  "pattern": [
+    " SR",
+    " TS",
+    "T  "
+  ],
   "result": {
     "item": "botania:exchange_rod"
   }

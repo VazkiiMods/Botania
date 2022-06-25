@@ -1,14 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "QQQ",
-    "QCQ",
-    "QQQ"
-  ],
   "key": {
-    "Q": {
-      "item": "minecraft:quartz"
-    },
     "C": [
       {
         "item": "minecraft:coal"
@@ -16,10 +8,18 @@
       {
         "item": "minecraft:charcoal"
       }
-    ]
+    ],
+    "Q": {
+      "item": "minecraft:quartz"
+    }
   },
+  "pattern": [
+    "QQQ",
+    "QCQ",
+    "QQQ"
+  ],
   "result": {
-    "item": "botania:quartz_dark",
-    "count": 8
+    "count": 8,
+    "item": "botania:quartz_dark"
   }
 }

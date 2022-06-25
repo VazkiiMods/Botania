@@ -14,8 +14,8 @@
       "item": "minecraft:sugar"
     }
   ],
+  "mana": 500,
   "output": {
     "item": "botania:mana_powder"
-  },
-  "mana": 500
+  }
 }

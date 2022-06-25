@@ -1,9 +1,9 @@
 package vazkii.botania.fabric.data;
 
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
@@ -24,7 +24,7 @@ public class FabricBlockLootProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		var tables = new HashMap<ResourceLocation, LootTable.Builder>();
 		for (var b : Registry.BLOCK) {
 			ResourceLocation id = Registry.BLOCK.getKey(b);
@@ -37,7 +37,7 @@ public class FabricBlockLootProvider implements DataProvider {
 
 		for (var e : tables.entrySet()) {
 			Path path = BlockLootProvider.getPath(generator.getOutputFolder(), e.getKey());
-			DataProvider.save(BlockLootProvider.GSON, cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path);
+			DataProvider.saveStable(cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path);
 		}
 	}
 

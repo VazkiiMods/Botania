@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "LLL",
-    "0M1",
-    "283"
-  ],
   "key": {
     "0": {
       "item": "botania:rune_water"
@@ -28,6 +23,11 @@
       "tag": "botania:manasteel_blocks"
     }
   },
+  "pattern": [
+    "LLL",
+    "0M1",
+    "283"
+  ],
   "result": {
     "item": "botania:terra_plate"
   }

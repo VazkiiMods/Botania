@@ -1,9 +1,5 @@
 {
   "type": "botania:runic_altar",
-  "output": {
-    "item": "botania:rune_pride"
-  },
-  "mana": 12000,
   "ingredients": [
     {
       "tag": "botania:mana_diamond_gems"
@@ -17,5 +13,9 @@
     {
       "item": "botania:rune_fire"
     }
-  ]
+  ],
+  "mana": 12000,
+  "output": {
+    "item": "botania:rune_pride"
+  }
 }

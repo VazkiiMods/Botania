@@ -17,22 +17,22 @@ import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.helpers.IPlatformFluidHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -40,30 +40,27 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe> {
 
-	public static final ResourceLocation UID = prefix("pure_daisy");
+	public static final RecipeType<IPureDaisyRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "pure_daisy", IPureDaisyRecipe.class);
 	private final IDrawable background;
 	private final Component localizedName;
 	private final IDrawable overlay;
 	private final IDrawable icon;
+	@SuppressWarnings("rawtypes")
+	private final IPlatformFluidHelper fluidHelper;
 
-	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
+	public PureDaisyRecipeCategory(IGuiHelper guiHelper, IPlatformFluidHelper<?> fluidHelper) {
 		background = guiHelper.createBlankDrawable(96, 44);
-		localizedName = new TranslatableComponent("botania.nei.pureDaisy");
+		localizedName = Component.translatable("botania.nei.pureDaisy");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 44);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModSubtiles.pureDaisy));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModSubtiles.pureDaisy));
+		this.fluidHelper = fluidHelper;
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
-	}
-
-	@Nonnull
-	@Override
-	public Class<? extends IPureDaisyRecipe> getRecipeClass() {
-		return IPureDaisyRecipe.class;
+	public RecipeType<IPureDaisyRecipe> getRecipeType() {
+		return TYPE;
 	}
 
 	@Nonnull
@@ -91,7 +88,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		RenderSystem.disableBlend();
 	}
 
-	// todo fluid input rendering is probably kinda janky with waterlogged blocks. Might be worth getting rid of it entirely and only checking for full fluid blocks
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IPureDaisyRecipe recipe, @Nonnull IFocusGroup focusGroup) {
 		StateIngredient input = recipe.getInput();
@@ -100,7 +97,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 				.setFluidRenderer(1000, false, 16, 16);
 		for (var state : input.getDisplayed()) {
 			if (!state.getFluidState().isEmpty()) {
-				inputSlotBuilder.addIngredient(VanillaTypes.FLUID, new FluidStack(state.getFluidState().getType(), 1000));
+				inputSlotBuilder.addIngredient(this.fluidHelper.getFluidIngredientType(),
+						this.fluidHelper.create(state.getFluidState().getType(), 1000));
 			}
 		}
 		inputSlotBuilder.addItemStacks(input.getDisplayedStacks())
@@ -114,7 +112,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		if (!outFluid.isEmpty()) {
 			builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
 					.setFluidRenderer(1000, false, 16, 16)
-					.addIngredient(VanillaTypes.FLUID, new FluidStack(outFluid.getType(), 1000));
+					.addIngredient(this.fluidHelper.getFluidIngredientType(),
+							this.fluidHelper.create(outFluid.getType(), 1000));
 		} else {
 			if (outBlock.asItem() != Items.AIR) {
 				builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)

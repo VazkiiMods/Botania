@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": {
     "item": "botania:mana_quartz"
   },
-  "result": "botania:mana_quartz_stairs",
-  "count": 1
+  "result": "botania:mana_quartz_stairs"
 }

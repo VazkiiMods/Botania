@@ -2,32 +2,32 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "botania:thermalily"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "functions": [
         {
           "function": "minecraft:copy_nbt",
-          "source": "block_entity",
           "ops": [
             {
+              "op": "replace",
               "source": "cooldown",
-              "target": "BlockEntityTag.cooldown",
-              "op": "replace"
+              "target": "BlockEntityTag.cooldown"
             }
-          ]
+          ],
+          "source": "block_entity"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

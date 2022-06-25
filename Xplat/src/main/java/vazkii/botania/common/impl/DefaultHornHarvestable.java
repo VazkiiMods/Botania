@@ -9,17 +9,19 @@
 package vazkii.botania.common.impl;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.block.IHornHarvestable;
 
+import javax.annotation.Nullable;
+
 public class DefaultHornHarvestable implements IHornHarvestable {
 	public static final IHornHarvestable INSTANCE = new DefaultHornHarvestable();
 
-	@SuppressWarnings("removal")
 	@Override
-	public boolean canHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+	public boolean canHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType, @Nullable LivingEntity living) {
 		return false;
 	}
 }

@@ -14,7 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.Villager;
@@ -108,9 +108,9 @@ public class TileCocoon extends TileMod {
 					// gonna make modded minecraft items into a gacha game
 					// and somehow find a way to add jeanne d'arc to it
 					// - Vazkii 2021
-					TextComponent name = new TextComponent("Jeanne d'");
+					var name = Component.literal("Jeanne d'");
 					name.append(entity.getName());
-					name.append(new TextComponent(" [SSR]"));
+					name.append(Component.literal(" [SSR]"));
 					entity.setCustomName(name.withStyle(ChatFormatting.GOLD));
 					entity.setCustomNameVisible(true);
 				}

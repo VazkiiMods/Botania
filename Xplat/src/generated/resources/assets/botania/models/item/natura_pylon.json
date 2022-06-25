@@ -1,55 +1,21 @@
 {
   "parent": "minecraft:builtin/entity",
   "display": {
-    "gui": {
+    "firstperson_righthand": {
       "rotation": [
-        30,
-        45,
+        0,
+        315,
         0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
       ],
       "translation": [
         0,
         0,
         0
-      ],
-      "scale": [
-        0.625,
-        0.625,
-        0.625
-      ]
-    },
-    "ground": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "translation": [
-        0,
-        3,
-        0
-      ],
-      "scale": [
-        0.25,
-        0.25,
-        0.25
-      ]
-    },
-    "head": {
-      "rotation": [
-        0,
-        180,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
       ]
     },
     "fixed": {
@@ -58,15 +24,66 @@
         180,
         0
       ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
       "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "ground": {
+      "rotation": [
         0,
         0,
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.25,
+        0.25,
+        0.25
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
       ]
     },
     "thirdperson_righthand": {
@@ -75,32 +92,15 @@
         315,
         0
       ],
-      "translation": [
-        0,
-        2.5,
-        0
-      ],
       "scale": [
         0.375,
         0.375,
         0.375
-      ]
-    },
-    "firstperson_righthand": {
-      "rotation": [
-        0,
-        315,
-        0
       ],
       "translation": [
         0,
-        0,
+        2.5,
         0
-      ],
-      "scale": [
-        0.4,
-        0.4,
-        0.4
       ]
     }
   }

@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:jiyuulia"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/pink"
@@ -22,5 +19,8 @@
     {
       "item": "botania:rune_air"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:jiyuulia"
+  }
 }

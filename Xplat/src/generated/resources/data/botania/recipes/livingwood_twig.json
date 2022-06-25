@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "W",
-    "W"
-  ],
   "key": {
     "W": {
       "tag": "botania:livingwood_logs"
     }
   },
+  "pattern": [
+    "W",
+    "W"
+  ],
   "result": {
     "item": "botania:livingwood_twig"
   }

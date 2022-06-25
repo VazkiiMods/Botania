@@ -30,8 +30,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -551,7 +551,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path) {
+	public void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path) {
 		RecipeProvider.saveAdvancement(cache, json, path);
 	}
 

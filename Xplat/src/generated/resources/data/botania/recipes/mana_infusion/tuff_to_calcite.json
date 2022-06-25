@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:tuff"
-  },
-  "output": {
-    "item": "minecraft:calcite"
-  },
-  "mana": 200,
-  "group": "botania:117_stone_cycle",
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:117_stone_cycle",
+  "input": {
+    "item": "minecraft:tuff"
+  },
+  "mana": 200,
+  "output": {
+    "item": "minecraft:calcite"
   }
 }

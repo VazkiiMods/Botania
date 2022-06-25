@@ -10,7 +10,6 @@ package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -78,7 +77,7 @@ public class ItemBottledMana extends Item {
 			}
 			case 5 -> { // Randomly set HP
 				if (!living.level.isClientSide) {
-					float nextHealth = living.level.random.nextFloat(living.getMaxHealth());
+					float nextHealth = (float) (Math.random() * living.getMaxHealth());
 					if (Mth.equal(nextHealth, 0.0F)) {
 						nextHealth = 0.5F;
 					}
@@ -169,7 +168,7 @@ public class ItemBottledMana extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
-		stacks.add(new TranslatableComponent("botaniamisc.bottleTooltip"));
+		stacks.add(Component.translatable("botaniamisc.bottleTooltip"));
 	}
 
 	@Nonnull

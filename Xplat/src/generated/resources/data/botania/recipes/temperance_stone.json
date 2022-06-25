@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " S ",
-    "SRS",
-    " S "
-  ],
   "key": {
     "R": {
       "item": "botania:rune_earth"
@@ -13,6 +8,11 @@
       "item": "minecraft:stone"
     }
   },
+  "pattern": [
+    " S ",
+    "SRS",
+    " S "
+  ],
   "result": {
     "item": "botania:temperance_stone"
   }

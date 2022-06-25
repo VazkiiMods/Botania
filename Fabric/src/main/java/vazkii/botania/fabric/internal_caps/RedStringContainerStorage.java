@@ -60,8 +60,8 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 	}
 
 	@Override
-	public Iterator<? extends StorageView<ItemVariant>> iterator(TransactionContext transaction) {
-		return getStorage().iterator(transaction);
+	public Iterator<StorageView<ItemVariant>> iterator() {
+		return getStorage().iterator();
 	}
 
 	@Override

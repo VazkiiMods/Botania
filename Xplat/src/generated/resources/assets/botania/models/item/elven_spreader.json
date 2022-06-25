@@ -1,10 +1,10 @@
 {
   "parent": "botania:block/shapes/spreader_item",
   "textures": {
-    "side": "botania:block/elven_spreader_side",
     "back": "botania:block/elven_spreader_back",
+    "core": "botania:block/elven_spreader_core",
     "inside": "botania:block/stripped_dreamwood_log_3",
     "outside": "botania:block/dreamwood_log_3",
-    "core": "botania:block/elven_spreader_core"
+    "side": "botania:block/elven_spreader_side"
   }
 }

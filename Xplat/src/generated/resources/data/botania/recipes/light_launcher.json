@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DDD",
-    "DLD"
-  ],
   "key": {
     "D": {
       "tag": "botania:dreamwood_logs"
@@ -12,6 +8,10 @@
       "item": "botania:light_relay"
     }
   },
+  "pattern": [
+    "DDD",
+    "DLD"
+  ],
   "result": {
     "item": "botania:light_launcher"
   }

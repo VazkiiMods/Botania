@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.data.HashCache;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +28,7 @@ public interface AccessorRecipeProvider {
 	}
 
 	@Invoker
-	static void callSaveRecipe(HashCache dataCache, JsonObject jsonObject, Path path) {
+	static void callSaveRecipe(CachedOutput dataCache, JsonObject jsonObject, Path path) {
 		throw new IllegalStateException();
 	}
 }

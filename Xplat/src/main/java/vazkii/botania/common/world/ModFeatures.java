@@ -8,19 +8,15 @@
  */
 package vazkii.botania.common.world;
 
-import com.google.common.collect.ImmutableSet;
-
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-import java.util.Set;
 import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -32,12 +28,14 @@ public class ModFeatures {
 	public static Holder<PlacedFeature> mysticalFlowersPlaced = null;
 	public static Holder<PlacedFeature> mysticalMushroomsPlaced = null;
 
+	/* todo 1.19 tags
 	public static final Set<Biome.BiomeCategory> TYPE_BLACKLIST = ImmutableSet.of(
 			Biome.BiomeCategory.NETHER,
 			Biome.BiomeCategory.THEEND,
 			Biome.BiomeCategory.ICY,
 			Biome.BiomeCategory.MUSHROOM
 	);
+	*/
 
 	public static void registerFeatures(BiConsumer<Feature<?>, ResourceLocation> r) {
 		var flowersId = MYSTICAL_FLOWERS_ID.location();

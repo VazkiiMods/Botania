@@ -44,8 +44,8 @@ public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focuses) {
-		helper.setInputs(builder, VanillaTypes.ITEM, inputs, 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM, Collections.singletonList(output));
+		helper.setInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);
+		helper.setOutputs(builder, VanillaTypes.ITEM_STACK, Collections.singletonList(output));
 	}
 
 	@Nullable

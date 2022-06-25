@@ -11,6 +11,7 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -23,8 +24,6 @@ import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockMod;
-
-import java.util.Random;
 
 public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 
@@ -76,7 +75,7 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(BlockStateProperties.POWERED)) {
 			level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 		}
@@ -92,7 +91,7 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level level, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
 		if (state.getValue(BlockStateProperties.POWERED)) {
 			for (int i = 0; i < 4; i++) {
 				SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 1F, 0.2F, 0.2F, 5);

@@ -18,7 +18,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -125,7 +125,7 @@ public class ItemSextant extends Item {
 					}
 				}
 				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
-				IProxy.INSTANCE.showMultiblock(sparse, new TextComponent("r = " + (int) radius), new BlockPos(x, y, z), Rotation.NONE);
+				IProxy.INSTANCE.showMultiblock(sparse, Component.literal("r = " + (int) radius), new BlockPos(x, y, z), Rotation.NONE);
 			}
 		}
 	}

@@ -11,13 +11,13 @@
       },
       {
         "model": "botania:block/metamorphic_mountain_stone",
-        "y": 180,
-        "weight": 5
+        "weight": 5,
+        "y": 180
       },
       {
         "model": "botania:block/metamorphic_mountain_stone_mirrored",
-        "y": 180,
-        "weight": 5
+        "weight": 5,
+        "y": 180
       },
       {
         "model": "botania:block/metamorphic_mountain_stone_1"

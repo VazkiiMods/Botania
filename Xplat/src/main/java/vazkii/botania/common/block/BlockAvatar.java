@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -41,8 +42,6 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import java.util.Random;
 
 public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 
@@ -135,7 +134,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		if (world.hasNeighborSignal(pos)) {
 			BlockPrism.redstoneParticlesInShape(state, world, pos, rand);
 		}

@@ -21,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -143,7 +144,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 	}
 
 	@Nullable
-	private BlockPos getCandidatePosition(Random rand) {
+	private BlockPos getCandidatePosition(RandomSource rand) {
 		int rangePlace = getPlaceRange();
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();

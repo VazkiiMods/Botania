@@ -1,23 +1,23 @@
 {
   "parent": "botania:main/mana_pool_pickup",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "botania:mana_ring"
-    },
-    "title": {
-      "translate": "advancement.botania:baubleWear"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.botania:baubleWear.desc"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:mana_ring"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "code_triggered": {
-      "trigger": "minecraft:impossible"
+    "title": {
+      "translate": "advancement.botania:baubleWear"
     }
   },
   "requirements": [

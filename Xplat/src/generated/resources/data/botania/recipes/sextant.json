@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "tag": "botania:manasteel_ingots"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
   "pattern": [
     " TI",
     " TT",
     "III"
   ],
-  "key": {
-    "T": {
-      "item": "botania:livingwood_twig"
-    },
-    "I": {
-      "tag": "botania:manasteel_ingots"
-    }
-  },
   "result": {
     "item": "botania:sextant"
   }

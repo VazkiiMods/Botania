@@ -17,11 +17,8 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ClientRegistry;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.model.ForgeModelBakery;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -57,7 +54,6 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.forge.CapabilityUtil;
-import vazkii.botania.forge.mixin.client.ForgeAccessorModelBakery;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -92,25 +88,24 @@ public class ForgeClientInitializer {
 				KonamiHandler.clientTick(Minecraft.getInstance());
 			}
 		});
-		bus.addListener((RenderGameOverlayEvent.Post e) -> {
-			if (e.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-				HUDHandler.onDrawScreenPost(e.getMatrixStack(), e.getPartialTicks());
-			}
+		bus.addListener((RegisterGuiOverlaysEvent e) -> {
+			e.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "hud",
+					(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
 		});
 		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
-		bus.addListener((ScreenEvent.KeyboardKeyPressedEvent.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
+		bus.addListener((ScreenEvent.KeyPressed.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
 
 		// Forge bus events done with Mixins on Fabric
-		bus.addListener((RenderGameOverlayEvent.BossInfo e) -> {
-			var result = BossBarHandler.onBarRender(e.getMatrixStack(), e.getX(), e.getY(),
+		bus.addListener((CustomizeGuiOverlayEvent.BossEventProgress e) -> {
+			var result = BossBarHandler.onBarRender(e.getPoseStack(), e.getX(), e.getY(),
 					e.getBossEvent(), true);
 			result.ifPresent(increment -> {
 				e.setCanceled(true);
 				e.setIncrement(increment);
 			});
 		});
-		bus.addListener((RenderGameOverlayEvent.Text e) -> DebugHandler.onDrawDebugText(e.getLeft()));
-		bus.addListener((InputEvent.KeyInputEvent e) -> {
+		bus.addListener((CustomizeGuiOverlayEvent.DebugText e) -> DebugHandler.onDrawDebugText(e.getLeft()));
+		bus.addListener((InputEvent.Key e) -> {
 			ItemDodgeRing.ClientLogic.onKeyDown();
 			KonamiHandler.handleInput(e.getKey(), e.getAction(), e.getModifiers());
 		});
@@ -140,14 +135,22 @@ public class ForgeClientInitializer {
 		});
 
 		// Etc
-		MinecraftForgeClient.registerTooltipComponentFactory(ManaBarTooltip.class, ManaBarTooltipComponent::new);
 		ClientProxy.initSeasonal();
-		ClientProxy.initKeybindings(ClientRegistry::registerKeyBinding);
-		MinecraftForge.EVENT_BUS.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
+		bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
 
 		if (IXplatAbstractions.INSTANCE.isModLoaded("ears")) {
 			EarsIntegration.register();
 		}
+	}
+
+	@SubscribeEvent
+	public static void registerTooltipComponent(RegisterClientTooltipComponentFactoriesEvent e) {
+		e.register(ManaBarTooltip.class, ManaBarTooltipComponent::new);
+	}
+
+	@SubscribeEvent
+	public static void registerKeys(RegisterKeyMappingsEvent e) {
+		ClientProxy.initKeybindings(e::register);
 	}
 
 	private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, IWandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
@@ -184,11 +187,16 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
-	public static void onModelRegister(ModelRegistryEvent evt) {
-		ModelLoaderRegistry.registerLoader(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
+	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
+		evt.register(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.getPath(),
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
-		var resourceManager = ((ForgeAccessorModelBakery) (Object) ForgeModelBakery.instance()).getResourceManager();
-		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, ForgeModelBakery::addSpecialModel);
+	}
+
+	@SuppressWarnings("removal")
+	@SubscribeEvent
+	public static void onModelRegister(ModelEvent.RegisterAdditional evt) {
+		var resourceManager = Minecraft.getInstance().getResourceManager();
+		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, evt::register);
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
@@ -205,23 +213,23 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
-	public static void registerParticleFactories(ParticleFactoryRegisterEvent evt) {
+	public static void registerParticleFactories(RegisterParticleProvidersEvent evt) {
 		ModParticles.FactoryHandler.registerFactories(new ModParticles.FactoryHandler.Consumer() {
 			@Override
 			public <T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor) {
-				Minecraft.getInstance().particleEngine.register(type, constructor::apply);
+				evt.register(type, constructor::apply);
 			}
 		});
 	}
 
 	@SubscribeEvent
-	public static void registerBlockColors(ColorHandlerEvent.Block evt) {
-		ColorHandler.submitBlocks(evt.getBlockColors()::register);
+	public static void registerBlockColors(RegisterColorHandlersEvent.Block evt) {
+		ColorHandler.submitBlocks(evt::register);
 	}
 
 	@SubscribeEvent
-	public static void registerItemColors(ColorHandlerEvent.Item evt) {
-		ColorHandler.submitItems(evt.getItemColors()::register);
+	public static void registerItemColors(RegisterColorHandlersEvent.Item evt) {
+		ColorHandler.submitItems(evt::register);
 	}
 
 	@SubscribeEvent
@@ -239,8 +247,8 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
-	public static void onModelBake(ModelBakeEvent evt) {
-		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelLoader(), evt.getModelRegistry());
+	public static void onModelBake(ModelEvent.BakingCompleted evt) {
+		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
 	}
 
 }

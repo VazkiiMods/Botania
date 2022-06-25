@@ -8,69 +8,43 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BannerPattern;
+
+import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+
 public final class ModPatterns {
-	/*
-	public static LoomPattern FLOWER = new ModLoomPattern(true);
-	public static LoomPattern LEXICON = new ModLoomPattern(true);
-	public static LoomPattern LOGO = new ModLoomPattern(true);
-	public static LoomPattern SAPLING = new ModLoomPattern(true);
-	public static LoomPattern TINY_POTATO = new ModLoomPattern(true);
-	public static LoomPattern SPARK_DISPERSIVE = new ModLoomPattern(true);
-	public static LoomPattern SPARK_DOMINANT = new ModLoomPattern(true);
-	public static LoomPattern SPARK_RECESSIVE = new ModLoomPattern(true);
-	public static LoomPattern SPARK_ISOLATED = new ModLoomPattern(true);
-	
-	public static LoomPattern FISH = new ModLoomPattern(false);
-	public static LoomPattern AXE = new ModLoomPattern(false);
-	public static LoomPattern HOE = new ModLoomPattern(false);
-	public static LoomPattern PICKAXE = new ModLoomPattern(false);
-	public static LoomPattern SHOVEL = new ModLoomPattern(false);
-	public static LoomPattern SWORD = new ModLoomPattern(false);
-	*/
+	private static final List<BannerPattern> ALL = new ArrayList<>();
+	public static final BannerPattern FLOWER = make(LibMisc.MOD_ID + ":flower");
+	public static final BannerPattern LEXICON = make(LibMisc.MOD_ID + ":lexicon");
+	public static final BannerPattern LOGO = make(LibMisc.MOD_ID + ":logo");
+	public static final BannerPattern SAPLING = make(LibMisc.MOD_ID + ":sapling");
+	public static final BannerPattern TINY_POTATO = make(LibMisc.MOD_ID + ":tiny_potato");
+	public static final BannerPattern SPARK_DISPERSIVE = make(LibMisc.MOD_ID + ":spark_dispersive");
+	public static final BannerPattern SPARK_DOMINANT = make(LibMisc.MOD_ID + ":spark_dominant");
+	public static final BannerPattern SPARK_RECESSIVE = make(LibMisc.MOD_ID + ":spark_recessive");
+	public static final BannerPattern SPARK_ISOLATED = make(LibMisc.MOD_ID + ":spark_isolated");
 
-	public static void init() {
-		/*
-		register(LoomPatterns.REGISTRY, "flower", FLOWER);
-		register(LoomPatterns.REGISTRY, "lexicon", LEXICON);
-		register(LoomPatterns.REGISTRY, "logo", LOGO);
-		register(LoomPatterns.REGISTRY, "sapling", SAPLING);
-		register(LoomPatterns.REGISTRY, "tiny_potato", TINY_POTATO);
-		//
-		register(LoomPatterns.REGISTRY, "spark_dispersive", SPARK_DISPERSIVE);
-		register(LoomPatterns.REGISTRY, "spark_dominant", SPARK_DOMINANT);
-		register(LoomPatterns.REGISTRY, "spark_recessive", SPARK_RECESSIVE);
-		register(LoomPatterns.REGISTRY, "spark_isolated", SPARK_ISOLATED);
-		//
-		register(LoomPatterns.REGISTRY, "fish", FISH);
-		register(LoomPatterns.REGISTRY, "axe", AXE);
-		register(LoomPatterns.REGISTRY, "hoe", HOE);
-		register(LoomPatterns.REGISTRY, "pickaxe", PICKAXE);
-		register(LoomPatterns.REGISTRY, "shovel", SHOVEL);
-		register(LoomPatterns.REGISTRY, "sword", SWORD);
-		*/
+	public static final BannerPattern FISH = make(LibMisc.MOD_ID + ":fish");
+	public static final BannerPattern AXE = make(LibMisc.MOD_ID + ":axe");
+	public static final BannerPattern HOE = make(LibMisc.MOD_ID + ":hoe");
+	public static final BannerPattern PICKAXE = make(LibMisc.MOD_ID + ":pickaxe");
+	public static final BannerPattern SHOVEL = make(LibMisc.MOD_ID + ":shovel");
+	public static final BannerPattern SWORD = make(LibMisc.MOD_ID + ":sword");
+
+	private static BannerPattern make(String hashName) {
+		var pattern = new BannerPattern(hashName);
+		ALL.add(pattern);
+		return pattern;
 	}
 
-	/*
-	private static class ModLoomPattern extends LoomPattern {
-		public ModLoomPattern(boolean special) {
-			super(special);
-		}
-	
-		@Override
-		public ResourceLocation getSpriteId(String type) {
-			return new ResourceLocation("entity/" + type + "/botania_" + LoomPatterns.REGISTRY.getKey(this).getPath());
-		}
-	
-		@Override
-		public void addPatternLine(List<Component> lines, DyeColor color) {
-			String colorName = color.getName();
-			if (colorName.equals("light_blue")) {
-				colorName = "lightBlue";
-			} else if (colorName.equals("light_gray")) {
-				colorName = "silver";
-			}
-			lines.add(new TranslatableComponent("block.minecraft.banner.botania_" + LoomPatterns.REGISTRY.getKey(this).getPath() + "." + colorName).withStyle(ChatFormatting.GRAY));
+	public static void submitRegistrations(BiConsumer<BannerPattern, ResourceLocation> consumer) {
+		for (var pattern : ALL) {
+			consumer.accept(pattern, new ResourceLocation(pattern.getHashname()));
 		}
 	}
-	*/
 }

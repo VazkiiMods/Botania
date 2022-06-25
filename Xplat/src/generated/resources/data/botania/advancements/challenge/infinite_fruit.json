@@ -1,30 +1,30 @@
 {
   "parent": "botania:challenge/gaia_guardian_hardmode",
-  "display": {
-    "icon": {
-      "item": "botania:infinite_fruit"
-    },
-    "title": {
-      "translate": "advancement.botania:infiniteFruit"
-    },
-    "description": {
-      "translate": "advancement.botania:infiniteFruit.desc"
-    },
-    "frame": "challenge",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "fruit": {
-      "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
           "items": [
             "botania:infinite_fruit"
           ]
         }
-      }
+      },
+      "trigger": "botania:relic_bind"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.botania:infiniteFruit.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "botania:infinite_fruit"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.botania:infiniteFruit"
     }
   },
   "requirements": [

@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SSS",
-    "S S"
-  ],
   "key": {
     "S": {
       "tag": "botania:manasteel_ingots"
     }
   },
+  "pattern": [
+    "SSS",
+    "S S"
+  ],
   "result": {
     "item": "botania:manasteel_helmet"
   }

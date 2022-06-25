@@ -1,27 +1,27 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WMP",
-    "MHM",
-    "CM "
-  ],
   "key": {
-    "P": {
-      "item": "minecraft:pufferfish"
-    },
     "C": {
       "item": "minecraft:cod"
     },
     "H": {
       "item": "minecraft:heart_of_the_sea"
     },
-    "W": {
-      "item": "botania:rune_water"
-    },
     "M": {
       "tag": "botania:manasteel_ingots"
+    },
+    "P": {
+      "item": "minecraft:pufferfish"
+    },
+    "W": {
+      "item": "botania:rune_water"
     }
   },
+  "pattern": [
+    "WMP",
+    "MHM",
+    "CM "
+  ],
   "result": {
     "item": "botania:water_ring"
   }

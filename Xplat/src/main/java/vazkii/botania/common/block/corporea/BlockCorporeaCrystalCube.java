@@ -9,7 +9,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -67,7 +67,7 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
 			if (cube.locked) {
 				if (!world.isClientSide) {
-					player.displayClientMessage(new TranslatableComponent("botaniamisc.crystalCubeLocked"), false);
+					player.displayClientMessage(Component.translatable("botaniamisc.crystalCubeLocked"), false);
 				}
 			} else {
 				cube.setRequestTarget(stack);

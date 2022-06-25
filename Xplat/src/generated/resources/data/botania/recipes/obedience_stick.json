@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": {
+      "tag": "botania:manasteel_ingots"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
   "pattern": [
     "  M",
     " T ",
     "T  "
   ],
-  "key": {
-    "T": {
-      "item": "botania:livingwood_twig"
-    },
-    "M": {
-      "tag": "botania:manasteel_ingots"
-    }
-  },
   "result": {
     "item": "botania:obedience_stick"
   }

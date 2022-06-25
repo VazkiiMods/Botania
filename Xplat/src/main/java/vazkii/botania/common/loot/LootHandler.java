@@ -20,7 +20,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {
 
-	public static void lootLoad(ResourceLocation id, Consumer<LootPool> addPool) {
+	public static void lootLoad(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		String prefix = "minecraft:chests/";
 		String name = id.toString();
 
@@ -46,11 +46,10 @@ public final class LootHandler {
 		}
 	}
 
-	public static LootPool getInjectPool(String entryName) {
+	private static LootPool.Builder getInjectPool(String entryName) {
 		return LootPool.lootPool()
 				.add(getInjectEntry(entryName, 1))
-				.setBonusRolls(UniformGenerator.between(0, 1))
-				.build();
+				.setBonusRolls(UniformGenerator.between(0, 1));
 	}
 
 	private static LootPoolEntryContainer.Builder<?> getInjectEntry(String name, int weight) {

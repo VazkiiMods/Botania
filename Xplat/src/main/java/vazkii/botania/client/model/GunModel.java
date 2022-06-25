@@ -24,6 +24,7 @@ import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -94,7 +95,7 @@ public class GunModel implements BakedModel {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) {
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource rand) {
 		return originalModel.getQuads(state, side, rand);
 	}
 
@@ -161,7 +162,8 @@ public class GunModel implements BakedModel {
 				faceQuads.put(e, new ArrayList<>());
 			}
 
-			Random rand = new Random(0);
+			var rand = RandomSource.create();
+			rand.setSeed(0);
 			genQuads.addAll(lensBaked.getQuads(null, null, rand));
 
 			for (Direction e : Direction.values()) {
@@ -180,7 +182,7 @@ public class GunModel implements BakedModel {
 
 		@Nonnull
 		@Override
-		public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull Random rand) {
+		public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull RandomSource rand) {
 			return face == null ? genQuads : faceQuads.get(face);
 		}
 	}

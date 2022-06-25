@@ -1,13 +1,8 @@
 {
   "type": "botania:nbt_output_wrapper",
+  "nbt": "{SkullOwner:\"Vazkii\"}",
   "recipe": {
     "type": "botania:petal_apothecary",
-    "output": {
-      "nbt": {
-        "SkullOwner": "Vazkii"
-      },
-      "item": "minecraft:player_head"
-    },
     "ingredients": [
       {
         "tag": "botania:petals/pink"
@@ -57,7 +52,12 @@
       {
         "tag": "botania:petals/pink"
       }
-    ]
-  },
-  "nbt": "{SkullOwner:\"Vazkii\"}"
+    ],
+    "output": {
+      "item": "minecraft:player_head",
+      "nbt": {
+        "SkullOwner": "Vazkii"
+      }
+    }
+  }
 }

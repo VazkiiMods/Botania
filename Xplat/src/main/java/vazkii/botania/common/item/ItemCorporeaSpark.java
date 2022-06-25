@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -70,7 +69,7 @@ public class ItemCorporeaSpark extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		if (stack.is(ModItems.corporeaSparkCreative)) {
-			tooltip.add(new TranslatableComponent("botaniamisc.creativeSpark").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("botaniamisc.creativeSpark").withStyle(ChatFormatting.GRAY));
 		}
 	}
 }

@@ -37,7 +37,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrechidRecipe> {
+public abstract class OrechidRecipeCategoryBase<T extends IOrechidRecipe> implements IRecipeCategory<T> {
 
 	private final IDrawableStatic background;
 	private final Component localizedName;
@@ -50,7 +50,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 				0, 0, 64, 44);
 		background = guiHelper.createBlankDrawable(96, 44);
 		this.localizedName = localizedName;
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, iconStack);
+		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, iconStack);
 		this.iconStack = iconStack;
 	}
 
@@ -78,7 +78,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<IOrec
 				.reduce(Integer::sum).orElse(myWeight * 64 * 64);
 	}
 
-	protected abstract RecipeType<? extends IOrechidRecipe> recipeType();
+	protected abstract RecipeType<T> recipeType();
 
 	protected List<? extends IOrechidRecipe> getOreWeights(Block input) {
 		ListMultimap<Block, ? extends IOrechidRecipe> multimap = OrechidManager.getFor(Minecraft.getInstance().level.getRecipeManager(), recipeType());

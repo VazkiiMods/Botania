@@ -105,7 +105,7 @@ public class ItemHorn extends Item {
 			}
 		}
 
-		Collections.shuffle(coords, world.random);
+		Collections.shuffle(coords);
 
 		int count = Math.min(coords.size(), 32 + type.ordinal() * 16);
 		for (int i = 0; i < count; i++) {

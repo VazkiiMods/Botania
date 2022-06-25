@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "E  ",
-    " S ",
-    "L E"
-  ],
   "key": {
-    "S": {
-      "item": "botania:travel_belt"
-    },
     "E": {
       "tag": "botania:elementium_ingots"
     },
     "L": {
       "item": "botania:life_essence"
+    },
+    "S": {
+      "item": "botania:travel_belt"
     }
   },
+  "pattern": [
+    "E  ",
+    " S ",
+    "L E"
+  ],
   "result": {
     "item": "botania:super_travel_belt"
   }

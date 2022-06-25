@@ -21,22 +21,11 @@ import javax.annotation.Nullable;
  */
 @FunctionalInterface
 public interface IHornHarvestable {
-
-	@Deprecated(forRemoval = true) // use overload with LivingEntity
-	boolean canHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType);
-
 	/**
 	 * Returns true if this block can be uprooted.
 	 * Note that the stack param can be empty if it's a drum breaking it.
 	 */
-	default boolean canHornHarvest(Level level, BlockPos pos, ItemStack stack, EnumHornType hornType, @Nullable LivingEntity user) {
-		return canHornHarvest(level, pos, stack, hornType);
-	}
-
-	@Deprecated(forRemoval = true) // use overload with LivingEntity
-	default boolean hasSpecialHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		return false;
-	}
+	boolean canHornHarvest(Level level, BlockPos pos, ItemStack stack, EnumHornType hornType, @Nullable LivingEntity user);
 
 	/**
 	 * Returns true if harvestByHorn() should be called. If false it just uses the normal
@@ -44,7 +33,7 @@ public interface IHornHarvestable {
 	 * Note that the stack param can be empty if it's a drum breaking it.
 	 */
 	default boolean hasSpecialHornHarvest(Level level, BlockPos pos, ItemStack stack, EnumHornType hornType, @Nullable LivingEntity user) {
-		return hasSpecialHornHarvest(level, pos, stack, hornType);
+		return false;
 	}
 
 	@Deprecated(forRemoval = true) // Use overload with LivingEntity

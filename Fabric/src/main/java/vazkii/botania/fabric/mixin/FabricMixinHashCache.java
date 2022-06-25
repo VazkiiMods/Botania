@@ -1,10 +1,7 @@
 package vazkii.botania.fabric.mixin;
 
-import net.minecraft.data.HashCache;
+import com.google.common.hash.HashCode;
 
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,8 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.lib.LibMisc;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
@@ -25,36 +23,16 @@ import java.util.TreeMap;
  * so that the datagen cache files can be committed.
  * Similar to the patch Forge does
  */
-@Mixin(HashCache.class)
+@Mixin(targets = { "net.minecraft.data.HashCache$ProviderCache" })
 public abstract class FabricMixinHashCache {
 	@Shadow
-	protected abstract void removeStale() throws IOException;
+	public abstract String version();
 
 	@Shadow
-	@Final
-	private Path cachePath;
+	public abstract Map<Path, HashCode> data();
 
-	@Shadow
-	@Final
-	private static Logger LOGGER;
-
-	@Shadow
-	private int hits;
-
-	@Shadow
-	@Final
-	private Map<Path, String> newCache;
-
-	@Shadow
-	@Final
-	private Map<Path, String> oldCache;
-
-	@Shadow
-	@Final
-	private Path path;
-
-	@Inject(at = @At("HEAD"), method = "purgeStaleAndWrite", cancellable = true)
-	private void hookWrite(CallbackInfo ci) throws IOException {
+	@Inject(at = @At("HEAD"), method = "save", cancellable = true)
+	private void hookWrite(Path path, Path outputPath, String header, CallbackInfo ci) throws IOException {
 		if (!LibMisc.MOD_ID.equals(System.getProperty("fabric-api.datagen.modid"))) {
 			return;
 		}
@@ -62,17 +40,21 @@ public abstract class FabricMixinHashCache {
 		ci.cancel();
 		// [VanillaCopy] Vanilla method but use system-agnostic paths, and sort by file path
 		// before writing
-		this.removeStale();
-		try (Writer writer = Files.newBufferedWriter(this.cachePath)) {
+		try (BufferedWriter writer = Files.newBufferedWriter(outputPath, StandardCharsets.UTF_8)) {
+			writer.write("// ");
+			writer.write(this.version());
+			writer.write('\t');
+			writer.write(header);
+			writer.newLine();
 			var sorted = new TreeMap<String, String>();
-			for (var e : newCache.entrySet()) {
-				var relativePath = this.path.relativize(e.getKey()).toString().replace('\\', '/');
-				sorted.put(relativePath, e.getValue());
+			for (var e : this.data().entrySet()) {
+				var relativePath = path.relativize(e.getKey()).toString().replace('\\', '/');
+				sorted.put(relativePath, e.getValue().toString());
 			}
-			var lines = sorted.entrySet().stream().map(e -> e.getValue() + ' ' + e.getKey()).toList();
-			IOUtils.writeLines(lines, System.lineSeparator(), writer);
+			for (var e : sorted.entrySet()) {
+				writer.write(e.getValue() + ' ' + e.getKey());
+				writer.newLine();
+			}
 		}
-
-		LOGGER.debug("Caching: cache hits: {}, created: {} removed: {}", this.hits, this.newCache.size() - this.hits, this.oldCache.size());
 	}
 }

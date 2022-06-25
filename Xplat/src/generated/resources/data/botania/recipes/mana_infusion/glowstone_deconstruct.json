@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:glowstone"
-  },
-  "output": {
-    "item": "minecraft:glowstone_dust",
-    "count": 4
-  },
-  "mana": 25,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:glowstone"
+  },
+  "mana": 25,
+  "output": {
+    "count": 4,
+    "item": "minecraft:glowstone_dust"
   }
 }

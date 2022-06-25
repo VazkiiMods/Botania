@@ -8,14 +8,13 @@
  */
 package vazkii.botania.data;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
@@ -75,7 +74,7 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(HashCache hashCache) {
+	public void run(CachedOutput cache) {
 		try {
 			registerStatesAndModels();
 		} catch (Exception e) {
@@ -83,13 +82,12 @@ public class BlockstateProvider implements DataProvider {
 		}
 
 		var root = generator.getOutputFolder();
-		var gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
 		for (var state : blockstates) {
 			ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
 			var path = root.resolve("assets/" + id.getNamespace() + "/blockstates/" + id.getPath() + ".json");
 			try {
-				DataProvider.save(gson, hashCache, state.get(), path);
+				DataProvider.saveStable(cache, state.get(), path);
 			} catch (IOException ex) {
 				BotaniaAPI.LOGGER.error("Error generating blockstate file for {}", id, ex);
 			}
@@ -99,7 +97,7 @@ public class BlockstateProvider implements DataProvider {
 			var modelId = e.getKey();
 			var path = root.resolve("assets/" + modelId.getNamespace() + "/models/" + modelId.getPath() + ".json");
 			try {
-				DataProvider.save(gson, hashCache, e.getValue().get(), path);
+				DataProvider.saveStable(cache, e.getValue().get(), path);
 			} catch (IOException ex) {
 				BotaniaAPI.LOGGER.error("Error generating model file {}", modelId, ex);
 			}

@@ -2,7 +2,7 @@
   "parent": "minecraft:block/inner_stairs",
   "textures": {
     "bottom": "botania:block/metamorphic_mesa_cobblestone",
-    "top": "botania:block/metamorphic_mesa_cobblestone",
-    "side": "botania:block/metamorphic_mesa_cobblestone"
+    "side": "botania:block/metamorphic_mesa_cobblestone",
+    "top": "botania:block/metamorphic_mesa_cobblestone"
   }
 }

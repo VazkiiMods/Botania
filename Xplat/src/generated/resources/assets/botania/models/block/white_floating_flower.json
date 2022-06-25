@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
-  "loader": "botania:floating_flower",
   "flower": {
     "parent": "botania:block/white_mystical_flower"
-  }
+  },
+  "loader": "botania:floating_flower"
 }

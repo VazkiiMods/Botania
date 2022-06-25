@@ -1,11 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " PR",
-    " SI",
-    "T  "
-  ],
   "key": {
+    "I": {
+      "tag": "botania:terrasteel_ingots"
+    },
     "P": {
       "item": "botania:mana_pearl"
     },
@@ -17,11 +15,13 @@
     },
     "T": {
       "item": "botania:mana_tablet"
-    },
-    "I": {
-      "tag": "botania:terrasteel_ingots"
     }
   },
+  "pattern": [
+    " PR",
+    " SI",
+    "T  "
+  ],
   "result": {
     "item": "botania:mana_mirror"
   }

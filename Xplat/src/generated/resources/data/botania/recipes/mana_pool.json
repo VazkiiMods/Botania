@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "R R",
-    "RRR"
-  ],
   "key": {
     "R": {
       "item": "botania:livingrock"
     }
   },
+  "pattern": [
+    "R R",
+    "RRR"
+  ],
   "result": {
     "item": "botania:mana_pool"
   }

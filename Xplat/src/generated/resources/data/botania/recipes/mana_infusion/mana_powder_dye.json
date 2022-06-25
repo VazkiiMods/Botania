@@ -50,8 +50,8 @@
       "item": "minecraft:black_dye"
     }
   ],
+  "mana": 400,
   "output": {
     "item": "botania:mana_powder"
-  },
-  "mana": 400
+  }
 }

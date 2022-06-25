@@ -9,6 +9,7 @@
 package vazkii.botania.mixin;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -22,8 +23,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.brew.potion.PotionBloodthirst;
 
-import java.util.Random;
-
 @Mixin(SpawnPlacements.class)
 public class MixinSpawnPlacements {
 	// This injection is kind of scuffed:
@@ -33,7 +32,7 @@ public class MixinSpawnPlacements {
 	// However, certain mobs (e.g. slimes) use the predicate for actual logic (e.g. slimechunks),
 	// and we jump over that in Bloodthirst as well.
 	@Inject(at = @At("RETURN"), cancellable = true, method = "checkSpawnRules")
-	private static <T extends Entity> void bloodthirstOverride(EntityType<T> type, ServerLevelAccessor world, MobSpawnType reason, BlockPos position, Random rng, CallbackInfoReturnable<Boolean> cir) {
+	private static <T extends Entity> void bloodthirstOverride(EntityType<T> type, ServerLevelAccessor world, MobSpawnType reason, BlockPos position, RandomSource random, CallbackInfoReturnable<Boolean> cir) {
 		if (reason == MobSpawnType.NATURAL && PotionBloodthirst.overrideSpawn(world, position, type.getCategory())) {
 			cir.setReturnValue(true);
 		}

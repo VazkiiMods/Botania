@@ -1,24 +1,24 @@
 {
   "parent": "botania:main/rune_pickup",
+  "criteria": {
+    "shoot": {
+      "conditions": {},
+      "trigger": "botania:fire_mana_blaster"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "botania:mana_gun"
-    },
-    "title": {
-      "translate": "advancement.botania:manaBlasterShoot"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.botania:manaBlasterShoot.desc"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:mana_gun"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "shoot": {
-      "trigger": "botania:fire_mana_blaster",
-      "conditions": {}
+    "title": {
+      "translate": "advancement.botania:manaBlasterShoot"
     }
   },
   "requirements": [

@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:clayconia"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/light_gray"
@@ -19,5 +16,8 @@
     {
       "item": "botania:rune_earth"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:clayconia"
+  }
 }

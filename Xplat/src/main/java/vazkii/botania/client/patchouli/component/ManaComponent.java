@@ -13,7 +13,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -43,7 +42,7 @@ public class ManaComponent implements ICustomComponent {
 	@Override
 	public void render(PoseStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		Font font = Minecraft.getInstance().font;
-		Component manaUsage = new TranslatableComponent("botaniamisc.manaUsage").setStyle(context.getFont());
+		Component manaUsage = Component.translatable("botaniamisc.manaUsage").setStyle(context.getFont());
 		font.draw(ms, manaUsage, x + 102 / 2 - font.width(manaUsage) / 2, y, 0x66000000);
 
 		int ratio = 10;
@@ -53,7 +52,7 @@ public class ManaComponent implements ICustomComponent {
 		HUDHandler.renderManaBar(ms, x, y + 10, 0x0000FF, 0.75F,
 				manaValues[(context.getTicksInBook() / 20) % manaValues.length], TilePool.MAX_MANA / ratio);
 
-		Component ratioString = new TranslatableComponent("botaniamisc.ratio", ratio).setStyle(context.getFont());
+		Component ratioString = Component.translatable("botaniamisc.ratio", ratio).setStyle(context.getFont());
 		font.draw(ms, ratioString, x + 102 / 2 - font.width(ratioString) / 2, y + 15, 0x99000000);
 	}
 

@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +27,6 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class StateIngredientBlocks implements StateIngredient {
@@ -42,7 +42,7 @@ public class StateIngredientBlocks implements StateIngredient {
 	}
 
 	@Override
-	public BlockState pick(Random random) {
+	public BlockState pick(RandomSource random) {
 		return blocks.asList().get(random.nextInt(blocks.size())).defaultBlockState();
 	}
 

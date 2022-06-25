@@ -11,7 +11,6 @@ package vazkii.botania.common.block.decor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -34,9 +33,9 @@ public class BlockMotifFlower extends FlowerBlock {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flags) {
 		if (hidden) {
-			tooltip.add(new TranslatableComponent("block.botania.daybloom_motif.description").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("block.botania.daybloom_motif.description").withStyle(ChatFormatting.GRAY));
 		} else {
-			tooltip.add(new TranslatableComponent("block.botania.hydroangeas_motif.description").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("block.botania.hydroangeas_motif.description").withStyle(ChatFormatting.GRAY));
 		}
 	}
 

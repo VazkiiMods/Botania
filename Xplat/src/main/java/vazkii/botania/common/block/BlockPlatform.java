@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -122,7 +121,7 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		if (variant.indestructible) {
-			tooltip.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
 

@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " D ",
-    "EPE",
-    " D "
-  ],
   "key": {
-    "P": {
-      "item": "botania:mana_pylon"
-    },
     "D": {
       "item": "botania:pixie_dust"
     },
     "E": {
       "tag": "botania:elementium_ingots"
+    },
+    "P": {
+      "item": "botania:mana_pylon"
     }
   },
+  "pattern": [
+    " D ",
+    "EPE",
+    " D "
+  ],
   "result": {
     "item": "botania:gaia_pylon"
   }

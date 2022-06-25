@@ -45,7 +45,7 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focusGroup) {
-		var foci = focusGroup.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.INPUT)
+		var foci = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
 				.filter(f -> f.getTypedValue().getIngredient().getItem() instanceof ItemAncientWill)
 				.map(f -> f.getTypedValue().getIngredient())
 				.toList();
@@ -66,8 +66,8 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 			outputStacks.add(stack);
 		}
 
-		helper.setInputs(builder, VanillaTypes.ITEM,
+		helper.setInputs(builder, VanillaTypes.ITEM_STACK,
 				List.of(Collections.singletonList(new ItemStack(ModItems.terrasteelHelm)), willStacks), 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM, outputStacks);
+		helper.setOutputs(builder, VanillaTypes.ITEM_STACK, outputStacks);
 	}
 }

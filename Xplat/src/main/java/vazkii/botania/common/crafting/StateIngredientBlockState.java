@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class StateIngredientBlockState implements StateIngredient {
 	private final BlockState state;
@@ -44,7 +43,7 @@ public class StateIngredientBlockState implements StateIngredient {
 	}
 
 	@Override
-	public BlockState pick(Random random) {
+	public BlockState pick(RandomSource random) {
 		return state;
 	}
 
@@ -83,7 +82,7 @@ public class StateIngredientBlockState implements StateIngredient {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			String name = ((Property) key).getName(entry.getValue());
 
-			tooltip.add(new TextComponent(key.getName() + " = " + name).withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.literal(key.getName() + " = " + name).withStyle(ChatFormatting.GRAY));
 		}
 		return tooltip;
 	}

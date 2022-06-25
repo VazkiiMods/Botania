@@ -1,16 +1,16 @@
 package vazkii.botania.forge.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.BakedModelWrapper;
-import net.minecraftforge.client.model.data.EmptyModelData;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 	public static final ModelProperty<TilePlatform.PlatformData> PROPERTY = new ModelProperty<>();
@@ -35,10 +34,10 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 
 	@NotNull
 	@Override
-	public IModelData getModelData(@NotNull BlockAndTintGetter world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull IModelData tileData) {
+	public ModelData getModelData(@NotNull BlockAndTintGetter world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData tileData) {
 		if (world.getBlockEntity(pos) instanceof TilePlatform platform) {
-			return new ModelDataMap.Builder()
-					.withInitial(PROPERTY, new TilePlatform.PlatformData(platform))
+			return ModelData.builder()
+					.with(PROPERTY, new TilePlatform.PlatformData(platform))
 					.build();
 		}
 		return tileData;
@@ -46,18 +45,19 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
-		var data = extraData.getData(PROPERTY);
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
+			@Nonnull RandomSource rand, @Nonnull ModelData extraData, @Nullable RenderType renderType) {
+		var data = extraData.get(PROPERTY);
 		if (state == null || !(state.getBlock() instanceof BlockPlatform) || data == null) {
 			return Minecraft.getInstance().getBlockRenderer().getBlockModelShaper()
-					.getModelManager().getMissingModel().getQuads(state, side, rand, extraData);
+					.getModelManager().getMissingModel().getQuads(state, side, rand, extraData, renderType);
 		}
 
 		BlockState heldState = data.state();
 
 		if (heldState == null) {
 			// No camo
-			return super.getQuads(state, side, rand, extraData);
+			return super.getQuads(state, side, rand, extraData, renderType);
 		} else {
 			// Some people used this to get an invisible block in the past, accommodate that.
 			if (heldState.is(ModBlocks.manaGlass)) {
@@ -66,7 +66,7 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 
 			BakedModel model = Minecraft.getInstance().getBlockRenderer()
 					.getBlockModelShaper().getBlockModel(heldState);
-			return model.getQuads(heldState, side, rand, EmptyModelData.INSTANCE);
+			return model.getQuads(heldState, side, rand, ModelData.EMPTY, renderType);
 		}
 	}
 }

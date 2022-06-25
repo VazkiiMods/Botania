@@ -2,20 +2,19 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2.0,
-                "max": 4.0
+                "max": 4.0,
+                "min": 2.0
               },
-              "add": false
+              "function": "minecraft:set_count"
             },
             {
               "function": "minecraft:explosion_decay"
@@ -23,7 +22,8 @@
           ],
           "name": "botania:living_root"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

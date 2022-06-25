@@ -11,6 +11,7 @@ package vazkii.botania.common.block.string;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -28,8 +29,6 @@ import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.Random;
-
 public class BlockRedStringFertilizer extends BlockRedString implements BonemealableBlock {
 
 	public BlockRedStringFertilizer(BlockBehaviour.Properties builder) {
@@ -43,12 +42,12 @@ public class BlockRedStringFertilizer extends BlockRedString implements Bonemeal
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return ((TileRedStringFertilizer) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
-	public void performBonemeal(@Nonnull ServerLevel world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public void performBonemeal(@Nonnull ServerLevel world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		((TileRedStringFertilizer) world.getBlockEntity(pos)).grow(world, rand);
 	}
 

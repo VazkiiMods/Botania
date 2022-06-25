@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -20,8 +21,6 @@ import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
-
-import java.util.Random;
 
 public class BlockModDoubleFlower extends TallFlowerBlock {
 	public final DyeColor color;
@@ -37,7 +36,7 @@ public class BlockModDoubleFlower extends TallFlowerBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

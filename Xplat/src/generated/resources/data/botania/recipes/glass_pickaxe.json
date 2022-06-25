@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GIG",
-    " T ",
-    " T "
-  ],
   "key": {
-    "T": {
-      "item": "botania:livingwood_twig"
-    },
     "G": {
       "item": "minecraft:glass"
     },
     "I": {
       "tag": "botania:manasteel_ingots"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
     }
   },
+  "pattern": [
+    "GIG",
+    " T ",
+    " T "
+  ],
   "result": {
     "item": "botania:glass_pickaxe"
   }

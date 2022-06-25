@@ -12,7 +12,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -56,13 +55,13 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
-			TranslatableComponent colorName = new TranslatableComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
+			var colorName = Component.translatable(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
 			TextColor realColor = TextColor.fromRgb(getLensColor(stack, world));
-			stacks.add(new TranslatableComponent("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
+			stacks.add(Component.translatable("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
 		}
 
 		if (lens instanceof LensStorm) {
-			stacks.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
+			stacks.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -75,7 +74,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		}
 		String shortKeyA = stack.getDescriptionId() + ".short";
 		String shortKeyB = compositeLens.getDescriptionId() + ".short";
-		return new TranslatableComponent("item.botania.composite_lens", new TranslatableComponent(shortKeyA), new TranslatableComponent(shortKeyB));
+		return Component.translatable("item.botania.composite_lens", Component.translatable(shortKeyA), Component.translatable(shortKeyB));
 	}
 
 	@Override

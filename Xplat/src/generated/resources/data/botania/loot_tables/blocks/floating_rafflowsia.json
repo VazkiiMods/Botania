@@ -2,37 +2,37 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "botania:floating_rafflowsia"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "functions": [
         {
           "function": "minecraft:copy_nbt",
-          "source": "block_entity",
           "ops": [
             {
+              "op": "replace",
               "source": "lastFlowers",
-              "target": "BlockEntityTag.lastFlowers",
-              "op": "replace"
+              "target": "BlockEntityTag.lastFlowers"
             },
             {
+              "op": "replace",
               "source": "lastFlowerTimes",
-              "target": "BlockEntityTag.lastFlowerTimes",
-              "op": "replace"
+              "target": "BlockEntityTag.lastFlowerTimes"
             }
-          ]
+          ],
+          "source": "block_entity"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

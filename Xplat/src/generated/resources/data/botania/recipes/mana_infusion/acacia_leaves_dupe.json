@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:acacia_leaves"
-  },
-  "output": {
-    "item": "minecraft:acacia_leaves",
-    "count": 2
-  },
-  "mana": 2000,
   "catalyst": {
     "type": "block",
     "block": "botania:conjuration_catalyst"
+  },
+  "input": {
+    "item": "minecraft:acacia_leaves"
+  },
+  "mana": 2000,
+  "output": {
+    "count": 2,
+    "item": "minecraft:acacia_leaves"
   }
 }

@@ -1,21 +1,21 @@
 {
   "type": "botania:mana_upgrade",
-  "pattern": [
-    "ITI",
-    "ILI",
-    " L "
-  ],
   "key": {
-    "T": {
-      "item": "botania:mana_tablet"
-    },
     "I": {
       "tag": "botania:terrasteel_ingots"
     },
     "L": {
       "item": "botania:livingwood_twig"
+    },
+    "T": {
+      "item": "botania:mana_tablet"
     }
   },
+  "pattern": [
+    "ITI",
+    "ILI",
+    " L "
+  ],
   "result": {
     "item": "botania:terra_pick"
   }

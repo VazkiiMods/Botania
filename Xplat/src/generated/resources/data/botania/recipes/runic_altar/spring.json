@@ -1,9 +1,5 @@
 {
   "type": "botania:runic_altar",
-  "output": {
-    "item": "botania:rune_spring"
-  },
-  "mana": 8000,
   "ingredients": [
     {
       "item": "botania:rune_water"
@@ -23,5 +19,9 @@
     {
       "item": "minecraft:wheat"
     }
-  ]
+  ],
+  "mana": 8000,
+  "output": {
+    "item": "botania:rune_spring"
+  }
 }

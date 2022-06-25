@@ -16,8 +16,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
@@ -325,7 +323,7 @@ public class ItemTwigWand extends Item {
 
 	@Override
 	public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> stacks) {
-		if (allowdedIn(group)) {
+		if (allowedIn(group)) {
 			stacks.add(setColors(new ItemStack(this), 0, 0));
 			List<Pair<Integer, Integer>> colorPairs = Arrays.asList(
 					new Pair<>(0, 3), // White + Light Blue
@@ -354,8 +352,8 @@ public class ItemTwigWand extends Item {
 
 	@Override
 	public Component getName(@Nonnull ItemStack stack) {
-		Component mode = new TextComponent(" (")
-				.append(new TranslatableComponent(getModeString(stack)).withStyle(modeChatFormatting))
+		Component mode = Component.literal(" (")
+				.append(Component.translatable(getModeString(stack)).withStyle(modeChatFormatting))
 				.append(")");
 		return super.getName(stack).plainCopy().append(mode);
 	}

@@ -1,0 +1,9 @@
+// 1.19	2022-08-16T19:10:58.985282709	Botania recipes (Fabric-specific)
+77c584c8cdfecb83926367a890317be5d88d5e4e data/botania/advancements/recipes/botania/azulejo_0.json
+bebf04f4f109cba1a5681eb4664612d4eb8f775d data/botania/advancements/recipes/botania/bauble_box.json
+6d4704efc108499940a36a7643826dec22f1f117 data/botania/advancements/recipes/botania/corporea_retainer.json
+68f8cef6ee0907d66036091028ee6c4f75394198 data/botania/advancements/recipes/botania/red_string_container.json
+f78408d3fabcef8a22912fce0cd3677c20cfcf65 data/botania/recipes/azulejo_0.json
+7edcd01eed6930022ec716f9890e1d1fcfc6b561 data/botania/recipes/bauble_box.json
+29eb84f79befa30499c5e8c25d14ae17b4f513c9 data/botania/recipes/corporea_retainer.json
+713e27c8aad6b69a294bbb5eb4032486dbdb39cc data/botania/recipes/red_string_container.json

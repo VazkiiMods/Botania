@@ -1,30 +1,30 @@
 {
   "parent": "botania:challenge/gaia_guardian_hardmode",
-  "display": {
-    "icon": {
-      "item": "botania:flugel_eye"
-    },
-    "title": {
-      "translate": "advancement.botania:flugelEye"
-    },
-    "description": {
-      "translate": "advancement.botania:flugelEye.desc"
-    },
-    "frame": "challenge",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "eye": {
-      "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
           "items": [
             "botania:flugel_eye"
           ]
         }
-      }
+      },
+      "trigger": "botania:relic_bind"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.botania:flugelEye.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "botania:flugel_eye"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.botania:flugelEye"
     }
   },
   "requirements": [

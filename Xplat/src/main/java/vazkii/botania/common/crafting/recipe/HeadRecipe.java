@@ -13,7 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
@@ -51,7 +51,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 				}
 
 				if (stack.is(Items.NAME_TAG)) {
-					String defaultName = new TranslatableComponent(Items.NAME_TAG.getDescriptionId()).getString();
+					String defaultName = Component.translatable(Items.NAME_TAG.getDescriptionId()).getString();
 					if (stack.getHoverName().getString().equals(defaultName)) {
 						return false;
 					}

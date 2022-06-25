@@ -10,41 +10,33 @@ package vazkii.botania.client.integration.jei.orechid;
 
 import mezz.jei.api.helpers.IGuiHelper;
 
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeOrechid;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-public class OrechidRecipeCategory extends OrechidRecipeCategoryBase {
-	public static final ResourceLocation UID = prefix("orechid");
+public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<RecipeOrechid> {
+	public static final mezz.jei.api.recipe.RecipeType<RecipeOrechid> TYPE =
+			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "orechid", RecipeOrechid.class);
 
 	public OrechidRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(ModSubtiles.orechid), new TranslatableComponent("botania.nei.orechid"));
+		super(guiHelper, new ItemStack(ModSubtiles.orechid), Component.translatable("botania.nei.orechid"));
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
-	}
-
-	@Nonnull
-	@Override
-	public Class<? extends IOrechidRecipe> getRecipeClass() {
-		return RecipeOrechid.class;
+	public mezz.jei.api.recipe.RecipeType<RecipeOrechid> getRecipeType() {
+		return TYPE;
 	}
 
 	@Override
-	protected RecipeType<? extends IOrechidRecipe> recipeType() {
+	protected RecipeType<RecipeOrechid> recipeType() {
 		return ModRecipeTypes.ORECHID_TYPE;
 	}
 }

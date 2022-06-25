@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "botania:travel_belt"
+    },
+    "M": {
+      "item": "minecraft:map"
+    },
+    "P": {
+      "item": "botania:grass_seeds"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    }
+  },
   "pattern": [
     " M ",
     "PBP",
     " S "
   ],
-  "key": {
-    "P": {
-      "item": "botania:grass_seeds"
-    },
-    "B": {
-      "item": "botania:travel_belt"
-    },
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "M": {
-      "item": "minecraft:map"
-    }
-  },
   "result": {
     "item": "botania:speed_up_belt"
   }

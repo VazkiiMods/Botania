@@ -13,8 +13,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -180,18 +178,18 @@ public class ItemManaGun extends Item {
 
 		if (clip) {
 			int pos = getClipPos(stack);
-			tooltip.add(new TranslatableComponent("botaniamisc.hasClip"));
+			tooltip.add(Component.translatable("botaniamisc.hasClip"));
 			for (int i = 0; i < CLIP_SLOTS; i++) {
 				ItemStack lensAt = getLensAtPos(stack, i);
 
 				Component name;
 				if (lensAt.isEmpty()) {
-					name = new TranslatableComponent("botaniamisc.clipEmpty");
+					name = Component.translatable("botaniamisc.clipEmpty");
 				} else {
 					name = lensAt.getHoverName();
 				}
 
-				MutableComponent tip = new TextComponent(" - ").append(name);
+				MutableComponent tip = Component.literal(" - ").append(name);
 				tip.withStyle(i == pos ? ChatFormatting.GREEN : ChatFormatting.GRAY);
 				tooltip.add(tip);
 			}

@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab",
   "textures": {
     "bottom": "botania:block/shimmerwood_planks",
-    "top": "botania:block/shimmerwood_planks",
-    "side": "botania:block/shimmerwood_planks"
+    "side": "botania:block/shimmerwood_planks",
+    "top": "botania:block/shimmerwood_planks"
   }
 }

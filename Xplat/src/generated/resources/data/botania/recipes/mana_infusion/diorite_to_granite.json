@@ -1,14 +1,14 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:diorite"
-  },
-  "output": {
-    "item": "minecraft:granite"
-  },
-  "mana": 200,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:diorite"
+  },
+  "mana": 200,
+  "output": {
+    "item": "minecraft:granite"
   }
 }

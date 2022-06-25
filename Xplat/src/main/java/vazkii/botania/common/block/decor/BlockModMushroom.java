@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -29,8 +30,6 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import javax.annotation.Nonnull;
 
-import java.util.Random;
-
 public class BlockModMushroom extends MushroomBlock implements ICustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
@@ -42,7 +41,7 @@ public class BlockModMushroom extends MushroomBlock implements ICustomApothecary
 	}
 
 	@Override
-	public boolean growMushroom(ServerLevel level, BlockPos pos, BlockState state, Random rand) {
+	public boolean growMushroom(ServerLevel level, BlockPos pos, BlockState state, RandomSource rand) {
 		return false;
 	}
 
@@ -65,7 +64,7 @@ public class BlockModMushroom extends MushroomBlock implements ICustomApothecary
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:pollidisiac"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/red"
@@ -25,5 +22,8 @@
     {
       "item": "botania:rune_fire"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:pollidisiac"
+  }
 }

@@ -16,7 +16,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -97,14 +96,14 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	public MutableComponent getArmorSetName() {
-		return new TranslatableComponent("botania.armorset.terrasteel.name");
+		return Component.translatable("botania.armorset.terrasteel.name");
 	}
 
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
-		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc0").withStyle(ChatFormatting.GRAY));
-		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc1").withStyle(ChatFormatting.GRAY));
-		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc2").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.terrasteel.desc0").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.terrasteel.desc1").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.terrasteel.desc2").withStyle(ChatFormatting.GRAY));
 	}
 
 	@SoftImplement("IForgeItem")

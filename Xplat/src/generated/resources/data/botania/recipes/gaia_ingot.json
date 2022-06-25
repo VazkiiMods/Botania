@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "tag": "botania:terrasteel_ingots"
+    },
+    "S": {
+      "item": "botania:life_essence"
+    }
+  },
   "pattern": [
     " S ",
     "SIS",
     " S "
   ],
-  "key": {
-    "S": {
-      "item": "botania:life_essence"
-    },
-    "I": {
-      "tag": "botania:terrasteel_ingots"
-    }
-  },
   "result": {
     "item": "botania:gaia_ingot"
   }

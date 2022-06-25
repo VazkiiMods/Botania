@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "E": {
+      "item": "botania:rune_earth"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
   "pattern": [
     "  D",
     " T ",
     "E  "
   ],
-  "key": {
-    "D": {
-      "item": "minecraft:dirt"
-    },
-    "T": {
-      "item": "botania:livingwood_twig"
-    },
-    "E": {
-      "item": "botania:rune_earth"
-    }
-  },
   "result": {
     "item": "botania:dirt_rod"
   }

@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "  F",
-    " T ",
-    "R  "
-  ],
   "key": {
+    "F": {
+      "item": "minecraft:blaze_powder"
+    },
     "R": {
       "item": "botania:rune_fire"
     },
     "T": {
       "item": "botania:livingwood_twig"
-    },
-    "F": {
-      "item": "minecraft:blaze_powder"
     }
   },
+  "pattern": [
+    "  F",
+    " T ",
+    "R  "
+  ],
   "result": {
     "item": "botania:fire_rod"
   }

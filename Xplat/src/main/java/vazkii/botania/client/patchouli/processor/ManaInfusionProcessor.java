@@ -12,9 +12,6 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.KeybindComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -85,12 +82,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			case "mana":
 				return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
 			case "drop":
-				Component q = new TextComponent("(?)").withStyle(ChatFormatting.BOLD);
-				return IVariable.from(new TranslatableComponent("botaniamisc.drop").append(" ").append(q));
+				Component q = Component.literal("(?)").withStyle(ChatFormatting.BOLD);
+				return IVariable.from(Component.translatable("botaniamisc.drop").append(" ").append(q));
 			case "dropTip0":
 			case "dropTip1":
-				Component drop = new KeybindComponent("key.drop").withStyle(ChatFormatting.GREEN);
-				return IVariable.from(new TranslatableComponent("botaniamisc." + key, drop));
+				Component drop = Component.keybind("key.drop").withStyle(ChatFormatting.GREEN);
+				return IVariable.from(Component.translatable("botaniamisc." + key, drop));
 		}
 		return null;
 	}

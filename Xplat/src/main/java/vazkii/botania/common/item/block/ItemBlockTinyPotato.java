@@ -9,9 +9,8 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -19,17 +18,20 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ItemWithBannerPattern;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public class ItemBlockTinyPotato extends BlockItem /*implements LoomPatternProvider*/ {
+public class ItemBlockTinyPotato extends BlockItem implements ItemWithBannerPattern {
 
 	private static final Pattern TYPOS = Pattern.compile(
 			"(?!^vazkii$)" // Do not match the properly spelled version 
@@ -63,12 +65,10 @@ public class ItemBlockTinyPotato extends BlockItem /*implements LoomPatternProvi
 		super(block, props);
 	}
 
-	/*
 	@Override
-	public LoomPattern getPattern() {
-		return ModPatterns.TINY_POTATO;
+	public TagKey<BannerPattern> getBannerPattern() {
+		return ModTags.BannerPatterns.PATTERN_ITEM_TINY_POTATO;
 	}
-	*/
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity e, int t, boolean idunno) {
@@ -76,7 +76,7 @@ public class ItemBlockTinyPotato extends BlockItem /*implements LoomPatternProvi
 				&& TYPOS.matcher(stack.getHoverName().getString()).matches()) {
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if (ticks < NOT_MY_NAME.length) {
-				player.sendMessage(new TextComponent(NOT_MY_NAME[ticks]).withStyle(ChatFormatting.RED), Util.NIL_UUID);
+				player.sendSystemMessage(Component.literal(NOT_MY_NAME[ticks]).withStyle(ChatFormatting.RED));
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

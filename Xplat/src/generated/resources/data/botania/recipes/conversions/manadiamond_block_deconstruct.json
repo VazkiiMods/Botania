@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "botania:mana_diamond",
-    "count": 9
+    "count": 9,
+    "item": "botania:mana_diamond"
   }
 }

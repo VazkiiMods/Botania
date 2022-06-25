@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "QQQ"
-  ],
   "key": {
     "Q": {
       "item": "botania:dreamwood_planks"
     }
   },
+  "pattern": [
+    "QQQ"
+  ],
   "result": {
-    "item": "botania:dreamwood_planks_slab",
-    "count": 6
+    "count": 6,
+    "item": "botania:dreamwood_planks_slab"
   }
 }

@@ -24,8 +24,6 @@ import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
-import javax.annotation.Nonnull;
-
 import java.util.Comparator;
 
 import static vazkii.botania.common.item.ModItems.*;
@@ -206,11 +204,5 @@ public class ItemTagProvider extends ItemTagsProvider {
 				waterRod
 		);
 		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant);
-	}
-
-	@Nonnull
-	@Override
-	public String getName() {
-		return "Botania item tags";
 	}
 }

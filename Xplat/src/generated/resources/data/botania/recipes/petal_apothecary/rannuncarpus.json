@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:rannuncarpus"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/orange"
@@ -19,5 +16,8 @@
     {
       "item": "botania:redstone_root"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:rannuncarpus"
+  }
 }

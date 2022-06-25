@@ -14,7 +14,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -88,7 +87,7 @@ public class ItemAstrolabe extends Item {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;
 				setSize(stack, newSize);
-				ItemsRemainingRenderHandler.send(playerIn, stack, 0, new TextComponent(newSize + "x" + newSize));
+				ItemsRemainingRenderHandler.send(playerIn, stack, 0, Component.literal(newSize + "x" + newSize));
 			}
 
 			return InteractionResultHolder.success(stack);
@@ -282,7 +281,7 @@ public class ItemAstrolabe extends Item {
 		Block block = getBlock(stack);
 		int size = getSize(stack);
 
-		tip.add(new TextComponent(size + " x " + size));
+		tip.add(Component.literal(size + " x " + size));
 		if (block != Blocks.AIR) {
 			tip.add(new ItemStack(block).getHoverName().plainCopy().withStyle(ChatFormatting.GRAY));
 		}

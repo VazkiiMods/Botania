@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:tangleberrie"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/cyan"
@@ -22,5 +19,8 @@
     {
       "item": "botania:rune_earth"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:tangleberrie"
+  }
 }

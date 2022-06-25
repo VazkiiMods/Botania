@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.CreativeModeTab;
@@ -46,7 +45,7 @@ public class ItemManaTablet extends Item {
 
 	@Override
 	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if (allowdedIn(tab)) {
+		if (allowedIn(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack fullPower = new ItemStack(this);
@@ -69,7 +68,7 @@ public class ItemManaTablet extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		if (isStackCreative(stack)) {
-			stacks.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
+			stacks.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
 

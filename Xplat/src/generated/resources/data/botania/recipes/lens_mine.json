@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "L": {
+      "item": "botania:lens_normal"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
   "pattern": [
     " P ",
     "ALA",
     " R "
   ],
-  "key": {
-    "P": {
-      "item": "minecraft:piston"
-    },
-    "A": {
-      "item": "minecraft:lapis_lazuli"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "L": {
-      "item": "botania:lens_normal"
-    }
-  },
   "result": {
     "item": "botania:lens_mine"
   }

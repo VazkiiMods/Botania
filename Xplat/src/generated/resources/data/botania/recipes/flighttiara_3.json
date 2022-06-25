@@ -1,5 +1,6 @@
 {
   "type": "botania:nbt_output_wrapper",
+  "nbt": "{variant:3}",
   "recipe": {
     "type": "minecraft:crafting_shapeless",
     "group": "botania:flight_tiara_wings",
@@ -14,6 +15,5 @@
     "result": {
       "item": "botania:flight_tiara"
     }
-  },
-  "nbt": "{variant:3}"
+  }
 }

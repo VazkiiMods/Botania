@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "botania:red_quartz"
-  },
-  "output": {
-    "item": "botania:quartz_red",
-    "count": 4
-  },
-  "mana": 25,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "botania:red_quartz"
+  },
+  "mana": 25,
+  "output": {
+    "count": 4,
+    "item": "botania:quartz_red"
   }
 }

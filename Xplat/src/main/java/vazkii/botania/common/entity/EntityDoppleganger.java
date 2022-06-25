@@ -12,18 +12,17 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -210,7 +209,7 @@ public class EntityDoppleganger extends Mob {
 		//check difficulty
 		if (world.getDifficulty() == Difficulty.PEACEFUL) {
 			if (!world.isClientSide) {
-				player.sendMessage(new TranslatableComponent("botaniamisc.peacefulNoob").withStyle(ChatFormatting.RED), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.peacefulNoob").withStyle(ChatFormatting.RED));
 			}
 			return false;
 		}
@@ -221,7 +220,7 @@ public class EntityDoppleganger extends Mob {
 			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslatableComponent("botaniamisc.needsCatalysts").withStyle(ChatFormatting.RED), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.needsCatalysts").withStyle(ChatFormatting.RED));
 			}
 
 			return false;
@@ -235,7 +234,7 @@ public class EntityDoppleganger extends Mob {
 			} else {
 				IXplatAbstractions.INSTANCE.sendToPlayer(player, new PacketBotaniaEffect(EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslatableComponent("botaniamisc.badArena").withStyle(ChatFormatting.RED), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.badArena").withStyle(ChatFormatting.RED));
 			}
 
 			return false;
@@ -946,7 +945,7 @@ public class EntityDoppleganger extends Mob {
 		level.playSound(null, oldX, oldY, oldZ, ModSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
 		this.playSound(ModSounds.gaiaTeleport, 1F, 1F);
 
-		Random random = getRandom();
+		var random = getRandom();
 
 		//spawn particles along the path
 		int particleCount = 128;
@@ -1009,7 +1008,7 @@ public class EntityDoppleganger extends Mob {
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return IXplatAbstractions.INSTANCE.toVanillaClientboundPacket(
-				new PacketSpawnDoppleganger(new ClientboundAddMobPacket(this), playerCount, hardMode, source, bossInfoUUID));
+				new PacketSpawnDoppleganger(new ClientboundAddEntityPacket(this), playerCount, hardMode, source, bossInfoUUID));
 	}
 
 	@Override
@@ -1021,7 +1020,7 @@ public class EntityDoppleganger extends Mob {
 		private final EntityDoppleganger guardian;
 
 		private DopplegangerMusic(EntityDoppleganger guardian) {
-			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS);
+			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
 			this.guardian = guardian;
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();

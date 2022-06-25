@@ -1,14 +1,14 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "botania:hydroangeas"
-  },
-  "output": {
-    "item": "botania:hydroangeas_motif"
-  },
-  "mana": 2500,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "botania:hydroangeas"
+  },
+  "mana": 2500,
+  "output": {
+    "item": "botania:hydroangeas_motif"
   }
 }

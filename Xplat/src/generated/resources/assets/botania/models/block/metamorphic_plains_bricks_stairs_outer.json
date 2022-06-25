@@ -2,7 +2,7 @@
   "parent": "minecraft:block/outer_stairs",
   "textures": {
     "bottom": "botania:block/metamorphic_plains_bricks_top",
-    "top": "botania:block/metamorphic_plains_bricks_top",
-    "side": "botania:block/metamorphic_plains_bricks"
+    "side": "botania:block/metamorphic_plains_bricks",
+    "top": "botania:block/metamorphic_plains_bricks_top"
   }
 }

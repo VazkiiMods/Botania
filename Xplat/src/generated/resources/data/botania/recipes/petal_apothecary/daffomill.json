@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:daffomill"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/white"
@@ -22,5 +19,8 @@
     {
       "item": "botania:redstone_root"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:daffomill"
+  }
 }

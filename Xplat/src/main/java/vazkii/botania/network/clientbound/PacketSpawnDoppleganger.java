@@ -11,7 +11,7 @@ package vazkii.botania.network.clientbound;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public record PacketSpawnDoppleganger(ClientboundAddMobPacket inner, int playerCount, boolean hardMode,
+public record PacketSpawnDoppleganger(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
 		BlockPos source, UUID bossInfoId) implements IPacket {
 
 	public static final ResourceLocation ID = prefix("spg");
@@ -43,7 +43,7 @@ public record PacketSpawnDoppleganger(ClientboundAddMobPacket inner, int playerC
 
 	public static PacketSpawnDoppleganger decode(FriendlyByteBuf buf) {
 		return new PacketSpawnDoppleganger(
-				new ClientboundAddMobPacket(buf),
+				new ClientboundAddEntityPacket(buf),
 				buf.readVarInt(),
 				buf.readBoolean(),
 				buf.readBlockPos(),
@@ -53,7 +53,7 @@ public record PacketSpawnDoppleganger(ClientboundAddMobPacket inner, int playerC
 
 	public static class Handler {
 		public static void handle(PacketSpawnDoppleganger packet) {
-			ClientboundAddMobPacket inner = packet.inner();
+			var inner = packet.inner();
 			int playerCount = packet.playerCount();
 			boolean hardMode = packet.hardMode();
 			BlockPos source = packet.source();
@@ -62,7 +62,7 @@ public record PacketSpawnDoppleganger(ClientboundAddMobPacket inner, int playerC
 			Minecraft.getInstance().execute(() -> {
 				var player = Minecraft.getInstance().player;
 				if (player != null) {
-					player.connection.handleAddMob(inner);
+					player.connection.handleAddEntity(inner);
 					Entity e = player.level.getEntity(inner.getId());
 					if (e instanceof EntityDoppleganger dopple) {
 						dopple.readSpawnData(playerCount, hardMode, source, bossInfoUuid);

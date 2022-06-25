@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "EMP",
-    "M M",
-    " M "
-  ],
   "key": {
-    "P": {
-      "item": "minecraft:golden_pickaxe"
-    },
     "E": {
       "item": "botania:rune_earth"
     },
     "M": {
       "tag": "botania:manasteel_ingots"
+    },
+    "P": {
+      "item": "minecraft:golden_pickaxe"
     }
   },
+  "pattern": [
+    "EMP",
+    "M M",
+    " M "
+  ],
   "result": {
     "item": "botania:mining_ring"
   }

@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "E E",
-    " E "
-  ],
   "key": {
     "E": {
       "tag": "botania:elementium_ingots"
     }
   },
+  "pattern": [
+    "E E",
+    " E "
+  ],
   "result": {
     "item": "botania:open_bucket"
   }

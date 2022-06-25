@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:bellethorn"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/red"
@@ -22,5 +19,8 @@
     {
       "item": "botania:redstone_root"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:bellethorn"
+  }
 }

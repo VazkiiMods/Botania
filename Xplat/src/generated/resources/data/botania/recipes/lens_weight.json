@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PPP",
-    "PLP",
-    "PRP"
-  ],
   "key": {
+    "L": {
+      "item": "botania:lens_normal"
+    },
     "P": {
       "item": "minecraft:prismarine_crystals"
     },
     "R": {
       "item": "botania:rune_water"
-    },
-    "L": {
-      "item": "botania:lens_normal"
     }
   },
+  "pattern": [
+    "PPP",
+    "PLP",
+    "PRP"
+  ],
   "result": {
     "item": "botania:lens_weight"
   }

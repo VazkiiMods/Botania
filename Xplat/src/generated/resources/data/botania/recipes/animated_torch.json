@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "D",
-    "T"
-  ],
   "key": {
     "D": {
       "tag": "botania:mana_dusts"
@@ -12,6 +8,10 @@
       "item": "minecraft:redstone_torch"
     }
   },
+  "pattern": [
+    "D",
+    "T"
+  ],
   "result": {
     "item": "botania:animated_torch"
   }

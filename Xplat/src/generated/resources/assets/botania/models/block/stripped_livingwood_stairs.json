@@ -2,7 +2,7 @@
   "parent": "minecraft:block/stairs",
   "textures": {
     "bottom": "botania:block/stripped_livingwood_log",
-    "top": "botania:block/stripped_livingwood_log",
-    "side": "botania:block/stripped_livingwood_log"
+    "side": "botania:block/stripped_livingwood_log",
+    "top": "botania:block/stripped_livingwood_log"
   }
 }

@@ -8,15 +8,13 @@
  */
 package vazkii.botania.data;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +39,7 @@ public class FloatingFlowerModelProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		List<Tuple<String, JsonElement>> jsons = new ArrayList<>();
 		for (Block b : Registry.BLOCK) {
 			ResourceLocation id = Registry.BLOCK.getKey(b);
@@ -64,12 +62,11 @@ public class FloatingFlowerModelProvider implements DataProvider {
 			}
 		}
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		for (Tuple<String, JsonElement> pair : jsons) {
 			Path blockPath = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/block/" + pair.getA() + ".json");
 			Path itemPath = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/item/" + pair.getA() + ".json");
-			DataProvider.save(gson, cache, pair.getB(), blockPath);
-			DataProvider.save(gson, cache, pair.getB(), itemPath);
+			DataProvider.saveStable(cache, pair.getB(), blockPath);
+			DataProvider.saveStable(cache, pair.getB(), itemPath);
 		}
 	}
 

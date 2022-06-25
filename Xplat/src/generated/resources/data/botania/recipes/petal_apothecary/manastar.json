@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:manastar"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/light_blue"
@@ -16,5 +13,8 @@
     {
       "tag": "botania:petals/cyan"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:manastar"
+  }
 }

@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:munchdew"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/lime"
@@ -22,5 +19,8 @@
     {
       "item": "botania:rune_gluttony"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:munchdew"
+  }
 }

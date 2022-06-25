@@ -1,5 +1,6 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": [
     {
       "item": "botania:azulejo_0"
@@ -47,6 +48,5 @@
       "item": "botania:azulejo_14"
     }
   ],
-  "result": "botania:azulejo_15",
-  "count": 1
+  "result": "botania:azulejo_15"
 }

@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "EIE",
-    "ADA",
-    "EIE"
-  ],
   "key": {
     "A": {
       "item": "botania:ender_air_bottle"
@@ -19,6 +14,11 @@
       "tag": "botania:elementium_ingots"
     }
   },
+  "pattern": [
+    "EIE",
+    "ADA",
+    "EIE"
+  ],
   "result": {
     "item": "botania:spawner_mover"
   }

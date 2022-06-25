@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "botania:dragonstone",
-    "count": 9
+    "count": 9,
+    "item": "botania:dragonstone"
   }
 }

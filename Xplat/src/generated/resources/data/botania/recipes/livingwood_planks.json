@@ -7,7 +7,7 @@
     }
   ],
   "result": {
-    "item": "botania:livingwood_planks",
-    "count": 4
+    "count": 4,
+    "item": "botania:livingwood_planks"
   }
 }

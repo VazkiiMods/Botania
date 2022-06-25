@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "top": "botania:block/infused_grass_top",
     "bottom": "minecraft:block/dirt",
-    "side": "botania:block/infused_grass_side"
+    "side": "botania:block/infused_grass_side",
+    "top": "botania:block/infused_grass_top"
   }
 }

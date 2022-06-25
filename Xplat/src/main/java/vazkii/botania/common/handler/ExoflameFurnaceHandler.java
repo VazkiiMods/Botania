@@ -9,9 +9,7 @@
 package vazkii.botania.common.handler;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -22,20 +20,27 @@ import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ExoflameFurnaceHandler {
-	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace, Recipe<?> recipe) {
+	public static boolean canSmeltRecipe(AbstractFurnaceBlockEntity furnace, Recipe<?> recipe) {
 		var items = ((AccessorAbstractFurnaceBlockEntity) furnace).getItems();
 		return IXplatAbstractions.INSTANCE.canFurnaceBurn(furnace, recipe, items, furnace.getMaxStackSize());
 	}
 
-	public static RecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceBlockEntity furnace) {
-		return ((AccessorAbstractFurnaceBlockEntity) furnace).getRecipeType();
+	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace) {
+		if (furnace.getItem(0).isEmpty()) {
+			return false;
+		}
+		try {
+			var qc = ((AccessorAbstractFurnaceBlockEntity) furnace).getQuickCheck();
+			var currentRecipe = qc.getRecipeFor(furnace, furnace.getLevel());
+			return currentRecipe.isPresent() && ExoflameFurnaceHandler.canSmeltRecipe(furnace, currentRecipe.get());
+		} catch (Throwable t) {
+			BotaniaAPI.LOGGER.error("Failed to determine if furnace TE can smelt", t);
+			return false;
+		}
 	}
 
 	public static class FurnaceExoflameHeatable implements IExoflameHeatable {
 		private final AbstractFurnaceBlockEntity furnace;
-
-		private RecipeType<? extends AbstractCookingRecipe> recipeType;
-		private AbstractCookingRecipe currentRecipe;
 
 		public FurnaceExoflameHeatable(AbstractFurnaceBlockEntity furnace) {
 			this.furnace = furnace;
@@ -43,25 +48,7 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public boolean canSmelt() {
-			if (furnace.getItem(0).isEmpty()) {
-				return false;
-			}
-			try {
-				if (recipeType == null) {
-					this.recipeType = ExoflameFurnaceHandler.getRecipeType(furnace);
-				}
-				if (currentRecipe != null) { // This is already more caching than Mojang does
-					if (currentRecipe.matches(furnace, furnace.getLevel())
-							&& ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe)) {
-						return true;
-					}
-				}
-				currentRecipe = furnace.getLevel().getRecipeManager().getRecipeFor(recipeType, furnace, furnace.getLevel()).orElse(null);
-				return ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe);
-			} catch (Throwable t) {
-				BotaniaAPI.LOGGER.error("Failed to determine if furnace TE can smelt", t);
-				return false;
-			}
+			return ExoflameFurnaceHandler.canSmelt(furnace);
 		}
 
 		@Override

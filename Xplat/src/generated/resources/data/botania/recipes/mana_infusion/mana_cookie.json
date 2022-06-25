@@ -3,8 +3,8 @@
   "input": {
     "item": "minecraft:cookie"
   },
+  "mana": 20000,
   "output": {
     "item": "botania:mana_cookie"
-  },
-  "mana": 20000
+  }
 }

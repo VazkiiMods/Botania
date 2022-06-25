@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:spruce_leaves"
-  },
-  "output": {
-    "item": "minecraft:spruce_leaves",
-    "count": 2
-  },
-  "mana": 2000,
   "catalyst": {
     "type": "block",
     "block": "botania:conjuration_catalyst"
+  },
+  "input": {
+    "item": "minecraft:spruce_leaves"
+  },
+  "mana": 2000,
+  "output": {
+    "count": 2,
+    "item": "minecraft:spruce_leaves"
   }
 }

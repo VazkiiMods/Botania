@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " I ",
-    "IYI",
-    "IEI"
-  ],
   "key": {
     "E": {
       "item": "minecraft:emerald"
@@ -16,6 +11,11 @@
       "item": "minecraft:ender_eye"
     }
   },
+  "pattern": [
+    " I ",
+    "IYI",
+    "IEI"
+  ],
   "result": {
     "item": "botania:itemfinder"
   }

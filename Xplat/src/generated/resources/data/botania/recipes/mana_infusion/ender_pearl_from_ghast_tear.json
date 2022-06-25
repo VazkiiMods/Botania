@@ -1,14 +1,14 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:ghast_tear"
-  },
-  "output": {
-    "item": "minecraft:ender_pearl"
-  },
-  "mana": 28000,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:ghast_tear"
+  },
+  "mana": 28000,
+  "output": {
+    "item": "minecraft:ender_pearl"
   }
 }

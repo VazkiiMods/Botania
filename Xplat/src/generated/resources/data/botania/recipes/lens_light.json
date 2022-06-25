@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GFG",
-    "FLF",
-    "GFG"
-  ],
   "key": {
     "F": {
       "item": "minecraft:fire_charge"
@@ -16,6 +11,11 @@
       "item": "botania:lens_normal"
     }
   },
+  "pattern": [
+    "GFG",
+    "FLF",
+    "GFG"
+  ],
   "result": {
     "item": "botania:lens_light"
   }

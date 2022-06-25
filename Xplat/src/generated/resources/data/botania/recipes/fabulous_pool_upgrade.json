@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "botania:bifrost_perm"
+    },
+    "P": {
+      "item": "botania:mana_pool"
+    }
+  },
   "pattern": [
     "BPB",
     "BBB"
   ],
-  "key": {
-    "P": {
-      "item": "botania:mana_pool"
-    },
-    "B": {
-      "item": "botania:bifrost_perm"
-    }
-  },
   "result": {
     "item": "botania:fabulous_pool"
   }

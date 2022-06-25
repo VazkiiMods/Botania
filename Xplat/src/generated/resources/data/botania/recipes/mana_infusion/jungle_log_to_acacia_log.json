@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:jungle_log"
-  },
-  "output": {
-    "item": "minecraft:acacia_log"
-  },
-  "mana": 40,
-  "group": "botania:log_cycle",
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:log_cycle",
+  "input": {
+    "item": "minecraft:jungle_log"
+  },
+  "mana": 40,
+  "output": {
+    "item": "minecraft:acacia_log"
   }
 }
