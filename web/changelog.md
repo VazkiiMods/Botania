@@ -8,6 +8,28 @@ title: "Changelog"
 	Botania Changelog
 </div>
 
+{% include changelog_header.html version="1.18.2-434" %}
+
+* Add: EMI integration. EMI is a new recipe viewer mod
+  that brings innovative new features such as
+  crafting trees and material lists (emiploszaj)
+* Add: New challenge achievement, Blessing. Get it by celebrating Tiny Potato's
+  birthday with it on July 19th! Any candle cake will do.
+* Change: Downmix Gaia music to mono so it is properly positional
+* Change: Redirective lens can now make spreaders aim towards an entity that shot the
+  burst (such as a player shooting a Redirective blaster)
+* Change: Redirective lens bursts now hit entities and cause them to face the shooter
+* Change: Remove quasiconnectivity from the Cacophonium, Luminizer Launcher, Spark
+  Tinkerer, Corporea Funnel, Corporea Retainer, Mana Prism, and Red String Dispenser.
+  Most of these weren't intentional and were found to be getting in the way of builds.
+  If you have opinions about this, discuss with us on #botania_engineering on Discord. (artemisSystem)
+* Fix: Greater Mana Ring having wrong capacity on Fabric
+* Fix: Fluxfield documentation now mentions Tech Reborn Energy
+* Fix: Fix Tech Reborn energy not being sent to blocks without a block entity on Fabric
+* Fix: Add a fix to prevent crashes when the pixie spawn chance attribute isn't registered properly
+
+---
+
 {% include changelog_header.html version="1.18.2-433" %}
 
 * Add: Mana Flames are now waterloggable, and the flash lens will place them in water
