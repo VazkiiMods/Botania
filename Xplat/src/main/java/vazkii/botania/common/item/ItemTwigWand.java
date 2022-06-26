@@ -62,9 +62,11 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.Optional;
+import java.util.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+import oshi.util.tuples.Pair;
 
 public class ItemTwigWand extends Item {
 
@@ -324,8 +326,28 @@ public class ItemTwigWand extends Item {
 	@Override
 	public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> stacks) {
 		if (allowdedIn(group)) {
-			for (int i = 0; i < 16; i++) {
-				stacks.add(setColors(new ItemStack(this), i, i));
+			stacks.add(setColors(new ItemStack(this), 0, 0));
+			List<Pair<Integer, Integer>> colorPairs = Arrays.asList(
+					new Pair<>(0, 3), // White + Light Blue
+					new Pair<>(0, 6), // White + Pink
+					new Pair<>(3, 6), // Light Blue + Pink
+					new Pair<>(10, 11), // Purple + Blue
+					new Pair<>(14, 14), // Red
+					new Pair<>(11, 11), // Blue
+					new Pair<>(1, 1), // Orange
+					new Pair<>(15, 15), // Black
+					new Pair<>(7, 8), // Gray + Light Gray
+					new Pair<>(6, 7), // Pink + Gray
+					new Pair<>(4, 5), // Yellow + Lime
+					new Pair<>(0, 15) // White + Black
+			);
+			Collections.shuffle(colorPairs);
+			for (int i = 0; i < 7; i++) {
+				Pair<Integer, Integer> pair = colorPairs.get(i);
+				if (new Random().nextBoolean()) {
+					pair = new Pair<>(pair.getB(), pair.getA());
+				}
+				stacks.add(setColors(new ItemStack(this), pair.getA(), pair.getB()));
 			}
 		}
 	}
