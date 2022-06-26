@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item;
 
+import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -65,8 +67,6 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-import oshi.util.tuples.Pair;
 
 public class ItemTwigWand extends Item {
 
@@ -344,10 +344,10 @@ public class ItemTwigWand extends Item {
 			Collections.shuffle(colorPairs);
 			for (int i = 0; i < 7; i++) {
 				Pair<Integer, Integer> pair = colorPairs.get(i);
-				if (new Random().nextBoolean()) {
-					pair = new Pair<>(pair.getB(), pair.getA());
+				if (Math.random() < 0.5) {
+					pair = new Pair<>(pair.getSecond(), pair.getFirst());
 				}
-				stacks.add(setColors(new ItemStack(this), pair.getA(), pair.getB()));
+				stacks.add(setColors(new ItemStack(this), pair.getFirst(), pair.getSecond()));
 			}
 		}
 	}
