@@ -8,6 +8,9 @@ title: "Changelog"
 	Botania Changelog
 </div>
 
+Note: A name in parentheses at the end of a line item means that it
+was contributed externally by that member of the community.
+
 {% include changelog_header.html version="1.18.2-434" %}
 
 * Add: EMI integration. EMI is a new recipe viewer mod
