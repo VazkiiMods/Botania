@@ -55,7 +55,7 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven {
-        url = "https://maven.terraformersmc.com/" // for trinkets
+        url = "https://maven.terraformersmc.com/" // for trinkets and emi
     }
     maven {
           name = "Ladysnake Libs"
@@ -101,6 +101,9 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
     // modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
+
+    modCompileOnly "dev.emi:emi:0.1.0+1.18.2"
+    // modLocalRuntime "dev.emi:emi:0.1.0+1.18.2"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"

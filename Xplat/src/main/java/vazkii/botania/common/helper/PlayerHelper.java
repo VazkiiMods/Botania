@@ -18,6 +18,7 @@ import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -25,11 +26,31 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
+import javax.annotation.Nullable;
+
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public final class PlayerHelper {
+
+	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
+
+	public static boolean isTruePlayer(@Nullable Entity e) {
+		if (!(e instanceof Player player)) {
+			return false;
+		}
+
+		String name = player.getName().getString();
+		return !FAKE_PLAYER_PATTERN.matcher(name).matches();
+	}
+
+	public static List<Player> getRealPlayersIn(Level level, AABB aabb) {
+		return level.getEntitiesOfClass(Player.class, aabb, player -> isTruePlayer(player) && !player.isSpectator());
+	}
 
 	// Checks if either of the player's hands has an item.
 	public static boolean hasAnyHeldItem(Player player) {
@@ -110,6 +131,13 @@ public final class PlayerHelper {
 
 	public static ItemStack getItemClassFromInventory(Player player, Class<?> template) {
 		return getItemFromInventory(player, s -> template.isAssignableFrom(s.getItem().getClass()));
+	}
+
+	public static boolean hasAdvancement(ServerPlayer player, ResourceLocation advancementId) {
+		PlayerAdvancements advancements = player.getAdvancements();
+		ServerAdvancementManager manager = player.getLevel().getServer().getAdvancements();
+		Advancement advancement = manager.getAdvancement(advancementId);
+		return advancement != null && advancements.getOrStartProgress(advancement).isDone();
 	}
 
 	public static void grantCriterion(ServerPlayer player, ResourceLocation advancementId, String criterion) {

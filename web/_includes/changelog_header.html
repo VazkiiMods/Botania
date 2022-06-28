@@ -1,0 +1,3 @@
+{% capture anchor %}{{ include.version | downcase | replace: " ", "-" | replace: ".", "-" }}-fake{% endcapture %}
+<h3 id="{{ anchor }}"><a href="#{{ anchor }}">{{ include.version }}</a></h3>
+

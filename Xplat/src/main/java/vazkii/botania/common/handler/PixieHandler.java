@@ -67,7 +67,10 @@ public final class PixieHandler {
 
 	public static void onDamageTaken(Player player, DamageSource source) {
 		if (!player.level.isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
-			double chance = player.getAttributeValue(PIXIE_SPAWN_CHANCE);
+			// Sometimes the player doesn't have the attribute, not sure why.
+			// Could be badly-written mixins on Fabric.
+			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
+					? player.getAttributeValue(PIXIE_SPAWN_CHANCE) : 0;
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(ModItems.elementiumSword));
 
 			if (Math.random() < chance) {

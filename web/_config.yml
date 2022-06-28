@@ -1,0 +1,9 @@
+url: "https://botaniamod.net"
+title: "Botania"
+exclude:
+  - ARCHITECTURE.md
+lexicon:
+  script: _scripts/collate_data.py
+  filepath: ../Xplat/src/main/resources
+  mod_name: botania
+  book_name: lexicon

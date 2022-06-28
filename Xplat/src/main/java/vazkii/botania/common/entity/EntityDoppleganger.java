@@ -70,6 +70,7 @@ import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -87,9 +88,9 @@ import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class EntityDoppleganger extends Mob {
@@ -437,17 +438,6 @@ public class EntityDoppleganger extends Mob {
 		return false;
 	}
 
-	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
-
-	public static boolean isTruePlayer(Entity e) {
-		if (!(e instanceof Player player)) {
-			return false;
-		}
-
-		String name = player.getName().getString();
-		return !FAKE_PLAYER_PATTERN.matcher(name).matches();
-	}
-
 	@Override
 	protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
 		super.actuallyHurt(source, Math.min(DAMAGE_CAP, amount));
@@ -564,7 +554,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	public List<Player> getPlayersAround() {
-		return level.getEntitiesOfClass(Player.class, getArenaBB(source), player -> isTruePlayer(player) && !player.isSpectator());
+		return PlayerHelper.getRealPlayersIn(level, getArenaBB(source));
 	}
 
 	public int getPlayerCount() {
@@ -1036,7 +1026,7 @@ public class EntityDoppleganger extends Mob {
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();
 			this.z = guardian.getSource().getZ();
-			// this.repeat = true; disabled due to unknown vanilla/LWJGL bug where track glitches and repeats early
+			this.looping = true;
 		}
 
 		public static void play(EntityDoppleganger guardian) {

@@ -32,7 +32,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileBellows;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -66,7 +66,7 @@ public class BlockBellows extends BlockMod implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (EntityDoppleganger.isTruePlayer(player)) {
+		if (PlayerHelper.isTruePlayer(player)) {
 			((TileBellows) world.getBlockEntity(pos)).interact();
 		}
 		return InteractionResult.SUCCESS;

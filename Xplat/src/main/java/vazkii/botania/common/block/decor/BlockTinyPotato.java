@@ -98,11 +98,15 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 		if (tile instanceof TileTinyPotato tater) {
 			tater.interact(player, hand, player.getItemInHand(hand), hit.getDirection());
 			if (!world.isClientSide) {
-				AABB box = SHAPE.bounds();
-				((ServerLevel) world).sendParticles(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 1, 0, 0, 0, 0);
+				spawnHearts((ServerLevel) world, pos);
 			}
 		}
 		return InteractionResult.SUCCESS;
+	}
+
+	public static void spawnHearts(ServerLevel level, BlockPos pos) {
+		AABB box = SHAPE.bounds();
+		level.sendParticles(ParticleTypes.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 1, 0, 0, 0, 0);
 	}
 
 	@Nonnull
@@ -113,8 +117,8 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
-		if (stack.hasCustomHoverName()) {
-			((TileTinyPotato) world.getBlockEntity(pos)).name = stack.getHoverName();
+		if (stack.hasCustomHoverName() && world.getBlockEntity(pos) instanceof TileTinyPotato tater) {
+			tater.name = stack.getHoverName();
 		}
 	}
 

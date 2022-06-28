@@ -728,7 +728,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 
 	@Override
 	public void commitRedirection() {
-		checkForReceiver();
+		setChanged();
 	}
 
 	@Override

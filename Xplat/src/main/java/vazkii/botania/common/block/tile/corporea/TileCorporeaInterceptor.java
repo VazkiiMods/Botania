@@ -52,15 +52,22 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 			}
 
 			if (missing > 0 && !getBlockState().getValue(BlockStateProperties.POWERED)) {
-				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true));
-				level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
-
 				BlockPos requestorPos = source.getSparkNode().getPos();
+
+				List<TileCorporeaRetainer> retainers = new ArrayList<>();
 				for (Direction dir : Direction.values()) {
 					BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
 					if (tile instanceof TileCorporeaRetainer retainer) {
-						retainer.remember(requestorPos, request, count, missing);
+						retainers.add(retainer);
+						retainer.forget();
 					}
+				}
+
+				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true));
+				level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
+
+				for (TileCorporeaRetainer retainer : retainers) {
+					retainer.remember(requestorPos, request, count, missing);
 				}
 			}
 		}

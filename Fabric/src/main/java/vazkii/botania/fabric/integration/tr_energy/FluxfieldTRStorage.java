@@ -26,9 +26,6 @@ public class FluxfieldTRStorage extends SimpleEnergyStorage {
 			}
 
 			BlockEntity be = level.getBlockEntity(neighbor);
-			if (be == null) {
-				continue;
-			}
 
 			EnergyStorage storage = EnergyStorage.SIDED.find(level, neighbor, level.getBlockState(neighbor), be, e.getOpposite());
 			if (storage != null && storage.supportsInsertion()) {
