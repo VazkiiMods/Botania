@@ -205,6 +205,15 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return pass == 1 && isEnabled(stack) ? iconOverlay : isTipped(stack) ? iconTipped : iconTool;
 	}
 
+	@Override
+	public int getHarvestLevel(ItemStack stack, String toolClass) {
+		if (!"pickaxe".equals(toolClass)) {
+			return super.getHarvestLevel(stack, toolClass);
+		}
+		// Rank S -> level 8 (Manyullyn)
+		return getLevel(stack) + 4;
+	}
+
 	public static boolean isTipped(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_TIPPED, false);
 	}
