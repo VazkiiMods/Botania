@@ -173,7 +173,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 					}
 					case EERIE_MASK -> {
 						ms.translate(0, -0.25, -0.3);
-						ms.scale(0.5F, -0.5F, -0.5F);
+						ms.scale(0.75F, -0.75F, -0.75F);
 						renderItem(stack, ms, buffers, light);
 					}
 					case ALIEN_ANTENNA -> {
