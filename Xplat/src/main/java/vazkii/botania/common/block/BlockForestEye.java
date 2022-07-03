@@ -60,7 +60,7 @@ public class BlockForestEye extends BlockModWaterloggable implements EntityBlock
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.FORSET_EYE, TileForestEye::serverTick);
+			return createTickerHelper(type, ModTiles.FOREST_EYE, TileForestEye::serverTick);
 		}
 		return null;
 	}
