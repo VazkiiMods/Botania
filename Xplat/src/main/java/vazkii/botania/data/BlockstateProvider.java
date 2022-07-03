@@ -571,6 +571,27 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeBrickFungalSlab, fungalBrickModels, fungalBrickTextures, fungalBrickTextures, fungalBrickTextures);
 		wallBlockWithVariants(remainingBlocks, biomeBrickFungalWall, fungalBrickTextures);
 
+		var swampBrickTopTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickSwamp, "_top"),
+				getBlockTexture(biomeBrickSwamp, "_top_1")
+		};
+		var swampBrickBottomTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickSwamp, "_bottom"),
+				getBlockTexture(biomeBrickSwamp, "_bottom")
+		};
+		var swampBrickSideTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickSwamp),
+				getBlockTexture(biomeBrickSwamp)
+		};
+		var swampBrickModels = new ResourceLocation[] {
+				getModelLocation(biomeBrickSwamp),
+				getModelLocation(biomeBrickSwamp, "_1")
+		};
+		directionalPillarWithVariants(remainingBlocks, biomeBrickSwamp, swampBrickTopTextures, swampBrickBottomTextures, swampBrickSideTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickSwampStairs, swampBrickSideTextures,swampBrickBottomTextures, swampBrickTopTextures);
+		slabBlockWithVariants(remainingBlocks, biomeBrickSwampSlab, swampBrickModels, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
+		wallBlockWithVariants(remainingBlocks, biomeBrickSwampWall, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
+
 		// Slabs, stairs, walls are handled automatically.
 		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
 			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
@@ -1065,8 +1086,8 @@ public class BlockstateProvider implements DataProvider {
 						.select(Direction.Axis.X, indicesZ.map(i -> maybeWeight(weights[i], Variant.variant()
 								.with(VariantProperties.MODEL, horizontalModels[i])
 								.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))).toList()
-						)));
+								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))).toList())
+						));
 		blocks.remove(block);
 	}
 
@@ -1104,6 +1125,72 @@ public class BlockstateProvider implements DataProvider {
 						.select(Direction.Axis.X, Stream.of(xModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
 						.select(Direction.Axis.Z, Stream.of(zModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
 		));
+		blocks.remove(block);
+	}
+
+	protected void directionalPillar(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation bottom, ResourceLocation side) {
+		directionalPillarWithVariants(blocks, block, new ResourceLocation[] { top }, new ResourceLocation[] { top }, new ResourceLocation[] { side });
+	}
+
+	protected void directionalPillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] bottomTextures, ResourceLocation[] sideTextures) {
+		var weights = new Integer[topTextures.length];
+		Arrays.fill(weights, 1);
+		directionalPillarWithVariants(blocks, block, topTextures, bottomTextures, sideTextures, weights);
+	}
+
+	protected void directionalPillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] bottomTextures, ResourceLocation[] sideTextures, Integer[] weights) {
+		int length = topTextures.length;
+		if (length != bottomTextures.length || length != sideTextures.length || length != weights.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		ResourceLocation[] topModels = new ResourceLocation[length];
+		ResourceLocation[] horizontalModels = new ResourceLocation[length];
+		ModelTemplate topTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_directional")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.SIDE);
+		ModelTemplate horizontalTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cube_column_directional_horizontal")), Optional.of("_horizontal"), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.SIDE);
+		for (int i = 0; i < length; i++) {
+			TextureMapping mapping = new TextureMapping()
+					.put(TextureSlot.SIDE, sideTextures[i])
+					.put(TextureSlot.TOP, topTextures[i])
+					.put(TextureSlot.BOTTOM, bottomTextures[i]);
+			String suffix = i == 0 ? "" : "_" + i;
+			ResourceLocation modelIdTop = getModelLocation(block, suffix);
+			ResourceLocation modelIdHorizontal = getModelLocation(block, "_horizontal" + suffix);
+			topModels[i] = topTemplate.create(modelIdTop, mapping, this.modelOutput);
+			horizontalModels[i] = horizontalTemplate.create(modelIdHorizontal, mapping, this.modelOutput);
+		}
+		directionalPillarWithModels(blocks, block, topModels, horizontalModels, weights);
+	}
+
+	protected void directionalPillarWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] horizontalModels, Integer[] weights) {
+		int length = topModels.length;
+		if (length != horizontalModels.length || length != weights.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		var indicesUp = IntStream.range(0, length).boxed();
+		var indicesDown = IntStream.range(0, length).boxed();
+		var indicesNorth = IntStream.range(0, length).boxed();
+		var indicesSouth = IntStream.range(0, length).boxed();
+		var indicesEast = IntStream.range(0, length).boxed();
+		var indicesWest = IntStream.range(0, length).boxed();
+		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+				PropertyDispatch.property(BlockStateProperties.FACING)
+						.select(Direction.UP, indicesUp.map(i -> maybeWeight(weights[i], Variant.variant()
+								.with(VariantProperties.MODEL, topModels[i]))).toList())
+						.select(Direction.DOWN, indicesDown.map(i -> maybeWeight(weights[i], Variant.variant()
+								.with(VariantProperties.MODEL, topModels[i])
+								.with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))).toList())
+						.select(Direction.NORTH, indicesNorth.map(i -> maybeWeight(weights[i], Variant.variant()
+								.with(VariantProperties.MODEL, horizontalModels[i]))).toList())
+						.select(Direction.SOUTH, indicesSouth.map(i -> maybeWeight(weights[i], Variant.variant()
+								.with(VariantProperties.MODEL, horizontalModels[i])
+								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))).toList())
+						.select(Direction.EAST, indicesEast.map(i -> maybeWeight(weights[i], Variant.variant()
+								.with(VariantProperties.MODEL, horizontalModels[i])
+								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))).toList())
+						.select(Direction.WEST, indicesWest.map(i -> maybeWeight(weights[i], Variant.variant()
+								.with(VariantProperties.MODEL, horizontalModels[i])
+								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))).toList())
+						));
 		blocks.remove(block);
 	}
 

@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 
+import vazkii.botania.common.block.decor.BlockModDirectional;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.item.ModItems;
@@ -197,7 +198,7 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeCobblestoneSwampStairs = new BlockModStairs(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeCobblestoneSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
-	public static final Block biomeBrickSwamp = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneSwamp));
+	public static final Block biomeBrickSwamp = new BlockModDirectional(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampStairs = new BlockModStairs(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));

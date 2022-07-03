@@ -1,0 +1,13 @@
+{
+  "__comment": "[VanillaCopy] except separate textures for top and bottom",
+    "parent": "block/cube",
+    "textures": {
+        "particle": "#side",
+        "down": "#bottom",
+        "up": "#top",
+        "north": "#side",
+        "east": "#side",
+        "south": "#side",
+        "west": "#side"
+    }
+}

@@ -1,8 +1,8 @@
 {
-  "parent": "botania:block/shapes/cube_column_directional",
+  "parent": "minecraft:block/stairs",
   "textures": {
-    "top": "botania:block/metamorphic_swamp_bricks_top",
     "bottom": "botania:block/metamorphic_swamp_bricks_bottom",
+    "top": "botania:block/metamorphic_swamp_bricks_top_1",
     "side": "botania:block/metamorphic_swamp_bricks"
   }
 }
