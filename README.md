@@ -7,6 +7,8 @@ The current iteration of Botania is made possible thanks to the massive help by 
 
 Botania is licensed under the [Botania License](http://botaniamod.net/license.php)
 
+For information on contributing, please read `CONTRIBUTING.md`.
+
 ## Maven info
 
 Maven artifacts are located [here](https://maven.blamejared.com/vazkii/botania/Botania/), each folder representing a version.

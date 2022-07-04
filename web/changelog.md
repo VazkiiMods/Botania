@@ -11,6 +11,16 @@ title: "Changelog"
 Note: A name in parentheses at the end of a line item means that it
 was contributed externally by that member of the community.
 
+<!-- Copy everything in the next 7 lines to add a new changelog entry
+{% include changelog_header.html version="MCVER-BUILDNUM" %}
+
+* Add: This thing
+* Change: That thing
+* Fix: Other thing
+
+---
+-->
+
 {% include changelog_header.html version="1.18.2-434" %}
 
 * Add: EMI integration. EMI is a new recipe viewer mod
