@@ -105,9 +105,9 @@ public class BlockForestDrum extends BlockModWaterloggable {
 				return;
 			}
 			if (variant == Variant.WILD) {
-				ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos);
+				ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos, null);
 			} else if (variant == Variant.CANOPY) {
-				ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
+				ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos, null);
 			} else {
 				int range = 10;
 				List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(world, e.getX(), e.getY(), e.getZ()));

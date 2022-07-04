@@ -212,6 +212,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		return (t, id) -> Registry.register(registry, id, t);
 	}
 
+	@SuppressWarnings("removal") // todo 1.19 remove
 	private void registerCapabilities() {
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL,
 				FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK),

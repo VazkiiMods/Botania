@@ -34,6 +34,7 @@ import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,13 +66,13 @@ public class ItemHorn extends Item {
 	public void onUseTick(Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int time) {
 		if (!world.isClientSide) {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
-				breakGrass(world, stack, living.blockPosition());
+				breakGrass(world, stack, living.blockPosition(), living);
 			}
 			world.playSound(null, living.getX(), living.getY(), living.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 
-	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos) {
+	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos, @Nullable LivingEntity user) {
 		EnumHornType type = null;
 		if (stack.is(ModItems.grassHorn)) {
 			type = EnumHornType.WILD;
@@ -96,7 +97,7 @@ public class ItemHorn extends Item {
 				continue;
 			}
 			if (harvestable != null
-					? harvestable.canHornHarvest(world, pos, stack, type)
+					? harvestable.canHornHarvest(world, pos, stack, type, user)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && state.is(BlockTags.LEAVES)
 							|| type == EnumHornType.COVERING && state.is(Blocks.SNOW)) {
@@ -113,8 +114,8 @@ public class ItemHorn extends Item {
 			BlockEntity be = world.getBlockEntity(currCoords);
 			IHornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, currCoords, state, be);
 
-			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
-				harvestable.harvestByHorn(world, currCoords, stack, type);
+			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type, user)) {
+				harvestable.harvestByHorn(world, currCoords, stack, type, user);
 			} else {
 				world.destroyBlock(currCoords, true);
 			}
