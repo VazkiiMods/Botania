@@ -40,3 +40,8 @@ configBackground="botania:textures/block/livingrock_bricks.png" # background for
     modId="crafttweaker"
     mandatory=false
     versionRange="[9.1.116,)"
+
+[[dependencies.botania]]
+    modId="ears"
+    mandatory=false
+    versionRange="[1.4.5,)"
