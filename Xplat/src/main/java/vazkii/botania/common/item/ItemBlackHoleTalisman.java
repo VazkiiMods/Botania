@@ -145,35 +145,17 @@ public class ItemBlackHoleTalisman extends Item {
 				}
 			}
 
-			if (highest == -1) {
-				/*ItemStack heldItem = player.getInventory().getItemStack();
-				if(hasFreeSlot && (heldItem == null || Item.getItemFromBlock(block) == heldItem.getItem() || heldItem.getItemDamage() != meta)) {
-					ItemStack stack = new ItemStack(block, remove(itemstack, 64), meta);
-					if(stack.stackSize != 0)
-						player.getInventory().addItemStackToInventory(stack);
-				}*/
-				// Used to keep one stack, disabled for now
-			} else {
+			if (highest != -1) {
 				for (int i = 0; i < counts.length; i++) {
 					int count = counts[i];
 
-					// highest is used to keep one stack, disabled for now
-					if (/*i == highest || */count == 0) {
+					if (count == 0) {
 						continue;
 					}
 
 					add(itemstack, count);
 					player.getInventory().setItem(i, ItemStack.EMPTY);
 				}
-
-				/*int countInHighest = counts[highest];
-				int maxSize = new ItemStack(block, 1, meta).getMaxStackSize();
-				if(countInHighest < maxSize) {
-					int missing = maxSize - countInHighest;
-					ItemStack stackInHighest = player.getInventory().getStackInSlot(highest);
-					stackInHighest.stackSize += remove(itemstack, missing);
-				}*/
-				// Used to keep one stack, disabled for now
 			}
 		}
 	}
