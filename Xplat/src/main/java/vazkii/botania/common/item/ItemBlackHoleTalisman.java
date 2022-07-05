@@ -124,38 +124,43 @@ public class ItemBlackHoleTalisman extends Item {
 	@Override
 	public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof Player player) {
+		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null) {
+			if (entity instanceof Player player) {
+				suckFromPlayerInv(itemstack, block, player);
+			}
+		}
+	}
 
-			int highest = -1;
-			int[] counts = new int[player.getInventory().getContainerSize() - player.getInventory().armor.size()];
+	private static void suckFromPlayerInv(ItemStack talisman, Block toTake, Player player) {
+		int highestIdx = -1;
+		int[] counts = new int[player.getInventory().getContainerSize() - player.getInventory().armor.size()];
 
+		for (int i = 0; i < counts.length; i++) {
+			ItemStack stack = player.getInventory().getItem(i);
+			if (stack.isEmpty()) {
+				continue;
+			}
+
+			if (toTake.asItem() == stack.getItem()) {
+				counts[i] = stack.getCount();
+				if (highestIdx == -1) {
+					highestIdx = i;
+				} else {
+					highestIdx = counts[i] > counts[highestIdx] && highestIdx > 8 ? i : highestIdx;
+				}
+			}
+		}
+
+		if (highestIdx != -1) {
 			for (int i = 0; i < counts.length; i++) {
-				ItemStack stack = player.getInventory().getItem(i);
-				if (stack.isEmpty()) {
+				int count = counts[i];
+
+				if (count == 0) {
 					continue;
 				}
 
-				if (block.asItem() == stack.getItem()) {
-					counts[i] = stack.getCount();
-					if (highest == -1) {
-						highest = i;
-					} else {
-						highest = counts[i] > counts[highest] && highest > 8 ? i : highest;
-					}
-				}
-			}
-
-			if (highest != -1) {
-				for (int i = 0; i < counts.length; i++) {
-					int count = counts[i];
-
-					if (count == 0) {
-						continue;
-					}
-
-					add(itemstack, count);
-					player.getInventory().setItem(i, ItemStack.EMPTY);
-				}
+				add(talisman, count);
+				player.getInventory().setItem(i, ItemStack.EMPTY);
 			}
 		}
 	}
