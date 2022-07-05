@@ -297,7 +297,9 @@ public final class ModItems {
 
 	// Misc
 	public static final Item manaCookie = make(prefix(LibItemNames.MANA_COOKIE), new Item(defaultBuilder().food(new FoodProperties.Builder().nutrition(0).saturationMod(0.1F).effect(new MobEffectInstance(MobEffects.SATURATION, 20, 0), 1).build())));
-	public static final Item manaBottle = make(prefix(LibItemNames.MANA_BOTTLE), new ItemBottledMana(unstackable()));
+	public static final Item manaBottle = make(prefix(LibItemNames.MANA_BOTTLE), new ItemBottledMana(
+			// Mark as food just to fool foxes into using it
+			unstackable().food(new FoodProperties.Builder().alwaysEat().build())));
 	public static final Item laputaShard = make(prefix(LibItemNames.LAPUTA_SHARD), new ItemLaputaShard(unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item necroVirus = make(prefix(LibItemNames.NECRO_VIRUS), new ItemVirus(defaultBuilder()));
 	public static final Item nullVirus = make(prefix(LibItemNames.NULL_VIRUS), new ItemVirus(defaultBuilder()));
