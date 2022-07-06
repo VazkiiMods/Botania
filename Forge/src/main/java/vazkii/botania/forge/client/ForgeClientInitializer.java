@@ -47,6 +47,7 @@ import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
+import vazkii.botania.client.integration.ears.EarsIntegration;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
@@ -143,6 +144,10 @@ public class ForgeClientInitializer {
 		ClientProxy.initSeasonal();
 		ClientProxy.initKeybindings(ClientRegistry::registerKeyBinding);
 		MinecraftForge.EVENT_BUS.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
+
+		if (IXplatAbstractions.INSTANCE.isModLoaded("ears")) {
+			EarsIntegration.register();
+		}
 	}
 
 	private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, IWandHUD>>> WAND_HUD = Suppliers.memoize(() -> {

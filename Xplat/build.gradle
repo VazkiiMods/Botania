@@ -19,6 +19,13 @@ repositories {
         name = "Jared"
         url = "https://maven.blamejared.com/"
     }
+    maven {
+        name = "Unascribed"
+        url "https://repo.unascribed.com" // for ears
+        content {
+            includeGroup "com.unascribed"
+        }
+    }
 }
 
 dependencies {
@@ -30,6 +37,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 
     compileOnly 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
+
+    compileOnly "com.unascribed:ears-api:1.4.5"
 
     annotationProcessor 'com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.18.2:2.0.0.123'
     annotationProcessor 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
