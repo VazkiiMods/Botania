@@ -192,13 +192,13 @@ public final class ModBlocks {
 	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE)
 			.requiresCorrectToolForDrops()
 			.lightLevel(s -> s.getValue(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
-	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, BlockBehaviour.Properties.copy(defaultAltar));
-	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, BlockBehaviour.Properties.copy(defaultAltar));
-	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN, BlockBehaviour.Properties.copy(defaultAltar));
-	public static final Block fungalAltar = new BlockAltar(BlockAltar.Variant.FUNGAL, BlockBehaviour.Properties.copy(defaultAltar));
-	public static final Block swampAltar = new BlockAltar(BlockAltar.Variant.SWAMP, BlockBehaviour.Properties.copy(defaultAltar));
-	public static final Block desertAltar = new BlockAltar(BlockAltar.Variant.DESERT, BlockBehaviour.Properties.copy(defaultAltar));
-	public static final Block taigaAltar = new BlockAltar(BlockAltar.Variant.TAIGA, BlockBehaviour.Properties.copy(defaultAltar));
+	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.TUFF));
+	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.CALCITE));
+	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE_TILES));
+	public static final Block fungalAltar = new BlockAltar(BlockAltar.Variant.FUNGAL, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE_BRICKS));
+	public static final Block swampAltar = new BlockAltar(BlockAltar.Variant.SWAMP, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE_TILES));
+	public static final Block desertAltar = new BlockAltar(BlockAltar.Variant.DESERT, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE));
+	public static final Block taigaAltar = new BlockAltar(BlockAltar.Variant.TAIGA, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE));
 	public static final Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA, BlockBehaviour.Properties.copy(defaultAltar));
 	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY, BlockBehaviour.Properties.copy(defaultAltar));
 
