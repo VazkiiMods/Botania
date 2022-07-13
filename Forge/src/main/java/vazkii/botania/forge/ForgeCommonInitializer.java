@@ -248,12 +248,18 @@ public class ForgeCommonInitializer {
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
 
-		if (BotaniaConfig.common().worldgenEnabled()) {
+		if (BotaniaConfig.common().worldgenFlowers()) {
 			bus.addListener((BiomeLoadingEvent e) -> {
 				Biome.BiomeCategory category = e.getCategory();
 				if (!ModFeatures.TYPE_BLACKLIST.contains(category)) {
 					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalFlowersPlaced);
 				}
+			});
+		}
+
+		if (BotaniaConfig.common().worldgenMushrooms()) {
+			bus.addListener((BiomeLoadingEvent e) -> {
+				Biome.BiomeCategory category = e.getCategory();
 				if (category != Biome.BiomeCategory.THEEND) {
 					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalMushroomsPlaced);
 				}

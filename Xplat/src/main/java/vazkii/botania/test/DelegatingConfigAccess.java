@@ -85,8 +85,13 @@ public class DelegatingConfigAccess implements BotaniaConfig.ConfigAccess {
 	}
 
 	@Override
-	public boolean worldgenEnabled() {
-		return inner.worldgenEnabled();
+	public boolean worldgenFlowers() {
+		return inner.worldgenFlowers();
+	}
+
+	@Override
+	public boolean worldgenMushrooms() {
+		return inner.worldgenMushrooms();
 	}
 
 	@Override
