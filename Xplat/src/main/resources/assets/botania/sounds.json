@@ -523,6 +523,24 @@
 		],
 		"subtitle": "botania.subtitle.smeltRodSimmer"
 	},
+	"prism_add_lens": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.glass.place"
+			}
+		],
+		"subtitle": "botania.subtitle.prismAddLens"
+	},
+	"prism_remove_lens": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.glass.place"
+			}
+		],
+		"subtitle": "botania.subtitle.prismRemoveLens"
+	},
 	"spreader_add_lens": {
 		"sounds": [
 			{

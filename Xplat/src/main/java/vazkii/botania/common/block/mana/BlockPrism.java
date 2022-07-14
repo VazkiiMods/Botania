@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -37,6 +38,7 @@ import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.handler.ModSounds;
 
 import javax.annotation.Nonnull;
 
@@ -103,26 +105,30 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 
 		ItemStack lens = prism.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
-		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
+		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
+		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
+		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
-		if (lens.isEmpty() && isHeldItemLens) {
-			ItemStack toInsert;
-			if (!player.getAbilities().instabuild) {
-				toInsert = heldItem.split(1);
-			} else {
-				toInsert = heldItem.copy();
-				toInsert.setCount(1);
+		if (playerHasLens && !lensIsSame) {
+			ItemStack toInsert = heldItem.split(1);
+
+			if (!lens.isEmpty()) {
+				player.getInventory().placeItemBackInInventory(lens);
 			}
 
 			prism.getItemHandler().setItem(0, toInsert);
-		} else if (!lens.isEmpty()) {
+			world.playSound(player, pos, ModSounds.prismAddLens, SoundSource.BLOCKS, 1F, 1F);
+			return InteractionResult.SUCCESS;
+		}
+		if (!lens.isEmpty() && (mainHandEmpty || lensIsSame)) {
 			player.getInventory().placeItemBackInInventory(lens);
 			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
-		} else {
-			return InteractionResult.PASS;
-		}
 
-		return InteractionResult.SUCCESS;
+			world.playSound(player, pos, ModSounds.prismRemoveLens, SoundSource.BLOCKS, 1F, 1F);
+
+			return InteractionResult.SUCCESS;
+		}
+		return InteractionResult.PASS;
 	}
 
 	@Override
