@@ -1803,12 +1803,12 @@
   "botania.entry.gardenOfGlass": "Garden of Glass",
   "botania.tagline.gardenOfGlass": "Your new challenge",
   "botania.page.gardenOfGlass0": "In the $(2)Garden of Glass$(0) nobody can hear you scream.$(p)You're alone in space.$(p)How exciting.",
-  "botania.page.gardenOfGlass1": "The $(2)Garden of Glass$(0) is a skyblock mode for Botania. It's aimed more at players who have some experience in the mod, but if you're new to it, you're more than welcome to try it out anyway.$(p)Most of $(thing)Botania$(0) functions the same as it does on the ground, but some tweaks have been put in place to allow for skyblock-style gameplay, which are listed in the following pages.",
+  "botania.page.gardenOfGlass1": "The $(2)Garden of Glass$(0) is a skyblock mode for $(thing)Botania$(0). It's aimed more at players who have some experience in the mod, but if you're new to it, you're more than welcome to try it out anyway.$(p)Most of $(thing)Botania$(0) functions the same as it does on the ground, but some tweaks have been put in place to allow for skyblock-style gameplay, which are listed in the following pages.",
   "botania.page.gardenOfGlass2": "After spawning in the $(item)Garden of Glass$(0), you'll find $(item)Living Roots$(0) under your feet. These can be crafted into $(item)Saplings$(0) and $(l:basics/flowers)$(item)Floral Fertilizer$(0)$(/l), or just used as $(item)Bone Meal$(0). Sneak-right clicking a $(item)Dirt$(0) or $(item)Grass$(0) block with an empty hand will rummage through the soil, yielding some $(item)Pebbles$(0); these can be converted into $(item)Cobblestone$(0). Filling a $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l) can be done with a $(item)Bowl$(0), which in turn can be filled by right-clicking it on a water block.",
   "botania.page.gardenOfGlass3": "Creating $(item)Saplings$(0)",
   "botania.page.gardenOfGlass4": "Creating $(l:basics/flowers)$(item)Floral Fertilizer$(0)$(/l)",
   "botania.page.gardenOfGlass5": "Creating $(item)Cobblestone$(0)",
-  "botania.page.gardenOfGlass6": "Aside from that, some things in Botania have been changed to fit Skyblock gameplay: The $(l:functional_flowers/orechid)$(item)Orechid$(0)$(/l) is easier to make, faster, and much more $(thing)Mana$(0)-efficient; The $(l:devices/cocoon)$(item)Cocoon of Caprice$(0)$(/l) and the $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) have simpler recipes; the $(l:misc/blaze_block)$(item)Blaze Mesh$(0)$(/l), which can be purified into $(item)Obsidian$(0), is made from powder instead of rods; melon and pumpkin seeds can drop from tall grass; floral fertilizer yields more per craft; and certain additional recipes have been added.",
+  "botania.page.gardenOfGlass6": "Aside from that, some things in $(thing)Botania$(0) have been changed to fit Skyblock gameplay: The $(l:functional_flowers/orechid)$(item)Orechid$(0)$(/l) is easier to make, faster, and much more $(thing)Mana$(0)-efficient; The $(l:devices/cocoon)$(item)Cocoon of Caprice$(0)$(/l) and the $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) have simpler recipes; the $(l:misc/blaze_block)$(item)Blaze Mesh$(0)$(/l), which can be purified into $(item)Obsidian$(0), is made from powder instead of rods; melon and pumpkin seeds can drop from tall grass; floral fertilizer yields more per craft; and certain additional recipes have been added.",
   "botania.page.gardenOfGlass7": "Creating $(item)Sugar Canes$(0)",
   "botania.page.gardenOfGlass8": "Creating $(item)Slimeballs$(0)",
   "botania.page.gardenOfGlass13": "Infusing $(item)Prismarine$(0)",
@@ -1820,7 +1820,7 @@
   "botania.entry.lexicon": "Lexica Botania",
   "botania.tagline.lexicon": "What you're reading right now, dummy",
   "botania.page.lexicon0": "The $(item)Lexica Botania$(0) is the repository of all knowledge for all botanical matters. (But you probably knew that already.)$(p)All well-known botanical knowledge is stored within these pages. For convenience, if a block happens to have an entry in here, it can be sneak-right clicked on with the $(item)Lexica Botania$(0) to open said entry.",
-  "botania.page.lexicon3": "Any entries typed in $(o)Italics$() are $(thing)basic$(0) entries, which contain the core knowledge required to play Botania-- you may want to read those first. Most sections contain one or more of these entries, so a good look through those would be a good idea.",
+  "botania.page.lexicon3": "Any entries typed in $(o)Italics$() are $(thing)basic$(0) entries, which contain the core knowledge required to play $(thing)Botania$(0)-- you may want to read those first. Most sections contain one or more of these entries, so a good look through those would be a good idea.",
   "botania.page.lexicon1": "Crafting the $(item)Lexica Botania$(0).",
   "botania.page.lexicon2": "The $(item)Lexica Botania$(0)'s title can also be customized by placing it in an $(item)Anvil$(0) and renaming it. This changes both its cover and its title.$(p)The Edition of the Lexica shown equates to the version of the $(thing)Botania$(0) you're running (and no, I $(o)don't$() care about the fourth wall).",
 
@@ -3368,7 +3368,7 @@
 
   "botania.entry.dispenserTweaks": "Dispenser Planting",
   "botania.tagline.dispenserTweaks": "Dispensers planting seeds",
-  "botania.page.dispenserTweaks0": "Botania tweaks $(item)Dispensers$(0) to be able to plant all kinds of seeds, from your standard wheat $(item)Seeds$(0) to $(item)Nether Warts$(0) and $(item)Cocoa Beans$(0) (the latter requiring a block of $(item)Jungle Wood$(0) across from the $(item)Dispenser$(0)).$(p)In conjunction with other blocks (like the $(l:devices/forest_drum)$(item)Drum of the Wild$(0)$(/l)), this allows for fully-automated crop farming.",
+  "botania.page.dispenserTweaks0": "$(thing)Botania$(0) tweaks $(item)Dispensers$(0) to be able to plant all kinds of seeds, from your standard wheat $(item)Seeds$(0) to $(item)Nether Warts$(0) and $(item)Cocoa Beans$(0) (the latter requiring a block of $(item)Jungle Wood$(0) across from the $(item)Dispenser$(0)).$(p)In conjunction with other blocks (like the $(l:devices/forest_drum)$(item)Drum of the Wild$(0)$(/l)), this allows for fully-automated crop farming.",
 
   "botania.entry.shinyFlowers": "Glimmering Flowers",
   "botania.tagline.shinyFlowers": "Shiny flowers and floating flowers",
