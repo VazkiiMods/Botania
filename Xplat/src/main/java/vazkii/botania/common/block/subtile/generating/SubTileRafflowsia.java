@@ -13,6 +13,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -125,7 +126,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 		super.readFromPacketNBT(cmp);
 
 		lastFlowers.clear();
-		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, 8);
+		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, Tag.TAG_STRING);
 		for (int i = 0; i < flowerList.size(); i++) {
 			lastFlowers.add(Registry.BLOCK.get(ResourceLocation.tryParse(flowerList.getString(i))));
 		}

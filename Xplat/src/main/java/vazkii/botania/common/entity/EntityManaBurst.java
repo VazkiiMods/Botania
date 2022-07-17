@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -318,7 +319,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		}
 
 		// Reread Motion because Entity.load clamps it to +/-10
-		ListTag motion = cmp.getList("Motion", 6);
+		ListTag motion = cmp.getList("Motion", Tag.TAG_DOUBLE);
 		setDeltaMovement(motion.getDouble(0), motion.getDouble(1), motion.getDouble(2));
 
 		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);

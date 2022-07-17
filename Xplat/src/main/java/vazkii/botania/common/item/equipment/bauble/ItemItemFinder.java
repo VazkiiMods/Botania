@@ -22,6 +22,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.LongTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -87,7 +88,7 @@ public class ItemItemFinder extends ItemBauble {
 			return;
 		}
 
-		ListTag blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, 4, false);
+		ListTag blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Tag.TAG_LONG, false);
 
 		for (var block : blocks) {
 			BlockPos pos = BlockPos.of(((LongTag) block).getAsLong());

@@ -18,6 +18,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -403,7 +404,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 	}
 
 	private Vec3 getHitPos(ItemStack stack, BlockPos pos) {
-		ListTag list = stack.getOrCreateTag().getList(TAG_SWAP_HIT_VEC, 6);
+		ListTag list = stack.getOrCreateTag().getList(TAG_SWAP_HIT_VEC, Tag.TAG_DOUBLE);
 		return new Vec3(pos.getX() + list.getDouble(0),
 				pos.getY() + list.getDouble(1),
 				pos.getZ() + list.getDouble(2));
