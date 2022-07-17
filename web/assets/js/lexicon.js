@@ -1,3 +1,4 @@
+'use strict';
 function hookToggle(elem) {
   const details = Array.from(document.querySelectorAll("details." + elem.dataset.target));
   elem.addEventListener("click", () => {
