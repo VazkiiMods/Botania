@@ -3277,9 +3277,9 @@
   "botania.page.elfResources3": "Trading for $(item)Elementium$(0)",
   "botania.page.elfResources4": "Trading for $(item)Pixie Dust$(0)",
   "botania.page.elfResources5": "Trading for $(item)Dragonstone$(0)",
-  "botania.page.elfResources6": "The $(item)Elves$(0) also have their eyes on that white posh-looking material from the $(thing)Nether$(0), $(item)Nether Quartz$(0), as the stuff they have in their world is tinted green. This quartz holds no functional difference to other types of quartz, including normal $(item)Nether Quartz$(0) and any of its decorative variants.",
+  "botania.page.elfResources6": "The $(thing)Elves$(0) also have their eyes on that white posh-looking material from the $(thing)Nether$(0), $(item)Nether Quartz$(0), as the stuff they have in their world is tinted green. This quartz holds no functional difference to other types of quartz, including normal $(item)Nether Quartz$(0) and any of its decorative variants.",
   "botania.page.elfResources7": "Trading for $(item)Elven Quartz$(0)",
-  "botania.page.elfResources8": "Alfheim also has its own variant of $(item)Glass$(0) called $(item)Alfglass$(0). It's quite transparent, and its patterning looks different depending on where it's placed.$(p)The elves will trade this for $(l:mana/pool)$(item)Managlass$(0)$(/l).",
+  "botania.page.elfResources8": "$(thing)Alfheim$(0) also has its own variant of $(item)Glass$(0) called $(item)Alfglass$(0). It's quite transparent, and its patterning looks different depending on where it's placed.$(p)The $(thing)elves(0) will trade this for $(l:mana/pool)$(item)Managlass$(0)$(/l).",
   "botania.page.elfResources9": "Trading for $(item)Alfglass$(0)",
 
   "botania.entry.gaiaRitual": "Ritual of Gaia",
