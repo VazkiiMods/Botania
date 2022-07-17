@@ -158,12 +158,12 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		ItemStack lens = spreader.getItemHandler().getItem(0);
 		boolean playerHasLens = heldItem.getItem() instanceof ILens;
 		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
-		ItemStack wool = new ItemStack(spreader.paddingColor != null
-				? ColorHelper.WOOL_MAP.apply(spreader.paddingColor)
-				: Items.AIR);
+		ItemStack wool = spreader.paddingColor != null
+				? new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor))
+				: ItemStack.EMPTY;
 		boolean playerHasWool = ColorHelper.isWool(Block.byItem(heldItem.getItem()));
 		boolean woolIsSame = playerHasWool && ItemStack.isSameItemSameTags(heldItem, wool);
-		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.getItem().equals(Items.SCAFFOLDING);
+		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.is(Items.SCAFFOLDING);
 		boolean shouldInsert = (playerHasLens && !lensIsSame)
 				|| (playerHasWool && !woolIsSame)
 				|| (playerHasScaffolding && !state.getValue(BotaniaStateProps.HAS_SCAFFOLDING));
