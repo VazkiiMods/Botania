@@ -105,11 +105,12 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileAltar apothecary = (TileAltar) world.getBlockEntity(pos);
-		State fluid = apothecary.getFluid();
+		if (!(world.getBlockEntity(pos) instanceof TileAltar apothecary)) {
+			return InteractionResult.PASS;
+		}
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
-		if (apothecary.isEmpty() && fluid == State.WATER && mainHandEmpty) {
+		if (apothecary.canAddLastRecipe() && mainHandEmpty) {
 			apothecary.trySetLastRecipe(player);
 			return InteractionResult.SUCCESS;
 		} else if (!apothecary.isEmpty() && mainHandEmpty) {

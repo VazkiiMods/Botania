@@ -60,11 +60,13 @@ public class BlockRuneAltar extends BlockModWaterloggable implements EntityBlock
 			return InteractionResult.SUCCESS;
 		}
 
-		TileRuneAltar altar = (TileRuneAltar) world.getBlockEntity(pos);
+		if (!(world.getBlockEntity(pos) instanceof TileRuneAltar altar)) {
+			return InteractionResult.PASS;
+		}
 		ItemStack stack = player.getItemInHand(hand);
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
-		if (altar.isEmpty() && mainHandEmpty) {
+		if (altar.canAddLastRecipe() && mainHandEmpty) {
 			altar.trySetLastRecipe(player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 			return InteractionResult.SUCCESS;
