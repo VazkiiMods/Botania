@@ -202,7 +202,7 @@ public final class ModFluffBlocks {
 	public static final Block biomeBrickSwampSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampStairs = new BlockModStairs(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
-	public static final Block biomeChiseledBrickSwamp = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneSwamp));
+	public static final Block biomeChiseledBrickSwamp = new BlockModDirectional(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 
 	public static final Block biomeStoneDesert = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE));
 	public static final Block biomeStoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
@@ -232,7 +232,7 @@ public final class ModFluffBlocks {
 	public static final Block biomeBrickTaigaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeChiseledBrickTaiga = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 
-	public static final Block biomeStoneMesa = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest));
+	public static final Block biomeStoneMesa = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.CALCITE));
 	public static final Block biomeStoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeStoneMesaStairs = new BlockModStairs(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeStoneMesaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));

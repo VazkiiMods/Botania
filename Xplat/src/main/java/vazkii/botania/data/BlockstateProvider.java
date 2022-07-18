@@ -592,6 +592,27 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeBrickSwampSlab, swampBrickModels, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
 		wallBlockWithVariants(remainingBlocks, biomeBrickSwampWall, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
 
+		var swampChiseledBrickTopTextures = new ResourceLocation[] {
+				getBlockTexture(biomeChiseledBrickSwamp, "_top"),
+				getBlockTexture(biomeChiseledBrickSwamp, "_top_1")
+		};
+		var swampChiseledBrickBottomTextures = new ResourceLocation[] {
+				getBlockTexture(biomeChiseledBrickSwamp, "_bottom"),
+				getBlockTexture(biomeChiseledBrickSwamp, "_bottom")
+		};
+		var swampChiseledBrickSideTextures = new ResourceLocation[] {
+				getBlockTexture(biomeChiseledBrickSwamp),
+				getBlockTexture(biomeChiseledBrickSwamp)
+		};
+		directionalPillarWithVariants(remainingBlocks, biomeChiseledBrickSwamp, swampChiseledBrickTopTextures, swampChiseledBrickBottomTextures, swampChiseledBrickSideTextures);
+
+		var swampCobblestoneTextures = new ResourceLocation[] { getBlockTexture(biomeCobblestoneSwamp), getBlockTexture(biomeCobblestoneSwamp, "_1") };
+		var swampCobblestoneModels = new ResourceLocation[] { getModelLocation(biomeCobblestoneSwamp), getModelLocation(biomeCobblestoneSwamp, "_1") };
+		cubeAllWithVariants(remainingBlocks, biomeCobblestoneSwamp, swampCobblestoneTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeCobblestoneSwampStairs, swampCobblestoneTextures, swampCobblestoneTextures, swampCobblestoneTextures);
+		slabBlockWithVariants(remainingBlocks, biomeCobblestoneSwampSlab, swampCobblestoneModels, swampCobblestoneTextures, swampCobblestoneTextures, swampCobblestoneTextures);
+		wallBlockWithVariants(remainingBlocks, biomeCobblestoneSwampWall, swampCobblestoneTextures);
+
 		// Slabs, stairs, walls are handled automatically.
 		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
 			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));

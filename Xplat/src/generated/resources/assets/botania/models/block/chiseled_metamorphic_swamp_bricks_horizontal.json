@@ -1,5 +1,5 @@
 {
-  "parent": "botania:block/shapes/cube_column_directional",
+  "parent": "botania:block/shapes/cube_column_directional_horizontal",
   "textures": {
     "top": "botania:block/chiseled_metamorphic_swamp_bricks_top",
     "bottom": "botania:block/chiseled_metamorphic_swamp_bricks_bottom",
