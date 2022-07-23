@@ -20,11 +20,7 @@ import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -55,7 +51,7 @@ public class GunModel implements BakedModel {
 	private final BakedModel originalModel;
 	private final BakedModel originalModelClip;
 
-	public GunModel(net.minecraft.client.resources.model.ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
+	public GunModel(ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
 		this.bakery = bakery;
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
@@ -134,7 +130,7 @@ public class GunModel implements BakedModel {
 		private final List<BakedQuad> genQuads = new ArrayList<>();
 		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
-		CompositeBakedModel(net.minecraft.client.resources.model.ModelBakery bakery, ItemStack lens, BakedModel gun) {
+		CompositeBakedModel(ModelBakery bakery, ItemStack lens, BakedModel gun) {
 			super(gun);
 
 			ResourceLocation lensId = Registry.ITEM.getKey(lens.getItem());
