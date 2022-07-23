@@ -47,14 +47,23 @@ public class GunModel implements BakedModel {
 	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
 	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
 
-	private final net.minecraft.client.resources.model.ModelBakery bakery;
 	private final BakedModel originalModel;
 	private final BakedModel originalModelClip;
+	private final Map<Pair<Item, Boolean>, BakedModel> cache = new HashMap<>();
 
 	public GunModel(ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
-		this.bakery = bakery;
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
+
+		for (var item : Registry.ITEM) {
+			var lens = item.getDefaultInstance();
+			if (ItemManaGun.isValidLens(lens)) {
+				var baked = new CompositeBakedModel(bakery, lens, originalModel);
+				var bakedClip = new CompositeBakedModel(bakery, lens, originalModelClip);
+				cache.put(Pair.of(item, false), baked);
+				cache.put(Pair.of(item, true), bakedClip);
+			}
+		}
 	}
 
 	private final ItemOverrides itemHandler = new ItemOverrides() {
@@ -69,7 +78,8 @@ public class GunModel implements BakedModel {
 
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if (!lens.isEmpty()) {
-				return GunModel.this.getModel(lens, clip);
+				return GunModel.this.cache.getOrDefault(Pair.of(lens.getItem(), clip),
+						Minecraft.getInstance().getModelManager().getMissingModel());
 			} else {
 				return clip ? originalModelClip : originalModel;
 			}
@@ -118,12 +128,6 @@ public class GunModel implements BakedModel {
 	@Override
 	public boolean usesBlockLight() {
 		return originalModel.usesBlockLight();
-	}
-
-	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();
-
-	private CompositeBakedModel getModel(ItemStack lens, boolean clip) {
-		return cache.computeIfAbsent(Pair.of(lens.getItem(), clip), p -> new CompositeBakedModel(bakery, lens, clip ? originalModelClip : originalModel));
 	}
 
 	private static class CompositeBakedModel extends DelegatedModel {
