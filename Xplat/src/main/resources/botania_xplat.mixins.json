@@ -18,6 +18,7 @@
     "AccessorFireBlock",
     "AccessorGoalSelector",
     "AccessorHopperBlockEntity",
+    "AccessorHurtByTargetGoal",
     "AccessorIngredient",
     "AccessorItemEntity",
     "AccessorLivingEntity",
