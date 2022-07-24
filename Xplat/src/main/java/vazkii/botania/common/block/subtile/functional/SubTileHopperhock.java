@@ -75,12 +75,19 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 
 		BlockPos pos = getEffectivePos();
 
-		Predicate<ItemEntity> shouldPickup = item -> DelayHelper.canInteractWith(this, item)
-				// Hopperhocks additionally don't pick up items that have been newly infused (5 ticks),
-				// to facilitate multiple infusions
-				&& IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown()
-						<= ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5
-				&& !IXplatAbstractions.INSTANCE.preventsRemoteMovement(item);
+		Predicate<ItemEntity> shouldPickup = item -> {
+			if (IXplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
+				return false;
+			}
+
+			// Flat 5 tick delay for newly infused items
+			var manaInfusionCooldown = IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown();
+			if (manaInfusionCooldown > 0) {
+				return manaInfusionCooldown <= ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5;
+			}
+
+			return DelayHelper.canInteractWith(this, item);
+		};
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), shouldPickup);
 
 		for (ItemEntity item : items) {
