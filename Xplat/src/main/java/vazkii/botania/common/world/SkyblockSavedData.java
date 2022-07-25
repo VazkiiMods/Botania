@@ -36,7 +36,7 @@ public class SkyblockSavedData extends SavedData {
 
 	public SkyblockSavedData(CompoundTag nbt) {
 		HashBiMap<IslandPos, UUID> map = HashBiMap.create();
-		for (Tag inbt : nbt.getList("Islands", 10)) {
+		for (Tag inbt : nbt.getList("Islands", Tag.TAG_COMPOUND)) {
 			CompoundTag tag = (CompoundTag) inbt;
 			map.put(IslandPos.fromTag(tag), tag.getUUID("Player"));
 		}

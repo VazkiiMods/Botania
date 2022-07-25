@@ -18,7 +18,7 @@ public class TileForestEye extends TileMod {
 	public int entities = 0;
 
 	public TileForestEye(BlockPos pos, BlockState state) {
-		super(ModTiles.FORSET_EYE, pos, state);
+		super(ModTiles.FOREST_EYE, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileForestEye self) {

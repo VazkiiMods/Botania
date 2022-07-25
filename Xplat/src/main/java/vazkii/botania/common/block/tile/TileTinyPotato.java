@@ -154,7 +154,6 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 			var cakeColor = getLitCakeColor(facingState, level.getRandom());
 			var players = PlayerHelper.getRealPlayersIn(level,
 					VecHelper.boxForRange(Vec3.atCenterOf(getBlockPos()), 8));
-			players.removeIf(p -> PlayerHelper.hasAdvancement((ServerPlayer) p, BIRTHDAY_ADVANCEMENT));
 
 			if (cakeColor != null && !players.isEmpty()) {
 				birthdayTick++;

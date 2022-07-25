@@ -13,6 +13,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -164,7 +165,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 		digestingMana = cmp.getInt(TAG_DIGESTING_MANA);
 		lastFoods.clear();
-		ListTag foodList = cmp.getList(TAG_LAST_FOODS, 10);
+		ListTag foodList = cmp.getList(TAG_LAST_FOODS, Tag.TAG_COMPOUND);
 		for (int i = 0; i < foodList.size(); i++) {
 			lastFoods.add(ItemStack.of(foodList.getCompound(i)));
 		}

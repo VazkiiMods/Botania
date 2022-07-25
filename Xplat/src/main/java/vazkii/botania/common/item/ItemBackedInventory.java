@@ -10,6 +10,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +28,7 @@ public class ItemBackedInventory extends SimpleContainer {
 		super(expectedSize);
 		this.stack = stack;
 
-		ListTag lst = ItemNBTHelper.getList(stack, TAG_ITEMS, 10, false);
+		ListTag lst = ItemNBTHelper.getList(stack, TAG_ITEMS, Tag.TAG_COMPOUND, false);
 		int i = 0;
 		for (; i < expectedSize && i < lst.size(); i++) {
 			setItem(i, ItemStack.of(lst.getCompound(i)));

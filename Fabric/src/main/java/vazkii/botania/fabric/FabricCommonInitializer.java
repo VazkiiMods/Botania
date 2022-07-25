@@ -163,13 +163,15 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		// Worldgen
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
-		if (BotaniaConfig.common().worldgenEnabled()) {
+		if (BotaniaConfig.common().worldgenFlowers()) {
 			BiomeModifications.addFeature(ctx -> {
 				var category = Biome.getBiomeCategory(ctx.getBiomeRegistryEntry());
 				return !ModFeatures.TYPE_BLACKLIST.contains(category);
 			},
 					GenerationStep.Decoration.VEGETAL_DECORATION,
 					ModFeatures.MYSTICAL_FLOWERS_ID);
+		}
+		if (BotaniaConfig.common().worldgenMushrooms()) {
 			BiomeModifications.addFeature(
 					ctx -> Biome.getBiomeCategory(ctx.getBiomeRegistryEntry()) != Biome.BiomeCategory.THEEND,
 					GenerationStep.Decoration.VEGETAL_DECORATION,
@@ -212,6 +214,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		return (t, id) -> Registry.register(registry, id, t);
 	}
 
+	@SuppressWarnings("removal") // todo 1.19 remove
 	private void registerCapabilities() {
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL,
 				FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK),

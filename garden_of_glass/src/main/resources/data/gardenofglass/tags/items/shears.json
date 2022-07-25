@@ -1,0 +1,14 @@
+{
+  "__comment": "Platform bouncer for shears tags",
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:shears",
+      "required": false
+    },
+    {
+      "id": "#forge:shears",
+      "required": false
+    }
+  ]
+}

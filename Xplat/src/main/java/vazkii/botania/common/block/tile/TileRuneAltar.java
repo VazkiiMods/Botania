@@ -359,6 +359,10 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		return !isFull();
 	}
 
+	public boolean canAddLastRecipe() {
+		return this.isEmpty();
+	}
+
 	public static class Hud {
 		public static void render(TileRuneAltar altar, PoseStack ms, Minecraft mc) {
 			int xc = mc.getWindow().getGuiScaledWidth() / 2;
@@ -423,7 +427,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 					angle += anglePer;
 				}
-			} else if (altar.recipeKeepTicks > 0) {
+			}
+			if (altar.recipeKeepTicks > 0 && altar.canAddLastRecipe()) {
 				String s = I18n.get("botaniamisc.altarRefill0");
 				mc.font.drawShadow(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
 				s = I18n.get("botaniamisc.altarRefill1");

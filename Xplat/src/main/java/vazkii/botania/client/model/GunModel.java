@@ -20,11 +20,7 @@ import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -51,14 +47,23 @@ public class GunModel implements BakedModel {
 	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
 	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
 
-	private final net.minecraft.client.resources.model.ModelBakery bakery;
 	private final BakedModel originalModel;
 	private final BakedModel originalModelClip;
+	private final Map<Pair<Item, Boolean>, BakedModel> cache = new HashMap<>();
 
-	public GunModel(net.minecraft.client.resources.model.ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
-		this.bakery = bakery;
+	public GunModel(ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
+
+		for (var item : Registry.ITEM) {
+			var lens = item.getDefaultInstance();
+			if (ItemManaGun.isValidLens(lens)) {
+				var baked = new CompositeBakedModel(bakery, lens, originalModel);
+				var bakedClip = new CompositeBakedModel(bakery, lens, originalModelClip);
+				cache.put(Pair.of(item, false), baked);
+				cache.put(Pair.of(item, true), bakedClip);
+			}
+		}
 	}
 
 	private final ItemOverrides itemHandler = new ItemOverrides() {
@@ -73,7 +78,8 @@ public class GunModel implements BakedModel {
 
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if (!lens.isEmpty()) {
-				return GunModel.this.getModel(lens, clip);
+				return GunModel.this.cache.getOrDefault(Pair.of(lens.getItem(), clip),
+						Minecraft.getInstance().getModelManager().getMissingModel());
 			} else {
 				return clip ? originalModelClip : originalModel;
 			}
@@ -124,17 +130,11 @@ public class GunModel implements BakedModel {
 		return originalModel.usesBlockLight();
 	}
 
-	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();
-
-	private CompositeBakedModel getModel(ItemStack lens, boolean clip) {
-		return cache.computeIfAbsent(Pair.of(lens.getItem(), clip), p -> new CompositeBakedModel(bakery, lens, clip ? originalModelClip : originalModel));
-	}
-
 	private static class CompositeBakedModel extends DelegatedModel {
 		private final List<BakedQuad> genQuads = new ArrayList<>();
 		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
-		CompositeBakedModel(net.minecraft.client.resources.model.ModelBakery bakery, ItemStack lens, BakedModel gun) {
+		CompositeBakedModel(ModelBakery bakery, ItemStack lens, BakedModel gun) {
 			super(gun);
 
 			ResourceLocation lensId = Registry.ITEM.getKey(lens.getItem());

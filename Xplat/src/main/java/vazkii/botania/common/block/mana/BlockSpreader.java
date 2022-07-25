@@ -153,42 +153,63 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		if (heldItem.getItem() instanceof ItemTwigWand) {
 			return InteractionResult.PASS;
 		}
+		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
 		ItemStack lens = spreader.getItemHandler().getItem(0);
-		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
-		boolean playerHasWool = !heldItem.isEmpty() && ColorHelper.isWool(Block.byItem(heldItem.getItem()));
-		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.getItem().equals(Items.SCAFFOLDING);
-		boolean shouldInsert = (playerHasLens && lens.isEmpty())
-				|| (playerHasWool && spreader.paddingColor == null)
+		boolean playerHasLens = heldItem.getItem() instanceof ILens;
+		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
+		ItemStack wool = spreader.paddingColor != null
+				? new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor))
+				: ItemStack.EMPTY;
+		boolean playerHasWool = ColorHelper.isWool(Block.byItem(heldItem.getItem()));
+		boolean woolIsSame = playerHasWool && ItemStack.isSameItemSameTags(heldItem, wool);
+		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.is(Items.SCAFFOLDING);
+		boolean shouldInsert = (playerHasLens && !lensIsSame)
+				|| (playerHasWool && !woolIsSame)
 				|| (playerHasScaffolding && !state.getValue(BotaniaStateProps.HAS_SCAFFOLDING));
 
 		if (shouldInsert) {
 			if (playerHasLens) {
 				ItemStack toInsert = heldItem.copy();
 				toInsert.setCount(1);
+
+				heldItem.shrink(1);
+				if (!lens.isEmpty()) {
+					player.getInventory().placeItemBackInInventory(lens);
+				}
+
 				spreader.getItemHandler().setItem(0, toInsert);
 				world.playSound(player, pos, ModSounds.spreaderAddLens, SoundSource.BLOCKS, 1F, 1F);
 			} else if (playerHasWool) {
-				Block block = Block.byItem(heldItem.getItem());
-				spreader.paddingColor = ColorHelper.getWoolColor(block);
+				Block woolBlock = Block.byItem(heldItem.getItem());
+
+				heldItem.shrink(1);
+				if (spreader.paddingColor != null) {
+					ItemStack spreaderWool = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
+					player.getInventory().placeItemBackInInventory(spreaderWool);
+				}
+
+				spreader.paddingColor = ColorHelper.getWoolColor(woolBlock);
 				spreader.setChanged();
 				world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, true));
 				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
-				world.playSound(player, pos, ModSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
-			}
+				if (!player.getAbilities().instabuild) {
+					heldItem.shrink(1);
+				}
 
-			if (!player.getAbilities().instabuild) {
-				heldItem.shrink(1);
+				world.playSound(player, pos, ModSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
 			}
 			return InteractionResult.SUCCESS;
 		}
 
 		if (state.getValue(BotaniaStateProps.HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
-			ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
-			player.getInventory().placeItemBackInInventory(scaffolding);
+			if (!player.getAbilities().instabuild) {
+				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
+				player.getInventory().placeItemBackInInventory(scaffolding);
+			}
 			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, false));
 			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
@@ -196,7 +217,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 
 			return InteractionResult.SUCCESS;
 		}
-		if (!lens.isEmpty()) {
+		if (!lens.isEmpty() && (mainHandEmpty || lensIsSame)) {
 			player.getInventory().placeItemBackInInventory(lens);
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
 
@@ -204,8 +225,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 
 			return InteractionResult.SUCCESS;
 		}
-		if (spreader.paddingColor != null) {
-			ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
+		if (spreader.paddingColor != null && (mainHandEmpty || woolIsSame)) {
 			player.getInventory().placeItemBackInInventory(wool);
 			spreader.paddingColor = null;
 			spreader.setChanged();

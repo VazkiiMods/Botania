@@ -1,14 +1,11 @@
 # Contribution Guide
 ## Reporting Issues
-* Have a look through the [Botania FAQ](https://botaniamod.net/faq.php), to see if your
+* Have a look through the [Botania FAQ](https://botaniamod.net/faq.html), to see if your
   issue has been solved already
 * Issues regarding "Bukkit+Forge" servers that are not reproducible with Forge only are
   **not accepted**
 * Issues regarding outdated versions of the mod, especially for older versions of
 Minecraft, are **not accepted**
-* Unless you manually update every mod on the pack to the latest, issues regarding any
-public modpack that is not officially maintained or supported by the Botania developers
-(the ones in the modpack section of the website are not) are **not accepted**
 * Duplicate issues or issues that have been solved already (use the search feature!) will
   be closed without warning.
 * Do not tag your issues' names. "Something Broke" is prefered to "[Bug] Something Broke"
@@ -21,26 +18,40 @@ public modpack that is not officially maintained or supported by the Botania dev
 * The `spotlessJavaApply` Gradle task can fix most violations for you.
 * **Keep PR's small**. The smaller it is, the faster we will review it. Only fix one thing
   per PR instead of piling everything into one massive PR.
+* Consider the patch workflow to help keep your changes small.  If you hate GitHub's PR
+  model like [some of the maintainers
+  do](https://www.vincent-lee.net/blog/2022-02-28-github/), feel free to email patches to
+  `~williewillus/violet-moon@lists.sr.ht`. See `git-send-email.io` to set up your Git
+  environment for mailing patches.
 * If you fix a gameplay bug or add a new gameplay feature, consider adding a GameTest for
   it (see below)
-* If you hate GitHub's PR model like some of the maintainers do, feel free to email patches
-  to `~williewillus/violet-moon@lists.sr.ht`. See `git-send-email.io` to set up your
-  Git environment for mailing patches.
 
-## Making a Release
+## Branching Discipline (for maintainers)
+Each major Minecraft version has a dedicated Git branch, the primary support version is marked
+as the default on web UI's. All new changes should be targeted to the primary support branch,
+and backported as necessary to older branches via cherry-picking.
+
+As much as possible, we *do not* use merge commits. They clutter the log and make
+bisecting very annoying. When obtaining remote changes, use `git pull origin <branch>
+--rebase`.  When merging PR's, use the "Rebase and Merge " or "Squash and Merge"
+options.  For the latter, GitHub will usually generate a commit message concatenating all
+the individual commit messages together, you will likely want to consider writing a better
+message.
+
+## Making a Release (for maintainers)
 1. Pull from remote, test all changes, and commit everything.
 2. `git tag -a release-<VERSION>`. All Botania versions *must* follow the version format
    `<MC-VER>-INT`, so it'll probably look like `git tag -a release-1.16.3-407`.
    If you don't remember which version is next, look at the `build_number` in `gradle.properties`.
 3. In the Git editor that pops up, write the changelog. Finish the tag process (usually by
    saving and closing the editor).
-4. Copy the changelog to the webpage version under `web/changelog.txt`.`
+4. Copy the changelog to the webpage version under `web/changelog.md`.
 5. Increment the `build_number` in `gradle.properties` to the next version
    (one greater than the version you just tagged). Commit this and the changelog.
 6. Push the branch and the tag you just made: `git push origin <branch> <release tag>`
 7. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and wait for the tag
    you just pushed to be compiled and built
-8. Download the JAR and submit it to CurseForge
+8. Download the JAR and submit it to CurseForge and Modrinth
 9. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote
    username to ssh into the webserver, it'll take your current login name.
 

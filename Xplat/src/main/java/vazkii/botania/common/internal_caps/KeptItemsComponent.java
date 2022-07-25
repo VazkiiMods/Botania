@@ -31,7 +31,7 @@ public class KeptItemsComponent extends SerializableComponent {
 	@Override
 	public void readFromNbt(CompoundTag tag) {
 		stacks.clear();
-		ListTag list = tag.getList("stacks", 10);
+		ListTag list = tag.getList("stacks", Tag.TAG_COMPOUND);
 		for (Tag t : list) {
 			stacks.add(ItemStack.of((CompoundTag) t));
 		}

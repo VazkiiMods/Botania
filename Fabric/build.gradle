@@ -82,6 +82,13 @@ repositories {
         name = "ParchmentMC"
         url = "https://maven.parchmentmc.net/"
     }
+    maven {
+        name = "Unascribed"
+        url "https://repo.unascribed.com" // for ears
+        content {
+            includeGroup "com.unascribed"
+        }
+    }
 }
 
 dependencies {
@@ -130,6 +137,8 @@ dependencies {
     modCompileOnly 'teamreborn:energy:2.1.0'
 
     modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
+
+    modCompileOnly 'com.unascribed:ears-api:1.4.5'
 }
 
 compileJava {

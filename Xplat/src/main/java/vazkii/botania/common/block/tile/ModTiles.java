@@ -50,7 +50,7 @@ public class ModTiles {
 	public static final BlockEntityType<TileTinyPlanet> TINY_PLANET = type(prefix(LibBlockNames.TINY_PLANET), TileTinyPlanet::new, tinyPlanet);
 	public static final BlockEntityType<TileOpenCrate> OPEN_CRATE = type(prefix(LibBlockNames.OPEN_CRATE), TileOpenCrate::new, openCrate);
 	public static final BlockEntityType<TileCraftCrate> CRAFT_CRATE = type(prefix(LibBlockNames.CRAFT_CRATE), TileCraftCrate::new, craftCrate);
-	public static final BlockEntityType<TileForestEye> FORSET_EYE = type(prefix(LibBlockNames.FOREST_EYE), TileForestEye::new, forestEye);
+	public static final BlockEntityType<TileForestEye> FOREST_EYE = type(prefix(LibBlockNames.FOREST_EYE), TileForestEye::new, forestEye);
 	public static final BlockEntityType<TilePlatform> PLATFORM = type(prefix(LibBlockNames.PLATFORM), TilePlatform::new, abstrusePlatform, spectralPlatform, infrangiblePlatform);
 	public static final BlockEntityType<TileAlfPortal> ALF_PORTAL = type(prefix(LibBlockNames.ALF_PORTAL), TileAlfPortal::new, alfPortal);
 	public static final BlockEntityType<TileBifrost> BIFROST = type(prefix(LibBlockNames.BIFROST), TileBifrost::new, bifrost);

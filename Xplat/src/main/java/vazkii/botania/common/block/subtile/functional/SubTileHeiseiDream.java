@@ -25,8 +25,10 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.mixin.AccessorGoalSelector;
+import vazkii.botania.mixin.AccessorHurtByTargetGoal;
 import vazkii.botania.mixin.AccessorMob;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
@@ -77,10 +79,16 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 				// Move any HurtByTargetGoal to highest priority
 				GoalSelector targetSelector = ((AccessorMob) entity).getTargetSelector();
 				for (WrappedGoal entry : ((AccessorGoalSelector) targetSelector).getAvailableGoals()) {
-					if (entry.getGoal() instanceof HurtByTargetGoal) {
+					if (entry.getGoal() instanceof HurtByTargetGoal goal) {
+						// Remove all ignorals. We can't actually resize or overwrite
+						// the array, but we can fill it with classes that will never pass
+						// the game logic's checks.
+						var ignoreClasses = ((AccessorHurtByTargetGoal) goal).getIgnoreDamageClasses();
+						Arrays.fill(ignoreClasses, Void.TYPE);
+
 						// Concurrent modification OK since we break out of the loop
-						targetSelector.removeGoal(entry.getGoal());
-						targetSelector.addGoal(-1, entry.getGoal());
+						targetSelector.removeGoal(goal);
+						targetSelector.addGoal(-1, goal);
 						break;
 					}
 				}

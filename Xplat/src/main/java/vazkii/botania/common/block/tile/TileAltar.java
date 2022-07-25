@@ -304,6 +304,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		return getBlockState().getValue(BlockAltar.FLUID);
 	}
 
+	public boolean canAddLastRecipe() {
+		return this.isEmpty() && this.getFluid() == State.WATER;
+	}
+
 	public static class Hud {
 		public static void render(TileAltar altar, PoseStack ms, Minecraft mc) {
 			int xc = mc.getWindow().getGuiScaledWidth() / 2;
@@ -349,7 +353,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 					angle += anglePer;
 				}
-			} else if (altar.recipeKeepTicks > 0 && altar.getFluid() == State.WATER) {
+			}
+			if (altar.recipeKeepTicks > 0 && altar.canAddLastRecipe()) {
 				String s = I18n.get("botaniamisc.altarRefill0");
 				mc.font.draw(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
 				s = I18n.get("botaniamisc.altarRefill1");

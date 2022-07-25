@@ -105,17 +105,19 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileAltar tile = (TileAltar) world.getBlockEntity(pos);
-		State fluid = tile.getFluid();
-		ItemStack stack = player.getItemInHand(hand);
-		if (player.isShiftKeyDown()) {
-			InventoryHelper.withdrawFromInventory(tile, player);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
+		if (!(world.getBlockEntity(pos) instanceof TileAltar apothecary)) {
+			return InteractionResult.PASS;
+		}
+		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
+
+		if (apothecary.canAddLastRecipe() && mainHandEmpty) {
+			apothecary.trySetLastRecipe(player);
 			return InteractionResult.SUCCESS;
-		} else if (tile.isEmpty() && fluid == State.WATER && stack.isEmpty()) {
-			tile.trySetLastRecipe(player);
+		} else if (!apothecary.isEmpty() && mainHandEmpty) {
+			InventoryHelper.withdrawFromInventory(apothecary, player);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
 			return InteractionResult.SUCCESS;
-		} else if (tryWithdrawFluid(player, hand, tile) || tryDepositFluid(player, hand, tile)) {
+		} else if (tryWithdrawFluid(player, hand, apothecary) || tryDepositFluid(player, hand, apothecary)) {
 			return InteractionResult.SUCCESS;
 		}
 

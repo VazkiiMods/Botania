@@ -55,6 +55,7 @@ import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -118,6 +119,7 @@ import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.forge.integration.InventorySorterIntegration;
 import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.RedStringContainerCapProvider;
@@ -161,6 +163,9 @@ public class ForgeCommonInitializer {
 		OrechidManager.registerListener();
 		TileCraftCrate.registerListener();
 		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
+		if (ModList.get().isLoaded("inventorysorter")) {
+			InventorySorterIntegration.init();
+		}
 	}
 
 	private void coreInit() {
@@ -243,12 +248,18 @@ public class ForgeCommonInitializer {
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
 
-		if (BotaniaConfig.common().worldgenEnabled()) {
+		if (BotaniaConfig.common().worldgenFlowers()) {
 			bus.addListener((BiomeLoadingEvent e) -> {
 				Biome.BiomeCategory category = e.getCategory();
 				if (!ModFeatures.TYPE_BLACKLIST.contains(category)) {
 					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalFlowersPlaced);
 				}
+			});
+		}
+
+		if (BotaniaConfig.common().worldgenMushrooms()) {
+			bus.addListener((BiomeLoadingEvent e) -> {
+				Biome.BiomeCategory category = e.getCategory();
 				if (category != Biome.BiomeCategory.THEEND) {
 					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalMushroomsPlaced);
 				}
@@ -523,6 +534,7 @@ public class ForgeCommonInitializer {
 		}
 	}
 
+	@SuppressWarnings("removal") // todo 1.19 remove
 	private void registerBlockLookasides() {
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,

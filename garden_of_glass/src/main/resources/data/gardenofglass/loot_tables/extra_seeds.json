@@ -43,7 +43,7 @@
           "term": {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "item": "minecraft:shears"
+              "tag": "gardenofglass:shears"
             }
           }
         }

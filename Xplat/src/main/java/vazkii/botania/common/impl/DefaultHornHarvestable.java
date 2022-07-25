@@ -17,16 +17,9 @@ import vazkii.botania.api.block.IHornHarvestable;
 public class DefaultHornHarvestable implements IHornHarvestable {
 	public static final IHornHarvestable INSTANCE = new DefaultHornHarvestable();
 
+	@SuppressWarnings("removal")
 	@Override
 	public boolean canHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		return false;
 	}
-
-	@Override
-	public boolean hasSpecialHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		return false;
-	}
-
-	@Override
-	public void harvestByHorn(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 }

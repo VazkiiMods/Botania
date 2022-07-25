@@ -17,7 +17,6 @@ import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.ILens;
-import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.common.item.ItemManaGun;
 
 import javax.annotation.Nonnull;
@@ -31,27 +30,23 @@ public class ManaGunLensRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
-		boolean foundLens = false;
-		boolean foundGun = false;
+		int foundLens = 0;
+		int foundGun = 0;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (!foundGun && stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
-					foundGun = true;
-				} else if (!foundLens && stack.getItem() instanceof ILens lens) {
-					if (!(lens instanceof ILensControl control) || !control.isControlLens(stack)) {
-						foundLens = true;
-					} else {
-						return false;
-					}
+				if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
+					foundGun++;
+				} else if (ItemManaGun.isValidLens(stack)) {
+					foundLens++;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
 				}
 			}
 		}
 
-		return foundLens && foundGun;
+		return foundLens == 1 && foundGun == 1;
 	}
 
 	@Nonnull

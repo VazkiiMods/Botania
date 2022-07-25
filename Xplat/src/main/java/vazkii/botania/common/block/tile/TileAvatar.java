@@ -85,7 +85,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, IMan
 		ticksElapsed = tag.getInt(TAG_TICKS_ELAPSED);
 		mana = tag.getInt(TAG_MANA);
 		boostCooldowns.clear();
-		ListTag boostCooldowns = tag.getList(TAG_COOLDOWNS, 10);
+		ListTag boostCooldowns = tag.getList(TAG_COOLDOWNS, Tag.TAG_COMPOUND);
 		for (Tag nbt : boostCooldowns) {
 			CompoundTag cmp = ((CompoundTag) nbt);
 			UUID id = cmp.getUUID("id");

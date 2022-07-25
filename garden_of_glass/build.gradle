@@ -3,7 +3,7 @@ plugins {
 }
 
 def minecraft_version = "1.18.1"
-version = '1.8'
+version = '1.9'
 group = 'vazkii.botania' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'gardenofglass'
 

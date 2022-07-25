@@ -63,16 +63,14 @@ public class BlockBrewery extends BlockModWaterloggable implements EntityBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileBrewery brew = (TileBrewery) world.getBlockEntity(pos);
 
-		if (player.isShiftKeyDown()) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (stack.isEmpty()) {
 			if (brew.recipe == null && !state.getValue(BlockStateProperties.POWERED)) {
 				InventoryHelper.withdrawFromInventory(brew, player);
 				return InteractionResult.SUCCESS;
 			}
 		} else {
-			ItemStack stack = player.getItemInHand(hand);
-			if (!stack.isEmpty()) {
-				return brew.addItem(player, stack, hand) ? InteractionResult.SUCCESS : InteractionResult.PASS;
-			}
+			return brew.addItem(player, stack, hand) ? InteractionResult.SUCCESS : InteractionResult.PASS;
 		}
 		return InteractionResult.PASS;
 	}

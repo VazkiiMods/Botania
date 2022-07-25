@@ -124,7 +124,7 @@ public class BlockPistonRelay extends BlockMod {
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
 
 		public WorldData(@Nonnull CompoundTag cmp) {
-			ListTag list = cmp.getList("list", 11);
+			ListTag list = cmp.getList("list", Tag.TAG_INT_ARRAY);
 			for (int i = 0; i < list.size(); i += 2) {
 				Tag from = list.get(i);
 				Tag to = list.get(i + 1);
