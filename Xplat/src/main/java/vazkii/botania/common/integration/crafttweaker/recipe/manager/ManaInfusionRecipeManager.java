@@ -69,11 +69,11 @@ public class ManaInfusionRecipeManager implements IRecipeManager<IManaInfusionRe
 	 * @docParam input <item:minecraft:apple>
 	 * @docParam mana 200
 	 * @docParam catalyst <block:botania:alchemy_catalyst>
-	 * @docParam group null
+	 * @docParam group ""
 	 * @docParam function (usualOut as IItemStack, input as IItemStack) => { return usualOut.withTag(input.tag); }
 	 */
 	@ZenCodeType.Method
-	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional CTBlockIngredient catalyst, @ZenCodeType.OptionalString String group, @ZenCodeType.Optional RecipeFunctionSingle function) {
+	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional CTBlockIngredient catalyst, @ZenCodeType.OptionalString("") String group, @ZenCodeType.Optional RecipeFunctionSingle function) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = CraftTweakerConstants.rl(name);
 		RecipeManaInfusion recipe;
