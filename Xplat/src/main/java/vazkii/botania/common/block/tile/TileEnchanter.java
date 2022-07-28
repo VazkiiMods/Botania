@@ -20,6 +20,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -65,7 +66,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttachable, IWandable {
+public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttachable, IWandable, Clearable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -483,6 +484,12 @@ public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttac
 	@Override
 	public int getAvailableSpaceForMana() {
 		return Math.max(0, manaRequired - getCurrentMana());
+	}
+
+	@Override
+	public void clearContent() {
+		this.itemToEnchant = ItemStack.EMPTY;
+		this.stage = State.IDLE;
 	}
 
 	public static class WandHud implements IWandHUD {
