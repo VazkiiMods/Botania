@@ -23,6 +23,9 @@ Minecraft, are **not accepted**
   do](https://www.vincent-lee.net/blog/2022-02-28-github/), feel free to email patches to
   `~williewillus/violet-moon@lists.sr.ht`. See `git-send-email.io` to set up your Git
   environment for mailing patches.
+* Please write descriptive commit messages with proper separation between the title and
+  summary of the message. Do not write commit messages consisting only of "Fix #123", that
+  means nothing to e.g. someone reading the logs offline without access to GitHub.
 * If you fix a gameplay bug or add a new gameplay feature, consider adding a GameTest for
   it (see below)
 
