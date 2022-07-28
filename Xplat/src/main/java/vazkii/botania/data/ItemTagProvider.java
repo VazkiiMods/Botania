@@ -98,9 +98,14 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS, BotaniaTags.Items.DREAMWOOD_LOGS);
 		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING, BotaniaTags.Items.DREAMWOOD_LOGS_GLIMMERING);
 
-		this.tag(BotaniaTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
-		this.tag(BotaniaTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
-				.addOptional(new ResourceLocation("quark", "basalt"))
+		this.tag(ItemTags.SAND);
+		this.tag(BotaniaTags.Items.DISPOSABLE).add(Items.DIRT, Items.GRAVEL, Items.COBBLESTONE,
+				Items.NETHERRACK, Items.COBBLED_DEEPSLATE, Items.END_STONE)
+				.addTag(ItemTags.SAND);
+		this.tag(BotaniaTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE,
+				Items.TUFF, Items.CALCITE, Items.STONE, Items.BASALT,
+				Items.DEEPSLATE, Items.DRIPSTONE_BLOCK, Items.POINTED_DRIPSTONE, Items.MOSS_BLOCK,
+				Items.SANDSTONE, Items.RED_SANDSTONE)
 				.addOptional(new ResourceLocation("quark", "jasper"))
 				.addOptional(new ResourceLocation("quark", "limestone"))
 				.addOptional(new ResourceLocation("quark", "marble"))

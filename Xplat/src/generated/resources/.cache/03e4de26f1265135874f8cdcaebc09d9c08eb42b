@@ -1,7 +1,7 @@
 // 1.19.2	Tags for minecraft:item
 6d243a36e243352f4a383bfd9cc4f49480acb963 data/botania/tags/items/burst_viewers.json
 a6d3edab4a73465c3e545dc83ed4941df3126a15 data/botania/tags/items/contributor_headflowers.json
-d9edac24d5e738557322e4ae3e49a77e657032c8 data/botania/tags/items/disposable.json
+46219dc2834bac3022bf64c0afab93fb34858aa6 data/botania/tags/items/disposable.json
 e8a61a147b6a258b9c37788ac1bd4edf592c9dc9 data/botania/tags/items/double_mystical_flowers.json
 ad141ad21dace7c08c5162b4cceb55088b225792 data/botania/tags/items/dragonstone_gems.json
 070322f325bf48a093e7a873066fd5992202fd74 data/botania/tags/items/dreamwood_logs.json
@@ -47,7 +47,7 @@ c9df24eb9ce8c7a82104f8e6d00de77d9f9d964c data/botania/tags/items/petals/light_gr
 adfc7deaa7aa9d5425da095270745d58605b86ad data/botania/tags/items/rods.json
 311e1a38f6e8dd30b7546587a97d0f29d79ce72e data/botania/tags/items/runes.json
 977d965fe2a544539960279db0fa40a755349604 data/botania/tags/items/seed_apothecary_reagent.json
-f392cbc260755a4d40246935a783aa24d51ca1ce data/botania/tags/items/semi_disposable.json
+8caa5b8e7ac15c53ecdc9fbdc5d0d14d98020113 data/botania/tags/items/semi_disposable.json
 278b6fb5ddf99d4fc9626494295fa7c5a11fc906 data/botania/tags/items/special_floating_flowers.json
 7131d151b6322c92982ca3cdff678eb194b8d38a data/botania/tags/items/special_flowers.json
 801266350a5b3a541de5c523088810c1c32badb2 data/botania/tags/items/terra_pick_blacklist.json
@@ -62,6 +62,7 @@ cc4f967b08052c03ce91be3de50f078469fb2749 data/minecraft/tags/items/music_discs.j
 75ada2b42468a34dc3f88ebcc5424a20ddd91bb4 data/minecraft/tags/items/piglin_loved.json
 5a8edc115bd46b1aaf4c4c720b921774a1a9deea data/minecraft/tags/items/planks.json
 d5f2792b94968c712824b9ab93ba589c15bd1886 data/minecraft/tags/items/rails.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/items/sand.json
 d4169d14dd82dcf6d5825115c9004a65d3fa68cc data/minecraft/tags/items/slabs.json
 ef6aa45a135e98ddd532aa5d076288280653df82 data/minecraft/tags/items/small_flowers.json
 23df9bb47333c14228d0edc58fa3ea4196da0458 data/minecraft/tags/items/stairs.json

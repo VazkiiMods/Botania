@@ -4,10 +4,16 @@
     "minecraft:andesite",
     "minecraft:diorite",
     "minecraft:granite",
-    {
-      "id": "quark:basalt",
-      "required": false
-    },
+    "minecraft:tuff",
+    "minecraft:calcite",
+    "minecraft:stone",
+    "minecraft:basalt",
+    "minecraft:deepslate",
+    "minecraft:dripstone_block",
+    "minecraft:pointed_dripstone",
+    "minecraft:moss_block",
+    "minecraft:sandstone",
+    "minecraft:red_sandstone",
     {
       "id": "quark:jasper",
       "required": false
