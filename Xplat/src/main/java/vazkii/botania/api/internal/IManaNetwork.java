@@ -11,8 +11,7 @@ package vazkii.botania.api.internal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.*;
 
 import javax.annotation.Nullable;
 
@@ -63,4 +62,6 @@ public interface IManaNetwork {
 	 * Gets read-only view of all Mana Pools in the dimension passed in.
 	 */
 	Set<IManaPool> getAllPoolsInWorld(Level world);
+
+	void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 }

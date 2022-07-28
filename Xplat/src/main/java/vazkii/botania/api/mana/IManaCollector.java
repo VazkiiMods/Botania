@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 
 /**
@@ -15,10 +16,14 @@ import vazkii.botania.api.internal.IManaBurst;
  * which nearby generating flowers will pump mana into it.<br>
  * <br>
  * <b>Implementation Instructions:</b><br>
- * TODO update this
- * - Override invalidate() and onChunkUnload(), calling <i>ManaNetworkEvent.removeCollector(this);</i> on both.<br>
- * - On the first tick of update() (or onLoad() in Forge build 1606 or higher), call
- * </i>ManaNetworkEvent.addCollector(this);<i>
+ * - When joining the world (e.g. on first tick), call
+ * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#ADD}.
+ * - When leaving the world (e.g. in setRemoved), call
+ * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#REMOVE}.
+ *
+ * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.
  */
 public interface IManaCollector extends IManaReceiver {
 
