@@ -15,12 +15,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -39,19 +41,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.block.IPetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAltar extends BlockMod implements EntityBlock {
+public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockContainer {
 
 	public static final EnumProperty<State> FLUID = EnumProperty.create("fluid", State.class);
 	private static final VoxelShape BASE = Block.box(0, 0, 0, 16, 2, 16);
@@ -59,6 +58,20 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 	private static final VoxelShape TOP = Block.box(2, 12, 2, 14, 20, 14);
 	private static final VoxelShape TOP_CUTOUT = Block.box(3, 14, 3, 13, 20, 13);
 	private static final VoxelShape SHAPE = Shapes.or(Shapes.or(BASE, MIDDLE), Shapes.join(TOP, TOP_CUTOUT, BooleanOp.ONLY_FIRST));
+
+	@Override
+	public boolean canPlaceLiquid(@Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Fluid fluid) {
+		return state.getValue(FLUID) == State.EMPTY && fluid == Fluids.WATER;
+	}
+
+	@Override
+	public boolean placeLiquid(@Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull FluidState fluidState) {
+		if (canPlaceLiquid(level, pos, state, fluidState.getType())) {
+			level.setBlock(pos, state.setValue(FLUID, State.WATER), Block.UPDATE_ALL);
+			return true;
+		}
+		return false;
+	}
 
 	public enum Variant {
 		DEFAULT,
@@ -149,15 +162,6 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 	private boolean tryDepositFluid(Player player, InteractionHand hand, TileAltar altar) {
 		if (altar.getFluid() != State.EMPTY) {
 			return false;
-		}
-
-		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty()
-				&& stack.is(ModItems.waterRod)
-				&& ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false)) {
-			ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
-			altar.setFluid(State.WATER);
-			return true;
 		}
 
 		if (IXplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.WATER)) {
