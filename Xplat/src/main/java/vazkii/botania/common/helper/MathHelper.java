@@ -23,8 +23,8 @@ public final class MathHelper {
 		return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 	}
 
-	public static float pointDistancePlane(double x1, double y1, double x2, double y2) {
-		return (float) Math.hypot(x1 - x2, y1 - y2);
+	public static float pointDistancePlane(double x1, double z1, double x2, double z2) {
+		return (float) Math.hypot(x1 - x2, z1 - z2);
 	}
 
 	public static void setEntityMotionFromVector(Entity entity, Vec3 originalPosVector, float modifier) {
