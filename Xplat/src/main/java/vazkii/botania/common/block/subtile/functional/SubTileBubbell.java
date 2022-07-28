@@ -11,6 +11,7 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -61,7 +62,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 				if (getEffectivePos().distSqr(pos) < range * range) {
 					BlockState state = getLevel().getBlockState(pos);
 					if (state.getMaterial() == Material.WATER) {
-						getLevel().setBlock(pos, ModBlocks.fakeAir.defaultBlockState(), 2);
+						getLevel().setBlock(pos, ModBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
 						TileFakeAir air = (TileFakeAir) getLevel().getBlockEntity(pos);
 						air.setFlower(this);
 					}

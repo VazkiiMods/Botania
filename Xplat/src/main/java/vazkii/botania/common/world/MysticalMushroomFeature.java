@@ -11,6 +11,7 @@ package vazkii.botania.common.world;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -39,7 +40,7 @@ public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 			DyeColor color = DyeColor.byId(rand.nextInt(16));
 			BlockState mushroom = ModBlocks.getMushroom(color).defaultBlockState();
 			if (level.isEmptyBlock(pos3) && mushroom.canSurvive(level, pos3)) {
-				level.setBlock(pos3, mushroom, 2);
+				level.setBlock(pos3, mushroom, Block.UPDATE_CLIENTS);
 				any = true;
 			}
 		}

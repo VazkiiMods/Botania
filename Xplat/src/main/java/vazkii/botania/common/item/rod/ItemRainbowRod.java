@@ -17,6 +17,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -122,7 +123,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 			for (int j = -1; j <= 1; j++) {
 				placePos.set(center.getX() + i, center.getY(), center.getZ() + j);
 				if (world.isEmptyBlock(placePos) || world.getBlockState(placePos) == bifrost) {
-					world.setBlock(placePos, bifrost, 2);
+					world.setBlock(placePos, bifrost, Block.UPDATE_CLIENTS);
 
 					TileBifrost tile = (TileBifrost) world.getBlockEntity(placePos);
 					if (tile != null) {

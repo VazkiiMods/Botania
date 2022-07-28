@@ -61,9 +61,9 @@ public class BlockLightLauncher extends BlockModWaterloggable {
 
 		if (power && !powered) {
 			pickUpEntities(world, pos);
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
 		}
 	}
 

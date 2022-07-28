@@ -60,9 +60,9 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 
 		if (power && !powered) {
 			((TileSparkChanger) world.getBlockEntity(pos)).doSwap();
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
 		}
 	}
 
