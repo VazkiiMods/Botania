@@ -188,12 +188,15 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())) {
+		boolean blockChanged = !state.is(newState.getBlock());
+		if (blockChanged || newState.getValue(FLUID) != State.WATER) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
-			super.onRemove(state, world, pos, newState, isMoving);
+			if (blockChanged) {
+				super.onRemove(state, world, pos, newState, isMoving);
+			}
 		}
 	}
 
