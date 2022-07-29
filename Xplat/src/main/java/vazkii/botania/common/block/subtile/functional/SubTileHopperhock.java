@@ -177,8 +177,9 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 		}
 
 		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
-		if (manaItem != null) {
-			return getFullness(manaItem) == getFullness(manaItem);
+		var filterManaItem = IXplatAbstractions.INSTANCE.findManaItem(filter);
+		if (manaItem != null && filterManaItem != null) {
+			return getFullness(manaItem) == getFullness(filterManaItem);
 		} else {
 			return ItemStack.tagMatches(filter, stack);
 		}
