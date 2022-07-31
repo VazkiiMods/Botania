@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "botania:block/shapes/cube_checkered",
   "textures": {
-    "all": "botania:block/metamorphic_mesa_bricks"
+    "side": "botania:block/metamorphic_mesa_bricks",
+    "north": "botania:block/metamorphic_mesa_bricks_mirrored"
   }
 }

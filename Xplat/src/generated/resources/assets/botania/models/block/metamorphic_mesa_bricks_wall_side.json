@@ -1,8 +1,7 @@
 {
-  "parent": "botania:block/shapes/wall_side",
+  "parent": "botania:block/shapes/wall_side_checkered",
   "textures": {
-    "wall": "botania:block/metamorphic_mesa_bricks",
-    "bottom": "botania:block/metamorphic_mesa_bricks",
-    "top": "botania:block/metamorphic_mesa_bricks"
+    "side": "botania:block/metamorphic_mesa_bricks",
+    "north": "botania:block/metamorphic_mesa_bricks_mirrored"
   }
 }

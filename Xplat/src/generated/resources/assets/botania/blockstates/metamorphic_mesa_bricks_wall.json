@@ -14,8 +14,7 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side",
-        "y": 90,
-        "uvlock": true
+        "y": 90
       }
     },
     {
@@ -24,8 +23,7 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
-        "y": 90,
-        "uvlock": true
+        "y": 90
       }
     },
     {
@@ -34,8 +32,7 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side",
-        "y": 270,
-        "uvlock": true
+        "y": 270
       }
     },
     {
@@ -44,8 +41,7 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
-        "y": 270,
-        "uvlock": true
+        "y": 270
       }
     },
     {
@@ -54,8 +50,7 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side",
-        "y": 180,
-        "uvlock": true
+        "y": 180
       }
     },
     {
@@ -64,8 +59,7 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
-        "y": 180,
-        "uvlock": true
+        "y": 180
       }
     },
     {
@@ -73,8 +67,7 @@
         "north": "low"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side",
-        "uvlock": true
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side"
       }
     },
     {
@@ -82,8 +75,7 @@
         "north": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
-        "uvlock": true
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall"
       }
     }
   ]

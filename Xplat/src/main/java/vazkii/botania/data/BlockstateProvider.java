@@ -45,9 +45,7 @@ import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -581,7 +579,7 @@ public class BlockstateProvider implements DataProvider {
 				getModelLocation(biomeBrickSwamp, "_1")
 		};
 		directionalPillarWithVariants(remainingBlocks, biomeBrickSwamp, swampBrickTopTextures, swampBrickBottomTextures, swampBrickSideTextures);
-		stairsBlockWithVariants(remainingBlocks, biomeBrickSwampStairs, swampBrickSideTextures,swampBrickBottomTextures, swampBrickTopTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickSwampStairs, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
 		slabBlockWithVariants(remainingBlocks, biomeBrickSwampSlab, swampBrickModels, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
 		wallBlockWithVariants(remainingBlocks, biomeBrickSwampWall, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
 
@@ -605,6 +603,30 @@ public class BlockstateProvider implements DataProvider {
 		stairsBlockWithVariants(remainingBlocks, biomeCobblestoneSwampStairs, swampCobblestoneTextures, swampCobblestoneTextures, swampCobblestoneTextures);
 		slabBlockWithVariants(remainingBlocks, biomeCobblestoneSwampSlab, swampCobblestoneModels, swampCobblestoneTextures, swampCobblestoneTextures, swampCobblestoneTextures);
 		wallBlockWithVariants(remainingBlocks, biomeCobblestoneSwampWall, swampCobblestoneTextures);
+
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+
+		var mesaBrick = getBlockTexture(biomeBrickMesa);
+		var mesaBrickMirrored = getBlockTexture(biomeBrickMesa, "_mirrored");
+		TextureMapping mesaBrickMapping = new TextureMapping().put(TextureSlot.SIDE, mesaBrick).put(TextureSlot.NORTH, mesaBrickMirrored);
+		var mesaBrickModel = checkeredTemplate.apply("cube_checkered", Optional.empty()).create(biomeBrickMesa, mesaBrickMapping, this.modelOutput);
+		var mesaBrickSlabModel = checkeredTemplate.apply("slab_checkered", Optional.empty()).create(biomeBrickMesaSlab, mesaBrickMapping, this.modelOutput);
+		var mesaBrickSlabTopModel = checkeredTemplate.apply("slab_top_checkered", Optional.of("_top")).create(biomeBrickMesaSlab, mesaBrickMapping, this.modelOutput);
+		var mesaBrickStairsModel = checkeredTemplate.apply("stairs_checkered", Optional.empty()).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
+		var mesaBrickStairsOuterModel = checkeredTemplate.apply("stairs_outer_checkered", Optional.of("_outer")).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
+		var mesaBrickStairsInnerModel = checkeredTemplate.apply("stairs_inner_checkered", Optional.of("_inner")).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
+		var mesaBrickWallPostModel = checkeredTemplate.apply("wall_post_checkered", Optional.of("_post")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
+		var mesaBrickWallSideModel = checkeredTemplate.apply("wall_side_checkered", Optional.of("_side")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
+		var mesaBrickWallSideTallModel = checkeredTemplate.apply("wall_side_tall_checkered", Optional.of("_side_tall")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
+		singleVariantBlockState(biomeBrickMesa, mesaBrickModel);
+		remainingBlocks.remove(biomeBrickMesa);
+		slabBlockWithModels(remainingBlocks, biomeBrickMesaSlab, mesaBrickSlabModel, mesaBrickSlabTopModel, mesaBrickModel);
+		stairsBlockWithModelsNoUVLock(remainingBlocks, biomeBrickMesaStairs, mesaBrickStairsInnerModel, mesaBrickStairsModel, mesaBrickStairsOuterModel);
+		wallBlockWithModelsNoUVLock(remainingBlocks, biomeBrickMesaWall, mesaBrickWallPostModel, mesaBrickWallSideModel, mesaBrickWallSideTallModel);
+
+		var mesaChiseledBrickSide = getBlockTexture(biomeChiseledBrickMesa);
+		var mesaChiseledBrickTop = getBlockTexture(biomeChiseledBrickMesa, "_top");
+		pillarAlt(remainingBlocks, biomeChiseledBrickMesa, mesaChiseledBrickTop, mesaChiseledBrickSide);
 
 		// Slabs, stairs, walls are handled automatically.
 		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
@@ -768,7 +790,15 @@ public class BlockstateProvider implements DataProvider {
 		stairsBlockWithModels(blocks, block, innerModels, straightModels, outerModels, weights);
 	}
 
+	protected void stairsBlockWithModelsNoUVLock(Set<Block> blocks, Block block, ResourceLocation innerModel, ResourceLocation straightModel, ResourceLocation outerModel) {
+		stairsBlockWithModels(blocks, block, new ResourceLocation[] { innerModel }, new ResourceLocation[] { straightModel }, new ResourceLocation[] { outerModel }, new Integer[] { 1 }, false);
+	}
+
 	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights) {
+		stairsBlockWithModels(blocks, block, innerModels, straightModels, outerModels, weights, true);
+	}
+
+	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights, Boolean uvlock) {
 		int length = innerModels.length;
 		if (length != straightModels.length || length != outerModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -806,9 +836,9 @@ public class BlockstateProvider implements DataProvider {
 						case INNER_RIGHT, INNER_LEFT -> innerModels;
 					};
 					var indices = IntStream.range(0, length).boxed();
-					propertyDispatch.select(direction, half, stairsShape, indices.map(i -> maybeWeight(weights[i], maybeYRot(yRot, maybeXRot(xRot, Variant.variant()
+					propertyDispatch.select(direction, half, stairsShape, indices.map(i -> maybeUVLock(uvlock, maybeWeight(weights[i], maybeYRot(yRot, maybeXRot(xRot, Variant.variant()
 							.with(VariantProperties.MODEL, models[i])
-					))).with(VariantProperties.UV_LOCK, true)
+					))))
 					).toList());
 				}
 			}
@@ -846,6 +876,10 @@ public class BlockstateProvider implements DataProvider {
 			topModels[i] = ModelTemplates.SLAB_TOP.create(modelIdTop, mapping, this.modelOutput);
 		}
 		slabBlockWithModels(blocks, block, bottomModels, topModels, doubleModels, weights);
+	}
+
+	protected void slabBlockWithModels(Set<Block> blocks, Block block, ResourceLocation bottomModel, ResourceLocation topModel, ResourceLocation doubleModel) {
+		slabBlockWithModels(blocks, block, new ResourceLocation[] { bottomModel }, new ResourceLocation[] { topModel }, new ResourceLocation[] { doubleModel }, new Integer[] { 1 });
 	}
 
 	protected void slabBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] bottomModels, ResourceLocation[] topModels, ResourceLocation[] doubleModels, Integer[] weights) {
@@ -917,7 +951,15 @@ public class BlockstateProvider implements DataProvider {
 		wallBlockWithModels(blocks, block, postModels, lowModels, tallModels, weights);
 	}
 
+	protected void wallBlockWithModelsNoUVLock(Set<Block> blocks, Block block, ResourceLocation postModel, ResourceLocation lowModel, ResourceLocation tallModel) {
+		wallBlockWithModels(blocks, block, new ResourceLocation[] { postModel }, new ResourceLocation[] { lowModel }, new ResourceLocation[] { tallModel }, new Integer[] { 1 }, false);
+	}
+
 	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights) {
+		wallBlockWithModels(blocks, block, postModels, lowModels, tallModels, weights, true);
+	}
+
+	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights, Boolean uvlock) {
 		int length = postModels.length;
 		if (length != lowModels.length || length != tallModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -936,14 +978,14 @@ public class BlockstateProvider implements DataProvider {
 			var indicesLow = IntStream.range(0, length).boxed();
 			var indicesTall = IntStream.range(0, length).boxed();
 			multiPartGenerator
-					.with(Condition.condition().term(wallSide, WallSide.LOW), indicesLow.map(i -> maybeWeight(weights[i], maybeYRot(yRot,
+					.with(Condition.condition().term(wallSide, WallSide.LOW), indicesLow.map(i -> maybeUVLock(uvlock, maybeWeight(weights[i], maybeYRot(yRot,
 							Variant.variant()
 									.with(VariantProperties.MODEL, lowModels[i])
-					).with(VariantProperties.UV_LOCK, true))).toArray(Variant[]::new))
-					.with(Condition.condition().term(wallSide, WallSide.TALL), indicesTall.map(i -> maybeWeight(weights[i], maybeYRot(yRot,
+					)))).toArray(Variant[]::new))
+					.with(Condition.condition().term(wallSide, WallSide.TALL), indicesTall.map(i -> maybeUVLock(uvlock, maybeWeight(weights[i], maybeYRot(yRot,
 							Variant.variant()
 									.with(VariantProperties.MODEL, tallModels[i])
-					).with(VariantProperties.UV_LOCK, true))).toArray(Variant[]::new));
+					)))).toArray(Variant[]::new));
 		}
 		this.blockstates.add(multiPartGenerator);
 		blocks.remove(block);
@@ -1101,7 +1143,7 @@ public class BlockstateProvider implements DataProvider {
 								.with(VariantProperties.MODEL, horizontalModels[i])
 								.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
 								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))).toList())
-						));
+		));
 		blocks.remove(block);
 	}
 
@@ -1204,7 +1246,7 @@ public class BlockstateProvider implements DataProvider {
 						.select(Direction.WEST, indicesWest.map(i -> maybeWeight(weights[i], Variant.variant()
 								.with(VariantProperties.MODEL, horizontalModels[i])
 								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))).toList())
-						));
+		));
 		blocks.remove(block);
 	}
 
@@ -1213,6 +1255,10 @@ public class BlockstateProvider implements DataProvider {
 			variant.with(property, value);
 		}
 		return variant;
+	}
+
+	protected Variant maybeUVLock(Boolean uvlock, Variant variant) {
+		return withMaybe(VariantProperties.UV_LOCK, uvlock, uvlock, variant);
 	}
 
 	protected Variant maybeWeight(int weight, Variant variant) {

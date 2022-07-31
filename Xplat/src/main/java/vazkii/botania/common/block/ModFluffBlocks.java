@@ -244,7 +244,7 @@ public final class ModFluffBlocks {
 	public static final Block biomeBrickMesaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesaStairs = new BlockModStairs(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
-	public static final Block biomeChiseledBrickMesa = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneMesa));
+	public static final Block biomeChiseledBrickMesa = new RotatedPillarBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 
 	public static final Block shimmerrockSlab = new SlabBlock(BlockBehaviour.Properties.copy(shimmerrock));
 	public static final Block shimmerrockStairs = new BlockModStairs(shimmerrock.defaultBlockState(), BlockBehaviour.Properties.copy(shimmerrock));

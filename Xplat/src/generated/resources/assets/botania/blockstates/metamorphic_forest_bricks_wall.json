@@ -22,8 +22,8 @@
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side",
           "y": 90,
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
@@ -40,8 +40,8 @@
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
           "y": 90,
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
@@ -58,8 +58,8 @@
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side",
           "y": 270,
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
@@ -76,8 +76,8 @@
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
           "y": 270,
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
@@ -94,8 +94,8 @@
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side",
           "y": 180,
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
@@ -112,8 +112,8 @@
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
           "y": 180,
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
@@ -129,8 +129,8 @@
       "apply": [
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side",
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
@@ -145,8 +145,8 @@
       "apply": [
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
-          "uvlock": true,
-          "weight": 2
+          "weight": 2,
+          "uvlock": true
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
