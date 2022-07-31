@@ -72,11 +72,6 @@ public abstract class TileExposedSimpleInventory extends TileSimpleInventory imp
 	}
 
 	@Override
-	public void clearContent() {
-		getItemHandler().clearContent();
-	}
-
-	@Override
 	public int getMaxStackSize() {
 		return getItemHandler().getMaxStackSize();
 	}

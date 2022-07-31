@@ -16,6 +16,6 @@ itemIcon="botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod li
 
 [[dependencies.gardenofglass]]
     modId="botania"
-    versionRange="[1.18.1-426,)"
+    versionRange="[1.18.2-435,)"
     mandatory=true
     ordering="AFTER"

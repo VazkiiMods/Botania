@@ -54,6 +54,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -189,8 +190,16 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 		}
 
 		Level world = player.level;
+		Predicate<BlockState> canMine = state -> {
+			boolean rightToolForDrops = !state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state);
+			boolean rightToolForSpeed = stack.getDestroySpeed(state) > 1
+					|| state.is(BlockTags.MINEABLE_WITH_SHOVEL)
+					|| state.is(BlockTags.MINEABLE_WITH_HOE);
+			return rightToolForDrops && rightToolForSpeed;
+		};
+
 		BlockState targetState = world.getBlockState(pos);
-		if (stack.getDestroySpeed(targetState) <= 1.0F && !targetState.is(BlockTags.MINEABLE_WITH_SHOVEL)) {
+		if (!canMine.test(targetState)) {
 			return;
 		}
 
@@ -219,9 +228,7 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
-				state -> (!state.requiresCorrectToolForDrops() || stack.isCorrectToolForDrops(state))
-						&& (stack.getDestroySpeed(state) > 1.0F) || state.is(BlockTags.MINEABLE_WITH_SHOVEL));
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, canMine);
 
 		if (origLevel == 5) {
 			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("challenge/rank_ss_pick"), "code_triggered");

@@ -11,8 +11,7 @@ package vazkii.botania.api.internal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.*;
 
 import java.util.Collections;
 import java.util.Set;
@@ -42,6 +41,11 @@ public class DummyManaNetwork implements IManaNetwork {
 	@Override
 	public Set<IManaPool> getAllPoolsInWorld(Level world) {
 		return Collections.emptySet();
+	}
+
+	@Override
+	public void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+
 	}
 
 }

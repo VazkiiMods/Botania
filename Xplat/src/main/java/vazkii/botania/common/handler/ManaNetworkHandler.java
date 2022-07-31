@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
 
@@ -116,6 +117,11 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	@Override
 	public Set<IManaPool> getAllPoolsInWorld(Level world) {
 		return getAllInWorld(manaPools, world);
+	}
+
+	@Override
+	public void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(thing, type, action);
 	}
 
 	private <T> Set<T> getAllInWorld(Map<Level, Set<T>> map, Level world) {

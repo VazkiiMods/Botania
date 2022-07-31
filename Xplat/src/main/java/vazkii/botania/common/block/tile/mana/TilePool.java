@@ -30,6 +30,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
@@ -121,7 +122,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.REMOVE);
+		BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.REMOVE);
 	}
 
 	public static int calculateComparatorLevel(int mana, int max) {
@@ -242,7 +243,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
 		if (!ManaNetworkHandler.instance.isPoolIn(level, this) && !isRemoved()) {
-			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
+			BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
 		}
 	}
 

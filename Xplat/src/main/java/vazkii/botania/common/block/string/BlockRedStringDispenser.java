@@ -47,9 +47,9 @@ public class BlockRedStringDispenser extends BlockRedString {
 
 		if (power && !powered) {
 			((TileRedStringDispenser) world.getBlockEntity(pos)).tickDispenser();
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
 		}
 	}
 

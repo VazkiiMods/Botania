@@ -87,7 +87,7 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 		if (!level.isClientSide && !state.is(oldState.getBlock())
 				&& state.getValue(BlockStateProperties.POWERED)
 				&& !level.getBlockTicks().hasScheduledTick(pos, this)) {
-			level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), 18);
+			level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_KNOWN_SHAPE | Block.UPDATE_CLIENTS);
 		}
 	}
 

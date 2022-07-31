@@ -40,10 +40,10 @@ public class BlockCorporeaFunnel extends BlockMod implements EntityBlock {
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 			((TileCorporeaFunnel) world.getBlockEntity(pos)).doRequest();
 		} else if (!power && powered) {
-			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
 		}
 	}
 

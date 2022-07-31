@@ -35,6 +35,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.api.block.IWandHUD;
@@ -150,14 +151,14 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
-		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
+		BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileSpreader self) {
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(level, self);
 		boolean wasInNetwork = inNetwork;
 		if (!inNetwork && !self.isRemoved()) {
-			IXplatAbstractions.INSTANCE.fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
+			BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(self, ManaBlockType.COLLECTOR, ManaNetworkAction.ADD);
 		}
 
 		boolean powered = false;

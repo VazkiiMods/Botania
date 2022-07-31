@@ -35,7 +35,7 @@ public class BehaviourFelPumpkin extends OptionalDispenseItemBehavior {
 		{
 			this.setSuccess(true);
 			if (!world.isClientSide) {
-				world.setBlock(blockpos, blockcarvedpumpkin.defaultBlockState(), 3);
+				world.setBlockAndUpdate(blockpos, blockcarvedpumpkin.defaultBlockState());
 			}
 
 			stack.shrink(1);

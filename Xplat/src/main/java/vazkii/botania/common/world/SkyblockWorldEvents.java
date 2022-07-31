@@ -30,8 +30,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
@@ -50,6 +54,7 @@ public final class SkyblockWorldEvents {
 	private SkyblockWorldEvents() {}
 
 	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("gardenofglass:pebble_sources"));
+	private static final ResourceLocation PEBBLES_TABLE = new ResourceLocation(BotaniaAPI.GOG_MODID, "pebbles");
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level);
@@ -77,7 +82,6 @@ public final class SkyblockWorldEvents {
 
 			if (equipped.isEmpty() && player.isShiftKeyDown()) {
 				BlockState state = world.getBlockState(hit.getBlockPos());
-				Block block = state.getBlock();
 
 				if (state.is(PEBBLE_SOURCES)) {
 					SoundType st = state.getSoundType();
@@ -86,8 +90,16 @@ public final class SkyblockWorldEvents {
 
 					if (world.isClientSide) {
 						player.swing(hand);
-					} else if (Math.random() < 0.8) {
-						player.drop(new ItemStack(ModItems.pebble), false);
+					} else if (world instanceof ServerLevel level) {
+						var table = level.getServer().getLootTables().get(PEBBLES_TABLE);
+						var context = new LootContext.Builder(level)
+								.withParameter(LootContextParams.BLOCK_STATE, state)
+								.withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(hit.getBlockPos()))
+								.withParameter(LootContextParams.TOOL, equipped)
+								.withParameter(LootContextParams.THIS_ENTITY, player)
+								.withOptionalParameter(LootContextParams.BLOCK_ENTITY, level.getBlockEntity(hit.getBlockPos()))
+								.create(LootContextParamSets.BLOCK);
+						table.getRandomItems(context, s -> player.drop(s, false));
 					}
 
 					return InteractionResult.SUCCESS;

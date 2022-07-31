@@ -460,6 +460,7 @@ public class ForgeCommonInitializer {
 
 	private static final Supplier<Map<Item, Function<ItemStack, IBlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
 			ModItems.dirtRod, ItemDirtRod.BlockProvider::new,
+			ModItems.skyDirtRod, ItemDirtRod.BlockProvider::new,
 			ModItems.blackHoleTalisman, ItemBlackHoleTalisman.BlockProvider::new,
 			ModItems.cobbleRod, s -> new ItemCobbleRod.BlockProvider(),
 			ModItems.enderHand, ItemEnderHand.BlockProvider::new,

@@ -53,7 +53,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 					int z1 = z + rand.nextInt(dist * 2) - dist;
 					BlockPos pos2 = new BlockPos(x1, y1, z1);
 					if (level.isEmptyBlock(pos2) && (!level.dimensionType().hasCeiling() || y1 < 127) && flower.canSurvive(level, pos2)) {
-						level.setBlock(pos2, flower, 2);
+						level.setBlock(pos2, flower, Block.UPDATE_CLIENTS);
 						any = true;
 						if (rand.nextDouble() < config.getTallChance()
 								&& ((BlockModFlower) flower.getBlock()).isValidBonemealTarget(level, pos2, level.getBlockState(pos2), false)) {

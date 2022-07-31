@@ -10,15 +10,22 @@ package vazkii.botania.api.mana;
 
 import net.minecraft.world.item.DyeColor;
 
+import vazkii.botania.api.BotaniaAPI;
+
 /**
  * Any {@link IManaReceiver} that also implements this is considered a Mana Pool,
  * by which nearby functional flowers will pull mana from it.<br>
  * Mana Distributors will also accept it as valid output.<br>
  * <br>
  * <b>Implementation Instructions:</b><br>
- * TODO update this
- * - Override invalidate() and onChunkUnload(), calling <i>ManaNetworkEvent.removePool(this);</i> on both.<br>
- * - On the first tick of onUpdate(), call <i>ManaNetworkEvent.addPool(this);</i>
+ * - When joining the world (e.g. on first tick), call
+ * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * with this object, type {@link ManaBlockType#POOL}, and action {@link ManaNetworkAction#ADD}.
+ * - When leaving the world (e.g. in setRemoved), call
+ * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * with this object, type {@link ManaBlockType#POOL}, and action {@link ManaNetworkAction#REMOVE}.
+ *
+ * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.
  */
 public interface IManaPool extends IManaReceiver {
 

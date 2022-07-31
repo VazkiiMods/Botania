@@ -20,6 +20,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -73,7 +74,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements IManaTr
 				self.flip = !self.flip;
 				self.flipTicks = 4;
 				if (!level.isClientSide) {
-					level.setBlock(worldPosition, state.setValue(BlockStateProperties.POWERED, true), 1);
+					level.setBlock(worldPosition, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_NEIGHBORS);
 					level.scheduleTick(worldPosition, state.getBlock(), 4);
 				}
 
