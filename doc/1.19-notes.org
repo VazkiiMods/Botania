@@ -1,5 +1,6 @@
 * Make biome modifiers for marimorphosis/orechid recipes use biome tags instead of biome categories
 * Make marimorphosis/orechid recipes accept block tags like the pure daisy
+	* Make metamorphic stones be able to be made from the 1.8 stones and deepslate (by using a tag)
 * Make marimorphosis/orechid and possibly some other recipes (apothecary? runic altar? mana infusion? are there more?) able to run functions when the recipe happens, like the pure daisy
 * Make recipes that can run functions able to specify one function that runs before the recipe, and one that runs after (current pure daisy function just runs after)
 * Make runic altar recipes allow for individually specifying which ingredients are catalysts (not consumed), instead of just hardcoding all the vanilla-botania runes to be catalysts
