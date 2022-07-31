@@ -69,14 +69,14 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 		consumer.accept(netherrack(Blocks.NETHER_GOLD_ORE, 3635));
 		consumer.accept(netherrack(Blocks.ANCIENT_DEBRIS, 148));
 
-		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneForest, BiomeCategory.FOREST));
-		consumer.accept(biomeStone(ModFluffBlocks.biomeStonePlains, BiomeCategory.PLAINS));
-		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneMountain, BiomeCategory.EXTREME_HILLS));
-		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneFungal, BiomeCategory.MUSHROOM));
-		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneSwamp, BiomeCategory.SWAMP));
-		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneDesert, BiomeCategory.DESERT, BiomeCategory.BEACH));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneForest, BiomeCategory.FOREST, BiomeCategory.TAIGA));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStonePlains, BiomeCategory.PLAINS, BiomeCategory.BEACH));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneMountain, BiomeCategory.EXTREME_HILLS, BiomeCategory.MOUNTAIN));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneFungal, BiomeCategory.MUSHROOM, BiomeCategory.UNDERGROUND));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneSwamp, BiomeCategory.SWAMP, BiomeCategory.JUNGLE));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneDesert, BiomeCategory.DESERT, BiomeCategory.SAVANNA));
 		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneTaiga, BiomeCategory.ICY, BiomeCategory.TAIGA));
-		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneMesa, BiomeCategory.MESA));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneMesa, BiomeCategory.MESA, BiomeCategory.SAVANNA));
 	}
 
 	protected ResourceLocation orechidId(Block b) {
