@@ -116,6 +116,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		Block base = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
 		Block stair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block wall = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX)).get();
 		Block brick = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
 		Block brickSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
 		Block brickStair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
@@ -128,6 +129,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(stonecutting(base, slab, 2));
 		consumer.accept(stonecutting(base, stair));
+		consumer.accept(stonecutting(base, wall));
 		consumer.accept(stonecutting(base, brick));
 		consumer.accept(stonecutting(base, brickSlab, 2));
 		consumer.accept(stonecutting(base, brickStair));

@@ -2570,6 +2570,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		Block base = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
 		Block stair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block wall = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX)).get();
 		Block brick = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
 		Block brickSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
 		Block brickStair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
@@ -2584,6 +2585,8 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		slabShape(slab, base).group("botania:metamorphic_stone_slab")
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
 		stairs(stair, base).group("botania:metamorphic_stone_stairs")
+				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+		wallShape(wall, base, 6).group("botania:metamorphic_stone_wall")
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
 
 		brick(brick, base).group("botania:metamorphic_brick")

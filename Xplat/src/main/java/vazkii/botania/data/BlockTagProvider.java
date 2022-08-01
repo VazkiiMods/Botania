@@ -183,6 +183,12 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(ModTags.Blocks.WEIGHT_LENS_WHITELIST);
 
+		tag(BlockTags.MUSHROOM_GROW_BLOCK).add(
+				ModFluffBlocks.biomeStoneFungal, ModFluffBlocks.biomeStoneFungalSlab, ModFluffBlocks.biomeStoneFungalStairs, ModFluffBlocks.biomeStoneFungalWall,
+				ModFluffBlocks.biomeBrickFungal, ModFluffBlocks.biomeBrickFungalSlab, ModFluffBlocks.biomeBrickFungalStairs, ModFluffBlocks.biomeBrickFungalWall,
+				ModFluffBlocks.biomeCobblestoneFungal, ModFluffBlocks.biomeCobblestoneFungalSlab, ModFluffBlocks.biomeCobblestoneFungalStairs, ModFluffBlocks.biomeCobblestoneFungalWall,
+				ModFluffBlocks.biomeChiseledBrickFungal, fungalAltar);
+
 		registerMiningTags();
 	}
 
