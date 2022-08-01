@@ -2,7 +2,7 @@
   "parent": "botania:block/shapes/wall_side",
   "textures": {
     "wall": "botania:block/metamorphic_plains_bricks",
-    "bottom": "botania:block/metamorphic_plains_bricks",
-    "top": "botania:block/metamorphic_plains_bricks"
+    "bottom": "botania:block/metamorphic_plains_bricks_top",
+    "top": "botania:block/metamorphic_plains_bricks_top"
   }
 }

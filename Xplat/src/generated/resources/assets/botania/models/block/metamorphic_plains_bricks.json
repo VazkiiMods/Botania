@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "botania:block/metamorphic_plains_bricks"
+    "end": "botania:block/metamorphic_plains_bricks_top",
+    "side": "botania:block/metamorphic_plains_bricks"
   }
 }

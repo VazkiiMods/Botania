@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "botania:block/chiseled_metamorphic_mesa_bricks"
+    "end": "botania:block/chiseled_metamorphic_mesa_bricks_top",
+    "side": "botania:block/chiseled_metamorphic_mesa_bricks"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/cube_column_horizontal_x",
+  "textures": {
+    "end": "botania:block/chiseled_metamorphic_mesa_bricks_top",
+    "side": "botania:block/chiseled_metamorphic_mesa_bricks"
+  }
+}

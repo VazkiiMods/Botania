@@ -1,7 +1,12 @@
 {
   "variants": {
-    "": {
-      "model": "botania:block/metamorphic_fungal_bricks"
-    }
+    "": [
+      {
+        "model": "botania:block/metamorphic_fungal_bricks"
+      },
+      {
+        "model": "botania:block/metamorphic_fungal_bricks_1"
+      }
+    ]
   }
 }

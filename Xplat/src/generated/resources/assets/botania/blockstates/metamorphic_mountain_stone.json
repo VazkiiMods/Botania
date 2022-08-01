@@ -1,7 +1,38 @@
 {
   "variants": {
-    "": {
-      "model": "botania:block/metamorphic_mountain_stone"
-    }
+    "": [
+      {
+        "model": "botania:block/metamorphic_mountain_stone",
+        "weight": 5
+      },
+      {
+        "model": "botania:block/metamorphic_mountain_stone_mirrored",
+        "weight": 5
+      },
+      {
+        "model": "botania:block/metamorphic_mountain_stone",
+        "y": 180,
+        "weight": 5
+      },
+      {
+        "model": "botania:block/metamorphic_mountain_stone_mirrored",
+        "y": 180,
+        "weight": 5
+      },
+      {
+        "model": "botania:block/metamorphic_mountain_stone_1"
+      },
+      {
+        "model": "botania:block/metamorphic_mountain_stone_mirrored_1"
+      },
+      {
+        "model": "botania:block/metamorphic_mountain_stone_1",
+        "y": 180
+      },
+      {
+        "model": "botania:block/metamorphic_mountain_stone_mirrored_1",
+        "y": 180
+      }
+    ]
   }
 }

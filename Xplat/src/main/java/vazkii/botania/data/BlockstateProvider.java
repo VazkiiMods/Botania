@@ -45,9 +45,7 @@ import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -180,7 +178,7 @@ public class BlockstateProvider implements DataProvider {
 				this.modelOutput);
 		blockstates.add(AccessorBlockModelGenerators.makeSlabState(corporeaSlab, corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
 		remainingBlocks.remove(corporeaSlab);
-		
+
 		stairsBlock(remainingBlocks, corporeaStairs, corpBlock, corpBlock, corpBlock);
 
 		this.blockstates.add(MultiVariantGenerator.multiVariant(elfGlass, IntStream.rangeClosed(0, 3)
@@ -498,35 +496,133 @@ public class BlockstateProvider implements DataProvider {
 			);
 		});
 
-		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain",
-				"plains", "swamp", "taiga" }) {
+		var mountainTextures = new ResourceLocation[] { getBlockTexture(biomeStoneMountain), getBlockTexture(biomeStoneMountain, "_1") };
+		var mountainModels = new ResourceLocation[] { getModelLocation(biomeStoneMountain), getModelLocation(biomeStoneMountain, "_1") };
+		var mountainWeights = new Integer[] { 5, 1 };
+		rotatedMirroredWithVariants(remainingBlocks, biomeStoneMountain, mountainTextures, mountainWeights);
+		stairsBlockWithVariants(remainingBlocks, biomeStoneMountainStairs, mountainTextures, mountainTextures, mountainTextures, mountainWeights);
+		slabBlockWithVariants(remainingBlocks, biomeStoneMountainSlab, mountainModels, mountainTextures, mountainTextures, mountainTextures, mountainWeights);
+		wallBlockWithVariants(remainingBlocks, biomeStoneMountainWall, mountainTextures, mountainWeights);
 
-			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
-			Block base = Registry.BLOCK.getOptional(baseId).get();
-			cubeAllNoRemove(base);
+		var mountainBrickTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickMountain),
+				getBlockTexture(biomeBrickMountain, "_1"),
+				getBlockTexture(biomeBrickMountain, "_2"),
+				getBlockTexture(biomeBrickMountain, "_3"),
+				getBlockTexture(biomeBrickMountain, "_4"),
+				getBlockTexture(biomeBrickMountain, "_5")
+		};
+		var mountainBrickModels = new ResourceLocation[] {
+				getModelLocation(biomeBrickMountain),
+				getModelLocation(biomeBrickMountain, "_1"),
+				getModelLocation(biomeBrickMountain, "_2"),
+				getModelLocation(biomeBrickMountain, "_3"),
+				getModelLocation(biomeBrickMountain, "_4"),
+				getModelLocation(biomeBrickMountain, "_5"),
+		};
+		cubeAllWithVariants(remainingBlocks, biomeBrickMountain, mountainBrickTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickMountainStairs, mountainBrickTextures, mountainBrickTextures, mountainBrickTextures);
+		slabBlockWithVariants(remainingBlocks, biomeBrickMountainSlab, mountainBrickModels, mountainBrickTextures, mountainBrickTextures, mountainBrickTextures);
+		wallBlockWithVariants(remainingBlocks, biomeBrickMountainWall, mountainBrickTextures);
 
-			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
-			Block cobble = Registry.BLOCK.getOptional(cobbleId).get();
-			cubeAllNoRemove(cobble);
+		var taigaTextures = new ResourceLocation[] { getBlockTexture(biomeStoneTaiga), getBlockTexture(biomeStoneTaiga, "_1") };
+		var taigaModels = new ResourceLocation[] { getModelLocation(biomeStoneTaiga), getModelLocation(biomeStoneTaiga, "_1") };
+		rotatedMirroredWithVariants(remainingBlocks, biomeStoneTaiga, taigaTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeStoneTaigaStairs, taigaTextures, taigaTextures, taigaTextures);
+		slabBlockWithVariants(remainingBlocks, biomeStoneTaigaSlab, taigaModels, taigaTextures, taigaTextures, taigaTextures);
+		wallBlockWithVariants(remainingBlocks, biomeStoneTaigaWall, taigaTextures);
 
-			ResourceLocation cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
-			Block cobbleWall = Registry.BLOCK.getOptional(cobbleWallId).get();
-			wallBlock(remainingBlocks, cobbleWall, getBlockTexture(cobble));
+		var plainsBrickSide = getBlockTexture(biomeBrickPlains);
+		var plainsBrickTop = getBlockTexture(biomeBrickPlains, "_top");
+		pillarAlt(remainingBlocks, biomeBrickPlains, plainsBrickTop, plainsBrickSide);
+		stairsBlock(remainingBlocks, biomeBrickPlainsStairs, plainsBrickSide, plainsBrickTop, plainsBrickTop);
+		slabBlock(remainingBlocks, biomeBrickPlainsSlab, getModelLocation(biomeBrickPlains), plainsBrickSide, plainsBrickTop, plainsBrickTop);
+		wallBlock(remainingBlocks, biomeBrickPlainsWall, plainsBrickSide, plainsBrickTop, plainsBrickTop);
 
-			ResourceLocation brickId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block brick = Registry.BLOCK.getOptional(brickId).get();
-			cubeAllNoRemove(brick);
+		var forestBrickTextures = new ResourceLocation[] { getBlockTexture(biomeBrickForest), getBlockTexture(biomeBrickForest, "_1") };
+		var forestBrickModels = new ResourceLocation[] { getModelLocation(biomeBrickForest), getModelLocation(biomeBrickForest, "_1") };
+		var forestBrickWeights = new Integer[] { 2, 1 };
+		cubeAllWithVariants(remainingBlocks, biomeBrickForest, forestBrickTextures, forestBrickWeights);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickForestStairs, forestBrickTextures, forestBrickTextures, forestBrickTextures, forestBrickWeights);
+		slabBlockWithVariants(remainingBlocks, biomeBrickForestSlab, forestBrickModels, forestBrickTextures, forestBrickTextures, forestBrickTextures, forestBrickWeights);
+		wallBlockWithVariants(remainingBlocks, biomeBrickForestWall, forestBrickTextures, forestBrickWeights);
 
-			ResourceLocation brickWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX);
-			Block brickWall = Registry.BLOCK.getOptional(brickWallId).get();
-			wallBlock(remainingBlocks, brickWall, getBlockTexture(brick));
+		var fungalBrickTextures = new ResourceLocation[] { getBlockTexture(biomeBrickFungal), getBlockTexture(biomeBrickFungal, "_1") };
+		var fungalBrickModels = new ResourceLocation[] { getModelLocation(biomeBrickFungal), getModelLocation(biomeBrickFungal, "_1") };
+		cubeAllWithVariants(remainingBlocks, biomeBrickFungal, fungalBrickTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickFungalStairs, fungalBrickTextures, fungalBrickTextures, fungalBrickTextures);
+		slabBlockWithVariants(remainingBlocks, biomeBrickFungalSlab, fungalBrickModels, fungalBrickTextures, fungalBrickTextures, fungalBrickTextures);
+		wallBlockWithVariants(remainingBlocks, biomeBrickFungalWall, fungalBrickTextures);
 
-			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block chiseledBricks = Registry.BLOCK.getOptional(chiseledBricksId).get();
-			cubeAllNoRemove(chiseledBricks);
+		var swampBrickTopTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickSwamp, "_top"),
+				getBlockTexture(biomeBrickSwamp, "_top_1")
+		};
+		var swampBrickBottomTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickSwamp, "_bottom"),
+				getBlockTexture(biomeBrickSwamp, "_bottom")
+		};
+		var swampBrickSideTextures = new ResourceLocation[] {
+				getBlockTexture(biomeBrickSwamp),
+				getBlockTexture(biomeBrickSwamp)
+		};
+		var swampBrickModels = new ResourceLocation[] {
+				getModelLocation(biomeBrickSwamp),
+				getModelLocation(biomeBrickSwamp, "_1")
+		};
+		directionalPillarWithVariants(remainingBlocks, biomeBrickSwamp, swampBrickTopTextures, swampBrickBottomTextures, swampBrickSideTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeBrickSwampStairs, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
+		slabBlockWithVariants(remainingBlocks, biomeBrickSwampSlab, swampBrickModels, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
+		wallBlockWithVariants(remainingBlocks, biomeBrickSwampWall, swampBrickSideTextures, swampBrickBottomTextures, swampBrickTopTextures);
 
-			// stairs and slabs handled above already, walls get removed automatically
-			remainingBlocks.removeAll(Arrays.asList(base, cobble, brick, chiseledBricks));
+		var swampChiseledBrickTopTextures = new ResourceLocation[] {
+				getBlockTexture(biomeChiseledBrickSwamp, "_top"),
+				getBlockTexture(biomeChiseledBrickSwamp, "_top_1")
+		};
+		var swampChiseledBrickBottomTextures = new ResourceLocation[] {
+				getBlockTexture(biomeChiseledBrickSwamp, "_bottom"),
+				getBlockTexture(biomeChiseledBrickSwamp, "_bottom")
+		};
+		var swampChiseledBrickSideTextures = new ResourceLocation[] {
+				getBlockTexture(biomeChiseledBrickSwamp),
+				getBlockTexture(biomeChiseledBrickSwamp)
+		};
+		directionalPillarWithVariants(remainingBlocks, biomeChiseledBrickSwamp, swampChiseledBrickTopTextures, swampChiseledBrickBottomTextures, swampChiseledBrickSideTextures);
+
+		var swampCobblestoneTextures = new ResourceLocation[] { getBlockTexture(biomeCobblestoneSwamp), getBlockTexture(biomeCobblestoneSwamp, "_1") };
+		var swampCobblestoneModels = new ResourceLocation[] { getModelLocation(biomeCobblestoneSwamp), getModelLocation(biomeCobblestoneSwamp, "_1") };
+		cubeAllWithVariants(remainingBlocks, biomeCobblestoneSwamp, swampCobblestoneTextures);
+		stairsBlockWithVariants(remainingBlocks, biomeCobblestoneSwampStairs, swampCobblestoneTextures, swampCobblestoneTextures, swampCobblestoneTextures);
+		slabBlockWithVariants(remainingBlocks, biomeCobblestoneSwampSlab, swampCobblestoneModels, swampCobblestoneTextures, swampCobblestoneTextures, swampCobblestoneTextures);
+		wallBlockWithVariants(remainingBlocks, biomeCobblestoneSwampWall, swampCobblestoneTextures);
+
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+
+		var mesaBrick = getBlockTexture(biomeBrickMesa);
+		var mesaBrickMirrored = getBlockTexture(biomeBrickMesa, "_mirrored");
+		TextureMapping mesaBrickMapping = new TextureMapping().put(TextureSlot.SIDE, mesaBrick).put(TextureSlot.NORTH, mesaBrickMirrored);
+		var mesaBrickModel = checkeredTemplate.apply("cube_checkered", Optional.empty()).create(biomeBrickMesa, mesaBrickMapping, this.modelOutput);
+		var mesaBrickSlabModel = checkeredTemplate.apply("slab_checkered", Optional.empty()).create(biomeBrickMesaSlab, mesaBrickMapping, this.modelOutput);
+		var mesaBrickSlabTopModel = checkeredTemplate.apply("slab_top_checkered", Optional.of("_top")).create(biomeBrickMesaSlab, mesaBrickMapping, this.modelOutput);
+		var mesaBrickStairsModel = checkeredTemplate.apply("stairs_checkered", Optional.empty()).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
+		var mesaBrickStairsOuterModel = checkeredTemplate.apply("stairs_outer_checkered", Optional.of("_outer")).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
+		var mesaBrickStairsInnerModel = checkeredTemplate.apply("stairs_inner_checkered", Optional.of("_inner")).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
+		var mesaBrickWallPostModel = checkeredTemplate.apply("wall_post_checkered", Optional.of("_post")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
+		var mesaBrickWallSideModel = checkeredTemplate.apply("wall_side_checkered", Optional.of("_side")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
+		var mesaBrickWallSideTallModel = checkeredTemplate.apply("wall_side_tall_checkered", Optional.of("_side_tall")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
+		singleVariantBlockState(biomeBrickMesa, mesaBrickModel);
+		remainingBlocks.remove(biomeBrickMesa);
+		slabBlockWithModels(remainingBlocks, biomeBrickMesaSlab, mesaBrickSlabModel, mesaBrickSlabTopModel, mesaBrickModel);
+		stairsBlockWithModelsNoUVLock(remainingBlocks, biomeBrickMesaStairs, mesaBrickStairsInnerModel, mesaBrickStairsModel, mesaBrickStairsOuterModel);
+		wallBlockWithModelsNoUVLock(remainingBlocks, biomeBrickMesaWall, mesaBrickWallPostModel, mesaBrickWallSideModel, mesaBrickWallSideTallModel);
+
+		var mesaChiseledBrickSide = getBlockTexture(biomeChiseledBrickMesa);
+		var mesaChiseledBrickTop = getBlockTexture(biomeChiseledBrickMesa, "_top");
+		pillarAlt(remainingBlocks, biomeChiseledBrickMesa, mesaChiseledBrickTop, mesaChiseledBrickSide);
+
+		// Slabs, stairs, walls are handled automatically.
+		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
+			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
@@ -560,17 +656,14 @@ public class BlockstateProvider implements DataProvider {
 			particleOnly(remainingBlocks, b, wool);
 		});
 
-		var gobletSlot = AccessorTextureSlot.make("goblet");
-		var topBottomSlot = AccessorTextureSlot.make("top_bottom");
 		var apothecaryTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/petal_apothecary")), Optional.empty(),
-				TextureSlot.SIDE, gobletSlot, topBottomSlot);
-		takeAll(remainingBlocks, b -> b instanceof BlockAltar).forEach(b -> {
-			singleVariantBlockState(b,
-					apothecaryTemplate.create(b, new TextureMapping()
-							.put(TextureSlot.SIDE, getBlockTexture(b, "_side"))
-							.put(gobletSlot, getBlockTexture(b, "_goblet"))
-							.put(topBottomSlot, getBlockTexture(b, "_top_bottom")), this.modelOutput));
-		});
+				TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
+		takeAll(remainingBlocks, b -> b instanceof BlockAltar).forEach(b -> singleVariantBlockState(b,
+				apothecaryTemplate.create(b, new TextureMapping()
+						.put(TextureSlot.SIDE, getBlockTexture(b, "_side"))
+						.put(TextureSlot.TOP, getBlockTexture(b, "_top"))
+						.put(TextureSlot.BOTTOM, getBlockTexture(b, "_bottom")), this.modelOutput))
+		);
 
 		takeAll(remainingBlocks, b -> b instanceof BlockFloatingFlower).forEach(b -> {
 			// Models generated by FloatingFlowerModelProvider

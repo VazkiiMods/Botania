@@ -1,8 +1,7 @@
 {
-  "parent": "minecraft:block/inner_stairs",
+  "parent": "botania:block/shapes/stairs_inner_checkered",
   "textures": {
-    "bottom": "botania:block/metamorphic_mesa_bricks",
-    "top": "botania:block/metamorphic_mesa_bricks",
-    "side": "botania:block/metamorphic_mesa_bricks"
+    "side": "botania:block/metamorphic_mesa_bricks",
+    "north": "botania:block/metamorphic_mesa_bricks_mirrored"
   }
 }

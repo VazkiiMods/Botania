@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "botania:block/metamorphic_mountain_bricks_3",
+    "top": "botania:block/metamorphic_mountain_bricks_3",
+    "side": "botania:block/metamorphic_mountain_bricks_3"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "botania:block/metamorphic_mountain_bricks_2",
+    "top": "botania:block/metamorphic_mountain_bricks_2",
+    "side": "botania:block/metamorphic_mountain_bricks_2"
+  }
+}

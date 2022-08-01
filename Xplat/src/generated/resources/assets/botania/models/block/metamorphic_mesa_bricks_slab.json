@@ -1,8 +1,7 @@
 {
-  "parent": "minecraft:block/slab",
+  "parent": "botania:block/shapes/slab_checkered",
   "textures": {
-    "bottom": "botania:block/metamorphic_mesa_bricks",
-    "top": "botania:block/metamorphic_mesa_bricks",
-    "side": "botania:block/metamorphic_mesa_bricks"
+    "side": "botania:block/metamorphic_mesa_bricks",
+    "north": "botania:block/metamorphic_mesa_bricks_mirrored"
   }
 }

@@ -53,11 +53,11 @@ import javax.annotation.Nullable;
 public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockContainer {
 
 	public static final EnumProperty<State> FLUID = EnumProperty.create("fluid", State.class);
-	private static final VoxelShape BASE = Block.box(0, 0, 0, 16, 2, 16);
-	private static final VoxelShape MIDDLE = Block.box(2, 2, 2, 14, 12, 14);
-	private static final VoxelShape TOP = Block.box(2, 12, 2, 14, 20, 14);
-	private static final VoxelShape TOP_CUTOUT = Block.box(3, 14, 3, 13, 20, 13);
-	private static final VoxelShape SHAPE = Shapes.or(Shapes.or(BASE, MIDDLE), Shapes.join(TOP, TOP_CUTOUT, BooleanOp.ONLY_FIRST));
+	private static final VoxelShape BASE = Block.box(2, 0, 2, 14, 2, 14);
+	private static final VoxelShape PILLAR = Block.box(4, 2, 4, 12, 11, 12);
+	private static final VoxelShape TOP = Block.box(2, 11, 2, 14, 16, 14);
+	private static final VoxelShape TOP_CUTOUT = Block.box(3, 12, 3, 13, 16, 13);
+	private static final VoxelShape SHAPE = Shapes.or(Shapes.or(BASE, PILLAR), Shapes.join(TOP, TOP_CUTOUT, BooleanOp.ONLY_FIRST));
 
 	@Override
 	public boolean canPlaceLiquid(@Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Fluid fluid) {
