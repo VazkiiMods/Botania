@@ -2,6 +2,11 @@
   "variants": {
     "axis=x": [
       {
+        "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal",
+        "x": 90,
+        "y": 90
+      },
+      {
         "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal_1",
         "x": 90,
         "y": 90
@@ -25,14 +30,12 @@
         "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal_5",
         "x": 90,
         "y": 90
-      },
-      {
-        "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal_6",
-        "x": 90,
-        "y": 90
       }
     ],
     "axis=y": [
+      {
+        "model": "botania:block/glimmering_stripped_dreamwood_log"
+      },
       {
         "model": "botania:block/glimmering_stripped_dreamwood_log_1"
       },
@@ -47,12 +50,13 @@
       },
       {
         "model": "botania:block/glimmering_stripped_dreamwood_log_5"
-      },
-      {
-        "model": "botania:block/glimmering_stripped_dreamwood_log_6"
       }
     ],
     "axis=z": [
+      {
+        "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal",
+        "x": 90
+      },
       {
         "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal_1",
         "x": 90
@@ -71,10 +75,6 @@
       },
       {
         "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal_5",
-        "x": 90
-      },
-      {
-        "model": "botania:block/glimmering_stripped_dreamwood_log_horizontal_6",
         "x": 90
       }
     ]

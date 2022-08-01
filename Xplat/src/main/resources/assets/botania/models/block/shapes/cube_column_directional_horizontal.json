@@ -1,0 +1,20 @@
+{
+  "__comment": "[VanillaCopy] except separate textures for top and bottom and rotated",
+  "parent": "block/block",
+  "elements": [
+    { "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#side", "rotation": 180, "cullface": "down" },
+        "up":    { "texture": "#side", "cullface": "up" },
+        "north": { "texture": "#top", "cullface": "north" },
+        "south": { "texture": "#bottom", "cullface": "south" },
+        "west":  { "texture": "#side", "rotation": 270, "cullface": "west" },
+        "east":  { "texture": "#side", "rotation": 90, "cullface": "east" }
+      }
+    }
+  ],
+  "textures": {
+    "particle": "#side"
+  }
+}

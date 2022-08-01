@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "botania:block/glimmering_dreamwood_log",
+    "side": "botania:block/glimmering_dreamwood_log"
+  }
+}

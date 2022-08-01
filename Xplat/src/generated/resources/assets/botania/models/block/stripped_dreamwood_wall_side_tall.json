@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/wall_side_tall",
+  "textures": {
+    "wall": "botania:block/stripped_dreamwood_log",
+    "bottom": "botania:block/stripped_dreamwood_log",
+    "top": "botania:block/stripped_dreamwood_log"
+  }
+}

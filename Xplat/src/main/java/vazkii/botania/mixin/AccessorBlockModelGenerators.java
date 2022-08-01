@@ -10,6 +10,7 @@ package vazkii.botania.mixin;
 
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.resources.ResourceLocation;
@@ -62,6 +63,11 @@ public interface AccessorBlockModelGenerators {
 
 	@Invoker("createRotatedVariants")
 	static Variant[] createRotatedVariants(ResourceLocation model) {
+		throw new IllegalStateException();
+	}
+
+	@Invoker("createRotatedVariant")
+	static MultiVariantGenerator createRotatedVariant(Block block, ResourceLocation model, ResourceLocation mirroredModel) {
 		throw new IllegalStateException();
 	}
 }

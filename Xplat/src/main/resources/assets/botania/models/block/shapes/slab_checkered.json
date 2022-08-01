@@ -1,0 +1,21 @@
+{
+	"__comment": "VanillaCopy, except some faces use the #north texture instead of #side so checkered textures look correct",
+	"parent": "block/block",
+	"textures": {
+		"particle": "#side"
+	},
+	"elements": [
+		{
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 8, 16 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#side", "cullface": "down" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#north" },
+				"north": { "uv": [ 0, 8, 16, 16 ], "texture": "#north", "cullface": "north" },
+				"south": { "uv": [ 0, 8, 16, 16 ], "texture": "#north", "cullface": "south" },
+				"west": { "uv": [ 0, 8, 16, 16 ], "texture": "#side", "cullface": "west" },
+				"east": { "uv": [ 0, 8, 16, 16 ], "texture": "#side", "cullface": "east" }
+			}
+		}
+	]
+}

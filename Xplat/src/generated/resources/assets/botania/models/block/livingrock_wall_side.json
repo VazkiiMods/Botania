@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/template_wall_side",
+  "parent": "botania:block/shapes/wall_side",
   "textures": {
-    "wall": "botania:block/livingrock"
+    "wall": "botania:block/livingrock",
+    "bottom": "botania:block/livingrock",
+    "top": "botania:block/livingrock"
   }
 }
