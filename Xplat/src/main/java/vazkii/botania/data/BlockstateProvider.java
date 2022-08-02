@@ -330,6 +330,8 @@ public class BlockstateProvider implements DataProvider {
 		stairsBlock(remainingBlocks, livingwoodStrippedStairs, getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped));
 		slabBlock(remainingBlocks, livingwoodSlab, getModelLocation(livingwood), getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog));
 		slabBlock(remainingBlocks, livingwoodStrippedSlab, getModelLocation(livingwoodStripped), getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped));
+		wallBlock(remainingBlocks, livingwoodWall, getBlockTexture(livingwoodLog));
+		wallBlock(remainingBlocks, livingwoodStrippedWall, getBlockTexture(livingwoodLogStripped));
 
 		fenceBlock(dreamwoodFence, getBlockTexture(dreamwoodPlanks));
 		fenceGateBlock(dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
