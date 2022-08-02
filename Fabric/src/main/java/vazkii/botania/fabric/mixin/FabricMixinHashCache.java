@@ -1,15 +1,16 @@
 package vazkii.botania.fabric.mixin;
 
 import net.minecraft.data.HashCache;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import vazkii.botania.common.lib.LibMisc;
 
 import java.io.IOException;
@@ -26,19 +27,31 @@ import java.util.TreeMap;
  */
 @Mixin(HashCache.class)
 public abstract class FabricMixinHashCache {
-	@Shadow protected abstract void removeStale() throws IOException;
+	@Shadow
+	protected abstract void removeStale() throws IOException;
 
-	@Shadow @Final private Path cachePath;
+	@Shadow
+	@Final
+	private Path cachePath;
 
-	@Shadow @Final private static Logger LOGGER;
+	@Shadow
+	@Final
+	private static Logger LOGGER;
 
-	@Shadow private int hits;
+	@Shadow
+	private int hits;
 
-	@Shadow @Final private Map<Path, String> newCache;
+	@Shadow
+	@Final
+	private Map<Path, String> newCache;
 
-	@Shadow @Final private Map<Path, String> oldCache;
+	@Shadow
+	@Final
+	private Map<Path, String> oldCache;
 
-	@Shadow @Final private Path path;
+	@Shadow
+	@Final
+	private Path path;
 
 	@Inject(at = @At("HEAD"), method = "purgeStaleAndWrite", cancellable = true)
 	private void hookWrite(CallbackInfo ci) throws IOException {
