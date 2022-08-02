@@ -14,6 +14,7 @@
     "FabricMixinEnchantmentMenu",
     "FabricMixinEnderMan",
     "FabricMixinExplosion",
+    "FabricMixinHashCache",
     "FabricMixinItemEntity",
     "FabricMixinItemPredicate",
     "FabricMixinItemStack",
