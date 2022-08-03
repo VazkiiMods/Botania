@@ -100,7 +100,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-40.1.51"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-40.1.68"
     compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 

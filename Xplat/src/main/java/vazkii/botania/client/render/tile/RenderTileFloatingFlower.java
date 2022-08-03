@@ -11,18 +11,15 @@ package vazkii.botania.client.render.tile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.xplat.BotaniaConfig;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nonnull;
 
@@ -34,10 +31,10 @@ public class RenderTileFloatingFlower implements BlockEntityRenderer<TileFloatin
 
 	@Override
 	public void render(@Nonnull TileFloatingFlower tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		renderFloatingIsland(tile, t, ms, buffers, light, overlay);
+		renderFloatingIsland(tile, t, ms, buffers, overlay);
 	}
 
-	public static void renderFloatingIsland(BlockEntity tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public static void renderFloatingIsland(BlockEntity tile, float t, PoseStack ms, MultiBufferSource buffers, int overlay) {
 		if (BotaniaConfig.client().staticFloaters()) {
 			return;
 		}
@@ -56,12 +53,8 @@ public class RenderTileFloatingFlower implements BlockEntityRenderer<TileFloatin
 		ms.mulPose(Vector3f.XP.rotationDegrees(4F * (float) Math.sin(worldTime * 0.04F)));
 		ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
 
-		BlockRenderDispatcher brd = Minecraft.getInstance().getBlockRenderer();
-		BlockState state = tile.getBlockState();
-
-		var buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
-		brd.getModelRenderer().tesselateBlock(tile.getLevel(), brd.getBlockModel(state), state, tile.getBlockPos(), ms,
-				buffer, true, new Random(), state.getSeed(tile.getBlockPos()), overlay);
+		IClientXplatAbstractions.INSTANCE.tessellateBlock(tile.getLevel(), tile.getBlockState(),
+				tile.getBlockPos(), ms, buffers, overlay);
 
 		ms.popPose();
 	}

@@ -40,6 +40,7 @@ public interface IClientXplatAbstractions {
 	BakedModel wrapPlatformModel(BakedModel original);
 	void setFilterSave(AbstractTexture texture, boolean filter, boolean mipmap);
 	void restoreLastFilter(AbstractTexture texture);
+	void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay);
 
 	IClientXplatAbstractions INSTANCE = find();
 

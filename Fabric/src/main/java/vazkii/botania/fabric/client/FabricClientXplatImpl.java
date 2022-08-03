@@ -3,6 +3,8 @@ package vazkii.botania.fabric.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
@@ -20,6 +22,8 @@ import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import javax.annotation.Nullable;
+
+import java.util.Random;
 
 public class FabricClientXplatImpl implements IClientXplatAbstractions {
 	@Override
@@ -51,5 +55,13 @@ public class FabricClientXplatImpl implements IClientXplatAbstractions {
 	@Override
 	public void restoreLastFilter(AbstractTexture texture) {
 		((ExtendedTexture) texture).restoreLastFilter();
+	}
+
+	@Override
+	public void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay) {
+		var brd = Minecraft.getInstance().getBlockRenderer();
+		var buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
+		brd.getModelRenderer().tesselateBlock(level, brd.getBlockModel(state), state, pos, ps,
+				buffer, true, new Random(), state.getSeed(pos), overlay);
 	}
 }
