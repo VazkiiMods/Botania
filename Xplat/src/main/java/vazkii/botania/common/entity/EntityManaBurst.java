@@ -116,6 +116,14 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		entityData.define(LEFT_SOURCE_POS, false);
 	}
 
+	public static Vec3 calculateBurstVelocity(float xRot, float yRot) {
+		float f = 0.4F;
+		double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		return new Vec3(mx, my, mz);
+	}
+
 	public EntityManaBurst(Level level, BlockPos pos, float rotX, float rotY, boolean fake) {
 		this(ModEntities.MANA_BURST, level);
 
@@ -130,12 +138,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		*/
 		setYRot(-(rotX + 90F));
 		setXRot(rotY);
-
-		float f = 0.4F;
-		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
-		double mz = -(Mth.cos(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = Mth.sin(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
-		setDeltaMovement(mx, my, mz);
+		setDeltaMovement(calculateBurstVelocity(getXRot(), getYRot()));
 	}
 
 	public EntityManaBurst(Player player) {
@@ -143,12 +146,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 		setBurstSourceCoords(NO_SOURCE);
 		setRot(player.getYRot() + 180, -player.getXRot());
-
-		float f = 0.4F;
-		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
-		double mz = -(Mth.cos(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = Mth.sin(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
-		setDeltaMovement(mx, my, mz);
+		setDeltaMovement(calculateBurstVelocity(getXRot(), getYRot()));
 	}
 
 	@Override

@@ -11,9 +11,11 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -22,9 +24,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -74,10 +79,29 @@ public class LensMine extends Lens {
 
 					boolean sourceless = source.equals(IManaBurst.NO_SOURCE);
 					boolean doWarp = warp && !sourceless;
-					BlockPos dropCoord = doWarp ? source : collidePos;
+					Vec3 dropPosition;
+					if (doWarp && world.getBlockEntity(source) instanceof TileSpreader spreader) {
+						Vec3 sourceVec = new Vec3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
+						/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
+						* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
+						* to respectively mean "rotation *around* the X and Y axes".
+						* See also the EntityManaBurst constructor.
+						* TODO consider renaming our versions to match vanilla
+						*/
+						float xRot = spreader.getRotationY();
+						float yRot = -(spreader.getRotationX() + 90F);
+						Vec3 inverseSpreaderDirection = EntityManaBurst.calculateBurstVelocity(xRot, yRot).normalize().scale(-1);
+						dropPosition = sourceVec.add(inverseSpreaderDirection);
+					} else {
+						dropPosition = new Vec3(collidePos.getX() + 0.5, collidePos.getY() + 0.5, collidePos.getZ() + 0.5);
+					}
 
-					for (ItemStack stack_ : items) {
-						Block.popResource(world, dropCoord, stack_);
+					if (world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
+						for (ItemStack stack_ : items) {
+							ItemEntity itemEntity = new ItemEntity(world, dropPosition.x, dropPosition.y, dropPosition.z, stack_);
+							itemEntity.setDefaultPickUpDelay();
+							world.addFreshEntity(itemEntity);
+						}
 					}
 
 					burst.setMana(mana - 24);
