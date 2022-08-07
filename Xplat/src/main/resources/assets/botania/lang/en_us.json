@@ -2757,7 +2757,7 @@
 
   "botania.entry.virus": "Equestrian Virus",
   "botania.tagline.virus": "Superpowered horses",
-  "botania.page.virus0": "Combining certain ingredients can create a type of virus that alters the genetic makeup of equestrian life.$(p)Using one of these viruses on a $(item)Horse$(0) will alter its genetic code, transforming it into a $(item)Zombie$(0) or $(item)Skeleton Horse$(0) and vastly augmenting the $(item)Horse$(0)'s abilities in the process.",
+  "botania.page.virus0": "Combining certain ingredients can create a type of virus that alters the genetic makeup of equestrian life.$(p)Using one of these viruses on a $(thing)Horse$(0) will alter its genetic code, transforming it into a $(thing)Zombie$(0) or $(thing)Skeleton Horse$(0) and vastly augmenting the $(thing)Horse$(0)'s abilities in the process.",
   "botania.page.virus1": "No ponies here",
   "botania.page.virus2": "None here either",
 
