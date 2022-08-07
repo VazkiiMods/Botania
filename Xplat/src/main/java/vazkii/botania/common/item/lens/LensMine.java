@@ -81,7 +81,7 @@ public class LensMine extends Lens {
 					boolean doWarp = warp && !sourceless;
 					Vec3 dropPosition;
 					if (doWarp && world.getBlockEntity(source) instanceof TileSpreader spreader) {
-						Vec3 sourceVec = new Vec3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
+						Vec3 sourceVec = Vec3.atCenterOf(source);
 						/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
 						* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot
 						* to respectively mean "rotation *around* the X and Y axes".
@@ -90,10 +90,10 @@ public class LensMine extends Lens {
 						*/
 						float xRot = spreader.getRotationY();
 						float yRot = -(spreader.getRotationX() + 90F);
-						Vec3 inverseSpreaderDirection = EntityManaBurst.calculateBurstVelocity(xRot, yRot).normalize().scale(-1);
+						Vec3 inverseSpreaderDirection = EntityManaBurst.calculateBurstVelocity(xRot, yRot).normalize().reverse();
 						dropPosition = sourceVec.add(inverseSpreaderDirection);
 					} else {
-						dropPosition = new Vec3(collidePos.getX() + 0.5, collidePos.getY() + 0.5, collidePos.getZ() + 0.5);
+						dropPosition = Vec3.atCenterOf(collidePos);
 					}
 
 					if (world.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
