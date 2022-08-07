@@ -1,0 +1,29 @@
+{
+    "__comment": "VanillaCopy, except some faces use the #north texture instead of #side so checkered textures look correct when the model is rotated by 90 or 270 degrees",
+    "textures": {
+        "particle": "#side"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 8, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#side", "cullface": "down" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#north" },
+                "north": { "uv": [ 0, 8, 16, 16 ], "texture": "#side", "cullface": "north" },
+                "south": { "uv": [ 0, 8, 16, 16 ], "texture": "#side", "cullface": "south" },
+                "west":  { "uv": [ 0, 8, 16, 16 ], "texture": "#north", "cullface": "west" },
+                "east":  { "uv": [ 0, 8, 16, 16 ], "texture": "#north", "cullface": "east" }
+            }
+        },
+        {   "from": [ 8, 8, 8 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "up":    { "uv": [ 8, 8, 16, 16 ], "texture": "#side", "cullface": "up" },
+                "north": { "uv": [ 0, 0,  8,  8 ], "texture": "#north" },
+                "south": { "uv": [ 8, 0, 16,  8 ], "texture": "#side", "cullface": "south" },
+                "west":  { "uv": [ 8, 0, 16,  8 ], "texture": "#side" },
+                "east":  { "uv": [ 0, 0,  8,  8 ], "texture": "#north", "cullface": "east" }
+            }
+        }
+    ]
+}

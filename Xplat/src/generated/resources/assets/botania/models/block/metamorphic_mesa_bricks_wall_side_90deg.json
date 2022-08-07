@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/wall_side_checkered_90deg",
+  "textures": {
+    "side": "botania:block/metamorphic_mesa_bricks",
+    "north": "botania:block/metamorphic_mesa_bricks_mirrored"
+  }
+}

@@ -598,31 +598,18 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithVariants(remainingBlocks, biomeCobblestoneSwampSlab, swampCobblestoneModels, swampCobblestoneTextures, swampCobblestoneTextures, swampCobblestoneTextures);
 		wallBlockWithVariants(remainingBlocks, biomeCobblestoneSwampWall, swampCobblestoneTextures);
 
-		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
-
 		var mesaBrick = getBlockTexture(biomeBrickMesa);
 		var mesaBrickMirrored = getBlockTexture(biomeBrickMesa, "_mirrored");
-		TextureMapping mesaBrickMapping = new TextureMapping().put(TextureSlot.SIDE, mesaBrick).put(TextureSlot.NORTH, mesaBrickMirrored);
-		var mesaBrickModel = checkeredTemplate.apply("cube_checkered", Optional.empty()).create(biomeBrickMesa, mesaBrickMapping, this.modelOutput);
-		var mesaBrickSlabModel = checkeredTemplate.apply("slab_checkered", Optional.empty()).create(biomeBrickMesaSlab, mesaBrickMapping, this.modelOutput);
-		var mesaBrickSlabTopModel = checkeredTemplate.apply("slab_top_checkered", Optional.of("_top")).create(biomeBrickMesaSlab, mesaBrickMapping, this.modelOutput);
-		var mesaBrickStairsModel = checkeredTemplate.apply("stairs_checkered", Optional.empty()).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
-		var mesaBrickStairsOuterModel = checkeredTemplate.apply("stairs_outer_checkered", Optional.of("_outer")).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
-		var mesaBrickStairsInnerModel = checkeredTemplate.apply("stairs_inner_checkered", Optional.of("_inner")).create(biomeBrickMesaStairs, mesaBrickMapping, this.modelOutput);
-		var mesaBrickWallPostModel = checkeredTemplate.apply("wall_post_checkered", Optional.of("_post")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
-		var mesaBrickWallSideModel = checkeredTemplate.apply("wall_side_checkered", Optional.of("_side")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
-		var mesaBrickWallSideTallModel = checkeredTemplate.apply("wall_side_tall_checkered", Optional.of("_side_tall")).create(biomeBrickMesaWall, mesaBrickMapping, this.modelOutput);
-		singleVariantBlockState(biomeBrickMesa, mesaBrickModel);
-		remainingBlocks.remove(biomeBrickMesa);
-		slabBlockWithModels(remainingBlocks, biomeBrickMesaSlab, mesaBrickSlabModel, mesaBrickSlabTopModel, mesaBrickModel);
-		stairsBlockWithModelsNoUVLock(remainingBlocks, biomeBrickMesaStairs, mesaBrickStairsInnerModel, mesaBrickStairsModel, mesaBrickStairsOuterModel);
-		wallBlockWithModelsNoUVLock(remainingBlocks, biomeBrickMesaWall, mesaBrickWallPostModel, mesaBrickWallSideModel, mesaBrickWallSideTallModel);
+		var mesaBrickModel = checkeredBlockWithBlockstate(remainingBlocks, biomeBrickMesa, mesaBrick, mesaBrickMirrored);
+		checkeredSlabBlock(remainingBlocks, biomeBrickMesaSlab, mesaBrickModel, mesaBrick, mesaBrickMirrored);
+		checkeredStairsBlock(remainingBlocks, biomeBrickMesaStairs, mesaBrick, mesaBrickMirrored);
+		checkeredWallBlock(remainingBlocks, biomeBrickMesaWall, mesaBrick, mesaBrickMirrored);
 
 		var mesaChiseledBrickSide = getBlockTexture(biomeChiseledBrickMesa);
 		var mesaChiseledBrickTop = getBlockTexture(biomeChiseledBrickMesa, "_top");
 		pillarAlt(remainingBlocks, biomeChiseledBrickMesa, mesaChiseledBrickTop, mesaChiseledBrickSide);
 
-		// Slabs, stairs, walls are handled automatically.
+		// Remaining slabs, stairs, walls are handled automatically.
 		for (Block stone : new Block[] { biomeStoneDesert, biomeStoneForest, biomeStoneFungal, biomeStoneMesa, biomeStonePlains, biomeStoneSwamp }) {
 			rotatedMirrored(remainingBlocks, stone, getBlockTexture(stone));
 		}
@@ -754,6 +741,20 @@ public class BlockstateProvider implements DataProvider {
 		stairsBlockWithVariants(blocks, block, new ResourceLocation[] { sideTex }, new ResourceLocation[] { bottomTex }, new ResourceLocation[] { topTex });
 	}
 
+	protected void checkeredStairsBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
+
+		var checkeredStairsModel = checkeredTemplate.apply("stairs_checkered", Optional.empty()).create(biomeBrickMesaStairs, checkeredMapping, this.modelOutput);
+		var checkeredStairsModelRot90 = checkeredTemplate.apply("stairs_checkered_90deg", Optional.of("_90deg")).create(biomeBrickMesaStairs, checkeredMapping, this.modelOutput);
+		var checkeredStairsOuterModel = checkeredTemplate.apply("stairs_outer_checkered", Optional.of("_outer")).create(biomeBrickMesaStairs, checkeredMapping, this.modelOutput);
+		var checkeredStairsOuterModelRot90 = checkeredTemplate.apply("stairs_outer_checkered_90deg", Optional.of("_outer_90deg")).create(biomeBrickMesaStairs, checkeredMapping, this.modelOutput);
+		var checkeredStairsInnerModel = checkeredTemplate.apply("stairs_inner_checkered", Optional.of("_inner")).create(biomeBrickMesaStairs, checkeredMapping, this.modelOutput);
+		var checkeredStairsInnerModelRot90 = checkeredTemplate.apply("stairs_inner_checkered_90deg", Optional.of("_inner_90deg")).create(biomeBrickMesaStairs, checkeredMapping, this.modelOutput);
+
+		stairsBlockWithModels(blocks, block, checkeredStairsInnerModel, checkeredStairsInnerModelRot90, checkeredStairsModel, checkeredStairsModelRot90, checkeredStairsOuterModel, checkeredStairsOuterModelRot90);
+	}
+
 	protected void stairsBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
 		var weights = new Integer[sideTextures.length];
 		Arrays.fill(weights, 1);
@@ -784,15 +785,19 @@ public class BlockstateProvider implements DataProvider {
 		stairsBlockWithModels(blocks, block, innerModels, straightModels, outerModels, weights);
 	}
 
-	protected void stairsBlockWithModelsNoUVLock(Set<Block> blocks, Block block, ResourceLocation innerModel, ResourceLocation straightModel, ResourceLocation outerModel) {
-		stairsBlockWithModels(blocks, block, new ResourceLocation[] { innerModel }, new ResourceLocation[] { straightModel }, new ResourceLocation[] { outerModel }, new Integer[] { 1 }, false);
-	}
-
 	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights) {
 		stairsBlockWithModels(blocks, block, innerModels, straightModels, outerModels, weights, true);
 	}
 
+	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation innerModel, ResourceLocation innerModelRot90, ResourceLocation straightModel, ResourceLocation straightModelRot90, ResourceLocation outerModel, ResourceLocation outerModelRot90) {
+		stairsBlockWithModels(blocks, block, new ResourceLocation[] { innerModel }, new ResourceLocation[] { innerModelRot90 }, new ResourceLocation[] { straightModel }, new ResourceLocation[] { straightModelRot90 }, new ResourceLocation[] { outerModel }, new ResourceLocation[] { outerModelRot90 }, new Integer[] { 1 }, true);
+	}
+
 	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights, Boolean uvlock) {
+		stairsBlockWithModels(blocks, block, innerModels, innerModels, straightModels, straightModels, outerModels, outerModels, weights, uvlock);
+	}
+
+	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] innerModelsRot90, ResourceLocation[] straightModels, ResourceLocation[] straightModelsRot90, ResourceLocation[] outerModels, ResourceLocation[] outerModelsRot90, Integer[] weights, Boolean uvlock) {
 		int length = innerModels.length;
 		if (length != straightModels.length || length != outerModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -808,6 +813,10 @@ public class BlockstateProvider implements DataProvider {
 					// Stair blockstates are super weird. If it's left and bottom, you need to rotate it 90deg ccw compared to
 					// usual, and if it's right and top, you need to rotate it 90deg cw. This is the cleanest way I could think
 					// of to do that.
+
+					// Additionally, we're using an alternate model for everything that's rotated 90/270 degrees to be able to
+					// have a consistent "checkered" texture for some stairs. Normal stairs just provide the same model twice
+					// which makes no impact in the generated blockstate.
 					boolean isLeft = stairsShape == StairsShape.INNER_LEFT || stairsShape == StairsShape.OUTER_LEFT;
 					boolean isRight = stairsShape == StairsShape.INNER_RIGHT || stairsShape == StairsShape.OUTER_RIGHT;
 					int rotationOffset = isLeft && half == Half.BOTTOM ? -1 : isRight && half == Half.TOP ? 1 : 0;
@@ -824,10 +833,11 @@ public class BlockstateProvider implements DataProvider {
 						case BOTTOM -> VariantProperties.Rotation.R0;
 						case TOP -> VariantProperties.Rotation.R180;
 					};
+					boolean rotatedModel = yRot == VariantProperties.Rotation.R90 || yRot == VariantProperties.Rotation.R270;
 					ResourceLocation[] models = switch (stairsShape) {
-						case STRAIGHT -> straightModels;
-						case OUTER_RIGHT, OUTER_LEFT -> outerModels;
-						case INNER_RIGHT, INNER_LEFT -> innerModels;
+						case STRAIGHT -> rotatedModel ? straightModelsRot90 : straightModels;
+						case OUTER_RIGHT, OUTER_LEFT -> rotatedModel ? outerModelsRot90 : outerModels;
+						case INNER_RIGHT, INNER_LEFT -> rotatedModel ? innerModelsRot90 : innerModels;
 					};
 					var indices = IntStream.range(0, length).boxed();
 					propertyDispatch.select(direction, half, stairsShape, indices.map(i -> maybeUVLock(uvlock, maybeWeight(weights[i], maybeYRot(yRot, maybeXRot(xRot, Variant.variant()
@@ -843,6 +853,15 @@ public class BlockstateProvider implements DataProvider {
 
 	protected void slabBlock(Set<Block> blocks, Block block, ResourceLocation doubleModel, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
 		slabBlockWithVariants(blocks, block, new ResourceLocation[] { doubleModel }, new ResourceLocation[] { side }, new ResourceLocation[] { bottom }, new ResourceLocation[] { top });
+	}
+
+	protected void checkeredSlabBlock(Set<Block> blocks, Block block, ResourceLocation doubleModel, ResourceLocation texture, ResourceLocation mirroredTexture) {
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
+
+		var slabModel = checkeredTemplate.apply("slab_checkered", Optional.empty()).create(biomeBrickMesaSlab, checkeredMapping, this.modelOutput);
+		var slabTopModel = checkeredTemplate.apply("slab_top_checkered", Optional.of("_top")).create(biomeBrickMesaSlab, checkeredMapping, this.modelOutput);
+		slabBlockWithModels(blocks, block, slabModel, slabTopModel, doubleModel);
 	}
 
 	protected void slabBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] doubleModels, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
@@ -901,6 +920,19 @@ public class BlockstateProvider implements DataProvider {
 		wallBlockWithVariants(blocks, block, new ResourceLocation[] { sideTexture }, new ResourceLocation[] { bottomTexture }, new ResourceLocation[] { topTexture });
 	}
 
+	protected void checkeredWallBlock (Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
+
+		var checkeredWallPostModel = checkeredTemplate.apply("wall_post_checkered", Optional.of("_post")).create(biomeBrickMesaWall, checkeredMapping, this.modelOutput);
+		var checkeredWallSideModel = checkeredTemplate.apply("wall_side_checkered", Optional.of("_side")).create(biomeBrickMesaWall, checkeredMapping, this.modelOutput);
+		var checkeredWallSideModelRot90 = checkeredTemplate.apply("wall_side_checkered_90deg", Optional.of("_side_90deg")).create(biomeBrickMesaWall, checkeredMapping, this.modelOutput);
+		var checkeredWallSideTallModel = checkeredTemplate.apply("wall_side_tall_checkered", Optional.of("_side_tall")).create(biomeBrickMesaWall, checkeredMapping, this.modelOutput);
+		var checkeredWallSideTallModelRot90 = checkeredTemplate.apply("wall_side_tall_checkered_90deg", Optional.of("_side_tall_90deg")).create(biomeBrickMesaWall, checkeredMapping, this.modelOutput);
+
+		wallBlockWithModels(blocks, block, checkeredWallPostModel, checkeredWallSideModel, checkeredWallSideModelRot90, checkeredWallSideTallModel, checkeredWallSideTallModelRot90);
+	}
+
 	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
 		wallBlockWithVariants(blocks, block, textures, textures, textures);
 	}
@@ -945,15 +977,19 @@ public class BlockstateProvider implements DataProvider {
 		wallBlockWithModels(blocks, block, postModels, lowModels, tallModels, weights);
 	}
 
-	protected void wallBlockWithModelsNoUVLock(Set<Block> blocks, Block block, ResourceLocation postModel, ResourceLocation lowModel, ResourceLocation tallModel) {
-		wallBlockWithModels(blocks, block, new ResourceLocation[] { postModel }, new ResourceLocation[] { lowModel }, new ResourceLocation[] { tallModel }, new Integer[] { 1 }, false);
-	}
-
 	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights) {
 		wallBlockWithModels(blocks, block, postModels, lowModels, tallModels, weights, true);
 	}
 
+	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation postModel, ResourceLocation lowModel, ResourceLocation lowModelRot90, ResourceLocation tallModel, ResourceLocation tallodelRot90) {
+		wallBlockWithModels(blocks, block, new ResourceLocation[] { postModel }, new ResourceLocation[] { lowModel }, new ResourceLocation[] { lowModelRot90 }, new ResourceLocation[] { tallModel }, new ResourceLocation[] { tallodelRot90 }, new Integer[] { 1 }, true);
+	}
+
 	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights, Boolean uvlock) {
+		wallBlockWithModels(blocks, block, postModels, lowModels, lowModels, tallModels, tallModels, weights, uvlock);
+	}
+
+	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] lowModelsRot90, ResourceLocation[] tallModels, ResourceLocation[] tallodelsRot90, Integer[] weights, Boolean uvlock) {
 		int length = postModels.length;
 		if (length != lowModels.length || length != tallModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -963,22 +999,27 @@ public class BlockstateProvider implements DataProvider {
 		multiPartGenerator.with(Condition.condition().term(BlockStateProperties.UP, true),
 				indicesPost.map(i -> maybeWeight(weights[i], Variant.variant().with(VariantProperties.MODEL, postModels[i]))).toArray(Variant[]::new));
 		var wallSides = List.of(BlockStateProperties.EAST_WALL, BlockStateProperties.WEST_WALL, BlockStateProperties.SOUTH_WALL, BlockStateProperties.NORTH_WALL);
+
+		// We're using an alternate model for everything that's rotated 90/270 degrees to be able to
+		// have a consistent "checkered" texture for some walls. Normal walls just provide the same model twice
+		// which makes no impact in the generated blockstate.
 		for (EnumProperty<WallSide> wallSide : wallSides) {
 			VariantProperties.Rotation yRot =
 					wallSide == BlockStateProperties.EAST_WALL ? VariantProperties.Rotation.R90
 							: wallSide == BlockStateProperties.WEST_WALL ? VariantProperties.Rotation.R270
 							: wallSide == BlockStateProperties.SOUTH_WALL ? VariantProperties.Rotation.R180
 							: VariantProperties.Rotation.R0;
+			boolean rotatedModel = yRot == VariantProperties.Rotation.R90 || yRot == VariantProperties.Rotation.R270;
 			var indicesLow = IntStream.range(0, length).boxed();
 			var indicesTall = IntStream.range(0, length).boxed();
 			multiPartGenerator
 					.with(Condition.condition().term(wallSide, WallSide.LOW), indicesLow.map(i -> maybeUVLock(uvlock, maybeWeight(weights[i], maybeYRot(yRot,
 							Variant.variant()
-									.with(VariantProperties.MODEL, lowModels[i])
+									.with(VariantProperties.MODEL, rotatedModel ? lowModelsRot90[i] : lowModels[i])
 					)))).toArray(Variant[]::new))
 					.with(Condition.condition().term(wallSide, WallSide.TALL), indicesTall.map(i -> maybeUVLock(uvlock, maybeWeight(weights[i], maybeYRot(yRot,
 							Variant.variant()
-									.with(VariantProperties.MODEL, tallModels[i])
+									.with(VariantProperties.MODEL, rotatedModel ? tallodelsRot90[i] : tallModels[i])
 					)))).toArray(Variant[]::new));
 		}
 		this.blockstates.add(multiPartGenerator);
@@ -1008,6 +1049,15 @@ public class BlockstateProvider implements DataProvider {
 	protected void cubeAll(Set<Block> blocks, Block block) {
 		ResourceLocation texture = getBlockTexture(block);
 		cubeAllWithVariants(blocks, block, new ResourceLocation[] { texture });
+	}
+
+	protected ResourceLocation checkeredBlockWithBlockstate(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
+		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
+		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
+
+		var blockModel = checkeredTemplate.apply("cube_checkered", Optional.empty()).create(biomeBrickMesa, checkeredMapping, this.modelOutput);
+		cubeAllWithModels(blocks, block, new ResourceLocation[] { blockModel }, new Integer[] { 1 });
+		return blockModel;
 	}
 
 	protected void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {

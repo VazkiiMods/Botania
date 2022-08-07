@@ -13,8 +13,9 @@
         "east": "low"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side",
-        "y": 90
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side_90deg",
+        "y": 90,
+        "uvlock": true
       }
     },
     {
@@ -22,8 +23,9 @@
         "east": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
-        "y": 90
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall_90deg",
+        "y": 90,
+        "uvlock": true
       }
     },
     {
@@ -31,8 +33,9 @@
         "west": "low"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side",
-        "y": 270
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side_90deg",
+        "y": 270,
+        "uvlock": true
       }
     },
     {
@@ -40,8 +43,9 @@
         "west": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
-        "y": 270
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall_90deg",
+        "y": 270,
+        "uvlock": true
       }
     },
     {
@@ -50,7 +54,8 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side",
-        "y": 180
+        "y": 180,
+        "uvlock": true
       }
     },
     {
@@ -59,7 +64,8 @@
       },
       "apply": {
         "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
-        "y": 180
+        "y": 180,
+        "uvlock": true
       }
     },
     {
@@ -67,7 +73,8 @@
         "north": "low"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side"
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side",
+        "uvlock": true
       }
     },
     {
@@ -75,7 +82,8 @@
         "north": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall"
+        "model": "botania:block/metamorphic_mesa_bricks_wall_side_tall",
+        "uvlock": true
       }
     }
   ]
