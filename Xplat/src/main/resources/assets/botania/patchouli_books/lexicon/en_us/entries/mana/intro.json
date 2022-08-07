@@ -4,6 +4,7 @@
   "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "advancement": "botania:main/pure_daisy_pickup",
+  "sortnum": -10,
   "pages": [
     {
       "type": "text",

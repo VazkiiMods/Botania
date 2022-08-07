@@ -4,6 +4,7 @@
   "icon": "botania:cosmetic_questgiver_mark",
   "priority": true,
   "advancement": "botania:main/mana_pool_pickup_lexicon",
+  "sortnum": -10,
   "pages": [
     {
       "type": "text",
