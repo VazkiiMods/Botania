@@ -2593,7 +2593,7 @@
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",
   "botania.tagline.teruTeruBozu": "Weather control and cuteness overload",
-  "botania.page.teruTeruBozu0": "$(item)Teru Teru Bozu$(0) are amulets that ward away bad weather. Simply crafting one of these and placing it in the world will decrease the durations of $(item)Rain-$(0) and $(item)Snowstorms$(0). During bad weather, offering it (via right-click or throw) a $(item)Sunflower$(0) will make the sun return. Attaching a $(item)Redstone Comparator$(0) to one of these allows it to detect bad weather.",
+  "botania.page.teruTeruBozu0": "$(item)Teru Teru Bozu$(0) are amulets that ward away bad weather. Simply crafting one of these and placing it in the world will decrease the durations of $(thing)Rain-$(0) and $(thing)Snowstorms$(0). During bad weather, offering it (via right-click or throw) a $(item)Sunflower$(0) will make the sun return. Attaching a $(item)Redstone Comparator$(0) to one of these allows it to detect bad weather.",
   "botania.page.teruTeruBozu1": "What makes the Sunflower so special, anyway?",
 
   "botania.entry.avatar": "Livingwood Avatar",
