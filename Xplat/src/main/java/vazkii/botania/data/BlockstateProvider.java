@@ -920,7 +920,7 @@ public class BlockstateProvider implements DataProvider {
 		wallBlockWithVariants(blocks, block, new ResourceLocation[] { sideTexture }, new ResourceLocation[] { bottomTexture }, new ResourceLocation[] { topTexture });
 	}
 
-	protected void checkeredWallBlock (Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
+	protected void checkeredWallBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
 		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 

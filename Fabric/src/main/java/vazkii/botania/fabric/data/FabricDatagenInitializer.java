@@ -15,8 +15,6 @@ import net.minecraft.data.DataGenerator;
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
-import java.io.IOException;
-
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
@@ -56,10 +54,5 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		generator.addProvider(new FloatingFlowerModelProvider(generator));
 		generator.addProvider(new ItemModelProvider(generator));
 		generator.addProvider(new AdvancementProvider(generator));
-	}
-
-	// [VanillaCopy] HashCache, but uses portable paths and sorts by path before writing
-	public static void purgeStaleAndWriteHashCacheOrdered() throws IOException {
-
 	}
 }
