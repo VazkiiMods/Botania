@@ -290,7 +290,7 @@ public final class ModBlocks {
 	public static final Block openCrate = new BlockOpenCrate(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block craftCrate = new BlockCraftyCrate(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block forestEye = new BlockForestEye(BlockBehaviour.Properties.of(Material.METAL).strength(5, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
-	public static final Block solidVines = new BlockSolidVines(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).strength(0.2F).sound(SoundType.GRASS).noOcclusion());
+	public static final Block solidVines = new BlockSolidVines(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).strength(0.2F).sound(SoundType.VINE).noOcclusion());
 	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, BlockBehaviour.Properties.of(Material.WOOD).strength(2, 5).sound(SoundType.WOOD).isValidSpawn(NO_SPAWN).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION));
 	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, BlockBehaviour.Properties.copy(abstrusePlatform));
 	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, BlockBehaviour.Properties.of(Material.WOOD).strength(-1, Float.MAX_VALUE).sound(SoundType.WOOD).isValidSpawn(NO_SPAWN).noOcclusion());
