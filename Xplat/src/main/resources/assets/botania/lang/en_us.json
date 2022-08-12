@@ -2743,7 +2743,7 @@
 
   "botania.entry.vineBall": "Vine Balls",
   "botania.tagline.vineBall": "Throwable vines you can climb like ladders",
-  "botania.page.vineBall0": "$(item)Ladders$(0) can't support their own weight; they require supporting blocks. $(item)Vines$(0) don't. Normal $(item)Vines$(0), though, aren't strong enough to be climbable without such supports.$(p)On the other hand, when a bunch of $(item)Vines$(0) are balled up, they yield a throwable item that creates a climbable string of strong $(item)Vines$(0) on impact.",
+  "botania.page.vineBall0": "$(item)Ladders$(0) can't support their own weight; they require supporting blocks. $(item)Vines$(0) don't, but aren't strong enough to be climbable by pushing towards them; you'll just end up walking right through them instead.$(p)On the other hand, when a bunch of $(item)Vines$(0) are balled up, they yield a throwable item that creates a climbable string of strong $(item)Vines$(0) on impact.",
   "botania.page.vineBall1": "Combining some $(item)Livingwood Twigs$(0) with a $(item)Rune of Air$(0) yields a slingshot that lets these $(item)Vine Balls$(0) ignore gravity entirely.",
   "botania.page.vineBall2": "This would be in Vineacraft...",
   "botania.page.vineBall3": "...if that actually existed.",
