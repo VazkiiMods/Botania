@@ -47,9 +47,7 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 		boolean lava = altar.getFluid() == IPetalApothecary.State.LAVA;
 		if (water || lava) {
 			ms.pushPose();
-			float s = 1F / 256F * 10F;
 			float v = 1F / 8F;
-			float w = -v * 2.5F;
 
 			if (water) {
 				int petals = 0;
@@ -107,9 +105,9 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 
 			float alpha = lava ? 1F : 0.7F;
 
-			ms.translate(w, -0.3125F, w);
+			ms.translate(-8 / 16F, -0.3125F, -8 / 16F);
 			ms.mulPose(Vector3f.XP.rotationDegrees(90));
-			ms.scale(s, s, s);
+			ms.scale(1 / 16F, 1 / 16F, 1 / 16F);
 
 			TextureAtlasSprite sprite = lava ? this.blockRenderDispatcher.getBlockModel(Blocks.LAVA.defaultBlockState()).getParticleIcon()
 					: this.blockRenderDispatcher.getBlockModel(Blocks.WATER.defaultBlockState()).getParticleIcon();
@@ -127,10 +125,16 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 		int green = ((color >> 8) & 0xFF);
 		int blue = (color & 0xFF);
 		Matrix4f mat = ms.last().pose();
-		builder.vertex(mat, 0, 16, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU0(), sprite.getV1()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
-		builder.vertex(mat, 16, 16, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU1(), sprite.getV1()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
-		builder.vertex(mat, 16, 0, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU1(), sprite.getV0()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
-		builder.vertex(mat, 0, 0, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU0(), sprite.getV0()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		int start = 3;
+		int end = 13;
+		builder.vertex(mat, start, end, 0).color(red, green, blue, (int) (alpha * 255F))
+				.uv(sprite.getU(start), sprite.getV(end)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, end, end, 0).color(red, green, blue, (int) (alpha * 255F))
+				.uv(sprite.getU(end), sprite.getV(end)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, end, start, 0).color(red, green, blue, (int) (alpha * 255F))
+				.uv(sprite.getU(end), sprite.getV(start)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, start, start, 0).color(red, green, blue, (int) (alpha * 255F))
+				.uv(sprite.getU(start), sprite.getV(start)).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
 	}
 
 }
