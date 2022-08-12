@@ -9,6 +9,8 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -130,7 +132,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 			InventoryHelper.withdrawFromInventory(apothecary, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
 			return InteractionResult.SUCCESS;
-		} else if (tryWithdrawFluid(player, hand, apothecary) || tryDepositFluid(player, hand, apothecary)) {
+		} else if (tryWithdrawFluid(player, hand, apothecary, pos) || tryDepositFluid(player, hand, apothecary, pos)) {
 			return InteractionResult.SUCCESS;
 		}
 
@@ -146,7 +148,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 		}
 	}
 
-	private boolean tryWithdrawFluid(Player player, InteractionHand hand, TileAltar altar) {
+	private boolean tryWithdrawFluid(Player player, InteractionHand hand, TileAltar altar, BlockPos pos) {
 		Fluid fluid = altar.getFluid().asVanilla();
 		if (fluid == Fluids.EMPTY || fluid == Fluids.WATER && IXplatAbstractions.INSTANCE.gogLoaded()) {
 			return false;
@@ -155,20 +157,29 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 		boolean success = IXplatAbstractions.INSTANCE.insertFluidIntoPlayerItem(player, hand, fluid);
 		if (success) {
 			altar.setFluid(IPetalApothecary.State.EMPTY);
+			// Usage of vanilla sound events: Subtitle is "Bucket fills"
+			if (fluid == Fluids.WATER) {
+				player.level.playSound(player, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1F, 1F);
+			} else if (fluid == Fluids.LAVA) {
+				player.level.playSound(player, pos, SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 1F, 1F);
+			}
 		}
 		return success;
 	}
 
-	private boolean tryDepositFluid(Player player, InteractionHand hand, TileAltar altar) {
+	private boolean tryDepositFluid(Player player, InteractionHand hand, TileAltar altar, BlockPos pos) {
 		if (altar.getFluid() != State.EMPTY) {
 			return false;
 		}
-
 		if (IXplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.WATER)) {
 			altar.setFluid(State.WATER);
+			// Usage of vanilla sound event: Subtitle is "Bucket empties"
+			player.level.playSound(player, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		} else if (IXplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.LAVA)) {
 			altar.setFluid(State.LAVA);
+			// Usage of vanilla sound event: Subtitle is "Bucket empties"
+			player.level.playSound(player, pos, SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
 		return false;
