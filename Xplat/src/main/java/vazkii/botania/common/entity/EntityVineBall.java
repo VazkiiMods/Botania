@@ -20,6 +20,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
@@ -72,6 +73,13 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 		}
 	}
 
+	private void effectAndDieWithDrop() {
+		effectAndDie();
+		ItemEntity itemEntity = new ItemEntity(level, getX(), getY(), getZ(), new ItemStack(ModItems.vineBall));
+		itemEntity.setDefaultPickUpDelay();
+		level.addFreshEntity(itemEntity);
+	}
+
 	private void effectAndDie() {
 		this.level.broadcastEntityEvent(this, EntityEvent.DEATH);
 		discard();
@@ -81,7 +89,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 	protected void onHitEntity(@Nonnull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		if (!level.isClientSide) {
-			effectAndDie();
+			effectAndDieWithDrop();
 		}
 	}
 
@@ -90,28 +98,39 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 		if (!level.isClientSide) {
 			Direction dir = hit.getDirection();
 
-			if (dir.getAxis() != Direction.Axis.Y) {
-				BlockPos pos = hit.getBlockPos().relative(dir);
-				boolean first = true;
-				while (pos.getY() > level.dimensionType().minY()) {
-					BlockState state = level.getBlockState(pos);
-					if (state.isAir()) {
-						BlockState stateSet = ModBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
+			BlockPos pos = hit.getBlockPos();
+			BlockState hitState = level.getBlockState(hit.getBlockPos());
+			if (!hitState.is(ModBlocks.solidVines)) {
+				pos = pos.relative(dir);
+			}
 
-						if (first && !stateSet.canSurvive(level, pos)) {
+			int vinesPlaced = 0;
+			if (dir.getAxis() != Direction.Axis.Y) {
+				while (pos.getY() > level.dimensionType().minY() && vinesPlaced < 9) {
+					BlockState state = level.getBlockState(pos);
+					if (state.getMaterial().isReplaceable() && !state.is(ModBlocks.solidVines)) {
+						BlockState stateToPlace = ModBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
+
+						if (!stateToPlace.canSurvive(level, pos)) {
 							break;
 						}
-						first = false;
-
-						level.setBlockAndUpdate(pos, stateSet);
-						level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateSet));
+						level.setBlockAndUpdate(pos, stateToPlace);
+						level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateToPlace));
+						vinesPlaced++;
+					}
+					if (level.getBlockState(pos).is(ModBlocks.solidVines)) {
 						pos = pos.below();
 					} else {
 						break;
 					}
 				}
 			}
-			effectAndDie();
+
+			if (vinesPlaced == 0) {
+				effectAndDieWithDrop();
+			} else {
+				effectAndDie();
+			}
 		}
 	}
 
