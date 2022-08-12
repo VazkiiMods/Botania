@@ -34,6 +34,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -128,7 +129,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 								direction.getOpposite(), stack.split(amountToPutIn), false)
 				);
 
-				item.setItem(stack); // Force resync
+				EntityHelper.syncItem(item);
 				pulledAny = true;
 			}
 		}

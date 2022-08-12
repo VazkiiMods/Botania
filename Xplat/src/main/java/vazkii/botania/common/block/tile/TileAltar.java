@@ -40,6 +40,7 @@ import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import javax.annotation.Nullable;
@@ -107,7 +108,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					getItemHandler().setItem(i, ItemStack.EMPTY);
 				}
 
-				stack.shrink(1);
+				EntityHelper.shrinkItem(item);
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				IXplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
@@ -127,6 +128,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			for (int i = 0; i < inventorySize(); i++) {
 				if (getItemHandler().getItem(i).isEmpty()) {
 					getItemHandler().setItem(i, stack.split(1));
+					EntityHelper.syncItem(item);
 					level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
 					return true;
 				}

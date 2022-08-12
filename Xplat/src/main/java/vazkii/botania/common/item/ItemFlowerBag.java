@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -109,7 +110,7 @@ public class ItemFlowerBag extends Item {
 							existing.grow(numPickedUp);
 							entityStack.shrink(numPickedUp);
 						}
-						entity.setItem(entityStack);
+						EntityHelper.syncItem(entity);
 						bagInv.setChanged();
 
 						player.take(entity, numPickedUp);

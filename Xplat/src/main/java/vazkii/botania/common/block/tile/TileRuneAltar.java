@@ -40,6 +40,7 @@ import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -163,7 +164,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(ModBlocks.livingrock.asItem())) {
 					ItemStack stack = item.getItem();
-					self.addItem(null, stack, null);
+					if (self.addItem(null, stack, null)) {
+						EntityHelper.syncItem(item);
+					}
 				}
 			}
 		}

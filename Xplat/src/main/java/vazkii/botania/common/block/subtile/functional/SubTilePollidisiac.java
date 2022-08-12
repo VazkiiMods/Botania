@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -20,6 +19,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.EntityHelper;
 
 import java.util.List;
 
@@ -51,9 +51,8 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 							continue;
 						}
 
-						ItemStack stack = item.getItem();
-						if (animal.isFood(stack)) {
-							stack.shrink(1);
+						if (animal.isFood(item.getItem())) {
+							EntityHelper.shrinkItem(item);
 
 							addMana(-MANA_COST);
 							animal.setInLoveTime(1200);

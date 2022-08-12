@@ -26,6 +26,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.ExperienceHelper;
 
 import java.util.List;
@@ -82,7 +83,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 				if (xp > 0) {
 					ItemStack newStack = removeNonCurses(stack);
 					newStack.setCount(1);
-					stack.shrink(1);
+					EntityHelper.shrinkItem(entity);
 
 					ItemEntity newEntity = new ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), newStack);
 					newEntity.setDeltaMovement(entity.getDeltaMovement());

@@ -25,6 +25,7 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
@@ -73,7 +74,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 							if (burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-								stack.shrink(1);
+								EntityHelper.shrinkItem(item);
 								getLevel().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
 								getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
 								sync();

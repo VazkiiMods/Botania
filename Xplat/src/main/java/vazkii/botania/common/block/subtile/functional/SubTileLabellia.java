@@ -28,6 +28,7 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.DelayHelper;
+import vazkii.botania.common.helper.EntityHelper;
 
 import java.util.List;
 
@@ -90,14 +91,14 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 						}
 						for (ItemEntity i : nameableItems) {
 							i.getItem().setHoverName(name);
-							i.setItem(i.getItem()); // ensure it syncs
+							EntityHelper.syncItem(i);
 							((ServerLevel) level).sendParticles(ParticleTypes.INSTANT_EFFECT,
 									i.getX(), i.getY(), i.getZ(),
 									3, 0, 0, 0, 0);
 
 						}
 						addMana(-COST);
-						nameTag.shrink(1);
+						EntityHelper.shrinkItem(nameTagEnt);
 						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
 						break;
 					}

@@ -51,6 +51,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.proxy.IProxy;
@@ -181,7 +182,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				receiveMana(-mana);
 
 				ItemStack output = recipe.getRecipeOutput(stack);
-				stack.shrink(1);
+				EntityHelper.shrinkItem(item);
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
@@ -325,6 +326,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 						if (BotaniaConfig.common().chargingAnimationEnabled() && level.random.nextInt(20) == 0) {
 							level.blockEvent(worldPosition, state.getBlock(), CHARGE_EFFECT_EVENT, self.outputting ? 1 : 0);
 						}
+						EntityHelper.syncItem(item);
 						self.isDoingTransfer = self.outputting;
 					}
 				}

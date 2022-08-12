@@ -37,6 +37,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.helper.EntityHelper;
 
 import javax.annotation.Nullable;
 
@@ -114,7 +115,9 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty()) {
 					ItemStack stack = item.getItem();
-					self.addItem(null, stack, null);
+					if (self.addItem(null, stack, null)) {
+						EntityHelper.syncItem(item);
+					}
 				}
 			}
 		}

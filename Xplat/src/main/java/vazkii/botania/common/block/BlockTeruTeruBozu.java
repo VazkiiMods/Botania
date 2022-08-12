@@ -30,6 +30,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
+import vazkii.botania.common.helper.EntityHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,7 +54,7 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 		if (!world.isClientSide && e instanceof ItemEntity item) {
 			ItemStack stack = item.getItem();
 			if (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
-				stack.shrink(1);
+				EntityHelper.shrinkItem(item);
 			}
 		}
 	}
