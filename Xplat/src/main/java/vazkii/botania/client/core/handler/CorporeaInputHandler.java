@@ -75,9 +75,7 @@ public class CorporeaInputHandler {
 		if (screen instanceof AbstractContainerScreen) {
 			Slot slotUnderMouse = ((AccessorAbstractContainerScreen) screen).getHoveredSlot();
 			if (slotUnderMouse != null && slotUnderMouse.hasItem()) {
-				ItemStack stack = slotUnderMouse.getItem().copy();
-				stack.setTag(null); // Wipe NBT of inventory items before request, as player items will often have data
-				return stack; // that's better to ignore. This is still an improvement over matching names only.
+				return slotUnderMouse.getItem().copy();
 			}
 
 			if (screen instanceof RecipeUpdateListener recipeScreen && recipeScreen.getRecipeBookComponent().isVisible()) {

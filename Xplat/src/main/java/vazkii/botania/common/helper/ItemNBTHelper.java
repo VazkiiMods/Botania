@@ -18,6 +18,9 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.xplat.IXplatAbstractions;
+
 import javax.annotation.Nullable;
 
 public final class ItemNBTHelper {
@@ -78,7 +81,7 @@ public final class ItemNBTHelper {
 	}
 
 	public static void removeEntry(ItemStack stack, String tag) {
-		stack.getOrCreateTag().remove(tag);
+		stack.removeTagKey(tag);
 	}
 
 	// GETTERS ///////////////////////////////////////////////////////////////////
@@ -140,6 +143,52 @@ public final class ItemNBTHelper {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new ListTag();
 	}
 
+	// OTHER ///////////////////////////////////////////////////////////////////
+
+	/**
+	 * Returns the fullness of the mana item:
+	 * 0 if empty, 1 if partially full, 2 if full.
+	 */
+	public static int getFullness(IManaItem item) {
+		int mana = item.getMana();
+		if (mana == 0) {
+			return 0;
+		} else if (mana == item.getMaxMana()) {
+			return 2;
+		} else {
+			return 1;
+		}
+	}
+
+	public static ItemStack duplicateAndClearMana(ItemStack stack) {
+		ItemStack copy = stack.copy();
+		IManaItem manaItem = IXplatAbstractions.INSTANCE.findManaItem(copy);
+		if (manaItem != null) {
+			manaItem.addMana(-manaItem.getMana());
+		}
+		return copy;
+	}
+
+	/**
+	 * Checks if two items are the same and have the same NBT. If they are `IManaItems`, their mana property is matched
+	 * on whether they are empty, partially full, or full.
+	 */
+	public static boolean matchTagAndManaFullness(ItemStack stack1, ItemStack stack2) {
+		if (!ItemStack.isSame(stack1, stack2)) {
+			return false;
+		}
+		IManaItem manaItem1 = IXplatAbstractions.INSTANCE.findManaItem(stack1);
+		IManaItem manaItem2 = IXplatAbstractions.INSTANCE.findManaItem(stack2);
+		if (manaItem1 != null && manaItem2 != null) {
+			if (getFullness(manaItem1) != getFullness(manaItem2)) {
+				return false;
+			} else {
+				return ItemStack.tagMatches(duplicateAndClearMana(stack1), duplicateAndClearMana(stack2));
+			}
+		}
+		return ItemStack.tagMatches(stack1, stack2);
+	}
+
 	/**
 	 * Serializes the given stack such that {@link net.minecraft.world.item.crafting.ShapedRecipe#itemStackFromJson}
 	 * would be able to read the result back
@@ -155,50 +204,6 @@ public final class ItemNBTHelper {
 		renameTag(nbt, "tag", "nbt");
 		Dynamic<Tag> dyn = new Dynamic<>(NbtOps.INSTANCE, nbt);
 		return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
-	}
-
-	/**
-	 * Returns true if the `target` tag contains all of the tags and values present in the `template` tag. Recurses into
-	 * compound tags and matches all template keys and values; recurses into list tags and matches the template against
-	 * the first elements of target. Empty lists and compounds in the template will match target lists and compounds of
-	 * any size.
-	 */
-	public static boolean matchTag(@Nullable Tag template, @Nullable Tag target) {
-		if (template instanceof CompoundTag templateCompound && target instanceof CompoundTag targetCompound) {
-			return matchTagCompound(templateCompound, targetCompound);
-		} else if (template instanceof ListTag templateList && target instanceof ListTag targetList) {
-			return matchTagList(templateList, targetList);
-		} else {
-			return template == null || (target != null && target.equals(template));
-		}
-	}
-
-	private static boolean matchTagCompound(CompoundTag template, CompoundTag target) {
-		if (template.size() > target.size()) {
-			return false;
-		}
-
-		for (String key : template.getAllKeys()) {
-			if (!matchTag(template.get(key), target.get(key))) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private static boolean matchTagList(ListTag template, ListTag target) {
-		if (template.size() > target.size()) {
-			return false;
-		}
-
-		for (int i = 0; i < template.size(); i++) {
-			if (!matchTag(template.get(i), target.get(i))) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	public static void renameTag(CompoundTag nbt, String oldName, String newName) {

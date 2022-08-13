@@ -50,8 +50,12 @@ public class ItemManaRing extends ItemBauble {
 		return Optional.of(ManaBarTooltip.fromManaItem(stack));
 	}
 
-	public static void setMana(ItemStack stack, int mana) {
-		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+	protected static void setMana(ItemStack stack, int mana) {
+		if (mana > 0) {
+			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+		} else {
+			ItemNBTHelper.removeEntry(stack, TAG_MANA);
+		}
 	}
 
 	public static class ManaItem implements IManaItem {

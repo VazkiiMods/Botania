@@ -44,9 +44,8 @@ public record PacketIndexKeybindRequest(ItemStack stack) implements IPacket {
 				return;
 			}
 
-			boolean checkNBT = stack.getTag() != null && !stack.getTag().isEmpty();
 			for (TileCorporeaIndex index : TileCorporeaIndex.getNearbyValidIndexes(player)) {
-				index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(stack, checkNBT), stack.getCount());
+				index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(stack, true), stack.getCount());
 			}
 		});
 	}

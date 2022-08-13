@@ -19,7 +19,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
@@ -29,13 +28,13 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block.IWandable;
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -157,7 +156,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 					}
 					anyFilter = true;
 
-					if (matches(stack, filterEntry)) {
+					if (ItemNBTHelper.matchTagAndManaFullness(stack, filterEntry)) {
 						return true;
 					}
 				}
@@ -169,31 +168,6 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWa
 			default:
 				return true; // Accept all items
 		}
-	}
-
-	public static boolean matches(ItemStack stack, ItemStack filter) {
-		Item item = stack.getItem();
-		if (item != filter.getItem()) {
-			return false;
-		}
-
-		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
-		var filterManaItem = IXplatAbstractions.INSTANCE.findManaItem(filter);
-		if (manaItem != null && filterManaItem != null) {
-			return getFullness(manaItem) == getFullness(filterManaItem);
-		} else {
-			return ItemStack.tagMatches(filter, stack);
-		}
-	}
-
-	/**
-	 * Returns the fullness of the mana item:
-	 * 0 if empty, 1 if partially full, 2 if full.
-	 */
-	public static int getFullness(IManaItem item) {
-		int mana = item.getMana();
-		int fuzz = 10;
-		return mana <= fuzz ? 0 : (mana + fuzz < item.getMaxMana() ? 1 : 2);
 	}
 
 	public static List<ItemStack> getFilterForInventory(Level level, BlockPos pos, boolean recursiveForDoubleChests) {

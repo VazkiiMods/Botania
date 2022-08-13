@@ -29,7 +29,7 @@ public class CorporeaItemStackMatcher implements ICorporeaRequestMatcher {
 
 	@Override
 	public boolean test(ItemStack stack) {
-		return !stack.isEmpty() && !match.isEmpty() && stack.sameItem(match) && (!checkNBT || ItemNBTHelper.matchTag(match.getTag(), stack.getTag()));
+		return !stack.isEmpty() && !match.isEmpty() && stack.sameItem(match) && (!checkNBT || ItemNBTHelper.matchTagAndManaFullness(stack, match));
 	}
 
 	public static CorporeaItemStackMatcher createFromNBT(CompoundTag tag) {

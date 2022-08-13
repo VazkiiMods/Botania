@@ -108,7 +108,11 @@ public class ItemManaMirror extends Item {
 	}
 
 	protected static void setMana(ItemStack stack, int mana) {
-		ItemNBTHelper.setInt(stack, TAG_MANA, Math.max(0, mana));
+		if (mana > 0) {
+			ItemNBTHelper.setInt(stack, TAG_MANA, mana);
+		} else {
+			ItemNBTHelper.removeEntry(stack, TAG_MANA);
+		}
 	}
 
 	protected static int getManaBacklog(ItemStack stack) {
