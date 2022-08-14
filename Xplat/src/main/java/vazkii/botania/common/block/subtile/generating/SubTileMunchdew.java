@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -21,9 +22,7 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.xplat.BotaniaConfig;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	public static final String TAG_COOLDOWN = "cooldown";
@@ -58,27 +57,33 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 		int manaPerLeaf = 160;
 		eatLeaves: {
 			if (getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
-				List<BlockPos> coords = new ArrayList<>();
+				Map<BlockPos, Float> coordsMap = new HashMap<>();
+				Random rng = new Random();
 				BlockPos pos = getEffectivePos();
 
 				for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-RANGE, 0, -RANGE),
 						pos.offset(RANGE, RANGE_Y, RANGE))) {
-					if (getLevel().getBlockState(pos_).is(BlockTags.LEAVES)) {
+					BlockState state = getLevel().getBlockState(pos_);
+					if (state.is(BlockTags.LEAVES)) {
 						for (Direction dir : Direction.values()) {
 							if (getLevel().isEmptyBlock(pos_.relative(dir))) {
-								coords.add(pos_.immutable());
+								coordsMap.put(pos_.immutable(), (state.hasProperty(LeavesBlock.DISTANCE)
+										? state.getValue(LeavesBlock.DISTANCE) : 1) + 2.0f * rng.nextFloat());
 								break;
 							}
 						}
 					}
 				}
 
-				if (coords.isEmpty()) {
+				if (coordsMap.isEmpty()) {
 					break eatLeaves;
 				}
 
-				Collections.shuffle(coords);
-				BlockPos breakCoords = coords.get(0);
+				float maxDistance = coordsMap.values().stream().max(Float::compare).orElse(0f);
+				coordsMap.values().removeIf(dist -> dist < maxDistance - 1f);
+				List<BlockPos> coords = new ArrayList<>(coordsMap.keySet());
+
+				BlockPos breakCoords = coords.get(new Random().nextInt(coords.size()));
 				BlockState state = getLevel().getBlockState(breakCoords);
 				getLevel().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;
