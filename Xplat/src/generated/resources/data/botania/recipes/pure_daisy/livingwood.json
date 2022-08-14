@@ -7,10 +7,6 @@
       {
         "type": "block",
         "block": "botania:livingwood_log"
-      },
-      {
-        "type": "block",
-        "block": "botania:livingwood"
       }
     ]
   },
