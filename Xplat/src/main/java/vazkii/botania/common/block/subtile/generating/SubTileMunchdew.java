@@ -61,13 +61,13 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = getEffectivePos();
 
-				nextCoord: for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-RANGE, 0, -RANGE),
+				for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-RANGE, 0, -RANGE),
 						pos.offset(RANGE, RANGE_Y, RANGE))) {
 					if (getLevel().getBlockState(pos_).is(BlockTags.LEAVES)) {
 						for (Direction dir : Direction.values()) {
 							if (getLevel().isEmptyBlock(pos_.relative(dir))) {
 								coords.add(pos_.immutable());
-								break nextCoord;
+								break;
 							}
 						}
 					}
