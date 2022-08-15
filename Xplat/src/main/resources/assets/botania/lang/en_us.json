@@ -1944,7 +1944,7 @@
   "botania.page.pool1": "Making a $(item)Mana Pool$(0).",
   "botania.page.pool10": "Making a $(item)Diluted Mana Pool$(0)",
   "botania.page.pool14": "The $(item)Diluted Mana Pool$(0) can be useful as a small buffer for a flower or system that doesn't use much $(thing)Mana$(0), as a normal pool holds a $(o)lot$() of it. Thanks to that, $(thing)Mana$(0) readings for a normal pool won't be very precise: due to its scale, the displayed bar's size on a normal pool will increase very slowly.",
-  "botania.page.pool2": "Tossing certain resources into a $(item)Mana Pool$(0) will infuse them with $(thing)Mana$(0) from the pool, turning them into more magically-useful forms, like $(item)Manasteel Ingots$(0) or $(item)Mana Pearls$(0).$(p)A $(thing)Wand of the Forest$(0) can read the $(item)Mana$(0) levels in a pool, much like a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l). A $(item)Redstone Comparator$(0) can also output a signal based on percentage full.",
+  "botania.page.pool2": "Tossing certain resources into a $(item)Mana Pool$(0) will infuse them with $(thing)Mana$(0) from the pool, turning them into more magically-useful forms, like $(item)Manasteel Ingots$(0) or $(item)Mana Pearls$(0).$(p)A $(thing)Wand of the Forest$(0) can read the $(thing)Mana$(0) levels in a pool, much like a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l). A $(item)Redstone Comparator$(0) can also output a signal based on percentage full.",
   "botania.page.pool8": "$(item)Manasteel Ingots$(0) can be crafted into blocks or nuggets through the usual recipes.$(p)Right-clicking with any color of $(item)Dye$(0) on a pool will have give the pool its color, for decoration or easier labelling.",
   "botania.page.pool16": "Manasteel",
   "botania.page.pool3": "Infusing $(item)Manasteel$(0)",
@@ -2298,7 +2298,7 @@
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana from experience",
-  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(item)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world; however, this method nets you a bit less mana for the same experience.",
+  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(thing)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world; however, this method nets you a bit less mana for the same experience.",
   "botania.page.arcanerose1": "$(o)When this flower is planted, toss a coin$().",
 
   "botania.entry.munchdew": "Munchdew",
@@ -2322,7 +2322,7 @@
   "botania.tagline.gourmaryllis": "Mana from food",
   "botania.page.gourmaryllis0": "The $(item)Gourmaryllis$(0) is one hungry flower. It'll eat any food items it finds in a small area and turn them into $(thing)Mana$(0).$(p)There's a catch, though: it can only digest a single food item at any given time, outputting $(thing)Mana$(0) once it's done. It will devour any other foods while digesting, but yield no returns for those.",
   "botania.page.gourmaryllis1": "The amount of time it takes to digest a delicacy depends on the food's nutritional value-- in layman's terms: the number of food points it restores.$(p)Thus, a $(item)Steak$(0) will take four seconds to digest, an $(item)Apple$(0) will take two, a loaf of $(item)Bread$(0) will take two and a half, and so on.$(p)The rate of $(thing)Mana$(0) production will also vary with nutrition: the $(item)Gourmaryllis$(0) prefers bigger foods.",
-  "botania.page.gourmaryllis2": "For example, a single $(item)Steak$(0) will produce more $(item)Mana$(0) than two $(item)Apples$(0), both in total and per-second.$(p)Of course, like any proper gourmand, the $(item)Gourmaryllis$(0) loves variety in its diet; feeding it many different foods can be very rewarding. (Giving it the same food repeatedly might not go over so well, though.)$(p)An experienced botanist can infer the $(item)Gourmaryllis$(0)' mood from the sounds it makes.",
+  "botania.page.gourmaryllis2": "For example, a single $(item)Steak$(0) will produce more $(thing)Mana$(0) than two $(item)Apples$(0), both in total and per-second.$(p)Of course, like any proper gourmand, the $(item)Gourmaryllis$(0) loves variety in its diet; feeding it many different foods can be very rewarding. (Giving it the same food repeatedly might not go over so well, though.)$(p)An experienced botanist can infer the $(item)Gourmaryllis$(0)' mood from the sounds it makes.",
   "botania.page.gourmaryllis3": "$(o)A hot pot for our new residents$().",
 
   "botania.entry.narslimmus": "Narslimmus",
