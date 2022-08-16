@@ -108,7 +108,6 @@ public class BlockLootProvider implements DataProvider {
 		functionTable.put(ModBlocks.cacophonium, b -> genRegular(Blocks.NOTE_BLOCK));
 		functionTable.put(ModBlocks.enchantedSoil, b -> genRegular(Blocks.DIRT));
 		functionTable.put(ModBlocks.enchanter, b -> genRegular(Blocks.LAPIS_BLOCK));
-		functionTable.put(ModBlocks.mossyAltar, b -> genRegular(ModBlocks.defaultAltar));
 
 		// Special
 		functionTable.put(ModBlocks.cellBlock, BlockLootProvider::genCellBlock);
