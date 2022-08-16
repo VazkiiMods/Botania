@@ -21,6 +21,93 @@ was contributed externally by that member of the community.
 ---
 -->
 
+{% include changelog_header.html version="1.18.2-435" %}
+
+* Add: Support for Ears mod (TJT01):
+  * If phantom-inked armor is worn; Ears will act as if there isn't anything in that slot
+    (feet claws will show with invisible boots, for example).
+  * If a Flügel tiara with wings is worn, Ears' wings will be hidden.
+* Add: Bottled Mana can now be eaten by foxes
+* Add: Terra Pick can now AOE mine blocks meant for the Hoe
+* Add: Petal Apothecaries now make sounds when being filled or emptied
+* Fix: Documentation being inconsistent about the operation ordering of retainers and
+  interceptors. Documentation now matches the existing behaviour that later incoming
+  requests overwrite the currently held one (artemisSystem)
+* Fix: Blacklist flower pouch from cpw InventorySorter, which deletes everything when
+  trying to sort
+* Fix: Multiple lexicon fixes (Aegide):
+  * Fix Botania not being highlighted with $(thing) macro in some places
+  * Fix "Elves", "Horse", "Mana", and "Rain" being highlighted with
+    $(item) macro in some places
+  * Ensure the "Introduction" entry is at the top of its category
+* Fix: Mana Blaster model using excessive amounts of memory
+* Fix: Hopperhocks not using a flat 5-tick timer for newly infused items
+* Fix: Some cases of Heisei Dream not working on mobs. There are other known cases left.
+* Fix: Botania inventories spilling their contents when being replaced by /fill and other
+  commands that should overwrite without drops
+* Fix: Rod of the Highlands not counting as a source of dirt
+* Fix: Rod of the Hells' AOE being completely broken (it used XY plane instead of XZ)
+* Fix: Mana-level filtering not working in Hopperhocks
+* Fix: Potential crashes on Forge when Forge light pipeline is enabled
+* Fix: Solid Vines not using the new vanilla vine sounds
+* Fix: Item entities not visually updating when they are manipulated by Botania
+  contraptions
+* Fix: Vine ball lexicon entry claiming vanilla vines cannot be climbed without support
+  when they can be (artemisSystem)
+* Fix: Mossy Apothecaries dropping the default Petal Apothecary instead of themselves
+* Change: Update ja_jp translations (RakuGaki-MC)
+* Change: The selection of wand colors in the creative menu is now
+  randomized (artemisSystem)
+* Change: Increased the size of the Eerie Mask cosmetic render
+* Change: Improved the right click behaviour of multiple blocks (artemisSystem):
+  * Spreaders and prisms now require an empty hand to remove lenses/wool.
+  * Right clicking a spreader/prism with an identical lens/wool removes it
+  * Lenses and wool will now be swapped with the one in the player's hand if the
+    spreader/prism has a different one
+  * Added a sound for applying and removing a lens from a mana prism
+  * Removing an item from an apothecary/altar/brewery now only requires your main hand
+   	to be empty
+  * Right clicking to repeat a recipe in the altar or apothecary now only requires the
+    main hand to be empty
+* Change: Players that have the "Blessing" advancement can now see the event repeatedly
+* Change: Bore-warp lenses now spawn the drops behind the spreader's facing, instead of
+  inside the spreader (artemisSystem)
+* Change: Retexture the mystical flowers (falkory220)
+* Change: Petal Apothecary now only renders center 10x10 square of the liquid texture,
+  instead of rendering the entire 16x16 texture and squashing it into a 10x10 space
+* Change: Vine ball tweaks (artemisSystem)
+  * If a vine ball entity can't place any vines where it hits, it drops itself
+  * Vine balls now only place up to a maximum of 9 vines per hit
+  * Hitting a Solid Vine with a vine ball will extend the current chain of vines downward
+    (by up to 9 blocks)
+* Change: Metamorphic stones overhaul (artemisSystem):
+  * Retexture and remodel all existing blocks
+  * Adjust the Petal Apothecary's hitbox to fit its new model
+  * Rename all the families:
+    Forest -> Fuchsite, Plains -> Talc, Mountain -> Gneiss, Fungal -> Mycelite,
+	Swamp -> Cataclasite, Desert -> Solite, Taiga -> Lunite, Mesa -> Rosy Talc
+  * Changed the biomes each family spawns in, check Lexicon for details
+  * Add walls for each family
+  * Mushrooms can now grow on Mycelite
+* Change: NBT matching tweaks (artemisSystem)
+  * Corporea requests now match exact NBT, instead of doing a "fuzzy match" that could
+    grab items with extra NBT
+  * This also means items with no tags will only match other items with no tags
+  * Extended the hopperhock's special casing of mana items to corporea requests as well.
+    Also made it not ignore other NBT data on the mana items.
+  * Removed the 10-mana "fuzz" when determining mana item fullness.
+  * All mana items are changed to never store a `Mana:0` tag, having a missing `Mana`
+    entry represent the no mana state, to have more consistent behavior with other
+	mods that compare NBT.
+  * Fix ItemNBTHelper's `removeEntry` method. Previously it would leave behind an empty
+    compound tag instead of removing it entirely, causing unexpected behavior
+	(it now just calls the vanilla method, which handles this properly)
+* API: Petal Apothecary is now a LiquidBlockContainer, meaning it can be filled by
+  other mods that look for that interface (such as Hex)
+* API: Make the entity using the horn available in IHornHarvestable
+
+---
+
 {% include changelog_header.html version="1.18.2-434" %}
 
 * Add: EMI integration. EMI is a new recipe viewer mod
