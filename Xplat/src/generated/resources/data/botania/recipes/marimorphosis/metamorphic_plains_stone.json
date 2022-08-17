@@ -7,14 +7,5 @@
     "type": "block",
     "block": "botania:metamorphic_plains_stone"
   },
-<<<<<<< HEAD
-  "weight": 1,
-  "biomes": [
-    "plains",
-    "beach"
-  ],
-  "biome_bonus": 11
-=======
   "weight": 1
->>>>>>> 097c20cd4 (Regenerate xplat and fabric data)
 }

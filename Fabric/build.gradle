@@ -121,7 +121,7 @@ dependencies {
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation "dev.emi:trinkets:3.4.0"
+    modImplementation("dev.emi:trinkets:3.4.0") { transitive = false }
 
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.3.0"
     include "com.jamieswhiteshirt:reach-entity-attributes:2.3.0"

@@ -1,4 +1,4 @@
-// 1.19	2022-08-16T19:10:29.365850442	Botania crafting recipes
+// 1.19.2	2022-08-16T20:53:54.057920743	Botania crafting recipes
 b44b4ee9ed870b9a46a518f1e4744fb4e37b1c13 data/botania/advancements/recipes/botania/abstruse_platform.json
 afad1775463a7617d76538bfba430a50a57c6145 data/botania/advancements/recipes/botania/alchemy_catalyst.json
 9f7aac260e3c4a0ab5d3f4423bc871a4058296bc data/botania/advancements/recipes/botania/alfheim_portal.json
@@ -393,7 +393,6 @@ f73e8ab1fc1262cb03458ecd330e54ab6256df85 data/botania/advancements/recipes/botan
 2b6fa494c5895125d71ce3067c37a6a6e1b1462f data/botania/advancements/recipes/botania/magnet_ring_greater.json
 38798d0e129af28946317b2d7aa6906c218b5f8b data/botania/advancements/recipes/botania/mana_bomb.json
 25f7f1bfe89a1ce2464d0d025c517ac6bd5a1a16 data/botania/advancements/recipes/botania/mana_detector.json
-600cb33c3727791c4f805be7fe49a738cf12cc83 data/botania/advancements/recipes/botania/mana_detector_old.json
 798fee9b4a755b25d5e740b439474e8b15445d2b data/botania/advancements/recipes/botania/mana_diamond_block.json
 c1de9aede8877be2942250c218eb5311cb852e65 data/botania/advancements/recipes/botania/mana_distributor.json
 c8a2573902b866d10e6689aa970b810274bd55a1 data/botania/advancements/recipes/botania/mana_fluxfield.json
@@ -1194,7 +1193,6 @@ d73ebbe1378b0048deeebb3523bf1a2c383ce48f data/botania/recipes/magnet_ring.json
 30a8f82948e80ec5777d4298b863ff5b7286e625 data/botania/recipes/magnet_ring_greater.json
 c46670347eaef63a2d42320598921a8056ac25ea data/botania/recipes/mana_bomb.json
 0c18364c9a9822ada7b96144a1803996d7d29ba6 data/botania/recipes/mana_detector.json
-eb880217f0be22a594c93ec86a19bd95f2d351d3 data/botania/recipes/mana_detector_old.json
 c7bb73b73a890f67156ee0983c1ad2ef12cb5c97 data/botania/recipes/mana_diamond_block.json
 a58503c597fb4bca62647e484aca460be44b17a3 data/botania/recipes/mana_distributor.json
 4c87a776782f0b6db238bcb2714290e649c7eca4 data/botania/recipes/mana_fluxfield.json
