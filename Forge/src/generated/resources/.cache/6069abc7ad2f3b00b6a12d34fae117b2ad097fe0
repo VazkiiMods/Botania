@@ -1,0 +1,9 @@
+// 1.19	2022-08-16T19:27:01.500115629	Botania crafting recipes (Forge-specific)
+77c584c8cdfecb83926367a890317be5d88d5e4e data/botania/advancements/recipes/botania/azulejo_0.json
+bebf04f4f109cba1a5681eb4664612d4eb8f775d data/botania/advancements/recipes/botania/bauble_box.json
+6d4704efc108499940a36a7643826dec22f1f117 data/botania/advancements/recipes/botania/corporea_retainer.json
+03c7001a9e0fa3566e7a5c37b89c5f6340f0193a data/botania/advancements/recipes/botania/red_string_container.json
+38a75871ff02fae70a525ffb79f2a5d4ae6246fb data/botania/recipes/azulejo_0.json
+6716b8ce1812431a2fb1cc18455eb2afff314777 data/botania/recipes/bauble_box.json
+c3f2d4f084f296c0609b82dec82424a9819c02f6 data/botania/recipes/corporea_retainer.json
+4f634d0bb051aefba9a8603d50f870706c1b5a7f data/botania/recipes/red_string_container.json
