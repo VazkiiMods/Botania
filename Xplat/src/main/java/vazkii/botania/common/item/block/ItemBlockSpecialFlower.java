@@ -21,11 +21,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	}
 
 	@Override
-	public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+	public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load
 		if (BotaniaConfig.client() != null) {
 			if (world != null) {

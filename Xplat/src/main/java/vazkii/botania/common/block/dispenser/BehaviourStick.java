@@ -16,13 +16,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import vazkii.botania.common.item.ItemObedienceStick;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.item.ItemObedienceStick;
 
 public class BehaviourStick extends OptionalDispenseItemBehavior {
 
-	@Nonnull
+	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.getLevel();

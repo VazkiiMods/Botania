@@ -53,6 +53,9 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
@@ -64,9 +67,6 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemCraftingHalo extends Item {
 
@@ -84,9 +84,9 @@ public class ItemCraftingHalo extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide) {
 			int segment = getSegmentLookedAt(stack, player);

@@ -19,9 +19,9 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-import vazkii.botania.xplat.IXplatAbstractions;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class BindUuid extends LootItemConditionalFunction {
 
@@ -29,9 +29,9 @@ public class BindUuid extends LootItemConditionalFunction {
 		super(conditionsIn);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack run(@Nonnull ItemStack stack, @Nonnull LootContext context) {
+	public ItemStack run(@NotNull ItemStack stack, @NotNull LootContext context) {
 		if (context.getParamOrNull(LootContextParams.KILLER_ENTITY) instanceof Player player) {
 			var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
@@ -48,9 +48,9 @@ public class BindUuid extends LootItemConditionalFunction {
 	}
 
 	public static class Serializer extends LootItemConditionalFunction.Serializer<BindUuid> {
-		@Nonnull
+		@NotNull
 		@Override
-		public BindUuid deserialize(@Nonnull JsonObject object, @Nonnull JsonDeserializationContext deserializationContext, @Nonnull LootItemCondition[] conditionsIn) {
+		public BindUuid deserialize(@NotNull JsonObject object, @NotNull JsonDeserializationContext deserializationContext, @NotNull LootItemCondition[] conditionsIn) {
 			return new BindUuid(conditionsIn);
 		}
 	}

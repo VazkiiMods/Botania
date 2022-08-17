@@ -38,6 +38,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -46,9 +49,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -331,19 +331,19 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 			}
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Direction getNearestLookingDirection() {
 			return getNearestLookingDirections()[0];
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Direction[] getNearestLookingDirections() {
 			return lookDirs;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Direction getHorizontalDirection() {
 			return getNearestLookingDirection().getAxis().isHorizontal() ? getNearestLookingDirection() : getNearestLookingDirections()[1];

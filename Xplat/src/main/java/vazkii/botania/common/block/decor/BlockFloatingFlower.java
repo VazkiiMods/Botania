@@ -26,6 +26,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.block.IFloatingFlower.IslandType;
 import vazkii.botania.api.block.IFloatingFlowerProvider;
@@ -38,8 +40,6 @@ import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-import javax.annotation.Nonnull;
-
 public class BlockFloatingFlower extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
@@ -50,13 +50,13 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 		this.color = color;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		if (!IXplatAbstractions.INSTANCE.isPhysicalClient()) {
@@ -109,9 +109,9 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 		return InteractionResult.PASS;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileFloatingFlower(pos, state);
 	}
 }

@@ -28,6 +28,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
@@ -37,9 +40,6 @@ import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,9 +122,9 @@ public class ItemGravityRod extends Item {
 		return InteractionResult.PASS;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);

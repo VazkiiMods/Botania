@@ -18,9 +18,9 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.BotaniaAPI;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +45,7 @@ public interface IElvenTradeRecipe extends Recipe<Container> {
 	/**
 	 * @return Preview of the inputs
 	 */
-	@Nonnull
+	@NotNull
 	@Override
 	NonNullList<Ingredient> getIngredients();
 
@@ -59,7 +59,7 @@ public interface IElvenTradeRecipe extends Recipe<Container> {
 	 */
 	List<ItemStack> getOutputs(List<ItemStack> inputs);
 
-	@Nonnull
+	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
@@ -68,13 +68,13 @@ public interface IElvenTradeRecipe extends Recipe<Container> {
 	// Ignored IRecipe boilerplate
 
 	@Override
-	default boolean matches(@Nonnull Container inv, @Nonnull Level world) {
+	default boolean matches(@NotNull Container inv, @NotNull Level world) {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	default ItemStack assemble(@Nonnull Container inv) {
+	default ItemStack assemble(@NotNull Container inv) {
 		return ItemStack.EMPTY;
 	}
 

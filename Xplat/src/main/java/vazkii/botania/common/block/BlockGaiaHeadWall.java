@@ -13,16 +13,16 @@ import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.TileGaiaHead;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.tile.TileGaiaHead;
 
 public class BlockGaiaHeadWall extends WallSkullBlock {
 	public BlockGaiaHeadWall(Properties builder) {
 		super(BlockGaiaHead.GAIA_TYPE, builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new TileGaiaHead(pos, state);

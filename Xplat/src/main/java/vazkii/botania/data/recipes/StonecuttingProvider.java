@@ -21,13 +21,13 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -146,7 +146,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		consumer.accept(stonecutting(cobble, cobbleWall));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getName() {
 		return "Botania stonecutting recipes";

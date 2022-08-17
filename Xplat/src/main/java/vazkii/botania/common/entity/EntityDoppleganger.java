@@ -64,6 +64,9 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
@@ -81,9 +84,6 @@ import vazkii.botania.network.clientbound.PacketSpawnDoppleganger;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -423,7 +423,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	public boolean hurt(@Nonnull DamageSource source, float amount) {
+	public boolean hurt(@NotNull DamageSource source, float amount) {
 		Entity e = source.getEntity();
 		if (e instanceof Player player && isTruePlayer(e) && getInvulTime() == 0) {
 
@@ -438,7 +438,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
+	protected void actuallyHurt(@NotNull DamageSource source, float amount) {
 		super.actuallyHurt(source, Math.min(DAMAGE_CAP, amount));
 
 		Entity attacker = source.getDirectEntity();
@@ -462,7 +462,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	public void die(@Nonnull DamageSource source) {
+	public void die(@NotNull DamageSource source) {
 		super.die(source);
 		LivingEntity lastAttacker = getKillCredit();
 
@@ -517,7 +517,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	protected void dropFromLootTable(@Nonnull DamageSource source, boolean wasRecentlyHit) {
+	protected void dropFromLootTable(@NotNull DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
 		if (wasRecentlyHit && isTruePlayer(source.getEntity())) {
 			trueKiller = (Player) source.getEntity();
@@ -565,8 +565,8 @@ public class EntityDoppleganger extends Mob {
 		return l.size();
 	}
 
-	@Nonnull
-	private static AABB getArenaBB(@Nonnull BlockPos source) {
+	@NotNull
+	private static AABB getArenaBB(@NotNull BlockPos source) {
 		double range = 15.0;
 		return new AABB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
 	}
@@ -1004,7 +1004,7 @@ public class EntityDoppleganger extends Mob {
 		IProxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return IXplatAbstractions.INSTANCE.toVanillaClientboundPacket(

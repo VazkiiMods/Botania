@@ -20,9 +20,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Collection;
 import java.util.List;
@@ -81,7 +81,7 @@ public class StateIngredientBlocks implements StateIngredient {
 		return blocks.stream().map(Block::defaultBlockState).collect(Collectors.toList());
 	}
 
-	@Nonnull
+	@NotNull
 	public List<Block> getBlocks() {
 		return blocks.asList();
 	}

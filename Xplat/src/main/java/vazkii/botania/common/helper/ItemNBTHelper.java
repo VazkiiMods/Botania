@@ -18,10 +18,10 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 public final class ItemNBTHelper {
 

@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -26,15 +26,15 @@ public class AlfPortalBreadTrigger extends SimpleCriterionTrigger<AlfPortalBread
 
 	private AlfPortalBreadTrigger() {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return ID;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public AlfPortalBreadTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
+	public AlfPortalBreadTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
 		return new AlfPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.fromJson(json.get("portal_location")));
 	}
 
@@ -50,7 +50,7 @@ public class AlfPortalBreadTrigger extends SimpleCriterionTrigger<AlfPortalBread
 			this.portal = portal;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public ResourceLocation getCriterion() {
 			return ID;

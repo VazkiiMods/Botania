@@ -18,10 +18,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
-
-import javax.annotation.Nullable;
 
 import java.util.Objects;
 

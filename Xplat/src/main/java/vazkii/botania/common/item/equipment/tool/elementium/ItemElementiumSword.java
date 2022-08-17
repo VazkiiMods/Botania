@@ -15,11 +15,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
-
-import javax.annotation.Nonnull;
 
 public class ItemElementiumSword extends ItemManasteelSword {
 
@@ -27,9 +27,9 @@ public class ItemElementiumSword extends ItemManasteelSword {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlot slot) {
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
 		if (slot == EquipmentSlot.MAINHAND) {
 			ret = HashMultimap.create(ret);

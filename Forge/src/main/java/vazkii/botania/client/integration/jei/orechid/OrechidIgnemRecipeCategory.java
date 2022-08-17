@@ -14,12 +14,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeOrechidIgnem;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<RecipeOrechidIgnem> {
 
@@ -30,7 +30,7 @@ public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<Recipe
 		super(guiHelper, new ItemStack(ModSubtiles.orechidIgnem), Component.translatable("botania.nei.orechidIgnem"));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public mezz.jei.api.recipe.RecipeType<RecipeOrechidIgnem> getRecipeType() {
 		return TYPE;

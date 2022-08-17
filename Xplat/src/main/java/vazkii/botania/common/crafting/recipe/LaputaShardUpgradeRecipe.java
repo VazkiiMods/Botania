@@ -18,10 +18,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.item.ItemLaputaShard;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
@@ -31,7 +31,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level worldIn) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level worldIn) {
 		boolean foundShard = false;
 		boolean foundSpirit = false;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -51,13 +51,13 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 		return foundShard && foundSpirit;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getResultItem() {
 		return new ItemStack(ModItems.laputaShard);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.of(Ingredient.EMPTY,
@@ -65,9 +65,9 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 				Ingredient.of(ModItems.lifeEssence));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (stack.is(ModItems.laputaShard)) {
@@ -84,7 +84,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

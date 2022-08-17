@@ -23,11 +23,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnderEye;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockEnderEye extends BlockMod implements EntityBlock {
 
@@ -51,9 +51,9 @@ public class BlockEnderEye extends BlockMod implements EntityBlock {
 		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileEnderEye(pos, state);
 	}
 

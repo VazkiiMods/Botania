@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.CraftingMenu;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /*
  * We don't need to register a new ContainerType and can just piggyback off vanilla's,
@@ -28,7 +28,7 @@ public class ContainerCraftingHalo extends CraftingMenu {
 	}
 
 	@Override
-	public boolean stillValid(@Nonnull Player player) {
+	public boolean stillValid(@NotNull Player player) {
 		return true;
 	}
 }

@@ -43,6 +43,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IExoflameHeatable;
@@ -62,8 +63,6 @@ import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.network.IPacket;
-
-import javax.annotation.Nullable;
 
 import java.nio.file.Path;
 import java.util.List;

@@ -33,6 +33,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -51,9 +54,6 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.api.TriPredicate;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -357,7 +357,7 @@ public class TileAlfPortal extends TileMod implements IWandable {
 	}
 
 	@Override
-	public void load(@Nonnull CompoundTag cmp) {
+	public void load(@NotNull CompoundTag cmp) {
 		super.load(cmp);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);

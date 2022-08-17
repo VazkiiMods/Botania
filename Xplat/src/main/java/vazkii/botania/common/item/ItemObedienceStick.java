@@ -15,6 +15,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntityBindableSpecialFlower;
@@ -23,15 +25,13 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-import javax.annotation.Nonnull;
-
 public class ItemObedienceStick extends Item {
 
 	public ItemObedienceStick(Properties props) {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();

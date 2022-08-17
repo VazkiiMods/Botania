@@ -15,10 +15,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.item.ItemManaGun;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import vazkii.botania.common.item.ItemManaGun;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -28,15 +28,15 @@ public class ManaGunTrigger extends SimpleCriterionTrigger<ManaGunTrigger.Instan
 
 	private ManaGunTrigger() {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return ID;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ManaGunTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public ManaGunTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		Boolean desu = json.get("desu") == null ? null : json.get("desu").getAsBoolean();
 		return new ManaGunTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")),
 				EntityPredicate.fromJson(json.get("user")), desu);
@@ -59,7 +59,7 @@ public class ManaGunTrigger extends SimpleCriterionTrigger<ManaGunTrigger.Instan
 			this.desu = desu;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public ResourceLocation getCriterion() {
 			return ID;

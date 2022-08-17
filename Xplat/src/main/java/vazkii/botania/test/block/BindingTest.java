@@ -18,14 +18,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.test.TestingUtil;
-
-import javax.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.List;

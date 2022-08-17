@@ -24,14 +24,14 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -54,32 +54,32 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, renderStack.copy());
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<IManaInfusionRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(IManaInfusionRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(IManaInfusionRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 40, 0);
 		HUDHandler.renderManaBar(ms, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
@@ -87,7 +87,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IManaInfusionRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IManaInfusionRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 32, 12)
 				.addIngredients(recipe.getIngredients().get(0));
 

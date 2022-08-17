@@ -13,10 +13,10 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.common.helper.ColorHelper;
-
-import javax.annotation.Nonnull;
 
 public class ItemPetal extends BlockItem implements ICustomApothecaryColor {
 	public final DyeColor color;
@@ -26,7 +26,7 @@ public class ItemPetal extends BlockItem implements ICustomApothecaryColor {
 		this.color = color;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getDescriptionId() {
 		// Don't take name of the block

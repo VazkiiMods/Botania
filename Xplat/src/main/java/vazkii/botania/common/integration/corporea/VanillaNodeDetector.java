@@ -20,13 +20,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.impl.corporea.SidedVanillaCorporeaNode;
 import vazkii.botania.common.impl.corporea.VanillaCorporeaNode;
-
-import javax.annotation.Nullable;
 
 public class VanillaNodeDetector implements ICorporeaNodeDetector {
 	@Nullable

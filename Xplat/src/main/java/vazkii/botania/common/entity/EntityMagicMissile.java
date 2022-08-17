@@ -32,10 +32,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.VecHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -225,7 +225,7 @@ public class EntityMagicMissile extends ThrowableProjectile {
 	}
 
 	@Override
-	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+	protected void onHitBlock(@NotNull BlockHitResult hit) {
 		super.onHitBlock(hit);
 		BlockState state = level.getBlockState(hit.getBlockPos());
 		if (!level.isClientSide
@@ -236,7 +236,7 @@ public class EntityMagicMissile extends ThrowableProjectile {
 	}
 
 	@Override
-	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		if (!level.isClientSide && hit.getEntity() == getTargetEntity()) {
 			discard();

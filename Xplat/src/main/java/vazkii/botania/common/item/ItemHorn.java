@@ -26,15 +26,15 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +45,7 @@ public class ItemHorn extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -56,14 +56,14 @@ public class ItemHorn extends Item {
 		return 72000;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override
-	public void onUseTick(Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int time) {
+	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int time) {
 		if (!world.isClientSide) {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
 				breakGrass(world, stack, living.blockPosition(), living);

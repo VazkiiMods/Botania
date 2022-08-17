@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.MinecraftForge;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
@@ -23,8 +25,6 @@ import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 public class ForgeClientXplatImpl implements IClientXplatAbstractions {
 	@Override

@@ -27,6 +27,9 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.ModSounds;
@@ -34,9 +37,6 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +57,9 @@ public class ItemDice extends ItemRelic {
 	)
 	);
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
 

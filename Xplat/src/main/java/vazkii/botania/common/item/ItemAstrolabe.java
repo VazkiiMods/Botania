@@ -30,6 +30,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
@@ -38,8 +40,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class ItemAstrolabe extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
@@ -77,9 +77,9 @@ public class ItemAstrolabe extends Item {
 		return InteractionResult.PASS;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @NotNull InteractionHand hand) {
 		ItemStack stack = playerIn.getItemInHand(hand);
 		if (playerIn.isShiftKeyDown()) {
 			playerIn.playSound(ModSounds.astrolabeConfigure, 1F, 1F);

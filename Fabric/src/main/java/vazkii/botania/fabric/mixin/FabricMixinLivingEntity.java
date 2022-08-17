@@ -16,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,8 +29,6 @@ import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.rod.ItemGravityRod;
-
-import javax.annotation.Nullable;
 
 @Mixin(LivingEntity.class)
 public abstract class FabricMixinLivingEntity extends Entity {

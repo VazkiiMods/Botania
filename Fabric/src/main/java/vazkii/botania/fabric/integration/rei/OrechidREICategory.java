@@ -24,10 +24,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,22 +45,22 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	}
 
 	@Override
-	public @Nonnull CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> getCategoryIdentifier() {
 		return categoryId;
 	}
 
 	@Override
-	public @Nonnull Renderer getIcon() {
+	public @NotNull Renderer getIcon() {
 		return orechid;
 	}
 
 	@Override
-	public @Nonnull Component getTitle() {
+	public @NotNull Component getTitle() {
 		return Component.translatable(langKey);
 	}
 
 	@Override
-	public @Nonnull List<Widget> setupDisplay(OrechidBaseREIDisplay<?> display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(OrechidBaseREIDisplay<?> display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 9);
 

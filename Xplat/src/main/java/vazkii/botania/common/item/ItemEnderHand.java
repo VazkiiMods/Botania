@@ -21,12 +21,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
 
 public class ItemEnderHand extends Item {
 
@@ -38,9 +38,9 @@ public class ItemEnderHand extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (ManaItemHandler.instance().requestManaExact(stack, player, COST_SELF, false)) {
 			if (!player.level.isClientSide) {

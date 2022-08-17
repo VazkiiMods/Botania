@@ -17,11 +17,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTileSpecialFlower;
 import vazkii.botania.common.entity.EntityMagicLandmine;
-
-import javax.annotation.Nonnull;
 
 public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 	private static final double INITIAL_OFFSET = -1.0 / 16 + 0.005;
@@ -61,9 +61,9 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 		ms.popPose();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@Nonnull EntityMagicLandmine entity) {
+	public ResourceLocation getTextureLocation(@NotNull EntityMagicLandmine entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 }

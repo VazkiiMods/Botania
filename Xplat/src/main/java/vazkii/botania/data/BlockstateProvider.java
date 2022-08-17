@@ -22,6 +22,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -39,8 +41,6 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorBlockModelGenerators;
 import vazkii.botania.mixin.AccessorTextureSlot;
-
-import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.util.*;
@@ -67,7 +67,7 @@ public class BlockstateProvider implements DataProvider {
 		this.generator = generator;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getName() {
 		return "Botania Blockstates and Models";

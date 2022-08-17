@@ -23,12 +23,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.stream.IntStream;
 
@@ -42,15 +42,15 @@ public class ItemBaubleBox extends Item {
 	public static SimpleContainer getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
-			public boolean canPlaceItem(int index, @Nonnull ItemStack stack) {
+			public boolean canPlaceItem(int index, @NotNull ItemStack stack) {
 				return EquipmentHandler.instance.isAccessory(stack);
 			}
 		};
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
 			IXplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
@@ -69,7 +69,7 @@ public class ItemBaubleBox extends Item {
 	}
 
 	@Override
-	public void onDestroyed(@Nonnull ItemEntity entity) {
+	public void onDestroyed(@NotNull ItemEntity entity) {
 		var container = getInventory(entity.getItem());
 		var stream = IntStream.range(0, container.getContainerSize())
 				.mapToObj(container::getItem)
@@ -80,8 +80,8 @@ public class ItemBaubleBox extends Item {
 
 	@Override
 	public boolean overrideStackedOnOther(
-			@Nonnull ItemStack box, @Nonnull Slot slot,
-			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+			@NotNull ItemStack box, @NotNull Slot slot,
+			@NotNull ClickAction clickAction, @NotNull Player player) {
 		return InventoryHelper.overrideStackedOnOther(
 				ItemBaubleBox::getInventory,
 				player.containerMenu instanceof ContainerBaubleBox,
@@ -90,9 +90,9 @@ public class ItemBaubleBox extends Item {
 
 	@Override
 	public boolean overrideOtherStackedOnMe(
-			@Nonnull ItemStack box, @Nonnull ItemStack toInsert,
-			@Nonnull Slot slot, @Nonnull ClickAction clickAction,
-			@Nonnull Player player, @Nonnull SlotAccess cursorAccess) {
+			@NotNull ItemStack box, @NotNull ItemStack toInsert,
+			@NotNull Slot slot, @NotNull ClickAction clickAction,
+			@NotNull Player player, @NotNull SlotAccess cursorAccess) {
 		return InventoryHelper.overrideOtherStackedOnMe(
 				ItemBaubleBox::getInventory,
 				player.containerMenu instanceof ContainerBaubleBox,

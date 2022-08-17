@@ -15,12 +15,12 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.Optional;
 
@@ -35,7 +35,7 @@ public class ItemManaRing extends ItemBauble {
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> stacks) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> stacks) {
 		if (allowedIn(tab)) {
 			stacks.add(new ItemStack(this));
 

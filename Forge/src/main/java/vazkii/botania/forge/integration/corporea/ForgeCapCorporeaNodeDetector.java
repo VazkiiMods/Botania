@@ -7,11 +7,11 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-
-import javax.annotation.Nullable;
 
 public class ForgeCapCorporeaNodeDetector implements ICorporeaNodeDetector {
 	@Nullable

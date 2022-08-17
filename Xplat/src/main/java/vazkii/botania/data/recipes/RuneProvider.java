@@ -20,12 +20,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nullable;
 
 import java.util.function.Consumer;
 

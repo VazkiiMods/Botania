@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class TileMod extends BlockEntity {
 	public TileMod(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -31,7 +31,7 @@ public class TileMod extends BlockEntity {
 		writePacketNBT(tag);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public final CompoundTag getUpdateTag() {
 		var tag = new CompoundTag();
@@ -40,7 +40,7 @@ public class TileMod extends BlockEntity {
 	}
 
 	@Override
-	public void load(@Nonnull CompoundTag tag) {
+	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		readPacketNBT(tag);
 	}

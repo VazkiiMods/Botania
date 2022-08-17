@@ -24,9 +24,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.lib.ModTags;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.ArrayList;
 import java.util.List;

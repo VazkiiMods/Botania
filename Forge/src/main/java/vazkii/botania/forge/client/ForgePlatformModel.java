@@ -14,13 +14,11 @@ import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePlatform;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,10 +41,10 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 		return tileData;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
-			@Nonnull RandomSource rand, @Nonnull ModelData extraData, @Nullable RenderType renderType) {
+			@NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
 		var data = extraData.get(PROPERTY);
 		if (state == null || !(state.getBlock() instanceof BlockPlatform) || data == null) {
 			return Minecraft.getInstance().getBlockRenderer().getBlockModelShaper()

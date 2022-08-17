@@ -23,12 +23,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.internal_caps.GhostRailComponent;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 public class BlockGhostRail extends BaseRailBlock {
 
@@ -99,7 +99,7 @@ public class BlockGhostRail extends BaseRailBlock {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Property<RailShape> getShapeProperty() {
 		return BlockStateProperties.RAIL_SHAPE_STRAIGHT;

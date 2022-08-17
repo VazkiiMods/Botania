@@ -26,10 +26,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Random;
@@ -171,9 +171,9 @@ public class ItemBottledMana extends Item {
 		stacks.add(Component.translatable("botaniamisc.bottleTooltip"));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level world, LivingEntity living) {
+	public ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
 		effect(stack, living);
 		int left = getSwigsLeft(stack);
 		if (left <= 1) {
@@ -190,7 +190,7 @@ public class ItemBottledMana extends Item {
 		return 20;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.DRINK;

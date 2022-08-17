@@ -24,11 +24,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,41 +48,41 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 	}
 
 	@Override
-	public boolean matches(Container inv, @Nonnull Level world) {
+	public boolean matches(Container inv, @NotNull Level world) {
 		return RecipeUtils.matches(inputs, inv, null);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public final ItemStack getResultItem() {
 		return output;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull Container inv) {
+	public ItemStack assemble(@NotNull Container inv) {
 		return getResultItem().copy();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.runeAltar);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.RUNE_SERIALIZER;
@@ -94,9 +94,9 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 	}
 
 	public static class Serializer extends RecipeSerializerBase<RecipeRuneAltar> {
-		@Nonnull
+		@NotNull
 		@Override
-		public RecipeRuneAltar fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+		public RecipeRuneAltar fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 			int mana = GsonHelper.getAsInt(json, "mana");
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
@@ -108,7 +108,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		}
 
 		@Override
-		public RecipeRuneAltar fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+		public RecipeRuneAltar fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
@@ -119,7 +119,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull RecipeRuneAltar recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RecipeRuneAltar recipe) {
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);

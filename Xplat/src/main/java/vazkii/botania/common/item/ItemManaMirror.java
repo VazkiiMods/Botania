@@ -27,6 +27,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.IManaItem;
@@ -36,9 +39,6 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Optional;
 
@@ -89,7 +89,7 @@ public class ItemManaMirror extends Item {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();

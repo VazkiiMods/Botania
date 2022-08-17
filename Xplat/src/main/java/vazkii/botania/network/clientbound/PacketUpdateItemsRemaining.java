@@ -14,10 +14,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.network.IPacket;
-
-import javax.annotation.Nullable;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

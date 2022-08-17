@@ -18,10 +18,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 
-import vazkii.botania.common.internal_caps.SerializableComponent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import vazkii.botania.common.internal_caps.SerializableComponent;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -106,9 +106,9 @@ public final class CapabilityUtil {
 			this.lazyInstanceButNotReally = instance;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public <C> LazyOptional<C> getCapability(@Nonnull Capability<C> queryCap, @Nullable Direction side) {
+		public <C> LazyOptional<C> getCapability(@NotNull Capability<C> queryCap, @Nullable Direction side) {
 			return cap.orEmpty(queryCap, lazyInstanceButNotReally);
 		}
 	}

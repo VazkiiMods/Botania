@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -24,8 +26,6 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nullable;
 
 import java.util.Arrays;
 

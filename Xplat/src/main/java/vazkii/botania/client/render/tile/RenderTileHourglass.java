@@ -18,13 +18,13 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelHourglass;
 import vazkii.botania.common.block.tile.TileHourglass;
-
-import javax.annotation.Nullable;
 
 import java.util.Random;
 

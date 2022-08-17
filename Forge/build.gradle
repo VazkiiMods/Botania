@@ -104,8 +104,6 @@ dependencies {
     compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation "com.google.code.findbugs:jsr305:3.0.2"
-
     implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-76")
     compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:11.2.0.247")
     // runtimeOnly fg.deobf("mezz.jei:jei-1.19:11.0.0.206")

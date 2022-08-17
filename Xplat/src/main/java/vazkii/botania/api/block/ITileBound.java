@@ -10,9 +10,9 @@ package vazkii.botania.api.block;
 
 import net.minecraft.core.BlockPos;
 
-import vazkii.botania.api.internal.IManaBurst;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.internal.IManaBurst;
 
 /**
  * Any TileEntity that implements this is technically bound

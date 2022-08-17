@@ -21,10 +21,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.handler.ModSounds;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -80,12 +80,12 @@ public class EntityMagicLandmine extends Entity {
 	protected void defineSynchedData() {}
 
 	@Override
-	protected void readAdditionalSaveData(@Nonnull CompoundTag var1) {}
+	protected void readAdditionalSaveData(@NotNull CompoundTag var1) {}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag var1) {}
+	protected void addAdditionalSaveData(@NotNull CompoundTag var1) {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);

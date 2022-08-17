@@ -34,14 +34,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.mana.BlockPrism;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 
@@ -53,7 +53,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
@@ -87,7 +87,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 	}
 
 	@Override
-	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newstate, boolean isMoving) {
 		if (!state.is(newstate.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory inventory) {
@@ -97,21 +97,21 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileAvatar(pos, state);
 	}
 
@@ -121,15 +121,15 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 		return createTickerHelper(type, ModTiles.AVATAR, TileAvatar::commonTick);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockState mirror(@Nonnull BlockState state, Mirror mirror) {
+	public BlockState mirror(@NotNull BlockState state, Mirror mirror) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockState rotate(@Nonnull BlockState state, Rotation rot) {
+	public BlockState rotate(@NotNull BlockState state, Rotation rot) {
 		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 

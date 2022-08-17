@@ -34,6 +34,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
@@ -43,8 +45,6 @@ import vazkii.botania.common.proxy.IProxy;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nonnull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +62,7 @@ public class ItemSextant extends Item {
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -137,9 +137,9 @@ public class ItemSextant extends Item {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!player.isShiftKeyDown()) {
 			BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 128, false);

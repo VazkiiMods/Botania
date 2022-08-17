@@ -18,12 +18,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemBaubleBox;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class ContainerBaubleBox extends AbstractContainerMenu {
 	public static ContainerBaubleBox fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
@@ -51,7 +51,7 @@ public class ContainerBaubleBox extends AbstractContainerMenu {
 				int k = j + i * 6;
 				addSlot(new Slot(baubleBoxInv, k, 62 + j * 18, 8 + i * 18) {
 					@Override
-					public boolean mayPlace(@Nonnull ItemStack stack) {
+					public boolean mayPlace(@NotNull ItemStack stack) {
 						return EquipmentHandler.instance.isAccessory(stack);
 					}
 				});
@@ -75,13 +75,13 @@ public class ContainerBaubleBox extends AbstractContainerMenu {
 	}
 
 	@Override
-	public boolean stillValid(@Nonnull Player player) {
+	public boolean stillValid(@NotNull Player player) {
 		ItemStack main = player.getMainHandItem();
 		ItemStack off = player.getOffhandItem();
 		return !main.isEmpty() && main == box || !off.isEmpty() && off == box;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;

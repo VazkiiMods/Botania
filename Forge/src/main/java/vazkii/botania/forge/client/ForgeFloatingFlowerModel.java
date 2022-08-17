@@ -25,13 +25,13 @@ import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
@@ -45,7 +45,7 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		this.unbakedFlower = flower;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Collection<Material> getMaterials(IGeometryBakingContext context, Function<ResourceLocation, UnbakedModel> modelGetter,
 			Set<Pair<String, String>> missingTextureErrors) {
@@ -94,9 +94,9 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 			this.islands = islands;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public ModelData getModelData(@Nonnull BlockAndTintGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull ModelData modelData) {
+		public ModelData getModelData(@NotNull BlockAndTintGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData modelData) {
 			var be = level.getBlockEntity(pos);
 			if (be instanceof TileFloatingFlower floating) {
 				return ModelData.builder()
@@ -110,18 +110,18 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 			return modelData;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource rand) {
+		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
 			// Default to GRASS island
 			// TODO 1.19 verify
 			return getQuads(state, side, rand, ModelData.EMPTY, RenderType.cutout());
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
-				@Nonnull RandomSource rand, @Nonnull ModelData extraData, @Nullable RenderType renderType) {
+				@NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
 			IFloatingFlower.IslandType type = IFloatingFlower.IslandType.GRASS;
 			if (extraData.has(FLOATING_PROPERTY)) {
 				type = extraData.get(FLOATING_PROPERTY).getIslandType();
@@ -139,7 +139,7 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 	public enum Loader implements IGeometryLoader<ForgeFloatingFlowerModel> {
 		INSTANCE;
 
-		@Nonnull
+		@NotNull
 		@Override
 		public ForgeFloatingFlowerModel read(JsonObject model, JsonDeserializationContext ctx) {
 			BlockModel flower = ctx.deserialize(model.getAsJsonObject("flower"), BlockModel.class);

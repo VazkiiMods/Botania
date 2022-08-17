@@ -23,9 +23,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.item.ModItems;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.common.item.ModItems;
 
 import java.util.Objects;
 import java.util.function.Supplier;

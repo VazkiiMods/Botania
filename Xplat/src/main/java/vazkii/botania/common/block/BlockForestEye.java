@@ -19,11 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileForestEye;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockForestEye extends BlockModWaterloggable implements EntityBlock {
 
@@ -33,7 +33,7 @@ public class BlockForestEye extends BlockModWaterloggable implements EntityBlock
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -50,9 +50,9 @@ public class BlockForestEye extends BlockModWaterloggable implements EntityBlock
 		return eye == null ? 0 : Math.min(15, Math.max(0, eye.entities - 1));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileForestEye(pos, state);
 	}
 

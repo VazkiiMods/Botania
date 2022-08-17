@@ -19,14 +19,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorDamageSource;
-
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Locale;

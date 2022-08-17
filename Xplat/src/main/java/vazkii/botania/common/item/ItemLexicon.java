@@ -27,12 +27,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.phys.BlockHitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class ItemLexicon extends Item implements ItemWithBannerPattern {
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
 		if (allowedIn(tab)) {
 			list.add(new ItemStack(this));
 			ItemStack creative = new ItemStack(this);
@@ -63,7 +63,7 @@ public class ItemLexicon extends Item implements ItemWithBannerPattern {
 		tooltip.add(getEdition().copy().withStyle(ChatFormatting.GRAY));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack stack = playerIn.getItemInHand(handIn);

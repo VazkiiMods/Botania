@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -26,13 +26,13 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 
 	private CorporeaRequestTrigger() {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return ID;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	protected Instance createInstance(JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
 		return new Instance(playerPredicate, MinMaxBounds.Ints.fromJson(json.get("extracted")), LocationPredicate.fromJson(json.get("location")));
@@ -52,7 +52,7 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 			this.indexPos = indexPos;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public ResourceLocation getCriterion() {
 			return ID;

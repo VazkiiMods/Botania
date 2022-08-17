@@ -21,10 +21,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -45,14 +45,14 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		return 72000;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override
-	public void onUseTick(Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
 		if (world.isClientSide) {
 			return;
 		}
@@ -73,7 +73,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	}
 
 	@Override
-	public boolean isValidRepairItem(ItemStack toRepair, @Nonnull ItemStack repairBy) {
+	public boolean isValidRepairItem(ItemStack toRepair, @NotNull ItemStack repairBy) {
 		return repairBy.is(ModItems.elementium) || super.isValidRepairItem(toRepair, repairBy);
 	}
 

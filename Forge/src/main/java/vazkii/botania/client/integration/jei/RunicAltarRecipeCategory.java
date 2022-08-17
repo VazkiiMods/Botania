@@ -25,13 +25,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -52,32 +52,32 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.runeAltar));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<IRuneAltarRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(IRuneAltarRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(IRuneAltarRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
 		HUDHandler.renderManaBar(ms, 6, 98, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
@@ -85,7 +85,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IRuneAltarRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IRuneAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
 				.addItemStack(new ItemStack(ModBlocks.runeAltar));
 

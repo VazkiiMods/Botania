@@ -14,12 +14,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeOrechid;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<RecipeOrechid> {
 	public static final mezz.jei.api.recipe.RecipeType<RecipeOrechid> TYPE =
@@ -29,7 +29,7 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<RecipeOrech
 		super(guiHelper, new ItemStack(ModSubtiles.orechid), Component.translatable("botania.nei.orechid"));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public mezz.jei.api.recipe.RecipeType<RecipeOrechid> getRecipeType() {
 		return TYPE;

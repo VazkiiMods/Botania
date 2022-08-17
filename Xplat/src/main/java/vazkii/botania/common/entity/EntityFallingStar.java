@@ -23,10 +23,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		Entity e = hit.getEntity();
 		// Blacklisting villagers since trading with them counts as a "swing" and will summon a star.

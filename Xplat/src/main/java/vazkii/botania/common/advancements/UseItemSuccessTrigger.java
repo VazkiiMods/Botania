@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -28,15 +28,15 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 
 	private UseItemSuccessTrigger() {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return ID;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public UseItemSuccessTrigger.Instance createInstance(@Nonnull JsonObject json, @Nonnull EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public UseItemSuccessTrigger.Instance createInstance(@NotNull JsonObject json, @NotNull EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		return new UseItemSuccessTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")), LocationPredicate.fromJson(json.get("location")));
 	}
 
@@ -54,7 +54,7 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 			this.location = indexPos;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public ResourceLocation getCriterion() {
 			return ID;

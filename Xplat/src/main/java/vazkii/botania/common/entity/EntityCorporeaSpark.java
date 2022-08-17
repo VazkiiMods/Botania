@@ -29,6 +29,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
@@ -36,8 +38,6 @@ import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		entityData.define(CREATIVE, false);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(isCreative() ? ModItems.corporeaSparkCreative : isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark);
@@ -298,14 +298,14 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setCreative(cmp.getBoolean(TAG_CREATIVE));
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
 		cmp.putBoolean(TAG_CREATIVE, isCreative());

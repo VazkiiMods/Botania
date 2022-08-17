@@ -15,9 +15,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 
-import vazkii.botania.common.entity.EntityDoppleganger;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.entity.EntityDoppleganger;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -27,15 +27,15 @@ public class DopplegangerNoArmorTrigger extends SimpleCriterionTrigger<Dopplegan
 
 	private DopplegangerNoArmorTrigger() {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return ID;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public DopplegangerNoArmorTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public DopplegangerNoArmorTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		return new DopplegangerNoArmorTrigger.Instance(playerPred,
 				EntityPredicate.fromJson(json.get("guardian")),
 				DamageSourcePredicate.fromJson(json.get("killing_blow"))
@@ -56,7 +56,7 @@ public class DopplegangerNoArmorTrigger extends SimpleCriterionTrigger<Dopplegan
 			this.killingBlow = indexPos;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public ResourceLocation getCriterion() {
 			return ID;

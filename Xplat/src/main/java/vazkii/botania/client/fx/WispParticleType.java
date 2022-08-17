@@ -16,14 +16,14 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class WispParticleType extends ParticleType<WispParticleData> {
 	public WispParticleType() {
 		super(false, WispParticleData.DESERIALIZER);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Codec<WispParticleData> codec() {
 		return WispParticleData.CODEC;

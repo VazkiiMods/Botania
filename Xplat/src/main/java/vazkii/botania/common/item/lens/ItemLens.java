@@ -20,13 +20,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -65,9 +65,9 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Component getName(@Nonnull ItemStack stack) {
+	public Component getName(@NotNull ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
 		if (compositeLens.isEmpty()) {
 			return super.getName(stack);

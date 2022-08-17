@@ -74,6 +74,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
@@ -103,8 +104,6 @@ import vazkii.botania.fabric.mixin.FabricAccessorBucketItem;
 import vazkii.botania.fabric.tile.FabricTileRedStringContainer;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.nio.file.Path;
 import java.util.LinkedHashMap;

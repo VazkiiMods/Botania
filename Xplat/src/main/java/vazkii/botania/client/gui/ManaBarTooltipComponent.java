@@ -20,11 +20,11 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-
-import javax.annotation.Nullable;
 
 public class ManaBarTooltipComponent implements ClientTooltipComponent {
 	private final float percentageFull;

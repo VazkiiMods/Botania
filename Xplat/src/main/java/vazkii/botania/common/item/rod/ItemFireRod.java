@@ -19,6 +19,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -28,8 +30,6 @@ import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 public class ItemFireRod extends Item {
 
@@ -42,7 +42,7 @@ public class ItemFireRod extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();

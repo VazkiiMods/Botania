@@ -20,13 +20,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemWithBannerPattern;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -82,13 +82,13 @@ public class ItemBlockTinyPotato extends BlockItem implements ItemWithBannerPatt
 		}
 	}
 
-	public static boolean isEnchantedName(@Nonnull Component name) {
+	public static boolean isEnchantedName(@NotNull Component name) {
 		var str = name.getString();
 		return str.equals("enchanted") || str.startsWith("enchanted ");
 	}
 
 	@Override
-	public boolean isFoil(@Nonnull ItemStack stack) {
+	public boolean isFoil(@NotNull ItemStack stack) {
 		return super.isFoil(stack) || isEnchantedName(stack.getHoverName());
 	}
 

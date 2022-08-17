@@ -16,10 +16,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class PhantomInkRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<PhantomInkRecipe> SERIALIZER = new SimpleRecipeSerializer<>(PhantomInkRecipe::new);
@@ -29,7 +29,7 @@ public class PhantomInkRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer var1, @Nonnull Level var2) {
+	public boolean matches(@NotNull CraftingContainer var1, @NotNull Level var2) {
 		boolean foundInk = false;
 		boolean foundItem = false;
 
@@ -53,9 +53,9 @@ public class PhantomInkRecipe extends CustomRecipe {
 		return foundInk && foundItem;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer var1) {
+	public ItemStack assemble(@NotNull CraftingContainer var1) {
 		ItemStack item = ItemStack.EMPTY;
 
 		for (int i = 0; i < var1.getContainerSize(); i++) {
@@ -76,7 +76,7 @@ public class PhantomInkRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

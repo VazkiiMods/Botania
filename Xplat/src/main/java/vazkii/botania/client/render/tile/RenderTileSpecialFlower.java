@@ -25,6 +25,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -32,8 +34,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
-
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

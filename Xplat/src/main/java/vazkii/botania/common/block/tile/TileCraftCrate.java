@@ -31,6 +31,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -40,9 +43,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorRecipeManager;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -145,14 +145,14 @@ public class TileCraftCrate extends TileOpenCrate implements IWandable {
 		}
 
 		CraftingContainer craft = new CraftingContainer(new AbstractContainerMenu(MenuType.CRAFTING, -1) {
-			@Nonnull
+			@NotNull
 			@Override
-			public ItemStack quickMoveStack(@Nonnull Player player, int i) {
+			public ItemStack quickMoveStack(@NotNull Player player, int i) {
 				return ItemStack.EMPTY;
 			}
 
 			@Override
-			public boolean stillValid(@Nonnull Player player) {
+			public boolean stillValid(@NotNull Player player) {
 				return false;
 			}
 		}, 3, 3);

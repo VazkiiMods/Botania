@@ -26,11 +26,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -50,39 +50,39 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.defaultAltar));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<IPetalRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@Nonnull IPetalRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull IPetalRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
 		RenderSystem.disableBlend();
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IPetalRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IPetalRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
 				.addItemStack(new ItemStack(ModBlocks.defaultAltar));
 

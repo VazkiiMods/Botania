@@ -19,9 +19,9 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.TileFakeAir;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.tile.TileFakeAir;
 
 public class BlockFakeAir extends AirBlock implements EntityBlock {
 
@@ -47,9 +47,9 @@ public class BlockFakeAir extends AirBlock implements EntityBlock {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileFakeAir(pos, state);
 	}
 }

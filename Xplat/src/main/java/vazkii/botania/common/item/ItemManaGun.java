@@ -27,6 +27,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
@@ -38,8 +40,6 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.IProxy;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +58,9 @@ public class ItemManaGun extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int effCd = COOLDOWN;
 		MobEffectInstance effect = player.getEffect(MobEffects.DIG_SPEED);
@@ -115,7 +115,7 @@ public class ItemManaGun extends Item {
 		return stack.getHoverName().getString().equalsIgnoreCase("desu gun");
 	}
 
-	@Nonnull
+	@NotNull
 	public BurstProperties getBurstProps(Player player, ItemStack stack, boolean request, InteractionHand hand) {
 		int maxMana = 120;
 		int color = 0x20FF20;
@@ -196,9 +196,9 @@ public class ItemManaGun extends Item {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Component getName(@Nonnull ItemStack stack) {
+	public Component getName(@NotNull ItemStack stack) {
 		ItemStack lens = getLens(stack);
 		MutableComponent cmp = super.getName(stack).copy();
 		if (!lens.isEmpty()) {
@@ -316,7 +316,7 @@ public class ItemManaGun extends Item {
 	}
 
 	@Override
-	public boolean isBarVisible(@Nonnull ItemStack stack) {
+	public boolean isBarVisible(@NotNull ItemStack stack) {
 		return getCooldown(stack) > 0;
 	}
 

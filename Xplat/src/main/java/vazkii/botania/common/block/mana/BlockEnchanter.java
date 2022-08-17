@@ -26,14 +26,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ItemTwigWand;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockEnchanter extends BlockMod implements EntityBlock {
 
@@ -47,9 +47,9 @@ public class BlockEnchanter extends BlockMod implements EntityBlock {
 		builder.add(BotaniaStateProps.ENCHANTER_DIRECTION);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileEnchanter(pos, state);
 	}
 
@@ -90,7 +90,7 @@ public class BlockEnchanter extends BlockMod implements EntityBlock {
 	}
 
 	@Override
-	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 

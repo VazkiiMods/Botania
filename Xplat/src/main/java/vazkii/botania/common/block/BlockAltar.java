@@ -40,6 +40,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.block.IPetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -48,9 +51,6 @@ import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockContainer {
 
@@ -62,12 +62,12 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 	private static final VoxelShape SHAPE = Shapes.or(Shapes.or(BASE, PILLAR), Shapes.join(TOP, TOP_CUTOUT, BooleanOp.ONLY_FIRST));
 
 	@Override
-	public boolean canPlaceLiquid(@Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Fluid fluid) {
+	public boolean canPlaceLiquid(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Fluid fluid) {
 		return state.getValue(FLUID) == State.EMPTY && fluid == Fluids.WATER;
 	}
 
 	@Override
-	public boolean placeLiquid(@Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull FluidState fluidState) {
+	public boolean placeLiquid(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull FluidState fluidState) {
 		if (canPlaceLiquid(level, pos, state, fluidState.getType())) {
 			level.setBlock(pos, state.setValue(FLUID, State.WATER), Block.UPDATE_ALL);
 			return true;
@@ -102,7 +102,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 		builder.add(FLUID);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -185,9 +185,9 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileAltar(pos, state);
 	}
 
@@ -202,7 +202,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 	}
 
 	@Override
-	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		boolean blockChanged = !state.is(newState.getBlock());
 		if (blockChanged || newState.getValue(FLUID) != State.WATER) {
 			BlockEntity be = world.getBlockEntity(pos);

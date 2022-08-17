@@ -16,14 +16,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
-
-import javax.annotation.Nonnull;
 
 public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
@@ -41,9 +41,9 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 		super.render(mob, yaw, partialTicks, pos, buffers, light);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@Nonnull EntityPixie entity) {
+	public ResourceLocation getTextureLocation(@NotNull EntityPixie entity) {
 		return ClientProxy.dootDoot
 				? new ResourceLocation(LibResources.MODEL_PIXIE_HALLOWEEN)
 				: new ResourceLocation(LibResources.MODEL_PIXIE);

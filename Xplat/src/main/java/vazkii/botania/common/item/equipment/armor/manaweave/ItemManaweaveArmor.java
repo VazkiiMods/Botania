@@ -19,14 +19,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -42,7 +42,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		return ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getDescriptionId(ItemStack stack) {
 		String name = super.getDescriptionId(stack);

@@ -19,11 +19,11 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.function.Supplier;
 
@@ -45,9 +45,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
 		((TileEntitySpecialFlower) world.getBlockEntity(pos)).setPlacedBy(world, pos, state, entity, stack);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		TileEntitySpecialFlower te = blockEntityType.get().create(pos, state);
 		te.setFloating(true);
 		return te;

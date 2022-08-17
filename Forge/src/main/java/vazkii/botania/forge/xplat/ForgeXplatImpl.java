@@ -71,6 +71,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.block.IExoflameHeatable;
@@ -104,8 +105,6 @@ import vazkii.botania.forge.mixin.ForgeAccessorRegistry;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.nio.file.Path;
 import java.util.HashMap;

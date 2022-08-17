@@ -21,6 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -29,8 +31,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.network.clientbound.PacketItemAge;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.util.List;
 

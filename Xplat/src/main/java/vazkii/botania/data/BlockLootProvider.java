@@ -48,6 +48,9 @@ import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -56,9 +59,6 @@ import vazkii.botania.common.block.subtile.generating.*;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -252,7 +252,7 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(pool);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getName() {
 		return "Botania block loot tables";

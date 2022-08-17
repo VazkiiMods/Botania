@@ -33,14 +33,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NoteBlock;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.mixin.AccessorMob;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -80,7 +80,7 @@ public class ItemCacophonium extends Item {
 		return InteractionResult.PASS;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
@@ -114,9 +114,9 @@ public class ItemCacophonium extends Item {
 		return 72000;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getSound(stack) != null) {
 			return ItemUtils.startUsingInstantly(world, player, hand);
@@ -125,7 +125,7 @@ public class ItemCacophonium extends Item {
 	}
 
 	@Override
-	public void onUseTick(Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+	public void onUseTick(Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
 		if (!world.isClientSide && count % (isDOIT(stack) ? 20 : 6) == 0) {
 			playSound(living.level, stack, living.getX(), living.getY(), living.getZ(), living.getSoundSource(), 0.9F);
 		}

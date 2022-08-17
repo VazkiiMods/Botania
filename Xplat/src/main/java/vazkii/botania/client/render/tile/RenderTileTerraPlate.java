@@ -16,19 +16,19 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileTerraPlate;
-
-import javax.annotation.Nonnull;
 
 public class RenderTileTerraPlate implements BlockEntityRenderer<TileTerraPlate> {
 
 	public RenderTileTerraPlate(BlockEntityRendererProvider.Context manager) {}
 
 	@Override
-	public void render(@Nonnull TileTerraPlate plate, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileTerraPlate plate, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
 		ms.pushPose();

@@ -20,9 +20,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.TileCocoon;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.tile.TileCocoon;
 
 public class RenderTileCocoon implements BlockEntityRenderer<TileCocoon> {
 	private final BlockRenderDispatcher blockRenderDispatcher;
@@ -32,7 +32,7 @@ public class RenderTileCocoon implements BlockEntityRenderer<TileCocoon> {
 	}
 
 	@Override
-	public void render(@Nonnull TileCocoon cocoon, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileCocoon cocoon, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if (cocoon.timePassed % modval < 10) {

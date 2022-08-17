@@ -30,6 +30,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +38,6 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
-
-import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.Map;
@@ -102,12 +101,12 @@ public interface BotaniaAPI {
 
 	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial() {
 		@Override
-		public int getDurabilityForSlot(@Nonnull EquipmentSlot slot) {
+		public int getDurabilityForSlot(@NotNull EquipmentSlot slot) {
 			return 0;
 		}
 
 		@Override
-		public int getDefenseForSlot(@Nonnull EquipmentSlot slot) {
+		public int getDefenseForSlot(@NotNull EquipmentSlot slot) {
 			return 0;
 		}
 
@@ -116,13 +115,13 @@ public interface BotaniaAPI {
 			return 0;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public SoundEvent getEquipSound() {
 			return SoundEvents.ARMOR_EQUIP_LEATHER;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Ingredient getRepairIngredient() {
 			return Ingredient.EMPTY;
@@ -170,7 +169,7 @@ public interface BotaniaAPI {
 			return 0;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Ingredient getRepairIngredient() {
 			return Ingredient.EMPTY;

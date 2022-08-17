@@ -23,12 +23,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeRuneAltar;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 	}
 
 	@Override
-	public boolean matches(Container inv, @Nonnull Level world) {
+	public boolean matches(Container inv, @NotNull Level world) {
 		boolean matches = super.matches(inv, world);
 
 		if (matches) {
@@ -62,9 +62,9 @@ public class HeadRecipe extends RecipeRuneAltar {
 		return matches;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull Container inv) {
+	public ItemStack assemble(@NotNull Container inv) {
 		ItemStack stack = getResultItem().copy();
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack ingr = inv.getItem(i);
@@ -78,9 +78,9 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	public static class Serializer extends RecipeSerializerBase<HeadRecipe> {
 
-		@Nonnull
+		@NotNull
 		@Override
-		public HeadRecipe fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+		public HeadRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 			int mana = GsonHelper.getAsInt(json, "mana");
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
@@ -92,7 +92,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 		}
 
 		@Override
-		public HeadRecipe fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+		public HeadRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
@@ -103,7 +103,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull HeadRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull HeadRecipe recipe) {
 			ModRecipeTypes.RUNE_SERIALIZER.toNetwork(buf, recipe);
 		}
 	}

@@ -27,10 +27,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
-
-import javax.annotation.Nonnull;
 
 public class ItemWaterRod extends Item {
 
@@ -41,9 +41,9 @@ public class ItemWaterRod extends Item {
 	}
 
 	// [VanillaCopy] BucketItem, placement case
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand interactionHand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand interactionHand) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 		BlockHitResult blockHitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
 		if (blockHitResult.getType() == HitResult.Type.MISS) {

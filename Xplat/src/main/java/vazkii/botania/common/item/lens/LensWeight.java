@@ -24,11 +24,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nullable;
 
 import java.util.List;
 

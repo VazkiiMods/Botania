@@ -20,11 +20,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
-
-import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,14 +49,14 @@ public class LensDyeingRecipe extends CustomRecipe {
 		super(id);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundLens = false;
 		boolean foundDye = false;
 
@@ -81,9 +81,9 @@ public class LensDyeingRecipe extends CustomRecipe {
 		return foundLens && foundDye;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 

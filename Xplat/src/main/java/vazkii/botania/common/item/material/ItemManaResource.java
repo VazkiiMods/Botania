@@ -14,17 +14,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class ItemManaResource extends Item {
 	public ItemManaResource(Properties props) {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();

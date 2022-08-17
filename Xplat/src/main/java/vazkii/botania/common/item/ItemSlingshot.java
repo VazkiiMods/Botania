@@ -19,11 +19,11 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.function.Predicate;
 
@@ -64,15 +64,15 @@ public class ItemSlingshot extends Item {
 		return 72000;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (player.getAbilities().instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			return ItemUtils.startUsingInstantly(world, player, hand);

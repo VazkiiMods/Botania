@@ -23,11 +23,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.helper.ColorHelper;
-
-import javax.annotation.Nonnull;
 
 public class BlockBuriedPetals extends BushBlock implements BonemealableBlock {
 
@@ -40,9 +40,9 @@ public class BlockBuriedPetals extends BushBlock implements BonemealableBlock {
 		this.color = color;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public VoxelShape getShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
@@ -57,24 +57,24 @@ public class BlockBuriedPetals extends BushBlock implements BonemealableBlock {
 		world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.INVISIBLE;
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean fuckifiknow) {
 		return world.getBlockState(pos.above()).isAir();
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return isValidBonemealTarget(world, pos, state, false);
 	}
 
 	@Override
-	public void performBonemeal(@Nonnull ServerLevel world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
 		if (block instanceof DoublePlantBlock) {
 			DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos, 3);

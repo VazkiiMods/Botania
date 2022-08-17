@@ -16,11 +16,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
-
-import javax.annotation.Nonnull;
 
 public class BlockCorporeaFunnel extends BlockMod implements EntityBlock {
 
@@ -47,9 +47,9 @@ public class BlockCorporeaFunnel extends BlockMod implements EntityBlock {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public TileCorporeaBase newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public TileCorporeaBase newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileCorporeaFunnel(pos, state);
 	}
 

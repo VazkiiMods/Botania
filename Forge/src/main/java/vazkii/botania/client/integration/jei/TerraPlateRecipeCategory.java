@@ -27,12 +27,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -60,32 +60,32 @@ public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateReci
 		);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<ITerraPlateRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@Nonnull ITerraPlateRecipe recipe, @Nonnull IRecipeSlotsView view, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull ITerraPlateRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 25, 14);
 		HUDHandler.renderManaBar(ms, 6, 126, 0x0000FF, 0.75F, recipe.getMana(), 100000);
@@ -94,7 +94,7 @@ public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateReci
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ITerraPlateRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ITerraPlateRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 37)
 				.addItemStack(recipe.getResultItem());
 

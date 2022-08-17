@@ -15,19 +15,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelHoe;
-
-import javax.annotation.Nonnull;
 
 public class ItemElementiumHoe extends ItemManasteelHoe {
 	public ItemElementiumHoe(Properties props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props, -1f);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResult useOn(@Nonnull UseOnContext context) {
+	public InteractionResult useOn(@NotNull UseOnContext context) {
 		InteractionResult result = super.useOn(context);
 		if (result.consumesAction()) {
 			Level world = context.getLevel();

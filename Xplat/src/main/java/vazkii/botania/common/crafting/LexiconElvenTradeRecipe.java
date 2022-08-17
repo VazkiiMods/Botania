@@ -14,13 +14,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,19 +38,19 @@ public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
 		return stack.is(ModItems.lexicon) && !ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.withSize(1, Ingredient.of(ModItems.lexicon));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.alfPortal);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return id;
@@ -80,7 +80,7 @@ public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
 		return Collections.singletonList(stack);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
 		return ModRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;

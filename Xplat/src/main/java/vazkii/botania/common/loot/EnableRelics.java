@@ -16,14 +16,14 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-import vazkii.botania.xplat.BotaniaConfig;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.xplat.BotaniaConfig;
 
 public class EnableRelics implements LootItemCondition {
 
 	@Override
-	public boolean test(@Nonnull LootContext context) {
+	public boolean test(@NotNull LootContext context) {
 		return BotaniaConfig.common().relicsEnabled();
 	}
 
@@ -34,11 +34,11 @@ public class EnableRelics implements LootItemCondition {
 
 	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<EnableRelics> {
 		@Override
-		public void serialize(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
+		public void serialize(@NotNull JsonObject json, @NotNull EnableRelics value, @NotNull JsonSerializationContext context) {}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public EnableRelics deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
+		public EnableRelics deserialize(@NotNull JsonObject json, @NotNull JsonDeserializationContext context) {
 			return new EnableRelics();
 		}
 	}

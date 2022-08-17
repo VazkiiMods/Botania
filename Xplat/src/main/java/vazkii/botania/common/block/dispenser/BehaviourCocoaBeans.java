@@ -21,10 +21,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class BehaviourCocoaBeans extends OptionalDispenseItemBehavior {
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Block block = Blocks.COCOA;

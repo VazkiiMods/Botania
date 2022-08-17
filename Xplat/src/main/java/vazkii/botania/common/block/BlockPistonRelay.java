@@ -26,6 +26,8 @@ import net.minecraft.world.level.block.state.properties.PistonType;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -33,8 +35,6 @@ import vazkii.botania.common.item.lens.LensPiston;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.*;
 
@@ -47,12 +47,12 @@ public class BlockPistonRelay extends BlockMod {
 	}
 
 	@Override
-	public PushReaction getPistonPushReaction(@Nonnull BlockState blockState) {
+	public PushReaction getPistonPushReaction(@NotNull BlockState blockState) {
 		return PushReaction.PUSH_ONLY;
 	}
 
 	@Override
-	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!world.isClientSide) {
 			var data = WorldData.get(world);
 
@@ -123,7 +123,7 @@ public class BlockPistonRelay extends BlockMod {
 		private static final String ID = "PistonRelayPairs";
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
 
-		public WorldData(@Nonnull CompoundTag cmp) {
+		public WorldData(@NotNull CompoundTag cmp) {
 			ListTag list = cmp.getList("list", Tag.TAG_INT_ARRAY);
 			for (int i = 0; i < list.size(); i += 2) {
 				Tag from = list.get(i);
@@ -135,9 +135,9 @@ public class BlockPistonRelay extends BlockMod {
 			}
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public CompoundTag save(@Nonnull CompoundTag cmp) {
+		public CompoundTag save(@NotNull CompoundTag cmp) {
 			ListTag list = new ListTag();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
 				Tag from = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getKey()).result().get();

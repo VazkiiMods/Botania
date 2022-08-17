@@ -35,14 +35,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
@@ -66,7 +65,7 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		return Collections.emptyList();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Collection<Material> getMaterials(Function<ResourceLocation, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
 		Set<Material> ret = new HashSet<>();
@@ -118,9 +117,9 @@ public class FabricFloatingFlowerModel extends BlockModel {
 			ctx.fallbackConsumer().accept(islands.get(type));
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource rand) {
+		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
 			List<BakedQuad> flower = wrapped.getQuads(null, null, rand);
 			List<BakedQuad> island = islands.get(IFloatingFlower.IslandType.GRASS).getQuads(null, null, rand);
 			List<BakedQuad> ret = new ArrayList<>(flower.size() + island.size());

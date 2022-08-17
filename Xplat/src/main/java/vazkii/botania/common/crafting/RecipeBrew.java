@@ -24,13 +24,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,7 +48,7 @@ public class RecipeBrew implements IBrewRecipe {
 	}
 
 	@Override
-	public boolean matches(Container inv, @Nonnull Level world) {
+	public boolean matches(Container inv, @NotNull Level world) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -81,25 +81,25 @@ public class RecipeBrew implements IBrewRecipe {
 		return inputsMissing.isEmpty();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.brewery);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.BREW_SERIALIZER;
@@ -137,9 +137,9 @@ public class RecipeBrew implements IBrewRecipe {
 	}
 
 	public static class Serializer extends RecipeSerializerBase<RecipeBrew> {
-		@Nonnull
+		@NotNull
 		@Override
-		public RecipeBrew fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+		public RecipeBrew fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			String brewStr = GsonHelper.getAsString(json, "brew");
 			ResourceLocation brewId = ResourceLocation.tryParse(brewStr);
 			Brew brew = BotaniaAPI.instance().getBrewRegistry().getOptional(brewId).orElseThrow(() -> new JsonParseException("Unknown brew " + brewStr));
@@ -153,7 +153,7 @@ public class RecipeBrew implements IBrewRecipe {
 		}
 
 		@Override
-		public RecipeBrew fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+		public RecipeBrew fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			var brewId = buf.readResourceLocation();
 			Brew brew = BotaniaAPI.instance().getBrewRegistry().get(brewId);
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
@@ -164,7 +164,7 @@ public class RecipeBrew implements IBrewRecipe {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull RecipeBrew recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RecipeBrew recipe) {
 			var brewId = BotaniaAPI.instance().getBrewRegistry().getKey(recipe.getBrew());
 			buf.writeResourceLocation(brewId);
 			buf.writeVarInt(recipe.getIngredients().size());

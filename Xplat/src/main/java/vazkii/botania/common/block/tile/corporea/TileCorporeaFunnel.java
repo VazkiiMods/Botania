@@ -16,6 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
@@ -23,8 +25,6 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

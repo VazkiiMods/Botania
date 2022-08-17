@@ -39,6 +39,8 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -57,8 +59,6 @@ import vazkii.botania.common.item.block.ItemBlockWithSpecialRenderer;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.AccessorDispenserBlock;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.Locale;
 import java.util.function.BiConsumer;
@@ -907,9 +907,9 @@ public final class ModBlocks {
 		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
 		DispenserBlock.registerBehavior(ModItems.spark, new BehaviourManaSpark());
 		DispenserBlock.registerBehavior(ModBlocks.gaiaHead, new OptionalDispenseItemBehavior() {
-			@Nonnull
+			@NotNull
 			@Override
-			protected ItemStack execute(@Nonnull BlockSource source, @Nonnull ItemStack stack) {
+			protected ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
 				setSuccess(ArmorItem.dispenseArmor(source, stack));
 				return stack;
 			}
@@ -920,9 +920,9 @@ public final class ModBlocks {
 		DispenserBlock.registerBehavior(ModItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(ModItems.corporeaSparkCreative, behavior);
 		DispenserBlock.registerBehavior(ModItems.enderAirBottle, new AbstractProjectileDispenseBehavior() {
-			@Nonnull
+			@NotNull
 			@Override
-			protected Projectile getProjectile(@Nonnull Level world, @Nonnull Position pos, @Nonnull ItemStack stack) {
+			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
 				return new EntityEnderAirBottle(pos.x(), pos.y(), pos.z(), world);
 			}
 		});
@@ -933,9 +933,9 @@ public final class ModBlocks {
 		DispenserBlock.registerBehavior(ModItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(ModItems.elementiumShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(ModItems.vineBall, new AbstractProjectileDispenseBehavior() {
-			@Nonnull
+			@NotNull
 			@Override
-			protected Projectile getProjectile(@Nonnull Level world, @Nonnull Position pos, @Nonnull ItemStack stack) {
+			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
 				return new EntityVineBall(pos.x(), pos.y(), pos.z(), world);
 			}
 		});

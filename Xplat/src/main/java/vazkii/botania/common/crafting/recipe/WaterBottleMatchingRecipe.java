@@ -23,9 +23,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.crafting.RecipeSerializerBase;
 
 public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WaterBottleMatchingRecipe> SERIALIZER = new Serializer();
@@ -44,7 +44,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer craftingContainer, @Nonnull Level level) {
+	public boolean matches(@NotNull CraftingContainer craftingContainer, @NotNull Level level) {
 		if (!super.matches(craftingContainer, level)) {
 			return false;
 		}
@@ -64,17 +64,17 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 
 	private static class Serializer extends RecipeSerializerBase<WaterBottleMatchingRecipe> {
 		@Override
-		public WaterBottleMatchingRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public WaterBottleMatchingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new WaterBottleMatchingRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
 		}
 
 		@Override
-		public WaterBottleMatchingRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public WaterBottleMatchingRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			return new WaterBottleMatchingRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull WaterBottleMatchingRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull WaterBottleMatchingRecipe recipe) {
 			SHAPED_RECIPE.toNetwork(buffer, recipe);
 		}
 	}

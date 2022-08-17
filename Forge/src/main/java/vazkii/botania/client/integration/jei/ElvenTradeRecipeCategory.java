@@ -32,12 +32,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -56,32 +56,32 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.alfPortal));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<IElvenTradeRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@Nonnull IElvenTradeRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack matrices, double mouseX, double mouseY) {
+	public void draw(@NotNull IElvenTradeRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack matrices, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(matrices, 0, 4);
 		RenderSystem.disableBlend();
@@ -105,7 +105,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IElvenTradeRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IElvenTradeRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		int posX = 42;
 		for (var ingr : recipe.getIngredients()) {
 			builder.addSlot(RecipeIngredientRole.INPUT, posX, 0)

@@ -22,6 +22,8 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.material.Material;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.mana.BlockForestDrum;
@@ -31,8 +33,6 @@ import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -246,7 +246,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 	}
 
-	@Nonnull
+	@NotNull
 	private Block[] getModBlocks(Predicate<Block> predicate) {
 		return registry.stream().filter(BOTANIA_BLOCK.and(predicate))
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))

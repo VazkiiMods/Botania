@@ -15,11 +15,11 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
 
 public class ItemCraftPattern extends Item {
 	public final CratePattern pattern;
@@ -29,7 +29,7 @@ public class ItemCraftPattern extends Item {
 		this.pattern = pattern;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();

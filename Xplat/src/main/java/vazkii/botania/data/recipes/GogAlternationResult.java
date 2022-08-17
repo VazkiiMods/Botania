@@ -14,9 +14,9 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import vazkii.botania.common.crafting.recipe.GogAlternationRecipe;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.common.crafting.recipe.GogAlternationRecipe;
 
 public class GogAlternationResult implements FinishedRecipe {
 	private final FinishedRecipe gogRecipe;

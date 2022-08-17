@@ -17,9 +17,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.item.ModItems;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.item.ModItems;
 
 public class SpellClothRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<SpellClothRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SpellClothRecipe::new);
@@ -29,7 +29,7 @@ public class SpellClothRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundCloth = false;
 		boolean foundEnchanted = false;
 
@@ -49,9 +49,9 @@ public class SpellClothRecipe extends CustomRecipe {
 		return foundCloth && foundEnchanted;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
@@ -76,15 +76,15 @@ public class SpellClothRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
+	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.is(ModItems.spellCloth)) {
 				ItemStack copy = s.copy();

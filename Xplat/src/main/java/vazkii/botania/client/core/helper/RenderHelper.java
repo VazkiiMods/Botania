@@ -36,6 +36,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -44,8 +45,6 @@ import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.mixin.client.AccessorItemRenderer;
 import vazkii.botania.mixin.client.AccessorRenderType;
-
-import javax.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.List;

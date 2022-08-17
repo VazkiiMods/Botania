@@ -18,13 +18,13 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.entity.item.ItemEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.mixin.AccessorItemEntity;
-
-import javax.annotation.Nonnull;
 
 public class RenderTileEnchanter implements BlockEntityRenderer<TileEnchanter> {
 
@@ -33,7 +33,7 @@ public class RenderTileEnchanter implements BlockEntityRenderer<TileEnchanter> {
 	public RenderTileEnchanter(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@Nonnull TileEnchanter enchanter, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileEnchanter enchanter, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = 0F;
 
 		if (enchanter.stage == TileEnchanter.State.GATHER_MANA) {

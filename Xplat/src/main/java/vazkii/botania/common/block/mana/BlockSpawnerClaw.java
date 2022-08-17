@@ -20,10 +20,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
-
-import javax.annotation.Nonnull;
 
 public class BlockSpawnerClaw extends BlockModWaterloggable implements EntityBlock {
 
@@ -33,7 +33,7 @@ public class BlockSpawnerClaw extends BlockModWaterloggable implements EntityBlo
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -45,9 +45,9 @@ public class BlockSpawnerClaw extends BlockModWaterloggable implements EntityBlo
 		list.add(new ItemStack(Blocks.SPAWNER));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileSpawnerClaw(pos, state);
 	}
 

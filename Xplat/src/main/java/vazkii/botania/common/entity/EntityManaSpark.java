@@ -24,6 +24,8 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -39,8 +41,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -68,7 +68,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 		entityData.define(UPGRADE, 0);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(ModItems.spark);
@@ -281,13 +281,13 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setUpgrade(SparkUpgradeType.values()[cmp.getInt(TAG_UPGRADE)]);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putInt(TAG_UPGRADE, getUpgrade().ordinal());
 	}

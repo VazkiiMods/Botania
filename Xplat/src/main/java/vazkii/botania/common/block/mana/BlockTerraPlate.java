@@ -29,14 +29,14 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.mixin.AccessorRecipeManager;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockTerraPlate extends BlockModWaterloggable implements EntityBlock {
 
@@ -46,7 +46,7 @@ public class BlockTerraPlate extends BlockModWaterloggable implements EntityBloc
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -82,13 +82,13 @@ public class BlockTerraPlate extends BlockModWaterloggable implements EntityBloc
 	}
 
 	@Override
-	public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, PathComputationType type) {
+	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, PathComputationType type) {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileTerraPlate(pos, state);
 	}
 

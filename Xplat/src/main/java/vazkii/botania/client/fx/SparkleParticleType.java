@@ -16,14 +16,14 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class SparkleParticleType extends ParticleType<SparkleParticleData> {
 	public SparkleParticleType() {
 		super(false, SparkleParticleData.DESERIALIZER);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Codec<SparkleParticleData> codec() {
 		return SparkleParticleData.CODEC;

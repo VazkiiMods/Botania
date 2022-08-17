@@ -31,13 +31,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.client.AccessorModelBakery;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
@@ -68,7 +67,7 @@ public class GunModel implements BakedModel {
 	}
 
 	private final ItemOverrides itemHandler = new ItemOverrides() {
-		@Nonnull
+		@NotNull
 		@Override
 		public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int seed) {
 			boolean clip = ItemManaGun.hasClip(stack);
@@ -87,15 +86,15 @@ public class GunModel implements BakedModel {
 		}
 	};
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemOverrides getOverrides() {
 		return itemHandler;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource rand) {
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
 		return originalModel.getQuads(state, side, rand);
 	}
 
@@ -114,13 +113,13 @@ public class GunModel implements BakedModel {
 		return originalModel.isCustomRenderer();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public TextureAtlasSprite getParticleIcon() {
 		return originalModel.getParticleIcon();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemTransforms getTransforms() {
 		return originalModel.getTransforms();
@@ -180,9 +179,9 @@ public class GunModel implements BakedModel {
 			}
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull RandomSource rand) {
+		public List<BakedQuad> getQuads(BlockState state, Direction face, @NotNull RandomSource rand) {
 			return face == null ? genQuads : faceQuads.get(face);
 		}
 	}

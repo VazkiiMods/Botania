@@ -18,7 +18,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
@@ -73,7 +73,7 @@ public class WispParticleData implements ParticleOptions {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ParticleType<WispParticleData> getType() {
 		return ModParticles.WISP;
@@ -90,7 +90,7 @@ public class WispParticleData implements ParticleOptions {
 		buf.writeBoolean(noClip);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String writeToString() {
 		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %s",
@@ -98,9 +98,9 @@ public class WispParticleData implements ParticleOptions {
 	}
 
 	public static final Deserializer<WispParticleData> DESERIALIZER = new Deserializer<>() {
-		@Nonnull
+		@NotNull
 		@Override
-		public WispParticleData fromCommand(@Nonnull ParticleType<WispParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
+		public WispParticleData fromCommand(@NotNull ParticleType<WispParticleData> type, @NotNull StringReader reader) throws CommandSyntaxException {
 			reader.expect(' ');
 			float size = reader.readFloat();
 			reader.expect(' ');
@@ -125,7 +125,7 @@ public class WispParticleData implements ParticleOptions {
 		}
 
 		@Override
-		public WispParticleData fromNetwork(@Nonnull ParticleType<WispParticleData> type, FriendlyByteBuf buf) {
+		public WispParticleData fromNetwork(@NotNull ParticleType<WispParticleData> type, FriendlyByteBuf buf) {
 			return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean(), buf.readBoolean());
 		}
 	};

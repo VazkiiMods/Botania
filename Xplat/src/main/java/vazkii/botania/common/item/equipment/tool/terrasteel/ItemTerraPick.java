@@ -34,6 +34,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaItem;
@@ -48,8 +50,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +79,7 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
 		if (allowedIn(tab)) {
 			for (int mana : CREATIVE_MANA) {
 				ItemStack stack = new ItemStack(this);
@@ -104,9 +104,9 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (hand == InteractionHand.MAIN_HAND && player.isShiftKeyDown() && !player.getOffhandItem().isEmpty()) {
 			return InteractionResultHolder.pass(stack);
@@ -124,7 +124,7 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 		return InteractionResultHolder.success(stack);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Player player = ctx.getPlayer();
@@ -335,9 +335,9 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Rarity getRarity(@Nonnull ItemStack stack) {
+	public Rarity getRarity(@NotNull ItemStack stack) {
 		int level = getLevel(stack);
 		if (stack.isEnchanted()) {
 			level++;

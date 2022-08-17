@@ -28,10 +28,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.common.handler.OrechidManager;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -54,19 +54,19 @@ public abstract class OrechidRecipeCategoryBase<T extends IOrechidRecipe> implem
 		this.iconStack = iconStack;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
@@ -86,7 +86,7 @@ public abstract class OrechidRecipeCategoryBase<T extends IOrechidRecipe> implem
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IOrechidRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IOrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 9, 12).addItemStack(new ItemStack(recipe.getInput(), 64));
 		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12).addItemStack(iconStack);
 
@@ -104,7 +104,7 @@ public abstract class OrechidRecipeCategoryBase<T extends IOrechidRecipe> implem
 	}
 
 	@Override
-	public void draw(@Nonnull IOrechidRecipe recipe, @Nonnull IRecipeSlotsView view, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull IOrechidRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 17, 0);
 		RenderSystem.disableBlend();

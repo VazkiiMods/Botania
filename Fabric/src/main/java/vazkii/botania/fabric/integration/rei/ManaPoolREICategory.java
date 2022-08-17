@@ -22,14 +22,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,22 +40,22 @@ public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> 
 	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	@Override
-	public @Nonnull CategoryIdentifier<ManaPoolREIDisplay> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<ManaPoolREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.MANA_INFUSION;
 	}
 
 	@Override
-	public @Nonnull Renderer getIcon() {
+	public @NotNull Renderer getIcon() {
 		return manaPool;
 	}
 
 	@Override
-	public @Nonnull Component getTitle() {
+	public @NotNull Component getTitle() {
 		return Component.translatable("botania.nei.manaPool");
 	}
 
 	@Override
-	public @Nonnull List<Widget> setupDisplay(ManaPoolREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(ManaPoolREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		ItemStack pool = manaPool.getValue().copy();
 		ItemNBTHelper.setBoolean(pool, "RenderFull", true);

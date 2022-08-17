@@ -21,9 +21,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.ArrayList;
 import java.util.Collections;

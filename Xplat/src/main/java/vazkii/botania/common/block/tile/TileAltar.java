@@ -30,6 +30,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
@@ -42,8 +44,6 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

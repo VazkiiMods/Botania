@@ -14,10 +14,10 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.render.tile.RenderTileTinyPotato;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 
 public class TinyPotatoModel extends DelegatedModel {
 	public TinyPotatoModel(BakedModel originalModel) {
@@ -28,7 +28,7 @@ public class TinyPotatoModel extends DelegatedModel {
 	public ItemOverrides getOverrides() {
 		return new ItemOverrides() {
 			@Override
-			public BakedModel resolve(@Nonnull BakedModel model, @Nonnull ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity livingEntity, int seed) {
+			public BakedModel resolve(@NotNull BakedModel model, @NotNull ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity livingEntity, int seed) {
 				if (stack.hasCustomHoverName()) {
 					return RenderTileTinyPotato.getModelFromDisplayName(stack.getHoverName());
 				}

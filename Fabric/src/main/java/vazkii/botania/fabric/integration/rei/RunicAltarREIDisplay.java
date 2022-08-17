@@ -10,9 +10,9 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-import vazkii.botania.common.crafting.RecipeRuneAltar;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.crafting.RecipeRuneAltar;
 
 public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RecipeRuneAltar> {
 	public RunicAltarREIDisplay(RecipeRuneAltar recipe) {
@@ -25,7 +25,7 @@ public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RecipeRuneAltar> 
 	}
 
 	@Override
-	public @Nonnull CategoryIdentifier<?> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
 	}
 }

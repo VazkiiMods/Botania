@@ -29,13 +29,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 import vazkii.botania.common.helper.PlayerHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockBellows extends BlockMod implements EntityBlock {
 
@@ -52,13 +52,13 @@ public class BlockBellows extends BlockMod implements EntityBlock {
 		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection());
@@ -72,15 +72,15 @@ public class BlockBellows extends BlockMod implements EntityBlock {
 		return InteractionResult.SUCCESS;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileBellows(pos, state);
 	}
 

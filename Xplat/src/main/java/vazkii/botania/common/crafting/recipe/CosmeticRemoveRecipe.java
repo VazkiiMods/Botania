@@ -17,11 +17,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
-
-import javax.annotation.Nonnull;
 
 public class CosmeticRemoveRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<CosmeticRemoveRecipe> SERIALIZER = new SimpleRecipeSerializer<>(CosmeticRemoveRecipe::new);
@@ -31,7 +31,7 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundAttachable = false;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -48,9 +48,9 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 		return foundAttachable;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack attachableItem = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -76,15 +76,15 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 		return width * height > 0;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
+	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() instanceof ItemBauble bauble) {
 				ItemStack stack = bauble.getCosmeticItem(s);

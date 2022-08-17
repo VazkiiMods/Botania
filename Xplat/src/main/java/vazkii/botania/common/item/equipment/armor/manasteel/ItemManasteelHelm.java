@@ -12,9 +12,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.IManaDiscountArmor;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.mana.IManaDiscountArmor;
 
 public class ItemManasteelHelm extends ItemManasteelArmor implements IManaDiscountArmor {
 

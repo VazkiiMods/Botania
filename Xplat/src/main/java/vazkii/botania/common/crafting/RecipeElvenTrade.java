@@ -21,10 +21,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,25 +87,25 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.ELVEN_TRADE_SERIALIZER;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.alfPortal);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return id;
@@ -123,9 +123,9 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 
 	public static class Serializer extends RecipeSerializerBase<RecipeElvenTrade> {
 
-		@Nonnull
+		@NotNull
 		@Override
-		public RecipeElvenTrade fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+		public RecipeElvenTrade fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			JsonElement output = json.get("output");
 			List<ItemStack> outputStacks = new ArrayList<>();
 			if (output.isJsonArray()) {
@@ -150,7 +150,7 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 		}
 
 		@Override
-		public RecipeElvenTrade fromNetwork(@Nonnull ResourceLocation id, FriendlyByteBuf buf) {
+		public RecipeElvenTrade fromNetwork(@NotNull ResourceLocation id, FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);

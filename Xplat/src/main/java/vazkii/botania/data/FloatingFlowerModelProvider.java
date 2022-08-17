@@ -19,12 +19,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -70,7 +70,7 @@ public class FloatingFlowerModelProvider implements DataProvider {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getName() {
 		return "Botania floating flower models";

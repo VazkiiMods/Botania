@@ -31,6 +31,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.WallBlock;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -46,8 +48,6 @@ import vazkii.botania.data.util.ModelWithOverrides;
 import vazkii.botania.data.util.OverrideHolder;
 import vazkii.botania.data.util.SimpleModelSupplierWithOverrides;
 import vazkii.botania.mixin.AccessorTextureSlot;
-
-import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -535,7 +535,7 @@ public class ItemModelProvider implements DataProvider {
 		});
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getName() {
 		return "Botania item models";

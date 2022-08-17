@@ -19,10 +19,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-
-import javax.annotation.Nonnull;
 
 public class RecipeOrechid implements IOrechidRecipe {
 	private final ResourceLocation id;
@@ -69,7 +69,7 @@ public class RecipeOrechid implements IOrechidRecipe {
 
 	public static class Serializer extends RecipeSerializerBase<RecipeOrechid> {
 		@Override
-		public RecipeOrechid fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public RecipeOrechid fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			var blockId = new ResourceLocation(GsonHelper.getAsString(json, "input"));
 			var input = Registry.BLOCK.getOptional(blockId)
 					.orElseThrow(() -> new JsonSyntaxException("Unknown block id: " + blockId));
@@ -83,7 +83,7 @@ public class RecipeOrechid implements IOrechidRecipe {
 		}
 
 		@Override
-		public RecipeOrechid fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public RecipeOrechid fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			var input = Registry.BLOCK.byId(buffer.readVarInt());
 			var output = StateIngredientHelper.read(buffer);
 			var weight = buffer.readVarInt();
@@ -91,7 +91,7 @@ public class RecipeOrechid implements IOrechidRecipe {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull RecipeOrechid recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RecipeOrechid recipe) {
 			buffer.writeVarInt(Registry.BLOCK.getId(recipe.getInput()));
 			recipe.getOutput().write(buffer);
 			buffer.writeVarInt(recipe.getWeight());

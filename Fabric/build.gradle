@@ -104,7 +104,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:0.14.9"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.60.0+1.19.2"
 
-    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
     compileOnly project(":Xplat")
 
     modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-76-FABRIC"

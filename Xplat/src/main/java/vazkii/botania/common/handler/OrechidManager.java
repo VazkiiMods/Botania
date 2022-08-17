@@ -18,10 +18,10 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class OrechidManager implements ResourceManagerReloadListener {
 	}
 
 	@Override
-	public void onResourceManagerReload(@Nonnull ResourceManager manager) {
+	public void onResourceManagerReload(@NotNull ResourceManager manager) {
 		DATA.clear();
 	}
 

@@ -33,10 +33,10 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 import java.util.Map;
 
@@ -86,7 +86,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 	}
 
 	@Override
-	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		if (!level.isClientSide) {
 			effectAndDieWithDrop();
@@ -94,7 +94,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 	}
 
 	@Override
-	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+	protected void onHitBlock(@NotNull BlockHitResult hit) {
 		if (!level.isClientSide) {
 			Direction dir = hit.getDirection();
 
@@ -139,7 +139,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 		return entityData.get(GRAVITY);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getItem() {
 		return new ItemStack(ModItems.vineBall);

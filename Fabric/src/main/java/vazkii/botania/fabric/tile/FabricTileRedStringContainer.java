@@ -7,11 +7,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
-
-import javax.annotation.Nullable;
 
 public class FabricTileRedStringContainer extends TileRedStringContainer {
 	private final RedStringContainerStorage[] storages = new RedStringContainerStorage[Direction.values().length];

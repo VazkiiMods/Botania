@@ -20,14 +20,14 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.crafting.RecipePureDaisy;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.crafting.StateIngredientHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Recipe that copies state properties to the new block on crafting.
@@ -47,9 +47,9 @@ public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 	}
 
 	public static class Serializer extends RecipeSerializerBase<StateCopyPureDaisyRecipe> {
-		@Nonnull
+		@NotNull
 		@Override
-		public StateCopyPureDaisyRecipe fromJson(@Nonnull ResourceLocation id, JsonObject object) {
+		public StateCopyPureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {
 			StateIngredient input = StateIngredientHelper.deserialize(GsonHelper.getAsJsonObject(object, "input"));
 			ResourceLocation blockId = new ResourceLocation(GsonHelper.getAsString(object, "output"));
 			Block output = Registry.BLOCK.getOptional(blockId)
@@ -60,7 +60,7 @@ public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buf, StateCopyPureDaisyRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, StateCopyPureDaisyRecipe recipe) {
 			recipe.getInput().write(buf);
 			buf.writeVarInt(Registry.BLOCK.getId(recipe.getOutputState().getBlock()));
 			buf.writeVarInt(recipe.getTime());
@@ -68,7 +68,7 @@ public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 
 		@Nullable
 		@Override
-		public StateCopyPureDaisyRecipe fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+		public StateCopyPureDaisyRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			StateIngredient input = StateIngredientHelper.read(buf);
 			Block output = Registry.BLOCK.byId(buf.readVarInt());
 			int time = buf.readVarInt();

@@ -17,12 +17,12 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.AccessorLivingEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -39,15 +39,15 @@ public class ItemInfiniteFruit extends ItemRelic {
 		return 32;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return isBoot(stack) ? UseAnim.DRINK : UseAnim.EAT;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
 		if (player.canEat(false) && relic != null && relic.isRightPlayer(player)) {
@@ -57,7 +57,7 @@ public class ItemInfiniteFruit extends ItemRelic {
 	}
 
 	@Override
-	public void onUseTick(@Nonnull Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+	public void onUseTick(@NotNull Level world, @NotNull LivingEntity living, @NotNull ItemStack stack, int count) {
 		if (!(living instanceof Player player)) {
 			return;
 		}

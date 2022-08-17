@@ -13,9 +13,9 @@ import net.minecraft.client.renderer.entity.WitherBossRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
-import vazkii.botania.client.lib.LibResources;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.client.lib.LibResources;
 
 public class RenderPinkWither extends WitherBossRenderer {
 
@@ -25,7 +25,7 @@ public class RenderPinkWither extends WitherBossRenderer {
 		super(ctx);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getTextureLocation(WitherBoss entity) {
 		return resource;

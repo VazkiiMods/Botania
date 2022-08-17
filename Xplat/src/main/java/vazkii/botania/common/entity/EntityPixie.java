@@ -19,9 +19,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.client.fx.SparkleParticleData;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.client.fx.SparkleParticleData;
 
 public class EntityPixie extends FlyingMob {
 	private static final EntityDataAccessor<Integer> PIXIE_TYPE = SynchedEntityData.defineId(EntityPixie.class, EntityDataSerializers.INT);
@@ -102,7 +102,7 @@ public class EntityPixie extends FlyingMob {
 	}
 
 	@Override
-	public boolean hurt(@Nonnull DamageSource source, float amount) {
+	public boolean hurt(@NotNull DamageSource source, float amount) {
 		if (getPixieType() == 0 && source.getEntity() != summoner || getPixieType() == 1 && source.getEntity() instanceof Player) {
 			return super.hurt(source, amount);
 		}

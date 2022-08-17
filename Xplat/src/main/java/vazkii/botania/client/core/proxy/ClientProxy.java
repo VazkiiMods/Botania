@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.client.core.handler.*;
@@ -32,8 +33,6 @@ import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.Month;

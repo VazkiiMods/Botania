@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,8 +33,6 @@ import vazkii.botania.client.core.SkyblockWorldInfo;
 import vazkii.botania.client.render.world.SkyblockSkyRenderer;
 import vazkii.botania.client.render.world.WorldOverlays;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nullable;
 
 /**
  * This Mixin implements the Garden of Glass skybox and some in-world overlays

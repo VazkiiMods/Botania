@@ -20,10 +20,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.helper.MathHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -97,17 +97,17 @@ public class EntityFlameRing extends Entity {
 	}
 
 	@Override
-	public boolean hurt(@Nonnull DamageSource source, float amount) {
+	public boolean hurt(@NotNull DamageSource source, float amount) {
 		return false;
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@Nonnull CompoundTag var1) {}
+	protected void readAdditionalSaveData(@NotNull CompoundTag var1) {}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag var1) {}
+	protected void addAdditionalSaveData(@NotNull CompoundTag var1) {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);

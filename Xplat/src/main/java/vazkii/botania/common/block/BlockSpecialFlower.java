@@ -27,11 +27,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.function.Supplier;
 
@@ -44,9 +44,9 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 		this.blockEntityType = blockEntityType;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public VoxelShape getShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, CollisionContext ctx) {
 		Vec3 shift = state.getOffset(world, pos);
 		return SHAPE.move(shift.x, shift.y, shift.z);
 	}
@@ -66,7 +66,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return blockEntityType.get().create(pos, state);
 	}
 

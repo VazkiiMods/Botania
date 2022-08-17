@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -28,8 +30,6 @@ import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.handler.OrechidManager;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

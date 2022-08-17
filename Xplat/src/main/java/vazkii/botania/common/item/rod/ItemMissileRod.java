@@ -21,6 +21,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -31,8 +33,6 @@ import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 public class ItemMissileRod extends Item {
 
@@ -45,7 +45,7 @@ public class ItemMissileRod extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;
@@ -92,9 +92,9 @@ public class ItemMissileRod extends Item {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 

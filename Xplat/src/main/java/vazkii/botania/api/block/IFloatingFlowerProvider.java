@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.block;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Block Entity implementing this may conditionally return {@link IFloatingFlower}.

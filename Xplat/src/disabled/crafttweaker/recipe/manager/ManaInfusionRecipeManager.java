@@ -36,7 +36,7 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeManaInfusion;
 import vazkii.botania.common.integration.crafttweaker.CTPlugin;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,9 +135,9 @@ public class ManaInfusionRecipeManager implements IRecipeManager<IManaInfusionRe
 			this.function = function;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public ItemStack getRecipeOutput(@Nonnull ItemStack input) {
+		public ItemStack getRecipeOutput(@NotNull ItemStack input) {
 			return function.process(Services.PLATFORM.createMCItemStack(getResultItem()), Services.PLATFORM.createMCItemStack(input)).getInternal().copy();
 		}
 

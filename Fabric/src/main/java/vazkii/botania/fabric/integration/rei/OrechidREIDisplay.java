@@ -10,9 +10,9 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-import vazkii.botania.common.crafting.RecipeOrechid;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.crafting.RecipeOrechid;
 
 public class OrechidREIDisplay extends OrechidBaseREIDisplay<RecipeOrechid> {
 
@@ -21,7 +21,7 @@ public class OrechidREIDisplay extends OrechidBaseREIDisplay<RecipeOrechid> {
 	}
 
 	@Override
-	public @Nonnull CategoryIdentifier<?> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.ORECHID;
 	}
 }

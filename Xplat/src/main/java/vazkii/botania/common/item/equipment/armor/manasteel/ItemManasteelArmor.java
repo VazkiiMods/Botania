@@ -23,6 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -34,8 +36,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.proxy.IProxy;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -78,7 +78,7 @@ public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, 
 	}
 
 	@SoftImplement("IForgeItem")
-	@Nonnull
+	@NotNull
 	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}

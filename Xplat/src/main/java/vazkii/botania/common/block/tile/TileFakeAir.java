@@ -13,9 +13,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 
 public class TileFakeAir extends TileMod {
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -46,7 +46,7 @@ public class TileFakeAir extends TileMod {
 	}
 
 	@Override
-	public void load(@Nonnull CompoundTag tag) {
+	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		flowerPos = new BlockPos(
 				tag.getInt(TAG_FLOWER_X),

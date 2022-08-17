@@ -32,14 +32,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockLightRelay extends BlockModWaterloggable implements EntityBlock {
 
@@ -52,7 +52,7 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -112,15 +112,15 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 				&& state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileLightRelay(pos, state);
 	}
 

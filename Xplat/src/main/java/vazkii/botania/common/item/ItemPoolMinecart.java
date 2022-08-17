@@ -20,9 +20,9 @@ import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
-import vazkii.botania.common.entity.EntityPoolMinecart;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.entity.EntityPoolMinecart;
 
 public class ItemPoolMinecart extends Item {
 
@@ -31,7 +31,7 @@ public class ItemPoolMinecart extends Item {
 	}
 
 	// [VanillaCopy] MinecartItem
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
 		Level world = context.getLevel();

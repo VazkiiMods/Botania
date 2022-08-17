@@ -35,6 +35,9 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
@@ -45,9 +48,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -427,7 +427,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	@Override
-	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+	protected void onHitBlock(@NotNull BlockHitResult hit) {
 		if (!isFake()) {
 			super.onHitBlock(hit);
 		}
@@ -484,7 +484,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	@Override
-	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		onHitCommon(hit, false);
 	}

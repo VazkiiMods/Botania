@@ -23,9 +23,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.*;
 
@@ -40,7 +40,7 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 	}
 
 	@Override
-	public int getWeight(@Nonnull Level level, @Nonnull BlockPos pos) {
+	public int getWeight(@NotNull Level level, @NotNull BlockPos pos) {
 		if (level.getBiome(pos).is(this.biomes)) {
 			return getWeight() + weightBonus;
 		}
@@ -59,7 +59,7 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 
 	public static class Serializer extends RecipeSerializerBase<RecipeMarimorphosis> {
 		@Override
-		public RecipeMarimorphosis fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public RecipeMarimorphosis fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			RecipeOrechid base = ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
 
 			var biomes = TagKey.create(Registry.BIOME_REGISTRY,
@@ -73,7 +73,7 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 		}
 
 		@Override
-		public RecipeMarimorphosis fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public RecipeMarimorphosis fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			RecipeOrechid base = ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer);
 
 			TagKey<Biome> biomes = TagKey.create(Registry.BIOME_REGISTRY, buffer.readResourceLocation());
@@ -83,7 +83,7 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull RecipeMarimorphosis recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RecipeMarimorphosis recipe) {
 			ModRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
 
 			buffer.writeResourceLocation(recipe.biomes.location());

@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockOpenCrate extends BlockMod implements EntityBlock {
 
@@ -34,7 +34,7 @@ public class BlockOpenCrate extends BlockMod implements EntityBlock {
 	}
 
 	@Override
-	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!newState.is(state.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory inventory) {
@@ -64,9 +64,9 @@ public class BlockOpenCrate extends BlockMod implements EntityBlock {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileOpenCrate(pos, state);
 	}
 

@@ -24,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
@@ -38,8 +40,6 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
-
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Optional;

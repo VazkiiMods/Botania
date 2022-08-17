@@ -21,7 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,7 +71,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 				.collect(Collectors.toList());
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public List<Block> getBlocks() {
 		return resolve().toList();

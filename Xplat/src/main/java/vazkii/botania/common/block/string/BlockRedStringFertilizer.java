@@ -22,12 +22,12 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockRedStringFertilizer extends BlockRedString implements BonemealableBlock {
 
@@ -37,23 +37,23 @@ public class BlockRedStringFertilizer extends BlockRedString implements Bonemeal
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		return ((TileRedStringFertilizer) world.getBlockEntity(pos)).canGrow(world, isClient);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return ((TileRedStringFertilizer) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
-	public void performBonemeal(@Nonnull ServerLevel world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
 		((TileRedStringFertilizer) world.getBlockEntity(pos)).grow(world, rand);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileRedStringFertilizer(pos, state);
 	}
 

@@ -34,6 +34,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
@@ -45,8 +47,6 @@ import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
 		if (allowedIn(tab)) {
 			for (int i = 0; i <= 20; i += 5) {
 				ItemStack s = new ItemStack(this);
@@ -93,7 +93,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		list.add(Component.translatable("botaniamisc.shardRange", getRange(stack)).withStyle(ChatFormatting.GRAY));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();

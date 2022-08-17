@@ -12,7 +12,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class ItemGreaterManaRing extends ItemManaRing {
 
@@ -23,7 +23,7 @@ public class ItemGreaterManaRing extends ItemManaRing {
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> stacks) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> stacks) {
 		if (allowedIn(tab)) {
 			stacks.add(new ItemStack(this));
 

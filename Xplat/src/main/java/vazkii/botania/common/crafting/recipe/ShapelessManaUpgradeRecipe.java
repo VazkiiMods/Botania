@@ -17,22 +17,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.crafting.RecipeSerializerBase;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
 		super(compose.getId(), compose.getGroup(), compose.getResultItem(), compose.getIngredients());
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		return ManaUpgradeRecipe.output(super.assemble(inv), inv);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
@@ -41,20 +41,20 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	public static final RecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
 
 	private static class Serializer extends RecipeSerializerBase<ShapelessManaUpgradeRecipe> {
-		@Nonnull
+		@NotNull
 		@Override
-		public ShapelessManaUpgradeRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public ShapelessManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromJson(recipeId, json));
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public ShapelessManaUpgradeRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public ShapelessManaUpgradeRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull ShapelessManaUpgradeRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ShapelessManaUpgradeRecipe recipe) {
 			SHAPELESS_RECIPE.toNetwork(buffer, recipe);
 		}
 	}

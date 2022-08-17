@@ -12,7 +12,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class PotionFeatherfeet extends MobEffect {
 
@@ -26,7 +26,7 @@ public class PotionFeatherfeet extends MobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(@Nonnull LivingEntity living, int amplified) {
+	public void applyEffectTick(@NotNull LivingEntity living, int amplified) {
 		if (living.fallDistance > 2.5F) {
 			living.fallDistance = 2.5F;
 		}

@@ -35,10 +35,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +63,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		super(ModEntities.ENDER_AIR_BOTTLE, x, y, z, world);
 	}
 
-	private void convertBlock(@Nonnull BlockPos pos) {
+	private void convertBlock(@NotNull BlockPos pos) {
 		List<BlockPos> coordsList = getCoordsToPut(pos);
 		level.levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 
@@ -76,7 +76,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 	}
 
 	@Override
-	protected void onHitBlock(@Nonnull BlockHitResult result) {
+	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
 		if (level.isClientSide) {
 			return;
@@ -86,7 +86,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 	}
 
 	@Override
-	protected void onHitEntity(@Nonnull EntityHitResult result) {
+	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
 		if (level.isClientSide) {
 			return;
@@ -146,7 +146,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 	@Override
 	protected void defineSynchedData() {}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getItem() {
 		return new ItemStack(ModItems.enderAirBottle);

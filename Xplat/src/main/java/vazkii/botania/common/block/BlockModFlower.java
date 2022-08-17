@@ -23,11 +23,11 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
 
 public class BlockModFlower extends FlowerBlock implements BonemealableBlock {
 	public final DyeColor color;
@@ -76,17 +76,17 @@ public class BlockModFlower extends FlowerBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean fuckifiknow) {
 		return world.getBlockState(pos.above()).isAir();
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return isValidBonemealTarget(world, pos, state, false);
 	}
 
 	@Override
-	public void performBonemeal(@Nonnull ServerLevel world, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
 		if (block instanceof DoublePlantBlock) {
 			DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos, 3);

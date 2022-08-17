@@ -35,6 +35,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -45,8 +47,6 @@ import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.mixin.client.AccessorModelManager;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.Locale;
 import java.util.Map;
@@ -101,7 +101,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	}
 
 	@Override
-	public void render(@Nonnull TileTinyPotato potato, float partialTicks, PoseStack ms, @Nonnull MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileTinyPotato potato, float partialTicks, PoseStack ms, @NotNull MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();

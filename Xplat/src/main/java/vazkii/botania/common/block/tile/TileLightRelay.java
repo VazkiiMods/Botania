@@ -36,6 +36,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -48,8 +50,6 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -367,17 +367,17 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		}
 
 		@Override
-		public boolean hurt(@Nonnull DamageSource source, float damage) {
+		public boolean hurt(@NotNull DamageSource source, float damage) {
 			return false;
 		}
 
 		@Override
-		protected void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+		protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
 			setExit(new BlockPos(cmp.getInt(TAG_EXIT_X), cmp.getInt(TAG_EXIT_Y), cmp.getInt(TAG_EXIT_Z)));
 		}
 
 		@Override
-		protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+		protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
 			BlockPos exit = getExitPos();
 			cmp.putInt(TAG_EXIT_X, exit.getX());
 			cmp.putInt(TAG_EXIT_Y, exit.getY());
@@ -411,7 +411,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			return super.getDismountLocationForPassenger(living);
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Packet<?> getAddEntityPacket() {
 			return new ClientboundAddEntityPacket(this);

@@ -16,11 +16,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
 
 public class BlockModDoubleFlower extends TallFlowerBlock {
 	public final DyeColor color;
@@ -31,7 +31,7 @@ public class BlockModDoubleFlower extends TallFlowerBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean fuckifiknow) {
 		return false;
 	}
 

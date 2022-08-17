@@ -16,9 +16,9 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.BotaniaAPI;
 
 public interface IOrechidRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "orechid");
@@ -32,7 +32,7 @@ public interface IOrechidRecipe extends Recipe<Container> {
 	StateIngredient getOutput();
 
 	/** Location-sensitive output, called with the position of the block to convert. */
-	default StateIngredient getOutput(@Nonnull Level level, @Nonnull BlockPos pos) {
+	default StateIngredient getOutput(@NotNull Level level, @NotNull BlockPos pos) {
 		return getOutput();
 	}
 
@@ -43,7 +43,7 @@ public interface IOrechidRecipe extends Recipe<Container> {
 	int getWeight();
 
 	/** Location-sensitive weight, called with the position of the block to convert. */
-	default int getWeight(@Nonnull Level level, @Nonnull BlockPos pos) {
+	default int getWeight(@NotNull Level level, @NotNull BlockPos pos) {
 		return getWeight();
 	}
 

@@ -6,13 +6,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumArmor;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveArmor;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelArmor;
-
-import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.EnumMap;

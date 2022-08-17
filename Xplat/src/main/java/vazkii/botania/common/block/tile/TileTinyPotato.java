@@ -36,6 +36,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.block.ModBlocks;
@@ -43,9 +46,6 @@ import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -234,7 +234,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 		};
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getName() {
 		return ModBlocks.tinyPotato.getName();
@@ -246,7 +246,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 		return name.getString().isEmpty() ? null : name;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getDisplayName() {
 		return hasCustomName() ? getCustomName() : getName();

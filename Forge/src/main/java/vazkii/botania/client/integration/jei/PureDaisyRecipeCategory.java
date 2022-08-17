@@ -29,12 +29,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.FluidState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -57,25 +57,25 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		this.fluidHelper = fluidHelper;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<IPureDaisyRecipe> getRecipeType() {
 		return TYPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
@@ -90,7 +90,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IPureDaisyRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IPureDaisyRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		StateIngredient input = recipe.getInput();
 
 		IRecipeSlotBuilder inputSlotBuilder = builder.addSlot(RecipeIngredientRole.INPUT, 9, 12)

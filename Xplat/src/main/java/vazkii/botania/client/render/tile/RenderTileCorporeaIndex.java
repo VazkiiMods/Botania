@@ -23,14 +23,14 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporeaIndex> {
 	private static final RenderType LAYER = RenderType.entityCutoutNoCull(new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX));
@@ -57,7 +57,7 @@ public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporea
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(@Nonnull TileCorporeaIndex blockEntity) {
+	public boolean shouldRenderOffScreen(@NotNull TileCorporeaIndex blockEntity) {
 		return true;
 	}
 

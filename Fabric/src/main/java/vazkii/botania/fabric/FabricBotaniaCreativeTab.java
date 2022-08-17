@@ -12,11 +12,11 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -36,7 +36,7 @@ public final class FabricBotaniaCreativeTab extends CreativeModeTab {
 		setBackgroundSuffix(LibResources.GUI_CREATIVE);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack makeIcon() {
 		return new ItemStack(ModItems.lexicon);

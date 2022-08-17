@@ -16,12 +16,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.Random;
 
@@ -30,7 +30,7 @@ public class RenderTileFloatingFlower implements BlockEntityRenderer<TileFloatin
 	public RenderTileFloatingFlower(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@Nonnull TileFloatingFlower tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileFloatingFlower tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		renderFloatingIsland(tile, t, ms, buffers, overlay);
 	}
 

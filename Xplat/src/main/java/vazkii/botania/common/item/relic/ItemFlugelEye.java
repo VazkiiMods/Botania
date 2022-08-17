@@ -27,6 +27,9 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -37,9 +40,6 @@ import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +54,7 @@ public class ItemFlugelEye extends ItemRelic {
 
 	private static final String TAG_TARGET_PREFIX = "target_";
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -94,15 +94,15 @@ public class ItemFlugelEye extends ItemRelic {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level world, LivingEntity living) {
+	public ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
 		String tag = TAG_TARGET_PREFIX + world.dimension().location();
 		Tag nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt == null) {
@@ -139,7 +139,7 @@ public class ItemFlugelEye extends ItemRelic {
 		return 40;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.BOW;

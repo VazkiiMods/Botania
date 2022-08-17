@@ -25,12 +25,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TilePump;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockPump extends BlockModWaterloggable implements EntityBlock {
 
@@ -48,13 +48,13 @@ public class BlockPump extends BlockModWaterloggable implements EntityBlock {
 		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
@@ -74,9 +74,9 @@ public class BlockPump extends BlockModWaterloggable implements EntityBlock {
 		return ((TilePump) world.getBlockEntity(pos)).comparator;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TilePump(pos, state);
 	}
 

@@ -13,9 +13,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.block.IHornHarvestable;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.block.IHornHarvestable;
 
 public class DefaultHornHarvestable implements IHornHarvestable {
 	public static final IHornHarvestable INSTANCE = new DefaultHornHarvestable();

@@ -21,9 +21,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -84,7 +84,7 @@ public class StateIngredientCompound implements StateIngredient {
 		return new ArrayList<>(getBlocks());
 	}
 
-	@Nonnull
+	@NotNull
 	protected Set<BlockState> getBlocks() {
 		if (this.resolvedBlocks.isEmpty()) {
 			for (StateIngredient ingredient : this.ingredients) {

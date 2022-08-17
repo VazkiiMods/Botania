@@ -18,10 +18,10 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
 
 public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	public MysticalFlowerFeature() {
@@ -29,7 +29,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	}
 
 	@Override
-	public boolean place(@Nonnull FeaturePlaceContext<MysticalFlowerConfig> ctx) {
+	public boolean place(@NotNull FeaturePlaceContext<MysticalFlowerConfig> ctx) {
 		WorldGenLevel level = ctx.level();
 		var rand = ctx.random();
 		MysticalFlowerConfig config = ctx.config();

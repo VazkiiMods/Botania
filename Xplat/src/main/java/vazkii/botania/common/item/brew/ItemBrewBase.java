@@ -35,14 +35,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -71,21 +71,21 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		return drinkSpeed;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public UseAnim getUseAnimation(ItemStack stack) {
 		return UseAnim.DRINK;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level world, LivingEntity living) {
+	public ItemStack finishUsingItem(@NotNull ItemStack stack, Level world, LivingEntity living) {
 		if (!world.isClientSide) {
 			for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
 				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(), true, true);
@@ -132,9 +132,9 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Component getName(@Nonnull ItemStack stack) {
+	public Component getName(@NotNull ItemStack stack) {
 		return Component.translatable(getDescriptionId(), Component.translatable(getBrew(stack).getTranslationKey(stack)),
 				Component.literal(Integer.toString(getSwigsLeft(stack))).withStyle(ChatFormatting.BOLD));
 	}
@@ -218,7 +218,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
 	}
 
-	@Nonnull
+	@NotNull
 	public static String getSubtype(ItemStack stack) {
 		return stack.hasTag() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") : "none";
 	}

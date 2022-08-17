@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileDistributor;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockDistributor extends BlockModWaterloggable implements EntityBlock {
 
@@ -35,15 +35,15 @@ public class BlockDistributor extends BlockModWaterloggable implements EntityBlo
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileDistributor(pos, state);
 	}
 

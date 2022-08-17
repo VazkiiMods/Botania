@@ -26,12 +26,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 public class FXSparkle extends TextureSheetParticle {
 	private final boolean corrupt;
@@ -103,7 +102,7 @@ public class FXSparkle extends TextureSheetParticle {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ParticleRenderType getRenderType() {
 		return corrupt ? CORRUPT_RENDER : NORMAL_RENDER;

@@ -35,14 +35,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.stream.IntStream;
 
@@ -71,7 +71,7 @@ public class ItemFlowerBag extends Item {
 	public static SimpleContainer getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
-			public boolean canPlaceItem(int slot, @Nonnull ItemStack stack) {
+			public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
 				return isValid(slot, stack);
 			}
 		};
@@ -123,9 +123,9 @@ public class ItemFlowerBag extends Item {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
 			IXplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
@@ -143,7 +143,7 @@ public class ItemFlowerBag extends Item {
 		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -175,7 +175,7 @@ public class ItemFlowerBag extends Item {
 	}
 
 	@Override
-	public void onDestroyed(@Nonnull ItemEntity entity) {
+	public void onDestroyed(@NotNull ItemEntity entity) {
 		var container = getInventory(entity.getItem());
 		var stream = IntStream.range(0, container.getContainerSize())
 				.mapToObj(container::getItem)
@@ -186,8 +186,8 @@ public class ItemFlowerBag extends Item {
 
 	@Override
 	public boolean overrideStackedOnOther(
-			@Nonnull ItemStack bag, @Nonnull Slot slot,
-			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+			@NotNull ItemStack bag, @NotNull Slot slot,
+			@NotNull ClickAction clickAction, @NotNull Player player) {
 		return InventoryHelper.overrideStackedOnOther(
 				ItemFlowerBag::getInventory,
 				player.containerMenu instanceof ContainerFlowerBag,
@@ -196,9 +196,9 @@ public class ItemFlowerBag extends Item {
 
 	@Override
 	public boolean overrideOtherStackedOnMe(
-			@Nonnull ItemStack bag, @Nonnull ItemStack toInsert,
-			@Nonnull Slot slot, @Nonnull ClickAction clickAction,
-			@Nonnull Player player, @Nonnull SlotAccess cursorAccess) {
+			@NotNull ItemStack bag, @NotNull ItemStack toInsert,
+			@NotNull Slot slot, @NotNull ClickAction clickAction,
+			@NotNull Player player, @NotNull SlotAccess cursorAccess) {
 		return InventoryHelper.overrideOtherStackedOnMe(
 				ItemFlowerBag::getInventory,
 				player.containerMenu instanceof ContainerFlowerBag,

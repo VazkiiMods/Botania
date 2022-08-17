@@ -19,12 +19,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.material.ItemPetal;
-
-import javax.annotation.Nonnull;
 
 public class TwigWandRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<TwigWandRecipe> SERIALIZER = new Serializer();
@@ -33,7 +33,7 @@ public class TwigWandRecipe extends ShapedRecipe {
 		super(compose.getId(), compose.getGroup(), compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack assemble(CraftingContainer inv) {
 		int first = -1;
@@ -58,27 +58,27 @@ public class TwigWandRecipe extends ShapedRecipe {
 		return ItemTwigWand.setColors(getResultItem().copy(), first != -1 ? first : 0, 0);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
 	private static class Serializer extends RecipeSerializerBase<TwigWandRecipe> {
-		@Nonnull
+		@NotNull
 		@Override
-		public TwigWandRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public TwigWandRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new TwigWandRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public TwigWandRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public TwigWandRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			return new TwigWandRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull TwigWandRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull TwigWandRecipe recipe) {
 			SHAPED_RECIPE.toNetwork(buffer, recipe);
 		}
 	}

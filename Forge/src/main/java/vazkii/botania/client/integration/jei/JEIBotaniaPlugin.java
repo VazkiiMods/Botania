@@ -36,6 +36,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
@@ -63,8 +65,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-import javax.annotation.Nonnull;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -77,7 +77,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = prefix("main");
 
 	@Override
-	public void registerItemSubtypes(@Nonnull ISubtypeRegistration registry) {
+	public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
 		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> ItemBrewBase.getSubtype(stack);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.brewVial, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.brewFlask, interpreter);
@@ -131,7 +131,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	}
 
 	@Override
-	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
+	public void registerRecipes(@NotNull IRecipeRegistration registry) {
 		registry.addRecipes(BreweryRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.BREW_TYPE, BY_ID));
 		registry.addRecipes(PureDaisyRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.PURE_DAISY_TYPE, BY_ID));
 		registry.addRecipes(PetalApothecaryRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.PETAL_TYPE, BY_ID));
@@ -262,7 +262,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen<?> || gui instanceof IRecipesGui;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getPluginUid() {
 		return ID;

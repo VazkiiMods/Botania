@@ -20,20 +20,20 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
-import javax.annotation.Nonnull;
-
 public class RenderTileAlfPortal implements BlockEntityRenderer<TileAlfPortal> {
 
 	public RenderTileAlfPortal(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@Nonnull TileAlfPortal portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileAlfPortal portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		AlfPortalState state = portal.getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		if (state == AlfPortalState.OFF) {
 			return;

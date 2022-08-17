@@ -27,6 +27,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -34,8 +36,6 @@ import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -169,13 +169,13 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+	protected void onHitBlock(@NotNull BlockHitResult hit) {
 		super.onHitBlock(hit);
 		explodeAndDie();
 	}
 
 	@Override
-	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		if (hit.getEntity() != getOwner()) {
 			explodeAndDie();
@@ -190,7 +190,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	public void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	public void addAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_CHARGING, isCharging());
 		cmp.putInt(TAG_VARIETY, getVariety());
@@ -201,7 +201,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	public void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	public void readAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setCharging(cmp.getBoolean(TAG_CHARGING));
 		setVariety(cmp.getInt(TAG_VARIETY));

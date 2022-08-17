@@ -18,10 +18,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.common.helper.MathHelper;
-
-import javax.annotation.Nullable;
 
 import java.util.Objects;
 

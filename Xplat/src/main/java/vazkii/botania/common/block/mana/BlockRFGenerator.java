@@ -16,12 +16,12 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockRFGenerator extends BlockMod implements EntityBlock {
 
@@ -29,9 +29,9 @@ public class BlockRFGenerator extends BlockMod implements EntityBlock {
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileRFGenerator(pos, state);
 	}
 

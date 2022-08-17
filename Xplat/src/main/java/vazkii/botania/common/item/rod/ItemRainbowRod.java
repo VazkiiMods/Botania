@@ -24,6 +24,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -34,8 +36,6 @@ import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.material.ItemSelfReturning;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -51,9 +51,9 @@ public class ItemRainbowRod extends ItemSelfReturning {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
 			BlockState bifrost = ModBlocks.bifrost.defaultBlockState();

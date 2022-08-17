@@ -9,9 +9,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
-import vazkii.botania.common.block.tile.string.TileRedStringContainer;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 
 public class RedStringContainerCapProvider implements ICapabilityProvider {
 	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);
@@ -22,9 +22,9 @@ public class RedStringContainerCapProvider implements ICapabilityProvider {
 		this.container = container;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
 		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			BlockEntity binding = container.getTileAtBinding();
 			if (binding != null) {
