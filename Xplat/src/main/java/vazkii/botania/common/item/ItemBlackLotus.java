@@ -42,13 +42,13 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 	}
 
 	@Override
-	public void onDissolveTick(IManaPool pool, ItemStack stack, ItemEntity item) {
+	public void onDissolveTick(IManaPool pool, ItemEntity item) {
 		if (pool.isFull() || pool.getCurrentMana() == 0) {
 			return;
 		}
 
 		BlockPos pos = pool.getManaReceiverPos();
-		boolean t2 = stack.is(ModItems.blackerLotus);
+		boolean t2 = item.getItem().is(ModItems.blackerLotus);
 
 		if (!item.level.isClientSide) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);

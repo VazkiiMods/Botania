@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,12 +50,6 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		this.mana = mana;
 		this.group = group == null ? "" : group;
 		this.catalyst = catalyst;
-	}
-
-	@Deprecated
-	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana,
-			@Nullable String group, @Nullable BlockState catalystState) {
-		this(id, output, input, mana, group, StateIngredientHelper.of(catalystState));
 	}
 
 	@NotNull

@@ -36,16 +36,11 @@ public interface IHornHarvestable {
 		return false;
 	}
 
-	@Deprecated(forRemoval = true) // Use overload with LivingEntity
-	default void harvestByHorn(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
-
 	/**
 	 * Called to harvest by a horn.
 	 * Note that the stack param can be empty if it's a drum breaking it.
 	 */
-	default void harvestByHorn(Level level, BlockPos pos, ItemStack stack, EnumHornType hornType, @Nullable LivingEntity user) {
-		harvestByHorn(level, pos, stack, hornType);
-	}
+	default void harvestByHorn(Level level, BlockPos pos, ItemStack stack, EnumHornType hornType, @Nullable LivingEntity user) {}
 
 	enum EnumHornType {
 
