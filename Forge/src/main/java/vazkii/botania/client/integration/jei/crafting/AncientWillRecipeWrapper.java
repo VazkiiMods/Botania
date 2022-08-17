@@ -43,6 +43,7 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 		return name;
 	}
 
+	@SuppressWarnings("removal") // todo 1.19 suppressing to unblock the build, address this before release
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focusGroup) {
 		var foci = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)

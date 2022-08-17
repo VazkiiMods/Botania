@@ -426,7 +426,7 @@ public class ForgeCommonInitializer {
 		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getEntity(), e.getInventory()));
 		// FabricMixinServerGamePacketListenerImpl
 		bus.addListener(EventPriority.HIGH, (ServerChatEvent e) -> {
-			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage())) {
+			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage().getString())) {
 				e.setCanceled(true);
 			}
 		});

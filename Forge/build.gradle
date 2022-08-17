@@ -100,18 +100,18 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-41.0.99"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-43.0.11"
     compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation "com.google.code.findbugs:jsr305:3.0.2"
 
-    implementation fg.deobf("vazkii.patchouli:Patchouli:1.19-75")
-    compileOnly fg.deobf("mezz.jei:jei-1.19-common-api:11.0.0.206")
+    implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-76")
+    compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:11.2.0.247")
     // runtimeOnly fg.deobf("mezz.jei:jei-1.19:11.0.0.206")
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19-5.1.0.4:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19-5.1.0.4")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
 
     // compileOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123')
 
