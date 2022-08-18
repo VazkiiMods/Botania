@@ -24,9 +24,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class ModFeatures {
 	public static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_ID = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, prefix("mystical_flowers"));
 	public static final ResourceKey<PlacedFeature> MYSTICAL_MUSHROOMS_ID = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, prefix("mystical_mushrooms"));
-	// TODO can we make final with Holder.Reference?
 	public static Holder<PlacedFeature> mysticalFlowersPlaced = null;
-	public static Holder<PlacedFeature> mysticalMushroomsPlaced = null;
 
 	/* todo 1.19 tags
 	public static final Set<Biome.BiomeCategory> TYPE_BLACKLIST = ImmutableSet.of(
@@ -39,17 +37,12 @@ public class ModFeatures {
 
 	public static void registerFeatures(BiConsumer<Feature<?>, ResourceLocation> r) {
 		var flowersId = MYSTICAL_FLOWERS_ID.location();
-		var mushroomsId = MYSTICAL_MUSHROOMS_ID.location();
 		var flowers = new MysticalFlowerFeature();
-		var mushrooms = new MysticalMushroomFeature();
 		r.accept(flowers, flowersId);
-		r.accept(mushrooms, mushroomsId);
 
 		var configuredFlowers = FeatureUtils.register(flowersId.toString(), flowers, new MysticalFlowerConfig(6, 2, 2, 16, 0.05));
-		var configuredMushrooms = FeatureUtils.register(mushroomsId.toString(), mushrooms, new MysticalMushroomConfig(40));
 
 		mysticalFlowersPlaced = PlacementUtils.register(flowersId.toString(), configuredFlowers);
-		mysticalMushroomsPlaced = PlacementUtils.register(mushroomsId.toString(), configuredMushrooms);
 		SkyblockChunkGenerator.init();
 	}
 
