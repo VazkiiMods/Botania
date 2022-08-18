@@ -6,7 +6,7 @@
     "__comment1": "type of containing object: RandomPatchConfig",
     "tries": 40,
     "xz_spread": 16,
-    "y_spread": 26,
+    "y_spread": 4,
 
     "feature": {
       "__comment": "type of containing object: PlacedFeature",

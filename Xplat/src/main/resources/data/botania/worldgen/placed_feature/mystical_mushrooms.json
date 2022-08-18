@@ -8,8 +8,17 @@
       "type": "minecraft:in_square"
     },
     {
-      "__comment": "For each position, move it to the top of the given heightmap for that XZ coordinate",
-      "type": "minecraft:heightmap",
+      "__comment": "Move the y value of each position into the given height range",
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "above_bottom": 0
+        },
+        "max_inclusive": {
+          "absolute": 30
+        }
+      },
       "heightmap": "MOTION_BLOCKING_NO_LEAVES"
     },
     {
