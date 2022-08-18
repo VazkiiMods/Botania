@@ -56,15 +56,6 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 				&& ((ServerChunkCache) world.getChunkSource()).getGenerator() instanceof SkyblockChunkGenerator;
 	}
 
-	public static ChunkGenerator createForWorldType(RegistryAccess registryAccess, long seed) {
-		return new SkyblockChunkGenerator(
-				registryAccess.registryOrThrow(Registry.STRUCTURE_SET_REGISTRY),
-				registryAccess.registryOrThrow(Registry.NOISE_REGISTRY),
-				MultiNoiseBiomeSource.Preset.OVERWORLD.biomeSource(registryAccess.registryOrThrow(Registry.BIOME_REGISTRY)),
-				registryAccess.registryOrThrow(Registry.NOISE_GENERATOR_SETTINGS_REGISTRY).getHolderOrThrow(NoiseGeneratorSettings.OVERWORLD)
-		);
-	}
-
 	protected final BlockState defaultBlock;
 	private final Registry<NormalNoise.NoiseParameters> noises;
 	protected final Holder<NoiseGeneratorSettings> settings;
