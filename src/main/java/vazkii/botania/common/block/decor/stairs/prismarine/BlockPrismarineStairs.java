@@ -10,17 +10,16 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockPrismarineStairs extends BlockLivingStairs {
 
-	public BlockPrismarineStairs() {
-		this(0);
-	}
+    public BlockPrismarineStairs() {
+        this(0);
+    }
 
-	public BlockPrismarineStairs(int meta) {
-		super(ModBlocks.prismarine, meta);
-	}
+    public BlockPrismarineStairs(int meta) {
+        super(ModBlocks.prismarine, meta);
+    }
 
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z,	EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.prismarine;
-	}
-
+    @Override
+    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+        return LexiconData.prismarine;
+    }
 }

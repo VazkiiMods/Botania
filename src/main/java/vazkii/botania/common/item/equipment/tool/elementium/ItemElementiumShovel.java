@@ -16,32 +16,32 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumShovel extends ItemManasteelShovel {
 
-	public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
+    public static Material[] materialsShovel = new Material[] {
+        Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay
+    };
 
-	public ItemElementiumShovel() {
-		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_SHOVEL);
-	}
+    public ItemElementiumShovel() {
+        super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_SHOVEL);
+    }
 
-	@Override
-	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
-		World world = player.worldObj;
-		Material mat = world.getBlock(x, y, z).getMaterial();
-		if (!ToolCommons.isRightMaterial(mat, materialsShovel))
-			return false;
+    @Override
+    public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
+        World world = player.worldObj;
+        Material mat = world.getBlock(x, y, z).getMaterial();
+        if (!ToolCommons.isRightMaterial(mat, materialsShovel)) return false;
 
-		MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 10);
-		if (block == null)
-			return false;
+        MovingObjectPosition block = ToolCommons.raytraceFromEntity(world, player, true, 10);
+        if (block == null) return false;
 
-		ForgeDirection.getOrientation(block.sideHit);
-		int fortune = EnchantmentHelper.getFortuneModifier(player);
-		boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
+        ForgeDirection.getOrientation(block.sideHit);
+        int fortune = EnchantmentHelper.getFortuneModifier(player);
+        boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
 
-		Block blk = world.getBlock(x, y, z);
-		if(blk instanceof BlockFalling)
-			ToolCommons.removeBlocksInIteration(player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune, false);
+        Block blk = world.getBlock(x, y, z);
+        if (blk instanceof BlockFalling)
+            ToolCommons.removeBlocksInIteration(
+                    player, stack, world, x, y, z, 0, -12, 0, 1, 12, 1, blk, materialsShovel, silk, fortune, false);
 
-		return false;
-	}
-
+        return false;
+    }
 }

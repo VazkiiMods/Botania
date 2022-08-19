@@ -10,17 +10,16 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockCustomBrickStairs extends BlockLivingStairs {
 
-	public BlockCustomBrickStairs() {
-		this(0);
-	}
+    public BlockCustomBrickStairs() {
+        this(0);
+    }
 
-	public BlockCustomBrickStairs(int meta) {
-		super(ModBlocks.customBrick, meta);
-	}
+    public BlockCustomBrickStairs(int meta) {
+        super(ModBlocks.customBrick, meta);
+    }
 
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z,	EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.decorativeBlocks;
-	}
-
+    @Override
+    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+        return LexiconData.decorativeBlocks;
+    }
 }

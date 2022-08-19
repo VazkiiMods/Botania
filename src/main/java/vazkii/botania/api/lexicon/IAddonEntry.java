@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 8, 2014, 7:02:48 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
@@ -19,10 +19,9 @@ package vazkii.botania.api.lexicon;
  */
 public interface IAddonEntry {
 
-	/**
-	 * Returns the <b>unlocalized</b> subtitle to show below the title. Here you'd
-	 * return something like "(This Entry is provided by the Botanic Tinkerer addon)".
-	 */
-	public String getSubtitle();
-
+    /**
+     * Returns the <b>unlocalized</b> subtitle to show below the title. Here you'd
+     * return something like "(This Entry is provided by the Botanic Tinkerer addon)".
+     */
+    public String getSubtitle();
 }

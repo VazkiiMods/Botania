@@ -9,6 +9,5 @@ import net.minecraft.item.ItemStack;
  */
 public interface IElvenItem {
 
-	public boolean isElvenItem(ItemStack stack);
-
+    public boolean isElvenItem(ItemStack stack);
 }

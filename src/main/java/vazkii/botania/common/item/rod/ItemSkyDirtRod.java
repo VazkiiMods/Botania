@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 23, 2014, 1:06:51 AM (GMT)]
  */
 package vazkii.botania.common.item.rod;
@@ -24,38 +24,47 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSkyDirtRod extends ItemDirtRod {
 
-	public ItemSkyDirtRod() {
-		super(LibItemNames.SKY_DIRT_ROD);
-	}
+    public ItemSkyDirtRod() {
+        super(LibItemNames.SKY_DIRT_ROD);
+    }
 
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
-			Vector3 playerVec = Vector3.fromEntityCenter(player);
-			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
-			Vector3 placeVec = playerVec.copy().add(lookVec);
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        if (!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
+            Vector3 playerVec = Vector3.fromEntityCenter(player);
+            Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
+            Vector3 placeVec = playerVec.copy().add(lookVec);
 
-			int x = MathHelper.floor_double(placeVec.x);
-			int y = MathHelper.floor_double(placeVec.y) + 1;
-			int z = MathHelper.floor_double(placeVec.z);
+            int x = MathHelper.floor_double(placeVec.x);
+            int y = MathHelper.floor_double(placeVec.y) + 1;
+            int z = MathHelper.floor_double(placeVec.z);
 
-			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1)).size();
+            int entities = world.getEntitiesWithinAABB(
+                            EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1))
+                    .size();
 
-			if(entities == 0) {
-				ItemStack stackToPlace = new ItemStack(Blocks.dirt);
-				stackToPlace.tryPlaceItemIntoWorld(player, world, x, y, z, 0, 0F, 0F, 0F);
+            if (entities == 0) {
+                ItemStack stackToPlace = new ItemStack(Blocks.dirt);
+                stackToPlace.tryPlaceItemIntoWorld(player, world, x, y, z, 0, 0F, 0F, 0F);
 
-				if(stackToPlace.stackSize == 0) {
-					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
-					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(world, x + Math.random(), y + Math.random(), z + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);
-				}
-			}
-		}
-		if(world.isRemote)
-			player.swingItem();
+                if (stackToPlace.stackSize == 0) {
+                    ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
+                    for (int i = 0; i < 6; i++)
+                        Botania.proxy.sparkleFX(
+                                world,
+                                x + Math.random(),
+                                y + Math.random(),
+                                z + Math.random(),
+                                0.35F,
+                                0.2F,
+                                0.05F,
+                                1F,
+                                5);
+                }
+            }
+        }
+        if (world.isRemote) player.swingItem();
 
-		return stack;
-	}
-
+        return stack;
+    }
 }

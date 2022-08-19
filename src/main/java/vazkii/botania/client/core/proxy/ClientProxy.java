@@ -2,20 +2,28 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 13, 2014, 7:46:05 PM (GMT)]
  */
 package vazkii.botania.client.core.proxy;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Calendar;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -123,7 +131,6 @@ import vazkii.botania.client.render.tile.RenderTileTerraPlate;
 import vazkii.botania.client.render.tile.RenderTileTeruTeruBozu;
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 import vazkii.botania.client.render.world.SkyblockRenderEvents;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -173,363 +180,371 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy {
 
-	public static boolean jingleTheBells = false;
-	public static boolean dootDoot = false;
+    public static boolean jingleTheBells = false;
+    public static boolean dootDoot = false;
 
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().mcDataDir, "BotaniaVars.dat"));
-		try {
-			PersistentVariableHelper.load();
-			PersistentVariableHelper.save();
-		} catch (IOException e) {
-			FMLLog.severe("Botania's persistent Variables couldn't load!");
-			e.printStackTrace();
-		}
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().mcDataDir, "BotaniaVars.dat"));
+        try {
+            PersistentVariableHelper.load();
+            PersistentVariableHelper.save();
+        } catch (IOException e) {
+            FMLLog.severe("Botania's persistent Variables couldn't load!");
+            e.printStackTrace();
+        }
 
-		super.preInit(event);
-	}
+        super.preInit(event);
+    }
 
-	@Override
-	public void init(FMLInitializationEvent event) {
-		super.init(event);
+    @Override
+    public void init(FMLInitializationEvent event) {
+        super.init(event);
 
-		ModChallenges.init();
+        ModChallenges.init();
 
-		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
-		MinecraftForge.EVENT_BUS.register(new HUDHandler());
-		MinecraftForge.EVENT_BUS.register(new LightningHandler());
-		if(ConfigHandler.boundBlockWireframe)
-			MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
-		MinecraftForge.EVENT_BUS.register(new TooltipHandler());
-		MinecraftForge.EVENT_BUS.register(new BaubleRenderHandler());
-		MinecraftForge.EVENT_BUS.register(new DebugHandler());
-		MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
-		MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
-		MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
-		FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
+        FMLCommonHandler.instance().bus().register(new ClientTickHandler());
+        MinecraftForge.EVENT_BUS.register(new HUDHandler());
+        MinecraftForge.EVENT_BUS.register(new LightningHandler());
+        if (ConfigHandler.boundBlockWireframe) MinecraftForge.EVENT_BUS.register(new BoundTileRenderer());
+        MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+        MinecraftForge.EVENT_BUS.register(new BaubleRenderHandler());
+        MinecraftForge.EVENT_BUS.register(new DebugHandler());
+        MinecraftForge.EVENT_BUS.register(new SubTileRadiusRenderHandler());
+        MinecraftForge.EVENT_BUS.register(new MultiblockRenderHandler());
+        MinecraftForge.EVENT_BUS.register(new SkyblockRenderEvents());
+        FMLCommonHandler.instance().bus().register(new CorporeaAutoCompleteHandler());
 
-		if(ConfigHandler.enableSeasonalFeatures) {
-			Calendar calendar = Calendar.getInstance();
-			if((calendar.get(2) == 11 && calendar.get(5) >= 16) || (calendar.get(2) == 0 && calendar.get(5) <= 2))
-				jingleTheBells = true;
-			if(calendar.get(2) == 9)
-				dootDoot = true;
-		}
+        if (ConfigHandler.enableSeasonalFeatures) {
+            Calendar calendar = Calendar.getInstance();
+            if ((calendar.get(2) == 11 && calendar.get(5) >= 16) || (calendar.get(2) == 0 && calendar.get(5) <= 2))
+                jingleTheBells = true;
+            if (calendar.get(2) == 9) dootDoot = true;
+        }
 
-		initRenderers();
-	}
+        initRenderers();
+    }
 
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-		super.postInit(event);
-		CorporeaAutoCompleteHandler.updateItemList();
-	}
+    @Override
+    public void postInit(FMLPostInitializationEvent event) {
+        super.postInit(event);
+        CorporeaAutoCompleteHandler.updateItemList();
+    }
 
-	private void initRenderers() {
-		LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idMiniIsland = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idTinyPotato = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idSpawnerClaw = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idBrewery = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idCorporeaIndex = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idPump = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idDoubleFlower = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idCorporeaCrystalCybe = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idIncensePlate = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idHourglass = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idCocoon = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idLightRelay = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idBellows = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idTeruTeruBozu = RenderingRegistry.getNextAvailableRenderId();
-		LibRenderIDs.idAvatar = RenderingRegistry.getNextAvailableRenderId();
+    private void initRenderers() {
+        LibRenderIDs.idAltar = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idSpecialFlower = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idSpreader = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idPool = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idPylon = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idMiniIsland = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idTinyPotato = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idSpawnerClaw = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idBrewery = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idCorporeaIndex = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idPump = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idDoubleFlower = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idCorporeaCrystalCybe = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idIncensePlate = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idHourglass = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idCocoon = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idLightRelay = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idBellows = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idTeruTeruBozu = RenderingRegistry.getNextAvailableRenderId();
+        LibRenderIDs.idAvatar = RenderingRegistry.getNextAvailableRenderId();
 
-		RenderSpecialFlower specialFlowerRender = new RenderSpecialFlower(LibRenderIDs.idSpecialFlower);
-		RenderingRegistry.registerBlockHandler(new RenderAltar());
-		RenderingRegistry.registerBlockHandler(specialFlowerRender);
-		RenderingRegistry.registerBlockHandler(new RenderSpreader());
-		RenderingRegistry.registerBlockHandler(new RenderPool());
-		RenderingRegistry.registerBlockHandler(new RenderPylon());
-		RenderingRegistry.registerBlockHandler(new RenderFloatingFlower());
-		RenderingRegistry.registerBlockHandler(new RenderTinyPotato());
-		RenderingRegistry.registerBlockHandler(new RenderSpawnerClaw());
-		RenderingRegistry.registerBlockHandler(new RenderBrewery());
-		RenderingRegistry.registerBlockHandler(new RenderCorporeaIndex());
-		RenderingRegistry.registerBlockHandler(new RenderPump());
-		RenderingRegistry.registerBlockHandler(new RenderDoubleFlower());
-		RenderingRegistry.registerBlockHandler(new RenderCorporeaCrystalCube());
-		RenderingRegistry.registerBlockHandler(new RenderIncensePlate());
-		RenderingRegistry.registerBlockHandler(new RenderHourglass());
-		RenderingRegistry.registerBlockHandler(new RenderCocoon());
-		RenderingRegistry.registerBlockHandler(new RenderBellows());
-		RenderingRegistry.registerBlockHandler(new RenderTeruTeruBozu());
-		RenderingRegistry.registerBlockHandler(new RenderAvatar());
+        RenderSpecialFlower specialFlowerRender = new RenderSpecialFlower(LibRenderIDs.idSpecialFlower);
+        RenderingRegistry.registerBlockHandler(new RenderAltar());
+        RenderingRegistry.registerBlockHandler(specialFlowerRender);
+        RenderingRegistry.registerBlockHandler(new RenderSpreader());
+        RenderingRegistry.registerBlockHandler(new RenderPool());
+        RenderingRegistry.registerBlockHandler(new RenderPylon());
+        RenderingRegistry.registerBlockHandler(new RenderFloatingFlower());
+        RenderingRegistry.registerBlockHandler(new RenderTinyPotato());
+        RenderingRegistry.registerBlockHandler(new RenderSpawnerClaw());
+        RenderingRegistry.registerBlockHandler(new RenderBrewery());
+        RenderingRegistry.registerBlockHandler(new RenderCorporeaIndex());
+        RenderingRegistry.registerBlockHandler(new RenderPump());
+        RenderingRegistry.registerBlockHandler(new RenderDoubleFlower());
+        RenderingRegistry.registerBlockHandler(new RenderCorporeaCrystalCube());
+        RenderingRegistry.registerBlockHandler(new RenderIncensePlate());
+        RenderingRegistry.registerBlockHandler(new RenderHourglass());
+        RenderingRegistry.registerBlockHandler(new RenderCocoon());
+        RenderingRegistry.registerBlockHandler(new RenderBellows());
+        RenderingRegistry.registerBlockHandler(new RenderTeruTeruBozu());
+        RenderingRegistry.registerBlockHandler(new RenderAvatar());
 
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
+        IMultiblockRenderHook.renderHooks.put(ModBlocks.flower, specialFlowerRender);
+        IMultiblockRenderHook.renderHooks.put(ModBlocks.shinyFlower, specialFlowerRender);
 
-		RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
-		RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
-		RenderBow renderBow = new RenderBow();
+        RenderTransparentItem renderTransparentItem = new RenderTransparentItem();
+        RenderFloatingFlowerItem renderFloatingFlower = new RenderFloatingFlowerItem();
+        RenderBow renderBow = new RenderBow();
 
-		MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
-		if(ConfigHandler.lexicon3dModel)
-			MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
-		MinecraftForgeClient.registerItemRenderer(ModItems.glassPick, renderTransparentItem);
-		MinecraftForgeClient.registerItemRenderer(ModItems.spark, renderTransparentItem);
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingFlower), renderFloatingFlower);
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), renderFloatingFlower);
-		MinecraftForgeClient.registerItemRenderer(ModItems.livingwoodBow, renderBow);
-		MinecraftForgeClient.registerItemRenderer(ModItems.crystalBow, renderBow);
+        MinecraftForgeClient.registerItemRenderer(ModItems.lens, new RenderLens());
+        if (ConfigHandler.lexicon3dModel)
+            MinecraftForgeClient.registerItemRenderer(ModItems.lexicon, new RenderLexicon());
+        MinecraftForgeClient.registerItemRenderer(ModItems.glassPick, renderTransparentItem);
+        MinecraftForgeClient.registerItemRenderer(ModItems.spark, renderTransparentItem);
+        MinecraftForgeClient.registerItemRenderer(
+                Item.getItemFromBlock(ModBlocks.floatingFlower), renderFloatingFlower);
+        MinecraftForgeClient.registerItemRenderer(
+                Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), renderFloatingFlower);
+        MinecraftForgeClient.registerItemRenderer(ModItems.livingwoodBow, renderBow);
+        MinecraftForgeClient.registerItemRenderer(ModItems.crystalBow, renderBow);
 
-		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingFlower.class, renderTileFloatingFlower);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingSpecialFlower.class, renderTileFloatingFlower);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTinyPotato.class, new RenderTileTinyPotato());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSpawnerClaw.class, new RenderTileSpawnerClaw());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileStarfield.class, new RenderTileStarfield());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaIndex.class, new RenderTileCorporeaIndex());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderTilePump());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaCrystalCube.class, new RenderTileCorporeaCrystalCube());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileIncensePlate.class, new RenderTileIncensePlate());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileHourglass.class, new RenderTileHourglass());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSparkChanger.class, new RenderTileSparkChanger());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCocoon.class, new RenderTileCocoon());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileLightRelay.class, new RenderTileLightRelay());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBellows.class, new RenderTileBellows());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileSkullOverride());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
+        RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
+        ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingFlower.class, renderTileFloatingFlower);
+        ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingSpecialFlower.class, renderTileFloatingFlower);
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTinyPotato.class, new RenderTileTinyPotato());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSpawnerClaw.class, new RenderTileSpawnerClaw());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileStarfield.class, new RenderTileStarfield());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaIndex.class, new RenderTileCorporeaIndex());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new RenderTilePump());
+        ClientRegistry.bindTileEntitySpecialRenderer(
+                TileCorporeaCrystalCube.class, new RenderTileCorporeaCrystalCube());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileIncensePlate.class, new RenderTileIncensePlate());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileHourglass.class, new RenderTileHourglass());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSparkChanger.class, new RenderTileSparkChanger());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCocoon.class, new RenderTileCocoon());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileLightRelay.class, new RenderTileLightRelay());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileBellows.class, new RenderTileBellows());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileSkullOverride());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
 
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySkull.class, new RenderTileSkullOverride());
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(ModItems.vineBall));
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, new RenderDoppleganger());
-		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderThornChakram());
-		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, new RenderCorporeaSpark());
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, new RenderSnowball(ModItems.manaResource, 15));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, new RenderPoolMinecart());
-		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, new RenderPinkWither());
-		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, new RenderManaStorm());
-		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, new RenderBabylonWeapon());
+        RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
+        RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, new RenderSnowball(ModItems.vineBall));
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, new RenderDoppleganger());
+        RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, new RenderSpark());
+        RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, new RenderThornChakram());
+        RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, new RenderCorporeaSpark());
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityEnderAirBottle.class, new RenderSnowball(ModItems.manaResource, 15));
+        RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, new RenderPoolMinecart());
+        RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, new RenderPinkWither());
+        RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, new RenderManaStorm());
+        RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, new RenderBabylonWeapon());
 
-		ShaderHelper.initShaders();
-	}
+        ShaderHelper.initShaders();
+    }
 
-	@Override
-	@Optional.Method(modid = "NotEnoughItems")
-	public void registerNEIStuff() {
-		NEIGuiHooks.init();
-	}
+    @Override
+    @Optional.Method(modid = "NotEnoughItems")
+    public void registerNEIStuff() {
+        NEIGuiHooks.init();
+    }
 
-	@Override
-	public void setEntryToOpen(LexiconEntry entry) {
-		GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
-	}
+    @Override
+    public void setEntryToOpen(LexiconEntry entry) {
+        GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(entry, new GuiLexiconIndex(entry.category));
+    }
 
-	@Override
-	public void setToTutorialIfFirstLaunch() {
-		if(PersistentVariableHelper.firstLoad)
-			GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(LexiconData.welcome, new GuiLexiconEntry(LexiconData.tutorial, new GuiLexicon())).setFirstEntry();
-	}
+    @Override
+    public void setToTutorialIfFirstLaunch() {
+        if (PersistentVariableHelper.firstLoad)
+            GuiLexicon.currentOpenLexicon = new GuiLexiconEntry(
+                            LexiconData.welcome, new GuiLexiconEntry(LexiconData.tutorial, new GuiLexicon()))
+                    .setFirstEntry();
+    }
 
-	@Override
-	public void setLexiconStack(ItemStack stack) {
-		GuiLexicon.stackUsed = stack;
-	}
+    @Override
+    public void setLexiconStack(ItemStack stack) {
+        GuiLexicon.stackUsed = stack;
+    }
 
-	@Override
-	public boolean isTheClientPlayer(EntityLivingBase entity) {
-		return entity == Minecraft.getMinecraft().thePlayer;
-	}
+    @Override
+    public boolean isTheClientPlayer(EntityLivingBase entity) {
+        return entity == Minecraft.getMinecraft().thePlayer;
+    }
 
-	@Override
-	public boolean isClientPlayerWearingMonocle() {
-		return ItemMonocle.hasMonocle(Minecraft.getMinecraft().thePlayer);
-	}
+    @Override
+    public boolean isClientPlayerWearingMonocle() {
+        return ItemMonocle.hasMonocle(Minecraft.getMinecraft().thePlayer);
+    }
 
-	@Override
-	public void setExtraReach(EntityLivingBase entity, float reach) {
-		super.setExtraReach(entity, reach);
-		Minecraft mc = Minecraft.getMinecraft();
-		EntityPlayer player = mc.thePlayer;
-		if(entity == player) {
-			if(!(mc.playerController instanceof IExtendedPlayerController)) {
-				GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.CURRENT_GAME_TYPE);
-				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
-				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
-				boolean isFlying = player.capabilities.isFlying;
-				boolean allowFlying = player.capabilities.allowFlying;
-				controller.setGameType(type);
-				player.capabilities.isFlying = isFlying;
-				player.capabilities.allowFlying = allowFlying;
-				mc.playerController = controller;
-			}
+    @Override
+    public void setExtraReach(EntityLivingBase entity, float reach) {
+        super.setExtraReach(entity, reach);
+        Minecraft mc = Minecraft.getMinecraft();
+        EntityPlayer player = mc.thePlayer;
+        if (entity == player) {
+            if (!(mc.playerController instanceof IExtendedPlayerController)) {
+                GameType type = ReflectionHelper.getPrivateValue(
+                        PlayerControllerMP.class, mc.playerController, LibObfuscation.CURRENT_GAME_TYPE);
+                NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(
+                        PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
+                BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
+                boolean isFlying = player.capabilities.isFlying;
+                boolean allowFlying = player.capabilities.allowFlying;
+                controller.setGameType(type);
+                player.capabilities.isFlying = isFlying;
+                player.capabilities.allowFlying = allowFlying;
+                mc.playerController = controller;
+            }
 
-			((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(Math.max(0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
-		}
-	}
+            ((IExtendedPlayerController) mc.playerController)
+                    .setReachDistanceExtension(Math.max(
+                            0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
+        }
+    }
 
-	@Override
-	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
-		IWikiProvider wiki = WikiHooks.getWikiFor(block);
-		String url = wiki.getWikiURL(world, pos);
-		if(url != null && !url.isEmpty()) {
-			try {
-				Desktop.getDesktop().browse(new URI(url));
-			} catch(Exception e) {
-				e.printStackTrace();
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
+        IWikiProvider wiki = WikiHooks.getWikiFor(block);
+        String url = wiki.getWikiURL(world, pos);
+        if (url != null && !url.isEmpty()) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if(record == null)
-			world.playAuxSFXAtEntity(null, 1005, x, y, z, 0);
-		else {
-			world.playAuxSFXAtEntity(null, 1005, x, y, z, Item.getIdFromItem(record));
-			mc.ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
-		}
-	}
+    @Override
+    public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
+        Minecraft mc = Minecraft.getMinecraft();
+        if (record == null) world.playAuxSFXAtEntity(null, 1005, x, y, z, 0);
+        else {
+            world.playAuxSFXAtEntity(null, 1005, x, y, z, Item.getIdFromItem(record));
+            mc.ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
+        }
+    }
 
-	@Override
-	public long getWorldElapsedTicks() {
-		return ClientTickHandler.ticksInGame;
-	}
+    @Override
+    public long getWorldElapsedTicks() {
+        return ClientTickHandler.ticksInGame;
+    }
 
-	@Override
-	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
-		MultiblockSextant mb = new MultiblockSextant();
+    @Override
+    public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
+        MultiblockSextant mb = new MultiblockSextant();
 
-		int iradius = (int) radius + 1;
-		for(int i = 0; i < iradius * 2 + 1; i++)
-			for(int j = 0; j < iradius * 2 + 1; j++) {
-				int xp = x + i - iradius;
-				int zp = z + j - iradius;
-				if((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
-					mb.addComponent(new AnyComponent(new ChunkCoordinates(xp - x, 1, zp - z), block, 0));
-			}
+        int iradius = (int) radius + 1;
+        for (int i = 0; i < iradius * 2 + 1; i++)
+            for (int j = 0; j < iradius * 2 + 1; j++) {
+                int xp = x + i - iradius;
+                int zp = z + j - iradius;
+                if ((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1)
+                    mb.addComponent(new AnyComponent(new ChunkCoordinates(xp - x, 1, zp - z), block, 0));
+            }
 
-		MultiblockRenderHandler.setMultiblock(mb.makeSet());
-		MultiblockRenderHandler.anchor = new ChunkCoordinates(x, y, z);
-	}
+        MultiblockRenderHandler.setMultiblock(mb.makeSet());
+        MultiblockRenderHandler.anchor = new ChunkCoordinates(x, y, z);
+    }
 
-	@Override
-	public void removeSextantMultiblock() {
-		MultiblockSet set = MultiblockRenderHandler.currentMultiblock;
-		if(set != null) {
-			Multiblock mb = set.getForIndex(0);
-			if(mb instanceof MultiblockSextant)
-				MultiblockRenderHandler.setMultiblock(null);
-		}
-	}
+    @Override
+    public void removeSextantMultiblock() {
+        MultiblockSet set = MultiblockRenderHandler.currentMultiblock;
+        if (set != null) {
+            Multiblock mb = set.getForIndex(0);
+            if (mb instanceof MultiblockSextant) MultiblockRenderHandler.setMultiblock(null);
+        }
+    }
 
-	private static boolean noclipEnabled = false;
-	private static boolean corruptSparkle = false;
+    private static boolean noclipEnabled = false;
+    private static boolean corruptSparkle = false;
 
-	@Override
-	public void setSparkleFXNoClip(boolean noclip) {
-		noclipEnabled = noclip;
-	}
+    @Override
+    public void setSparkleFXNoClip(boolean noclip) {
+        noclipEnabled = noclip;
+    }
 
-	@Override
-	public void setSparkleFXCorrupt(boolean corrupt) {
-		corruptSparkle = corrupt;
-	}
+    @Override
+    public void setSparkleFXCorrupt(boolean corrupt) {
+        corruptSparkle = corrupt;
+    }
 
-	@Override
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		if(!doParticle(world) && !fake)
-			return;
+    @Override
+    public void sparkleFX(
+            World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
+        if (!doParticle(world) && !fake) return;
 
-		FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
-		sparkle.fake = sparkle.noClip = fake;
-		if(noclipEnabled)
-			sparkle.noClip = true;
-		if(corruptSparkle)
-			sparkle.corrupt = true;
-		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
-	}
+        FXSparkle sparkle = new FXSparkle(world, x, y, z, size, r, g, b, m);
+        sparkle.fake = sparkle.noClip = fake;
+        if (noclipEnabled) sparkle.noClip = true;
+        if (corruptSparkle) sparkle.corrupt = true;
+        Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
+    }
 
-	private static boolean distanceLimit = true;
-	private static boolean depthTest = true;
+    private static boolean distanceLimit = true;
+    private static boolean depthTest = true;
 
-	@Override
-	public void setWispFXDistanceLimit(boolean limit) {
-		distanceLimit = limit;
-	}
+    @Override
+    public void setWispFXDistanceLimit(boolean limit) {
+        distanceLimit = limit;
+    }
 
-	@Override
-	public void setWispFXDepthTest(boolean test) {
-		depthTest = test;
-	}
+    @Override
+    public void setWispFXDepthTest(boolean test) {
+        depthTest = test;
+    }
 
-	@Override
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		if(!doParticle(world))
-			return;
+    @Override
+    public void wispFX(
+            World world,
+            double x,
+            double y,
+            double z,
+            float r,
+            float g,
+            float b,
+            float size,
+            float motionx,
+            float motiony,
+            float motionz,
+            float maxAgeMul) {
+        if (!doParticle(world)) return;
 
-		FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
-		wisp.motionX = motionx;
-		wisp.motionY = motiony;
-		wisp.motionZ = motionz;
+        FXWisp wisp = new FXWisp(world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
+        wisp.motionX = motionx;
+        wisp.motionY = motiony;
+        wisp.motionZ = motionz;
 
-		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
-	}
+        Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
+    }
 
-	private boolean doParticle(World world) {
-		if(!world.isRemote)
-			return false;
+    private boolean doParticle(World world) {
+        if (!world.isRemote) return false;
 
-		if(!ConfigHandler.useVanillaParticleLimiter)
-			return true;
+        if (!ConfigHandler.useVanillaParticleLimiter) return true;
 
-		float chance = 1F;
-		if(Minecraft.getMinecraft().gameSettings.particleSetting == 1)
-			chance = 0.6F;
-		else if(Minecraft.getMinecraft().gameSettings.particleSetting == 2)
-			chance = 0.2F;
+        float chance = 1F;
+        if (Minecraft.getMinecraft().gameSettings.particleSetting == 1) chance = 0.6F;
+        else if (Minecraft.getMinecraft().gameSettings.particleSetting == 2) chance = 0.2F;
 
-		return chance == 1F || Math.random() < chance;
-	}
+        return chance == 1F || Math.random() < chance;
+    }
 
-	@Override
-	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
-	}
+    @Override
+    public void lightningFX(
+            World world,
+            Vector3 vectorStart,
+            Vector3 vectorEnd,
+            float ticksPerMeter,
+            long seed,
+            int colorOuter,
+            int colorInner) {
+        LightningHandler.spawnLightningBolt(world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner);
+    }
 }
-

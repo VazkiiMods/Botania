@@ -1,22 +1,27 @@
-//version: 1644612407
+//version: 1660491897
 /*
-DO NOT CHANGE THIS FILE!
+ DO NOT CHANGE THIS FILE!
+ Also, you may replace this file at any time if there is an update available.
+ Please check https://github.com/GTNewHorizons/ExampleMod1.7.10/blob/main/build.gradle for updates.
+ */
 
-Also, you may replace this file at any time if there is an update available.
-Please check https://github.com/GTNewHorizons/ExampleMod1.7.10/blob/main/build.gradle for updates.
-*/
-
-import org.gradle.internal.logging.text.StyledTextOutput
-import org.gradle.internal.logging.text.StyledTextOutputFactory
-import org.gradle.internal.logging.text.StyledTextOutput.Style
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.internal.logging.text.StyledTextOutput.Style
+import org.gradle.internal.logging.text.StyledTextOutputFactory
 
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.concurrent.TimeUnit
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipOutputStream
 
 buildscript {
     repositories {
+        mavenCentral()
+
         maven {
             name 'forge'
             url 'https://maven.minecraftforge.net'
@@ -38,21 +43,29 @@ buildscript {
         classpath 'com.github.GTNewHorizons:ForgeGradle:1.2.7'
     }
 }
-
 plugins {
     id 'java-library'
     id 'idea'
     id 'eclipse'
     id 'scala'
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.jvm'        version '1.5.30' apply false
-    id 'org.jetbrains.kotlin.kapt'       version '1.5.30' apply false
+    id 'org.jetbrains.kotlin.jvm'        version '1.5.30'       apply false
+    id 'org.jetbrains.kotlin.kapt'       version '1.5.30'       apply false
+    id 'com.google.devtools.ksp'         version '1.5.30-1.0.0' apply false
     id 'org.ajoberstar.grgit'            version '4.1.1'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
-    id 'com.palantir.git-version'        version '0.13.0' apply false
+    id 'com.palantir.git-version'        version '0.13.0'       apply false
     id 'de.undercouch.download'          version '5.0.1'
-    id 'com.github.gmazzo.buildconfig'   version '3.0.3' apply false
+    id 'com.github.gmazzo.buildconfig'   version '3.0.3'        apply false
+    id "com.diffplug.spotless"           version "6.7.2"
 }
+verifySettingsGradle()
+
+dependencies {
+    implementation 'com.diffplug:blowdryer:1.6.0'
+}
+
+apply plugin: 'com.diffplug.blowdryer'
 
 if (project.file('.git/HEAD').isFile()) {
     apply plugin: 'com.palantir.git-version'
@@ -77,6 +90,7 @@ idea {
         downloadSources = true
     }
 }
+apply from: Blowdryer.file('spotless.gradle')
 
 if(JavaVersion.current() != JavaVersion.VERSION_1_8) {
     throw new GradleException("This project requires Java 8, but it's running on " + JavaVersion.current())
@@ -103,8 +117,11 @@ checkPropertyExists("containsMixinsAndOrCoreModOnly")
 checkPropertyExists("usesShadowedDependencies")
 checkPropertyExists("developmentEnvironmentUserName")
 
-boolean noPublishedSources = project.findProperty("noPublishedSources") ? project.noPublishedSources.toBoolean() : false
-
+boolean noPublishedSources = project.hasProperty("noPublishedSources") ? project.noPublishedSources.toBoolean() : false
+boolean usesMixinDebug = project.hasProperty('usesMixinDebug') ?: project.usesMixins.toBoolean()
+boolean forceEnableMixins = project.hasProperty('forceEnableMixins') ? project.forceEnableMixins.toBoolean() : false
+String channel = project.hasProperty('channel') ? project.channel : 'stable'
+String mappingsVersion = project.hasProperty('mappingsVersion') ? project.mappingsVersion : '12'
 String javaSourceDir = "src/main/java/"
 String scalaSourceDir = "src/main/scala/"
 String kotlinSourceDir = "src/main/kotlin/"
@@ -175,7 +192,7 @@ configurations.all {
 try {
     'git config core.fileMode false'.execute()
 }
-catch (Exception e) {
+catch (Exception ignored) {
     out.style(Style.Failure).println("git isn't installed at all")
 }
 
@@ -185,12 +202,12 @@ String versionOverride = System.getenv("VERSION") ?: null
 try {
     identifiedVersion = versionOverride == null ? gitVersion() : versionOverride
 }
-catch (Exception e) {
+catch (Exception ignored) {
     out.style(Style.Failure).text(
-        'This mod must be version controlled by Git AND the repository must provide at least one tag,\n' +
-        'or the VERSION override must be set! ').style(Style.SuccessHeader).text('(Do NOT download from GitHub using the ZIP option, instead\n' +
-        'clone the repository, see ').style(Style.Info).text('https://gtnh.miraheze.org/wiki/Development').style(Style.SuccessHeader).println(' for details.)'
-    )
+            'This mod must be version controlled by Git AND the repository must provide at least one tag,\n' +
+            'or the VERSION override must be set! ').style(Style.SuccessHeader).text('(Do NOT download from GitHub using the ZIP option, instead\n' +
+            'clone the repository, see ').style(Style.Info).text('https://gtnh.miraheze.org/wiki/Development').style(Style.SuccessHeader).println(' for details.)'
+            )
     versionOverride = 'NO-GIT-TAG-SET'
     identifiedVersion = versionOverride
 }
@@ -199,7 +216,7 @@ ext {
     modVersion = identifiedVersion
 }
 
-if( identifiedVersion.equals(versionOverride) ) {
+if(identifiedVersion == versionOverride) {
     out.style(Style.Failure).text('Override version to ').style(Style.Identifier).text(modVersion).style(Style.Failure).println('!\7')
 }
 
@@ -214,13 +231,17 @@ else {
 def arguments = []
 def jvmArguments = []
 
-if(usesMixins.toBoolean()) {
+if (usesMixins.toBoolean() || forceEnableMixins) {
     arguments += [
-            "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
+        "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
     ]
-    jvmArguments += [
-            "-Dmixin.debug.countInjections=true", "-Dmixin.debug.verbose=true", "-Dmixin.debug.export=true"
-    ]
+    if (usesMixinDebug.toBoolean()) {
+        jvmArguments += [
+            "-Dmixin.debug.countInjections=true",
+            "-Dmixin.debug.verbose=true",
+            "-Dmixin.debug.export=true"
+        ]
+    }
 }
 
 minecraft {
@@ -275,7 +296,7 @@ repositories {
         name 'Overmind forge repo mirror'
         url 'https://gregtech.overminddl1.com/'
     }
-    if(usesMixins.toBoolean()) {
+    if(usesMixins.toBoolean() || forceEnableMixins) {
         maven {
             name 'sponge'
             url 'https://repo.spongepowered.org/repository/maven-public'
@@ -292,6 +313,8 @@ dependencies {
         annotationProcessor('com.google.guava:guava:24.1.1-jre')
         annotationProcessor('com.google.code.gson:gson:2.8.6')
         annotationProcessor('org.spongepowered:mixin:0.8-SNAPSHOT')
+    }
+    if(usesMixins.toBoolean() || forceEnableMixins) {
         // using 0.8 to workaround a issue in 0.7 which fails mixin application
         compile('com.github.GTNewHorizons:SpongePoweredMixin:0.7.12-GTNH') {
             // Mixin includes a lot of dependencies that are too up-to-date
@@ -312,18 +335,23 @@ def refMap = "${tasks.compileJava.temporaryDir}" + File.separator + mixingConfig
 def mixinSrg = "${tasks.reobf.temporaryDir}" + File.separator + "mixins.srg"
 
 task generateAssets {
-    if(usesMixins.toBoolean()) {
-        getFile("/src/main/resources/mixins." + modId + ".json").text = """{
+    if (usesMixins.toBoolean()) {
+        def mixinConfigFile = getFile("/src/main/resources/mixins." + modId + ".json");
+        if (!mixinConfigFile.exists()) {
+            mixinConfigFile.text = """{
   "required": true,
   "minVersion": "0.7.11",
   "package": "${modGroup}.${mixinsPackage}",
   "plugin": "${modGroup}.${mixinPlugin}",
   "refmap": "${mixingConfigRefMap}",
   "target": "@env(DEFAULT)",
-  "compatibilityLevel": "JAVA_8"
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [],
+  "client": [],
+  "server": []
 }
-
 """
+        }
     }
 }
 
@@ -344,7 +372,10 @@ shadowJar {
     }
 
     minimize()  // This will only allow shading for actually used classes
-    configurations = [project.configurations.shadowImplementation, project.configurations.shadowCompile]
+    configurations = [
+        project.configurations.shadowImplementation,
+        project.configurations.shadowCompile
+    ]
     dependsOn(relocateShadowJar)
 }
 
@@ -366,7 +397,7 @@ jar {
 }
 
 reobf {
-    if(usesMixins.toBoolean()) {
+    if(usesMixins.toBoolean() && file(mixinSrg).exists()) {
         addExtraSrgFile mixinSrg
     }
 }
@@ -375,12 +406,12 @@ afterEvaluate {
     if(usesMixins.toBoolean()) {
         tasks.compileJava {
             options.compilerArgs += [
-                    "-AreobfSrgFile=${tasks.reobf.srg}",
-                    "-AoutSrgFile=${mixinSrg}",
-                    "-AoutRefMapFile=${refMap}",
-                    // Elan: from what I understand they are just some linter configs so you get some warning on how to properly code
-                    "-XDenableSunApiLintControl",
-                    "-XDignore.symbol.file"
+                "-AreobfSrgFile=${tasks.reobf.srg}",
+                "-AoutSrgFile=${mixinSrg}",
+                "-AoutRefMapFile=${refMap}",
+                // Elan: from what I understand they are just some linter configs so you get some warning on how to properly code
+                "-XDenableSunApiLintControl",
+                "-XDignore.symbol.file"
             ]
         }
     }
@@ -389,8 +420,8 @@ afterEvaluate {
 runClient {
     if(developmentEnvironmentUserName) {
         arguments += [
-                "--username",
-                developmentEnvironmentUserName
+            "--username",
+            developmentEnvironmentUserName
         ]
     }
 
@@ -408,13 +439,14 @@ tasks.withType(JavaExec).configureEach {
             javaToolchains.launcherFor {
                 languageVersion = projectJavaVersion
             }
-    )
+            )
 }
 
 processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
+    exclude("spotless.gradle")
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
@@ -422,9 +454,9 @@ processResources {
 
         // replace modVersion and minecraftVersion
         expand "minecraftVersion": project.minecraft.version,
-            "modVersion": modVersion,
-            "modId": modId,
-            "modName": modName
+        "modVersion": modVersion,
+        "modId": modId,
+        "modName": modName
     }
 
     if(usesMixins.toBoolean()) {
@@ -434,12 +466,13 @@ processResources {
     // copy everything else that's not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+        exclude 'spotless.gradle'
     }
 }
 
 def getManifestAttributes() {
     def manifestAttributes = [:]
-    if(containsMixinsAndOrCoreModOnly.toBoolean() == false && (usesMixins.toBoolean() || coreModClass)) {
+    if(!containsMixinsAndOrCoreModOnly.toBoolean() && (usesMixins.toBoolean() || coreModClass)) {
         manifestAttributes += ["FMLCorePluginContainsFMLMod": true]
     }
 
@@ -453,16 +486,16 @@ def getManifestAttributes() {
 
     if(usesMixins.toBoolean()) {
         manifestAttributes += [
-                "TweakClass" : "org.spongepowered.asm.launch.MixinTweaker",
-                "MixinConfigs" : "mixins." + modId + ".json",
-                "ForceLoadAsMod" : containsMixinsAndOrCoreModOnly.toBoolean() == false
+            "TweakClass" : "org.spongepowered.asm.launch.MixinTweaker",
+            "MixinConfigs" : "mixins." + modId + ".json",
+            "ForceLoadAsMod" : !containsMixinsAndOrCoreModOnly.toBoolean()
         ]
     }
     return manifestAttributes
 }
 
 task sourcesJar(type: Jar) {
-    from (sourceSets.main.allJava)
+    from (sourceSets.main.allSource)
     from (file("$projectDir/LICENSE"))
     getArchiveClassifier().set('sources')
 }
@@ -482,7 +515,10 @@ task shadowDevJar(type: ShadowJar) {
     }
 
     minimize()  // This will only allow shading for actually used classes
-    configurations = [project.configurations.shadowImplementation, project.configurations.shadowCompile]
+    configurations = [
+        project.configurations.shadowImplementation,
+        project.configurations.shadowCompile
+    ]
 }
 
 task relocateShadowDevJar(type: ConfigureShadowRelocation) {
@@ -517,7 +553,7 @@ task devJar(type: Jar) {
 }
 
 task apiJar(type: Jar) {
-    from (sourceSets.main.allJava) {
+    from (sourceSets.main.allSource) {
         include modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/") + '/**'
     }
 
@@ -548,6 +584,9 @@ tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
 
+// workaround variable hiding in pom processing
+def projectConfigs = project.configurations
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -556,7 +595,7 @@ publishing {
                 artifact source: shadowJar, classifier: ""
             }
             if(!noPublishedSources) {
-                artifact source: sourcesJar, classifier: "src"
+                artifact source: sourcesJar, classifier: "sources"
             }
             artifact source: usesShadowedDependencies.toBoolean() ? shadowDevJar : devJar, classifier: "dev"
             if (apiPackage) {
@@ -568,16 +607,23 @@ publishing {
             // Using the identified version, not project.version as it has the prepended 1.7.10
             version = System.getenv("RELEASE_VERSION") ?: identifiedVersion
 
-            // remove extra garbage from who knows where
+            // remove extra garbage from minecraft and minecraftDeps configuration
             pom.withXml {
-                def badPomGroup = ['net.minecraft', 'com.google.code.findbugs', 'org.ow2.asm', 'com.typesafe.akka', 'com.typesafe', 'org.scala-lang',
-                                   'org.scala-lang.plugins', 'net.sf.jopt-simple', 'lzma', 'com.mojang', 'org.apache.commons', 'org.apache.httpcomponents',
-                                   'commons-logging', 'java3d', 'net.sf.trove4j', 'com.ibm.icu', 'com.paulscode', 'io.netty', 'com.google.guava',
-                                   'commons-io', 'commons-codec', 'net.java.jinput', 'net.java.jutils', 'com.google.code.gson', 'org.apache.logging.log4j',
-                                   'org.lwjgl.lwjgl', 'tv.twitch', 'org.jetbrains.kotlin', '']
+                def badArtifacts = [:].withDefault {[] as Set<String>}
+                for (configuration in [
+                            projectConfigs.minecraft,
+                            projectConfigs.minecraftDeps
+                        ]) {
+                    for (dependency in configuration.allDependencies) {
+                        badArtifacts[dependency.group == null ? "" : dependency.group] += dependency.name
+                    }
+                }
+                // example for specifying extra stuff to ignore
+                // badArtifacts["org.example.group"] += "artifactName"
+
                 Node pomNode = asNode()
                 pomNode.dependencies.'*'.findAll() {
-                    badPomGroup.contains(it.groupId.text())
+                    badArtifacts[it.groupId.text()].contains(it.artifactId.text())
                 }.each() {
                     it.parent().remove(it)
                 }
@@ -601,11 +647,11 @@ task updateBuildScript {
     doLast {
         if (performBuildScriptUpdate(projectDir.toString())) return
 
-        print("Build script already up-to-date!")
+            print("Build script already up-to-date!")
     }
 }
 
-if (isNewBuildScriptVersionAvailable(projectDir.toString())) {
+if (!project.getGradle().startParameter.isOffline() && isNewBuildScriptVersionAvailable(projectDir.toString())) {
     if (autoUpdateBuildScript.toBoolean()) {
         performBuildScriptUpdate(projectDir.toString())
     } else {
@@ -616,12 +662,26 @@ if (isNewBuildScriptVersionAvailable(projectDir.toString())) {
 static URL availableBuildScriptUrl() {
     new URL("https://raw.githubusercontent.com/GTNewHorizons/ExampleMod1.7.10/main/build.gradle")
 }
+static URL exampleSettingsGradleUrl() {
+    new URL("https://raw.githubusercontent.com/GTNewHorizons/ExampleMod1.7.10/main/settings.gradle.example")
+}
+
+
+def verifySettingsGradle() {
+    def settingsFile = getFile("settings.gradle")
+    if (!settingsFile.exists()) {
+        println("Downloading default settings.gradle")
+        exampleSettingsGradleUrl().withInputStream { i -> settingsFile.withOutputStream { it << i } }
+        throw new GradleException("Settings.gradle has been updated, please re-run task.")
+    }
+}
 
 boolean performBuildScriptUpdate(String projectDir) {
     if (isNewBuildScriptVersionAvailable(projectDir)) {
         def buildscriptFile = getFile("build.gradle")
         availableBuildScriptUrl().withInputStream { i -> buildscriptFile.withOutputStream { it << i } }
         out.style(Style.Success).print("Build script updated. Please REIMPORT the project or RESTART your IDE!")
+        verifySettingsGradle()
         return true
     }
     return false
@@ -652,80 +712,225 @@ configure(updateBuildScript) {
     description = 'Updates the build script to the latest version'
 }
 
-// Deobfuscation
+// Parameter Deobfuscation
+
+task deobfParams {
+    doLast {
+
+        String mcpDir = "$project.gradle.gradleUserHomeDir/caches/minecraft/de/oceanlabs/mcp/mcp_$channel/$mappingsVersion"
+        String mcpZIP = "$mcpDir/mcp_$channel-$mappingsVersion-${minecraftVersion}.zip"
+        String paramsCSV = "$mcpDir/params.csv"
+
+        download.run {
+            src "https://maven.minecraftforge.net/de/oceanlabs/mcp/mcp_$channel/$mappingsVersion-$minecraftVersion/mcp_$channel-$mappingsVersion-${minecraftVersion}.zip"
+            dest mcpZIP
+            overwrite false
+        }
+
+        if(!file(paramsCSV).exists()) {
+            println("Extracting MCP archive ...")
+            unzip(mcpZIP, mcpDir)
+        }
+
+        println("Parsing params.csv ...")
+        Map<String, String> params = new HashMap<>()
+        Files.lines(Paths.get(paramsCSV)).forEach{line ->
+            String[] cells = line.split(",")
+            if(cells.length > 2 && cells[0].matches("p_i?\\d+_\\d+_")) {
+                params.put(cells[0], cells[1])
+            }
+        }
+
+        out.style(Style.Success).println("Modified ${replaceParams(file("$projectDir/src/main/java"), params)} files!")
+    out.style(Style.Failure).println("Don't forget to verify that the code still works as before!\n It could be broken due to duplicate variables existing now\n or parameters taking priority over other variables.")
+}
+}
+
+static int replaceParams(File file, Map<String, String> params) {
+int fileCount = 0
+
+if(file.isDirectory()) {
+    for(File f : file.listFiles()) {
+        fileCount += replaceParams(f, params)
+    }
+    return fileCount
+}
+println("Visiting ${file.getName()} ...")
+try {
+    String content = new String(Files.readAllBytes(file.toPath()))
+    int hash = content.hashCode()
+    params.forEach{key, value ->
+        content = content.replaceAll(key, value)
+    }
+    if(hash != content.hashCode()) {
+        Files.write(file.toPath(), content.getBytes("UTF-8"))
+        return 1
+    }
+} catch(Exception e) {
+    e.printStackTrace()
+}
+return 0
+}
+
+// Credit: bitsnaps (https://gist.github.com/bitsnaps/00947f2dce66f4bbdabc67d7e7b33681)
+static unzip(String zipFileName, String outputDir) {
+byte[] buffer = new byte[16384]
+ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFileName))
+ZipEntry zipEntry = zis.getNextEntry()
+while (zipEntry != null) {
+    File newFile = new File(outputDir + File.separator, zipEntry.name)
+    if (zipEntry.isDirectory()) {
+        if (!newFile.isDirectory() && !newFile.mkdirs()) {
+            throw new IOException("Failed to create directory $newFile")
+        }
+    } else {
+        // fix for Windows-created archives
+        File parent = newFile.parentFile
+        if (!parent.isDirectory() && !parent.mkdirs()) {
+            throw new IOException("Failed to create directory $parent")
+        }
+        // write file content
+        FileOutputStream fos = new FileOutputStream(newFile)
+        int len = 0
+        while ((len = zis.read(buffer)) > 0) {
+            fos.write(buffer, 0, len)
+        }
+        fos.close()
+    }
+    zipEntry = zis.getNextEntry()
+}
+zis.closeEntry()
+zis.close()
+}
+
+configure(deobfParams) {
+group = 'forgegradle'
+description = 'Rename all obfuscated parameter names inherited from Minecraft classes'
+}
+
+// Dependency Deobfuscation
 
 def deobf(String sourceURL) {
-    try {
-        URL url = new URL(sourceURL)
-        String fileName = url.getFile()
+try {
+    URL url = new URL(sourceURL)
+    String fileName = url.getFile()
 
-        //get rid of directories:
-        int lastSlash = fileName.lastIndexOf("/")
-        if(lastSlash > 0) {
-            fileName = fileName.substring(lastSlash + 1)
-        }
-        //get rid of extension:
-        if(fileName.endsWith(".jar")) {
-            fileName = fileName.substring(0, fileName.lastIndexOf("."))
-        }
-
-        String hostName = url.getHost()
-        if(hostName.startsWith("www.")) {
-            hostName = hostName.substring(4)
-        }
-        List parts = Arrays.asList(hostName.split("\\."))
-        Collections.reverse(parts)
-        hostName = String.join(".", parts)
-
-        return deobf(sourceURL, hostName + "/" + fileName)
-    } catch(Exception e) {
-        return deobf(sourceURL, "deobf/" + String.valueOf(sourceURL.hashCode()))
+    //get rid of directories:
+    int lastSlash = fileName.lastIndexOf("/")
+    if(lastSlash > 0) {
+        fileName = fileName.substring(lastSlash + 1)
     }
+    //get rid of extension:
+    if(fileName.endsWith(".jar") || fileName.endsWith(".litemod")) {
+        fileName = fileName.substring(0, fileName.lastIndexOf("."))
+    }
+
+    String hostName = url.getHost()
+    if(hostName.startsWith("www.")) {
+        hostName = hostName.substring(4)
+    }
+    List parts = Arrays.asList(hostName.split("\\."))
+    Collections.reverse(parts)
+    hostName = String.join(".", parts)
+
+    return deobf(sourceURL, "$hostName/$fileName")
+} catch(Exception e) {
+    return deobf(sourceURL, "deobf/${sourceURL.hashCode()}")
+}
 }
 
 // The method above is to be preferred. Use this method if the filename is not at the end of the URL.
-def deobf(String sourceURL, String fileName) {
-    String cacheDir = System.getProperty("user.home") + "/.gradle/caches/"
-    String bon2Dir = cacheDir + "forge_gradle/deobf"
-    String bon2File  = bon2Dir + "/BON2-2.5.0.jar"
-    String obfFile = cacheDir + "modules-2/files-2.1/" + fileName + ".jar"
-    String deobfFile = cacheDir + "modules-2/files-2.1/" + fileName + "-deobf.jar"
+def deobf(String sourceURL, String rawFileName) {
+String bon2Version = "2.5.1"
+String fileName = URLDecoder.decode(rawFileName, "UTF-8")
+String cacheDir = "$project.gradle.gradleUserHomeDir/caches"
+String bon2Dir = "$cacheDir/forge_gradle/deobf"
+String bon2File = "$bon2Dir/BON2-${bon2Version}.jar"
+String obfFile = "$cacheDir/modules-2/files-2.1/${fileName}.jar"
+String deobfFile = "$cacheDir/modules-2/files-2.1/${fileName}-deobf.jar"
 
-    if(file(deobfFile).exists()) {
-        return files(deobfFile)
-    }
-
-    download.run {
-        src 'https://github.com/GTNewHorizons/BON2/releases/download/2.5.0/BON2-2.5.0.CUSTOM-all.jar'
-        dest bon2File
-        quiet true
-        overwrite false
-    }
-
-    download.run {
-        src sourceURL
-        dest obfFile
-        quiet true
-        overwrite false
-    }
-
-    exec {
-        commandLine 'java', '-jar', bon2File, '--inputJar', obfFile, '--outputJar', deobfFile, '--mcVer', '1.7.10', '--mappingsVer', 'stable_12', '--notch'
-        workingDir bon2Dir
-        standardOutput = new ByteArrayOutputStream()
-    }
-
+if(file(deobfFile).exists()) {
     return files(deobfFile)
+}
+
+String mappingsVer
+String remoteMappings = project.hasProperty('remoteMappings') ? project.remoteMappings : 'https://raw.githubusercontent.com/MinecraftForge/FML/1.7.10/conf/'
+if(remoteMappings) {
+    String id = "${forgeVersion.split("\\.")[3]}-$minecraftVersion"
+    String mappingsZIP = "$cacheDir/forge_gradle/maven_downloader/de/oceanlabs/mcp/mcp_snapshot_nodoc/$id/mcp_snapshot_nodoc-${id}.zip"
+
+    zipMappings(mappingsZIP, remoteMappings, bon2Dir)
+
+    mappingsVer = "snapshot_$id"
+} else {
+    mappingsVer = "${channel}_$mappingsVersion"
+}
+
+download.run {
+    src "http://jenkins.usrv.eu:8081/nexus/content/repositories/releases/com/github/parker8283/BON2/$bon2Version-CUSTOM/BON2-$bon2Version-CUSTOM-all.jar"
+    dest bon2File
+    quiet true
+    overwrite false
+}
+
+download.run {
+    src sourceURL
+    dest obfFile
+    quiet true
+    overwrite false
+}
+
+exec {
+    commandLine 'java', '-jar', bon2File, '--inputJar', obfFile, '--outputJar', deobfFile, '--mcVer', minecraftVersion, '--mappingsVer', mappingsVer, '--notch'
+    workingDir bon2Dir
+    standardOutput = new FileOutputStream("${deobfFile}.log")
+}
+
+return files(deobfFile)
+}
+
+def zipMappings(String zipPath, String url, String bon2Dir) {
+File zipFile = new File(zipPath)
+if(zipFile.exists()) {
+    return
+}
+
+String fieldsCache = "$bon2Dir/data/fields.csv"
+String methodsCache = "$bon2Dir/data/methods.csv"
+
+download.run {
+    src "${url}fields.csv"
+    dest fieldsCache
+    quiet true
+}
+download.run {
+    src "${url}methods.csv"
+    dest methodsCache
+    quiet true
+}
+
+zipFile.getParentFile().mkdirs()
+ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipFile))
+
+zos.putNextEntry(new ZipEntry("fields.csv"))
+Files.copy(Paths.get(fieldsCache), zos)
+zos.closeEntry()
+
+zos.putNextEntry(new ZipEntry("methods.csv"))
+Files.copy(Paths.get(methodsCache), zos)
+zos.closeEntry()
+
+zos.close()
 }
 
 // Helper methods
 
 def checkPropertyExists(String propertyName) {
-    if (project.hasProperty(propertyName) == false) {
-        throw new GradleException("This project requires a property \"" + propertyName + "\"! Please add it your \"gradle.properties\". You can find all properties and their description here: https://github.com/GTNewHorizons/ExampleMod1.7.10/blob/main/gradle.properties")
-    }
+if (!project.hasProperty(propertyName)) {
+    throw new GradleException("This project requires a property \"" + propertyName + "\"! Please add it your \"gradle.properties\". You can find all properties and their description here: https://github.com/GTNewHorizons/ExampleMod1.7.10/blob/main/gradle.properties")
+}
 }
 
 def getFile(String relativePath) {
-    return new File(projectDir, relativePath)
+return new File(projectDir, relativePath)
 }

@@ -5,13 +5,12 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumLegs extends ItemElementiumArmor {
 
-	public ItemElementiumLegs() {
-		super(2, LibItemNames.ELEMENTIUM_LEGS);
-	}
+    public ItemElementiumLegs() {
+        super(2, LibItemNames.ELEMENTIUM_LEGS);
+    }
 
-	@Override
-	public float getPixieChance(ItemStack stack) {
-		return 0.15F;
-	}
-
+    @Override
+    public float getPixieChance(ItemStack stack) {
+        return 0.15F;
+    }
 }

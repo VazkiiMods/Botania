@@ -10,6 +10,15 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
@@ -26,9 +35,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-
 import org.apache.logging.log4j.Level;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -81,248 +88,280 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.GuiHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class CommonProxy {
 
-	public void preInit(FMLPreInitializationEvent event) {
-		BotaniaAPI.internalHandler = new InternalMethodHandler();
+    public void preInit(FMLPreInitializationEvent event) {
+        BotaniaAPI.internalHandler = new InternalMethodHandler();
 
-		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
+        ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 
-		ModBlocks.init();
-		ModItems.init();
-		ModEntities.init();
-		ModPotions.init();
-		ModBrews.init();
+        ModBlocks.init();
+        ModItems.init();
+        ModEntities.init();
+        ModPotions.init();
+        ModBrews.init();
 
-		ModCraftingRecipes.init();
-		ModPetalRecipes.init();
-		ModPureDaisyRecipes.init();
-		ModRuneRecipes.init();
-		ModManaAlchemyRecipes.init();
-		ModManaConjurationRecipes.init();
-		ModManaInfusionRecipes.init();
-		ModElvenTradeRecipes.init();
-		ModBrewRecipes.init();
-		ModAchievements.init();
-		ModMultiblocks.init();
+        ModCraftingRecipes.init();
+        ModPetalRecipes.init();
+        ModPureDaisyRecipes.init();
+        ModRuneRecipes.init();
+        ModManaAlchemyRecipes.init();
+        ModManaConjurationRecipes.init();
+        ModManaInfusionRecipes.init();
+        ModElvenTradeRecipes.init();
+        ModBrewRecipes.init();
+        ModAchievements.init();
+        ModMultiblocks.init();
 
-		if(Botania.etFuturumLoaded)
-			ModBanners.init();
+        if (Botania.etFuturumLoaded) ModBanners.init();
 
-		ChestGenHandler.init();
+        ChestGenHandler.init();
 
-		if(Botania.gardenOfGlassLoaded)
-			new WorldTypeSkyblock();
+        if (Botania.gardenOfGlassLoaded) new WorldTypeSkyblock();
 
-		LexiconData.preInit();
-	}
+        LexiconData.preInit();
+    }
 
-	public void init(FMLInitializationEvent event) {
-		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
+    public void init(FMLInitializationEvent event) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
-		MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
-		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
-		MinecraftForge.EVENT_BUS.register(new PixieHandler());
-		MinecraftForge.EVENT_BUS.register(new SheddingHandler());
-		MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
-		MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
-		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
+        MinecraftForge.TERRAIN_GEN_BUS.register(new BiomeDecorationHandler());
+        MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
+        MinecraftForge.EVENT_BUS.register(new PixieHandler());
+        MinecraftForge.EVENT_BUS.register(new SheddingHandler());
+        MinecraftForge.EVENT_BUS.register(new SpawnerChangingHandler());
+        MinecraftForge.EVENT_BUS.register(new SubTileNarslimmus.SpawnIntercepter());
+        MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 
-		if(Botania.gardenOfGlassLoaded)
-			MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
+        if (Botania.gardenOfGlassLoaded) MinecraftForge.EVENT_BUS.register(new SkyblockWorldEvents());
 
-		FMLCommonHandler.instance().bus().register(new CommonTickHandler());
+        FMLCommonHandler.instance().bus().register(new CommonTickHandler());
 
-		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
+        FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
-		if(Botania.bcTriggersLoaded)
-			new StatementAPIPlugin();
+        if (Botania.bcTriggersLoaded) new StatementAPIPlugin();
 
-		LexiconData.init();
-	}
+        LexiconData.init();
+    }
 
-	public void postInit(FMLPostInitializationEvent event) {
-		if(Botania.thaumcraftLoaded) {
-			ModBrews.initTC();
-			ModBrewRecipes.initTC();
-		}
+    public void postInit(FMLPostInitializationEvent event) {
+        if (Botania.thaumcraftLoaded) {
+            ModBrews.initTC();
+            ModBrewRecipes.initTC();
+        }
 
-		ModBlocks.addDispenserBehaviours();
-		ModBlocks.registerMultiparts();
-		ConfigHandler.loadPostInit();
-		LexiconData.postInit();
+        ModBlocks.addDispenserBehaviours();
+        ModBlocks.registerMultiparts();
+        ConfigHandler.loadPostInit();
+        LexiconData.postInit();
 
-		registerNEIStuff();
+        registerNEIStuff();
 
-		int words = 0;
-		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
-			for(LexiconPage page : entry.pages) {
-				words += countWords(page.getUnlocalizedName());
-				if(page instanceof ITwoNamedPage)
-					words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName());
-			}
-		FMLLog.log(Level.INFO, "[Botania] The Lexica Botania has %d words.", words);
+        int words = 0;
+        for (LexiconEntry entry : BotaniaAPI.getAllEntries())
+            for (LexiconPage page : entry.pages) {
+                words += countWords(page.getUnlocalizedName());
+                if (page instanceof ITwoNamedPage)
+                    words += countWords(((ITwoNamedPage) page).getSecondUnlocalizedName());
+            }
+        FMLLog.log(Level.INFO, "[Botania] The Lexica Botania has %d words.", words);
 
-		registerDefaultEntityBlacklist();
-	}
+        registerDefaultEntityBlacklist();
+    }
 
-	private int countWords(String s) {
-		String s1 = StatCollector.translateToLocal(s);
-		return s1.split(" ").length;
-	}
+    private int countWords(String s) {
+        String s1 = StatCollector.translateToLocal(s);
+        return s1.split(" ").length;
+    }
 
-	private void registerDefaultEntityBlacklist() {
-		// Vanilla
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragon.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragonPart.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityWither.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityItemFrame.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityEnderCrystal.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityPainting.class);
+    private void registerDefaultEntityBlacklist() {
+        // Vanilla
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityDragon.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityDragonPart.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityWither.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityItemFrame.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityEnderCrystal.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityPainting.class);
 
-		// Botania
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityCorporeaSpark.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityDoppleganger.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityFlameRing.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicLandmine.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicMissile.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityManaBurst.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityPinkWither.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntitySignalFlare.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntitySpark.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityPlayerMover.class);
-	}
+        // Botania
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityCorporeaSpark.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityDoppleganger.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityFlameRing.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicLandmine.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityMagicMissile.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityManaBurst.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityPinkWither.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntitySignalFlare.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntitySpark.class);
+        BotaniaAPI.blacklistEntityFromGravityRod(EntityPlayerMover.class);
+    }
 
-	// Overriding the internal method handler will break everything as it changes regularly.
-	// So just don't be a moron and don't override it. Thanks.
-	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
-		String clname = BotaniaAPI.internalHandler.getClass().getName();
-		String expect = "vazkii.botania.common.core.handler.InternalMethodHandler";
-		if(!clname.equals(expect)) {
-			new IllegalAccessError("The Botania API internal method handler has been overriden. "
-					+ "This will cause crashes and compatibility issues, and that's why it's marked as"
-					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
-					+ " back to elementary school and learn to read. (Expected classname: " + expect + ", Actual classname: " + clname + ")").printStackTrace();
-			FMLCommonHandler.instance().exitJava(1, true);
-		}
-	}
+    // Overriding the internal method handler will break everything as it changes regularly.
+    // So just don't be a moron and don't override it. Thanks.
+    public void serverAboutToStart(FMLServerAboutToStartEvent event) {
+        String clname = BotaniaAPI.internalHandler.getClass().getName();
+        String expect = "vazkii.botania.common.core.handler.InternalMethodHandler";
+        if (!clname.equals(expect)) {
+            new IllegalAccessError("The Botania API internal method handler has been overriden. "
+                            + "This will cause crashes and compatibility issues, and that's why it's marked as"
+                            + " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
+                            + " back to elementary school and learn to read. (Expected classname: " + expect
+                            + ", Actual classname: " + clname + ")")
+                    .printStackTrace();
+            FMLCommonHandler.instance().exitJava(1, true);
+        }
+    }
 
-	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandShare());
-		event.registerServerCommand(new CommandOpen());
-		if(Botania.gardenOfGlassLoaded)
-			event.registerServerCommand(new CommandSkyblockSpread());
-	}
+    public void serverStarting(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandShare());
+        event.registerServerCommand(new CommandOpen());
+        if (Botania.gardenOfGlassLoaded) event.registerServerCommand(new CommandSkyblockSpread());
+    }
 
-	public void registerNEIStuff() {
-		// NO-OP
-	}
+    public void registerNEIStuff() {
+        // NO-OP
+    }
 
-	public void setEntryToOpen(LexiconEntry entry) {
-		// NO-OP
-	}
+    public void setEntryToOpen(LexiconEntry entry) {
+        // NO-OP
+    }
 
-	public void setToTutorialIfFirstLaunch() {
-		// NO-OP
-	}
+    public void setToTutorialIfFirstLaunch() {
+        // NO-OP
+    }
 
-	public void setLexiconStack(ItemStack stack) {
-		// NO-OP
-	}
+    public void setLexiconStack(ItemStack stack) {
+        // NO-OP
+    }
 
-	public boolean isTheClientPlayer(EntityLivingBase entity) {
-		return false;
-	}
+    public boolean isTheClientPlayer(EntityLivingBase entity) {
+        return false;
+    }
 
-	public boolean isClientPlayerWearingMonocle() {
-		return false;
-	}
+    public boolean isClientPlayerWearingMonocle() {
+        return false;
+    }
 
-	public void setExtraReach(EntityLivingBase entity, float reach) {
-		if(entity instanceof EntityPlayerMP)
-			((EntityPlayerMP) entity).theItemInWorldManager.setBlockReachDistance(Math.max(5, ((EntityPlayerMP) entity).theItemInWorldManager.getBlockReachDistance() + reach));
-	}
+    public void setExtraReach(EntityLivingBase entity, float reach) {
+        if (entity instanceof EntityPlayerMP)
+            ((EntityPlayerMP) entity)
+                    .theItemInWorldManager.setBlockReachDistance(Math.max(
+                            5, ((EntityPlayerMP) entity).theItemInWorldManager.getBlockReachDistance() + reach));
+    }
 
-	public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
-		return false;
-	}
+    public boolean openWikiPage(World world, Block block, MovingObjectPosition pos) {
+        return false;
+    }
 
-	public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
-		// NO-OP
-	}
+    public void playRecordClientSided(World world, int x, int y, int z, ItemRecord record) {
+        // NO-OP
+    }
 
-	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
-		// NO-OP
-	}
+    public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {
+        // NO-OP
+    }
 
-	public void removeSextantMultiblock() {
-		// NO-OP
-	}
+    public void removeSextantMultiblock() {
+        // NO-OP
+    }
 
-	public long getWorldElapsedTicks() {
-		return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
-	}
+    public long getWorldElapsedTicks() {
+        return MinecraftServer.getServer().worldServers[0].getTotalWorldTime();
+    }
 
-	public void setSparkleFXNoClip(boolean noclip) {
-		// NO-OP
-	}
+    public void setSparkleFXNoClip(boolean noclip) {
+        // NO-OP
+    }
 
-	public void setSparkleFXCorrupt(boolean corrupt) {
-		// NO-OP
-	}
+    public void setSparkleFXCorrupt(boolean corrupt) {
+        // NO-OP
+    }
 
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
-		sparkleFX(world, x, y, z, r, g, b, size, m, false);
-	}
+    public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+        sparkleFX(world, x, y, z, r, g, b, size, m, false);
+    }
 
-	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
-		// NO-OP
-	}
+    public void sparkleFX(
+            World world, double x, double y, double z, float r, float g, float b, float size, int m, boolean fake) {
+        // NO-OP
+    }
 
-	public void setWispFXDistanceLimit(boolean limit) {
-		// NO-OP
-	}
+    public void setWispFXDistanceLimit(boolean limit) {
+        // NO-OP
+    }
 
-	public void setWispFXDepthTest(boolean depth) {
-		// NO-OP
-	}
+    public void setWispFXDepthTest(boolean depth) {
+        // NO-OP
+    }
 
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
-		wispFX(world, x, y, z, r, g, b, size, 0F);
-	}
+    public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size) {
+        wispFX(world, x, y, z, r, g, b, size, 0F);
+    }
 
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
-		wispFX(world, x, y, z, r, g, b, size, gravity, 1F);
-	}
+    public void wispFX(
+            World world, double x, double y, double z, float r, float g, float b, float size, float gravity) {
+        wispFX(world, x, y, z, r, g, b, size, gravity, 1F);
+    }
 
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float gravity, float maxAgeMul) {
-		wispFX(world, x, y, z, r, g, b, size, 0, -gravity, 0, maxAgeMul);
-	}
+    public void wispFX(
+            World world,
+            double x,
+            double y,
+            double z,
+            float r,
+            float g,
+            float b,
+            float size,
+            float gravity,
+            float maxAgeMul) {
+        wispFX(world, x, y, z, r, g, b, size, 0, -gravity, 0, maxAgeMul);
+    }
 
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz) {
-		wispFX(world, x, y, z, r, g, b, size, motionx, motiony, motionz, 1F);
-	}
+    public void wispFX(
+            World world,
+            double x,
+            double y,
+            double z,
+            float r,
+            float g,
+            float b,
+            float size,
+            float motionx,
+            float motiony,
+            float motionz) {
+        wispFX(world, x, y, z, r, g, b, size, motionx, motiony, motionz, 1F);
+    }
 
-	public void wispFX(World world, double x, double y, double z, float r, float g, float b, float size, float motionx, float motiony, float motionz, float maxAgeMul) {
-		// NO-OP
-	}
+    public void wispFX(
+            World world,
+            double x,
+            double y,
+            double z,
+            float r,
+            float g,
+            float b,
+            float size,
+            float motionx,
+            float motiony,
+            float motionz,
+            float maxAgeMul) {
+        // NO-OP
+    }
 
-	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
-		lightningFX(world, vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
-	}
+    public void lightningFX(
+            World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
+        lightningFX(world, vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
+    }
 
-	public void lightningFX(World world, Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		// NO-OP
-	}
-
+    public void lightningFX(
+            World world,
+            Vector3 vectorStart,
+            Vector3 vectorEnd,
+            float ticksPerMeter,
+            long seed,
+            int colorOuter,
+            int colorInner) {
+        // NO-OP
+    }
 }

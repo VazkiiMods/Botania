@@ -7,19 +7,18 @@ import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 
 public class BlockLivingwoodSlab extends BlockLivingSlab {
 
-	public BlockLivingwoodSlab(boolean full) {
-		super(full, ModBlocks.livingwood, 0);
-		setHardness(2.0F);
-	}
+    public BlockLivingwoodSlab(boolean full) {
+        super(full, ModBlocks.livingwood, 0);
+        setHardness(2.0F);
+    }
 
-	@Override
-	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModFluffBlocks.livingwoodSlabFull;
-	}
+    @Override
+    public BlockSlab getFullBlock() {
+        return (BlockSlab) ModFluffBlocks.livingwoodSlabFull;
+    }
 
-	@Override
-	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModFluffBlocks.livingwoodSlab;
-	}
-
+    @Override
+    public BlockSlab getSingleBlock() {
+        return (BlockSlab) ModFluffBlocks.livingwoodSlab;
+    }
 }

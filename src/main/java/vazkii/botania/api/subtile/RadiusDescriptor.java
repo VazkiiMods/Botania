@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 31, 2015, 2:59:19 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
@@ -19,71 +19,75 @@ import net.minecraft.util.ChunkCoordinates;
  */
 public class RadiusDescriptor {
 
-	final ChunkCoordinates subtileCoords;
+    final ChunkCoordinates subtileCoords;
 
-	public RadiusDescriptor(ChunkCoordinates subtileCoords) {
-		this.subtileCoords = subtileCoords;
-	}
+    public RadiusDescriptor(ChunkCoordinates subtileCoords) {
+        this.subtileCoords = subtileCoords;
+    }
 
-	public ChunkCoordinates getSubtileCoords() {
-		return subtileCoords;
-	}
+    public ChunkCoordinates getSubtileCoords() {
+        return subtileCoords;
+    }
 
-	public boolean isCircle() {
-		return false;
-	}
+    public boolean isCircle() {
+        return false;
+    }
 
-	public double getCircleRadius() {
-		return 0;
-	}
+    public double getCircleRadius() {
+        return 0;
+    }
 
-	public AxisAlignedBB getAABB() {
-		return null;
-	}
+    public AxisAlignedBB getAABB() {
+        return null;
+    }
 
-	public static class Circle extends RadiusDescriptor {
+    public static class Circle extends RadiusDescriptor {
 
-		final double radius;
+        final double radius;
 
-		public Circle(ChunkCoordinates subtileCoords, double radius) {
-			super(subtileCoords);
-			this.radius = radius;
-		}
+        public Circle(ChunkCoordinates subtileCoords, double radius) {
+            super(subtileCoords);
+            this.radius = radius;
+        }
 
-		@Override
-		public boolean isCircle() {
-			return true;
-		}
+        @Override
+        public boolean isCircle() {
+            return true;
+        }
 
-		@Override
-		public double getCircleRadius() {
-			return radius;
-		}
+        @Override
+        public double getCircleRadius() {
+            return radius;
+        }
+    }
 
-	}
+    public static class Rectangle extends RadiusDescriptor {
 
-	public static class Rectangle extends RadiusDescriptor {
+        final AxisAlignedBB aabb;
 
-		final AxisAlignedBB aabb;
+        public Rectangle(ChunkCoordinates subtileCoords, AxisAlignedBB aabb) {
+            super(subtileCoords);
+            this.aabb = aabb;
+        }
 
-		public Rectangle(ChunkCoordinates subtileCoords, AxisAlignedBB aabb) {
-			super(subtileCoords);
-			this.aabb = aabb;
-		}
+        @Override
+        public AxisAlignedBB getAABB() {
+            return aabb;
+        }
+    }
 
-		@Override
-		public AxisAlignedBB getAABB() {
-			return aabb;
-		}
+    public static class Square extends Rectangle {
 
-	}
-
-	public static class Square extends Rectangle {
-
-		public Square(ChunkCoordinates subtileCoords, int expand) {
-			super(subtileCoords, AxisAlignedBB.getBoundingBox(subtileCoords.posX - expand, subtileCoords.posY, subtileCoords.posZ - expand, subtileCoords.posX + 1 + expand, subtileCoords.posY, subtileCoords.posZ + 1 + expand));
-		}
-
-	}
-
+        public Square(ChunkCoordinates subtileCoords, int expand) {
+            super(
+                    subtileCoords,
+                    AxisAlignedBB.getBoundingBox(
+                            subtileCoords.posX - expand,
+                            subtileCoords.posY,
+                            subtileCoords.posZ - expand,
+                            subtileCoords.posX + 1 + expand,
+                            subtileCoords.posY,
+                            subtileCoords.posZ + 1 + expand));
+        }
+    }
 }

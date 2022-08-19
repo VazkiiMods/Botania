@@ -6,13 +6,12 @@ import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemBlockDreamwood extends ItemBlockWithMetadataAndName implements IElvenItem {
 
-	public ItemBlockDreamwood(Block block) {
-		super(block);
-	}
+    public ItemBlockDreamwood(Block block) {
+        super(block);
+    }
 
-	@Override
-	public boolean isElvenItem(ItemStack stack) {
-		return true;
-	}
-
+    @Override
+    public boolean isElvenItem(ItemStack stack) {
+        return true;
+    }
 }

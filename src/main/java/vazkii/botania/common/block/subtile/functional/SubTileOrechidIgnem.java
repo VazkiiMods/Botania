@@ -2,16 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 30, 2015, 3:27:20 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
 import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.BotaniaAPI;
@@ -20,36 +19,35 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
 
-	private static final int COST = 20000;
+    private static final int COST = 20000;
 
-	@Override
-	public boolean canOperate() {
-		return supertile.getWorldObj().provider.isHellWorld;
-	}
+    @Override
+    public boolean canOperate() {
+        return supertile.getWorldObj().provider.isHellWorld;
+    }
 
-	@Override
-	public Map<String, Integer> getOreMap() {
-		return BotaniaAPI.oreWeightsNether;
-	}
+    @Override
+    public Map<String, Integer> getOreMap() {
+        return BotaniaAPI.oreWeightsNether;
+    }
 
-	@Override
-	public Block getSourceBlock() {
-		return Blocks.netherrack;
-	}
+    @Override
+    public Block getSourceBlock() {
+        return Blocks.netherrack;
+    }
 
-	@Override
-	public int getCost() {
-		return COST;
-	}
+    @Override
+    public int getCost() {
+        return COST;
+    }
 
-	@Override
-	public int getColor() {
-		return 0xAE3030;
-	}
+    @Override
+    public int getColor() {
+        return 0xAE3030;
+    }
 
-	@Override
-	public LexiconEntry getEntry() {
-		return LexiconData.orechidIgnem;
-	}
-
+    @Override
+    public LexiconEntry getEntry() {
+        return LexiconData.orechidIgnem;
+    }
 }

@@ -12,30 +12,29 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockPrismarineSlab extends BlockLivingSlab {
 
-	public BlockPrismarineSlab(boolean full) {
-		this(full, 0);
-	}
+    public BlockPrismarineSlab(boolean full) {
+        this(full, 0);
+    }
 
-	public BlockPrismarineSlab(boolean full, int meta) {
-		super(full, ModBlocks.prismarine, meta);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setStepSound(soundTypeStone);
-	}
+    public BlockPrismarineSlab(boolean full, int meta) {
+        super(full, ModBlocks.prismarine, meta);
+        setHardness(2.0F);
+        setResistance(10.0F);
+        setStepSound(soundTypeStone);
+    }
 
-	@Override
-	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModFluffBlocks.prismarineSlabFull;
-	}
+    @Override
+    public BlockSlab getFullBlock() {
+        return (BlockSlab) ModFluffBlocks.prismarineSlabFull;
+    }
 
-	@Override
-	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModFluffBlocks.prismarineSlab;
-	}
+    @Override
+    public BlockSlab getSingleBlock() {
+        return (BlockSlab) ModFluffBlocks.prismarineSlab;
+    }
 
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.prismarine;
-	}
-
+    @Override
+    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+        return LexiconData.prismarine;
+    }
 }

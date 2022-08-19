@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 17, 2014, 6:34:36 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
@@ -20,51 +20,46 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class SpecialFloatingFlowerRecipe implements IRecipe {
 
-	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
-		boolean foundFloatingFlower = false;
-		boolean foundSpecialFlower = false;
+    @Override
+    public boolean matches(InventoryCrafting var1, World var2) {
+        boolean foundFloatingFlower = false;
+        boolean foundSpecialFlower = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
-				if(stack.getItem() == Item.getItemFromBlock(ModBlocks.floatingFlower))
-					foundFloatingFlower = true;
+        for (int i = 0; i < var1.getSizeInventory(); i++) {
+            ItemStack stack = var1.getStackInSlot(i);
+            if (stack != null) {
+                if (stack.getItem() == Item.getItemFromBlock(ModBlocks.floatingFlower)) foundFloatingFlower = true;
+                else if (stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower)) foundSpecialFlower = true;
+                else return false; // Found an invalid item, breaking the recipe
+            }
+        }
 
-				else if(stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
-					foundSpecialFlower = true;
+        return foundFloatingFlower && foundSpecialFlower;
+    }
 
-				else return false; // Found an invalid item, breaking the recipe
-			}
-		}
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting var1) {
+        ItemStack specialFlower = null;
 
-		return foundFloatingFlower && foundSpecialFlower;
-	}
+        for (int i = 0; i < var1.getSizeInventory(); i++) {
+            ItemStack stack = var1.getStackInSlot(i);
+            if (stack != null && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
+                specialFlower = stack;
+        }
 
-	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
-		ItemStack specialFlower = null;
+        if (specialFlower == null) return null;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
-				specialFlower = stack;
-		}
+        return ItemBlockSpecialFlower.ofType(
+                new ItemStack(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower.getType(specialFlower));
+    }
 
-		if(specialFlower == null)
-			return null;
+    @Override
+    public int getRecipeSize() {
+        return 10;
+    }
 
-		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower.getType(specialFlower));
-	}
-
-	@Override
-	public int getRecipeSize() {
-		return 10;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return null;
-	}
-
+    @Override
+    public ItemStack getRecipeOutput() {
+        return null;
+    }
 }

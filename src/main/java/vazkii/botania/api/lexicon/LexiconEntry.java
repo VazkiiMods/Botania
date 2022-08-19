@@ -2,165 +2,160 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:17:06 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
-	public final String unlocalizedName;
-	public final LexiconCategory category;
+    public final String unlocalizedName;
+    public final LexiconCategory category;
 
-	private KnowledgeType type = BotaniaAPI.basicKnowledge;
+    private KnowledgeType type = BotaniaAPI.basicKnowledge;
 
-	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
-	private boolean priority = false;
-	private ItemStack icon = null;
-	
-	private List<ItemStack> extraDisplayedRecipes = new ArrayList();
+    public List<LexiconPage> pages = new ArrayList<LexiconPage>();
+    private boolean priority = false;
+    private ItemStack icon = null;
 
-	/**
-	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
-	 */
-	public LexiconEntry(String unlocalizedName, LexiconCategory category) {
-		this.unlocalizedName = unlocalizedName;
-		this.category = category;
-	}
+    private List<ItemStack> extraDisplayedRecipes = new ArrayList();
 
-	/**
-	 * Sets this page as prioritized, as in, will appear before others in the lexicon.
-	 */
-	public LexiconEntry setPriority() {
-		priority = true;
-		return this;
-	}
+    /**
+     * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
+     */
+    public LexiconEntry(String unlocalizedName, LexiconCategory category) {
+        this.unlocalizedName = unlocalizedName;
+        this.category = category;
+    }
 
-	/**
-	 * Sets the Knowledge type of this entry.
-	 */
-	public LexiconEntry setKnowledgeType(KnowledgeType type) {
-		this.type = type;
-		return this;
-	}
+    /**
+     * Sets this page as prioritized, as in, will appear before others in the lexicon.
+     */
+    public LexiconEntry setPriority() {
+        priority = true;
+        return this;
+    }
 
-	public KnowledgeType getKnowledgeType() {
-		return type;
-	}
+    /**
+     * Sets the Knowledge type of this entry.
+     */
+    public LexiconEntry setKnowledgeType(KnowledgeType type) {
+        this.type = type;
+        return this;
+    }
 
-	/**
-	 * Sets the display icon for this entry. Overriding the one already there. When adding recipe pages to the
-	 * entry, this will be called once for the result of the first found recipe.
-	 */
-	public void setIcon(ItemStack stack) {
-		icon = stack;
-	}
+    public KnowledgeType getKnowledgeType() {
+        return type;
+    }
 
-	public ItemStack getIcon() {
-		return icon;
-	}
+    /**
+     * Sets the display icon for this entry. Overriding the one already there. When adding recipe pages to the
+     * entry, this will be called once for the result of the first found recipe.
+     */
+    public void setIcon(ItemStack stack) {
+        icon = stack;
+    }
 
-	public boolean isPriority() {
-		return priority;
-	}
+    public ItemStack getIcon() {
+        return icon;
+    }
 
-	public String getUnlocalizedName() {
-		return unlocalizedName;
-	}
+    public boolean isPriority() {
+        return priority;
+    }
 
-	public String getTagline() {
-		return null; // Override this if you want a tagline. You probably do
-	}
+    public String getUnlocalizedName() {
+        return unlocalizedName;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public boolean isVisible() {
-		return true;
-	}
+    public String getTagline() {
+        return null; // Override this if you want a tagline. You probably do
+    }
 
-	/**
-	 * Sets what pages you want this entry to have.
-	 */
-	public LexiconEntry setLexiconPages(LexiconPage... pages) {
-		this.pages.addAll(Arrays.asList(pages));
+    @SideOnly(Side.CLIENT)
+    public boolean isVisible() {
+        return true;
+    }
 
-		for(int i = 0; i < this.pages.size(); i++) {
-			LexiconPage page = this.pages.get(i);
-			if(!page.skipRegistry)
-				page.onPageAdded(this, i);
-		}
+    /**
+     * Sets what pages you want this entry to have.
+     */
+    public LexiconEntry setLexiconPages(LexiconPage... pages) {
+        this.pages.addAll(Arrays.asList(pages));
 
-		return this;
-	}
+        for (int i = 0; i < this.pages.size(); i++) {
+            LexiconPage page = this.pages.get(i);
+            if (!page.skipRegistry) page.onPageAdded(this, i);
+        }
 
-	/**
-	 * Returns the web link for this entry. If this isn't null, looking at this entry will
-	 * show a "View Online" button in the book. The String returned should be the URL to
-	 * open when the button is clicked.
-	 */
-	public String getWebLink() {
-		return null;
-	}
+        return this;
+    }
 
-	/**
-	 * Adds a page to the list of pages.
-	 */
-	public void addPage(LexiconPage page) {
-		pages.add(page);
-	}
+    /**
+     * Returns the web link for this entry. If this isn't null, looking at this entry will
+     * show a "View Online" button in the book. The String returned should be the URL to
+     * open when the button is clicked.
+     */
+    public String getWebLink() {
+        return null;
+    }
 
-	public final String getNameForSorting() {
-		return (priority ? 0 : 1) + StatCollector.translateToLocal(getUnlocalizedName());
-	}
+    /**
+     * Adds a page to the list of pages.
+     */
+    public void addPage(LexiconPage page) {
+        pages.add(page);
+    }
 
-	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
-		for(LexiconPage page : pages) {
-			List<ItemStack> l = page.getDisplayedRecipes();
+    public final String getNameForSorting() {
+        return (priority ? 0 : 1) + StatCollector.translateToLocal(getUnlocalizedName());
+    }
 
-			if(l != null) {
-				ArrayList<ItemStack> itemsAddedThisPage = new ArrayList();
+    public List<ItemStack> getDisplayedRecipes() {
+        ArrayList<ItemStack> list = new ArrayList();
+        for (LexiconPage page : pages) {
+            List<ItemStack> l = page.getDisplayedRecipes();
 
-				for(ItemStack s : l) {
-					addItem: {
-					for(ItemStack s1 : itemsAddedThisPage)
-						if(s1.getItem() == s.getItem())
-							break addItem;
-					for(ItemStack s1 : list)
-						if(s1.isItemEqual(s) && ItemStack.areItemStackTagsEqual(s1, s))
-							break addItem;
+            if (l != null) {
+                ArrayList<ItemStack> itemsAddedThisPage = new ArrayList();
 
-					itemsAddedThisPage.add(s);
-					list.add(s);
-				}
-				}
-			}
-		}
-		
-		list.addAll(extraDisplayedRecipes);
+                for (ItemStack s : l) {
+                    addItem:
+                    {
+                        for (ItemStack s1 : itemsAddedThisPage) if (s1.getItem() == s.getItem()) break addItem;
+                        for (ItemStack s1 : list)
+                            if (s1.isItemEqual(s) && ItemStack.areItemStackTagsEqual(s1, s)) break addItem;
 
-		return list;
-	}
-	
-	public void addExtraDisplayedRecipe(ItemStack stack) {
-		extraDisplayedRecipes.add(stack);
-	}
+                        itemsAddedThisPage.add(s);
+                        list.add(s);
+                    }
+                }
+            }
+        }
 
-	@Override
-	public int compareTo(LexiconEntry o) {
-		return getNameForSorting().compareTo(o.getNameForSorting());
-	}
+        list.addAll(extraDisplayedRecipes);
 
+        return list;
+    }
+
+    public void addExtraDisplayedRecipe(ItemStack stack) {
+        extraDisplayedRecipes.add(stack);
+    }
+
+    @Override
+    public int compareTo(LexiconEntry o) {
+        return getNameForSorting().compareTo(o.getNameForSorting());
+    }
 }

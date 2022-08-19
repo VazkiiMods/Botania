@@ -5,8 +5,7 @@ import vazkii.botania.common.block.decor.stairs.BlockLivingStairs;
 
 public class BlockLivingwoodPlankStairs extends BlockLivingStairs {
 
-	public BlockLivingwoodPlankStairs() {
-		super(ModBlocks.livingwood, 1);
-	}
-
+    public BlockLivingwoodPlankStairs() {
+        super(ModBlocks.livingwood, 1);
+    }
 }
