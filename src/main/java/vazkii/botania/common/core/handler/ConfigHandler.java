@@ -101,6 +101,11 @@ public final class ConfigHandler {
 	public static double flowerTallChance = 0.05;
 	public static int mushroomQuantity = 40;
 
+	public static int[] flowerDimensionWhitelist = new int[]{};
+	public static int[] flowerDimensionBlacklist = new int[]{};
+	public static int[] mushroomDimensionWhitelist = new int[]{};
+	public static int[] mushroomDimensionBlacklist = new int[]{};
+
 	private static boolean verifiedPotionArray = false;
 	private static int potionArrayLimit = 0;
 
@@ -286,6 +291,18 @@ public final class ConfigHandler {
 		desc = "Enables all built-in recipes. This can be false for expert modpacks that wish to supply their own.";
 		enableDefaultRecipes = loadPropBool("recipes.enabled", desc, enableDefaultRecipes);
 
+		desc = "Whitelist of which dimension generates Botania flowers. Empty means any dimension can.";
+		flowerDimensionWhitelist = loadPropIntArray("worldgen.flower.dimensionWhitelist", desc, flowerDimensionWhitelist);
+
+		desc = "Blacklist of which dimension generates Botania flowers.";
+		flowerDimensionBlacklist = loadPropIntArray("worldgen.flower.dimensionBlacklist", desc, flowerDimensionBlacklist);
+
+		desc = "Whitelist of which dimension generates Botania mushrooms. Empty means any dimension can.";
+		mushroomDimensionWhitelist = loadPropIntArray("worldgen.mushroom.dimensionWhitelist", desc, mushroomDimensionWhitelist);
+
+		desc = "Blacklist of which dimension generates Botania mushrooms.";
+		mushroomDimensionBlacklist = loadPropIntArray("worldgen.mushroom.dimensionBlacklist", desc, mushroomDimensionBlacklist);
+
 		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross);
 		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);
 		potionIDEmptiness = loadPropPotionId(LibPotionNames.EMPTINESS, potionIDEmptiness);
@@ -332,6 +349,16 @@ public final class ConfigHandler {
 			adaptor.adaptPropertyBool(prop, prop.getBoolean(default_));
 
 		return prop.getBoolean(default_);
+	}
+
+	public static int[] loadPropIntArray(String propName, String desc, int[] intArray) {
+		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, intArray);
+		prop.comment = desc;
+
+		if(adaptor != null)
+			adaptor.adaptPropertyIntArray(prop, prop.getIntList());
+
+		return prop.getIntList();
 	}
 
 	public static int loadPropPotionId(String propName, int default_) {
@@ -453,6 +480,10 @@ public final class ConfigHandler {
 
 		public void adaptPropertyBool(Property prop, boolean val) {
 			this.<Boolean>adaptProperty(prop, val);
+		}
+
+		public void adaptPropertyIntArray(Property prop, int[] val) {
+			this.<int[]>adaptProperty(prop, val);
 		}
 
 		public static class AdaptableValue<T> {
