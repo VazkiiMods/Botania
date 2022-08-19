@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
+ * 
  * File Created @ [04/12/2015, 16:47:01 (GMT)]
  */
 package vazkii.botania.api.subtile.signature;
@@ -23,4 +23,6 @@ import java.lang.annotation.Target;
  */
 @Retention(value = RUNTIME)
 @Target(value = TYPE)
-public @interface PassiveFlower {}
+public @interface PassiveFlower {
+
+}

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
+ * 
  * File Created @ [15/11/2015, 19:28:18 (GMT)]
  */
 package vazkii.botania.api.mana;
@@ -17,13 +17,13 @@ package vazkii.botania.api.mana;
  */
 public interface IRedirectable extends IDirectioned {
 
-    public void setRotationX(float rot);
+	public void setRotationX(float rot);
 
-    public void setRotationY(float rot);
+	public void setRotationY(float rot);
 
-    /**
-     * This should be called after rotation setting is done to allow
-     * for the block to re-calculate.
-     */
-    public void commitRedirection();
+	/**
+	 * This should be called after rotation setting is done to allow
+	 * for the block to re-calculate.
+	 */
+	public void commitRedirection();
 }

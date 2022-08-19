@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
+ * 
  * File Created @ [May 30, 2015, 10:54:30 PM (GMT)]
  */
 package vazkii.botania.common.lexicon;
@@ -20,20 +20,22 @@ import vazkii.botania.common.lib.LibLexicon;
 
 public class WLexiconEntry extends BLexiconEntry {
 
-    private static final int PAGES = 7;
+	private static final int PAGES = 7;
 
-    public WLexiconEntry() {
-        super(LibLexicon.BASICS_WELCOME, BotaniaAPI.categoryBasics);
-        setPriority();
-        setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
+	public WLexiconEntry() {
+		super(LibLexicon.BASICS_WELCOME, BotaniaAPI.categoryBasics);
+		setPriority();
+		setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
 
-        LexiconPage[] pages = new LexiconPage[PAGES];
-        for (int i = 0; i < PAGES; i++) pages[i] = new PageText("" + i);
-        setLexiconPages(pages);
-    }
+		LexiconPage[] pages = new LexiconPage[PAGES];
+		for(int i = 0; i < PAGES; i++)
+			pages[i] = new PageText("" + i);
+		setLexiconPages(pages);
+	}
 
-    @Override
-    public int compareTo(LexiconEntry o) {
-        return -1;
-    }
+	@Override
+	public int compareTo(LexiconEntry o) {
+		return -1;
+	}
+
 }

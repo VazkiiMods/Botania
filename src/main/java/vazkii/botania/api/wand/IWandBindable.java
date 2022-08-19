@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
+ * 
  * File Created @ [Oct 9, 2014, 3:01:58 PM (GMT)]
  */
 package vazkii.botania.api.wand;
@@ -20,14 +20,15 @@ import net.minecraft.item.ItemStack;
  */
 public interface IWandBindable extends ITileBound {
 
-    /**
-     * Return true if the Wand can select this tile.
-     */
-    public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side);
+	/**
+	 * Return true if the Wand can select this tile.
+	 */
+	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side);
 
-    /**
-     * Call to bind the TileEntity to where the player clicked. Return true to deselect
-     * the TileEntity for another bind or false case the TileEntity should stay selected.
-     */
-    public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side);
+	/**
+	 * Call to bind the TileEntity to where the player clicked. Return true to deselect
+	 * the TileEntity for another bind or false case the TileEntity should stay selected.
+	 */
+	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side);
+
 }

@@ -7,20 +7,21 @@ import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 
 public class BlockLivingrockSlab extends BlockLivingSlab {
 
-    public BlockLivingrockSlab(boolean full) {
-        super(full, ModBlocks.livingrock, 0);
-        setHardness(2.0F);
-        setResistance(10.0F);
-        setStepSound(soundTypeStone);
-    }
+	public BlockLivingrockSlab(boolean full) {
+		super(full, ModBlocks.livingrock, 0);
+		setHardness(2.0F);
+		setResistance(10.0F);
+		setStepSound(soundTypeStone);
+	}
 
-    @Override
-    public BlockSlab getFullBlock() {
-        return (BlockSlab) ModFluffBlocks.livingrockSlabFull;
-    }
+	@Override
+	public BlockSlab getFullBlock() {
+		return (BlockSlab) ModFluffBlocks.livingrockSlabFull;
+	}
 
-    @Override
-    public BlockSlab getSingleBlock() {
-        return (BlockSlab) ModFluffBlocks.livingrockSlab;
-    }
+	@Override
+	public BlockSlab getSingleBlock() {
+		return (BlockSlab) ModFluffBlocks.livingrockSlab;
+	}
+
 }

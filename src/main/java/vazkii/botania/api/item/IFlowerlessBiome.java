@@ -9,15 +9,13 @@
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.api.item;
-
 import net.minecraft.world.World;
-
 /**
  * A BiomeGenBase that implements this will not have Botania flowers generated.
  */
 public interface IFlowerlessBiome {
-    /**
-     * @return Should this world be allowed to generate flowers?
-     */
-    public boolean canGenerateFlowers(World world, int x, int z);
+	/**
+	 * @return Should this world be allowed to generate flowers?
+	 */
+	public boolean canGenerateFlowers(World world, int x, int z);
 }

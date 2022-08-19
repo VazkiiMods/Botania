@@ -19,34 +19,35 @@ import net.minecraft.util.StatCollector;
 
 public class CommandShare extends CommandBase {
 
-    @Override
-    public String getCommandName() {
-        return "botania-share";
-    }
+	@Override
+	public String getCommandName() {
+		return "botania-share";
+	}
 
-    @Override
-    public String getCommandUsage(ICommandSender p_71518_1_) {
-        return "<entry>";
-    }
+	@Override
+	public String getCommandUsage(ICommandSender p_71518_1_) {
+		return "<entry>";
+	}
 
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) {
-        String json = StatCollector.translateToLocal("botaniamisc.shareMsg");
-        json = json.replaceAll("%name%", sender.getCommandSenderName());
-        json = json.replaceAll("%entry%", args[0]);
-        json = json.replaceAll("%entryname%", StatCollector.translateToLocal(args[0]));
+	@Override
+	public void processCommand(ICommandSender sender, String[] args) {
+		String json = StatCollector.translateToLocal("botaniamisc.shareMsg");
+		json = json.replaceAll("%name%", sender.getCommandSenderName());
+		json = json.replaceAll("%entry%", args[0]);
+		json = json.replaceAll("%entryname%", StatCollector.translateToLocal(args[0]));
 
-        IChatComponent component = IChatComponent.Serializer.func_150699_a(json);
-        MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
-    }
+		IChatComponent component = IChatComponent.Serializer.func_150699_a(json);
+		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
+	}
 
-    @Override
-    public int getRequiredPermissionLevel() {
-        return 0;
-    }
 
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
-        return p_71519_1_ instanceof EntityPlayer;
-    }
+	@Override
+	public int getRequiredPermissionLevel() {
+		return 0;
+	}
+
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
+		return p_71519_1_ instanceof EntityPlayer;
+	}
 }

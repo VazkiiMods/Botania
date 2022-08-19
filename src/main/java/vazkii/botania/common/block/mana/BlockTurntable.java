@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
+ * 
  * File Created @ [Mar 16, 2014, 10:08:14 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
@@ -31,44 +31,46 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockTurntable extends BlockModContainer implements IWandable, IWandHUD, ILexiconable {
 
-    IIcon[] icons;
+	IIcon[] icons;
 
-    public BlockTurntable() {
-        super(Material.wood);
-        setHardness(2.0F);
-        setStepSound(soundTypeWood);
-        setBlockName(LibBlockNames.TURNTABLE);
-    }
+	public BlockTurntable() {
+		super(Material.wood);
+		setHardness(2.0F);
+		setStepSound(soundTypeWood);
+		setBlockName(LibBlockNames.TURNTABLE);
+	}
 
-    @Override
-    public void registerBlockIcons(IIconRegister par1IconRegister) {
-        icons = new IIcon[2];
-        for (int i = 0; i < icons.length; i++) icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-    }
+	@Override
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		icons = new IIcon[2];
+		for(int i = 0; i < icons.length; i++)
+			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	}
 
-    @Override
-    public IIcon getIcon(int par1, int par2) {
-        return par1 == 1 ? icons[0] : icons[1];
-    }
+	@Override
+	public IIcon getIcon(int par1, int par2) {
+		return par1 == 1 ? icons[0] : icons[1];
+	}
 
-    @Override
-    public TileEntity createNewTileEntity(World world, int meta) {
-        return new TileTurntable();
-    }
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileTurntable();
+	}
 
-    @Override
-    public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
-        ((TileTurntable) world.getTileEntity(x, y, z)).renderHUD(mc, res);
-    }
+	@Override
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+		((TileTurntable) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+	}
 
-    @Override
-    public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
-        ((TileTurntable) world.getTileEntity(x, y, z)).onWanded(player, stack);
-        return true;
-    }
+	@Override
+	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side) {
+		((TileTurntable) world.getTileEntity(x, y, z)).onWanded(player, stack);
+		return true;
+	}
 
-    @Override
-    public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-        return LexiconData.turntable;
-    }
+	@Override
+	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+		return LexiconData.turntable;
+	}
+
 }

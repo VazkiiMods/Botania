@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * 
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
+ * 
  * File Created @ [Mar 13, 2014, 8:01:14 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
@@ -20,54 +20,63 @@ import vazkii.botania.common.item.ItemManaGun;
 
 public class ManaGunLensRecipe implements IRecipe {
 
-    @Override
-    public boolean matches(InventoryCrafting var1, World var2) {
-        boolean foundLens = false;
-        boolean foundGun = false;
+	@Override
+	public boolean matches(InventoryCrafting var1, World var2) {
+		boolean foundLens = false;
+		boolean foundGun = false;
 
-        for (int i = 0; i < var1.getSizeInventory(); i++) {
-            ItemStack stack = var1.getStackInSlot(i);
-            if (stack != null) {
-                if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null) foundGun = true;
-                else if (stack.getItem() instanceof ILens) {
-                    if (!(stack.getItem() instanceof ILensControl)
-                            || !((ILensControl) stack.getItem()).isControlLens(stack)) foundLens = true;
-                    else return false;
-                } else return false; // Found an invalid item, breaking the recipe
-            }
-        }
+		for(int i = 0; i < var1.getSizeInventory(); i++) {
+			ItemStack stack = var1.getStackInSlot(i);
+			if(stack != null) {
+				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null)
+					foundGun = true;
 
-        return foundLens && foundGun;
-    }
+				else if(stack.getItem() instanceof ILens) {
+					if(!(stack.getItem() instanceof ILensControl) || !((ILensControl) stack.getItem()).isControlLens(stack))
+						foundLens = true;
+					else return false;
+				}
 
-    @Override
-    public ItemStack getCraftingResult(InventoryCrafting var1) {
-        ItemStack lens = null;
-        ItemStack gun = null;
+				else return false; // Found an invalid item, breaking the recipe
+			}
+		}
 
-        for (int i = 0; i < var1.getSizeInventory(); i++) {
-            ItemStack stack = var1.getStackInSlot(i);
-            if (stack != null) {
-                if (stack.getItem() instanceof ItemManaGun) gun = stack;
-                else if (stack.getItem() instanceof ILens) lens = stack;
-            }
-        }
+		return foundLens && foundGun;
+	}
 
-        if (lens == null || gun == null) return null;
+	@Override
+	public ItemStack getCraftingResult(InventoryCrafting var1) {
+		ItemStack lens = null;
+		ItemStack gun = null;
 
-        ItemStack gunCopy = gun.copy();
-        ItemManaGun.setLens(gunCopy, lens);
+		for(int i = 0; i < var1.getSizeInventory(); i++) {
+			ItemStack stack = var1.getStackInSlot(i);
+			if(stack != null) {
+				if(stack.getItem() instanceof ItemManaGun)
+					gun = stack;
+				else if(stack.getItem() instanceof ILens)
+					lens = stack;
+			}
+		}
 
-        return gunCopy;
-    }
+		if(lens == null || gun == null)
+			return null;
 
-    @Override
-    public int getRecipeSize() {
-        return 10;
-    }
+		ItemStack gunCopy = gun.copy();
+		ItemManaGun.setLens(gunCopy, lens);
 
-    @Override
-    public ItemStack getRecipeOutput() {
-        return null;
-    }
+		return gunCopy;
+	}
+
+
+	@Override
+	public int getRecipeSize() {
+		return 10;
+	}
+
+	@Override
+	public ItemStack getRecipeOutput() {
+		return null;
+	}
+
 }
