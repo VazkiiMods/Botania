@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "tries": 32,
+    "xz_spread": 6,
+    "y_spread": 4,
+    "feature": {
+      "feature": {
+        "type": "botania:mystical_flower",
+        "config": {
+          "tall_chance": 0.05,
+          "to_place": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "botania:red_mystical_flower"
+            }
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    }
+  }
+}
