@@ -14,6 +14,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.*;
 import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.world.level.*;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
+import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -47,8 +49,8 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 							NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(gen -> gen.settings)))
 					.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 
-	public static void init() {
-		Registry.register(Registry.CHUNK_GENERATOR, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
+	public static void submitRegistration(BiConsumer<Codec<? extends ChunkGenerator>, ResourceLocation> consumer) {
+		consumer.accept(SkyblockChunkGenerator.CODEC, prefix("skyblock"));
 	}
 
 	public static boolean isWorldSkyblock(Level world) {

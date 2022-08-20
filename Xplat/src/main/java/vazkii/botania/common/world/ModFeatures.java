@@ -43,7 +43,6 @@ public class ModFeatures {
 		var configuredFlowers = FeatureUtils.register(flowersId.toString(), flowers, new MysticalFlowerConfig(6, 2, 2, 16, 0.05));
 
 		mysticalFlowersPlaced = PlacementUtils.register(flowersId.toString(), configuredFlowers);
-		SkyblockChunkGenerator.init();
 	}
 
 }

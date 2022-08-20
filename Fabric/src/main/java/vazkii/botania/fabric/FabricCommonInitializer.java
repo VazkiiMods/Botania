@@ -88,6 +88,7 @@ import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
+import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
@@ -166,6 +167,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		// Worldgen
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
+		SkyblockChunkGenerator.submitRegistration(bind(Registry.CHUNK_GENERATOR));
 		if (BotaniaConfig.common().worldgenFlowers()) {
 			BiomeModifications.addFeature(ctx -> {
 				return true;

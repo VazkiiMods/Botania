@@ -112,6 +112,7 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
+import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.forge.integration.InventorySorterIntegration;
 import vazkii.botania.forge.integration.corporea.ForgeCapCorporeaNodeDetector;
@@ -203,6 +204,7 @@ public class ForgeCommonInitializer {
 
 		// Worldgen
 		bind(Registry.FEATURE_REGISTRY, ModFeatures::registerFeatures);
+		bind(Registry.CHUNK_GENERATOR_REGISTRY, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest
 		ModCriteriaTriggers.init();
