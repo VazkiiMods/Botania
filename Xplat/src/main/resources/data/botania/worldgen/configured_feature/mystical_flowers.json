@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      "botania:white_mystical_flower_patch",
+      "botania:orange_mystical_flower_patch",
+      "botania:magenta_mystical_flower_patch",
+      "botania:light_blue_mystical_flower_patch",
+      "botania:yellow_mystical_flower_patch",
+      "botania:lime_mystical_flower_patch",
+      "botania:pink_mystical_flower_patch",
+      "botania:gray_mystical_flower_patch",
+      "botania:light_gray_mystical_flower_patch",
+      "botania:cyan_mystical_flower_patch",
+      "botania:purple_mystical_flower_patch",
+      "botania:blue_mystical_flower_patch",
+      "botania:brown_mystical_flower_patch",
+      "botania:green_mystical_flower_patch",
+      "botania:red_mystical_flower_patch",
+      "botania:black_mystical_flower_patch"
+    ]
+  }
+}

@@ -9,12 +9,10 @@
 package vazkii.botania.common.world;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
@@ -23,6 +21,11 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 
+/**
+ * This Feature is essentially the same as vanilla's
+ * {@link net.minecraft.world.level.levelgen.feature.SimpleBlockFeature},
+ * but any of Botania's mystical flowers have a chance to be replaced with their tall variant.
+ */
 public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	public MysticalFlowerFeature() {
 		super(MysticalFlowerConfig.CODEC);
@@ -30,41 +33,27 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 
 	@Override
 	public boolean place(@NotNull FeaturePlaceContext<MysticalFlowerConfig> ctx) {
-		WorldGenLevel level = ctx.level();
-		var rand = ctx.random();
 		MysticalFlowerConfig config = ctx.config();
+		WorldGenLevel level = ctx.level();
 		BlockPos pos = ctx.origin();
-		boolean any = false;
-		int dist = Math.min(8, Math.max(1, config.getPatchRadius()));
-		for (int i = 0; i < config.getPatchCount(); i++) {
-			if (rand.nextInt(config.getPatchChance()) == 0) {
-				int x = pos.getX() + rand.nextInt(16);
-				int z = pos.getZ() + rand.nextInt(16);
-				int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
-
-				DyeColor color = DyeColor.byId(rand.nextInt(16));
-				BlockState flower = ModBlocks.getFlower(color).defaultBlockState();
-
-				for (int j = 0; j < config.getPatchDensity() * config.getPatchChance(); j++) {
-					int x1 = x + rand.nextInt(dist * 2) - dist;
-					int y1 = y + rand.nextInt(4) - rand.nextInt(4);
-					int z1 = z + rand.nextInt(dist * 2) - dist;
-					BlockPos pos2 = new BlockPos(x1, y1, z1);
-					if (level.isEmptyBlock(pos2) && (!level.dimensionType().hasCeiling() || y1 < 127) && flower.canSurvive(level, pos2)) {
-						level.setBlock(pos2, flower, Block.UPDATE_CLIENTS);
-						any = true;
-						if (rand.nextDouble() < config.getTallChance()
-								&& ((BlockModFlower) flower.getBlock()).isValidBonemealTarget(level, pos2, level.getBlockState(pos2), false)) {
-							Block block = ModBlocks.getDoubleFlower(color);
-							if (block instanceof DoublePlantBlock) {
-								DoublePlantBlock.placeAt(level, block.defaultBlockState(), pos2, 3);
-							}
-						}
-					}
+		BlockState state = config.toPlace().getState(ctx.random(), pos);
+		if (state.canSurvive(level, pos)) {
+			if (state.getBlock().getClass() == BlockModFlower.class
+					&& ctx.random().nextFloat() < config.tallChance()) {
+				if (!level.isEmptyBlock(pos.above())) {
+					return false;
 				}
-			}
-		}
 
-		return any;
+				var color = ((BlockModFlower) state.getBlock()).color;
+				var doubleFlower = ModBlocks.getDoubleFlower(color);
+				DoublePlantBlock.placeAt(level, doubleFlower.defaultBlockState(), pos, Block.UPDATE_CLIENTS);
+			} else {
+				level.setBlock(pos, state, Block.UPDATE_CLIENTS);
+			}
+
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
