@@ -38,13 +38,15 @@ public abstract class FabricMixinHashCache {
 		}
 
 		ci.cancel();
-		// [VanillaCopy] Vanilla method but use system-agnostic paths, and sort by file path
-		// before writing
+		// [VanillaCopy] Vanilla method but use system-agnostic paths, sort by file path
+		// before writing, and don't write date as part of header.
+		// Forge has a patch to not rewrite if the contents are the same, to reduce git churn,
+		// here we just remove the date from the header to reduce churn.
 		try (BufferedWriter writer = Files.newBufferedWriter(outputPath, StandardCharsets.UTF_8)) {
 			writer.write("// ");
 			writer.write(this.version());
 			writer.write('\t');
-			writer.write(header);
+			writer.write(header.substring(header.indexOf('\t') + 1));
 			writer.newLine();
 			var sorted = new TreeMap<String, String>();
 			for (var e : this.data().entrySet()) {
