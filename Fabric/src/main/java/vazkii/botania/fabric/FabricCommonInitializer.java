@@ -96,7 +96,6 @@ import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.fabric.tile.FabricTileRedStringContainer;
-import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -171,20 +170,16 @@ public class FabricCommonInitializer implements ModInitializer {
 		// Worldgen
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
 		SkyblockChunkGenerator.submitRegistration(bind(Registry.CHUNK_GENERATOR));
-		if (BotaniaConfig.common().worldgenFlowers()) {
-			BiomeModifications.addFeature(
-					BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
-							.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
-					GenerationStep.Decoration.VEGETAL_DECORATION,
-					ModFeatures.MYSTICAL_FLOWERS_ID);
-		}
-		if (BotaniaConfig.common().worldgenMushrooms()) {
-			BiomeModifications.addFeature(
-					BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
-							.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
-					GenerationStep.Decoration.VEGETAL_DECORATION,
-					ModFeatures.MYSTICAL_MUSHROOMS_ID);
-		}
+		BiomeModifications.addFeature(
+				BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
+						.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				ModFeatures.MYSTICAL_FLOWERS_ID);
+		BiomeModifications.addFeature(
+				BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
+						.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				ModFeatures.MYSTICAL_MUSHROOMS_ID);
 
 		// Rest
 		ModCriteriaTriggers.init();
