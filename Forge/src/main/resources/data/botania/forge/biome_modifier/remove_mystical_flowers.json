@@ -1,5 +1,5 @@
 {
-  "__comment": "We relay on the fact that this is ordered after the adding modifier",
+  "__comment": "Removals always go after adds, see IBiome.Phase enum",
   "type": "forge:remove_features",
   "biomes": "#botania:mystical_flower_blocklist",
   "features": "botania:mystical_flowers"
