@@ -120,7 +120,6 @@ import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.forge.xplat.ForgeXplatImpl;
-import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -234,26 +233,6 @@ public class ForgeCommonInitializer {
 		registerBlockLookasides();
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
-
-		if (BotaniaConfig.common().worldgenFlowers()) {
-			/* todo 1.19
-			bus.addListener((BiomeLoadingEvent e) -> {
-				Biome.BiomeCategory category = e.getCategory();
-				if (!ModFeatures.TYPE_BLACKLIST.contains(category)) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalFlowersPlaced);
-				}
-			});
-			}
-			
-			if (BotaniaConfig.common().worldgenMushrooms()) {
-			bus.addListener((BiomeLoadingEvent e) -> {
-				Biome.BiomeCategory category = e.getCategory();
-				if (category != Biome.BiomeCategory.THEEND) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalMushroomsPlaced);
-				}
-			});
-			*/
-		}
 
 		int blazeTime = 2400 * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
 		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
