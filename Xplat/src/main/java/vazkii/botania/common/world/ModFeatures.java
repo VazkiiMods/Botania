@@ -22,15 +22,6 @@ public class ModFeatures {
 	public static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_ID = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, prefix("mystical_flowers"));
 	public static final ResourceKey<PlacedFeature> MYSTICAL_MUSHROOMS_ID = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, prefix("mystical_mushrooms"));
 
-	/* todo 1.19 tags
-	public static final Set<Biome.BiomeCategory> TYPE_BLACKLIST = ImmutableSet.of(
-			Biome.BiomeCategory.NETHER,
-			Biome.BiomeCategory.THEEND,
-			Biome.BiomeCategory.ICY,
-			Biome.BiomeCategory.MUSHROOM
-	);
-	*/
-
 	public static void registerFeatures(BiConsumer<Feature<?>, ResourceLocation> r) {
 		r.accept(new MysticalFlowerFeature(), prefix("mystical_flower"));
 	}
