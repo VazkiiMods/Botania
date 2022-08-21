@@ -12,6 +12,7 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -85,6 +86,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
@@ -100,6 +102,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -169,19 +172,16 @@ public class FabricCommonInitializer implements ModInitializer {
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
 		SkyblockChunkGenerator.submitRegistration(bind(Registry.CHUNK_GENERATOR));
 		if (BotaniaConfig.common().worldgenFlowers()) {
-			BiomeModifications.addFeature(ctx -> {
-				return true;
-				/* todo 1.19 use a tag
-				var category = Biome.getBiomeCategory(ctx.getBiomeRegistryEntry());
-				return !ModFeatures.TYPE_BLACKLIST.contains(category);
-				*/
-			},
+			BiomeModifications.addFeature(
+					BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
+							.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
 					GenerationStep.Decoration.VEGETAL_DECORATION,
 					ModFeatures.MYSTICAL_FLOWERS_ID);
 		}
 		if (BotaniaConfig.common().worldgenMushrooms()) {
 			BiomeModifications.addFeature(
-					ctx -> true, // todo 1.19 use a tag Biome.getBiomeCategory(ctx.getBiomeRegistryEntry()) != Biome.BiomeCategory.THEEND,
+					BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
+							.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
 					GenerationStep.Decoration.VEGETAL_DECORATION,
 					ModFeatures.MYSTICAL_MUSHROOMS_ID);
 		}

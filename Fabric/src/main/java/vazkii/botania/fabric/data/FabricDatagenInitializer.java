@@ -40,6 +40,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		generator.addProvider(true, new ItemTagProvider(generator, blockTagProvider));
 		generator.addProvider(true, new EntityTagProvider(generator));
 		generator.addProvider(true, new BannerTagProvider(generator));
+		generator.addProvider(true, new BiomeTagProvider(generator));
 		generator.addProvider(true, new StonecuttingProvider(generator));
 		generator.addProvider(true, new RecipeProvider(generator));
 		generator.addProvider(true, new SmeltingProvider(generator));
