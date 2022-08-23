@@ -758,12 +758,16 @@ def write_page(out, pageid, page):
                 with out.pair_tag("code"):
                     out.text(page["item_name"])
                 out.text(" in a Petal Apothecary.")
+            if "text" in page:
+                write_block(out, page["text"])
         elif ty == "botania:brew":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: brewing a Brew of ")
                 with out.pair_tag("code"):
                     out.text(page["brew_name"])
                 out.text(".")
+            if "text" in page:
+                write_block(out, page["text"])
         elif ty == "botania:elven_trade":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: An elven trade resulting in ")
@@ -773,6 +777,8 @@ def write_page(out, pageid, page):
         elif ty == "botania:terrasteel":
             with out.pair_tag("blockquote", clazz="crafting-info"):
                 out.text(f"Recipe in the book: The ritual for creating Terrasteel.")
+            if "text" in page:
+                write_block(out, page["text"])
         elif ty == "botania:crafting_multi":
             recipes = page["item_name"]
             with out.pair_tag("blockquote", clazz="crafting-info"):
