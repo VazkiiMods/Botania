@@ -2428,6 +2428,8 @@
   "botania.page.manaAlchemy27": "Converting $(item)Chorus Fruit$(0) into $(item)Chorus Flowers$(0)",
   "botania.page.manaAlchemy41": "Apple & Berries",
   "botania.page.manaAlchemy28": "Converting between $(item)Apples$(0) and $(item)Berries$(0)",
+  "botania.page.manaAlchemy42": "Deep stone",
+  "botania.page.manaAlchemy43": "Transmuting deep stones",
 
   "botania.entry.brewery": "Botanical Brewery",
   "botania.tagline.brewery": "Create brews: better potions",
