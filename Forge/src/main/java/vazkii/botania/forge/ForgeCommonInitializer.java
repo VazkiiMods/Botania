@@ -38,11 +38,7 @@ import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -89,6 +85,7 @@ import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.command.SkyblockCommand;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -350,6 +347,11 @@ public class ForgeCommonInitializer {
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
 				});
+			});
+			bus.addListener((LivingDeathEvent e) -> {
+				if (e.getSource().getEntity() instanceof LivingEntity killer) {
+					PotionSoulCross.onEntityKill(e.getEntity(), killer);
+				}
 			});
 			bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntity()));
 		}
