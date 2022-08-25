@@ -19,8 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
@@ -39,7 +37,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public static final double RADIUS = 2.5;
 	public static final int MAX_REQUEST = 1 << 16;
 
-	private static InputHandler input;
 	private static final Set<TileCorporeaIndex> serverIndexes = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final Set<TileCorporeaIndex> clientIndexes = Collections.newSetFromMap(new WeakHashMap<>());
 
@@ -349,13 +346,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 	}
 
-	public static InputHandler getInputHandler() {
-		if (input == null) {
-			input = new InputHandler();
-		}
-		return input;
-	}
-
 	private static void addIndex(TileCorporeaIndex index) {
 		Set<TileCorporeaIndex> set = index.level.isClientSide ? clientIndexes : serverIndexes;
 		set.add(index);
@@ -391,43 +381,36 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 	}
 
-	public static final class InputHandler {
-		public boolean onChatMessage(@Nullable ServerPlayer player, String message) {
-			if (player == null || player.isSpectator()) {
-				return false;
-			}
-
-			List<TileCorporeaIndex> nearbyIndexes = getNearbyValidIndexes(player);
-			if (!nearbyIndexes.isEmpty()) {
-				String msg = message.toLowerCase(Locale.ROOT).trim();
-				for (TileCorporeaIndex index : nearbyIndexes) {
-					String name = "";
-					int count = 0;
-					for (Pattern pattern : patterns.keySet()) {
-						Matcher matcher = pattern.matcher(msg);
-						if (matcher.matches()) {
-							IRegexStacker stacker = patterns.get(pattern);
-							count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
-							name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
-						}
-					}
-
-					if (name.equals("this")) {
-						ItemStack stack = player.getMainHandItem();
-						if (!stack.isEmpty()) {
-							name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
-						}
-					}
-
-					index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(name), count);
-				}
-
-				return true;
-			}
-
-			return false;
+	public static void onChatMessage(ServerPlayer player, String message) {
+		if (player.isSpectator()) {
+			return;
 		}
 
+		List<TileCorporeaIndex> nearbyIndexes = getNearbyValidIndexes(player);
+		if (!nearbyIndexes.isEmpty()) {
+			String msg = message.toLowerCase(Locale.ROOT).trim();
+			for (TileCorporeaIndex index : nearbyIndexes) {
+				String name = "";
+				int count = 0;
+				for (Pattern pattern : patterns.keySet()) {
+					Matcher matcher = pattern.matcher(msg);
+					if (matcher.matches()) {
+						IRegexStacker stacker = patterns.get(pattern);
+						count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
+						name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
+					}
+				}
+
+				if (name.equals("this")) {
+					ItemStack stack = player.getMainHandItem();
+					if (!stack.isEmpty()) {
+						name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
+					}
+				}
+
+				index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(name), count);
+			}
+		}
 	}
 
 	public interface IRegexStacker {

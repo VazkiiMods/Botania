@@ -124,7 +124,6 @@ public final class HUDHandler {
 			}
 		}
 
-		TileCorporeaIndex.getInputHandler();
 		if (!TileCorporeaIndex.getNearbyValidIndexes(mc.player).isEmpty() && mc.screen instanceof ChatScreen) {
 			profiler.push("nearIndex");
 			renderNearIndexDisplay(ms);

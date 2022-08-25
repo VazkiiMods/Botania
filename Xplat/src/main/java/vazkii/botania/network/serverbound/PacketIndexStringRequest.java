@@ -28,6 +28,6 @@ public record PacketIndexStringRequest(String message) implements IPacket {
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
-		server.execute(() -> TileCorporeaIndex.getInputHandler().onChatMessage(player, message()));
+		server.execute(() -> TileCorporeaIndex.onChatMessage(player, message()));
 	}
 }
