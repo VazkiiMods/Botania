@@ -36,6 +36,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.*;
@@ -172,7 +173,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registry) {
-		registry.addRecipeTransferHandler(ContainerCraftingHalo.class, null/* TODO 1.19 check this */, RecipeTypes.CRAFTING, 1, 9, 10, 36);
+		registry.addRecipeTransferHandler(ContainerCraftingHalo.class, null, RecipeTypes.CRAFTING, 1, 9, 10, 36);
 	}
 
 	@Override
@@ -242,22 +243,12 @@ public class JEIBotaniaPlugin implements IModPlugin {
 					}
 				});
 
-		CorporeaInputHandler.hoveredStackGetter = () -> {
-			ItemStack stack = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK);
-
-			if (stack == null && Minecraft.getInstance().screen == jeiRuntime.getRecipesGui()) { // todo 1.19 sketchy == check
-				stack = jeiRuntime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null);
-			}
-
-			if (stack == null) {
-				stack = jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK);
-			}
-
-			if (stack != null) {
-				return stack;
-			}
-			return ItemStack.EMPTY;
-		};
+		CorporeaInputHandler.hoveredStackGetter = () -> ObjectUtils.getFirstNonNull(
+				() -> jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+				() -> jeiRuntime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null),
+				() -> jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+				() -> ItemStack.EMPTY
+		);
 
 		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen<?> || gui instanceof IRecipesGui;
 	}

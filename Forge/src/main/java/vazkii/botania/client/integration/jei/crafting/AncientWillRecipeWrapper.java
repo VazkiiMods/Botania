@@ -43,7 +43,6 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 		return name;
 	}
 
-	@SuppressWarnings("removal") // todo 1.19 suppressing to unblock the build, address this before release
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
 		var foci = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
@@ -67,8 +66,8 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 			outputStacks.add(stack);
 		}
 
-		helper.setInputs(builder, VanillaTypes.ITEM_STACK,
+		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK,
 				List.of(Collections.singletonList(new ItemStack(ModItems.terrasteelHelm)), willStacks), 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM_STACK, outputStacks);
+		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, outputStacks);
 	}
 }

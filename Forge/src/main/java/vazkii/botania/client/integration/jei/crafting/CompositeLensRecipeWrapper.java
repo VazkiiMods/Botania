@@ -42,7 +42,6 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 				.toList();
 	}
 
-	@SuppressWarnings("removal") // todo 1.19 suppressing to unblock the build, address this before release
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
 		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
@@ -73,8 +72,8 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 			}
 		}
 
-		helper.setInputs(builder, VanillaTypes.ITEM_STACK,
+		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK,
 				List.of(firstInput, List.of(new ItemStack(Items.SLIME_BALL)), secondInput), 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM_STACK, outputs);
+		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, outputs);
 	}
 }

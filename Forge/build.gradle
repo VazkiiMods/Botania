@@ -106,7 +106,7 @@ dependencies {
 
     implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-76")
     compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:11.2.0.247")
-    // runtimeOnly fg.deobf("mezz.jei:jei-1.19:11.0.0.206")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:11.2.0.247")
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")

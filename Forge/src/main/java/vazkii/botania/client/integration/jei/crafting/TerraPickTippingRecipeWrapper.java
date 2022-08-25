@@ -42,11 +42,10 @@ public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension
 		this.name = recipe.getId();
 	}
 
-	@SuppressWarnings("removal") // todo 1.19 suppressing to unblock the build, address this before release
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focuses) {
-		helper.setInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM_STACK, Collections.singletonList(output));
+		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);
+		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, Collections.singletonList(output));
 	}
 
 	@Nullable
