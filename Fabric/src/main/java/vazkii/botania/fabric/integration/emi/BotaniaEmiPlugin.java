@@ -66,12 +66,16 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 
 	@Override
 	public void register(EmiRegistry registry) {
+		var old = CorporeaInputHandler.hoveredStackGetter;
 		CorporeaInputHandler.hoveredStackGetter = () -> {
-			EmiIngredient stack = EmiApi.getHoveredStack(true).getStack();
-			if (stack.getEmiStacks().size() > 0) {
-				return stack.getEmiStacks().get(0).getItemStack();
+			EmiIngredient ingr = EmiApi.getHoveredStack(true).getStack();
+			if (ingr.getEmiStacks().size() > 0) {
+				var stack = ingr.getEmiStacks().get(0).getItemStack();
+				if (!stack.isEmpty()) {
+					return stack;
+				}
 			}
-			return ItemStack.EMPTY;
+			return old.get();
 		};
 		registry.addCategory(PETAL_APOTHECARY);
 		registry.addCategory(MANA_INFUSION);

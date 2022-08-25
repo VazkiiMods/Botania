@@ -25,7 +25,6 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -243,14 +242,15 @@ public class JEIBotaniaPlugin implements IModPlugin {
 					}
 				});
 
+		var old = CorporeaInputHandler.hoveredStackGetter;
 		CorporeaInputHandler.hoveredStackGetter = () -> ObjectUtils.getFirstNonNull(
 				() -> jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
 				() -> jeiRuntime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null),
 				() -> jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
-				() -> ItemStack.EMPTY
+				old
 		);
 
-		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen<?> || gui instanceof IRecipesGui;
+		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(gui -> gui instanceof IRecipesGui);
 	}
 
 	@NotNull

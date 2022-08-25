@@ -64,7 +64,14 @@ import java.util.stream.StreamSupport;
 
 public class BotaniaREIPlugin implements REIClientPlugin {
 	public BotaniaREIPlugin() {
-		CorporeaInputHandler.hoveredStackGetter = BotaniaREIPlugin::getHoveredREIStack;
+		var old = CorporeaInputHandler.hoveredStackGetter;
+		CorporeaInputHandler.hoveredStackGetter = () -> {
+			var stack = BotaniaREIPlugin.getHoveredREIStack();
+			if (!stack.isEmpty()) {
+				return stack;
+			}
+			return old.get();
+		};
 		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(s -> s instanceof DisplayScreen);
 	}
 
