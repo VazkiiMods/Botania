@@ -51,6 +51,7 @@ import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.forge.CapabilityUtil;
@@ -96,6 +97,12 @@ public class ForgeClientInitializer {
 		bus.addListener((ScreenEvent.KeyPressed.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
 
 		// Forge bus events done with Mixins on Fabric
+		bus.addListener(EventPriority.HIGH, (ClientChatEvent e) -> {
+			var player = Minecraft.getInstance().player;
+			if (player != null && TileCorporeaIndex.ClientHandler.onChat(player, e.getMessage())) {
+				e.setCanceled(true);
+			}
+		});
 		bus.addListener((CustomizeGuiOverlayEvent.BossEventProgress e) -> {
 			var result = BossBarHandler.onBarRender(e.getPoseStack(), e.getX(), e.getY(),
 					e.getBossEvent(), true);

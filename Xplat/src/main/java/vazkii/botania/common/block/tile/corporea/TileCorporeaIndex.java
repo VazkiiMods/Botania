@@ -26,6 +26,8 @@ import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.MathHelper;
+import vazkii.botania.network.serverbound.PacketIndexStringRequest;
+import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
@@ -376,6 +378,16 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
 			player.awardStat(ModStats.CORPOREA_ITEMS_REQUESTED, res.getExtractedCount());
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getLevel(), this.getBlockPos(), res.getExtractedCount());
+		}
+	}
+
+	public static class ClientHandler {
+		public static boolean onChat(Player player, String message) {
+			if (!getNearbyValidIndexes(player).isEmpty()) {
+				IClientXplatAbstractions.INSTANCE.sendToServer(new PacketIndexStringRequest(message));
+				return true;
+			}
+			return false;
 		}
 	}
 

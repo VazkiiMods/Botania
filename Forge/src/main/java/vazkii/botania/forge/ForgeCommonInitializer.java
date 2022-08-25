@@ -407,12 +407,6 @@ public class ForgeCommonInitializer {
 		}
 		// FabricMixinResultSlot
 		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getEntity(), e.getInventory()));
-		// FabricMixinServerGamePacketListenerImpl
-		bus.addListener(EventPriority.HIGH, (ServerChatEvent.Submitted e) -> {
-			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage().getString())) {
-				e.setCanceled(true);
-			}
-		});
 	}
 
 	// Attaching caps requires dispatching off the item, which is a huge pain because it generates long if-else

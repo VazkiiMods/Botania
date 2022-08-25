@@ -25,6 +25,7 @@ public final class FabricPacketHandler {
 	public static void init() {
 		ServerPlayNetworking.registerGlobalReceiver(PacketDodge.ID, makeServerBoundHandler(PacketDodge::decode, PacketDodge::handle));
 		ServerPlayNetworking.registerGlobalReceiver(PacketIndexKeybindRequest.ID, makeServerBoundHandler(PacketIndexKeybindRequest::decode, PacketIndexKeybindRequest::handle));
+		ServerPlayNetworking.registerGlobalReceiver(PacketIndexStringRequest.ID, makeServerBoundHandler(PacketIndexStringRequest::decode, PacketIndexStringRequest::handle));
 		ServerPlayNetworking.registerGlobalReceiver(PacketJump.ID, makeServerBoundHandler(PacketJump::decode, PacketJump::handle));
 		ServerPlayNetworking.registerGlobalReceiver(PacketLeftClick.ID, makeServerBoundHandler(PacketLeftClick::decode, PacketLeftClick::handle));
 	}
