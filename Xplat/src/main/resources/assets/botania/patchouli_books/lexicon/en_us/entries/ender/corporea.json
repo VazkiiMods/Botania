@@ -2,6 +2,7 @@
   "name": "botania.entry.corporea",
   "category": "botania:ender",
   "icon": "botania:corporea_spark",
+  "priority": true,
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
   "pages": [
