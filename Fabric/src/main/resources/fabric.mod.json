@@ -37,7 +37,6 @@
       "vazkii.botania.test.block.HopperhockTest",
       "vazkii.botania.test.block.OpenCrateTest",
       "vazkii.botania.test.block.PistonRelayTest",
-      "vazkii.botania.test.block.InterceptorTest",
       "vazkii.botania.test.block.RannuncarpusTest",
       "vazkii.botania.test.block.TargetBlockTest",
       "vazkii.botania.test.item.CacophoniumTest",
