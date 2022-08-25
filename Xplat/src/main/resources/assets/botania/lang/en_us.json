@@ -2606,7 +2606,7 @@
 
   "botania.entry.felPumpkin": "Fel Pumpkin",
   "botania.tagline.felPumpkin": "A pumpkin that can spawn blazes",
-  "botania.page.felPumpkin0": "A $(item)Fel Pumpkin$(0) is a demented infusion of a $(item)Pumpkin$(0) with the fel spirits of slain monsters. This vile pumpkin can be placed atop two $(item)Iron Bars$(0), as one would with snow blocks for a $(item)Snow Golem$(0), to spawn a $(item)Blaze$(0).$(p)$(item)Blazes$(0) thusly spawned are somewhat fragile, and drop a smattering of $(item)Blaze Powder$(0) in place of a $(item)Blaze Rod$(0).",
+  "botania.page.felPumpkin0": "A $(item)Fel Pumpkin$(0) is a demented infusion of a $(item)Pumpkin$(0) with the fel spirits of slain monsters. This vile pumpkin can be placed atop two $(item)Iron Bars$(0), as one would with snow blocks for a $(thing)Snow Golem$(0), to spawn a $(thing)Blaze$(0).$(p)$(thing)Blazes$(0) thusly spawned are somewhat fragile, and drop a smattering of $(item)Blaze Powder$(0) in place of a $(item)Blaze Rod$(0).",
   "botania.page.felPumpkin1": "Spooky scary pumpkin",
 
   "botania.entry.animatedTorch": "Animated Torch",
