@@ -49,22 +49,6 @@ public interface CorporeaHelper {
 	}
 
 	/**
-	 * Gets the number of available items in the network satisfying the given matcher.
-	 * If you have it computed, prefer {@link #getCountInNetwork(ICorporeaRequestMatcher, List)} to avoid
-	 * recomputation of the list.
-	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		return 0;
-	}
-
-	/**
-	 * Gets the number of available items in the network satisfying the given matcher.
-	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
-		return 0;
-	}
-
-	/**
 	 * Gets a Map mapping nodes to the number of matching items.
 	 * If you have it computed, prefer {@link #getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher, List)} to avoid
 	 * recomputation of the list.
