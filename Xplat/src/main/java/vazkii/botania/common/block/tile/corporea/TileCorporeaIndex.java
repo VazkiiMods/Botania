@@ -316,7 +316,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 	private ICorporeaResult doRequest(ICorporeaRequestMatcher matcher, int count, ICorporeaSpark spark) {
 		ICorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, true);
-		List<ItemStack> stacks = result.getStacks();
+		List<ItemStack> stacks = result.stacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack stack : stacks) {
 			if (!stack.isEmpty()) {
@@ -365,9 +365,9 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		if (!IXplatAbstractions.INSTANCE.fireCorporeaIndexRequestEvent(player, request, count, this.getSpark())) {
 			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
 
-			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
-			player.awardStat(ModStats.CORPOREA_ITEMS_REQUESTED, res.getExtractedCount());
-			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getLevel(), this.getBlockPos(), res.getExtractedCount());
+			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
+			player.awardStat(ModStats.CORPOREA_ITEMS_REQUESTED, res.extractedCount());
+			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getLevel(), this.getBlockPos(), res.extractedCount());
 		}
 	}
 

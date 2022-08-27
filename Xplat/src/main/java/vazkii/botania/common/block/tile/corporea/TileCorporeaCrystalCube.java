@@ -92,7 +92,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		int sum = 0;
 		ICorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
-			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).getStacks();
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).stacks();
 			for (ItemStack stack : stacks) {
 				sum += stack.getCount();
 			}
@@ -142,7 +142,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
 		if (!requestTarget.isEmpty()) {
-			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).stacks();
 			spark.onItemsRequested(stacks);
 			boolean did = false;
 			int sum = 0;

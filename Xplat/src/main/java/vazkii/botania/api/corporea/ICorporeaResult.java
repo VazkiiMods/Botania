@@ -20,21 +20,21 @@ public interface ICorporeaResult {
 	/**
 	 * @return The itemstacks found. Not a fresh copy each time called.
 	 */
-	default List<ItemStack> getStacks() {
+	default List<ItemStack> stacks() {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @return The number of items matching the request's matcher.
 	 */
-	default int getMatchedCount() {
+	default int matchedCount() {
 		return 0;
 	}
 
 	/**
 	 * @return The number of items extracted.
 	 */
-	default int getExtractedCount() {
+	default int extractedCount() {
 		return 0;
 	}
 

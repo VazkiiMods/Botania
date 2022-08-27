@@ -77,7 +77,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
 		BlockPos invPos = getInvPos();
 
-		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
+		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).stacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack reqStack : stacks) {
 			if (invPos != null
