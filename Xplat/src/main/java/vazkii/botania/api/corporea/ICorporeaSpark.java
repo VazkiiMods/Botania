@@ -23,19 +23,14 @@ import java.util.List;
 public interface ICorporeaSpark extends ISparkEntity {
 
 	/**
-	 * Called to register the connections for the spark network passed in. Parameters include the master spark,
-	 * which is the one that initiated the chain call, the referrer which passed the call to this instance
-	 * and the List of sparks connected. Normal behavior should be to find any sparks around that are not
-	 * already present in the list of connections and add them to it, passing the function call to them.
-	 * <br>
-	 * <br>
-	 * The connections List and the master Spark should be kept in this instance as pointers for use in
-	 * getConnections() and getMaster() and passed in to any subsequent registerConnections calls on sparks
-	 * found nearby. This is only called whenever a new spark is added or removed from and to the network,
-	 * at that point the connection list in the master spark would be cleared out, also clearing out the one
-	 * in this instance, as it should be a pointer.
+	 * Look around this spark for neighbors and introduce them to the network by adding them
+	 * to {@code network}. If they weren't already in {@code network}, this method
+	 * should then recursively call this method on all newcomers.
+	 *
+	 * This spark should then retain the {@code network} object internally for quick
+	 * access to all members of the network.
 	 */
-	void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections);
+	void introduceNearbyTo(List<ICorporeaSpark> network, ICorporeaSpark master);
 
 	/**
 	 * @return Corporea node this spark is attached to, generally belonging to the block below it
@@ -43,10 +38,8 @@ public interface ICorporeaSpark extends ISparkEntity {
 	ICorporeaNode getSparkNode();
 
 	/**
-	 * Gets the list of sparks this spark is connected to, see registerConnections(). This list
-	 * should also include itself. This list must be checked against on a regular basis to verify
-	 * that the spark is still in the network, if that's not the case, the pointer should be
-	 * eliminated.
+	 * @return All sparks in the same logical corporea network as this one, including this
+	 *         spark itself.
 	 */
 	List<ICorporeaSpark> getConnections();
 
@@ -58,9 +51,8 @@ public interface ICorporeaSpark extends ISparkEntity {
 	List<ICorporeaSpark> getRelatives();
 
 	/**
-	 * Gets the master spark in this network, see registerConnections(). The value this returns
-	 * should be null and the pointer should be eliminated if the spark is no longer present
-	 * in the network.
+	 * @return The master spark of the network this spark is part of. A master spark's
+	 *         master is itself. Returns {@code null} if this spark is not in a network with a valid master.
 	 */
 	@Nullable
 	ICorporeaSpark getMaster();

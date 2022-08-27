@@ -119,22 +119,22 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections) {
+	public void introduceNearbyTo(List<ICorporeaSpark> network, ICorporeaSpark master) {
 		relatives.clear();
 		for (ICorporeaSpark spark : getNearbySparks()) {
-			if (spark == null || connections.contains(spark)
+			if (spark == null || network.contains(spark)
 					|| spark.getNetwork() != getNetwork()
 					|| spark.isMaster() || !spark.entity().isAlive()) {
 				continue;
 			}
 
-			connections.add(spark);
+			network.add(spark);
 			relatives.add(spark);
-			spark.registerConnections(master, this, connections);
+			spark.introduceNearbyTo(network, master);
 		}
 
 		this.master = master;
-		this.connections = connections;
+		this.connections = network;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -150,7 +150,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 			ICorporeaSpark oldMaster = master;
 			master = null;
 
-			oldMaster.registerConnections(oldMaster, this, new SparkArrayList<>());
+			oldMaster.introduceNearbyTo(new SparkArrayList<>(), oldMaster);
 		}
 	}
 
