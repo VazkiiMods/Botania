@@ -16,6 +16,8 @@ Minecraft, are **not accepted**
 ## Submitting Changes
 * Run the `checkSyntax` Gradle task to make sure your changes pass our style guidelines
 * The `spotlessJavaApply` Gradle task can fix most violations for you.
+* Target the default branch of the repository in all PR's (unless it's a hotfix that only applies to an older version).
+  The maintainers will cherry pick things back ourselves when creating hotfixes.
 * **Keep PR's small**. The smaller it is, the faster we will review it. Only fix one thing
   per PR instead of piling everything into one massive PR.
 * Consider the patch workflow to help keep your changes small.  If you hate GitHub's PR
