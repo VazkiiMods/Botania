@@ -46,6 +46,7 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHourglassTrigger;
@@ -66,10 +67,8 @@ import vazkii.botania.network.IPacket;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.ServiceLoader;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public interface IXplatAbstractions {
 	// FML/Fabric Loader
@@ -193,17 +192,5 @@ public interface IXplatAbstractions {
 	boolean isRedStringContainerTarget(BlockEntity be);
 	TileRedStringContainer newRedStringContainer(BlockPos pos, BlockState state);
 
-	IXplatAbstractions INSTANCE = find();
-
-	private static IXplatAbstractions find() {
-		var providers = ServiceLoader.load(IXplatAbstractions.class).stream().toList();
-		if (providers.size() != 1) {
-			var names = providers.stream().map(p -> p.type().getName()).collect(Collectors.joining(",", "[", "]"));
-			throw new IllegalStateException("There should be exactly one IXplatAbstractions implementation on the classpath. Found: " + names);
-		} else {
-			var provider = providers.get(0);
-			BotaniaAPI.LOGGER.debug("Instantiating xplat impl: " + provider.type().getName());
-			return provider.get();
-		}
-	}
+	IXplatAbstractions INSTANCE = ServiceUtil.findService(IXplatAbstractions.class);
 }

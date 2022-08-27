@@ -8,8 +8,6 @@
  */
 package vazkii.botania.api;
 
-import com.google.common.base.Suppliers;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -42,25 +40,16 @@ import vazkii.botania.api.internal.IManaNetwork;
 import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public interface BotaniaAPI {
 	String MODID = "botania";
 	String GOG_MODID = "gardenofglass";
 	Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-	Supplier<BotaniaAPI> INSTANCE = Suppliers.memoize(() -> {
-		try {
-			return (BotaniaAPI) Class.forName("vazkii.botania.common.impl.BotaniaAPIImpl")
-					.getDeclaredConstructor().newInstance();
-		} catch (ReflectiveOperationException e) {
-			LOGGER.warn("Unable to find BotaniaAPIImpl, using a dummy");
-			return new BotaniaAPI() {};
-		}
-	});
+	BotaniaAPI INSTANCE = ServiceUtil.findService(BotaniaAPI.class);
 
 	static BotaniaAPI instance() {
-		return INSTANCE.get();
+		return INSTANCE;
 	}
 
 	/**
