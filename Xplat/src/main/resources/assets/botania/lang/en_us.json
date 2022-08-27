@@ -2620,7 +2620,7 @@
   "botania.tagline.manaBlaster": "Portable Mana Spreader, with lenses!",
   "botania.page.manaBlaster0": "The $(item)Mana Blaster$(0) simply fires $(thing)Mana Bursts$(0). While shaped like a pistol for easy handling, it's not so much a firearm as it is a portable $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l).$(p)By drawing $(thing)Mana$(0) from $(thing)Mana-carrying items$(0) in the holder's inventory, it fires mana bursts from the wielder's current position and bearing.",
   "botania.page.manaBlaster1": "These bursts differ slightly from the ones fired from spreaders: they travel faster, but carry only three-quarters of the $(thing)Mana$(0) a spreader's burst would. The blaster also has a short cooldown after firing before it can shoot again.",
-  "botania.page.manaBlaster2": "$(l:mana/lens)$(item)Mana Lenses$(0)$(/l) function in conjunction with the blaster. To attach one to a blaster, craft them together in a crafting table; to remove the lens, simply place the $(item)Mana Blaster$(0) back on the crafting grid.$(p)A $(item)Haste$(0) effect on a wielder decreases their blaster's cooldown time.",
+  "botania.page.manaBlaster2": "$(l:mana/lens)$(item)Mana Lenses$(0)$(/l) function in conjunction with the blaster. To attach one to a blaster, craft them together in a crafting table; to remove the lens, simply place the $(item)Mana Blaster$(0) back on the crafting grid.$(p)A $(thing)Haste$(0) effect on a wielder decreases their blaster's cooldown time.",
   "botania.page.manaBlaster3": "We need moar dakka",
 
   "botania.entry.grassSeeds": "Pasture Seeds",
