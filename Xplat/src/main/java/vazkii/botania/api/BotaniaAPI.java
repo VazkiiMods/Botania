@@ -46,7 +46,7 @@ public interface BotaniaAPI {
 	String GOG_MODID = "gardenofglass";
 	Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-	BotaniaAPI INSTANCE = ServiceUtil.findService(BotaniaAPI.class);
+	BotaniaAPI INSTANCE = ServiceUtil.findService(BotaniaAPI.class, () -> new BotaniaAPI() {});
 
 	static BotaniaAPI instance() {
 		return INSTANCE;

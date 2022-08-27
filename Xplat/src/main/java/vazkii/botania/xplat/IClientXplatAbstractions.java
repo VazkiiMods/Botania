@@ -39,5 +39,5 @@ public interface IClientXplatAbstractions {
 	void restoreLastFilter(AbstractTexture texture);
 	void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay);
 
-	IClientXplatAbstractions INSTANCE = ServiceUtil.findService(IClientXplatAbstractions.class);
+	IClientXplatAbstractions INSTANCE = ServiceUtil.findService(IClientXplatAbstractions.class, null);
 }

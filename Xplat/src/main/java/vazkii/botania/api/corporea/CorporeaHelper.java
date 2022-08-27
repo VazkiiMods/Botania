@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 public interface CorporeaHelper {
-	CorporeaHelper INSTANCE = ServiceUtil.findService(CorporeaHelper.class);
+	CorporeaHelper INSTANCE = ServiceUtil.findService(CorporeaHelper.class, () -> new CorporeaHelper() {});
 
 	static CorporeaHelper instance() {
 		return INSTANCE;

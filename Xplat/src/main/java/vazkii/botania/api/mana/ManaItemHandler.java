@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public interface ManaItemHandler {
-	ManaItemHandler INSTANCE = ServiceUtil.findService(ManaItemHandler.class);
+	ManaItemHandler INSTANCE = ServiceUtil.findService(ManaItemHandler.class, () -> new ManaItemHandler() {});
 
 	static ManaItemHandler instance() {
 		return INSTANCE;

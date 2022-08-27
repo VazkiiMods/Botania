@@ -22,7 +22,7 @@ import java.util.Map;
  * Class for API calls that must be made clientside
  */
 public interface BotaniaAPIClient {
-	BotaniaAPIClient INSTANCE = ServiceUtil.findService(BotaniaAPIClient.class);
+	BotaniaAPIClient INSTANCE = ServiceUtil.findService(BotaniaAPIClient.class, () -> new BotaniaAPIClient() {});
 
 	static BotaniaAPIClient instance() {
 		return INSTANCE;

@@ -192,5 +192,5 @@ public interface IXplatAbstractions {
 	boolean isRedStringContainerTarget(BlockEntity be);
 	TileRedStringContainer newRedStringContainer(BlockPos pos, BlockState state);
 
-	IXplatAbstractions INSTANCE = ServiceUtil.findService(IXplatAbstractions.class);
+	IXplatAbstractions INSTANCE = ServiceUtil.findService(IXplatAbstractions.class, null);
 }
