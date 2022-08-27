@@ -28,7 +28,7 @@ import java.util.*;
 import java.util.function.Function;
 
 public class CorporeaHelperImpl implements CorporeaHelper {
-	private final WeakHashMap<List<ICorporeaSpark>, List<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
+	private final WeakHashMap<ICorporeaSpark, List<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
 
 	@Override
 	public List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
@@ -38,11 +38,9 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		}
 		List<ICorporeaSpark> network = master.getConnections();
 
-		if (cachedNetworks.containsKey(network)) {
-			List<ICorporeaNode> cache = cachedNetworks.get(network);
-			if (cache != null) {
-				return cache;
-			}
+		var cache = cachedNetworks.get(master);
+		if (cache != null) {
+			return cache;
 		}
 
 		List<ICorporeaNode> nodes = new ArrayList<>();
@@ -54,7 +52,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 			}
 		}
 
-		cachedNetworks.put(network, nodes);
+		cachedNetworks.put(master, nodes);
 		return nodes;
 	}
 

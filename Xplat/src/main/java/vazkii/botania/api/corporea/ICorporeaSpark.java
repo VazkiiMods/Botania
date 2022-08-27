@@ -10,6 +10,8 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.ISparkEntity;
 
 import java.util.List;
@@ -60,6 +62,7 @@ public interface ICorporeaSpark extends ISparkEntity {
 	 * should be null and the pointer should be eliminated if the spark is no longer present
 	 * in the network.
 	 */
+	@Nullable
 	ICorporeaSpark getMaster();
 
 	/**
