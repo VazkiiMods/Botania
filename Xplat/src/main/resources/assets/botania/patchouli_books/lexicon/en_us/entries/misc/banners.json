@@ -2,7 +2,6 @@
   "name": "botania.entry.banners",
   "category": "botania:misc",
   "icon": "botania:lexicon",
-  "flag": "debug",
   "pages": [
     {
       "type": "text",
