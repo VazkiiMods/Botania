@@ -10,6 +10,10 @@ package vazkii.botania.common.impl.corporea;
 
 import com.google.common.base.Predicates;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -57,27 +61,6 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		Set<ICorporeaNode> inventories = getNodesOnNetwork(spark);
-		return getInventoriesWithMatchInNetwork(matcher, inventories);
-	}
-
-	@Override
-	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, Set<ICorporeaNode> nodes) {
-		Map<ICorporeaNode, Integer> countMap = new HashMap<>();
-		for (ICorporeaNode node : nodes) {
-			ICorporeaRequest request = new CorporeaRequest(matcher, -1);
-			node.countItems(request);
-			if (request.getFound() > 0) {
-				countMap.put(node, request.getFound());
-			}
-
-		}
-
-		return countMap;
-	}
-
-	@Override
 	public ICorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
 		return new CorporeaItemStackMatcher(stack, checkNBT);
 	}
@@ -91,9 +74,10 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	public ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 		if (IXplatAbstractions.INSTANCE.fireCorporeaRequestEvent(matcher, itemCount, spark, !doit)) {
-			return new CorporeaResult(stacks, 0, 0);
+			return new CorporeaResult(stacks, 0, 0, Object2IntMaps.emptyMap());
 		}
 
+		Object2IntMap<ICorporeaNode> matchCountByNode = new Object2IntOpenHashMap<>();
 		Set<ICorporeaNode> nodes = getNodesOnNetwork(spark);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
 
@@ -107,18 +91,17 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 				interceptors.put(interceptor, invSpark);
 			}
 
-			if (doit) {
-				stacks.addAll(node.extractItems(request));
-			} else {
-				stacks.addAll(node.countItems(request));
-			}
+			var nodeStacks = doit ? node.extractItems(request) : node.countItems(request);
+			int sum = nodeStacks.stream().mapToInt(ItemStack::getCount).sum();
+			matchCountByNode.mergeInt(node, sum, Integer::sum);
+			stacks.addAll(nodeStacks);
 		}
 
 		for (ICorporeaInterceptor interceptor : interceptors.keySet()) {
 			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, nodes, doit);
 		}
 
-		return new CorporeaResult(stacks, request.getFound(), request.getExtracted());
+		return new CorporeaResult(stacks, request.getFound(), request.getExtracted(), matchCountByNode);
 	}
 
 	@Override

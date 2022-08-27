@@ -8,6 +8,9 @@
  */
 package vazkii.botania.api.corporea;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Collections;
@@ -18,7 +21,8 @@ import java.util.List;
  */
 public interface ICorporeaResult {
 	/**
-	 * @return The itemstacks found. Not a fresh copy each time called.
+	 * @return The itemstacks found. Not a fresh copy each time called. When doing a count,
+	 *         and not extracting, the stacks in this list may be oversized.
 	 */
 	default List<ItemStack> stacks() {
 		return Collections.emptyList();
@@ -36,6 +40,14 @@ public interface ICorporeaResult {
 	 */
 	default int extractedCount() {
 		return 0;
+	}
+
+	/**
+	 * @return A map of corporea nodes that contributed to this result, and how many items each contributed.
+	 *         Should not be modified.
+	 */
+	default Object2IntMap<ICorporeaNode> matchCountsByNode() {
+		return Object2IntMaps.emptyMap();
 	}
 
 	enum Dummy implements ICorporeaResult {

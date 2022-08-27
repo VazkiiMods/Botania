@@ -19,8 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.ServiceUtil;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -37,22 +35,6 @@ public interface CorporeaHelper {
 	 */
 	default Set<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
 		return Collections.emptySet();
-	}
-
-	/**
-	 * Gets a Map mapping nodes to the number of matching items.
-	 * If you have it computed, prefer {@link #getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher, List)} to avoid
-	 * recomputation of the list.
-	 */
-	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		return Collections.emptyMap();
-	}
-
-	/**
-	 * Gets a Map mapping nodes to the number of matching items.
-	 */
-	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, Set<ICorporeaNode> inventories) {
-		return Collections.emptyMap();
 	}
 
 	/**
@@ -84,16 +66,11 @@ public interface CorporeaHelper {
 	}
 
 	/**
-	 * Requests list of ItemStacks of the type passed in from the network, or tries to, checking NBT or not.
-	 * This will remove the items from the adequate inventories unless the "doit" parameter is false.
-	 * Returns a new list of ItemStacks of the items acquired or an empty list if none was found.
-	 * Case itemCount is -1 it'll find EVERY item it can.
-	 * <br>
-	 * <br>
-	 * When requesting counting of items, individual stacks may exceed maxStackSize for
-	 * purposes of counting huge amounts.
+	 * Requests items from the network associated with {@code spark}.
 	 * 
-	 * @return Triple of stacks extracted, number of items matched, and number of items extracted
+	 * @param matcher   Specifies what you want to request
+	 * @param itemCount Specifies the maximum amount you want to request. If -1, the amount is unlimited.
+	 * @param doit      If false, only counts the items instead of actually extracting
 	 */
 	default ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		return ICorporeaResult.Dummy.INSTANCE;
