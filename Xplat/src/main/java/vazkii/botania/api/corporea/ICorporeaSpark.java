@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.ISparkEntity;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * An interface for a Corporea Spark. Includes functions for handling
@@ -30,7 +31,7 @@ public interface ICorporeaSpark extends ISparkEntity {
 	 * This spark should then retain the {@code network} object internally for quick
 	 * access to all members of the network.
 	 */
-	void introduceNearbyTo(List<ICorporeaSpark> network, ICorporeaSpark master);
+	void introduceNearbyTo(Set<ICorporeaSpark> network, ICorporeaSpark master);
 
 	/**
 	 * @return Corporea node this spark is attached to, generally belonging to the block below it
@@ -41,7 +42,7 @@ public interface ICorporeaSpark extends ISparkEntity {
 	 * @return All sparks in the same logical corporea network as this one, including this
 	 *         spark itself.
 	 */
-	List<ICorporeaSpark> getConnections();
+	Set<ICorporeaSpark> getConnections();
 
 	/**
 	 * Gets the list of sparks that this spark added to the list of connections during registerConnections(), this

@@ -25,6 +25,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorporeaInterceptor {
 	public TileCorporeaInterceptor(BlockPos pos, BlockState state) {
@@ -32,10 +33,10 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {}
+	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, Set<ICorporeaNode> nodes, boolean doit) {}
 
 	@Override
-	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {
+	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, Set<ICorporeaNode> nodes, boolean doit) {
 		List<ItemStack> filter = getFilter();
 
 		boolean filterMatch = false;

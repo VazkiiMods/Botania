@@ -39,8 +39,7 @@ import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
 	private static final int SCAN_RANGE = 8;
@@ -52,7 +51,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	private static final EntityDataAccessor<Boolean> CREATIVE = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
 
 	private ICorporeaSpark master;
-	private List<ICorporeaSpark> connections = new SparkArrayList<>();
+	private Set<ICorporeaSpark> connections = new LinkedHashSet<>();
 	private List<ICorporeaSpark> relatives = new ArrayList<>();
 	private boolean firstTick = true;
 
@@ -119,7 +118,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public void introduceNearbyTo(List<ICorporeaSpark> network, ICorporeaSpark master) {
+	public void introduceNearbyTo(Set<ICorporeaSpark> network, ICorporeaSpark master) {
 		relatives.clear();
 		for (ICorporeaSpark spark : getNearbySparks()) {
 			if (spark == null || network.contains(spark)
@@ -143,14 +142,14 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void restartNetwork() {
-		connections = new SparkArrayList<>();
+		connections = new LinkedHashSet<>();
 		relatives = new ArrayList<>();
 
 		if (master != null) {
 			ICorporeaSpark oldMaster = master;
 			master = null;
 
-			oldMaster.introduceNearbyTo(new SparkArrayList<>(), oldMaster);
+			oldMaster.introduceNearbyTo(new LinkedHashSet<>(), oldMaster);
 		}
 	}
 
@@ -193,7 +192,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public List<ICorporeaSpark> getConnections() {
+	public Set<ICorporeaSpark> getConnections() {
 		return connections;
 	}
 

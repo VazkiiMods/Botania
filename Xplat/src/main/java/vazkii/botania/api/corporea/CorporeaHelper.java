@@ -21,6 +21,7 @@ import vazkii.botania.api.ServiceUtil;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 public interface CorporeaHelper {
@@ -31,11 +32,11 @@ public interface CorporeaHelper {
 	}
 
 	/**
-	 * Gets a list of all the nodes on this spark network. This list is cached for use once every tick,
-	 * and if something changes during that tick it'll still have the first result.
+	 * Gets all the nodes on this spark network. This is memoized for use once every tick.
+	 * The order of the nodes in this set are unspecified.
 	 */
-	default List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
-		return Collections.emptyList();
+	default Set<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
+		return Collections.emptySet();
 	}
 
 	/**
@@ -50,7 +51,7 @@ public interface CorporeaHelper {
 	/**
 	 * Gets a Map mapping nodes to the number of matching items.
 	 */
-	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
+	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, Set<ICorporeaNode> inventories) {
 		return Collections.emptyMap();
 	}
 

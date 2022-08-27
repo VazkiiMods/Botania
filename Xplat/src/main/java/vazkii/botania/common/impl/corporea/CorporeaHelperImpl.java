@@ -28,22 +28,22 @@ import java.util.*;
 import java.util.function.Function;
 
 public class CorporeaHelperImpl implements CorporeaHelper {
-	private final WeakHashMap<ICorporeaSpark, List<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
+	private final WeakHashMap<ICorporeaSpark, Set<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
 
 	@Override
-	public List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
+	public Set<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
 		ICorporeaSpark master = spark.getMaster();
 		if (master == null) {
-			return Collections.emptyList();
+			return Collections.emptySet();
 		}
-		List<ICorporeaSpark> network = master.getConnections();
+		Set<ICorporeaSpark> network = master.getConnections();
 
 		var cache = cachedNetworks.get(master);
 		if (cache != null) {
 			return cache;
 		}
 
-		List<ICorporeaNode> nodes = new ArrayList<>();
+		Set<ICorporeaNode> nodes = new LinkedHashSet<>();
 		if (network != null) {
 			for (ICorporeaSpark otherSpark : network) {
 				if (otherSpark != null) {
@@ -58,12 +58,12 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 	@Override
 	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		List<ICorporeaNode> inventories = getNodesOnNetwork(spark);
+		Set<ICorporeaNode> inventories = getNodesOnNetwork(spark);
 		return getInventoriesWithMatchInNetwork(matcher, inventories);
 	}
 
 	@Override
-	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> nodes) {
+	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, Set<ICorporeaNode> nodes) {
 		Map<ICorporeaNode, Integer> countMap = new HashMap<>();
 		for (ICorporeaNode node : nodes) {
 			ICorporeaRequest request = new CorporeaRequest(matcher, -1);
@@ -94,7 +94,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 			return new CorporeaResult(stacks, 0, 0);
 		}
 
-		List<ICorporeaNode> nodes = getNodesOnNetwork(spark);
+		Set<ICorporeaNode> nodes = getNodesOnNetwork(spark);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
 
 		ICorporeaRequest request = new CorporeaRequest(matcher, itemCount);
