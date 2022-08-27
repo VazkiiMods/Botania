@@ -10,5 +10,8 @@
       "type": "text",
       "text": "botania.page.odinRing0"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:odin_ring": 1
+  }
 }

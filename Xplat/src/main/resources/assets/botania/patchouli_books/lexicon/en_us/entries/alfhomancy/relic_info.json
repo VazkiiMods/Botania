@@ -14,5 +14,8 @@
       "type": "text",
       "text": "botania.page.relicInfo1"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:dice": 1
+  }
 }

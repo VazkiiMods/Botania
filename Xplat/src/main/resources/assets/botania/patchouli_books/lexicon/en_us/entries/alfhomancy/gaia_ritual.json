@@ -32,5 +32,8 @@
       "type": "text",
       "text": "botania.page.gaiaRitual5"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:life_essence": 1
+  }
 }

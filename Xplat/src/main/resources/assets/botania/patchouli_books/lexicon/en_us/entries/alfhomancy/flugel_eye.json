@@ -14,5 +14,8 @@
       "type": "text",
       "text": "botania.page.flugelEye1"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:flugel_eye": 1
+  }
 }

@@ -22,5 +22,8 @@
       "type": "text",
       "text": "botania.page.lokiRing3"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:loki_ring": 1
+  }
 }

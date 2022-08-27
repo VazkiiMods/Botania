@@ -86,5 +86,8 @@
       "text": "botania.page.pool7",
       "recipes": "botania:mana_infusion/mana_cookie"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:manasteel_nugget": 6
+  }
 }
