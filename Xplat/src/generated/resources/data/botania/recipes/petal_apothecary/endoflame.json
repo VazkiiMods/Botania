@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:endoflame"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/brown"
@@ -16,5 +13,8 @@
     {
       "tag": "botania:petals/light_gray"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:endoflame"
+  }
 }

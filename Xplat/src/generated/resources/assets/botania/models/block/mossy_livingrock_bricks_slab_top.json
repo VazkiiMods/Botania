@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "botania:block/mossy_livingrock_bricks",
-    "top": "botania:block/mossy_livingrock_bricks",
-    "side": "botania:block/mossy_livingrock_bricks"
+    "side": "botania:block/mossy_livingrock_bricks",
+    "top": "botania:block/mossy_livingrock_bricks"
   }
 }

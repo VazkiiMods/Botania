@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.mana.spark;
 
-import vazkii.botania.api.item.ISparkEntity;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.item.ISparkEntity;
 
 import java.util.Collection;
 

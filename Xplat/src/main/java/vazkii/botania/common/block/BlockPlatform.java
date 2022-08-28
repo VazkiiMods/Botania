@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -34,11 +33,11 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.block.tile.TilePlatform;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -68,7 +67,7 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 
 	private final Variant variant;
 
-	public BlockPlatform(@Nonnull Variant v, Properties builder) {
+	public BlockPlatform(@NotNull Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -77,9 +76,9 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 		return variant;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TilePlatform platform && platform.getCamoState() != null) {
 			return platform.getCamoState().getShape(world, pos);
@@ -88,9 +87,9 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, CollisionContext context) {
+	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, CollisionContext context) {
 		if (variant.collide.test(pos, context)) {
 			// NB: Use full shape from super.getOutlineShape instead of camo state. May change later.
 			return super.getShape(state, world, pos, context);
@@ -104,9 +103,9 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 		return 1.0F;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TilePlatform(pos, state);
 	}
 
@@ -122,11 +121,11 @@ public class BlockPlatform extends BlockMod implements IManaCollisionGhost, Enti
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		if (variant.indestructible) {
-			tooltip.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);

@@ -16,10 +16,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
-
-import javax.annotation.Nonnull;
 
 public class CosmeticAttachRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new SimpleRecipeSerializer<>(CosmeticAttachRecipe::new);
@@ -29,7 +29,7 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundCosmetic = false;
 		boolean foundAttachable = false;
 
@@ -51,9 +51,9 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 		return foundCosmetic && foundAttachable;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack cosmeticItem = ItemStack.EMPTY;
 		ItemStack attachableItem = ItemStack.EMPTY;
 
@@ -86,7 +86,7 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

@@ -3,8 +3,8 @@
   "input": {
     "item": "minecraft:potato"
   },
+  "mana": 1337,
   "output": {
     "item": "botania:tiny_potato"
-  },
-  "mana": 1337
+  }
 }

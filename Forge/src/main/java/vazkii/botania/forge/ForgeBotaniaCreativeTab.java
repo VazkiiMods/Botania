@@ -3,11 +3,11 @@ package vazkii.botania.forge;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 public class ForgeBotaniaCreativeTab extends CreativeModeTab {
 	public static final ForgeBotaniaCreativeTab INSTANCE = new ForgeBotaniaCreativeTab();
@@ -23,7 +23,7 @@ public class ForgeBotaniaCreativeTab extends CreativeModeTab {
 		return true;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack makeIcon() {
 		return new ItemStack(ModItems.lexicon);

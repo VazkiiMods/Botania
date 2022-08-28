@@ -12,8 +12,11 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -23,6 +26,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
@@ -34,13 +39,12 @@ import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +65,12 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaRe
 					}
 			},
 			'P', ModBlocks.terraPlate,
-			'R', "#botania:terra_plate_base",
-			'0', "#botania:terra_plate_base",
-			'L', IXplatAbstractions.INSTANCE.isFabric() ? "#c:lapis_blocks" : "#forge:storage_blocks/lapis"
+			'R', PatchouliAPI.get().tagMatcher(ModTags.Blocks.TERRA_PLATE_BASE),
+			'0', PatchouliAPI.get().tagMatcher(ModTags.Blocks.TERRA_PLATE_BASE),
+			'L', PatchouliAPI.get().tagMatcher(
+					IXplatAbstractions.INSTANCE.isFabric()
+							? TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "lapis_blocks"))
+							: TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", "storage_blocks/lapis")))
 	));
 
 	private static final String TAG_MANA = "mana";

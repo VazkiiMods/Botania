@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WWW",
-    "WPW",
-    "WWW"
-  ],
   "key": {
     "P": {
       "item": "minecraft:sticky_piston"
@@ -13,6 +8,11 @@
       "tag": "botania:livingwood_logs"
     }
   },
+  "pattern": [
+    "WWW",
+    "WPW",
+    "WWW"
+  ],
   "result": {
     "item": "botania:turntable"
   }

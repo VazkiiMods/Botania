@@ -12,7 +12,8 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
@@ -22,7 +23,7 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -33,13 +34,14 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -84,20 +86,22 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
+import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.fabric.tile.FabricTileRedStringContainer;
-import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -149,7 +153,9 @@ public class FabricCommonInitializer implements ModInitializer {
 		// GUI and Recipe
 		ModItems.registerMenuTypes(bind(Registry.MENU));
 		ModItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
-		ModRecipeTypes.registerRecipeTypes(bind(Registry.RECIPE_SERIALIZER));
+		ModPatterns.submitRegistrations(bind(Registry.BANNER_PATTERN));
+		ModRecipeTypes.submitRecipeTypes(bind(Registry.RECIPE_TYPE));
+		ModRecipeTypes.submitRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
 
 		// Entities
 		ModEntities.registerEntities(bind(Registry.ENTITY_TYPE));
@@ -163,25 +169,23 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		// Worldgen
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
-		if (BotaniaConfig.common().worldgenFlowers()) {
-			BiomeModifications.addFeature(ctx -> {
-				var category = Biome.getBiomeCategory(ctx.getBiomeRegistryEntry());
-				return !ModFeatures.TYPE_BLACKLIST.contains(category);
-			},
-					GenerationStep.Decoration.VEGETAL_DECORATION,
-					ModFeatures.MYSTICAL_FLOWERS_ID);
-		}
-		if (BotaniaConfig.common().worldgenMushrooms()) {
-			BiomeModifications.addFeature(
-					ctx -> Biome.getBiomeCategory(ctx.getBiomeRegistryEntry()) != Biome.BiomeCategory.THEEND,
-					GenerationStep.Decoration.VEGETAL_DECORATION,
-					ModFeatures.MYSTICAL_MUSHROOMS_ID);
-		}
+		SkyblockChunkGenerator.submitRegistration(bind(Registry.CHUNK_GENERATOR));
+		BiomeModifications.addFeature(
+				BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
+						.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				ModFeatures.MYSTICAL_FLOWERS_ID);
+		BiomeModifications.addFeature(
+				BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
+						.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				ModFeatures.MYSTICAL_MUSHROOMS_ID);
 
 		// Rest
 		ModCriteriaTriggers.init();
 		ModParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
-		ModLootModifiers.init();
+		ModLootModifiers.submitLootConditions(bind(Registry.LOOT_CONDITION_TYPE));
+		ModLootModifiers.submitLootFunctions(bind(Registry.LOOT_FUNCTION_TYPE));
 		ModStats.init();
 	}
 
@@ -195,7 +199,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		EntitySleepEvents.ALLOW_SLEEPING.register(SleepingHandler::trySleep);
 		EntityTrackingEvents.START_TRACKING.register(SubTileDaffomill::onItemTrack);
-		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> LootHandler.lootLoad(id, supplier::withPool));
+		LootTableEvents.MODIFY.register((resourceManager, manager, id, tableBuilder, lootTableSource) -> LootHandler.lootLoad(id, tableBuilder::withPool));
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		ServerEntityEvents.ENTITY_LOAD.register(SubTileTigerseye::pacifyAfterLoad);
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
@@ -214,7 +218,6 @@ public class FabricCommonInitializer implements ModInitializer {
 		return (t, id) -> Registry.register(registry, id, t);
 	}
 
-	@SuppressWarnings("removal") // todo 1.19 remove
 	private void registerCapabilities() {
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL,
 				FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK),
@@ -254,7 +257,7 @@ public class FabricCommonInitializer implements ModInitializer {
 			}
 			return null;
 		});
-		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
+		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> (world, pos, stack, hornType, living) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
@@ -320,7 +323,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		}
 	}
 
-	private void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, boolean dedicated) {
+	private void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext ctx, Commands.CommandSelection environment) {
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockCommand.register(dispatcher);
 		}

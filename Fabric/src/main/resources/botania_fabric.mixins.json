@@ -22,7 +22,6 @@
     "FabricMixinPiglinAi",
     "FabricMixinPlayer",
     "FabricMixinResultSlot",
-    "FabricMixinServerGamePacketListenerImpl",
     "FabricMixinServerPlayerGameMode"
   ],
   "client": [
@@ -32,6 +31,7 @@
     "client.FabricMixinDebugScreenOverlay",
     "client.FabricMixinGameRenderer",
     "client.FabricMixinKeyboardHandler",
+    "client.FabricMixinLocalPlayer",
     "client.FabricMixinMinecraft",
     "client.FabricMixinModelManager",
     "client.FabricMixinParticleEngine",

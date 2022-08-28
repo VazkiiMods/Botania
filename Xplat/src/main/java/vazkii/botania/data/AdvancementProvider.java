@@ -14,11 +14,10 @@ import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -50,9 +49,9 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 	}
 
 	@Override
-	public void run(HashCache hashCache) {
+	public void run(CachedOutput output) {
 		((AccessorAdvancementProvider) this).setTabs(getAdvancements());
-		super.run(hashCache);
+		super.run(output);
 	}
 
 	protected List<Consumer<Consumer<Advancement>>> getAdvancements() {
@@ -379,7 +378,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, challengeId("old_flower_pickup"));
 		DisplayInfo desuGun = simple(ModItems.manaGun, "desuGun", FrameType.CHALLENGE);
-		desuGun.getIcon().setHoverName(new TextComponent("desu gun"));
+		desuGun.getIcon().setHoverName(Component.literal("desu gun"));
 		Advancement.Builder.advancement()
 				.display(desuGun)
 				.parent(root)
@@ -443,23 +442,23 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 	protected static DisplayInfo simple(ItemLike icon, String name, FrameType frameType) {
 		String expandedName = "advancement.botania:" + name;
 		return new DisplayInfo(new ItemStack(icon.asItem()),
-				new TranslatableComponent(expandedName),
-				new TranslatableComponent(expandedName + ".desc"),
+				Component.translatable(expandedName),
+				Component.translatable(expandedName + ".desc"),
 				null, frameType, true, true, false);
 	}
 
 	protected static DisplayInfo hidden(ItemLike icon, String name, FrameType frameType) {
 		String expandedName = "advancement.botania:" + name;
 		return new DisplayInfo(new ItemStack(icon.asItem()),
-				new TranslatableComponent(expandedName),
-				new TranslatableComponent(expandedName + ".desc"),
+				Component.translatable(expandedName),
+				Component.translatable(expandedName + ".desc"),
 				null, frameType, true, true, true);
 	}
 
 	protected static DisplayInfo rootDisplay(ItemLike icon, String titleKey, String descKey, ResourceLocation background) {
 		return new DisplayInfo(new ItemStack(icon.asItem()),
-				new TranslatableComponent(titleKey),
-				new TranslatableComponent(descKey),
+				Component.translatable(titleKey),
+				Component.translatable(descKey),
 				background, FrameType.TASK, false, false, false);
 	}
 

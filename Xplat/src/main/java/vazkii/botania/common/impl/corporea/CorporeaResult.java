@@ -8,35 +8,15 @@
  */
 package vazkii.botania.common.impl.corporea;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaResult;
 
 import java.util.List;
 
-public class CorporeaResult implements ICorporeaResult {
-	private final List<ItemStack> stacks;
-	private final int matched;
-	private final int extracted;
-
-	public CorporeaResult(List<ItemStack> stacks, int matched, int extracted) {
-		this.stacks = stacks;
-		this.matched = matched;
-		this.extracted = extracted;
-	}
-
-	@Override
-	public List<ItemStack> getStacks() {
-		return stacks;
-	}
-
-	@Override
-	public int getMatchedCount() {
-		return matched;
-	}
-
-	@Override
-	public int getExtractedCount() {
-		return extracted;
-	}
+public record CorporeaResult(List<ItemStack> stacks, int matchedCount, int extractedCount,
+		Object2IntMap<ICorporeaNode> matchCountsByNode) implements ICorporeaResult {
 }

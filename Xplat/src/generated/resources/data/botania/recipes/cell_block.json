@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "item": "botania:cell_block",
-    "count": 3
+    "count": 3,
+    "item": "botania:cell_block"
   }
 }

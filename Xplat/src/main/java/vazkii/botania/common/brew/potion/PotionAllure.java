@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class PotionAllure extends MobEffect {
 
@@ -28,7 +28,7 @@ public class PotionAllure extends MobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(@Nonnull LivingEntity living, int amplified) {
+	public void applyEffectTick(@NotNull LivingEntity living, int amplified) {
 		if (living instanceof Player player) {
 			FishingHook hook = player.fishing;
 			if (hook != null) {

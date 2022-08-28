@@ -20,11 +20,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +43,8 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focusGroup) {
-		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.INPUT)
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
+		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
 				.filter(f -> allLenses.contains(f.getTypedValue().getIngredient().getItem()))
 				.map(f -> f.getTypedValue().getIngredient().getItem())
 				.toList();
@@ -72,8 +72,8 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 			}
 		}
 
-		helper.setInputs(builder, VanillaTypes.ITEM,
+		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK,
 				List.of(firstInput, List.of(new ItemStack(Items.SLIME_BALL)), secondInput), 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM, outputs);
+		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, outputs);
 	}
 }

@@ -16,10 +16,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import vazkii.botania.api.BotaniaAPI;
 
 public interface IManaInfusionRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_infusion");
@@ -39,7 +39,7 @@ public interface IManaInfusionRecipe extends Recipe<Container> {
 	 *
 	 * @return The output stack of the recipe.
 	 */
-	@Nonnull
+	@NotNull
 	@Override
 	ItemStack getResultItem();
 
@@ -49,8 +49,8 @@ public interface IManaInfusionRecipe extends Recipe<Container> {
 	 * @param input The whole stack that is in the Mana Pool, not a copy.
 	 * @return The output stack of the recipe for the specific input.
 	 */
-	@Nonnull
-	default ItemStack getRecipeOutput(@Nonnull ItemStack input) {
+	@NotNull
+	default ItemStack getRecipeOutput(@NotNull ItemStack input) {
 		return getResultItem().copy();
 	}
 
@@ -67,7 +67,7 @@ public interface IManaInfusionRecipe extends Recipe<Container> {
 	 */
 	int getManaToConsume();
 
-	@Nonnull
+	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
@@ -75,14 +75,14 @@ public interface IManaInfusionRecipe extends Recipe<Container> {
 
 	// Ignored IRecipe stuff
 
-	@Nonnull
+	@NotNull
 	@Override
-	default ItemStack assemble(@Nonnull Container inv) {
+	default ItemStack assemble(@NotNull Container inv) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean matches(@Nonnull Container inv, @Nonnull Level world) {
+	default boolean matches(@NotNull Container inv, @NotNull Level world) {
 		return false;
 	}
 

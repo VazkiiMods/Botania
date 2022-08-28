@@ -19,24 +19,24 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
+import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalRecipe> {
 
-	public static final ResourceLocation UID = prefix("petals");
+	public static final RecipeType<IPetalRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", IPetalRecipe.class);
 	private final IDrawableStatic background;
 	private final Component localizedName;
 	private final IDrawableStatic overlay;
@@ -44,51 +44,45 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 97);
-		localizedName = new TranslatableComponent("botania.nei.petalApothecary");
+		localizedName = Component.translatable("botania.nei.petalApothecary");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.defaultAltar));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.defaultAltar));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
+	public RecipeType<IPetalRecipe> getRecipeType() {
+		return TYPE;
 	}
 
-	@Nonnull
-	@Override
-	public Class<? extends IPetalRecipe> getRecipeClass() {
-		return IPetalRecipe.class;
-	}
-
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@Nonnull IPetalRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull IPetalRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
 		RenderSystem.disableBlend();
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IPetalRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IPetalRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
 				.addItemStack(new ItemStack(ModBlocks.defaultAltar));
 

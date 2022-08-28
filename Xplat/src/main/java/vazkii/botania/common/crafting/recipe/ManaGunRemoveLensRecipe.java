@@ -17,10 +17,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class ManaGunRemoveLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<ManaGunRemoveLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaGunRemoveLensRecipe::new);
@@ -30,7 +30,7 @@ public class ManaGunRemoveLensRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundGun = false;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -47,9 +47,9 @@ public class ManaGunRemoveLensRecipe extends CustomRecipe {
 		return foundGun;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack gun = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -73,15 +73,15 @@ public class ManaGunRemoveLensRecipe extends CustomRecipe {
 		return width * height > 0;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
+	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.is(ModItems.manaGun)) {
 				ItemStack stack = ItemManaGun.getLens(s);

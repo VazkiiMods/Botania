@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:heisei_dream"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/magenta"
@@ -22,5 +19,8 @@
     {
       "item": "botania:pixie_dust"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:heisei_dream"
+  }
 }

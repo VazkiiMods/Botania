@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "botania:elf_quartz"
-  },
-  "output": {
-    "item": "botania:quartz_elven",
-    "count": 4
-  },
-  "mana": 25,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "botania:elf_quartz"
+  },
+  "mana": 25,
+  "output": {
+    "count": 4,
+    "item": "botania:quartz_elven"
   }
 }

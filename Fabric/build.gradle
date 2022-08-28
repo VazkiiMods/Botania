@@ -1,6 +1,6 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
-    id 'io.github.juuxel.loom-quiltflower-mini' version '1.2.1'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'io.github.juuxel.loom-quiltflower' version '1.7.1'
 }
 
 version = "${minecraft_version}-${build_number}-FABRIC"
@@ -93,50 +93,45 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.officialMojangMappings()
+    /*
     mappings loom.layered() {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-1.18.1:2021.12.19@zip")
     }
+    */
 
-    modImplementation "net.fabricmc:fabric-loader:0.13.3"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.50.0+1.18.2"
+    modImplementation "net.fabricmc:fabric-loader:0.14.9"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.60.0+1.19.2"
 
-    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:1.18.2-67-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-76-FABRIC"
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
-    // modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:7.0.343"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.528"
 
-    modCompileOnly "dev.emi:emi:0.1.0+1.18.2"
-    // modLocalRuntime "dev.emi:emi:0.1.0+1.18.2"
+    modCompileOnly("dev.emi:emi:0.3.3+1.19") { transitive = false }
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
     // Don't include base and entity as Trinkets includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:4.0.1"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:4.0.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.0-beta.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.0-beta.1"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation "dev.emi:trinkets:3.3.0"
+    modImplementation("dev.emi:trinkets:3.4.0") { transitive = false }
 
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
-    include "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
+    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.3.0"
+    include "com.jamieswhiteshirt:reach-entity-attributes:2.3.0"
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
 
-    /*
-    modImplementation "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
-    include "io.github.fablabsmc:bannerpp:2.0.4+mc.1.17-rc1"
-    */
-
     modCompileOnly 'teamreborn:energy:2.1.0'
 
-    modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
+    // modCompileOnly 'com.blamejared.crafttweaker:CraftTweaker-fabric-1.18.2:9.1.123'
 
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
 }

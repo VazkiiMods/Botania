@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:quartz"
-  },
-  "output": {
-    "item": "minecraft:quartz",
-    "count": 2
-  },
-  "mana": 2500,
   "catalyst": {
     "type": "block",
     "block": "botania:conjuration_catalyst"
+  },
+  "input": {
+    "item": "minecraft:quartz"
+  },
+  "mana": 2500,
+  "output": {
+    "count": 2,
+    "item": "minecraft:quartz"
   }
 }

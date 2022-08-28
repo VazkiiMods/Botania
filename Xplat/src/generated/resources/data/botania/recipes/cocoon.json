@@ -1,48 +1,48 @@
 {
   "type": "botania:gog_alternation",
-  "gog": {
+  "base": {
     "type": "minecraft:crafting_shaped",
-    "pattern": [
-      "SSS",
-      "SPS",
-      "SIS"
-    ],
     "key": {
-      "S": {
-        "item": "minecraft:string"
+      "C": {
+        "item": "botania:manaweave_cloth"
+      },
+      "D": {
+        "item": "botania:pixie_dust"
       },
       "P": {
         "item": "botania:fel_pumpkin"
       },
-      "I": {
-        "tag": "botania:manasteel_ingots"
+      "S": {
+        "item": "minecraft:string"
       }
     },
-    "result": {
-      "item": "botania:cocoon"
-    }
-  },
-  "base": {
-    "type": "minecraft:crafting_shaped",
     "pattern": [
       "SSS",
       "CPC",
       "SDS"
     ],
+    "result": {
+      "item": "botania:cocoon"
+    }
+  },
+  "gog": {
+    "type": "minecraft:crafting_shaped",
     "key": {
-      "S": {
-        "item": "minecraft:string"
-      },
-      "C": {
-        "item": "botania:manaweave_cloth"
+      "I": {
+        "tag": "botania:manasteel_ingots"
       },
       "P": {
         "item": "botania:fel_pumpkin"
       },
-      "D": {
-        "item": "botania:pixie_dust"
+      "S": {
+        "item": "minecraft:string"
       }
     },
+    "pattern": [
+      "SSS",
+      "SPS",
+      "SIS"
+    ],
     "result": {
       "item": "botania:cocoon"
     }

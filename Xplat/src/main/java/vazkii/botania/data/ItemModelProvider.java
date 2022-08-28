@@ -9,15 +9,14 @@
 package vazkii.botania.data;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.data.models.model.DelegatedModel;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
@@ -31,6 +30,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.WallBlock;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.*;
@@ -47,8 +48,6 @@ import vazkii.botania.data.util.ModelWithOverrides;
 import vazkii.botania.data.util.OverrideHolder;
 import vazkii.botania.data.util.SimpleModelSupplierWithOverrides;
 import vazkii.botania.mixin.AccessorTextureSlot;
-
-import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -67,7 +66,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.BlockstateProvider.takeAll;
 
 public class ItemModelProvider implements DataProvider {
-	private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 	private static final TextureSlot LAYER1 = AccessorTextureSlot.make("layer1");
 	private static final TextureSlot LAYER2 = AccessorTextureSlot.make("layer2");
 	private static final TextureSlot LAYER3 = AccessorTextureSlot.make("layer3");
@@ -90,7 +88,7 @@ public class ItemModelProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(HashCache cache) {
+	public void run(CachedOutput cache) {
 		Set<Item> items = Registry.ITEM.stream().filter(i -> LibMisc.MOD_ID.equals(Registry.ITEM.getKey(i).getNamespace()))
 				.collect(Collectors.toSet());
 		Map<ResourceLocation, Supplier<JsonElement>> map = new HashMap<>();
@@ -102,7 +100,7 @@ public class ItemModelProvider implements DataProvider {
 			ResourceLocation id = e.getKey();
 			Path out = generator.getOutputFolder().resolve("assets/" + id.getNamespace() + "/models/" + id.getPath() + ".json");
 			try {
-				DataProvider.save(GSON, cache, e.getValue().get(), out);
+				DataProvider.saveStable(cache, e.getValue().get(), out);
 			} catch (IOException ex) {
 				BotaniaAPI.LOGGER.error("Failed to generate {}", out, ex);
 			}
@@ -526,7 +524,7 @@ public class ItemModelProvider implements DataProvider {
 							"scale": [0.4, 0.4, 0.4]
 						}
 					}""";
-	private static final JsonElement BUILTIN_ENTITY_DISPLAY = GSON.fromJson(BUILTIN_ENTITY_DISPLAY_STR, JsonElement.class);
+	private static final JsonElement BUILTIN_ENTITY_DISPLAY = new Gson().fromJson(BUILTIN_ENTITY_DISPLAY_STR, JsonElement.class);
 
 	protected void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
 		consumer.accept(ModelLocationUtils.getModelLocation(i), () -> {
@@ -537,7 +535,7 @@ public class ItemModelProvider implements DataProvider {
 		});
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getName() {
 		return "Botania item models";

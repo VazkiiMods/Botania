@@ -19,11 +19,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.MathHelper;
-
-import javax.annotation.Nonnull;
 
 public class ItemWorldSeed extends Item {
 
@@ -31,9 +31,9 @@ public class ItemWorldSeed extends Item {
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (world.isClientSide) {
 			return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);

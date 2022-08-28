@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:tigerseye"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/yellow"
@@ -19,5 +16,8 @@
     {
       "item": "botania:rune_autumn"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:tigerseye"
+  }
 }

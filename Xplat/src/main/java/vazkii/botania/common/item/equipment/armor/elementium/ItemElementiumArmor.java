@@ -13,7 +13,6 @@ import com.google.common.base.Suppliers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -72,13 +71,13 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	@Override
 	public MutableComponent getArmorSetName() {
-		return new TranslatableComponent("botania.armorset.elementium.name");
+		return Component.translatable("botania.armorset.elementium.name");
 	}
 
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		super.addArmorSetDescription(stack, list);
-		list.add(new TranslatableComponent("botania.armorset.elementium.desc").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.elementium.desc").withStyle(ChatFormatting.GRAY));
 	}
 
 }

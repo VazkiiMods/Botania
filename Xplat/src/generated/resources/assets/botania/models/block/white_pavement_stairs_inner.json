@@ -2,7 +2,7 @@
   "parent": "minecraft:block/inner_stairs",
   "textures": {
     "bottom": "botania:block/white_pavement",
-    "top": "botania:block/white_pavement",
-    "side": "botania:block/white_pavement"
+    "side": "botania:block/white_pavement",
+    "top": "botania:block/white_pavement"
   }
 }

@@ -20,13 +20,13 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntitySparkBase;
 import vazkii.botania.common.helper.ColorHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Random;
 
@@ -37,7 +37,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 	}
 
 	@Override
-	public void render(@Nonnull T tEntity, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(@NotNull T tEntity, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
 
 		ms.pushPose();
@@ -84,9 +84,9 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		return null;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@Nonnull EntitySparkBase entity) {
+	public ResourceLocation getTextureLocation(@NotNull EntitySparkBase entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 

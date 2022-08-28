@@ -22,12 +22,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TilePylon;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 21, 14);
@@ -54,26 +54,26 @@ public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 
 	public final Variant variant;
 
-	public BlockPylon(@Nonnull Variant v, Properties builder) {
+	public BlockPylon(@NotNull Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TilePylon(pos, state);
 	}
 

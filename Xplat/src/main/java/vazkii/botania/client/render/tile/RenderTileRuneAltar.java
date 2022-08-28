@@ -26,11 +26,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileRuneAltar;
-
-import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -46,7 +46,7 @@ public class RenderTileRuneAltar implements BlockEntityRenderer<TileRuneAltar> {
 	}
 
 	@Override
-	public void render(@Nonnull TileRuneAltar altar, float partticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileRuneAltar altar, float partticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		int items = 0;

@@ -24,10 +24,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
-
-import javax.annotation.Nonnull;
 
 public class RecipeTerraPlate implements ITerraPlateRecipe {
 	private final ResourceLocation id;
@@ -48,7 +48,7 @@ public class RecipeTerraPlate implements ITerraPlateRecipe {
 	}
 
 	@Override
-	public boolean matches(Container inv, @Nonnull Level world) {
+	public boolean matches(Container inv, @NotNull Level world) {
 		int nonEmptySlots = 0;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			if (!inv.getItem(i).isEmpty()) {
@@ -63,40 +63,40 @@ public class RecipeTerraPlate implements ITerraPlateRecipe {
 		return RecipeUtils.matches(inputs, inv, usedSlots) && usedSlots.size() == nonEmptySlots;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull Container inv) {
+	public ItemStack assemble(@NotNull Container inv) {
 		return output.copy();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getResultItem() {
 		return output;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<RecipeTerraPlate> getSerializer() {
 		return ModRecipeTypes.TERRA_PLATE_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<RecipeTerraPlate> {
-		@Nonnull
+		@NotNull
 		@Override
-		public RecipeTerraPlate fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public RecipeTerraPlate fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			int mana = GsonHelper.getAsInt(json, "mana");
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
 			Ingredient[] ingredients = new Ingredient[ingrs.size()];
@@ -108,7 +108,7 @@ public class RecipeTerraPlate implements ITerraPlateRecipe {
 		}
 
 		@Override
-		public RecipeTerraPlate fromNetwork(@Nonnull ResourceLocation recipeId, FriendlyByteBuf buffer) {
+		public RecipeTerraPlate fromNetwork(@NotNull ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			int mana = buffer.readVarInt();
 			Ingredient[] ingredients = new Ingredient[buffer.readVarInt()];
 			for (int i = 0; i < ingredients.length; i++) {

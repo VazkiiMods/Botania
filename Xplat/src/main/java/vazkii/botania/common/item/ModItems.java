@@ -28,7 +28,6 @@ import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModPatterns;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.brew.ItemBrewBase;
@@ -62,6 +61,7 @@ import vazkii.botania.common.item.record.ItemModRecord;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.LinkedHashMap;
@@ -99,7 +99,7 @@ public final class ModItems {
 	public static final Item manaSteel = make(prefix(LibItemNames.MANASTEEL_INGOT), new Item(defaultBuilder()));
 	public static final Item manaPearl = make(prefix(LibItemNames.MANA_PEARL), new Item(defaultBuilder()));
 	public static final Item manaDiamond = make(prefix(LibItemNames.MANA_DIAMOND), new Item(defaultBuilder()));
-	public static final Item livingwoodTwig = make(prefix(LibItemNames.LIVINGWOOD_TWIG), new ItemModPattern(/*ModPatterns.FLOWER, */defaultBuilder()));
+	public static final Item livingwoodTwig = make(prefix(LibItemNames.LIVINGWOOD_TWIG), new ItemModPattern(ModTags.BannerPatterns.PATTERN_ITEM_LIVINGWOOD_TWIG, defaultBuilder()));
 	public static final Item terrasteel = make(prefix(LibItemNames.TERRASTEEL_INGOT), new ItemTerrasteel(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item lifeEssence = make(prefix(LibItemNames.LIFE_ESSENCE), new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item redstoneRoot = make(prefix(LibItemNames.REDSTONE_ROOT), new Item(defaultBuilder()));
@@ -107,7 +107,7 @@ public final class ModItems {
 	public static final Item pixieDust = make(prefix(LibItemNames.PIXIE_DUST), new Item(defaultBuilder()));
 	public static final Item dragonstone = make(prefix(LibItemNames.DRAGONSTONE), new Item(defaultBuilder()));
 	public static final Item redString = make(prefix(LibItemNames.RED_STRING), new Item(defaultBuilder()));
-	public static final Item dreamwoodTwig = make(prefix(LibItemNames.DREAMWOOD_TWIG), new ItemModPattern(/*ModPatterns.SAPLING, */defaultBuilder()));
+	public static final Item dreamwoodTwig = make(prefix(LibItemNames.DREAMWOOD_TWIG), new ItemModPattern(ModTags.BannerPatterns.PATTERN_ITEM_DREAMWOOD_TWIG, defaultBuilder()));
 	public static final Item gaiaIngot = make(prefix(LibItemNames.GAIA_INGOT), new ItemManaResource(defaultBuilder().rarity(Rarity.RARE)));
 	public static final Item enderAirBottle = make(prefix(LibItemNames.ENDER_AIR_BOTTLE), new ItemEnderAir(defaultBuilder()));
 	public static final Item manaString = make(prefix(LibItemNames.MANA_STRING), new Item(defaultBuilder()));
@@ -304,10 +304,10 @@ public final class ModItems {
 	public static final Item necroVirus = make(prefix(LibItemNames.NECRO_VIRUS), new ItemVirus(defaultBuilder()));
 	public static final Item nullVirus = make(prefix(LibItemNames.NULL_VIRUS), new ItemVirus(defaultBuilder()));
 	public static final Item spark = make(prefix(LibItemNames.SPARK), new ItemManaSpark(defaultBuilder()));
-	public static final Item sparkUpgradeDispersive = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(/*ModPatterns.SPARK_DISPERSIVE, */defaultBuilder(), SparkUpgradeType.DISPERSIVE));
-	public static final Item sparkUpgradeDominant = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(/*ModPatterns.SPARK_DOMINANT, */defaultBuilder(), SparkUpgradeType.DOMINANT));
-	public static final Item sparkUpgradeRecessive = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(/*ModPatterns.SPARK_RECESSIVE, */defaultBuilder(), SparkUpgradeType.RECESSIVE));
-	public static final Item sparkUpgradeIsolated = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(/*ModPatterns.SPARK_ISOLATED, */defaultBuilder(), SparkUpgradeType.ISOLATED));
+	public static final Item sparkUpgradeDispersive = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE));
+	public static final Item sparkUpgradeDominant = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT));
+	public static final Item sparkUpgradeRecessive = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE));
+	public static final Item sparkUpgradeIsolated = make(prefix(LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT)), new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED));
 	public static final Item corporeaSpark = make(prefix(LibItemNames.CORPOREA_SPARK), new ItemCorporeaSpark(defaultBuilder()));
 	public static final Item corporeaSparkMaster = make(prefix(LibItemNames.CORPOREA_SPARK_MASTER), new ItemCorporeaSpark(defaultBuilder()));
 	public static final Item corporeaSparkCreative = make(prefix(LibItemNames.CORPOREA_SPARK_CREATIVE), new ItemCorporeaSpark(defaultBuilder().rarity(Rarity.EPIC)));
@@ -337,8 +337,8 @@ public final class ModItems {
 	public static final Item thorRing = make(prefix(LibItemNames.THOR_RING), new ItemThorRing(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
 	public static final Item odinRing = make(prefix(LibItemNames.ODIN_RING), new ItemOdinRing(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
 	public static final Item lokiRing = make(prefix(LibItemNames.LOKI_RING), new ItemLokiRing(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
-	public static final Item recordGaia1 = make(prefix(LibItemNames.RECORD_GAIA1), new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE)));
-	public static final Item recordGaia2 = make(prefix(LibItemNames.RECORD_GAIA2), new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE)));
+	public static final Item recordGaia1 = make(prefix(LibItemNames.RECORD_GAIA1), new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE), 202));
+	public static final Item recordGaia2 = make(prefix(LibItemNames.RECORD_GAIA2), new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE), 227));
 	public static final Item ancientWillAhrim = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "ahrim"), new ItemAncientWill(IAncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item ancientWillDharok = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "dharok"), new ItemAncientWill(IAncientWillContainer.AncientWillType.DHAROK, unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item ancientWillGuthan = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "guthan"), new ItemAncientWill(IAncientWillContainer.AncientWillType.GUTHAN, unstackable().rarity(Rarity.UNCOMMON)));
@@ -459,8 +459,6 @@ public final class ModItems {
 		r.accept(TerraPickTippingRecipe.SERIALIZER, prefix("terra_pick_tipping"));
 		r.accept(TwigWandRecipe.SERIALIZER, prefix("twig_wand"));
 		r.accept(WaterBottleMatchingRecipe.SERIALIZER, prefix("water_bottle_matching_shaped"));
-
-		ModPatterns.init();
 	}
 
 	public static Item getPetal(DyeColor color) {

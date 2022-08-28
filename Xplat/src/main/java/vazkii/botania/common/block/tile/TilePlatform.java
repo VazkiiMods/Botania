@@ -17,11 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BlockPlatform;
-
-import javax.annotation.Nullable;
 
 public class TilePlatform extends TileMod implements IWandable {
 	private static final String TAG_CAMO = "camo";

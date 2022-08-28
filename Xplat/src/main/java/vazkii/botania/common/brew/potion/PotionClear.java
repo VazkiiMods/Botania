@@ -13,7 +13,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class PotionClear extends InstantenousMobEffect {
 
@@ -22,7 +22,7 @@ public class PotionClear extends InstantenousMobEffect {
 	}
 
 	@Override
-	public void applyInstantenousEffect(Entity e, Entity e1, @Nonnull LivingEntity e2, int t, double d) {
+	public void applyInstantenousEffect(Entity e, Entity e1, @NotNull LivingEntity e2, int t, double d) {
 		e2.removeAllEffects();
 	}
 

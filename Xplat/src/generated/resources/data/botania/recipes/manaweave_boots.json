@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "S S",
-    "S S"
-  ],
   "key": {
     "S": {
       "item": "botania:manaweave_cloth"
     }
   },
+  "pattern": [
+    "S S",
+    "S S"
+  ],
   "result": {
     "item": "botania:manaweave_boots"
   }

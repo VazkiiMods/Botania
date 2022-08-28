@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:spectrolus"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/red"
@@ -37,5 +34,8 @@
     {
       "item": "botania:pixie_dust"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:spectrolus"
+  }
 }

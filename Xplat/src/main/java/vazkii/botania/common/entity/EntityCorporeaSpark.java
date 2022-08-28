@@ -29,6 +29,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
@@ -37,10 +39,7 @@ import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
-import javax.annotation.Nonnull;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
 	private static final int SCAN_RANGE = 8;
@@ -52,7 +51,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	private static final EntityDataAccessor<Boolean> CREATIVE = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
 
 	private ICorporeaSpark master;
-	private List<ICorporeaSpark> connections = new SparkArrayList<>();
+	private Set<ICorporeaSpark> connections = new LinkedHashSet<>();
 	private List<ICorporeaSpark> relatives = new ArrayList<>();
 	private boolean firstTick = true;
 
@@ -67,7 +66,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		entityData.define(CREATIVE, false);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(isCreative() ? ModItems.corporeaSparkCreative : isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark);
@@ -119,22 +118,22 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections) {
+	public void introduceNearbyTo(Set<ICorporeaSpark> network, ICorporeaSpark master) {
 		relatives.clear();
 		for (ICorporeaSpark spark : getNearbySparks()) {
-			if (spark == null || connections.contains(spark)
+			if (spark == null || network.contains(spark)
 					|| spark.getNetwork() != getNetwork()
 					|| spark.isMaster() || !spark.entity().isAlive()) {
 				continue;
 			}
 
-			connections.add(spark);
+			network.add(spark);
 			relatives.add(spark);
-			spark.registerConnections(master, this, connections);
+			spark.introduceNearbyTo(network, master);
 		}
 
 		this.master = master;
-		this.connections = connections;
+		this.connections = network;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -143,14 +142,14 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void restartNetwork() {
-		connections = new SparkArrayList<>();
+		connections = new LinkedHashSet<>();
 		relatives = new ArrayList<>();
 
 		if (master != null) {
 			ICorporeaSpark oldMaster = master;
 			master = null;
 
-			oldMaster.registerConnections(oldMaster, this, new SparkArrayList<>());
+			oldMaster.introduceNearbyTo(new LinkedHashSet<>(), oldMaster);
 		}
 	}
 
@@ -193,7 +192,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public List<ICorporeaSpark> getConnections() {
+	public Set<ICorporeaSpark> getConnections() {
 		return connections;
 	}
 
@@ -298,14 +297,14 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setMaster(cmp.getBoolean(TAG_MASTER));
 		setCreative(cmp.getBoolean(TAG_CREATIVE));
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
 		cmp.putBoolean(TAG_CREATIVE, isCreative());

@@ -1,6 +1,5 @@
 {
   "type": "botania:terra_plate",
-  "mana": 500000,
   "ingredients": [
     {
       "item": "botania:manasteel_ingot"
@@ -12,6 +11,7 @@
       "item": "botania:mana_diamond"
     }
   ],
+  "mana": 500000,
   "result": {
     "item": "botania:terrasteel_ingot"
   }

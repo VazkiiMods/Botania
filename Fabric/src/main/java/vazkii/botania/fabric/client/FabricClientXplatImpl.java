@@ -10,20 +10,19 @@ import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nullable;
-
-import java.util.Random;
 
 public class FabricClientXplatImpl implements IClientXplatAbstractions {
 	@Override
@@ -62,6 +61,6 @@ public class FabricClientXplatImpl implements IClientXplatAbstractions {
 		var brd = Minecraft.getInstance().getBlockRenderer();
 		var buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
 		brd.getModelRenderer().tesselateBlock(level, brd.getBlockModel(state), state, pos, ps,
-				buffer, true, new Random(), state.getSeed(pos), overlay);
+				buffer, true, RandomSource.create(), state.getSeed(pos), overlay);
 	}
 }

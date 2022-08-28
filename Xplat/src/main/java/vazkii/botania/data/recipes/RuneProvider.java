@@ -20,12 +20,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nullable;
 
 import java.util.function.Consumer;
 
@@ -57,7 +57,7 @@ public class RuneProvider extends BotaniaRecipeProvider {
 		Ingredient coalBlock = Ingredient.of(Blocks.COAL_BLOCK);
 		consumer.accept(new FinishedRecipe(idFor("earth"), new ItemStack(ModItems.runeEarth, 2), costTier1, manaPowder, manaSteel, stone, coalBlock, Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM)));
 
-		consumer.accept(new FinishedRecipe(idFor("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.of(ItemTags.CARPETS), Ingredient.of(Items.FEATHER), Ingredient.of(Items.STRING)));
+		consumer.accept(new FinishedRecipe(idFor("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.of(ItemTags.WOOL_CARPETS), Ingredient.of(Items.FEATHER), Ingredient.of(Items.STRING)));
 
 		Ingredient fire = Ingredient.of(ModItems.runeFire);
 		Ingredient water = Ingredient.of(ModItems.runeWater);

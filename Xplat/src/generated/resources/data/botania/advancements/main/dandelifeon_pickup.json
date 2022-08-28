@@ -1,23 +1,7 @@
 {
   "parent": "botania:main/gaia_guardian_kill",
-  "display": {
-    "icon": {
-      "item": "botania:dandelifeon"
-    },
-    "title": {
-      "translate": "advancement.botania:dandelifeonPickup"
-    },
-    "description": {
-      "translate": "advancement.botania:dandelifeonPickup.desc"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "dandelifeon": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -26,7 +10,23 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.botania:dandelifeonPickup.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:dandelifeon"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.botania:dandelifeonPickup"
     }
   },
   "requirements": [

@@ -16,8 +16,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
@@ -42,6 +40,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.block.IWandBindable;
 import vazkii.botania.api.item.ICoordBoundItem;
@@ -60,9 +61,6 @@ import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -158,7 +156,7 @@ public class ItemTwigWand extends Item {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
@@ -308,9 +306,9 @@ public class ItemTwigWand extends Item {
 		});
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (player.isShiftKeyDown()) {
 			if (!world.isClientSide) {
@@ -324,8 +322,8 @@ public class ItemTwigWand extends Item {
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> stacks) {
-		if (allowdedIn(group)) {
+	public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> stacks) {
+		if (allowedIn(group)) {
 			stacks.add(setColors(new ItemStack(this), 0, 0));
 			List<Pair<Integer, Integer>> colorPairs = Arrays.asList(
 					new Pair<>(0, 3), // White + Light Blue
@@ -353,9 +351,9 @@ public class ItemTwigWand extends Item {
 	}
 
 	@Override
-	public Component getName(@Nonnull ItemStack stack) {
-		Component mode = new TextComponent(" (")
-				.append(new TranslatableComponent(getModeString(stack)).withStyle(modeChatFormatting))
+	public Component getName(@NotNull ItemStack stack) {
+		Component mode = Component.literal(" (")
+				.append(Component.translatable(getModeString(stack)).withStyle(modeChatFormatting))
 				.append(")");
 		return super.getName(stack).plainCopy().append(mode);
 	}

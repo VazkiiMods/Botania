@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -36,6 +35,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -52,9 +53,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.proxy.IProxy;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,8 +88,8 @@ public class ItemFlightTiara extends ItemBauble {
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
-		if (allowdedIn(tab)) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
+		if (allowedIn(tab)) {
 			for (int i = 0; i < SUBTYPES + 1; i++) {
 				ItemStack stack = new ItemStack(this);
 				ItemNBTHelper.setInt(stack, TAG_VARIANT, i);
@@ -103,7 +101,7 @@ public class ItemFlightTiara extends ItemBauble {
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);
-		tooltip.add(new TranslatableComponent("botania.wings" + getVariant(stack)));
+		tooltip.add(Component.translatable("botania.wings" + getVariant(stack)));
 	}
 
 	public static void updatePlayerFlyStatus(Player player) {

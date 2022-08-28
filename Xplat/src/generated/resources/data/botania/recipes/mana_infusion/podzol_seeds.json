@@ -3,8 +3,8 @@
   "input": {
     "item": "minecraft:dead_bush"
   },
+  "mana": 2500,
   "output": {
     "item": "botania:podzol_seeds"
-  },
-  "mana": 2500
+  }
 }

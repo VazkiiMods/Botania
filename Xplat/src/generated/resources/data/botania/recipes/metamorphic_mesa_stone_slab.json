@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "botania:metamorphic_stone_slab",
-  "pattern": [
-    "QQQ"
-  ],
   "key": {
     "Q": {
       "item": "botania:metamorphic_mesa_stone"
     }
   },
+  "pattern": [
+    "QQQ"
+  ],
   "result": {
-    "item": "botania:metamorphic_mesa_stone_slab",
-    "count": 6
+    "count": 6,
+    "item": "botania:metamorphic_mesa_stone_slab"
   }
 }

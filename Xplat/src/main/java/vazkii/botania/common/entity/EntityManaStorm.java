@@ -18,9 +18,9 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.item.ModItems;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.item.ModItems;
 
 public class EntityManaStorm extends Entity {
 	private static final String TAG_TIME = "time";
@@ -85,7 +85,7 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void readAdditionalSaveData(@NotNull CompoundTag cmp) {
 		liveTime = cmp.getInt(TAG_TIME);
 		burstColor = cmp.getInt(TAG_BURST_COLOR);
 		burstsFired = cmp.getInt(TAG_BURSTS_FIRED);
@@ -93,14 +93,14 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
 		cmp.putInt(TAG_TIME, liveTime);
 		cmp.putInt(TAG_BURST_COLOR, burstColor);
 		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);
 		cmp.putInt(TAG_DEATH_TIME, deathTime);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);

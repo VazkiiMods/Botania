@@ -16,10 +16,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-
-import javax.annotation.Nonnull;
 
 public class TerraPickTippingRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<TerraPickTippingRecipe> SERIALIZER = new SimpleRecipeSerializer<>(TerraPickTippingRecipe::new);
@@ -28,14 +28,14 @@ public class TerraPickTippingRecipe extends CustomRecipe {
 		super(id);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundTerraPick = false;
 		boolean foundElementiumPick = false;
 
@@ -55,9 +55,9 @@ public class TerraPickTippingRecipe extends CustomRecipe {
 		return foundTerraPick && foundElementiumPick;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack terraPick = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {

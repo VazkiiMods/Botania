@@ -30,6 +30,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.ITileBound;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.item.ISequentialBreaker;
@@ -41,8 +43,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;

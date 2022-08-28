@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:dandelifeon"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/purple"
@@ -31,5 +28,8 @@
     {
       "item": "botania:life_essence"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:dandelifeon"
+  }
 }

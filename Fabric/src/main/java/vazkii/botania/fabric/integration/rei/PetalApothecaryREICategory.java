@@ -21,14 +21,13 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,22 +37,22 @@ public class PetalApothecaryREICategory implements DisplayCategory<PetalApotheca
 	private final ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
-	public @Nonnull CategoryIdentifier<PetalApothecaryREIDisplay> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<PetalApothecaryREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 
 	@Override
-	public @Nonnull Renderer getIcon() {
+	public @NotNull Renderer getIcon() {
 		return this.apothecary;
 	}
 
 	@Override
-	public @Nonnull Component getTitle() {
-		return new TranslatableComponent("botania.nei.petalApothecary");
+	public @NotNull Component getTitle() {
+		return Component.translatable("botania.nei.petalApothecary");
 	}
 
 	@Override
-	public @Nonnull List<Widget> setupDisplay(PetalApothecaryREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(PetalApothecaryREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);

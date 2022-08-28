@@ -227,9 +227,6 @@ public final class ForgeBotaniaConfig {
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusItemBlacklist;
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusModBlacklist;
 
-		public final ForgeConfigSpec.BooleanValue worldgenFlowers;
-		public final ForgeConfigSpec.BooleanValue worldgenMushrooms;
-
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("blockBreakingParticles");
 			blockBreakParticles = builder
@@ -293,12 +290,6 @@ public final class ForgeBotaniaConfig {
 						Ores from mods present on this list will be picked over mods listed lower or not listed at all.
 						Applying changes at runtime requires /reload afterwards.""")
 					.defineList("orechidPriorityMods", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s + ":test") != null);
-			worldgenFlowers = builder
-					.comment("Set this to false to disable mystical flower worldgen. More fine-tuned customization should be done with datapacks.")
-					.define("worldgenFlowers", true);
-			worldgenMushrooms = builder
-					.comment("Set this to false to disable mushroom worldgen. More fine-tuned customization should be done with datapacks.")
-					.define("worldgenMushrooms", true);
 			rannuncarpusItemBlacklist = builder
 					.comment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
 					.defineList("rannuncarpus.itemBlacklist", Collections.emptyList(), o -> o instanceof String s && ResourceLocation.tryParse(s) != null);
@@ -373,16 +364,6 @@ public final class ForgeBotaniaConfig {
 			return gogIslandScaleMultiplier.get();
 		}
 
-		@Override
-		public boolean worldgenFlowers() {
-			return worldgenFlowers.get();
-		}
-
-		@Override
-		public boolean worldgenMushrooms() {
-			return worldgenMushrooms.get();
-		}
-
 		@SuppressWarnings("unchecked") // NightConfig's types are weird
 		@Override
 		public List<String> rannuncarpusItemBlacklist() {
@@ -416,7 +397,10 @@ public final class ForgeBotaniaConfig {
 
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Loading evt) {
-		BotaniaConfig.resetPatchouliFlags();
+		var config = evt.getConfig();
+		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(LibMisc.MOD_ID)) {
+			BotaniaConfig.resetPatchouliFlags();
+		}
 	}
 
 	@SubscribeEvent

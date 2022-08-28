@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " W ",
-    "WDW",
-    "W W"
-  ],
   "key": {
     "D": {
       "tag": "botania:mana_diamond_gems"
@@ -13,6 +8,11 @@
       "tag": "botania:livingwood_logs"
     }
   },
+  "pattern": [
+    " W ",
+    "WDW",
+    "W W"
+  ],
   "result": {
     "item": "botania:avatar"
   }

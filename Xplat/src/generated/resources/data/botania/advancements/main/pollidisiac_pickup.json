@@ -1,23 +1,7 @@
 {
   "parent": "botania:main/rune_pickup",
-  "display": {
-    "icon": {
-      "item": "botania:pollidisiac"
-    },
-    "title": {
-      "translate": "advancement.botania:pollidisiacPickup"
-    },
-    "description": {
-      "translate": "advancement.botania:pollidisiacPickup.desc"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "pollidisiac": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -26,7 +10,23 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.botania:pollidisiacPickup.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:pollidisiac"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.botania:pollidisiacPickup"
     }
   },
   "requirements": [

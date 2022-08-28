@@ -52,58 +52,42 @@ public class ModRecipeTypes {
 	public static final RecipeType<ITerraPlateRecipe> TERRA_PLATE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeTerraPlate> TERRA_PLATE_SERIALIZER = new RecipeTerraPlate.Serializer();
 
-	public static final RecipeType<IOrechidRecipe> ORECHID_TYPE = new ModRecipeType<>();
+	public static final RecipeType<RecipeOrechid> ORECHID_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeOrechid> ORECHID_SERIALIZER = new RecipeOrechid.Serializer();
 
-	public static final RecipeType<IOrechidRecipe> ORECHID_IGNEM_TYPE = new ModRecipeType<>();
+	public static final RecipeType<RecipeOrechidIgnem> ORECHID_IGNEM_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeOrechidIgnem> ORECHID_IGNEM_SERIALIZER = new RecipeOrechidIgnem.Serializer();
 
-	public static final RecipeType<IOrechidRecipe> MARIMORPHOSIS_TYPE = new ModRecipeType<>();
+	public static final RecipeType<RecipeMarimorphosis> MARIMORPHOSIS_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeMarimorphosis> MARIMORPHOSIS_SERIALIZER = new RecipeMarimorphosis.Serializer();
 
-	public static void registerRecipeTypes(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
-		ResourceLocation id = IElvenTradeRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
-		r.accept(ELVEN_TRADE_SERIALIZER, id);
+	public static void submitRecipeTypes(BiConsumer<RecipeType<?>, ResourceLocation> r) {
+		r.accept(ELVEN_TRADE_TYPE, IElvenTradeRecipe.TYPE_ID);
+		r.accept(MANA_INFUSION_TYPE, IManaInfusionRecipe.TYPE_ID);
+		r.accept(PURE_DAISY_TYPE, IPureDaisyRecipe.TYPE_ID);
+		r.accept(BREW_TYPE, IBrewRecipe.TYPE_ID);
+		r.accept(PETAL_TYPE, IPetalRecipe.TYPE_ID);
+		r.accept(RUNE_TYPE, IRuneAltarRecipe.TYPE_ID);
+		r.accept(TERRA_PLATE_TYPE, ITerraPlateRecipe.TYPE_ID);
+		r.accept(ORECHID_TYPE, IOrechidRecipe.TYPE_ID);
+		r.accept(ORECHID_IGNEM_TYPE, IOrechidRecipe.IGNEM_TYPE_ID);
+		r.accept(MARIMORPHOSIS_TYPE, IOrechidRecipe.MARIMORPHOSIS_TYPE_ID);
+	}
+
+	public static void submitRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
+		r.accept(ELVEN_TRADE_SERIALIZER, IElvenTradeRecipe.TYPE_ID);
 		r.accept(LEXICON_ELVEN_TRADE_SERIALIZER, prefix("elven_trade_lexicon"));
-
-		id = IManaInfusionRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, MANA_INFUSION_TYPE);
-		r.accept(MANA_INFUSION_SERIALIZER, id);
-
-		id = IPureDaisyRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, PURE_DAISY_TYPE);
-		r.accept(PURE_DAISY_SERIALIZER, id);
+		r.accept(MANA_INFUSION_SERIALIZER, IManaInfusionRecipe.TYPE_ID);
+		r.accept(PURE_DAISY_SERIALIZER, IPureDaisyRecipe.TYPE_ID);
 		r.accept(COPYING_PURE_DAISY_SERIALIZER, prefix("state_copying_pure_daisy"));
-
-		id = IBrewRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, BREW_TYPE);
-		r.accept(BREW_SERIALIZER, id);
-
-		id = IPetalRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, PETAL_TYPE);
-		r.accept(PETAL_SERIALIZER, id);
-
-		id = IRuneAltarRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, RUNE_TYPE);
-		r.accept(RUNE_SERIALIZER, id);
+		r.accept(BREW_SERIALIZER, IBrewRecipe.TYPE_ID);
+		r.accept(PETAL_SERIALIZER, IPetalRecipe.TYPE_ID);
+		r.accept(RUNE_SERIALIZER, IRuneAltarRecipe.TYPE_ID);
 		r.accept(RUNE_HEAD_SERIALIZER, prefix("runic_altar_head"));
-
-		id = ITerraPlateRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, TERRA_PLATE_TYPE);
-		r.accept(TERRA_PLATE_SERIALIZER, id);
-
-		id = IOrechidRecipe.TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, ORECHID_TYPE);
-		r.accept(ORECHID_SERIALIZER, id);
-
-		id = IOrechidRecipe.IGNEM_TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, ORECHID_IGNEM_TYPE);
-		r.accept(ORECHID_IGNEM_SERIALIZER, id);
-
-		id = IOrechidRecipe.MARIMORPHOSIS_TYPE_ID;
-		Registry.register(Registry.RECIPE_TYPE, id, MARIMORPHOSIS_TYPE);
-		r.accept(MARIMORPHOSIS_SERIALIZER, id);
+		r.accept(TERRA_PLATE_SERIALIZER, ITerraPlateRecipe.TYPE_ID);
+		r.accept(ORECHID_SERIALIZER, IOrechidRecipe.TYPE_ID);
+		r.accept(ORECHID_IGNEM_SERIALIZER, IOrechidRecipe.IGNEM_TYPE_ID);
+		r.accept(MARIMORPHOSIS_SERIALIZER, IOrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 	}
 
 	private static class ModRecipeType<T extends Recipe<?>> implements RecipeType<T> {

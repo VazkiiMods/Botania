@@ -17,14 +17,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-import javax.annotation.Nonnull;
-
 public class BehaviourWand extends OptionalDispenseItemBehavior {
 
-	@Nonnull
+	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.getLevel();

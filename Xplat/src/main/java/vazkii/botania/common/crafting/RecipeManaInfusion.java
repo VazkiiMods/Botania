@@ -21,14 +21,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Objects;
 
@@ -53,19 +52,13 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		this.catalyst = catalyst;
 	}
 
-	@Deprecated
-	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana,
-			@Nullable String group, @Nullable BlockState catalystState) {
-		this(id, output, input, mana, group, StateIngredientHelper.of(catalystState));
-	}
-
-	@Nonnull
+	@NotNull
 	@Override
 	public final ResourceLocation getId() {
 		return id;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<RecipeManaInfusion> getSerializer() {
 		return ModRecipeTypes.MANA_INFUSION_SERIALIZER;
@@ -86,25 +79,25 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		return mana;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getResultItem() {
 		return output;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.of(Ingredient.EMPTY, input);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getGroup() {
 		return group;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.manaPool);
@@ -112,9 +105,9 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 
 	public static class Serializer extends RecipeSerializerBase<RecipeManaInfusion> {
 
-		@Nonnull
+		@NotNull
 		@Override
-		public RecipeManaInfusion fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+		public RecipeManaInfusion fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			JsonElement input = Objects.requireNonNull(json.get("input"));
 			Ingredient ing = Ingredient.fromJson(input);
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
@@ -134,7 +127,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 
 		@Nullable
 		@Override
-		public RecipeManaInfusion fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+		public RecipeManaInfusion fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			Ingredient input = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
 			int mana = buf.readVarInt();
@@ -147,7 +140,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull RecipeManaInfusion recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RecipeManaInfusion recipe) {
 			recipe.getIngredients().get(0).toNetwork(buf);
 			buf.writeItem(recipe.getResultItem());
 			buf.writeVarInt(recipe.getManaToConsume());

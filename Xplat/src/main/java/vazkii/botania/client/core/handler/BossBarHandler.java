@@ -104,8 +104,7 @@ public final class BossBarHandler {
 		builder.vertex(matrix, x + w, y + h, 0).uv(maxU, maxV).endVertex();
 		builder.vertex(matrix, x + w, y, 0).uv(maxU, minV).endVertex();
 		builder.vertex(matrix, x, y, 0).uv(minU, minV).endVertex();
-		builder.end();
-		BufferUploader.end(builder);
+		Tesselator.getInstance().end();
 	}
 
 }

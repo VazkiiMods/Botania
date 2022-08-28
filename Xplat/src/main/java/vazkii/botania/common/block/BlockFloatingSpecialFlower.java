@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -18,13 +19,12 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
@@ -36,7 +36,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		BlockSpecialFlower.redstoneParticlesIfPowered(state, world, pos, rand);
 	}
 
@@ -45,9 +45,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
 		((TileEntitySpecialFlower) world.getBlockEntity(pos)).setPlacedBy(world, pos, state, entity, stack);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		TileEntitySpecialFlower te = blockEntityType.get().create(pos, state);
 		te.setFloating(true);
 		return te;

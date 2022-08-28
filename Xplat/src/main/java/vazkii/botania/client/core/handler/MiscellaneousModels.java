@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -17,7 +16,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -105,12 +103,6 @@ public class MiscellaneousModels {
 		materials.addAll(Arrays.asList(sparkUpgradeIcons));
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
-		for (BannerPattern pattern : BannerPattern.values()) {
-			if (pattern.getFilename().startsWith(LibMisc.MOD_ID)) {
-				materials.add(new Material(Sheets.SHIELD_SHEET, pattern.location(false)));
-				materials.add(new Material(Sheets.BANNER_SHEET, pattern.location(true)));
-			}
-		}
 		consumer.accept(prefix("icon/goldfish"));
 		consumer.accept(prefix("icon/phiflower"));
 		consumer.accept(prefix("icon/nerfbat"));
@@ -171,7 +163,7 @@ public class MiscellaneousModels {
 	}
 
 	private static void registerTaters(ResourceManager rm, Consumer<ResourceLocation> consumer) {
-		for (ResourceLocation model : rm.listResources(LibResources.PREFIX_MODELS + LibResources.PREFIX_TINY_POTATO, s -> s.endsWith(LibResources.ENDING_JSON))) {
+		for (ResourceLocation model : rm.listResources(LibResources.PREFIX_MODELS + LibResources.PREFIX_TINY_POTATO, s -> s.getPath().endsWith(LibResources.ENDING_JSON)).keySet()) {
 			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
 				String path = model.getPath();
 				path = path.substring(LibResources.PREFIX_MODELS.length(), path.length() - LibResources.ENDING_JSON.length());

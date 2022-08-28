@@ -12,9 +12,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
 
-import vazkii.botania.api.mana.IManaReceiver;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.mana.IManaReceiver;
 
 /**
  * An Entity that implements this is considered a Spark.

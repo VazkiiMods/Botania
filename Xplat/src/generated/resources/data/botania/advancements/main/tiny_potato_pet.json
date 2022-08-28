@@ -1,23 +1,23 @@
 {
   "parent": "botania:main/mana_pool_pickup",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "botania:tiny_potato"
-    },
-    "title": {
-      "translate": "advancement.botania:tinyPotatoPet"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.botania:tinyPotatoPet.desc"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "botania:tiny_potato"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "code_triggered": {
-      "trigger": "minecraft:impossible"
+    "title": {
+      "translate": "advancement.botania:tinyPotatoPet"
     }
   },
   "requirements": [

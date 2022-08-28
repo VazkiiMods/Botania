@@ -18,25 +18,27 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
+import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateRecipe> {
-	public static final ResourceLocation UID = prefix("terra_plate");
+	public static final RecipeType<ITerraPlateRecipe> TYPE =
+			RecipeType.create(LibMisc.MOD_ID, "terra_plate", ITerraPlateRecipe.class);
 
 	private final Component localizedName;
 	private final IDrawable background;
@@ -49,47 +51,41 @@ public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateReci
 		ResourceLocation location = prefix("textures/gui/terrasteel_jei_overlay.png");
 		background = guiHelper.createBlankDrawable(114, 131);
 		overlay = guiHelper.createDrawable(location, 42, 29, 64, 64);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.terraPlate));
-		localizedName = new TranslatableComponent("botania.nei.terraPlate");
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.terraPlate));
+		localizedName = Component.translatable("botania.nei.terraPlate");
 
-		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.livingrock));
+		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.livingrock));
 		terraPlate = new TerraPlateDrawable(livingrock, livingrock,
-				guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(Blocks.LAPIS_BLOCK))
+				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Blocks.LAPIS_BLOCK))
 		);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
+	public RecipeType<ITerraPlateRecipe> getRecipeType() {
+		return TYPE;
 	}
 
-	@Nonnull
-	@Override
-	public Class<? extends ITerraPlateRecipe> getRecipeClass() {
-		return ITerraPlateRecipe.class;
-	}
-
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(@Nonnull ITerraPlateRecipe recipe, @Nonnull IRecipeSlotsView view, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull ITerraPlateRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 25, 14);
 		HUDHandler.renderManaBar(ms, 6, 126, 0x0000FF, 0.75F, recipe.getMana(), 100000);
@@ -98,7 +94,7 @@ public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateReci
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ITerraPlateRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ITerraPlateRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 37)
 				.addItemStack(recipe.getResultItem());
 

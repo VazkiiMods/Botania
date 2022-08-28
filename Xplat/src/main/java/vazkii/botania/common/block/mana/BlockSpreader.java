@@ -33,6 +33,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModWaterloggable;
@@ -41,9 +44,6 @@ import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemTwigWand;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockSpreader extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
@@ -89,7 +89,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		builder.add(BotaniaStateProps.HAS_SCAFFOLDING);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
 		if (blockState.getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
@@ -99,9 +99,9 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		return be instanceof TileSpreader spreader && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public VoxelShape getOcclusionShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos) {
+	public VoxelShape getOcclusionShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
 		return SHAPE;
 	}
 
@@ -136,7 +136,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.ENTITYBLOCK_ANIMATED;
@@ -239,7 +239,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 	}
 
 	@Override
-	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 			if (!(tile instanceof TileSpreader spreader)) {
@@ -262,13 +262,13 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileSpreader(pos, state);
 	}
 
-	@javax.annotation.Nullable
+	@org.jetbrains.annotations.Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return createTickerHelper(type, ModTiles.SPREADER, TileSpreader::commonTick);

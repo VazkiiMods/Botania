@@ -11,9 +11,9 @@ package vazkii.botania.api.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.block.ITileBound;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.block.ITileBound;
 
 /**
  * Items with this capability can be bound to a position.

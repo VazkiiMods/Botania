@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:clay"
-  },
-  "output": {
-    "item": "minecraft:clay_ball",
-    "count": 4
-  },
-  "mana": 25,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:clay"
+  },
+  "mana": 25,
+  "output": {
+    "count": 4,
+    "item": "minecraft:clay_ball"
   }
 }

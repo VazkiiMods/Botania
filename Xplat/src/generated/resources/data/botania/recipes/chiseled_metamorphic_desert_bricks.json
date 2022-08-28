@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "QQ",
-    "QQ"
-  ],
   "key": {
     "Q": {
       "item": "botania:metamorphic_desert_bricks_slab"
     }
   },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
   "result": {
-    "item": "botania:chiseled_metamorphic_desert_bricks",
-    "count": 4
+    "count": 4,
+    "item": "botania:chiseled_metamorphic_desert_bricks"
   }
 }

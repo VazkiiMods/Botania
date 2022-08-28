@@ -1,0 +1,30 @@
+{
+  "__comment1": "the configured_feature to place",
+  "feature": "botania:mystical_mushrooms",
+  "__comment2": "PlacementModifiers. We start some set of input positions, and pass that collection through each modifier top to bottom",
+  "placement": [
+    {
+      "__comment": "For each position, offset XZ by rand(16)",
+      "type": "minecraft:in_square"
+    },
+    {
+      "__comment": "Move the y value of each position into the given height range",
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "above_bottom": 0
+        },
+        "max_inclusive": {
+          "absolute": 30
+        }
+      },
+      "heightmap": "MOTION_BLOCKING_NO_LEAVES"
+    },
+    {
+      "__comment": "For each position, keep only if the biome at that position has this PlacedFeature enabled",
+      "type": "minecraft:biome"
+    }
+  ],
+  "__comment3": "Ok, now we call the configured feature once at each position in the result"
+}

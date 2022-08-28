@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class BehaviourSeeds extends OptionalDispenseItemBehavior {
 	private final Block block;
@@ -26,7 +26,7 @@ public class BehaviourSeeds extends OptionalDispenseItemBehavior {
 		this.block = block;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);

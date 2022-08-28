@@ -1,8 +1,8 @@
 {
   "parent": "botania:block/shapes/wall_side_tall",
   "textures": {
-    "wall": "botania:block/livingrock_bricks",
     "bottom": "botania:block/livingrock_bricks",
-    "top": "botania:block/livingrock_bricks"
+    "top": "botania:block/livingrock_bricks",
+    "wall": "botania:block/livingrock_bricks"
   }
 }

@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:narslimmus"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/lime"
@@ -25,5 +22,8 @@
     {
       "item": "botania:rune_water"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:narslimmus"
+  }
 }

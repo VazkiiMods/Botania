@@ -191,6 +191,12 @@
       "heading": "botania.page.manaAlchemy41",
       "text": "botania.page.manaAlchemy28",
       "group": "botania:berry_cycle"
+    },
+    {
+      "type": "botania:mana_infusion",
+      "heading": "botania.page.manaAlchemy42",
+      "text": "botania.page.manaAlchemy43",
+      "group": "botania:117_stone_cycle"
     }
   ]
 }

@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "QQQ"
-  ],
   "key": {
     "Q": {
       "item": "botania:elf_quartz"
     }
   },
+  "pattern": [
+    "QQQ"
+  ],
   "result": {
-    "item": "botania:elf_quartz_slab",
-    "count": 6
+    "count": 6,
+    "item": "botania:elf_quartz_slab"
   }
 }

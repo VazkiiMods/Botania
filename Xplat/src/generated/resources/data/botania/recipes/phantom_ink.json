@@ -121,7 +121,7 @@
     }
   ],
   "result": {
-    "item": "botania:phantom_ink",
-    "count": 4
+    "count": 4,
+    "item": "botania:phantom_ink"
   }
 }

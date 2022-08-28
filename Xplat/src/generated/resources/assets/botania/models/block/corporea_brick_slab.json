@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab",
   "textures": {
     "bottom": "botania:block/corporea_brick",
-    "top": "botania:block/corporea_brick",
-    "side": "botania:block/corporea_brick"
+    "side": "botania:block/corporea_brick",
+    "top": "botania:block/corporea_brick"
   }
 }

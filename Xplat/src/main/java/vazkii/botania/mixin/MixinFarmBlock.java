@@ -27,8 +27,7 @@ public class MixinFarmBlock {
 		method = "canSurvive", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/level/LevelReader;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"),
 		cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT
 	)
-	private void floatingFlowerOverride(BlockState state, LevelReader worldIn, BlockPos pos,
-			CallbackInfoReturnable<Boolean> cir, BlockState stateAbove) {
+	private void floatingFlowerOverride(BlockState state, LevelReader world, BlockPos pos, CallbackInfoReturnable<Boolean> cir, BlockState stateAbove) {
 		if (stateAbove.getBlock() instanceof BlockFloatingFlower) {
 			cir.setReturnValue(true);
 		}

@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab",
   "textures": {
     "bottom": "botania:block/livingwood_log",
-    "top": "botania:block/livingwood_log",
-    "side": "botania:block/livingwood_log"
+    "side": "botania:block/livingwood_log",
+    "top": "botania:block/livingwood_log"
   }
 }

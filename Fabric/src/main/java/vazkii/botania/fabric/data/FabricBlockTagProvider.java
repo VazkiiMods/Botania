@@ -34,11 +34,6 @@ public class FabricBlockTagProvider extends BlockTagsProvider {
 	}
 
 	@Override
-	public String getName() {
-		return "Botania block tags (Fabric-specific)";
-	}
-
-	@Override
 	protected void addTags() {
 		tag(LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 		tag(QUARTZ_BLOCKS).add(

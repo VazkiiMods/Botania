@@ -3,8 +3,8 @@
   "input": {
     "item": "minecraft:glass"
   },
+  "mana": 150,
   "output": {
     "item": "botania:mana_glass"
-  },
-  "mana": 150
+  }
 }

@@ -1,9 +1,5 @@
 {
   "type": "botania:runic_altar_head",
-  "output": {
-    "item": "minecraft:player_head"
-  },
-  "mana": 22500,
   "ingredients": [
     {
       "item": "minecraft:skeleton_skull"
@@ -20,5 +16,9 @@
     {
       "item": "minecraft:golden_apple"
     }
-  ]
+  ],
+  "mana": 22500,
+  "output": {
+    "item": "minecraft:player_head"
+  }
 }

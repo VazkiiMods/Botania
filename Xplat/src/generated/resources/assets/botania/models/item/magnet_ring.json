@@ -1,14 +1,14 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "botania:item/magnet_ring"
-  },
   "overrides": [
     {
+      "model": "botania:item/magnet_ring_active",
       "predicate": {
         "botania:active": 1.0
-      },
-      "model": "botania:item/magnet_ring_active"
+      }
     }
-  ]
+  ],
+  "textures": {
+    "layer0": "botania:item/magnet_ring"
+  }
 }

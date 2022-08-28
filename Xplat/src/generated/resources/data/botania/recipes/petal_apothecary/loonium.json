@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:loonium"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/green"
@@ -34,5 +31,8 @@
     {
       "item": "botania:pixie_dust"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:loonium"
+  }
 }

@@ -1,0 +1,71 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "botania:white_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:orange_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:magenta_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:light_blue_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:yellow_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:lime_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:pink_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:gray_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:light_gray_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:cyan_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:purple_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:blue_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:brown_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:green_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:red_mystical_flower_patch",
+        "placement": []
+      },
+      {
+        "feature": "botania:black_mystical_flower_patch",
+        "placement": []
+      }
+    ]
+  }
+}

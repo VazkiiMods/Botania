@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "343",
-    "0D0"
-  ],
   "key": {
     "0": {
       "tag": "botania:dreamwood_logs"
@@ -18,8 +14,12 @@
       "item": "botania:pixie_dust"
     }
   },
+  "pattern": [
+    "343",
+    "0D0"
+  ],
   "result": {
-    "item": "botania:spectral_platform",
-    "count": 2
+    "count": 2,
+    "item": "botania:spectral_platform"
   }
 }

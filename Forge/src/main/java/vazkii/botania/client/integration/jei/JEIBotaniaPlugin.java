@@ -10,7 +10,7 @@ package vazkii.botania.client.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
@@ -25,7 +25,6 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -36,10 +35,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
-import vazkii.botania.api.recipe.IManaInfusionRecipe;
-import vazkii.botania.api.recipe.IOrechidRecipe;
-import vazkii.botania.api.recipe.StateIngredient;
+import org.apache.commons.lang3.ObjectUtils;
+import org.jetbrains.annotations.NotNull;
+
+import vazkii.botania.api.recipe.*;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
@@ -66,8 +65,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-import javax.annotation.Nonnull;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -80,30 +77,30 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = prefix("main");
 
 	@Override
-	public void registerItemSubtypes(@Nonnull ISubtypeRegistration registry) {
+	public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
 		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> ItemBrewBase.getSubtype(stack);
-		registry.registerSubtypeInterpreter(ModItems.brewVial, interpreter);
-		registry.registerSubtypeInterpreter(ModItems.brewFlask, interpreter);
-		registry.registerSubtypeInterpreter(ModItems.incenseStick, interpreter);
-		registry.registerSubtypeInterpreter(ModItems.bloodPendant, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.brewVial, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.brewFlask, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.incenseStick, interpreter);
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.bloodPendant, interpreter);
 
-		registry.registerSubtypeInterpreter(ModItems.flightTiara, (stack, ctx) -> String.valueOf(ItemFlightTiara.getVariant(stack)));
-		registry.registerSubtypeInterpreter(ModItems.lexicon, (stack, ctx) -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false)));
-		registry.registerSubtypeInterpreter(ModItems.laputaShard, (stack, ctx) -> String.valueOf(ItemLaputaShard.getShardLevel(stack)));
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.flightTiara, (stack, ctx) -> String.valueOf(ItemFlightTiara.getVariant(stack)));
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.lexicon, (stack, ctx) -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false)));
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.laputaShard, (stack, ctx) -> String.valueOf(ItemLaputaShard.getShardLevel(stack)));
 
-		registry.registerSubtypeInterpreter(ModItems.terraPick, (stack, ctx) -> {
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.terraPick, (stack, ctx) -> {
 			if (ctx == UidContext.Recipe) {
 				return String.valueOf(ItemTerraPick.isTipped(stack));
 			}
 			return String.valueOf(ItemTerraPick.getLevel(stack)) + ItemTerraPick.isTipped(stack);
 		});
-		registry.registerSubtypeInterpreter(ModItems.manaTablet, (stack, ctx) -> {
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.manaTablet, (stack, ctx) -> {
 			int mana = IXplatAbstractions.INSTANCE.findManaItem(stack).getMana();
 			return String.valueOf(mana) + ItemManaTablet.isStackCreative(stack);
 		});
 
 		for (Item item : new Item[] { ModItems.manaRing, ModItems.manaRingGreater }) {
-			registry.registerSubtypeInterpreter(item, (stack, ctx) -> {
+			registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, item, (stack, ctx) -> {
 				int mana = IXplatAbstractions.INSTANCE.findManaItem(stack).getMana();
 				return String.valueOf(mana);
 			});
@@ -113,7 +110,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		registry.addRecipeCategories(
-				new PureDaisyRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new PureDaisyRecipeCategory(registry.getJeiHelpers().getGuiHelper(), registry.getJeiHelpers().getPlatformFluidHelper()),
 				new ManaPoolRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new PetalApothecaryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new RunicAltarRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
@@ -134,19 +131,19 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	}
 
 	@Override
-	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
-		registry.addRecipes(sortRecipes(ModRecipeTypes.BREW_TYPE, BY_ID), BreweryRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.PURE_DAISY_TYPE, BY_ID), PureDaisyRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.PETAL_TYPE, BY_ID), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE, BY_ID), ElvenTradeRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.RUNE_TYPE, BY_ID), RunicAltarRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)), ManaPoolRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.TERRA_PLATE_TYPE, BY_ID), TerraPlateRecipeCategory.UID);
+	public void registerRecipes(@NotNull IRecipeRegistration registry) {
+		registry.addRecipes(BreweryRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.BREW_TYPE, BY_ID));
+		registry.addRecipes(PureDaisyRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.PURE_DAISY_TYPE, BY_ID));
+		registry.addRecipes(PetalApothecaryRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.PETAL_TYPE, BY_ID));
+		registry.addRecipes(ElvenTradeRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE, BY_ID));
+		registry.addRecipes(RunicAltarRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.RUNE_TYPE, BY_ID));
+		registry.addRecipes(ManaPoolRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)));
+		registry.addRecipes(TerraPlateRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
 
 		Comparator<IOrechidRecipe> comp = BY_INPUT.thenComparing(BY_WEIGHT).thenComparing(BY_ID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.ORECHID_TYPE, comp), OrechidRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.ORECHID_IGNEM_TYPE, comp), OrechidIgnemRecipeCategory.UID);
-		registry.addRecipes(sortRecipes(ModRecipeTypes.MARIMORPHOSIS_TYPE, comp), MarimorphosisRecipeCategory.UID);
+		registry.addRecipes(OrechidRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ORECHID_TYPE, comp));
+		registry.addRecipes(OrechidIgnemRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ORECHID_IGNEM_TYPE, comp));
+		registry.addRecipes(MarimorphosisRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.MARIMORPHOSIS_TYPE, comp));
 	}
 
 	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
@@ -165,7 +162,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		}
 	};
 
-	private static <T extends Recipe<C>, C extends Container> Collection<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {
+	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {
 		@SuppressWarnings("unchecked")
 		Collection<T> recipes = (Collection<T>) ModRecipeTypes.getRecipes(Minecraft.getInstance().level, type).values();
 		List<T> list = new ArrayList<>(recipes);
@@ -175,45 +172,45 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registry) {
-		registry.addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
+		registry.addRecipeTransferHandler(ContainerCraftingHalo.class, null, RecipeTypes.CRAFTING, 1, 9, 10, 36);
 	}
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.brewery), BreweryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.alfPortal), ElvenTradeRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.brewery), BreweryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.alfPortal), ElvenTradeRecipeCategory.TYPE);
 
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.manaPool), ManaPoolRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.creativePool), ManaPoolRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.dilutedPool), ManaPoolRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.fabulousPool), ManaPoolRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.manaPool), ManaPoolRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.creativePool), ManaPoolRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.dilutedPool), ManaPoolRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.fabulousPool), ManaPoolRecipeCategory.TYPE);
 
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.defaultAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.forestAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.plainsAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mountainAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.fungalAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.swampAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.desertAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.taigaAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mesaAltar), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mossyAltar), PetalApothecaryRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.defaultAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.forestAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.plainsAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mountainAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.fungalAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.swampAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.desertAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.taigaAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mesaAltar), PetalApothecaryRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mossyAltar), PetalApothecaryRecipeCategory.TYPE);
 
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechid), OrechidRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidFloating), OrechidRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnem), OrechidIgnemRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnemFloating), OrechidIgnemRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosis), MarimorphosisRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisChibi), MarimorphosisRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisFloating), MarimorphosisRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisChibiFloating), MarimorphosisRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisy), PureDaisyRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechid), OrechidRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidFloating), OrechidRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnem), OrechidIgnemRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnemFloating), OrechidIgnemRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosis), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisChibi), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisFloating), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.marimorphosisChibiFloating), MarimorphosisRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisy), PureDaisyRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.TYPE);
 
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.terraPlate), TerraPlateRecipeCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
-		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.terraPlate), TerraPlateRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), RecipeTypes.CRAFTING);
+		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), RecipeTypes.CRAFTING);
 	}
 
 	@Override
@@ -227,37 +224,36 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			List<Ingredient> inputs = recipe.getIngredients();
 			List<ItemStack> outputs = recipe.getOutputs();
 			if (inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0))) {
-				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
+				recipeRegistry.hideRecipes(ElvenTradeRecipeCategory.TYPE, List.of(recipe));
 			}
 		}
 
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 		recipeManager.byKey(prefix("petal_apothecary/daybloom_motif"))
-				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
+				.ifPresent(r -> {
+					if (r instanceof IPetalRecipe pr) {
+						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
+					}
+				});
 		recipeManager.byKey(prefix("petal_apothecary/nightshade_motif"))
-				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
+				.ifPresent(r -> {
+					if (r instanceof IPetalRecipe pr) {
+						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
+					}
+				});
 
-		CorporeaInputHandler.hoveredStackGetter = () -> {
-			ItemStack stack = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM);
+		var old = CorporeaInputHandler.hoveredStackGetter;
+		CorporeaInputHandler.hoveredStackGetter = () -> ObjectUtils.getFirstNonNull(
+				() -> jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+				() -> jeiRuntime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK).orElse(null),
+				() -> jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK),
+				old
+		);
 
-			if (stack == null && Minecraft.getInstance().screen == jeiRuntime.getRecipesGui()) {
-				stack = jeiRuntime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM);
-			}
-
-			if (stack == null) {
-				stack = jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM);
-			}
-
-			if (stack != null) {
-				return stack;
-			}
-			return ItemStack.EMPTY;
-		};
-
-		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen<?> || gui instanceof IRecipesGui;
+		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(gui -> gui instanceof IRecipesGui);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getPluginUid() {
 		return ID;

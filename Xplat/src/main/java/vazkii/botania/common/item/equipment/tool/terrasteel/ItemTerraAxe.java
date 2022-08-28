@@ -19,14 +19,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
-
-import javax.annotation.Nonnull;
 
 import java.util.*;
 
@@ -282,7 +282,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 */
 		public record SwapCandidate(BlockPos coordinates, int range) implements Comparable<SwapCandidate> {
 			@Override
-			public int compareTo(@Nonnull SwapCandidate other) {
+			public int compareTo(@NotNull SwapCandidate other) {
 				// Aka, a bigger range implies a smaller value, meaning
 				// bigger ranges will be preferred in a min-heap
 				return other.range - range;

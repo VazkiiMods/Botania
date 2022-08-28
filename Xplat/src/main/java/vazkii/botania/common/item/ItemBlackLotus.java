@@ -11,7 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,13 +42,13 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 	}
 
 	@Override
-	public void onDissolveTick(IManaPool pool, ItemStack stack, ItemEntity item) {
+	public void onDissolveTick(IManaPool pool, ItemEntity item) {
 		if (pool.isFull() || pool.getCurrentMana() == 0) {
 			return;
 		}
 
 		BlockPos pos = pool.getManaReceiverPos();
-		boolean t2 = stack.is(ModItems.blackerLotus);
+		boolean t2 = item.getItem().is(ModItems.blackerLotus);
 
 		if (!item.level.isClientSide) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
@@ -62,7 +61,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		list.add(new TranslatableComponent("botaniamisc.lotusDesc").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botaniamisc.lotusDesc").withStyle(ChatFormatting.GRAY));
 	}
 
 }

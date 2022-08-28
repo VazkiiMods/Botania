@@ -22,16 +22,14 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -207,11 +205,5 @@ public class StateIngredientHelper {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
 		return NbtUtils.readBlockState(nbt);
-	}
-
-	@Deprecated
-	@Nonnull
-	public static List<ItemStack> toStackList(StateIngredient input) {
-		return input.getDisplayedStacks();
 	}
 }

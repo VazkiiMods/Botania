@@ -13,13 +13,13 @@ import com.google.common.base.Suppliers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -27,8 +27,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -44,7 +42,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		return ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getDescriptionId(ItemStack stack) {
 		String name = super.getDescriptionId(stack);
@@ -89,14 +87,14 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Override
 	public MutableComponent getArmorSetName() {
-		return new TranslatableComponent("botania.armorset.manaweave.name");
+		return Component.translatable("botania.armorset.manaweave.name");
 	}
 
 	@Override
 	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		if (IXplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
-			list.add(new TranslatableComponent("botaniamisc.santaweaveInfo"));
-			list.add(new TextComponent(""));
+			list.add(Component.translatable("botaniamisc.santaweaveInfo"));
+			list.add(Component.literal(""));
 		}
 
 		super.addInformationAfterShift(stack, world, list, flags);
@@ -104,7 +102,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
-		list.add(new TranslatableComponent("botania.armorset.manaweave.desc0").withStyle(ChatFormatting.GRAY));
-		list.add(new TranslatableComponent("botania.armorset.manaweave.desc1").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.manaweave.desc0").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.manaweave.desc1").withStyle(ChatFormatting.GRAY));
 	}
 }

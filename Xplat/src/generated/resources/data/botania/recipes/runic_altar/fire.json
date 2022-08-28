@@ -1,10 +1,5 @@
 {
   "type": "botania:runic_altar",
-  "output": {
-    "item": "botania:rune_fire",
-    "count": 2
-  },
-  "mana": 5200,
   "ingredients": [
     {
       "tag": "botania:mana_dusts"
@@ -21,5 +16,10 @@
     {
       "item": "minecraft:nether_wart"
     }
-  ]
+  ],
+  "mana": 5200,
+  "output": {
+    "count": 2,
+    "item": "botania:rune_fire"
+  }
 }

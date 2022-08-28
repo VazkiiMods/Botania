@@ -18,10 +18,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
-
-import javax.annotation.Nonnull;
 
 public class BlockCorporeaRetainer extends BlockMod implements EntityBlock {
 
@@ -58,9 +58,9 @@ public class BlockCorporeaRetainer extends BlockMod implements EntityBlock {
 		return ((TileCorporeaRetainer) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileCorporeaRetainer(pos, state);
 	}
 }

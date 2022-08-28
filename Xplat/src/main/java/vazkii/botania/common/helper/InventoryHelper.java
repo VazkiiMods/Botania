@@ -18,12 +18,12 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.mixin.AccessorHopperBlockEntity;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.function.Function;
 
@@ -108,8 +108,8 @@ public class InventoryHelper {
 	public static boolean overrideStackedOnOther(
 			Function<ItemStack, Container> inventoryGetter,
 			boolean selfGuiOpen,
-			@Nonnull ItemStack container, @Nonnull Slot slot,
-			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+			@NotNull ItemStack container, @NotNull Slot slot,
+			@NotNull ClickAction clickAction, @NotNull Player player) {
 		if (!selfGuiOpen && clickAction == ClickAction.SECONDARY) {
 			ItemStack toInsert = slot.getItem();
 			var inventory = inventoryGetter.apply(container);
@@ -125,8 +125,8 @@ public class InventoryHelper {
 	public static boolean overrideOtherStackedOnMe(
 			Function<ItemStack, Container> inventoryGetter,
 			boolean selfGuiOpen,
-			@Nonnull ItemStack container, @Nonnull ItemStack toInsert,
-			@Nonnull ClickAction clickAction, @Nonnull SlotAccess cursorAccess) {
+			@NotNull ItemStack container, @NotNull ItemStack toInsert,
+			@NotNull ClickAction clickAction, @NotNull SlotAccess cursorAccess) {
 		if (!selfGuiOpen && clickAction == ClickAction.SECONDARY) {
 			var inventory = inventoryGetter.apply(container);
 			if (simulateTransfer(inventory, toInsert, null).isEmpty()) {

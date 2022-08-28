@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:oak_leaves"
-  },
-  "output": {
-    "item": "minecraft:oak_leaves",
-    "count": 2
-  },
-  "mana": 2000,
   "catalyst": {
     "type": "block",
     "block": "botania:conjuration_catalyst"
+  },
+  "input": {
+    "item": "minecraft:oak_leaves"
+  },
+  "mana": 2000,
+  "output": {
+    "count": 2,
+    "item": "minecraft:oak_leaves"
   }
 }

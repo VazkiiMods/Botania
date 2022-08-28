@@ -14,14 +14,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.network.clientbound.PacketUpdateItemsRemaining;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.util.regex.Pattern;
 
@@ -59,7 +58,7 @@ public final class ItemsRemainingRenderHandler {
 			RenderSystem.applyModelViewMatrix();
 			ms.popPose();
 
-			Component text = TextComponent.EMPTY;
+			Component text = Component.empty();
 
 			if (customString == null) {
 				if (!stack.isEmpty()) {
@@ -70,12 +69,12 @@ public final class ItemsRemainingRenderHandler {
 						int rem = count % max;
 
 						if (stacks == 0) {
-							text = new TextComponent(Integer.toString(count));
+							text = Component.literal(Integer.toString(count));
 						} else {
-							Component stacksText = new TextComponent(Integer.toString(stacks)).withStyle(ChatFormatting.AQUA);
-							Component maxText = new TextComponent(Integer.toString(max)).withStyle(ChatFormatting.GRAY);
-							Component remText = new TextComponent(Integer.toString(rem)).withStyle(ChatFormatting.YELLOW);
-							text = new TextComponent(count + " (")
+							Component stacksText = Component.literal(Integer.toString(stacks)).withStyle(ChatFormatting.AQUA);
+							Component maxText = Component.literal(Integer.toString(max)).withStyle(ChatFormatting.GRAY);
+							Component remText = Component.literal(Integer.toString(rem)).withStyle(ChatFormatting.YELLOW);
+							text = Component.literal(count + " (")
 									.append(stacksText)
 									.append("*")
 									.append(maxText)
@@ -84,7 +83,7 @@ public final class ItemsRemainingRenderHandler {
 									.append(")");
 						}
 					} else if (count == -1) {
-						text = new TextComponent("\u221E");
+						text = Component.literal("\u221E");
 					}
 				}
 			} else {

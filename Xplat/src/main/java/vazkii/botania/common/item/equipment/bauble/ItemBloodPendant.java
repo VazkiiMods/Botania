@@ -22,7 +22,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -61,7 +60,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
 		super.fillItemCategory(tab, list);
-		if (allowdedIn(tab)) {
+		if (allowedIn(tab)) {
 			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
 				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
 				if (!brewStack.isEmpty()) {
@@ -77,17 +76,17 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			tooltip.add(new TranslatableComponent("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
+			tooltip.add(Component.translatable("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		tooltip.add(new TranslatableComponent("botaniamisc.brewOf", I18n.get(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
+		tooltip.add(Component.translatable("botaniamisc.brewOf", I18n.get(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
 		for (MobEffectInstance effect : brew.getPotionEffects(stack)) {
 			ChatFormatting format = effect.getEffect().getCategory().getTooltipFormatting();
-			MutableComponent cmp = new TranslatableComponent(effect.getDescriptionId());
+			MutableComponent cmp = Component.translatable(effect.getDescriptionId());
 			if (effect.getAmplifier() > 0) {
 				cmp.append(" ");
-				cmp.append(new TranslatableComponent("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.append(Component.translatable("botania.roman" + (effect.getAmplifier() + 1)));
 			}
 			tooltip.add(cmp.withStyle(format));
 		}

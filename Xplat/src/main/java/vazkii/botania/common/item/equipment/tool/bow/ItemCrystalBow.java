@@ -23,10 +23,10 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-
-import javax.annotation.Nonnull;
 
 import java.util.function.Consumer;
 
@@ -39,9 +39,9 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	// [VanillaCopy] super
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(@Nonnull Level worldIn, Player playerIn, @Nonnull InteractionHand handIn) {
+	public InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 		boolean flag = canFire(itemstack, playerIn); // Botania - custom check
 
@@ -55,7 +55,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 
 	// [VanillaCopy] super
 	@Override
-	public void releaseUsing(@Nonnull ItemStack stack, @Nonnull Level worldIn, LivingEntity entityLiving, int timeLeft) {
+	public void releaseUsing(@NotNull ItemStack stack, @NotNull Level worldIn, LivingEntity entityLiving, int timeLeft) {
 		if (entityLiving instanceof Player playerentity) {
 			boolean flag = canFire(stack, playerentity); // Botania - custom check
 			ItemStack itemstack = playerentity.getProjectile(stack);

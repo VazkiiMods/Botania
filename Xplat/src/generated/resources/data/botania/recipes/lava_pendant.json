@@ -1,14 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "MS ",
-    "S S",
-    "DSF"
-  ],
   "key": {
-    "S": {
-      "item": "botania:mana_string"
-    },
     "D": {
       "tag": "botania:manasteel_ingots"
     },
@@ -17,8 +9,16 @@
     },
     "M": {
       "item": "botania:rune_summer"
+    },
+    "S": {
+      "item": "botania:mana_string"
     }
   },
+  "pattern": [
+    "MS ",
+    "S S",
+    "DSF"
+  ],
   "result": {
     "item": "botania:lava_pendant"
   }

@@ -16,10 +16,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.handler.ModSounds;
-
-import javax.annotation.Nonnull;
 
 public class ItemVineBall extends Item {
 
@@ -27,9 +27,9 @@ public class ItemVineBall extends Item {
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		if (!player.getAbilities().instabuild) {
 			player.getItemInHand(hand).shrink(1);
 		}

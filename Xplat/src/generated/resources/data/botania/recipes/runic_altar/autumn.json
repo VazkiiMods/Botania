@@ -1,9 +1,5 @@
 {
   "type": "botania:runic_altar",
-  "output": {
-    "item": "botania:rune_autumn"
-  },
-  "mana": 8000,
   "ingredients": [
     {
       "item": "botania:rune_fire"
@@ -23,5 +19,9 @@
     {
       "item": "minecraft:spider_eye"
     }
-  ]
+  ],
+  "mana": 8000,
+  "output": {
+    "item": "botania:rune_autumn"
+  }
 }

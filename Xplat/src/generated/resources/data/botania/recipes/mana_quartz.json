@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "QQ",
-    "QQ"
-  ],
   "key": {
     "Q": {
       "item": "botania:quartz_mana"
     }
   },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
   "result": {
     "item": "botania:mana_quartz"
   }

@@ -22,17 +22,17 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.crafting.RecipeSerializerBase;
 
 public class NbtOutputRecipe {
 	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
 
 	private static class Serializer extends RecipeSerializerBase<Recipe<?>> {
-		@Nonnull
+		@NotNull
 		@Override
-		public Recipe<?> fromJson(@Nonnull ResourceLocation resourceLocation, @Nonnull JsonObject jsonObject) {
+		public Recipe<?> fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
 			var recipe = RecipeManager.fromJson(resourceLocation, GsonHelper.getAsJsonObject(jsonObject, "recipe"));
 			JsonElement nbt = jsonObject.get("nbt");
 
@@ -48,14 +48,14 @@ public class NbtOutputRecipe {
 			return recipe;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public Recipe<?> fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public Recipe<?> fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			throw new IllegalStateException("NbtOutputRecipe should not be sent over network");
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull Recipe<?> recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull Recipe<?> recipe) {
 			throw new IllegalStateException("NbtOutputRecipe should not be sent over network");
 		}
 	}

@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -20,10 +19,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -34,9 +33,9 @@ public class ItemTemperanceStone extends Item {
 		super(builder);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
 		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
@@ -46,9 +45,9 @@ public class ItemTemperanceStone extends Item {
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
-			stacks.add(new TranslatableComponent("botaniamisc.active"));
+			stacks.add(Component.translatable("botaniamisc.active"));
 		} else {
-			stacks.add(new TranslatableComponent("botaniamisc.inactive"));
+			stacks.add(Component.translatable("botaniamisc.inactive"));
 		}
 	}
 

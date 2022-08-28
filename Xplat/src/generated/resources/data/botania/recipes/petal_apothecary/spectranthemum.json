@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:spectranthemum"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/white"
@@ -31,5 +28,8 @@
     {
       "item": "botania:pixie_dust"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:spectranthemum"
+  }
 }

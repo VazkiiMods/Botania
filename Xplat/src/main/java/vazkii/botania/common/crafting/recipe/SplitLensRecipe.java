@@ -18,9 +18,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.ILens;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.mana.ILens;
 
 public class SplitLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<SplitLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SplitLensRecipe::new);
@@ -30,11 +30,11 @@ public class SplitLensRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level worldIn) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level worldIn) {
 		return !assemble(inv).isEmpty();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack assemble(CraftingContainer inv) {
 		ItemStack found = ItemStack.EMPTY;
@@ -62,7 +62,7 @@ public class SplitLensRecipe extends CustomRecipe {
 		return ((ILens) item).getCompositeLens(stack);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
 		NonNullList<ItemStack> remaining = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
@@ -83,7 +83,7 @@ public class SplitLensRecipe extends CustomRecipe {
 		return width * height >= 1;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

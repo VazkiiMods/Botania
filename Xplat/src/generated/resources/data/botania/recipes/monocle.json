@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GN",
-    "IN",
-    " N"
-  ],
   "key": {
     "G": {
       "item": "botania:mana_glass"
@@ -16,6 +11,11 @@
       "item": "minecraft:gold_nugget"
     }
   },
+  "pattern": [
+    "GN",
+    "IN",
+    " N"
+  ],
   "result": {
     "item": "botania:monocle"
   }

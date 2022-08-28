@@ -10,6 +10,10 @@ package vazkii.botania.common.impl.corporea;
 
 import com.google.common.base.Predicates;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -28,24 +32,22 @@ import java.util.*;
 import java.util.function.Function;
 
 public class CorporeaHelperImpl implements CorporeaHelper {
-	private final WeakHashMap<List<ICorporeaSpark>, List<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
+	private final WeakHashMap<ICorporeaSpark, Set<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
 
 	@Override
-	public List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
+	public Set<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
 		ICorporeaSpark master = spark.getMaster();
 		if (master == null) {
-			return Collections.emptyList();
+			return Collections.emptySet();
 		}
-		List<ICorporeaSpark> network = master.getConnections();
+		Set<ICorporeaSpark> network = master.getConnections();
 
-		if (cachedNetworks.containsKey(network)) {
-			List<ICorporeaNode> cache = cachedNetworks.get(network);
-			if (cache != null) {
-				return cache;
-			}
+		var cache = cachedNetworks.get(master);
+		if (cache != null) {
+			return cache;
 		}
 
-		List<ICorporeaNode> nodes = new ArrayList<>();
+		Set<ICorporeaNode> nodes = new LinkedHashSet<>();
 		if (network != null) {
 			for (ICorporeaSpark otherSpark : network) {
 				if (otherSpark != null) {
@@ -54,46 +56,8 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 			}
 		}
 
-		cachedNetworks.put(network, nodes);
+		cachedNetworks.put(master, nodes);
 		return nodes;
-	}
-
-	@Override
-	public int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		return getCountInNetwork(matcher, getNodesOnNetwork(spark));
-	}
-
-	@Override
-	public int getCountInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
-		Map<ICorporeaNode, Integer> map = getInventoriesWithMatchInNetwork(matcher, inventories);
-		int count = 0;
-
-		for (int value : map.values()) {
-			count += value;
-		}
-
-		return count;
-	}
-
-	@Override
-	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		List<ICorporeaNode> inventories = getNodesOnNetwork(spark);
-		return getInventoriesWithMatchInNetwork(matcher, inventories);
-	}
-
-	@Override
-	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> nodes) {
-		Map<ICorporeaNode, Integer> countMap = new HashMap<>();
-		for (ICorporeaNode node : nodes) {
-			ICorporeaRequest request = new CorporeaRequest(matcher, -1);
-			node.countItems(request);
-			if (request.getFound() > 0) {
-				countMap.put(node, request.getFound());
-			}
-
-		}
-
-		return countMap;
 	}
 
 	@Override
@@ -110,10 +74,11 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	public ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 		if (IXplatAbstractions.INSTANCE.fireCorporeaRequestEvent(matcher, itemCount, spark, !doit)) {
-			return new CorporeaResult(stacks, 0, 0);
+			return new CorporeaResult(stacks, 0, 0, Object2IntMaps.emptyMap());
 		}
 
-		List<ICorporeaNode> nodes = getNodesOnNetwork(spark);
+		Object2IntMap<ICorporeaNode> matchCountByNode = new Object2IntOpenHashMap<>();
+		Set<ICorporeaNode> nodes = getNodesOnNetwork(spark);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
 
 		ICorporeaRequest request = new CorporeaRequest(matcher, itemCount);
@@ -126,18 +91,17 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 				interceptors.put(interceptor, invSpark);
 			}
 
-			if (doit) {
-				stacks.addAll(node.extractItems(request));
-			} else {
-				stacks.addAll(node.countItems(request));
-			}
+			var nodeStacks = doit ? node.extractItems(request) : node.countItems(request);
+			int sum = nodeStacks.stream().mapToInt(ItemStack::getCount).sum();
+			matchCountByNode.mergeInt(node, sum, Integer::sum);
+			stacks.addAll(nodeStacks);
 		}
 
 		for (ICorporeaInterceptor interceptor : interceptors.keySet()) {
 			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, nodes, doit);
 		}
 
-		return new CorporeaResult(stacks, request.getFound(), request.getExtracted());
+		return new CorporeaResult(stacks, request.getFound(), request.getExtracted(), matchCountByNode);
 	}
 
 	@Override

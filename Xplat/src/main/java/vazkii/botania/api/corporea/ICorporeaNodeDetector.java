@@ -10,7 +10,7 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This interface is responsible for taking a location and exposing it, if possible, to the corporea network.

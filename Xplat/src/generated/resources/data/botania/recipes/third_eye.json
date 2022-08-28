@@ -1,11 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "RSR",
-    "QEQ",
-    "RDR"
-  ],
   "key": {
+    "D": {
+      "tag": "botania:mana_diamond_gems"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
     "Q": {
       "item": "minecraft:quartz_block"
     },
@@ -14,14 +15,13 @@
     },
     "S": {
       "item": "botania:rune_earth"
-    },
-    "D": {
-      "tag": "botania:mana_diamond_gems"
-    },
-    "E": {
-      "item": "minecraft:ender_eye"
     }
   },
+  "pattern": [
+    "RSR",
+    "QEQ",
+    "RDR"
+  ],
   "result": {
     "item": "botania:third_eye"
   }

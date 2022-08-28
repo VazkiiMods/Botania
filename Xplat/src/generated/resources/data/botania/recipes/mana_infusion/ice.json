@@ -1,14 +1,14 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:snow_block"
-  },
-  "output": {
-    "item": "minecraft:ice"
-  },
-  "mana": 2250,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:snow_block"
+  },
+  "mana": 2250,
+  "output": {
+    "item": "minecraft:ice"
   }
 }

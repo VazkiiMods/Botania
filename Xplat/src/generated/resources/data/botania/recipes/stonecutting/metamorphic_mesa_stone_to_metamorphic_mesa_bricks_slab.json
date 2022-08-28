@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 2,
   "ingredient": {
     "item": "botania:metamorphic_mesa_stone"
   },
-  "result": "botania:metamorphic_mesa_bricks_slab",
-  "count": 2
+  "result": "botania:metamorphic_mesa_bricks_slab"
 }

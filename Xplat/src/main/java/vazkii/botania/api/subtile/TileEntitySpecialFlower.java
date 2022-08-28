@@ -25,6 +25,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -33,9 +36,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.ModTags;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Common superclass of all magical flower block entities
@@ -167,7 +167,7 @@ public abstract class TileEntitySpecialFlower extends BlockEntity implements IFl
 		writeToPacketNBT(cmp);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public CompoundTag getUpdateTag() {
 		var tag = new CompoundTag();

@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "botania:clayconia"
-  },
-  "output": {
-    "item": "botania:clayconia_chibi"
-  },
-  "mana": 2500,
-  "group": "botania:flower_shrinking",
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:flower_shrinking",
+  "input": {
+    "item": "botania:clayconia"
+  },
+  "mana": 2500,
+  "output": {
+    "item": "botania:clayconia_chibi"
   }
 }

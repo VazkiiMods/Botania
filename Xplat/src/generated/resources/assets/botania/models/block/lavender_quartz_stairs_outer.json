@@ -2,7 +2,7 @@
   "parent": "minecraft:block/outer_stairs",
   "textures": {
     "bottom": "botania:block/lavender_quartz_bottom",
-    "top": "botania:block/lavender_quartz_top",
-    "side": "botania:block/lavender_quartz_side"
+    "side": "botania:block/lavender_quartz_side",
+    "top": "botania:block/lavender_quartz_top"
   }
 }

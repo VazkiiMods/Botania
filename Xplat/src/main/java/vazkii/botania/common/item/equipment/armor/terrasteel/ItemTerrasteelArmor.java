@@ -16,7 +16,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -25,13 +24,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,9 +47,9 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return LibResources.MODEL_TERRASTEEL_NEW;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlot slot) {
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
 		UUID uuid = new UUID(Registry.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
 		if (slot == getSlot()) {
@@ -97,14 +96,14 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	public MutableComponent getArmorSetName() {
-		return new TranslatableComponent("botania.armorset.terrasteel.name");
+		return Component.translatable("botania.armorset.terrasteel.name");
 	}
 
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
-		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc0").withStyle(ChatFormatting.GRAY));
-		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc1").withStyle(ChatFormatting.GRAY));
-		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc2").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.terrasteel.desc0").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.terrasteel.desc1").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("botania.armorset.terrasteel.desc2").withStyle(ChatFormatting.GRAY));
 	}
 
 	@SoftImplement("IForgeItem")

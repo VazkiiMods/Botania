@@ -8,77 +8,33 @@
  */
 package vazkii.botania.api.corporea;
 
-import com.google.common.base.Suppliers;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import org.apache.logging.log4j.LogManager;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.api.ServiceUtil;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public interface CorporeaHelper {
-	Supplier<CorporeaHelper> INSTANCE = Suppliers.memoize(() -> {
-		try {
-			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.corporea.CorporeaHelperImpl")
-					.getDeclaredConstructor().newInstance();
-		} catch (ReflectiveOperationException e) {
-			LogManager.getLogger().warn("Unable to find CorporeaHelperImpl, using a dummy");
-			return new CorporeaHelper() {};
-		}
-	});
+	CorporeaHelper INSTANCE = ServiceUtil.findService(CorporeaHelper.class, () -> new CorporeaHelper() {});
 
 	static CorporeaHelper instance() {
-		return INSTANCE.get();
+		return INSTANCE;
 	}
 
 	/**
-	 * Gets a list of all the nodes on this spark network. This list is cached for use once every tick,
-	 * and if something changes during that tick it'll still have the first result.
+	 * Gets all the nodes on this spark network. This is memoized for use once every tick.
+	 * The order of the nodes in this set are unspecified.
 	 */
-	default List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
-		return Collections.emptyList();
-	}
-
-	/**
-	 * Gets the number of available items in the network satisfying the given matcher.
-	 * If you have it computed, prefer {@link #getCountInNetwork(ICorporeaRequestMatcher, List)} to avoid
-	 * recomputation of the list.
-	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		return 0;
-	}
-
-	/**
-	 * Gets the number of available items in the network satisfying the given matcher.
-	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
-		return 0;
-	}
-
-	/**
-	 * Gets a Map mapping nodes to the number of matching items.
-	 * If you have it computed, prefer {@link #getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher, List)} to avoid
-	 * recomputation of the list.
-	 */
-	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		return Collections.emptyMap();
-	}
-
-	/**
-	 * Gets a Map mapping nodes to the number of matching items.
-	 */
-	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
-		return Collections.emptyMap();
+	default Set<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
+		return Collections.emptySet();
 	}
 
 	/**
@@ -110,16 +66,11 @@ public interface CorporeaHelper {
 	}
 
 	/**
-	 * Requests list of ItemStacks of the type passed in from the network, or tries to, checking NBT or not.
-	 * This will remove the items from the adequate inventories unless the "doit" parameter is false.
-	 * Returns a new list of ItemStacks of the items acquired or an empty list if none was found.
-	 * Case itemCount is -1 it'll find EVERY item it can.
-	 * <br>
-	 * <br>
-	 * When requesting counting of items, individual stacks may exceed maxStackSize for
-	 * purposes of counting huge amounts.
+	 * Requests items from the network associated with {@code spark}.
 	 * 
-	 * @return Triple of stacks extracted, number of items matched, and number of items extracted
+	 * @param matcher   Specifies what you want to request
+	 * @param itemCount Specifies the maximum amount you want to request. If -1, the amount is unlimited.
+	 * @param doit      If false, only counts the items instead of actually extracting
 	 */
 	default ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		return ICorporeaResult.Dummy.INSTANCE;

@@ -8,8 +8,8 @@
       "item": "minecraft:brown_mushroom"
     }
   ],
+  "mana": 6500,
   "output": {
     "item": "botania:mycelium_seeds"
-  },
-  "mana": 6500
+  }
 }

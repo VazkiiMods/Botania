@@ -1,14 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "BEB",
-    "BPB",
-    "NGN"
-  ],
   "key": {
-    "P": {
-      "item": "botania:cloud_pendant"
-    },
     "B": {
       "item": "minecraft:ghast_tear"
     },
@@ -20,8 +12,16 @@
     },
     "N": {
       "item": "minecraft:white_wool"
+    },
+    "P": {
+      "item": "botania:cloud_pendant"
     }
   },
+  "pattern": [
+    "BEB",
+    "BPB",
+    "NGN"
+  ],
   "result": {
     "item": "botania:super_cloud_pendant"
   }

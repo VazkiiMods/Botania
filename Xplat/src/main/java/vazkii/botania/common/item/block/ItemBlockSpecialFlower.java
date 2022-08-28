@@ -12,7 +12,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
@@ -22,11 +21,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -40,22 +39,22 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	}
 
 	@Override
-	public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+	public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load
 		if (BotaniaConfig.client() != null) {
 			if (world != null) {
 				if (stack.is(GENERATING)) {
-					tooltip.add(new TranslatableComponent("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+					tooltip.add(Component.translatable("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				} else if (stack.is(FUNCTIONAL)) {
-					tooltip.add(new TranslatableComponent("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+					tooltip.add(Component.translatable("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				} else if (stack.is(MISC)) {
-					tooltip.add(new TranslatableComponent("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
+					tooltip.add(Component.translatable("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				}
 			}
 
 			if (BotaniaConfig.client().referencesEnabled()) {
 				String key = getDescriptionId() + ".reference";
-				MutableComponent lore = new TranslatableComponent(key);
+				MutableComponent lore = Component.translatable(key);
 				if (!lore.getString().equals(key)) {
 					tooltip.add(lore.withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 				}

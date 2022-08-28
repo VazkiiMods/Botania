@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "Q",
-    "Q"
-  ],
   "key": {
     "Q": {
       "item": "botania:metamorphic_swamp_stone_slab"
     }
   },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
   "result": {
     "item": "botania:metamorphic_swamp_stone"
   }

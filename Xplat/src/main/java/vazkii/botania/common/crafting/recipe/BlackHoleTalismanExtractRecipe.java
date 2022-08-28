@@ -18,11 +18,11 @@ import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemBlackHoleTalisman;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SimpleRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
@@ -32,7 +32,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundTalisman = false;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -49,9 +49,9 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 		return foundTalisman;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack talisman = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -77,15 +77,15 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 		return width * height > 0;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
+	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.is(ModItems.blackHoleTalisman)) {
 				int count = ItemBlackHoleTalisman.getBlockCount(s);

@@ -14,15 +14,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,7 +44,7 @@ public class StateIngredientCompound implements StateIngredient {
 	}
 
 	@Override
-	public BlockState pick(Random random) {
+	public BlockState pick(RandomSource random) {
 		return new ArrayList<>(getBlocks()).get(random.nextInt(getBlocks().size()));
 	}
 
@@ -83,7 +84,7 @@ public class StateIngredientCompound implements StateIngredient {
 		return new ArrayList<>(getBlocks());
 	}
 
-	@Nonnull
+	@NotNull
 	protected Set<BlockState> getBlocks() {
 		if (this.resolvedBlocks.isEmpty()) {
 			for (StateIngredient ingredient : this.ingredients) {

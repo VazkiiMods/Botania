@@ -3,8 +3,8 @@
   "input": {
     "item": "minecraft:quartz"
   },
+  "mana": 250,
   "output": {
     "item": "botania:quartz_mana"
-  },
-  "mana": 250
+  }
 }

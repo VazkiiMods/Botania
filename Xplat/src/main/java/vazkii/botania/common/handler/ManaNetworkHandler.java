@@ -11,12 +11,12 @@ package vazkii.botania.common.handler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.util.*;
 

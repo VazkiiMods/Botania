@@ -22,12 +22,12 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.common.entity.EntityDoppleganger;
-
-import javax.annotation.Nonnull;
 
 public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, HumanoidModel<EntityDoppleganger>> {
 
@@ -46,7 +46,7 @@ public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, 
 	}
 
 	@Override
-	public void render(@Nonnull EntityDoppleganger dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(@NotNull EntityDoppleganger dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		int invulTime = dopple.getInvulTime();
 		ShaderInstance shader = CoreShaders.doppleganger();
 		if (shader != null) {
@@ -72,9 +72,9 @@ public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, 
 		super.render(dopple, yaw, partialTicks, ms, buffers, light);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@Nonnull EntityDoppleganger entity) {
+	public ResourceLocation getTextureLocation(@NotNull EntityDoppleganger entity) {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer)) {

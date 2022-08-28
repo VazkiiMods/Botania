@@ -21,10 +21,10 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.mixin.AccessorGoalSelector;
 import vazkii.botania.mixin.AccessorWitherEntity;
-
-import javax.annotation.Nonnull;
 
 public class EntityPinkWither extends WitherBoss {
 	public EntityPinkWither(EntityType<EntityPinkWither> type, Level world) {
@@ -77,5 +77,5 @@ public class EntityPinkWither extends WitherBoss {
 	}
 
 	@Override
-	public void startSeenByPlayer(@Nonnull ServerPlayer player) {}
+	public void startSeenByPlayer(@NotNull ServerPlayer player) {}
 }

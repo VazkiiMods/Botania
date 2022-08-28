@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SRS",
-    "RMR",
-    "SRS"
-  ],
   "key": {
+    "M": {
+      "tag": "botania:manasteel_ingots"
+    },
     "R": {
       "item": "minecraft:redstone_block"
     },
     "S": {
       "item": "botania:livingrock"
-    },
-    "M": {
-      "tag": "botania:manasteel_ingots"
     }
   },
+  "pattern": [
+    "SRS",
+    "RMR",
+    "SRS"
+  ],
   "result": {
     "item": "botania:mana_fluxfield"
   }

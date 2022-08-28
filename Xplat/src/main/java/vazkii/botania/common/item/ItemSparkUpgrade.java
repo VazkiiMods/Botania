@@ -8,16 +8,31 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+import vazkii.botania.common.lib.ModTags;
 
-public class ItemSparkUpgrade extends ItemModPattern {
+public class ItemSparkUpgrade extends Item implements ItemWithBannerPattern {
 	public final SparkUpgradeType type;
 
-	public ItemSparkUpgrade(/*LoomPattern pattern, */Properties builder, SparkUpgradeType type) {
-		super(/*pattern, */builder);
+	public ItemSparkUpgrade(Properties builder, SparkUpgradeType type) {
+		super(builder);
 		this.type = type;
+	}
+
+	@Override
+	public TagKey<BannerPattern> getBannerPattern() {
+		return switch (this.type) {
+			case DOMINANT -> ModTags.BannerPatterns.PATTERN_ITEM_SPARK_DOMINANT;
+			case RECESSIVE -> ModTags.BannerPatterns.PATTERN_ITEM_SPARK_RECESSIVE;
+			case DISPERSIVE -> ModTags.BannerPatterns.PATTERN_ITEM_SPARK_DISPERSIVE;
+			case ISOLATED -> ModTags.BannerPatterns.PATTERN_ITEM_SPARK_ISOLATED;
+			case NONE -> throw new IllegalArgumentException("ItemSparkUpgrade with none type");
+		};
 	}
 
 	public static ItemStack getByType(SparkUpgradeType type) {

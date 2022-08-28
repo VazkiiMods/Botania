@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "F": {
+      "item": "botania:rune_fire"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
   "pattern": [
     " BF",
     " TB",
     "T  "
   ],
-  "key": {
-    "B": {
-      "item": "minecraft:blaze_rod"
-    },
-    "T": {
-      "item": "botania:livingwood_twig"
-    },
-    "F": {
-      "item": "botania:rune_fire"
-    }
-  },
   "result": {
     "item": "botania:smelt_rod"
   }

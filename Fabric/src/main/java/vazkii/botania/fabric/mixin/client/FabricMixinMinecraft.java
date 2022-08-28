@@ -11,6 +11,7 @@ package vazkii.botania.fabric.mixin.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,8 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
-
-import javax.annotation.Nullable;
 
 @Mixin(Minecraft.class)
 public abstract class FabricMixinMinecraft {

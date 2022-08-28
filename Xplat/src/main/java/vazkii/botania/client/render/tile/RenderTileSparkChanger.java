@@ -18,16 +18,16 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.block.tile.TileSparkChanger;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.tile.TileSparkChanger;
 
 public class RenderTileSparkChanger implements BlockEntityRenderer<TileSparkChanger> {
 
 	public RenderTileSparkChanger(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@Nonnull TileSparkChanger tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileSparkChanger tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.mulPose(Vector3f.XP.rotationDegrees(90));
 		ms.translate(1.0F, -0.125F, -0.25F);

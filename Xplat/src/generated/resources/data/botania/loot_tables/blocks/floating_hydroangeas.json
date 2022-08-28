@@ -2,37 +2,37 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "botania:floating_hydroangeas"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "functions": [
         {
           "function": "minecraft:copy_nbt",
-          "source": "block_entity",
           "ops": [
             {
+              "op": "replace",
               "source": "cooldown",
-              "target": "BlockEntityTag.cooldown",
-              "op": "replace"
+              "target": "BlockEntityTag.cooldown"
             },
             {
+              "op": "replace",
               "source": "passiveDecayTicks",
-              "target": "BlockEntityTag.passiveDecayTicks",
-              "op": "replace"
+              "target": "BlockEntityTag.passiveDecayTicks"
             }
-          ]
+          ],
+          "source": "block_entity"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

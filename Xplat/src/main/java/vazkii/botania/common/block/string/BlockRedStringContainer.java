@@ -18,13 +18,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockRedStringContainer extends BlockRedString {
 
@@ -33,9 +33,9 @@ public class BlockRedStringContainer extends BlockRedString {
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return IXplatAbstractions.INSTANCE.newRedStringContainer(pos, state);
 	}
 

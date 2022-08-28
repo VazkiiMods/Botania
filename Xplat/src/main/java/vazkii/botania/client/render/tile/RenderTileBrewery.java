@@ -14,12 +14,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
-
-import javax.annotation.Nullable;
 
 public class RenderTileBrewery implements BlockEntityRenderer<TileBrewery> {
 	final ModelBrewery model;

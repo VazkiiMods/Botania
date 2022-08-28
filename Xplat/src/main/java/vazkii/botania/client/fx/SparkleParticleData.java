@@ -18,7 +18,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
@@ -67,7 +67,7 @@ public class SparkleParticleData implements ParticleOptions {
 		this.corrupt = corrupt;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ParticleType<SparkleParticleData> getType() {
 		return ModParticles.SPARKLE;
@@ -85,7 +85,7 @@ public class SparkleParticleData implements ParticleOptions {
 		buf.writeBoolean(corrupt);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String writeToString() {
 		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %d %s %s %s",
@@ -93,9 +93,9 @@ public class SparkleParticleData implements ParticleOptions {
 	}
 
 	public static final Deserializer<SparkleParticleData> DESERIALIZER = new Deserializer<>() {
-		@Nonnull
+		@NotNull
 		@Override
-		public SparkleParticleData fromCommand(@Nonnull ParticleType<SparkleParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
+		public SparkleParticleData fromCommand(@NotNull ParticleType<SparkleParticleData> type, @NotNull StringReader reader) throws CommandSyntaxException {
 			reader.expect(' ');
 			float size = reader.readFloat();
 			reader.expect(' ');
@@ -117,7 +117,7 @@ public class SparkleParticleData implements ParticleOptions {
 		}
 
 		@Override
-		public SparkleParticleData fromNetwork(@Nonnull ParticleType<SparkleParticleData> type, FriendlyByteBuf buf) {
+		public SparkleParticleData fromNetwork(@NotNull ParticleType<SparkleParticleData> type, FriendlyByteBuf buf) {
 			return new SparkleParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean());
 		}
 	};

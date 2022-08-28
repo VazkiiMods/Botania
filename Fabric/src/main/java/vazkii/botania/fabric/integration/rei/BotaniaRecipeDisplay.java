@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,19 +34,19 @@ public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implemen
 	}
 
 	@Override
-	public @Nonnull List<EntryIngredient> getInputEntries() {
+	public @NotNull List<EntryIngredient> getInputEntries() {
 		return this.inputs;
 	}
 
 	abstract public int getManaCost();
 
 	@Override
-	public @Nonnull List<EntryIngredient> getOutputEntries() {
+	public @NotNull List<EntryIngredient> getOutputEntries() {
 		return Collections.singletonList(this.outputs);
 	}
 
 	@Override
-	public @Nonnull Optional<ResourceLocation> getDisplayLocation() {
+	public @NotNull Optional<ResourceLocation> getDisplayLocation() {
 		return Optional.ofNullable(this.recipe).map(T::getId);
 	}
 }

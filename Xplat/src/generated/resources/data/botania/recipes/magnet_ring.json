@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "LM ",
-    "M M",
-    " M "
-  ],
   "key": {
     "L": {
       "item": "botania:lens_magnet"
@@ -13,6 +8,11 @@
       "tag": "botania:manasteel_ingots"
     }
   },
+  "pattern": [
+    "LM ",
+    "M M",
+    " M "
+  ],
   "result": {
     "item": "botania:magnet_ring"
   }

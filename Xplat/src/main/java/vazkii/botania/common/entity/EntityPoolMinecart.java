@@ -19,10 +19,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.client.fx.WispParticleData;
@@ -32,8 +35,6 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 public class EntityPoolMinecart extends AbstractMinecart {
 	private static final int TRANSFER_RATE = 10000;
@@ -54,13 +55,13 @@ public class EntityPoolMinecart extends AbstractMinecart {
 		entityData.define(MANA, 0);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public BlockState getDisplayBlockState() {
 		return ModBlocks.manaPool.defaultBlockState();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public AbstractMinecart.Type getMinecartType() {
 		return Type.RIDEABLE;
@@ -77,7 +78,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 		this.setDeltaMovement(getDeltaMovement().multiply(f, 0, f));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getPickResult() {
 		return new ItemStack(ModItems.poolMinecart);
@@ -175,7 +176,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+	protected void addAdditionalSaveData(@NotNull CompoundTag cmp) {
 		super.addAdditionalSaveData(cmp);
 		cmp.putInt(TAG_MANA, getMana());
 	}
@@ -184,6 +185,11 @@ public class EntityPoolMinecart extends AbstractMinecart {
 	protected void readAdditionalSaveData(CompoundTag cmp) {
 		super.readAdditionalSaveData(cmp);
 		setMana(cmp.getInt(TAG_MANA));
+	}
+
+	@Override
+	public Item getDropItem() {
+		return ModItems.poolMinecart;
 	}
 
 	@SoftImplement("IForgeMinecart")

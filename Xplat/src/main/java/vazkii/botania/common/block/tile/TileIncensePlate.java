@@ -25,6 +25,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
@@ -32,11 +35,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import java.util.List;
-import java.util.Random;
 
 public class TileIncensePlate extends TileExposedSimpleInventory implements WorldlyContainer {
 	private static final String TAG_TIME_LEFT = "timeLeft";
@@ -115,7 +114,7 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements Worl
 	}
 
 	public void spawnSmokeParticles() {
-		Random random = level.getRandom();
+		var random = level.getRandom();
 		for (int i = 0; i < 4; ++i) {
 			level.addParticle(ParticleTypes.SMOKE,
 					worldPosition.getX() + 0.5 + random.nextDouble() / 2.0 * (random.nextBoolean() ? 1 : -1),
@@ -182,7 +181,7 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements Worl
 	}
 
 	@Override
-	public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
+	public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
 		return false;
 	}
 }

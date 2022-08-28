@@ -9,7 +9,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -26,14 +26,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.item.ItemTwigWand;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements EntityBlock {
 
@@ -51,7 +51,7 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
@@ -67,7 +67,7 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
 			if (cube.locked) {
 				if (!world.isClientSide) {
-					player.displayClientMessage(new TranslatableComponent("botaniamisc.crystalCubeLocked"), false);
+					player.displayClientMessage(Component.translatable("botaniamisc.crystalCubeLocked"), false);
 				}
 			} else {
 				cube.setRequestTarget(stack);
@@ -77,15 +77,15 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 		return InteractionResult.PASS;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public TileCorporeaBase newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public TileCorporeaBase newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileCorporeaCrystalCube(pos, state);
 	}
 
 	@Nullable
 	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@Nonnull Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		if (!level.isClientSide) {
 			return createTickerHelper(type, ModTiles.CORPOREA_CRYSTAL_CUBE, TileCorporeaCrystalCube::serverTick);
 		}

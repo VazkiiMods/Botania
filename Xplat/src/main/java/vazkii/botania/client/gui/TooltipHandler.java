@@ -11,8 +11,6 @@ package vazkii.botania.client.gui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
@@ -24,13 +22,13 @@ public final class TooltipHandler {
 
 	public static void onTooltipEvent(ItemStack stack, TooltipFlag ctx, List<Component> tooltip) {
 		if (ItemKeepIvy.hasIvy(stack)) {
-			tooltip.add(new TranslatableComponent("botaniamisc.hasKeepIvy"));
+			tooltip.add(Component.translatable("botaniamisc.hasKeepIvy"));
 		}
 	}
 
 	public static Component getShiftInfoTooltip() {
-		Component shift = new TextComponent("SHIFT").withStyle(ChatFormatting.AQUA);
-		return new TranslatableComponent("botaniamisc.shiftinfo", shift).withStyle(ChatFormatting.GRAY);
+		Component shift = Component.literal("SHIFT").withStyle(ChatFormatting.AQUA);
+		return Component.translatable("botaniamisc.shiftinfo", shift).withStyle(ChatFormatting.GRAY);
 	}
 
 	public static void addOnShift(List<Component> tooltip, Runnable lambda) {

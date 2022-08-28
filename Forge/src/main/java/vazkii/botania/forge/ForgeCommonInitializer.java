@@ -6,6 +6,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -22,36 +23,28 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.common.world.ForgeWorldPreset;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -61,9 +54,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegisterEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
@@ -94,6 +85,7 @@ import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.command.SkyblockCommand;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -125,7 +117,6 @@ import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.forge.xplat.ForgeXplatImpl;
-import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -176,70 +167,62 @@ public class ForgeCommonInitializer {
 	private void registryInit() {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		// Core item/block/BE
-		bind(ForgeRegistries.SOUND_EVENTS, ModSounds::init);
-		bind(ForgeRegistries.BLOCKS, ModBlocks::registerBlocks);
-		bind(ForgeRegistries.ITEMS, ModBlocks::registerItemBlocks);
-		bind(ForgeRegistries.BLOCKS, ModFluffBlocks::registerBlocks);
-		bind(ForgeRegistries.ITEMS, ModFluffBlocks::registerItemBlocks);
-		bind(ForgeRegistries.BLOCK_ENTITIES, ModTiles::registerTiles);
-		bind(ForgeRegistries.ITEMS, ModItems::registerItems);
-		bind(ForgeRegistries.BLOCKS, ModSubtiles::registerBlocks);
-		bind(ForgeRegistries.ITEMS, ModSubtiles::registerItemBlocks);
-		bind(ForgeRegistries.BLOCK_ENTITIES, ModSubtiles::registerTEs);
+		bind(Registry.SOUND_EVENT_REGISTRY, ModSounds::init);
+		bind(Registry.BLOCK_REGISTRY, ModBlocks::registerBlocks);
+		bind(Registry.ITEM_REGISTRY, ModBlocks::registerItemBlocks);
+		bind(Registry.BLOCK_REGISTRY, ModFluffBlocks::registerBlocks);
+		bind(Registry.ITEM_REGISTRY, ModFluffBlocks::registerItemBlocks);
+		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, ModTiles::registerTiles);
+		bind(Registry.ITEM_REGISTRY, ModItems::registerItems);
+		bind(Registry.BLOCK_REGISTRY, ModSubtiles::registerBlocks);
+		bind(Registry.ITEM_REGISTRY, ModSubtiles::registerItemBlocks);
+		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, ModSubtiles::registerTEs);
 
 		// GUI and Recipe
-		bind(ForgeRegistries.CONTAINERS, ModItems::registerMenuTypes);
-		bind(ForgeRegistries.RECIPE_SERIALIZERS, ModItems::registerRecipeSerializers);
-		bind(ForgeRegistries.RECIPE_SERIALIZERS, ModRecipeTypes::registerRecipeTypes);
+		bind(Registry.MENU_REGISTRY, ModItems::registerMenuTypes);
+		bind(Registry.RECIPE_SERIALIZER_REGISTRY, ModItems::registerRecipeSerializers);
+		bind(Registry.RECIPE_TYPE_REGISTRY, ModRecipeTypes::submitRecipeTypes);
+		bind(Registry.RECIPE_SERIALIZER_REGISTRY, ModRecipeTypes::submitRecipeSerializers);
 
 		// Entities
-		bind(ForgeRegistries.ENTITIES, ModEntities::registerEntities);
+		bind(Registry.ENTITY_TYPE_REGISTRY, ModEntities::registerEntities);
 		modBus.addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
 		modBus.addListener((EntityAttributeModificationEvent e) -> {
 			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
 		});
-		bind(ForgeRegistries.ATTRIBUTES, PixieHandler::registerAttribute);
+		bind(Registry.ATTRIBUTE_REGISTRY, PixieHandler::registerAttribute);
 
 		// Potions
-		bind(ForgeRegistries.MOB_EFFECTS, ModPotions::registerPotions);
-		ModBrews.registerBrews();
+		bind(Registry.MOB_EFFECT_REGISTRY, (consumer) -> {
+			ModPotions.registerPotions(consumer);
+			ModBrews.registerBrews();
+		});
 
 		// Worldgen
-		bind(ForgeRegistries.FEATURES, ModFeatures::registerFeatures);
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
-			modBus.addGenericListener(ForgeWorldPreset.class, (RegistryEvent.Register<ForgeWorldPreset> e) -> {
-				ForgeWorldPreset preset = new ForgeWorldPreset(SkyblockChunkGenerator::createForWorldType) {
-					@Override
-					public String getTranslationKey() {
-						return "generator.botania-skyblock";
-					}
-				};
-				preset.setRegistryName(prefix("gardenofglass"));
-				e.getRegistry().register(preset);
-			});
-		}
+		bind(Registry.FEATURE_REGISTRY, ModFeatures::registerFeatures);
+		bind(Registry.CHUNK_GENERATOR_REGISTRY, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest
 		ModCriteriaTriggers.init();
-		bind(ForgeRegistries.PARTICLE_TYPES, ModParticles::registerParticles);
+		bind(Registry.PARTICLE_TYPE_REGISTRY, ModParticles::registerParticles);
 
-		// Anything that touches vanilla registries needs to happen during *a* registry event
-		// So just use a random one
-		modBus.addGenericListener(Block.class, (RegistryEvent.Register<Block> e) -> {
-			ModLootModifiers.init();
-			ModStats.init();
+		bind(Registry.LOOT_ITEM_REGISTRY, ModLootModifiers::submitLootConditions);
+		bind(Registry.LOOT_FUNCTION_REGISTRY, ModLootModifiers::submitLootFunctions);
+		// Vanilla's stat constructor does the registration too, so we use this
+		// event only for timing, not for registering
+		modBus.addListener((RegisterEvent evt) -> {
+			if (evt.getRegistryKey().equals(Registry.CUSTOM_STAT_REGISTRY)) {
+				ModStats.init();
+			}
 		});
 	}
 
-	private static <T extends IForgeRegistryEntry<T>> void bind(IForgeRegistry<T> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
-		FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(registry.getRegistrySuperType(),
-				(RegistryEvent.Register<T> event) -> {
-					IForgeRegistry<T> forgeRegistry = event.getRegistry();
-					source.accept((t, rl) -> {
-						t.setRegistryName(rl);
-						forgeRegistry.register(t);
-					});
-				});
+	private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
+			if (registry.equals(event.getRegistryKey())) {
+				source.accept((t, rl) -> event.register(registry, rl, () -> t));
+			}
+		});
 	}
 
 	private void registerEvents() {
@@ -247,24 +230,6 @@ public class ForgeCommonInitializer {
 		registerBlockLookasides();
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
-
-		if (BotaniaConfig.common().worldgenFlowers()) {
-			bus.addListener((BiomeLoadingEvent e) -> {
-				Biome.BiomeCategory category = e.getCategory();
-				if (!ModFeatures.TYPE_BLACKLIST.contains(category)) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalFlowersPlaced);
-				}
-			});
-		}
-
-		if (BotaniaConfig.common().worldgenMushrooms()) {
-			bus.addListener((BiomeLoadingEvent e) -> {
-				Biome.BiomeCategory category = e.getCategory();
-				if (category != Biome.BiomeCategory.THEEND) {
-					e.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModFeatures.mysticalMushroomsPlaced);
-				}
-			});
-		}
 
 		int blazeTime = 2400 * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
 		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
@@ -275,7 +240,7 @@ public class ForgeCommonInitializer {
 
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
-				InteractionResult result = SkyblockWorldEvents.onPlayerInteract(e.getPlayer(), e.getWorld(), e.getHand(), e.getHitVec());
+				InteractionResult result = SkyblockWorldEvents.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 				if (result == InteractionResult.SUCCESS) {
 					e.setCanceled(true);
 					e.setCancellationResult(InteractionResult.SUCCESS);
@@ -283,44 +248,44 @@ public class ForgeCommonInitializer {
 			});
 		}
 		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ItemExchangeRod) ModItems.exchangeRod).onLeftClick(
-				e.getPlayer(), e.getWorld(), e.getHand(), e.getPos(), e.getFace()));
+				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
 		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> ItemTerraSword.leftClick(e.getItemStack()));
 		bus.addListener((AttackEntityEvent e) -> ItemTerraSword.attackEntity(
-				e.getPlayer(), e.getPlayer().level, InteractionHand.MAIN_HAND, e.getTarget(), null));
+				e.getEntity(), e.getEntity().level, InteractionHand.MAIN_HAND, e.getTarget(), null));
 		bus.addListener((RegisterCommandsEvent e) -> this.registerCommands(
-				e.getDispatcher(), e.getEnvironment() == Commands.CommandSelection.DEDICATED));
+				e.getDispatcher(), e.getCommandSelection() == Commands.CommandSelection.DEDICATED));
 		bus.addListener((PlayerSleepInBedEvent e) -> {
-			Player.BedSleepingProblem problem = SleepingHandler.trySleep(e.getPlayer(), e.getPos());
+			Player.BedSleepingProblem problem = SleepingHandler.trySleep(e.getEntity(), e.getPos());
 			if (problem != null) {
 				e.setResult(problem);
 			}
 		});
-		bus.addListener((PlayerEvent.StartTracking e) -> SubTileDaffomill.onItemTrack(e.getEntity(), (ServerPlayer) e.getPlayer()));
-		bus.addListener((LootTableLoadEvent e) -> LootHandler.lootLoad(e.getName(), e.getTable()::addPool));
+		bus.addListener((PlayerEvent.StartTracking e) -> SubTileDaffomill.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
+		bus.addListener((LootTableLoadEvent e) -> LootHandler.lootLoad(e.getName(), b -> e.getTable().addPool(b.build())));
 		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getReceiver(), e.getType(), e.getAction()));
-		bus.addListener((EntityJoinWorldEvent e) -> {
-			if (!e.getWorld().isClientSide) {
-				SubTileTigerseye.pacifyAfterLoad(e.getEntity(), (ServerLevel) e.getWorld());
+		bus.addListener((EntityJoinLevelEvent e) -> {
+			if (!e.getLevel().isClientSide) {
+				SubTileTigerseye.pacifyAfterLoad(e.getEntity(), (ServerLevel) e.getLevel());
 			}
 		});
 
 		bus.addListener((ServerAboutToStartEvent e) -> this.serverAboutToStart(e.getServer()));
 		bus.addListener((ServerStoppingEvent e) -> this.serverStopping(e.getServer()));
-		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ItemFlightTiara.playerLoggedOut((ServerPlayer) e.getPlayer()));
-		bus.addListener((PlayerEvent.Clone e) -> ItemKeepIvy.onPlayerRespawn(e.getOriginal(), e.getPlayer(), !e.isWasDeath()));
-		bus.addListener((TickEvent.WorldTickEvent e) -> {
-			if (e.phase == TickEvent.Phase.END && e.world instanceof ServerLevel level) {
+		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ItemFlightTiara.playerLoggedOut((ServerPlayer) e.getEntity()));
+		bus.addListener((PlayerEvent.Clone e) -> ItemKeepIvy.onPlayerRespawn(e.getOriginal(), e.getEntity(), !e.isWasDeath()));
+		bus.addListener((TickEvent.LevelTickEvent e) -> {
+			if (e.phase == TickEvent.Phase.END && e.level instanceof ServerLevel level) {
 				CommonTickHandler.onTick(level);
 				ItemGrassSeeds.onTickEnd(level);
 				ItemTerraAxe.onTickEnd(level);
 			}
 		});
 		bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
-			BlockRedStringInterceptor.onInteract(e.getPlayer(), e.getWorld(), e.getHand(), e.getHitVec());
-			ItemLokiRing.onPlayerInteract(e.getPlayer(), e.getWorld(), e.getHand(), e.getHitVec());
+			BlockRedStringInterceptor.onInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
+			ItemLokiRing.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 		});
 		bus.addListener((PlayerInteractEvent.RightClickItem e) -> {
-			InteractionResultHolder<ItemStack> result = ItemEnderAir.onPlayerInteract(e.getPlayer(), e.getWorld(), e.getHand());
+			InteractionResultHolder<ItemStack> result = ItemEnderAir.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand());
 			if (result.getResult().consumesAction()) {
 				e.setCanceled(true);
 				e.setCancellationResult(result.getResult());
@@ -357,21 +322,21 @@ public class ForgeCommonInitializer {
 		});
 		// FabricMixinExplosion
 		bus.addListener((ExplosionEvent e) -> {
-			if (ItemGoddessCharm.shouldProtectExplosion(e.getWorld(), e.getExplosion().getPosition())) {
+			if (ItemGoddessCharm.shouldProtectExplosion(e.getLevel(), e.getExplosion().getPosition())) {
 				e.getExplosion().clearToBlow();
 			}
 		});
 		// FabricMixinItemEntity
 		bus.addListener((EntityItemPickupEvent e) -> {
-			if (ItemFlowerBag.onPickupItem(e.getItem(), e.getPlayer())) {
+			if (ItemFlowerBag.onPickupItem(e.getItem(), e.getEntity())) {
 				e.setCanceled(true);
 			}
 		});
 		// FabricMixinLivingEntity
 		{
 			bus.addListener((LivingDropsEvent e) -> {
-				var living = e.getEntityLiving();
-				ItemElementiumAxe.onEntityDrops(e.isRecentlyHit(), e.getSource(), e.getEntityLiving(), stack -> {
+				var living = e.getEntity();
+				ItemElementiumAxe.onEntityDrops(e.isRecentlyHit(), e.getSource(), living, stack -> {
 					var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
@@ -383,19 +348,24 @@ public class ForgeCommonInitializer {
 					e.getDrops().add(ent);
 				});
 			});
-			bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntityLiving()));
+			bus.addListener((LivingDeathEvent e) -> {
+				if (e.getSource().getEntity() instanceof LivingEntity killer) {
+					PotionSoulCross.onEntityKill(e.getEntity(), killer);
+				}
+			});
+			bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntity()));
 		}
 		// FabricMixinPlayer
 		{
 			bus.addListener((LivingAttackEvent e) -> {
-				if (e.getEntityLiving() instanceof Player player
+				if (e.getEntity() instanceof Player player
 						&& ItemOdinRing.onPlayerAttacked(player, e.getSource())) {
 					e.setCanceled(true);
 				}
 			});
 			bus.addListener((ItemTossEvent e) -> ItemMagnetRing.onTossItem(e.getPlayer()));
 			bus.addListener((LivingHurtEvent e) -> {
-				if (e.getEntityLiving() instanceof Player player) {
+				if (e.getEntity() instanceof Player player) {
 					Container worn = EquipmentHandler.getAllWorn(player);
 					for (int i = 0; i < worn.getContainerSize(); i++) {
 						ItemStack stack = worn.getItem(i);
@@ -410,39 +380,33 @@ public class ForgeCommonInitializer {
 					ItemDivaCharm.onEntityDamaged(player, e.getEntity());
 				}
 			});
-			bus.addListener((LivingEvent.LivingUpdateEvent e) -> {
-				if (e.getEntityLiving() instanceof Player player) {
+			bus.addListener((LivingEvent.LivingTickEvent e) -> {
+				if (e.getEntity() instanceof Player player) {
 					ItemFlightTiara.updatePlayerFlyStatus(player);
 					ItemTravelBelt.tickBelt(player);
 				}
 			});
 			bus.addListener((LivingFallEvent e) -> {
-				if (e.getEntityLiving() instanceof Player player) {
+				if (e.getEntity() instanceof Player player) {
 					e.setDistance(ItemTravelBelt.onPlayerFall(player, e.getDistance()));
 				}
 			});
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
 				Event.Result result = e.getResult();
-				if (e.getPlayer().level.isClientSide
+				if (e.getEntity().level.isClientSide
 						|| result == Event.Result.DENY
 						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
-						|| !ItemTerrasteelHelm.hasTerraArmorSet(e.getPlayer())
+						|| !ItemTerrasteelHelm.hasTerraArmorSet(e.getEntity())
 						|| !(e.getTarget() instanceof LivingEntity target)) {
 					return;
 				}
-				e.setDamageModifier(e.getDamageModifier() * ItemTerrasteelHelm.getCritDamageMult(e.getPlayer()));
-				((PlayerAccess) e.getPlayer()).botania$setCritTarget(target);
+				e.setDamageModifier(e.getDamageModifier() * ItemTerrasteelHelm.getCritDamageMult(e.getEntity()));
+				((PlayerAccess) e.getEntity()).botania$setCritTarget(target);
 			});
 
 		}
 		// FabricMixinResultSlot
-		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getPlayer(), e.getInventory()));
-		// FabricMixinServerGamePacketListenerImpl
-		bus.addListener(EventPriority.HIGH, (ServerChatEvent e) -> {
-			if (TileCorporeaIndex.getInputHandler().onChatMessage(e.getPlayer(), e.getMessage())) {
-				e.setCanceled(true);
-			}
-		});
+		bus.addListener((PlayerEvent.ItemCraftedEvent e) -> ItemCraftingHalo.onItemCrafted(e.getEntity(), e.getInventory()));
 	}
 
 	// Attaching caps requires dispatching off the item, which is a huge pain because it generates long if-else
@@ -535,9 +499,8 @@ public class ForgeCommonInitializer {
 		}
 	}
 
-	@SuppressWarnings("removal") // todo 1.19 remove
 	private void registerBlockLookasides() {
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType, living) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,

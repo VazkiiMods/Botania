@@ -3,8 +3,8 @@
   "input": {
     "item": "minecraft:iron_block"
   },
+  "mana": 27000,
   "output": {
     "item": "botania:manasteel_block"
-  },
-  "mana": 27000
+  }
 }

@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.tile.TileCacophonium;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.tile.TileCacophonium;
 
 public class BlockCacophonium extends BlockMod implements EntityBlock {
 	protected BlockCacophonium(Properties builder) {
@@ -60,9 +60,9 @@ public class BlockCacophonium extends BlockMod implements EntityBlock {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileCacophonium(pos, state);
 	}
 

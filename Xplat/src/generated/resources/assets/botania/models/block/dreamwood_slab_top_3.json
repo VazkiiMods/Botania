@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "botania:block/dreamwood_log_3",
-    "top": "botania:block/dreamwood_log_3",
-    "side": "botania:block/dreamwood_log_3"
+    "side": "botania:block/dreamwood_log_3",
+    "top": "botania:block/dreamwood_log_3"
   }
 }

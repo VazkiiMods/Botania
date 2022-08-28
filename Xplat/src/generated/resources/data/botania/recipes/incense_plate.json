@@ -1,8 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WSS"
-  ],
   "key": {
     "S": {
       "item": "botania:livingwood_slab"
@@ -11,6 +8,9 @@
       "tag": "botania:livingwood_logs"
     }
   },
+  "pattern": [
+    "WSS"
+  ],
   "result": {
     "item": "botania:incense_plate"
   }

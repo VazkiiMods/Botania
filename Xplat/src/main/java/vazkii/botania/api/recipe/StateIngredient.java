@@ -12,12 +12,12 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Predicate;
 
 /**
@@ -27,7 +27,7 @@ public interface StateIngredient extends Predicate<BlockState> {
 	@Override
 	boolean test(BlockState state);
 
-	BlockState pick(Random random);
+	BlockState pick(RandomSource random);
 
 	JsonObject serialize();
 

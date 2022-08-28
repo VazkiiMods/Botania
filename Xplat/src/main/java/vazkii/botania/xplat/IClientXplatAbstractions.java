@@ -12,14 +12,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.network.IPacket;
-
-import javax.annotation.Nullable;
-
-import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -42,17 +39,5 @@ public interface IClientXplatAbstractions {
 	void restoreLastFilter(AbstractTexture texture);
 	void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay);
 
-	IClientXplatAbstractions INSTANCE = find();
-
-	private static IClientXplatAbstractions find() {
-		var providers = ServiceLoader.load(IClientXplatAbstractions.class).stream().toList();
-		if (providers.size() != 1) {
-			var names = providers.stream().map(p -> p.type().getName()).collect(Collectors.joining(",", "[", "]"));
-			throw new IllegalStateException("There should be exactly one IClientXplatAbstractions implementation on the classpath. Found: " + names);
-		} else {
-			var provider = providers.get(0);
-			BotaniaAPI.LOGGER.debug("Instantiating client xplat impl: " + provider.type().getName());
-			return provider.get();
-		}
-	}
+	IClientXplatAbstractions INSTANCE = ServiceUtil.findService(IClientXplatAbstractions.class, null);
 }

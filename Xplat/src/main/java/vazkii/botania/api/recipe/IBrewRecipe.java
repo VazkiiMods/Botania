@@ -15,10 +15,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-
-import javax.annotation.Nonnull;
 
 public interface IBrewRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "brew");
@@ -29,21 +29,21 @@ public interface IBrewRecipe extends Recipe<Container> {
 
 	ItemStack getOutput(ItemStack container);
 
-	@Nonnull
+	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	default ItemStack getResultItem() {
 		return ItemStack.EMPTY;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	default ItemStack assemble(@Nonnull Container inv) {
+	default ItemStack assemble(@NotNull Container inv) {
 		return ItemStack.EMPTY;
 	}
 

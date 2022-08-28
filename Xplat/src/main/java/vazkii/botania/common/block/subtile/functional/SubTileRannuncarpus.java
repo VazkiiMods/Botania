@@ -21,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +38,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -45,9 +49,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.BotaniaConfig;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -143,7 +144,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 	}
 
 	@Nullable
-	private BlockPos getCandidatePosition(Random rand) {
+	private BlockPos getCandidatePosition(RandomSource rand) {
 		int rangePlace = getPlaceRange();
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
@@ -330,19 +331,19 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements I
 			}
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Direction getNearestLookingDirection() {
 			return getNearestLookingDirections()[0];
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Direction[] getNearestLookingDirections() {
 			return lookDirs;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Direction getHorizontalDirection() {
 			return getNearestLookingDirection().getAxis().isHorizontal() ? getNearestLookingDirection() : getNearestLookingDirections()[1];

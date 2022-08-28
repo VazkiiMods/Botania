@@ -1,9 +1,6 @@
 {
   "multipart": [
     {
-      "when": {
-        "up": "true"
-      },
       "apply": [
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_post",
@@ -12,147 +9,150 @@
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_post_1"
         }
-      ]
+      ],
+      "when": {
+        "up": "true"
+      }
     },
     {
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side",
+          "uvlock": true,
+          "weight": 2,
+          "y": 90
+        },
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
+          "uvlock": true,
+          "y": 90
+        }
+      ],
       "when": {
         "east": "low"
-      },
-      "apply": [
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side",
-          "y": 90,
-          "weight": 2,
-          "uvlock": true
-        },
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
-          "y": 90,
-          "uvlock": true
-        }
-      ]
+      }
     },
     {
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
+          "uvlock": true,
+          "weight": 2,
+          "y": 90
+        },
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
+          "uvlock": true,
+          "y": 90
+        }
+      ],
       "when": {
         "east": "tall"
-      },
-      "apply": [
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
-          "y": 90,
-          "weight": 2,
-          "uvlock": true
-        },
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
-          "y": 90,
-          "uvlock": true
-        }
-      ]
+      }
     },
     {
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side",
+          "uvlock": true,
+          "weight": 2,
+          "y": 270
+        },
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
+          "uvlock": true,
+          "y": 270
+        }
+      ],
       "when": {
         "west": "low"
-      },
-      "apply": [
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side",
-          "y": 270,
-          "weight": 2,
-          "uvlock": true
-        },
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
-          "y": 270,
-          "uvlock": true
-        }
-      ]
+      }
     },
     {
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
+          "uvlock": true,
+          "weight": 2,
+          "y": 270
+        },
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
+          "uvlock": true,
+          "y": 270
+        }
+      ],
       "when": {
         "west": "tall"
-      },
-      "apply": [
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
-          "y": 270,
-          "weight": 2,
-          "uvlock": true
-        },
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
-          "y": 270,
-          "uvlock": true
-        }
-      ]
+      }
     },
     {
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side",
+          "uvlock": true,
+          "weight": 2,
+          "y": 180
+        },
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
+          "uvlock": true,
+          "y": 180
+        }
+      ],
       "when": {
         "south": "low"
-      },
-      "apply": [
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side",
-          "y": 180,
-          "weight": 2,
-          "uvlock": true
-        },
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
-          "y": 180,
-          "uvlock": true
-        }
-      ]
+      }
     },
     {
+      "apply": [
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
+          "uvlock": true,
+          "weight": 2,
+          "y": 180
+        },
+        {
+          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
+          "uvlock": true,
+          "y": 180
+        }
+      ],
       "when": {
         "south": "tall"
-      },
-      "apply": [
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
-          "y": 180,
-          "weight": 2,
-          "uvlock": true
-        },
-        {
-          "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
-          "y": 180,
-          "uvlock": true
-        }
-      ]
+      }
     },
     {
-      "when": {
-        "north": "low"
-      },
       "apply": [
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side",
-          "weight": 2,
-          "uvlock": true
+          "uvlock": true,
+          "weight": 2
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_1",
           "uvlock": true
         }
-      ]
+      ],
+      "when": {
+        "north": "low"
+      }
     },
     {
-      "when": {
-        "north": "tall"
-      },
       "apply": [
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall",
-          "weight": 2,
-          "uvlock": true
+          "uvlock": true,
+          "weight": 2
         },
         {
           "model": "botania:block/metamorphic_forest_bricks_wall_side_tall_1",
           "uvlock": true
         }
-      ]
+      ],
+      "when": {
+        "north": "tall"
+      }
     }
   ]
 }

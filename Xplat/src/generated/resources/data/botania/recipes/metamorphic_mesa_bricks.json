@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "botania:metamorphic_brick",
-  "pattern": [
-    "QQ",
-    "QQ"
-  ],
   "key": {
     "Q": {
       "item": "botania:metamorphic_mesa_stone"
     }
   },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
   "result": {
-    "item": "botania:metamorphic_mesa_bricks",
-    "count": 4
+    "count": 4,
+    "item": "botania:metamorphic_mesa_bricks"
   }
 }

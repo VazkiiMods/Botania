@@ -42,6 +42,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.recipe.IOrechidRecipe;
@@ -56,15 +58,20 @@ import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
-import javax.annotation.Nullable;
-
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.StreamSupport;
 
 public class BotaniaREIPlugin implements REIClientPlugin {
 	public BotaniaREIPlugin() {
-		CorporeaInputHandler.hoveredStackGetter = BotaniaREIPlugin::getHoveredREIStack;
+		var old = CorporeaInputHandler.hoveredStackGetter;
+		CorporeaInputHandler.hoveredStackGetter = () -> {
+			var stack = BotaniaREIPlugin.getHoveredREIStack();
+			if (!stack.isEmpty()) {
+				return stack;
+			}
+			return old.get();
+		};
 		CorporeaInputHandler.supportedGuiFilter = CorporeaInputHandler.supportedGuiFilter.or(s -> s instanceof DisplayScreen);
 	}
 
@@ -116,16 +123,16 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.RUNE_ALTAR, EntryStacks.of(ModBlocks.runeAltar));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.TERRA_PLATE, EntryStacks.of(ModBlocks.terraPlate));
 
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.BREWERY);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.ELVEN_TRADE);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.MANA_INFUSION);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.ORECHID);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.ORECHID_IGNEM);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.MARIMORPHOSIS);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.PURE_DAISY);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.RUNE_ALTAR);
-		helper.removePlusButton(BotaniaREICategoryIdentifiers.TERRA_PLATE);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.BREWERY, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.ELVEN_TRADE, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.MANA_INFUSION, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.ORECHID, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.PURE_DAISY, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.RUNE_ALTAR, null);
+		helper.setPlusButtonArea(BotaniaREICategoryIdentifiers.TERRA_PLATE, null);
 	}
 
 	@Override
@@ -165,7 +172,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				r -> new MarimorphosisREIDisplay(r, weightsMarim.getInt(r.getInput())));
 	}
 
-	public static Object2IntMap<Block> getWeights(RecipeType<IOrechidRecipe> type, RecipeManager manager) {
+	public static Object2IntMap<Block> getWeights(RecipeType<? extends IOrechidRecipe> type, RecipeManager manager) {
 		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
 		for (IOrechidRecipe recipe : manager.getAllRecipesFor(type)) {
 			map.addTo(recipe.getInput(), recipe.getWeight());

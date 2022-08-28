@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:daybloom_motif"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/yellow"
@@ -16,5 +13,8 @@
     {
       "tag": "botania:petals/light_blue"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:daybloom_motif"
+  }
 }

@@ -1,20 +1,19 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -87,13 +86,13 @@ public class RelicImpl implements IRelic {
 			return;
 		}
 		if (relic.getSoulbindUUID() == null) {
-			tooltip.add(new TranslatableComponent("botaniamisc.relicUnbound"));
+			tooltip.add(Component.translatable("botaniamisc.relicUnbound"));
 		} else {
 			var player = ClientProxy.INSTANCE.getClientPlayer();
 			if (player == null || !relic.isRightPlayer(player)) {
-				tooltip.add(new TranslatableComponent("botaniamisc.notYourSagittarius"));
+				tooltip.add(Component.translatable("botaniamisc.notYourSagittarius"));
 			} else {
-				tooltip.add(new TranslatableComponent("botaniamisc.relicSoulbound", player.getName()));
+				tooltip.add(Component.translatable("botaniamisc.relicSoulbound", player.getName()));
 			}
 		}
 	}

@@ -19,12 +19,12 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategor
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,9 +43,9 @@ public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ICraftingGridHelper helper, @Nonnull IFocusGroup focuses) {
-		helper.setInputs(builder, VanillaTypes.ITEM, inputs, 0, 0);
-		helper.setOutputs(builder, VanillaTypes.ITEM, Collections.singletonList(output));
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focuses) {
+		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);
+		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, Collections.singletonList(output));
 	}
 
 	@Nullable

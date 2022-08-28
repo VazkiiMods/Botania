@@ -16,11 +16,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class KeepIvyRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SimpleRecipeSerializer<>(KeepIvyRecipe::new);
@@ -30,7 +30,7 @@ public class KeepIvyRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundIvy = false;
 		boolean foundItem = false;
 
@@ -52,9 +52,9 @@ public class KeepIvyRecipe extends CustomRecipe {
 		return foundIvy && foundItem;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack item = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -75,7 +75,7 @@ public class KeepIvyRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

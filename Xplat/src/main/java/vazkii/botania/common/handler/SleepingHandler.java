@@ -14,9 +14,9 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.entity.ModEntities;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.common.entity.ModEntities;
 
 public final class SleepingHandler {
 

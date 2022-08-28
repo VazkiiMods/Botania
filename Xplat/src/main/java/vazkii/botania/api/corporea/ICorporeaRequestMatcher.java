@@ -10,7 +10,6 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Predicate;
@@ -37,7 +36,7 @@ public interface ICorporeaRequestMatcher extends Predicate<ItemStack> {
 	 * Returns the pretty name of the requested item, for printing request feedback on Corporea Indexes.
 	 */
 	default Component getRequestName() {
-		return new TextComponent("missingno");
+		return Component.literal("missingno");
 	}
 
 	enum Dummy implements ICorporeaRequestMatcher {

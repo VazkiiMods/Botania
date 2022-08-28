@@ -10,11 +10,11 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.RecipeManaInfusion;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion> {
 	@Nullable
@@ -36,7 +36,7 @@ public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion>
 	}
 
 	@Override
-	public @Nonnull CategoryIdentifier<?> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.MANA_INFUSION;
 	}
 }

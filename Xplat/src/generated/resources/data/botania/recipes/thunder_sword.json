@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "  I",
-    "AD ",
-    "TA "
-  ],
   "key": {
     "A": {
       "item": "botania:ender_air_bottle"
@@ -12,13 +7,18 @@
     "D": {
       "tag": "botania:mana_diamond_gems"
     },
-    "T": {
-      "item": "botania:terra_sword"
-    },
     "I": {
       "tag": "botania:elementium_ingots"
+    },
+    "T": {
+      "item": "botania:terra_sword"
     }
   },
+  "pattern": [
+    "  I",
+    "AD ",
+    "TA "
+  ],
   "result": {
     "item": "botania:thunder_sword"
   }

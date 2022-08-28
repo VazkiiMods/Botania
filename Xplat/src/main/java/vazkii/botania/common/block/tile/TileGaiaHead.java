@@ -13,14 +13,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class TileGaiaHead extends SkullBlockEntity {
 	public TileGaiaHead(BlockPos pos, BlockState state) {
 		super(pos, state);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public BlockEntityType<TileGaiaHead> getType() {
 		return ModTiles.GAIA_HEAD;

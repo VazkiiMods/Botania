@@ -22,15 +22,15 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 
-import vazkii.botania.common.entity.EntityPoolMinecart;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.entity.EntityPoolMinecart;
 
 // [VanillaCopy] MinecartItem
 public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
 	private final DefaultDispenseItemBehavior behaviourDefaultDispenseItem = new DefaultDispenseItemBehavior();
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Direction enumfacing = source.getBlockState().getValue(DispenserBlock.FACING);

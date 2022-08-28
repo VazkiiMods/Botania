@@ -1,14 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PLO",
-    "LEL",
-    "OL "
-  ],
   "key": {
-    "P": {
-      "item": "botania:mana_pearl"
-    },
     "E": {
       "item": "minecraft:ender_chest"
     },
@@ -17,8 +9,16 @@
     },
     "O": {
       "item": "minecraft:obsidian"
+    },
+    "P": {
+      "item": "botania:mana_pearl"
     }
   },
+  "pattern": [
+    "PLO",
+    "LEL",
+    "OL "
+  ],
   "result": {
     "item": "botania:ender_hand"
   }

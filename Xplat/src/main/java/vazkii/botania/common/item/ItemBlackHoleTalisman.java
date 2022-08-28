@@ -14,8 +14,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -38,14 +36,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -58,9 +56,9 @@ public class ItemBlackHoleTalisman extends Item {
 		super(props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getBlock(stack) != null && player.isShiftKeyDown()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
@@ -71,7 +69,7 @@ public class ItemBlackHoleTalisman extends Item {
 		return InteractionResultHolder.pass(stack);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
@@ -165,9 +163,9 @@ public class ItemBlackHoleTalisman extends Item {
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Component getName(@Nonnull ItemStack stack) {
+	public Component getName(@NotNull ItemStack stack) {
 		Block block = getBlock(stack);
 		ItemStack bstack = new ItemStack(block);
 		MutableComponent cand = super.getName(stack).copy();
@@ -199,13 +197,13 @@ public class ItemBlackHoleTalisman extends Item {
 		Block block = getBlock(stack);
 		if (block != null) {
 			int count = getBlockCount(stack);
-			stacks.add(new TextComponent(count + " ").append(new ItemStack(block).getHoverName()).withStyle(ChatFormatting.GRAY));
+			stacks.add(Component.literal(count + " ").append(new ItemStack(block).getHoverName()).withStyle(ChatFormatting.GRAY));
 		}
 
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
-			stacks.add(new TranslatableComponent("botaniamisc.active"));
+			stacks.add(Component.translatable("botaniamisc.active"));
 		} else {
-			stacks.add(new TranslatableComponent("botaniamisc.inactive"));
+			stacks.add(Component.translatable("botaniamisc.inactive"));
 		}
 	}
 
@@ -271,8 +269,8 @@ public class ItemBlackHoleTalisman extends Item {
 	}
 
 	@Override
-	public boolean overrideStackedOnOther(@Nonnull ItemStack talisman, @Nonnull Slot slot,
-			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+	public boolean overrideStackedOnOther(@NotNull ItemStack talisman, @NotNull Slot slot,
+			@NotNull ClickAction clickAction, @NotNull Player player) {
 		if (clickAction == ClickAction.SECONDARY) {
 			ItemStack toInsert = slot.getItem();
 			Block blockToInsert = Block.byItem(toInsert.getItem());
@@ -295,8 +293,8 @@ public class ItemBlackHoleTalisman extends Item {
 
 	@Override
 	public boolean overrideOtherStackedOnMe(
-			@Nonnull ItemStack talisman, @Nonnull ItemStack toInsert, @Nonnull Slot slot,
-			@Nonnull ClickAction clickAction, @Nonnull Player player, @Nonnull SlotAccess cursorAccess) {
+			@NotNull ItemStack talisman, @NotNull ItemStack toInsert, @NotNull Slot slot,
+			@NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess cursorAccess) {
 		if (clickAction == ClickAction.SECONDARY) {
 			Block blockToInsert = Block.byItem(toInsert.getItem());
 			if (blockToInsert != Blocks.AIR) {

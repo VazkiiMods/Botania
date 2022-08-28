@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -21,7 +22,6 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class StateIngredientBlock implements StateIngredient {
 	private final Block block;
@@ -36,7 +36,7 @@ public class StateIngredientBlock implements StateIngredient {
 	}
 
 	@Override
-	public BlockState pick(Random random) {
+	public BlockState pick(RandomSource random) {
 		return block.defaultBlockState();
 	}
 

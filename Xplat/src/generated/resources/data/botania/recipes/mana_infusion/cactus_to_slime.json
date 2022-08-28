@@ -1,14 +1,14 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:cactus"
-  },
-  "output": {
-    "item": "minecraft:slime_ball"
-  },
-  "mana": 1200,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:cactus"
+  },
+  "mana": 1200,
+  "output": {
+    "item": "minecraft:slime_ball"
   }
 }

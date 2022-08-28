@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GMG",
-    "RSR",
-    "GMG"
-  ],
   "key": {
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "S": {
-      "tag": "botania:manasteel_ingots"
-    },
     "G": {
       "item": "minecraft:gold_ingot"
     },
     "M": {
       "item": "botania:mana_glass"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "tag": "botania:manasteel_ingots"
     }
   },
+  "pattern": [
+    "GMG",
+    "RSR",
+    "GMG"
+  ],
   "result": {
     "item": "botania:hourglass"
   }

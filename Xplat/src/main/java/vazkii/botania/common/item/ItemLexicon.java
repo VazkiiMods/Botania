@@ -12,8 +12,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -24,22 +24,24 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.phys.BlockHitResult;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.lib.ModTags;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ItemLexicon extends ItemModPattern {
+public class ItemLexicon extends Item implements ItemWithBannerPattern {
 
 	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
 	public ItemLexicon(Properties settings) {
-		super(/*ModPatterns.LEXICON, */settings);
+		super(settings);
 	}
 
 	public static boolean isOpen() {
@@ -47,8 +49,8 @@ public class ItemLexicon extends ItemModPattern {
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
-		if (allowdedIn(tab)) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
+		if (allowedIn(tab)) {
 			list.add(new ItemStack(this));
 			ItemStack creative = new ItemStack(this);
 			creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
@@ -61,7 +63,7 @@ public class ItemLexicon extends ItemModPattern {
 		tooltip.add(getEdition().copy().withStyle(ChatFormatting.GRAY));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack stack = playerIn.getItemInHand(handIn);
@@ -79,7 +81,7 @@ public class ItemLexicon extends ItemModPattern {
 		try {
 			return PatchouliAPI.get().getSubtitle(Registry.ITEM.getKey(ModItems.lexicon));
 		} catch (IllegalArgumentException e) {
-			return new TextComponent(""); // TODO Adjust Patchouli because first search tree creation is too early to get the edition
+			return Component.literal(""); // TODO Adjust Patchouli because first search tree creation is too early to get the edition
 		}
 	}
 
@@ -101,5 +103,10 @@ public class ItemLexicon extends ItemModPattern {
 	// Random item to expose this as public
 	public static BlockHitResult doRayTrace(Level world, Player player, ClipContext.Fluid fluidMode) {
 		return Item.getPlayerPOVHitResult(world, player, fluidMode);
+	}
+
+	@Override
+	public TagKey<BannerPattern> getBannerPattern() {
+		return ModTags.BannerPatterns.PATTERN_ITEM_LEXICON;
 	}
 }

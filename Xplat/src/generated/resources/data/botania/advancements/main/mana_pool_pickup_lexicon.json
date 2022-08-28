@@ -1,8 +1,20 @@
 {
   "parent": "botania:main/root",
   "criteria": {
+    "elven_lexicon": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:lexicon"
+            ],
+            "nbt": "{\"botania:elven_unlock\":1b}"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "pickup": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -14,20 +26,8 @@
             ]
           }
         ]
-      }
-    },
-    "elven_lexicon": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "botania:lexicon"
-            ],
-            "nbt": "{\"botania:elven_unlock\":1b}"
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [

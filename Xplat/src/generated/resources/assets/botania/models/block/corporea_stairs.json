@@ -2,7 +2,7 @@
   "parent": "minecraft:block/stairs",
   "textures": {
     "bottom": "botania:block/corporea_block",
-    "top": "botania:block/corporea_block",
-    "side": "botania:block/corporea_block"
+    "side": "botania:block/corporea_block",
+    "top": "botania:block/corporea_block"
   }
 }

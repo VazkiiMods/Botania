@@ -15,9 +15,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
-import vazkii.botania.common.handler.PixieHandler;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.handler.PixieHandler;
 
 public class ItemElementiumChest extends ItemElementiumArmor {
 
@@ -25,9 +25,9 @@ public class ItemElementiumChest extends ItemElementiumArmor {
 		super(EquipmentSlot.CHEST, props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlot slot) {
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
 		if (slot == getSlot()) {
 			ret = HashMultimap.create(ret);

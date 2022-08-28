@@ -100,20 +100,18 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-40.1.68"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-43.0.11"
     compileOnly project(":Xplat")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation "com.google.code.findbugs:jsr305:3.0.2"
+    implementation fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-76")
+    compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:11.2.0.247")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:11.2.0.247")
 
-    implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
-    compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.4.3.122:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.4.3.122")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0")
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3")
-
-    compileOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123')
+    // compileOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.123')
 
     compileOnly fg.deobf('com.unascribed:ears-api:1.4.5')
 }

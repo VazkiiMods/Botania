@@ -9,7 +9,7 @@
     }
   ],
   "result": {
-    "item": "botania:corporea_block",
-    "count": 8
+    "count": 8,
+    "item": "botania:corporea_block"
   }
 }

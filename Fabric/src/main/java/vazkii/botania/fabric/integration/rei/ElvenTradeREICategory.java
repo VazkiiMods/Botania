@@ -29,15 +29,14 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,22 +46,22 @@ public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDispl
 	private final ResourceLocation TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
 
 	@Override
-	public @Nonnull CategoryIdentifier<ElvenTradeREIDisplay> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<ElvenTradeREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.ELVEN_TRADE;
 	}
 
 	@Override
-	public @Nonnull Renderer getIcon() {
+	public @NotNull Renderer getIcon() {
 		return gateway;
 	}
 
 	@Override
-	public @Nonnull Component getTitle() {
-		return new TranslatableComponent("botania.nei.elvenTrade");
+	public @NotNull Component getTitle() {
+		return Component.translatable("botania.nei.elvenTrade");
 	}
 
 	@Override
-	public @Nonnull List<Widget> setupDisplay(ElvenTradeREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(ElvenTradeREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
 		widgets.add(Widgets.createRecipeBase(bounds));

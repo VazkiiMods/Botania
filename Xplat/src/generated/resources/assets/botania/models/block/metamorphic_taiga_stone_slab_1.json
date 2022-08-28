@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab",
   "textures": {
     "bottom": "botania:block/metamorphic_taiga_stone_1",
-    "top": "botania:block/metamorphic_taiga_stone_1",
-    "side": "botania:block/metamorphic_taiga_stone_1"
+    "side": "botania:block/metamorphic_taiga_stone_1",
+    "top": "botania:block/metamorphic_taiga_stone_1"
   }
 }

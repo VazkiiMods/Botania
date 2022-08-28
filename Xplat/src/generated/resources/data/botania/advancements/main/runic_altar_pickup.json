@@ -2,7 +2,6 @@
   "parent": "botania:main/flower_pickup",
   "criteria": {
     "altar": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -11,20 +10,10 @@
             ]
           }
         ]
-      }
-    },
-    "rune": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "botania:runes"
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "elven_lexicon": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -34,7 +23,18 @@
             "nbt": "{\"botania:elven_unlock\":1b}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "rune": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "botania:runes"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [

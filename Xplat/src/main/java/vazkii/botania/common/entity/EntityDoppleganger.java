@@ -12,18 +12,17 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -65,6 +64,9 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
@@ -82,9 +84,6 @@ import vazkii.botania.network.clientbound.PacketSpawnDoppleganger;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -210,7 +209,7 @@ public class EntityDoppleganger extends Mob {
 		//check difficulty
 		if (world.getDifficulty() == Difficulty.PEACEFUL) {
 			if (!world.isClientSide) {
-				player.sendMessage(new TranslatableComponent("botaniamisc.peacefulNoob").withStyle(ChatFormatting.RED), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.peacefulNoob").withStyle(ChatFormatting.RED));
 			}
 			return false;
 		}
@@ -221,7 +220,7 @@ public class EntityDoppleganger extends Mob {
 			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslatableComponent("botaniamisc.needsCatalysts").withStyle(ChatFormatting.RED), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.needsCatalysts").withStyle(ChatFormatting.RED));
 			}
 
 			return false;
@@ -235,7 +234,7 @@ public class EntityDoppleganger extends Mob {
 			} else {
 				IXplatAbstractions.INSTANCE.sendToPlayer(player, new PacketBotaniaEffect(EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslatableComponent("botaniamisc.badArena").withStyle(ChatFormatting.RED), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.badArena").withStyle(ChatFormatting.RED));
 			}
 
 			return false;
@@ -424,7 +423,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	public boolean hurt(@Nonnull DamageSource source, float amount) {
+	public boolean hurt(@NotNull DamageSource source, float amount) {
 		Entity e = source.getEntity();
 		if (e instanceof Player player && isTruePlayer(e) && getInvulTime() == 0) {
 
@@ -439,7 +438,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
+	protected void actuallyHurt(@NotNull DamageSource source, float amount) {
 		super.actuallyHurt(source, Math.min(DAMAGE_CAP, amount));
 
 		Entity attacker = source.getDirectEntity();
@@ -463,7 +462,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	public void die(@Nonnull DamageSource source) {
+	public void die(@NotNull DamageSource source) {
 		super.die(source);
 		LivingEntity lastAttacker = getKillCredit();
 
@@ -518,7 +517,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	protected void dropFromLootTable(@Nonnull DamageSource source, boolean wasRecentlyHit) {
+	protected void dropFromLootTable(@NotNull DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
 		if (wasRecentlyHit && isTruePlayer(source.getEntity())) {
 			trueKiller = (Player) source.getEntity();
@@ -566,8 +565,8 @@ public class EntityDoppleganger extends Mob {
 		return l.size();
 	}
 
-	@Nonnull
-	private static AABB getArenaBB(@Nonnull BlockPos source) {
+	@NotNull
+	private static AABB getArenaBB(@NotNull BlockPos source) {
 		double range = 15.0;
 		return new AABB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
 	}
@@ -946,7 +945,7 @@ public class EntityDoppleganger extends Mob {
 		level.playSound(null, oldX, oldY, oldZ, ModSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
 		this.playSound(ModSounds.gaiaTeleport, 1F, 1F);
 
-		Random random = getRandom();
+		var random = getRandom();
 
 		//spawn particles along the path
 		int particleCount = 128;
@@ -1005,11 +1004,11 @@ public class EntityDoppleganger extends Mob {
 		IProxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return IXplatAbstractions.INSTANCE.toVanillaClientboundPacket(
-				new PacketSpawnDoppleganger(new ClientboundAddMobPacket(this), playerCount, hardMode, source, bossInfoUUID));
+				new PacketSpawnDoppleganger(new ClientboundAddEntityPacket(this), playerCount, hardMode, source, bossInfoUUID));
 	}
 
 	@Override
@@ -1021,7 +1020,7 @@ public class EntityDoppleganger extends Mob {
 		private final EntityDoppleganger guardian;
 
 		private DopplegangerMusic(EntityDoppleganger guardian) {
-			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS);
+			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
 			this.guardian = guardian;
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();

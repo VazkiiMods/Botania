@@ -16,15 +16,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import vazkii.botania.common.item.ItemManaSpark;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.item.ItemManaSpark;
 
 public class BehaviourManaSpark extends OptionalDispenseItemBehavior {
 
-	@Nonnull
+	@NotNull
 	@Override
-	protected ItemStack execute(BlockSource source, @Nonnull ItemStack stack) {
+	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
 		Level world = source.getLevel();
 		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
 		BlockPos pos = source.getPos().relative(facing);

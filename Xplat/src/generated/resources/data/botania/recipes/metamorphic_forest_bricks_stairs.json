@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "botania:metamorphic_brick_stairs",
-  "pattern": [
-    "  Q",
-    " QQ",
-    "QQQ"
-  ],
   "key": {
     "Q": {
       "item": "botania:metamorphic_forest_bricks"
     }
   },
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
   "result": {
-    "item": "botania:metamorphic_forest_bricks_stairs",
-    "count": 4
+    "count": 4,
+    "item": "botania:metamorphic_forest_bricks_stairs"
   }
 }

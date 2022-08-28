@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "C",
-    "G",
-    "W"
-  ],
   "key": {
     "C": {
       "item": "botania:corporea_spark"
@@ -16,6 +11,11 @@
       "tag": "botania:dreamwood_logs"
     }
   },
+  "pattern": [
+    "C",
+    "G",
+    "W"
+  ],
   "result": {
     "item": "botania:corporea_crystal_cube"
   }

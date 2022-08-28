@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "Q",
-    "Q"
-  ],
   "key": {
     "Q": {
       "item": "botania:blaze_quartz_slab"
     }
   },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
   "result": {
     "item": "botania:chiseled_blaze_quartz"
   }

@@ -73,7 +73,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 		Level world = getLevel();
 		if (!world.isClientSide && redstoneSignal == 0 && ticksExisted % 100 == 0
 				&& getMana() >= COST && world.getDifficulty() != Difficulty.PEACEFUL) {
-			Random rand = world.random;
+			var rand = world.random;
 
 			ItemStack stack;
 			do {

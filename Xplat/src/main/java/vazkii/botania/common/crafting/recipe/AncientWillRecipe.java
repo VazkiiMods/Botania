@@ -16,10 +16,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.item.ItemAncientWill;
-
-import javax.annotation.Nonnull;
 
 public class AncientWillRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<AncientWillRecipe> SERIALIZER = new SimpleRecipeSerializer<>(AncientWillRecipe::new);
@@ -29,7 +29,7 @@ public class AncientWillRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundWill = false;
 		boolean foundItem = false;
 
@@ -51,9 +51,9 @@ public class AncientWillRecipe extends CustomRecipe {
 		return foundWill && foundItem;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack item = ItemStack.EMPTY;
 		IAncientWillContainer.AncientWillType will = null;
 
@@ -83,7 +83,7 @@ public class AncientWillRecipe extends CustomRecipe {
 		return width > 1 || height > 1;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

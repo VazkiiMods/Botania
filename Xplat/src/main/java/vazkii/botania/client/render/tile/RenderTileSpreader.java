@@ -24,13 +24,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
-
-import javax.annotation.Nonnull;
 
 import java.util.Random;
 
@@ -39,7 +39,7 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 	public RenderTileSpreader(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@Nonnull TileSpreader spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileSpreader spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		ms.translate(0.5F, 0.5, 0.5F);

@@ -11,6 +11,7 @@ package vazkii.botania.common.block.string;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -26,14 +27,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import java.util.Random;
 
 public class BlockRedStringInterceptor extends BlockRedString {
 
@@ -63,13 +62,13 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random update) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
 		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileRedStringInterceptor(pos, state);
 	}
 

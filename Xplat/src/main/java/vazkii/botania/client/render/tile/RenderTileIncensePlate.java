@@ -21,9 +21,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.tile.TileIncensePlate;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import java.util.Map;
 
@@ -34,7 +34,7 @@ public class RenderTileIncensePlate implements BlockEntityRenderer<TileIncensePl
 	public RenderTileIncensePlate(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@Nonnull TileIncensePlate plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileIncensePlate plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ItemStack stack = plate.getItemHandler().getItem(0);
 		if (stack.isEmpty()) {
 			return;

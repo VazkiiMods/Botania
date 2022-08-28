@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:nightshade_motif"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/black"
@@ -16,5 +13,8 @@
     {
       "tag": "botania:petals/gray"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:nightshade_motif"
+  }
 }

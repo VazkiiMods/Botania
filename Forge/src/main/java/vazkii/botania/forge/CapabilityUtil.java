@@ -14,14 +14,14 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple;
 
-import vazkii.botania.common.internal_caps.SerializableComponent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import vazkii.botania.common.internal_caps.SerializableComponent;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,8 +40,8 @@ public final class CapabilityUtil {
 
 	public static class WaterBowlFluidHandler extends FluidHandlerItemStackSimple.SwapEmpty {
 		public WaterBowlFluidHandler(ItemStack stack) {
-			super(stack, new ItemStack(Items.BOWL), FluidAttributes.BUCKET_VOLUME);
-			setFluid(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME));
+			super(stack, new ItemStack(Items.BOWL), FluidType.BUCKET_VOLUME);
+			setFluid(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME));
 		}
 
 		@Override
@@ -106,9 +106,9 @@ public final class CapabilityUtil {
 			this.lazyInstanceButNotReally = instance;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public <C> LazyOptional<C> getCapability(@Nonnull Capability<C> queryCap, @Nullable Direction side) {
+		public <C> LazyOptional<C> getCapability(@NotNull Capability<C> queryCap, @Nullable Direction side) {
 			return cap.orEmpty(queryCap, lazyInstanceButNotReally);
 		}
 	}

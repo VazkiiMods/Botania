@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:marimorphosis"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/gray"
@@ -25,5 +22,8 @@
     {
       "item": "botania:redstone_root"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:marimorphosis"
+  }
 }

@@ -3,8 +3,8 @@
   "input": {
     "item": "minecraft:piston"
   },
+  "mana": 15000,
   "output": {
     "item": "botania:piston_relay"
-  },
-  "mana": 15000
+  }
 }

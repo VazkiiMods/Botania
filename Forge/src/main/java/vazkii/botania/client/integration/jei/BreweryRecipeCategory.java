@@ -16,18 +16,19 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +38,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 
-	public static final ResourceLocation UID = prefix("brewery");
+	public static final RecipeType<IBrewRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "brewery", IBrewRecipe.class);
 	private final IDrawableStatic background;
 	private final IDrawable icon;
 	private final Component localizedName;
@@ -45,42 +46,36 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = prefix("textures/gui/nei_brewery.png");
 		background = guiHelper.createDrawable(location, 28, 6, 131, 55);
-		localizedName = new TranslatableComponent("botania.nei.brewery");
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.brewery));
+		localizedName = Component.translatable("botania.nei.brewery");
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.brewery));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
+	public RecipeType<IBrewRecipe> getRecipeType() {
+		return TYPE;
 	}
 
-	@Nonnull
-	@Override
-	public Class<? extends IBrewRecipe> getRecipeClass() {
-		return IBrewRecipe.class;
-	}
-
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IBrewRecipe recipe, @Nonnull IFocusGroup focuses) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IBrewRecipe recipe, @NotNull IFocusGroup focuses) {
 		List<ItemStack> outputs = new ArrayList<>();
 		List<ItemStack> containers = new ArrayList<>();
 
@@ -95,8 +90,8 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 			}
 		}
 
-		IFocus<ItemStack> outputFocus = focuses.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.OUTPUT).findAny().orElse(null);
-		IFocus<ItemStack> inputFocus = focuses.getFocuses(VanillaTypes.ITEM, RecipeIngredientRole.INPUT).findAny().orElse(null);
+		IFocus<ItemStack> outputFocus = focuses.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.OUTPUT).findAny().orElse(null);
+		IFocus<ItemStack> inputFocus = focuses.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT).findAny().orElse(null);
 
 		builder.addSlot(RecipeIngredientRole.INPUT, 11, 36)
 				.addItemStacks(getItemMatchingFocus(outputFocus, outputs, containers));

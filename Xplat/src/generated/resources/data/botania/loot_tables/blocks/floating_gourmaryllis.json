@@ -2,42 +2,42 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "botania:floating_gourmaryllis"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "functions": [
         {
           "function": "minecraft:copy_nbt",
-          "source": "block_entity",
           "ops": [
             {
+              "op": "replace",
               "source": "lastFoods",
-              "target": "BlockEntityTag.lastFoods",
-              "op": "replace"
+              "target": "BlockEntityTag.lastFoods"
             },
             {
+              "op": "replace",
               "source": "lastFoodCount",
-              "target": "BlockEntityTag.lastFoodCount",
-              "op": "replace"
+              "target": "BlockEntityTag.lastFoodCount"
             },
             {
+              "op": "replace",
               "source": "streakLength",
-              "target": "BlockEntityTag.streakLength",
-              "op": "replace"
+              "target": "BlockEntityTag.streakLength"
             }
-          ]
+          ],
+          "source": "block_entity"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

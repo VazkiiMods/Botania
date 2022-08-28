@@ -20,10 +20,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.xplat.IXplatAbstractions;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import vazkii.botania.xplat.IXplatAbstractions;
 
 public class TileOpenCrate extends TileExposedSimpleInventory {
 	public TileOpenCrate(BlockPos pos, BlockState state) {
@@ -74,7 +74,7 @@ public class TileOpenCrate extends TileExposedSimpleInventory {
 	}
 
 	@Override
-	public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
+	public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
 		return false;
 	}
 }

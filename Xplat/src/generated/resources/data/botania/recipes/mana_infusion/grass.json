@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:grass"
-  },
-  "output": {
-    "item": "minecraft:grass",
-    "count": 2
-  },
-  "mana": 800,
   "catalyst": {
     "type": "block",
     "block": "botania:conjuration_catalyst"
+  },
+  "input": {
+    "item": "minecraft:grass"
+  },
+  "mana": 800,
+  "output": {
+    "count": 2,
+    "item": "minecraft:grass"
   }
 }

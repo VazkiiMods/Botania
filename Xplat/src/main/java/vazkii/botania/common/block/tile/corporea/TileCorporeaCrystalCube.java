@@ -17,6 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
@@ -24,8 +26,6 @@ import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
-
-import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -92,7 +92,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		int sum = 0;
 		ICorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
-			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).getStacks();
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).stacks();
 			for (ItemStack stack : stacks) {
 				sum += stack.getCount();
 			}
@@ -142,7 +142,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
 		if (!requestTarget.isEmpty()) {
-			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).stacks();
 			spark.onItemsRequested(stacks);
 			boolean did = false;
 			int sum = 0;

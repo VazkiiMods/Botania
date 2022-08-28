@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -17,8 +18,6 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
-
-import java.util.Random;
 
 public class TileRedStringFertilizer extends TileRedString {
 	public TileRedStringFertilizer(BlockPos pos, BlockState state) {
@@ -32,13 +31,13 @@ public class TileRedStringFertilizer extends TileRedString {
 		return block instanceof BonemealableBlock mealable && mealable.isValidBonemealTarget(world, binding, world.getBlockState(binding), isClient);
 	}
 
-	public boolean canUseBonemeal(Level world, Random rand) {
+	public boolean canUseBonemeal(Level world, RandomSource rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 		return block instanceof BonemealableBlock mealable && mealable.isBonemealSuccess(world, rand, binding, world.getBlockState(binding));
 	}
 
-	public void grow(ServerLevel world, Random rand) {
+	public void grow(ServerLevel world, RandomSource rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 		if (block instanceof BonemealableBlock mealable) {

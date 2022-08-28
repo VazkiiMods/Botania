@@ -4,9 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import vazkii.botania.common.annotations.SoftImplement;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+import vazkii.botania.common.annotations.SoftImplement;
 
 /**
  * This class exists purely to (soft) implement the IForgeRegistryEntry methods.

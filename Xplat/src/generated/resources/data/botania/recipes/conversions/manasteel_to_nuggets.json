@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "botania:manasteel_nugget",
-    "count": 9
+    "count": 9,
+    "item": "botania:manasteel_nugget"
   }
 }

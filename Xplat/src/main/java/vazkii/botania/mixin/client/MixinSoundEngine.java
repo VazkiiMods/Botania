@@ -15,11 +15,13 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.sounds.SoundSource;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
@@ -31,13 +33,21 @@ import java.util.WeakHashMap;
 @Mixin(SoundEngine.class)
 public class MixinSoundEngine {
 	@Unique
+	@Nullable
 	private SoundInstance tmpSound;
 
 	@Unique
 	private static Set<SoundInstance> mutedSounds;
 
-	@Inject(at = @At("HEAD"), method = "calculateVolume")
+	// calculateVolume(float, SoundSource) can be called from two different places, capture in each of them
+
+	@Inject(at = @At("HEAD"), method = "calculateVolume(Lnet/minecraft/client/resources/sounds/SoundInstance;)F")
 	private void captureSound(SoundInstance sound, CallbackInfoReturnable<Float> cir) {
+		tmpSound = sound;
+	}
+
+	@Inject(at = @At("HEAD"), method = "play")
+	private void captureSound2(SoundInstance sound, CallbackInfo ci) {
 		tmpSound = sound;
 	}
 
@@ -49,9 +59,9 @@ public class MixinSoundEngine {
 				&& sound.getSource() != SoundSource.AMBIENT;
 	}
 
-	@ModifyArg(index = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(FFF)F"), method = "calculateVolume")
+	@ModifyArg(index = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(FFF)F"), method = "calculateVolume(FLnet/minecraft/sounds/SoundSource;)F")
 	private float bergamuateAttenuate(float volume) {
-		if (shouldSilence(tmpSound)) {
+		if (tmpSound != null && shouldSilence(tmpSound)) {
 			// We halve the volume for each flower (see return below)
 			// halving 8 times already brings the multiplier to near zero, so no
 			// need to keep going if we've seen more than 8.
@@ -75,8 +85,13 @@ public class MixinSoundEngine {
 		return volume;
 	}
 
-	@Inject(at = @At("RETURN"), method = "calculateVolume")
+	@Inject(at = @At("RETURN"), method = "calculateVolume(Lnet/minecraft/client/resources/sounds/SoundInstance;)F")
 	private void clearSound(SoundInstance sound, CallbackInfoReturnable<Float> cir) {
+		tmpSound = null;
+	}
+
+	@Inject(at = @At("RETURN"), method = "play")
+	private void clearSound2(SoundInstance sound, CallbackInfo ci) {
 		tmpSound = null;
 	}
 }

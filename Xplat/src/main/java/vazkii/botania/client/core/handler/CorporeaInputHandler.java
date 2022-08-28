@@ -33,8 +33,6 @@ import java.util.function.Supplier;
 public class CorporeaInputHandler {
 
 	public static Supplier<ItemStack> hoveredStackGetter = () -> ItemStack.EMPTY;
-
-	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
 	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen;
 
 	public static boolean buttonPressed(int keyCode, int scanCode) {

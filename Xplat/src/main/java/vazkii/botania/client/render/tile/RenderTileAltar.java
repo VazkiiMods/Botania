@@ -25,11 +25,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAltar;
-
-import javax.annotation.Nonnull;
 
 public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 	private final BlockRenderDispatcher blockRenderDispatcher;
@@ -39,7 +39,7 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 	}
 
 	@Override
-	public void render(@Nonnull TileAltar altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileAltar altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.translate(0.5, 1.25, 0.5);
 

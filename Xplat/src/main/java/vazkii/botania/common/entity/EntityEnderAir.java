@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class EntityEnderAir extends Entity {
 	private static final String TAG_AGE = "Age";
@@ -49,12 +49,12 @@ public class EntityEnderAir extends Entity {
 	protected void defineSynchedData() {}
 
 	@Override
-	protected void readAdditionalSaveData(@Nonnull CompoundTag tag) {
+	protected void readAdditionalSaveData(@NotNull CompoundTag tag) {
 		tickCount = tag.getInt(TAG_AGE);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@Nonnull CompoundTag tag) {
+	protected void addAdditionalSaveData(@NotNull CompoundTag tag) {
 		tag.putInt(TAG_AGE, tickCount);
 	}
 

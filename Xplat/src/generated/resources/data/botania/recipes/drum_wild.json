@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WLW",
-    "WHW",
-    "WLW"
-  ],
   "key": {
-    "W": {
-      "tag": "botania:livingwood_logs"
-    },
     "H": {
       "item": "botania:horn_grass"
     },
     "L": {
       "item": "minecraft:leather"
+    },
+    "W": {
+      "tag": "botania:livingwood_logs"
     }
   },
+  "pattern": [
+    "WLW",
+    "WHW",
+    "WLW"
+  ],
   "result": {
     "item": "botania:drum_wild"
   }

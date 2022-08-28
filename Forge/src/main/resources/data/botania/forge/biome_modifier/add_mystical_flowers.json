@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#botania:mystical_flower_spawnlist",
+  "features": "botania:mystical_flowers",
+  "step": "vegetal_decoration"
+}

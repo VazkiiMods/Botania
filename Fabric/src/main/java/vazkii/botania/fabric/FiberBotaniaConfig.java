@@ -263,8 +263,6 @@ public final class FiberBotaniaConfig {
 
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
-		public final PropertyMirror<Boolean> worldgenFlowers = PropertyMirror.create(BOOLEAN);
-		public final PropertyMirror<Boolean> worldgenMushrooms = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<List<String>> rannuncarpusItemBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
 		public final PropertyMirror<List<String>> rannuncarpusModBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
 
@@ -298,14 +296,6 @@ public final class FiberBotaniaConfig {
 					.withComment("The harvest level of the Mana Lens: Bore. 3 is diamond level. Defaults to 3")
 					.finishValue(harvestLevelBore::mirror)
 					.finishBranch()
-
-					.beginValue("worldgenFlowers", BOOLEAN, true)
-					.withComment("Set this to false to disable mystical flower worldgen. More fine-tuned customization should be done with datapacks.")
-					.finishValue(worldgenFlowers::mirror)
-
-					.beginValue("worldgenMushrooms", BOOLEAN, true)
-					.withComment("Set this to false to disable mushroom worldgen. More fine-tuned customization should be done with datapacks.")
-					.finishValue(worldgenMushrooms::mirror)
 
 					.beginValue("chargeAnimation", BOOLEAN, true)
 					.withComment("Set this to false to disable the animation when an item is charging on top of a mana pool")
@@ -414,16 +404,6 @@ public final class FiberBotaniaConfig {
 		@Override
 		public int gogIslandScaleMultiplier() {
 			return gogIslandScaleMultiplier.getValue();
-		}
-
-		@Override
-		public boolean worldgenFlowers() {
-			return worldgenFlowers.getValue();
-		}
-
-		@Override
-		public boolean worldgenMushrooms() {
-			return worldgenMushrooms.getValue();
 		}
 
 		@Override

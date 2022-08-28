@@ -1,0 +1,6 @@
+{
+  "__comment": "Removals always go after adds, see BiomeModifier.Phase enum",
+  "type": "forge:remove_features",
+  "biomes": "#botania:mystical_flower_blocklist",
+  "features": "botania:mystical_flowers"
+}

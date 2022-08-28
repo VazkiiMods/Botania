@@ -28,6 +28,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -57,9 +59,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +140,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				.collect(Collectors.toList());
 	}
 
-	public IManaInfusionRecipe getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull BlockState state) {
+	public IManaInfusionRecipe getMatchingRecipe(@NotNull ItemStack stack, @NotNull BlockState state) {
 		List<IManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
 		List<IManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
 
@@ -167,7 +166,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ItemStack stack = item.getItem();
 
 		if (stack.getItem() instanceof IManaDissolvable dissolvable) {
-			dissolvable.onDissolveTick(this, stack, item);
+			dissolvable.onDissolveTick(this, item);
 		}
 
 		if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown() > 0) {

@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:pure_daisy"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/white"
@@ -16,5 +13,8 @@
     {
       "tag": "botania:petals/white"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:pure_daisy"
+  }
 }

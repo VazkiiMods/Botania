@@ -6,8 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -43,8 +43,10 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHourglassTrigger;
@@ -63,14 +65,10 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.network.IPacket;
 
-import javax.annotation.Nullable;
-
 import java.nio.file.Path;
 import java.util.List;
-import java.util.ServiceLoader;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public interface IXplatAbstractions {
 	// FML/Fabric Loader
@@ -182,7 +180,7 @@ public interface IXplatAbstractions {
 	// Forge patches AbstractFurnaceBlockEntity.canBurn to be an instance method, so we gotta abstract it
 	boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
 	// Forge also makes RecipeProvider.saveRecipeAdvancement an instance method >.>
-	void saveRecipeAdvancement(DataGenerator generator, HashCache cache, JsonObject json, Path path);
+	void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path);
 	// Forge patches BucketItem to use a supplier for the fluid, and exposes it, while Fabric needs an accessor
 	Fluid getBucketFluid(BucketItem item);
 	int getSmeltingBurnTime(ItemStack stack);
@@ -194,17 +192,5 @@ public interface IXplatAbstractions {
 	boolean isRedStringContainerTarget(BlockEntity be);
 	TileRedStringContainer newRedStringContainer(BlockPos pos, BlockState state);
 
-	IXplatAbstractions INSTANCE = find();
-
-	private static IXplatAbstractions find() {
-		var providers = ServiceLoader.load(IXplatAbstractions.class).stream().toList();
-		if (providers.size() != 1) {
-			var names = providers.stream().map(p -> p.type().getName()).collect(Collectors.joining(",", "[", "]"));
-			throw new IllegalStateException("There should be exactly one IXplatAbstractions implementation on the classpath. Found: " + names);
-		} else {
-			var provider = providers.get(0);
-			BotaniaAPI.LOGGER.debug("Instantiating xplat impl: " + provider.type().getName());
-			return provider.get();
-		}
-	}
+	IXplatAbstractions INSTANCE = ServiceUtil.findService(IXplatAbstractions.class, null);
 }

@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wood",
-  "pattern": [
-    "##",
-    "##"
-  ],
   "key": {
     "#": {
       "item": "botania:stripped_livingwood_log"
     }
   },
+  "pattern": [
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "botania:stripped_livingwood",
-    "count": 3
+    "count": 3,
+    "item": "botania:stripped_livingwood"
   }
 }

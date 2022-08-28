@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -26,13 +27,12 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
@@ -44,9 +44,9 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 		this.blockEntityType = blockEntityType;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public VoxelShape getShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, CollisionContext ctx) {
+	public VoxelShape getShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, CollisionContext ctx) {
 		Vec3 shift = state.getOffset(world, pos);
 		return SHAPE.move(shift.x, shift.y, shift.z);
 	}
@@ -66,7 +66,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return blockEntityType.get().create(pos, state);
 	}
 
@@ -82,11 +82,11 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		redstoneParticlesIfPowered(state, world, pos, rand);
 	}
 
-	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, Random rand) {
+	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TileEntityFunctionalFlower flower && rand.nextBoolean()) {
 			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {

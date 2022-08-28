@@ -11,6 +11,7 @@ package vazkii.botania.api.corporea;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * A TileEntity that implements this will be able to intercept corporea
@@ -22,12 +23,12 @@ public interface ICorporeaInterceptor {
 	 * Intercepts a request as it goes. The list of nodes has all the nodes
 	 * at this point, but the list of stacks is not complete.
 	 */
-	void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit);
+	void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, Set<ICorporeaNode> nodes, boolean doit);
 
 	/**
 	 * Intercepts a request after all the stacks have been found and processed. Both the
 	 * list of nodes and stacks is complete at this point.
 	 */
-	void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit);
+	void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, Set<ICorporeaNode> nodes, boolean doit);
 
 }

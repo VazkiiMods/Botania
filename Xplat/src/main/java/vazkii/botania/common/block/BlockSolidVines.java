@@ -10,17 +10,16 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.mixin.AccessorFireBlock;
-
-import javax.annotation.Nonnull;
-
-import java.util.Random;
 
 public class BlockSolidVines extends VineBlock {
 
@@ -30,11 +29,11 @@ public class BlockSolidVines extends VineBlock {
 	}
 
 	@Override
-	public void tick(@Nonnull BlockState state, ServerLevel world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
+	public void tick(@NotNull BlockState state, ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource rand) {}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack getCloneItemStack(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public ItemStack getCloneItemStack(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return new ItemStack(Blocks.VINE);
 	}
 }

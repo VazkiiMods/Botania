@@ -1,15 +1,15 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "botania:bellethorn"
-  },
-  "output": {
-    "item": "botania:bellethorn_chibi"
-  },
-  "mana": 2500,
-  "group": "botania:flower_shrinking",
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:flower_shrinking",
+  "input": {
+    "item": "botania:bellethorn"
+  },
+  "mana": 2500,
+  "output": {
+    "item": "botania:bellethorn_chibi"
   }
 }

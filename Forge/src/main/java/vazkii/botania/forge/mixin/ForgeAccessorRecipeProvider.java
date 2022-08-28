@@ -2,7 +2,7 @@ package vazkii.botania.forge.mixin;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.HashCache;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,5 +13,5 @@ import java.nio.file.Path;
 @Mixin(RecipeProvider.class)
 public interface ForgeAccessorRecipeProvider {
 	@Invoker("saveAdvancement")
-	void callSaveRecipeAdvancement(HashCache dataCache, JsonObject jsonObject, Path path);
+	void callSaveRecipeAdvancement(CachedOutput dataCache, JsonObject jsonObject, Path path);
 }

@@ -24,11 +24,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.mixin.AccessorItemEntity;
-
-import javax.annotation.Nullable;
 
 public class RenderTileCorporeaCrystalCube implements BlockEntityRenderer<TileCorporeaCrystalCube> {
 	// Ugly but there's no other way to get the model besides grabbing it from the event

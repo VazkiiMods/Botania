@@ -12,47 +12,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class MysticalFlowerConfig implements FeatureConfiguration {
+public record MysticalFlowerConfig(float tallChance, BlockStateProvider toPlace) implements FeatureConfiguration {
 	public static final Codec<MysticalFlowerConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			Codec.INT.fieldOf("patch_radius").forGetter(MysticalFlowerConfig::getPatchRadius),
-			Codec.INT.fieldOf("patch_count").forGetter(MysticalFlowerConfig::getPatchCount),
-			Codec.INT.fieldOf("patch_density").forGetter(MysticalFlowerConfig::getPatchDensity),
-			Codec.INT.fieldOf("patch_chance").forGetter(MysticalFlowerConfig::getPatchChance),
-			Codec.DOUBLE.fieldOf("tall_chance").forGetter(MysticalFlowerConfig::getTallChance)
+			Codec.FLOAT.fieldOf("tall_chance").forGetter(MysticalFlowerConfig::tallChance),
+			BlockStateProvider.CODEC.fieldOf("to_place").forGetter(MysticalFlowerConfig::toPlace)
 	).apply(instance, MysticalFlowerConfig::new));
-
-	private final int patchRadius;
-	private final int patchCount;
-	private final int patchDensity;
-	private final int patchChance;
-	private final double tallChance;
-
-	public MysticalFlowerConfig(int patchRadius, int patchCount, int patchDensity, int patchChance, double tallChance) {
-		this.patchRadius = patchRadius;
-		this.patchCount = patchCount;
-		this.patchDensity = patchDensity;
-		this.patchChance = patchChance;
-		this.tallChance = tallChance;
-	}
-
-	public int getPatchRadius() {
-		return patchRadius;
-	}
-
-	public int getPatchCount() {
-		return patchCount;
-	}
-
-	public int getPatchDensity() {
-		return patchDensity;
-	}
-
-	public int getPatchChance() {
-		return patchChance;
-	}
-
-	public double getTallChance() {
-		return tallChance;
-	}
 }

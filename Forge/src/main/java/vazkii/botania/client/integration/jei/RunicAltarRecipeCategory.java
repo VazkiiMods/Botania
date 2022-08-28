@@ -18,26 +18,27 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-
-import javax.annotation.Nonnull;
+import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecipe> {
 
-	public static final ResourceLocation UID = prefix("runic_altar");
+	public static final RecipeType<IRuneAltarRecipe> TYPE =
+			RecipeType.create(LibMisc.MOD_ID, "runic_altar", IRuneAltarRecipe.class);
 	private final IDrawable background;
 	private final Component localizedName;
 	private final IDrawable overlay;
@@ -45,44 +46,38 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 104);
-		localizedName = new TranslatableComponent("botania.nei.runicAltar");
+		localizedName = Component.translatable("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.runeAltar));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.runeAltar));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
+	public RecipeType<IRuneAltarRecipe> getRecipeType() {
+		return TYPE;
 	}
 
-	@Nonnull
-	@Override
-	public Class<? extends IRuneAltarRecipe> getRecipeClass() {
-		return IRuneAltarRecipe.class;
-	}
-
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(IRuneAltarRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(IRuneAltarRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
 		HUDHandler.renderManaBar(ms, 6, 98, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
@@ -90,7 +85,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IRuneAltarRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IRuneAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
 				.addItemStack(new ItemStack(ModBlocks.runeAltar));
 

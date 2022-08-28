@@ -14,7 +14,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -35,6 +34,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.mana.IManaItem;
@@ -49,8 +50,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,8 +79,8 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
-		if (allowdedIn(tab)) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
+		if (allowedIn(tab)) {
 			for (int mana : CREATIVE_MANA) {
 				ItemStack stack = new ItemStack(this);
 				setMana(stack, mana);
@@ -96,18 +95,18 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
-		Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));
-		Component rankFormat = new TranslatableComponent("botaniamisc.toolRank", rank);
+		Component rank = Component.translatable("botania.rank" + getLevel(stack));
+		Component rankFormat = Component.translatable("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
 		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
 		if (manaItem != null && manaItem.getMana() == Integer.MAX_VALUE) {
-			stacks.add(new TranslatableComponent("botaniamisc.getALife").withStyle(ChatFormatting.RED));
+			stacks.add(Component.translatable("botaniamisc.getALife").withStyle(ChatFormatting.RED));
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (hand == InteractionHand.MAIN_HAND && player.isShiftKeyDown() && !player.getOffhandItem().isEmpty()) {
 			return InteractionResultHolder.pass(stack);
@@ -125,7 +124,7 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 		return InteractionResultHolder.success(stack);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Player player = ctx.getPlayer();
@@ -336,9 +335,9 @@ public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreak
 		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Rarity getRarity(@Nonnull ItemStack stack) {
+	public Rarity getRarity(@NotNull ItemStack stack) {
 		int level = getLevel(stack);
 		if (stack.isEnchanted()) {
 			level++;

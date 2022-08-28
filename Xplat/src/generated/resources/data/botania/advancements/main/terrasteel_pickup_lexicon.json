@@ -1,20 +1,7 @@
 {
   "parent": "botania:main/flower_pickup",
   "criteria": {
-    "terrasteel": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "botania:terrasteel_ingot"
-            ]
-          }
-        ]
-      }
-    },
     "elven_lexicon": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -24,7 +11,20 @@
             "nbt": "{\"botania:elven_unlock\":1b}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "terrasteel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "botania:terrasteel_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [

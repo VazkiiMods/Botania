@@ -11,10 +11,7 @@ package vazkii.botania.common.item.relic;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,6 +27,9 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.ModSounds;
@@ -37,9 +37,6 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +57,9 @@ public class ItemDice extends ItemRelic {
 	)
 	);
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
 
@@ -82,7 +79,7 @@ public class ItemDice extends ItemRelic {
 
 			if (!possible.isEmpty()) {
 				int relicIdx = possible.get(world.random.nextInt(possible.size()));
-				player.sendMessage(new TranslatableComponent("botaniamisc.diceRoll", relicIdx + 1).withStyle(ChatFormatting.DARK_GREEN), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("botaniamisc.diceRoll", relicIdx + 1).withStyle(ChatFormatting.DARK_GREEN));
 				var toGive = RELIC_STACKS.get().get(relicIdx).copy();
 				return InteractionResultHolder.success(toGive);
 			} else {
@@ -102,7 +99,7 @@ public class ItemDice extends ItemRelic {
 					}
 				}
 				String langKey = generated.isEmpty() ? "botaniamisc.dudDiceRoll" : "botaniamisc.diceRoll";
-				player.sendMessage(new TranslatableComponent(langKey, roll).withStyle(ChatFormatting.DARK_GREEN), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable(langKey, roll).withStyle(ChatFormatting.DARK_GREEN));
 
 				stack.shrink(1);
 				return InteractionResultHolder.success(stack);
@@ -115,11 +112,11 @@ public class ItemDice extends ItemRelic {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);
-		tooltip.add(new TextComponent(""));
+		tooltip.add(Component.literal(""));
 		TooltipHandler.addOnShift(tooltip, () -> {
 			String name = stack.getDescriptionId() + ".poem";
 			for (int i = 0; i < 4; i++) {
-				tooltip.add(new TranslatableComponent(name + i).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+				tooltip.add(Component.translatable(name + i).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 			}
 		});
 	}

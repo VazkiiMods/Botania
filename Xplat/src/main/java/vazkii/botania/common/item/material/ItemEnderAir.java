@@ -22,12 +22,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.entity.EntityEnderAir;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -75,9 +75,9 @@ public class ItemEnderAir extends Item {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!player.getAbilities().instabuild) {
 			stack.shrink(1);

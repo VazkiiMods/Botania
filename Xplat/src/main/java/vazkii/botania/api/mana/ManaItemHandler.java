@@ -8,30 +8,19 @@
  */
 package vazkii.botania.api.mana;
 
-import com.google.common.base.Suppliers;
-
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import org.apache.logging.log4j.LogManager;
+import vazkii.botania.api.ServiceUtil;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
 
 public interface ManaItemHandler {
-	Supplier<ManaItemHandler> INSTANCE = Suppliers.memoize(() -> {
-		try {
-			return (ManaItemHandler) Class.forName("vazkii.botania.common.impl.mana.ManaItemHandlerImpl")
-					.getDeclaredConstructor().newInstance();
-		} catch (ReflectiveOperationException e) {
-			LogManager.getLogger().warn("Unable to find ManaItemHandlerImpl, using a dummy");
-			return new ManaItemHandler() {};
-		}
-	});
+	ManaItemHandler INSTANCE = ServiceUtil.findService(ManaItemHandler.class, () -> new ManaItemHandler() {});
 
 	static ManaItemHandler instance() {
-		return INSTANCE.get();
+		return INSTANCE;
 	}
 
 	/**

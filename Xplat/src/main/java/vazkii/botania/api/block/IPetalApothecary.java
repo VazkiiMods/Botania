@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
@@ -26,7 +26,7 @@ public interface IPetalApothecary {
 		WATER,
 		LAVA;
 
-		@Nonnull
+		@NotNull
 		@Override
 		public String getSerializedName() {
 			return name().toLowerCase(Locale.ROOT);

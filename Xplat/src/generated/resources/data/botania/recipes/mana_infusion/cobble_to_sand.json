@@ -1,14 +1,14 @@
 {
   "type": "botania:mana_infusion",
-  "input": {
-    "item": "minecraft:cobblestone"
-  },
-  "output": {
-    "item": "minecraft:sand"
-  },
-  "mana": 50,
   "catalyst": {
     "type": "block",
     "block": "botania:alchemy_catalyst"
+  },
+  "input": {
+    "item": "minecraft:cobblestone"
+  },
+  "mana": 50,
+  "output": {
+    "item": "minecraft:sand"
   }
 }

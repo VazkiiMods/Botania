@@ -21,6 +21,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -28,8 +30,6 @@ import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-
-import javax.annotation.Nonnull;
 
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
@@ -54,7 +54,7 @@ public class ItemManasteelPick extends PickaxeItem implements ICustomDamageItem,
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		Player player = ctx.getPlayer();

@@ -17,18 +17,18 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.xplat.IXplatAbstractions;
-
-import javax.annotation.Nonnull;
 
 public class GogAlternationRecipe {
 	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new Serializer();
 
 	private static class Serializer extends RecipeSerializerBase<Recipe<?>> {
-		@Nonnull
+		@NotNull
 		@Override
-		public Recipe<?> fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public Recipe<?> fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			// just select the recipe here
 			Recipe<?> gog = RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "gog"));
 			Recipe<?> base = RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "base"));
@@ -44,14 +44,14 @@ public class GogAlternationRecipe {
 			}
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public Recipe<?> fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public Recipe<?> fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			throw new IllegalStateException("GogAlternationRecipe should not be sent over network");
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull Recipe<?> recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull Recipe<?> recipe) {
 			throw new IllegalStateException("GogAlternationRecipe should not be sent over network");
 		}
 	}

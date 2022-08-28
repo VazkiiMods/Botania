@@ -32,12 +32,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileIncensePlate;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockIncensePlate extends BlockModWaterloggable implements EntityBlock {
 
@@ -112,7 +112,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 		return ((TileIncensePlate) world.getBlockEntity(pos)).comparatorOutput;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
@@ -122,9 +122,9 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 		}
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new TileIncensePlate(pos, state);
 	}
 
@@ -135,7 +135,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 	}
 
 	@Override
-	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity block = world.getBlockEntity(pos);
 			if (block instanceof TileIncensePlate plate && !plate.burning) {
@@ -146,8 +146,8 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 	}
 
 	@Override
-	public void onProjectileHit(@Nonnull Level level, @Nonnull BlockState blockState,
-			@Nonnull BlockHitResult hit, @Nonnull Projectile projectile) {
+	public void onProjectileHit(@NotNull Level level, @NotNull BlockState blockState,
+			@NotNull BlockHitResult hit, @NotNull Projectile projectile) {
 		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos())
 				&& projectile.isOnFire()) {
 			if (level.getBlockEntity(hit.getBlockPos()) instanceof TileIncensePlate plate) {

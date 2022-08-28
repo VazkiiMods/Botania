@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:bubbell"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/cyan"
@@ -31,5 +28,8 @@
     {
       "item": "botania:pixie_dust"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:bubbell"
+  }
 }

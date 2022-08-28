@@ -24,8 +24,8 @@
     },
     {
       "type": "crafting",
-      "text": "botania.page.rainbowRod3",
-      "recipe": "botania:bifrost_perm"
+      "recipe": "botania:bifrost_perm",
+      "recipe2": "botania:bifrost_pane"
     },
     {
       "type": "crafting",

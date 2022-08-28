@@ -15,9 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
-import vazkii.botania.api.BotaniaAPI;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.BotaniaAPI;
 
 public interface ITerraPlateRecipe extends Recipe<Container> {
 	ResourceLocation TERRA_PLATE_ID = new ResourceLocation(BotaniaAPI.MODID, "terra_plate");
@@ -35,7 +35,7 @@ public interface ITerraPlateRecipe extends Recipe<Container> {
 		return false;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	default ItemStack getToastSymbol() {
 		return Registry.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);

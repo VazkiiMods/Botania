@@ -19,13 +19,13 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class ContainerFlowerBag extends AbstractContainerMenu {
 	public static ContainerFlowerBag fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
@@ -51,7 +51,7 @@ public class ContainerFlowerBag extends AbstractContainerMenu {
 				int slot = col + row * 8;
 				addSlot(new Slot(flowerBagInv, slot, 17 + col * 18, 26 + row * 18) {
 					@Override
-					public boolean mayPlace(@Nonnull ItemStack stack) {
+					public boolean mayPlace(@NotNull ItemStack stack) {
 						return ItemFlowerBag.isValid(this.getContainerSlot(), stack);
 					}
 				});
@@ -75,13 +75,13 @@ public class ContainerFlowerBag extends AbstractContainerMenu {
 	}
 
 	@Override
-	public boolean stillValid(@Nonnull Player player) {
+	public boolean stillValid(@NotNull Player player) {
 		ItemStack main = player.getMainHandItem();
 		ItemStack off = player.getOffhandItem();
 		return !main.isEmpty() && main == bag || !off.isEmpty() && off == bag;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;

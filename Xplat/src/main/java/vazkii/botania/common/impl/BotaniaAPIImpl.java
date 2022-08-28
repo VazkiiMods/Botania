@@ -28,6 +28,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
@@ -41,8 +43,6 @@ import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
-
-import javax.annotation.Nonnull;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -93,19 +93,19 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 			return enchantability;
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public SoundEvent getEquipSound() {
 			return equipSound.get();
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public Ingredient getRepairIngredient() {
 			return Ingredient.of(repairItem.get());
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public String getName() {
 			return name;

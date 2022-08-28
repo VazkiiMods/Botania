@@ -20,9 +20,9 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-import vazkii.botania.common.helper.PlayerHelper;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.common.helper.PlayerHelper;
 
 import java.util.Set;
 
@@ -37,13 +37,13 @@ public class RealPlayerCondition implements LootItemCondition {
 		return PlayerHelper.isTruePlayer(player);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Set<LootContextParam<?>> getReferencedContextParams() {
 		return ImmutableSet.of(LootContextParams.LAST_DAMAGE_PLAYER);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public LootItemConditionType getType() {
 		return ModLootModifiers.KILLED_BY_REAL_PLAYER;
@@ -51,11 +51,11 @@ public class RealPlayerCondition implements LootItemCondition {
 
 	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<RealPlayerCondition> {
 		@Override
-		public void serialize(@Nonnull JsonObject json, @Nonnull RealPlayerCondition value, @Nonnull JsonSerializationContext context) {}
+		public void serialize(@NotNull JsonObject json, @NotNull RealPlayerCondition value, @NotNull JsonSerializationContext context) {}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public RealPlayerCondition deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
+		public RealPlayerCondition deserialize(@NotNull JsonObject json, @NotNull JsonDeserializationContext context) {
 			return INSTANCE;
 		}
 	}

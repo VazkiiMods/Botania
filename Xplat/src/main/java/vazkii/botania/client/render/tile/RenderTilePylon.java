@@ -21,14 +21,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.tile.TilePylon;
-
-import javax.annotation.Nullable;
 
 import java.util.Random;
 

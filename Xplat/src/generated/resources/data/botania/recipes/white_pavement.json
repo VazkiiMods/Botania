@@ -13,7 +13,7 @@
     }
   ],
   "result": {
-    "item": "botania:white_pavement",
-    "count": 3
+    "count": 3,
+    "item": "botania:white_pavement"
   }
 }

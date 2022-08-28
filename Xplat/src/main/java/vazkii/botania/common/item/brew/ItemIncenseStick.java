@@ -11,7 +11,6 @@ package vazkii.botania.common.item.brew;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -19,14 +18,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -40,9 +39,9 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	}
 
 	@Override
-	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
+	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
 		super.fillItemCategory(tab, list);
-		if (allowdedIn(tab)) {
+		if (allowedIn(tab)) {
 			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
 				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
 				if (!brewStack.isEmpty()) {
@@ -56,11 +55,11 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			list.add(new TranslatableComponent("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
+			list.add(Component.translatable("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		list.add(new TranslatableComponent("botaniamisc.brewOf", new TranslatableComponent(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
+		list.add(Component.translatable("botaniamisc.brewOf", Component.translatable(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
 		ItemBrewBase.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
 	}
 

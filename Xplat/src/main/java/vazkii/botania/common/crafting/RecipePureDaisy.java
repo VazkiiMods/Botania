@@ -23,12 +23,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class RecipePureDaisy implements IPureDaisyRecipe {
 
@@ -108,9 +108,9 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	}
 
 	public static class Serializer extends RecipeSerializerBase<RecipePureDaisy> {
-		@Nonnull
+		@NotNull
 		@Override
-		public RecipePureDaisy fromJson(@Nonnull ResourceLocation id, JsonObject object) {
+		public RecipePureDaisy fromJson(@NotNull ResourceLocation id, JsonObject object) {
 			StateIngredient input = StateIngredientHelper.deserialize(GsonHelper.getAsJsonObject(object, "input"));
 			BlockState output = StateIngredientHelper.readBlockState(GsonHelper.getAsJsonObject(object, "output"));
 			int time = GsonHelper.getAsInt(object, "time", DEFAULT_TIME);
@@ -121,7 +121,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buf, RecipePureDaisy recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, RecipePureDaisy recipe) {
 			recipe.input.write(buf);
 			buf.writeVarInt(Block.getId(recipe.outputState));
 			buf.writeVarInt(recipe.time);
@@ -129,7 +129,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 
 		@Nullable
 		@Override
-		public RecipePureDaisy fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+		public RecipePureDaisy fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			StateIngredient input = StateIngredientHelper.read(buf);
 			BlockState output = Block.stateById(buf.readVarInt());
 			int time = buf.readVarInt();

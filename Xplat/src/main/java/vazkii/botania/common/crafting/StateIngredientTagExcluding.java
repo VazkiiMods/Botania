@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -23,7 +24,6 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 public class StateIngredientTagExcluding extends StateIngredientTag {
 	private final List<StateIngredient> excludes;
@@ -42,7 +42,7 @@ public class StateIngredientTagExcluding extends StateIngredientTag {
 	}
 
 	@Override
-	public BlockState pick(Random random) {
+	public BlockState pick(RandomSource random) {
 		List<Block> blocks = getBlocks();
 		if (blocks.isEmpty()) {
 			return null;

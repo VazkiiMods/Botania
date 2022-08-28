@@ -16,10 +16,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.ItemManaGun;
-
-import javax.annotation.Nonnull;
 
 public class ManaGunLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<ManaGunLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaGunLensRecipe::new);
@@ -29,7 +29,7 @@ public class ManaGunLensRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		int foundLens = 0;
 		int foundGun = 0;
 
@@ -49,9 +49,9 @@ public class ManaGunLensRecipe extends CustomRecipe {
 		return foundLens == 1 && foundGun == 1;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack gun = ItemStack.EMPTY;
 
@@ -82,7 +82,7 @@ public class ManaGunLensRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;

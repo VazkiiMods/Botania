@@ -30,18 +30,18 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.xplat.IClientXplatAbstractions;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
@@ -65,7 +65,7 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		return Collections.emptyList();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Collection<Material> getMaterials(Function<ResourceLocation, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
 		Set<Material> ret = new HashSet<>();
@@ -117,9 +117,9 @@ public class FabricFloatingFlowerModel extends BlockModel {
 			ctx.fallbackConsumer().accept(islands.get(type));
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
-		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) {
+		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
 			List<BakedQuad> flower = wrapped.getQuads(null, null, rand);
 			List<BakedQuad> island = islands.get(IFloatingFlower.IslandType.GRASS).getQuads(null, null, rand);
 			List<BakedQuad> ret = new ArrayList<>(flower.size() + island.size());
@@ -134,12 +134,12 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		}
 
 		@Override
-		public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
+		public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
 			emit(IFloatingFlower.IslandType.GRASS, context);
 		}
 
 		@Override
-		public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+		public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<RandomSource> randomSupplier, RenderContext context) {
 			Object data = ((RenderAttachedBlockView) blockView).getBlockEntityRenderAttachment(pos);
 			if (data instanceof IFloatingFlower.IslandType type) {
 				emit(type, context);

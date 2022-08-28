@@ -1,24 +1,24 @@
 {
   "type": "botania:armor_upgrade",
+  "key": {
+    "A": {
+      "item": "botania:manasteel_helmet"
+    },
+    "R": {
+      "item": "botania:rune_spring"
+    },
+    "S": {
+      "tag": "botania:terrasteel_ingots"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  },
   "pattern": [
     "TRT",
     "SAS",
     " S "
   ],
-  "key": {
-    "T": {
-      "item": "botania:livingwood_twig"
-    },
-    "S": {
-      "tag": "botania:terrasteel_ingots"
-    },
-    "R": {
-      "item": "botania:rune_spring"
-    },
-    "A": {
-      "item": "botania:manasteel_helmet"
-    }
-  },
   "result": {
     "item": "botania:terrasteel_helmet"
   }

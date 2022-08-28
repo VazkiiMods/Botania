@@ -2,7 +2,7 @@
   "parent": "minecraft:block/stairs",
   "textures": {
     "bottom": "botania:block/shimmerrock",
-    "top": "botania:block/shimmerrock",
-    "side": "botania:block/shimmerrock"
+    "side": "botania:block/shimmerrock",
+    "top": "botania:block/shimmerrock"
   }
 }

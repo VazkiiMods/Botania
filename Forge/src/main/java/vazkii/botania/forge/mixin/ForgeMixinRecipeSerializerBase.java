@@ -2,12 +2,11 @@ package vazkii.botania.forge.mixin;
 
 import net.minecraft.resources.ResourceLocation;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import vazkii.botania.common.crafting.RecipeSerializerBase;
-
-import javax.annotation.Nullable;
 
 /**
  * [SelfMixin]

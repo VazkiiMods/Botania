@@ -18,26 +18,27 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ItemNBTHelper;
-
-import javax.annotation.Nonnull;
+import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionRecipe> {
 
-	public static final ResourceLocation UID = prefix("mana_pool");
+	public static final RecipeType<IManaInfusionRecipe> TYPE =
+			RecipeType.create(LibMisc.MOD_ID, "mana_pool", IManaInfusionRecipe.class);
 	private final IDrawable background;
 	private final Component localizedName;
 	private final IDrawable overlay;
@@ -46,45 +47,39 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(142, 55);
-		localizedName = new TranslatableComponent("botania.nei.manaPool");
+		localizedName = Component.translatable("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, renderStack.copy());
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, renderStack.copy());
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ResourceLocation getUid() {
-		return UID;
+	public RecipeType<IManaInfusionRecipe> getRecipeType() {
+		return TYPE;
 	}
 
-	@Nonnull
-	@Override
-	public Class<? extends IManaInfusionRecipe> getRecipeClass() {
-		return IManaInfusionRecipe.class;
-	}
-
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		return localizedName;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void draw(IManaInfusionRecipe recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(IManaInfusionRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 40, 0);
 		HUDHandler.renderManaBar(ms, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
@@ -92,7 +87,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull IManaInfusionRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IManaInfusionRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 32, 12)
 				.addIngredients(recipe.getIngredients().get(0));
 

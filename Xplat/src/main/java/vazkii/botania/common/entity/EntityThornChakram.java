@@ -34,10 +34,10 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class EntityThornChakram extends ThrowableProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.INT);
@@ -128,14 +128,14 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	protected void onHit(@Nonnull HitResult pos) {
+	protected void onHit(@NotNull HitResult pos) {
 		if (!isReturning()) {
 			super.onHit(pos);
 		}
 	}
 
 	@Override
-	protected void onHitBlock(@Nonnull BlockHitResult hit) {
+	protected void onHitBlock(@NotNull BlockHitResult hit) {
 		super.onHitBlock(hit);
 		BlockState state = level.getBlockState(hit.getBlockPos());
 		if (state.getBlock() instanceof BushBlock || state.is(BlockTags.LEAVES)) {
@@ -159,7 +159,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	protected void onHitEntity(@Nonnull EntityHitResult hit) {
+	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
 		if (!level.isClientSide && hit.getEntity() instanceof LivingEntity hitEntity && hit.getEntity() != getOwner()) {
 			Entity thrower = getOwner();
@@ -229,7 +229,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		setFire(compound.getBoolean("flare"));
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getItem() {
 		return getItemStack();

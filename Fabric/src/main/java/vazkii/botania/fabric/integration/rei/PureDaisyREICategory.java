@@ -19,14 +19,13 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,22 +35,22 @@ public class PureDaisyREICategory implements DisplayCategory<PureDaisyREIDisplay
 	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	@Override
-	public @Nonnull CategoryIdentifier<PureDaisyREIDisplay> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<PureDaisyREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.PURE_DAISY;
 	}
 
 	@Override
-	public @Nonnull Renderer getIcon() {
+	public @NotNull Renderer getIcon() {
 		return daisy;
 	}
 
 	@Override
-	public @Nonnull Component getTitle() {
-		return new TranslatableComponent("botania.nei.pureDaisy");
+	public @NotNull Component getTitle() {
+		return Component.translatable("botania.nei.pureDaisy");
 	}
 
 	@Override
-	public @Nonnull List<Widget> setupDisplay(PureDaisyREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(PureDaisyREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 9);
 

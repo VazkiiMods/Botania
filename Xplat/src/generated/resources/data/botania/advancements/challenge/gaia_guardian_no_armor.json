@@ -1,24 +1,24 @@
 {
   "parent": "botania:challenge/root",
+  "criteria": {
+    "no_armor": {
+      "conditions": {},
+      "trigger": "botania:gaia_guardian_no_armor"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "minecraft:player_head"
-    },
-    "title": {
-      "translate": "advancement.botania:gaiaGuardianNoArmor"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.botania:gaiaGuardianNoArmor.desc"
     },
     "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:player_head"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "no_armor": {
-      "trigger": "botania:gaia_guardian_no_armor",
-      "conditions": {}
+    "title": {
+      "translate": "advancement.botania:gaiaGuardianNoArmor"
     }
   },
   "requirements": [

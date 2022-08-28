@@ -24,10 +24,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.common.block.ModBlocks;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class RecipePetals implements IPetalRecipe {
 	}
 
 	@Override
-	public boolean matches(Container inv, @Nonnull Level world) {
+	public boolean matches(Container inv, @NotNull Level world) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -74,46 +74,46 @@ public class RecipePetals implements IPetalRecipe {
 		return ingredientsMissing.isEmpty();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public final ItemStack getResultItem() {
 		return output;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull Container inv) {
+	public ItemStack assemble(@NotNull Container inv) {
 		return getResultItem().copy();
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.defaultAltar);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.PETAL_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<RecipePetals> {
-		@Nonnull
+		@NotNull
 		@Override
-		public RecipePetals fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+		public RecipePetals fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
@@ -124,7 +124,7 @@ public class RecipePetals implements IPetalRecipe {
 		}
 
 		@Override
-		public RecipePetals fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+		public RecipePetals fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
@@ -134,7 +134,7 @@ public class RecipePetals implements IPetalRecipe {
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull RecipePetals recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RecipePetals recipe) {
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);

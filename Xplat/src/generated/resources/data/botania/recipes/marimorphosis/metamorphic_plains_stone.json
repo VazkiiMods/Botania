@@ -1,14 +1,11 @@
 {
   "type": "botania:marimorphosis",
+  "biome_bonus": 11,
+  "biome_bonus_tag": "botania:marimorphosis_plains_bonus",
   "input": "minecraft:stone",
   "output": {
     "type": "block",
     "block": "botania:metamorphic_plains_stone"
   },
-  "weight": 1,
-  "biomes": [
-    "plains",
-    "beach"
-  ],
-  "biome_bonus": 11
+  "weight": 1
 }

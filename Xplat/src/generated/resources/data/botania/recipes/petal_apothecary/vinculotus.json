@@ -1,8 +1,5 @@
 {
   "type": "botania:petal_apothecary",
-  "output": {
-    "item": "botania:vinculotus"
-  },
   "ingredients": [
     {
       "tag": "botania:petals/black"
@@ -31,5 +28,8 @@
     {
       "item": "botania:redstone_root"
     }
-  ]
+  ],
+  "output": {
+    "item": "botania:vinculotus"
+  }
 }

@@ -23,6 +23,8 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -31,8 +33,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
-
-import javax.annotation.Nonnull;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -49,7 +49,7 @@ public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay>
 	public RenderTileLightRelay(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@Nonnull TileLightRelay tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TileLightRelay tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		BlockState state = tile.getBlockState();
 
 		Minecraft mc = Minecraft.getInstance();

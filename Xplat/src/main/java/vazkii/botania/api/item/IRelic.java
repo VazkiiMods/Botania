@@ -11,7 +11,7 @@ package vazkii.botania.api.item;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -31,14 +31,6 @@ public interface IRelic {
 	 */
 	@Nullable
 	UUID getSoulbindUUID();
-
-	/**
-	 * Checks if the relic contains a well-formed UUID.
-	 */
-	@Deprecated(forRemoval = true) // Just null check getSoulbindUUID directly
-	default boolean hasUUID() {
-		return getSoulbindUUID() != null;
-	}
 
 	/**
 	 * Attempts to bind to a player, or damage them if it's not theirs

@@ -66,12 +66,16 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 
 	@Override
 	public void register(EmiRegistry registry) {
+		var old = CorporeaInputHandler.hoveredStackGetter;
 		CorporeaInputHandler.hoveredStackGetter = () -> {
-			EmiIngredient stack = EmiApi.getHoveredStack(true).getStack();
-			if (stack.getEmiStacks().size() > 0) {
-				return stack.getEmiStacks().get(0).getItemStack();
+			EmiIngredient ingr = EmiApi.getHoveredStack(true).getStack();
+			if (ingr.getEmiStacks().size() > 0) {
+				var stack = ingr.getEmiStacks().get(0).getItemStack();
+				if (!stack.isEmpty()) {
+					return stack;
+				}
 			}
-			return ItemStack.EMPTY;
+			return old.get();
 		};
 		registry.addCategory(PETAL_APOTHECARY);
 		registry.addCategory(MANA_INFUSION);
@@ -192,7 +196,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		}
 	}
 
-	public static Object2IntMap<Block> getWeights(RecipeType<IOrechidRecipe> type, RecipeManager manager) {
+	public static Object2IntMap<Block> getWeights(RecipeType<? extends IOrechidRecipe> type, RecipeManager manager) {
 		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
 		for (IOrechidRecipe recipe : manager.getAllRecipesFor(type)) {
 			map.addTo(recipe.getInput(), recipe.getWeight());

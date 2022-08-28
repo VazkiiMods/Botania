@@ -8,42 +8,40 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.recipe.StateIngredient;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.*;
 
 public class RecipeMarimorphosis extends RecipeOrechid {
 	private final int weightBonus;
-	private final Set<BiomeCategory> biomes;
+	private final TagKey<Biome> biomes;
 
-	public RecipeMarimorphosis(ResourceLocation id, Block input, StateIngredient output, int weight, int weightBonus, Collection<BiomeCategory> biomes) {
+	public RecipeMarimorphosis(ResourceLocation id, Block input, StateIngredient output, int weight, int weightBonus, TagKey<Biome> biomes) {
 		super(id, input, output, weight);
 		this.weightBonus = weightBonus;
-		this.biomes = Set.copyOf(biomes);
+		this.biomes = biomes;
 	}
 
 	@Override
-	public int getWeight(@Nonnull Level level, @Nonnull BlockPos pos) {
-		var biome = level.getBiome(pos);
-		if (biomes.contains(Biome.getBiomeCategory(biome))) {
+	public int getWeight(@NotNull Level level, @NotNull BlockPos pos) {
+		if (level.getBiome(pos).is(this.biomes)) {
 			return getWeight() + weightBonus;
 		}
 		return getWeight();
@@ -61,15 +59,11 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 
 	public static class Serializer extends RecipeSerializerBase<RecipeMarimorphosis> {
 		@Override
-		public RecipeMarimorphosis fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+		public RecipeMarimorphosis fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			RecipeOrechid base = ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
 
-			Set<BiomeCategory> biomes = new HashSet<>();
-			var array = GsonHelper.getAsJsonArray(json, "biomes", new JsonArray());
-			for (JsonElement element : array) {
-				biomes.add(BiomeCategory.byName(GsonHelper.convertToString(element, "biome entry")));
-			}
-
+			var biomes = TagKey.create(Registry.BIOME_REGISTRY,
+					new ResourceLocation(GsonHelper.getAsString(json, "biome_bonus_tag")));
 			int weightBonus = GsonHelper.getAsInt(json, "biome_bonus", 0);
 			if (base.getWeight() + weightBonus <= 0) {
 				throw new JsonSyntaxException("Weight combined with bonus cannot be 0 or less");
@@ -79,27 +73,20 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 		}
 
 		@Override
-		public RecipeMarimorphosis fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+		public RecipeMarimorphosis fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			RecipeOrechid base = ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer);
 
-			Set<BiomeCategory> biomes = new HashSet<>();
-			int size = buffer.readVarInt();
-			for (int i = 0; i < size; i++) {
-				biomes.add(BiomeCategory.byName(buffer.readUtf()));
-			}
+			TagKey<Biome> biomes = TagKey.create(Registry.BIOME_REGISTRY, buffer.readResourceLocation());
 			int weightBonus = buffer.readVarInt();
 
 			return new RecipeMarimorphosis(recipeId, base.getInput(), base.getOutput(), base.getWeight(), weightBonus, biomes);
 		}
 
 		@Override
-		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull RecipeMarimorphosis recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RecipeMarimorphosis recipe) {
 			ModRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
 
-			buffer.writeVarInt(recipe.biomes.size());
-			for (BiomeCategory biomeCategory : recipe.biomes) {
-				buffer.writeUtf(biomeCategory.getSerializedName());
-			}
+			buffer.writeResourceLocation(recipe.biomes.location());
 			buffer.writeVarInt(recipe.weightBonus);
 		}
 	}
@@ -108,7 +95,7 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 		return weightBonus;
 	}
 
-	public Set<BiomeCategory> getBiomes() {
+	public TagKey<Biome> getBiomes() {
 		return biomes;
 	}
 }

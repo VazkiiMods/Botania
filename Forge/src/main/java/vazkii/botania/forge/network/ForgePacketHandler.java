@@ -8,10 +8,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import vazkii.botania.network.TriConsumer;
 import vazkii.botania.network.clientbound.*;
-import vazkii.botania.network.serverbound.PacketDodge;
-import vazkii.botania.network.serverbound.PacketIndexKeybindRequest;
-import vazkii.botania.network.serverbound.PacketJump;
-import vazkii.botania.network.serverbound.PacketLeftClick;
+import vazkii.botania.network.serverbound.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -34,6 +31,8 @@ public class ForgePacketHandler {
 				makeServerBoundHandler(PacketDodge::handle));
 		CHANNEL.registerMessage(i++, PacketIndexKeybindRequest.class, PacketIndexKeybindRequest::encode, PacketIndexKeybindRequest::decode,
 				makeServerBoundHandler(PacketIndexKeybindRequest::handle));
+		CHANNEL.registerMessage(i++, PacketIndexStringRequest.class, PacketIndexStringRequest::encode, PacketIndexStringRequest::decode,
+				makeServerBoundHandler(PacketIndexStringRequest::handle));
 		CHANNEL.registerMessage(i++, PacketJump.class, PacketJump::encode, PacketJump::decode,
 				makeServerBoundHandler(PacketJump::handle));
 		CHANNEL.registerMessage(i++, PacketLeftClick.class, PacketLeftClick::encode, PacketLeftClick::decode,

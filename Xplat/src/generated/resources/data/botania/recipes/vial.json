@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "G G",
-    " G "
-  ],
   "key": {
     "G": {
       "item": "botania:mana_glass"
     }
   },
+  "pattern": [
+    "G G",
+    " G "
+  ],
   "result": {
-    "item": "botania:vial",
-    "count": 3
+    "count": 3,
+    "item": "botania:vial"
   }
 }

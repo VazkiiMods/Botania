@@ -21,16 +21,15 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,22 +39,22 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 	private final ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
-	public @Nonnull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {
 		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
 	}
 
 	@Override
-	public @Nonnull Renderer getIcon() {
+	public @NotNull Renderer getIcon() {
 		return altar;
 	}
 
 	@Override
-	public @Nonnull Component getTitle() {
-		return new TranslatableComponent("botania.nei.runicAltar");
+	public @NotNull Component getTitle() {
+		return Component.translatable("botania.nei.runicAltar");
 	}
 
 	@Override
-	public @Nonnull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		List<EntryIngredient> inputs = display.getInputEntries();
 		EntryStack<?> output = display.getOutputEntries().get(0).get(0);

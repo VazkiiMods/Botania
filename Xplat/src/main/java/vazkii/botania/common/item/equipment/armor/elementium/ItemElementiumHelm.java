@@ -17,20 +17,20 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.common.handler.PixieHandler;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemElementiumHelm extends ItemElementiumArmor implements IManaDiscountArmor {
 	public ItemElementiumHelm(Properties props) {
 		super(EquipmentSlot.HEAD, props);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlot slot) {
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
 		if (slot == getSlot()) {
 			ret = HashMultimap.create(ret);

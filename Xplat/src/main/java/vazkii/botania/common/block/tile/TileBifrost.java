@@ -13,7 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class TileBifrost extends TileMod {
 	private static final String TAG_TICKS = "ticks";
@@ -39,7 +39,7 @@ public class TileBifrost extends TileMod {
 	}
 
 	@Override
-	public void load(@Nonnull CompoundTag tag) {
+	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 		ticks = tag.getInt(TAG_TICKS);
 	}

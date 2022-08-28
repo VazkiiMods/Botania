@@ -16,10 +16,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nonnull;
 
 public class ManaGunClipRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<ManaGunClipRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaGunClipRecipe::new);
@@ -29,7 +29,7 @@ public class ManaGunClipRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundGun = false;
 		boolean foundClip = false;
 
@@ -49,9 +49,9 @@ public class ManaGunClipRecipe extends CustomRecipe {
 		return foundGun && foundClip;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack gun = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -78,7 +78,7 @@ public class ManaGunClipRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
