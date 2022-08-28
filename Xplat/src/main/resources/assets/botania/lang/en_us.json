@@ -2726,7 +2726,6 @@
   "botania.page.rainbowRod1": "This bridge can extend up to a hundred blocks away, and will vanish after about thirty seconds.$(p)Only one bridge can be created for any given $(item)Rod of the Bifrost$(0) at a time; as soon as the old bridge vanishes, a new one can be created.",
   "botania.page.rainbowRod6": "This rod can be given to a $(l:devices/avatar)$(item)Livingwood Avatar$(0)$(/l). An avatar holding one will use its $(thing)Mana$(0) to create a rainbow bridge along its line of sight whenever a player approaches.",
   "botania.page.rainbowRod2": "Going my way!! Cut open a path and go!",
-  "botania.page.rainbowRod3": "$(item)Bifrost Blocks$(0) for decoration",
   "botania.page.rainbowRod4": "Rainbow $(item)Shimmerrock$(0)",
   "botania.page.rainbowRod5": "Rainbow $(item)Shimmerwood Planks$(0)",
   "botania.page.rainbowRod7": "$(item)Fabulous Mana Pool$(0)! Stores as much as a normal one",
