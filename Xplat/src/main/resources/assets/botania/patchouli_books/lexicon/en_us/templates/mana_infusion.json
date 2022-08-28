@@ -21,7 +21,8 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "#dropTip0",
+        "#dropTip2",
+        "#dropTip3",
         "#dropTip1"
       ],
       "x": 27,
