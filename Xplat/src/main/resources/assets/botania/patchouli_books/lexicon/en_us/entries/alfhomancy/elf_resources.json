@@ -55,5 +55,8 @@
       "text": "botania.page.elfResources9",
       "recipes": "botania:elven_trade/elf_glass"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:elf_glass_pane": 9
+  }
 }
