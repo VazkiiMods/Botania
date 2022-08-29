@@ -2663,7 +2663,7 @@
 
   "botania.entry.grassHorn": "Horn of the Wild",
   "botania.tagline.grassHorn": "Clear out all grass and crops around you",
-  "botania.page.grassHorn0": "Clearing out large areas of $(item)Tall Grass$(0) by hand is a nuisance, as is the process of harvesting large fields of crops.$(p)Simply blowing into the $(item)Horn of the Wild$(0) will cause any nearby vegetation to quickly uproot, leaving behind drops as if they had been broken by hand.$(p)With some adjustments, the horn can be tuned to break leaves or snow instead.",
+  "botania.page.grassHorn0": "Clearing out large areas of $(item)Tall Grass$(0) by hand is a nuisance, as is the process of harvesting large fields of crops.$(p)Simply blowing into the $(item)Horn of the Wild$(0) will cause any nearby vegetation to quickly uproot, leaving behind drops as if they had been broken by hand.$(p)The horn can be tuned to break $(item)leaves$(0) or $(item)snow$(0) instead.",
   "botania.page.grassHorn1": "Crafting the horn",
   "botania.page.grassHorn2": "Adjusting for $(item)Leaves$(0)",
   "botania.page.grassHorn3": "Adjusting for $(item)Snow$(0)",
