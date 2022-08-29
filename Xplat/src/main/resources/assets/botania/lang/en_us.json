@@ -3381,9 +3381,9 @@
   "botania.tagline.dispenserTweaks": "Dispensers planting seeds",
   "botania.page.dispenserTweaks0": "$(thing)Botania$(0) tweaks $(item)Dispensers$(0) to be able to plant all kinds of seeds, from your standard wheat $(item)Seeds$(0) to $(item)Nether Warts$(0) and $(item)Cocoa Beans$(0) (the latter requiring a block of $(item)Jungle Wood$(0) across from the $(item)Dispenser$(0)).$(p)In conjunction with other blocks (like the $(l:devices/forest_drum)$(item)Drum of the Wild$(0)$(/l)), this allows for fully-automated crop farming.",
 
-  "botania.entry.shinyFlowers": "Glimmering Flowers",
+  "botania.entry.shinyFlowers": "Floral variants",
   "botania.tagline.shinyFlowers": "Shiny flowers and floating flowers",
-  "botania.page.shinyFlowers0": "$(item)Glowstone Dust$(0) can be sprinkled over $(l:basics/flowers)$(item)Mystical Flowers$(0)$(/l) to turn them into $(item)Glimmering Flowers$(0), which sparkle bright enough to emit actual light (at the same brightness as $(item)Glowstone Block$(0) does).$(p)Combining one of these with some $(item)Dirt$(0) and $(l:tools/grass_seeds)$(item)Pasture Seeds$(0)$(/l) yields a $(item)Floating Flower$(0), a miniature floating island that emits light and looks quite fancy indeed.",
+  "botania.page.shinyFlowers0": "$(item)Glowstone Dust$(0) can be sprinkled over $(l:basics/flowers)$(item)Mystical Flowers$(0)$(/l) to turn them into $(item)Glimmering Flowers$(0), which sparkle bright enough to emit actual light (same brightness as $(item)Glowstone Block$(0)).$(p)Combining one of these with some $(item)Dirt$(0) and $(l:tools/grass_seeds)$(item)Pasture Seeds$(0)$(/l) yields a $(item)Floating Flower$(0), a miniature floating island that emits light and looks quite fancy indeed.",
   "botania.page.shinyFlowers3": "Crafting a $(item)Floating Flower$(0) with a $(thing)Functional$(0) or $(thing)Generating Flower$(0) will plant the latter on the former, yielding the looks and properties of a $(item)Floating Flower$(0) and the effects of the other flower, all rolled into one tiny island. Right-clicking a $(thing)Floating Flower$(0) with $(l:tools/grass_seeds)$(item)Pasture Seeds$(0)$(/l) or a $(item)Snowball$(0) will change its appearance.",
   "botania.page.shinyFlowers4": "Glimmering Flower",
   "botania.page.shinyFlowers1": "Pretty Pretty Shiny Shiny",
