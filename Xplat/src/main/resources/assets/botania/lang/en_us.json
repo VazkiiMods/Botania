@@ -2108,7 +2108,7 @@
   "botania.page.bellows1": "A slightly more mundane use of the $(item)Manatide Bellows$(0) is to stoke a $(item)Furnace$(0)'s flames.$(p)A $(item)Manatide Bellows$(0) can be operated manually via a right-click; pointing the bellows towards an active $(item)Furnace$(0) and manning it will increase the speed and efficiency at which the items in the $(item)Furnace$(0) get smelted.",
   "botania.page.bellows2": "It is your duty to be stoked",
 
-  "botania.entry.fIntro": "An Introduction to Function",
+  "botania.entry.fIntro": "Functional Flora",
   "botania.tagline.fIntro": "Flowers that use mana for beneficial powers",
   "botania.page.fIntro0": "There are myriad uses for the $(thing)Mana$(0) a botanist generates, notably as the fuel for an assortment of $(thing)Functional Flora$(0).$(p)These flowers will drain $(thing)Mana$(0) from a nearby $(l:mana/pool)$(item)Mana Pool$(0)$(/l) into themselves to perform their respective functions.$(p)Note that flowers can't receive power directly through $(l:mana/spreader)$(item)Mana Spreaders$(0)$(/l).",
   "botania.page.fIntro1": "All $(thing)Functional Flora$(0), just like $(thing)Generating Flora$(0), contain a small buffer of $(thing)Mana$(0).",
@@ -3261,7 +3261,7 @@
 
   "botania.entry.aIntro": "The Portal to Alfheim",
   "botania.tagline.aIntro": "The next step in the journey...",
-  "botania.page.aIntro0": "They say that once upon a time, $(thing)Elves$(0) shared the world with us $(thing)Minecraftians$(0). Due to events presently unknown to us, at some point they were banished back to their own world, $(thing)Alfheim$(0), never to return.$(p)Experiments have been performed in an attempt to re-establish a connection between the two worlds, and a theoretical procedure for creating such a portal has been devised.",
+  "botania.page.aIntro0": "They say that once upon a time, $(thing)Elves$(0) shared the world with us $(thing)Minecraftians$(0). Due to events unknown to us, they were banished back to their own world, $(thing)Alfheim$(0), never to return.$(p)Experiments have been performed in an attempt to re-establish a connection between the two worlds, and a theoretical procedure for creating such a portal has been devised.",
   "botania.page.aIntro1": "Actually creating this portal would prove to be an arduous task: quite a few unusual resources would be necessary. The net requirements come down to 8 $(l:basics/pure_daisy)$(item)Livingwood$(0)$(/l) blocks, 3 $(l:misc/decorative_blocks)$(item)Glimmering Livingwood$(0)$(/l) blocks, an $(item)Elven Gateway Core$(0) (read on), and at least 2 $(l:mana/pool)$(item)Mana Pools$(0)$(/l) and $(item)Natura Pylons$(0) (read on).$(p)The $(l:basics/pure_daisy)$(item)Livingwood$(0)$(/l) blocks can be of any variant (logs or wood, stripped or not, etc.), so feel free to mix it up if you're feeling fancy.",
   "botania.page.aIntro2": "Crafting the $(item)Elven Gateway Core$(0)",
   "botania.page.aIntro3": "Crafting $(item)Natura Pylons$(0)",
@@ -3280,7 +3280,7 @@
   "botania.page.elfMessage5": "$(o)We have taken the liberty of assigning our best scribes to transcribe the bulk of the knowledge from our world into your lexicon. We hope you find it enlightening, and that the knowledge encourages you to invest in our materials.",
   "botania.page.elfMessage6": "$(o)Please be forewarned that if you do decide to send us an item we have not vowed to trade for, we will assume it to be a gift and keep it for ourselves. We thank you again, and look forward to exchanging resources with you.$(p)Best Regards, the High Council of Elven Garde.",
 
-  "botania.entry.elfResources": "The Resources of Alfheim",
+  "botania.entry.elfResources": "Resources of Alfheim",
   "botania.tagline.elfResources": "I have done nothing but teleport bread for three days",
   "botania.page.elfResources0": "$(thing)Alfheim$(0) contains a myriad of valuable resources. Unfortunately, most of them are rather scarce due to competition between the various $(thing)Elven$(0) clans. The Elves you have contacted are interested in trading resources native to their lands, such as $(item)Dreamwood$(0), $(item)Elementium$(0), $(item)Pixie Dust$(0) and $(item)Dragonstones$(0).",
   "botania.page.elfResources1": "$(item)Dreamwood$(0) can also be crafted into decorative blocks like $(l:misc/decorative_blocks)$(item)Livingwood$(0)$(/l) can.",
