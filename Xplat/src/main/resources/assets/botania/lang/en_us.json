@@ -3036,7 +3036,7 @@
   "botania.tagline.blackHoleTalisman": "Infinite storage of a block in a single slot",
   "botania.page.blackHoleTalisman0": "The void is a massive space full of... nothing. Really. There's nothing there. But with a bit of ingenuity, this nothingness can be exploited to store blocks for you to your heart's content.$(p)The $(item)Black Hole Talisman$(0) utilizes powerful Gaia and Ender magics to store a virtually infinite quantity of a single type of block.",
   "botania.page.blackHoleTalisman1": "Right-clicking a block with an empty Talisman will set it to store that type of block, and sneak-right clicking the Talisman in the air will enable or disable it. When enabled, a Talisman will absorb any blocks of its given type from its user's inventory.$(p)Placing the item in a crafting grid will yield its stored blocks, a stack at a time.",
-  "botania.page.blackHoleTalisman2": "Any blocks stored in a Talisman can be placed by simply right-clicking with it.$(p)Right-clicking the Talisman on an inventory will dump up to a stack of blocks into that inventory. Finally, a Talisman can provide a $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l) with the blocks it contains.",
+  "botania.page.blackHoleTalisman2": "Any blocks stored in a Talisman can be placed by simply right-clicking with it.$(p)Sneak-right clicking the Talisman on an inventory will dump up to a stack of blocks into that inventory. Finally, a Talisman can provide a $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l) with the blocks it contains.",
   "botania.page.blackHoleTalisman3": "Technically incorrect, the worst type of incorrect",
 
   "botania.entry.luminizerTransport": "Luminizer Transport",
