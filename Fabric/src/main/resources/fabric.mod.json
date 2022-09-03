@@ -53,7 +53,7 @@
     "emi": [
       "vazkii.botania.fabric.integration.emi.BotaniaEmiPlugin"
     ],
-    "rei_plugins_v0": [
+    "rei_client": [
       "vazkii.botania.fabric.integration.rei.BotaniaREIPlugin"
     ]
   },
