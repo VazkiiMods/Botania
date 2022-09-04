@@ -14,6 +14,7 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:enchanted_soil": 1
+    "botania:enchanted_soil": 1,
+    "botania:overgrowth_seed": 1
   }
 }

@@ -10,5 +10,8 @@
       "type": "text",
       "text": "botania.page.thorRing0"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:thor_ring": 1
+  }
 }

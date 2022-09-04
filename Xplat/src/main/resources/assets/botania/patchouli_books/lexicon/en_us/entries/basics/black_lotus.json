@@ -7,5 +7,9 @@
       "type": "text",
       "text": "botania.page.blackLotus0"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:black_lotus": 1,
+    "botania:blacker_lotus": 1
+  }
 }

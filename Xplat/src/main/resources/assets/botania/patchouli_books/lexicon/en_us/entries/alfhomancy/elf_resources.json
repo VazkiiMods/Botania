@@ -57,6 +57,7 @@
     }
   ],
   "extra_recipe_mappings": {
+    "botania:elementium_nugget": 3,
     "botania:elf_glass_pane": 9
   }
 }

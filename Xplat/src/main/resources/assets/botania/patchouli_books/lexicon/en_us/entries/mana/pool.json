@@ -88,6 +88,7 @@
     }
   ],
   "extra_recipe_mappings": {
+    "botania:manasteel_nugget": 6,
     "botania:mana_glass_pane": 11
   }
 }
