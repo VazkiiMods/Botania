@@ -69,7 +69,7 @@
   "botaniamisc.nearIndex2": "intercepted as a request",
   "botaniamisc.cosmeticBauble": "Cosmetic",
   "botaniamisc.cosmeticThinking": "Really makes you think",
-  "botaniamisc.hasCosmetic": "Has Cosmetic Override: %s",
+  "botaniamisc.hasCosmetic": "Cosmetic: %s",
   "botaniamisc.hasPhantomInk": "Tinged with Phantom Ink",
   "botaniamisc.pinkinatorDesc": "Apply directly to Wither",
   "botaniamisc.relicUnbound": "\u00a76Relic\u00a77, Unbound",
@@ -3072,7 +3072,7 @@
 
   "botania.entry.cosmeticBaubles": "Cosmetic Trinkets",
   "botania.tagline.cosmeticBaubles": "Accessories that don't provide power",
-  "botania.page.cosmeticBaubles0": "Many, many $(item)Cosmetic Trinkets$(0) are available to change the looks of (or just add style to) any $(thing)Trinkets$(0) a player has equipped. These can be worn by themselves as $(thing)Amulets$(0), but can also craft with another $(thing)Trinket$(0); in that case, the latter $(thing)Trinket$(0) will function as usual, but take on the appearance of the $(item)Cosmetic Trinket$(0). $(thing)Cosmetic Overrides$(0) can be removed by putting the overridden $(thing)Trinket$(0) back in the grid.",
+  "botania.page.cosmeticBaubles0": "Many $(item)Cosmetic Trinkets$(0) are available to change the looks of any $(thing)Trinkets$(0) a player has equipped. These can be worn by themselves, but can also craft with another $(thing)Trinket$(0); in that case, the latter $(thing)Trinket$(0) will function as usual, but take on the appearance of the $(item)Cosmetic Trinket$(0). $(thing)Cosmetic Overrides$(0) can be removed by putting the overridden $(thing)Trinket$(0) back in the grid.",
   "botania.page.cosmeticBaubles1": "$(thing)Cosmetic Trinkets$(0) are crafted by weaving a specific color of petal around a $(l:mana/pool)$(item)Mana Infused String$(0)$(/l); oddly enough, the item created often has nothing to do with the color of the petal.$(p)The exact mechanics of this synthesis aren't well known-- it's almost as if the person that designed them hadn't bothered with figuring out a better system. Or something. Who knows.",
   "botania.page.cosmeticBaubles2": "They're cool",
   "botania.page.cosmeticBaubles3": "My desires are... unconventional",
