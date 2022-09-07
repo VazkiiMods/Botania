@@ -3268,7 +3268,7 @@
   "botania.page.aIntro4": "Alfheim Portal",
   "botania.page.aIntro5": "At least two $(l:mana/pool)$(item)Mana Pools$(0)$(/l) with $(item)Natura Pylons$(0) directly above them would be needed within an 11x11x11 area around the Core. The initial activation of the portal, we believe, would cost a huge amount of $(thing)Mana$(0) from said Pools, and would be performed by right-clicking the core with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l).$(p)The portal is designed to draw $(thing)Mana$(0) from all pools with Pylons equally; if any pool ran out, any connection a portal might have would close.",
   "botania.page.aIntro6": "Even with all these preparations, any link the portal could establish would be too weak to transfer living beings (so an $(thing)Alfheim$(0) vacation's off the table no matter what), but items might just make it through-- though $(thing)Mana$(0) from the surrounding $(l:mana/pool)$(thing)Mana Pools$(0)$(/l) would be needed for items to survive a return trip.",
-  "botania.page.aIntro7": "All knowledge about $(item)Alfheim$(0) in this lexicon is, at this point, limited to what you find in this entry-- it seems that Elven knowledge has been almost totally lost.$(p)Perhaps if $(thing)the Elves could have a look at this book$(0), they could provide further insight.",
+  "botania.page.aIntro7": "All knowledge about $(thing)Alfheim$(0) in this lexicon is, at this point, limited to what you find in this entry-- it seems that Elven knowledge has been almost totally lost.$(p)Perhaps if $(thing)the Elves could have a look at this book$(0), they could provide further insight.",
 
   "botania.entry.elfMessage": "A Message from Elven Garde",
   "botania.tagline.elfMessage": "Greetings, fellow adventurer",
