@@ -14,6 +14,7 @@ Minecraft, are **not accepted**
   a must-have basis. The bar for new features is quite high.
 
 ## Submitting Changes
+* Run scripts/gitconfig.sh from the repo root to set some useful git defaults locally
 * Run the `checkSyntax` Gradle task to make sure your changes pass our style guidelines
 * The `spotlessJavaApply` Gradle task can fix most violations for you.
 * Target the default branch of the repository in all PR's (unless it's a hotfix that only applies to an older version).
@@ -23,8 +24,8 @@ Minecraft, are **not accepted**
 * Consider the patch workflow to help keep your changes small.  If you hate GitHub's PR
   model like [some of the maintainers
   do](https://www.vincent-lee.net/blog/2022-02-28-github/), feel free to email patches to
-  `~williewillus/violet-moon@lists.sr.ht`. See `git-send-email.io` to set up your Git
-  environment for mailing patches.
+  `~williewillus/violet-moon@lists.sr.ht`. See https://git-send-email.io to set up your Git
+  environment for mailing patches and https://git-rebase.io for help with the rebase-oriented workflow.
 * Please write descriptive commit messages with proper separation between the title and
   summary of the message. Do not write commit messages consisting only of "Fix #123", that
   means nothing to e.g. someone reading the logs offline without access to GitHub.
