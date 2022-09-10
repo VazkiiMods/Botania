@@ -37,5 +37,8 @@
   ],
   "output": {
     "item": "botania:spectrolus"
+  },
+  "reagent": {
+    "tag": "botania:default_petal_apothecary_reagent"
   }
 }

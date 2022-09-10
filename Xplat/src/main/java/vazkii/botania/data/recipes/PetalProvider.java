@@ -28,6 +28,7 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -35,6 +36,8 @@ import java.util.function.Consumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalProvider extends BotaniaRecipeProvider {
+	private static final Ingredient DEFAULT_REAGENT = Ingredient.of(ModTags.Items.DEFAULT_PETAL_APOTHECARY_REAGENT);
+
 	public PetalProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -139,7 +142,9 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		consumer.accept(new NbtOutputResult(new FinishedRecipe(idFor(prefix("vazkii_head")), stack, inputs), stack.getTag()));
+		consumer.accept(new NbtOutputResult(
+				new FinishedRecipe(idFor(prefix("vazkii_head")), stack, DEFAULT_REAGENT, inputs),
+				stack.getTag()));
 	}
 
 	protected static Ingredient tagIngr(String tag) {
@@ -147,7 +152,8 @@ public class PetalProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {
-		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())), new ItemStack(item), ingredients);
+		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())),
+				new ItemStack(item), DEFAULT_REAGENT, ingredients);
 	}
 
 	protected static ResourceLocation idFor(ResourceLocation name) {
@@ -157,11 +163,13 @@ public class PetalProvider extends BotaniaRecipeProvider {
 	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final ItemStack output;
+		private final Ingredient reagent;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs) {
+		private FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient reagent, Ingredient... inputs) {
 			this.id = id;
 			this.output = output;
+			this.reagent = reagent;
 			this.inputs = inputs;
 		}
 
@@ -172,6 +180,7 @@ public class PetalProvider extends BotaniaRecipeProvider {
 			for (Ingredient ingr : inputs) {
 				ingredients.add(ingr.toJson());
 			}
+			json.add("reagent", reagent.toJson());
 			json.add("ingredients", ingredients);
 		}
 
