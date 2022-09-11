@@ -55,6 +55,9 @@
     ],
     "rei_client": [
       "vazkii.botania.fabric.integration.rei.BotaniaREIPlugin"
+    ],
+    "jei_mod_plugin": [
+      "vazkii.botania.client.integration.jei.JEIBotaniaPlugin"
     ]
   },
   "mixins": [
