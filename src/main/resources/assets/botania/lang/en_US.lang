@@ -152,6 +152,10 @@ botaniamisc.altarRefill0=Right click with an empty hand to
 botaniamisc.altarRefill1=add back the last recipe
 botaniamisc.santaweaveInfo=Manaweave, changed up for the &cs&fe&ca&fs&co&fn
 botaniamisc.enterToView=^ Press ENTER to view ^
+botaniamisc.keyCategory=Botania
+botaniamisc.toggleLoki=Toggle Ring of Loki
+botaniamisc.lokiOn=On
+botaniamisc.lokiOff=Off
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery

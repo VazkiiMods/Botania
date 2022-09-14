@@ -10,6 +10,7 @@ dependencies {
     compileOnly('com.github.GTNewHorizons:ForgeMultipart:1.2.7:dev') {transitive=false}
     compileOnly('com.github.GTNewHorizons:NotEnoughItems:2.2.7-GTNH:dev')
     compileOnly('com.github.GTNewHorizons:BuildCraft:7.1.27:api') {transitive=false}
+    compile('com.github.GTNewHorizons:GTNHLib:0.0.4:dev')
 
     compileOnly('curse.maven:cofh-lib-220333:2388748')
     compileOnly('curse.maven:minefactory-reloaded-66672:2366150')

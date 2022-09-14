@@ -30,6 +30,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
+import vazkii.botania.common.network.PacketHandler;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
@@ -63,12 +64,12 @@ public class Botania {
 		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
 		
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
-
 		proxy.preInit(event);
 	}
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
+		PacketHandler.initPackets();
 	}
 
 	@EventHandler
