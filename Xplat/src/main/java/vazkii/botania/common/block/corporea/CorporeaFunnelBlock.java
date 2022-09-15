@@ -9,13 +9,9 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,11 +20,11 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 
-public class BlockCorporeaInterceptor extends BlockMod implements EntityBlock {
+public class CorporeaFunnelBlock extends BlockMod implements EntityBlock {
 
-	public BlockCorporeaInterceptor(BlockBehaviour.Properties builder) {
+	public CorporeaFunnelBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
@@ -39,24 +35,22 @@ public class BlockCorporeaInterceptor extends BlockMod implements EntityBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
-		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
-	}
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		boolean power = world.getBestNeighborSignal(pos) > 0;
+		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
-	@Override
-	public boolean isSignalSource(BlockState state) {
-		return true;
-	}
-
-	@Override
-	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
-		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
+		if (power && !powered) {
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
+			((TileCorporeaFunnel) world.getBlockEntity(pos)).doRequest();
+		} else if (!power && powered) {
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
+		}
 	}
 
 	@NotNull
 	@Override
 	public TileCorporeaBase newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCorporeaInterceptor(pos, state);
+		return new TileCorporeaFunnel(pos, state);
 	}
 
 }

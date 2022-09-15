@@ -303,11 +303,11 @@ public final class ModBlocks {
 	public static final Block redStringRelay = new BlockRedStringRelay(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block redStringInterceptor = new BlockRedStringInterceptor(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block corporeaIndex = new BlockCorporeaIndex(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops());
-	public static final Block corporeaFunnel = new BlockCorporeaFunnel(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
-	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
-	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(BlockBehaviour.Properties.copy(corporeaInterceptor));
-	public static final Block corporeaRetainer = new BlockCorporeaRetainer(BlockBehaviour.Properties.copy(corporeaInterceptor));
+	public static final Block corporeaIndex = new CorporeaIndexBlock(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops());
+	public static final Block corporeaFunnel = new CorporeaFunnelBlock(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
+	public static final Block corporeaInterceptor = new CorporeaInterceptorBlock(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
+	public static final Block corporeaCrystalCube = new CorporeaCrystalCubeBlock(BlockBehaviour.Properties.copy(corporeaInterceptor));
+	public static final Block corporeaRetainer = new CorporeaRetainerBlock(BlockBehaviour.Properties.copy(corporeaInterceptor));
 
 	public static final Block corporeaBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block corporeaBrick = new BlockMod(BlockBehaviour.Properties.copy(corporeaBlock));

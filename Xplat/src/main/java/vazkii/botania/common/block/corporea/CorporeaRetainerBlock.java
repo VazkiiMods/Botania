@@ -25,9 +25,9 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
-public class BlockCorporeaRetainer extends BlockMod implements EntityBlock {
+public class CorporeaRetainerBlock extends BlockMod implements EntityBlock {
 
-	public BlockCorporeaRetainer(BlockBehaviour.Properties builder) {
+	public CorporeaRetainerBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}

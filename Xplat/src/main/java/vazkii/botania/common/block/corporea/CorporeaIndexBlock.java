@@ -29,10 +29,10 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
-public class BlockCorporeaIndex extends BlockModWaterloggable implements EntityBlock {
+public class CorporeaIndexBlock extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 
-	public BlockCorporeaIndex(BlockBehaviour.Properties builder) {
+	public CorporeaIndexBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 	}
 

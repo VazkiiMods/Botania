@@ -35,11 +35,11 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.item.ItemTwigWand;
 
-public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements EntityBlock {
+public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(3.0, 0, 3.0, 13.0, 16, 13.0);
 
-	public BlockCorporeaCrystalCube(BlockBehaviour.Properties builder) {
+	public CorporeaCrystalCubeBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 	}
 
