@@ -37,13 +37,13 @@
       "vazkii.botania.test.block.HopperhockTest",
       "vazkii.botania.test.block.InterceptorTest",
       "vazkii.botania.test.block.OpenCrateTest",
-      "vazkii.botania.test.block.PistonRelayTest",
+      "vazkii.botania.test.block.ForceRelayTest",
       "vazkii.botania.test.block.RannuncarpusTest",
       "vazkii.botania.test.block.TargetBlockTest",
       "vazkii.botania.test.item.CacophoniumTest",
-      "vazkii.botania.test.item.FlowerBagTest",
-      "vazkii.botania.test.item.SpawnerMoverTest",
-      "vazkii.botania.test.item.lens.LensMineTest"
+      "vazkii.botania.test.item.FlowerPouchTest",
+      "vazkii.botania.test.item.LifeAggregatorTest",
+      "vazkii.botania.test.item.lens.BoreLensTest"
     ],
     "fabric-datagen": [
       "vazkii.botania.fabric.data.FabricDatagenInitializer"

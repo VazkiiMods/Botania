@@ -16,7 +16,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LifeAggregatorItem;
 import vazkii.botania.test.TestingUtil;
 
-public class SpawnerMoverTest {
+public class LifeAggregatorTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testSpawnerMover(GameTestHelper helper) {
 		var spawnerPos = BlockPos.ZERO;

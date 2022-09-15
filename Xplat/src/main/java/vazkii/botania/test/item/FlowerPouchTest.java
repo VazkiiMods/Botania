@@ -11,7 +11,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.FlowerPouchItem;
 import vazkii.botania.test.TestingUtil;
 
-public class FlowerBagTest {
+public class FlowerPouchTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testNoShinyFlowers(GameTestHelper helper) {
 		var player = helper.makeMockPlayer();

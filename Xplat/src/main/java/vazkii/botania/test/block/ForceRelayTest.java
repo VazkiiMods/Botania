@@ -17,7 +17,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.test.TestingUtil;
 
-public class PistonRelayTest {
+public class ForceRelayTest {
 	@GameTest(template = "botania:block/piston_relay_basic")
 	public void testBasic(GameTestHelper helper) {
 		var initialRelay = new BlockPos(4, 2, 2);

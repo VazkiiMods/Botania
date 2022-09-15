@@ -15,7 +15,7 @@ import vazkii.botania.test.DelegatingConfigAccess;
 import vazkii.botania.test.TestingUtil;
 import vazkii.botania.xplat.BotaniaConfig;
 
-public class LensMineTest {
+public class BoreLensTest {
 	private static final String ARENA = "botania:item/lens/lens_mine";
 	private static final String WOOD_LEVEL_BATCH = "botania:lens_mine_test_mining_level_0";
 	private static final String STONE_LEVEL_BATCH = "botania:lens_mine_test_mining_level_1";
