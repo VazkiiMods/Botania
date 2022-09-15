@@ -1,7 +1,6 @@
 // 1.19.2	Tags for minecraft:item
 6d243a36e243352f4a383bfd9cc4f49480acb963 data/botania/tags/items/burst_viewers.json
 a6d3edab4a73465c3e545dc83ed4941df3126a15 data/botania/tags/items/contributor_headflowers.json
-977d965fe2a544539960279db0fa40a755349604 data/botania/tags/items/default_petal_apothecary_reagent.json
 d9edac24d5e738557322e4ae3e49a77e657032c8 data/botania/tags/items/disposable.json
 e8a61a147b6a258b9c37788ac1bd4edf592c9dc9 data/botania/tags/items/double_mystical_flowers.json
 ad141ad21dace7c08c5162b4cceb55088b225792 data/botania/tags/items/dragonstone_gems.json

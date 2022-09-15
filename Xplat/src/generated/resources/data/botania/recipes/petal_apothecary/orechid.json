@@ -33,9 +33,6 @@
     ],
     "output": {
       "item": "botania:orechid"
-    },
-    "reagent": {
-      "tag": "botania:default_petal_apothecary_reagent"
     }
   },
   "gog": {
@@ -68,9 +65,6 @@
     ],
     "output": {
       "item": "botania:orechid"
-    },
-    "reagent": {
-      "tag": "botania:default_petal_apothecary_reagent"
     }
   }
 }

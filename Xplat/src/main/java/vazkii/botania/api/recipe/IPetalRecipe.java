@@ -11,7 +11,6 @@ package vazkii.botania.api.recipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -21,12 +20,6 @@ import vazkii.botania.api.BotaniaAPI;
 
 public interface IPetalRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "petal_apothecary");
-
-	/**
-	 * @return Ingredient matching the final item that needs to be thrown into the apothecary
-	 *         to perform a craft after a matching recipe is in.
-	 */
-	Ingredient getReagent();
 
 	@NotNull
 	@Override

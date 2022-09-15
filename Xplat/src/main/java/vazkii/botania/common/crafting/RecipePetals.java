@@ -35,20 +35,13 @@ import java.util.List;
 public class RecipePetals implements IPetalRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
-	private final Ingredient reagent;
 	private final NonNullList<Ingredient> inputs;
 
-	public RecipePetals(ResourceLocation id, ItemStack output, Ingredient reagent, Ingredient... inputs) {
+	public RecipePetals(ResourceLocation id, ItemStack output, Ingredient... inputs) {
 		Preconditions.checkArgument(inputs.length <= 16, "Cannot have more than 16 ingredients");
 		this.id = id;
 		this.output = output;
-		this.reagent = reagent;
 		this.inputs = NonNullList.of(Ingredient.EMPTY, inputs);
-	}
-
-	@Override
-	public Ingredient getReagent() {
-		return reagent;
 	}
 
 	@Override
@@ -122,13 +115,12 @@ public class RecipePetals implements IPetalRecipe {
 		@Override
 		public RecipePetals fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-			Ingredient reagent = Ingredient.fromJson(json.get("reagent"));
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
 			for (JsonElement e : ingrs) {
 				inputs.add(Ingredient.fromJson(e));
 			}
-			return new RecipePetals(id, output, reagent, inputs.toArray(new Ingredient[0]));
+			return new RecipePetals(id, output, inputs.toArray(new Ingredient[0]));
 		}
 
 		@Override
@@ -137,9 +129,8 @@ public class RecipePetals implements IPetalRecipe {
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
 			}
-			Ingredient catalyst = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
-			return new RecipePetals(id, output, catalyst, inputs);
+			return new RecipePetals(id, output, inputs);
 		}
 
 		@Override
@@ -148,7 +139,6 @@ public class RecipePetals implements IPetalRecipe {
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);
 			}
-			recipe.reagent.toNetwork(buf);
 			buf.writeItem(recipe.getResultItem());
 		}
 

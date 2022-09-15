@@ -19,8 +19,5 @@
   ],
   "output": {
     "item": "botania:thermalily"
-  },
-  "reagent": {
-    "tag": "botania:default_petal_apothecary_reagent"
   }
 }

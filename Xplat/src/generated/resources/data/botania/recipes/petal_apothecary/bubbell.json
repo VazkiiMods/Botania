@@ -31,8 +31,5 @@
   ],
   "output": {
     "item": "botania:bubbell"
-  },
-  "reagent": {
-    "tag": "botania:default_petal_apothecary_reagent"
   }
 }

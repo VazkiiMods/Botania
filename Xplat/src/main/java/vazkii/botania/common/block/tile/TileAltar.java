@@ -48,9 +48,11 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
+	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int CRAFT_EFFECT_EVENT = 1;
 
@@ -96,10 +98,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			return true;
 		}
 
-		Optional<IPetalRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
-		if (maybeRecipe.isPresent()) {
-			var recipe = maybeRecipe.get();
-			if (recipe.getReagent().test(item.getItem())) {
+		if (SEED_PATTERN.matcher(stack.getDescriptionId()).find()) {
+			Optional<IPetalRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
+			maybeRecipe.ifPresent(recipe -> {
 				saveLastRecipe();
 				ItemStack output = recipe.assemble(getItemHandler());
 
@@ -116,10 +117,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				setFluid(State.EMPTY);
 
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
-				return true;
-			}
-		}
-		if (!IXplatAbstractions.INSTANCE.isFluidContainer(item)
+			});
+			return maybeRecipe.isPresent();
+		} else if (!IXplatAbstractions.INSTANCE.isFluidContainer(item)
 				&& !IXplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
@@ -336,17 +336,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
 					ItemStack stack = recipe.assemble(altar.getItemHandler());
-					mc.getItemRenderer().renderGuiItem(stack, xc + radius + 32, yc - 8);
 
-					var reagents = recipe.getReagent().getItems();
-					ItemStack reagent;
-					if (reagents.length == 0) {
-						reagent = new ItemStack(Items.BARRIER);
-					} else {
-						int idx = (int) ((altar.level.getGameTime() / 20) % reagents.length);
-						reagent = reagents[idx];
-					}
-					mc.getItemRenderer().renderGuiItem(reagent, xc + radius + 16, yc + 6);
+					mc.getItemRenderer().renderGuiItem(stack, xc + radius + 32, yc - 8);
+					mc.getItemRenderer().renderGuiItem(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
 					mc.font.draw(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
 				});
 

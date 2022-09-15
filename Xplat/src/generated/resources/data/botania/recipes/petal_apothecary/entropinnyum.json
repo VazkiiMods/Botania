@@ -28,8 +28,5 @@
   ],
   "output": {
     "item": "botania:entropinnyum"
-  },
-  "reagent": {
-    "tag": "botania:default_petal_apothecary_reagent"
   }
 }
