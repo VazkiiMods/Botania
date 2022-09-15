@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
@@ -127,7 +127,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 				BlockPos poolPos = pumpPos.relative(dir);
 				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
 
-				if (receiver instanceof IManaPool pool) {
+				if (receiver instanceof ManaPool pool) {
 					Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
 					boolean did = false;
 					boolean can = false;

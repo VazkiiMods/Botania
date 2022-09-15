@@ -12,9 +12,9 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * A block entity with this capability can have a mana spark attached to it.
- * For the Spark to be allowed to have upgrades, the same block position must also have an IManaPool capability
+ * For the Spark to be allowed to have upgrades, the same block position must also have an ManaPool capability
  */
-public interface ISparkAttachable {
+public interface SparkAttachable {
 
 	/**
 	 * Can this block have a Spark attached to it. Note that this will not
@@ -25,7 +25,7 @@ public interface ISparkAttachable {
 	/**
 	 * Called when the Spark is attached.
 	 */
-	default void attachSpark(IManaSpark entity) {}
+	default void attachSpark(ManaSpark entity) {}
 
 	/**
 	 * Returns how much space for mana is available in this block, normally the total - the current.
@@ -37,7 +37,7 @@ public interface ISparkAttachable {
 	 * Gets the Spark that is attached to this block. A common implementation is
 	 * to check for Spark entities above using world.getEntitiesWithinAABB()
 	 */
-	IManaSpark getAttachedSpark();
+	ManaSpark getAttachedSpark();
 
 	/**
 	 * Return true if this Tile no longer requires mana and all Sparks

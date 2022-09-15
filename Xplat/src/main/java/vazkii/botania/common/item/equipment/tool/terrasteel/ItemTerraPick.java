@@ -38,8 +38,8 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -273,10 +273,10 @@ public class ItemTerraPick extends ItemManasteelPick implements SequentialBreake
 		return 0;
 	}
 
-	public static class ManaItem implements IManaItem {
+	public static class ManaItemImpl implements ManaItem {
 		private final ItemStack stack;
 
-		public ManaItem(ItemStack stack) {
+		public ManaItemImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 

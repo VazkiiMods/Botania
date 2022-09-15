@@ -32,7 +32,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, Wandable {
+public class TileRuneAltar extends TileSimpleInventory implements ManaReceiver, Wandable {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;

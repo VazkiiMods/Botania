@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.IPoolOverlayProvider;
+import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -85,7 +85,7 @@ public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 
 		if (pool != null) {
 			Block below = pool.getLevel().getBlockState(pool.getBlockPos().below()).getBlock();
-			if (below instanceof IPoolOverlayProvider overlayProvider) {
+			if (below instanceof PoolOverlayProvider overlayProvider) {
 				var overlaySpriteId = overlayProvider.getIcon(pool.getLevel(), pool.getBlockPos());
 				var overlayIcon = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
 				ms.pushPose();

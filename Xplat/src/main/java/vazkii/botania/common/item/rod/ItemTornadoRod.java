@@ -27,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
-import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.annotations.SoftImplement;
@@ -159,7 +159,7 @@ public class ItemTornadoRod extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
-			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 
 			if (!world.isClientSide) {
 				decAvatarCooldowns(cooldowns);
@@ -225,7 +225,7 @@ public class ItemTornadoRod extends Item {
 		}
 	}
 
-	private static void doAvatarMiscEffects(Player p, IManaReceiver tile) {
+	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
 		p.level.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 		p.addEffect(new MobEffectInstance(ModPotions.featherfeet, 100, 0));
 		tile.receiveMana(-COST);

@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.Lens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 
@@ -35,7 +35,7 @@ public class RenderTilePrism implements BlockEntityRenderer<TilePrism> {
 		ItemStack stack = prism.getItemHandler().getItem(0);
 
 		if (!stack.isEmpty()) {
-			if (stack.getItem() instanceof ILens) {
+			if (stack.getItem() instanceof Lens) {
 				ms.pushPose();
 				ms.mulPose(Vector3f.XP.rotationDegrees(90));
 				ms.translate(0.5F, 0.5F, pos);

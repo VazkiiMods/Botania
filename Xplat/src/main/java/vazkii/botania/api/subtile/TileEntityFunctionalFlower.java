@@ -28,12 +28,12 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.ManaNetwork;
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.ManaPool;
 
 /**
  * The basic class for a Functional Flower.
  */
-public abstract class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<IManaPool> {
+public abstract class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<ManaPool> {
 	private static final ResourceLocation POOL_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_pool");
 
 	public static final int LINK_RANGE = 10;
@@ -43,7 +43,7 @@ public abstract class TileEntityFunctionalFlower extends TileEntityBindableSpeci
 	public int redstoneSignal = 0;
 
 	public TileEntityFunctionalFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state, IManaPool.class);
+		super(type, pos, state, ManaPool.class);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public abstract class TileEntityFunctionalFlower extends TileEntityBindableSpeci
 	}
 
 	public void drawManaFromPool() {
-		IManaPool pool = findBoundTile();
+		ManaPool pool = findBoundTile();
 		if (pool != null) {
 			int manaInPool = pool.getCurrentMana();
 			int manaMissing = getMaxMana() - mana;

@@ -8,14 +8,14 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.world.item.ItemStack;
+import vazkii.botania.api.internal.ManaBurst;
 
 /**
- * Any Item that implements ILensEffect and this will have
- * a check before being pulled by the Tiny Planet.
+ * A Block or Block Entity with this capability will receive a callback when a burst
+ * collides with it.
  */
-public interface ITinyPlanetExcempt {
+public interface ManaTrigger {
 
-	boolean shouldPull(ItemStack stack);
+	void onBurstCollision(ManaBurst burst);
 
 }

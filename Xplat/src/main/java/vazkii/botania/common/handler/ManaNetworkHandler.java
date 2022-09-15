@@ -24,23 +24,23 @@ public final class ManaNetworkHandler implements ManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
-	private final Map<Level, Set<IManaPool>> manaPools = new WeakHashMap<>();
-	private final Map<Level, Set<IManaCollector>> manaCollectors = new WeakHashMap<>();
+	private final Map<Level, Set<ManaPool>> manaPools = new WeakHashMap<>();
+	private final Map<Level, Set<ManaCollector>> manaCollectors = new WeakHashMap<>();
 
-	public void onNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+	public void onNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		switch (type) {
 			case COLLECTOR -> {
 				if (action == ManaNetworkAction.ADD) {
-					add(manaCollectors, thing.getManaReceiverLevel(), (IManaCollector) thing);
+					add(manaCollectors, thing.getManaReceiverLevel(), (ManaCollector) thing);
 				} else {
-					remove(manaCollectors, thing.getManaReceiverLevel(), (IManaCollector) thing);
+					remove(manaCollectors, thing.getManaReceiverLevel(), (ManaCollector) thing);
 				}
 			}
 			case POOL -> {
 				if (action == ManaNetworkAction.ADD) {
-					add(manaPools, thing.getManaReceiverLevel(), (IManaPool) thing);
+					add(manaPools, thing.getManaReceiverLevel(), (ManaPool) thing);
 				} else {
-					remove(manaPools, thing.getManaReceiverLevel(), (IManaPool) thing);
+					remove(manaPools, thing.getManaReceiverLevel(), (ManaPool) thing);
 				}
 			}
 		}
@@ -53,7 +53,7 @@ public final class ManaNetworkHandler implements ManaNetwork {
 	}
 
 	@Override
-	public IManaPool getClosestPool(BlockPos pos, Level world, int limit) {
+	public ManaPool getClosestPool(BlockPos pos, Level world, int limit) {
 		if (manaPools.containsKey(world)) {
 			return getClosest(manaPools.get(world), pos, limit);
 		}
@@ -61,23 +61,23 @@ public final class ManaNetworkHandler implements ManaNetwork {
 	}
 
 	@Override
-	public IManaCollector getClosestCollector(BlockPos pos, Level world, int limit) {
+	public ManaCollector getClosestCollector(BlockPos pos, Level world, int limit) {
 		if (manaCollectors.containsKey(world)) {
 			return getClosest(manaCollectors.get(world), pos, limit);
 		}
 		return null;
 	}
 
-	public boolean isCollectorIn(Level level, IManaCollector collector) {
+	public boolean isCollectorIn(Level level, ManaCollector collector) {
 		return manaCollectors.getOrDefault(level, Collections.emptySet()).contains(collector);
 	}
 
-	public boolean isPoolIn(Level level, IManaPool pool) {
+	public boolean isPoolIn(Level level, ManaPool pool) {
 		return manaPools.getOrDefault(level, Collections.emptySet()).contains(pool);
 	}
 
 	@Nullable
-	private <T extends IManaReceiver> T getClosest(Set<T> receivers, BlockPos pos, int limit) {
+	private <T extends ManaReceiver> T getClosest(Set<T> receivers, BlockPos pos, int limit) {
 		long minDist = Long.MAX_VALUE;
 		long limitSquared = (long) limit * limit;
 		T closest = null;
@@ -110,17 +110,17 @@ public final class ManaNetworkHandler implements ManaNetwork {
 	}
 
 	@Override
-	public Set<IManaCollector> getAllCollectorsInWorld(Level world) {
+	public Set<ManaCollector> getAllCollectorsInWorld(Level world) {
 		return getAllInWorld(manaCollectors, world);
 	}
 
 	@Override
-	public Set<IManaPool> getAllPoolsInWorld(Level world) {
+	public Set<ManaPool> getAllPoolsInWorld(Level world) {
 		return getAllInWorld(manaPools, world);
 	}
 
 	@Override
-	public void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(thing, type, action);
 	}
 

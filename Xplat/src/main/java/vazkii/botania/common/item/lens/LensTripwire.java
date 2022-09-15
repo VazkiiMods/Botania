@@ -14,14 +14,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.IManaSpreader;
+import vazkii.botania.api.mana.ManaSpreader;
 
 import java.util.List;
 
 public class LensTripwire extends Lens {
 
 	@Override
-	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+	public boolean allowBurstShooting(ItemStack stack, ManaSpreader spreader, boolean redstone) {
 		ManaBurst burst = spreader.runBurstSimulation();
 		return burst.hasTripped();
 	}

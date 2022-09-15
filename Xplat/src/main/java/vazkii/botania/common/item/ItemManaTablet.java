@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -93,10 +93,10 @@ public class ItemManaTablet extends Item {
 		return ItemNBTHelper.getBoolean(stack, TAG_CREATIVE, false);
 	}
 
-	public static class ManaItem implements IManaItem {
+	public static class ManaItemImpl implements ManaItem {
 		private final ItemStack stack;
 
-		public ManaItem(ItemStack stack) {
+		public ManaItemImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 

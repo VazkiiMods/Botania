@@ -33,8 +33,8 @@ public class ItemGreaterManaRing extends ItemManaRing {
 		}
 	}
 
-	public static class GreaterManaItem extends ItemManaRing.ManaItem {
-		public GreaterManaItem(ItemStack stack) {
+	public static class GreaterManaItemImpl extends ManaItemImpl {
+		public GreaterManaItemImpl(ItemStack stack) {
 			super(stack);
 		}
 

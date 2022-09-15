@@ -22,11 +22,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 
-public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost, EntityBlock {
+public class BlockTinyPlanet extends BlockModWaterloggable implements ManaCollisionGhost, EntityBlock {
 
 	private static final VoxelShape AABB = box(3, 3, 3, 13, 13, 13);
 

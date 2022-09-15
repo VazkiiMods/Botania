@@ -30,7 +30,7 @@ import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 
-public class ItemLens extends Item implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
+public class ItemLens extends Item implements LensControl, CompositableLens, TinyPlanetExcempt {
 	public static final int PROP_NONE = 0,
 			PROP_POWER = 1,
 			PROP_ORIENTATION = 1 << 1,
@@ -87,8 +87,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		getLens(stack).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens) {
-			((ILens) compositeLens.getItem()).apply(compositeLens, props, level);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof vazkii.botania.api.mana.Lens) {
+			((vazkii.botania.api.mana.Lens) compositeLens.getItem()).apply(compositeLens, props, level);
 		}
 	}
 
@@ -97,8 +97,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		shouldKill = getLens(stack).collideBurst(burst, pos, isManaBlock, shouldKill, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens) {
-			shouldKill = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof vazkii.botania.api.mana.Lens) {
+			shouldKill = ((vazkii.botania.api.mana.Lens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
 		}
 
 		return shouldKill;
@@ -115,8 +115,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		getLens(stack).updateBurst(burst, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens) {
-			((ILens) compositeLens.getItem()).updateBurst(burst, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof vazkii.botania.api.mana.Lens) {
+			((vazkii.botania.api.mana.Lens) compositeLens.getItem()).updateBurst(burst, compositeLens);
 		}
 	}
 
@@ -152,8 +152,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	public static boolean isBlacklisted(ItemStack lens1, ItemStack lens2) {
-		ICompositableLens item1 = (ICompositableLens) lens1.getItem();
-		ICompositableLens item2 = (ICompositableLens) lens2.getItem();
+		CompositableLens item1 = (CompositableLens) lens1.getItem();
+		CompositableLens item2 = (CompositableLens) lens2.getItem();
 		return (item1.getProps(lens1) & item2.getProps(lens2)) != 0;
 	}
 
@@ -167,8 +167,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
-		ICompositableLens sourceItem = (ICompositableLens) sourceLens.getItem();
-		ICompositableLens compositeItem = (ICompositableLens) compositeLens.getItem();
+		CompositableLens sourceItem = (CompositableLens) sourceLens.getItem();
+		CompositableLens compositeItem = (CompositableLens) compositeLens.getItem();
 		if (sourceItem == compositeItem) {
 			return false;
 		}
@@ -206,7 +206,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public int getManaToTransfer(ManaBurst burst, ItemStack stack, IManaReceiver receiver) {
+	public int getManaToTransfer(ManaBurst burst, ItemStack stack, ManaReceiver receiver) {
 		return getLens(stack).getManaToTransfer(burst, stack, receiver);
 	}
 
@@ -221,17 +221,17 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+	public boolean allowBurstShooting(ItemStack stack, ManaSpreader spreader, boolean redstone) {
 		return getLens(stack).allowBurstShooting(stack, spreader, redstone);
 	}
 
 	@Override
-	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+	public void onControlledSpreaderTick(ItemStack stack, ManaSpreader spreader, boolean redstone) {
 		getLens(stack).onControlledSpreaderTick(stack, spreader, redstone);
 	}
 
 	@Override
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader) {
+	public void onControlledSpreaderPulse(ItemStack stack, ManaSpreader spreader) {
 		getLens(stack).onControlledSpreaderPulse(stack, spreader);
 	}
 

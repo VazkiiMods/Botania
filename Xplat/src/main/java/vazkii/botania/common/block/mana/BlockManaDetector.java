@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.IManaCollisionGhost;
-import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.ManaCollisionGhost;
+import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockMod;
 
-public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
+public class BlockManaDetector extends BlockMod implements ManaCollisionGhost {
 
 	public BlockManaDetector(Properties builder) {
 		super(builder);
@@ -52,12 +52,12 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 		return Behaviour.RUN_RECEIVER_TRIGGER;
 	}
 
-	public static class ManaTrigger implements IManaTrigger {
+	public static class ManaTriggerImpl implements ManaTrigger {
 		private final Level world;
 		private final BlockPos pos;
 		private final BlockState state;
 
-		public ManaTrigger(Level world, BlockPos pos, BlockState state) {
+		public ManaTriggerImpl(Level world, BlockPos pos, BlockState state) {
 			this.world = world;
 			this.pos = pos;
 			this.state = state;

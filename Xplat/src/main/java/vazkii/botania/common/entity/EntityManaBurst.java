@@ -167,7 +167,7 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 			ping();
 		}
 
-		ILensEffect lens = getLensInstance();
+		LensEffect lens = getLensInstance();
 		if (lens != null) {
 			lens.updateBurst(this, getSourceLens());
 		}
@@ -211,10 +211,10 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 		return false;
 	}
 
-	private IManaReceiver collidedTile = null;
+	private ManaReceiver collidedTile = null;
 	private boolean noParticles = false;
 
-	public IManaReceiver getCollidedTile(boolean noParticles) {
+	public ManaReceiver getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
 
 		int iterations = 0;
@@ -344,7 +344,7 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 			return;
 		}
 
-		ILensEffect lens = getLensInstance();
+		LensEffect lens = getLensInstance();
 		if (lens != null && !lens.doParticles(this, getSourceLens())) {
 			return;
 		}
@@ -441,9 +441,9 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 		Block block = state.getBlock();
 
 		var ghost = IXplatAbstractions.INSTANCE.findManaGhost(level, collidePos, state, tile);
-		var ghostBehaviour = ghost != null ? ghost.getGhostBehaviour() : IManaCollisionGhost.Behaviour.RUN_ALL;
+		var ghostBehaviour = ghost != null ? ghost.getGhostBehaviour() : ManaCollisionGhost.Behaviour.RUN_ALL;
 
-		if (ghostBehaviour == IManaCollisionGhost.Behaviour.SKIP_ALL
+		if (ghostBehaviour == ManaCollisionGhost.Behaviour.SKIP_ALL
 				|| block instanceof BushBlock
 				|| block instanceof LeavesBlock) {
 			return;
@@ -472,7 +472,7 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 			trigger.onBurstCollision(this);
 		}
 
-		if (ghostBehaviour == IManaCollisionGhost.Behaviour.RUN_RECEIVER_TRIGGER) {
+		if (ghostBehaviour == ManaCollisionGhost.Behaviour.RUN_RECEIVER_TRIGGER) {
 			return;
 		}
 
@@ -490,7 +490,7 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 	}
 
 	private void onHitCommon(HitResult hit, boolean shouldKill) {
-		ILensEffect lens = getLensInstance();
+		LensEffect lens = getLensInstance();
 		if (lens != null) {
 			shouldKill = lens.collideBurst(this, hit, collidedTile != null
 					&& collidedTile.canReceiveManaFromBursts(), shouldKill, getSourceLens());
@@ -521,12 +521,12 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 		}
 	}
 
-	private boolean onReceiverImpact(IManaReceiver receiver) {
+	private boolean onReceiverImpact(ManaReceiver receiver) {
 		if (hasWarped()) {
 			return false;
 		}
 
-		ILensEffect lens = getLensInstance();
+		LensEffect lens = getLensInstance();
 		int mana = getMana();
 
 		if (lens != null) {
@@ -534,7 +534,7 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 			mana = lens.getManaToTransfer(this, stack, receiver);
 		}
 
-		if (receiver instanceof IManaCollector collector) {
+		if (receiver instanceof ManaCollector collector) {
 			mana *= collector.getManaYieldMultiplier(this);
 		}
 
@@ -561,9 +561,9 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Nullable
-	private IManaSpreader getShooter() {
+	private ManaSpreader getShooter() {
 		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, getBurstSourceBlockPos(), null);
-		return receiver instanceof IManaSpreader spreader ? spreader : null;
+		return receiver instanceof ManaSpreader spreader ? spreader : null;
 	}
 
 	@Override
@@ -679,9 +679,9 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 		_ticksExisted = ticks;
 	}
 
-	private ILensEffect getLensInstance() {
+	private LensEffect getLensInstance() {
 		ItemStack lens = getSourceLens();
-		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect effect) {
+		if (!lens.isEmpty() && lens.getItem() instanceof LensEffect effect) {
 			return effect;
 		}
 

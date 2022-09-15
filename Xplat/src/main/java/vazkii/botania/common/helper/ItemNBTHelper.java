@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public final class ItemNBTHelper {
@@ -149,7 +149,7 @@ public final class ItemNBTHelper {
 	 * Returns the fullness of the mana item:
 	 * 0 if empty, 1 if partially full, 2 if full.
 	 */
-	public static int getFullness(IManaItem item) {
+	public static int getFullness(ManaItem item) {
 		int mana = item.getMana();
 		if (mana == 0) {
 			return 0;
@@ -162,7 +162,7 @@ public final class ItemNBTHelper {
 
 	public static ItemStack duplicateAndClearMana(ItemStack stack) {
 		ItemStack copy = stack.copy();
-		IManaItem manaItem = IXplatAbstractions.INSTANCE.findManaItem(copy);
+		ManaItem manaItem = IXplatAbstractions.INSTANCE.findManaItem(copy);
 		if (manaItem != null) {
 			manaItem.addMana(-manaItem.getMana());
 		}
@@ -177,8 +177,8 @@ public final class ItemNBTHelper {
 		if (!ItemStack.isSame(stack1, stack2)) {
 			return false;
 		}
-		IManaItem manaItem1 = IXplatAbstractions.INSTANCE.findManaItem(stack1);
-		IManaItem manaItem2 = IXplatAbstractions.INSTANCE.findManaItem(stack2);
+		ManaItem manaItem1 = IXplatAbstractions.INSTANCE.findManaItem(stack1);
+		ManaItem manaItem2 = IXplatAbstractions.INSTANCE.findManaItem(stack2);
 		if (manaItem1 != null && manaItem2 != null) {
 			if (getFullness(manaItem1) != getFullness(manaItem2)) {
 				return false;

@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.block.ModBlocks;
@@ -63,7 +63,7 @@ public class ItemTinyPlanet extends ItemBauble {
 		for (ThrowableProjectile entity : entities) {
 			ManaBurst burst = (ManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
-			if (lens != null && lens.getItem() instanceof ITinyPlanetExcempt excempt && !excempt.shouldPull(lens)) {
+			if (lens != null && lens.getItem() instanceof TinyPlanetExcempt excempt && !excempt.shouldPull(lens)) {
 				continue;
 			}
 

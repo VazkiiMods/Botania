@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.Lens;
 
 public class SplitLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<SplitLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SplitLensRecipe::new);
@@ -56,10 +56,10 @@ public class SplitLensRecipe extends CustomRecipe {
 
 	private ItemStack getComposite(ItemStack stack) {
 		Item item = stack.getItem();
-		if (!(item instanceof ILens)) {
+		if (!(item instanceof Lens)) {
 			return ItemStack.EMPTY;
 		}
-		return ((ILens) item).getCompositeLens(stack);
+		return ((Lens) item).getCompositeLens(stack);
 	}
 
 	@NotNull
@@ -68,7 +68,7 @@ public class SplitLensRecipe extends CustomRecipe {
 		NonNullList<ItemStack> remaining = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack candidate = inv.getItem(i);
-			if (candidate.getItem() instanceof ILens lens) {
+			if (candidate.getItem() instanceof Lens lens) {
 				ItemStack newLens = candidate.copy();
 				newLens.setCount(1);
 				lens.setCompositeLens(newLens, ItemStack.EMPTY);

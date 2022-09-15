@@ -14,9 +14,9 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.IManaDiscountArmor;
+import vazkii.botania.api.mana.ManaDiscountArmor;
 
-public class ItemManasteelHelm extends ItemManasteelArmor implements IManaDiscountArmor {
+public class ItemManasteelHelm extends ItemManasteelArmor implements ManaDiscountArmor {
 
 	public ItemManasteelHelm(Properties props) {
 		super(EquipmentSlot.HEAD, props);

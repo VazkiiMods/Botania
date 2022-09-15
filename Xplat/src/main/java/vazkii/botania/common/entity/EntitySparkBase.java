@@ -25,7 +25,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.SparkEntity;
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public abstract class EntitySparkBase extends Entity implements SparkEntity {
@@ -52,7 +52,7 @@ public abstract class EntitySparkBase extends Entity implements SparkEntity {
 
 	@Nullable
 	@Override
-	public IManaReceiver getAttachedManaReceiver() {
+	public ManaReceiver getAttachedManaReceiver() {
 		return IXplatAbstractions.INSTANCE.findManaReceiver(level, getAttachPos(), Direction.UP);
 	}
 

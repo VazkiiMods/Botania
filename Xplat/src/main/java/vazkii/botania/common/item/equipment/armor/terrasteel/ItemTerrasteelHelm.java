@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.api.mana.IManaDiscountArmor;
+import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -31,7 +31,7 @@ import vazkii.botania.mixin.AccessorDamageSource;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, AncientWillContainer {
+public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements ManaDiscountArmor, AncientWillContainer {
 
 	public static final String TAG_ANCIENT_WILL = "AncientWill";
 

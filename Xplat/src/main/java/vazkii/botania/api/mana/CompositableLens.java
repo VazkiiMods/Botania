@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * Have an Item implement this to be counted as a lens that can be combined with an ItemLens.
  */
-public interface ICompositableLens extends ILens {
+public interface CompositableLens extends Lens {
 
 	/**
 	 * Returns the properties of the itemstack, used to check if two lenses can combine.

@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.ManaCollector;
+import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.subtile.TileEntityBindableSpecialFlower;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -43,8 +43,8 @@ public class ItemObedienceStick extends Item {
 		var state = world.getBlockState(pos);
 		var be = world.getBlockEntity(pos);
 		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, pos, state, be, null);
-		if (receiver instanceof IManaPool || receiver instanceof IManaCollector) {
-			int range = receiver instanceof IManaPool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
+		if (receiver instanceof ManaPool || receiver instanceof ManaCollector) {
+			int range = receiver instanceof ManaPool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
 			for (BlockPos iterPos : BlockPos.betweenClosed(pos.offset(-range, -range, -range), pos.offset(range, range, range))) {
 				if (MathHelper.distSqr(iterPos, pos) > range * range) {

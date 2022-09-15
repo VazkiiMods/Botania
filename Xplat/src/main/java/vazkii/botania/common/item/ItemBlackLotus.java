@@ -18,7 +18,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ManaDissolvable;
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.network.EffectType;
@@ -42,7 +42,7 @@ public class ItemBlackLotus extends Item implements ManaDissolvable {
 	}
 
 	@Override
-	public void onDissolveTick(IManaPool pool, ItemEntity item) {
+	public void onDissolveTick(ManaPool pool, ItemEntity item) {
 		if (pool.isFull() || pool.getCurrentMana() == 0) {
 			return;
 		}

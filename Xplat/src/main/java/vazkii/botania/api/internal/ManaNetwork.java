@@ -38,7 +38,7 @@ public interface ManaNetwork {
 	 *              is farther away than that, null will be returned instead.
 	 */
 	@Nullable
-	IManaCollector getClosestCollector(BlockPos pos, Level world, int limit);
+	ManaCollector getClosestCollector(BlockPos pos, Level world, int limit);
 
 	/**
 	 * Gets the closest Mana Pool in the network to the Chunk Coordinates passed in,
@@ -50,18 +50,18 @@ public interface ManaNetwork {
 	 *              is farther away than that, null will be returned instead.
 	 */
 	@Nullable
-	IManaPool getClosestPool(BlockPos pos, Level world, int limit);
+	ManaPool getClosestPool(BlockPos pos, Level world, int limit);
 
 	/**
 	 * Gets read-only view of all Mana Collectors (eg. Mana Spreader) in the dimension
 	 * passed in.
 	 */
-	Set<IManaCollector> getAllCollectorsInWorld(Level world);
+	Set<ManaCollector> getAllCollectorsInWorld(Level world);
 
 	/**
 	 * Gets read-only view of all Mana Pools in the dimension passed in.
 	 */
-	Set<IManaPool> getAllPoolsInWorld(Level world);
+	Set<ManaPool> getAllPoolsInWorld(Level world);
 
-	void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
+	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 }

@@ -13,13 +13,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.api.mana.IPoolOverlayProvider;
+import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockMod;
 
-public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider {
+public class BlockManaVoid extends BlockMod implements PoolOverlayProvider {
 	private static final int SPARKLE_EVENT = 0;
 
 	public BlockManaVoid(Properties builder) {
@@ -45,12 +45,12 @@ public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider {
 		return super.triggerEvent(state, level, pos, id, payload);
 	}
 
-	public static class ManaReceiver implements IManaReceiver {
+	public static class ManaReceiverImpl implements ManaReceiver {
 		private final Level level;
 		private final BlockPos pos;
 		private final BlockState state;
 
-		public ManaReceiver(Level level, BlockPos pos, BlockState state) {
+		public ManaReceiverImpl(Level level, BlockPos pos, BlockState state) {
 			this.level = level;
 			this.pos = pos;
 			this.state = state;

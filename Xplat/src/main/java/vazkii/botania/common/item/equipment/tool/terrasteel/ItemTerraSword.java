@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILensEffect;
+import vazkii.botania.api.mana.LensEffect;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
@@ -37,7 +37,7 @@ import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.List;
 
-public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
+public class ItemTerraSword extends ItemManasteelSword implements LensEffect {
 
 	private static final int MANA_PER_DAMAGE = 100;
 

@@ -13,8 +13,8 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.api.mana.IManaSpreader;
+import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.api.mana.ManaSpreader;
 
 public class Lens {
 
@@ -26,15 +26,15 @@ public class Lens {
 
 	public void updateBurst(ManaBurst burst, ItemStack stack) {}
 
-	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+	public boolean allowBurstShooting(ItemStack stack, ManaSpreader spreader, boolean redstone) {
 		return true;
 	}
 
-	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {}
+	public void onControlledSpreaderTick(ItemStack stack, ManaSpreader spreader, boolean redstone) {}
 
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader) {}
+	public void onControlledSpreaderPulse(ItemStack stack, ManaSpreader spreader) {}
 
-	public int getManaToTransfer(ManaBurst burst, ItemStack stack, IManaReceiver receiver) {
+	public int getManaToTransfer(ManaBurst burst, ItemStack stack, ManaReceiver receiver) {
 		return burst.getMana();
 	}
 

@@ -13,7 +13,7 @@ import net.minecraft.world.item.DyeColor;
 import vazkii.botania.api.BotaniaAPI;
 
 /**
- * Any {@link IManaReceiver} that also implements this is considered a Mana Pool,
+ * Any {@link ManaReceiver} that also implements this is considered a Mana Pool,
  * by which nearby functional flowers will pull mana from it.<br>
  * Mana Distributors will also accept it as valid output.<br>
  * <br>
@@ -27,7 +27,7 @@ import vazkii.botania.api.BotaniaAPI;
  *
  * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.
  */
-public interface IManaPool extends IManaReceiver {
+public interface ManaPool extends ManaReceiver {
 
 	/**
 	 * Returns false if the mana pool is accepting power from other power items,

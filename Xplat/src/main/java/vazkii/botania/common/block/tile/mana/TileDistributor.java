@@ -13,8 +13,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -22,8 +22,8 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileDistributor extends TileMod implements IManaReceiver {
-	private final List<IManaReceiver> validPools = new ArrayList<>();
+public class TileDistributor extends TileMod implements ManaReceiver {
+	private final List<ManaReceiver> validPools = new ArrayList<>();
 
 	public TileDistributor(BlockPos pos, BlockState state) {
 		super(ModTiles.DISTRIBUTOR, pos, state);
@@ -35,7 +35,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 			BlockPos pos = worldPosition.relative(dir);
 			if (level.hasChunkAt(pos)) {
 				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, pos, dir.getOpposite());
-				if (receiver instanceof IManaPool) {
+				if (receiver instanceof ManaPool) {
 					if (!receiver.isFull()) {
 						self.validPools.add(receiver);
 					}
@@ -69,7 +69,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 		int tiles = validPools.size();
 		if (tiles != 0) {
 			int manaForEach = mana / tiles;
-			for (IManaReceiver pool : validPools) {
+			for (ManaReceiver pool : validPools) {
 				pool.receiveMana(manaForEach);
 			}
 		}

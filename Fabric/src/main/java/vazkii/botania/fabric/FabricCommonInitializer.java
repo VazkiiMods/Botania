@@ -52,7 +52,7 @@ import net.minecraft.world.level.material.Fluids;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.HornHarvestable;
-import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
@@ -238,11 +238,11 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemManaMirror.CoordBoundItemImpl(st), ModItems.manaMirror);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItemImpl(st), ModItems.twigWand);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItemImpl(st), ModItems.dreamwoodWand);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaMirror.ManaItem(st), ModItems.manaMirror);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaRing.ManaItem(st), ModItems.manaRing);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemGreaterManaRing.GreaterManaItem(st), ModItems.manaRingGreater);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaTablet.ManaItem(st), ModItems.manaTablet);
-		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemTerraPick.ManaItem(st), ModItems.terraPick);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaMirror.ManaItemImpl(st), ModItems.manaMirror);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaRing.ManaItemImpl(st), ModItems.manaRing);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemGreaterManaRing.GreaterManaItemImpl(st), ModItems.manaRingGreater);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaTablet.ManaItemImpl(st), ModItems.manaTablet);
+		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemTerraPick.ManaItemImpl(st), ModItems.terraPick);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemDice.makeRelic(st), ModItems.dice);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemFlugelEye.makeRelic(st), ModItems.flugelEye);
 		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemInfiniteFruit.makeRelic(st), ModItems.infiniteFruit);
@@ -269,7 +269,7 @@ public class FabricCommonInitializer implements ModInitializer {
 			return hourglass -> torch.toggle();
 		}, ModTiles.ANIMATED_TORCH);
 		BotaniaFabricCapabilities.MANA_GHOST.registerForBlocks(
-				(level, pos, state, be, context) -> ((IManaCollisionGhost) state.getBlock()),
+				(level, pos, state, be, context) -> ((ManaCollisionGhost) state.getBlock()),
 				ModBlocks.manaDetector,
 				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
 				ModBlocks.prism, ModBlocks.tinyPlanet
@@ -278,19 +278,19 @@ public class FabricCommonInitializer implements ModInitializer {
 				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
 		);
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
-				(level, pos, state, be, side) -> new BlockManaVoid.ManaReceiver(level, pos, state),
+				(level, pos, state, be, side) -> new BlockManaVoid.ManaReceiverImpl(level, pos, state),
 				ModBlocks.manaVoid);
 		BotaniaFabricCapabilities.SPARK_ATTACHABLE.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
-				(level, pos, state, be, context) -> new BlockForestDrum.ManaTrigger(level, pos, state),
+				(level, pos, state, be, context) -> new BlockForestDrum.ManaTriggerImpl(level, pos, state),
 				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
-				(level, pos, state, be, context) -> new BlockManaBomb.ManaTrigger(level, pos, state),
+				(level, pos, state, be, context) -> new BlockManaBomb.ManaTriggerImpl(level, pos, state),
 				ModBlocks.manaBomb
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
-				(level, pos, state, be, context) -> new BlockManaDetector.ManaTrigger(level, pos, state),
+				(level, pos, state, be, context) -> new BlockManaDetector.ManaTriggerImpl(level, pos, state),
 				ModBlocks.manaDetector
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(

@@ -30,7 +30,7 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -44,7 +44,7 @@ import vazkii.botania.common.helper.EntityHelper;
 import java.util.List;
 import java.util.Optional;
 
-public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
+public class TileBrewery extends TileSimpleInventory implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 

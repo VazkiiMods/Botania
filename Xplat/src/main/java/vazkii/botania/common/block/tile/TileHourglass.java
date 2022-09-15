@@ -31,11 +31,11 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class TileHourglass extends TileExposedSimpleInventory implements IManaTrigger, Wandable {
+public class TileHourglass extends TileExposedSimpleInventory implements ManaTrigger, Wandable {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";

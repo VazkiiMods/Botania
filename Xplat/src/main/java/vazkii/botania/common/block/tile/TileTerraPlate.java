@@ -30,10 +30,10 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.api.mana.spark.IManaSpark;
-import vazkii.botania.api.mana.spark.ISparkAttachable;
+import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.api.mana.spark.ManaSpark;
+import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.block.ModBlocks;
@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaReceiver {
+public class TileTerraPlate extends TileMod implements SparkAttachable, ManaReceiver {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{
@@ -91,10 +91,10 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaRe
 			ITerraPlateRecipe recipe = self.getCurrentRecipe(inv);
 			if (recipe != null) {
 				removeMana = false;
-				IManaSpark spark = self.getAttachedSpark();
+				ManaSpark spark = self.getAttachedSpark();
 				if (spark != null) {
 					SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
-							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof IManaPool)
+							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool)
 							.forEach(os -> os.registerTransfer(spark));
 				}
 				if (self.mana > 0) {
@@ -238,11 +238,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, IManaRe
 	}
 
 	@Override
-	public IManaSpark getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(IManaSpark.class));
+	public ManaSpark getAttachedSpark() {
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(ManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
-			return (IManaSpark) e;
+			return (ManaSpark) e;
 		}
 
 		return null;

@@ -13,10 +13,10 @@ import vazkii.botania.api.internal.ManaBurst;
 import java.util.UUID;
 
 /**
- * Any {@link IManaCollector} that also implements this is considered a Mana Spreader,
+ * Any {@link ManaCollector} that also implements this is considered a Mana Spreader,
  * by which can fire mana bursts as a spreader.
  */
-public interface IManaSpreader extends IManaCollector {
+public interface ManaSpreader extends ManaCollector {
 
 	void setCanShoot(boolean canShoot);
 

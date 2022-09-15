@@ -65,7 +65,7 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.ISparkAttachable;
+import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
@@ -438,12 +438,12 @@ public class ForgeCommonInitializer {
 			ModItems.dreamwoodWand, ItemTwigWand.CoordBoundItemImpl::new
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, IManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
-			ModItems.manaMirror, ItemManaMirror.ManaItem::new,
-			ModItems.manaRing, ItemManaRing.ManaItem::new,
-			ModItems.manaRingGreater, ItemGreaterManaRing.GreaterManaItem::new,
-			ModItems.manaTablet, ItemManaTablet.ManaItem::new,
-			ModItems.terraPick, ItemTerraPick.ManaItem::new
+	private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
+			ModItems.manaMirror, ItemManaMirror.ManaItemImpl::new,
+			ModItems.manaRing, ItemManaRing.ManaItemImpl::new,
+			ModItems.manaRingGreater, ItemGreaterManaRing.GreaterManaItemImpl::new,
+			ModItems.manaTablet, ItemManaTablet.ManaItemImpl::new,
+			ModItems.terraPick, ItemTerraPick.ManaItemImpl::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
@@ -507,15 +507,15 @@ public class ForgeCommonInitializer {
 				Arrays.stream(DyeColor.values()).map(ModBlocks::getMushroom).toArray(Block[]::new));
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
 				Arrays.stream(DyeColor.values()).map(ModBlocks::getShinyFlower).toArray(Block[]::new));
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_GHOST, (w, p, s) -> ((IManaCollisionGhost) s.getBlock()),
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_GHOST, (w, p, s) -> ((ManaCollisionGhost) s.getBlock()),
 				ModBlocks.manaDetector,
 				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
 				ModBlocks.prism, ModBlocks.tinyPlanet);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, BlockManaVoid.ManaReceiver::new, ModBlocks.manaVoid);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockForestDrum.ManaTrigger::new,
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, BlockManaVoid.ManaReceiverImpl::new, ModBlocks.manaVoid);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockForestDrum.ManaTriggerImpl::new,
 				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.gatheringDrum);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaBomb.ManaTrigger::new, ModBlocks.manaBomb);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaDetector.ManaTrigger::new, ModBlocks.manaDetector);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaBomb.ManaTriggerImpl::new, ModBlocks.manaBomb);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaDetector.ManaTriggerImpl::new, ModBlocks.manaDetector);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.WANDABLE,
 				(world, pos, state) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay);
@@ -584,15 +584,15 @@ public class ForgeCommonInitializer {
 		}
 
 		if (BlockEntityConstants.SELF_MANA_TRIGGER_BES.contains(be.getType())) {
-			e.addCapability(prefix("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (IManaTrigger) be));
+			e.addCapability(prefix("mana_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_TRIGGER, (ManaTrigger) be));
 		}
 
 		if (BlockEntityConstants.SELF_MANA_RECEIVER_BES.contains(be.getType())) {
-			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (IManaReceiver) be));
+			e.addCapability(prefix("mana_receiver"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.MANA_RECEIVER, (ManaReceiver) be));
 		}
 
 		if (BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.contains(be.getType())) {
-			e.addCapability(prefix("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, (ISparkAttachable) be));
+			e.addCapability(prefix("spark_attachable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.SPARK_ATTACHABLE, (SparkAttachable) be));
 		}
 	}
 

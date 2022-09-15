@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 /**
  * An item that has this capability can contain mana.
  */
-public interface IManaItem {
+public interface ManaItem {
 
 	/**
 	 * Gets the amount of mana this item contains
@@ -34,8 +34,8 @@ public interface IManaItem {
 	/**
 	 * Can this item receive mana from a mana Pool?
 	 * 
-	 * @param pool The pool it's receiving mana from, can be casted to IManaPool.
-	 * @see IManaPool#isOutputtingPower()
+	 * @param pool The pool it's receiving mana from, can be casted to ManaPool.
+	 * @see ManaPool#isOutputtingPower()
 	 */
 	boolean canReceiveManaFromPool(BlockEntity pool);
 
@@ -47,8 +47,8 @@ public interface IManaItem {
 	/**
 	 * Can this item export mana to a mana Pool?
 	 * 
-	 * @param pool The pool it's exporting mana to, can be casted to IManaPool.
-	 * @see IManaPool#isOutputtingPower()
+	 * @param pool The pool it's exporting mana to, can be casted to ManaPool.
+	 * @see ManaPool#isOutputtingPower()
 	 */
 	boolean canExportManaToPool(BlockEntity pool);
 

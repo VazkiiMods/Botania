@@ -12,30 +12,30 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.mana.IManaSpreader;
+import vazkii.botania.api.mana.ManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.helper.ColorHelper;
 
 public class LensFlare extends Lens {
 
 	@Override
-	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+	public boolean allowBurstShooting(ItemStack stack, ManaSpreader spreader, boolean redstone) {
 		return false;
 	}
 
 	@Override
-	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
+	public void onControlledSpreaderTick(ItemStack stack, ManaSpreader spreader, boolean redstone) {
 		if (!redstone) {
 			emitParticles(stack, spreader);
 		}
 	}
 
 	@Override
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader) {
+	public void onControlledSpreaderPulse(ItemStack stack, ManaSpreader spreader) {
 		emitParticles(stack, spreader);
 	}
 
-	private void emitParticles(ItemStack stack, IManaSpreader spreader) {
+	private void emitParticles(ItemStack stack, ManaSpreader spreader) {
 		float rotationYaw = -(spreader.getRotationX() + 90F);
 		float rotationPitch = spreader.getRotationY();
 

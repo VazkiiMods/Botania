@@ -94,7 +94,7 @@ public interface ManaItemHandler {
 
 	/**
 	 * Requests mana from items in a given player's inventory. This version also
-	 * checks for IManaDiscountArmor items equipped to lower the cost.
+	 * checks for ManaDiscountArmor items equipped to lower the cost.
 	 * 
 	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
 	 *                  the amount of mana existent will be returned instead, if you want exact values use
@@ -108,7 +108,7 @@ public interface ManaItemHandler {
 
 	/**
 	 * Requests an exact amount of mana from items in a given player's inventory. This version also
-	 * checks for IManaDiscountArmor items equipped to lower the cost.
+	 * checks for ManaDiscountArmor items equipped to lower the cost.
 	 * 
 	 * @param manaToGet How much mana is to be requested, if less mana exists than this amount,
 	 *                  false will be returned instead, and nothing will happen.
@@ -131,7 +131,7 @@ public interface ManaItemHandler {
 	}
 
 	/**
-	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
+	 * Gets the sum of all the discounts on ManaDiscountArmor items equipped
 	 * on the player passed in. This discount can vary based on what the passed tool is.
 	 */
 	default float getFullDiscountForTools(Player player, ItemStack tool) {

@@ -30,8 +30,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.api.mana.ILensControl;
+import vazkii.botania.api.mana.Lens;
+import vazkii.botania.api.mana.LensControl;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.gui.TooltipHandler;
@@ -127,7 +127,7 @@ public class ItemManaGun extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			((ILens) lens.getItem()).apply(lens, props, player.level);
+			((Lens) lens.getItem()).apply(lens, props, player.level);
 		}
 		return props;
 	}
@@ -289,10 +289,10 @@ public class ItemManaGun extends Item {
 
 	public static boolean isValidLens(ItemStack lens) {
 		var item = lens.getItem();
-		if (!(item instanceof ILens)) {
+		if (!(item instanceof Lens)) {
 			return false;
 		}
-		if (item instanceof ILensControl control && control.isControlLens(lens)) {
+		if (item instanceof LensControl control && control.isControlLens(lens)) {
 			return false;
 		}
 		return true;

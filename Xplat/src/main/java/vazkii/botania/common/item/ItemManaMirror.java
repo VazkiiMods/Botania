@@ -32,9 +32,9 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.CoordBoundItem;
-import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
+import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -77,7 +77,7 @@ public class ItemManaMirror extends Item {
 			return;
 		}
 
-		IManaPool pool = getManaPool(world.getServer(), stack);
+		ManaPool pool = getManaPool(world.getServer(), stack);
 		if (!(pool instanceof DummyPool)) {
 			if (pool == null) {
 				setMana(stack, 0);
@@ -97,7 +97,7 @@ public class ItemManaMirror extends Item {
 
 		if (player != null && player.isShiftKeyDown() && !world.isClientSide) {
 			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, ctx.getClickedPos(), null);
-			if (receiver instanceof IManaPool pool) {
+			if (receiver instanceof ManaPool pool) {
 				bindPool(ctx.getItemInHand(), pool);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundSource.PLAYERS, 1F, 1F);
 				return InteractionResult.SUCCESS;
@@ -123,7 +123,7 @@ public class ItemManaMirror extends Item {
 		ItemNBTHelper.setInt(stack, TAG_MANA_BACKLOG, backlog);
 	}
 
-	public void bindPool(ItemStack stack, IManaPool pool) {
+	public void bindPool(ItemStack stack, ManaPool pool) {
 		GlobalPos pos = GlobalPos.of(pool.getManaReceiverLevel().dimension(), pool.getManaReceiverPos());
 		Tag ser = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 		ItemNBTHelper.set(stack, TAG_POS, ser);
@@ -142,7 +142,7 @@ public class ItemManaMirror extends Item {
 	}
 
 	@Nullable
-	private IManaPool getManaPool(@Nullable MinecraftServer server, ItemStack stack) {
+	private ManaPool getManaPool(@Nullable MinecraftServer server, ItemStack stack) {
 		if (server == null) {
 			return fallbackPool;
 		}
@@ -156,7 +156,7 @@ public class ItemManaMirror extends Item {
 		Level world = server.getLevel(type);
 		if (world != null) {
 			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
-			if (receiver instanceof IManaPool pool) {
+			if (receiver instanceof ManaPool pool) {
 				return pool;
 			}
 		}
@@ -164,10 +164,10 @@ public class ItemManaMirror extends Item {
 		return null;
 	}
 
-	public static class ManaItem implements IManaItem {
+	public static class ManaItemImpl implements ManaItem {
 		private final ItemStack stack;
 
-		public ManaItem(ItemStack stack) {
+		public ManaItemImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 
@@ -213,7 +213,7 @@ public class ItemManaMirror extends Item {
 		}
 	}
 
-	private static class DummyPool implements IManaPool {
+	private static class DummyPool implements ManaPool {
 
 		@Override
 		public boolean isFull() {

@@ -30,13 +30,13 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod implements IManaTrigger, Wandable {
+public class TileAnimatedTorch extends TileMod implements ManaTrigger, Wandable {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";

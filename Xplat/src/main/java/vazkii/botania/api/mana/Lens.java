@@ -14,13 +14,13 @@ import net.minecraft.world.level.Level;
 /**
  * Have an Item implement this to be counted as a lens for the mana spreader.
  */
-public interface ILens extends ILensEffect {
+public interface Lens extends LensEffect {
 
 	int getLensColor(ItemStack stack, Level level);
 
 	/**
 	 * Can the source lens be combined with the composite lens? This is called
-	 * for both the ILens instance of ItemStack.getItem() of sourceLens and compositeLens.
+	 * for both the Lens instance of ItemStack.getItem() of sourceLens and compositeLens.
 	 */
 	boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens);
 

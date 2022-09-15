@@ -27,11 +27,11 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.mana.IManaItem;
-import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.api.mana.spark.IManaSpark;
-import vazkii.botania.api.mana.spark.ISparkAttachable;
+import vazkii.botania.api.mana.ManaItem;
+import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.api.mana.spark.ManaSpark;
+import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.helper.ColorHelper;
@@ -45,12 +45,12 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
+public class EntityManaSpark extends EntitySparkBase implements ManaSpark {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final EntityDataAccessor<Integer> UPGRADE = SynchedEntityData.defineId(EntityManaSpark.class, EntityDataSerializers.INT);
 
-	private final Set<IManaSpark> transfers = Collections.newSetFromMap(new WeakHashMap<>());
+	private final Set<ManaSpark> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private int removeTransferants = 2;
 
@@ -82,7 +82,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 			return;
 		}
 
-		ISparkAttachable tile = getAttachedTile();
+		SparkAttachable tile = getAttachedTile();
 		if (tile == null) {
 			dropAndKill();
 			return;
@@ -90,13 +90,13 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 		var receiver = getAttachedManaReceiver();
 
 		SparkUpgradeType upgrade = getUpgrade();
-		Collection<IManaSpark> transfers = getTransfers();
+		Collection<ManaSpark> transfers = getTransfers();
 
 		switch (upgrade) {
 			case DISPERSIVE -> {
 				List<Player> players = SparkHelper.getEntitiesAround(Player.class, level, getX(), getY() + (getBbHeight() / 2.0), getZ());
 
-				Map<Player, Map<IManaItem, Integer>> receivingPlayers = new HashMap<>();
+				Map<Player, Map<ManaItem, Integer>> receivingPlayers = new HashMap<>();
 
 				ItemStack input = new ItemStack(ModItems.spark);
 				for (Player player : players) {
@@ -116,7 +116,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 						}
 
 						if (manaItem.canReceiveManaFromItem(input)) {
-							Map<IManaItem, Integer> receivingStacks;
+							Map<ManaItem, Integer> receivingStacks;
 							boolean add = false;
 							if (!receivingPlayers.containsKey(player)) {
 								add = true;
@@ -141,9 +141,9 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 					Collections.shuffle(keys);
 					Player player = keys.iterator().next();
 
-					Map<IManaItem, Integer> items = receivingPlayers.get(player);
+					Map<ManaItem, Integer> items = receivingPlayers.get(player);
 					var e = items.entrySet().iterator().next();
-					IManaItem manaItem = e.getKey();
+					ManaItem manaItem = e.getKey();
 					int cost = e.getValue();
 					int manaToPut = Math.min(receiver.getCurrentMana(), cost);
 					manaItem.addMana(manaToPut);
@@ -153,10 +153,10 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 
 			}
 			case DOMINANT -> {
-				List<IManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
+				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 						.filter(s -> {
 							SparkUpgradeType otherUpgrade = s.getUpgrade();
-							return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedManaReceiver() instanceof IManaPool;
+							return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedManaReceiver() instanceof ManaPool;
 						})
 						.collect(Collectors.toList());
 				if (validSparks.size() > 0) {
@@ -184,9 +184,9 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 			int manaSpent = 0;
 
 			if (manaTotal > 0) {
-				for (IManaSpark spark : transfers) {
+				for (ManaSpark spark : transfers) {
 					count--;
-					ISparkAttachable attached = spark.getAttachedTile();
+					SparkAttachable attached = spark.getAttachedTile();
 					var attachedReceiver = spark.getAttachedManaReceiver();
 					if (attached == null || attachedReceiver == null || attachedReceiver.isFull() || spark.areIncomingTransfersDone()) {
 						continue;
@@ -293,17 +293,17 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 	}
 
 	@Override
-	public ISparkAttachable getAttachedTile() {
+	public SparkAttachable getAttachedTile() {
 		return IXplatAbstractions.INSTANCE.findSparkAttachable(level, getAttachPos(), level.getBlockState(getAttachPos()), level.getBlockEntity(getAttachPos()), Direction.UP);
 	}
 
 	private void filterTransfers() {
-		Iterator<IManaSpark> iter = transfers.iterator();
+		Iterator<ManaSpark> iter = transfers.iterator();
 		while (iter.hasNext()) {
-			IManaSpark spark = iter.next();
+			ManaSpark spark = iter.next();
 			SparkUpgradeType upgr = getUpgrade();
 			SparkUpgradeType supgr = spark.getUpgrade();
-			IManaReceiver arecv = spark.getAttachedManaReceiver();
+			ManaReceiver arecv = spark.getAttachedManaReceiver();
 
 			if (spark == this
 					|| !((Entity) spark).isAlive()
@@ -313,24 +313,24 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 					|| arecv.isFull()
 					|| !(upgr == SparkUpgradeType.NONE && supgr == SparkUpgradeType.DOMINANT
 							|| upgr == SparkUpgradeType.RECESSIVE && (supgr == SparkUpgradeType.NONE || supgr == SparkUpgradeType.DISPERSIVE)
-							|| !(arecv instanceof IManaPool))) {
+							|| !(arecv instanceof ManaPool))) {
 				iter.remove();
 			}
 		}
 	}
 
 	@Override
-	public Collection<IManaSpark> getTransfers() {
+	public Collection<ManaSpark> getTransfers() {
 		filterTransfers();
 		return transfers;
 	}
 
-	private boolean hasTransfer(IManaSpark entity) {
+	private boolean hasTransfer(ManaSpark entity) {
 		return transfers.contains(entity);
 	}
 
 	@Override
-	public void registerTransfer(IManaSpark entity) {
+	public void registerTransfer(ManaSpark entity) {
 		if (hasTransfer(entity)) {
 			return;
 		}
@@ -349,11 +349,11 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark {
 
 	@Override
 	public boolean areIncomingTransfersDone() {
-		if (getAttachedManaReceiver() instanceof IManaPool) {
+		if (getAttachedManaReceiver() instanceof ManaPool) {
 			return removeTransferants > 0;
 		}
 
-		ISparkAttachable attachable = getAttachedTile();
+		SparkAttachable attachable = getAttachedTile();
 		return attachable != null && attachable.areIncomingTranfersDone();
 	}
 

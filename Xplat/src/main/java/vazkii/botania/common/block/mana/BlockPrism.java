@@ -34,8 +34,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.api.mana.Lens;
+import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -43,7 +43,7 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 
-public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IManaCollisionGhost {
+public class BlockPrism extends BlockModWaterloggable implements EntityBlock, ManaCollisionGhost {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
 	public BlockPrism(Properties builder) {
@@ -65,7 +65,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 		if (context instanceof EntityCollisionContext econtext
 				&& econtext.getEntity() instanceof EntityManaBurst) {
 			// Expose the shape so bursts can actually collide with us
-			// they will still go through the prism via IManaCollisionGhost
+			// they will still go through the prism via ManaCollisionGhost
 			return SHAPE;
 		} else {
 			return super.getCollisionShape(state, world, pos, context);
@@ -104,7 +104,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 
 		ItemStack lens = prism.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
-		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
+		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof Lens;
 		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 

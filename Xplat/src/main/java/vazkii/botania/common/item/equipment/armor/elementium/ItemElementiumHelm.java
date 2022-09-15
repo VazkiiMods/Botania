@@ -20,10 +20,10 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.IManaDiscountArmor;
+import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.common.handler.PixieHandler;
 
-public class ItemElementiumHelm extends ItemElementiumArmor implements IManaDiscountArmor {
+public class ItemElementiumHelm extends ItemElementiumArmor implements ManaDiscountArmor {
 	public ItemElementiumHelm(Properties props) {
 		super(EquipmentSlot.HEAD, props);
 	}

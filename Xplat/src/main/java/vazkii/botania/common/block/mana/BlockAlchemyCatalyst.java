@@ -12,11 +12,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.IPoolOverlayProvider;
+import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.BlockMod;
 
-public class BlockAlchemyCatalyst extends BlockMod implements IPoolOverlayProvider {
+public class BlockAlchemyCatalyst extends BlockMod implements PoolOverlayProvider {
 
 	public BlockAlchemyCatalyst(Properties builder) {
 		super(builder);

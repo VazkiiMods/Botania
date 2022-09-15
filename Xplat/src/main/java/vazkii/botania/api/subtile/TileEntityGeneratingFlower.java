@@ -27,12 +27,12 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.ManaNetwork;
-import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.api.mana.ManaCollector;
 
 /**
  * The basic class for a Generating Flower.
  */
-public abstract class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<IManaCollector> {
+public abstract class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<ManaCollector> {
 	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
@@ -41,7 +41,7 @@ public abstract class TileEntityGeneratingFlower extends TileEntityBindableSpeci
 	private int mana;
 
 	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state, IManaCollector.class);
+		super(type, pos, state, ManaCollector.class);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public abstract class TileEntityGeneratingFlower extends TileEntityBindableSpeci
 	}
 
 	public void emptyManaIntoCollector() {
-		IManaCollector collector = findBoundTile();
+		ManaCollector collector = findBoundTile();
 		if (collector != null && !collector.isFull() && getMana() > 0) {
 			int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
 			addMana(-manaval);

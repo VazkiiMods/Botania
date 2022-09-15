@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.entity.EntityManaStorm;
 import vazkii.botania.common.entity.ModEntities;
 
@@ -25,12 +25,12 @@ public class BlockManaBomb extends BlockMod {
 		super(builder);
 	}
 
-	public static class ManaTrigger implements IManaTrigger {
+	public static class ManaTriggerImpl implements ManaTrigger {
 		private final Level world;
 		private final BlockPos pos;
 		private final BlockState state;
 
-		public ManaTrigger(Level world, BlockPos pos, BlockState state) {
+		public ManaTriggerImpl(Level world, BlockPos pos, BlockState state) {
 			this.world = world;
 			this.pos = pos;
 			this.state = state;

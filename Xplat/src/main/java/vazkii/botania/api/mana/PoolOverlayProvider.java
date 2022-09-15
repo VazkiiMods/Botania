@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
  * to be used as an overlay for the mana pool, similarly to the mana void
  * and catalysts.
  */
-public interface IPoolOverlayProvider {
+public interface PoolOverlayProvider {
 	/**
 	 * @return A sprite to render. Must be stitched to the main block/item atlas.
 	 */

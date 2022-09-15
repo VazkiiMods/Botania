@@ -17,29 +17,29 @@ import java.util.Collection;
 /**
  * An Entity that implements this is considered a Mana Spark.
  */
-public interface IManaSpark extends SparkEntity {
+public interface ManaSpark extends SparkEntity {
 	/**
 	 * Get the thing this spark is attached to, if any
 	 */
 	@Nullable
-	ISparkAttachable getAttachedTile();
+	SparkAttachable getAttachedTile();
 
 	/**
 	 * Gets a collection of all Sparks this is tranfering to.
 	 */
-	Collection<IManaSpark> getTransfers();
+	Collection<ManaSpark> getTransfers();
 
 	/**
 	 * Registers the Spark passed in as a Spark meant for mana to be transfered towards.
 	 */
-	void registerTransfer(IManaSpark entity);
+	void registerTransfer(ManaSpark entity);
 
 	SparkUpgradeType getUpgrade();
 
 	void setUpgrade(SparkUpgradeType upgrade);
 
 	/**
-	 * See {@link ISparkAttachable#areIncomingTranfersDone()}
+	 * See {@link SparkAttachable#areIncomingTranfersDone()}
 	 */
 	boolean areIncomingTransfersDone();
 }

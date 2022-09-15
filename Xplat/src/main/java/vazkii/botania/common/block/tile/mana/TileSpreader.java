@@ -60,7 +60,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements WandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, Wandable {
+public class TileSpreader extends TileExposedSimpleInventory implements WandBindable, KeyLocked, IThrottledPacket, ManaSpreader, Wandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -117,8 +117,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	private boolean requestsClientUpdate = false;
 	private boolean hasReceivedInitialPacket = false;
 
-	private IManaReceiver receiver = null;
-	private IManaReceiver receiverLastTick = null;
+	private ManaReceiver receiver = null;
+	private ManaReceiver receiverLastTick = null;
 
 	private boolean poweredLastTick = true;
 	public boolean canShootBurst = true;
@@ -168,9 +168,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 			if (level.hasChunkAt(relPos)) {
 				var receiverAt = IXplatAbstractions.INSTANCE.findManaReceiver(level, relPos,
 						level.getBlockState(relPos), level.getBlockEntity(relPos), dir.getOpposite());
-				if (receiverAt instanceof IManaPool pool) {
+				if (receiverAt instanceof ManaPool pool) {
 					if (wasInNetwork && (pool != self.receiver || self.getVariant() == BlockSpreader.Variant.REDSTONE)) {
-						if (pool instanceof IKeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
+						if (pool instanceof KeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
 							continue;
 						}
 
@@ -225,12 +225,12 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 			shouldShoot = powered && !self.poweredLastTick;
 		}
 
-		if (shouldShoot && self.receiver instanceof IKeyLocked locked) {
+		if (shouldShoot && self.receiver instanceof KeyLocked locked) {
 			shouldShoot = locked.getInputKey().equals(self.getOutputKey());
 		}
 
 		ItemStack lens = self.getItemHandler().getItem(0);
-		ILensControl control = self.getLensController(lens);
+		LensControl control = self.getLensController(lens);
 		if (control != null) {
 			if (redstoneSpreader) {
 				if (shouldShoot) {
@@ -466,14 +466,14 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 
 	public void checkForReceiver() {
 		ItemStack stack = getItemHandler().getItem(0);
-		ILensControl control = getLensController(stack);
+		LensControl control = getLensController(stack);
 		if (control != null && !control.allowBurstShooting(stack, this, false)) {
 			return;
 		}
 
 		EntityManaBurst fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
-		IManaReceiver receiver = fakeBurst.getCollidedTile(true);
+		ManaReceiver receiver = fakeBurst.getCollidedTile(true);
 
 		if (receiver != null && receiver.getManaReceiverLevel().hasChunkAt(receiver.getManaReceiverPos())) {
 			this.receiver = receiver;
@@ -497,7 +497,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 
 		ItemStack lens = getItemHandler().getItem(0);
-		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect lensEffect) {
+		if (!lens.isEmpty() && lens.getItem() instanceof LensEffect lensEffect) {
 			lensEffect.apply(lens, props, level);
 		}
 
@@ -528,8 +528,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 		return null;
 	}
 
-	public ILensControl getLensController(ItemStack stack) {
-		if (!stack.isEmpty() && stack.getItem() instanceof ILensControl control) {
+	public LensControl getLensController(ItemStack stack) {
+		if (!stack.isEmpty() && stack.getItem() instanceof LensControl control) {
 			if (control.isControlLens(stack)) {
 				return control;
 			}
@@ -604,7 +604,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 
 			@Override
 			public boolean canPlaceItem(int index, ItemStack stack) {
-				return !stack.isEmpty() && stack.getItem() instanceof ILens;
+				return !stack.isEmpty() && stack.getItem() instanceof Lens;
 			}
 		};
 	}

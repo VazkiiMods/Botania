@@ -18,7 +18,7 @@ import vazkii.botania.api.internal.ManaBurst;
  * Have an item implement this for it to count as a lens effect and
  * be able to change the properties of Mana Bursts.
  */
-public interface ILensEffect {
+public interface LensEffect {
 
 	/**
 	 * Called when a mana spreader that has this focus shoots a burst. This is where
@@ -49,7 +49,7 @@ public interface ILensEffect {
 	/**
 	 * Gets the amount of mana to transfer to the passed in mana receiver block.
 	 */
-	default int getManaToTransfer(ManaBurst burst, ItemStack stack, IManaReceiver receiver) {
+	default int getManaToTransfer(ManaBurst burst, ItemStack stack, ManaReceiver receiver) {
 		return burst.getMana();
 	}
 

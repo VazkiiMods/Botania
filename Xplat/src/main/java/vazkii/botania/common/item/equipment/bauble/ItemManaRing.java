@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
+import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -58,10 +58,10 @@ public class ItemManaRing extends ItemBauble {
 		}
 	}
 
-	public static class ManaItem implements IManaItem {
+	public static class ManaItemImpl implements ManaItem {
 		protected final ItemStack stack;
 
-		public ManaItem(ItemStack stack) {
+		public ManaItemImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 

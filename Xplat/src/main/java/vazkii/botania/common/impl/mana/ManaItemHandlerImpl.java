@@ -114,7 +114,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		List<ItemStack> items = getManaItems(player);
 		List<ItemStack> acc = getManaAccesories(player);
 		int manaReceived = 0;
-		Object2IntMap<IManaItem> manaToRemove = new Object2IntOpenHashMap<>();
+		Object2IntMap<ManaItem> manaToRemove = new Object2IntOpenHashMap<>();
 		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
 			if (stackInSlot == stack) {
 				continue;
@@ -162,7 +162,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			ManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			if (manaItemSlot.canReceiveManaFromItem(stack)) {
 				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
 				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
@@ -199,7 +199,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			ManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			if (manaItemSlot.getMana() + manaToSend <= manaItemSlot.getMaxMana() && manaItemSlot.canReceiveManaFromItem(stack)) {
 				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
 				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
@@ -249,7 +249,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			IManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			ManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			int availableMana = manaItemSlot.getMana();
 			if (manaItemSlot.canExportManaToItem(stack) && availableMana > cost) {
 				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
@@ -269,7 +269,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		float discount = 0F;
 		for (int i = 0; i < player.getInventory().armor.size(); i++) {
 			ItemStack armor = player.getInventory().armor.get(i);
-			if (!armor.isEmpty() && armor.getItem() instanceof IManaDiscountArmor discountArmor) {
+			if (!armor.isEmpty() && armor.getItem() instanceof ManaDiscountArmor discountArmor) {
 				discount += discountArmor.getDiscount(armor, i, player, tool);
 			}
 		}

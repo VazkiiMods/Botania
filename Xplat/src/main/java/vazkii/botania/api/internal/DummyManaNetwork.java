@@ -24,27 +24,27 @@ public class DummyManaNetwork implements ManaNetwork {
 	public void clear() {}
 
 	@Override
-	public IManaPool getClosestPool(BlockPos pos, Level world, int limit) {
+	public ManaPool getClosestPool(BlockPos pos, Level world, int limit) {
 		return null;
 	}
 
 	@Override
-	public IManaCollector getClosestCollector(BlockPos pos, Level world, int limit) {
+	public ManaCollector getClosestCollector(BlockPos pos, Level world, int limit) {
 		return null;
 	}
 
 	@Override
-	public Set<IManaCollector> getAllCollectorsInWorld(Level world) {
+	public Set<ManaCollector> getAllCollectorsInWorld(Level world) {
 		return Collections.emptySet();
 	}
 
 	@Override
-	public Set<IManaPool> getAllPoolsInWorld(Level world) {
+	public Set<ManaPool> getAllPoolsInWorld(Level world) {
 		return Collections.emptySet();
 	}
 
 	@Override
-	public void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
+	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
 
 	}
 

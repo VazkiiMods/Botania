@@ -31,7 +31,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.mana.IManaTrigger;
+import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.handler.ModSounds;
@@ -84,12 +84,12 @@ public class BlockForestDrum extends BlockModWaterloggable {
 		}
 	}
 
-	public static class ManaTrigger implements IManaTrigger {
+	public static class ManaTriggerImpl implements ManaTrigger {
 		private final Level world;
 		private final BlockPos pos;
 		private final Variant variant;
 
-		public ManaTrigger(Level world, BlockPos pos, BlockState state) {
+		public ManaTriggerImpl(Level world, BlockPos pos, BlockState state) {
 			this.world = world;
 			this.pos = pos;
 			this.variant = ((BlockForestDrum) state.getBlock()).variant;

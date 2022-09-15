@@ -13,12 +13,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class TileRFGenerator extends TileMod implements IManaReceiver {
+public class TileRFGenerator extends TileMod implements ManaReceiver {
 	private static final int MANA_TO_FE = IXplatAbstractions.INSTANCE.isForge() ? 10 : 3;
 	public static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 

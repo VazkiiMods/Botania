@@ -23,15 +23,15 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILens;
-import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.api.mana.Lens;
+import vazkii.botania.api.mana.ManaTrigger;
+import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 
-public class TilePrism extends TileExposedSimpleInventory implements IManaTrigger {
+public class TilePrism extends TileExposedSimpleInventory implements ManaTrigger {
 	public TilePrism(BlockPos pos, BlockState state) {
 		super(ModTiles.PRISM, pos, state);
 	}
@@ -40,7 +40,7 @@ public class TilePrism extends TileExposedSimpleInventory implements IManaTrigge
 	public void onBurstCollision(ManaBurst burst) {
 		ItemStack lens = getItemHandler().getItem(0);
 		boolean active = !getBlockState().getValue(BlockStateProperties.POWERED);
-		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt excempt) || excempt.shouldPull(lens));
+		boolean valid = !lens.isEmpty() && lens.getItem() instanceof Lens && (!(lens.getItem() instanceof TinyPlanetExcempt excempt) || excempt.shouldPull(lens));
 
 		if (active) {
 			burst.setSourceLens(valid ? lens.copy() : ItemStack.EMPTY);
@@ -51,7 +51,7 @@ public class TilePrism extends TileExposedSimpleInventory implements IManaTrigge
 				Entity burstEntity = burst.entity();
 				BurstProperties properties = new BurstProperties(burst.getStartingMana(), burst.getMinManaLoss(), burst.getManaLossPerTick(), burst.getBurstGravity(), 1F, burst.getColor());
 
-				((ILens) lens.getItem()).apply(lens, properties, level);
+				((Lens) lens.getItem()).apply(lens, properties, level);
 
 				burst.setColor(properties.color);
 				burst.setStartingMana(properties.maxMana);
@@ -68,7 +68,7 @@ public class TilePrism extends TileExposedSimpleInventory implements IManaTrigge
 		return new SimpleContainer(1) {
 			@Override
 			public boolean canPlaceItem(int index, ItemStack stack) {
-				return !stack.isEmpty() && stack.getItem() instanceof ILens;
+				return !stack.isEmpty() && stack.getItem() instanceof Lens;
 			}
 
 			@Override

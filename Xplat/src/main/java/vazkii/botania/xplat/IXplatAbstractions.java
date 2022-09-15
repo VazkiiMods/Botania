@@ -59,7 +59,7 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.ISparkAttachable;
+import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
@@ -98,7 +98,7 @@ public interface IXplatAbstractions {
 	@Nullable
 	CoordBoundItem findCoordBoundItem(ItemStack stack);
 	@Nullable
-	IManaItem findManaItem(ItemStack stack);
+	ManaItem findManaItem(ItemStack stack);
 	@Nullable
 	Relic findRelic(ItemStack stack);
 	@Nullable
@@ -108,21 +108,21 @@ public interface IXplatAbstractions {
 	@Nullable
 	HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	ManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 
 	@Nullable
-	default IManaReceiver findManaReceiver(Level level, BlockPos pos, @Nullable Direction direction) {
+	default ManaReceiver findManaReceiver(Level level, BlockPos pos, @Nullable Direction direction) {
 		return findManaReceiver(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), direction);
 	}
 
 	@Nullable
-	IManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
+	ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction);
 
 	@Nullable
-	ISparkAttachable findSparkAttachable(Level level, BlockPos pos, BlockState blockState, @Nullable BlockEntity be, Direction direction);
+	SparkAttachable findSparkAttachable(Level level, BlockPos pos, BlockState blockState, @Nullable BlockEntity be, Direction direction);
 
 	@Nullable
-	IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	ManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
 	Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);
@@ -149,7 +149,7 @@ public interface IXplatAbstractions {
 	float fireManaDiscountEvent(Player player, float discount, ItemStack tool);
 	boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient);
 	void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
-	void fireManaNetworkEvent(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
+	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 
 	// Networking
 	Packet<?> toVanillaClientboundPacket(IPacket packet);

@@ -38,8 +38,8 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.ILensEffect;
-import vazkii.botania.api.mana.ITinyPlanetExcempt;
+import vazkii.botania.api.mana.LensEffect;
+import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.ModEntities;
@@ -50,7 +50,7 @@ import vazkii.botania.common.lib.ModTags;
 
 import java.util.List;
 
-public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExcempt {
+public class ItemLaputaShard extends Item implements LensEffect, TinyPlanetExcempt {
 
 	private static final String TAG_STATE = "_state";
 	private static final String TAG_TILE = "_tile";

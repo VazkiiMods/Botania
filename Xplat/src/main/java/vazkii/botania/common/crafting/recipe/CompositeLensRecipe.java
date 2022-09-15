@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.ICompositableLens;
+import vazkii.botania.api.mana.CompositableLens;
 
 public class CompositeLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<CompositeLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(CompositeLensRecipe::new);
@@ -37,7 +37,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
+				if (stack.getItem() instanceof CompositableLens && !foundSecondLens) {
 					if (foundLens) {
 						foundSecondLens = true;
 					} else {
@@ -63,7 +63,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ICompositableLens) {
+				if (stack.getItem() instanceof CompositableLens) {
 					if (lens.isEmpty()) {
 						lens = stack;
 					} else {
@@ -73,7 +73,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 			}
 		}
 
-		if (lens.getItem() instanceof ICompositableLens lensItem) {
+		if (lens.getItem() instanceof CompositableLens lensItem) {
 			if (secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || !lensItem.getCompositeLens(lens).isEmpty() || !lensItem.getCompositeLens(secondLens).isEmpty()) {
 				return ItemStack.EMPTY;
 			}

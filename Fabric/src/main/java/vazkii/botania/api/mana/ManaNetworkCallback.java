@@ -20,8 +20,8 @@ public interface ManaNetworkCallback {
 			});
 
 	/**
-	 * @param thing If {@code type} is {@link ManaBlockType#COLLECTOR}, an {@link IManaCollector},
-	 *              otherwise if {@code type} is {@link ManaBlockType#POOL}, an {@link IManaPool}
+	 * @param thing If {@code type} is {@link ManaBlockType#COLLECTOR}, an {@link ManaCollector},
+	 *              otherwise if {@code type} is {@link ManaBlockType#POOL}, an {@link ManaPool}
 	 */
-	void onNetworkChange(IManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
+	void onNetworkChange(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 }

@@ -23,18 +23,18 @@ public class ManaBarTooltip implements TooltipComponent {
 	/**
 	 * Constructs a tooltip component directly from a stack of mana items.
 	 * 
-	 * @throws IllegalArgumentException if the item does not have the {@link IManaItem} capability.
+	 * @throws IllegalArgumentException if the item does not have the {@link ManaItem} capability.
 	 */
 	public static ManaBarTooltip fromManaItem(ItemStack stack) {
 		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
 		if (manaItem != null) {
 			return new ManaBarTooltip(getFractionForDisplay(manaItem));
 		}
-		throw new IllegalArgumentException("Item does not have the capability " + IManaItem.class.getName());
+		throw new IllegalArgumentException("Item does not have the capability " + ManaItem.class.getName());
 	}
 
 	/** Convenience method to calculate how full is the mana storing item. */
-	public static float getFractionForDisplay(IManaItem item) {
+	public static float getFractionForDisplay(ManaItem item) {
 		return item.getMana() / (float) item.getMaxMana();
 	}
 

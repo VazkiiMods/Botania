@@ -41,10 +41,10 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.api.mana.spark.IManaSpark;
-import vazkii.botania.api.mana.spark.ISparkAttachable;
+import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.api.mana.spark.ManaSpark;
+import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -66,7 +66,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttachable, Wandable, Clearable {
+public class TileEnchanter extends TileMod implements ManaReceiver, SparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -233,10 +233,10 @@ public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttac
 
 			advanceStage();
 		} else {
-			IManaSpark spark = getAttachedSpark();
+			ManaSpark spark = getAttachedSpark();
 			if (spark != null) {
 				SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
-						.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof IManaPool)
+						.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool)
 						.forEach(os -> os.registerTransfer(spark));
 			}
 			if (stageTicks % 5 == 0) {
@@ -466,11 +466,11 @@ public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttac
 	}
 
 	@Override
-	public IManaSpark getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1), Predicates.instanceOf(IManaSpark.class));
+	public ManaSpark getAttachedSpark() {
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1), Predicates.instanceOf(ManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
-			return (IManaSpark) e;
+			return (ManaSpark) e;
 		}
 
 		return null;

@@ -17,11 +17,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 
-public class TileSpawnerClaw extends TileMod implements IManaReceiver {
+public class TileSpawnerClaw extends TileMod implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int MAX_MANA = 160;
 

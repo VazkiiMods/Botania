@@ -14,7 +14,7 @@ import net.minecraft.world.item.DyeColor;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.mana.ManaReceiver;
 
 /**
  * An Entity that implements this is considered a Spark.
@@ -30,7 +30,7 @@ public interface SparkEntity {
 	 * @return The attached mana receiver under the spark, if available
 	 */
 	@Nullable
-	IManaReceiver getAttachedManaReceiver();
+	ManaReceiver getAttachedManaReceiver();
 
 	/**
 	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others

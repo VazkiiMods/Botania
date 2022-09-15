@@ -12,7 +12,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaBurst;
 
 /**
- * Any {@link IManaReceiver} that also implements this is considered a mana collector, by
+ * Any {@link ManaReceiver} that also implements this is considered a mana collector, by
  * which nearby generating flowers will pump mana into it.<br>
  * <br>
  * <b>Implementation Instructions:</b><br>
@@ -25,7 +25,7 @@ import vazkii.botania.api.internal.ManaBurst;
  *
  * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.
  */
-public interface IManaCollector extends IManaReceiver {
+public interface ManaCollector extends ManaReceiver {
 
 	/**
 	 * Called every tick on the client case the player is holding a Wand of the Forest.

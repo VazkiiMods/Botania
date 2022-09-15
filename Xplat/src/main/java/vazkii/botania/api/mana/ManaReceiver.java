@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 /**
  * Any Block or Block Entity with this capability can hold and receive mana from mana bursts.
  */
-public interface IManaReceiver {
+public interface ManaReceiver {
 	Level getManaReceiverLevel();
 
 	BlockPos getManaReceiverPos();
@@ -36,7 +36,7 @@ public interface IManaReceiver {
 
 	/**
 	 * Can this tile receive mana from bursts? Generally set to false for
-	 * implementations of IManaCollector.
+	 * implementations of ManaCollector.
 	 */
 	boolean canReceiveManaFromBursts();
 

@@ -36,7 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -156,7 +156,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
 		ItemStack lens = spreader.getItemHandler().getItem(0);
-		boolean playerHasLens = heldItem.getItem() instanceof ILens;
+		boolean playerHasLens = heldItem.getItem() instanceof Lens;
 		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
 		ItemStack wool = spreader.paddingColor != null
 				? new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor))

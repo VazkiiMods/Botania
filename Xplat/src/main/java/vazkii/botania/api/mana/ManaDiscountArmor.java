@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
  * Mana tools are the ones on the main toolset (Pick, Shovel, Axe, Sword and Shovel)
  * as well as Rods.
  */
-public interface IManaDiscountArmor {
+public interface ManaDiscountArmor {
 
 	/**
 	 * Gets the mana discount that this piece of armor provides for the specified

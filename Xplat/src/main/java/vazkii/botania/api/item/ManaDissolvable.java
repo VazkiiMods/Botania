@@ -10,7 +10,7 @@ package vazkii.botania.api.item;
 
 import net.minecraft.world.entity.item.ItemEntity;
 
-import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.ManaPool;
 
 /**
  * An item that implements this will have a function called when its standing atop
@@ -22,6 +22,6 @@ public interface ManaDissolvable {
 	 * Called for every tick the item is on a mana pool. If the stack has stack
 	 * size 0 the item is killed. This is called serverside.
 	 */
-	void onDissolveTick(IManaPool pool, ItemEntity item);
+	void onDissolveTick(ManaPool pool, ItemEntity item);
 
 }

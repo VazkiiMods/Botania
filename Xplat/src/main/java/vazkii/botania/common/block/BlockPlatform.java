@@ -36,13 +36,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.common.block.tile.TilePlatform;
 
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class BlockPlatform extends BlockMod implements IManaCollisionGhost, EntityBlock {
+public class BlockPlatform extends BlockMod implements ManaCollisionGhost, EntityBlock {
 
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
