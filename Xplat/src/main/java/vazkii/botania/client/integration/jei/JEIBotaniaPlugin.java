@@ -43,7 +43,7 @@ import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
-import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
+import vazkii.botania.client.integration.jei.crafting.TerraShattererTippingRecipeWrapper;
 import vazkii.botania.client.integration.jei.orechid.MarimorphosisRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
@@ -119,14 +119,14 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				new OrechidRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new MarimorphosisRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-				new TerraPlateRecipeCategory(registry.getJeiHelpers().getGuiHelper())
+				new TerrestrialAgglomerationRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 		);
 	}
 
 	@Override
 	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
 		registration.getCraftingCategory().addCategoryExtension(AncientWillRecipe.class, AncientWillRecipeWrapper::new);
-		registration.getCraftingCategory().addCategoryExtension(TerraPickTippingRecipe.class, TerraPickTippingRecipeWrapper::new);
+		registration.getCraftingCategory().addCategoryExtension(TerraPickTippingRecipe.class, TerraShattererTippingRecipeWrapper::new);
 		registration.getCraftingCategory().addCategoryExtension(CompositeLensRecipe.class, CompositeLensRecipeWrapper::new);
 	}
 
@@ -138,7 +138,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(ElvenTradeRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE, BY_ID));
 		registry.addRecipes(RunicAltarRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.RUNE_TYPE, BY_ID));
 		registry.addRecipes(ManaPoolRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)));
-		registry.addRecipes(TerraPlateRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
+		registry.addRecipes(TerrestrialAgglomerationRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
 
 		Comparator<IOrechidRecipe> comp = BY_INPUT.thenComparing(BY_WEIGHT).thenComparing(BY_ID);
 		registry.addRecipes(OrechidRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ORECHID_TYPE, comp));
@@ -208,7 +208,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.TYPE);
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.terraPlate), TerraPlateRecipeCategory.TYPE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.terraPlate), TerrestrialAgglomerationRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), RecipeTypes.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), RecipeTypes.CRAFTING);
 	}

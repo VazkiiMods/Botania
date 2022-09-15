@@ -36,7 +36,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateRecipe> {
+public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<ITerraPlateRecipe> {
 	public static final RecipeType<ITerraPlateRecipe> TYPE =
 			RecipeType.create(LibMisc.MOD_ID, "terra_plate", ITerraPlateRecipe.class);
 
@@ -47,7 +47,7 @@ public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateReci
 
 	private final IDrawable terraPlate;
 
-	public TerraPlateRecipeCategory(IGuiHelper guiHelper) {
+	public TerrestrialAgglomerationRecipeCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = prefix("textures/gui/terrasteel_jei_overlay.png");
 		background = guiHelper.createBlankDrawable(114, 131);
 		overlay = guiHelper.createDrawable(location, 42, 29, 64, 64);
@@ -55,7 +55,7 @@ public class TerraPlateRecipeCategory implements IRecipeCategory<ITerraPlateReci
 		localizedName = Component.translatable("botania.nei.terraPlate");
 
 		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.livingrock));
-		terraPlate = new TerraPlateDrawable(livingrock, livingrock,
+		terraPlate = new TerrestrialAgglomerationDrawable(livingrock, livingrock,
 				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Blocks.LAPIS_BLOCK))
 		);
 	}

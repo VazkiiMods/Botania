@@ -15,8 +15,8 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import java.util.function.Consumer;
 
 @Mixin(ItemManasteelArmor.class)
-public abstract class ForgeMixinItemManasteelArmor extends Item {
-	private ForgeMixinItemManasteelArmor(Properties props) {
+public abstract class ItemManasteelArmorForgeMixin extends Item {
+	private ItemManasteelArmorForgeMixin(Properties props) {
 		super(props);
 	}
 

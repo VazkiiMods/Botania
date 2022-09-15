@@ -11,8 +11,8 @@ import vazkii.botania.forge.client.ForgeBlockEntityItemRendererHelper;
 import java.util.function.Consumer;
 
 @Mixin(ItemBlockWithSpecialRenderer.class)
-public abstract class ForgeMixinItemBlockWithSpecialRenderer extends Item {
-	private ForgeMixinItemBlockWithSpecialRenderer(Properties props) {
+public abstract class ItemBlockWithSpecialRendererForgeMixin extends Item {
+	private ItemBlockWithSpecialRendererForgeMixin(Properties props) {
 		super(props);
 	}
 

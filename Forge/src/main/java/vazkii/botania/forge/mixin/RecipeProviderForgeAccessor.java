@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import java.nio.file.Path;
 
 @Mixin(RecipeProvider.class)
-public interface ForgeAccessorRecipeProvider {
+public interface RecipeProviderForgeAccessor {
 	@Invoker("saveAdvancement")
 	void callSaveRecipeAdvancement(CachedOutput dataCache, JsonObject jsonObject, Path path);
 }

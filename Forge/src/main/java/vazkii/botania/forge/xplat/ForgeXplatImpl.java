@@ -99,9 +99,9 @@ import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
-import vazkii.botania.forge.mixin.ForgeAccessorAbstractFurnaceBlockEntity;
-import vazkii.botania.forge.mixin.ForgeAccessorRecipeProvider;
-import vazkii.botania.forge.mixin.ForgeAccessorRegistry;
+import vazkii.botania.forge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
+import vazkii.botania.forge.mixin.RecipeProviderForgeAccessor;
+import vazkii.botania.forge.mixin.RegistryForgeAccessor;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -450,7 +450,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	public Registry<Brew> createBrewRegistry() {
 		// The registryKey really belongs on ModBrews, but this method is called from there,
 		// so we'd like to avoid the circular dependency.
-		return ForgeAccessorRegistry.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
+		return RegistryForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
 				LibMisc.MOD_ID + ":fallback", registry -> ModBrews.fallbackBrew);
 	}
 
@@ -491,13 +491,13 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
-		return ((ForgeAccessorAbstractFurnaceBlockEntity) furnace).callCanBurn(recipe, items, maxStackSize);
+		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace).callCanBurn(recipe, items, maxStackSize);
 	}
 
 	@Override
 	public void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path) {
 		// this is dumb
-		((ForgeAccessorRecipeProvider) new RecipeProvider(generator)).callSaveRecipeAdvancement(cache, json, path);
+		((RecipeProviderForgeAccessor) new RecipeProvider(generator)).callSaveRecipeAdvancement(cache, json, path);
 	}
 
 	@Override

@@ -12,12 +12,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 
-public class TerraPlateDrawable implements IDrawable {
+public class TerrestrialAgglomerationDrawable implements IDrawable {
 	private final IDrawable cornerBlock;
 	private final IDrawable centerBlock;
 	private final IDrawable middleBlock;
 
-	public TerraPlateDrawable(IDrawable cornerBlock, IDrawable centerBlock, IDrawable middleBlock) {
+	public TerrestrialAgglomerationDrawable(IDrawable cornerBlock, IDrawable centerBlock, IDrawable middleBlock) {
 		this.cornerBlock = cornerBlock;
 		this.centerBlock = centerBlock;
 		this.middleBlock = middleBlock;

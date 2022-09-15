@@ -13,7 +13,7 @@ import vazkii.botania.common.crafting.RecipeSerializerBase;
  * Cursed self-mixin to create a manual bridge method.
  */
 @Mixin(value = RecipeSerializerBase.class, remap = false)
-public class ForgeMixinRecipeSerializerBase {
+public class RecipeSerializerBaseForgeMixin {
 	@Shadow
 	@Nullable
 	private ResourceLocation registryName;

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(Registry.class)
-public interface ForgeAccessorRegistry {
+public interface RegistryForgeAccessor {
 	@Invoker("registerDefaulted")
 	static <T> DefaultedRegistry<T> callRegisterDefaulted(ResourceKey<? extends Registry<T>> registryName,
 			String defaultId,

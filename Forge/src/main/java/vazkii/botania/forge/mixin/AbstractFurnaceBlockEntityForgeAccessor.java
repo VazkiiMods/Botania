@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
-public interface ForgeAccessorAbstractFurnaceBlockEntity {
+public interface AbstractFurnaceBlockEntityForgeAccessor {
 	@Invoker("canBurn")
 	boolean callCanBurn(@Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
 }

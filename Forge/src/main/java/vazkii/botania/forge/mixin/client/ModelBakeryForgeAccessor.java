@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(ModelBakery.class)
-public interface ForgeAccessorModelBakery {
+public interface ModelBakeryForgeAccessor {
 	@Accessor("resourceManager")
 	ResourceManager getResourceManager();
 }

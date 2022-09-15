@@ -29,12 +29,12 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import java.util.Collections;
 import java.util.List;
 
-public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension {
+public class TerraShattererTippingRecipeWrapper implements ICraftingCategoryExtension {
 	private final List<List<ItemStack>> inputs;
 	private final ItemStack output;
 	private final ResourceLocation name;
 
-	public TerraPickTippingRecipeWrapper(TerraPickTippingRecipe recipe) {
+	public TerraShattererTippingRecipeWrapper(TerraPickTippingRecipe recipe) {
 		inputs = ImmutableList.of(ImmutableList.of(new ItemStack(ModItems.terraPick)), ImmutableList.of(new ItemStack(ModItems.elementiumPick)));
 		output = new ItemStack(ModItems.terraPick);
 		ItemTerraPick.setTipped(output);
