@@ -23,8 +23,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.mixin.AccessorGoalSelector;
-import vazkii.botania.mixin.AccessorWitherEntity;
+import vazkii.botania.mixin.GoalSelectorAccessor;
+import vazkii.botania.mixin.WitherEntityAccessor;
 
 public class PinkWitherEntity extends WitherBoss {
 	public PinkWitherEntity(EntityType<PinkWitherEntity> type, Level world) {
@@ -36,10 +36,10 @@ public class PinkWitherEntity extends WitherBoss {
 		super.registerGoals();
 
 		// Remove firing wither skulls
-		((AccessorGoalSelector) goalSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
+		((GoalSelectorAccessor) goalSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
 
 		// Remove revenge and aggro
-		((AccessorGoalSelector) targetSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
+		((GoalSelectorAccessor) targetSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
 				|| entry.getGoal() instanceof NearestAttackableTargetGoal);
 	}
 
@@ -49,9 +49,9 @@ public class PinkWitherEntity extends WitherBoss {
 
 		if (Math.random() < 0.1) {
 			for (int j = 0; j < 3; ++j) {
-				double x = ((AccessorWitherEntity) this).botania_getHeadX(j);
-				double y = ((AccessorWitherEntity) this).botania_getHeadY(j);
-				double z = ((AccessorWitherEntity) this).botania_getHeadZ(j);
+				double x = ((WitherEntityAccessor) this).botania_getHeadX(j);
+				double y = ((WitherEntityAccessor) this).botania_getHeadY(j);
+				double z = ((WitherEntityAccessor) this).botania_getHeadZ(j);
 				level.addParticle(ParticleTypes.HEART, x + random.nextGaussian() * 0.3, y + random.nextGaussian() * 0.3, z + random.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
 			}
 		}

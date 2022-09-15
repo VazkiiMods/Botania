@@ -41,7 +41,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.mixin.AccessorRecipeManager;
+import vazkii.botania.mixin.RecipeManagerAccessor;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
@@ -193,7 +193,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 	private Optional<CraftingRecipe> getMatchingRecipe(CraftingContainer craft) {
 		for (ResourceLocation currentRecipe : lastRecipes) {
-			Recipe<CraftingContainer> recipe = ((AccessorRecipeManager) level.getRecipeManager())
+			Recipe<CraftingContainer> recipe = ((RecipeManagerAccessor) level.getRecipeManager())
 					.botania_getAll(RecipeType.CRAFTING)
 					.get(currentRecipe);
 			if (recipe instanceof CraftingRecipe craftingRecipe && recipe.matches(craft, level)) {

@@ -57,7 +57,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.BlockItemWithSpecialRenderer;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.mixin.AccessorDispenserBlock;
+import vazkii.botania.mixin.DispenserBlockAccessor;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Locale;
@@ -927,7 +927,7 @@ public final class BotaniaBlocks {
 			}
 		});
 
-		behavior = AccessorDispenserBlock.getDispenserRegistry().get(Items.GLASS_BOTTLE);
+		behavior = DispenserBlockAccessor.getDispenserRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
 
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());

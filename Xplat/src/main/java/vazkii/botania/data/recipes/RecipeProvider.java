@@ -46,8 +46,8 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-import vazkii.botania.mixin.AccessorIngredient;
-import vazkii.botania.mixin.AccessorRecipeProvider;
+import vazkii.botania.mixin.IngredientAccessor;
+import vazkii.botania.mixin.RecipeProviderAccessor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -93,7 +93,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	public static InventoryChangeTrigger.TriggerInstance conditionsFromItem(ItemLike item) {
-		return AccessorRecipeProvider.botania_condition(ItemPredicate.Builder.item().of(item).build());
+		return RecipeProviderAccessor.botania_condition(ItemPredicate.Builder.item().of(item).build());
 	}
 
 	private static InventoryChangeTrigger.TriggerInstance conditionsFromItems(ItemLike... items) {
@@ -102,11 +102,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 			preds[i] = ItemPredicate.Builder.item().of(items[i]).build();
 		}
 
-		return AccessorRecipeProvider.botania_condition(preds);
+		return RecipeProviderAccessor.botania_condition(preds);
 	}
 
 	public static InventoryChangeTrigger.TriggerInstance conditionsFromTag(TagKey<Item> tag) {
-		return AccessorRecipeProvider.botania_condition(ItemPredicate.Builder.item().of(tag).build());
+		return RecipeProviderAccessor.botania_condition(ItemPredicate.Builder.item().of(tag).build());
 	}
 
 	/** Addons: override this to return your modid */
@@ -192,7 +192,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
 				.save(consumer, prefix(Registry.ITEM.getKey(BotaniaBlocks.fabulousPool.asItem()).getPath() + "_upgrade"));
 		ShapedRecipeBuilder.shaped(BotaniaBlocks.runeAltar)
-				.define('P', AccessorIngredient.callFromValues(Stream.of(
+				.define('P', IngredientAccessor.callFromValues(Stream.of(
 						new Ingredient.ItemValue(new ItemStack(BotaniaItems.manaPearl)),
 						new Ingredient.TagValue(BotaniaTags.Items.GEMS_MANA_DIAMOND))))
 				.define('S', BotaniaBlocks.livingrock)
@@ -983,7 +983,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
 				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, consumer));
 		ShapedRecipeBuilder.shaped(BotaniaItems.manaTablet)
-				.define('P', AccessorIngredient.callFromValues(Stream.of(
+				.define('P', IngredientAccessor.callFromValues(Stream.of(
 						new Ingredient.ItemValue(new ItemStack(BotaniaItems.manaPearl)),
 						new Ingredient.TagValue(BotaniaTags.Items.GEMS_MANA_DIAMOND))))
 				.define('S', BotaniaBlocks.livingrock)

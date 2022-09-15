@@ -29,7 +29,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.mixin.AccessorAbstractHorse;
+import vazkii.botania.mixin.AbstractHorseAccessor;
 
 public class EquestrianVirusItem extends Item {
 	public EquestrianVirusItem(Properties builder) {
@@ -43,7 +43,7 @@ public class EquestrianVirusItem extends Item {
 				return InteractionResult.SUCCESS;
 			}
 			if (horse.isTamed()) {
-				SimpleContainer inv = ((AccessorAbstractHorse) horse).getInventory();
+				SimpleContainer inv = ((AbstractHorseAccessor) horse).getInventory();
 				ItemStack saddle = inv.getItem(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
@@ -68,7 +68,7 @@ public class EquestrianVirusItem extends Item {
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {
-					SimpleContainer newInv = ((AccessorAbstractHorse) newHorse).getInventory();
+					SimpleContainer newInv = ((AbstractHorseAccessor) newHorse).getInventory();
 					newInv.setItem(0, saddle);
 				}
 

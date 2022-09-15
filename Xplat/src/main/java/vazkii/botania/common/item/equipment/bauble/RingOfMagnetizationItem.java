@@ -29,7 +29,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.mixin.ItemEntityAccessor;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -118,7 +118,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 	}
 
 	private boolean canPullItem(ItemEntity item) {
-		int pickupDelay = ((AccessorItemEntity) item).getPickupDelay();
+		int pickupDelay = ((ItemEntityAccessor) item).getPickupDelay();
 		if (!item.isAlive() || pickupDelay >= 40
 				|| BotaniaAPI.instance().hasSolegnoliaAround(item)
 				|| IXplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {

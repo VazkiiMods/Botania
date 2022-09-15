@@ -44,7 +44,7 @@ import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.mixin.client.AccessorMinecraft;
+import vazkii.botania.mixin.client.MinecraftAccessor;
 
 import java.util.List;
 
@@ -128,7 +128,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 
 			model = MiscellaneousModels.INSTANCE.bloodPendantGem;
-			int color = ((AccessorMinecraft) Minecraft.getInstance()).getItemColors().getColor(stack, 1);
+			int color = ((MinecraftAccessor) Minecraft.getInstance()).getItemColors().getColor(stack, 1);
 			float r = (color >> 16 & 0xFF) / 255F;
 			float g = (color >> 8 & 0xFF) / 255F;
 			float b = (color & 0xFF) / 255F;

@@ -56,7 +56,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.network.FabricPacketHandler;
-import vazkii.botania.mixin.client.AccessorRenderBuffers;
+import vazkii.botania.mixin.client.RenderBuffersAccessor;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 
@@ -146,7 +146,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		ColorHandler.submitItems(ColorProviderRegistry.ITEM::register);
 
 		// Needed to prevent mana pools on carts from X-raying through the cart
-		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderBuffers) mc.renderBuffers()).getEntityBuilders();
+		SortedMap<RenderType, BufferBuilder> layers = ((RenderBuffersAccessor) mc.renderBuffers()).getEntityBuilders();
 		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 

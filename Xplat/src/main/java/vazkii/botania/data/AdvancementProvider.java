@@ -35,7 +35,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.mixin.AccessorAdvancementProvider;
+import vazkii.botania.mixin.AdvancementProviderAccessor;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -50,7 +50,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 	@Override
 	public void run(CachedOutput output) {
-		((AccessorAdvancementProvider) this).setTabs(getAdvancements());
+		((AdvancementProviderAccessor) this).setTabs(getAdvancements());
 		super.run(output);
 	}
 

@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.mixin.AccessorMob;
+import vazkii.botania.mixin.MobAccessor;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -51,7 +51,7 @@ public class FelPumpkinBlock extends BotaniaBlock {
 			Blaze blaze = EntityType.BLAZE.create(world);
 			blaze.moveTo(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.setPersistenceRequired();
-			((AccessorMob) blaze).setLootTable(LOOT_TABLE);
+			((MobAccessor) blaze).setLootTable(LOOT_TABLE);
 			blaze.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null, null);
 			world.addFreshEntity(blaze);
 		}

@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.crafting.recipe.StateCopyingPureDaisyRecipe;
-import vazkii.botania.mixin.AccessorRecipeManager;
+import vazkii.botania.mixin.RecipeManagerAccessor;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -98,6 +98,6 @@ public class BotaniaRecipeTypes {
 	}
 
 	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(Level world, RecipeType<T> type) {
-		return ((AccessorRecipeManager) world.getRecipeManager()).botania_getAll(type);
+		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
 	}
 }

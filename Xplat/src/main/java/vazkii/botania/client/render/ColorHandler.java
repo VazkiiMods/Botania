@@ -41,7 +41,7 @@ import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
-import vazkii.botania.mixin.client.AccessorMinecraft;
+import vazkii.botania.mixin.client.MinecraftAccessor;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public final class ColorHandler {
@@ -180,7 +180,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			ItemStack lens = ManaBlasterItem.getLens(s);
 			if (!lens.isEmpty() && t == 0) {
-				return ((AccessorMinecraft) Minecraft.getInstance()).getItemColors().getColor(lens, t);
+				return ((MinecraftAccessor) Minecraft.getInstance()).getItemColors().getColor(lens, t);
 			}
 
 			if (t == 2) {

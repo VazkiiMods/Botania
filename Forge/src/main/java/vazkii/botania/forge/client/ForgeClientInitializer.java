@@ -55,7 +55,7 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntit
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.forge.CapabilityUtil;
-import vazkii.botania.mixin.client.AccessorRenderBuffers;
+import vazkii.botania.mixin.client.RenderBuffersAccessor;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
@@ -188,7 +188,7 @@ public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void loadComplete(FMLLoadCompleteEvent evt) {
 		// Needed to prevent mana pools on carts from X-raying through the cart
-		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderBuffers) Minecraft.getInstance()
+		SortedMap<RenderType, BufferBuilder> layers = ((RenderBuffersAccessor) Minecraft.getInstance()
 				.renderBuffers()).getEntityBuilders();
 		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}

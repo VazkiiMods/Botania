@@ -24,7 +24,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.mixin.ItemEntityAccessor;
 
 public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<ManaEnchanterBlockEntity> {
 
@@ -50,7 +50,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 				item = new ItemEntity(enchanter.getLevel(), enchanter.getBlockPos().getX(), enchanter.getBlockPos().getY() + 1, enchanter.getBlockPos().getZ(), enchanter.itemToEnchant);
 			}
 
-			((AccessorItemEntity) item).setAge(ClientTickHandler.ticksInGame);
+			((ItemEntityAccessor) item).setAge(ClientTickHandler.ticksInGame);
 			item.setItem(enchanter.itemToEnchant);
 
 			ms.translate(0.5F, 1.25F, 0.5F);

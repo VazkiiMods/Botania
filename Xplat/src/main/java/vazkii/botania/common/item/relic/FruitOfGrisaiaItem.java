@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.mixin.AccessorLivingEntity;
+import vazkii.botania.mixin.LivingEntityAccessor;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Locale;
@@ -68,7 +68,7 @@ public class FruitOfGrisaiaItem extends RelicItem {
 
 			if (count == 5) {
 				if (player.canEat(false)) {
-					((AccessorLivingEntity) player).setUseItemRemaining(20);
+					((LivingEntityAccessor) player).setUseItemRemaining(20);
 				}
 			}
 		}

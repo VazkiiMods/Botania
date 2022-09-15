@@ -34,8 +34,8 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.mixin.AccessorCreeper;
-import vazkii.botania.mixin.AccessorEntity;
+import vazkii.botania.mixin.CreeperAccessor;
+import vazkii.botania.mixin.EntityAccessor;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -66,9 +66,9 @@ public class CharmOfTheDivaItem extends BaubleItem {
 					if (mobs.size() > 1) {
 						if (HeiseiDreamBlockEntity.brainwashEntity(target, mobs)) {
 							target.heal(target.getMaxHealth());
-							((AccessorEntity) target).callUnsetRemoved();
+							((EntityAccessor) target).callUnsetRemoved();
 							if (target instanceof Creeper) {
-								((AccessorCreeper) target).setCurrentFuseTime(2);
+								((CreeperAccessor) target).setCurrentFuseTime(2);
 							}
 
 							ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);

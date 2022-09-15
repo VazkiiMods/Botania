@@ -19,13 +19,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.mixin.AccessorFireBlock;
+import vazkii.botania.mixin.FireBlockAccessor;
 
 public class SolidVineBlock extends VineBlock {
 
 	public SolidVineBlock(Properties builder) {
 		super(builder);
-		((AccessorFireBlock) Blocks.FIRE).botania_register(this, 15, 100);
+		((FireBlockAccessor) Blocks.FIRE).botania_register(this, 15, 100);
 	}
 
 	@Override

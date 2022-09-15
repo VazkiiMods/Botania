@@ -17,7 +17,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.mixin.AccessorRecipeProvider;
+import vazkii.botania.mixin.RecipeProviderAccessor;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.nio.file.Path;
@@ -40,7 +40,7 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 			if (!set.add(recipeJsonProvider.getId())) {
 				throw new IllegalStateException("Duplicate recipe " + recipeJsonProvider.getId());
 			} else {
-				AccessorRecipeProvider.callSaveRecipe(cache, recipeJsonProvider.serializeRecipe(), path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/recipes/" + recipeJsonProvider.getId().getPath() + ".json"));
+				RecipeProviderAccessor.callSaveRecipe(cache, recipeJsonProvider.serializeRecipe(), path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/recipes/" + recipeJsonProvider.getId().getPath() + ".json"));
 				JsonObject jsonObject = recipeJsonProvider.serializeAdvancement();
 				if (jsonObject != null) {
 					IXplatAbstractions.INSTANCE.saveRecipeAdvancement(this.generator, cache, jsonObject, path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/advancements/" + recipeJsonProvider.getAdvancementId().getPath() + ".json"));

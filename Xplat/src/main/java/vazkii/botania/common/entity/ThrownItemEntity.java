@@ -26,7 +26,7 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.mixin.ItemEntityAccessor;
 
 import java.util.function.Predicate;
 
@@ -38,7 +38,7 @@ public class ThrownItemEntity extends ItemEntity {
 	public ThrownItemEntity(Level world, double x,
 			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
-		setPickUpDelay(((AccessorItemEntity) item).getPickupDelay());
+		setPickUpDelay(((ItemEntityAccessor) item).getPickupDelay());
 		setDeltaMovement(item.getDeltaMovement());
 		setInvulnerable(true);
 	}
@@ -54,7 +54,7 @@ public class ThrownItemEntity extends ItemEntity {
 		super.tick();
 
 		// [VanillaCopy] derivative from ThrowableProjectile
-		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
+		int pickupDelay = ((ItemEntityAccessor) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable() && (!(e instanceof Player) || pickupDelay == 0);
 		HitResult hitResult = ProjectileUtil.getHitResult(this, filter);
 		boolean teleported = false;

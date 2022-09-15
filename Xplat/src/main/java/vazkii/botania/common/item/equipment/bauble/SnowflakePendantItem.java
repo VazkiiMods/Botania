@@ -32,7 +32,7 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.mixin.AccessorBiome;
+import vazkii.botania.mixin.BiomeAccessor;
 
 public class SnowflakePendantItem extends BaubleItem {
 
@@ -61,7 +61,7 @@ public class SnowflakePendantItem extends BaubleItem {
 
 				if (entity.level.isEmptyBlock(blockpos) && blockstate.canSurvive(entity.level, blockpos)) {
 					var biome = entity.level.getBiome(blockpos);
-					if (((AccessorBiome) (Object) biome.value()).callGetTemperature(blockpos) < 0.9F) {
+					if (((BiomeAccessor) (Object) biome.value()).callGetTemperature(blockpos) < 0.9F) {
 						entity.level.setBlockAndUpdate(blockpos, blockstate);
 					}
 				}

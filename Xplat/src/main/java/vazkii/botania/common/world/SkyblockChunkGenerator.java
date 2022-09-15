@@ -27,7 +27,7 @@ import net.minecraft.world.level.levelgen.blending.Blender;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
-import vazkii.botania.mixin.AccessorNoiseChunk;
+import vazkii.botania.mixin.NoiseChunkAccessor;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -86,7 +86,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	private void doCreateBiomes(Blender blender, RandomState randomState, StructureManager structureManager, ChunkAccess chunkAccess) {
 		NoiseChunk chunk = chunkAccess.getOrCreateNoiseChunk((access) -> this.createNoiseChunk(access, structureManager, blender, randomState));
 		BiomeResolver biomeResolver = BelowZeroRetrogen.getBiomeResolver(blender.getBiomeResolver(this.biomeSource), chunkAccess);
-		chunkAccess.fillBiomesFromNoise(biomeResolver, ((AccessorNoiseChunk) chunk).botania_cachedClimateSampler(randomState.router(), this.settings.value().spawnTarget()));
+		chunkAccess.fillBiomesFromNoise(biomeResolver, ((NoiseChunkAccessor) chunk).botania_cachedClimateSampler(randomState.router(), this.settings.value().spawnTarget()));
 	}
 
 	private NoiseChunk createNoiseChunk(ChunkAccess chunkAccess, StructureManager structureManager, Blender blender, RandomState randomState) {

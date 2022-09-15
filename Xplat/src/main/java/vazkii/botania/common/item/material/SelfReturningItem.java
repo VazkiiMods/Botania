@@ -11,7 +11,7 @@ package vazkii.botania.common.item.material;
 import net.minecraft.world.item.Item;
 
 /**
- * Just a marker class, see {@link vazkii.botania.mixin.MixinItem#returnSelf}
+ * Just a marker class, see {@link vazkii.botania.mixin.ItemMixin#returnSelf}
  */
 public class SelfReturningItem extends Item {
 

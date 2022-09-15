@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
-import vazkii.botania.mixin.AccessorItemEntity;
+import vazkii.botania.mixin.ItemEntityAccessor;
 
 public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRenderer<CorporeaCrystalCubeBlockEntity> {
 	// Ugly but there's no other way to get the model besides grabbing it from the event
@@ -48,7 +48,7 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 				entity = new ItemEntity(cube.getLevel(), cube.getBlockPos().getX(), cube.getBlockPos().getY(), cube.getBlockPos().getZ(), new ItemStack(Blocks.STONE));
 			}
 
-			((AccessorItemEntity) entity).setAge(ClientTickHandler.ticksInGame);
+			((ItemEntityAccessor) entity).setAge(ClientTickHandler.ticksInGame);
 			stack = cube.getRequestTarget();
 			entity.setItem(stack);
 		}

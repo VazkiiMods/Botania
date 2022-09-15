@@ -45,7 +45,7 @@ import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.mixin.client.AccessorModelManager;
+import vazkii.botania.mixin.client.ModelManagerAccessor;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.Locale;
@@ -78,7 +78,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 
 	private static BakedModel getModel(String name) {
 		ModelManager bmm = Minecraft.getInstance().getModelManager();
-		Map<ResourceLocation, BakedModel> mm = ((AccessorModelManager) bmm).getBakedRegistry();
+		Map<ResourceLocation, BakedModel> mm = ((ModelManagerAccessor) bmm).getBakedRegistry();
 		BakedModel missing = bmm.getMissingModel();
 		ResourceLocation location = taterLocation(name);
 		BakedModel model = mm.get(location);

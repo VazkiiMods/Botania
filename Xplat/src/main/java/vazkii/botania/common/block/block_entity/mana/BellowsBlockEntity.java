@@ -26,7 +26,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ExoflameFurnaceHandler;
-import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
+import vazkii.botania.mixin.AbstractFurnaceBlockEntityAccessor;
 
 public class BellowsBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_ACTIVE = "active";
@@ -70,7 +70,7 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 
 			if (tile instanceof AbstractFurnaceBlockEntity furnace) {
 				if (ExoflameFurnaceHandler.canSmelt(furnace)) {
-					AccessorAbstractFurnaceBlockEntity mFurnace = (AccessorAbstractFurnaceBlockEntity) furnace;
+					AbstractFurnaceBlockEntityAccessor mFurnace = (AbstractFurnaceBlockEntityAccessor) furnace;
 					mFurnace.setCookingProgress(Math.min(mFurnace.getCookingTotalTime() - 1, mFurnace.getCookingProgress() + 20));
 					mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
 				}

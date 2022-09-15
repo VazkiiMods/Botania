@@ -21,9 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.client.core.RecipeBookAccess;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.mixin.client.AccessorAbstractContainerScreen;
-import vazkii.botania.mixin.client.AccessorRecipeBookComponent;
-import vazkii.botania.mixin.client.AccessorRecipeBookPage;
+import vazkii.botania.mixin.client.AbstractContainerScreenAccessor;
+import vazkii.botania.mixin.client.RecipeBookComponentAccessor;
+import vazkii.botania.mixin.client.RecipeBookPageAccessor;
 import vazkii.botania.network.serverbound.PacketIndexKeybindRequest;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
@@ -71,15 +71,15 @@ public class CorporeaInputHandler {
 	private static ItemStack getStackUnderMouse() {
 		Screen screen = Minecraft.getInstance().screen;
 		if (screen instanceof AbstractContainerScreen) {
-			Slot slotUnderMouse = ((AccessorAbstractContainerScreen) screen).getHoveredSlot();
+			Slot slotUnderMouse = ((AbstractContainerScreenAccessor) screen).getHoveredSlot();
 			if (slotUnderMouse != null && slotUnderMouse.hasItem()) {
 				return slotUnderMouse.getItem().copy();
 			}
 
 			if (screen instanceof RecipeUpdateListener recipeScreen && recipeScreen.getRecipeBookComponent().isVisible()) {
 				RecipeBookComponent recipeBook = recipeScreen.getRecipeBookComponent();
-				RecipeBookPage page = ((AccessorRecipeBookComponent) recipeBook).getRecipesArea();
-				RecipeButton widget = ((AccessorRecipeBookPage) page).getHoveredButton();
+				RecipeBookPage page = ((RecipeBookComponentAccessor) recipeBook).getRecipesArea();
+				RecipeButton widget = ((RecipeBookPageAccessor) page).getHoveredButton();
 				if (widget != null) {
 					return widget.getRecipe().getResultItem();
 				}

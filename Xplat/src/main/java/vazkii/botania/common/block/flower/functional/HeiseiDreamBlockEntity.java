@@ -24,9 +24,9 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.mixin.AccessorGoalSelector;
-import vazkii.botania.mixin.AccessorHurtByTargetGoal;
-import vazkii.botania.mixin.AccessorMob;
+import vazkii.botania.mixin.GoalSelectorAccessor;
+import vazkii.botania.mixin.HurtByTargetGoalAccessor;
+import vazkii.botania.mixin.MobAccessor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -77,13 +77,13 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 				entity.setTarget(null);
 
 				// Move any HurtByTargetGoal to highest priority
-				GoalSelector targetSelector = ((AccessorMob) entity).getTargetSelector();
-				for (WrappedGoal entry : ((AccessorGoalSelector) targetSelector).getAvailableGoals()) {
+				GoalSelector targetSelector = ((MobAccessor) entity).getTargetSelector();
+				for (WrappedGoal entry : ((GoalSelectorAccessor) targetSelector).getAvailableGoals()) {
 					if (entry.getGoal() instanceof HurtByTargetGoal goal) {
 						// Remove all ignorals. We can't actually resize or overwrite
 						// the array, but we can fill it with classes that will never pass
 						// the game logic's checks.
-						var ignoreClasses = ((AccessorHurtByTargetGoal) goal).getIgnoreDamageClasses();
+						var ignoreClasses = ((HurtByTargetGoalAccessor) goal).getIgnoreDamageClasses();
 						Arrays.fill(ignoreClasses, Void.TYPE);
 
 						// Concurrent modification OK since we break out of the loop

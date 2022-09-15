@@ -40,7 +40,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.mixin.AccessorMob;
+import vazkii.botania.mixin.MobAccessor;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class CacophoniumItem extends Item {
 			} else if (living instanceof Slime slime) {
 				sound = slime.isTiny() ? SoundEvents.SLIME_SQUISH_SMALL : SoundEvents.SLIME_SQUISH;
 			} else {
-				sound = ((AccessorMob) living).botania_getAmbientSound();
+				sound = ((MobAccessor) living).botania_getAmbientSound();
 			}
 
 			if (sound != null) {

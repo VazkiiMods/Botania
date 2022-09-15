@@ -19,7 +19,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelAxeItem;
-import vazkii.botania.mixin.AccessorLivingEntity;
+import vazkii.botania.mixin.LivingEntityAccessor;
 
 import java.util.function.Consumer;
 
@@ -34,7 +34,7 @@ public class ElementiumAxeItem extends ManasteelAxeItem {
 
 	public static void onEntityDrops(boolean hitRecently, DamageSource source, LivingEntity target,
 			Consumer<ItemStack> consumer) {
-		var ctx = ((AccessorLivingEntity) target).callCreateLootContext(hitRecently, source);
+		var ctx = ((LivingEntityAccessor) target).callCreateLootContext(hitRecently, source);
 		target.level.getServer().getLootTables().get(BEHEADING_LOOT_TABLE)
 				.getRandomItems(ctx.create(LootContextParamSets.ENTITY), consumer);
 	}

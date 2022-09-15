@@ -47,7 +47,7 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.ModelWithOverrides;
 import vazkii.botania.data.util.OverrideHolder;
 import vazkii.botania.data.util.SimpleModelSupplierWithOverrides;
-import vazkii.botania.mixin.AccessorTextureSlot;
+import vazkii.botania.mixin.TextureSlotAccessor;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -66,15 +66,15 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.BlockstateProvider.takeAll;
 
 public class ItemModelProvider implements DataProvider {
-	private static final TextureSlot LAYER1 = AccessorTextureSlot.make("layer1");
-	private static final TextureSlot LAYER2 = AccessorTextureSlot.make("layer2");
-	private static final TextureSlot LAYER3 = AccessorTextureSlot.make("layer3");
+	private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");
+	private static final TextureSlot LAYER2 = TextureSlotAccessor.make("layer2");
+	private static final TextureSlot LAYER3 = TextureSlotAccessor.make("layer3");
 	private static final ModelTemplate GENERATED_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
 	private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
 	private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
 	private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
-	private static final TextureSlot OUTSIDE = AccessorTextureSlot.make("outside");
-	private static final TextureSlot CORE = AccessorTextureSlot.make("core");
+	private static final TextureSlot OUTSIDE = TextureSlotAccessor.make("outside");
+	private static final TextureSlot CORE = TextureSlotAccessor.make("core");
 	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
 	private static final ModelWithOverrides GENERATED_OVERRIDES = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0);
 	private static final ModelWithOverrides GENERATED_OVERRIDES_1 = new ModelWithOverrides(new ResourceLocation("item/generated"), TextureSlot.LAYER0, LAYER1);

@@ -39,8 +39,8 @@ import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.AccessorBlockModelGenerators;
-import vazkii.botania.mixin.AccessorTextureSlot;
+import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
+import vazkii.botania.mixin.TextureSlotAccessor;
 
 import java.io.IOException;
 import java.util.*;
@@ -174,7 +174,7 @@ public class BlockstateProvider implements DataProvider {
 				new TextureMapping()
 						.put(TextureSlot.SIDE, corpSlabSide).put(TextureSlot.BOTTOM, corpBlock).put(TextureSlot.TOP, corpBlock),
 				this.modelOutput);
-		blockstates.add(AccessorBlockModelGenerators.makeSlabState(corporeaSlab, corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
+		blockstates.add(BlockModelGeneratorsAccessor.makeSlabState(corporeaSlab, corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
 		remainingBlocks.remove(corporeaSlab);
 
 		stairsBlock(remainingBlocks, corporeaStairs, corpBlock, corpBlock, corpBlock);
@@ -204,7 +204,7 @@ public class BlockstateProvider implements DataProvider {
 				this.modelOutput
 		);
 		this.blockstates.add(MultiVariantGenerator.multiVariant(felPumpkin, Variant.variant().with(VariantProperties.MODEL, pumpkinModel))
-				.with(AccessorBlockModelGenerators.horizontalDispatch()));
+				.with(BlockModelGeneratorsAccessor.horizontalDispatch()));
 		remainingBlocks.remove(felPumpkin);
 
 		ModelTemplate eightByEightTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/eightbyeight")),
@@ -223,7 +223,7 @@ public class BlockstateProvider implements DataProvider {
 
 		var plateFile = getModelLocation(incensePlate);
 		this.blockstates.add(MultiVariantGenerator.multiVariant(incensePlate, Variant.variant().with(VariantProperties.MODEL, plateFile))
-				.with(AccessorBlockModelGenerators.horizontalDispatch()));
+				.with(BlockModelGeneratorsAccessor.horizontalDispatch()));
 		remainingBlocks.remove(incensePlate);
 
 		var fourHighBottomTopTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/four_high_bottom_top")),
@@ -391,8 +391,8 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput));
 		});
 
-		var outsideSlot = AccessorTextureSlot.make("outside");
-		var coreSlot = AccessorTextureSlot.make("core");
+		var outsideSlot = TextureSlotAccessor.make("outside");
+		var coreSlot = TextureSlotAccessor.make("core");
 		var spreaderTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader")), Optional.empty(),
 				TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, outsideSlot);
 		var spreaderCoreTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_core")), Optional.of("_core"),
@@ -442,7 +442,7 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput);
 		}
 
-		var liquidSlot = AccessorTextureSlot.make("liquid");
+		var liquidSlot = TextureSlotAccessor.make("liquid");
 		var poolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/pool")), Optional.empty(), TextureSlot.ALL);
 		var poolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/pool_full")), Optional.of("_full"), TextureSlot.ALL, liquidSlot);
 		takeAll(remainingBlocks, manaPool, dilutedPool, fabulousPool, creativePool).forEach(b -> {
@@ -454,7 +454,7 @@ public class BlockstateProvider implements DataProvider {
 		});
 
 		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, getModelLocation(b)))
-				.with(AccessorBlockModelGenerators.horizontalDispatch()))
+				.with(BlockModelGeneratorsAccessor.horizontalDispatch()))
 		);
 
 		takeAll(remainingBlocks, enderEye, manaDetector).forEach(b -> {
@@ -479,7 +479,7 @@ public class BlockstateProvider implements DataProvider {
 					.put(TextureSlot.TOP, getBlockTexture(b, "_top")),
 					this.modelOutput
 			);
-			this.blockstates.add(MultiVariantGenerator.multiVariant(b, AccessorBlockModelGenerators.createRotatedVariants(model)));
+			this.blockstates.add(MultiVariantGenerator.multiVariant(b, BlockModelGeneratorsAccessor.createRotatedVariants(model)));
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof RedStringBlock).forEach(this::redStringBlock);
@@ -623,7 +623,7 @@ public class BlockstateProvider implements DataProvider {
 			var pillarModel = ModelTemplates.CUBE_COLUMN.create(pillar,
 					TextureMapping.column(getBlockTexture(pillar, "_side"), getBlockTexture(pillar, "_end")),
 					this.modelOutput);
-			this.blockstates.add(AccessorBlockModelGenerators.createAxisAlignedPillarBlock(pillar, pillarModel));
+			this.blockstates.add(BlockModelGeneratorsAccessor.createAxisAlignedPillarBlock(pillar, pillarModel));
 
 			ResourceLocation chiseledId = prefix("chiseled_" + variant + "_quartz");
 			Block chiseled = Registry.BLOCK.getOptional(chiseledId).get();
@@ -1028,7 +1028,7 @@ public class BlockstateProvider implements DataProvider {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var postModel = ModelTemplates.FENCE_POST.create(block, mapping, this.modelOutput);
 		var sideModel = ModelTemplates.FENCE_SIDE.create(block, mapping, this.modelOutput);
-		this.blockstates.add(AccessorBlockModelGenerators.makeFenceState(block, postModel, sideModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceState(block, postModel, sideModel));
 	}
 
 	protected void fenceGateBlock(Block block, ResourceLocation tex) {
@@ -1037,7 +1037,7 @@ public class BlockstateProvider implements DataProvider {
 		var closedModel = ModelTemplates.FENCE_GATE_CLOSED.create(block, mapping, this.modelOutput);
 		var openWallModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(block, mapping, this.modelOutput);
 		var closedWallModel = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block, mapping, this.modelOutput);
-		this.blockstates.add(AccessorBlockModelGenerators.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel));
 	}
 
 	protected void cubeAllNoRemove(Block block) {
@@ -1357,6 +1357,6 @@ public class BlockstateProvider implements DataProvider {
 				.put(TextureSlot.FRONT, front)
 				.put(TextureSlot.SIDE, selfName), this.modelOutput);
 		this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, model))
-				.with(AccessorBlockModelGenerators.facingDispatch()));
+				.with(BlockModelGeneratorsAccessor.facingDispatch()));
 	}
 }

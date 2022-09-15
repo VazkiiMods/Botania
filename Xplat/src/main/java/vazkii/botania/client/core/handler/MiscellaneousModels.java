@@ -28,7 +28,7 @@ import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.client.AccessorModelBakery;
+import vazkii.botania.mixin.client.ModelBakeryAccessor;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.Arrays;
@@ -94,7 +94,7 @@ public class MiscellaneousModels {
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[KeyOfTheKingsLawItem.WEAPON_TYPES];
 
 	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
-		Set<Material> materials = AccessorModelBakery.getMaterials();
+		Set<Material> materials = ModelBakeryAccessor.getMaterials();
 
 		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
 				lightRelayForkWorldIcon, lightRelayToggleWorldIcon, alchemyCatalystOverlay, conjurationCatalystOverlay,

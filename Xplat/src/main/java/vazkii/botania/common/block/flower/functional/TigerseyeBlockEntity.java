@@ -49,7 +49,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		for (Creeper entity : getLevel().getEntitiesOfClass(Creeper.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
-			((AccessorCreeper) entity).setCurrentFuseTime(2);
+			((CreeperAccessor) entity).setCurrentFuseTime(2);
 			entity.setTarget(null);
 
 			if (getMana() >= COST) {
@@ -72,8 +72,8 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 
 	private static boolean pacifyCreeper(Creeper creeper) {
 		boolean did = false;
-		GoalSelector goalSelector = ((AccessorMob) creeper).getGoalSelector();
-		Set<WrappedGoal> goals = ((AccessorGoalSelector) goalSelector).getAvailableGoals();
+		GoalSelector goalSelector = ((MobAccessor) creeper).getGoalSelector();
+		Set<WrappedGoal> goals = ((GoalSelectorAccessor) goalSelector).getAvailableGoals();
 		for (var goal : goals) {
 			Goal wrapped = goal.getGoal();
 			if (wrapped instanceof CreeperAvoidPlayerGoal playerGoal && !playerGoal.enabled) {
@@ -83,10 +83,10 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 			}
 		}
 
-		GoalSelector targetSelector = ((AccessorMob) creeper).getTargetSelector();
-		for (var iterator = ((AccessorGoalSelector) targetSelector).getAvailableGoals().iterator(); iterator.hasNext();) {
+		GoalSelector targetSelector = ((MobAccessor) creeper).getTargetSelector();
+		for (var iterator = ((GoalSelectorAccessor) targetSelector).getAvailableGoals().iterator(); iterator.hasNext();) {
 			WrappedGoal pg = iterator.next();
-			if (pg.getGoal() instanceof AccessorNearestAttackableTargetGoal targetGoal
+			if (pg.getGoal() instanceof NearestAttackableTargetGoalAccessor targetGoal
 					&& targetGoal.getTargetClass() == Player.class) {
 				iterator.remove();
 				did = true;

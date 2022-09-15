@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.mixin.AccessorHopperBlockEntity;
+import vazkii.botania.mixin.HopperBlockEntityAccessor;
 
 import java.util.function.Function;
 
@@ -53,14 +53,14 @@ public class InventoryHelper {
 	// [VanillaCopy] HopperBlockEntity without modifying the destination inventory. `stack` is still modified
 	private static ItemStack simulateTransfer(Container to, ItemStack stack, int slot, @Nullable Direction direction) {
 		ItemStack itemStack = to.getItem(slot);
-		if (AccessorHopperBlockEntity.botania_canInsert(to, stack, slot, direction)) {
+		if (HopperBlockEntityAccessor.botania_canInsert(to, stack, slot, direction)) {
 			boolean bl = false;
 			boolean bl2 = to.isEmpty();
 			if (itemStack.isEmpty()) {
 				// to.setStack(slot, stack);
 				stack = ItemStack.EMPTY;
 				bl = true;
-			} else if (AccessorHopperBlockEntity.botania_canMerge(itemStack, stack)) {
+			} else if (HopperBlockEntityAccessor.botania_canMerge(itemStack, stack)) {
 				int i = stack.getMaxStackSize() - itemStack.getCount();
 				int j = Math.min(stack.getCount(), i);
 				stack.shrink(j);

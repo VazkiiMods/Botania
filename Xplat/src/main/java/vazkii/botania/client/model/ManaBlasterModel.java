@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.item.ManaBlasterItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.client.AccessorModelBakery;
+import vazkii.botania.mixin.client.ModelBakeryAccessor;
 
 import java.util.*;
 import java.util.function.Function;
@@ -147,7 +147,7 @@ public class ManaBlasterModel implements BakedModel {
 			};
 			ResourceLocation name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
 
-			Function<Material, TextureAtlasSprite> textureGetter = ((AccessorModelBakery) bakery).getSpriteAtlasManager()::getSprite;
+			Function<Material, TextureAtlasSprite> textureGetter = ((ModelBakeryAccessor) bakery).getSpriteAtlasManager()::getSprite;
 			BakedModel lensBaked;
 			if (lensUnbaked instanceof BlockModel bm && ((BlockModel) lensUnbaked).getRootModel() == net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER) {
 				lensBaked = new ItemModelGenerator()

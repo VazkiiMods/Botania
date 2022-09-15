@@ -43,8 +43,8 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.block_entity.PylonBlockEntityRenderer;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.mixin.client.AccessorItemRenderer;
-import vazkii.botania.mixin.client.AccessorRenderType;
+import vazkii.botania.mixin.client.ItemRendererAccessor;
+import vazkii.botania.mixin.client.RenderTypeAccessor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -82,7 +82,7 @@ public final class RenderHelper extends RenderType {
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
-		return AccessorRenderType.create(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
+		return RenderTypeAccessor.create(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
 	}
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
@@ -420,7 +420,7 @@ public final class RenderHelper extends RenderType {
 				return super.color(r, g, b, a);
 			}
 		};
-		((AccessorItemRenderer) Minecraft.getInstance().getItemRenderer())
+		((ItemRendererAccessor) Minecraft.getInstance().getItemRenderer())
 				.callRenderQuadList(ms, buffer, quads, stack, light, overlay);
 	}
 
