@@ -110,7 +110,7 @@ import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
 import vazkii.botania.common.loot.LootHandler;
-import vazkii.botania.common.world.ModFeatures;
+import vazkii.botania.common.world.BotaniaFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.forge.integration.InventorySorterIntegration;
@@ -201,7 +201,7 @@ public class ForgeCommonInitializer {
 		});
 
 		// Worldgen
-		bind(Registry.FEATURE_REGISTRY, ModFeatures::registerFeatures);
+		bind(Registry.FEATURE_REGISTRY, BotaniaFeatures::registerFeatures);
 		bind(Registry.CHUNK_GENERATOR_REGISTRY, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest

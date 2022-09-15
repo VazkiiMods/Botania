@@ -18,7 +18,7 @@ import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ModFeatures {
+public class BotaniaFeatures {
 	public static final ResourceKey<PlacedFeature> MYSTICAL_FLOWERS_ID = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, prefix("mystical_flowers"));
 	public static final ResourceKey<PlacedFeature> MYSTICAL_MUSHROOMS_ID = ResourceKey.create(Registry.PLACED_FEATURE_REGISTRY, prefix("mystical_mushrooms"));
 

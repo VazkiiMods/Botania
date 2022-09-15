@@ -91,7 +91,7 @@ import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
 import vazkii.botania.common.loot.LootHandler;
-import vazkii.botania.common.world.ModFeatures;
+import vazkii.botania.common.world.BotaniaFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
@@ -170,18 +170,18 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBrews.registerBrews();
 
 		// Worldgen
-		ModFeatures.registerFeatures(bind(Registry.FEATURE));
+		BotaniaFeatures.registerFeatures(bind(Registry.FEATURE));
 		SkyblockChunkGenerator.submitRegistration(bind(Registry.CHUNK_GENERATOR));
 		BiomeModifications.addFeature(
 				BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
 						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
-				ModFeatures.MYSTICAL_FLOWERS_ID);
+				BotaniaFeatures.MYSTICAL_FLOWERS_ID);
 		BiomeModifications.addFeature(
 				BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
 						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
-				ModFeatures.MYSTICAL_MUSHROOMS_ID);
+				BotaniaFeatures.MYSTICAL_MUSHROOMS_ID);
 
 		// Rest
 		BotaniaCriteriaTriggers.init();
