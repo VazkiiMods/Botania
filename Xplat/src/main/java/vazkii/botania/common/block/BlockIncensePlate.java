@@ -36,8 +36,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.IncensePlateBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileIncensePlate;
 
 public class BlockIncensePlate extends BlockModWaterloggable implements EntityBlock {
 
@@ -57,7 +57,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileIncensePlate plate = (TileIncensePlate) world.getBlockEntity(pos);
+		IncensePlateBlockEntity plate = (IncensePlateBlockEntity) world.getBlockEntity(pos);
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
 		boolean did = false;
@@ -109,7 +109,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((TileIncensePlate) world.getBlockEntity(pos)).comparatorOutput;
+		return ((IncensePlateBlockEntity) world.getBlockEntity(pos)).comparatorOutput;
 	}
 
 	@NotNull
@@ -125,20 +125,20 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileIncensePlate(pos, state);
+		return new IncensePlateBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.INCENSE_PLATE, TileIncensePlate::commonTick);
+		return createTickerHelper(type, ModTiles.INCENSE_PLATE, IncensePlateBlockEntity::commonTick);
 	}
 
 	@Override
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity block = world.getBlockEntity(pos);
-			if (block instanceof TileIncensePlate plate && !plate.burning) {
+			if (block instanceof IncensePlateBlockEntity plate && !plate.burning) {
 				Containers.dropContents(world, pos, plate.getItemHandler());
 			}
 		}
@@ -150,7 +150,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 			@NotNull BlockHitResult hit, @NotNull Projectile projectile) {
 		if (!level.isClientSide && projectile.mayInteract(level, hit.getBlockPos())
 				&& projectile.isOnFire()) {
-			if (level.getBlockEntity(hit.getBlockPos()) instanceof TileIncensePlate plate) {
+			if (level.getBlockEntity(hit.getBlockPos()) instanceof IncensePlateBlockEntity plate) {
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 			}

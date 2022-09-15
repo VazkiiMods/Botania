@@ -38,8 +38,8 @@ import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockModWaterloggable;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.block.tile.mana.ManaPrismBlockEntity;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 
@@ -156,7 +156,7 @@ public class ManaPrismBlock extends BlockModWaterloggable implements EntityBlock
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);

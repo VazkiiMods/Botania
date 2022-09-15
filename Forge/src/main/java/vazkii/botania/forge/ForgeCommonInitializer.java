@@ -71,6 +71,10 @@ import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
 import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.block_entity.*;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
@@ -79,10 +83,8 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
-import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.block.tile.mana.PowerGeneratorBlockEntity;
-import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.block.tile.BlockEntityConstants;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
@@ -146,13 +148,13 @@ public class ForgeCommonInitializer {
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
-		TileCraftCrate.registerListener();
+		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
 		if (ModList.get().isLoaded("inventorysorter")) {
 			InventorySorterIntegration.init();
@@ -529,7 +531,7 @@ public class ForgeCommonInitializer {
 							new ExoflameFurnaceHandler.FurnaceExoflameHeatable(furnace)));
 		}
 
-		if (be instanceof TileExposedSimpleInventory inv) {
+		if (be instanceof ExposedSimpleInventoryBlockEntity inv) {
 			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, new SidedInvWrapper(inv, null)));
 		}
 
@@ -571,7 +573,7 @@ public class ForgeCommonInitializer {
 
 		if (be.getType() == ModTiles.ANIMATED_TORCH) {
 			e.addCapability(prefix("hourglass_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.HOURGLASS_TRIGGER,
-					hourglass -> ((TileAnimatedTorch) be).toggle()));
+					hourglass -> ((AnimatedTorchBlockEntity) be).toggle()));
 		}
 
 		if (BlockEntityConstants.SELF_WANDADBLE_BES.contains(be.getType())) {

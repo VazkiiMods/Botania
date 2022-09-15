@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
 import java.util.Iterator;
 

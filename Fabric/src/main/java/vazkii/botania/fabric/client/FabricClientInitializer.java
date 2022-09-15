@@ -51,7 +51,7 @@ import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.*;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.*;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.lib.LibMisc;

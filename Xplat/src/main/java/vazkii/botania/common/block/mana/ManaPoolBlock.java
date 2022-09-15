@@ -39,8 +39,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import java.util.List;

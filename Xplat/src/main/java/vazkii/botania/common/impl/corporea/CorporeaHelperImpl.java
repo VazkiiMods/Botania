@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.*;
-import vazkii.botania.common.block.tile.corporea.CorporeaRetainerBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;

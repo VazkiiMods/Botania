@@ -32,7 +32,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TileBifrost;
+import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.material.ItemSelfReturning;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -125,7 +125,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 				if (world.isEmptyBlock(placePos) || world.getBlockState(placePos) == bifrost) {
 					world.setBlock(placePos, bifrost, Block.UPDATE_CLIENTS);
 
-					TileBifrost tile = (TileBifrost) world.getBlockEntity(placePos);
+					BifrostBlockEntity tile = (BifrostBlockEntity) world.getBlockEntity(placePos);
 					if (tile != null) {
 						tile.ticks = time;
 						placed = true;
@@ -182,14 +182,14 @@ public class ItemRainbowRod extends ItemSelfReturning {
 						BlockState state = world.getBlockState(pos);
 						if (state.isAir()) {
 							if (world.setBlockAndUpdate(pos, ModBlocks.bifrost.defaultBlockState())) {
-								TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
-								tileBifrost.ticks = 10;
+								BifrostBlockEntity bifrostBlockEntity = (BifrostBlockEntity) world.getBlockEntity(pos);
+								bifrostBlockEntity.ticks = 10;
 								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
 						} else if (state.is(ModBlocks.bifrost)) {
-							TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
-							if (tileBifrost.ticks < 2) {
-								tileBifrost.ticks += 10;
+							BifrostBlockEntity bifrostBlockEntity = (BifrostBlockEntity) world.getBlockEntity(pos);
+							if (bifrostBlockEntity.ticks < 2) {
+								bifrostBlockEntity.ticks += 10;
 								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
 						}

@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 

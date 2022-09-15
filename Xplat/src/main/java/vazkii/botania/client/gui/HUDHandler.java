@@ -38,11 +38,11 @@ import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TileAltar;
-import vazkii.botania.common.block.tile.TileRuneAltar;
-import vazkii.botania.common.block.tile.corporea.CorporeaCrystalCubeBlockEntity;
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
+import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemCraftingHalo;
@@ -114,10 +114,10 @@ public final class HUDHandler {
 				}
 			}
 			if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
-				if (tile instanceof TileAltar altar) {
-					TileAltar.Hud.render(altar, ms, mc);
-				} else if (tile instanceof TileRuneAltar runeAltar) {
-					TileRuneAltar.Hud.render(runeAltar, ms, mc);
+				if (tile instanceof PetalApothecaryBlockEntity altar) {
+					PetalApothecaryBlockEntity.Hud.render(altar, ms, mc);
+				} else if (tile instanceof RunicAltarBlockEntity runeAltar) {
+					RunicAltarBlockEntity.Hud.render(runeAltar, ms, mc);
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
 					renderCrystalCubeHUD(ms, cube);
 				}

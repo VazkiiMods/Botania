@@ -39,7 +39,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TileManaFlame;
+import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.mixin.AccessorSoundType;
@@ -173,7 +173,7 @@ public final class SkyblockWorldEvents {
 					int g = 70 + level.random.nextInt(185);
 					int b = 70 + level.random.nextInt(185);
 					int color = r << 16 | g << 8 | b;
-					((TileManaFlame) level.getBlockEntity(lightPos)).setColor(color);
+					((ManaFlameBlockEntity) level.getBlockEntity(lightPos)).setColor(color);
 				}
 			}
 		}

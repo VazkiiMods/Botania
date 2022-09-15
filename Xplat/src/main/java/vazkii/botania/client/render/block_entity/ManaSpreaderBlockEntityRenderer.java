@@ -29,8 +29,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
+import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.block.tile.mana.ManaSpreaderBlockEntity;
 
 import java.util.Random;
 

@@ -90,7 +90,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
-import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;

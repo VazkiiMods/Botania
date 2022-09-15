@@ -18,7 +18,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
 import java.util.*;
 

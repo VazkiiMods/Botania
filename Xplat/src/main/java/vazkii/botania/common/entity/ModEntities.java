@@ -17,7 +17,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
-import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
+import vazkii.botania.common.block.block_entity.LuminizerBlockEntity.EntityPlayerMover;
 import vazkii.botania.common.lib.LibEntityNames;
 
 import java.util.function.BiConsumer;

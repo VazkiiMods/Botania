@@ -58,14 +58,16 @@ import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.block_entity.*;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
-import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.tile.BlockEntityConstants;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.command.SkyblockCommand;
@@ -114,13 +116,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
-		TileCraftCrate.registerListener();
+		CraftyCrateBlockEntity.registerListener();
 
 		registerCapabilities();
 		registerEvents();
@@ -265,7 +267,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
 				Arrays.stream(DyeColor.values()).map(ModBlocks::getShinyFlower).toArray(Block[]::new));
 		BotaniaFabricCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
-			var torch = (TileAnimatedTorch) be;
+			var torch = (AnimatedTorchBlockEntity) be;
 			return hourglass -> torch.toggle();
 		}, ModTiles.ANIMATED_TORCH);
 		BotaniaFabricCapabilities.MANA_GHOST.registerForBlocks(

@@ -28,11 +28,11 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.BlockPylon;
-import vazkii.botania.common.block.tile.TilePylon;
+import vazkii.botania.common.block.block_entity.PylonBlockEntity;
 
 import java.util.Random;
 
-public class PylonBlockEntityRenderer implements BlockEntityRenderer<TilePylon> {
+public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockEntity> {
 
 	public static final ResourceLocation MANA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_MANA);
 	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_NATURA);
@@ -53,7 +53,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<TilePylon> 
 	}
 
 	@Override
-	public void render(@Nullable TilePylon pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable PylonBlockEntity pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		boolean renderingItem = pylon == null;
 		boolean direct = renderingItem && (forceTransform == ItemTransforms.TransformType.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
 		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;

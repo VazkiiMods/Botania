@@ -52,7 +52,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -102,7 +102,7 @@ public class ItemTwigWand extends Item {
 	private static boolean tryFormEnchanter(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		Direction.Axis axis = TileEnchanter.canEnchanterExist(world, pos);
+		Direction.Axis axis = ManaEnchanterBlockEntity.canEnchanterExist(world, pos);
 
 		if (axis != null) {
 			if (!world.isClientSide) {

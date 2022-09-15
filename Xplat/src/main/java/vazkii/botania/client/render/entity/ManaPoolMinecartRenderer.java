@@ -24,7 +24,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
 public class ManaPoolMinecartRenderer extends MinecartRenderer<EntityPoolMinecart> {

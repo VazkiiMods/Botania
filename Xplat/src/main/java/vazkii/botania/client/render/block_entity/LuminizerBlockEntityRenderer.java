@@ -31,13 +31,13 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BlockLightRelay;
-import vazkii.botania.common.block.tile.TileLightRelay;
+import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<TileLightRelay> {
+public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<LuminizerBlockEntity> {
 
 	private static final Map<LuminizerVariant, Material> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
 		m.put(LuminizerVariant.DEFAULT, MiscellaneousModels.INSTANCE.lightRelayWorldIcon);
@@ -49,14 +49,14 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<TileLig
 	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull TileLightRelay tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull LuminizerBlockEntity tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		BlockState state = tile.getBlockState();
 
 		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.getCameraEntity() instanceof LivingEntity view) {
 			if (ItemMonocle.hasMonocle(view) && SpecialFlowerBlockEntityRenderer.hasBindingAttempt(view, tile.getBlockPos())) {
-				SpecialFlowerBlockEntityRenderer.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), TileLightRelay.MAX_DIST));
+				SpecialFlowerBlockEntityRenderer.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), LuminizerBlockEntity.MAX_DIST));
 			}
 		}
 

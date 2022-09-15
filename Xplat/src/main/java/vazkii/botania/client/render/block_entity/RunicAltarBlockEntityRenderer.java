@@ -30,11 +30,11 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.tile.TileRuneAltar;
+import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<TileRuneAltar> {
+public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicAltarBlockEntity> {
 	private final ModelPart spinningCube;
 	private static final ResourceLocation cubeTex = prefix("textures/block/runic_altar_cube.png");
 
@@ -46,7 +46,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<TileRu
 	}
 
 	@Override
-	public void render(@NotNull TileRuneAltar altar, float partticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull RunicAltarBlockEntity altar, float partticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		int items = 0;

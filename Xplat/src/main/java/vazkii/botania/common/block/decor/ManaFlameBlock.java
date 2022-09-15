@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BlockModWaterloggable;
-import vazkii.botania.common.block.tile.TileManaFlame;
+import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -72,7 +72,7 @@ public class ManaFlameBlock extends BlockModWaterloggable implements EntityBlock
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TileManaFlame flame) {
+		if (te instanceof ManaFlameBlockEntity flame) {
 			int color = flame.getColor();
 			float v = 0.1F;
 
@@ -105,6 +105,6 @@ public class ManaFlameBlock extends BlockModWaterloggable implements EntityBlock
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileManaFlame(pos, state);
+		return new ManaFlameBlockEntity(pos, state);
 	}
 }

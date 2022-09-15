@@ -20,8 +20,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.PowerGeneratorBlockEntity;
 
 public class PowerGeneratorBlock extends BlockMod implements EntityBlock {
 

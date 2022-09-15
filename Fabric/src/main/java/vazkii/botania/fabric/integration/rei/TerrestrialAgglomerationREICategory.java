@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;

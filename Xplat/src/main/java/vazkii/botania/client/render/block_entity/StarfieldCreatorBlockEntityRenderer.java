@@ -17,13 +17,13 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.tile.TileStarfield;
+import vazkii.botania.common.block.block_entity.StarfieldCreatorBlockEntity;
 
-public class StarfieldCreatorBlockEntityRenderer implements BlockEntityRenderer<TileStarfield> {
+public class StarfieldCreatorBlockEntityRenderer implements BlockEntityRenderer<StarfieldCreatorBlockEntity> {
 	public StarfieldCreatorBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(TileStarfield tile, float partialTicsk, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
+	public void render(StarfieldCreatorBlockEntity tile, float partialTicsk, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
 		// [VanillaCopy] Adapted from TheEndPortalRenderer, only renders UP face and sets the offset low in the blockspace
 		Matrix4f matrix4f = pose.last().pose();
 		float offset = 0.24F;

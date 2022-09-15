@@ -34,8 +34,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.block_entity.CocoonBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.item.ModItems;
 
 public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
@@ -77,17 +77,17 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 	}
 
 	private InteractionResult addStack(Level world, BlockPos pos, ItemStack stack, boolean creative) {
-		TileCocoon cocoon = (TileCocoon) world.getBlockEntity(pos);
+		CocoonBlockEntity cocoon = (CocoonBlockEntity) world.getBlockEntity(pos);
 
 		if (cocoon != null && (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(ModItems.lifeEssence))) {
 			if (!world.isClientSide) {
-				if (stack.is(Items.EMERALD) && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
+				if (stack.is(Items.EMERALD) && cocoon.emeraldsGiven < CocoonBlockEntity.MAX_EMERALDS) {
 					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.emeraldsGiven++;
 					((ServerLevel) world).sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0.05, 0.1, 0.5);
-				} else if (stack.is(Items.CHORUS_FRUIT) && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
+				} else if (stack.is(Items.CHORUS_FRUIT) && cocoon.chorusFruitGiven < CocoonBlockEntity.MAX_CHORUS_FRUITS) {
 					if (!creative) {
 						stack.shrink(1);
 					}
@@ -112,12 +112,12 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCocoon(pos, state);
+		return new CocoonBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.COCOON, TileCocoon::commonTick);
+		return createTickerHelper(type, ModTiles.COCOON, CocoonBlockEntity::commonTick);
 	}
 }

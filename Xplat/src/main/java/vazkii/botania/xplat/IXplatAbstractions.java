@@ -60,7 +60,7 @@ import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.network.IPacket;

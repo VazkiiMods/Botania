@@ -22,8 +22,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.item.ItemCacophonium;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.test.TestingUtil;
@@ -50,7 +50,7 @@ public class CacophoniumTest {
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, noteBlockPos);
 		helper.assertBlockPresent(ModBlocks.cacophonium, noteBlockPos);
 
-		TileCacophonium cacophoniumBlock = TestingUtil.assertBlockEntity(helper, noteBlockPos, ModTiles.CACOPHONIUM);
+		CacophoniumBlockEntity cacophoniumBlock = TestingUtil.assertBlockEntity(helper, noteBlockPos, ModTiles.CACOPHONIUM);
 		TestingUtil.assertEqualsAt(helper, noteBlockPos, ItemCacophonium.getSound(cacophoniumBlock.stack), SoundEvents.COW_AMBIENT);
 
 		//Moo.

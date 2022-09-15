@@ -30,9 +30,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringInterceptorBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
-import vazkii.botania.common.block.tile.red_string.RedStringInterceptorBlockEntity;
 
 public class RedStringInterceptorBlock extends RedStringBlock {
 

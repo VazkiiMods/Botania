@@ -29,9 +29,9 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
 
-public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<TileAltar> {
+public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<PetalApothecaryBlockEntity> {
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
 	public PetalApothecaryBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
@@ -39,7 +39,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<T
 	}
 
 	@Override
-	public void render(@NotNull TileAltar altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull PetalApothecaryBlockEntity altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.translate(0.5, 1.25, 0.5);
 

@@ -34,7 +34,7 @@ public class ElvenPortalUpdateEvent extends Event {
 	}
 
 	/**
-	 * May be casted to TileAlfPortal if you have botania code access aside from the API.
+	 * May be casted to AlfheimPortalBlockEntity if you have botania code access aside from the API.
 	 */
 	public BlockEntity getPortalTile() {
 		return portalTile;

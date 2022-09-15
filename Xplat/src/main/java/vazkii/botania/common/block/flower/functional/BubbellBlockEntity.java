@@ -21,7 +21,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.TileFakeAir;
+import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
 
 public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 12;
@@ -63,7 +63,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 					BlockState state = getLevel().getBlockState(pos);
 					if (state.getMaterial() == Material.WATER) {
 						getLevel().setBlock(pos, ModBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
-						TileFakeAir air = (TileFakeAir) getLevel().getBlockEntity(pos);
+						FakeAirBlockEntity air = (FakeAirBlockEntity) getLevel().getBlockEntity(pos);
 						air.setFlower(this);
 					}
 				}

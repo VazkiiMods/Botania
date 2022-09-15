@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileCacophonium;
+import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
 
 public class BlockCacophonium extends BlockMod implements EntityBlock {
 	protected BlockCacophonium(Properties builder) {
@@ -40,7 +40,7 @@ public class BlockCacophonium extends BlockMod implements EntityBlock {
 
 		if (power && !powered) {
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile instanceof TileCacophonium cacophonium) {
+			if (tile instanceof CacophoniumBlockEntity cacophonium) {
 				cacophonium.annoyDirewolf();
 			}
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
@@ -53,7 +53,7 @@ public class BlockCacophonium extends BlockMod implements EntityBlock {
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity te = world.getBlockEntity(pos);
-			if (te instanceof TileCacophonium cacophonium) {
+			if (te instanceof CacophoniumBlockEntity cacophonium) {
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), cacophonium.stack);
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -63,7 +63,7 @@ public class BlockCacophonium extends BlockMod implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCacophonium(pos, state);
+		return new CacophoniumBlockEntity(pos, state);
 	}
 
 }

@@ -30,10 +30,10 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.tile.TilePlatform;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.*;
@@ -104,7 +104,7 @@ public final class ColorHandler {
 				(state, world, pos, tintIndex) -> {
 					if (world != null && pos != null) {
 						BlockEntity tile = world.getBlockEntity(pos);
-						if (tile instanceof TilePlatform camo) {
+						if (tile instanceof PlatformBlockEntity camo) {
 							BlockState camoState = camo.getCamoState();
 							if (camoState != null) {
 								return camoState.getBlock() instanceof BlockPlatform

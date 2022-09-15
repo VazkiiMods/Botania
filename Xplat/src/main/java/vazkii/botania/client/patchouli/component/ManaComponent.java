@@ -15,7 +15,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.IVariable;

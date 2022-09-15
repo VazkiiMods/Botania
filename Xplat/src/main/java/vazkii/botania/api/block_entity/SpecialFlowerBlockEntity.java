@@ -33,8 +33,8 @@ import vazkii.botania.api.block.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
-import vazkii.botania.common.block.tile.red_string.RedStringSpooferBlockEntity;
 import vazkii.botania.common.lib.ModTags;
 
 /**

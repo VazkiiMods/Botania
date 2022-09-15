@@ -31,8 +31,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.TeruTeruBozuBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.helper.EntityHelper;
 
 public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBlock {
@@ -82,7 +82,7 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 	private boolean removeRain(Level world) {
 		if (world.isRaining()) {
 			world.getLevelData().setRaining(false);
-			TileTeruTeruBozu.resetRainTime(world);
+			TeruTeruBozuBlockEntity.resetRainTime(world);
 			return true;
 		}
 		return false;
@@ -92,7 +92,7 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 		if (!world.isRaining()) {
 			if (world.random.nextInt(10) == 0) {
 				world.getLevelData().setRaining(true);
-				TileTeruTeruBozu.resetRainTime(world);
+				TeruTeruBozuBlockEntity.resetRainTime(world);
 			}
 			return true;
 		}
@@ -118,14 +118,14 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileTeruTeruBozu(pos, state);
+		return new TeruTeruBozuBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.TERU_TERU_BOZU, TileTeruTeruBozu::serverTick);
+			return createTickerHelper(type, ModTiles.TERU_TERU_BOZU, TeruTeruBozuBlockEntity::serverTick);
 		}
 		return null;
 	}

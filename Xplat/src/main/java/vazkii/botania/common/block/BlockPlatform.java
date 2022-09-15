@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.common.block.tile.TilePlatform;
+import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -80,7 +80,7 @@ public class BlockPlatform extends BlockMod implements ManaCollisionGhost, Entit
 	@Override
 	public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TilePlatform platform && platform.getCamoState() != null) {
+		if (te instanceof PlatformBlockEntity platform && platform.getCamoState() != null) {
 			return platform.getCamoState().getShape(world, pos);
 		} else {
 			return super.getShape(state, world, pos, context);
@@ -106,7 +106,7 @@ public class BlockPlatform extends BlockMod implements ManaCollisionGhost, Entit
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TilePlatform(pos, state);
+		return new PlatformBlockEntity(pos, state);
 	}
 
 	@Override
@@ -136,7 +136,7 @@ public class BlockPlatform extends BlockMod implements ManaCollisionGhost, Entit
 		}
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
-				&& tile instanceof TilePlatform camo) {
+				&& tile instanceof PlatformBlockEntity camo) {
 			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 

@@ -18,13 +18,13 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.TilePlatform;
+import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
-	public static final ModelProperty<TilePlatform.PlatformData> PROPERTY = new ModelProperty<>();
+	public static final ModelProperty<PlatformBlockEntity.PlatformData> PROPERTY = new ModelProperty<>();
 
 	public ForgePlatformModel(BakedModel originalModel) {
 		super(originalModel);
@@ -33,9 +33,9 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 	@NotNull
 	@Override
 	public ModelData getModelData(@NotNull BlockAndTintGetter world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData tileData) {
-		if (world.getBlockEntity(pos) instanceof TilePlatform platform) {
+		if (world.getBlockEntity(pos) instanceof PlatformBlockEntity platform) {
 			return ModelData.builder()
-					.with(PROPERTY, new TilePlatform.PlatformData(platform))
+					.with(PROPERTY, new PlatformBlockEntity.PlatformData(platform))
 					.build();
 		}
 		return tileData;

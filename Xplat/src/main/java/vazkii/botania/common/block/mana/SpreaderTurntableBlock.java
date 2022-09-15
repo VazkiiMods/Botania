@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.BlockOpenCrate;
+import vazkii.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.SpreaderTurntableBlockEntity;
 
 public class SpreaderTurntableBlock extends BlockMod implements EntityBlock {
 

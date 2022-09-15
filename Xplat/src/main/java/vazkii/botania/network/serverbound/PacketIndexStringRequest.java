@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;

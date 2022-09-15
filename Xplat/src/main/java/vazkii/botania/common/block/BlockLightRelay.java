@@ -37,8 +37,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.LuminizerVariant;
+import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.item.ModItems;
 
 public class BlockLightRelay extends BlockModWaterloggable implements EntityBlock {
@@ -68,7 +68,7 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TileLightRelay relay) {
+		if (te instanceof LuminizerBlockEntity relay) {
 			if (stack.is(ModItems.phantomInk) && !relay.isNoParticle()) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
@@ -121,13 +121,13 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileLightRelay(pos, state);
+		return new LuminizerBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.LIGHT_RELAY, level.isClientSide ? TileLightRelay::clientTick : TileLightRelay::serverTick);
+		return createTickerHelper(type, ModTiles.LIGHT_RELAY, level.isClientSide ? LuminizerBlockEntity::clientTick : LuminizerBlockEntity::serverTick);
 	}
 
 }

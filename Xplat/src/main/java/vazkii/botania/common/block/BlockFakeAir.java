@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileFakeAir;
+import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
 
 public class BlockFakeAir extends AirBlock implements EntityBlock {
 
@@ -37,7 +37,7 @@ public class BlockFakeAir extends AirBlock implements EntityBlock {
 	}
 
 	private boolean shouldRemove(Level world, BlockPos pos) {
-		return !world.isClientSide && world.getBlockEntity(pos) == null || !(world.getBlockEntity(pos) instanceof TileFakeAir fakeAir) || !fakeAir.canStay();
+		return !world.isClientSide && world.getBlockEntity(pos) == null || !(world.getBlockEntity(pos) instanceof FakeAirBlockEntity fakeAir) || !fakeAir.canStay();
 	}
 
 	@Override
@@ -50,6 +50,6 @@ public class BlockFakeAir extends AirBlock implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileFakeAir(pos, state);
+		return new FakeAirBlockEntity(pos, state);
 	}
 }

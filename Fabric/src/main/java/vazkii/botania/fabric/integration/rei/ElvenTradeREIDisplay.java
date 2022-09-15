@@ -14,7 +14,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 
 public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<ElvenTradeRecipe> {
 
@@ -25,7 +25,7 @@ public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<ElvenTradeRecipe>
 
 	@Override
 	public int getManaCost() {
-		return TileAlfPortal.MANA_COST;
+		return AlfheimPortalBlockEntity.MANA_COST;
 	}
 
 	@Override

@@ -26,14 +26,14 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 
-public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<TileAlfPortal> {
+public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<AlfheimPortalBlockEntity> {
 
 	public AlfheimPortalBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull TileAlfPortal portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull AlfheimPortalBlockEntity portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		AlfheimPortalState state = portal.getBlockState().getValue(BotaniaStateProperties.ALFPORTAL_STATE);
 		if (state == AlfheimPortalState.OFF) {
 			return;

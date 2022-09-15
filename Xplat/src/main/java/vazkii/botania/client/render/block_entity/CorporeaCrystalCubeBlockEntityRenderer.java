@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.tile.corporea.CorporeaCrystalCubeBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRenderer<CorporeaCrystalCubeBlockEntity> {

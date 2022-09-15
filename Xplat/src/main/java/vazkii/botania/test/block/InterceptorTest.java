@@ -13,7 +13,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
 
-import vazkii.botania.common.block.tile.corporea.CorporeaRetainerBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
 
 public class InterceptorTest {
 

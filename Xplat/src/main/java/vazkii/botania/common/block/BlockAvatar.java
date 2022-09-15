@@ -37,10 +37,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.mana.ManaPrismBlock;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileAvatar;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
@@ -71,7 +71,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileAvatar avatar = (TileAvatar) world.getBlockEntity(pos);
+		AvatarBlockEntity avatar = (AvatarBlockEntity) world.getBlockEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getItem(0);
 		ItemStack stackOnPlayer = player.getItemInHand(hand);
 		if (!stackOnAvatar.isEmpty()) {
@@ -90,7 +90,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newstate, boolean isMoving) {
 		if (!state.is(newstate.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newstate, isMoving);
@@ -112,13 +112,13 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileAvatar(pos, state);
+		return new AvatarBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.AVATAR, TileAvatar::commonTick);
+		return createTickerHelper(type, ModTiles.AVATAR, AvatarBlockEntity::commonTick);
 	}
 
 	@NotNull

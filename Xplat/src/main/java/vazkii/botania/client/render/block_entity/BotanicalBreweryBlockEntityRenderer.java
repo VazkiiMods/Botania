@@ -19,9 +19,9 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.BotanicalBreweryModel;
-import vazkii.botania.common.block.tile.TileBrewery;
+import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
 
-public class BotanicalBreweryBlockEntityRenderer implements BlockEntityRenderer<TileBrewery> {
+public class BotanicalBreweryBlockEntityRenderer implements BlockEntityRenderer<BreweryBlockEntity> {
 	final BotanicalBreweryModel model;
 
 	public BotanicalBreweryBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -29,7 +29,7 @@ public class BotanicalBreweryBlockEntityRenderer implements BlockEntityRenderer<
 	}
 
 	@Override
-	public void render(@Nullable TileBrewery brewery, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable BreweryBlockEntity brewery, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		ms.scale(1F, -1F, -1F);

@@ -23,9 +23,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.OpenCrateBlockEntity;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileOpenCrate;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 public class BlockOpenCrate extends BlockMod implements EntityBlock {
 
@@ -37,7 +37,7 @@ public class BlockOpenCrate extends BlockMod implements EntityBlock {
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!newState.is(state.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -67,14 +67,14 @@ public class BlockOpenCrate extends BlockMod implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileOpenCrate(pos, state);
+		return new OpenCrateBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.OPEN_CRATE, TileOpenCrate::serverTick);
+			return createTickerHelper(type, ModTiles.OPEN_CRATE, OpenCrateBlockEntity::serverTick);
 		}
 		return null;
 	}

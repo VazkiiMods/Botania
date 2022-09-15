@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.tile.mana.ManaPumpBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 
 public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPumpBlockEntity> {
 	public static BakedModel headModel = null;

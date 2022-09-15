@@ -30,7 +30,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 
 public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<CorporeaIndexBlockEntity> {
 	private static final RenderType LAYER = RenderType.entityCutoutNoCull(new ResourceLocation(ResourcesLib.MODEL_CORPOREA_INDEX));

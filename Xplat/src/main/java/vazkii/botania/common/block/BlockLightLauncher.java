@@ -28,7 +28,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileLightRelay;
+import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +68,10 @@ public class BlockLightLauncher extends BlockModWaterloggable {
 	}
 
 	private void pickUpEntities(Level world, BlockPos pos) {
-		List<TileLightRelay> relays = new ArrayList<>();
+		List<LuminizerBlockEntity> relays = new ArrayList<>();
 		for (Direction dir : Direction.values()) {
 			BlockEntity tile = world.getBlockEntity(pos.relative(dir));
-			if (tile instanceof TileLightRelay relay) {
+			if (tile instanceof LuminizerBlockEntity relay) {
 				if (relay.getNextDestination() != null) {
 					relays.add(relay);
 				}
@@ -84,7 +84,7 @@ public class BlockLightLauncher extends BlockModWaterloggable {
 			var items = world.getEntitiesOfClass(ItemEntity.class, aabb);
 
 			for (Entity entity : Iterables.concat(living, items)) {
-				TileLightRelay relay = relays.get(world.random.nextInt(relays.size()));
+				LuminizerBlockEntity relay = relays.get(world.random.nextInt(relays.size()));
 				relay.mountEntity(entity);
 			}
 		}

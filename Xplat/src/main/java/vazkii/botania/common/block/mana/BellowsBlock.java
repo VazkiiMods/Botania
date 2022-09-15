@@ -33,8 +33,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.BellowsBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 
 public class BellowsBlock extends BlockMod implements EntityBlock {

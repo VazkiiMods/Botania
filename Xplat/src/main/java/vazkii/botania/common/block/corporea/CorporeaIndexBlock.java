@@ -25,9 +25,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.corporea.BaseCorporeaBlockEntity;
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
 
 public class CorporeaIndexBlock extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);

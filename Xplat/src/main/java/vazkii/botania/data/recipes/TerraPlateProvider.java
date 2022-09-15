@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;

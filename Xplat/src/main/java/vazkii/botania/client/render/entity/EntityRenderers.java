@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import vazkii.botania.client.render.block_entity.*;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.entity.ModEntities;
 
 import java.util.Map;
@@ -97,7 +97,7 @@ public final class EntityRenderers {
 		consumer.register(ModTiles.LIGHT_RELAY, LuminizerBlockEntityRenderer::new);
 		consumer.register(ModTiles.BELLOWS, BellowsBlockEntityRenderer::new);
 		@SuppressWarnings("unchecked")
-		BlockEntityRendererProvider<TileGaiaHead> gaia = ctx -> (BlockEntityRenderer<TileGaiaHead>) (BlockEntityRenderer<?>) new GaiaHeadBlockEntityRenderer(ctx);
+		BlockEntityRendererProvider<GaiaHeadBlockEntity> gaia = ctx -> (BlockEntityRenderer<GaiaHeadBlockEntity>) (BlockEntityRenderer<?>) new GaiaHeadBlockEntityRenderer(ctx);
 		consumer.register(ModTiles.GAIA_HEAD, gaia);
 		consumer.register(ModTiles.TERU_TERU_BOZU, TeruTeruBozuBlockEntityRenderer::new);
 		consumer.register(ModTiles.AVATAR, AvatarBlockEntityRenderer::new);

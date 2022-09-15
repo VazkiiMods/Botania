@@ -23,18 +23,18 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileIncensePlate;
+import vazkii.botania.common.block.block_entity.IncensePlateBlockEntity;
 
 import java.util.Map;
 
-public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<TileIncensePlate> {
+public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<IncensePlateBlockEntity> {
 
 	private static final Map<Direction, Integer> ROTATIONS = ImmutableMap.of(Direction.NORTH, 180, Direction.SOUTH, 0, Direction.WEST, 270, Direction.EAST, 90);
 
 	public IncensePlateBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull TileIncensePlate plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull IncensePlateBlockEntity plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ItemStack stack = plate.getItemHandler().getItem(0);
 		if (stack.isEmpty()) {
 			return;

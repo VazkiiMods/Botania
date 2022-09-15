@@ -33,9 +33,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.helper.InventoryHelper;
 
 public class BotanicalBreweryBlock extends BlockModWaterloggable implements EntityBlock {
@@ -61,7 +61,7 @@ public class BotanicalBreweryBlock extends BlockModWaterloggable implements Enti
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileBrewery brew = (TileBrewery) world.getBlockEntity(pos);
+		BreweryBlockEntity brew = (BreweryBlockEntity) world.getBlockEntity(pos);
 
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.isEmpty()) {
@@ -79,7 +79,7 @@ public class BotanicalBreweryBlock extends BlockModWaterloggable implements Enti
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -93,7 +93,7 @@ public class BotanicalBreweryBlock extends BlockModWaterloggable implements Enti
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		TileBrewery brew = (TileBrewery) world.getBlockEntity(pos);
+		BreweryBlockEntity brew = (BreweryBlockEntity) world.getBlockEntity(pos);
 		return brew.signal;
 	}
 
@@ -106,13 +106,13 @@ public class BotanicalBreweryBlock extends BlockModWaterloggable implements Enti
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileBrewery(pos, state);
+		return new BreweryBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.BREWERY, TileBrewery::commonTick);
+		return createTickerHelper(type, ModTiles.BREWERY, BreweryBlockEntity::commonTick);
 	}
 
 }

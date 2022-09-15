@@ -33,8 +33,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.mixin.AccessorRecipeManager;
 
@@ -89,14 +89,14 @@ public class TerrestrialAgglomerationPlateBlock extends BlockModWaterloggable im
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileTerraPlate(pos, state);
+		return new TerrestrialAgglomerationPlateBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.TERRA_PLATE, TileTerraPlate::serverTick);
+			return createTickerHelper(type, ModTiles.TERRA_PLATE, TerrestrialAgglomerationPlateBlockEntity::serverTick);
 		}
 		return null;
 	}
@@ -108,7 +108,7 @@ public class TerrestrialAgglomerationPlateBlock extends BlockModWaterloggable im
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		TileTerraPlate plate = (TileTerraPlate) world.getBlockEntity(pos);
+		TerrestrialAgglomerationPlateBlockEntity plate = (TerrestrialAgglomerationPlateBlockEntity) world.getBlockEntity(pos);
 		return plate.getComparatorLevel();
 	}
 

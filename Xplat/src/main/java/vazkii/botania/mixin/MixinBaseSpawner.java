@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.tile.TileSpawnerClaw;
+import vazkii.botania.common.block.block_entity.LifeImbuerBlockEntity;
 
 @Mixin(BaseSpawner.class)
 public class MixinBaseSpawner {
@@ -25,7 +25,7 @@ public class MixinBaseSpawner {
 	private void injectNearPlayer(Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
 		// If vanilla is out of range, then we do our work
 		if (!cir.getReturnValueZ()) {
-			TileSpawnerClaw.onSpawnerNearPlayer(level, pos, cir);
+			LifeImbuerBlockEntity.onSpawnerNearPlayer(level, pos, cir);
 		}
 	}
 }

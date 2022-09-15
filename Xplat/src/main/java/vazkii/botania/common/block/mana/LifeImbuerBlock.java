@@ -23,7 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
-import vazkii.botania.common.block.tile.TileSpawnerClaw;
+import vazkii.botania.common.block.block_entity.LifeImbuerBlockEntity;
 
 public class LifeImbuerBlock extends BlockModWaterloggable implements EntityBlock {
 
@@ -48,7 +48,7 @@ public class LifeImbuerBlock extends BlockModWaterloggable implements EntityBloc
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileSpawnerClaw(pos, state);
+		return new LifeImbuerBlockEntity(pos, state);
 	}
 
 }

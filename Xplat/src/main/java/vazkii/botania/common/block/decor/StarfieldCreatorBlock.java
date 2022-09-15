@@ -23,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.StarfieldCreatorBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileStarfield;
 
 public class StarfieldCreatorBlock extends BlockModWaterloggable implements EntityBlock {
 
@@ -43,14 +43,14 @@ public class StarfieldCreatorBlock extends BlockModWaterloggable implements Enti
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileStarfield(pos, state);
+		return new StarfieldCreatorBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide) {
-			return createTickerHelper(type, ModTiles.STARFIELD, TileStarfield::clientTick);
+			return createTickerHelper(type, ModTiles.STARFIELD, StarfieldCreatorBlockEntity::clientTick);
 		}
 		return null;
 	}

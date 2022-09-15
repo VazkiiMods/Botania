@@ -46,9 +46,9 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.block.PetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileAltar;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -111,7 +111,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
 		if (!world.isClientSide && entity instanceof ItemEntity itemEntity) {
-			TileAltar tile = (TileAltar) world.getBlockEntity(pos);
+			PetalApothecaryBlockEntity tile = (PetalApothecaryBlockEntity) world.getBlockEntity(pos);
 			if (tile.collideEntityItem(itemEntity)) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 			}
@@ -120,7 +120,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (!(world.getBlockEntity(pos) instanceof TileAltar apothecary)) {
+		if (!(world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary)) {
 			return InteractionResult.PASS;
 		}
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
@@ -148,7 +148,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 		}
 	}
 
-	private boolean tryWithdrawFluid(Player player, InteractionHand hand, TileAltar altar, BlockPos pos) {
+	private boolean tryWithdrawFluid(Player player, InteractionHand hand, PetalApothecaryBlockEntity altar, BlockPos pos) {
 		Fluid fluid = altar.getFluid().asVanilla();
 		if (fluid == Fluids.EMPTY || fluid == Fluids.WATER && IXplatAbstractions.INSTANCE.gogLoaded()) {
 			return false;
@@ -167,7 +167,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 		return success;
 	}
 
-	private boolean tryDepositFluid(Player player, InteractionHand hand, TileAltar altar, BlockPos pos) {
+	private boolean tryDepositFluid(Player player, InteractionHand hand, PetalApothecaryBlockEntity altar, BlockPos pos) {
 		if (altar.getFluid() != State.EMPTY) {
 			return false;
 		}
@@ -188,16 +188,16 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileAltar(pos, state);
+		return new PetalApothecaryBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide) {
-			return createTickerHelper(type, ModTiles.ALTAR, TileAltar::clientTick);
+			return createTickerHelper(type, ModTiles.ALTAR, PetalApothecaryBlockEntity::clientTick);
 		} else {
-			return createTickerHelper(type, ModTiles.ALTAR, TileAltar::serverTick);
+			return createTickerHelper(type, ModTiles.ALTAR, PetalApothecaryBlockEntity::serverTick);
 		}
 	}
 
@@ -206,7 +206,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 		boolean blockChanged = !state.is(newState.getBlock());
 		if (blockChanged || newState.getValue(FLUID) != State.WATER) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			if (blockChanged) {

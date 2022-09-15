@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
@@ -54,7 +54,7 @@ import java.util.regex.Pattern;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TileTinyPotato> {
+public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPotatoBlockEntity> {
 	public static final String DEFAULT = "default";
 	public static final String HALLOWEEN = "halloween";
 	private static final Pattern ESCAPED = Pattern.compile("[^a-z0-9/._-]");
@@ -101,7 +101,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TileTi
 	}
 
 	@Override
-	public void render(@NotNull TileTinyPotato potato, float partialTicks, PoseStack ms, @NotNull MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull TinyPotatoBlockEntity potato, float partialTicks, PoseStack ms, @NotNull MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
@@ -170,7 +170,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TileTi
 		ms.popPose();
 	}
 
-	private void renderName(TileTinyPotato potato, String name, PoseStack ms, MultiBufferSource buffers, int light) {
+	private void renderName(TinyPotatoBlockEntity potato, String name, PoseStack ms, MultiBufferSource buffers, int light) {
 		Minecraft mc = Minecraft.getInstance();
 		HitResult pos = mc.hitResult;
 		if (Minecraft.renderNames()
@@ -200,7 +200,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TileTi
 		}
 	}
 
-	private void renderItems(TileTinyPotato potato, Direction facing, String name, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	private void renderItems(TinyPotatoBlockEntity potato, Direction facing, String name, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 		ms.translate(0F, -1F, 0F);

@@ -20,14 +20,14 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileSparkChanger;
+import vazkii.botania.common.block.block_entity.SparkTinkererBlockEntity;
 
-public class SparkTinkererBlockEntityRenderer implements BlockEntityRenderer<TileSparkChanger> {
+public class SparkTinkererBlockEntityRenderer implements BlockEntityRenderer<SparkTinkererBlockEntity> {
 
 	public SparkTinkererBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull TileSparkChanger tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull SparkTinkererBlockEntity tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.mulPose(Vector3f.XP.rotationDegrees(90));
 		ms.translate(1.0F, -0.125F, -0.25F);

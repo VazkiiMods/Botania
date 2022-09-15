@@ -34,7 +34,7 @@ import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockModWaterloggable;
-import vazkii.botania.common.block.tile.TileFloatingFlower;
+import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -112,6 +112,6 @@ public class FloatingFlowerBlock extends BlockModWaterloggable implements Entity
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileFloatingFlower(pos, state);
+		return new FloatingFlowerBlockEntity(pos, state);
 	}
 }

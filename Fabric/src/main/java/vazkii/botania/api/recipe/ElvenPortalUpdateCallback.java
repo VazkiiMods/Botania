@@ -29,7 +29,7 @@ public interface ElvenPortalUpdateCallback {
 			});
 
 	/**
-	 * @param portal May be casted to TileAlfPortal if you have botania code access aside from the API.
+	 * @param portal May be casted to AlfheimPortalBlockEntity if you have botania code access aside from the API.
 	 */
 	void onElvenPortalTick(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
 

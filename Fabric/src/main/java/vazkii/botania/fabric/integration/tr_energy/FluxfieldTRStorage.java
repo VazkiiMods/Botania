@@ -6,8 +6,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.PowerGeneratorBlockEntity;
 
 
 import team.reborn.energy.api.EnergyStorage;

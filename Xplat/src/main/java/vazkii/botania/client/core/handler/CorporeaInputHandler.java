@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.RecipeBookAccess;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.mixin.client.AccessorAbstractContainerScreen;
 import vazkii.botania.mixin.client.AccessorRecipeBookComponent;
 import vazkii.botania.mixin.client.AccessorRecipeBookPage;

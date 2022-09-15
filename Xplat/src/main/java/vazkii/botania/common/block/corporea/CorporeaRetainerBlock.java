@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.corporea.CorporeaRetainerBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
 
 public class CorporeaRetainerBlock extends BlockMod implements EntityBlock {
 

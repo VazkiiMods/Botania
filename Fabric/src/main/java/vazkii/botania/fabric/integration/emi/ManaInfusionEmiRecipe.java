@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;

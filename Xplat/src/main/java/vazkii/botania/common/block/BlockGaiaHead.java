@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileGaiaHead;
+import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
 
 public class BlockGaiaHead extends SkullBlock {
 	public static final SkullBlock.Type GAIA_TYPE = new SkullBlock.Type() {};
@@ -27,6 +27,6 @@ public class BlockGaiaHead extends SkullBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new TileGaiaHead(pos, state);
+		return new GaiaHeadBlockEntity(pos, state);
 	}
 }

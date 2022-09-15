@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.common.block.tile.TileFloatingFlower;
+import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 
 import java.util.*;
 import java.util.function.Function;
@@ -98,7 +98,7 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		@Override
 		public ModelData getModelData(@NotNull BlockAndTintGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ModelData modelData) {
 			var be = level.getBlockEntity(pos);
-			if (be instanceof TileFloatingFlower floating) {
+			if (be instanceof FloatingFlowerBlockEntity floating) {
 				return ModelData.builder()
 						.with(FLOATING_PROPERTY, floating.getFloatingData())
 						.build();

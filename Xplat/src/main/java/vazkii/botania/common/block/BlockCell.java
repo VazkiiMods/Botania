@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileCell;
+import vazkii.botania.common.block.block_entity.CellularBlockEntity;
 
 public class BlockCell extends BlockMod implements EntityBlock {
 
@@ -26,7 +26,7 @@ public class BlockCell extends BlockMod implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCell(pos, state);
+		return new CellularBlockEntity(pos, state);
 	}
 
 }

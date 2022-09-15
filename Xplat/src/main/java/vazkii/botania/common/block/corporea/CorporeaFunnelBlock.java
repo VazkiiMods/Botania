@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.tile.corporea.BaseCorporeaBlockEntity;
-import vazkii.botania.common.block.tile.corporea.CorporeaFunnelBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaFunnelBlockEntity;
 
 public class CorporeaFunnelBlock extends BlockMod implements EntityBlock {
 

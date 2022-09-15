@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -211,7 +211,7 @@ public record PacketBotaniaEffect(EffectType type, double x, double y, double z,
 						}
 						case TERRA_PLATE -> {
 							BlockEntity te = world.getBlockEntity(new BlockPos(x, y, z));
-							if (te instanceof TileTerraPlate) {
+							if (te instanceof TerrestrialAgglomerationPlateBlockEntity) {
 								float percentage = Float.intBitsToFloat(args[0]);
 								int ticks = (int) (100.0 * percentage);
 

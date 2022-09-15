@@ -43,7 +43,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.tile.mana.ThrottledPacket;
+import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;

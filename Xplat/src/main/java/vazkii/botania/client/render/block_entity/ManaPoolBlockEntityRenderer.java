@@ -30,8 +30,8 @@ import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ColorHelper;
 
 import java.util.Random;

@@ -33,9 +33,9 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileRuneAltar;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.helper.InventoryHelper;
 
 public class RunicAltarBlock extends BlockModWaterloggable implements EntityBlock {
@@ -60,7 +60,7 @@ public class RunicAltarBlock extends BlockModWaterloggable implements EntityBloc
 			return InteractionResult.SUCCESS;
 		}
 
-		if (!(world.getBlockEntity(pos) instanceof TileRuneAltar altar)) {
+		if (!(world.getBlockEntity(pos) instanceof RunicAltarBlockEntity altar)) {
 			return InteractionResult.PASS;
 		}
 		ItemStack stack = player.getItemInHand(hand);
@@ -89,7 +89,7 @@ public class RunicAltarBlock extends BlockModWaterloggable implements EntityBloc
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -99,16 +99,16 @@ public class RunicAltarBlock extends BlockModWaterloggable implements EntityBloc
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRuneAltar(pos, state);
+		return new RunicAltarBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide) {
-			return createTickerHelper(type, ModTiles.RUNE_ALTAR, TileRuneAltar::clientTick);
+			return createTickerHelper(type, ModTiles.RUNE_ALTAR, RunicAltarBlockEntity::clientTick);
 		} else {
-			return createTickerHelper(type, ModTiles.RUNE_ALTAR, TileRuneAltar::serverTick);
+			return createTickerHelper(type, ModTiles.RUNE_ALTAR, RunicAltarBlockEntity::serverTick);
 		}
 	}
 
@@ -119,7 +119,7 @@ public class RunicAltarBlock extends BlockModWaterloggable implements EntityBloc
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		TileRuneAltar altar = (TileRuneAltar) world.getBlockEntity(pos);
+		RunicAltarBlockEntity altar = (RunicAltarBlockEntity) world.getBlockEntity(pos);
 		return altar.signal;
 	}
 

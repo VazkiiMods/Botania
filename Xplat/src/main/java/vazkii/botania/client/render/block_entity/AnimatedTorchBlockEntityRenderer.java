@@ -20,16 +20,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.tile.TileAnimatedTorch;
+import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
 
 import java.util.Random;
 
-public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<TileAnimatedTorch> {
+public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<AnimatedTorchBlockEntity> {
 
 	public AnimatedTorchBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(TileAnimatedTorch te, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(AnimatedTorchBlockEntity te, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		Minecraft mc = Minecraft.getInstance();
 		ms.pushPose();
 

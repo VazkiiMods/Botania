@@ -28,8 +28,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.block.tile.TileSparkChanger;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import vazkii.botania.common.block.block_entity.SparkTinkererBlockEntity;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 
 public class BlockSparkChanger extends BlockModWaterloggable implements EntityBlock {
@@ -59,7 +59,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			((TileSparkChanger) world.getBlockEntity(pos)).doSwap();
+			((SparkTinkererBlockEntity) world.getBlockEntity(pos)).doSwap();
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
@@ -68,7 +68,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileSparkChanger changer = (TileSparkChanger) world.getBlockEntity(pos);
+		SparkTinkererBlockEntity changer = (SparkTinkererBlockEntity) world.getBlockEntity(pos);
 		ItemStack pstack = player.getItemInHand(hand);
 		ItemStack cstack = changer.getItemHandler().getItem(0);
 		if (!cstack.isEmpty()) {
@@ -89,7 +89,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -103,7 +103,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		TileSparkChanger changer = (TileSparkChanger) world.getBlockEntity(pos);
+		SparkTinkererBlockEntity changer = (SparkTinkererBlockEntity) world.getBlockEntity(pos);
 		ItemStack stack = changer.getItemHandler().getItem(0);
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade upgrade) {
 			return upgrade.type.ordinal() + 1;
@@ -114,7 +114,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileSparkChanger(pos, state);
+		return new SparkTinkererBlockEntity(pos, state);
 	}
 
 }

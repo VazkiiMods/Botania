@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BellowsModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.block.tile.mana.BellowsBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
 
 public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity> {
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_BELLOWS);

@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.mana.ManaSplitterBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.ManaSplitterBlockEntity;
 
 public class ManaDistributorBlock extends BlockModWaterloggable implements EntityBlock {
 

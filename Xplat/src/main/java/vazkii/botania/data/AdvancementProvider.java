@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;

@@ -11,7 +11,7 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 
 public class RedStringContainerCapProvider implements ICapabilityProvider {
 	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);

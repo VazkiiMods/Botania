@@ -36,9 +36,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.HourglassBlockEntity;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileHourglass;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.item.ItemTwigWand;
 
 public class BlockHourglass extends BlockModWaterloggable implements EntityBlock {
@@ -64,7 +64,7 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileHourglass hourglass = (TileHourglass) world.getBlockEntity(pos);
+		HourglassBlockEntity hourglass = (HourglassBlockEntity) world.getBlockEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemTwigWand) {
@@ -78,7 +78,7 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 			return InteractionResult.FAIL;
 		}
 
-		if (hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
+		if (hgStack.isEmpty() && HourglassBlockEntity.getStackItemTime(stack) > 0) {
 			hourglass.getItemHandler().setItem(0, stack.copy());
 			stack.setCount(0);
 			return InteractionResult.SUCCESS;
@@ -112,7 +112,7 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 			}
 			super.onRemove(state, world, pos, newState, isMoving);
@@ -128,12 +128,12 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileHourglass(pos, state);
+		return new HourglassBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.HOURGLASS, TileHourglass::commonTick);
+		return createTickerHelper(type, ModTiles.HOURGLASS, HourglassBlockEntity::commonTick);
 	}
 }

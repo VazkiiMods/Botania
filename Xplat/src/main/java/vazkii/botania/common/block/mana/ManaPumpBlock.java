@@ -29,8 +29,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.ManaPumpBlockEntity;
 
 public class ManaPumpBlock extends BlockModWaterloggable implements EntityBlock {
 

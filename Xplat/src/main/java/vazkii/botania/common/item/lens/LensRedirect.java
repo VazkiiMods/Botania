@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaSpreader;
-import vazkii.botania.common.block.tile.mana.ThrottledPacket;
+import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 

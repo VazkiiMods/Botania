@@ -49,7 +49,7 @@ import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
@@ -217,7 +217,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
 		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
-		for (ElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().level)) {
+		for (ElvenTradeRecipe recipe : AlfheimPortalBlockEntity.elvenTradeRecipes(Minecraft.getInstance().level)) {
 			if (recipe instanceof LexiconElvenTradeRecipe) {
 				continue;
 			}

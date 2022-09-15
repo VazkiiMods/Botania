@@ -24,11 +24,11 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.HourglassModel;
-import vazkii.botania.common.block.tile.TileHourglass;
+import vazkii.botania.common.block.block_entity.HourglassBlockEntity;
 
 import java.util.Random;
 
-public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer<TileHourglass> {
+public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer<HourglassBlockEntity> {
 
 	final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_HOURGLASS);
 	private final HourglassModel model;
@@ -38,7 +38,7 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 	}
 
 	@Override
-	public void render(@Nullable TileHourglass hourglass, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable HourglassBlockEntity hourglass, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		boolean hasWorld = hourglass != null && hourglass.getLevel() != null;
 		int wtime = !hasWorld ? 0 : ClientTickHandler.ticksInGame;

@@ -17,7 +17,7 @@ import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.TileCell;
+import vazkii.botania.common.block.block_entity.CellularBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +126,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 
 	private int getCellGeneration(BlockPos pos) {
 		BlockEntity tile = getLevel().getBlockEntity(pos);
-		if (tile instanceof TileCell cell) {
+		if (tile instanceof CellularBlockEntity cell) {
 			return cell.isSameFlower(this) ? cell.getGeneration() : 0;
 		}
 
@@ -180,12 +180,12 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 			if (gen < 0) {
 				world.removeBlock(pos, false);
 			} else {
-				((TileCell) tile).setGeneration(this, gen);
+				((CellularBlockEntity) tile).setGeneration(this, gen);
 			}
 		} else if (gen >= 0 && stateAt.isAir()) {
 			world.setBlockAndUpdate(pos, ModBlocks.cellBlock.defaultBlockState());
 			tile = world.getBlockEntity(pos);
-			((TileCell) tile).setGeneration(this, gen);
+			((CellularBlockEntity) tile).setGeneration(this, gen);
 		}
 	}
 

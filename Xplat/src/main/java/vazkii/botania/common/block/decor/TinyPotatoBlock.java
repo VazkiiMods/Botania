@@ -40,9 +40,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
+import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.block.tile.TileTinyPotato;
 
 public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBlock {
 
@@ -67,7 +67,7 @@ public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBloc
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-		if (level.getBlockEntity(pos) instanceof TileTinyPotato tater) {
+		if (level.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater) {
 			return AbstractContainerMenu.getRedstoneSignalFromContainer(tater);
 		} else {
 			return 0;
@@ -78,7 +78,7 @@ public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBloc
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
-			if (be instanceof TileSimpleInventory inventory) {
+			if (be instanceof SimpleInventoryBlockEntity inventory) {
 				Containers.dropContents(world, pos, inventory.getItemHandler());
 				world.updateNeighbourForOutputSignal(pos, this);
 			}
@@ -95,7 +95,7 @@ public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBloc
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof TileTinyPotato tater) {
+		if (tile instanceof TinyPotatoBlockEntity tater) {
 			tater.interact(player, hand, player.getItemInHand(hand), hit.getDirection());
 			if (!world.isClientSide) {
 				spawnHearts((ServerLevel) world, pos);
@@ -117,7 +117,7 @@ public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBloc
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
-		if (stack.hasCustomHoverName() && world.getBlockEntity(pos) instanceof TileTinyPotato tater) {
+		if (stack.hasCustomHoverName() && world.getBlockEntity(pos) instanceof TinyPotatoBlockEntity tater) {
 			tater.name = stack.getHoverName();
 		}
 	}
@@ -131,12 +131,12 @@ public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBloc
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileTinyPotato(pos, state);
+		return new TinyPotatoBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.TINY_POTATO, TileTinyPotato::commonTick);
+		return createTickerHelper(type, ModTiles.TINY_POTATO, TinyPotatoBlockEntity::commonTick);
 	}
 }

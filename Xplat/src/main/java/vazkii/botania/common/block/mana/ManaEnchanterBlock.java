@@ -31,8 +31,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ItemTwigWand;
 
 public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
@@ -50,18 +50,18 @@ public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileEnchanter(pos, state);
+		return new ManaEnchanterBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.ENCHANTER, TileEnchanter::commonTick);
+		return createTickerHelper(type, ModTiles.ENCHANTER, ManaEnchanterBlockEntity::commonTick);
 	}
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
+		ManaEnchanterBlockEntity enchanter = (ManaEnchanterBlockEntity) world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemTwigWand) {
 			return InteractionResult.PASS;
@@ -80,7 +80,7 @@ public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
 			} else {
 				return InteractionResult.PASS;
 			}
-		} else if (enchanter.stage == TileEnchanter.State.IDLE) {
+		} else if (enchanter.stage == ManaEnchanterBlockEntity.State.IDLE) {
 			player.getInventory().placeItemBackInInventory(enchanter.itemToEnchant.copy());
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
@@ -94,7 +94,7 @@ public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 
-			if (tile instanceof TileEnchanter enchanter) {
+			if (tile instanceof ManaEnchanterBlockEntity enchanter) {
 
 				if (!enchanter.itemToEnchant.isEmpty()) {
 					Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant);

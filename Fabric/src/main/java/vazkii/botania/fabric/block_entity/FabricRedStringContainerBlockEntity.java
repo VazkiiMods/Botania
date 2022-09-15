@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 
 public class FabricRedStringContainerBlockEntity extends RedStringContainerBlockEntity {

@@ -23,9 +23,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.block_entity.red_string.RedStringDispenserBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
-import vazkii.botania.common.block.tile.red_string.RedStringDispenserBlockEntity;
 
 public class RedStringDispenserBlock extends RedStringBlock {
 

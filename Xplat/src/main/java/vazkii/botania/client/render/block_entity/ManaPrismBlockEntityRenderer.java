@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.tile.mana.ManaPrismBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
 
 public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<ManaPrismBlockEntity> {
 

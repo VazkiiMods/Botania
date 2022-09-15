@@ -31,8 +31,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock {
 
@@ -45,7 +45,7 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 	@Override
 	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player playerIn, InteractionHand hand, BlockHitResult hit) {
 		if (hand == InteractionHand.MAIN_HAND && playerIn.isShiftKeyDown() && playerIn.getItemInHand(hand).isEmpty()) {
-			((TileAnimatedTorch) worldIn.getBlockEntity(pos)).handRotate();
+			((AnimatedTorchBlockEntity) worldIn.getBlockEntity(pos)).handRotate();
 			return InteractionResult.SUCCESS;
 		}
 
@@ -54,7 +54,7 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		((TileAnimatedTorch) world.getBlockEntity(pos)).onPlace(entity);
+		((AnimatedTorchBlockEntity) world.getBlockEntity(pos)).onPlace(entity);
 	}
 
 	@Override
@@ -69,13 +69,13 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 
 	@Override
 	public int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
-		TileAnimatedTorch tile = (TileAnimatedTorch) blockAccess.getBlockEntity(pos);
+		AnimatedTorchBlockEntity tile = (AnimatedTorchBlockEntity) blockAccess.getBlockEntity(pos);
 
 		if (tile.rotating) {
 			return 0;
 		}
 
-		if (TileAnimatedTorch.SIDES[tile.side] == side) {
+		if (AnimatedTorchBlockEntity.SIDES[tile.side] == side) {
 			return 15;
 		}
 
@@ -96,13 +96,13 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileAnimatedTorch(pos, state);
+		return new AnimatedTorchBlockEntity(pos, state);
 	}
 
 	@org.jetbrains.annotations.Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.ANIMATED_TORCH, TileAnimatedTorch::commonTick);
+		return createTickerHelper(type, ModTiles.ANIMATED_TORCH, AnimatedTorchBlockEntity::commonTick);
 	}
 
 	@Override

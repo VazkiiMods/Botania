@@ -28,7 +28,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.ManaSpreaderBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.BotaniaConfig;

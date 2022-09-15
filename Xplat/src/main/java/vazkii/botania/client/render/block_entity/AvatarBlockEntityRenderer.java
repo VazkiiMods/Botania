@@ -30,10 +30,10 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.AvatarModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.block.tile.TileAvatar;
+import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class AvatarBlockEntityRenderer implements BlockEntityRenderer<TileAvatar> {
+public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBlockEntity> {
 
 	private static final float[] ROTATIONS = new float[] {
 			180F, 0F, 90F, 270F
@@ -47,7 +47,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<TileAvatar
 	}
 
 	@Override
-	public void render(@Nullable TileAvatar avatar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable AvatarBlockEntity avatar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		Direction facing = avatar != null && avatar.getLevel() != null ? avatar.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING) : Direction.SOUTH;
 

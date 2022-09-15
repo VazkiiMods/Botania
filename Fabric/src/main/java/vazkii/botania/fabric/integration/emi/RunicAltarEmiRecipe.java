@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.item.material.ItemRune;
 
 import java.util.List;

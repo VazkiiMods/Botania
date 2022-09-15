@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
+import vazkii.botania.common.block.block_entity.CraftyCrateBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileCraftCrate;
 
 public class BlockCraftyCrate extends BlockOpenCrate {
 
@@ -45,7 +45,7 @@ public class BlockCraftyCrate extends BlockOpenCrate {
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		BlockEntity block = world.getBlockEntity(pos);
-		if (block instanceof TileCraftCrate crate) {
+		if (block instanceof CraftyCrateBlockEntity crate) {
 			return crate.getSignal();
 		}
 		return 0;
@@ -54,14 +54,14 @@ public class BlockCraftyCrate extends BlockOpenCrate {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCraftCrate(pos, state);
+		return new CraftyCrateBlockEntity(pos, state);
 	}
 
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.CRAFT_CRATE, TileCraftCrate::serverTick);
+			return createTickerHelper(type, ModTiles.CRAFT_CRATE, CraftyCrateBlockEntity::serverTick);
 		}
 		return null;
 	}

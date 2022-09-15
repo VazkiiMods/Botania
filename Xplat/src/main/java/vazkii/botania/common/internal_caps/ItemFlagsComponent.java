@@ -10,9 +10,9 @@ package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 
+import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
+import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
 import vazkii.botania.common.block.flower.functional.SpectranthemumBlockEntity;
-import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.block.tile.TileAltar;
 
 // Component for misc internal Botania flags
 public class ItemFlagsComponent extends SerializableComponent {
@@ -36,8 +36,8 @@ public class ItemFlagsComponent extends SerializableComponent {
 	@Override
 	public void readFromNbt(CompoundTag tag) {
 		spectranthemumTeleported = tag.getBoolean(SpectranthemumBlockEntity.TAG_TELEPORTED);
-		alfPortalSpawned = tag.getBoolean(TileAlfPortal.TAG_PORTAL_FLAG);
-		apothecarySpawned = tag.getBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED);
+		alfPortalSpawned = tag.getBoolean(AlfheimPortalBlockEntity.TAG_PORTAL_FLAG);
+		apothecarySpawned = tag.getBoolean(PetalApothecaryBlockEntity.ITEM_TAG_APOTHECARY_SPAWNED);
 		timeCounter = tag.getInt("timeCounter");
 		manaInfusionCooldown = tag.getInt("manaInfusionCooldown");
 	}
@@ -45,8 +45,8 @@ public class ItemFlagsComponent extends SerializableComponent {
 	@Override
 	public void writeToNbt(CompoundTag tag) {
 		tag.putBoolean(SpectranthemumBlockEntity.TAG_TELEPORTED, spectranthemumTeleported);
-		tag.putBoolean(TileAlfPortal.TAG_PORTAL_FLAG, alfPortalSpawned);
-		tag.putBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
+		tag.putBoolean(AlfheimPortalBlockEntity.TAG_PORTAL_FLAG, alfPortalSpawned);
+		tag.putBoolean(PetalApothecaryBlockEntity.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 		tag.putInt("timeCounter", timeCounter);
 		tag.putInt("manaInfusionCooldown", manaInfusionCooldown);
 	}

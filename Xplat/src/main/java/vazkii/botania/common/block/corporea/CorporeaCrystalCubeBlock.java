@@ -30,9 +30,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
+import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.corporea.BaseCorporeaBlockEntity;
-import vazkii.botania.common.block.tile.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.common.item.ItemTwigWand;
 
 public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements EntityBlock {

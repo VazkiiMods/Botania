@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.mixin.AccessorHopperBlockEntity;
 
 import java.util.function.Function;
@@ -93,7 +93,7 @@ public class InventoryHelper {
 		return stack;
 	}
 
-	public static void withdrawFromInventory(TileSimpleInventory inv, Player player) {
+	public static void withdrawFromInventory(SimpleInventoryBlockEntity inv, Player player) {
 		for (int i = inv.inventorySize() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getItemHandler().getItem(i);
 			if (!stackAt.isEmpty()) {

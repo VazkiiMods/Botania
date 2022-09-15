@@ -24,11 +24,11 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.TeruTeruBozuModel;
-import vazkii.botania.common.block.tile.TileTeruTeruBozu;
+import vazkii.botania.common.block.block_entity.TeruTeruBozuBlockEntity;
 
 import java.util.Random;
 
-public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<TileTeruTeruBozu> {
+public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<TeruTeruBozuBlockEntity> {
 
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU_HALLOWEEN);
@@ -39,7 +39,7 @@ public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<Tile
 	}
 
 	@Override
-	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable TeruTeruBozuBlockEntity tileentity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.mulPose(Vector3f.XP.rotationDegrees(180));
 		double time = ClientTickHandler.ticksInGame + partialTicks;
