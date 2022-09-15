@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
 public class BlockCorporeaRetainer extends BlockMod implements EntityBlock {
@@ -36,8 +38,18 @@ public class BlockCorporeaRetainer extends BlockMod implements EntityBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getBestNeighborSignal(pos) > 0;
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+		boolean power = false;
+		for (var direction : Direction.values()) {
+			var neighborPos = pos.relative(direction);
+			var neighborState = world.getBlockState(neighborPos);
+			if (!neighborState.is(ModBlocks.corporeaInterceptor)) {
+				if (world.getSignal(neighborPos, direction) > 0) {
+					power = true;
+					break;
+				}
+			}
+		}
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
