@@ -28,12 +28,12 @@ import vazkii.botania.api.recipe.StateIngredient;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class StateIngredientCompound implements StateIngredient {
+public class CompoundStateIngredient implements StateIngredient {
 	protected final ImmutableSet<StateIngredient> ingredients;
 
 	protected final Set<BlockState> resolvedBlocks;
 
-	public StateIngredientCompound(Collection<StateIngredient> ingredients) {
+	public CompoundStateIngredient(Collection<StateIngredient> ingredients) {
 		this.ingredients = ImmutableSet.copyOf(ingredients);
 		this.resolvedBlocks = new HashSet<>();
 	}
@@ -88,11 +88,11 @@ public class StateIngredientCompound implements StateIngredient {
 	protected Set<BlockState> getBlocks() {
 		if (this.resolvedBlocks.isEmpty()) {
 			for (StateIngredient ingredient : this.ingredients) {
-				if (ingredient instanceof StateIngredientBlock stateIngredient) {
+				if (ingredient instanceof BlockStateIngredient stateIngredient) {
 					this.resolvedBlocks.add(stateIngredient.getBlock().defaultBlockState());
-				} else if (ingredient instanceof StateIngredientBlockState stateIngredient) {
+				} else if (ingredient instanceof BlockStateStateIngredient stateIngredient) {
 					this.resolvedBlocks.add(stateIngredient.getState());
-				} else if (ingredient instanceof StateIngredientBlocks stateIngredient) {
+				} else if (ingredient instanceof BlocksStateIngredient stateIngredient) {
 					this.resolvedBlocks.addAll(stateIngredient.getBlocks().stream().map(Block::defaultBlockState).toList());
 				}
 			}
@@ -106,7 +106,7 @@ public class StateIngredientCompound implements StateIngredient {
 
 	@Override
 	public String toString() {
-		return "StateIngredientCompound{" + getIngredients() + "}";
+		return "CompoundStateIngredient{" + getIngredients() + "}";
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class StateIngredientCompound implements StateIngredient {
 			return false;
 		}
 
-		StateIngredientCompound that = (StateIngredientCompound) o;
+		CompoundStateIngredient that = (CompoundStateIngredient) o;
 
 		return Objects.equals(ingredients, that.ingredients);
 	}

@@ -23,10 +23,10 @@ import vazkii.botania.api.recipe.StateIngredient;
 import java.util.Collections;
 import java.util.List;
 
-public class StateIngredientBlock implements StateIngredient {
+public class BlockStateIngredient implements StateIngredient {
 	private final Block block;
 
-	public StateIngredientBlock(Block block) {
+	public BlockStateIngredient(Block block) {
 		this.block = block;
 	}
 
@@ -79,7 +79,7 @@ public class StateIngredientBlock implements StateIngredient {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		return block == ((StateIngredientBlock) o).block;
+		return block == ((BlockStateIngredient) o).block;
 	}
 
 	@Override
@@ -89,6 +89,6 @@ public class StateIngredientBlock implements StateIngredient {
 
 	@Override
 	public String toString() {
-		return "StateIngredientBlock{" + block + "}";
+		return "BlockStateIngredient{" + block + "}";
 	}
 }

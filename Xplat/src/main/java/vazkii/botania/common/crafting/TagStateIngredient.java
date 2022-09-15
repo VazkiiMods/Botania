@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class StateIngredientTag extends StateIngredientBlocks {
+public class TagStateIngredient extends BlocksStateIngredient {
 	private final TagKey<Block> tag;
 
-	public StateIngredientTag(ResourceLocation tag) {
+	public TagStateIngredient(ResourceLocation tag) {
 		super(ImmutableSet.of());
 		this.tag = TagKey.create(Registry.BLOCK_REGISTRY, tag);
 	}
@@ -94,7 +94,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		return tag.equals(((StateIngredientTag) o).tag);
+		return tag.equals(((TagStateIngredient) o).tag);
 	}
 
 	@Override
@@ -104,6 +104,6 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Override
 	public String toString() {
-		return "StateIngredientTag{" + tag + "}";
+		return "TagStateIngredient{" + tag + "}";
 	}
 }

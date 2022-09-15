@@ -27,13 +27,11 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
-import java.util.*;
-
-public class RecipeMarimorphosis extends RecipeOrechid {
+public class MarimorphosisRecipe extends OrechidRecipe {
 	private final int weightBonus;
 	private final TagKey<Biome> biomes;
 
-	public RecipeMarimorphosis(ResourceLocation id, Block input, StateIngredient output, int weight, int weightBonus, TagKey<Biome> biomes) {
+	public MarimorphosisRecipe(ResourceLocation id, Block input, StateIngredient output, int weight, int weightBonus, TagKey<Biome> biomes) {
 		super(id, input, output, weight);
 		this.weightBonus = weightBonus;
 		this.biomes = biomes;
@@ -57,10 +55,10 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 		return ModRecipeTypes.MARIMORPHOSIS_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeMarimorphosis> {
+	public static class Serializer extends RecipeSerializerBase<MarimorphosisRecipe> {
 		@Override
-		public RecipeMarimorphosis fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			RecipeOrechid base = ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
+		public MarimorphosisRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
+			OrechidRecipe base = ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
 
 			var biomes = TagKey.create(Registry.BIOME_REGISTRY,
 					new ResourceLocation(GsonHelper.getAsString(json, "biome_bonus_tag")));
@@ -69,21 +67,21 @@ public class RecipeMarimorphosis extends RecipeOrechid {
 				throw new JsonSyntaxException("Weight combined with bonus cannot be 0 or less");
 			}
 
-			return new RecipeMarimorphosis(recipeId, base.getInput(), base.getOutput(), base.getWeight(), weightBonus, biomes);
+			return new MarimorphosisRecipe(recipeId, base.getInput(), base.getOutput(), base.getWeight(), weightBonus, biomes);
 		}
 
 		@Override
-		public RecipeMarimorphosis fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			RecipeOrechid base = ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer);
+		public MarimorphosisRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
+			OrechidRecipe base = ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer);
 
 			TagKey<Biome> biomes = TagKey.create(Registry.BIOME_REGISTRY, buffer.readResourceLocation());
 			int weightBonus = buffer.readVarInt();
 
-			return new RecipeMarimorphosis(recipeId, base.getInput(), base.getOutput(), base.getWeight(), weightBonus, biomes);
+			return new MarimorphosisRecipe(recipeId, base.getInput(), base.getOutput(), base.getWeight(), weightBonus, biomes);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RecipeMarimorphosis recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull MarimorphosisRecipe recipe) {
 			ModRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
 
 			buffer.writeResourceLocation(recipe.biomes.location());

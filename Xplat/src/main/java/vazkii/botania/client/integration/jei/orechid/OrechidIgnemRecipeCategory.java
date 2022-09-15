@@ -18,13 +18,13 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.crafting.RecipeOrechidIgnem;
+import vazkii.botania.common.crafting.OrechidIgnemRecipe;
 import vazkii.botania.common.lib.LibMisc;
 
-public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<RecipeOrechidIgnem> {
+public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<OrechidIgnemRecipe> {
 
-	public static final mezz.jei.api.recipe.RecipeType<RecipeOrechidIgnem> TYPE =
-			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "orechid_ignem", RecipeOrechidIgnem.class);
+	public static final mezz.jei.api.recipe.RecipeType<OrechidIgnemRecipe> TYPE =
+			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "orechid_ignem", OrechidIgnemRecipe.class);
 
 	public OrechidIgnemRecipeCategory(IGuiHelper guiHelper) {
 		super(guiHelper, new ItemStack(BotaniaFlowerBlocks.orechidIgnem), Component.translatable("botania.nei.orechidIgnem"));
@@ -32,12 +32,12 @@ public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<Recipe
 
 	@NotNull
 	@Override
-	public mezz.jei.api.recipe.RecipeType<RecipeOrechidIgnem> getRecipeType() {
+	public mezz.jei.api.recipe.RecipeType<OrechidIgnemRecipe> getRecipeType() {
 		return TYPE;
 	}
 
 	@Override
-	protected RecipeType<RecipeOrechidIgnem> recipeType() {
+	protected RecipeType<OrechidIgnemRecipe> recipeType() {
 		return ModRecipeTypes.ORECHID_IGNEM_TYPE;
 	}
 }

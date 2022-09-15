@@ -23,7 +23,6 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
@@ -31,12 +30,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class RecipeElvenTrade implements ElvenTradeRecipe {
+public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRecipe {
 	private final ResourceLocation id;
 	private final ImmutableList<ItemStack> outputs;
 	private final NonNullList<Ingredient> inputs;
 
-	public RecipeElvenTrade(ResourceLocation id, ItemStack[] outputs, Ingredient... inputs) {
+	public ElvenTradeRecipe(ResourceLocation id, ItemStack[] outputs, Ingredient... inputs) {
 		this.id = id;
 		this.outputs = ImmutableList.copyOf(outputs);
 		this.inputs = NonNullList.create();
@@ -121,11 +120,11 @@ public class RecipeElvenTrade implements ElvenTradeRecipe {
 		return getOutputs();
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeElvenTrade> {
+	public static class Serializer extends RecipeSerializerBase<ElvenTradeRecipe> {
 
 		@NotNull
 		@Override
-		public RecipeElvenTrade fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
+		public ElvenTradeRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			JsonElement output = json.get("output");
 			List<ItemStack> outputStacks = new ArrayList<>();
 			if (output.isJsonArray()) {
@@ -146,11 +145,11 @@ public class RecipeElvenTrade implements ElvenTradeRecipe {
 				}
 			}
 
-			return new RecipeElvenTrade(id, outputStacks.toArray(new ItemStack[0]), inputs.toArray(new Ingredient[0]));
+			return new ElvenTradeRecipe(id, outputStacks.toArray(new ItemStack[0]), inputs.toArray(new Ingredient[0]));
 		}
 
 		@Override
-		public RecipeElvenTrade fromNetwork(@NotNull ResourceLocation id, FriendlyByteBuf buf) {
+		public ElvenTradeRecipe fromNetwork(@NotNull ResourceLocation id, FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
@@ -159,11 +158,11 @@ public class RecipeElvenTrade implements ElvenTradeRecipe {
 			for (int i = 0; i < outputs.length; i++) {
 				outputs[i] = buf.readItem();
 			}
-			return new RecipeElvenTrade(id, outputs, inputs);
+			return new ElvenTradeRecipe(id, outputs, inputs);
 		}
 
 		@Override
-		public void toNetwork(FriendlyByteBuf buf, RecipeElvenTrade recipe) {
+		public void toNetwork(FriendlyByteBuf buf, ElvenTradeRecipe recipe) {
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);

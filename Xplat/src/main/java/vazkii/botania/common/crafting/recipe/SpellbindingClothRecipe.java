@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -18,63 +19,56 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.Lens;
-import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.item.ModItems;
 
-public class ManaGunLensRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<ManaGunLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaGunLensRecipe::new);
+public class SpellbindingClothRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<SpellbindingClothRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SpellbindingClothRecipe::new);
 
-	public ManaGunLensRecipe(ResourceLocation id) {
+	public SpellbindingClothRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
 	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
-		int foundLens = 0;
-		int foundGun = 0;
+		boolean foundCloth = false;
+		boolean foundEnchanted = false;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
-					foundGun++;
-				} else if (ItemManaGun.isValidLens(stack)) {
-					foundLens++;
+				if (stack.isEnchanted() && !foundEnchanted && !stack.is(ModItems.spellCloth)) {
+					foundEnchanted = true;
+				} else if (stack.is(ModItems.spellCloth) && !foundCloth) {
+					foundCloth = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
 				}
 			}
 		}
 
-		return foundLens == 1 && foundGun == 1;
+		return foundCloth && foundEnchanted;
 	}
 
 	@NotNull
 	@Override
 	public ItemStack assemble(@NotNull CraftingContainer inv) {
-		ItemStack lens = ItemStack.EMPTY;
-		ItemStack gun = ItemStack.EMPTY;
-
+		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun) {
-					gun = stack;
-				} else if (stack.getItem() instanceof Lens) {
-					lens = stack.copy();
-					lens.setCount(1);
-				}
+			if (!stack.isEmpty() && stack.isEnchanted() && !stack.is(ModItems.spellCloth)) {
+				stackToDisenchant = stack.copy();
+				stackToDisenchant.setCount(1);
+				break;
 			}
 		}
 
-		if (lens.isEmpty() || gun.isEmpty()) {
+		if (stackToDisenchant.isEmpty()) {
 			return ItemStack.EMPTY;
 		}
 
-		ItemStack gunCopy = gun.copy();
-		ItemManaGun.setLens(gunCopy, lens);
-
-		return gunCopy;
+		stackToDisenchant.removeTagKey("Enchantments"); // Remove enchantments
+		stackToDisenchant.removeTagKey("RepairCost");
+		return stackToDisenchant;
 	}
 
 	@Override
@@ -86,5 +80,19 @@ public class ManaGunLensRecipe extends CustomRecipe {
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
+	}
+
+	@NotNull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
+		return RecipeUtils.getRemainingItemsSub(inv, s -> {
+			if (s.is(ModItems.spellCloth)) {
+				ItemStack copy = s.copy();
+				copy.setCount(1);
+				copy.setDamageValue(copy.getDamageValue() + 1);
+				return copy;
+			}
+			return null;
+		});
 	}
 }

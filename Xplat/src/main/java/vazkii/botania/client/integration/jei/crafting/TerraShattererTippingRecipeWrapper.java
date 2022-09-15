@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
+import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
@@ -34,7 +34,7 @@ public class TerraShattererTippingRecipeWrapper implements ICraftingCategoryExte
 	private final ItemStack output;
 	private final ResourceLocation name;
 
-	public TerraShattererTippingRecipeWrapper(TerraPickTippingRecipe recipe) {
+	public TerraShattererTippingRecipeWrapper(TerraShattererTippingRecipe recipe) {
 		inputs = ImmutableList.of(ImmutableList.of(new ItemStack(ModItems.terraPick)), ImmutableList.of(new ItemStack(ModItems.elementiumPick)));
 		output = new ItemStack(ModItems.terraPick);
 		ItemTerraPick.setTipped(output);

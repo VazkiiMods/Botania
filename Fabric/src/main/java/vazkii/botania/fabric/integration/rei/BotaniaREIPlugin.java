@@ -46,7 +46,6 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
@@ -141,14 +140,14 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		registerCompositeLensRecipeWrapper(helper);
 		registerTerraPickTippingRecipeWrapper(helper);
 
-		helper.registerFiller(RecipePetals.class, PetalApothecaryREIDisplay::new);
-		helper.registerFiller(RecipeBrew.class, BreweryREIDisplay::new);
-		Predicate<? extends RecipeElvenTrade> pred = recipe -> !recipe.isReturnRecipe();
-		helper.registerFiller(RecipeElvenTrade.class, pred, ElvenTradeREIDisplay::new);
+		helper.registerFiller(PetalsRecipe.class, PetalApothecaryREIDisplay::new);
+		helper.registerFiller(BotanicalBreweryRecipe.class, BreweryREIDisplay::new);
+		Predicate<? extends ElvenTradeRecipe> pred = recipe -> !recipe.isReturnRecipe();
+		helper.registerFiller(ElvenTradeRecipe.class, pred, ElvenTradeREIDisplay::new);
 		helper.registerFiller(LexiconElvenTradeRecipe.class, ElvenTradeREIDisplay::new);
-		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
-		helper.registerFiller(RecipePureDaisy.class, PureDaisyREIDisplay::new);
-		helper.registerFiller(RecipeRuneAltar.class, RunicAltarREIDisplay::new);
+		helper.registerFiller(ManaInfusionRecipe.class, ManaPoolREIDisplay::new);
+		helper.registerFiller(PureDaisyRecipe.class, PureDaisyREIDisplay::new);
+		helper.registerFiller(RunicAltarRecipe.class, RunicAltarREIDisplay::new);
 		helper.registerFiller(RecipeTerraPlate.class, TerrestrialAgglomerationREIDisplay::new);
 
 		try {
@@ -160,21 +159,21 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		}
 
 		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
-		helper.registerRecipeFiller(RecipeOrechid.class, ModRecipeTypes.ORECHID_TYPE,
+		helper.registerRecipeFiller(OrechidRecipe.class, ModRecipeTypes.ORECHID_TYPE,
 				r -> new OrechidREIDisplay(r, weights.getInt(r.getInput())));
 
 		Object2IntMap<Block> weightsIgnem = getWeights(ModRecipeTypes.ORECHID_IGNEM_TYPE, helper.getRecipeManager());
-		helper.registerRecipeFiller(RecipeOrechidIgnem.class, ModRecipeTypes.ORECHID_IGNEM_TYPE,
+		helper.registerRecipeFiller(OrechidIgnemRecipe.class, ModRecipeTypes.ORECHID_IGNEM_TYPE,
 				r -> new OrechidIgnemREIDisplay(r, weightsIgnem.getInt(r.getInput())));
 
 		Object2IntMap<Block> weightsMarim = getWeights(ModRecipeTypes.MARIMORPHOSIS_TYPE, helper.getRecipeManager());
-		helper.registerRecipeFiller(RecipeMarimorphosis.class, ModRecipeTypes.MARIMORPHOSIS_TYPE,
+		helper.registerRecipeFiller(MarimorphosisRecipe.class, ModRecipeTypes.MARIMORPHOSIS_TYPE,
 				r -> new MarimorphosisREIDisplay(r, weightsMarim.getInt(r.getInput())));
 	}
 
-	public static Object2IntMap<Block> getWeights(RecipeType<? extends OrechidRecipe> type, RecipeManager manager) {
+	public static Object2IntMap<Block> getWeights(RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> type, RecipeManager manager) {
 		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
-		for (OrechidRecipe recipe : manager.getAllRecipesFor(type)) {
+		for (vazkii.botania.api.recipe.OrechidRecipe recipe : manager.getAllRecipesFor(type)) {
 			map.addTo(recipe.getInput(), recipe.getWeight());
 		}
 		return map;

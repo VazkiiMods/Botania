@@ -29,10 +29,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class StateIngredientBlocks implements StateIngredient {
+public class BlocksStateIngredient implements StateIngredient {
 	protected final ImmutableSet<Block> blocks;
 
-	public StateIngredientBlocks(Collection<Block> blocks) {
+	public BlocksStateIngredient(Collection<Block> blocks) {
 		this.blocks = ImmutableSet.copyOf(blocks);
 	}
 
@@ -88,7 +88,7 @@ public class StateIngredientBlocks implements StateIngredient {
 
 	@Override
 	public String toString() {
-		return "StateIngredientBlocks{" + blocks.toString() + "}";
+		return "BlocksStateIngredient{" + blocks.toString() + "}";
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class StateIngredientBlocks implements StateIngredient {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		return blocks.equals(((StateIngredientBlocks) o).blocks);
+		return blocks.equals(((BlocksStateIngredient) o).blocks);
 	}
 
 	@Override

@@ -12,11 +12,11 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeOrechid;
+import vazkii.botania.common.crafting.OrechidRecipe;
 
-public class OrechidREIDisplay extends OrechidBaseREIDisplay<RecipeOrechid> {
+public class OrechidREIDisplay extends OrechidBaseREIDisplay<OrechidRecipe> {
 
-	public OrechidREIDisplay(RecipeOrechid recipe, int totalWeight) {
+	public OrechidREIDisplay(OrechidRecipe recipe, int totalWeight) {
 		super(recipe, totalWeight);
 	}
 

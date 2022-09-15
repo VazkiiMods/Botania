@@ -25,15 +25,15 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.crafting.RecipePureDaisy;
+import vazkii.botania.common.crafting.PureDaisyRecipe;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 
 /**
  * Recipe that copies state properties to the new block on crafting.
  */
-public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
-	public StateCopyPureDaisyRecipe(ResourceLocation id, StateIngredient input, Block block, int time) {
+public class StateCopyingPureDaisyRecipe extends PureDaisyRecipe {
+	public StateCopyingPureDaisyRecipe(ResourceLocation id, StateIngredient input, Block block, int time) {
 		super(id, input, block.defaultBlockState(), time, CommandFunction.CacheableFunction.NONE);
 	}
 
@@ -46,21 +46,21 @@ public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 		return true;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<StateCopyPureDaisyRecipe> {
+	public static class Serializer extends RecipeSerializerBase<StateCopyingPureDaisyRecipe> {
 		@NotNull
 		@Override
-		public StateCopyPureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {
+		public StateCopyingPureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {
 			StateIngredient input = StateIngredientHelper.deserialize(GsonHelper.getAsJsonObject(object, "input"));
 			ResourceLocation blockId = new ResourceLocation(GsonHelper.getAsString(object, "output"));
 			Block output = Registry.BLOCK.getOptional(blockId)
 					.orElseThrow(() -> new JsonSyntaxException("Unknown block id: " + blockId));
 
 			int time = GsonHelper.getAsInt(object, "time", DEFAULT_TIME);
-			return new StateCopyPureDaisyRecipe(id, input, output, time);
+			return new StateCopyingPureDaisyRecipe(id, input, output, time);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, StateCopyPureDaisyRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, StateCopyingPureDaisyRecipe recipe) {
 			recipe.getInput().write(buf);
 			buf.writeVarInt(Registry.BLOCK.getId(recipe.getOutputState().getBlock()));
 			buf.writeVarInt(recipe.getTime());
@@ -68,11 +68,11 @@ public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 
 		@Nullable
 		@Override
-		public StateCopyPureDaisyRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
+		public StateCopyingPureDaisyRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			StateIngredient input = StateIngredientHelper.read(buf);
 			Block output = Registry.BLOCK.byId(buf.readVarInt());
 			int time = buf.readVarInt();
-			return new StateCopyPureDaisyRecipe(id, input, output, time);
+			return new StateCopyingPureDaisyRecipe(id, input, output, time);
 		}
 	}
 }

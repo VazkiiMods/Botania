@@ -9,13 +9,13 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.crafting.MarimorphosisRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.crafting.RecipeMarimorphosis;
 import vazkii.botania.common.lib.LibMisc;
 
-public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<RecipeMarimorphosis> {
-	public static final mezz.jei.api.recipe.RecipeType<RecipeMarimorphosis> TYPE =
-			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "marimorphosis", RecipeMarimorphosis.class);
+public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<MarimorphosisRecipe> {
+	public static final mezz.jei.api.recipe.RecipeType<MarimorphosisRecipe> TYPE =
+			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "marimorphosis", MarimorphosisRecipe.class);
 
 	public MarimorphosisRecipeCategory(IGuiHelper guiHelper) {
 		super(guiHelper, new ItemStack(BotaniaFlowerBlocks.marimorphosis), Component.translatable("botania.nei.marimorphosis"));
@@ -23,12 +23,12 @@ public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<Recip
 
 	@NotNull
 	@Override
-	public mezz.jei.api.recipe.RecipeType<RecipeMarimorphosis> getRecipeType() {
+	public mezz.jei.api.recipe.RecipeType<MarimorphosisRecipe> getRecipeType() {
 		return TYPE;
 	}
 
 	@Override
-	protected RecipeType<RecipeMarimorphosis> recipeType() {
+	protected RecipeType<MarimorphosisRecipe> recipeType() {
 		return ModRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
 }

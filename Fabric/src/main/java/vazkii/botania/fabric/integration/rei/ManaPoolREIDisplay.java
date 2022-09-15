@@ -14,13 +14,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.crafting.RecipeManaInfusion;
+import vazkii.botania.common.crafting.ManaInfusionRecipe;
 
-public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion> {
+public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<ManaInfusionRecipe> {
 	@Nullable
 	private final StateIngredient catalyst;
 
-	public ManaPoolREIDisplay(RecipeManaInfusion recipe) {
+	public ManaPoolREIDisplay(ManaInfusionRecipe recipe) {
 		super(recipe);
 		this.catalyst = recipe.getRecipeCatalyst();
 	}

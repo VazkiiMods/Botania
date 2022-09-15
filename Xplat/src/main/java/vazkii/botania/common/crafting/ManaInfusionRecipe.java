@@ -25,13 +25,12 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.Objects;
 
-public class RecipeManaInfusion implements ManaInfusionRecipe {
+public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusionRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final Ingredient input;
@@ -40,7 +39,7 @@ public class RecipeManaInfusion implements ManaInfusionRecipe {
 	private final StateIngredient catalyst;
 	private final String group;
 
-	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana,
+	public ManaInfusionRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana,
 			@Nullable String group, @Nullable StateIngredient catalyst) {
 		Preconditions.checkArgument(mana > 0, "Mana cost must be positive");
 		Preconditions.checkArgument(mana <= 1_000_001, "Mana cost must be at most a pool"); // Leaving wiggle room for a certain modpack having creative-pool-only recipes
@@ -60,7 +59,7 @@ public class RecipeManaInfusion implements ManaInfusionRecipe {
 
 	@NotNull
 	@Override
-	public RecipeSerializer<RecipeManaInfusion> getSerializer() {
+	public RecipeSerializer<ManaInfusionRecipe> getSerializer() {
 		return ModRecipeTypes.MANA_INFUSION_SERIALIZER;
 	}
 
@@ -103,11 +102,11 @@ public class RecipeManaInfusion implements ManaInfusionRecipe {
 		return new ItemStack(BotaniaBlocks.manaPool);
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeManaInfusion> {
+	public static class Serializer extends RecipeSerializerBase<ManaInfusionRecipe> {
 
 		@NotNull
 		@Override
-		public RecipeManaInfusion fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
+		public ManaInfusionRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			JsonElement input = Objects.requireNonNull(json.get("input"));
 			Ingredient ing = Ingredient.fromJson(input);
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
@@ -122,12 +121,12 @@ public class RecipeManaInfusion implements ManaInfusionRecipe {
 				catalyst = StateIngredientHelper.deserialize(element.getAsJsonObject());
 			}
 
-			return new RecipeManaInfusion(id, output, ing, mana, group, catalyst);
+			return new ManaInfusionRecipe(id, output, ing, mana, group, catalyst);
 		}
 
 		@Nullable
 		@Override
-		public RecipeManaInfusion fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
+		public ManaInfusionRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			Ingredient input = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
 			int mana = buf.readVarInt();
@@ -136,11 +135,11 @@ public class RecipeManaInfusion implements ManaInfusionRecipe {
 				catalyst = StateIngredientHelper.read(buf);
 			}
 			String group = buf.readUtf();
-			return new RecipeManaInfusion(id, output, input, mana, group, catalyst);
+			return new ManaInfusionRecipe(id, output, input, mana, group, catalyst);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RecipeManaInfusion recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull ManaInfusionRecipe recipe) {
 			recipe.getIngredients().get(0).toNetwork(buf);
 			buf.writeItem(recipe.getResultItem());
 			buf.writeVarInt(recipe.getManaToConsume());

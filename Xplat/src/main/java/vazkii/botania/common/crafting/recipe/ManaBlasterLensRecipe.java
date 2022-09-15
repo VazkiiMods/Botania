@@ -18,58 +18,62 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.mana.Lens;
 import vazkii.botania.common.item.ItemManaGun;
-import vazkii.botania.common.item.ModItems;
 
-public class ManaGunClipRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<ManaGunClipRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaGunClipRecipe::new);
+public class ManaBlasterLensRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<ManaBlasterLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaBlasterLensRecipe::new);
 
-	public ManaGunClipRecipe(ResourceLocation id) {
+	public ManaBlasterLensRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
 	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
-		boolean foundGun = false;
-		boolean foundClip = false;
+		int foundLens = 0;
+		int foundGun = 0;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun && !ItemManaGun.hasClip(stack)) {
-					foundGun = true;
-				} else if (stack.is(ModItems.clip)) {
-					foundClip = true;
+				if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
+					foundGun++;
+				} else if (ItemManaGun.isValidLens(stack)) {
+					foundLens++;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
 				}
 			}
 		}
 
-		return foundGun && foundClip;
+		return foundLens == 1 && foundGun == 1;
 	}
 
 	@NotNull
 	@Override
 	public ItemStack assemble(@NotNull CraftingContainer inv) {
+		ItemStack lens = ItemStack.EMPTY;
 		ItemStack gun = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.getItem() instanceof ItemManaGun) {
-				gun = stack;
+			if (!stack.isEmpty()) {
+				if (stack.getItem() instanceof ItemManaGun) {
+					gun = stack;
+				} else if (stack.getItem() instanceof Lens) {
+					lens = stack.copy();
+					lens.setCount(1);
+				}
 			}
 		}
 
-		if (gun.isEmpty()) {
+		if (lens.isEmpty() || gun.isEmpty()) {
 			return ItemStack.EMPTY;
 		}
 
-		ItemStack lens = ItemManaGun.getLens(gun);
 		ItemStack gunCopy = gun.copy();
-		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
-		ItemManaGun.setClip(gunCopy, true);
-		ItemManaGun.setLensAtPos(gunCopy, lens, 0);
+		ItemManaGun.setLens(gunCopy, lens);
+
 		return gunCopy;
 	}
 

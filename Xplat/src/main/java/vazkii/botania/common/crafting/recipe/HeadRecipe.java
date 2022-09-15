@@ -26,14 +26,14 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.crafting.RecipeRuneAltar;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
+import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeadRecipe extends RecipeRuneAltar {
+public class HeadRecipe extends RunicAltarRecipe {
 
 	public HeadRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
 		super(id, output, mana, inputs);

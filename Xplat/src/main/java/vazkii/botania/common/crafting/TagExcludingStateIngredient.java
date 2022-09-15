@@ -25,10 +25,10 @@ import vazkii.botania.api.recipe.StateIngredient;
 import java.util.Collection;
 import java.util.List;
 
-public class StateIngredientTagExcluding extends StateIngredientTag {
+public class TagExcludingStateIngredient extends TagStateIngredient {
 	private final List<StateIngredient> excludes;
 
-	public StateIngredientTagExcluding(ResourceLocation id, Collection<StateIngredient> excludes) {
+	public TagExcludingStateIngredient(ResourceLocation id, Collection<StateIngredient> excludes) {
 		super(id);
 		this.excludes = List.copyOf(excludes);
 	}
@@ -61,7 +61,7 @@ public class StateIngredientTagExcluding extends StateIngredientTag {
 
 	@Override
 	public boolean equals(Object o) {
-		return super.equals(o) && this.excludes.equals(((StateIngredientTagExcluding) o).excludes);
+		return super.equals(o) && this.excludes.equals(((TagExcludingStateIngredient) o).excludes);
 	}
 
 	@Override

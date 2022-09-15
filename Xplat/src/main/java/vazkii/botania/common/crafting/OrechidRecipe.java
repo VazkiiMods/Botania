@@ -21,16 +21,15 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 
-public class RecipeOrechid implements OrechidRecipe {
+public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	private final ResourceLocation id;
 	private final Block input;
 	private final StateIngredient output;
 	private final int weight;
 
-	public RecipeOrechid(ResourceLocation id, Block input, StateIngredient output, int weight) {
+	public OrechidRecipe(ResourceLocation id, Block input, StateIngredient output, int weight) {
 		this.id = id;
 		this.input = input;
 		this.output = output;
@@ -67,9 +66,9 @@ public class RecipeOrechid implements OrechidRecipe {
 		return ModRecipeTypes.ORECHID_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeOrechid> {
+	public static class Serializer extends RecipeSerializerBase<OrechidRecipe> {
 		@Override
-		public RecipeOrechid fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
+		public OrechidRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			var blockId = new ResourceLocation(GsonHelper.getAsString(json, "input"));
 			var input = Registry.BLOCK.getOptional(blockId)
 					.orElseThrow(() -> new JsonSyntaxException("Unknown block id: " + blockId));
@@ -79,19 +78,19 @@ public class RecipeOrechid implements OrechidRecipe {
 			}
 			var weight = GsonHelper.getAsInt(json, "weight");
 
-			return new RecipeOrechid(recipeId, input, output, weight);
+			return new OrechidRecipe(recipeId, input, output, weight);
 		}
 
 		@Override
-		public RecipeOrechid fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
+		public OrechidRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
 			var input = Registry.BLOCK.byId(buffer.readVarInt());
 			var output = StateIngredientHelper.read(buffer);
 			var weight = buffer.readVarInt();
-			return new RecipeOrechid(recipeId, input, output, weight);
+			return new OrechidRecipe(recipeId, input, output, weight);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RecipeOrechid recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull OrechidRecipe recipe) {
 			buffer.writeVarInt(Registry.BLOCK.getId(recipe.getInput()));
 			recipe.getOutput().write(buffer);
 			buffer.writeVarInt(recipe.getWeight());

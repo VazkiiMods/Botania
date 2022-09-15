@@ -26,30 +26,52 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.RunicAltarRecipe;
+import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeRuneAltar implements RunicAltarRecipe {
+public class PetalsRecipe implements PetalApothecaryRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final NonNullList<Ingredient> inputs;
-	private final int mana;
 
-	public RecipeRuneAltar(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
+	public PetalsRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs) {
 		Preconditions.checkArgument(inputs.length <= 16, "Cannot have more than 16 ingredients");
 		this.id = id;
 		this.output = output;
 		this.inputs = NonNullList.of(Ingredient.EMPTY, inputs);
-		this.mana = mana;
 	}
 
 	@Override
 	public boolean matches(Container inv, @NotNull Level world) {
-		return RecipeUtils.matches(inputs, inv, null);
+		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
+
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack input = inv.getItem(i);
+			if (input.isEmpty()) {
+				break;
+			}
+
+			int stackIndex = -1;
+
+			for (int j = 0; j < ingredientsMissing.size(); j++) {
+				Ingredient ingr = ingredientsMissing.get(j);
+				if (ingr.test(input)) {
+					stackIndex = j;
+					break;
+				}
+			}
+
+			if (stackIndex != -1) {
+				ingredientsMissing.remove(stackIndex);
+			} else {
+				return false;
+			}
+		}
+
+		return ingredientsMissing.isEmpty();
 	}
 
 	@NotNull
@@ -73,7 +95,7 @@ public class RecipeRuneAltar implements RunicAltarRecipe {
 	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(BotaniaBlocks.runeAltar);
+		return new ItemStack(BotaniaBlocks.defaultAltar);
 	}
 
 	@NotNull
@@ -85,48 +107,41 @@ public class RecipeRuneAltar implements RunicAltarRecipe {
 	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.RUNE_SERIALIZER;
+		return ModRecipeTypes.PETAL_SERIALIZER;
 	}
 
-	@Override
-	public int getManaUsage() {
-		return mana;
-	}
-
-	public static class Serializer extends RecipeSerializerBase<RecipeRuneAltar> {
+	public static class Serializer extends RecipeSerializerBase<PetalsRecipe> {
 		@NotNull
 		@Override
-		public RecipeRuneAltar fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
+		public PetalsRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-			int mana = GsonHelper.getAsInt(json, "mana");
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
 			for (JsonElement e : ingrs) {
 				inputs.add(Ingredient.fromJson(e));
 			}
-			return new RecipeRuneAltar(id, output, mana, inputs.toArray(new Ingredient[0]));
+			return new PetalsRecipe(id, output, inputs.toArray(new Ingredient[0]));
 		}
 
 		@Override
-		public RecipeRuneAltar fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
+		public PetalsRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
 			}
 			ItemStack output = buf.readItem();
-			int mana = buf.readVarInt();
-			return new RecipeRuneAltar(id, output, mana, inputs);
+			return new PetalsRecipe(id, output, inputs);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RecipeRuneAltar recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull PetalsRecipe recipe) {
 			buf.writeVarInt(recipe.getIngredients().size());
 			for (Ingredient input : recipe.getIngredients()) {
 				input.toNetwork(buf);
 			}
 			buf.writeItem(recipe.getResultItem());
-			buf.writeVarInt(recipe.getManaUsage());
 		}
+
 	}
 
 }

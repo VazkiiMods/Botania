@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -22,29 +21,32 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ModItems;
 
-public class ManaGunRemoveLensRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<ManaGunRemoveLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaGunRemoveLensRecipe::new);
+public class ManaBlasterClipRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<ManaBlasterClipRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaBlasterClipRecipe::new);
 
-	public ManaGunRemoveLensRecipe(ResourceLocation id) {
+	public ManaBlasterClipRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
 	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundGun = false;
+		boolean foundClip = false;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun && !ItemManaGun.getLens(stack).isEmpty()) {
+				if (stack.getItem() instanceof ItemManaGun && !ItemManaGun.hasClip(stack)) {
 					foundGun = true;
+				} else if (stack.is(ModItems.clip)) {
+					foundClip = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
 				}
 			}
 		}
 
-		return foundGun;
+		return foundGun && foundClip;
 	}
 
 	@NotNull
@@ -54,41 +56,31 @@ public class ManaGunRemoveLensRecipe extends CustomRecipe {
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun) {
-					gun = stack;
-				}
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemManaGun) {
+				gun = stack;
 			}
 		}
 
-		ItemStack gunCopy = gun.copy();
-		gunCopy.setCount(1);
-		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
+		if (gun.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
 
+		ItemStack lens = ItemManaGun.getLens(gun);
+		ItemStack gunCopy = gun.copy();
+		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
+		ItemManaGun.setClip(gunCopy, true);
+		ItemManaGun.setLensAtPos(gunCopy, lens, 0);
 		return gunCopy;
 	}
 
 	@Override
 	public boolean canCraftInDimensions(int width, int height) {
-		return width * height > 0;
+		return width * height >= 2;
 	}
 
 	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
-	}
-
-	@NotNull
-	@Override
-	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
-		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.is(ModItems.manaGun)) {
-				ItemStack stack = ItemManaGun.getLens(s);
-				stack.setCount(1);
-				return stack;
-			}
-			return null;
-		});
 	}
 }

@@ -16,17 +16,17 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeBrew;
+import vazkii.botania.common.crafting.BotanicalBreweryRecipe;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {
+public class BreweryREIDisplay extends BotaniaRecipeDisplay<BotanicalBreweryRecipe> {
 	private final EntryIngredient containers;
 
-	public BreweryREIDisplay(RecipeBrew recipe) {
+	public BreweryREIDisplay(BotanicalBreweryRecipe recipe) {
 		super(recipe);
 		List<ItemStack> items = Arrays.asList(new ItemStack(ModItems.vial), new ItemStack(ModItems.flask), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
 		this.containers = EntryIngredients.ofItemStacks(items);

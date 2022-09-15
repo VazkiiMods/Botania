@@ -27,10 +27,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 
-public class RecipePureDaisy implements PureDaisyRecipe {
+public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 
@@ -50,7 +49,7 @@ public class RecipePureDaisy implements PureDaisyRecipe {
 	 * @param function An mcfunction to run at the converted block after finish. If you don't want one, pass
 	 *                 CommandFunction.CacheableFunction.NONE
 	 */
-	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state, int time, CommandFunction.CacheableFunction function) {
+	public PureDaisyRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time, CommandFunction.CacheableFunction function) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.id = id;
 		this.input = input;
@@ -107,21 +106,21 @@ public class RecipePureDaisy implements PureDaisyRecipe {
 		return ModRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipePureDaisy> {
+	public static class Serializer extends RecipeSerializerBase<PureDaisyRecipe> {
 		@NotNull
 		@Override
-		public RecipePureDaisy fromJson(@NotNull ResourceLocation id, JsonObject object) {
+		public PureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {
 			StateIngredient input = StateIngredientHelper.deserialize(GsonHelper.getAsJsonObject(object, "input"));
 			BlockState output = StateIngredientHelper.readBlockState(GsonHelper.getAsJsonObject(object, "output"));
 			int time = GsonHelper.getAsInt(object, "time", DEFAULT_TIME);
 			var functionIdString = GsonHelper.getAsString(object, "success_function", null);
 			var functionId = functionIdString == null ? null : new ResourceLocation(functionIdString);
 			var function = functionId == null ? CommandFunction.CacheableFunction.NONE : new CommandFunction.CacheableFunction(functionId);
-			return new RecipePureDaisy(id, input, output, time, function);
+			return new PureDaisyRecipe(id, input, output, time, function);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, RecipePureDaisy recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, PureDaisyRecipe recipe) {
 			recipe.input.write(buf);
 			buf.writeVarInt(Block.getId(recipe.outputState));
 			buf.writeVarInt(recipe.time);
@@ -129,11 +128,11 @@ public class RecipePureDaisy implements PureDaisyRecipe {
 
 		@Nullable
 		@Override
-		public RecipePureDaisy fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
+		public PureDaisyRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			StateIngredient input = StateIngredientHelper.read(buf);
 			BlockState output = Block.stateById(buf.readVarInt());
 			int time = buf.readVarInt();
-			return new RecipePureDaisy(id, input, output, time, CommandFunction.CacheableFunction.NONE);
+			return new PureDaisyRecipe(id, input, output, time, CommandFunction.CacheableFunction.NONE);
 		}
 	}
 }

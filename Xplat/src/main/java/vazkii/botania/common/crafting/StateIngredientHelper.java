@@ -35,11 +35,11 @@ import java.util.*;
 
 public class StateIngredientHelper {
 	public static StateIngredient of(Block block) {
-		return new StateIngredientBlock(block);
+		return new BlockStateIngredient(block);
 	}
 
 	public static StateIngredient of(BlockState state) {
-		return new StateIngredientBlockState(state);
+		return new BlockStateStateIngredient(state);
 	}
 
 	public static StateIngredient of(TagKey<Block> tag) {
@@ -47,60 +47,60 @@ public class StateIngredientHelper {
 	}
 
 	public static StateIngredient of(ResourceLocation id) {
-		return new StateIngredientTag(id);
+		return new TagStateIngredient(id);
 	}
 
 	public static StateIngredient of(Collection<Block> blocks) {
-		return new StateIngredientBlocks(blocks);
+		return new BlocksStateIngredient(blocks);
 	}
 
 	// Can't be 'of' because of type erasure.
 	public static StateIngredient compound(Collection<StateIngredient> ingredients) {
-		return new StateIngredientCompound(ingredients);
+		return new CompoundStateIngredient(ingredients);
 	}
 
 	public static StateIngredient combine(StateIngredient firstIngredient, StateIngredient secondIngredient) {
 		List<StateIngredient> ingredients = new ArrayList<>();
 		// Flatten the ingredients
-		if (firstIngredient instanceof StateIngredientCompound compound) {
+		if (firstIngredient instanceof CompoundStateIngredient compound) {
 			ingredients.addAll(compound.getIngredients());
 		} else {
 			ingredients.add(firstIngredient);
 		}
-		if (secondIngredient instanceof StateIngredientCompound compound) {
+		if (secondIngredient instanceof CompoundStateIngredient compound) {
 			ingredients.addAll(compound.getIngredients());
 		} else {
 			ingredients.add(secondIngredient);
 		}
 
-		return new StateIngredientCompound(ingredients);
+		return new CompoundStateIngredient(ingredients);
 	}
 
 	public static StateIngredient tagExcluding(TagKey<Block> tag, StateIngredient... excluded) {
-		return new StateIngredientTagExcluding(tag.location(), List.of(excluded));
+		return new TagExcludingStateIngredient(tag.location(), List.of(excluded));
 	}
 
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (GsonHelper.getAsString(object, "type")) {
 			case "tag":
-				return new StateIngredientTag(new ResourceLocation(GsonHelper.getAsString(object, "tag")));
+				return new TagStateIngredient(new ResourceLocation(GsonHelper.getAsString(object, "tag")));
 			case "block":
-				return new StateIngredientBlock(Registry.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
+				return new BlockStateIngredient(Registry.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
 			case "state":
-				return new StateIngredientBlockState(readBlockState(object));
+				return new BlockStateStateIngredient(readBlockState(object));
 			case "blocks":
 				List<Block> blocks = new ArrayList<>();
 				for (JsonElement element : GsonHelper.getAsJsonArray(object, "blocks")) {
 					blocks.add(Registry.BLOCK.get(new ResourceLocation(element.getAsString())));
 				}
-				return new StateIngredientBlocks(blocks);
+				return new BlocksStateIngredient(blocks);
 			case "tag_excluding":
 				ResourceLocation tag = new ResourceLocation(GsonHelper.getAsString(object, "tag"));
 				List<StateIngredient> ingr = new ArrayList<>();
 				for (JsonElement element : GsonHelper.getAsJsonArray(object, "exclude")) {
 					ingr.add(deserialize(GsonHelper.convertToJsonObject(element, "exclude entry")));
 				}
-				return new StateIngredientTagExcluding(tag, ingr);
+				return new TagExcludingStateIngredient(tag, ingr);
 			case "compound":
 				List<StateIngredient> stateIngredients = new ArrayList<>();
 				for (JsonElement ingredient : GsonHelper.getAsJsonArray(object, "ingredients")) {
@@ -109,7 +109,7 @@ public class StateIngredientHelper {
 					}
 					stateIngredients.add(deserialize(ingredient.getAsJsonObject()));
 				}
-				return new StateIngredientCompound(stateIngredients);
+				return new CompoundStateIngredient(stateIngredients);
 			default:
 				throw new JsonParseException("Unknown type!");
 		}
@@ -125,17 +125,17 @@ public class StateIngredientHelper {
 	}
 
 	public static StateIngredient clearTheAir(StateIngredient ingredient) {
-		if (ingredient instanceof StateIngredientTag sit) {
+		if (ingredient instanceof TagStateIngredient sit) {
 			if (sit.resolve().findAny().isEmpty()) {
 				return null;
 			}
 			return ingredient;
 		}
-		if (ingredient instanceof StateIngredientBlock || ingredient instanceof StateIngredientBlockState) {
+		if (ingredient instanceof BlockStateIngredient || ingredient instanceof BlockStateStateIngredient) {
 			if (ingredient.test(Blocks.AIR.defaultBlockState())) {
 				return null;
 			}
-		} else if (ingredient instanceof StateIngredientBlocks sib) {
+		} else if (ingredient instanceof BlocksStateIngredient sib) {
 			Collection<Block> blocks = sib.blocks;
 			List<Block> list = new ArrayList<>(blocks);
 			if (list.removeIf(b -> b == Blocks.AIR)) {
@@ -144,7 +144,7 @@ public class StateIngredientHelper {
 				}
 				return of(list);
 			}
-		} else if (ingredient instanceof StateIngredientCompound sic) {
+		} else if (ingredient instanceof CompoundStateIngredient sic) {
 			List<StateIngredient> newIngredients = sic.getIngredients().stream().map(StateIngredientHelper::clearTheAir).filter(Objects::nonNull).toList();
 			if (newIngredients.isEmpty()) {
 				return null;
@@ -164,18 +164,18 @@ public class StateIngredientHelper {
 					Block block = Registry.BLOCK.byId(id);
 					set.add(block);
 				}
-				return new StateIngredientBlocks(set);
+				return new BlocksStateIngredient(set);
 			case 1:
-				return new StateIngredientBlock(Registry.BLOCK.byId(buffer.readVarInt()));
+				return new BlockStateIngredient(Registry.BLOCK.byId(buffer.readVarInt()));
 			case 2:
-				return new StateIngredientBlockState(Block.stateById(buffer.readVarInt()));
+				return new BlockStateStateIngredient(Block.stateById(buffer.readVarInt()));
 			case 3:
 				int ingredientCount = buffer.readVarInt();
 				Set<StateIngredient> ingredientSet = new HashSet<>();
 				for (int i = 0; i < ingredientCount; i++) {
 					ingredientSet.add(read(buffer));
 				}
-				return new StateIngredientCompound(ingredientSet);
+				return new CompoundStateIngredient(ingredientSet);
 			default:
 				throw new IllegalArgumentException("Unknown input discriminator!");
 		}

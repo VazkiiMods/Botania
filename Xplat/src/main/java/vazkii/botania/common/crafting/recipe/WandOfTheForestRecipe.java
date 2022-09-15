@@ -26,10 +26,10 @@ import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.material.ItemPetal;
 
-public class TwigWandRecipe extends ShapedRecipe {
-	public static final RecipeSerializer<TwigWandRecipe> SERIALIZER = new Serializer();
+public class WandOfTheForestRecipe extends ShapedRecipe {
+	public static final RecipeSerializer<WandOfTheForestRecipe> SERIALIZER = new Serializer();
 
-	public TwigWandRecipe(ShapedRecipe compose) {
+	public WandOfTheForestRecipe(ShapedRecipe compose) {
 		super(compose.getId(), compose.getGroup(), compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
 	}
 
@@ -64,21 +64,21 @@ public class TwigWandRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer extends RecipeSerializerBase<TwigWandRecipe> {
+	private static class Serializer extends RecipeSerializerBase<WandOfTheForestRecipe> {
 		@NotNull
 		@Override
-		public TwigWandRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new TwigWandRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
+		public WandOfTheForestRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
+			return new WandOfTheForestRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
 		}
 
 		@NotNull
 		@Override
-		public TwigWandRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new TwigWandRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
+		public WandOfTheForestRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
+			return new WandOfTheForestRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull TwigWandRecipe recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull WandOfTheForestRecipe recipe) {
 			SHAPED_RECIPE.toNetwork(buffer, recipe);
 		}
 	}

@@ -20,13 +20,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipePureDaisy;
+import vazkii.botania.common.crafting.PureDaisyRecipe;
 
 import java.util.Collections;
 
-public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
+public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<PureDaisyRecipe> {
 
-	public PureDaisyREIDisplay(RecipePureDaisy recipe) {
+	public PureDaisyREIDisplay(PureDaisyRecipe recipe) {
 		super(recipe);
 		ImmutableList.Builder<EntryStack<?>> inputs = ImmutableList.builder();
 		for (BlockState state : recipe.getInput().getDisplayed()) {

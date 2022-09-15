@@ -69,17 +69,17 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		specialRecipe(consumer, CompositeLensRecipe.SERIALIZER);
 		specialRecipe(consumer, CosmeticAttachRecipe.SERIALIZER);
 		specialRecipe(consumer, CosmeticRemoveRecipe.SERIALIZER);
-		specialRecipe(consumer, KeepIvyRecipe.SERIALIZER);
+		specialRecipe(consumer, ResoluteIvyRecipe.SERIALIZER);
 		specialRecipe(consumer, LaputaShardUpgradeRecipe.SERIALIZER);
 		specialRecipe(consumer, LensDyeingRecipe.SERIALIZER);
-		specialRecipe(consumer, ManaGunClipRecipe.SERIALIZER);
-		specialRecipe(consumer, ManaGunLensRecipe.SERIALIZER);
-		specialRecipe(consumer, ManaGunRemoveLensRecipe.SERIALIZER);
+		specialRecipe(consumer, ManaBlasterClipRecipe.SERIALIZER);
+		specialRecipe(consumer, ManaBlasterLensRecipe.SERIALIZER);
+		specialRecipe(consumer, ManaBlasterRemoveLensRecipe.SERIALIZER);
 		specialRecipe(consumer, MergeVialRecipe.SERIALIZER);
 		specialRecipe(consumer, PhantomInkRecipe.SERIALIZER);
-		specialRecipe(consumer, SpellClothRecipe.SERIALIZER);
+		specialRecipe(consumer, SpellbindingClothRecipe.SERIALIZER);
 		specialRecipe(consumer, SplitLensRecipe.SERIALIZER);
-		specialRecipe(consumer, TerraPickTippingRecipe.SERIALIZER);
+		specialRecipe(consumer, TerraShattererTippingRecipe.SERIALIZER);
 
 		registerMain(consumer);
 		registerMisc(consumer);
@@ -972,7 +972,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S  ")
 				.group("botania:twig_wand")
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.PETALS))
-				.save(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, consumer));
 		ShapedRecipeBuilder.shaped(ModItems.dreamwoodWand)
 				.define('P', ModTags.Items.PETALS)
 				.define('S', ModItems.dreamwoodTwig)
@@ -981,7 +981,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S  ")
 				.group("botania:twig_wand")
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.PETALS))
-				.save(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, consumer));
 		ShapedRecipeBuilder.shaped(ModItems.manaTablet)
 				.define('P', AccessorIngredient.callFromValues(Stream.of(
 						new Ingredient.ItemValue(new ItemStack(ModItems.manaPearl)),

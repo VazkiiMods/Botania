@@ -12,10 +12,10 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeRuneAltar;
+import vazkii.botania.common.crafting.RunicAltarRecipe;
 
-public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RecipeRuneAltar> {
-	public RunicAltarREIDisplay(RecipeRuneAltar recipe) {
+public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RunicAltarRecipe> {
+	public RunicAltarREIDisplay(RunicAltarRecipe recipe) {
 		super(recipe);
 	}
 

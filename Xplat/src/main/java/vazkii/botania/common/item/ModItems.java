@@ -443,21 +443,21 @@ public final class ModItems {
 		r.accept(CosmeticAttachRecipe.SERIALIZER, prefix("cosmetic_attach"));
 		r.accept(CosmeticRemoveRecipe.SERIALIZER, prefix("cosmetic_remove"));
 		r.accept(GogAlternationRecipe.SERIALIZER, prefix("gog_alternation"));
-		r.accept(KeepIvyRecipe.SERIALIZER, prefix("keep_ivy"));
+		r.accept(ResoluteIvyRecipe.SERIALIZER, prefix("keep_ivy"));
 		r.accept(LaputaShardUpgradeRecipe.SERIALIZER, prefix("laputa_shard_upgrade"));
 		r.accept(LensDyeingRecipe.SERIALIZER, prefix("lens_dye"));
-		r.accept(ManaGunClipRecipe.SERIALIZER, prefix("mana_gun_add_clip"));
-		r.accept(ManaGunLensRecipe.SERIALIZER, prefix("mana_gun_add_lens"));
-		r.accept(ManaGunRemoveLensRecipe.SERIALIZER, prefix("mana_gun_remove_lens"));
+		r.accept(ManaBlasterClipRecipe.SERIALIZER, prefix("mana_gun_add_clip"));
+		r.accept(ManaBlasterLensRecipe.SERIALIZER, prefix("mana_gun_add_lens"));
+		r.accept(ManaBlasterRemoveLensRecipe.SERIALIZER, prefix("mana_gun_remove_lens"));
 		r.accept(ManaUpgradeRecipe.SERIALIZER, prefix("mana_upgrade"));
 		r.accept(ShapelessManaUpgradeRecipe.SERIALIZER, prefix("mana_upgrade_shapeless"));
 		r.accept(MergeVialRecipe.SERIALIZER, prefix("merge_vial"));
 		r.accept(NbtOutputRecipe.SERIALIZER, prefix("nbt_output_wrapper"));
 		r.accept(PhantomInkRecipe.SERIALIZER, prefix("phantom_ink_apply"));
-		r.accept(SpellClothRecipe.SERIALIZER, prefix("spell_cloth_apply"));
+		r.accept(SpellbindingClothRecipe.SERIALIZER, prefix("spell_cloth_apply"));
 		r.accept(SplitLensRecipe.SERIALIZER, prefix("split_lens"));
-		r.accept(TerraPickTippingRecipe.SERIALIZER, prefix("terra_pick_tipping"));
-		r.accept(TwigWandRecipe.SERIALIZER, prefix("twig_wand"));
+		r.accept(TerraShattererTippingRecipe.SERIALIZER, prefix("terra_pick_tipping"));
+		r.accept(WandOfTheForestRecipe.SERIALIZER, prefix("twig_wand"));
 		r.accept(WaterBottleMatchingRecipe.SERIALIZER, prefix("water_bottle_matching_shaped"));
 	}
 

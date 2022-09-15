@@ -30,10 +30,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class StateIngredientBlockState implements StateIngredient {
+public class BlockStateStateIngredient implements StateIngredient {
 	private final BlockState state;
 
-	public StateIngredientBlockState(BlockState state) {
+	public BlockStateStateIngredient(BlockState state) {
 		this.state = state;
 	}
 
@@ -104,7 +104,7 @@ public class StateIngredientBlockState implements StateIngredient {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		return state == ((StateIngredientBlockState) o).state;
+		return state == ((BlockStateStateIngredient) o).state;
 	}
 
 	@Override
@@ -114,6 +114,6 @@ public class StateIngredientBlockState implements StateIngredient {
 
 	@Override
 	public String toString() {
-		return "StateIngredientBlockState{" + state + "}";
+		return "BlockStateStateIngredient{" + state + "}";
 	}
 }

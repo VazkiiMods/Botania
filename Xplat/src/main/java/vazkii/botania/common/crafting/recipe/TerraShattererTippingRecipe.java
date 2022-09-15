@@ -18,66 +18,66 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
-public class KeepIvyRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SimpleRecipeSerializer<>(KeepIvyRecipe::new);
+public class TerraShattererTippingRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<TerraShattererTippingRecipe> SERIALIZER = new SimpleRecipeSerializer<>(TerraShattererTippingRecipe::new);
 
-	public KeepIvyRecipe(ResourceLocation id) {
+	public TerraShattererTippingRecipe(ResourceLocation id) {
 		super(id);
-	}
-
-	@Override
-	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
-		boolean foundIvy = false;
-		boolean foundItem = false;
-
-		for (int i = 0; i < inv.getContainerSize(); i++) {
-			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty()) {
-				if (stack.is(ModItems.keepIvy)) {
-					foundIvy = true;
-				} else if (!foundItem
-						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false))
-						&& !stack.getItem().hasCraftingRemainingItem()) {
-					foundItem = true;
-				} else {
-					return false;
-				}
-			}
-		}
-
-		return foundIvy && foundItem;
-	}
-
-	@NotNull
-	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
-		ItemStack item = ItemStack.EMPTY;
-
-		for (int i = 0; i < inv.getContainerSize(); i++) {
-			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && !stack.is(ModItems.keepIvy)) {
-				item = stack;
-			}
-		}
-
-		ItemStack copy = item.copy();
-		ItemNBTHelper.setBoolean(copy, ItemKeepIvy.TAG_KEEP, true);
-		copy.setCount(1);
-		return copy;
-	}
-
-	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return width * height >= 2;
 	}
 
 	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
+	}
+
+	@Override
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
+		boolean foundTerraPick = false;
+		boolean foundElementiumPick = false;
+
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
+			if (!stack.isEmpty()) {
+				if (stack.getItem() instanceof ItemTerraPick && !ItemTerraPick.isTipped(stack)) {
+					foundTerraPick = true;
+				} else if (stack.is(ModItems.elementiumPick)) {
+					foundElementiumPick = true;
+				} else {
+					return false; // Found an invalid item, breaking the recipe
+				}
+			}
+		}
+
+		return foundTerraPick && foundElementiumPick;
+	}
+
+	@NotNull
+	@Override
+	public ItemStack assemble(@NotNull CraftingContainer inv) {
+		ItemStack terraPick = ItemStack.EMPTY;
+
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerraPick) {
+				terraPick = stack;
+			}
+		}
+
+		if (terraPick.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+
+		ItemStack terraPickCopy = terraPick.copy();
+		ItemTerraPick.setTipped(terraPickCopy);
+		return terraPickCopy;
+	}
+
+	@Override
+	public boolean canCraftInDimensions(int width, int height) {
+		return width * height >= 2;
 	}
 }

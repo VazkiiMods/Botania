@@ -20,12 +20,12 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
-public class RecipeOrechidIgnem extends RecipeOrechid {
-	public RecipeOrechidIgnem(ResourceLocation id, Block input, StateIngredient output, int weight) {
+public class OrechidIgnemRecipe extends OrechidRecipe {
+	public OrechidIgnemRecipe(ResourceLocation id, Block input, StateIngredient output, int weight) {
 		super(id, input, output, weight);
 	}
 
-	private RecipeOrechidIgnem(RecipeOrechid recipe) {
+	private OrechidIgnemRecipe(OrechidRecipe recipe) {
 		this(recipe.getId(), recipe.getInput(), recipe.getOutput(), recipe.getWeight());
 	}
 
@@ -39,19 +39,19 @@ public class RecipeOrechidIgnem extends RecipeOrechid {
 		return ModRecipeTypes.ORECHID_IGNEM_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeOrechidIgnem> {
+	public static class Serializer extends RecipeSerializerBase<OrechidIgnemRecipe> {
 		@Override
-		public RecipeOrechidIgnem fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new RecipeOrechidIgnem(ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json));
+		public OrechidIgnemRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
+			return new OrechidIgnemRecipe(ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json));
 		}
 
 		@Override
-		public RecipeOrechidIgnem fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new RecipeOrechidIgnem(ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer));
+		public OrechidIgnemRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
+			return new OrechidIgnemRecipe(ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull RecipeOrechidIgnem recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull OrechidIgnemRecipe recipe) {
 			ModRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
 		}
 	}

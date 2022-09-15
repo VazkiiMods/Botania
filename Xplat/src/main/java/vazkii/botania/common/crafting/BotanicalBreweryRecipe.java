@@ -29,19 +29,18 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
-import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RecipeBrew implements BotanicalBreweryRecipe {
+public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.BotanicalBreweryRecipe {
 	private final ResourceLocation id;
 	private final Brew brew;
 	private final NonNullList<Ingredient> inputs;
 
-	public RecipeBrew(ResourceLocation id, Brew brew, Ingredient... inputs) {
+	public BotanicalBreweryRecipe(ResourceLocation id, Brew brew, Ingredient... inputs) {
 		this.id = id;
 		this.brew = brew;
 		this.inputs = NonNullList.of(Ingredient.EMPTY, inputs);
@@ -131,15 +130,15 @@ public class RecipeBrew implements BotanicalBreweryRecipe {
 
 	@Override
 	public boolean equals(Object o) {
-		return o instanceof RecipeBrew
-				&& brew == ((RecipeBrew) o).brew
-				&& inputs.equals(((RecipeBrew) o).inputs);
+		return o instanceof BotanicalBreweryRecipe
+				&& brew == ((BotanicalBreweryRecipe) o).brew
+				&& inputs.equals(((BotanicalBreweryRecipe) o).inputs);
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeBrew> {
+	public static class Serializer extends RecipeSerializerBase<BotanicalBreweryRecipe> {
 		@NotNull
 		@Override
-		public RecipeBrew fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
+		public BotanicalBreweryRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
 			String brewStr = GsonHelper.getAsString(json, "brew");
 			ResourceLocation brewId = ResourceLocation.tryParse(brewStr);
 			Brew brew = BotaniaAPI.instance().getBrewRegistry().getOptional(brewId).orElseThrow(() -> new JsonParseException("Unknown brew " + brewStr));
@@ -149,22 +148,22 @@ public class RecipeBrew implements BotanicalBreweryRecipe {
 			for (JsonElement e : ingrs) {
 				inputs.add(Ingredient.fromJson(e));
 			}
-			return new RecipeBrew(id, brew, inputs.toArray(new Ingredient[0]));
+			return new BotanicalBreweryRecipe(id, brew, inputs.toArray(new Ingredient[0]));
 		}
 
 		@Override
-		public RecipeBrew fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
+		public BotanicalBreweryRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			var brewId = buf.readResourceLocation();
 			Brew brew = BotaniaAPI.instance().getBrewRegistry().get(brewId);
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
 				inputs[i] = Ingredient.fromNetwork(buf);
 			}
-			return new RecipeBrew(id, brew, inputs);
+			return new BotanicalBreweryRecipe(id, brew, inputs);
 		}
 
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull RecipeBrew recipe) {
+		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull BotanicalBreweryRecipe recipe) {
 			var brewId = BotaniaAPI.instance().getBrewRegistry().getKey(recipe.getBrew());
 			buf.writeResourceLocation(brewId);
 			buf.writeVarInt(recipe.getIngredients().size());

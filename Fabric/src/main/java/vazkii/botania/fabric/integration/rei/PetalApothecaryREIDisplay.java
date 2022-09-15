@@ -12,10 +12,10 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipePetals;
+import vazkii.botania.common.crafting.PetalsRecipe;
 
-public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals> {
-	public PetalApothecaryREIDisplay(RecipePetals recipe) {
+public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<PetalsRecipe> {
+	public PetalApothecaryREIDisplay(PetalsRecipe recipe) {
 		super(recipe);
 	}
 
