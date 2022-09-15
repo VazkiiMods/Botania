@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -58,7 +58,7 @@ public class RingOfOdinItem extends RelicBaubleItem {
 
 	public static boolean onPlayerAttacked(Player player, DamageSource src) {
 		return (src.isFire() || damageNegations.contains(src.msgId))
-				&& !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
+				&& !EquipmentHandler.findOrEmpty(BotaniaItems.odinRing, player).isEmpty();
 	}
 
 	public static Relic makeRelic(ItemStack stack) {

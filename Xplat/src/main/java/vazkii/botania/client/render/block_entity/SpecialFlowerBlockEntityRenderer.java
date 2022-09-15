@@ -32,7 +32,7 @@ import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
 import java.util.ArrayList;
@@ -88,9 +88,9 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 	}
 
 	public static boolean hasBindingAttempt(LivingEntity view, BlockPos tilePos) {
-		ItemStack stackHeld = PlayerHelper.getFirstHeldItemClass(view, ItemTwigWand.class);
-		if (!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
-			return ItemTwigWand.getBindingAttempt(stackHeld).filter(tilePos::equals).isPresent();
+		ItemStack stackHeld = PlayerHelper.getFirstHeldItemClass(view, WandOfTheForestItem.class);
+		if (!stackHeld.isEmpty() && WandOfTheForestItem.getBindMode(stackHeld)) {
+			return WandOfTheForestItem.getBindingAttempt(stackHeld).filter(tilePos::equals).isPresent();
 		}
 		return false;
 	}

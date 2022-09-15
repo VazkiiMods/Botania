@@ -31,8 +31,8 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.mixin.AccessorAdvancementProvider;
@@ -60,14 +60,14 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 	private static void mainAdvancements(Consumer<Advancement> consumer) {
 		var elvenLexiconUnlock = new CompoundTag();
-		elvenLexiconUnlock.putBoolean(ItemLexicon.TAG_ELVEN_UNLOCK, true);
+		elvenLexiconUnlock.putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
 		InventoryChangeTrigger.TriggerInstance elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
-				ItemPredicate.Builder.item().of(ModItems.lexicon).hasNbt(elvenLexiconUnlock).build()
+				ItemPredicate.Builder.item().of(BotaniaItems.lexicon).hasNbt(elvenLexiconUnlock).build()
 		);
 
 		// Main progression line
 		Advancement root = Advancement.Builder.advancement()
-				.display(rootDisplay(ModItems.lexicon, "itemGroup.botania",
+				.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania",
 						"botania.desc", prefix("textures/block/livingwood_log.png")))
 				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer, mainId("root"));
@@ -91,9 +91,9 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("rune_pickup"));
 
 		Advancement terrasteelPickup = Advancement.Builder.advancement()
-				.display(simple(ModItems.terrasteel, "terrasteelPickup", FrameType.TASK))
+				.display(simple(BotaniaItems.terrasteel, "terrasteelPickup", FrameType.TASK))
 				.parent(runePickup)
-				.addCriterion("terrasteel", onPickup(ModItems.terrasteel))
+				.addCriterion("terrasteel", onPickup(BotaniaItems.terrasteel))
 				.save(consumer, mainId("terrasteel_pickup"));
 
 		Advancement elfPortalOpen = Advancement.Builder.advancement()
@@ -110,22 +110,22 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("gaia_guardian_kill"));
 
 		Advancement enderAirMake = Advancement.Builder.advancement()
-				.display(simple(ModItems.enderAirBottle, "enderAirMake", FrameType.TASK))
+				.display(simple(BotaniaItems.enderAirBottle, "enderAirMake", FrameType.TASK))
 				.parent(elfPortalOpen)
-				.addCriterion("air", onPickup(ModItems.enderAirBottle))
+				.addCriterion("air", onPickup(BotaniaItems.enderAirBottle))
 				.save(consumer, mainId("ender_air_make"));
 
 		// Parent: root
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.lexicon, "lexiconUse", FrameType.TASK))
+				.display(simple(BotaniaItems.lexicon, "lexiconUse", FrameType.TASK))
 				.parent(root)
 				.addCriterion("use_lexicon", new UseItemSuccessTrigger.Instance(EntityPredicate.Composite.ANY,
-						ItemPredicate.Builder.item().of(ModItems.lexicon).build(), LocationPredicate.ANY))
+						ItemPredicate.Builder.item().of(BotaniaItems.lexicon).build(), LocationPredicate.ANY))
 				.save(consumer, mainId("lexicon_use"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.cacophonium, "cacophoniumCraft", FrameType.TASK))
+				.display(simple(BotaniaItems.cacophonium, "cacophoniumCraft", FrameType.TASK))
 				.parent(root)
-				.addCriterion("cacophonium", onPickup(ModItems.cacophonium))
+				.addCriterion("cacophonium", onPickup(BotaniaItems.cacophonium))
 				.save(consumer, mainId("cacophonium_craft"));
 
 		// Parent: mystical flowers
@@ -147,32 +147,32 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.addCriterion("flower", onPickup(ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS))
 				.save(consumer, mainId("functional_flower"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.poolMinecart, "manaCartCraft", FrameType.TASK))
+				.display(simple(BotaniaItems.poolMinecart, "manaCartCraft", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("poolcart", onPickup(ModItems.poolMinecart))
+				.addCriterion("poolcart", onPickup(BotaniaItems.poolMinecart))
 				.save(consumer, mainId("mana_cart_craft"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.manaweaveCloth, "manaweaveArmorCraft", FrameType.TASK))
+				.display(simple(BotaniaItems.manaweaveCloth, "manaweaveArmorCraft", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("head", onPickup(ModItems.manaweaveHelm, ModItems.manaweaveChest, ModItems.manaweaveLegs, ModItems.manaweaveBoots))
+				.addCriterion("head", onPickup(BotaniaItems.manaweaveHelm, BotaniaItems.manaweaveChest, BotaniaItems.manaweaveLegs, BotaniaItems.manaweaveBoots))
 				.save(consumer, mainId("manaweave_armor_craft"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.spark, "sparkCraft", FrameType.TASK))
+				.display(simple(BotaniaItems.spark, "sparkCraft", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("spark", onPickup(ModItems.spark))
+				.addCriterion("spark", onPickup(BotaniaItems.spark))
 				.save(consumer, mainId("spark_craft"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.manaCookie, "manaCookieEat", FrameType.TASK))
+				.display(simple(BotaniaItems.manaCookie, "manaCookieEat", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("cookie", ConsumeItemTrigger.TriggerInstance.usedItem(ModItems.manaCookie))
+				.addCriterion("cookie", ConsumeItemTrigger.TriggerInstance.usedItem(BotaniaItems.manaCookie))
 				.save(consumer, mainId("mana_cookie_eat"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.craftingHalo, "craftingHaloCraft", FrameType.TASK))
+				.display(simple(BotaniaItems.craftingHalo, "craftingHaloCraft", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("pool", onPickup(ModItems.craftingHalo))
+				.addCriterion("pool", onPickup(BotaniaItems.craftingHalo))
 				.save(consumer, mainId("crafting_halo_craft"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.manaRing, "baubleWear", FrameType.TASK))
+				.display(simple(BotaniaItems.manaRing, "baubleWear", FrameType.TASK))
 				.parent(manaPoolPickup)
 				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, mainId("bauble_wear"));
@@ -184,7 +184,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 		// Parent: runes
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.manaGun, "manaBlasterShoot", FrameType.TASK))
+				.display(simple(BotaniaItems.manaGun, "manaBlasterShoot", FrameType.TASK))
 				.parent(runePickup)
 				.addCriterion("shoot", new ManaBlasterTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, null))
 				.save(consumer, mainId("mana_blaster_shoot"));
@@ -194,21 +194,21 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.addCriterion("pollidisiac", onPickup(BotaniaFlowerBlocks.pollidisiac))
 				.save(consumer, mainId("pollidisiac_pickup"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.dirtRod, "dirtRodCraft", FrameType.TASK))
+				.display(simple(BotaniaItems.dirtRod, "dirtRodCraft", FrameType.TASK))
 				.parent(runePickup)
-				.addCriterion("dirtrod", onPickup(ModItems.dirtRod))
+				.addCriterion("dirtrod", onPickup(BotaniaItems.dirtRod))
 				.save(consumer, mainId("dirt_rod_craft"));
 		Advancement.Builder.advancement()
 				.display(simple(BotaniaBlocks.brewery, "brewPickup", FrameType.TASK))
 				.parent(runePickup)
-				.addCriterion("pickup", onPickup(ModItems.brewFlask, ModItems.brewVial))
+				.addCriterion("pickup", onPickup(BotaniaItems.brewFlask, BotaniaItems.brewVial))
 				.save(consumer, mainId("brew_pickup"));
 
 		// Parent: terrasteel
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.terraSword, "terrasteelWeaponCraft", FrameType.TASK))
+				.display(simple(BotaniaItems.terraSword, "terrasteelWeaponCraft", FrameType.TASK))
 				.parent(terrasteelPickup)
-				.addCriterion("terrablade", onPickup(ModItems.terraSword, ModItems.thornChakram))
+				.addCriterion("terrablade", onPickup(BotaniaItems.terraSword, BotaniaItems.thornChakram))
 				.save(consumer, mainId("terrasteel_weapon_craft"));
 
 		// Parent: elven portal
@@ -230,12 +230,12 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 		// Parent: gaia guardian
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.spawnerMover, "spawnerMoverUse", FrameType.TASK))
+				.display(simple(BotaniaItems.spawnerMover, "spawnerMoverUse", FrameType.TASK))
 				.parent(gaiaGuardianKill)
 				.addCriterion("use_spawner_mover", new UseItemSuccessTrigger.Instance(EntityPredicate.Composite.ANY,
-						ItemPredicate.Builder.item().of(ModItems.spawnerMover).build(), LocationPredicate.ANY))
+						ItemPredicate.Builder.item().of(BotaniaItems.spawnerMover).build(), LocationPredicate.ANY))
 				.save(consumer, mainId("spawner_mover_use"));
-		DisplayInfo tiaraWings = simple(ModItems.flightTiara, "tiaraWings", FrameType.TASK);
+		DisplayInfo tiaraWings = simple(BotaniaItems.flightTiara, "tiaraWings", FrameType.TASK);
 		tiaraWings.getIcon().getOrCreateTag().putInt("variant", 1);
 		InventoryChangeTrigger.TriggerInstance[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
 				.mapToObj(i -> {
@@ -243,7 +243,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 					tag.putInt("variant", i);
 					return tag;
 				})
-				.map(nbt -> ItemPredicate.Builder.item().of(ModItems.flightTiara).hasNbt(nbt).build())
+				.map(nbt -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara).hasNbt(nbt).build())
 				.map(InventoryChangeTrigger.TriggerInstance::hasItems)
 				.toArray(InventoryChangeTrigger.TriggerInstance[]::new);
 		var builder = Advancement.Builder.advancement()
@@ -314,7 +314,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("runic_altar_pickup"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
-				.addCriterion("terrasteel", onPickup(ModItems.terrasteel))
+				.addCriterion("terrasteel", onPickup(BotaniaItems.terrasteel))
 				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("terrasteel_pickup_lexicon"));
@@ -326,7 +326,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 	private static void challengeAdvancements(Consumer<Advancement> consumer) {
 		Advancement root = Advancement.Builder.advancement()
-				.display(rootDisplay(ModItems.dice, "advancement.botania_challenge",
+				.display(rootDisplay(BotaniaItems.dice, "advancement.botania_challenge",
 						"advancement.botania_challenge.desc", prefix("textures/block/livingrock_bricks.png")))
 				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer, challengeId("root"));
@@ -335,7 +335,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		CompoundTag hardmodeNbt = new CompoundTag();
 		hardmodeNbt.putBoolean("hardMode", true);
 		Advancement hardMode = Advancement.Builder.advancement()
-				.display(simple(ModItems.lifeEssence, "gaiaGuardianHardmode", FrameType.CHALLENGE))
+				.display(simple(BotaniaItems.lifeEssence, "gaiaGuardianHardmode", FrameType.CHALLENGE))
 				.parent(root)
 				.addCriterion("guardian", KilledTrigger.TriggerInstance.playerKilledEntity(
 						EntityPredicate.Builder.entity()
@@ -343,25 +343,25 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 								.nbt(new NbtPredicate(hardmodeNbt)).build()))
 				.save(consumer, challengeId("gaia_guardian_hardmode"));
 
-		relicBindAdvancement(consumer, hardMode, ModItems.infiniteFruit, "infiniteFruit", "fruit");
-		relicBindAdvancement(consumer, hardMode, ModItems.kingKey, "kingKey", "key");
-		relicBindAdvancement(consumer, hardMode, ModItems.flugelEye, "flugelEye", "eye");
-		relicBindAdvancement(consumer, hardMode, ModItems.thorRing, "thorRing", "ring");
-		relicBindAdvancement(consumer, hardMode, ModItems.odinRing, "odinRing", "ring");
-		Advancement lokiRing = relicBindAdvancement(consumer, hardMode, ModItems.lokiRing, "lokiRing", "ring");
+		relicBindAdvancement(consumer, hardMode, BotaniaItems.infiniteFruit, "infiniteFruit", "fruit");
+		relicBindAdvancement(consumer, hardMode, BotaniaItems.kingKey, "kingKey", "key");
+		relicBindAdvancement(consumer, hardMode, BotaniaItems.flugelEye, "flugelEye", "eye");
+		relicBindAdvancement(consumer, hardMode, BotaniaItems.thorRing, "thorRing", "ring");
+		relicBindAdvancement(consumer, hardMode, BotaniaItems.odinRing, "odinRing", "ring");
+		Advancement lokiRing = relicBindAdvancement(consumer, hardMode, BotaniaItems.lokiRing, "lokiRing", "ring");
 
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.lokiRing, "lokiRingMany", FrameType.CHALLENGE))
+				.display(simple(BotaniaItems.lokiRing, "lokiRingMany", FrameType.CHALLENGE))
 				.parent(lokiRing)
 				.addCriterion("place_blocks", new LokiPlaceTrigger.Instance(
 						EntityPredicate.Composite.ANY, EntityPredicate.ANY, ItemPredicate.ANY, MinMaxBounds.Ints.atLeast(255)
 				))
 				.save(consumer, challengeId("loki_ring_many"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.pinkinator, "pinkinator", FrameType.CHALLENGE))
+				.display(simple(BotaniaItems.pinkinator, "pinkinator", FrameType.CHALLENGE))
 				.parent(hardMode)
 				.addCriterion("use_pinkinator", new UseItemSuccessTrigger.Instance(
-						EntityPredicate.Composite.ANY, matchItems(ModItems.pinkinator), LocationPredicate.ANY))
+						EntityPredicate.Composite.ANY, matchItems(BotaniaItems.pinkinator), LocationPredicate.ANY))
 				.save(consumer, challengeId("pinkinator"));
 
 		// Misc challenges
@@ -377,7 +377,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.addCriterion("flower", onPickup(BotaniaBlocks.motifDaybloom, BotaniaBlocks.motifNightshade))
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, challengeId("old_flower_pickup"));
-		DisplayInfo desuGun = simple(ModItems.manaGun, "desuGun", FrameType.CHALLENGE);
+		DisplayInfo desuGun = simple(BotaniaItems.manaGun, "desuGun", FrameType.CHALLENGE);
 		desuGun.getIcon().setHoverName(Component.literal("desu gun"));
 		Advancement.Builder.advancement()
 				.display(desuGun)
@@ -392,17 +392,17 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 						EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(CorporeaIndexBlockEntity.MAX_REQUEST), LocationPredicate.ANY))
 				.save(consumer, challengeId("super_corporea_request"));
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.terraPick, "rankSSPick", FrameType.CHALLENGE))
+				.display(simple(BotaniaItems.terraPick, "rankSSPick", FrameType.CHALLENGE))
 				.parent(root)
 				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, challengeId("rank_ss_pick"));
 		CompoundTag level20Shard = new CompoundTag();
 		level20Shard.putInt("level", 19);
 		Advancement.Builder.advancement()
-				.display(simple(ModItems.laputaShard, "l20ShardUse", FrameType.CHALLENGE))
+				.display(simple(BotaniaItems.laputaShard, "l20ShardUse", FrameType.CHALLENGE))
 				.parent(root)
 				.addCriterion("use_l20_shard", InventoryChangeTrigger.TriggerInstance.hasItems(
-						ItemPredicate.Builder.item().of(ModItems.laputaShard).hasNbt(level20Shard).build()))
+						ItemPredicate.Builder.item().of(BotaniaItems.laputaShard).hasNbt(level20Shard).build()))
 				.save(consumer, challengeId("l20_shard_use"));
 		Advancement.Builder.advancement()
 				.display(hidden(Items.BREAD, "alfPortalBread", FrameType.CHALLENGE))

@@ -34,7 +34,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.item.ManaBlasterItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.client.AccessorModelBakery;
 
@@ -57,7 +57,7 @@ public class ManaBlasterModel implements BakedModel {
 
 		for (var item : Registry.ITEM) {
 			var lens = item.getDefaultInstance();
-			if (ItemManaGun.isValidLens(lens)) {
+			if (ManaBlasterItem.isValidLens(lens)) {
 				var baked = new CompositeBakedModel(bakery, lens, originalModel);
 				var bakedClip = new CompositeBakedModel(bakery, lens, originalModelClip);
 				cache.put(Pair.of(item, false), baked);
@@ -70,13 +70,13 @@ public class ManaBlasterModel implements BakedModel {
 		@NotNull
 		@Override
 		public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int seed) {
-			boolean clip = ItemManaGun.hasClip(stack);
+			boolean clip = ManaBlasterItem.hasClip(stack);
 
-			if (ItemManaGun.isSugoiKawaiiDesuNe(stack)) {
+			if (ManaBlasterItem.isSugoiKawaiiDesuNe(stack)) {
 				return Minecraft.getInstance().getModelManager().getModel(clip ? DESU_CLIP : DESU);
 			}
 
-			ItemStack lens = ItemManaGun.getLens(stack);
+			ItemStack lens = ManaBlasterItem.getLens(stack);
 			if (!lens.isEmpty()) {
 				return ManaBlasterModel.this.cache.getOrDefault(Pair.of(lens.getItem(), clip),
 						Minecraft.getInstance().getModelManager().getMissingModel());

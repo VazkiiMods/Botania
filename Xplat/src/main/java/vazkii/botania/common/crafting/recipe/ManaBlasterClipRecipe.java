@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ItemManaGun;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.ManaBlasterItem;
 
 public class ManaBlasterClipRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<ManaBlasterClipRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaBlasterClipRecipe::new);
@@ -36,9 +36,9 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun && !ItemManaGun.hasClip(stack)) {
+				if (stack.getItem() instanceof ManaBlasterItem && !ManaBlasterItem.hasClip(stack)) {
 					foundGun = true;
-				} else if (stack.is(ModItems.clip)) {
+				} else if (stack.is(BotaniaItems.clip)) {
 					foundClip = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
@@ -56,7 +56,7 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.getItem() instanceof ItemManaGun) {
+			if (!stack.isEmpty() && stack.getItem() instanceof ManaBlasterItem) {
 				gun = stack;
 			}
 		}
@@ -65,11 +65,11 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		ItemStack lens = ItemManaGun.getLens(gun);
+		ItemStack lens = ManaBlasterItem.getLens(gun);
 		ItemStack gunCopy = gun.copy();
-		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
-		ItemManaGun.setClip(gunCopy, true);
-		ItemManaGun.setLensAtPos(gunCopy, lens, 0);
+		ManaBlasterItem.setLens(gunCopy, ItemStack.EMPTY);
+		ManaBlasterItem.setClip(gunCopy, true);
+		ManaBlasterItem.setLensAtPos(gunCopy, lens, 0);
 		return gunCopy;
 	}
 

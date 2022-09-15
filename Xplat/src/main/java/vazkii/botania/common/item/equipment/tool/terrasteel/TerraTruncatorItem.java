@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.item.ItemTemperanceStone;
+import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelAxeItem;
 
@@ -71,7 +71,7 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 	}
 
 	public static boolean shouldBreak(Player player) {
-		return !player.isShiftKeyDown() && !ItemTemperanceStone.hasTemperanceActive(player);
+		return !player.isShiftKeyDown() && !StoneOfTemperanceItem.hasTemperanceActive(player);
 	}
 
 	@SoftImplement("IForgeItem")

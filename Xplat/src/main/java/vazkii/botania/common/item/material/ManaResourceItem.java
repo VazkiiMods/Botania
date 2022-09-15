@@ -17,7 +17,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class ManaResourceItem extends Item {
 	public ManaResourceItem(Properties props) {
@@ -29,11 +29,11 @@ public class ManaResourceItem extends Item {
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
 
-		if (stack.is(ModItems.terrasteel) || stack.is(ModItems.gaiaIngot)) {
-			return GaiaGuardianEntity.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), stack.is(ModItems.gaiaIngot))
+		if (stack.is(BotaniaItems.terrasteel) || stack.is(BotaniaItems.gaiaIngot)) {
+			return GaiaGuardianEntity.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), stack.is(BotaniaItems.gaiaIngot))
 					? InteractionResult.SUCCESS
 					: InteractionResult.FAIL;
-		} else if (stack.is(ModItems.livingroot)) {
+		} else if (stack.is(BotaniaItems.livingroot)) {
 			return Items.BONE_MEAL.useOn(ctx);
 		}
 

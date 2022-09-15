@@ -27,7 +27,7 @@ import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlo
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.IPacket;
@@ -260,7 +260,7 @@ public record PacketBotaniaEffect(EffectType type, double x, double y, double z,
 							}
 						}
 						case PARTICLE_BEAM -> {
-							ItemTwigWand.doParticleBeam(world,
+							WandOfTheForestItem.doParticleBeam(world,
 									new Vec3(x, y, z),
 									new Vec3(args[0] + 0.5, args[1] + 0.5, args[2] + 0.5));
 						}

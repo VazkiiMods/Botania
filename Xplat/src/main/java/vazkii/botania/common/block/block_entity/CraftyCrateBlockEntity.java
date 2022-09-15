@@ -40,7 +40,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.AccessorRecipeManager;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -159,7 +159,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		for (int i = 0; i < craft.getContainerSize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
 
-			if (stack.isEmpty() || isLocked(i) || stack.is(ModItems.placeholder)) {
+			if (stack.isEmpty() || isLocked(i) || stack.is(BotaniaItems.placeholder)) {
 				continue;
 			}
 
@@ -177,7 +177,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 				ItemStack s = remainders.get(i);
 				ItemStack inSlot = handler.getItem(i);
 				if ((inSlot.isEmpty() && s.isEmpty())
-						|| (!inSlot.isEmpty() && inSlot.is(ModItems.placeholder))) {
+						|| (!inSlot.isEmpty() && inSlot.is(BotaniaItems.placeholder))) {
 					continue;
 				}
 				handler.setItem(i, s);

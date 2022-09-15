@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 import java.util.Collections;
@@ -35,8 +35,8 @@ public class TerraShattererTippingRecipeWrapper implements ICraftingCategoryExte
 	private final ResourceLocation name;
 
 	public TerraShattererTippingRecipeWrapper(TerraShattererTippingRecipe recipe) {
-		inputs = ImmutableList.of(ImmutableList.of(new ItemStack(ModItems.terraPick)), ImmutableList.of(new ItemStack(ModItems.elementiumPick)));
-		output = new ItemStack(ModItems.terraPick);
+		inputs = ImmutableList.of(ImmutableList.of(new ItemStack(BotaniaItems.terraPick)), ImmutableList.of(new ItemStack(BotaniaItems.elementiumPick)));
+		output = new ItemStack(BotaniaItems.terraPick);
 		TerraShattererItem.setTipped(output);
 
 		this.name = recipe.getId();

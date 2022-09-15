@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -42,7 +42,7 @@ public class LivingwoodBowItem extends BowItem implements CustomDamageItem {
 
 	@Override
 	public boolean isValidRepairItem(ItemStack bow, ItemStack material) {
-		return material.is(ModItems.livingwoodTwig) || super.isValidRepairItem(bow, material);
+		return material.is(BotaniaItems.livingwoodTwig) || super.isValidRepairItem(bow, material);
 	}
 
 	@Override

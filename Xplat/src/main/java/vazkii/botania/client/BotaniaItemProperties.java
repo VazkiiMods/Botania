@@ -27,30 +27,30 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class BotaniaItemProperties {
 	public static void init(TriConsumer<ItemLike, ResourceLocation, ClampedItemPropertyFunction> consumer) {
-		consumer.accept(ModItems.blackHoleTalisman, prefix("active"),
-				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
-		consumer.accept(ModItems.manaBottle, prefix("swigs_taken"),
-				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
+		consumer.accept(BotaniaItems.blackHoleTalisman, prefix("active"),
+				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, BlackHoleTalismanItem.TAG_ACTIVE, false) ? 1 : 0);
+		consumer.accept(BotaniaItems.manaBottle, prefix("swigs_taken"),
+				(stack, world, entity, seed) -> BottledManaItem.SWIGS - BottledManaItem.getSwigsLeft(stack));
 
 		ResourceLocation vuvuzelaId = prefix("vuvuzela");
 		ClampedItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
-		consumer.accept(ModItems.grassHorn, vuvuzelaId, isVuvuzela);
-		consumer.accept(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
-		consumer.accept(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
+		consumer.accept(BotaniaItems.grassHorn, vuvuzelaId, isVuvuzela);
+		consumer.accept(BotaniaItems.leavesHorn, vuvuzelaId, isVuvuzela);
+		consumer.accept(BotaniaItems.snowHorn, vuvuzelaId, isVuvuzela);
 
-		consumer.accept(ModItems.lexicon, prefix("elven"), (stack, world, living, seed) -> ItemLexicon.isElven(stack) ? 1 : 0);
-		consumer.accept(ModItems.manaCookie, prefix("totalbiscuit"),
+		consumer.accept(BotaniaItems.lexicon, prefix("elven"), (stack, world, living, seed) -> LexicaBotaniaItem.isElven(stack) ? 1 : 0);
+		consumer.accept(BotaniaItems.manaCookie, prefix("totalbiscuit"),
 				(stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
-		consumer.accept(ModItems.slimeBottle, prefix("active"),
-				(stack, world, entity, seed) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
-		consumer.accept(ModItems.spawnerMover, prefix("full"),
-				(stack, world, entity, seed) -> ItemSpawnerMover.hasData(stack) ? 1 : 0);
-		consumer.accept(ModItems.temperanceStone, prefix("active"),
-				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
-		consumer.accept(ModItems.twigWand, prefix("bindmode"),
-				(stack, world, entity, seed) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
-		consumer.accept(ModItems.dreamwoodWand, prefix("bindmode"),
-				(stack, world, entity, seed) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
+		consumer.accept(BotaniaItems.slimeBottle, prefix("active"),
+				(stack, world, entity, seed) -> stack.hasTag() && stack.getTag().getBoolean(SlimeInABottleItem.TAG_ACTIVE) ? 1.0F : 0.0F);
+		consumer.accept(BotaniaItems.spawnerMover, prefix("full"),
+				(stack, world, entity, seed) -> LifeAggregatorItem.hasData(stack) ? 1 : 0);
+		consumer.accept(BotaniaItems.temperanceStone, prefix("active"),
+				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, StoneOfTemperanceItem.TAG_ACTIVE, false) ? 1 : 0);
+		consumer.accept(BotaniaItems.twigWand, prefix("bindmode"),
+				(stack, world, entity, seed) -> WandOfTheForestItem.getBindMode(stack) ? 1 : 0);
+		consumer.accept(BotaniaItems.dreamwoodWand, prefix("bindmode"),
+				(stack, world, entity, seed) -> WandOfTheForestItem.getBindMode(stack) ? 1 : 0);
 
 		ResourceLocation poolFullId = prefix("full");
 		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
@@ -67,33 +67,33 @@ public final class BotaniaItemProperties {
 			BaseBrewItem item = ((BaseBrewItem) stack.getItem());
 			return item.getSwigs() - item.getSwigsLeft(stack);
 		};
-		consumer.accept(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
-		consumer.accept(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
+		consumer.accept(BotaniaItems.brewVial, prefix("swigs_taken"), brewGetter);
+		consumer.accept(BotaniaItems.brewFlask, prefix("swigs_taken"), brewGetter);
 
 		ResourceLocation holidayId = prefix("holiday");
 		ClampedItemPropertyFunction holidayGetter = (stack, worldIn, entityIn, seed) -> ClientProxy.jingleTheBells ? 1 : 0;
-		consumer.accept(ModItems.manaweaveHelm, holidayId, holidayGetter);
-		consumer.accept(ModItems.manaweaveChest, holidayId, holidayGetter);
-		consumer.accept(ModItems.manaweaveBoots, holidayId, holidayGetter);
-		consumer.accept(ModItems.manaweaveLegs, holidayId, holidayGetter);
+		consumer.accept(BotaniaItems.manaweaveHelm, holidayId, holidayGetter);
+		consumer.accept(BotaniaItems.manaweaveChest, holidayId, holidayGetter);
+		consumer.accept(BotaniaItems.manaweaveBoots, holidayId, holidayGetter);
+		consumer.accept(BotaniaItems.manaweaveLegs, holidayId, holidayGetter);
 
 		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> RingOfMagnetizationItem.getCooldown(stack) <= 0 ? 1 : 0;
-		consumer.accept(ModItems.magnetRing, prefix("active"), ringOnGetter);
-		consumer.accept(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
+		consumer.accept(BotaniaItems.magnetRing, prefix("active"), ringOnGetter);
+		consumer.accept(BotaniaItems.magnetRingGreater, prefix("active"), ringOnGetter);
 
-		consumer.accept(ModItems.elementiumShears, prefix("reddit"),
+		consumer.accept(BotaniaItems.elementiumShears, prefix("reddit"),
 				(stack, world, entity, seed) -> stack.getHoverName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
-		consumer.accept(ModItems.manasteelSword, prefix("elucidator"),
+		consumer.accept(BotaniaItems.manasteelSword, prefix("elucidator"),
 				(stack, world, entity, seed) -> "the elucidator".equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
-		consumer.accept(ModItems.terraAxe, prefix("active"),
+		consumer.accept(BotaniaItems.terraAxe, prefix("active"),
 				(stack, world, entity, seed) -> entity instanceof Player player && !TerraTruncatorItem.shouldBreak(player) ? 0 : 1);
-		consumer.accept(ModItems.terraPick, prefix("tipped"),
+		consumer.accept(BotaniaItems.terraPick, prefix("tipped"),
 				(stack, world, entity, seed) -> TerraShattererItem.isTipped(stack) ? 1 : 0);
-		consumer.accept(ModItems.terraPick, prefix("active"),
+		consumer.accept(BotaniaItems.terraPick, prefix("active"),
 				(stack, world, entity, seed) -> TerraShattererItem.isEnabled(stack) ? 1 : 0);
-		consumer.accept(ModItems.infiniteFruit, prefix("boot"),
+		consumer.accept(BotaniaItems.infiniteFruit, prefix("boot"),
 				(stack, worldIn, entity, seed) -> FruitOfGrisaiaItem.isBoot(stack) ? 1F : 0F);
-		consumer.accept(ModItems.tornadoRod, prefix("active"),
+		consumer.accept(BotaniaItems.tornadoRod, prefix("active"),
 				(stack, world, living, seed) -> SkiesRodItem.isFlying(stack) ? 1 : 0);
 
 		// [VanillaCopy] ItemProperties.BOW's minecraft:pulling property
@@ -108,10 +108,10 @@ public final class BotaniaItemProperties {
 						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
 			}
 		};
-		consumer.accept(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
-		consumer.accept(ModItems.livingwoodBow, new ResourceLocation("pull"), pull);
-		consumer.accept(ModItems.crystalBow, new ResourceLocation("pulling"), pulling);
-		consumer.accept(ModItems.crystalBow, new ResourceLocation("pull"), pull);
+		consumer.accept(BotaniaItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
+		consumer.accept(BotaniaItems.livingwoodBow, new ResourceLocation("pull"), pull);
+		consumer.accept(BotaniaItems.crystalBow, new ResourceLocation("pulling"), pulling);
+		consumer.accept(BotaniaItems.crystalBow, new ResourceLocation("pull"), pull);
 	}
 
 	private BotaniaItemProperties() {}

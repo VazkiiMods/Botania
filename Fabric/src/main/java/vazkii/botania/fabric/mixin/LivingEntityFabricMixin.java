@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
-import vazkii.botania.common.item.ItemCraftingHalo;
+import vazkii.botania.common.item.AssemblyHaloItem;
 import vazkii.botania.common.item.equipment.bauble.SojournersSashItem;
 import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.rod.ShadedMesaRodItem;
@@ -74,7 +74,7 @@ public abstract class LivingEntityFabricMixin extends Entity {
 		ItemStack stack = getItemInHand(hand);
 		LivingEntity self = (LivingEntity) (Object) this;
 		if (!level.isClientSide) {
-			if (stack.getItem() instanceof ItemCraftingHalo halo && halo.onEntitySwing(stack, self)) {
+			if (stack.getItem() instanceof AssemblyHaloItem halo && halo.onEntitySwing(stack, self)) {
 				ci.cancel();
 			} else if (stack.getItem() instanceof ShadedMesaRodItem rod) {
 				rod.onEntitySwing(stack, self);

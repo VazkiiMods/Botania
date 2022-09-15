@@ -35,9 +35,9 @@ import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.ItemSparkUpgrade;
-import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.SparkAugmentItem;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -71,7 +71,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@NotNull
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(ModItems.spark);
+		return new ItemStack(BotaniaItems.spark);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 				Map<Player, Map<ManaItem, Integer>> receivingPlayers = new HashMap<>();
 
-				ItemStack input = new ItemStack(ModItems.spark);
+				ItemStack input = new ItemStack(BotaniaItems.spark);
 				for (Player player : players) {
 					List<ItemStack> stacks = new ArrayList<>();
 					stacks.addAll(player.getInventory().items);
@@ -223,9 +223,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	private void dropAndKill() {
 		SparkUpgradeType upgrade = getUpgrade();
-		spawnAtLocation(new ItemStack(ModItems.spark), 0F);
+		spawnAtLocation(new ItemStack(BotaniaItems.spark), 0F);
 		if (upgrade != SparkUpgradeType.NONE) {
-			spawnAtLocation(ItemSparkUpgrade.getByType(upgrade), 0F);
+			spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
 		}
 		discard();
 	}
@@ -235,11 +235,11 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
 			SparkUpgradeType upgrade = getUpgrade();
-			if (stack.getItem() instanceof ItemTwigWand) {
+			if (stack.getItem() instanceof WandOfTheForestItem) {
 				if (!level.isClientSide) {
 					if (player.isShiftKeyDown()) {
 						if (upgrade != SparkUpgradeType.NONE) {
-							spawnAtLocation(ItemSparkUpgrade.getByType(upgrade), 0F);
+							spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
 							setUpgrade(SparkUpgradeType.NONE);
 
 							transfers.clear();
@@ -254,13 +254,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				}
 
 				return InteractionResult.sidedSuccess(level.isClientSide);
-			} else if (stack.getItem() instanceof ItemSparkUpgrade newUpgrade && upgrade == SparkUpgradeType.NONE) {
+			} else if (stack.getItem() instanceof SparkAugmentItem newUpgrade && upgrade == SparkUpgradeType.NONE) {
 				if (!level.isClientSide) {
 					setUpgrade(newUpgrade.type);
 					stack.shrink(1);
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide);
-			} else if (stack.is(ModItems.phantomInk)) {
+			} else if (stack.is(BotaniaItems.phantomInk)) {
 				if (!level.isClientSide) {
 					setInvisible(true);
 				}

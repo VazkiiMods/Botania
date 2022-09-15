@@ -36,7 +36,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.Map;
 
@@ -68,14 +68,14 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	public void handleEntityEvent(byte id) {
 		if (id == 3) {
 			for (int j = 0; j < 16; j++) {
-				level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
+				level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BotaniaItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
 			}
 		}
 	}
 
 	private void effectAndDieWithDrop() {
 		effectAndDie();
-		ItemEntity itemEntity = new ItemEntity(level, getX(), getY(), getZ(), new ItemStack(ModItems.vineBall));
+		ItemEntity itemEntity = new ItemEntity(level, getX(), getY(), getZ(), new ItemStack(BotaniaItems.vineBall));
 		itemEntity.setDefaultPickUpDelay();
 		level.addFreshEntity(itemEntity);
 	}
@@ -142,6 +142,6 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	@NotNull
 	@Override
 	public ItemStack getItem() {
-		return new ItemStack(ModItems.vineBall);
+		return new ItemStack(BotaniaItems.vineBall);
 	}
 }

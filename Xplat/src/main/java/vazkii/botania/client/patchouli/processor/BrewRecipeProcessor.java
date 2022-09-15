@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -42,9 +42,9 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 		} else if (key.equals("heading")) {
 			return IVariable.from(Component.translatable("botaniamisc.brewOf", Component.translatable(recipe.getBrew().getTranslationKey())));
 		} else if (key.equals("vial")) {
-			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.vial)));
+			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.vial)));
 		} else if (key.equals("flask")) {
-			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.flask)));
+			return IVariable.from(recipe.getOutput(new ItemStack(BotaniaItems.flask)));
 		} else if (key.startsWith("input")) {
 			int requestedIndex = Integer.parseInt(key.substring(5)) - 1;
 			int indexOffset = (6 - recipe.getIngredients().size()) / 2; //Center the brew ingredients

@@ -19,8 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.LexicaBotaniaItem;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,13 +35,13 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public boolean containsItem(ItemStack stack) {
-		return stack.is(ModItems.lexicon) && !ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false);
+		return stack.is(BotaniaItems.lexicon) && !ItemNBTHelper.getBoolean(stack, LexicaBotaniaItem.TAG_ELVEN_UNLOCK, false);
 	}
 
 	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
-		return NonNullList.withSize(1, Ingredient.of(ModItems.lexicon));
+		return NonNullList.withSize(1, Ingredient.of(BotaniaItems.lexicon));
 	}
 
 	@NotNull
@@ -58,8 +58,8 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 
 	@Override
 	public List<ItemStack> getOutputs() {
-		ItemStack stack = new ItemStack(ModItems.lexicon);
-		stack.getOrCreateTag().putBoolean(ItemLexicon.TAG_ELVEN_UNLOCK, true);
+		ItemStack stack = new ItemStack(BotaniaItems.lexicon);
+		stack.getOrCreateTag().putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
 		return Collections.singletonList(stack);
 	}
 
@@ -76,7 +76,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@Override
 	public List<ItemStack> getOutputs(List<ItemStack> inputs) {
 		ItemStack stack = inputs.get(0).copy();
-		stack.getOrCreateTag().putBoolean(ItemLexicon.TAG_ELVEN_UNLOCK, true);
+		stack.getOrCreateTag().putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
 		return Collections.singletonList(stack);
 	}
 

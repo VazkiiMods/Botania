@@ -18,8 +18,8 @@ import vazkii.botania.client.render.block_entity.RedStringBlockEntityRenderer;
 import vazkii.botania.common.block.flower.functional.VinculotusBlockEntity;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.LexicaBotaniaItem;
+import vazkii.botania.common.item.WandOfTheForestItem;
 
 public final class ClientTickHandler {
 
@@ -53,7 +53,7 @@ public final class ClientTickHandler {
 
 			Player player = mc.player;
 			if (player != null) {
-				if (PlayerHelper.hasHeldItemClass(player, ItemTwigWand.class)) {
+				if (PlayerHelper.hasHeldItemClass(player, WandOfTheForestItem.class)) {
 					for (var collector : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().level))) {
 						collector.onClientDisplayTick();
 					}
@@ -62,7 +62,7 @@ public final class ClientTickHandler {
 		}
 
 		int ticksToOpen = 10;
-		if (ItemLexicon.isOpen()) {
+		if (LexicaBotaniaItem.isOpen()) {
 			if (ticksWithLexicaOpen < 0) {
 				ticksWithLexicaOpen = 0;
 			}

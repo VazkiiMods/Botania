@@ -25,7 +25,7 @@ import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.AccessorDamageSource;
 
 import java.util.List;
@@ -93,7 +93,7 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 	}
 
 	public static boolean hasTerraArmorSet(Player player) {
-		return ((TerrasteelHelmItem) ModItems.terrasteelHelm).hasArmorSet(player);
+		return ((TerrasteelHelmItem) BotaniaItems.terrasteelHelm).hasArmorSet(player);
 	}
 
 	public static float getCritDamageMult(Player player) {

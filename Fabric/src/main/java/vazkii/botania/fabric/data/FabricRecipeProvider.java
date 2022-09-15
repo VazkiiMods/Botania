@@ -8,7 +8,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
@@ -31,7 +31,7 @@ public class FabricRecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 
 		// Chest tag
-		ShapedRecipeBuilder.shaped(ModItems.baubleBox)
+		ShapedRecipeBuilder.shaped(BotaniaItems.baubleBox)
 				.define('C', FabricItemTagProvider.WOODEN_CHESTS)
 				.define('G', Items.GOLD_INGOT)
 				.define('M', ModTags.Items.INGOTS_MANASTEEL)
@@ -44,8 +44,8 @@ public class FabricRecipeProvider extends BotaniaRecipeProvider {
 		registerRedStringBlock(consumer, BotaniaBlocks.redStringContainer, Ingredient.of(FabricItemTagProvider.WOODEN_CHESTS), conditionsFromTag(FabricItemTagProvider.WOODEN_CHESTS));
 		ShapelessRecipeBuilder.shapeless(BotaniaBlocks.corporeaRetainer)
 				.requires(FabricItemTagProvider.WOODEN_CHESTS)
-				.requires(ModItems.corporeaSpark)
-				.unlockedBy("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.requires(BotaniaItems.corporeaSpark)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
 				.save(consumer);
 	}
 

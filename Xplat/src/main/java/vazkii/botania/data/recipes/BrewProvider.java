@@ -25,7 +25,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.function.Consumer;
 
@@ -57,7 +57,7 @@ public class BrewProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(idFor("night_vision"), BotaniaBrews.nightVision, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SPIDER_EYE), Ingredient.of(Items.GOLDEN_CARROT)));
 		consumer.accept(new FinishedRecipe(idFor("absorption"), BotaniaBrews.absorption, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.GOLDEN_APPLE), Ingredient.of(Items.POTATO)));
 
-		consumer.accept(new FinishedRecipe(idFor("overload"), BotaniaBrews.overload, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.BLAZE_POWDER), Ingredient.of(Items.SUGAR), Ingredient.of(Items.GLOWSTONE_DUST), Ingredient.of(ModItems.manaSteel), Ingredient.of(Items.SPIDER_EYE)));
+		consumer.accept(new FinishedRecipe(idFor("overload"), BotaniaBrews.overload, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.BLAZE_POWDER), Ingredient.of(Items.SUGAR), Ingredient.of(Items.GLOWSTONE_DUST), Ingredient.of(BotaniaItems.manaSteel), Ingredient.of(Items.SPIDER_EYE)));
 		consumer.accept(new FinishedRecipe(idFor("soul_cross"), BotaniaBrews.soulCross, Ingredient.of(Items.NETHER_WART), Ingredient.of(Blocks.SOUL_SAND), Ingredient.of(Items.PAPER), Ingredient.of(Items.APPLE), Ingredient.of(Items.BONE)));
 		consumer.accept(new FinishedRecipe(idFor("feather_feet"), BotaniaBrews.featherfeet, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.FEATHER), Ingredient.of(Items.LEATHER), Ingredient.of(ItemTags.WOOL)));
 		consumer.accept(new FinishedRecipe(idFor("emptiness"), BotaniaBrews.emptiness, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.GUNPOWDER), Ingredient.of(Items.ROTTEN_FLESH), Ingredient.of(Items.BONE), Ingredient.of(Items.STRING), Ingredient.of(Items.ENDER_PEARL)));

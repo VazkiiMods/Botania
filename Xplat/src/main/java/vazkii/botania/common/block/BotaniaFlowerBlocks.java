@@ -26,7 +26,7 @@ import vazkii.botania.common.block.flower.PureDaisyBlockEntity;
 import vazkii.botania.common.block.flower.functional.*;
 import vazkii.botania.common.block.flower.generating.*;
 import vazkii.botania.common.brew.BotaniaMobEffects;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -397,7 +397,7 @@ public class BotaniaFlowerBlocks {
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
-		Item.Properties props = ModItems.defaultBuilder();
+		Item.Properties props = BotaniaItems.defaultBuilder();
 
 		r.accept(new SpecialFlowerBlockItem(pureDaisy, props), getId(pureDaisy));
 		r.accept(new SpecialFlowerBlockItem(pureDaisyFloating, props), getId(pureDaisyFloating));

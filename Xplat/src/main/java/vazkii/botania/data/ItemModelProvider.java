@@ -61,7 +61,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static vazkii.botania.common.item.ModItems.*;
+import static vazkii.botania.common.item.BotaniaItems.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.BlockstateProvider.takeAll;
 

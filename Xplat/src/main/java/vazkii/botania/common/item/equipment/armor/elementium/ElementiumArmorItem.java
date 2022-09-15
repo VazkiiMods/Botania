@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 
 import java.util.List;
@@ -37,10 +37,10 @@ public abstract class ElementiumArmorItem extends ManasteelArmorItem {
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(ModItems.elementiumHelm),
-			new ItemStack(ModItems.elementiumChest),
-			new ItemStack(ModItems.elementiumLegs),
-			new ItemStack(ModItems.elementiumBoots)
+			new ItemStack(BotaniaItems.elementiumHelm),
+			new ItemStack(BotaniaItems.elementiumChest),
+			new ItemStack(BotaniaItems.elementiumLegs),
+			new ItemStack(BotaniaItems.elementiumBoots)
 	});
 
 	@Override
@@ -60,10 +60,10 @@ public abstract class ElementiumArmorItem extends ManasteelArmorItem {
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(ModItems.elementiumHelm);
-			case CHEST -> stack.is(ModItems.elementiumChest);
-			case LEGS -> stack.is(ModItems.elementiumLegs);
-			case FEET -> stack.is(ModItems.elementiumBoots);
+			case HEAD -> stack.is(BotaniaItems.elementiumHelm);
+			case CHEST -> stack.is(BotaniaItems.elementiumChest);
+			case LEGS -> stack.is(BotaniaItems.elementiumLegs);
+			case FEET -> stack.is(BotaniaItems.elementiumBoots);
 			default -> false;
 		};
 

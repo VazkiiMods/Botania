@@ -50,8 +50,8 @@ import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.*;
-import vazkii.botania.common.item.ItemAncientWill;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.AncientWillItem;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.ModTags;
@@ -89,7 +89,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, BotaniaFlowerBlocks.marimorphosis)
 		));
 
-		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModItems.craftingHalo), EntryStacks.of(ModItems.autocraftingHalo));
+		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(BotaniaItems.craftingHalo), EntryStacks.of(BotaniaItems.autocraftingHalo));
 		Set<ItemLike> apothecaries = ImmutableSet.of(
 				BotaniaBlocks.defaultAltar,
 				BotaniaBlocks.desertAltar,
@@ -182,15 +182,15 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	void registerAncientWillRecipeWrapper(DisplayRegistry helper) {
 		ImmutableList.Builder<EntryIngredient> input = ImmutableList.builder();
 		ImmutableList.Builder<EntryStack<ItemStack>> output = ImmutableList.builder();
-		Set<ItemStack> wills = ImmutableSet.of(new ItemStack(ModItems.ancientWillAhrim), new ItemStack(ModItems.ancientWillDharok), new ItemStack(ModItems.ancientWillGuthan), new ItemStack(ModItems.ancientWillKaril), new ItemStack(ModItems.ancientWillTorag), new ItemStack(ModItems.ancientWillVerac));
-		AncientWillContainer container = (AncientWillContainer) ModItems.terrasteelHelm;
+		Set<ItemStack> wills = ImmutableSet.of(new ItemStack(BotaniaItems.ancientWillAhrim), new ItemStack(BotaniaItems.ancientWillDharok), new ItemStack(BotaniaItems.ancientWillGuthan), new ItemStack(BotaniaItems.ancientWillKaril), new ItemStack(BotaniaItems.ancientWillTorag), new ItemStack(BotaniaItems.ancientWillVerac));
+		AncientWillContainer container = (AncientWillContainer) BotaniaItems.terrasteelHelm;
 
-		ItemStack helmet = new ItemStack(ModItems.terrasteelHelm);
+		ItemStack helmet = new ItemStack(BotaniaItems.terrasteelHelm);
 		input.add(EntryIngredients.of(helmet));
 		input.add(EntryIngredients.ofItemStacks(wills));
 		for (ItemStack will : wills) {
 			ItemStack copy = helmet.copy();
-			container.addAncientWill(copy, ((ItemAncientWill) will.getItem()).type);
+			container.addAncientWill(copy, ((AncientWillItem) will.getItem()).type);
 			output.add(EntryStacks.of(copy));
 		}
 		helper.add(new DefaultCustomDisplay(null, input.build(), Collections.singletonList(EntryIngredient.of(output.build()))));
@@ -232,8 +232,8 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	}
 
 	void registerTerraPickTippingRecipeWrapper(DisplayRegistry helper) {
-		List<EntryIngredient> inputs = ImmutableList.of(EntryIngredients.of(ModItems.terraPick), EntryIngredients.of(ModItems.elementiumPick));
-		ItemStack output = new ItemStack(ModItems.terraPick);
+		List<EntryIngredient> inputs = ImmutableList.of(EntryIngredients.of(BotaniaItems.terraPick), EntryIngredients.of(BotaniaItems.elementiumPick));
+		ItemStack output = new ItemStack(BotaniaItems.terraPick);
 		TerraShattererItem.setTipped(output);
 
 		helper.add(new DefaultCustomDisplay(null, inputs, Collections.singletonList(EntryIngredients.of(output))));

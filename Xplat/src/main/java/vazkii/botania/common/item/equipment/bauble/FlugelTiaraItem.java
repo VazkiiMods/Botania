@@ -51,7 +51,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.IProxy;
 
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class FlugelTiaraItem extends BaubleItem {
 	}
 
 	public static void updatePlayerFlyStatus(Player player) {
-		ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
+		ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, player);
 		int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
 		if (playersWithFlight.contains(playerStr(player))) {
@@ -197,11 +197,11 @@ public class FlugelTiaraItem extends BaubleItem {
 	}
 
 	private static boolean shouldPlayerHaveFlight(Player player) {
-		ItemStack armor = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
+		ItemStack armor = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, player);
 		if (!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.getInventory().contains(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
+			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.getInventory().contains(new ItemStack(BotaniaItems.flugelEye))) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;

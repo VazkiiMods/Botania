@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -53,10 +53,10 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(ModItems.manaweaveHelm),
-			new ItemStack(ModItems.manaweaveChest),
-			new ItemStack(ModItems.manaweaveLegs),
-			new ItemStack(ModItems.manaweaveBoots)
+			new ItemStack(BotaniaItems.manaweaveHelm),
+			new ItemStack(BotaniaItems.manaweaveChest),
+			new ItemStack(BotaniaItems.manaweaveLegs),
+			new ItemStack(BotaniaItems.manaweaveBoots)
 	});
 
 	@Override
@@ -76,10 +76,10 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(ModItems.manaweaveHelm);
-			case CHEST -> stack.is(ModItems.manaweaveChest);
-			case LEGS -> stack.is(ModItems.manaweaveLegs);
-			case FEET -> stack.is(ModItems.manaweaveBoots);
+			case HEAD -> stack.is(BotaniaItems.manaweaveHelm);
+			case CHEST -> stack.is(BotaniaItems.manaweaveChest);
+			case LEGS -> stack.is(BotaniaItems.manaweaveLegs);
+			case FEET -> stack.is(BotaniaItems.manaweaveBoots);
 			default -> false;
 		};
 

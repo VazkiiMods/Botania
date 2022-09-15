@@ -32,7 +32,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger, Wandable {
@@ -57,7 +57,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 
 	private boolean isDust() {
 		ItemStack stack = getItemHandler().getItem(0);
-		return !stack.isEmpty() && stack.is(ModItems.manaPowder);
+		return !stack.isEmpty() && stack.is(BotaniaItems.manaPowder);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, HourglassBlockEntity self) {
@@ -135,7 +135,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 		if (stack.is(Blocks.SOUL_SAND.asItem())) {
 			return 1200;
 		}
-		if (stack.is(ModItems.manaPowder)) {
+		if (stack.is(BotaniaItems.manaPowder)) {
 			return 1;
 		}
 		return 0;
@@ -155,7 +155,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 		if (stack.is(Blocks.SOUL_SAND.asItem())) {
 			return 0x5A412f;
 		}
-		if (stack.is(ModItems.manaPowder)) {
+		if (stack.is(BotaniaItems.manaPowder)) {
 			return 0x03abff;
 		}
 
@@ -170,7 +170,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 				return !stack.isEmpty() && (stack.is(Blocks.SAND.asItem())
 						|| stack.is(Blocks.RED_SAND.asItem())
 						|| stack.is(Blocks.SOUL_SAND.asItem())
-						|| stack.is(ModItems.manaPowder));
+						|| stack.is(BotaniaItems.manaPowder));
 			}
 		};
 	}

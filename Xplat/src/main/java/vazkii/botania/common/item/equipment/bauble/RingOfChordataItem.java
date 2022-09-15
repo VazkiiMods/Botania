@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class RingOfChordataItem extends BaubleItem {
 
@@ -31,7 +31,7 @@ public class RingOfChordataItem extends BaubleItem {
 	public void onWornTick(ItemStack stack, LivingEntity living) {
 		if (living.isInWaterOrBubble()) {
 			// only activate for one ring at a time
-			ItemStack result = EquipmentHandler.findOrEmpty(ModItems.waterRing, living);
+			ItemStack result = EquipmentHandler.findOrEmpty(BotaniaItems.waterRing, living);
 			if (result != stack) {
 				return;
 			}

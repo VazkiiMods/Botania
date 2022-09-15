@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.HourglassBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 
 public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -67,7 +67,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 		HourglassBlockEntity hourglass = (HourglassBlockEntity) world.getBlockEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemTwigWand) {
+		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
 			return InteractionResult.PASS;
 		}
 

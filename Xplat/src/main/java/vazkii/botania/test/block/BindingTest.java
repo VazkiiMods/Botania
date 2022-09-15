@@ -24,7 +24,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.test.TestingUtil;
 
 import java.util.Arrays;
@@ -113,7 +113,7 @@ public class BindingTest {
 
 		//Use a Floral Obedience Stick on the pool
 		Player player = helper.makeMockPlayer();
-		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.obedienceStick));
+		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.obedienceStick));
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, middle);
 
 		//All close-enough flowers should bind, all far-away ones should not

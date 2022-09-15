@@ -52,7 +52,7 @@ import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
@@ -76,8 +76,8 @@ public class ForgeClientInitializer {
 	public static void clientInit(FMLClientSetupEvent evt) {
 		// GUIs
 		evt.enqueueWork(() -> {
-			MenuScreens.register(ModItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
-			MenuScreens.register(ModItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
+			MenuScreens.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+			MenuScreens.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
 		});
 
 		// Events

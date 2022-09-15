@@ -32,7 +32,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ItemKeepIvy;
+import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.proxy.IProxy;
 
@@ -50,8 +50,8 @@ public class TrinketsIntegration extends EquipmentHandler {
 	private static TrinketEnums.DropRule keepAccessoryDrops(TrinketEnums.DropRule oldRule,
 			ItemStack stack, SlotReference ref, LivingEntity livingEntity) {
 		//TODO make this less hacky
-		if (ItemKeepIvy.hasIvy(stack)) {
-			stack.removeTagKey(ItemKeepIvy.TAG_KEEP);
+		if (ResoluteIvyItem.hasIvy(stack)) {
+			stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
 			return TrinketEnums.DropRule.KEEP;
 		}
 		return oldRule;

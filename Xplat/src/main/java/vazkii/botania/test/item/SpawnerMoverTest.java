@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.item.ItemSpawnerMover;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.LifeAggregatorItem;
 import vazkii.botania.test.TestingUtil;
 
 public class SpawnerMoverTest {
@@ -21,14 +21,14 @@ public class SpawnerMoverTest {
 	public void testSpawnerMover(GameTestHelper helper) {
 		var spawnerPos = BlockPos.ZERO;
 		var player = helper.makeMockPlayer();
-		var stack = new ItemStack(ModItems.spawnerMover);
+		var stack = new ItemStack(BotaniaItems.spawnerMover);
 
 		helper.setBlock(spawnerPos, Blocks.SPAWNER);
 		player.setItemInHand(InteractionHand.MAIN_HAND, stack);
 
 		stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
 				new BlockHitResult(Vec3.ZERO, Direction.DOWN, helper.absolutePos(spawnerPos), false)));
-		TestingUtil.assertThat(ItemSpawnerMover.hasData(stack),
+		TestingUtil.assertThat(LifeAggregatorItem.hasData(stack),
 				() -> "Spawner mover should recognize saved data. Full NBT: " + stack.getTag());
 		helper.assertBlockState(spawnerPos, BlockState::isAir, () -> "Spawner should be gone");
 

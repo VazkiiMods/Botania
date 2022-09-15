@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibMisc;
 
 public class ForgeBotaniaCreativeTab extends CreativeModeTab {
@@ -26,6 +26,6 @@ public class ForgeBotaniaCreativeTab extends CreativeModeTab {
 	@NotNull
 	@Override
 	public ItemStack makeIcon() {
-		return new ItemStack(ModItems.lexicon);
+		return new ItemStack(BotaniaItems.lexicon);
 	}
 }

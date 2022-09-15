@@ -18,7 +18,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.common.item.ItemSparkUpgrade;
+import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 				ManaSpark spark = attach.getAttachedSpark();
 				if (spark != null) {
 					SparkUpgradeType upg = spark.getUpgrade();
-					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((ItemSparkUpgrade) changeStack.getItem()).type;
+					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
 					if (upg != newUpg) {
 						attachables.add(attach);
 					}
@@ -56,8 +56,8 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 			SparkAttachable attach = attachables.get(level.random.nextInt(attachables.size()));
 			ManaSpark spark = attach.getAttachedSpark();
 			SparkUpgradeType upg = spark.getUpgrade();
-			ItemStack sparkStack = ItemSparkUpgrade.getByType(upg);
-			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((ItemSparkUpgrade) changeStack.getItem()).type;
+			ItemStack sparkStack = SparkAugmentItem.getByType(upg);
+			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((SparkAugmentItem) changeStack.getItem()).type;
 			spark.setUpgrade(newUpg);
 			Collection<ManaSpark> transfers = spark.getTransfers();
 			if (transfers != null) {
@@ -77,7 +77,7 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 
 			@Override
 			public boolean canPlaceItem(int index, ItemStack stack) {
-				return !stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade;
+				return !stack.isEmpty() && stack.getItem() instanceof SparkAugmentItem;
 			}
 		};
 	}

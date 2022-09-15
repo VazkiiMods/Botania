@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.Lens;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.lens.LensItem;
 
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 			Ingredient.of(Items.PURPLE_DYE), Ingredient.of(Items.BLUE_DYE),
 			Ingredient.of(Items.BROWN_DYE), Ingredient.of(Items.GREEN_DYE),
 			Ingredient.of(Items.RED_DYE), Ingredient.of(Items.BLACK_DYE),
-			Ingredient.of(ModItems.manaPearl)
+			Ingredient.of(BotaniaItems.manaPearl)
 	));
 
 	public LensDyeingRecipe(ResourceLocation id) {

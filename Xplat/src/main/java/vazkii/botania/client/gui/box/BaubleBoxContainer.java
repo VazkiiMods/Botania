@@ -22,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ItemBaubleBox;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BaubleBoxItem;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class BaubleBoxContainer extends AbstractContainerMenu {
 	public static BaubleBoxContainer fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
@@ -34,16 +34,16 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 	private final ItemStack box;
 
 	public BaubleBoxContainer(int windowId, Inventory playerInv, ItemStack box) {
-		super(ModItems.BAUBLE_BOX_CONTAINER, windowId);
+		super(BotaniaItems.BAUBLE_BOX_CONTAINER, windowId);
 		int i;
 		int j;
 
 		this.box = box;
 		Container baubleBoxInv;
 		if (!playerInv.player.level.isClientSide) {
-			baubleBoxInv = ItemBaubleBox.getInventory(box);
+			baubleBoxInv = BaubleBoxItem.getInventory(box);
 		} else {
-			baubleBoxInv = new SimpleContainer(ItemBaubleBox.SIZE);
+			baubleBoxInv = new SimpleContainer(BaubleBoxItem.SIZE);
 		}
 
 		for (i = 0; i < 4; ++i) {

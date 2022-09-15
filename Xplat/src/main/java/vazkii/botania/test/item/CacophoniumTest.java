@@ -24,8 +24,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
-import vazkii.botania.common.item.ItemCacophonium;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.CacophoniumItem;
 import vazkii.botania.test.TestingUtil;
 
 // https://github.com/williewillus/botania-fabric-issues/issues/92
@@ -40,18 +40,18 @@ public class CacophoniumTest {
 		Cow cow = helper.spawnWithNoFreeWill(EntityType.COW, cowPos);
 
 		//Give a cacophonium to the player.
-		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.cacophonium));
+		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.cacophonium));
 
 		//Use the cacophonium on the cow.
 		player.interactOn(cow, InteractionHand.MAIN_HAND);
-		TestingUtil.assertEquals(ItemCacophonium.getSound(player.getMainHandItem()), SoundEvents.COW_AMBIENT);
+		TestingUtil.assertEquals(CacophoniumItem.getSound(player.getMainHandItem()), SoundEvents.COW_AMBIENT);
 
 		//Use the cacophonium on the note block.
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, noteBlockPos);
 		helper.assertBlockPresent(BotaniaBlocks.cacophonium, noteBlockPos);
 
 		CacophoniumBlockEntity cacophoniumBlock = TestingUtil.assertBlockEntity(helper, noteBlockPos, BotaniaBlockEntities.CACOPHONIUM);
-		TestingUtil.assertEqualsAt(helper, noteBlockPos, ItemCacophonium.getSound(cacophoniumBlock.stack), SoundEvents.COW_AMBIENT);
+		TestingUtil.assertEqualsAt(helper, noteBlockPos, CacophoniumItem.getSound(cacophoniumBlock.stack), SoundEvents.COW_AMBIENT);
 
 		//Moo.
 		helper.setBlock(noteBlockPos.south(), Blocks.REDSTONE_BLOCK);

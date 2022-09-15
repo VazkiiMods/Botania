@@ -31,7 +31,7 @@ import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.ModTags;
@@ -88,8 +88,8 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addCategory(ORECHID_IGNEM);
 		registry.addCategory(MARIMORPHOSIS);
 
-		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ModItems.craftingHalo));
-		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ModItems.autocraftingHalo));
+		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.craftingHalo));
+		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.autocraftingHalo));
 
 		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.defaultAltar));
 		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.desertAltar));
@@ -121,21 +121,21 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibiFloating));
 
 		Function<Comparison, Comparison> compareNbt = c -> c.copy().nbt(true).build();
-		registry.setDefaultComparison(ModItems.lexicon, compareNbt);
-		registry.setDefaultComparison(ModItems.brewFlask, compareNbt);
-		registry.setDefaultComparison(ModItems.brewVial, compareNbt);
-		registry.setDefaultComparison(ModItems.bloodPendant, compareNbt);
-		registry.setDefaultComparison(ModItems.incenseStick, compareNbt);
+		registry.setDefaultComparison(BotaniaItems.lexicon, compareNbt);
+		registry.setDefaultComparison(BotaniaItems.brewFlask, compareNbt);
+		registry.setDefaultComparison(BotaniaItems.brewVial, compareNbt);
+		registry.setDefaultComparison(BotaniaItems.bloodPendant, compareNbt);
+		registry.setDefaultComparison(BotaniaItems.incenseStick, compareNbt);
 		// Disables the ability to see the no wings tiara recipe, probably an nbt mismatch
-		//registry.setDefaultComparison(ModItems.flightTiara, compareNbt);
+		//registry.setDefaultComparison(BotaniaItems.flightTiara, compareNbt);
 
-		registry.addRecipe(new AncientWillEmiRecipe(EmiStack.of(ModItems.terrasteelHelm), EmiIngredient.of(List.of(
-				EmiStack.of(ModItems.ancientWillAhrim),
-				EmiStack.of(ModItems.ancientWillDharok),
-				EmiStack.of(ModItems.ancientWillGuthan),
-				EmiStack.of(ModItems.ancientWillKaril),
-				EmiStack.of(ModItems.ancientWillTorag),
-				EmiStack.of(ModItems.ancientWillVerac)
+		registry.addRecipe(new AncientWillEmiRecipe(EmiStack.of(BotaniaItems.terrasteelHelm), EmiIngredient.of(List.of(
+				EmiStack.of(BotaniaItems.ancientWillAhrim),
+				EmiStack.of(BotaniaItems.ancientWillDharok),
+				EmiStack.of(BotaniaItems.ancientWillGuthan),
+				EmiStack.of(BotaniaItems.ancientWillKaril),
+				EmiStack.of(BotaniaItems.ancientWillTorag),
+				EmiStack.of(BotaniaItems.ancientWillVerac)
 		))));
 
 		registry.addRecipe(new CompositeLensEmiRecipe(
@@ -146,10 +146,10 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 						.map(EmiStack::of)
 						.toList()));
 
-		ItemStack tipped = new ItemStack(ModItems.terraPick);
+		ItemStack tipped = new ItemStack(BotaniaItems.terraPick);
 		TerraShattererItem.setTipped(tipped);
-		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(ModItems.terraPick),
-				EmiStack.of(ModItems.elementiumPick)), EmiStack.of(tipped), null));
+		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(BotaniaItems.terraPick),
+				EmiStack.of(BotaniaItems.elementiumPick)), EmiStack.of(tipped), null));
 
 		for (PetalApothecaryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
 			registry.addRecipe(new PetalApothecaryEmiRecipe(recipe));
@@ -166,7 +166,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		for (ElvenTradeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
 			registry.addRecipe(new ElvenTradeEmiRecipe(recipe));
 		}
-		List<ItemStack> containers = List.of(ModItems.vial, ModItems.flask, ModItems.incenseStick, ModItems.bloodPendant)
+		List<ItemStack> containers = List.of(BotaniaItems.vial, BotaniaItems.flask, BotaniaItems.incenseStick, BotaniaItems.bloodPendant)
 				.stream().map(ItemStack::new).toList();
 		for (BotanicalBreweryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.BREW_TYPE)) {
 			for (ItemStack container : containers) {

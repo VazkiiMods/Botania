@@ -54,7 +54,7 @@ import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemTemperanceStone;
+import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
@@ -160,7 +160,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		if (extraRange != extraRangeNew) {
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
 		}
-		boolean temperanceActive = ItemTemperanceStone.hasTemperanceActive(player);
+		boolean temperanceActive = StoneOfTemperanceItem.hasTemperanceActive(player);
 		if (temperanceActive != stack.getOrCreateTag().getBoolean(TAG_TEMPERANCE_STONE)) {
 			stack.getOrCreateTag().putBoolean(TAG_TEMPERANCE_STONE, temperanceActive);
 		}

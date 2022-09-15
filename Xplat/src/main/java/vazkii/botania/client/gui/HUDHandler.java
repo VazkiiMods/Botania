@@ -45,10 +45,10 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntit
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemCraftingHalo;
-import vazkii.botania.common.item.ItemSextant;
-import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.AssemblyHaloItem;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.WandOfTheForestItem;
+import vazkii.botania.common.item.WorldshaperssSextantItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
@@ -77,14 +77,14 @@ public final class HUDHandler {
 		profiler.push("botania-hud");
 
 		if (Minecraft.getInstance().gameMode.canHurtPlayer()) {
-			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
+			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, mc.player);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
 				FlugelTiaraItem.ClientLogic.renderHUD(ms, mc.player, tiara);
 				profiler.pop();
 			}
 
-			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
+			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, mc.player);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
 				RingOfDexterousMotionItem.ClientLogic.renderHUD(ms, mc.player, dodgeRing, partialTicks);
@@ -101,7 +101,7 @@ public final class HUDHandler {
 			BlockEntity tile = mc.level.getBlockEntity(bpos);
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
-				if (PlayerHelper.hasHeldItemClass(mc.player, ItemTwigWand.class)) {
+				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
 					var hud = IClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("wandItem");
@@ -113,7 +113,7 @@ public final class HUDHandler {
 					renderPoolRecipeHUD(ms, pool, mc.player.getMainHandItem());
 				}
 			}
-			if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
+			if (!PlayerHelper.hasHeldItem(mc.player, BotaniaItems.lexicon)) {
 				if (tile instanceof PetalApothecaryBlockEntity altar) {
 					PetalApothecaryBlockEntity.Hud.render(altar, ms, mc);
 				} else if (tile instanceof RunicAltarBlockEntity runeAltar) {
@@ -130,23 +130,23 @@ public final class HUDHandler {
 			profiler.pop();
 		}
 
-		if (!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
+		if (!main.isEmpty() && main.getItem() instanceof AssemblyHaloItem) {
 			profiler.push("craftingHalo_main");
-			ItemCraftingHalo.Rendering.renderHUD(ms, mc.player, main);
+			AssemblyHaloItem.Rendering.renderHUD(ms, mc.player, main);
 			profiler.pop();
-		} else if (!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
+		} else if (!offhand.isEmpty() && offhand.getItem() instanceof AssemblyHaloItem) {
 			profiler.push("craftingHalo_off");
-			ItemCraftingHalo.Rendering.renderHUD(ms, mc.player, offhand);
+			AssemblyHaloItem.Rendering.renderHUD(ms, mc.player, offhand);
 			profiler.pop();
 		}
 
-		if (!main.isEmpty() && main.getItem() instanceof ItemSextant) {
+		if (!main.isEmpty() && main.getItem() instanceof WorldshaperssSextantItem) {
 			profiler.push("sextant");
-			ItemSextant.Hud.render(ms, mc.player, main);
+			WorldshaperssSextantItem.Hud.render(ms, mc.player, main);
 			profiler.pop();
 		}
 
-		/*if(equippedStack != null && equippedStack.is(ModItems.flugelEye)) {
+		/*if(equippedStack != null && equippedStack.is(BotaniaItems.flugelEye)) {
 			profiler.startSection("flugelEye");
 			EyeOfTheFlugelItem.renderHUD(event.getResolution(), mc.player, equippedStack);
 			profiler.endSection();

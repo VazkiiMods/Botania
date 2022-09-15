@@ -30,7 +30,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class BoreLens extends Lens {
 		BlockState state = world.getBlockState(collidePos);
 
 		ItemStack composite = ((LensItem) stack.getItem()).getCompositeLens(stack);
-		boolean warp = !composite.isEmpty() && composite.is(ModItems.lensWarp);
+		boolean warp = !composite.isEmpty() && composite.is(BotaniaItems.lensWarp);
 
 		if (warp && (state.is(BotaniaBlocks.pistonRelay) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {
 			return false;

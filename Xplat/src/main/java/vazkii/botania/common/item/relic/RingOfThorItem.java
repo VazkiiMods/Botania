@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -28,6 +28,6 @@ public class RingOfThorItem extends RelicBaubleItem {
 	}
 
 	public static ItemStack getThorRing(Player player) {
-		return EquipmentHandler.findOrEmpty(ModItems.thorRing, player);
+		return EquipmentHandler.findOrEmpty(BotaniaItems.thorRing, player);
 	}
 }

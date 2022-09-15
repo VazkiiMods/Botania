@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 
 import java.util.List;
@@ -62,10 +62,10 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(ModItems.terrasteelHelm),
-			new ItemStack(ModItems.terrasteelChest),
-			new ItemStack(ModItems.terrasteelLegs),
-			new ItemStack(ModItems.terrasteelBoots)
+			new ItemStack(BotaniaItems.terrasteelHelm),
+			new ItemStack(BotaniaItems.terrasteelChest),
+			new ItemStack(BotaniaItems.terrasteelLegs),
+			new ItemStack(BotaniaItems.terrasteelBoots)
 	});
 
 	@Override
@@ -85,10 +85,10 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(ModItems.terrasteelHelm);
-			case CHEST -> stack.is(ModItems.terrasteelChest);
-			case LEGS -> stack.is(ModItems.terrasteelLegs);
-			case FEET -> stack.is(ModItems.terrasteelBoots);
+			case HEAD -> stack.is(BotaniaItems.terrasteelHelm);
+			case CHEST -> stack.is(BotaniaItems.terrasteelChest);
+			case LEGS -> stack.is(BotaniaItems.terrasteelLegs);
+			case FEET -> stack.is(BotaniaItems.terrasteelBoots);
 			default -> false;
 		};
 

@@ -16,7 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.item.ItemCacophonium;
+import vazkii.botania.common.item.CacophoniumItem;
 
 public class CacophoniumBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_STACK = "stack";
@@ -28,7 +28,7 @@ public class CacophoniumBlockEntity extends BotaniaBlockEntity {
 	}
 
 	public void annoyDirewolf() {
-		ItemCacophonium.playSound(level, stack, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundSource.BLOCKS, 1F);
+		CacophoniumItem.playSound(level, stack, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundSource.BLOCKS, 1F);
 		if (!level.isClientSide) {
 			float noteColor = level.random.nextInt(25) / 24.0F;
 			((ServerLevel) level).sendParticles(ParticleTypes.NOTE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, 0, noteColor, 0, 0, 1);

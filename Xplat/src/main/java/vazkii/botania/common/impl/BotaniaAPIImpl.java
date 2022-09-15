@@ -41,7 +41,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
 
 import java.util.*;
@@ -54,10 +54,10 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	private static final Supplier<Rarity> RELIC_RARITY = Suppliers.memoize(() -> Rarity.EPIC);
 
 	private enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial {
-		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> BotaniaSounds.equipManasteel, () -> ModItems.manaSteel, 0),
-		MANAWEAVE("manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, () -> BotaniaSounds.equipManaweave, () -> ModItems.manaweaveCloth, 0),
-		ELEMENTIUM("elementium", 18, new int[] { 2, 5, 6, 2 }, 18, () -> BotaniaSounds.equipElementium, () -> ModItems.elementium, 0),
-		TERRASTEEL("terrasteel", 34, new int[] { 3, 6, 8, 3 }, 26, () -> BotaniaSounds.equipTerrasteel, () -> ModItems.terrasteel, 3);
+		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> BotaniaSounds.equipManasteel, () -> BotaniaItems.manaSteel, 0),
+		MANAWEAVE("manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, () -> BotaniaSounds.equipManaweave, () -> BotaniaItems.manaweaveCloth, 0),
+		ELEMENTIUM("elementium", 18, new int[] { 2, 5, 6, 2 }, 18, () -> BotaniaSounds.equipElementium, () -> BotaniaItems.elementium, 0),
+		TERRASTEEL("terrasteel", 34, new int[] { 3, 6, 8, 3 }, 26, () -> BotaniaSounds.equipTerrasteel, () -> BotaniaItems.terrasteel, 3);
 
 		private final String name;
 		private final int durabilityMultiplier;
@@ -123,9 +123,9 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	private enum ItemTier implements Tier {
-		MANASTEEL(300, 6.2F, 2, 3, 20, () -> ModItems.manaSteel),
-		ELEMENTIUM(720, 6.2F, 2, 3, 20, () -> ModItems.elementium),
-		TERRASTEEL(2300, 9, 3, 4, 26, () -> ModItems.terrasteel);
+		MANASTEEL(300, 6.2F, 2, 3, 20, () -> BotaniaItems.manaSteel),
+		ELEMENTIUM(720, 6.2F, 2, 3, 20, () -> BotaniaItems.elementium),
+		TERRASTEEL(2300, 9, 3, 4, 26, () -> BotaniaItems.terrasteel);
 
 		private final int maxUses;
 		private final float efficiency;

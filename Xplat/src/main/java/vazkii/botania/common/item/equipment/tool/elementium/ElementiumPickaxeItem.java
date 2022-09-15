@@ -12,7 +12,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.lib.ModTags;
@@ -24,8 +24,8 @@ public class ElementiumPickaxeItem extends ManasteelPickaxeItem {
 	}
 
 	public static boolean shouldFilterOut(Entity e, ItemStack tool, ItemStack drop) {
-		if (!tool.isEmpty() && (tool.is(ModItems.elementiumPick)
-				|| tool.is(ModItems.terraPick) && TerraShattererItem.isTipped(tool))) {
+		if (!tool.isEmpty() && (tool.is(BotaniaItems.elementiumPick)
+				|| tool.is(BotaniaItems.terraPick) && TerraShattererItem.isTipped(tool))) {
 			return !drop.isEmpty() && (isDisposable(drop) || isSemiDisposable(drop) && !e.isShiftKeyDown());
 		}
 		return false;

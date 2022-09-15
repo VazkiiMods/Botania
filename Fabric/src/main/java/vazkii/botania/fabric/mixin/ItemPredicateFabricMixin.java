@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,8 +29,8 @@ public abstract class ItemPredicateFabricMixin {
 	private static Set<Item> addBotaniaShears(Set<Item> set) {
 		if (set != null && set.contains(Items.SHEARS)) {
 			set = new HashSet<>(set);
-			set.add(ModItems.manasteelShears);
-			set.add(ModItems.elementiumShears);
+			set.add(BotaniaItems.manasteelShears);
+			set.add(BotaniaItems.elementiumShears);
 			set = ImmutableSet.copyOf(set);
 		}
 		return set;

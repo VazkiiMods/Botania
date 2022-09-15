@@ -20,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class ManaStormEntity extends Entity {
 	private static final String TAG_TIME = "time";
@@ -77,7 +77,7 @@ public class ManaStormEntity extends Entity {
 		burst.setManaLossPerTick(1F);
 		burst.setGravity(0F);
 
-		burst.setSourceLens(new ItemStack(ModItems.lensStorm));
+		burst.setSourceLens(new ItemStack(BotaniaItems.lensStorm));
 
 		Vec3 motion = new Vec3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().scale(motionModifier);
 		burst.setDeltaMovement(motion);

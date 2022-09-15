@@ -43,8 +43,8 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.RuneItem;
 import vazkii.botania.common.proxy.IProxy;
 
@@ -74,7 +74,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (cooldown > 0 || stack.getItem() instanceof ItemTwigWand || stack.is(ModItems.lexicon)) {
+		if (cooldown > 0 || stack.getItem() instanceof WandOfTheForestItem || stack.is(BotaniaItems.lexicon)) {
 			return false;
 		}
 
@@ -398,12 +398,12 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						pose.pushPose();
 						pose.translate(0, 0, 100);
 						RenderSystem.applyModelViewMatrix();
-						// If the player is holding an ItemTwigWand or has one in their inventory, render that instead of a generic twigWand
-						ItemStack playerWand = PlayerHelper.getFirstHeldItemClass(mc.player, ItemTwigWand.class);
+						// If the player is holding a WandOfTheForestItem or has one in their inventory, render that instead of a generic twigWand
+						ItemStack playerWand = PlayerHelper.getFirstHeldItemClass(mc.player, WandOfTheForestItem.class);
 						if (playerWand.isEmpty()) {
-							playerWand = PlayerHelper.getItemClassFromInventory(mc.player, ItemTwigWand.class);
+							playerWand = PlayerHelper.getItemClassFromInventory(mc.player, WandOfTheForestItem.class);
 						}
-						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(ModItems.twigWand) : playerWand;
+						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
 						mc.getItemRenderer().renderGuiItem(wandToRender, xc + radius + 24, yc + 8);
 						pose.popPose();
 						RenderSystem.applyModelViewMatrix();

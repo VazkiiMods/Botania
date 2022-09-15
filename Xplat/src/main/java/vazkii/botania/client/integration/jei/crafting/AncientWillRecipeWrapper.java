@@ -23,8 +23,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
-import vazkii.botania.common.item.ItemAncientWill;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.AncientWillItem;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,28 +46,28 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
 		var foci = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)
-				.filter(f -> f.getTypedValue().getIngredient().getItem() instanceof ItemAncientWill)
+				.filter(f -> f.getTypedValue().getIngredient().getItem() instanceof AncientWillItem)
 				.map(f -> f.getTypedValue().getIngredient())
 				.toList();
 
 		var willStacks = !foci.isEmpty() ? foci : List.of(
-				new ItemStack(ModItems.ancientWillAhrim),
-				new ItemStack(ModItems.ancientWillDharok),
-				new ItemStack(ModItems.ancientWillGuthan),
-				new ItemStack(ModItems.ancientWillTorag),
-				new ItemStack(ModItems.ancientWillVerac),
-				new ItemStack(ModItems.ancientWillKaril)
+				new ItemStack(BotaniaItems.ancientWillAhrim),
+				new ItemStack(BotaniaItems.ancientWillDharok),
+				new ItemStack(BotaniaItems.ancientWillGuthan),
+				new ItemStack(BotaniaItems.ancientWillTorag),
+				new ItemStack(BotaniaItems.ancientWillVerac),
+				new ItemStack(BotaniaItems.ancientWillKaril)
 		);
 
 		var outputStacks = new ArrayList<ItemStack>();
 		for (var will : !foci.isEmpty() ? foci : willStacks) {
-			var stack = new ItemStack(ModItems.terrasteelHelm);
-			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((ItemAncientWill) will.getItem()).type);
+			var stack = new ItemStack(BotaniaItems.terrasteelHelm);
+			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((AncientWillItem) will.getItem()).type);
 			outputStacks.add(stack);
 		}
 
 		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK,
-				List.of(Collections.singletonList(new ItemStack(ModItems.terrasteelHelm)), willStacks), 0, 0);
+				List.of(Collections.singletonList(new ItemStack(BotaniaItems.terrasteelHelm)), willStacks), 0, 0);
 		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, outputStacks);
 	}
 }

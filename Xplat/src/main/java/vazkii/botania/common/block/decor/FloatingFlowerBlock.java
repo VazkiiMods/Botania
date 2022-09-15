@@ -36,7 +36,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.IFloatingFlowerVariant;
+import vazkii.botania.common.item.FloatingFlowerVariant;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -87,7 +87,7 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 			IslandType type = null;
 			if (stack.is(Items.SNOWBALL)) {
 				type = IslandType.SNOW;
-			} else if (stack.getItem() instanceof IFloatingFlowerVariant floatingFlower) {
+			} else if (stack.getItem() instanceof FloatingFlowerVariant floatingFlower) {
 				IslandType newType = floatingFlower.getIslandType(stack);
 				if (newType != null) {
 					type = newType;

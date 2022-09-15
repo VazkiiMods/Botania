@@ -32,7 +32,7 @@ import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.block.flower.functional.HeiseiDreamBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.mixin.AccessorCreeper;
 import vazkii.botania.mixin.AccessorEntity;
@@ -54,7 +54,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 				&& !entity.level.isClientSide
 				&& entity.canChangeDimensions()
 				&& Math.random() < 0.6F) {
-			ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
+			ItemStack amulet = EquipmentHandler.findOrEmpty(BotaniaItems.divaCharm, player);
 
 			if (!amulet.isEmpty()) {
 				final int cost = 250;

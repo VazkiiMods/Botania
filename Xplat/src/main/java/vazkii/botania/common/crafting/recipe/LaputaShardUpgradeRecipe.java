@@ -20,8 +20,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ItemLaputaShard;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.LaputaShardItem;
 
 public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
@@ -39,10 +39,10 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 			if (stack.isEmpty()) {
 				continue;
 			}
-			if (stack.is(ModItems.laputaShard) && !foundShard
-					&& ItemLaputaShard.getShardLevel(stack) < 19) {
+			if (stack.is(BotaniaItems.laputaShard) && !foundShard
+					&& LaputaShardItem.getShardLevel(stack) < 19) {
 				foundShard = true;
-			} else if (stack.is(ModItems.lifeEssence) && !foundSpirit) {
+			} else if (stack.is(BotaniaItems.lifeEssence) && !foundSpirit) {
 				foundSpirit = true;
 			} else {
 				return false;
@@ -54,15 +54,15 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	@NotNull
 	@Override
 	public ItemStack getResultItem() {
-		return new ItemStack(ModItems.laputaShard);
+		return new ItemStack(BotaniaItems.laputaShard);
 	}
 
 	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return NonNullList.of(Ingredient.EMPTY,
-				Ingredient.of(ModItems.laputaShard),
-				Ingredient.of(ModItems.lifeEssence));
+				Ingredient.of(BotaniaItems.laputaShard),
+				Ingredient.of(BotaniaItems.lifeEssence));
 	}
 
 	@NotNull
@@ -70,9 +70,9 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (stack.is(ModItems.laputaShard)) {
+			if (stack.is(BotaniaItems.laputaShard)) {
 				ItemStack result = stack.copy();
-				result.getOrCreateTag().putInt(ItemLaputaShard.TAG_LEVEL, ItemLaputaShard.getShardLevel(stack) + 1);
+				result.getOrCreateTag().putInt(LaputaShardItem.TAG_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
 				return result;
 			}
 		}

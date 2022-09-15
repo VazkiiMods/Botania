@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
@@ -80,8 +80,8 @@ public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRe
 		List<ItemStack> containers = new ArrayList<>();
 
 		for (var container : new ItemStack[] {
-				new ItemStack(ModItems.vial), new ItemStack(ModItems.flask),
-				new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant)
+				new ItemStack(BotaniaItems.vial), new ItemStack(BotaniaItems.flask),
+				new ItemStack(BotaniaItems.incenseStick), new ItemStack(BotaniaItems.bloodPendant)
 		}) {
 			ItemStack brewed = recipe.getOutput(container);
 			if (!brewed.isEmpty()) {

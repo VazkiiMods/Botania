@@ -74,7 +74,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.mixin.AccessorMobEffect;
@@ -720,7 +720,7 @@ public class GaiaGuardianEntity extends Mob {
 					entity.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(entity.blockPosition()),
 							MobSpawnType.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeleton && hardMode) {
-						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
+						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.elementiumSword));
 					}
 					level.addFreshEntity(entity);
 				}

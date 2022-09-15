@@ -26,7 +26,7 @@ import net.minecraft.world.level.material.Material;
 import vazkii.botania.common.block.decor.BotaniaDirectionalBlock;
 import vazkii.botania.common.block.decor.panes.BotaniaPaneBlock;
 import vazkii.botania.common.block.decor.stairs.BotaniaStairBlock;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.function.BiConsumer;
@@ -482,7 +482,7 @@ public final class BotaniaFluffBlocks {
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
-		Item.Properties props = ModItems.defaultBuilder();
+		Item.Properties props = BotaniaItems.defaultBuilder();
 
 		r.accept(new BlockItem(livingwoodStairs, props), Registry.BLOCK.getKey(livingwoodStairs));
 		r.accept(new BlockItem(livingwoodSlab, props), Registry.BLOCK.getKey(livingwoodSlab));

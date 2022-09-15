@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.common.item.ItemAncientWill;
+import vazkii.botania.common.item.AncientWillItem;
 
 public class AncientWillRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<AncientWillRecipe> SERIALIZER = new SimpleRecipeSerializer<>(AncientWillRecipe::new);
@@ -36,7 +36,7 @@ public class AncientWillRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemAncientWill && !foundWill) {
+				if (stack.getItem() instanceof AncientWillItem && !foundWill) {
 					foundWill = true;
 				} else if (!foundItem) {
 					if (stack.getItem() instanceof AncientWillContainer) {
@@ -63,7 +63,7 @@ public class AncientWillRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof AncientWillContainer && item.isEmpty()) {
 					item = stack;
 				} else {
-					will = ((ItemAncientWill) stack.getItem()).type; // we already verified this is a will in matches()
+					will = ((AncientWillItem) stack.getItem()).type; // we already verified this is a will in matches()
 				}
 			}
 		}

@@ -25,7 +25,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implem
 
 	public static void tick() {
 		Player player = Minecraft.getInstance().player;
-		boolean hasWand = player != null && PlayerHelper.hasHeldItemClass(player, ItemTwigWand.class);
+		boolean hasWand = player != null && PlayerHelper.hasHeldItemClass(player, WandOfTheForestItem.class);
 		if (transparency > 0 && !hasWand) {
 			transparency--;
 		} else if (transparency < 10 && hasWand) {

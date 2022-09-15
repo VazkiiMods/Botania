@@ -9,7 +9,7 @@ import dev.emi.emi.api.widget.SlotWidget;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.common.item.ItemAncientWill;
+import vazkii.botania.common.item.AncientWillItem;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class AncientWillEmiRecipe extends EmiPatternCraftingRecipe {
 		return new GeneratedSlotWidget(r -> {
 			ItemStack stack = container.getItemStack().copy();
 			ItemStack will = wills.get(r.nextInt(wills.size())).getItemStack().copy();
-			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((ItemAncientWill) will.getItem()).type);
+			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((AncientWillItem) will.getItem()).type);
 			return EmiStack.of(stack);
 		}, unique, x, y);
 	}

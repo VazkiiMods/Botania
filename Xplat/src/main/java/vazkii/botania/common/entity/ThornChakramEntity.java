@@ -37,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class ThornChakramEntity extends ThrowableProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(ThornChakramEntity.class, EntityDataSerializers.INT);
@@ -124,7 +124,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	private ItemStack getItemStack() {
 		return !stack.isEmpty()
 				? stack.copy()
-				: isFire() ? new ItemStack(ModItems.flareChakram) : new ItemStack(ModItems.thornChakram);
+				: isFire() ? new ItemStack(BotaniaItems.flareChakram) : new ItemStack(BotaniaItems.thornChakram);
 	}
 
 	@Override

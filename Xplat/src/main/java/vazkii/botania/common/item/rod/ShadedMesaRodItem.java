@@ -38,7 +38,7 @@ import vazkii.botania.common.entity.ThrownItemEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.ArrayList;
@@ -116,7 +116,7 @@ public class ShadedMesaRodItem extends Item {
 	// Calls hook above on Fabric
 	public static InteractionResult onAttack(Player player, Level level, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(ModItems.gravityRod) && ((ShadedMesaRodItem) stack.getItem()).onLeftClickEntity(stack, player, target)) {
+		if (stack.is(BotaniaItems.gravityRod) && ((ShadedMesaRodItem) stack.getItem()).onLeftClickEntity(stack, player, target)) {
 			return InteractionResult.FAIL;
 		}
 		return InteractionResult.PASS;
@@ -228,7 +228,7 @@ public class ShadedMesaRodItem extends Item {
 
 	private static void leftClick(Player player) {
 		ItemStack stack = player.getMainHandItem();
-		if (!stack.isEmpty() && stack.is(ModItems.gravityRod)) {
+		if (!stack.isEmpty() && stack.is(BotaniaItems.gravityRod)) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 

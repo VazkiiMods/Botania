@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.item.ItemCraftingHalo;
+import vazkii.botania.common.item.AssemblyHaloItem;
 
 @Mixin(ResultSlot.class)
 public class ResultSlotFabricMixin {
@@ -37,6 +37,6 @@ public class ResultSlotFabricMixin {
 		method = "checkTakeAchievements"
 	)
 	private void onCraft(ItemStack stack, CallbackInfo ci) {
-		ItemCraftingHalo.onItemCrafted(player, craftSlots);
+		AssemblyHaloItem.onItemCrafted(player, craftSlots);
 	}
 }

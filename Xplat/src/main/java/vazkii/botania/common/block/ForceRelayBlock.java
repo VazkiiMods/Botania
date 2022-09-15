@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.lens.ForceLens;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
@@ -95,7 +95,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 			world.destroyBlock(pos, true);
 		} else {
 			GlobalPos clicked = GlobalPos.of(world.dimension(), pos.immutable());
-			if (ItemTwigWand.getBindMode(stack)) {
+			if (WandOfTheForestItem.getBindMode(stack)) {
 				activeBindingAttempts.put(player.getUUID(), clicked);
 				world.playSound(null, pos, BotaniaSounds.ding, SoundSource.BLOCKS, 0.5F, 1F);
 			} else {

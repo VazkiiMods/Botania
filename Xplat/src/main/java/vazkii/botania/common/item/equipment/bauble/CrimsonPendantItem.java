@@ -26,7 +26,7 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.IProxy;
 
 public class CrimsonPendantItem extends BaubleItem {
@@ -37,7 +37,7 @@ public class CrimsonPendantItem extends BaubleItem {
 	}
 
 	public static boolean onDamage(LivingEntity entity, DamageSource source) {
-		if (source.isFire() && !EquipmentHandler.findOrEmpty(ModItems.superLavaPendant, entity).isEmpty()) {
+		if (source.isFire() && !EquipmentHandler.findOrEmpty(BotaniaItems.superLavaPendant, entity).isEmpty()) {
 			return true;
 		}
 		return false;

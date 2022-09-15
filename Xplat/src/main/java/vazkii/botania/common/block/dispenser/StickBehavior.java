@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ItemObedienceStick;
+import vazkii.botania.common.item.FloralObedienceStickItem;
 
 public class StickBehavior extends OptionalDispenseItemBehavior {
 
@@ -29,7 +29,7 @@ public class StickBehavior extends OptionalDispenseItemBehavior {
 		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
 		BlockPos pos = source.getPos().relative(facing);
 
-		setSuccess(ItemObedienceStick.applyStick(world, pos));
+		setSuccess(FloralObedienceStickItem.applyStick(world, pos));
 
 		return stack;
 	}

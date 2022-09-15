@@ -26,7 +26,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.List;
 
@@ -212,7 +212,7 @@ public class LensItem extends Item implements LensControl, CompositableLens, Tin
 
 	@Override
 	public boolean shouldPull(ItemStack stack) {
-		return !stack.is(ModItems.lensStorm);
+		return !stack.is(BotaniaItems.lensStorm);
 	}
 
 	@Override
@@ -242,7 +242,7 @@ public class LensItem extends Item implements LensControl, CompositableLens, Tin
 
 	@Override
 	public boolean isCombinable(ItemStack stack) {
-		return !stack.is(ModItems.lensNormal);
+		return !stack.is(BotaniaItems.lensNormal);
 	}
 
 }

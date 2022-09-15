@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.function.Consumer;
 
@@ -41,8 +41,8 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 	@Override
 	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), ManaPoolBlockEntity.MAX_MANA / 2,
-				new ItemStack(ModItems.terrasteel), Ingredient.of(ModItems.manaSteel),
-				Ingredient.of(ModItems.manaPearl), Ingredient.of(ModItems.manaDiamond)));
+				new ItemStack(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.manaSteel),
+				Ingredient.of(BotaniaItems.manaPearl), Ingredient.of(BotaniaItems.manaDiamond)));
 	}
 
 	private static ResourceLocation idFor(String s) {

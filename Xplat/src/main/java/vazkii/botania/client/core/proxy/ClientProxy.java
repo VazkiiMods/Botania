@@ -110,7 +110,7 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void clearSextantMultiblock() {
 		IMultiblock mb = PatchouliAPI.get().getCurrentMultiblock();
-		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
+		if (mb != null && mb.getID().equals(WorldshaperssSextantItem.MULTIBLOCK_ID)) {
 			PatchouliAPI.get().clearMultiblock();
 		}
 	}

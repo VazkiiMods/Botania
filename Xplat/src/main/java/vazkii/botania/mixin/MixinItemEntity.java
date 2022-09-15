@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 @Mixin(ItemEntity.class)
@@ -30,7 +30,7 @@ public class MixinItemEntity {
 			return;
 		}
 		Item item = ((ItemEntity) (Object) this).getItem().getItem();
-		if (ModItems.isNoDespawn(item)) {
+		if (BotaniaItems.isNoDespawn(item)) {
 			age = 0;
 		}
 	}

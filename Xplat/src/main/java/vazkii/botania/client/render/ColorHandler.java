@@ -119,16 +119,16 @@ public final class ColorHandler {
 
 	public static void submitItems(ItemHandlerConsumer items) {
 		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
-				ModItems.lifeEssence, ModItems.gaiaIngot);
+				BotaniaItems.lifeEssence, BotaniaItems.gaiaIngot);
 
-		items.register((s, t) -> t == 1 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor1(s)))
-				: t == 2 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor2(s)))
+		items.register((s, t) -> t == 1 ? ColorHelper.getColorValue(DyeColor.byId(WandOfTheForestItem.getColor1(s)))
+				: t == 2 ? ColorHelper.getColorValue(DyeColor.byId(WandOfTheForestItem.getColor2(s)))
 				: -1,
-				ModItems.twigWand, ModItems.dreamwoodWand);
+				BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
 
 		ItemColor petalHandler = (s, t) -> t == 0 ? ColorHelper.getColorValue(((MysticalPetalItem) s.getItem()).color) : -1;
 		for (DyeColor color : DyeColor.values()) {
-			items.register(petalHandler, ModItems.getPetal(color));
+			items.register(petalHandler, BotaniaItems.getPetal(color));
 		}
 
 		items.register((s, t) -> t == 0 ? Minecraft.getInstance().getBlockColors().getColor(((BlockItem) s.getItem()).getBlock().defaultBlockState(), null, null, t) : -1,
@@ -144,17 +144,17 @@ public final class ColorHandler {
 				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ManaPoolBlockEntity.MAX_MANA, 1F);
 			}
 			return -1;
-		}, ModItems.manaMirror);
+		}, BotaniaItems.manaMirror);
 
 		items.register((s, t) -> {
 			if (t == 1) {
 				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(s);
-				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ItemManaTablet.MAX_MANA, 1F);
+				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ManaTabletItem.MAX_MANA, 1F);
 			}
 			return -1;
-		}, ModItems.manaTablet);
+		}, BotaniaItems.manaTablet);
 
-		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(0.55F, ((float) s.getMaxDamage() - (float) s.getDamageValue()) / (float) s.getMaxDamage() * 0.5F, 1F) : -1, ModItems.spellCloth);
+		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(0.55F, ((float) s.getMaxDamage() - (float) s.getDamageValue()) / (float) s.getMaxDamage() * 0.5F, 1F) : -1, BotaniaItems.spellCloth);
 
 		items.register((s, t) -> {
 			if (t != 1) {
@@ -167,7 +167,7 @@ public final class ColorHandler {
 			}
 
 			int color = brew.getColor(s);
-			double speed = s.is(ModItems.brewFlask) || s.is(ModItems.brewVial) ? 0.1 : 0.2;
+			double speed = s.is(BotaniaItems.brewFlask) || s.is(BotaniaItems.brewVial) ? 0.1 : 0.2;
 			int add = (int) (Math.sin(ClientTickHandler.ticksInGame * speed) * 24);
 
 			int r = Math.max(0, Math.min(255, (color >> 16 & 0xFF) + add));
@@ -175,16 +175,16 @@ public final class ColorHandler {
 			int b = Math.max(0, Math.min(255, (color & 0xFF) + add));
 
 			return r << 16 | g << 8 | b;
-		}, ModItems.bloodPendant, ModItems.incenseStick, ModItems.brewFlask, ModItems.brewVial);
+		}, BotaniaItems.bloodPendant, BotaniaItems.incenseStick, BotaniaItems.brewFlask, BotaniaItems.brewVial);
 
 		items.register((s, t) -> {
-			ItemStack lens = ItemManaGun.getLens(s);
+			ItemStack lens = ManaBlasterItem.getLens(s);
 			if (!lens.isEmpty() && t == 0) {
 				return ((AccessorMinecraft) Minecraft.getInstance()).getItemColors().getColor(lens, t);
 			}
 
 			if (t == 2) {
-				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, InteractionHand.MAIN_HAND);
+				BurstProperties props = ((ManaBlasterItem) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, InteractionHand.MAIN_HAND);
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
 				int c = (int) (255 * mul);
@@ -201,20 +201,20 @@ public final class ColorHandler {
 			} else {
 				return -1;
 			}
-		}, ModItems.manaGun);
+		}, BotaniaItems.manaGun);
 
-		items.register((s, t) -> t == 1 ? Mth.hsvToRgb(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.getMillis() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
+		items.register((s, t) -> t == 1 ? Mth.hsvToRgb(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.getMillis() / 100D) * 0.5 + 1.2F)) : -1, BotaniaItems.enderDagger);
 
-		items.register((s, t) -> t == 1 && TerraShattererItem.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
+		items.register((s, t) -> t == 1 && TerraShattererItem.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, BotaniaItems.terraPick);
 
 		ItemColor lensHandler = (s, t) -> t == 0 ? ((LensItem) s.getItem()).getLensColor(s, Minecraft.getInstance().level) : -1;
-		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime,
-				ModItems.lensEfficiency, ModItems.lensBounce, ModItems.lensGravity, ModItems.lensMine,
-				ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet, ModItems.lensExplosive,
-				ModItems.lensInfluence, ModItems.lensWeight, ModItems.lensPaint, ModItems.lensFire,
-				ModItems.lensPiston, ModItems.lensLight, ModItems.lensWarp, ModItems.lensRedirect,
-				ModItems.lensFirework, ModItems.lensFlare, ModItems.lensMessenger, ModItems.lensTripwire,
-				ModItems.lensStorm);
+		items.register(lensHandler, BotaniaItems.lensNormal, BotaniaItems.lensSpeed, BotaniaItems.lensPower, BotaniaItems.lensTime,
+				BotaniaItems.lensEfficiency, BotaniaItems.lensBounce, BotaniaItems.lensGravity, BotaniaItems.lensMine,
+				BotaniaItems.lensDamage, BotaniaItems.lensPhantom, BotaniaItems.lensMagnet, BotaniaItems.lensExplosive,
+				BotaniaItems.lensInfluence, BotaniaItems.lensWeight, BotaniaItems.lensPaint, BotaniaItems.lensFire,
+				BotaniaItems.lensPiston, BotaniaItems.lensLight, BotaniaItems.lensWarp, BotaniaItems.lensRedirect,
+				BotaniaItems.lensFirework, BotaniaItems.lensFlare, BotaniaItems.lensMessenger, BotaniaItems.lensTripwire,
+				BotaniaItems.lensStorm);
 	}
 
 	private ColorHandler() {}

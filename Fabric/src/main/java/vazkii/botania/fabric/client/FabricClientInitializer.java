@@ -52,7 +52,7 @@ import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.*;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.network.FabricPacketHandler;
@@ -69,8 +69,8 @@ public class FabricClientInitializer implements ClientModInitializer {
 		FabricPacketHandler.initClient();
 
 		// Guis
-		ScreenRegistry.register(ModItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
-		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
+		ScreenRegistry.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+		ScreenRegistry.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
 
 		// Blocks and Items
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(MiscellaneousModels.INSTANCE::onModelRegister);

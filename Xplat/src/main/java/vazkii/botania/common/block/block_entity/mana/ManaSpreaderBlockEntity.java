@@ -53,7 +53,7 @@ import vazkii.botania.common.entity.ManaBurstEntity.PositionProperties;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -389,7 +389,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		if (!player.isShiftKeyDown()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		} else {
-			BlockHitResult bpos = ItemLexicon.doRayTrace(level, player, ClipContext.Fluid.NONE);
+			BlockHitResult bpos = LexicaBotaniaItem.doRayTrace(level, player, ClipContext.Fluid.NONE);
 			if (!level.isClientSide) {
 				double x = bpos.getLocation().x - getBlockPos().getX() - 0.5;
 				double y = bpos.getLocation().y - getBlockPos().getY() - 0.5;

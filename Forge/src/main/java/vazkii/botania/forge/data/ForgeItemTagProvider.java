@@ -14,7 +14,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
-import static vazkii.botania.common.item.ModItems.*;
+import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ForgeItemTagProvider extends ItemTagsProvider {
 	public ForgeItemTagProvider(DataGenerator generator, BlockTagsProvider blockTags, ExistingFileHelper helper) {

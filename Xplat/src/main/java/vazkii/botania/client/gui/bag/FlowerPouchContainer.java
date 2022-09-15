@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
-import vazkii.botania.common.item.ItemFlowerBag;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.FlowerPouchItem;
 
 public class FlowerPouchContainer extends AbstractContainerMenu {
 	public static FlowerPouchContainer fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
@@ -37,13 +37,13 @@ public class FlowerPouchContainer extends AbstractContainerMenu {
 	public final Container flowerBagInv;
 
 	public FlowerPouchContainer(int windowId, Inventory playerInv, ItemStack bag) {
-		super(ModItems.FLOWER_BAG_CONTAINER, windowId);
+		super(BotaniaItems.FLOWER_BAG_CONTAINER, windowId);
 
 		this.bag = bag;
 		if (!playerInv.player.level.isClientSide) {
-			flowerBagInv = ItemFlowerBag.getInventory(bag);
+			flowerBagInv = FlowerPouchItem.getInventory(bag);
 		} else {
-			flowerBagInv = new SimpleContainer(ItemFlowerBag.SIZE);
+			flowerBagInv = new SimpleContainer(FlowerPouchItem.SIZE);
 		}
 
 		for (int row = 0; row < 4; ++row) {
@@ -52,7 +52,7 @@ public class FlowerPouchContainer extends AbstractContainerMenu {
 				addSlot(new Slot(flowerBagInv, slot, 17 + col * 18, 26 + row * 18) {
 					@Override
 					public boolean mayPlace(@NotNull ItemStack stack) {
-						return ItemFlowerBag.isValid(this.getContainerSlot(), stack);
+						return FlowerPouchItem.isValid(this.getContainerSlot(), stack);
 					}
 				});
 			}

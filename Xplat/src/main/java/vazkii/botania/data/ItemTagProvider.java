@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.ModTags;
 
 import java.util.Comparator;
 
-import static vazkii.botania.common.item.ModItems.*;
+import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
 	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {

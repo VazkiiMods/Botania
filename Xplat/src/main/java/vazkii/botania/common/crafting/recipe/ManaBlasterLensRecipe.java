@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.Lens;
-import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.item.ManaBlasterItem;
 
 public class ManaBlasterLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<ManaBlasterLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaBlasterLensRecipe::new);
@@ -36,9 +36,9 @@ public class ManaBlasterLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
+				if (stack.getItem() instanceof ManaBlasterItem && ManaBlasterItem.getLens(stack).isEmpty()) {
 					foundGun++;
-				} else if (ItemManaGun.isValidLens(stack)) {
+				} else if (ManaBlasterItem.isValidLens(stack)) {
 					foundLens++;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
@@ -58,7 +58,7 @@ public class ManaBlasterLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun) {
+				if (stack.getItem() instanceof ManaBlasterItem) {
 					gun = stack;
 				} else if (stack.getItem() instanceof Lens) {
 					lens = stack.copy();
@@ -72,7 +72,7 @@ public class ManaBlasterLensRecipe extends CustomRecipe {
 		}
 
 		ItemStack gunCopy = gun.copy();
-		ItemManaGun.setLens(gunCopy, lens);
+		ManaBlasterItem.setLens(gunCopy, lens);
 
 		return gunCopy;
 	}

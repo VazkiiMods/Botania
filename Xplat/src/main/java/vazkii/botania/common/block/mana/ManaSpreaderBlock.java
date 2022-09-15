@@ -43,7 +43,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ColorHelper;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 
 public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
@@ -150,7 +150,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		}
 
 		ItemStack heldItem = player.getItemInHand(hand);
-		if (heldItem.getItem() instanceof ItemTwigWand) {
+		if (heldItem.getItem() instanceof WandOfTheForestItem) {
 			return InteractionResult.PASS;
 		}
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();

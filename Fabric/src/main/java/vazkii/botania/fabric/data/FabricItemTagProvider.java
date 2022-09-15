@@ -14,7 +14,7 @@ import net.minecraft.world.item.Items;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.relic.DiceOfFateItem;
 
-import static vazkii.botania.common.item.ModItems.*;
+import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class FabricItemTagProvider extends ItemTagsProvider {
 	public static final TagKey<Item> QUARTZ_BLOCKS = itemTag(new ResourceLocation("c", "quartz_blocks"));

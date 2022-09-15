@@ -33,7 +33,7 @@ import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 
 public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -61,7 +61,7 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty()) {
-			if (stack.getItem() instanceof ItemTwigWand && player.isShiftKeyDown()) {
+			if (stack.getItem() instanceof WandOfTheForestItem && player.isShiftKeyDown()) {
 				return InteractionResult.PASS;
 			}
 			CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos);

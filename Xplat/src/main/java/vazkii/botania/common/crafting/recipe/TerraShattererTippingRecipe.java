@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 public class TerraShattererTippingRecipe extends CustomRecipe {
@@ -44,7 +44,7 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof TerraShattererItem && !TerraShattererItem.isTipped(stack)) {
 					foundTerraPick = true;
-				} else if (stack.is(ModItems.elementiumPick)) {
+				} else if (stack.is(BotaniaItems.elementiumPick)) {
 					foundElementiumPick = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

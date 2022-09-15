@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.SortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
@@ -48,7 +48,7 @@ public class ManasteelShearsItem extends ShearsItem implements CustomDamageItem,
 
 	@Override
 	public boolean isValidRepairItem(ItemStack shears, ItemStack material) {
-		return material.is(ModItems.manaSteel) || super.isValidRepairItem(shears, material);
+		return material.is(BotaniaItems.manaSteel) || super.isValidRepairItem(shears, material);
 	}
 
 	@Override

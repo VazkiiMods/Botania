@@ -54,8 +54,8 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.item.ItemManaTablet;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.ManaTabletItem;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -419,8 +419,8 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-			ItemStack tablet = new ItemStack(ModItems.manaTablet);
-			ItemManaTablet.setStackCreative(tablet);
+			ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
+			ManaTabletItem.setStackCreative(tablet);
 
 			mc.getItemRenderer().renderAndDecorateItem(tablet, x - 20, y);
 			mc.getItemRenderer().renderAndDecorateItem(poolStack, x + 26, y);

@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.item.ItemAstrolabe;
+import vazkii.botania.common.item.AstrolabeItem;
 
 import java.util.List;
 
@@ -37,12 +37,12 @@ public final class AstrolabePreviewHandler {
 
 		for (Player player : level.players()) {
 			ItemStack currentStack = player.getMainHandItem();
-			if (currentStack.isEmpty() || !(currentStack.getItem() instanceof ItemAstrolabe)) {
+			if (currentStack.isEmpty() || !(currentStack.getItem() instanceof AstrolabeItem)) {
 				currentStack = player.getOffhandItem();
 			}
 
-			if (!currentStack.isEmpty() && currentStack.getItem() instanceof ItemAstrolabe) {
-				Block block = ItemAstrolabe.getBlock(currentStack);
+			if (!currentStack.isEmpty() && currentStack.getItem() instanceof AstrolabeItem) {
+				Block block = AstrolabeItem.getBlock(currentStack);
 				if (block != Blocks.AIR) {
 					renderPlayerLook(ms, buffer, player, currentStack);
 				}
@@ -53,9 +53,9 @@ public final class AstrolabePreviewHandler {
 	}
 
 	private static void renderPlayerLook(PoseStack ms, VertexConsumer buffer, Player player, ItemStack stack) {
-		List<BlockPos> coords = ItemAstrolabe.getBlocksToPlace(stack, player);
-		if (ItemAstrolabe.hasBlocks(stack, player, coords)) {
-			BlockState state = ItemAstrolabe.getBlockState(stack);
+		List<BlockPos> coords = AstrolabeItem.getBlocksToPlace(stack, player);
+		if (AstrolabeItem.hasBlocks(stack, player, coords)) {
+			BlockState state = AstrolabeItem.getBlockState(stack);
 
 			for (BlockPos coord : coords) {
 				renderBlockAt(ms, buffer, state, coord);

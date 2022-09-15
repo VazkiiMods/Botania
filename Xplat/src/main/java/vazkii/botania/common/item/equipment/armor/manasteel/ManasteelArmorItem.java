@@ -32,7 +32,7 @@ import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.proxy.IProxy;
@@ -109,10 +109,10 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
-			new ItemStack(ModItems.manasteelHelm),
-			new ItemStack(ModItems.manasteelChest),
-			new ItemStack(ModItems.manasteelLegs),
-			new ItemStack(ModItems.manasteelBoots)
+			new ItemStack(BotaniaItems.manasteelHelm),
+			new ItemStack(BotaniaItems.manasteelChest),
+			new ItemStack(BotaniaItems.manasteelLegs),
+			new ItemStack(BotaniaItems.manasteelBoots)
 	});
 
 	public ItemStack[] getArmorSetStacks() {
@@ -134,10 +134,10 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 		}
 
 		return switch (slot) {
-			case HEAD -> stack.is(ModItems.manasteelHelm);
-			case CHEST -> stack.is(ModItems.manasteelChest);
-			case LEGS -> stack.is(ModItems.manasteelLegs);
-			case FEET -> stack.is(ModItems.manasteelBoots);
+			case HEAD -> stack.is(BotaniaItems.manasteelHelm);
+			case CHEST -> stack.is(BotaniaItems.manasteelChest);
+			case LEGS -> stack.is(BotaniaItems.manasteelLegs);
+			case FEET -> stack.is(BotaniaItems.manasteelBoots);
 			default -> false;
 		};
 

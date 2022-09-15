@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.test.TestingUtil;
 
 public class TargetBlockTest {
@@ -24,7 +24,7 @@ public class TargetBlockTest {
 		// that the spreader is pointed at the mana void properly, in case the test
 		// structure is placed rotated.
 		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
-		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(ModItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
+		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(bindPos), Direction.UP),
 				() -> "Failed to bind spreader");
 
 		helper.startSequence()

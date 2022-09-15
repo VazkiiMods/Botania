@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.network.serverbound.PacketDodge;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
@@ -46,7 +46,7 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 				return;
 			}
 
-			ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
+			ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, mc.player);
 			if (ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0) {
 				return;
 			}

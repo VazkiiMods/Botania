@@ -22,7 +22,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.material.EnderAirItem;
 
 public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
@@ -60,7 +60,7 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
 		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {
 			this.setSuccess(true);
-			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
+			return fillBottle(source, stack, new ItemStack(BotaniaItems.enderAirBottle));
 		}
 		this.setSuccess(false);
 		return parent.dispense(source, stack);

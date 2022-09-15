@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlock {
@@ -57,10 +57,10 @@ public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
 			ItemStack stack = player.getItemInHand(hand);
-			if (!stack.isEmpty() && stack.is(ItemTags.SAPLINGS) && !player.getInventory().contains(new ItemStack(ModItems.lexicon))) {
+			if (!stack.isEmpty() && stack.is(ItemTags.SAPLINGS) && !player.getInventory().contains(new ItemStack(BotaniaItems.lexicon))) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
-					player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.lexicon));
+					player.getInventory().placeItemBackInInventory(new ItemStack(BotaniaItems.lexicon));
 				}
 				return InteractionResult.SUCCESS;
 			}

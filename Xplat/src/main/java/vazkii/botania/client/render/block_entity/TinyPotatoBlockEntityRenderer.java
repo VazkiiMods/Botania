@@ -42,7 +42,7 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
 import vazkii.botania.common.handler.ContributorList;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.mixin.client.AccessorModelManager;
@@ -326,7 +326,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 					ms.translate(-0.3F, -2.7F, -1.2F);
 					ms.mulPose(Vector3f.ZP.rotationDegrees(15F));
-					renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setHoverName(Component.literal("das boot")));
+					renderItem(ms, buffers, light, overlay, new ItemStack(BotaniaItems.infiniteFruit, 1).setHoverName(Component.literal("das boot")));
 				}
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);
@@ -339,7 +339,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(Vector3f.YP.rotationDegrees(90));
 					ms.pushPose();
 					ms.translate(0F, -2.5F, 0.65F);
-					ItemStack ring = new ItemStack(ModItems.manaRing);
+					ItemStack ring = new ItemStack(BotaniaItems.manaRing);
 					renderItem(ms, buffers, light, overlay, ring);
 					ms.translate(0F, 0F, -4F);
 					renderItem(ms, buffers, light, overlay, ring);

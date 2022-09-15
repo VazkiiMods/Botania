@@ -37,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.ArrayList;
@@ -149,6 +149,6 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	@NotNull
 	@Override
 	public ItemStack getItem() {
-		return new ItemStack(ModItems.enderAirBottle);
+		return new ItemStack(BotaniaItems.enderAirBottle);
 	}
 }

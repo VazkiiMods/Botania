@@ -19,8 +19,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ItemManaGun;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.ManaBlasterItem;
 
 public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<ManaBlasterRemoveLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ManaBlasterRemoveLensRecipe::new);
@@ -36,7 +36,7 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun && !ItemManaGun.getLens(stack).isEmpty()) {
+				if (stack.getItem() instanceof ManaBlasterItem && !ManaBlasterItem.getLens(stack).isEmpty()) {
 					foundGun = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
@@ -55,7 +55,7 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemManaGun) {
+				if (stack.getItem() instanceof ManaBlasterItem) {
 					gun = stack;
 				}
 			}
@@ -63,7 +63,7 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 
 		ItemStack gunCopy = gun.copy();
 		gunCopy.setCount(1);
-		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
+		ManaBlasterItem.setLens(gunCopy, ItemStack.EMPTY);
 
 		return gunCopy;
 	}
@@ -83,8 +83,8 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.is(ModItems.manaGun)) {
-				ItemStack stack = ItemManaGun.getLens(s);
+			if (s.is(BotaniaItems.manaGun)) {
+				ItemStack stack = ManaBlasterItem.getLens(s);
 				stack.setCount(1);
 				return stack;
 			}

@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.item.ManaBlasterItem;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -67,7 +67,7 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 
 		boolean test(ItemStack stack, ServerPlayer entity) {
 			return this.item.matches(stack) && this.user.matches(entity, entity)
-					&& (desu == null || desu == ItemManaGun.isSugoiKawaiiDesuNe(stack));
+					&& (desu == null || desu == ManaBlasterItem.isSugoiKawaiiDesuNe(stack));
 		}
 
 		@Override

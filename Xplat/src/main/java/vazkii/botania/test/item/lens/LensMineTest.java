@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.test.DelegatingConfigAccess;
 import vazkii.botania.test.TestingUtil;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -87,7 +87,7 @@ public class LensMineTest {
 		// that the spreader is pointed at the mana void properly, in case the test
 		// structure is placed rotated.
 		var spreader = TestingUtil.assertBlockEntity(helper, spreaderPos, BotaniaBlockEntities.SPREADER);
-		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(ModItems.twigWand), helper.absolutePos(manaVoidPos), Direction.UP),
+		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand), helper.absolutePos(manaVoidPos), Direction.UP),
 				() -> "Failed to bind spreader");
 		helper.setBlock(testPos, toMine);
 

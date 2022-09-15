@@ -32,8 +32,8 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.item.ItemLexicon;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -77,7 +77,7 @@ public class RenderLexicon {
 		if (!BotaniaConfig.client().lexicon3dModel()
 				|| !type.firstPerson()
 				|| stack.isEmpty()
-				|| !stack.is(ModItems.lexicon)) {
+				|| !stack.is(BotaniaItems.lexicon)) {
 			return false;
 		}
 		try {
@@ -96,7 +96,7 @@ public class RenderLexicon {
 
 		float ticks = ClientTickHandler.ticksWithLexicaOpen;
 		if (ticks > 0 && ticks < 10) {
-			if (ItemLexicon.isOpen()) {
+			if (LexicaBotaniaItem.isOpen()) {
 				ticks += partialTicks;
 			} else {
 				ticks -= partialTicks;
@@ -125,7 +125,7 @@ public class RenderLexicon {
 		var model = getModel();
 		model.setupAnim(ClientTickHandler.total(), Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
-		Material mat = ItemLexicon.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
+		Material mat = LexicaBotaniaItem.isElven(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.buffer(buffers, RenderType::entitySolid);
 		model.renderToBuffer(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 
@@ -139,7 +139,7 @@ public class RenderLexicon {
 				misspelling = mc.level.random.nextInt(MISSPELLINGS.length);
 			}
 
-			String title = ItemLexicon.getTitle(stack).getString();
+			String title = LexicaBotaniaItem.getTitle(stack).getString();
 			if (SHOULD_MISSPELL) {
 				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
 			}
@@ -147,7 +147,7 @@ public class RenderLexicon {
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
-			Component edition = ItemLexicon.getEdition().copy().withStyle(ChatFormatting.ITALIC, ChatFormatting.BOLD);
+			Component edition = LexicaBotaniaItem.getEdition().copy().withStyle(ChatFormatting.ITALIC, ChatFormatting.BOLD);
 			font.drawInBatch(edition, 0, 0, 0xA07100, false, ms.last().pose(), buffers, false, 0, light);
 
 			if (quote == -1 && mc.level != null) {

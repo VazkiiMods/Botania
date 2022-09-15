@@ -27,7 +27,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.IProxy;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class BenevolentGoddessCharmItem extends BaubleItem {
 		List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).inflate(8));
 
 		for (Player player : players) {
-			ItemStack charm = EquipmentHandler.findOrEmpty(ModItems.goddessCharm, player);
+			ItemStack charm = EquipmentHandler.findOrEmpty(BotaniaItems.goddessCharm, player);
 			if (!charm.isEmpty() && ManaItemHandler.instance().requestManaExact(charm, player, COST, true)) {
 				return true;
 			}

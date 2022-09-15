@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class SpellbindingClothRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<SpellbindingClothRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SpellbindingClothRecipe::new);
@@ -36,9 +36,9 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.isEnchanted() && !foundEnchanted && !stack.is(ModItems.spellCloth)) {
+				if (stack.isEnchanted() && !foundEnchanted && !stack.is(BotaniaItems.spellCloth)) {
 					foundEnchanted = true;
-				} else if (stack.is(ModItems.spellCloth) && !foundCloth) {
+				} else if (stack.is(BotaniaItems.spellCloth) && !foundCloth) {
 					foundCloth = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
@@ -55,7 +55,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.isEnchanted() && !stack.is(ModItems.spellCloth)) {
+			if (!stack.isEmpty() && stack.isEnchanted() && !stack.is(BotaniaItems.spellCloth)) {
 				stackToDisenchant = stack.copy();
 				stackToDisenchant.setCount(1);
 				break;
@@ -86,7 +86,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.is(ModItems.spellCloth)) {
+			if (s.is(BotaniaItems.spellCloth)) {
 				ItemStack copy = s.copy();
 				copy.setCount(1);
 				copy.setDamageValue(copy.getDamageValue() + 1);

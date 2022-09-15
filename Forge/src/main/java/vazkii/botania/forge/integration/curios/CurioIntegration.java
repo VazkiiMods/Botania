@@ -46,7 +46,7 @@ import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.ItemKeepIvy;
+import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.forge.CapabilityUtil;
@@ -71,8 +71,8 @@ public class CurioIntegration extends EquipmentHandler {
 
 	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky
 		event.addOverride(stack -> {
-			if (ItemKeepIvy.hasIvy(stack)) {
-				stack.removeTagKey(ItemKeepIvy.TAG_KEEP);
+			if (ResoluteIvyItem.hasIvy(stack)) {
+				stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
 				return true;
 			}
 			return false;

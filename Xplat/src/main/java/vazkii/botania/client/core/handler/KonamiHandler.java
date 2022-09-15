@@ -20,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.LexicaBotaniaItem;
 
 public class KonamiHandler {
 	private static final int[] KONAMI_CODE = {
@@ -38,14 +38,14 @@ public class KonamiHandler {
 			konamiTime--;
 		}
 
-		if (!ItemLexicon.isOpen()) {
+		if (!LexicaBotaniaItem.isOpen()) {
 			nextLetter = 0;
 		}
 	}
 
 	public static void handleInput(int key, int action, int modifiers) {
 		Minecraft mc = Minecraft.getInstance();
-		if (modifiers == 0 && action == GLFW.GLFW_PRESS && ItemLexicon.isOpen()) {
+		if (modifiers == 0 && action == GLFW.GLFW_PRESS && LexicaBotaniaItem.isOpen()) {
 			if (konamiTime == 0 && key == KONAMI_CODE[nextLetter]) {
 				nextLetter++;
 				if (nextLetter >= KONAMI_CODE.length) {

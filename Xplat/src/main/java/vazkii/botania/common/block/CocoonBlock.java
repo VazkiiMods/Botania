@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CocoonBlockEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -79,7 +79,7 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	private InteractionResult addStack(Level world, BlockPos pos, ItemStack stack, boolean creative) {
 		CocoonBlockEntity cocoon = (CocoonBlockEntity) world.getBlockEntity(pos);
 
-		if (cocoon != null && (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(ModItems.lifeEssence))) {
+		if (cocoon != null && (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(BotaniaItems.lifeEssence))) {
 			if (!world.isClientSide) {
 				if (stack.is(Items.EMERALD) && cocoon.emeraldsGiven < CocoonBlockEntity.MAX_EMERALDS) {
 					if (!creative) {
@@ -93,7 +93,7 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 					}
 					cocoon.chorusFruitGiven++;
 					((ServerLevel) world).sendParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
-				} else if (stack.is(ModItems.lifeEssence) && !cocoon.gaiaSpiritGiven) {
+				} else if (stack.is(BotaniaItems.lifeEssence) && !cocoon.gaiaSpiritGiven) {
 					if (!creative) {
 						stack.shrink(1);
 					}

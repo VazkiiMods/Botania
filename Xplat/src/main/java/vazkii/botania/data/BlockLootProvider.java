@@ -56,7 +56,7 @@ import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.BotaniaGrassBlock;
 import vazkii.botania.common.block.flower.generating.*;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -213,7 +213,7 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genRoot(Block b) {
-		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(ModItems.livingroot)
+		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(BotaniaItems.livingroot)
 				.apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)))
 				.apply(ApplyExplosionDecay.explosionDecay());
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));

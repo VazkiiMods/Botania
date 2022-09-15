@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.item.ItemFlowerBag;
+import vazkii.botania.common.item.FlowerPouchItem;
 
 import java.util.UUID;
 
@@ -33,7 +33,7 @@ public class ItemEntityFabricMixin {
 	private void onPickup(Player player, CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
 		if (!player.level.isClientSide && pickupDelay == 0 && (owner == null || owner.equals(player.getUUID()))
-				&& ItemFlowerBag.onPickupItem(self, player)) {
+				&& FlowerPouchItem.onPickupItem(self, player)) {
 			ci.cancel();
 		}
 	}

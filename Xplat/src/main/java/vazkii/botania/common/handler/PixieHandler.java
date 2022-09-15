@@ -26,7 +26,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import vazkii.botania.common.entity.PixieEntity;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
 
 import java.util.EnumMap;
@@ -71,13 +71,13 @@ public final class PixieHandler {
 			// Could be badly-written mixins on Fabric.
 			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
 					? player.getAttributeValue(PIXIE_SPAWN_CHANCE) : 0;
-			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(ModItems.elementiumSword));
+			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.elementiumSword));
 
 			if (Math.random() < chance) {
 				PixieEntity pixie = new PixieEntity(player.level);
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
-				if (((ElementiumHelmItem) ModItems.elementiumHelm).hasArmorSet(player)) {
+				if (((ElementiumHelmItem) BotaniaItems.elementiumHelm).hasArmorSet(player)) {
 					pixie.setApplyPotionEffect(new MobEffectInstance(potions[player.level.random.nextInt(potions.length)], 40, 0));
 				}
 

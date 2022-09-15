@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class PhantomInkRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<PhantomInkRecipe> SERIALIZER = new SimpleRecipeSerializer<>(PhantomInkRecipe::new);
@@ -36,7 +36,7 @@ public class PhantomInkRecipe extends CustomRecipe {
 		for (int i = 0; i < var1.getContainerSize(); i++) {
 			ItemStack stack = var1.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.is(ModItems.phantomInk) && !foundInk) {
+				if (stack.is(BotaniaItems.phantomInk) && !foundInk) {
 					foundInk = true;
 				} else if (!foundItem) {
 					if (stack.getItem() instanceof PhantomInkable && !stack.getItem().hasCraftingRemainingItem()) {

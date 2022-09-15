@@ -33,7 +33,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 
 public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 
@@ -63,7 +63,7 @@ public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ManaEnchanterBlockEntity enchanter = (ManaEnchanterBlockEntity) world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemTwigWand) {
+		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
 			return InteractionResult.PASS;
 		}
 

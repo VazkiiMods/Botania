@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackFabricMixin {
@@ -28,7 +28,7 @@ public abstract class ItemStackFabricMixin {
 	@Inject(at = @At("HEAD"), method = "is(Lnet/minecraft/world/item/Item;)Z", cancellable = true)
 	private void isBotaniaShears(Item item, CallbackInfoReturnable<Boolean> cir) {
 		if (item == Items.SHEARS) {
-			if (is(ModItems.manasteelShears) || is(ModItems.elementiumShears)) {
+			if (is(BotaniaItems.manasteelShears) || is(BotaniaItems.elementiumShears)) {
 				cir.setReturnValue(true);
 			}
 		}

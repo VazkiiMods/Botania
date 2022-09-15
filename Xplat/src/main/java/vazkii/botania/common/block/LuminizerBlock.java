@@ -39,7 +39,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -69,7 +69,7 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 		ItemStack stack = player.getItemInHand(hand);
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof LuminizerBlockEntity relay) {
-			if (stack.is(ModItems.phantomInk) && !relay.isNoParticle()) {
+			if (stack.is(BotaniaItems.phantomInk) && !relay.isNoParticle()) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
 					relay.setNoParticle();

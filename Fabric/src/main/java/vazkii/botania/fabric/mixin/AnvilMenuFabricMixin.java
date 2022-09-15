@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.item.ItemSpellCloth;
+import vazkii.botania.common.item.SpellbindingClothItem;
 
 @Mixin(AnvilMenu.class)
 public abstract class AnvilMenuFabricMixin extends ItemCombinerMenu {
@@ -33,7 +33,7 @@ public abstract class AnvilMenuFabricMixin extends ItemCombinerMenu {
 
 	@Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
 	private void checkIfCloth(CallbackInfo ci) {
-		if (ItemSpellCloth.shouldDenyAnvil(inputSlots.getItem(0), inputSlots.getItem(1))) {
+		if (SpellbindingClothItem.shouldDenyAnvil(inputSlots.getItem(0), inputSlots.getItem(1))) {
 			this.resultSlots.setItem(0, ItemStack.EMPTY);
 			this.cost.set(0);
 			ci.cancel();

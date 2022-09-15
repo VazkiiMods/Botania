@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.Arrays;
@@ -47,14 +47,14 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 
 		Ingredient manaDiamond = Ingredient.of(ModTags.Items.GEMS_MANA_DIAMOND);
 		Ingredient manaSteel = Ingredient.of(ModTags.Items.INGOTS_MANASTEEL);
-		consumer.accept(new FinishedRecipe(id("elementium"), new ItemStack(ModItems.elementium), manaSteel, manaSteel));
+		consumer.accept(new FinishedRecipe(id("elementium"), new ItemStack(BotaniaItems.elementium), manaSteel, manaSteel));
 		consumer.accept(new FinishedRecipe(id("elementium_block"), new ItemStack(BotaniaBlocks.elementiumBlock), Ingredient.of(BotaniaBlocks.manasteelBlock), Ingredient.of(BotaniaBlocks.manasteelBlock)));
 
-		consumer.accept(new FinishedRecipe(id("pixie_dust"), new ItemStack(ModItems.pixieDust), Ingredient.of(ModItems.manaPearl)));
-		consumer.accept(new FinishedRecipe(id("dragonstone"), new ItemStack(ModItems.dragonstone), manaDiamond));
+		consumer.accept(new FinishedRecipe(id("pixie_dust"), new ItemStack(BotaniaItems.pixieDust), Ingredient.of(BotaniaItems.manaPearl)));
+		consumer.accept(new FinishedRecipe(id("dragonstone"), new ItemStack(BotaniaItems.dragonstone), manaDiamond));
 		consumer.accept(new FinishedRecipe(id("dragonstone_block"), new ItemStack(BotaniaBlocks.dragonstoneBlock), Ingredient.of(BotaniaBlocks.manaDiamondBlock)));
 
-		consumer.accept(new FinishedRecipe(id("elf_quartz"), new ItemStack(ModItems.elfQuartz), Ingredient.of(Items.QUARTZ)));
+		consumer.accept(new FinishedRecipe(id("elf_quartz"), new ItemStack(BotaniaItems.elfQuartz), Ingredient.of(Items.QUARTZ)));
 		consumer.accept(new FinishedRecipe(id("elf_glass"), new ItemStack(BotaniaBlocks.elfGlass), Ingredient.of(BotaniaBlocks.manaGlass)));
 
 		consumer.accept(new FinishedRecipe(id("iron_return"), new ItemStack(Items.IRON_INGOT), Ingredient.of(Items.IRON_INGOT)));

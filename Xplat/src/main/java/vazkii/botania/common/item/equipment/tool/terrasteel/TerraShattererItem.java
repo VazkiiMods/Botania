@@ -44,7 +44,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ItemTemperanceStone;
+import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.common.item.relic.RingOfThorItem;
@@ -213,7 +213,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 		int origLevel = getLevel(stack);
 		int level = origLevel + (thor ? 1 : 0);
-		if (ItemTemperanceStone.hasTemperanceActive(player) && level > 2) {
+		if (StoneOfTemperanceItem.hasTemperanceActive(player) && level > 2) {
 			level = 2;
 		}
 

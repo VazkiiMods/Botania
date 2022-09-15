@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.item.ItemVirus;
+import vazkii.botania.common.item.EquestrianVirusItem;
 import vazkii.botania.common.item.equipment.bauble.CrimsonPendantItem;
 
 @Mixin(Entity.class)
@@ -28,7 +28,7 @@ public class MixinEntity {
 	@Inject(at = @At("HEAD"), method = "isInvulnerableTo", cancellable = true)
 	private void checkInvulnerabilities(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
 		if (((Object) this) instanceof LivingEntity self) {
-			if (ItemVirus.onLivingHurt(self, source)) {
+			if (EquestrianVirusItem.onLivingHurt(self, source)) {
 				cir.setReturnValue(true);
 			} else if (CrimsonPendantItem.onDamage(self, source)) {
 				cir.setReturnValue(true);

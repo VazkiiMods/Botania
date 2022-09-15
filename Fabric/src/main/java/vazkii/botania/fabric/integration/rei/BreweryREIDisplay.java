@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.BotanicalBreweryRecipe;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<BotanicalBreweryReci
 
 	public BreweryREIDisplay(BotanicalBreweryRecipe recipe) {
 		super(recipe);
-		List<ItemStack> items = Arrays.asList(new ItemStack(ModItems.vial), new ItemStack(ModItems.flask), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
+		List<ItemStack> items = Arrays.asList(new ItemStack(BotaniaItems.vial), new ItemStack(BotaniaItems.flask), new ItemStack(BotaniaItems.incenseStick), new ItemStack(BotaniaItems.bloodPendant));
 		this.containers = EntryIngredients.ofItemStacks(items);
 		List<ItemStack> outputs = new ArrayList<>();
 		for (ItemStack stack : items) {

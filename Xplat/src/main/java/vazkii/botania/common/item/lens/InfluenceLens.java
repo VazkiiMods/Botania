@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class InfluenceLens extends Lens {
 
@@ -47,7 +47,7 @@ public class InfluenceLens extends Lens {
 
 				if (movable instanceof ManaBurst otherBurst) {
 					ItemStack lens = otherBurst.getSourceLens();
-					if (!lens.isEmpty() && lens.is(ModItems.lensInfluence)) {
+					if (!lens.isEmpty() && lens.is(BotaniaItems.lensInfluence)) {
 						continue;
 					}
 				}

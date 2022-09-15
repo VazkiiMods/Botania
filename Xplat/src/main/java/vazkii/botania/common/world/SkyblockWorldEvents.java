@@ -40,7 +40,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.mixin.AccessorSoundType;
 import vazkii.botania.network.clientbound.PacketGogWorld;
@@ -113,9 +113,9 @@ public final class SkyblockWorldEvents {
 							equipped.shrink(1);
 
 							if (equipped.isEmpty()) {
-								player.setItemInHand(hand, new ItemStack(ModItems.waterBowl));
+								player.setItemInHand(hand, new ItemStack(BotaniaItems.waterBowl));
 							} else {
-								player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.waterBowl));
+								player.getInventory().placeItemBackInInventory(new ItemStack(BotaniaItems.waterBowl));
 							}
 						}
 
@@ -135,7 +135,7 @@ public final class SkyblockWorldEvents {
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setRespawnPosition(pmp.level.dimension(), pos, 0, true, false);
 			if (BotaniaConfig.common().gogSpawnWithLexicon()) {
-				player.getInventory().add(new ItemStack(ModItems.lexicon));
+				player.getInventory().add(new ItemStack(BotaniaItems.lexicon));
 			}
 		}
 	}

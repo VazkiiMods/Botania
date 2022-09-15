@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.item.ItemKeepIvy;
+import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 
 @Mixin(Player.class)
@@ -81,6 +81,6 @@ public abstract class MixinPlayer extends LivingEntity implements PlayerAccess {
 		method = "dropEquipment"
 	)
 	private void captureIvyDrops(CallbackInfo ci) {
-		ItemKeepIvy.keepDropsOnDeath((Player) (Object) this);
+		ResoluteIvyItem.keepDropsOnDeath((Player) (Object) this);
 	}
 }

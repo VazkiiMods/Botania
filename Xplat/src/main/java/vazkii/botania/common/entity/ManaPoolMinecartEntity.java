@@ -33,7 +33,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ManaPoolMinecartEntity extends AbstractMinecart {
@@ -81,7 +81,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	@NotNull
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(ModItems.poolMinecart);
+		return new ItemStack(BotaniaItems.poolMinecart);
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 
 	@Override
 	public Item getDropItem() {
-		return ModItems.poolMinecart;
+		return BotaniaItems.poolMinecart;
 	}
 
 	@SoftImplement("IForgeMinecart")

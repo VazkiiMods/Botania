@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
@@ -45,7 +45,7 @@ public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPla
 		boolean renderedOne = false;
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stack = player.getInventory().getItem(i);
-			if (!stack.isEmpty() && stack.is(ModItems.manaTablet)) {
+			if (!stack.isEmpty() && stack.is(BotaniaItems.manaTablet)) {
 				ms.pushPose();
 				boolean armor = !player.getItemBySlot(EquipmentSlot.LEGS).isEmpty();
 

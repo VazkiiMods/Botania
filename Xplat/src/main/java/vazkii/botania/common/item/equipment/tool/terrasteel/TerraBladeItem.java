@@ -30,7 +30,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.LensEffect;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
 import vazkii.botania.network.serverbound.PacketLeftClick;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -64,7 +64,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffect {
 
 	public static void trySpawnBurst(Player player, float attackStrength) {
 		if (!player.getMainHandItem().isEmpty()
-				&& player.getMainHandItem().is(ModItems.terraSword)
+				&& player.getMainHandItem().is(BotaniaItems.terraSword)
 				&& attackStrength == 1) {
 			ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);

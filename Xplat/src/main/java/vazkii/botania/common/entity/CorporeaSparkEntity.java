@@ -35,8 +35,8 @@ import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
-import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.*;
@@ -69,7 +69,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	@NotNull
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(isCreative() ? ModItems.corporeaSparkCreative : isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark);
+		return new ItemStack(isCreative() ? BotaniaItems.corporeaSparkCreative : isMaster() ? BotaniaItems.corporeaSparkMaster : BotaniaItems.corporeaSpark);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	}
 
 	private void dropAndKill() {
-		spawnAtLocation(new ItemStack(isCreative() ? ModItems.corporeaSparkCreative : isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
+		spawnAtLocation(new ItemStack(isCreative() ? BotaniaItems.corporeaSparkCreative : isMaster() ? BotaniaItems.corporeaSparkMaster : BotaniaItems.corporeaSpark), 0F);
 		discard();
 	}
 
@@ -244,7 +244,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
-			if (stack.getItem() instanceof ItemTwigWand) {
+			if (stack.getItem() instanceof WandOfTheForestItem) {
 				if (!level.isClientSide) {
 					if (player.isShiftKeyDown()) {
 						dropAndKill();
@@ -267,7 +267,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 					return InteractionResult.sidedSuccess(level.isClientSide);
 				}
-			} else if (stack.is(ModItems.phantomInk)) {
+			} else if (stack.is(BotaniaItems.phantomInk)) {
 				if (!level.isClientSide) {
 					setInvisible(true);
 				}

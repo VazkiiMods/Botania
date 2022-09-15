@@ -41,7 +41,7 @@ import vazkii.botania.common.advancements.LokiPlaceTrigger;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.ArrayList;
@@ -230,7 +230,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 	}
 
 	private static ItemStack getLokiRing(Player player) {
-		return EquipmentHandler.findOrEmpty(ModItems.lokiRing, player);
+		return EquipmentHandler.findOrEmpty(BotaniaItems.lokiRing, player);
 	}
 
 	private static BlockPos getBindingCenter(ItemStack stack) {

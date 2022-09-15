@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class VialItem extends Item implements BrewContainer {
 
@@ -23,14 +23,14 @@ public class VialItem extends Item implements BrewContainer {
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		ItemStack brewStack = new ItemStack(stack.is(ModItems.flask) ? ModItems.brewFlask : ModItems.brewVial);
+		ItemStack brewStack = new ItemStack(stack.is(BotaniaItems.flask) ? BotaniaItems.brewFlask : BotaniaItems.brewVial);
 		BaseBrewItem.setBrew(brewStack, brew);
 		return brewStack;
 	}
 
 	@Override
 	public int getManaCost(Brew brew, ItemStack stack) {
-		if (stack.is(ModItems.flask)) {
+		if (stack.is(BotaniaItems.flask)) {
 			return brew.getManaCost() * 2;
 		} else {
 			return brew.getManaCost();

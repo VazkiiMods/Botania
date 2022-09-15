@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.network.serverbound.PacketJump;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -90,7 +90,7 @@ public class CirrusAmuletItem extends BaubleItem {
 			ms.translate(-0.3, 0.4, armor ? 0.05 : 0.12);
 			ms.scale(0.5F, -0.5F, -0.5F);
 
-			BakedModel model = stack.is(ModItems.superCloudPendant)
+			BakedModel model = stack.is(BotaniaItems.superCloudPendant)
 					? MiscellaneousModels.INSTANCE.nimbusGem
 					: MiscellaneousModels.INSTANCE.cirrusGem;
 			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());

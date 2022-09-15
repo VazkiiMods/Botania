@@ -14,14 +14,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
-import vazkii.botania.common.item.ItemKeepIvy;
+import vazkii.botania.common.item.ResoluteIvyItem;
 
 import java.util.List;
 
 public final class TooltipHandler {
 
 	public static void onTooltipEvent(ItemStack stack, TooltipFlag ctx, List<Component> tooltip) {
-		if (ItemKeepIvy.hasIvy(stack)) {
+		if (ResoluteIvyItem.hasIvy(stack)) {
 			tooltip.add(Component.translatable("botaniamisc.hasKeepIvy"));
 		}
 	}

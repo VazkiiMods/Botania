@@ -33,7 +33,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 
@@ -91,7 +91,7 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 		}
 		Player player = (Player) thrower;
 		if (!level.isClientSide) {
-			ItemStack stack = PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
+			ItemStack stack = PlayerHelper.getFirstHeldItem(player, BotaniaItems.kingKey);
 			boolean newCharging = !stack.isEmpty() && KeyOfTheKingsLawItem.isCharging(stack);
 			if (isCharging() != newCharging) {
 				setCharging(newCharging);

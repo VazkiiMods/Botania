@@ -53,7 +53,7 @@ import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.red_string.*;
 import vazkii.botania.common.entity.EnderAirBottleEntity;
 import vazkii.botania.common.entity.VineBallEntity;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.BlockItemWithSpecialRenderer;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -645,7 +645,7 @@ public final class BotaniaBlocks {
 	}
 
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
-		Item.Properties props = ModItems.defaultBuilder();
+		Item.Properties props = BotaniaItems.defaultBuilder();
 		r.accept(new BlockItem(whiteFlower, props), Registry.BLOCK.getKey(whiteFlower));
 		r.accept(new BlockItem(orangeFlower, props), Registry.BLOCK.getKey(orangeFlower));
 		r.accept(new BlockItem(magentaFlower, props), Registry.BLOCK.getKey(magentaFlower));
@@ -786,13 +786,13 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(elvenSpreader, props), Registry.BLOCK.getKey(elvenSpreader));
 		r.accept(new BlockItem(gaiaSpreader, props), Registry.BLOCK.getKey(gaiaSpreader));
 		r.accept(new BlockItem(manaPool, props), Registry.BLOCK.getKey(manaPool));
-		r.accept(new BlockItem(creativePool, ModItems.defaultBuilder().rarity(Rarity.EPIC)), Registry.BLOCK.getKey(creativePool));
+		r.accept(new BlockItem(creativePool, BotaniaItems.defaultBuilder().rarity(Rarity.EPIC)), Registry.BLOCK.getKey(creativePool));
 		r.accept(new BlockItem(dilutedPool, props), Registry.BLOCK.getKey(dilutedPool));
 		r.accept(new BlockItem(fabulousPool, props), Registry.BLOCK.getKey(fabulousPool));
 		r.accept(new BlockItem(alchemyCatalyst, props), Registry.BLOCK.getKey(alchemyCatalyst));
 		r.accept(new BlockItem(conjurationCatalyst, props), Registry.BLOCK.getKey(conjurationCatalyst));
 		r.accept(new BlockItem(manasteelBlock, props), Registry.BLOCK.getKey(manasteelBlock));
-		r.accept(new BlockItem(terrasteelBlock, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(terrasteelBlock));
+		r.accept(new BlockItem(terrasteelBlock, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(terrasteelBlock));
 		r.accept(new BlockItem(elementiumBlock, props), Registry.BLOCK.getKey(elementiumBlock));
 		r.accept(new BlockItem(manaDiamondBlock, props), Registry.BLOCK.getKey(manaDiamondBlock));
 		r.accept(new BlockItem(dragonstoneBlock, props), Registry.BLOCK.getKey(dragonstoneBlock));
@@ -803,7 +803,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(enchanter, props), Registry.BLOCK.getKey(enchanter));
 		r.accept(new BlockItemWithSpecialRenderer(brewery, props), Registry.BLOCK.getKey(brewery));
 		r.accept(new BlockItem(terraPlate, props), Registry.BLOCK.getKey(terraPlate));
-		r.accept(new BlockItem(alfPortal, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(alfPortal));
+		r.accept(new BlockItem(alfPortal, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(alfPortal));
 
 		r.accept(new BlockItemWithSpecialRenderer(manaPylon, props), Registry.BLOCK.getKey(manaPylon));
 		r.accept(new BlockItemWithSpecialRenderer(naturaPylon, props), Registry.BLOCK.getKey(naturaPylon));
@@ -829,8 +829,8 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(forestEye, props), Registry.BLOCK.getKey(forestEye));
 		r.accept(new BlockItem(abstrusePlatform, props), Registry.BLOCK.getKey(abstrusePlatform));
 		r.accept(new BlockItem(spectralPlatform, props), Registry.BLOCK.getKey(spectralPlatform));
-		r.accept(new BlockItem(infrangiblePlatform, ModItems.defaultBuilder().rarity(Rarity.EPIC)), Registry.BLOCK.getKey(infrangiblePlatform));
-		r.accept(new TinyPotatoBlockItem(tinyPotato, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(tinyPotato));
+		r.accept(new BlockItem(infrangiblePlatform, BotaniaItems.defaultBuilder().rarity(Rarity.EPIC)), Registry.BLOCK.getKey(infrangiblePlatform));
+		r.accept(new TinyPotatoBlockItem(tinyPotato, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(tinyPotato));
 		r.accept(new BlockItem(enderEye, props), Registry.BLOCK.getKey(enderEye));
 		r.accept(new BlockItem(redStringContainer, props), Registry.BLOCK.getKey(redStringContainer));
 		r.accept(new BlockItem(redStringDispenser, props), Registry.BLOCK.getKey(redStringDispenser));
@@ -865,7 +865,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(root, props), Registry.BLOCK.getKey(root));
 		r.accept(new BlockItem(felPumpkin, props), Registry.BLOCK.getKey(felPumpkin));
 		r.accept(new BlockItem(cocoon, props), Registry.BLOCK.getKey(cocoon));
-		r.accept(new BlockItem(enchantedSoil, ModItems.defaultBuilder().rarity(Rarity.RARE)), Registry.BLOCK.getKey(enchantedSoil));
+		r.accept(new BlockItem(enchantedSoil, BotaniaItems.defaultBuilder().rarity(Rarity.RARE)), Registry.BLOCK.getKey(enchantedSoil));
 		r.accept(new BlockItem(animatedTorch, props), Registry.BLOCK.getKey(animatedTorch));
 		r.accept(new BlockItem(starfield, props), Registry.BLOCK.getKey(starfield));
 		r.accept(new BlockItem(azulejo0, props), Registry.BLOCK.getKey(azulejo0));
@@ -885,7 +885,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(azulejo14, props), Registry.BLOCK.getKey(azulejo14));
 		r.accept(new BlockItem(azulejo15, props), Registry.BLOCK.getKey(azulejo15));
 		r.accept(new BlazeItemBlock(blazeBlock, props), Registry.BLOCK.getKey(blazeBlock));
-		r.accept(new StandingAndWallBlockItem(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(gaiaHead));
+		r.accept(new StandingAndWallBlockItem(gaiaHead, gaiaHeadWall, BotaniaItems.defaultBuilder().rarity(Rarity.UNCOMMON)), Registry.BLOCK.getKey(gaiaHead));
 		r.accept(new BlockItem(shimmerrock, props), Registry.BLOCK.getKey(shimmerrock));
 		r.accept(new BlockItem(shimmerwoodPlanks, props), Registry.BLOCK.getKey(shimmerwoodPlanks));
 		r.accept(new BlockItem(dryGrass, props), Registry.BLOCK.getKey(dryGrass));
@@ -900,12 +900,12 @@ public final class BotaniaBlocks {
 	}
 
 	public static void addDispenserBehaviours() {
-		DispenserBlock.registerBehavior(ModItems.twigWand, new WandBehavior());
-		DispenserBlock.registerBehavior(ModItems.dreamwoodWand, new WandBehavior());
-		DispenserBlock.registerBehavior(ModItems.obedienceStick, new StickBehavior());
-		DispenserBlock.registerBehavior(ModItems.poolMinecart, new ManaPoolMinecartBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.twigWand, new WandBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.dreamwoodWand, new WandBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.obedienceStick, new StickBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.poolMinecart, new ManaPoolMinecartBehavior());
 		DispenserBlock.registerBehavior(BotaniaBlocks.felPumpkin, new FelPumpkinBehavior());
-		DispenserBlock.registerBehavior(ModItems.spark, new ManaSparkBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.spark, new ManaSparkBehavior());
 		DispenserBlock.registerBehavior(BotaniaBlocks.gaiaHead, new OptionalDispenseItemBehavior() {
 			@NotNull
 			@Override
@@ -916,10 +916,10 @@ public final class BotaniaBlocks {
 		});
 
 		DispenseItemBehavior behavior = new CorporeaSparkBehavior();
-		DispenserBlock.registerBehavior(ModItems.corporeaSpark, behavior);
-		DispenserBlock.registerBehavior(ModItems.corporeaSparkMaster, behavior);
-		DispenserBlock.registerBehavior(ModItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(ModItems.enderAirBottle, new AbstractProjectileDispenseBehavior() {
+		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
+		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
+		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
+		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new AbstractProjectileDispenseBehavior() {
 			@NotNull
 			@Override
 			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
@@ -930,9 +930,9 @@ public final class BotaniaBlocks {
 		behavior = AccessorDispenserBlock.getDispenserRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
 
-		DispenserBlock.registerBehavior(ModItems.manasteelShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(ModItems.elementiumShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(ModItems.vineBall, new AbstractProjectileDispenseBehavior() {
+		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
+		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new AbstractProjectileDispenseBehavior() {
 			@NotNull
 			@Override
 			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {

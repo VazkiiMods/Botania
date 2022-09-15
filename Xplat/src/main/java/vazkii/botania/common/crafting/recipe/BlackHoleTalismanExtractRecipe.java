@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemBlackHoleTalisman;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BlackHoleTalismanItem;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SimpleRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
@@ -38,7 +38,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.is(ModItems.blackHoleTalisman) && !foundTalisman) {
+				if (stack.is(BotaniaItems.blackHoleTalisman) && !foundTalisman) {
 					foundTalisman = true;
 				} else {
 					return false;
@@ -61,9 +61,9 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 			}
 		}
 
-		int count = ItemBlackHoleTalisman.getBlockCount(talisman);
+		int count = BlackHoleTalismanItem.getBlockCount(talisman);
 		if (count > 0) {
-			Block block = ItemBlackHoleTalisman.getBlock(talisman);
+			Block block = BlackHoleTalismanItem.getBlock(talisman);
 			if (block != null) {
 				return new ItemStack(block, Math.min(64, count));
 			}
@@ -87,8 +87,8 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.is(ModItems.blackHoleTalisman)) {
-				int count = ItemBlackHoleTalisman.getBlockCount(s);
+			if (s.is(BotaniaItems.blackHoleTalisman)) {
+				int count = BlackHoleTalismanItem.getBlockCount(s);
 				if (count == 0) {
 					return ItemStack.EMPTY;
 				}
@@ -96,8 +96,8 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 				int extract = Math.min(64, count);
 				ItemStack copy = s.copy();
 				copy.setCount(1);
-				ItemBlackHoleTalisman.remove(copy, extract);
-				ItemNBTHelper.setBoolean(copy, ItemBlackHoleTalisman.TAG_ACTIVE, false);
+				BlackHoleTalismanItem.remove(copy, extract);
+				ItemNBTHelper.setBoolean(copy, BlackHoleTalismanItem.TAG_ACTIVE, false);
 
 				return copy;
 			}

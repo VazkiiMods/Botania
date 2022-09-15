@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.SparkTinkererBlockEntity;
-import vazkii.botania.common.item.ItemSparkUpgrade;
+import vazkii.botania.common.item.SparkAugmentItem;
 
 public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -75,7 +75,7 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 			changer.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(cstack);
 			return InteractionResult.SUCCESS;
-		} else if (!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
+		} else if (!pstack.isEmpty() && pstack.getItem() instanceof SparkAugmentItem) {
 			changer.getItemHandler().setItem(0, pstack.split(1));
 			changer.setChanged();
 
@@ -105,7 +105,7 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		SparkTinkererBlockEntity changer = (SparkTinkererBlockEntity) world.getBlockEntity(pos);
 		ItemStack stack = changer.getItemHandler().getItem(0);
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade upgrade) {
+		if (!stack.isEmpty() && stack.getItem() instanceof SparkAugmentItem upgrade) {
 			return upgrade.type.ordinal() + 1;
 		}
 		return 0;

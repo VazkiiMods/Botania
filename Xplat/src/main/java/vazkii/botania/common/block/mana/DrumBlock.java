@@ -35,8 +35,8 @@ import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.ItemHorn;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.HornItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -105,9 +105,9 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 				return;
 			}
 			if (variant == Variant.WILD) {
-				ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos, null);
+				HornItem.breakGrass(world, new ItemStack(BotaniaItems.grassHorn), pos, null);
 			} else if (variant == Variant.CANOPY) {
-				ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos, null);
+				HornItem.breakGrass(world, new ItemStack(BotaniaItems.leavesHorn), pos, null);
 			} else {
 				int range = 10;
 				List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !BergamuteBlockEntity.isBergamuteNearby(world, e.getX(), e.getY(), e.getZ()));

@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelShearsItem;
 
 import java.util.List;
@@ -74,7 +74,7 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 
 	@Override
 	public boolean isValidRepairItem(ItemStack toRepair, @NotNull ItemStack repairBy) {
-		return repairBy.is(ModItems.elementium) || super.isValidRepairItem(toRepair, repairBy);
+		return repairBy.is(BotaniaItems.elementium) || super.isValidRepairItem(toRepair, repairBy);
 	}
 
 	@Override

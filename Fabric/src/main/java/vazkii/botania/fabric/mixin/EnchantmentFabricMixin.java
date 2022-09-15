@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 @Mixin(Enchantment.class)
 public class EnchantmentFabricMixin {
 	@Inject(method = "canEnchant", cancellable = true, at = @At("HEAD"))
 	public void onEnchant(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
 		Enchantment self = (Enchantment) (Object) this;
-		if (self == Enchantments.MOB_LOOTING && stack.is(ModItems.elementiumAxe)) {
+		if (self == Enchantments.MOB_LOOTING && stack.is(BotaniaItems.elementiumAxe)) {
 			cir.setReturnValue(true);
 		}
 	}

@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
-import vazkii.botania.common.item.ItemTwigWand;
+import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 
 public class WandOfTheForestRecipe extends ShapedRecipe {
@@ -52,10 +52,10 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 			if (first == -1) {
 				first = colorId;
 			} else {
-				return ItemTwigWand.setColors(getResultItem().copy(), first, colorId);
+				return WandOfTheForestItem.setColors(getResultItem().copy(), first, colorId);
 			}
 		}
-		return ItemTwigWand.setColors(getResultItem().copy(), first != -1 ? first : 0, 0);
+		return WandOfTheForestItem.setColors(getResultItem().copy(), first != -1 ? first : 0, 0);
 	}
 
 	@NotNull

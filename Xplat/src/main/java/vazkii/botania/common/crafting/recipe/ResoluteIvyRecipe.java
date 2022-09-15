@@ -19,8 +19,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.ResoluteIvyItem;
 
 public class ResoluteIvyRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<ResoluteIvyRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ResoluteIvyRecipe::new);
@@ -37,10 +37,10 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.is(ModItems.keepIvy)) {
+				if (stack.is(BotaniaItems.keepIvy)) {
 					foundIvy = true;
 				} else if (!foundItem
-						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false))
+						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ResoluteIvyItem.TAG_KEEP, false))
 						&& !stack.getItem().hasCraftingRemainingItem()) {
 					foundItem = true;
 				} else {
@@ -59,13 +59,13 @@ public class ResoluteIvyRecipe extends CustomRecipe {
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && !stack.is(ModItems.keepIvy)) {
+			if (!stack.isEmpty() && !stack.is(BotaniaItems.keepIvy)) {
 				item = stack;
 			}
 		}
 
 		ItemStack copy = item.copy();
-		ItemNBTHelper.setBoolean(copy, ItemKeepIvy.TAG_KEEP, true);
+		ItemNBTHelper.setBoolean(copy, ResoluteIvyItem.TAG_KEEP, true);
 		copy.setCount(1);
 		return copy;
 	}

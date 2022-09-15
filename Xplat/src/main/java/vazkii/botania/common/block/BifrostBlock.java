@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class BifrostBlock extends PermanentBifrostBlock implements EntityBlock {
 
@@ -34,7 +34,7 @@ public class BifrostBlock extends PermanentBifrostBlock implements EntityBlock {
 	@NotNull
 	@Override
 	public ItemStack getCloneItemStack(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return new ItemStack(ModItems.rainbowRod);
+		return new ItemStack(BotaniaItems.rainbowRod);
 	}
 
 	@NotNull

@@ -34,7 +34,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -48,12 +48,12 @@ public class DiceOfFateItem extends RelicItem {
 	}
 
 	public static final Supplier<List<ItemStack>> RELIC_STACKS = Suppliers.memoize(() -> List.of(
-			new ItemStack(ModItems.infiniteFruit),
-			new ItemStack(ModItems.kingKey),
-			new ItemStack(ModItems.flugelEye),
-			new ItemStack(ModItems.thorRing),
-			new ItemStack(ModItems.odinRing),
-			new ItemStack(ModItems.lokiRing)
+			new ItemStack(BotaniaItems.infiniteFruit),
+			new ItemStack(BotaniaItems.kingKey),
+			new ItemStack(BotaniaItems.flugelEye),
+			new ItemStack(BotaniaItems.thorRing),
+			new ItemStack(BotaniaItems.odinRing),
+			new ItemStack(BotaniaItems.lokiRing)
 	)
 	);
 

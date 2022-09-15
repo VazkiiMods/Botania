@@ -45,7 +45,7 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new CCAItemFlagsComponent());
 		registry.registerFor(AbstractMinecart.class, GHOST_RAIL, e -> new CCASpectralRailComponent());
 		registry.registerFor(Creeper.class, TIGERSEYE, creeper -> new CCATigerseyeComponent());
-		// Never copy as we handle it ourselves in ItemKeepIvy.onPlayerRespawn
+		// Never copy as we handle it ourselves in ResoluteIvyItem.onPlayerRespawn
 		registry.registerForPlayers(KEPT_ITEMS, e -> new CCAKeptItemsComponent(), RespawnCopyStrategy.NEVER_COPY);
 	}
 
