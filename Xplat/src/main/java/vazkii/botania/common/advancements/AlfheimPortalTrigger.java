@@ -21,11 +21,11 @@ import org.jetbrains.annotations.NotNull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class AlfPortalTrigger extends SimpleCriterionTrigger<AlfPortalTrigger.Instance> {
+public class AlfheimPortalTrigger extends SimpleCriterionTrigger<AlfheimPortalTrigger.Instance> {
 	public static final ResourceLocation ID = prefix("open_elf_portal");
-	public static final AlfPortalTrigger INSTANCE = new AlfPortalTrigger();
+	public static final AlfheimPortalTrigger INSTANCE = new AlfheimPortalTrigger();
 
-	private AlfPortalTrigger() {}
+	private AlfheimPortalTrigger() {}
 
 	@NotNull
 	@Override

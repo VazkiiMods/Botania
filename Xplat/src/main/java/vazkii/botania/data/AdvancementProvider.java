@@ -99,7 +99,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement elfPortalOpen = Advancement.Builder.advancement()
 				.display(simple(ModBlocks.alfPortal, "elfPortalOpen", FrameType.TASK))
 				.parent(terrasteelPickup)
-				.addCriterion("portal", new AlfPortalTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, LocationPredicate.ANY))
+				.addCriterion("portal", new AlfheimPortalTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, LocationPredicate.ANY))
 				.save(consumer, mainId("elf_portal_open"));
 
 		Advancement gaiaGuardianKill = Advancement.Builder.advancement()
@@ -186,7 +186,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(simple(ModItems.manaGun, "manaBlasterShoot", FrameType.TASK))
 				.parent(runePickup)
-				.addCriterion("shoot", new ManaGunTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, null))
+				.addCriterion("shoot", new ManaBlasterTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, null))
 				.save(consumer, mainId("mana_blaster_shoot"));
 		Advancement.Builder.advancement()
 				.display(simple(ModSubtiles.pollidisiac, "pollidisiacPickup", FrameType.TASK))
@@ -368,7 +368,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(simple(Blocks.PLAYER_HEAD, "gaiaGuardianNoArmor", FrameType.CHALLENGE))
 				.parent(root)
-				.addCriterion("no_armor", new DopplegangerNoArmorTrigger.Instance(
+				.addCriterion("no_armor", new GaiaGuardianNoArmorTrigger.Instance(
 						EntityPredicate.Composite.ANY, EntityPredicate.ANY, DamageSourcePredicate.ANY))
 				.save(consumer, challengeId("gaia_guardian_no_armor"));
 		Advancement.Builder.advancement()
@@ -382,7 +382,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(desuGun)
 				.parent(root)
-				.addCriterion("use_gun", new ManaGunTrigger.Instance(
+				.addCriterion("use_gun", new ManaBlasterTrigger.Instance(
 						EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, true))
 				.save(consumer, challengeId("desu_gun"));
 		Advancement.Builder.advancement()
@@ -407,7 +407,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(hidden(Items.BREAD, "alfPortalBread", FrameType.CHALLENGE))
 				.parent(root)
-				.addCriterion("bread", new AlfPortalBreadTrigger.Instance(EntityPredicate.Composite.ANY, LocationPredicate.ANY))
+				.addCriterion("bread", new AlfheimPortalBreadTrigger.Instance(EntityPredicate.Composite.ANY, LocationPredicate.ANY))
 				.save(consumer, challengeId("alf_portal_bread"));
 		Advancement.Builder.advancement()
 				.display(simple(ModBlocks.tinyPotato, "tinyPotatoBirthday", FrameType.CHALLENGE))

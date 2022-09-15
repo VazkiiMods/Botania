@@ -41,8 +41,8 @@ import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
-import vazkii.botania.common.advancements.AlfPortalTrigger;
+import vazkii.botania.common.advancements.AlfheimPortalBreadTrigger;
+import vazkii.botania.common.advancements.AlfheimPortalTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -198,7 +198,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 			if (!level.isClientSide && self.breadPlayer != null) {
 				Player entity = level.getPlayerByUUID(self.breadPlayer);
 				if (entity instanceof ServerPlayer serverPlayer) {
-					AlfPortalBreadTrigger.INSTANCE.trigger(serverPlayer, worldPosition);
+					AlfheimPortalBreadTrigger.INSTANCE.trigger(serverPlayer, worldPosition);
 				}
 			}
 			self.breadPlayer = null;
@@ -280,7 +280,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 			if (newState != AlfheimPortalState.OFF) {
 				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 				if (player instanceof ServerPlayer serverPlayer) {
-					AlfPortalTrigger.INSTANCE.trigger(serverPlayer, serverPlayer.getLevel(), getBlockPos(), stack);
+					AlfheimPortalTrigger.INSTANCE.trigger(serverPlayer, serverPlayer.getLevel(), getBlockPos(), stack);
 				}
 				return true;
 			}

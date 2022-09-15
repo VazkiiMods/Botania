@@ -22,11 +22,11 @@ import vazkii.botania.common.item.ItemManaGun;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ManaGunTrigger extends SimpleCriterionTrigger<ManaGunTrigger.Instance> {
+public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigger.Instance> {
 	private static final ResourceLocation ID = prefix("fire_mana_blaster");
-	public static final ManaGunTrigger INSTANCE = new ManaGunTrigger();
+	public static final ManaBlasterTrigger INSTANCE = new ManaBlasterTrigger();
 
-	private ManaGunTrigger() {}
+	private ManaBlasterTrigger() {}
 
 	@NotNull
 	@Override
@@ -36,9 +36,9 @@ public class ManaGunTrigger extends SimpleCriterionTrigger<ManaGunTrigger.Instan
 
 	@NotNull
 	@Override
-	public ManaGunTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+	public ManaBlasterTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		Boolean desu = json.get("desu") == null ? null : json.get("desu").getAsBoolean();
-		return new ManaGunTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")),
+		return new ManaBlasterTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")),
 				EntityPredicate.fromJson(json.get("user")), desu);
 	}
 

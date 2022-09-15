@@ -10,15 +10,15 @@ package vazkii.botania.common.advancements;
 
 import vazkii.botania.mixin.AccessorCriteriaTriggers;
 
-public class ModCriteriaTriggers {
+public class BotaniaCriteriaTriggers {
 	public static void init() {
-		AccessorCriteriaTriggers.botania_register(AlfPortalTrigger.INSTANCE);
+		AccessorCriteriaTriggers.botania_register(AlfheimPortalTrigger.INSTANCE);
 		AccessorCriteriaTriggers.botania_register(CorporeaRequestTrigger.INSTANCE);
-		AccessorCriteriaTriggers.botania_register(DopplegangerNoArmorTrigger.INSTANCE);
+		AccessorCriteriaTriggers.botania_register(GaiaGuardianNoArmorTrigger.INSTANCE);
 		AccessorCriteriaTriggers.botania_register(RelicBindTrigger.INSTANCE);
 		AccessorCriteriaTriggers.botania_register(UseItemSuccessTrigger.INSTANCE);
-		AccessorCriteriaTriggers.botania_register(ManaGunTrigger.INSTANCE);
+		AccessorCriteriaTriggers.botania_register(ManaBlasterTrigger.INSTANCE);
 		AccessorCriteriaTriggers.botania_register(LokiPlaceTrigger.INSTANCE);
-		AccessorCriteriaTriggers.botania_register(AlfPortalBreadTrigger.INSTANCE);
+		AccessorCriteriaTriggers.botania_register(AlfheimPortalBreadTrigger.INSTANCE);
 	}
 }

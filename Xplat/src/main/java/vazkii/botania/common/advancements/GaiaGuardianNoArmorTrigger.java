@@ -21,11 +21,11 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class DopplegangerNoArmorTrigger extends SimpleCriterionTrigger<DopplegangerNoArmorTrigger.Instance> {
+public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuardianNoArmorTrigger.Instance> {
 	public static final ResourceLocation ID = prefix("gaia_guardian_no_armor");
-	public static final DopplegangerNoArmorTrigger INSTANCE = new DopplegangerNoArmorTrigger();
+	public static final GaiaGuardianNoArmorTrigger INSTANCE = new GaiaGuardianNoArmorTrigger();
 
-	private DopplegangerNoArmorTrigger() {}
+	private GaiaGuardianNoArmorTrigger() {}
 
 	@NotNull
 	@Override
@@ -35,8 +35,8 @@ public class DopplegangerNoArmorTrigger extends SimpleCriterionTrigger<Dopplegan
 
 	@NotNull
 	@Override
-	public DopplegangerNoArmorTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
-		return new DopplegangerNoArmorTrigger.Instance(playerPred,
+	public GaiaGuardianNoArmorTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+		return new GaiaGuardianNoArmorTrigger.Instance(playerPred,
 				EntityPredicate.fromJson(json.get("guardian")),
 				DamageSourcePredicate.fromJson(json.get("killing_blow"))
 		);

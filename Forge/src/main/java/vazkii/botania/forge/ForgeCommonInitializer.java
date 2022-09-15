@@ -69,7 +69,7 @@ import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
-import vazkii.botania.common.advancements.ModCriteriaTriggers;
+import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.mana.BlockForestDrum;
 import vazkii.botania.common.block.mana.BlockManaDetector;
@@ -203,7 +203,7 @@ public class ForgeCommonInitializer {
 		bind(Registry.CHUNK_GENERATOR_REGISTRY, SkyblockChunkGenerator::submitRegistration);
 
 		// Rest
-		ModCriteriaTriggers.init();
+		BotaniaCriteriaTriggers.init();
 		bind(Registry.PARTICLE_TYPE_REGISTRY, BotaniaParticles::registerParticles);
 
 		bind(Registry.LOOT_ITEM_REGISTRY, ModLootModifiers::submitLootConditions);

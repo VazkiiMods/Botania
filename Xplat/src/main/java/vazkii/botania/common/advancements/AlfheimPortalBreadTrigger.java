@@ -20,11 +20,11 @@ import org.jetbrains.annotations.NotNull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class AlfPortalBreadTrigger extends SimpleCriterionTrigger<AlfPortalBreadTrigger.Instance> {
+public class AlfheimPortalBreadTrigger extends SimpleCriterionTrigger<AlfheimPortalBreadTrigger.Instance> {
 	public static final ResourceLocation ID = prefix("alf_portal_bread");
-	public static final AlfPortalBreadTrigger INSTANCE = new AlfPortalBreadTrigger();
+	public static final AlfheimPortalBreadTrigger INSTANCE = new AlfheimPortalBreadTrigger();
 
-	private AlfPortalBreadTrigger() {}
+	private AlfheimPortalBreadTrigger() {}
 
 	@NotNull
 	@Override
@@ -34,8 +34,8 @@ public class AlfPortalBreadTrigger extends SimpleCriterionTrigger<AlfPortalBread
 
 	@NotNull
 	@Override
-	public AlfPortalBreadTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
-		return new AlfPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.fromJson(json.get("portal_location")));
+	public AlfheimPortalBreadTrigger.Instance createInstance(@NotNull JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
+		return new AlfheimPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.fromJson(json.get("portal_location")));
 	}
 
 	public void trigger(ServerPlayer player, BlockPos portal) {

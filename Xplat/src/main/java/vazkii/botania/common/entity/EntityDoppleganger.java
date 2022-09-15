@@ -68,7 +68,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
+import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.MathHelper;
@@ -478,7 +478,7 @@ public class EntityDoppleganger extends Mob {
 					CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger((ServerPlayer) player, this, currSource);
 				}
 				if (!anyWithArmor) {
-					DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayer) player, this, currSource);
+					GaiaGuardianNoArmorTrigger.INSTANCE.trigger((ServerPlayer) player, this, currSource);
 				}
 			}
 

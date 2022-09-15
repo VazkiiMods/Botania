@@ -35,7 +35,7 @@ import vazkii.botania.api.mana.LensControl;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.common.advancements.ManaGunTrigger;
+import vazkii.botania.common.advancements.ManaBlasterTrigger;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -83,7 +83,7 @@ public class ItemManaGun extends Item {
 				if (!world.isClientSide) {
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundSource.PLAYERS, 1F, 1);
 					world.addFreshEntity(burst);
-					ManaGunTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
+					ManaBlasterTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
 					setCooldown(stack, effCd);
 				} else {
 					player.setDeltaMovement(player.getDeltaMovement().subtract(burst.getDeltaMovement().multiply(0.1, 0.3, 0.1)));
