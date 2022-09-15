@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.ModStats;
+import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.decor.TinyPotatoBlock;
 import vazkii.botania.common.handler.BotaniaSounds;
@@ -103,7 +103,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 				}
 			}
 
-			player.awardStat(ModStats.TINY_POTATOES_PETTED);
+			player.awardStat(BotaniaStats.TINY_POTATOES_PETTED);
 			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/tiny_potato_pet"), "code_triggered");
 		}
 	}

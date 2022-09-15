@@ -67,7 +67,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.client.fx.BotaniaParticles;
-import vazkii.botania.common.ModStats;
+import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
 import vazkii.botania.common.block.*;
@@ -214,7 +214,7 @@ public class ForgeCommonInitializer {
 		// event only for timing, not for registering
 		modBus.addListener((RegisterEvent evt) -> {
 			if (evt.getRegistryKey().equals(Registry.CUSTOM_STAT_REGISTRY)) {
-				ModStats.init();
+				BotaniaStats.init();
 			}
 		});
 	}

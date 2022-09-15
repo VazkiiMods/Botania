@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.*;
-import vazkii.botania.common.ModStats;
+import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
@@ -366,7 +366,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 			CorporeaResult res = this.doRequest(request, count, this.getSpark());
 
 			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
-			player.awardStat(ModStats.CORPOREA_ITEMS_REQUESTED, res.extractedCount());
+			player.awardStat(BotaniaStats.CORPOREA_ITEMS_REQUESTED, res.extractedCount());
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getLevel(), this.getBlockPos(), res.extractedCount());
 		}
 	}

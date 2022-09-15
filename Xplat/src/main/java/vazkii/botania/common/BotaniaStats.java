@@ -14,7 +14,7 @@ import net.minecraft.stats.StatFormatter;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorStats;
 
-public class ModStats {
+public class BotaniaStats {
 	public static final ResourceLocation CORPOREA_ITEMS_REQUESTED =
 			AccessorStats.botania_callRegisterCustom(LibMisc.MOD_ID + ":corporea_items_requested", StatFormatter.DEFAULT);
 

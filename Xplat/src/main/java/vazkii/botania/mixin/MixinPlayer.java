@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import vazkii.botania.common.ModStats;
+import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.ResoluteIvyItem;
@@ -45,7 +45,7 @@ public abstract class MixinPlayer extends LivingEntity implements PlayerAccess {
 	)
 	private void trackLuminizerTravel(double dx, double dy, double dz, CallbackInfo ci, int cm, Entity mount) {
 		if (mount.getType() == BotaniaEntities.PLAYER_MOVER) {
-			awardStat(ModStats.LUMINIZER_ONE_CM, cm);
+			awardStat(BotaniaStats.LUMINIZER_ONE_CM, cm);
 		}
 	}
 
