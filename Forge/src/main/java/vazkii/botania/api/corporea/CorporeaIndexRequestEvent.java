@@ -19,11 +19,11 @@ import net.minecraftforge.eventbus.api.Event;
 @Cancelable
 public class CorporeaIndexRequestEvent extends Event {
 	private final ServerPlayer requester;
-	private final ICorporeaRequestMatcher request;
+	private final CorporeaRequestMatcher request;
 	private final int requestCount;
-	private final ICorporeaSpark indexSpark;
+	private final CorporeaSpark indexSpark;
 
-	public CorporeaIndexRequestEvent(ServerPlayer requester, ICorporeaRequestMatcher request, int requestCount, ICorporeaSpark indexSpark) {
+	public CorporeaIndexRequestEvent(ServerPlayer requester, CorporeaRequestMatcher request, int requestCount, CorporeaSpark indexSpark) {
 		this.requester = requester;
 		this.request = request;
 		this.requestCount = requestCount;
@@ -34,7 +34,7 @@ public class CorporeaIndexRequestEvent extends Event {
 		return requester;
 	}
 
-	public ICorporeaRequestMatcher getMatcher() {
+	public CorporeaRequestMatcher getMatcher() {
 		return request;
 	}
 
@@ -42,7 +42,7 @@ public class CorporeaIndexRequestEvent extends Event {
 		return requestCount;
 	}
 
-	public ICorporeaSpark getIndexSpark() {
+	public CorporeaSpark getIndexSpark() {
 		return indexSpark;
 	}
 }

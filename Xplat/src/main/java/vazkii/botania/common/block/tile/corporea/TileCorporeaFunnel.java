@@ -19,9 +19,9 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.api.corporea.ICorporeaRequestor;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaRequestor;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -29,13 +29,13 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaFunnel extends TileCorporeaBase implements CorporeaRequestor {
 	public TileCorporeaFunnel(BlockPos pos, BlockState state) {
 		super(ModTiles.CORPOREA_FUNNEL, pos, state);
 	}
 
 	public void doRequest() {
-		ICorporeaSpark spark = getSpark();
+		CorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null) {
 			List<ItemStack> filter = getFilter();
 			if (!filter.isEmpty()) {
@@ -74,7 +74,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	@Override
-	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
 		BlockPos invPos = getInvPos();
 
 		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).stacks();

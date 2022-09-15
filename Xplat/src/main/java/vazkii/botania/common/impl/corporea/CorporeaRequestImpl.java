@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.impl.corporea;
 
-import vazkii.botania.api.corporea.ICorporeaRequest;
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaRequest;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 
-public class CorporeaRequest implements ICorporeaRequest {
-	private final ICorporeaRequestMatcher matcher;
+public class CorporeaRequestImpl implements CorporeaRequest {
+	private final CorporeaRequestMatcher matcher;
 	private int stillNeeded;
 	private int foundItems = 0;
 	private int extractedItems = 0;
 
-	public CorporeaRequest(ICorporeaRequestMatcher matcher, int stillNeeded) {
+	public CorporeaRequestImpl(CorporeaRequestMatcher matcher, int stillNeeded) {
 		this.matcher = matcher;
 		this.stillNeeded = stillNeeded;
 	}
 
 	@Override
-	public ICorporeaRequestMatcher getMatcher() {
+	public CorporeaRequestMatcher getMatcher() {
 		return matcher;
 	}
 

@@ -32,24 +32,24 @@ import java.util.*;
 import java.util.function.Function;
 
 public class CorporeaHelperImpl implements CorporeaHelper {
-	private final WeakHashMap<ICorporeaSpark, Set<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
+	private final WeakHashMap<CorporeaSpark, Set<CorporeaNode>> cachedNetworks = new WeakHashMap<>();
 
 	@Override
-	public Set<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
-		ICorporeaSpark master = spark.getMaster();
+	public Set<CorporeaNode> getNodesOnNetwork(CorporeaSpark spark) {
+		CorporeaSpark master = spark.getMaster();
 		if (master == null) {
 			return Collections.emptySet();
 		}
-		Set<ICorporeaSpark> network = master.getConnections();
+		Set<CorporeaSpark> network = master.getConnections();
 
 		var cache = cachedNetworks.get(master);
 		if (cache != null) {
 			return cache;
 		}
 
-		Set<ICorporeaNode> nodes = new LinkedHashSet<>();
+		Set<CorporeaNode> nodes = new LinkedHashSet<>();
 		if (network != null) {
-			for (ICorporeaSpark otherSpark : network) {
+			for (CorporeaSpark otherSpark : network) {
 				if (otherSpark != null) {
 					nodes.add(otherSpark.getSparkNode());
 				}
@@ -61,32 +61,32 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public ICorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
+	public CorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
 		return new CorporeaItemStackMatcher(stack, checkNBT);
 	}
 
 	@Override
-	public ICorporeaRequestMatcher createMatcher(String name) {
+	public CorporeaRequestMatcher createMatcher(String name) {
 		return new CorporeaStringMatcher(name);
 	}
 
 	@Override
-	public ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
+	public CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 		if (IXplatAbstractions.INSTANCE.fireCorporeaRequestEvent(matcher, itemCount, spark, !doit)) {
-			return new CorporeaResult(stacks, 0, 0, Object2IntMaps.emptyMap());
+			return new CorporeaResultImpl(stacks, 0, 0, Object2IntMaps.emptyMap());
 		}
 
-		Object2IntMap<ICorporeaNode> matchCountByNode = new Object2IntOpenHashMap<>();
-		Set<ICorporeaNode> nodes = getNodesOnNetwork(spark);
-		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
+		Object2IntMap<CorporeaNode> matchCountByNode = new Object2IntOpenHashMap<>();
+		Set<CorporeaNode> nodes = getNodesOnNetwork(spark);
+		Map<CorporeaInterceptor, CorporeaSpark> interceptors = new HashMap<>();
 
-		ICorporeaRequest request = new CorporeaRequest(matcher, itemCount);
-		for (ICorporeaNode node : nodes) {
-			ICorporeaSpark invSpark = node.getSpark();
+		CorporeaRequest request = new CorporeaRequestImpl(matcher, itemCount);
+		for (CorporeaNode node : nodes) {
+			CorporeaSpark invSpark = node.getSpark();
 
 			BlockEntity te = node.getWorld().getBlockEntity(node.getPos());
-			if (te instanceof ICorporeaInterceptor interceptor) {
+			if (te instanceof CorporeaInterceptor interceptor) {
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, nodes, doit);
 				interceptors.put(interceptor, invSpark);
 			}
@@ -97,17 +97,17 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 			stacks.addAll(nodeStacks);
 		}
 
-		for (ICorporeaInterceptor interceptor : interceptors.keySet()) {
+		for (CorporeaInterceptor interceptor : interceptors.keySet()) {
 			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, nodes, doit);
 		}
 
-		return new CorporeaResult(stacks, request.getFound(), request.getExtracted(), matchCountByNode);
+		return new CorporeaResultImpl(stacks, request.getFound(), request.getExtracted(), matchCountByNode);
 	}
 
 	@Override
-	public ICorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
-		List<Entity> sparks = world.getEntitiesOfClass(Entity.class, new AABB(pos.above(), pos.offset(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
-		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
+	public CorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
+		List<Entity> sparks = world.getEntitiesOfClass(Entity.class, new AABB(pos.above(), pos.offset(1, 2, 1)), Predicates.instanceOf(CorporeaSpark.class));
+		return sparks.isEmpty() ? null : (CorporeaSpark) sparks.get(0);
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public <T extends ICorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
+	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
 		TileCorporeaRetainer.addCorporeaRequestMatcher(id, clazz, deserializer);
 	}
 

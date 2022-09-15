@@ -22,16 +22,16 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaNodeDetector;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaNode;
+import vazkii.botania.api.corporea.CorporeaNodeDetector;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.impl.corporea.SidedVanillaCorporeaNode;
 import vazkii.botania.common.impl.corporea.VanillaCorporeaNode;
 
-public class VanillaNodeDetector implements ICorporeaNodeDetector {
+public class VanillaNodeDetector implements CorporeaNodeDetector {
 	@Nullable
 	@Override
-	public ICorporeaNode getNode(Level level, ICorporeaSpark spark) {
+	public CorporeaNode getNode(Level level, CorporeaSpark spark) {
 		// [VanillaCopy] HopperBlockEntity
 		Container container = null;
 		BlockPos blockPos = spark.getAttachPos();

@@ -9,14 +9,14 @@ import net.minecraftforge.items.IItemHandler;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaNodeDetector;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaNode;
+import vazkii.botania.api.corporea.CorporeaNodeDetector;
+import vazkii.botania.api.corporea.CorporeaSpark;
 
-public class ForgeCapCorporeaNodeDetector implements ICorporeaNodeDetector {
+public class ForgeCapCorporeaNodeDetector implements CorporeaNodeDetector {
 	@Nullable
 	@Override
-	public ICorporeaNode getNode(Level world, ICorporeaSpark spark) {
+	public CorporeaNode getNode(Level world, CorporeaSpark spark) {
 		IItemHandler inv = getInventory(world, spark.getAttachPos());
 		if (inv != null) {
 			return new ForgeCapCorporeaNode(world, spark.getAttachPos(), inv, spark);

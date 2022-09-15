@@ -81,8 +81,8 @@ import vazkii.botania.api.block.*;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
@@ -378,12 +378,12 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public boolean fireCorporeaRequestEvent(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean dryRun) {
+	public boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun) {
 		return CorporeaRequestCallback.EVENT.invoker().onRequest(matcher, itemCount, spark, dryRun);
 	}
 
 	@Override
-	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
 		return CorporeaIndexRequestCallback.EVENT.invoker().onIndexRequest(player, request, count, spark);
 	}
 

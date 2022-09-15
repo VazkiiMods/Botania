@@ -12,21 +12,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaNode;
+import vazkii.botania.api.corporea.CorporeaSpark;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCorporeaNode implements ICorporeaNode {
+public abstract class AbstractCorporeaNode implements CorporeaNode {
 
 	private final Level world;
 	private final BlockPos pos;
-	private final ICorporeaSpark spark;
+	private final CorporeaSpark spark;
 
-	public AbstractCorporeaNode(Level world, BlockPos pos, ICorporeaSpark spark) {
+	public AbstractCorporeaNode(Level world, BlockPos pos, CorporeaSpark spark) {
 		this.world = world;
 		this.pos = pos;
 		this.spark = spark;
@@ -43,7 +43,7 @@ public abstract class AbstractCorporeaNode implements ICorporeaNode {
 	}
 
 	@Override
-	public ICorporeaSpark getSpark() {
+	public CorporeaSpark getSpark() {
 		return spark;
 	}
 

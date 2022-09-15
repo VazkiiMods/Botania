@@ -17,26 +17,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.corporea.ICorporeaInterceptor;
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaInterceptor;
+import vazkii.botania.api.corporea.CorporeaNode;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorporeaInterceptor {
+public class TileCorporeaInterceptor extends TileCorporeaBase implements CorporeaInterceptor {
 	public TileCorporeaInterceptor(BlockPos pos, BlockState state) {
 		super(ModTiles.CORPOREA_INTERCEPTOR, pos, state);
 	}
 
 	@Override
-	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, Set<ICorporeaNode> nodes, boolean doit) {}
+	public void interceptRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark, CorporeaSpark source, List<ItemStack> stacks, Set<CorporeaNode> nodes, boolean doit) {}
 
 	@Override
-	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, Set<ICorporeaNode> nodes, boolean doit) {
+	public void interceptRequestLast(CorporeaRequestMatcher request, int count, CorporeaSpark spark, CorporeaSpark source, List<ItemStack> stacks, Set<CorporeaNode> nodes, boolean doit) {
 		List<ItemStack> filter = getFilter();
 
 		boolean filterMatch = false;

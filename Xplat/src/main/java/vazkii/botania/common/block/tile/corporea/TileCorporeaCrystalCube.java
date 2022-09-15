@@ -21,15 +21,15 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.api.corporea.ICorporeaRequestor;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaRequestor;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, Wandable {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements CorporeaRequestor, Wandable {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";
@@ -77,7 +77,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			return;
 		}
 
-		ICorporeaSpark spark = getSpark();
+		CorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
 			int count = fullStack ? requestTarget.getMaxStackSize() : 1;
 			doCorporeaRequest(CorporeaHelper.instance().createMatcher(requestTarget, true), count, spark);
@@ -90,7 +90,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		}
 
 		int sum = 0;
-		ICorporeaSpark spark = getSpark();
+		CorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
 			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).stacks();
 			for (ItemStack stack : stacks) {
@@ -140,7 +140,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
 		if (!requestTarget.isEmpty()) {
 			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).stacks();
 			spark.onItemsRequested(stacks);

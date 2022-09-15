@@ -15,8 +15,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.corporea.ICorporeaRequest;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaRequest;
+import vazkii.botania.api.corporea.CorporeaSpark;
 
 import java.util.List;
 
@@ -24,22 +24,22 @@ public class VanillaCorporeaNode extends AbstractCorporeaNode {
 
 	protected final Container inv;
 
-	public VanillaCorporeaNode(Level world, BlockPos pos, Container inv, ICorporeaSpark spark) {
+	public VanillaCorporeaNode(Level world, BlockPos pos, Container inv, CorporeaSpark spark) {
 		super(world, pos, spark);
 		this.inv = inv;
 	}
 
 	@Override
-	public List<ItemStack> countItems(ICorporeaRequest request) {
+	public List<ItemStack> countItems(CorporeaRequest request) {
 		return iterateOverSlots(request, false);
 	}
 
 	@Override
-	public List<ItemStack> extractItems(ICorporeaRequest request) {
+	public List<ItemStack> extractItems(CorporeaRequest request) {
 		return iterateOverSlots(request, true);
 	}
 
-	protected List<ItemStack> iterateOverSlots(ICorporeaRequest request, boolean doit) {
+	protected List<ItemStack> iterateOverSlots(CorporeaRequest request, boolean doit) {
 		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
 
 		for (int i = inv.getContainerSize() - 1; i >= 0; i--) {

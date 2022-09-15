@@ -18,10 +18,10 @@ import org.jetbrains.annotations.Nullable;
  * their storaage.
  * Implementations are already provided in Botania for Vanilla's interfaces.
  */
-public interface ICorporeaNodeDetector {
+public interface CorporeaNodeDetector {
 	/**
 	 * @return A corporea node that this detector found at the given location, else null
 	 */
 	@Nullable
-	ICorporeaNode getNode(Level world, ICorporeaSpark spark);
+	CorporeaNode getNode(Level world, CorporeaSpark spark);
 }

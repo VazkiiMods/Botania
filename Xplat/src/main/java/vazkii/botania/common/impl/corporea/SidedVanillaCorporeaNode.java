@@ -16,8 +16,8 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.corporea.ICorporeaRequest;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaRequest;
+import vazkii.botania.api.corporea.CorporeaSpark;
 
 import java.util.List;
 
@@ -25,23 +25,23 @@ public class SidedVanillaCorporeaNode extends AbstractCorporeaNode {
 	private final WorldlyContainer inv;
 	private final Direction side;
 
-	public SidedVanillaCorporeaNode(Level world, BlockPos pos, ICorporeaSpark spark, WorldlyContainer inv, Direction side) {
+	public SidedVanillaCorporeaNode(Level world, BlockPos pos, CorporeaSpark spark, WorldlyContainer inv, Direction side) {
 		super(world, pos, spark);
 		this.inv = inv;
 		this.side = side;
 	}
 
 	@Override
-	public List<ItemStack> countItems(ICorporeaRequest request) {
+	public List<ItemStack> countItems(CorporeaRequest request) {
 		return examineInventory(request, false);
 	}
 
 	@Override
-	public List<ItemStack> extractItems(ICorporeaRequest request) {
+	public List<ItemStack> extractItems(CorporeaRequest request) {
 		return examineInventory(request, true);
 	}
 
-	protected List<ItemStack> examineInventory(ICorporeaRequest request, boolean doit) {
+	protected List<ItemStack> examineInventory(CorporeaRequest request, boolean doit) {
 		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
 
 		int[] slots = inv.getSlotsForFace(side);

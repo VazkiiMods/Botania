@@ -29,5 +29,5 @@ public interface CorporeaIndexRequestCallback {
 	/**
 	 * @return {@code true} to cancel the request
 	 */
-	boolean onIndexRequest(ServerPlayer requester, ICorporeaRequestMatcher request, int requestCount, ICorporeaSpark indexSpark);
+	boolean onIndexRequest(ServerPlayer requester, CorporeaRequestMatcher request, int requestCount, CorporeaSpark indexSpark);
 }

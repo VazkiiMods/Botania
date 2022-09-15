@@ -12,11 +12,11 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaResult;
+import vazkii.botania.api.corporea.CorporeaNode;
+import vazkii.botania.api.corporea.CorporeaResult;
 
 import java.util.List;
 
-public record CorporeaResult(List<ItemStack> stacks, int matchedCount, int extractedCount,
-		Object2IntMap<ICorporeaNode> matchCountsByNode) implements ICorporeaResult {
+public record CorporeaResultImpl(List<ItemStack> stacks, int matchedCount, int extractedCount,
+		Object2IntMap<CorporeaNode> matchCountsByNode) implements CorporeaResult {
 }

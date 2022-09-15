@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
  */
-public interface ICorporeaRequestMatcher extends Predicate<ItemStack> {
+public interface CorporeaRequestMatcher extends Predicate<ItemStack> {
 
 	/**
 	 * Returns whether the given stack matches the request's criteria.
@@ -39,7 +39,7 @@ public interface ICorporeaRequestMatcher extends Predicate<ItemStack> {
 		return Component.literal("missingno");
 	}
 
-	enum Dummy implements ICorporeaRequestMatcher {
+	enum Dummy implements CorporeaRequestMatcher {
 		INSTANCE
 	}
 }

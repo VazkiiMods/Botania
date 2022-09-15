@@ -21,7 +21,7 @@ import java.util.Set;
  * An interface for a Corporea Spark. Includes functions for handling
  * connections.
  */
-public interface ICorporeaSpark extends ISparkEntity {
+public interface CorporeaSpark extends ISparkEntity {
 
 	/**
 	 * Look around this spark for neighbors and introduce them to the network by adding them
@@ -31,32 +31,32 @@ public interface ICorporeaSpark extends ISparkEntity {
 	 * This spark should then retain the {@code network} object internally for quick
 	 * access to all members of the network.
 	 */
-	void introduceNearbyTo(Set<ICorporeaSpark> network, ICorporeaSpark master);
+	void introduceNearbyTo(Set<CorporeaSpark> network, CorporeaSpark master);
 
 	/**
 	 * @return Corporea node this spark is attached to, generally belonging to the block below it
 	 */
-	ICorporeaNode getSparkNode();
+	CorporeaNode getSparkNode();
 
 	/**
 	 * @return All sparks in the same logical corporea network as this one, including this
 	 *         spark itself.
 	 */
-	Set<ICorporeaSpark> getConnections();
+	Set<CorporeaSpark> getConnections();
 
 	/**
 	 * Gets the list of sparks that this spark added to the list of connections during registerConnections(), this
 	 * is mainly used to create a non messy chain of particles to display the network when a spark is right
 	 * clicked with a wand.
 	 */
-	List<ICorporeaSpark> getRelatives();
+	List<CorporeaSpark> getRelatives();
 
 	/**
 	 * @return The master spark of the network this spark is part of. A master spark's
 	 *         master is itself. Returns {@code null} if this spark is not in a network with a valid master.
 	 */
 	@Nullable
-	ICorporeaSpark getMaster();
+	CorporeaSpark getMaster();
 
 	/**
 	 * Called when an item is extracted from the node this spark is attached to through this

@@ -11,30 +11,30 @@ package vazkii.botania.common.integration.corporea;
 import net.minecraft.Util;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaNodeDetector;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaNode;
+import vazkii.botania.api.corporea.CorporeaNodeDetector;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 
 import java.util.*;
 
 /**
  * Responsible for taking a world position and trying to produce an
- * {@link vazkii.botania.api.corporea.ICorporeaNode} from it.
+ * {@link CorporeaNode} from it.
  */
 public class CorporeaNodeDetectors {
 	// List of detectors, which will be called from left to right. The first nonnull result will be taken as the overall result.
-	private static final Deque<ICorporeaNodeDetector> DETECTORS = Util.make(new ArrayDeque<>(), d -> {
+	private static final Deque<CorporeaNodeDetector> DETECTORS = Util.make(new ArrayDeque<>(), d -> {
 		d.addLast(new VanillaNodeDetector());
 	});
 
-	public static synchronized void register(ICorporeaNodeDetector detector) {
+	public static synchronized void register(CorporeaNodeDetector detector) {
 		DETECTORS.addFirst(detector);
 	}
 
-	public static ICorporeaNode findNode(Level world, ICorporeaSpark spark) {
-		for (ICorporeaNodeDetector detector : DETECTORS) {
-			ICorporeaNode node = detector.getNode(world, spark);
+	public static CorporeaNode findNode(Level world, CorporeaSpark spark) {
+		for (CorporeaNodeDetector detector : DETECTORS) {
+			CorporeaNode node = detector.getNode(world, spark);
 			if (node != null) {
 				return node;
 			}

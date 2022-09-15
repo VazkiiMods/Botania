@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.corporea.ICorporeaNodeDetector;
+import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.ManaNetwork;
 
@@ -217,7 +217,7 @@ public interface BotaniaAPI {
 
 	default void sparkleFX(Level world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
-	default void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
+	default void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {
 
 	}
 }

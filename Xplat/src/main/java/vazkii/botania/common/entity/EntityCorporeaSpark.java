@@ -31,8 +31,8 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaNode;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -41,7 +41,7 @@ import vazkii.botania.common.lib.ModTags;
 
 import java.util.*;
 
-public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpark {
+public class EntityCorporeaSpark extends EntitySparkBase implements CorporeaSpark {
 	private static final int SCAN_RANGE = 8;
 
 	private static final String TAG_MASTER = "master";
@@ -50,9 +50,9 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	private static final EntityDataAccessor<Boolean> MASTER = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> CREATIVE = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
 
-	private ICorporeaSpark master;
-	private Set<ICorporeaSpark> connections = new LinkedHashSet<>();
-	private List<ICorporeaSpark> relatives = new ArrayList<>();
+	private CorporeaSpark master;
+	private Set<CorporeaSpark> connections = new LinkedHashSet<>();
+	private List<CorporeaSpark> relatives = new ArrayList<>();
 	private boolean firstTick = true;
 
 	public EntityCorporeaSpark(EntityType<EntityCorporeaSpark> type, Level world) {
@@ -80,7 +80,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 			return;
 		}
 
-		ICorporeaNode node = getSparkNode();
+		CorporeaNode node = getSparkNode();
 		if (node instanceof DummyCorporeaNode && !level.getBlockState(getAttachPos()).is(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
@@ -118,9 +118,9 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public void introduceNearbyTo(Set<ICorporeaSpark> network, ICorporeaSpark master) {
+	public void introduceNearbyTo(Set<CorporeaSpark> network, CorporeaSpark master) {
 		relatives.clear();
-		for (ICorporeaSpark spark : getNearbySparks()) {
+		for (CorporeaSpark spark : getNearbySparks()) {
 			if (spark == null || network.contains(spark)
 					|| spark.getNetwork() != getNetwork()
 					|| spark.isMaster() || !spark.entity().isAlive()) {
@@ -137,8 +137,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<ICorporeaSpark> getNearbySparks() {
-		return (List) level.getEntitiesOfClass(Entity.class, new AABB(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
+	private List<CorporeaSpark> getNearbySparks() {
+		return (List) level.getEntitiesOfClass(Entity.class, new AABB(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(CorporeaSpark.class));
 	}
 
 	private void restartNetwork() {
@@ -146,7 +146,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		relatives = new ArrayList<>();
 
 		if (master != null) {
-			ICorporeaSpark oldMaster = master;
+			CorporeaSpark oldMaster = master;
 			master = null;
 
 			oldMaster.introduceNearbyTo(new LinkedHashSet<>(), oldMaster);
@@ -154,9 +154,9 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void findNetwork() {
-		for (ICorporeaSpark spark : getNearbySparks()) {
+		for (CorporeaSpark spark : getNearbySparks()) {
 			if (spark.getNetwork() == getNetwork() && spark.entity().isAlive()) {
-				ICorporeaSpark master = spark.getMaster();
+				CorporeaSpark master = spark.getMaster();
 				if (master != null) {
 					this.master = master;
 					restartNetwork();
@@ -167,16 +167,16 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 	}
 
-	private static void displayRelatives(Player player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
+	private static void displayRelatives(Player player, List<CorporeaSpark> checked, CorporeaSpark spark) {
 		if (spark == null) {
 			return;
 		}
 
-		List<ICorporeaSpark> sparks = spark.getRelatives();
+		List<CorporeaSpark> sparks = spark.getRelatives();
 		if (sparks.isEmpty()) {
 			EntityManaSpark.particleBeam(player, spark.entity(), spark.getMaster().entity());
 		} else {
-			for (ICorporeaSpark endSpark : sparks) {
+			for (CorporeaSpark endSpark : sparks) {
 				if (!checked.contains(endSpark)) {
 					EntityManaSpark.particleBeam(player, spark.entity(), endSpark.entity());
 					checked.add(endSpark);
@@ -187,17 +187,17 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public ICorporeaNode getSparkNode() {
+	public CorporeaNode getSparkNode() {
 		return CorporeaNodeDetectors.findNode(level, this);
 	}
 
 	@Override
-	public Set<ICorporeaSpark> getConnections() {
+	public Set<CorporeaSpark> getConnections() {
 		return connections;
 	}
 
 	@Override
-	public List<ICorporeaSpark> getRelatives() {
+	public List<CorporeaSpark> getRelatives() {
 		return relatives;
 	}
 
@@ -218,7 +218,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public ICorporeaSpark getMaster() {
+	public CorporeaSpark getMaster() {
 		return master;
 	}
 

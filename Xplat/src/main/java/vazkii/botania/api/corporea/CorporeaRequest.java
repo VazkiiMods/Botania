@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.corporea;
 
-public interface ICorporeaRequest {
+public interface CorporeaRequest {
 
-	ICorporeaRequestMatcher getMatcher();
+	CorporeaRequestMatcher getMatcher();
 
 	/**
 	 * @return The amount still wanted by the request, -1 if the request wants everything matched by

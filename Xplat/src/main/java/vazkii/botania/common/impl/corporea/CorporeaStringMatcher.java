@@ -14,13 +14,13 @@ import net.minecraft.world.item.ItemStack;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 
 import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
-public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
+public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 	public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" };

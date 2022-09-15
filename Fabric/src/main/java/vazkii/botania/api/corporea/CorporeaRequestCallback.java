@@ -29,5 +29,5 @@ public interface CorporeaRequestCallback {
 	/**
 	 * @return {@code true} to cancel the request
 	 */
-	boolean onRequest(ICorporeaRequestMatcher matcher, int count, ICorporeaSpark spark, boolean dryRun);
+	boolean onRequest(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark, boolean dryRun);
 }

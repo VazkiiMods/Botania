@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.corporea.ICorporeaNodeDetector;
+import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
@@ -263,7 +263,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
+	public void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {
 		CorporeaNodeDetectors.register(detector);
 	}
 }

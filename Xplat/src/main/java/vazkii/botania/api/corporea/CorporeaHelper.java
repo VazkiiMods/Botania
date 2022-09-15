@@ -33,35 +33,35 @@ public interface CorporeaHelper {
 	 * Gets all the nodes on this spark network. This is memoized for use once every tick.
 	 * The order of the nodes in this set are unspecified.
 	 */
-	default Set<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
+	default Set<CorporeaNode> getNodesOnNetwork(CorporeaSpark spark) {
 		return Collections.emptySet();
 	}
 
 	/**
-	 * Create a ICorporeaRequestMatcher from an ItemStack and NBT-checkness.
+	 * Create a CorporeaRequestMatcher from an ItemStack and NBT-checkness.
 	 */
-	default ICorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
-		return ICorporeaRequestMatcher.Dummy.INSTANCE;
+	default CorporeaRequestMatcher createMatcher(ItemStack stack, boolean checkNBT) {
+		return CorporeaRequestMatcher.Dummy.INSTANCE;
 	}
 
 	/**
-	 * Create a ICorporeaRequestMatcher from a String.
+	 * Create a CorporeaRequestMatcher from a String.
 	 */
-	default ICorporeaRequestMatcher createMatcher(String name) {
-		return ICorporeaRequestMatcher.Dummy.INSTANCE;
+	default CorporeaRequestMatcher createMatcher(String name) {
+		return CorporeaRequestMatcher.Dummy.INSTANCE;
 	}
 
 	/**
 	 * Bridge for requestItem() using an ItemStack.
 	 */
-	default ICorporeaResult requestItem(ItemStack stack, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
+	default CorporeaResult requestItem(ItemStack stack, CorporeaSpark spark, boolean checkNBT, boolean doit) {
 		return requestItem(createMatcher(stack, checkNBT), stack.getCount(), spark, doit);
 	}
 
 	/**
 	 * Bridge for requestItem() using a String and an item count.
 	 */
-	default ICorporeaResult requestItem(String name, int count, ICorporeaSpark spark, boolean doit) {
+	default CorporeaResult requestItem(String name, int count, CorporeaSpark spark, boolean doit) {
 		return requestItem(createMatcher(name), count, spark, doit);
 	}
 
@@ -72,8 +72,8 @@ public interface CorporeaHelper {
 	 * @param itemCount Specifies the maximum amount you want to request. If -1, the amount is unlimited.
 	 * @param doit      If false, only counts the items instead of actually extracting
 	 */
-	default ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
-		return ICorporeaResult.Dummy.INSTANCE;
+	default CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean doit) {
+		return CorporeaResult.Dummy.INSTANCE;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public interface CorporeaHelper {
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
 	@Nullable
-	default ICorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
+	default CorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
 		return null;
 	}
 
@@ -101,5 +101,5 @@ public interface CorporeaHelper {
 		return 0;
 	}
 
-	default <T extends ICorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {}
+	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {}
 }

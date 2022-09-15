@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.block.tile.TileMod;
 
 public abstract class TileCorporeaBase extends TileMod {
@@ -22,7 +22,7 @@ public abstract class TileCorporeaBase extends TileMod {
 		super(type, pos, state);
 	}
 
-	public ICorporeaSpark getSpark() {
+	public CorporeaSpark getSpark() {
 		return CorporeaHelper.instance().getSparkForBlock(level, getBlockPos());
 	}
 

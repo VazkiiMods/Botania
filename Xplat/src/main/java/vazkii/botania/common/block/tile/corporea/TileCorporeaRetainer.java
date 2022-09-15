@@ -43,13 +43,13 @@ public class TileCorporeaRetainer extends TileMod implements Wandable {
 	private static final String TAG_REQUEST_COUNT = "requestCount";
 	private static final String TAG_RETAIN_MISSING = "retainMissing";
 
-	private static final Map<ResourceLocation, Function<CompoundTag, ? extends ICorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
-	private static final Map<Class<? extends ICorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
+	private static final Map<ResourceLocation, Function<CompoundTag, ? extends CorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
+	private static final Map<Class<? extends CorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
 	private BlockPos requestPos = BlockPos.ZERO;
 
 	@Nullable
-	private ICorporeaRequestMatcher request;
+	private CorporeaRequestMatcher request;
 	private int requestCount;
 	private boolean retainMissing = false;
 
@@ -57,7 +57,7 @@ public class TileCorporeaRetainer extends TileMod implements Wandable {
 		super(ModTiles.CORPOREA_RETAINER, pos, state);
 	}
 
-	public void remember(BlockPos pos, ICorporeaRequestMatcher request, int count, int missing) {
+	public void remember(BlockPos pos, CorporeaRequestMatcher request, int count, int missing) {
 		this.requestPos = pos;
 		this.request = request;
 		this.requestCount = retainMissing ? missing : count;
@@ -83,10 +83,10 @@ public class TileCorporeaRetainer extends TileMod implements Wandable {
 			return;
 		}
 
-		ICorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(level, requestPos);
+		CorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(level, requestPos);
 		if (spark != null) {
 			BlockEntity te = spark.getSparkNode().getWorld().getBlockEntity(spark.getSparkNode().getPos());
-			if (te instanceof ICorporeaRequestor requestor) {
+			if (te instanceof CorporeaRequestor requestor) {
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
 				forget();
@@ -132,7 +132,7 @@ public class TileCorporeaRetainer extends TileMod implements Wandable {
 		retainMissing = cmp.getBoolean(TAG_RETAIN_MISSING);
 	}
 
-	public static <T extends ICorporeaRequestMatcher> void addCorporeaRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
+	public static <T extends CorporeaRequestMatcher> void addCorporeaRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
 		corporeaMatcherSerializers.put(clazz, id);
 		corporeaMatcherDeserializers.put(id, deserializer);
 	}

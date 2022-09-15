@@ -12,10 +12,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
+import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
-public class CorporeaItemStackMatcher implements ICorporeaRequestMatcher {
+public class CorporeaItemStackMatcher implements CorporeaRequestMatcher {
 	private static final String TAG_REQUEST_STACK = "requestStack";
 	private static final String TAG_REQUEST_CHECK_NBT = "requestCheckNBT";
 

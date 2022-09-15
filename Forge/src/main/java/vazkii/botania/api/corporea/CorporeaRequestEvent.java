@@ -17,19 +17,19 @@ import net.minecraftforge.eventbus.api.Event;
 @Cancelable
 public class CorporeaRequestEvent extends Event {
 
-	private final ICorporeaRequestMatcher matcher;
+	private final CorporeaRequestMatcher matcher;
 	private final int count;
-	private final ICorporeaSpark spark;
+	private final CorporeaSpark spark;
 	private final boolean dryRun;
 
-	public CorporeaRequestEvent(ICorporeaRequestMatcher matcher, int count, ICorporeaSpark spark, boolean dryRun) {
+	public CorporeaRequestEvent(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark, boolean dryRun) {
 		this.matcher = matcher;
 		this.count = count;
 		this.spark = spark;
 		this.dryRun = dryRun;
 	}
 
-	public ICorporeaRequestMatcher getMatcher() {
+	public CorporeaRequestMatcher getMatcher() {
 		return matcher;
 	}
 
@@ -37,7 +37,7 @@ public class CorporeaRequestEvent extends Event {
 		return count;
 	}
 
-	public ICorporeaSpark getSpark() {
+	public CorporeaSpark getSpark() {
 		return spark;
 	}
 

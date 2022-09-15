@@ -33,7 +33,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaIndex extends TileCorporeaBase implements CorporeaRequestor {
 	public static final double RADIUS = 2.5;
 	public static final int MAX_REQUEST = 1 << 16;
 
@@ -310,12 +310,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
 		doRequest(request, count, spark);
 	}
 
-	private ICorporeaResult doRequest(ICorporeaRequestMatcher matcher, int count, ICorporeaSpark spark) {
-		ICorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, true);
+	private CorporeaResult doRequest(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark) {
+		CorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, true);
 		List<ItemStack> stacks = result.stacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack stack : stacks) {
@@ -361,9 +361,9 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		serverIndexes.clear();
 	}
 
-	public void performPlayerRequest(ServerPlayer player, ICorporeaRequestMatcher request, int count) {
+	public void performPlayerRequest(ServerPlayer player, CorporeaRequestMatcher request, int count) {
 		if (!IXplatAbstractions.INSTANCE.fireCorporeaIndexRequestEvent(player, request, count, this.getSpark())) {
-			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
+			CorporeaResult res = this.doRequest(request, count, this.getSpark());
 
 			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
 			player.awardStat(ModStats.CORPOREA_ITEMS_REQUESTED, res.extractedCount());
