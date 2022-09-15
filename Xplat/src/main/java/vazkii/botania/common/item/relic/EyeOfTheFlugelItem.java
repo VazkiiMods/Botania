@@ -46,9 +46,9 @@ import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemFlugelEye extends ItemRelic {
+public class EyeOfTheFlugelItem extends RelicItem {
 
-	public ItemFlugelEye(Properties props) {
+	public EyeOfTheFlugelItem(Properties props) {
 		super(props);
 	}
 

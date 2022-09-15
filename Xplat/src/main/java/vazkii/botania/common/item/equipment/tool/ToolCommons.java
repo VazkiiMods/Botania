@@ -82,7 +82,7 @@ public final class ToolCommons {
 	/**
 	 * NB: Cannot be called in a call chain leading from PlayerInteractionManager.tryHarvestBlock
 	 * without additional protection like {@link #recCall} in {@link #removeBlocksInIteration}
-	 * or {@link vazkii.botania.common.item.relic.ItemLokiRing#breakOnAllCursors},
+	 * or {@link vazkii.botania.common.item.relic.RingOfLokiItem#breakOnAllCursors},
 	 * since this method calls that method also and would lead to an infinite loop.
 	 */
 	public static void removeBlockWithDrops(Player player, ItemStack stack, Level world, BlockPos pos,

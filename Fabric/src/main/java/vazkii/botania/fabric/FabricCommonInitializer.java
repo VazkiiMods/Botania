@@ -212,7 +212,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
 		ServerTickEvents.END_WORLD_TICK.register(TerraTruncatorItem::onTickEnd);
 		UseBlockCallback.EVENT.register(RedStringInterceptorBlock::onInteract);
-		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
+		UseBlockCallback.EVENT.register(RingOfLokiItem::onPlayerInteract);
 		UseItemCallback.EVENT.register(EnderAirItem::onPlayerInteract);
 	}
 
@@ -236,7 +236,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemCobbleRod.BlockProviderImpl(), ModItems.cobbleRod);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemEnderHand.BlockProviderImpl(stack), ModItems.enderHand);
 		BotaniaFabricCapabilities.BLOCK_PROVIDER.registerForItems((stack, c) -> new ItemTerraformRod.BlockProviderImpl(), ModItems.terraformRod);
-		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemFlugelEye.CoordBoundItemImpl(st), ModItems.flugelEye);
+		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), ModItems.flugelEye);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemManaMirror.CoordBoundItemImpl(st), ModItems.manaMirror);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItemImpl(st), ModItems.twigWand);
 		BotaniaFabricCapabilities.COORD_BOUND_ITEM.registerForItems((st, c) -> new ItemTwigWand.CoordBoundItemImpl(st), ModItems.dreamwoodWand);
@@ -245,13 +245,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new GreaterBandOfManaItem.GreaterManaItemImpl(st), ModItems.manaRingGreater);
 		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new ItemManaTablet.ManaItemImpl(st), ModItems.manaTablet);
 		BotaniaFabricCapabilities.MANA_ITEM.registerForItems((st, c) -> new TerraShattererItem.ManaItemImpl(st), ModItems.terraPick);
-		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemDice.makeRelic(st), ModItems.dice);
-		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemFlugelEye.makeRelic(st), ModItems.flugelEye);
-		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemInfiniteFruit.makeRelic(st), ModItems.infiniteFruit);
-		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemKingKey.makeRelic(st), ModItems.kingKey);
-		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemLokiRing.makeRelic(st), ModItems.lokiRing);
-		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemOdinRing.makeRelic(st), ModItems.odinRing);
-		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> ItemThorRing.makeRelic(st), ModItems.thorRing);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), ModItems.dice);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), ModItems.flugelEye);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), ModItems.infiniteFruit);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> KeyOfTheKingsLawItem.makeRelic(st), ModItems.kingKey);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> RingOfLokiItem.makeRelic(st), ModItems.lokiRing);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> RingOfOdinItem.makeRelic(st), ModItems.odinRing);
+		BotaniaFabricCapabilities.RELIC.registerForItems((st, c) -> RingOfThorItem.makeRelic(st), ModItems.thorRing);
 
 		BotaniaFabricCapabilities.EXOFLAME_HEATABLE.registerFallback((world, pos, state, blockEntity, context) -> {
 			if (blockEntity instanceof AbstractFurnaceBlockEntity furnace) {

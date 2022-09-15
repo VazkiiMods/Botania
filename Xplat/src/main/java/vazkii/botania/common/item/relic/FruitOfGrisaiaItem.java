@@ -28,9 +28,9 @@ import java.util.Locale;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemInfiniteFruit extends ItemRelic {
+public class FruitOfGrisaiaItem extends RelicItem {
 
-	public ItemInfiniteFruit(Properties props) {
+	public FruitOfGrisaiaItem(Properties props) {
 		super(props);
 	}
 

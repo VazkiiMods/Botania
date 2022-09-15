@@ -42,7 +42,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.item.relic.RingOfLokiItem;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -236,7 +236,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
-		ItemLokiRing.breakOnAllCursors(player, stack, pos, side);
+		RingOfLokiItem.breakOnAllCursors(player, stack, pos, side);
 	}
 
 	@Override

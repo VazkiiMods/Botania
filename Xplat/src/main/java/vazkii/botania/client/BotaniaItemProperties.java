@@ -17,7 +17,7 @@ import vazkii.botania.common.item.equipment.bauble.RingOfMagnetizationItem;
 import vazkii.botania.common.item.equipment.tool.bow.LivingwoodBowItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.relic.ItemInfiniteFruit;
+import vazkii.botania.common.item.relic.FruitOfGrisaiaItem;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.network.TriConsumer;
 
@@ -92,7 +92,7 @@ public final class BotaniaItemProperties {
 		consumer.accept(ModItems.terraPick, prefix("active"),
 				(stack, world, entity, seed) -> TerraShattererItem.isEnabled(stack) ? 1 : 0);
 		consumer.accept(ModItems.infiniteFruit, prefix("boot"),
-				(stack, worldIn, entity, seed) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
+				(stack, worldIn, entity, seed) -> FruitOfGrisaiaItem.isBoot(stack) ? 1F : 0F);
 		consumer.accept(ModItems.tornadoRod, prefix("active"),
 				(stack, world, living, seed) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 

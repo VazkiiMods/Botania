@@ -284,7 +284,7 @@ public class ForgeCommonInitializer {
 		});
 		bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
 			RedStringInterceptorBlock.onInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
-			ItemLokiRing.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
+			RingOfLokiItem.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 		});
 		bus.addListener((PlayerInteractEvent.RightClickItem e) -> {
 			InteractionResultHolder<ItemStack> result = EnderAirItem.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand());
@@ -361,7 +361,7 @@ public class ForgeCommonInitializer {
 		{
 			bus.addListener((LivingAttackEvent e) -> {
 				if (e.getEntity() instanceof Player player
-						&& ItemOdinRing.onPlayerAttacked(player, e.getSource())) {
+						&& RingOfOdinItem.onPlayerAttacked(player, e.getSource())) {
 					e.setCanceled(true);
 				}
 			});
@@ -434,7 +434,7 @@ public class ForgeCommonInitializer {
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
-			ModItems.flugelEye, ItemFlugelEye.CoordBoundItemImpl::new,
+			ModItems.flugelEye, EyeOfTheFlugelItem.CoordBoundItemImpl::new,
 			ModItems.manaMirror, ItemManaMirror.CoordBoundItemImpl::new,
 			ModItems.twigWand, ItemTwigWand.CoordBoundItemImpl::new,
 			ModItems.dreamwoodWand, ItemTwigWand.CoordBoundItemImpl::new
@@ -449,13 +449,13 @@ public class ForgeCommonInitializer {
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
-			ModItems.dice, ItemDice::makeRelic,
-			ModItems.flugelEye, ItemFlugelEye::makeRelic,
-			ModItems.infiniteFruit, ItemInfiniteFruit::makeRelic,
-			ModItems.kingKey, ItemKingKey::makeRelic,
-			ModItems.lokiRing, ItemLokiRing::makeRelic,
-			ModItems.odinRing, ItemOdinRing::makeRelic,
-			ModItems.thorRing, ItemThorRing::makeRelic
+			ModItems.dice, DiceOfFateItem::makeRelic,
+			ModItems.flugelEye, EyeOfTheFlugelItem::makeRelic,
+			ModItems.infiniteFruit, FruitOfGrisaiaItem::makeRelic,
+			ModItems.kingKey, KeyOfTheKingsLawItem::makeRelic,
+			ModItems.lokiRing, RingOfLokiItem::makeRelic,
+			ModItems.odinRing, RingOfOdinItem::makeRelic,
+			ModItems.thorRing, RingOfThorItem::makeRelic
 	));
 
 	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {

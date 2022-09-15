@@ -42,8 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ItemDice extends ItemRelic {
-	public ItemDice(Properties props) {
+public class DiceOfFateItem extends RelicItem {
+	public DiceOfFateItem(Properties props) {
 		super(props);
 	}
 

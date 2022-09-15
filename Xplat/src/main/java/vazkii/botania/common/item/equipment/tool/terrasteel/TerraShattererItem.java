@@ -47,7 +47,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
-import vazkii.botania.common.item.relic.ItemThorRing;
+import vazkii.botania.common.item.relic.RingOfThorItem;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -206,7 +206,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 			return;
 		}
 
-		boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
+		boolean thor = !RingOfThorItem.getThorRing(player).isEmpty();
 		boolean doX = thor || side.getStepX() == 0;
 		boolean doY = thor || side.getStepY() == 0;
 		boolean doZ = thor || side.getStepZ() == 0;

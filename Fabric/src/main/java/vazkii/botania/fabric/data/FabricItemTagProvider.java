@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.relic.ItemDice;
+import vazkii.botania.common.item.relic.DiceOfFateItem;
 
 import static vazkii.botania.common.item.ModItems.*;
 
@@ -138,7 +138,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 
 	private void generateCompatTags() {
 		this.tag(itemTag(new ResourceLocation("modern_industrialization", "replicator_blacklist")))
-				.add(ItemDice.RELIC_STACKS.get().stream().map(ItemStack::getItem).toArray(Item[]::new))
+				.add(DiceOfFateItem.RELIC_STACKS.get().stream().map(ItemStack::getItem).toArray(Item[]::new))
 				.add(dice, manaTablet, manaRing, manaRingGreater, blackerLotus, blackHoleTalisman, flowerBag,
 						spawnerMover, terraPick, BotaniaBlocks.terrasteelBlock.asItem());
 	}

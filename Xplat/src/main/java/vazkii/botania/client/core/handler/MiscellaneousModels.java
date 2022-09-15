@@ -26,7 +26,7 @@ import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.item.relic.ItemKingKey;
+import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.client.AccessorModelBakery;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -91,7 +91,7 @@ public class MiscellaneousModels {
 
 	public final HashMap<DyeColor, BakedModel> spreaderPaddings = new HashMap<>();
 
-	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
+	public final BakedModel[] kingKeyWeaponModels = new BakedModel[KeyOfTheKingsLawItem.WEAPON_TYPES];
 
 	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
 		Set<Material> materials = AccessorModelBakery.getMaterials();
@@ -108,7 +108,7 @@ public class MiscellaneousModels {
 		consumer.accept(prefix("icon/nerfbat"));
 		consumer.accept(prefix("icon/blood_pendant_chain"));
 		consumer.accept(prefix("icon/blood_pendant_gem"));
-		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
+		for (int i = 0; i < KeyOfTheKingsLawItem.WEAPON_TYPES; i++) {
 			consumer.accept(prefix("icon/gate_weapon_" + i));
 		}
 		consumer.accept(prefix("icon/will_flame"));
@@ -222,7 +222,7 @@ public class MiscellaneousModels {
 		nerfBatModel = map.get(prefix("icon/nerfbat"));
 		bloodPendantChain = map.get(prefix("icon/blood_pendant_chain"));
 		bloodPendantGem = map.get(prefix("icon/blood_pendant_gem"));
-		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
+		for (int i = 0; i < KeyOfTheKingsLawItem.WEAPON_TYPES; i++) {
 			kingKeyWeaponModels[i] = map.get(prefix("icon/gate_weapon_" + i));
 		}
 		terrasteelHelmWillModel = map.get(prefix("icon/will_flame"));

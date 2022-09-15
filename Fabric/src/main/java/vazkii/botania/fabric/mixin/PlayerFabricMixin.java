@@ -39,7 +39,7 @@ import vazkii.botania.common.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
-import vazkii.botania.common.item.relic.ItemOdinRing;
+import vazkii.botania.common.item.relic.RingOfOdinItem;
 
 @Mixin(Player.class)
 public abstract class PlayerFabricMixin extends LivingEntity {
@@ -65,7 +65,7 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 	 */
 	@Inject(at = @At("HEAD"), method = "isInvulnerableTo", cancellable = true)
 	private void odinRing(DamageSource src, CallbackInfoReturnable<Boolean> cir) {
-		if (ItemOdinRing.onPlayerAttacked((Player) (Object) this, src)) {
+		if (RingOfOdinItem.onPlayerAttacked((Player) (Object) this, src)) {
 			cir.setReturnValue(true);
 		}
 	}

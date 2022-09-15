@@ -49,7 +49,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemLokiRing extends ItemRelicBauble implements WireframeCoordinateListProvider {
+public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordinateListProvider {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
 	private static final String TAG_CURSOR_PREFIX = "cursor";
@@ -63,7 +63,7 @@ public class ItemLokiRing extends ItemRelicBauble implements WireframeCoordinate
 
 	private static boolean recCall = false;
 
-	public ItemLokiRing(Properties props) {
+	public RingOfLokiItem(Properties props) {
 		super(props);
 	}
 

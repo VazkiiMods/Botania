@@ -17,9 +17,9 @@ import vazkii.botania.common.item.ModItems;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemThorRing extends ItemRelicBauble {
+public class RingOfThorItem extends RelicBaubleItem {
 
-	public ItemThorRing(Properties props) {
+	public RingOfThorItem(Properties props) {
 		super(props);
 	}
 

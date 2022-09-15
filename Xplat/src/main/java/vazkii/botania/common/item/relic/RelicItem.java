@@ -20,8 +20,8 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public class ItemRelic extends Item {
-	public ItemRelic(Properties props) {
+public class RelicItem extends Item {
+	public RelicItem(Properties props) {
 		super(props);
 	}
 

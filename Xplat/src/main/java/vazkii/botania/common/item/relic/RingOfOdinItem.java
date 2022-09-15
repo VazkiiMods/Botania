@@ -27,11 +27,11 @@ import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemOdinRing extends ItemRelicBauble {
+public class RingOfOdinItem extends RelicBaubleItem {
 
 	private static final Set<String> damageNegations = new HashSet<>();
 
-	public ItemOdinRing(Properties props) {
+	public RingOfOdinItem(Properties props) {
 		super(props);
 
 		damageNegations.add(DamageSource.DROWN.msgId);

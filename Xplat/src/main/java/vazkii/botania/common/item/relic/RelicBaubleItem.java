@@ -21,9 +21,9 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public abstract class ItemRelicBauble extends BaubleItem {
+public abstract class RelicBaubleItem extends BaubleItem {
 
-	public ItemRelicBauble(Properties props) {
+	public RelicBaubleItem(Properties props) {
 		super(props);
 	}
 

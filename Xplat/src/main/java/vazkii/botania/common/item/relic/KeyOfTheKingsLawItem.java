@@ -30,14 +30,14 @@ import vazkii.botania.common.helper.VecHelper;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemKingKey extends ItemRelic {
+public class KeyOfTheKingsLawItem extends RelicItem {
 
 	private static final String TAG_WEAPONS_SPAWNED = "weaponsSpawned";
 	private static final String TAG_CHARGING = "charging";
 
 	public static final int WEAPON_TYPES = 12;
 
-	public ItemKingKey(Properties props) {
+	public KeyOfTheKingsLawItem(Properties props) {
 		super(props);
 	}
 
