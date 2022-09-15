@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 
 public class ItemCobbleRod extends Item {
@@ -35,7 +35,7 @@ public class ItemCobbleRod extends Item {
 		return ItemDirtRod.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
 	}
 
-	public static class BlockProvider implements IBlockProvider {
+	public static class BlockProviderImpl implements BlockProvider {
 		@Override
 		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
 			if (block == Blocks.COBBLESTONE) {

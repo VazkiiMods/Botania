@@ -25,7 +25,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.item.ISparkEntity;
+import vazkii.botania.api.item.SparkEntity;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -55,7 +55,7 @@ public class LensPaint extends Lens {
 						}
 					}
 					shouldKill = true;
-				} else if (collidedWith instanceof ISparkEntity spark) {
+				} else if (collidedWith instanceof SparkEntity spark) {
 					spark.setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level.random.nextInt(16) : storedColor));
 				}
 			} else if (pos.getType() == HitResult.Type.BLOCK) {

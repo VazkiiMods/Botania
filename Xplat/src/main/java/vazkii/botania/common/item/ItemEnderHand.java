@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -69,10 +69,10 @@ public class ItemEnderHand extends Item {
 		return InteractionResult.PASS;
 	}
 
-	public static class BlockProvider implements IBlockProvider {
+	public static class BlockProviderImpl implements BlockProvider {
 		private final ItemStack stack;
 
-		public BlockProvider(ItemStack stack) {
+		public BlockProviderImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 

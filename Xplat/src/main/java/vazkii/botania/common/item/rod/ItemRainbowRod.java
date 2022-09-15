@@ -27,7 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -136,7 +136,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 		return placed;
 	}
 
-	public static class AvatarBehavior implements IAvatarWieldable {
+	public static class AvatarBehavior implements AvatarWieldable {
 		@Override
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;

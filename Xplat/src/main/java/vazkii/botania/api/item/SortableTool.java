@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * This interface describes a tool that can be sorted by the Ring of
  * Correction.
  */
-public interface ISortableTool {
+public interface SortableTool {
 
 	/**
 	 * Gets the priority that this tool should have when being sorted. The

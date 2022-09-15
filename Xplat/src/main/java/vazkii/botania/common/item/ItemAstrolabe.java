@@ -32,7 +32,7 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.handler.ModSounds;
@@ -131,7 +131,7 @@ public class ItemAstrolabe extends Item {
 			return;
 		}
 
-		List<IBlockProvider> providers = new ArrayList<>();
+		List<BlockProvider> providers = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.is(blockToPlace.getItem())) {
@@ -147,7 +147,7 @@ public class ItemAstrolabe extends Item {
 			}
 		}
 
-		for (IBlockProvider prov : providers) {
+		for (BlockProvider prov : providers) {
 			if (prov.provideBlock(player, requestor, block, false)) {
 				prov.provideBlock(player, requestor, block, true);
 				return;
@@ -165,7 +165,7 @@ public class ItemAstrolabe extends Item {
 
 		int required = blocks.size();
 		int current = 0;
-		List<IBlockProvider> providersToCheck = new ArrayList<>();
+		List<BlockProvider> providersToCheck = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.is(reqStack.getItem())) {
@@ -182,7 +182,7 @@ public class ItemAstrolabe extends Item {
 			}
 		}
 
-		for (IBlockProvider prov : providersToCheck) {
+		for (BlockProvider prov : providersToCheck) {
 			int count = prov.getBlockCount(player, stack, block);
 			if (count == -1) {
 				return true;

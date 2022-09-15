@@ -47,8 +47,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.item.IWireframeCoordinateListProvider;
+import vazkii.botania.api.item.BlockProvider;
+import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.block.BlockPlatform;
@@ -60,7 +60,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemExchangeRod extends Item implements IWireframeCoordinateListProvider {
+public class ItemExchangeRod extends Item implements WireframeCoordinateListProvider {
 
 	private static final int RANGE = 3;
 	private static final int COST = 40;
@@ -282,7 +282,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 	}
 
 	public static ItemStack removeFromInventory(Player player, Container inv, ItemStack tool, Item requested, boolean doit) {
-		List<IBlockProvider> providers = new ArrayList<>();
+		List<BlockProvider> providers = new ArrayList<>();
 		for (int i = inv.getContainerSize() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getItem(i);
 			if (invStack.isEmpty()) {
@@ -309,7 +309,7 @@ public class ItemExchangeRod extends Item implements IWireframeCoordinateListPro
 
 		if (requested instanceof BlockItem blockItem) {
 			Block block = blockItem.getBlock();
-			for (IBlockProvider prov : providers) {
+			for (BlockProvider prov : providers) {
 				if (prov.provideBlock(player, tool, block, doit)) {
 					return new ItemStack(requested);
 				}

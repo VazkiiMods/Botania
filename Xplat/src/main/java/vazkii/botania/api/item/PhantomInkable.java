@@ -8,11 +8,15 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.world.item.ItemStack;
+
 /**
- * A bauble that counts as a cosmetic only item. These can be added to
- * other baubles to add the render to them. Other cosmetic baubles
- * can't be stacked on this.
+ * An Item that implements this can be crafted with Phantom Ink.
  */
-public interface ICosmeticBauble {
+public interface PhantomInkable {
+
+	boolean hasPhantomInk(ItemStack stack);
+
+	void setPhantomInk(ItemStack stack, boolean ink);
 
 }

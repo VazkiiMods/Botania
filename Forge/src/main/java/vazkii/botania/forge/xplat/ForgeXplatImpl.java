@@ -83,10 +83,10 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.AvatarWieldable;
+import vazkii.botania.api.item.BlockProvider;
+import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
@@ -144,19 +144,19 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IAvatarWieldable findAvatarWieldable(ItemStack stack) {
+	public AvatarWieldable findAvatarWieldable(ItemStack stack) {
 		return stack.getCapability(BotaniaForgeCapabilities.AVATAR_WIELDABLE).orElse(null);
 	}
 
 	@Nullable
 	@Override
-	public IBlockProvider findBlockProvider(ItemStack stack) {
+	public BlockProvider findBlockProvider(ItemStack stack) {
 		return stack.getCapability(BotaniaForgeCapabilities.BLOCK_PROVIDER).orElse(null);
 	}
 
 	@Nullable
 	@Override
-	public ICoordBoundItem findCoordBoundItem(ItemStack stack) {
+	public CoordBoundItem findCoordBoundItem(ItemStack stack) {
 		return stack.getCapability(BotaniaForgeCapabilities.COORD_BOUND_ITEM).orElse(null);
 	}
 
@@ -168,7 +168,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IRelic findRelic(ItemStack stack) {
+	public Relic findRelic(ItemStack stack) {
 		return stack.getCapability(BotaniaForgeCapabilities.RELIC).orElse(null);
 	}
 

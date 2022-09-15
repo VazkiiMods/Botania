@@ -16,14 +16,14 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.IManaProficiencyArmor;
+import vazkii.botania.api.item.ManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscountArmor, IManaProficiencyArmor {
+public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscountArmor, ManaProficiencyArmor {
 
 	private static final int MANA_PER_DAMAGE = 30;
 

@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
  * handled by botania internally. Recipes to add and remove the cosmetic items will be
  * handled internally, but the cosmetic item has to be set as a container item.
  */
-public interface ICosmeticAttachable {
+public interface CosmeticAttachable {
 
 	/**
 	 * Gets the cosmetic item stored in the stack passed in.

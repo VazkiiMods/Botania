@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.item.ItemAncientWill;
 
 public class AncientWillRecipe extends CustomRecipe {
@@ -39,7 +39,7 @@ public class AncientWillRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof ItemAncientWill && !foundWill) {
 					foundWill = true;
 				} else if (!foundItem) {
-					if (stack.getItem() instanceof IAncientWillContainer) {
+					if (stack.getItem() instanceof AncientWillContainer) {
 						foundItem = true;
 					} else {
 						return false;
@@ -55,12 +55,12 @@ public class AncientWillRecipe extends CustomRecipe {
 	@Override
 	public ItemStack assemble(@NotNull CraftingContainer inv) {
 		ItemStack item = ItemStack.EMPTY;
-		IAncientWillContainer.AncientWillType will = null;
+		AncientWillContainer.AncientWillType will = null;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof IAncientWillContainer && item.isEmpty()) {
+				if (stack.getItem() instanceof AncientWillContainer && item.isEmpty()) {
 					item = stack;
 				} else {
 					will = ((ItemAncientWill) stack.getItem()).type; // we already verified this is a will in matches()
@@ -68,7 +68,7 @@ public class AncientWillRecipe extends CustomRecipe {
 			}
 		}
 
-		IAncientWillContainer container = (IAncientWillContainer) item.getItem();
+		AncientWillContainer container = (AncientWillContainer) item.getItem();
 		if (container.hasAncientWill(item, will)) {
 			return ItemStack.EMPTY;
 		}

@@ -18,7 +18,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.item.ISortableTool;
+import vazkii.botania.api.item.SortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
@@ -26,7 +26,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelShears extends ShearsItem implements ICustomDamageItem, ISortableTool {
+public class ItemManasteelShears extends ShearsItem implements ICustomDamageItem, SortableTool {
 
 	public static final int MANA_PER_DAMAGE = 30;
 

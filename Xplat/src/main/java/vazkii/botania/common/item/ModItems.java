@@ -22,7 +22,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.FloatingFlower;
-import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
@@ -339,12 +339,12 @@ public final class ModItems {
 	public static final Item lokiRing = make(prefix(LibItemNames.LOKI_RING), new ItemLokiRing(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));
 	public static final Item recordGaia1 = make(prefix(LibItemNames.RECORD_GAIA1), new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE), 202));
 	public static final Item recordGaia2 = make(prefix(LibItemNames.RECORD_GAIA2), new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE), 227));
-	public static final Item ancientWillAhrim = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "ahrim"), new ItemAncientWill(IAncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON)));
-	public static final Item ancientWillDharok = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "dharok"), new ItemAncientWill(IAncientWillContainer.AncientWillType.DHAROK, unstackable().rarity(Rarity.UNCOMMON)));
-	public static final Item ancientWillGuthan = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "guthan"), new ItemAncientWill(IAncientWillContainer.AncientWillType.GUTHAN, unstackable().rarity(Rarity.UNCOMMON)));
-	public static final Item ancientWillTorag = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "torag"), new ItemAncientWill(IAncientWillContainer.AncientWillType.TORAG, unstackable().rarity(Rarity.UNCOMMON)));
-	public static final Item ancientWillVerac = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "verac"), new ItemAncientWill(IAncientWillContainer.AncientWillType.VERAC, unstackable().rarity(Rarity.UNCOMMON)));
-	public static final Item ancientWillKaril = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "karil"), new ItemAncientWill(IAncientWillContainer.AncientWillType.KARIL, unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item ancientWillAhrim = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "ahrim"), new ItemAncientWill(AncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item ancientWillDharok = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "dharok"), new ItemAncientWill(AncientWillContainer.AncientWillType.DHAROK, unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item ancientWillGuthan = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "guthan"), new ItemAncientWill(AncientWillContainer.AncientWillType.GUTHAN, unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item ancientWillTorag = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "torag"), new ItemAncientWill(AncientWillContainer.AncientWillType.TORAG, unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item ancientWillVerac = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "verac"), new ItemAncientWill(AncientWillContainer.AncientWillType.VERAC, unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item ancientWillKaril = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "karil"), new ItemAncientWill(AncientWillContainer.AncientWillType.KARIL, unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item pinkinator = make(prefix(LibItemNames.PINKINATOR), new ItemPinkinator(unstackable().rarity(Rarity.UNCOMMON)));
 
 	// Brewing

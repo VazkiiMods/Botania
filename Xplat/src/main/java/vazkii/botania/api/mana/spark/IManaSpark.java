@@ -10,14 +10,14 @@ package vazkii.botania.api.mana.spark;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.ISparkEntity;
+import vazkii.botania.api.item.SparkEntity;
 
 import java.util.Collection;
 
 /**
  * An Entity that implements this is considered a Mana Spark.
  */
-public interface IManaSpark extends ISparkEntity {
+public interface IManaSpark extends SparkEntity {
 	/**
 	 * Get the thing this spark is attached to, if any
 	 */

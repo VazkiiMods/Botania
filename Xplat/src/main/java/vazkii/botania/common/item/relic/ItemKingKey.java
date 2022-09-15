@@ -21,7 +21,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.handler.ModSounds;
@@ -129,7 +129,7 @@ public class ItemKingKey extends ItemRelic {
 		ItemNBTHelper.setInt(stack, TAG_WEAPONS_SPAWNED, count);
 	}
 
-	public static IRelic makeRelic(ItemStack stack) {
+	public static Relic makeRelic(ItemStack stack) {
 		return new RelicImpl(stack, prefix("challenge/king_key"));
 	}
 }

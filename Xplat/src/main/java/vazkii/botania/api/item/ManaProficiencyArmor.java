@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
  * to be having proficiency, by which it's suggested that this is used alongside an
  * armor set, where only one piece implements it.
  */
-public interface IManaProficiencyArmor {
+public interface ManaProficiencyArmor {
 
 	default boolean shouldGiveProficiency(ItemStack armorStack, EquipmentSlot slot, Player player, ItemStack rod) {
 		return false;

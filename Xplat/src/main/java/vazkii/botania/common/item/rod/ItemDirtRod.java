@@ -28,8 +28,8 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.AvatarWieldable;
+import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -83,10 +83,10 @@ public class ItemDirtRod extends Item {
 		return InteractionResult.PASS;
 	}
 
-	public static class BlockProvider implements IBlockProvider {
+	public static class BlockProviderImpl implements BlockProvider {
 		private final ItemStack stack;
 
-		public BlockProvider(ItemStack stack) {
+		public BlockProviderImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 
@@ -108,7 +108,7 @@ public class ItemDirtRod extends Item {
 		}
 	}
 
-	public static class AvatarBehavior implements IAvatarWieldable {
+	public static class AvatarBehavior implements AvatarWieldable {
 		@Override
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;

@@ -19,7 +19,7 @@ import java.util.UUID;
  * An item that has this capability counts as a Relic item. This is purely for interaction
  * and other mod items should not reuse this capability.
  */
-public interface IRelic {
+public interface Relic {
 
 	/**
 	 * Binds to the UUID passed in.

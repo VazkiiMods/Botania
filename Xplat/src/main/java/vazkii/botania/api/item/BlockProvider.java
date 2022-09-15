@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.Block;
  *
  * Mutations to objects of this type propagate directly to the underlying stack it was retrieved from.
  */
-public interface IBlockProvider {
+public interface BlockProvider {
 
 	/**
 	 * Provides the requested item. The doit paremeter specifies whether this is

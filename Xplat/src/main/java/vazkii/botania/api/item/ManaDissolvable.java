@@ -16,7 +16,7 @@ import vazkii.botania.api.mana.IManaPool;
  * An item that implements this will have a function called when its standing atop
  * a mana pool.
  */
-public interface IManaDissolvable {
+public interface ManaDissolvable {
 
 	/**
 	 * Called for every tick the item is on a mana pool. If the stack has stack

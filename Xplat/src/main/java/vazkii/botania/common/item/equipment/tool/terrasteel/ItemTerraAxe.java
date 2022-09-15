@@ -22,7 +22,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISequentialBreaker;
+import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -30,7 +30,7 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 
 import java.util.*;
 
-public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker {
+public class ItemTerraAxe extends ItemManasteelAxe implements SequentialBreaker {
 
 	/**
 	 * The number of blocks per tick which the Terra Truncator will

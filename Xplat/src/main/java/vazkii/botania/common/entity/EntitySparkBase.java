@@ -24,11 +24,11 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.ISparkEntity;
+import vazkii.botania.api.item.SparkEntity;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public abstract class EntitySparkBase extends Entity implements ISparkEntity {
+public abstract class EntitySparkBase extends Entity implements SparkEntity {
 	private static final String TAG_INVIS = "invis";
 	private static final String TAG_NETWORK = "network";
 	private static final EntityDataAccessor<Integer> NETWORK = SynchedEntityData.defineId(EntitySparkBase.class, EntityDataSerializers.INT);

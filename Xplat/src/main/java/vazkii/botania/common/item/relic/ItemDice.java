@@ -30,7 +30,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -121,7 +121,7 @@ public class ItemDice extends ItemRelic {
 		});
 	}
 
-	public static IRelic makeRelic(ItemStack stack) {
+	public static Relic makeRelic(ItemStack stack) {
 		return new RelicImpl(stack, null) {
 			@Override
 			public boolean shouldDamageWrongPlayer() {

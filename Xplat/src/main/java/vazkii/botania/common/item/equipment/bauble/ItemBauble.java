@@ -23,8 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.item.ICosmeticAttachable;
-import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.api.item.CosmeticAttachable;
+import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -35,7 +35,7 @@ import java.util.UUID;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public abstract class ItemBauble extends Item implements ICosmeticAttachable, IPhantomInkable {
+public abstract class ItemBauble extends Item implements CosmeticAttachable, PhantomInkable {
 
 	private static final String TAG_BAUBLE_UUID = "baubleUUID";
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";

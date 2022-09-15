@@ -18,14 +18,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISortableTool;
+import vazkii.botania.api.item.SortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelHoe extends HoeItem implements ICustomDamageItem, ISortableTool {
+public class ItemManasteelHoe extends HoeItem implements ICustomDamageItem, SortableTool {
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelHoe(Properties props) {

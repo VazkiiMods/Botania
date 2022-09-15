@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.item.ISortableTool;
+import vazkii.botania.api.item.SortableTool;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 public class ItemSwapRing extends ItemBauble {
@@ -33,7 +33,7 @@ public class ItemSwapRing extends ItemBauble {
 
 		Player player = (Player) entity;
 		ItemStack currentStack = player.getMainHandItem();
-		if (currentStack.isEmpty() || !(currentStack.getItem() instanceof ISortableTool tool)
+		if (currentStack.isEmpty() || !(currentStack.getItem() instanceof SortableTool tool)
 				|| !player.swinging) {
 			return;
 		}
@@ -50,7 +50,7 @@ public class ItemSwapRing extends ItemBauble {
 
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool toolInSlot && stackInSlot != currentStack) {
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof SortableTool toolInSlot && stackInSlot != currentStack) {
 				if (stackInSlot.getDestroySpeed(state) > 1.0F) {
 					int priority = toolInSlot.getSortingPriority(stackInSlot, state);
 					if (priority > bestToolPriority) {

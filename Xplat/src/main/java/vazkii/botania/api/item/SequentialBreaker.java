@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
  * with a Ring of Loki. Usage of this interface requires an implementation
  * (see ItemTerraPick).
  */
-public interface ISequentialBreaker {
+public interface SequentialBreaker {
 
 	void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side);
 

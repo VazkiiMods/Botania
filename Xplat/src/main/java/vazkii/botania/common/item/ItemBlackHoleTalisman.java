@@ -39,7 +39,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.IBlockProvider;
+import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -235,10 +235,10 @@ public class ItemBlackHoleTalisman extends Item {
 		return ItemNBTHelper.getInt(stack, TAG_BLOCK_COUNT, 0);
 	}
 
-	public static class BlockProvider implements IBlockProvider {
+	public static class BlockProviderImpl implements BlockProvider {
 		private final ItemStack stack;
 
-		public BlockProvider(ItemStack stack) {
+		public BlockProviderImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 

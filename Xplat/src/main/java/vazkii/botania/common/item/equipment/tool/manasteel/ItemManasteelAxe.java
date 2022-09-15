@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISortableTool;
+import vazkii.botania.api.item.SortableTool;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -34,7 +34,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
-public class ItemManasteelAxe extends AxeItem implements ICustomDamageItem, ISortableTool {
+public class ItemManasteelAxe extends AxeItem implements ICustomDamageItem, SortableTool {
 
 	private static final Pattern SAPLING_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)sapling)|(?:(?:[a-z-_.:]|^)Sapling))(?:[A-Z-_.:]|$)");
 

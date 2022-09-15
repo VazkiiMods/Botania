@@ -54,10 +54,10 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.AvatarWieldable;
+import vazkii.botania.api.item.BlockProvider;
+import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.common.block.tile.string.TileRedStringContainer;
@@ -92,15 +92,15 @@ public interface IXplatAbstractions {
 
 	// Capability access (API-facing caps)
 	@Nullable
-	IAvatarWieldable findAvatarWieldable(ItemStack stack);
+	AvatarWieldable findAvatarWieldable(ItemStack stack);
 	@Nullable
-	IBlockProvider findBlockProvider(ItemStack stack);
+	BlockProvider findBlockProvider(ItemStack stack);
 	@Nullable
-	ICoordBoundItem findCoordBoundItem(ItemStack stack);
+	CoordBoundItem findCoordBoundItem(ItemStack stack);
 	@Nullable
 	IManaItem findManaItem(ItemStack stack);
 	@Nullable
-	IRelic findRelic(ItemStack stack);
+	Relic findRelic(ItemStack stack);
 	@Nullable
 	ExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable

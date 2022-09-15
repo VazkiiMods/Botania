@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.common.item.ModItems;
 
 public class PhantomInkRecipe extends CustomRecipe {
@@ -39,7 +39,7 @@ public class PhantomInkRecipe extends CustomRecipe {
 				if (stack.is(ModItems.phantomInk) && !foundInk) {
 					foundInk = true;
 				} else if (!foundItem) {
-					if (stack.getItem() instanceof IPhantomInkable && !stack.getItem().hasCraftingRemainingItem()) {
+					if (stack.getItem() instanceof PhantomInkable && !stack.getItem().hasCraftingRemainingItem()) {
 						foundItem = true;
 					} else {
 						return false;
@@ -60,12 +60,12 @@ public class PhantomInkRecipe extends CustomRecipe {
 
 		for (int i = 0; i < var1.getContainerSize(); i++) {
 			ItemStack stack = var1.getItem(i);
-			if (!stack.isEmpty() && stack.getItem() instanceof IPhantomInkable && item.isEmpty()) {
+			if (!stack.isEmpty() && stack.getItem() instanceof PhantomInkable && item.isEmpty()) {
 				item = stack;
 			}
 		}
 
-		IPhantomInkable inkable = (IPhantomInkable) item.getItem();
+		PhantomInkable inkable = (PhantomInkable) item.getItem();
 		ItemStack copy = item.copy();
 		inkable.setPhantomInk(copy, !inkable.hasPhantomInk(item));
 		return copy;

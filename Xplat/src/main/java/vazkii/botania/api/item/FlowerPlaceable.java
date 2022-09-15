@@ -15,7 +15,7 @@ import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 /**
  * An Item that implements this can be placed by a Rannuncarpus.
  */
-public interface IFlowerPlaceable {
+public interface FlowerPlaceable {
 
 	/**
 	 * @param ctx The placement context, aiming downwards towards the downward neighbor position

@@ -83,10 +83,10 @@ import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.AvatarWieldable;
+import vazkii.botania.api.item.BlockProvider;
+import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
@@ -145,19 +145,19 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IAvatarWieldable findAvatarWieldable(ItemStack stack) {
+	public AvatarWieldable findAvatarWieldable(ItemStack stack) {
 		return BotaniaFabricCapabilities.AVATAR_WIELDABLE.find(stack, Unit.INSTANCE);
 	}
 
 	@Nullable
 	@Override
-	public IBlockProvider findBlockProvider(ItemStack stack) {
+	public BlockProvider findBlockProvider(ItemStack stack) {
 		return BotaniaFabricCapabilities.BLOCK_PROVIDER.find(stack, Unit.INSTANCE);
 	}
 
 	@Nullable
 	@Override
-	public ICoordBoundItem findCoordBoundItem(ItemStack stack) {
+	public CoordBoundItem findCoordBoundItem(ItemStack stack) {
 		return BotaniaFabricCapabilities.COORD_BOUND_ITEM.find(stack, Unit.INSTANCE);
 	}
 
@@ -169,7 +169,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IRelic findRelic(ItemStack stack) {
+	public Relic findRelic(ItemStack stack) {
 		return BotaniaFabricCapabilities.RELIC.find(stack, Unit.INSTANCE);
 	}
 

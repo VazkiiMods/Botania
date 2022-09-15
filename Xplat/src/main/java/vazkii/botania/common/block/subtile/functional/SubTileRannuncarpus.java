@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.item.IFlowerPlaceable;
+import vazkii.botania.api.item.FlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -103,7 +103,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements W
 					continue;
 				}
 
-				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
+				if (stackItem instanceof BlockItem || stackItem instanceof FlowerPlaceable) {
 					BlockPos coords = getCandidatePosition(getLevel().random);
 					if (coords == null) {
 						continue;
@@ -112,7 +112,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements W
 					BlockPlaceContext ctx = new RannuncarpusPlaceContext(getLevel(), stack, ray, worldPosition);
 
 					boolean success = false;
-					if (stackItem instanceof IFlowerPlaceable flowerPlaceable) {
+					if (stackItem instanceof FlowerPlaceable flowerPlaceable) {
 						success = flowerPlaceable.tryPlace(this, ctx);
 					}
 					if (!success && stackItem instanceof BlockItem blockItem) {

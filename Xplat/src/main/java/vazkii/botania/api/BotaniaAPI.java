@@ -207,7 +207,7 @@ public interface BotaniaAPI {
 
 	/**
 	 * Break all the blocks the given player has selected with the loki ring.
-	 * The item passed must implement {@link vazkii.botania.api.item.ISequentialBreaker}.
+	 * The item passed must implement {@link vazkii.botania.api.item.SequentialBreaker}.
 	 */
 	default void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {}
 

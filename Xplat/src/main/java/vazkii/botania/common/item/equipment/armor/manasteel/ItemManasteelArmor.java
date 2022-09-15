@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, IPhantomInkable {
+public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, PhantomInkable {
 
 	private static final int MANA_PER_DAMAGE = 70;
 

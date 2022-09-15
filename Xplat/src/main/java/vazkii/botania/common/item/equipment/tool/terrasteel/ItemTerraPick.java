@@ -37,7 +37,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISequentialBreaker;
+import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.common.annotations.SoftImplement;
@@ -57,7 +57,7 @@ import java.util.function.Predicate;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemTerraPick extends ItemManasteelPick implements ISequentialBreaker {
+public class ItemTerraPick extends ItemManasteelPick implements SequentialBreaker {
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_MANA = "mana";

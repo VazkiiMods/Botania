@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.ISparkEntity;
+import vazkii.botania.api.item.SparkEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -21,7 +21,7 @@ import java.util.Set;
  * An interface for a Corporea Spark. Includes functions for handling
  * connections.
  */
-public interface CorporeaSpark extends ISparkEntity {
+public interface CorporeaSpark extends SparkEntity {
 
 	/**
 	 * Look around this spark for neighbors and introduce them to the network by adding them

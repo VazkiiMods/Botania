@@ -18,7 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
 
@@ -61,7 +61,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 				&& !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 	}
 
-	public static IRelic makeRelic(ItemStack stack) {
+	public static Relic makeRelic(ItemStack stack) {
 		return new RelicImpl(stack, prefix("challenge/odin_ring"));
 	}
 

@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IWireframeCoordinateListProvider;
+import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -97,7 +97,7 @@ public final class BoundTileRenderer {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stackInSlot = inv.getItem(i);
 
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider provider) {
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof WireframeCoordinateListProvider provider) {
 				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
 				for (BlockPos coords : coordsList) {
 					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color);

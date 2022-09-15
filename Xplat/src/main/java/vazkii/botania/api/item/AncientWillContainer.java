@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
  * An item that implements this can have Ancient Wills
  * crafted onto it.
  */
-public interface IAncientWillContainer {
+public interface AncientWillContainer {
 	enum AncientWillType {
 		AHRIM,
 		DHAROK,

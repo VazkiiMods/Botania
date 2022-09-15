@@ -30,8 +30,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.handler.ModSounds;
@@ -145,10 +145,10 @@ public class ItemFlugelEye extends ItemRelic {
 		return UseAnim.BOW;
 	}
 
-	public static class CoordBoundItem implements ICoordBoundItem {
+	public static class CoordBoundItemImpl implements CoordBoundItem {
 		private final ItemStack stack;
 
-		public CoordBoundItem(ItemStack stack) {
+		public CoordBoundItemImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 
@@ -196,7 +196,7 @@ public class ItemFlugelEye extends ItemRelic {
 		}
 	}
 
-	public static IRelic makeRelic(ItemStack stack) {
+	public static Relic makeRelic(ItemStack stack) {
 		return new RelicImpl(stack, prefix("challenge/flugel_eye"));
 	}
 

@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.ICosmeticAttachable;
-import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.api.item.CosmeticAttachable;
+import vazkii.botania.api.item.CosmeticBauble;
 
 public class CosmeticAttachRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new SimpleRecipeSerializer<>(CosmeticAttachRecipe::new);
@@ -36,10 +36,10 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ICosmeticBauble && !foundCosmetic) {
+				if (stack.getItem() instanceof CosmeticBauble && !foundCosmetic) {
 					foundCosmetic = true;
 				} else if (!foundAttachable) {
-					if (stack.getItem() instanceof ICosmeticAttachable attachable && !(stack.getItem() instanceof ICosmeticBauble) && attachable.getCosmeticItem(stack).isEmpty()) {
+					if (stack.getItem() instanceof CosmeticAttachable attachable && !(stack.getItem() instanceof CosmeticBauble) && attachable.getCosmeticItem(stack).isEmpty()) {
 						foundAttachable = true;
 					} else {
 						return false;
@@ -60,7 +60,7 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ICosmeticBauble && cosmeticItem.isEmpty()) {
+				if (stack.getItem() instanceof CosmeticBauble && cosmeticItem.isEmpty()) {
 					cosmeticItem = stack;
 				} else {
 					attachableItem = stack;
@@ -68,7 +68,7 @@ public class CosmeticAttachRecipe extends CustomRecipe {
 			}
 		}
 
-		if (!(attachableItem.getItem() instanceof ICosmeticAttachable attachable)) {
+		if (!(attachableItem.getItem() instanceof CosmeticAttachable attachable)) {
 			return ItemStack.EMPTY;
 		}
 

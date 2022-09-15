@@ -10,7 +10,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.lib.LibMisc;
@@ -35,7 +35,7 @@ public class EarsIntegration {
 			}
 
 			ItemStack stack = player.getItemBySlot(slot);
-			if (!(stack.getItem() instanceof IPhantomInkable item)) {
+			if (!(stack.getItem() instanceof PhantomInkable item)) {
 				return OverrideResult.DEFAULT;
 			}
 

@@ -19,8 +19,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.ICosmeticAttachable;
-import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.api.item.CosmeticAttachable;
+import vazkii.botania.api.item.CosmeticBauble;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 public class CosmeticRemoveRecipe extends CustomRecipe {
@@ -37,7 +37,7 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ICosmeticAttachable attachable && !(stack.getItem() instanceof ICosmeticBauble) && !attachable.getCosmeticItem(stack).isEmpty()) {
+				if (stack.getItem() instanceof CosmeticAttachable attachable && !(stack.getItem() instanceof CosmeticBauble) && !attachable.getCosmeticItem(stack).isEmpty()) {
 					foundAttachable = true;
 				} else {
 					return false;
@@ -60,7 +60,7 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 			}
 		}
 
-		ICosmeticAttachable attachable = (ICosmeticAttachable) attachableItem.getItem();
+		CosmeticAttachable attachable = (CosmeticAttachable) attachableItem.getItem();
 		if (attachable.getCosmeticItem(attachableItem).isEmpty()) {
 			return ItemStack.EMPTY;
 		}

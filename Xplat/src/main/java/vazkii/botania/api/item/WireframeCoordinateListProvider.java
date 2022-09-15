@@ -21,7 +21,7 @@ import java.util.List;
  * around the player. This will be called while the item is in the inventory,
  * armor slot or bauble slots.
  */
-public interface IWireframeCoordinateListProvider {
+public interface WireframeCoordinateListProvider {
 
 	/**
 	 * Returns a list of BlockPos for the wireframes to draw.

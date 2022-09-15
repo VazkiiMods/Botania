@@ -21,7 +21,7 @@ import vazkii.botania.api.block.Bound;
  *
  * @see Bound
  */
-public interface ICoordBoundItem {
+public interface CoordBoundItem {
 
 	@Nullable
 	BlockPos getBinding(Level world);

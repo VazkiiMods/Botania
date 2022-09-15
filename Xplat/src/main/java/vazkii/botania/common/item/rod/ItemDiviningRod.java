@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.Avatar;
-import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
@@ -77,7 +77,7 @@ public class ItemDiviningRod extends Item {
 		}
 	}
 
-	public static class AvatarBehavior implements IAvatarWieldable {
+	public static class AvatarBehavior implements AvatarWieldable {
 		@Override
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;

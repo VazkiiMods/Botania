@@ -45,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block.WandBindable;
-import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -398,10 +398,10 @@ public class ItemTwigWand extends Item {
 		return "botaniamisc.wandMode." + (getBindMode(stack) ? "bind" : "function");
 	}
 
-	public static class CoordBoundItem implements ICoordBoundItem {
+	public static class CoordBoundItemImpl implements CoordBoundItem {
 		private final ItemStack stack;
 
-		public CoordBoundItem(ItemStack stack) {
+		public CoordBoundItemImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 

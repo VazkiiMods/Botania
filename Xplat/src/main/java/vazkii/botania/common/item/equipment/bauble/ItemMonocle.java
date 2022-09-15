@@ -34,8 +34,8 @@ import net.minecraft.world.level.block.state.properties.ComparatorMode;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.item.ICosmeticAttachable;
-import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.api.item.CosmeticAttachable;
+import vazkii.botania.api.item.CosmeticBauble;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -44,7 +44,7 @@ import vazkii.botania.common.proxy.IProxy;
 
 import java.util.List;
 
-public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
+public class ItemMonocle extends ItemBauble implements CosmeticBauble {
 
 	public ItemMonocle(Properties props) {
 		super(props);
@@ -113,7 +113,7 @@ public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 				if (stack.is(ModTags.Items.BURST_VIEWERS)) {
 					return true;
 				}
-				if (item instanceof ICosmeticAttachable attach) {
+				if (item instanceof CosmeticAttachable attach) {
 					ItemStack cosmetic = attach.getCosmeticItem(stack);
 					return !cosmetic.isEmpty() && cosmetic.is(ModTags.Items.BURST_VIEWERS);
 				}

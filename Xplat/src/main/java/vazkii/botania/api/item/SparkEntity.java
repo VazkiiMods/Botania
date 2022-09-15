@@ -19,7 +19,7 @@ import vazkii.botania.api.mana.IManaReceiver;
 /**
  * An Entity that implements this is considered a Spark.
  */
-public interface ISparkEntity {
+public interface SparkEntity {
 
 	/**
 	 * @return The position of the block that this spark is attached to

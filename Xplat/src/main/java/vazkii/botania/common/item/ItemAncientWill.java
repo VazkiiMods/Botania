@@ -15,15 +15,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.item.AncientWillContainer;
 
 import java.util.List;
 import java.util.Locale;
 
 public class ItemAncientWill extends Item {
-	public final IAncientWillContainer.AncientWillType type;
+	public final AncientWillContainer.AncientWillType type;
 
-	public ItemAncientWill(IAncientWillContainer.AncientWillType variant, Properties props) {
+	public ItemAncientWill(AncientWillContainer.AncientWillType variant, Properties props) {
 		super(props);
 		this.type = variant;
 	}

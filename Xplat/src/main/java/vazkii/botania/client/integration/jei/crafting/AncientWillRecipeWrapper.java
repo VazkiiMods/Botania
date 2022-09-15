@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
@@ -62,7 +62,7 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
 		var outputStacks = new ArrayList<ItemStack>();
 		for (var will : !foci.isEmpty() ? foci : willStacks) {
 			var stack = new ItemStack(ModItems.terrasteelHelm);
-			((IAncientWillContainer) stack.getItem()).addAncientWill(stack, ((ItemAncientWill) will.getItem()).type);
+			((AncientWillContainer) stack.getItem()).addAncientWill(stack, ((ItemAncientWill) will.getItem()).type);
 			outputStacks.add(stack);
 		}
 

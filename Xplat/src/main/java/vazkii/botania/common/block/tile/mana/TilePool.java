@@ -37,7 +37,7 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IManaDissolvable;
+import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.IManaSpark;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -165,7 +165,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		ItemStack stack = item.getItem();
 
-		if (stack.getItem() instanceof IManaDissolvable dissolvable) {
+		if (stack.getItem() instanceof ManaDissolvable dissolvable) {
 			dissolvable.onDissolveTick(this, item);
 		}
 

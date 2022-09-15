@@ -33,9 +33,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
-import vazkii.botania.api.item.IRelic;
-import vazkii.botania.api.item.ISequentialBreaker;
-import vazkii.botania.api.item.IWireframeCoordinateListProvider;
+import vazkii.botania.api.item.Relic;
+import vazkii.botania.api.item.SequentialBreaker;
+import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.advancements.LokiPlaceTrigger;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -49,7 +49,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider {
+public class ItemLokiRing extends ItemRelicBauble implements WireframeCoordinateListProvider {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
 	private static final String TAG_CURSOR_PREFIX = "cursor";
@@ -143,7 +143,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
 		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof ISequentialBreaker breaker)) {
+		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof SequentialBreaker breaker)) {
 			return;
 		}
 
@@ -289,7 +289,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		return cmp;
 	}
 
-	public static IRelic makeRelic(ItemStack stack) {
+	public static Relic makeRelic(ItemStack stack) {
 		return new RelicImpl(stack, prefix("challenge/loki_ring"));
 	}
 

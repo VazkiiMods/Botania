@@ -10,10 +10,10 @@ import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.AvatarWieldable;
+import vazkii.botania.api.item.BlockProvider;
+import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -21,14 +21,14 @@ import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 
 public final class BotaniaFabricCapabilities {
-	public static final ItemApiLookup<IAvatarWieldable, Unit> AVATAR_WIELDABLE = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "avatar_wieldable"), IAvatarWieldable.class, Unit.class);
-	public static final ItemApiLookup<IBlockProvider, Unit> BLOCK_PROVIDER = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "block_provider"), IBlockProvider.class, Unit.class);
-	public static final ItemApiLookup<ICoordBoundItem, Unit> COORD_BOUND_ITEM = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "coord_bound_item"),
-			ICoordBoundItem.class, Unit.class);
+	public static final ItemApiLookup<AvatarWieldable, Unit> AVATAR_WIELDABLE = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "avatar_wieldable"), AvatarWieldable.class, Unit.class);
+	public static final ItemApiLookup<BlockProvider, Unit> BLOCK_PROVIDER = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "block_provider"), BlockProvider.class, Unit.class);
+	public static final ItemApiLookup<CoordBoundItem, Unit> COORD_BOUND_ITEM = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "coord_bound_item"),
+			CoordBoundItem.class, Unit.class);
 	public static final ItemApiLookup<IManaItem, Unit> MANA_ITEM = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "mana_item"),
 			IManaItem.class, Unit.class);
-	public static final ItemApiLookup<IRelic, Unit> RELIC = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "relic"),
-			IRelic.class, Unit.class);
+	public static final ItemApiLookup<Relic, Unit> RELIC = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "relic"),
+			Relic.class, Unit.class);
 
 	public static final BlockApiLookup<ExoflameHeatable, Unit> EXOFLAME_HEATABLE = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "exoflame_heatable"), ExoflameHeatable.class, Unit.class);
 	public static final BlockApiLookup<HornHarvestable, Unit> HORN_HARVEST = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable"), HornHarvestable.class, Unit.class);

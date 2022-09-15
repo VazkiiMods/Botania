@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -18,7 +18,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.List;
 import java.util.UUID;
 
-public class RelicImpl implements IRelic {
+public class RelicImpl implements Relic {
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
 	private final ItemStack stack;

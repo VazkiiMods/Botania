@@ -23,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.api.item.CosmeticBauble;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
@@ -31,7 +31,7 @@ import vazkii.botania.common.proxy.IProxy;
 
 import java.util.List;
 
-public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
+public class ItemBaubleCosmetic extends ItemBauble implements CosmeticBauble {
 
 	public enum Variant {
 		BLACK_BOWTIE, BLACK_TIE, RED_GLASSES(true), PUFFY_SCARF,

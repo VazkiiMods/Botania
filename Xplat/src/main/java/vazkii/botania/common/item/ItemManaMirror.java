@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.api.item.ICoordBoundItem;
+import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaBarTooltip;
@@ -258,10 +258,10 @@ public class ItemManaMirror extends Item {
 
 	}
 
-	public static class CoordBoundItem implements ICoordBoundItem {
+	public static class CoordBoundItemImpl implements CoordBoundItem {
 		private final ItemStack stack;
 
-		public CoordBoundItem(ItemStack stack) {
+		public CoordBoundItemImpl(ItemStack stack) {
 			this.stack = stack;
 		}
 

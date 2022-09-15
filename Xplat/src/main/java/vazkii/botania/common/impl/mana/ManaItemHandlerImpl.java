@@ -22,7 +22,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IManaProficiencyArmor;
+import vazkii.botania.api.item.ManaProficiencyArmor;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -292,7 +292,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			ItemStack stack = player.getItemBySlot(e);
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
-				if (item instanceof IManaProficiencyArmor armor
+				if (item instanceof ManaProficiencyArmor armor
 						&& armor.shouldGiveProficiency(stack, e, player, manaItem)) {
 					proficient = true;
 					break;

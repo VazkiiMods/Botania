@@ -15,7 +15,7 @@ import vazkii.botania.api.block.Avatar;
 /**
  * An Item that has this capability this can be wielded by an Avatar.
  */
-public interface IAvatarWieldable {
+public interface AvatarWieldable {
 
 	/**
 	 * Called on update of the avatar tile.

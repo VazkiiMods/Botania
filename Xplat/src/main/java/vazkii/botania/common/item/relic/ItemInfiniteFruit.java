@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.mixin.AccessorLivingEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -79,7 +79,7 @@ public class ItemInfiniteFruit extends ItemRelic {
 		return name.equals("das boot");
 	}
 
-	public static IRelic makeRelic(ItemStack stack) {
+	public static Relic makeRelic(ItemStack stack) {
 		return new RelicImpl(stack, prefix("challenge/infinite_fruit"));
 	}
 

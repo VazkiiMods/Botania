@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.item.IManaDissolvable;
+import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
@@ -27,7 +27,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public class ItemBlackLotus extends Item implements IManaDissolvable {
+public class ItemBlackLotus extends Item implements ManaDissolvable {
 
 	private static final int MANA_PER = 8000;
 	private static final int MANA_PER_T2 = 100000;

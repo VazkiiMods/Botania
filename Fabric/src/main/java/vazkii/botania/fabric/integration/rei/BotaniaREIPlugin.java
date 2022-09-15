@@ -45,7 +45,7 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.ModBlocks;
@@ -184,7 +184,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		ImmutableList.Builder<EntryIngredient> input = ImmutableList.builder();
 		ImmutableList.Builder<EntryStack<ItemStack>> output = ImmutableList.builder();
 		Set<ItemStack> wills = ImmutableSet.of(new ItemStack(ModItems.ancientWillAhrim), new ItemStack(ModItems.ancientWillDharok), new ItemStack(ModItems.ancientWillGuthan), new ItemStack(ModItems.ancientWillKaril), new ItemStack(ModItems.ancientWillTorag), new ItemStack(ModItems.ancientWillVerac));
-		IAncientWillContainer container = (IAncientWillContainer) ModItems.terrasteelHelm;
+		AncientWillContainer container = (AncientWillContainer) ModItems.terrasteelHelm;
 
 		ItemStack helmet = new ItemStack(ModItems.terrasteelHelm);
 		input.add(EntryIngredients.of(helmet));

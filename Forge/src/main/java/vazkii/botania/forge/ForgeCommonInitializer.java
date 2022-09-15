@@ -60,10 +60,10 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IBlockProvider;
-import vazkii.botania.api.item.ICoordBoundItem;
-import vazkii.botania.api.item.IRelic;
+import vazkii.botania.api.item.AvatarWieldable;
+import vazkii.botania.api.item.BlockProvider;
+import vazkii.botania.api.item.CoordBoundItem;
+import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.client.fx.ModParticles;
@@ -413,7 +413,7 @@ public class ForgeCommonInitializer {
 	// chains on items, and also doesn't match how Fabric is set up.
 	// Instead, let's declare ahead of time what items get which caps, similar to how we do it for Fabric.
 	// Needs to be lazy since items aren't initialized yet
-	private static final Supplier<Map<Item, Function<ItemStack, IAvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
+	private static final Supplier<Map<Item, Function<ItemStack, AvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
 			ModItems.dirtRod, s -> new ItemDirtRod.AvatarBehavior(),
 			ModItems.diviningRod, s -> new ItemDiviningRod.AvatarBehavior(),
 			ModItems.fireRod, s -> new ItemFireRod.AvatarBehavior(),
@@ -422,20 +422,20 @@ public class ForgeCommonInitializer {
 			ModItems.tornadoRod, s -> new ItemTornadoRod.AvatarBehavior()
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, IBlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
-			ModItems.dirtRod, ItemDirtRod.BlockProvider::new,
-			ModItems.skyDirtRod, ItemDirtRod.BlockProvider::new,
-			ModItems.blackHoleTalisman, ItemBlackHoleTalisman.BlockProvider::new,
-			ModItems.cobbleRod, s -> new ItemCobbleRod.BlockProvider(),
-			ModItems.enderHand, ItemEnderHand.BlockProvider::new,
-			ModItems.terraformRod, s -> new ItemTerraformRod.BlockProvider()
+	private static final Supplier<Map<Item, Function<ItemStack, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
+			ModItems.dirtRod, ItemDirtRod.BlockProviderImpl::new,
+			ModItems.skyDirtRod, ItemDirtRod.BlockProviderImpl::new,
+			ModItems.blackHoleTalisman, ItemBlackHoleTalisman.BlockProviderImpl::new,
+			ModItems.cobbleRod, s -> new ItemCobbleRod.BlockProviderImpl(),
+			ModItems.enderHand, ItemEnderHand.BlockProviderImpl::new,
+			ModItems.terraformRod, s -> new ItemTerraformRod.BlockProviderImpl()
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, ICoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
-			ModItems.flugelEye, ItemFlugelEye.CoordBoundItem::new,
-			ModItems.manaMirror, ItemManaMirror.CoordBoundItem::new,
-			ModItems.twigWand, ItemTwigWand.CoordBoundItem::new,
-			ModItems.dreamwoodWand, ItemTwigWand.CoordBoundItem::new
+	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
+			ModItems.flugelEye, ItemFlugelEye.CoordBoundItemImpl::new,
+			ModItems.manaMirror, ItemManaMirror.CoordBoundItemImpl::new,
+			ModItems.twigWand, ItemTwigWand.CoordBoundItemImpl::new,
+			ModItems.dreamwoodWand, ItemTwigWand.CoordBoundItemImpl::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, IManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
@@ -446,7 +446,7 @@ public class ForgeCommonInitializer {
 			ModItems.terraPick, ItemTerraPick.ManaItem::new
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, IRelic>>> RELIC = Suppliers.memoize(() -> Map.of(
+	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
 			ModItems.dice, ItemDice::makeRelic,
 			ModItems.flugelEye, ItemFlugelEye::makeRelic,
 			ModItems.infiniteFruit, ItemInfiniteFruit::makeRelic,
