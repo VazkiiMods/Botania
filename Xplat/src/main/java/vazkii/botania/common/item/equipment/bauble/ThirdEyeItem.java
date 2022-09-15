@@ -31,7 +31,7 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.entity.MagicMissileEntity;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class ThirdEyeItem extends BaubleItem {
 
 	public ThirdEyeItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

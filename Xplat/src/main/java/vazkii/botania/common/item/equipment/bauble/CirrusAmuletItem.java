@@ -27,7 +27,7 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.serverbound.PacketJump;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
@@ -44,12 +44,12 @@ public class CirrusAmuletItem extends BaubleItem {
 
 	public CirrusAmuletItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		IProxy.INSTANCE.runOnClient(() -> () -> {
+		Proxy.INSTANCE.runOnClient(() -> () -> {
 			if (living == Minecraft.getInstance().player) {
 				LocalPlayer playerSp = (LocalPlayer) living;
 

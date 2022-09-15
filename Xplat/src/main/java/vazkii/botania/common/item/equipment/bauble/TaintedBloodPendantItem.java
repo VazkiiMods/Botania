@@ -43,7 +43,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.client.AccessorMinecraft;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 
 	public TaintedBloodPendantItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

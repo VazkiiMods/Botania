@@ -33,7 +33,7 @@ import vazkii.botania.common.block.flower.functional.HeiseiDreamBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.AccessorCreeper;
 import vazkii.botania.mixin.AccessorEntity;
 import vazkii.botania.network.EffectType;
@@ -46,7 +46,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 
 	public CharmOfTheDivaItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static void onEntityDamaged(Player player, Entity entity) {

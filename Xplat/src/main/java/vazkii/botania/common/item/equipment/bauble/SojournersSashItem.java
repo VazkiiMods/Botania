@@ -30,7 +30,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.UUID;
@@ -80,7 +80,7 @@ public class SojournersSashItem extends BaubleItem {
 		this.speed = speed;
 		this.jump = jump;
 		this.fallBuffer = fallBuffer;
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static void tickBelt(Player player) {

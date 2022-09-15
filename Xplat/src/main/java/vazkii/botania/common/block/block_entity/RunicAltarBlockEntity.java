@@ -46,7 +46,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.RuneItem;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -191,7 +191,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.random.nextInt(20) == 0) {
 			Vec3 vec = Vec3.atCenterOf(self.getBlockPos());
 			Vec3 endVec = vec.add(0, 2.5, 0);
-			IProxy.INSTANCE.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
+			Proxy.INSTANCE.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
 		}
 
 		if (self.cooldown > 0) {

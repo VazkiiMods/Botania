@@ -27,7 +27,7 @@ import vazkii.botania.api.item.CosmeticBauble;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 	public CosmeticBaubleItem(Variant variant, Properties props) {
 		super(props);
 		this.variant = variant;
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

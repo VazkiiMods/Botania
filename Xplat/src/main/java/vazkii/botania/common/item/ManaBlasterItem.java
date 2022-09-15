@@ -39,7 +39,7 @@ import vazkii.botania.common.advancements.ManaBlasterTrigger;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,7 +170,7 @@ public class ManaBlasterItem extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<Component> lensTip = lens.getTooltipLines(IProxy.INSTANCE.getClientPlayer(), TooltipFlag.Default.NORMAL);
+			List<Component> lensTip = lens.getTooltipLines(Proxy.INSTANCE.getClientPlayer(), TooltipFlag.Default.NORMAL);
 			if (lensTip.size() > 1) {
 				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}

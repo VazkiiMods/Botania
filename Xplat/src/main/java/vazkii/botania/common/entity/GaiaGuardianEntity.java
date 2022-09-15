@@ -76,7 +76,7 @@ import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.AccessorMobEffect;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
@@ -194,7 +194,7 @@ public class GaiaGuardianEntity extends Mob {
 		super(type, world);
 		xpReward = 825;
 		if (world.isClientSide) {
-			IProxy.INSTANCE.addBoss(this);
+			Proxy.INSTANCE.addBoss(this);
 		}
 	}
 
@@ -547,7 +547,7 @@ public class GaiaGuardianEntity extends Mob {
 	@Override
 	public void remove(RemovalReason reason) {
 		if (level.isClientSide) {
-			IProxy.INSTANCE.removeBoss(this);
+			Proxy.INSTANCE.removeBoss(this);
 		}
 		super.remove(reason);
 	}
@@ -736,7 +736,7 @@ public class GaiaGuardianEntity extends Mob {
 
 		if (level.isClientSide) {
 			particles();
-			Player player = IProxy.INSTANCE.getClientPlayer();
+			Player player = Proxy.INSTANCE.getClientPlayer();
 			if (getPlayersAround().contains(player)) {
 				player.getAbilities().flying &= player.getAbilities().instabuild;
 			}
@@ -1001,7 +1001,7 @@ public class GaiaGuardianEntity extends Mob {
 		this.hardMode = hardMode;
 		this.source = source;
 		this.bossInfoUUID = bossInfoUUID;
-		IProxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
+		Proxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
 	}
 
 	@NotNull

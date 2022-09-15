@@ -48,7 +48,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.forge.CapabilityUtil;
 
 import java.util.UUID;
@@ -106,7 +106,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	public void onInit(Item item) {
-		IProxy.INSTANCE.runOnClient(() -> () -> CuriosRendererRegistry.register(item, () -> Renderer.INSTANCE));
+		Proxy.INSTANCE.runOnClient(() -> () -> CuriosRendererRegistry.register(item, () -> Renderer.INSTANCE));
 	}
 
 	@Override

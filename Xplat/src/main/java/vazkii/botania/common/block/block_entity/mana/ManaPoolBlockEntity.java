@@ -56,7 +56,7 @@ import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaTabletItem;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -227,7 +227,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 						boolean outputting = param == 1;
 						Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
 						Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-						IProxy.INSTANCE.lightningFX(outputting ? tileVec : itemVec,
+						Proxy.INSTANCE.lightningFX(outputting ? tileVec : itemVec,
 								outputting ? itemVec : tileVec, 80, level.random.nextLong(), 0x4400799c, 0x4400C6FF);
 					}
 				}

@@ -52,7 +52,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,7 +84,7 @@ public class FlugelTiaraItem extends BaubleItem {
 
 	public FlugelTiaraItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

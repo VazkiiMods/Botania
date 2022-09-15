@@ -29,7 +29,7 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 public class TectonicGirdleItem extends BaubleItem {
 
@@ -37,7 +37,7 @@ public class TectonicGirdleItem extends BaubleItem {
 
 	public TectonicGirdleItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	@Override

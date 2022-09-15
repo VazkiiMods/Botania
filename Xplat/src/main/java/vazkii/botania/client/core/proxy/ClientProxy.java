@@ -29,7 +29,7 @@ import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -39,7 +39,7 @@ import java.time.Month;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ClientProxy implements IProxy {
+public class ClientProxy implements Proxy {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;

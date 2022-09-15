@@ -34,7 +34,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +97,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 	@Override
 	public void onInit(Item item) {
 		TrinketsApi.registerTrinket(item, WRAPPER);
-		IProxy.INSTANCE.runOnClient(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
+		Proxy.INSTANCE.runOnClient(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
 	}
 
 	public static final Trinket WRAPPER = new Trinket() {

@@ -56,7 +56,7 @@ import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -291,7 +291,7 @@ public class WandOfTheForestItem extends Item {
 			float b = (color & 0xFF) / 255F;
 
 			SparkleParticleData data = SparkleParticleData.noClip(0.5F, r, g, b, 4);
-			IProxy.INSTANCE.addParticleForceNear(world, data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
+			Proxy.INSTANCE.addParticleForceNear(world, data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 			currentPos = currentPos.add(movement);
 		}
 	}

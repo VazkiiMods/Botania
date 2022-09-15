@@ -28,7 +28,7 @@ import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.IPacket;
 
@@ -104,7 +104,7 @@ public record PacketBotaniaEffect(EffectType type, double x, double y, double z,
 								double wx = x + 0.5 - Math.cos(rad) * GaiaGuardianEntity.ARENA_RANGE;
 								double wy = y + 0.5;
 								double wz = z + 0.5 - Math.sin(rad) * GaiaGuardianEntity.ARENA_RANGE;
-								IProxy.INSTANCE.addParticleForceNear(world, data, wx, wy, wz, 0, 0, 0);
+								Proxy.INSTANCE.addParticleForceNear(world, data, wx, wy, wz, 0, 0, 0);
 							}
 						}
 						case ITEM_SMOKE -> {
@@ -234,7 +234,7 @@ public record PacketBotaniaEffect(EffectType type, double x, double y, double z,
 											0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
 									};
 									WispParticleData data = WispParticleData.wisp(0.85F, colorsfx[0], colorsfx[1], colorsfx[2], 0.25F);
-									IProxy.INSTANCE.addParticleForceNear(world, data, wx, wy, wz, 0, (float) (-g * 0.05), 0);
+									Proxy.INSTANCE.addParticleForceNear(world, data, wx, wy, wz, 0, (float) (-g * 0.05), 0);
 									data = WispParticleData.wisp((float) Math.random() * 0.1F + 0.1F, colorsfx[0], colorsfx[1], colorsfx[2], 0.9F);
 									world.addParticle(data, wx, wy, wz, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F);
 

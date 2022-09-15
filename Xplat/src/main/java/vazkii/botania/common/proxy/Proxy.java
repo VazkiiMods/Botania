@@ -26,14 +26,14 @@ import vazkii.patchouli.api.IMultiblock;
 
 import java.util.function.Supplier;
 
-public interface IProxy {
-	IProxy INSTANCE = make();
+public interface Proxy {
+	Proxy INSTANCE = make();
 
-	private static IProxy make() {
+	private static Proxy make() {
 		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
 			return new ClientProxy();
 		} else {
-			return new IProxy() {};
+			return new Proxy() {};
 		}
 	}
 

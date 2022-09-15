@@ -25,7 +25,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -152,7 +152,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public BlockPos getBinding() {
-		return IProxy.INSTANCE.getClientPlayer().isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
+		return Proxy.INSTANCE.getClientPlayer().isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
 	}
 
 }

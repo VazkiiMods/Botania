@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 public class StarfieldCreatorBlockEntity extends BotaniaBlockEntity {
 	public StarfieldCreatorBlockEntity(BlockPos pos, BlockState state) {
@@ -30,7 +30,7 @@ public class StarfieldCreatorBlockEntity extends BotaniaBlockEntity {
 		int iter = 2;
 		for (int i = 0; i < iter; i++) {
 			double x = worldPosition.getX() + 0.5 + (Math.random() - 0.5) * radius;
-			double y = Math.min(256, worldPosition.getY() + IProxy.INSTANCE.getClientRenderDistance() * 16);
+			double y = Math.min(256, worldPosition.getY() + Proxy.INSTANCE.getClientRenderDistance() * 16);
 			double z = worldPosition.getZ() + 0.5 + (Math.random() - 0.5) * radius;
 
 			float w = 0.6F;

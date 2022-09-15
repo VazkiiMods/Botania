@@ -35,7 +35,7 @@ import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 public class CloakOfVirtueItem extends BaubleItem {
 
@@ -47,7 +47,7 @@ public class CloakOfVirtueItem extends BaubleItem {
 
 	public CloakOfVirtueItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public float onPlayerDamage(Player player, DamageSource src, float amount) {

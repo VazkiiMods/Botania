@@ -35,7 +35,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -93,7 +93,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		Player player = IProxy.INSTANCE.getClientPlayer();
+		Player player = Proxy.INSTANCE.getClientPlayer();
 		list.add(getArmorSetTitle(player));
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();

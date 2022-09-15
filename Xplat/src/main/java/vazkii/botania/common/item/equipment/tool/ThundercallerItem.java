@@ -22,7 +22,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class ThundercallerItem extends ManasteelSwordItem {
 					target.hurt(DamageSource.mobAttack(attacker), dmg);
 				}
 
-				IProxy.INSTANCE.lightningFX(VecHelper.fromEntityCenter(lightningSource), VecHelper.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
+				Proxy.INSTANCE.lightningFX(VecHelper.fromEntityCenter(lightningSource), VecHelper.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
 
 				alreadyTargetedEntities.add(target);
 				lightningSource = target;

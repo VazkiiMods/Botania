@@ -28,7 +28,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class BenevolentGoddessCharmItem extends BaubleItem {
 
 	public BenevolentGoddessCharmItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static boolean shouldProtectExplosion(Level world, Vec3 vec) {

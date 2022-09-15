@@ -27,13 +27,13 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 
 public class CrimsonPendantItem extends BaubleItem {
 
 	public CrimsonPendantItem(Properties props) {
 		super(props);
-		IProxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
+		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
 	}
 
 	public static boolean onDamage(LivingEntity entity, DamageSource source) {

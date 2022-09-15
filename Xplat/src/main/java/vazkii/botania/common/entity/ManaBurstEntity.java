@@ -45,7 +45,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
-import vazkii.botania.common.proxy.IProxy;
+import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -368,12 +368,12 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 				level.addParticle(data, true, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
-			Player player = IProxy.INSTANCE.getClientPlayer();
+			Player player = Proxy.INSTANCE.getClientPlayer();
 			boolean depth = player == null || !ManaseerMonocleItem.hasMonocle(player);
 
 			if (BotaniaConfig.client().subtlePowerSystem()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
-				IProxy.INSTANCE.addParticleForceNear(level, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				Proxy.INSTANCE.addParticleForceNear(level, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
 				float og = g;
@@ -400,7 +400,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(uuid.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
-					IProxy.INSTANCE.addParticleForceNear(level, data, iterX, iterY, iterZ,
+					Proxy.INSTANCE.addParticleForceNear(level, data, iterX, iterY, iterZ,
 							(float) -getDeltaMovement().x() * 0.01F,
 							(float) -getDeltaMovement().y() * 0.01F,
 							(float) -getDeltaMovement().z() * 0.01F);
