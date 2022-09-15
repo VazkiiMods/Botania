@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.brew.potion;
+package vazkii.botania.common.brew.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -16,9 +16,9 @@ import net.minecraft.world.entity.projectile.FishingHook;
 
 import org.jetbrains.annotations.NotNull;
 
-public class PotionAllure extends MobEffect {
+public class AllureMobEffect extends MobEffect {
 
-	public PotionAllure() {
+	public AllureMobEffect() {
 		super(MobEffectCategory.BENEFICIAL, 0x0034E4);
 	}
 

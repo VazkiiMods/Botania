@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
@@ -122,7 +122,7 @@ public class ItemBrewBase extends Item implements BrewItem {
 	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
 		if (allowedIn(tab)) {
 			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
-				if (brew == ModBrews.fallbackBrew) {
+				if (brew == BotaniaBrews.fallbackBrew) {
 					continue;
 				}
 				ItemStack stack = new ItemStack(this);

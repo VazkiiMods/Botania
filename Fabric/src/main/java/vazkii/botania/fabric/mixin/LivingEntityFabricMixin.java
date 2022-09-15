@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
-import vazkii.botania.common.brew.potion.PotionSoulCross;
+import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
@@ -64,7 +64,7 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	@Inject(at = @At("RETURN"), method = "createWitherRose")
 	private void healKiller(@Nullable LivingEntity adversary, CallbackInfo ci) {
 		if (!level.isClientSide && adversary != null) {
-			PotionSoulCross.onEntityKill((LivingEntity) (Object) this, adversary);
+			SoulCrossMobEffect.onEntityKill((LivingEntity) (Object) this, adversary);
 		}
 
 	}

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.brew.potion;
+package vazkii.botania.common.brew.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,13 +15,13 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.BotaniaMobEffects;
 
-public class PotionEmptiness extends MobEffect {
+public class EmptinessMobEffect extends MobEffect {
 
 	private static final int RANGE = 128;
 
-	public PotionEmptiness() {
+	public EmptinessMobEffect() {
 		super(MobEffectCategory.BENEFICIAL, 0xFACFFF);
 	}
 
@@ -30,7 +30,7 @@ public class PotionEmptiness extends MobEffect {
 			AABB aabb = new AABB(entity.getX() - RANGE, entity.getY() - RANGE, entity.getZ() - RANGE,
 					entity.getX() + RANGE, entity.getY() + RANGE, entity.getZ() + RANGE);
 			for (Player player : entity.level.players()) {
-				if (player.hasEffect(ModPotions.emptiness) && player.getBoundingBox().intersects(aabb)) {
+				if (player.hasEffect(BotaniaMobEffects.emptiness) && player.getBoundingBox().intersects(aabb)) {
 					return true;
 				}
 			}

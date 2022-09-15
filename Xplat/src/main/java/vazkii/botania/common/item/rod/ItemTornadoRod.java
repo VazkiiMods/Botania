@@ -32,7 +32,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.network.EffectType;
@@ -227,7 +227,7 @@ public class ItemTornadoRod extends Item {
 
 	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
 		p.level.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
-		p.addEffect(new MobEffectInstance(ModPotions.featherfeet, 100, 0));
+		p.addEffect(new MobEffectInstance(BotaniaMobEffects.featherfeet, 100, 0));
 		tile.receiveMana(-COST);
 	}
 

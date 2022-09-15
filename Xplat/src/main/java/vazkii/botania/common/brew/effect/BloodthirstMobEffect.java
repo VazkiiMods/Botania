@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.brew.potion;
+package vazkii.botania.common.brew.effect;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
@@ -16,13 +16,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.BotaniaMobEffects;
 
-public class PotionBloodthirst extends MobEffect {
+public class BloodthirstMobEffect extends MobEffect {
 
 	private static final int RANGE = 64;
 
-	public PotionBloodthirst() {
+	public BloodthirstMobEffect() {
 		super(MobEffectCategory.BENEFICIAL, 0xC30000);
 	}
 
@@ -30,8 +30,8 @@ public class PotionBloodthirst extends MobEffect {
 		if (entityClass == MobCategory.MONSTER) {
 			AABB aabb = new AABB(pos).inflate(RANGE);
 			for (Player player : world.players()) {
-				if (player.hasEffect(ModPotions.bloodthrst)
-						&& !player.hasEffect(ModPotions.emptiness)
+				if (player.hasEffect(BotaniaMobEffects.bloodthrst)
+						&& !player.hasEffect(BotaniaMobEffects.emptiness)
 						&& player.getBoundingBox().intersects(aabb)) {
 					return true;
 				}

@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 
@@ -159,7 +159,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	public boolean acceptsItem(ItemStack stack) {
-		return !stack.isEmpty() && stack.is(ModItems.incenseStick) && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != ModBrews.fallbackBrew;
+		return !stack.isEmpty() && stack.is(ModItems.incenseStick) && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != BotaniaBrews.fallbackBrew;
 	}
 
 	@Override

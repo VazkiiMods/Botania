@@ -34,7 +34,7 @@ import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
@@ -162,7 +162,7 @@ public final class ColorHandler {
 			}
 
 			Brew brew = ((BrewItem) s.getItem()).getBrew(s);
-			if (brew == ModBrews.fallbackBrew) {
+			if (brew == BotaniaBrews.fallbackBrew) {
 				return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
 			}
 

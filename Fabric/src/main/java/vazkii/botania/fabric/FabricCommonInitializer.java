@@ -68,8 +68,8 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
-import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.command.SkyblockCommand;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -166,8 +166,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		MinecartComparatorLogicRegistry.register(ModEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 
 		// Potions
-		ModPotions.registerPotions(bind(Registry.MOB_EFFECT));
-		ModBrews.registerBrews();
+		BotaniaMobEffects.registerPotions(bind(Registry.MOB_EFFECT));
+		BotaniaBrews.registerBrews();
 
 		// Worldgen
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));

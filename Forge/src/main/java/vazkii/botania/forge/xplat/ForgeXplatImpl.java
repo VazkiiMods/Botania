@@ -91,7 +91,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
@@ -448,10 +448,10 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public Registry<Brew> createBrewRegistry() {
-		// The registryKey really belongs on ModBrews, but this method is called from there,
+		// The registryKey really belongs on BotaniaBrews, but this method is called from there,
 		// so we'd like to avoid the circular dependency.
 		return RegistryForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
-				LibMisc.MOD_ID + ":fallback", registry -> ModBrews.fallbackBrew);
+				LibMisc.MOD_ID + ":fallback", registry -> BotaniaBrews.fallbackBrew);
 	}
 
 	@Nullable

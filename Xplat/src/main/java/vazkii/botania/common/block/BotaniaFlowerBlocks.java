@@ -25,7 +25,7 @@ import vazkii.botania.common.block.flower.ManastarBlockEntity;
 import vazkii.botania.common.block.flower.PureDaisyBlockEntity;
 import vazkii.botania.common.block.flower.functional.*;
 import vazkii.botania.common.block.flower.generating.*;
-import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -37,7 +37,7 @@ public class BotaniaFlowerBlocks {
 	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.copy(Blocks.POPPY);
 	private static final BlockBehaviour.Properties FLOATING_PROPS = BotaniaBlocks.FLOATING_PROPS;
 
-	public static final Block pureDaisy = new SpecialFlowerBlock(ModPotions.clear, 1, FLOWER_PROPS, () -> BotaniaFlowerBlocks.PURE_DAISY);
+	public static final Block pureDaisy = new SpecialFlowerBlock(BotaniaMobEffects.clear, 1, FLOWER_PROPS, () -> BotaniaFlowerBlocks.PURE_DAISY);
 	public static final Block pureDaisyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.PURE_DAISY);
 
 	public static final Block manastar = new SpecialFlowerBlock(MobEffects.GLOWING, 10, FLOWER_PROPS, () -> BotaniaFlowerBlocks.MANASTAR);
@@ -67,7 +67,7 @@ public class BotaniaFlowerBlocks {
 	public static final Block gourmaryllis = new SpecialFlowerBlock(MobEffects.HUNGER, 180, FLOWER_PROPS, () -> BotaniaFlowerBlocks.GOURMARYLLIS);
 	public static final Block gourmaryllisFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.GOURMARYLLIS);
 
-	public static final Block narslimmus = new SpecialFlowerBlock(ModPotions.featherfeet, 240, FLOWER_PROPS, () -> BotaniaFlowerBlocks.NARSLIMMUS);
+	public static final Block narslimmus = new SpecialFlowerBlock(BotaniaMobEffects.featherfeet, 240, FLOWER_PROPS, () -> BotaniaFlowerBlocks.NARSLIMMUS);
 	public static final Block narslimmusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.NARSLIMMUS);
 
 	public static final Block spectrolus = new SpecialFlowerBlock(MobEffects.BLINDNESS, 240, FLOWER_PROPS, () -> BotaniaFlowerBlocks.SPECTROLUS);
@@ -93,7 +93,7 @@ public class BotaniaFlowerBlocks {
 	public static final Block dreadthorn = new SpecialFlowerBlock(MobEffects.WITHER, 10, FLOWER_PROPS, () -> BotaniaFlowerBlocks.DREADTHORN);
 	public static final Block dreadthornFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.DREADTHORN);
 
-	public static final Block heiseiDream = new SpecialFlowerBlock(ModPotions.soulCross, 300, FLOWER_PROPS, () -> BotaniaFlowerBlocks.HEISEI_DREAM);
+	public static final Block heiseiDream = new SpecialFlowerBlock(BotaniaMobEffects.soulCross, 300, FLOWER_PROPS, () -> BotaniaFlowerBlocks.HEISEI_DREAM);
 	public static final Block heiseiDreamFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.HEISEI_DREAM);
 
 	public static final Block tigerseye = new SpecialFlowerBlock(MobEffects.DAMAGE_BOOST, 90, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TIGERSEYE);
@@ -121,13 +121,13 @@ public class BotaniaFlowerBlocks {
 	public static final Block hopperhockFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.HOPPERHOCK);
 	public static final Block hopperhockChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.HOPPERHOCK_CHIBI);
 
-	public static final Block tangleberrie = new SpecialFlowerBlock(ModPotions.bloodthrst, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE);
-	public static final Block tangleberrieChibi = new SpecialFlowerBlock(ModPotions.bloodthrst, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE_CHIBI);
+	public static final Block tangleberrie = new SpecialFlowerBlock(BotaniaMobEffects.bloodthrst, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE);
+	public static final Block tangleberrieChibi = new SpecialFlowerBlock(BotaniaMobEffects.bloodthrst, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE_CHIBI);
 	public static final Block tangleberrieFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE);
 	public static final Block tangleberrieChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE_CHIBI);
 
-	public static final Block jiyuulia = new SpecialFlowerBlock(ModPotions.emptiness, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA);
-	public static final Block jiyuuliaChibi = new SpecialFlowerBlock(ModPotions.emptiness, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA_CHIBI);
+	public static final Block jiyuulia = new SpecialFlowerBlock(BotaniaMobEffects.emptiness, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA);
+	public static final Block jiyuuliaChibi = new SpecialFlowerBlock(BotaniaMobEffects.emptiness, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA_CHIBI);
 	public static final Block jiyuuliaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA);
 	public static final Block jiyuuliaChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA_CHIBI);
 
@@ -147,7 +147,7 @@ public class BotaniaFlowerBlocks {
 	public static final Block clayconiaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.CLAYCONIA);
 	public static final Block clayconiaChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.CLAYCONIA_CHIBI);
 
-	public static final Block loonium = new SpecialFlowerBlock(ModPotions.allure, 900, FLOWER_PROPS, () -> BotaniaFlowerBlocks.LOONIUM);
+	public static final Block loonium = new SpecialFlowerBlock(BotaniaMobEffects.allure, 900, FLOWER_PROPS, () -> BotaniaFlowerBlocks.LOONIUM);
 	public static final Block looniumFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.LOONIUM);
 
 	public static final Block daffomill = new SpecialFlowerBlock(MobEffects.LEVITATION, 6, FLOWER_PROPS, () -> BotaniaFlowerBlocks.DAFFOMILL);

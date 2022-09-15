@@ -36,7 +36,7 @@ import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.flower.functional.SolegnoliaBlockEntity;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.handler.ModSounds;
@@ -181,7 +181,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public Registry<Brew> getBrewRegistry() {
-		return ModBrews.registry;
+		return BotaniaBrews.registry;
 	}
 
 	@Override

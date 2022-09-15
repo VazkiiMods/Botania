@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.brew.potion.PotionBloodthirst;
+import vazkii.botania.common.brew.effect.BloodthirstMobEffect;
 
 @Mixin(SpawnPlacements.class)
 public class MixinSpawnPlacements {
@@ -33,7 +33,7 @@ public class MixinSpawnPlacements {
 	// and we jump over that in Bloodthirst as well.
 	@Inject(at = @At("RETURN"), cancellable = true, method = "checkSpawnRules")
 	private static <T extends Entity> void bloodthirstOverride(EntityType<T> type, ServerLevelAccessor world, MobSpawnType reason, BlockPos position, RandomSource random, CallbackInfoReturnable<Boolean> cir) {
-		if (reason == MobSpawnType.NATURAL && PotionBloodthirst.overrideSpawn(world, position, type.getCategory())) {
+		if (reason == MobSpawnType.NATURAL && BloodthirstMobEffect.overrideSpawn(world, position, type.getCategory())) {
 			cir.setReturnValue(true);
 		}
 	}

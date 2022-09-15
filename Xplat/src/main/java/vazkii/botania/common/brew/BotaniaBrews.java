@@ -23,7 +23,7 @@ import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ModBrews {
+public class BotaniaBrews {
 
 	public static final Registry<Brew> registry = IXplatAbstractions.INSTANCE.createBrewRegistry();
 	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
@@ -41,13 +41,13 @@ public class ModBrews {
 	public static final Brew nightVision = new Brew(0x7C4BEB, 4000, new MobEffectInstance(MobEffects.NIGHT_VISION, 9600, 0));
 	public static final Brew absorption = new Brew(0xF2EB23, 7000, new MobEffectInstance(MobEffects.ABSORPTION, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 
-	public static final Brew allure = make(2000, new MobEffectInstance(ModPotions.allure, 4800, 0));
-	public static final Brew soulCross = make(10000, new MobEffectInstance(ModPotions.soulCross, 1800, 0));
-	public static final Brew featherfeet = make(7000, new MobEffectInstance(ModPotions.featherfeet, 1800, 0));
-	public static final Brew emptiness = make(30000, new MobEffectInstance(ModPotions.emptiness, 7200, 0));
-	public static final Brew bloodthirst = make(20000, new MobEffectInstance(ModPotions.bloodthrst, 7200, 0));
+	public static final Brew allure = make(2000, new MobEffectInstance(BotaniaMobEffects.allure, 4800, 0));
+	public static final Brew soulCross = make(10000, new MobEffectInstance(BotaniaMobEffects.soulCross, 1800, 0));
+	public static final Brew featherfeet = make(7000, new MobEffectInstance(BotaniaMobEffects.featherfeet, 1800, 0));
+	public static final Brew emptiness = make(30000, new MobEffectInstance(BotaniaMobEffects.emptiness, 7200, 0));
+	public static final Brew bloodthirst = make(20000, new MobEffectInstance(BotaniaMobEffects.bloodthrst, 7200, 0));
 	public static final Brew overload = new Brew(0x232323, 12000, new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800, 3), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1800, 2), new MobEffectInstance(MobEffects.WEAKNESS, 3600, 1), new MobEffectInstance(MobEffects.HUNGER, 200, 2));
-	public static final Brew clear = make(4000, new MobEffectInstance(ModPotions.clear, 0, 0));
+	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.clear, 0, 0));
 
 	public static void registerBrews() {
 		BiConsumer<Brew, ResourceLocation> r = (b, id) -> Registry.register(registry, id, b);

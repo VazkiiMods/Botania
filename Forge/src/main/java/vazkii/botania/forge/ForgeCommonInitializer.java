@@ -85,9 +85,9 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
-import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.brew.ModPotions;
-import vazkii.botania.common.brew.potion.PotionSoulCross;
+import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.brew.BotaniaMobEffects;
+import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.command.SkyblockCommand;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -196,8 +196,8 @@ public class ForgeCommonInitializer {
 
 		// Potions
 		bind(Registry.MOB_EFFECT_REGISTRY, (consumer) -> {
-			ModPotions.registerPotions(consumer);
-			ModBrews.registerBrews();
+			BotaniaMobEffects.registerPotions(consumer);
+			BotaniaBrews.registerBrews();
 		});
 
 		// Worldgen
@@ -352,7 +352,7 @@ public class ForgeCommonInitializer {
 			});
 			bus.addListener((LivingDeathEvent e) -> {
 				if (e.getSource().getEntity() instanceof LivingEntity killer) {
-					PotionSoulCross.onEntityKill(e.getEntity(), killer);
+					SoulCrossMobEffect.onEntityKill(e.getEntity(), killer);
 				}
 			});
 			bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntity()));

@@ -41,7 +41,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.mixin.client.AccessorMinecraft;
@@ -75,7 +75,7 @@ public class ItemBloodPendant extends ItemBauble implements BrewContainer, BrewI
 		super.appendHoverText(stack, world, tooltip, adv);
 
 		Brew brew = getBrew(stack);
-		if (brew == ModBrews.fallbackBrew) {
+		if (brew == BotaniaBrews.fallbackBrew) {
 			tooltip.add(Component.translatable("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
 			return;
 		}
@@ -95,7 +95,7 @@ public class ItemBloodPendant extends ItemBauble implements BrewContainer, BrewI
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
 		Brew brew = ((BrewItem) stack.getItem()).getBrew(stack);
-		if (brew != ModBrews.fallbackBrew && living instanceof Player player && !living.level.isClientSide) {
+		if (brew != BotaniaBrews.fallbackBrew && living instanceof Player player && !living.level.isClientSide) {
 			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;

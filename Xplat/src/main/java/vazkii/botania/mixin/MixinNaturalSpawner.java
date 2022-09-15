@@ -20,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.block.flower.generating.NarslimmusBlockEntity;
-import vazkii.botania.common.brew.potion.PotionBloodthirst;
-import vazkii.botania.common.brew.potion.PotionEmptiness;
+import vazkii.botania.common.brew.effect.BloodthirstMobEffect;
+import vazkii.botania.common.brew.effect.EmptinessMobEffect;
 
 @Mixin(NaturalSpawner.class)
 public class MixinNaturalSpawner {
@@ -42,7 +42,7 @@ public class MixinNaturalSpawner {
 	 */
 	@Inject(at = @At("HEAD"), method = "isValidPositionForMob", cancellable = true)
 	private static void emptiness(ServerLevel world, Mob entity, double squaredDistance, CallbackInfoReturnable<Boolean> cir) {
-		if (PotionEmptiness.shouldCancel(entity)) {
+		if (EmptinessMobEffect.shouldCancel(entity)) {
 			cir.setReturnValue(false);
 		}
 	}
@@ -50,7 +50,7 @@ public class MixinNaturalSpawner {
 	// Jump over entity.checkSpawnRules(pos, reason) and entity.checkSpawnObstruction(pos) under Bloodlust
 	@Inject(at = @At(value = "RETURN", ordinal = 1), cancellable = true, method = "isValidPositionForMob")
 	private static void bloodthirstOverride(ServerLevel world, Mob entity, double p_234974_2_, CallbackInfoReturnable<Boolean> cir) {
-		if (PotionBloodthirst.overrideSpawn(world, entity.blockPosition(), entity.getType().getCategory())) {
+		if (BloodthirstMobEffect.overrideSpawn(world, entity.blockPosition(), entity.getType().getCategory())) {
 			cir.setReturnValue(true);
 		}
 	}

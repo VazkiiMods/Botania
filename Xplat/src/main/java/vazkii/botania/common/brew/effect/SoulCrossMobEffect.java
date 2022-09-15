@@ -6,22 +6,22 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.brew.potion;
+package vazkii.botania.common.brew.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.brew.BotaniaMobEffects;
 
-public class PotionSoulCross extends MobEffect {
+public class SoulCrossMobEffect extends MobEffect {
 
-	public PotionSoulCross() {
+	public SoulCrossMobEffect() {
 		super(MobEffectCategory.BENEFICIAL, 0x47453d);
 	}
 
 	public static void onEntityKill(LivingEntity dying, LivingEntity killer) {
-		if (killer.hasEffect(ModPotions.soulCross)) {
+		if (killer.hasEffect(BotaniaMobEffects.soulCross)) {
 			killer.heal(dying.getMaxHealth() / 20);
 		}
 	}

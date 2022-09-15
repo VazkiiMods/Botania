@@ -24,7 +24,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public class ItemIncenseStick extends Item implements BrewItem, BrewContainer {
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		Brew brew = getBrew(stack);
-		if (brew == ModBrews.fallbackBrew) {
+		if (brew == BotaniaBrews.fallbackBrew) {
 			list.add(Component.translatable("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
 			return;
 		}

@@ -36,7 +36,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
@@ -58,7 +58,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof BrewItem brew && brew.getBrew(stack) != null && brew.getBrew(stack) != ModBrews.fallbackBrew || getItemHandler().getItem(0).isEmpty() != stack.getItem() instanceof BrewContainer) {
+		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof BrewItem brew && brew.getBrew(stack) != null && brew.getBrew(stack) != BotaniaBrews.fallbackBrew || getItemHandler().getItem(0).isEmpty() != stack.getItem() instanceof BrewContainer) {
 			return false;
 		}
 
