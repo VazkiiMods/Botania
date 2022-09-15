@@ -43,7 +43,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockTinyPotato;
+import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.mixin.client.AccessorModelManager;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -70,7 +70,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 
 	public static BakedModel getModelFromDisplayName(Component displayName) {
 		var name = displayName.getString().trim().toLowerCase(Locale.ROOT);
-		if (ItemBlockTinyPotato.isEnchantedName(displayName)) {
+		if (TinyPotatoBlockItem.isEnchantedName(displayName)) {
 			name = removeFromFront(name, "enchanted");
 		}
 		return getModel(name);
@@ -105,7 +105,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		ms.pushPose();
 
 		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
-		boolean enchanted = ItemBlockTinyPotato.isEnchantedName(potato.name);
+		boolean enchanted = TinyPotatoBlockItem.isEnchantedName(potato.name);
 		if (enchanted) {
 			name = removeFromFront(name, "enchanted");
 		}
@@ -221,7 +221,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 			}
 
 			boolean block = stack.getItem() instanceof BlockItem;
-			boolean mySon = stack.getItem() instanceof ItemBlockTinyPotato;
+			boolean mySon = stack.getItem() instanceof TinyPotatoBlockItem;
 
 			switch (side) {
 				case UP -> {

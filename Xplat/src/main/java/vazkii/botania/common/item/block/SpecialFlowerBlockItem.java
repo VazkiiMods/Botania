@@ -29,12 +29,12 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
-public class ItemBlockSpecialFlower extends BlockItem {
+public class SpecialFlowerBlockItem extends BlockItem {
 	private static final TagKey<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
 	private static final TagKey<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
 	private static final TagKey<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
 
-	public ItemBlockSpecialFlower(Block block1, Properties props) {
+	public SpecialFlowerBlockItem(Block block1, Properties props) {
 		super(block1, props);
 	}
 

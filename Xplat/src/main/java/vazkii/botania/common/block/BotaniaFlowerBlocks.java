@@ -27,7 +27,7 @@ import vazkii.botania.common.block.flower.functional.*;
 import vazkii.botania.common.block.flower.generating.*;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.item.block.SpecialFlowerBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -399,151 +399,151 @@ public class BotaniaFlowerBlocks {
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = ModItems.defaultBuilder();
 
-		r.accept(new ItemBlockSpecialFlower(pureDaisy, props), getId(pureDaisy));
-		r.accept(new ItemBlockSpecialFlower(pureDaisyFloating, props), getId(pureDaisyFloating));
+		r.accept(new SpecialFlowerBlockItem(pureDaisy, props), getId(pureDaisy));
+		r.accept(new SpecialFlowerBlockItem(pureDaisyFloating, props), getId(pureDaisyFloating));
 
-		r.accept(new ItemBlockSpecialFlower(manastar, props), getId(manastar));
-		r.accept(new ItemBlockSpecialFlower(manastarFloating, props), getId(manastarFloating));
+		r.accept(new SpecialFlowerBlockItem(manastar, props), getId(manastar));
+		r.accept(new SpecialFlowerBlockItem(manastarFloating, props), getId(manastarFloating));
 
-		r.accept(new ItemBlockSpecialFlower(hydroangeas, props), getId(hydroangeas));
-		r.accept(new ItemBlockSpecialFlower(hydroangeasFloating, props), getId(hydroangeasFloating));
+		r.accept(new SpecialFlowerBlockItem(hydroangeas, props), getId(hydroangeas));
+		r.accept(new SpecialFlowerBlockItem(hydroangeasFloating, props), getId(hydroangeasFloating));
 
-		r.accept(new ItemBlockSpecialFlower(endoflame, props), getId(endoflame));
-		r.accept(new ItemBlockSpecialFlower(endoflameFloating, props), getId(endoflameFloating));
+		r.accept(new SpecialFlowerBlockItem(endoflame, props), getId(endoflame));
+		r.accept(new SpecialFlowerBlockItem(endoflameFloating, props), getId(endoflameFloating));
 
-		r.accept(new ItemBlockSpecialFlower(thermalily, props), getId(thermalily));
-		r.accept(new ItemBlockSpecialFlower(thermalilyFloating, props), getId(thermalilyFloating));
+		r.accept(new SpecialFlowerBlockItem(thermalily, props), getId(thermalily));
+		r.accept(new SpecialFlowerBlockItem(thermalilyFloating, props), getId(thermalilyFloating));
 
-		r.accept(new ItemBlockSpecialFlower(rosaArcana, props), getId(rosaArcana));
-		r.accept(new ItemBlockSpecialFlower(rosaArcanaFloating, props), getId(rosaArcanaFloating));
+		r.accept(new SpecialFlowerBlockItem(rosaArcana, props), getId(rosaArcana));
+		r.accept(new SpecialFlowerBlockItem(rosaArcanaFloating, props), getId(rosaArcanaFloating));
 
-		r.accept(new ItemBlockSpecialFlower(munchdew, props), getId(munchdew));
-		r.accept(new ItemBlockSpecialFlower(munchdewFloating, props), getId(munchdewFloating));
+		r.accept(new SpecialFlowerBlockItem(munchdew, props), getId(munchdew));
+		r.accept(new SpecialFlowerBlockItem(munchdewFloating, props), getId(munchdewFloating));
 
-		r.accept(new ItemBlockSpecialFlower(entropinnyum, props), getId(entropinnyum));
-		r.accept(new ItemBlockSpecialFlower(entropinnyumFloating, props), getId(entropinnyumFloating));
+		r.accept(new SpecialFlowerBlockItem(entropinnyum, props), getId(entropinnyum));
+		r.accept(new SpecialFlowerBlockItem(entropinnyumFloating, props), getId(entropinnyumFloating));
 
-		r.accept(new ItemBlockSpecialFlower(kekimurus, props), getId(kekimurus));
-		r.accept(new ItemBlockSpecialFlower(kekimurusFloating, props), getId(kekimurusFloating));
+		r.accept(new SpecialFlowerBlockItem(kekimurus, props), getId(kekimurus));
+		r.accept(new SpecialFlowerBlockItem(kekimurusFloating, props), getId(kekimurusFloating));
 
-		r.accept(new ItemBlockSpecialFlower(gourmaryllis, props), getId(gourmaryllis));
-		r.accept(new ItemBlockSpecialFlower(gourmaryllisFloating, props), getId(gourmaryllisFloating));
+		r.accept(new SpecialFlowerBlockItem(gourmaryllis, props), getId(gourmaryllis));
+		r.accept(new SpecialFlowerBlockItem(gourmaryllisFloating, props), getId(gourmaryllisFloating));
 
-		r.accept(new ItemBlockSpecialFlower(narslimmus, props), getId(narslimmus));
-		r.accept(new ItemBlockSpecialFlower(narslimmusFloating, props), getId(narslimmusFloating));
+		r.accept(new SpecialFlowerBlockItem(narslimmus, props), getId(narslimmus));
+		r.accept(new SpecialFlowerBlockItem(narslimmusFloating, props), getId(narslimmusFloating));
 
-		r.accept(new ItemBlockSpecialFlower(spectrolus, props), getId(spectrolus));
-		r.accept(new ItemBlockSpecialFlower(spectrolusFloating, props), getId(spectrolusFloating));
+		r.accept(new SpecialFlowerBlockItem(spectrolus, props), getId(spectrolus));
+		r.accept(new SpecialFlowerBlockItem(spectrolusFloating, props), getId(spectrolusFloating));
 
-		r.accept(new ItemBlockSpecialFlower(dandelifeon, props), getId(dandelifeon));
-		r.accept(new ItemBlockSpecialFlower(dandelifeonFloating, props), getId(dandelifeonFloating));
+		r.accept(new SpecialFlowerBlockItem(dandelifeon, props), getId(dandelifeon));
+		r.accept(new SpecialFlowerBlockItem(dandelifeonFloating, props), getId(dandelifeonFloating));
 
-		r.accept(new ItemBlockSpecialFlower(rafflowsia, props), getId(rafflowsia));
-		r.accept(new ItemBlockSpecialFlower(rafflowsiaFloating, props), getId(rafflowsiaFloating));
+		r.accept(new SpecialFlowerBlockItem(rafflowsia, props), getId(rafflowsia));
+		r.accept(new SpecialFlowerBlockItem(rafflowsiaFloating, props), getId(rafflowsiaFloating));
 
-		r.accept(new ItemBlockSpecialFlower(shulkMeNot, props), getId(shulkMeNot));
-		r.accept(new ItemBlockSpecialFlower(shulkMeNotFloating, props), getId(shulkMeNotFloating));
+		r.accept(new SpecialFlowerBlockItem(shulkMeNot, props), getId(shulkMeNot));
+		r.accept(new SpecialFlowerBlockItem(shulkMeNotFloating, props), getId(shulkMeNotFloating));
 
-		r.accept(new ItemBlockSpecialFlower(bellethorn, props), getId(bellethorn));
-		r.accept(new ItemBlockSpecialFlower(bellethornChibi, props), getId(bellethornChibi));
-		r.accept(new ItemBlockSpecialFlower(bellethornFloating, props), getId(bellethornFloating));
-		r.accept(new ItemBlockSpecialFlower(bellethornChibiFloating, props), getId(bellethornChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(bellethorn, props), getId(bellethorn));
+		r.accept(new SpecialFlowerBlockItem(bellethornChibi, props), getId(bellethornChibi));
+		r.accept(new SpecialFlowerBlockItem(bellethornFloating, props), getId(bellethornFloating));
+		r.accept(new SpecialFlowerBlockItem(bellethornChibiFloating, props), getId(bellethornChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(bergamute, props), getId(bergamute));
-		r.accept(new ItemBlockSpecialFlower(bergamuteFloating, props), getId(bergamuteFloating));
+		r.accept(new SpecialFlowerBlockItem(bergamute, props), getId(bergamute));
+		r.accept(new SpecialFlowerBlockItem(bergamuteFloating, props), getId(bergamuteFloating));
 
-		r.accept(new ItemBlockSpecialFlower(dreadthorn, props), getId(dreadthorn));
-		r.accept(new ItemBlockSpecialFlower(dreadthornFloating, props), getId(dreadthornFloating));
+		r.accept(new SpecialFlowerBlockItem(dreadthorn, props), getId(dreadthorn));
+		r.accept(new SpecialFlowerBlockItem(dreadthornFloating, props), getId(dreadthornFloating));
 
-		r.accept(new ItemBlockSpecialFlower(heiseiDream, props), getId(heiseiDream));
-		r.accept(new ItemBlockSpecialFlower(heiseiDreamFloating, props), getId(heiseiDreamFloating));
+		r.accept(new SpecialFlowerBlockItem(heiseiDream, props), getId(heiseiDream));
+		r.accept(new SpecialFlowerBlockItem(heiseiDreamFloating, props), getId(heiseiDreamFloating));
 
-		r.accept(new ItemBlockSpecialFlower(tigerseye, props), getId(tigerseye));
-		r.accept(new ItemBlockSpecialFlower(tigerseyeFloating, props), getId(tigerseyeFloating));
+		r.accept(new SpecialFlowerBlockItem(tigerseye, props), getId(tigerseye));
+		r.accept(new SpecialFlowerBlockItem(tigerseyeFloating, props), getId(tigerseyeFloating));
 
-		r.accept(new ItemBlockSpecialFlower(jadedAmaranthus, props), getId(jadedAmaranthus));
-		r.accept(new ItemBlockSpecialFlower(jadedAmaranthusFloating, props), getId(jadedAmaranthusFloating));
+		r.accept(new SpecialFlowerBlockItem(jadedAmaranthus, props), getId(jadedAmaranthus));
+		r.accept(new SpecialFlowerBlockItem(jadedAmaranthusFloating, props), getId(jadedAmaranthusFloating));
 
-		r.accept(new ItemBlockSpecialFlower(orechid, props), getId(orechid));
-		r.accept(new ItemBlockSpecialFlower(orechidFloating, props), getId(orechidFloating));
+		r.accept(new SpecialFlowerBlockItem(orechid, props), getId(orechid));
+		r.accept(new SpecialFlowerBlockItem(orechidFloating, props), getId(orechidFloating));
 
-		r.accept(new ItemBlockSpecialFlower(fallenKanade, props), getId(fallenKanade));
-		r.accept(new ItemBlockSpecialFlower(fallenKanadeFloating, props), getId(fallenKanadeFloating));
+		r.accept(new SpecialFlowerBlockItem(fallenKanade, props), getId(fallenKanade));
+		r.accept(new SpecialFlowerBlockItem(fallenKanadeFloating, props), getId(fallenKanadeFloating));
 
-		r.accept(new ItemBlockSpecialFlower(exoflame, props), getId(exoflame));
-		r.accept(new ItemBlockSpecialFlower(exoflameFloating, props), getId(exoflameFloating));
+		r.accept(new SpecialFlowerBlockItem(exoflame, props), getId(exoflame));
+		r.accept(new SpecialFlowerBlockItem(exoflameFloating, props), getId(exoflameFloating));
 
-		r.accept(new ItemBlockSpecialFlower(agricarnation, props), getId(agricarnation));
-		r.accept(new ItemBlockSpecialFlower(agricarnationChibi, props), getId(agricarnationChibi));
-		r.accept(new ItemBlockSpecialFlower(agricarnationFloating, props), getId(agricarnationFloating));
-		r.accept(new ItemBlockSpecialFlower(agricarnationChibiFloating, props), getId(agricarnationChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(agricarnation, props), getId(agricarnation));
+		r.accept(new SpecialFlowerBlockItem(agricarnationChibi, props), getId(agricarnationChibi));
+		r.accept(new SpecialFlowerBlockItem(agricarnationFloating, props), getId(agricarnationFloating));
+		r.accept(new SpecialFlowerBlockItem(agricarnationChibiFloating, props), getId(agricarnationChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(hopperhock, props), getId(hopperhock));
-		r.accept(new ItemBlockSpecialFlower(hopperhockChibi, props), getId(hopperhockChibi));
-		r.accept(new ItemBlockSpecialFlower(hopperhockFloating, props), getId(hopperhockFloating));
-		r.accept(new ItemBlockSpecialFlower(hopperhockChibiFloating, props), getId(hopperhockChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(hopperhock, props), getId(hopperhock));
+		r.accept(new SpecialFlowerBlockItem(hopperhockChibi, props), getId(hopperhockChibi));
+		r.accept(new SpecialFlowerBlockItem(hopperhockFloating, props), getId(hopperhockFloating));
+		r.accept(new SpecialFlowerBlockItem(hopperhockChibiFloating, props), getId(hopperhockChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(tangleberrie, props), getId(tangleberrie));
-		r.accept(new ItemBlockSpecialFlower(tangleberrieChibi, props), getId(tangleberrieChibi));
-		r.accept(new ItemBlockSpecialFlower(tangleberrieFloating, props), getId(tangleberrieFloating));
-		r.accept(new ItemBlockSpecialFlower(tangleberrieChibiFloating, props), getId(tangleberrieChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(tangleberrie, props), getId(tangleberrie));
+		r.accept(new SpecialFlowerBlockItem(tangleberrieChibi, props), getId(tangleberrieChibi));
+		r.accept(new SpecialFlowerBlockItem(tangleberrieFloating, props), getId(tangleberrieFloating));
+		r.accept(new SpecialFlowerBlockItem(tangleberrieChibiFloating, props), getId(tangleberrieChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(jiyuulia, props), getId(jiyuulia));
-		r.accept(new ItemBlockSpecialFlower(jiyuuliaChibi, props), getId(jiyuuliaChibi));
-		r.accept(new ItemBlockSpecialFlower(jiyuuliaFloating, props), getId(jiyuuliaFloating));
-		r.accept(new ItemBlockSpecialFlower(jiyuuliaChibiFloating, props), getId(jiyuuliaChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(jiyuulia, props), getId(jiyuulia));
+		r.accept(new SpecialFlowerBlockItem(jiyuuliaChibi, props), getId(jiyuuliaChibi));
+		r.accept(new SpecialFlowerBlockItem(jiyuuliaFloating, props), getId(jiyuuliaFloating));
+		r.accept(new SpecialFlowerBlockItem(jiyuuliaChibiFloating, props), getId(jiyuuliaChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(rannuncarpus, props), getId(rannuncarpus));
-		r.accept(new ItemBlockSpecialFlower(rannuncarpusChibi, props), getId(rannuncarpusChibi));
-		r.accept(new ItemBlockSpecialFlower(rannuncarpusFloating, props), getId(rannuncarpusFloating));
-		r.accept(new ItemBlockSpecialFlower(rannuncarpusChibiFloating, props), getId(rannuncarpusChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(rannuncarpus, props), getId(rannuncarpus));
+		r.accept(new SpecialFlowerBlockItem(rannuncarpusChibi, props), getId(rannuncarpusChibi));
+		r.accept(new SpecialFlowerBlockItem(rannuncarpusFloating, props), getId(rannuncarpusFloating));
+		r.accept(new SpecialFlowerBlockItem(rannuncarpusChibiFloating, props), getId(rannuncarpusChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(hyacidus, props), getId(hyacidus));
-		r.accept(new ItemBlockSpecialFlower(hyacidusFloating, props), getId(hyacidusFloating));
+		r.accept(new SpecialFlowerBlockItem(hyacidus, props), getId(hyacidus));
+		r.accept(new SpecialFlowerBlockItem(hyacidusFloating, props), getId(hyacidusFloating));
 
-		r.accept(new ItemBlockSpecialFlower(pollidisiac, props), getId(pollidisiac));
-		r.accept(new ItemBlockSpecialFlower(pollidisiacFloating, props), getId(pollidisiacFloating));
+		r.accept(new SpecialFlowerBlockItem(pollidisiac, props), getId(pollidisiac));
+		r.accept(new SpecialFlowerBlockItem(pollidisiacFloating, props), getId(pollidisiacFloating));
 
-		r.accept(new ItemBlockSpecialFlower(clayconia, props), getId(clayconia));
-		r.accept(new ItemBlockSpecialFlower(clayconiaChibi, props), getId(clayconiaChibi));
-		r.accept(new ItemBlockSpecialFlower(clayconiaFloating, props), getId(clayconiaFloating));
-		r.accept(new ItemBlockSpecialFlower(clayconiaChibiFloating, props), getId(clayconiaChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(clayconia, props), getId(clayconia));
+		r.accept(new SpecialFlowerBlockItem(clayconiaChibi, props), getId(clayconiaChibi));
+		r.accept(new SpecialFlowerBlockItem(clayconiaFloating, props), getId(clayconiaFloating));
+		r.accept(new SpecialFlowerBlockItem(clayconiaChibiFloating, props), getId(clayconiaChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(loonium, props), getId(loonium));
-		r.accept(new ItemBlockSpecialFlower(looniumFloating, props), getId(looniumFloating));
+		r.accept(new SpecialFlowerBlockItem(loonium, props), getId(loonium));
+		r.accept(new SpecialFlowerBlockItem(looniumFloating, props), getId(looniumFloating));
 
-		r.accept(new ItemBlockSpecialFlower(daffomill, props), getId(daffomill));
-		r.accept(new ItemBlockSpecialFlower(daffomillFloating, props), getId(daffomillFloating));
+		r.accept(new SpecialFlowerBlockItem(daffomill, props), getId(daffomill));
+		r.accept(new SpecialFlowerBlockItem(daffomillFloating, props), getId(daffomillFloating));
 
-		r.accept(new ItemBlockSpecialFlower(vinculotus, props), getId(vinculotus));
-		r.accept(new ItemBlockSpecialFlower(vinculotusFloating, props), getId(vinculotusFloating));
+		r.accept(new SpecialFlowerBlockItem(vinculotus, props), getId(vinculotus));
+		r.accept(new SpecialFlowerBlockItem(vinculotusFloating, props), getId(vinculotusFloating));
 
-		r.accept(new ItemBlockSpecialFlower(spectranthemum, props), getId(spectranthemum));
-		r.accept(new ItemBlockSpecialFlower(spectranthemumFloating, props), getId(spectranthemumFloating));
+		r.accept(new SpecialFlowerBlockItem(spectranthemum, props), getId(spectranthemum));
+		r.accept(new SpecialFlowerBlockItem(spectranthemumFloating, props), getId(spectranthemumFloating));
 
-		r.accept(new ItemBlockSpecialFlower(medumone, props), getId(medumone));
-		r.accept(new ItemBlockSpecialFlower(medumoneFloating, props), getId(medumoneFloating));
+		r.accept(new SpecialFlowerBlockItem(medumone, props), getId(medumone));
+		r.accept(new SpecialFlowerBlockItem(medumoneFloating, props), getId(medumoneFloating));
 
-		r.accept(new ItemBlockSpecialFlower(marimorphosis, props), getId(marimorphosis));
-		r.accept(new ItemBlockSpecialFlower(marimorphosisChibi, props), getId(marimorphosisChibi));
-		r.accept(new ItemBlockSpecialFlower(marimorphosisFloating, props), getId(marimorphosisFloating));
-		r.accept(new ItemBlockSpecialFlower(marimorphosisChibiFloating, props), getId(marimorphosisChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(marimorphosis, props), getId(marimorphosis));
+		r.accept(new SpecialFlowerBlockItem(marimorphosisChibi, props), getId(marimorphosisChibi));
+		r.accept(new SpecialFlowerBlockItem(marimorphosisFloating, props), getId(marimorphosisFloating));
+		r.accept(new SpecialFlowerBlockItem(marimorphosisChibiFloating, props), getId(marimorphosisChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(bubbell, props), getId(bubbell));
-		r.accept(new ItemBlockSpecialFlower(bubbellChibi, props), getId(bubbellChibi));
-		r.accept(new ItemBlockSpecialFlower(bubbellFloating, props), getId(bubbellFloating));
-		r.accept(new ItemBlockSpecialFlower(bubbellChibiFloating, props), getId(bubbellChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(bubbell, props), getId(bubbell));
+		r.accept(new SpecialFlowerBlockItem(bubbellChibi, props), getId(bubbellChibi));
+		r.accept(new SpecialFlowerBlockItem(bubbellFloating, props), getId(bubbellFloating));
+		r.accept(new SpecialFlowerBlockItem(bubbellChibiFloating, props), getId(bubbellChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(solegnolia, props), getId(solegnolia));
-		r.accept(new ItemBlockSpecialFlower(solegnoliaChibi, props), getId(solegnoliaChibi));
-		r.accept(new ItemBlockSpecialFlower(solegnoliaFloating, props), getId(solegnoliaFloating));
-		r.accept(new ItemBlockSpecialFlower(solegnoliaChibiFloating, props), getId(solegnoliaChibiFloating));
+		r.accept(new SpecialFlowerBlockItem(solegnolia, props), getId(solegnolia));
+		r.accept(new SpecialFlowerBlockItem(solegnoliaChibi, props), getId(solegnoliaChibi));
+		r.accept(new SpecialFlowerBlockItem(solegnoliaFloating, props), getId(solegnoliaFloating));
+		r.accept(new SpecialFlowerBlockItem(solegnoliaChibiFloating, props), getId(solegnoliaChibiFloating));
 
-		r.accept(new ItemBlockSpecialFlower(orechidIgnem, props), getId(orechidIgnem));
-		r.accept(new ItemBlockSpecialFlower(orechidIgnemFloating, props), getId(orechidIgnemFloating));
+		r.accept(new SpecialFlowerBlockItem(orechidIgnem, props), getId(orechidIgnem));
+		r.accept(new SpecialFlowerBlockItem(orechidIgnemFloating, props), getId(orechidIgnemFloating));
 
-		r.accept(new ItemBlockSpecialFlower(labellia, props), getId(labellia));
-		r.accept(new ItemBlockSpecialFlower(labelliaFloating, props), getId(labelliaFloating));
+		r.accept(new SpecialFlowerBlockItem(labellia, props), getId(labellia));
+		r.accept(new SpecialFlowerBlockItem(labelliaFloating, props), getId(labelliaFloating));
 	}
 
 	public static void registerTEs(BiConsumer<BlockEntityType<?>, ResourceLocation> r) {

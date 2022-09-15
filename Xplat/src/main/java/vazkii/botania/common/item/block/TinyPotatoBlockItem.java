@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.ModTags;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public class ItemBlockTinyPotato extends BlockItem implements ItemWithBannerPattern {
+public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPattern {
 
 	private static final Pattern TYPOS = Pattern.compile(
 			"(?!^vazkii$)" // Do not match the properly spelled version 
@@ -61,7 +61,7 @@ public class ItemBlockTinyPotato extends BlockItem implements ItemWithBannerPatt
 
 	private static final String TAG_TICKS = "notMyNameTicks";
 
-	public ItemBlockTinyPotato(Block block, Properties props) {
+	public TinyPotatoBlockItem(Block block, Properties props) {
 		super(block, props);
 	}
 

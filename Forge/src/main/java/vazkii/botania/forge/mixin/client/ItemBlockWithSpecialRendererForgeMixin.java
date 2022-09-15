@@ -5,12 +5,12 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import vazkii.botania.common.item.block.ItemBlockWithSpecialRenderer;
+import vazkii.botania.common.item.block.BlockItemWithSpecialRenderer;
 import vazkii.botania.forge.client.ForgeBlockEntityItemRendererHelper;
 
 import java.util.function.Consumer;
 
-@Mixin(ItemBlockWithSpecialRenderer.class)
+@Mixin(BlockItemWithSpecialRenderer.class)
 public abstract class ItemBlockWithSpecialRendererForgeMixin extends Item {
 	private ItemBlockWithSpecialRendererForgeMixin(Properties props) {
 		super(props);

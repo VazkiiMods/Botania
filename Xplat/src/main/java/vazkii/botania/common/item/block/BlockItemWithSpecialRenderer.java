@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Block;
  * Why is this not just a normal map from item to renderer ?????
  * No functional purpose on Fabric.
  */
-public class ItemBlockWithSpecialRenderer extends BlockItem {
-	public ItemBlockWithSpecialRenderer(Block block, Properties props) {
+public class BlockItemWithSpecialRenderer extends BlockItem {
+	public BlockItemWithSpecialRenderer(Block block, Properties props) {
 		super(block, props);
 	}
 }
