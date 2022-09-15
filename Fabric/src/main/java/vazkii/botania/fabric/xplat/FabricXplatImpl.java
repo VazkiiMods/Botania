@@ -96,12 +96,12 @@ import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.ICustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
+import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
 import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
-import vazkii.botania.fabric.mixin.FabricAccessorAbstractFurnaceBlockEntity;
-import vazkii.botania.fabric.mixin.FabricAccessorBucketItem;
-import vazkii.botania.fabric.tile.FabricTileRedStringContainer;
+import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
+import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -546,7 +546,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
-		return FabricAccessorAbstractFurnaceBlockEntity.callCanBurn(recipe, items, maxStackSize);
+		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(recipe, items, maxStackSize);
 	}
 
 	@Override
@@ -556,7 +556,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public Fluid getBucketFluid(BucketItem item) {
-		return ((FabricAccessorBucketItem) item).getContent();
+		return ((BucketItemFabricAccessor) item).getContent();
 	}
 
 	@Override
@@ -605,6 +605,6 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Override
 	public TileRedStringContainer newRedStringContainer(BlockPos pos, BlockState state) {
-		return new FabricTileRedStringContainer(pos, state);
+		return new FabricRedStringContainerBlockEntity(pos, state);
 	}
 }

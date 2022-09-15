@@ -84,7 +84,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new RunicAltarREICategory(),
 				new ElvenTradeREICategory(),
 				new BreweryREICategory(),
-				new TerraPlateREICategory(),
+				new TerrestrialAgglomerationREICategory(),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, ModSubtiles.orechid),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, ModSubtiles.orechidIgnem),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.MARIMORPHOSIS, ModSubtiles.marimorphosis)
@@ -149,7 +149,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
 		helper.registerFiller(RecipePureDaisy.class, PureDaisyREIDisplay::new);
 		helper.registerFiller(RecipeRuneAltar.class, RunicAltarREIDisplay::new);
-		helper.registerFiller(RecipeTerraPlate.class, TerraPlateREIDisplay::new);
+		helper.registerFiller(RecipeTerraPlate.class, TerrestrialAgglomerationREIDisplay::new);
 
 		try {
 			for (var entry : FabricXplatImpl.CUSTOM_STRIPPING.entrySet()) {

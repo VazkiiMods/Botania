@@ -22,7 +22,7 @@ public class BotaniaREICategoryIdentifiers {
 	public static final CategoryIdentifier<PetalApothecaryREIDisplay> PETAL_APOTHECARY = CategoryIdentifier.of(RecipePetals.TYPE_ID);
 	public static final CategoryIdentifier<PureDaisyREIDisplay> PURE_DAISY = CategoryIdentifier.of(RecipePureDaisy.TYPE_ID);
 	public static final CategoryIdentifier<RunicAltarREIDisplay> RUNE_ALTAR = CategoryIdentifier.of(RecipeRuneAltar.TYPE_ID);
-	public static final CategoryIdentifier<TerraPlateREIDisplay> TERRA_PLATE = CategoryIdentifier.of(RecipeTerraPlate.TYPE_ID);
+	public static final CategoryIdentifier<TerrestrialAgglomerationREIDisplay> TERRA_PLATE = CategoryIdentifier.of(RecipeTerraPlate.TYPE_ID);
 
 	private BotaniaREICategoryIdentifiers() {
 
