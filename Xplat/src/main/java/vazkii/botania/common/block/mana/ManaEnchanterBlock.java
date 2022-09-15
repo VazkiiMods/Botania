@@ -35,9 +35,9 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.item.ItemTwigWand;
 
-public class BlockEnchanter extends BlockMod implements EntityBlock {
+public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
 
-	public BlockEnchanter(Properties builder) {
+	public ManaEnchanterBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, Direction.Axis.X));
 	}

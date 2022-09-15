@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -21,32 +20,27 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.BlockOpenCrate;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileTurntable;
+import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 
-public class BlockTurntable extends BlockMod implements EntityBlock {
+public class PowerGeneratorBlock extends BlockMod implements EntityBlock {
 
-	public BlockTurntable(Properties builder) {
+	public PowerGeneratorBlock(Properties builder) {
 		super(builder);
 	}
 
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileTurntable(pos, state);
+		return new TileRFGenerator(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.TURNTABLE, TileTurntable::commonTick);
-	}
-
-	@Override
-	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		if (world.hasNeighborSignal(pos) && rand.nextDouble() < 0.2) {
-			BlockOpenCrate.redstoneParticlesOnFullBlock(world, pos, rand);
+		if (!level.isClientSide) {
+			return createTickerHelper(type, ModTiles.FLUXFIELD, TileRFGenerator::serverTick);
 		}
+		return null;
 	}
 }

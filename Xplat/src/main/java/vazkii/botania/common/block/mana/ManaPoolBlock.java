@@ -45,7 +45,7 @@ import vazkii.botania.common.entity.EntityManaBurst;
 
 import java.util.List;
 
-public class BlockPool extends BlockModWaterloggable implements EntityBlock {
+public class ManaPoolBlock extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape REAL_SHAPE;
 	private static final VoxelShape BURST_SHAPE;
 	static {
@@ -65,7 +65,7 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock {
 
 	public final Variant variant;
 
-	public BlockPool(Variant v, Properties builder) {
+	public ManaPoolBlock(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -73,7 +73,7 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable BlockGetter world, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, world, tooltip, flag);
-		if (variant == BlockPool.Variant.CREATIVE) {
+		if (variant == ManaPoolBlock.Variant.CREATIVE) {
 			for (int i = 0; i < 2; i++) {
 				tooltip.add(Component.translatable("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
 			}

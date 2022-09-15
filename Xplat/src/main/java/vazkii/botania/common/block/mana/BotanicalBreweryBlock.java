@@ -38,11 +38,11 @@ import vazkii.botania.common.block.tile.TileBrewery;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.helper.InventoryHelper;
 
-public class BlockBrewery extends BlockModWaterloggable implements EntityBlock {
+public class BotanicalBreweryBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(6, 0.8, 6, 10, 15.2, 10);
 
-	public BlockBrewery(Properties builder) {
+	public BotanicalBreweryBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}

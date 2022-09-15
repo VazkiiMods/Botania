@@ -47,7 +47,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -240,7 +240,7 @@ public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttac
 
 	private void initManaCapAndNetwork() {
 		if (manaCap == -1) {
-			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
+			manaCap = ((ManaPoolBlock) getBlockState().getBlock()).variant == ManaPoolBlock.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
 		if (!ManaNetworkHandler.instance.isPoolIn(level, this) && !isRemoved()) {
 			BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
@@ -451,8 +451,8 @@ public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttac
 
 	@Override
 	public int getCurrentMana() {
-		if (getBlockState().getBlock() instanceof BlockPool pool) {
-			return pool.variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
+		if (getBlockState().getBlock() instanceof ManaPoolBlock pool) {
+			return pool.variant == ManaPoolBlock.Variant.CREATIVE ? MAX_MANA : mana;
 		}
 		return 0;
 	}

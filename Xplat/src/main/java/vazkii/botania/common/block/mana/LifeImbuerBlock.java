@@ -25,11 +25,11 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 
-public class BlockSpawnerClaw extends BlockModWaterloggable implements EntityBlock {
+public class LifeImbuerBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 2, 14);
 
-	public BlockSpawnerClaw(Properties builder) {
+	public LifeImbuerBlock(Properties builder) {
 		super(builder);
 	}
 

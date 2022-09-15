@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockForestDrum extends BlockModWaterloggable {
+public class DrumBlock extends BlockModWaterloggable {
 
 	public enum Variant {
 		WILD,
@@ -53,7 +53,7 @@ public class BlockForestDrum extends BlockModWaterloggable {
 	private static final VoxelShape SHAPE = Block.box(3, 1, 3, 13, 15, 13);
 	private final Variant variant;
 
-	public BlockForestDrum(Variant v, Properties builder) {
+	public DrumBlock(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -92,7 +92,7 @@ public class BlockForestDrum extends BlockModWaterloggable {
 		public ManaTriggerImpl(Level world, BlockPos pos, BlockState state) {
 			this.world = world;
 			this.pos = pos;
-			this.variant = ((BlockForestDrum) state.getBlock()).variant;
+			this.variant = ((DrumBlock) state.getBlock()).variant;
 		}
 
 		@Override

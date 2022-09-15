@@ -38,13 +38,13 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.helper.InventoryHelper;
 
-public class BlockRuneAltar extends BlockModWaterloggable implements EntityBlock {
+public class RunicAltarBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape TOP = Block.box(0, 6, 0, 16, 12, 16);
 	private static final VoxelShape BOTTOM = Block.box(2, 0, 2, 14, 6, 14);
 	private static final VoxelShape SHAPE = Shapes.join(TOP, BOTTOM, BooleanOp.OR);
 
-	public BlockRuneAltar(Properties builder) {
+	public RunicAltarBlock(Properties builder) {
 		super(builder);
 	}
 

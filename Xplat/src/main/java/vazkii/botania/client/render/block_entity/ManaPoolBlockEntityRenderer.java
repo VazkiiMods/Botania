@@ -30,7 +30,7 @@ import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ColorHelper;
 
@@ -50,7 +50,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<TilePool
 	public void render(@Nullable TilePool pool, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
-		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
+		boolean fab = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.FABULOUS;
 
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;

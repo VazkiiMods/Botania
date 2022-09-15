@@ -43,10 +43,10 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 
-public class BlockPrism extends BlockModWaterloggable implements EntityBlock, ManaCollisionGhost {
+public class ManaPrismBlock extends BlockModWaterloggable implements EntityBlock, ManaCollisionGhost {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
-	public BlockPrism(Properties builder) {
+	public ManaPrismBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.POWERED, false)

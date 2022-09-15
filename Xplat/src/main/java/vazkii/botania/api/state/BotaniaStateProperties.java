@@ -23,16 +23,16 @@ public final class BotaniaStateProperties {
 	// BlockAlfPortal
 	public static final EnumProperty<AlfheimPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfheimPortalState.class);
 
-	// BlockEnchanter
+	// ManaEnchanterBlock
 	public static final EnumProperty<Direction.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", Direction.Axis.class, a -> a != Direction.Axis.Y);
 
 	// BlockCraftyCrate
 	public static final EnumProperty<CraftyCratePattern> CRATE_PATTERN = EnumProperty.create("pattern", CraftyCratePattern.class);
 
-	// BlockPrism
+	// ManaPrismBlock
 	public static final BooleanProperty HAS_LENS = BooleanProperty.create("has_lens");
 
-	// BlockSpreader
+	// ManaSpreaderBlock
 	public static final BooleanProperty HAS_SCAFFOLDING = BooleanProperty.create("has_scaffolding");
 
 	private BotaniaStateProperties() {}

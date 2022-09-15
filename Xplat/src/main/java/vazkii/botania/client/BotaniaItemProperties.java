@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
@@ -55,7 +55,7 @@ public final class BotaniaItemProperties {
 		ResourceLocation poolFullId = prefix("full");
 		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
-			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
+			boolean renderFull = ((ManaPoolBlock) block).variant == ManaPoolBlock.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
 			return renderFull ? 1F : 0F;
 		};
 		consumer.accept(ModBlocks.manaPool, poolFullId, poolFull);

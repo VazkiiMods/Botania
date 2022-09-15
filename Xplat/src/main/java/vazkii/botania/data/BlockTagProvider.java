@@ -26,9 +26,9 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
-import vazkii.botania.common.block.mana.BlockForestDrum;
-import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.block.mana.DrumBlock;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -216,7 +216,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				getModBlocks(b -> pickaxe.contains(b)
 						|| b instanceof BlockAltar
 						|| b instanceof BlockPylon
-						|| b instanceof BlockPool
+						|| b instanceof ManaPoolBlock
 						|| b instanceof BlockRedString
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
 						|| Registry.BLOCK.getKey(b).getPath().contains("corporea")
@@ -235,10 +235,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 		tag(BlockTags.MINEABLE_WITH_AXE).add(
 				getModBlocks(b -> axe.contains(b)
-						|| b instanceof BlockForestDrum
+						|| b instanceof DrumBlock
 						|| b instanceof BlockOpenCrate
 						|| b instanceof BlockPlatform
-						|| b instanceof BlockSpreader
+						|| b instanceof ManaSpreaderBlock
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_WOOD)
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.DREAM_WOOD)
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)

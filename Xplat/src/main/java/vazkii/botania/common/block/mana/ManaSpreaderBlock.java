@@ -45,7 +45,7 @@ import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 
-public class BlockSpreader extends BlockModWaterloggable implements EntityBlock {
+public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 	private static final VoxelShape SHAPE_PADDING = box(1, 1, 1, 15, 15, 15);
 	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);
@@ -77,7 +77,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 
 	public final Variant variant;
 
-	public BlockSpreader(Variant v, Properties builder) {
+	public ManaSpreaderBlock(Variant v, Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));
 		this.variant = v;

@@ -71,9 +71,9 @@ import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.mana.BlockForestDrum;
-import vazkii.botania.common.block.mana.BlockManaDetector;
-import vazkii.botania.common.block.mana.BlockManaVoid;
+import vazkii.botania.common.block.mana.DrumBlock;
+import vazkii.botania.common.block.mana.ManaDetectorBlock;
+import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
@@ -511,11 +511,11 @@ public class ForgeCommonInitializer {
 				ModBlocks.manaDetector,
 				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
 				ModBlocks.prism, ModBlocks.tinyPlanet);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, BlockManaVoid.ManaReceiverImpl::new, ModBlocks.manaVoid);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockForestDrum.ManaTriggerImpl::new,
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, ManaVoidBlock.ManaReceiverImpl::new, ModBlocks.manaVoid);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, DrumBlock.ManaTriggerImpl::new,
 				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.gatheringDrum);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaBomb.ManaTriggerImpl::new, ModBlocks.manaBomb);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaDetector.ManaTriggerImpl::new, ModBlocks.manaDetector);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManaDetectorBlock.ManaTriggerImpl::new, ModBlocks.manaDetector);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.WANDABLE,
 				(world, pos, state) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay);

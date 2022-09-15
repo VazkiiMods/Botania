@@ -37,7 +37,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.mana.BlockPrism;
+import vazkii.botania.common.block.mana.ManaPrismBlock;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -136,7 +136,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		if (world.hasNeighborSignal(pos)) {
-			BlockPrism.redstoneParticlesInShape(state, world, pos, rand);
+			ManaPrismBlock.redstoneParticlesInShape(state, world, pos, rand);
 		}
 	}
 }

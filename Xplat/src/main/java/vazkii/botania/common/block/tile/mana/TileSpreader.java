@@ -45,7 +45,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -169,7 +169,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 				var receiverAt = IXplatAbstractions.INSTANCE.findManaReceiver(level, relPos,
 						level.getBlockState(relPos), level.getBlockEntity(relPos), dir.getOpposite());
 				if (receiverAt instanceof ManaPool pool) {
-					if (wasInNetwork && (pool != self.receiver || self.getVariant() == BlockSpreader.Variant.REDSTONE)) {
+					if (wasInNetwork && (pool != self.receiver || self.getVariant() == ManaSpreaderBlock.Variant.REDSTONE)) {
 						if (pool instanceof KeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
 							continue;
 						}
@@ -220,7 +220,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 
 		boolean shouldShoot = !powered;
 
-		boolean redstoneSpreader = self.getVariant() == BlockSpreader.Variant.REDSTONE;
+		boolean redstoneSpreader = self.getVariant() == ManaSpreaderBlock.Variant.REDSTONE;
 		if (redstoneSpreader) {
 			shouldShoot = powered && !self.poweredLastTick;
 		}
@@ -436,7 +436,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	}
 
 	private void tryShootBurst() {
-		boolean redstone = getVariant() == BlockSpreader.Variant.REDSTONE;
+		boolean redstone = getVariant() == ManaSpreaderBlock.Variant.REDSTONE;
 		if ((receiver != null || redstone) && !invalidTentativeBurst) {
 			if (canShootBurst && (redstone || receiver.canReceiveManaFromBursts() && !receiver.isFull())) {
 				EntityManaBurst burst = getBurst(false);
@@ -455,12 +455,12 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 		}
 	}
 
-	public BlockSpreader.Variant getVariant() {
+	public ManaSpreaderBlock.Variant getVariant() {
 		Block b = getBlockState().getBlock();
-		if (b instanceof BlockSpreader spreader) {
+		if (b instanceof ManaSpreaderBlock spreader) {
 			return spreader.variant;
 		} else {
-			return BlockSpreader.Variant.MANA;
+			return ManaSpreaderBlock.Variant.MANA;
 		}
 	}
 
@@ -492,7 +492,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	}
 
 	private EntityManaBurst getBurst(boolean fake) {
-		BlockSpreader.Variant variant = getVariant();
+		ManaSpreaderBlock.Variant variant = getVariant();
 		float gravity = 0F;
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 

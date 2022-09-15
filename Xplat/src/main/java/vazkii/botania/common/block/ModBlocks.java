@@ -234,17 +234,17 @@ public final class ModBlocks {
 	public static final Block dreamwoodFramed = new RotatedPillarBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block dreamwoodPatternFramed = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
 
-	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
-	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
-	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
-	public static final Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
+	public static final Block manaSpreader = new ManaSpreaderBlock(ManaSpreaderBlock.Variant.MANA, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
+	public static final Block redstoneSpreader = new ManaSpreaderBlock(ManaSpreaderBlock.Variant.REDSTONE, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
+	public static final Block elvenSpreader = new ManaSpreaderBlock(ManaSpreaderBlock.Variant.ELVEN, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
+	public static final Block gaiaSpreader = new ManaSpreaderBlock(ManaSpreaderBlock.Variant.GAIA, BlockBehaviour.Properties.copy(livingwood).isValidSpawn(NO_SPAWN));
 
-	public static final Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT, BlockBehaviour.Properties.copy(livingrock));
-	public static final Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE, BlockBehaviour.Properties.copy(livingrock));
-	public static final Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED, BlockBehaviour.Properties.copy(livingrock));
-	public static final Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS, BlockBehaviour.Properties.copy(livingrock));
-	public static final Block alchemyCatalyst = new BlockAlchemyCatalyst(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block conjurationCatalyst = new BlockConjurationCatalyst(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block manaPool = new ManaPoolBlock(ManaPoolBlock.Variant.DEFAULT, BlockBehaviour.Properties.copy(livingrock));
+	public static final Block creativePool = new ManaPoolBlock(ManaPoolBlock.Variant.CREATIVE, BlockBehaviour.Properties.copy(livingrock));
+	public static final Block dilutedPool = new ManaPoolBlock(ManaPoolBlock.Variant.DILUTED, BlockBehaviour.Properties.copy(livingrock));
+	public static final Block fabulousPool = new ManaPoolBlock(ManaPoolBlock.Variant.FABULOUS, BlockBehaviour.Properties.copy(livingrock));
+	public static final Block alchemyCatalyst = new AlchemyCatalystBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block conjurationCatalyst = new ConjurationCatalystBlock(BlockBehaviour.Properties.copy(livingrock));
 
 	public static final Block manasteelBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block terrasteelBlock = new BlockMod(BlockBehaviour.Properties.copy(manasteelBlock));
@@ -259,10 +259,10 @@ public final class ModBlocks {
 	public static final Block bifrostPerm = new BlockBifrostPerm(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F)
 			.lightLevel(s -> 15).sound(SoundType.GLASS).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
 
-	public static final Block runeAltar = new BlockRuneAltar(BlockBehaviour.Properties.copy(livingrock).requiresCorrectToolForDrops());
-	public static final Block enchanter = new BlockEnchanter(BlockBehaviour.Properties.of(Material.STONE).strength(3, 5).lightLevel(s -> 15).sound(SoundType.STONE));
-	public static final Block brewery = new BlockBrewery(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block terraPlate = new BlockTerraPlate(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
+	public static final Block runeAltar = new RunicAltarBlock(BlockBehaviour.Properties.copy(livingrock).requiresCorrectToolForDrops());
+	public static final Block enchanter = new ManaEnchanterBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3, 5).lightLevel(s -> 15).sound(SoundType.STONE));
+	public static final Block brewery = new BotanicalBreweryBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block terraPlate = new TerrestrialAgglomerationPlateBlock(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block alfPortal = new BlockAlfPortal(BlockBehaviour.Properties.of(Material.WOOD).strength(10).sound(SoundType.WOOD)
 			.lightLevel(s -> s.getValue(BotaniaStateProperties.ALFPORTAL_STATE) != AlfheimPortalState.OFF ? 15 : 0));
 
@@ -270,22 +270,22 @@ public final class ModBlocks {
 	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, BlockBehaviour.Properties.copy(manaPylon));
 	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, BlockBehaviour.Properties.copy(manaPylon));
 
-	public static final Block distributor = new BlockDistributor(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
-	public static final Block manaVoid = new BlockManaVoid(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE).requiresCorrectToolForDrops());
-	public static final Block manaDetector = new BlockManaDetector(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block distributor = new ManaDistributorBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
+	public static final Block manaVoid = new ManaVoidBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE).requiresCorrectToolForDrops());
+	public static final Block manaDetector = new ManaDetectorBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block pistonRelay = new BlockPistonRelay(BlockBehaviour.Properties.of(Material.METAL).strength(2, 10).sound(SoundType.METAL).isValidSpawn(NO_SPAWN));
-	public static final Block turntable = new BlockTurntable(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block turntable = new SpreaderTurntableBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block tinyPlanet = new BlockTinyPlanet(BlockBehaviour.Properties.of(Material.STONE).strength(20, 100).sound(SoundType.STONE).requiresCorrectToolForDrops());
-	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, BlockBehaviour.Properties.copy(livingwood));
-	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, BlockBehaviour.Properties.copy(livingwood));
-	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, BlockBehaviour.Properties.copy(livingwood));
-	public static final Block spawnerClaw = new BlockSpawnerClaw(BlockBehaviour.Properties.of(Material.METAL).strength(3).requiresCorrectToolForDrops());
-	public static final Block rfGenerator = new BlockRFGenerator(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block prism = new BlockPrism(BlockBehaviour.Properties.copy(elfGlass).noCollission());
-	public static final Block pump = new BlockPump(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block wildDrum = new DrumBlock(DrumBlock.Variant.WILD, BlockBehaviour.Properties.copy(livingwood));
+	public static final Block gatheringDrum = new DrumBlock(DrumBlock.Variant.GATHERING, BlockBehaviour.Properties.copy(livingwood));
+	public static final Block canopyDrum = new DrumBlock(DrumBlock.Variant.CANOPY, BlockBehaviour.Properties.copy(livingwood));
+	public static final Block spawnerClaw = new LifeImbuerBlock(BlockBehaviour.Properties.of(Material.METAL).strength(3).requiresCorrectToolForDrops());
+	public static final Block rfGenerator = new PowerGeneratorBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block prism = new ManaPrismBlock(BlockBehaviour.Properties.copy(elfGlass).noCollission());
+	public static final Block pump = new ManaPumpBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block sparkChanger = new BlockSparkChanger(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block manaBomb = new BlockManaBomb(BlockBehaviour.Properties.of(Material.WOOD).strength(12).sound(SoundType.WOOD));
-	public static final Block bellows = new BlockBellows(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block bellows = new BellowsBlock(BlockBehaviour.Properties.copy(livingwood));
 
 	public static final Block openCrate = new BlockOpenCrate(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block craftCrate = new BlockCraftyCrate(BlockBehaviour.Properties.copy(livingwood));

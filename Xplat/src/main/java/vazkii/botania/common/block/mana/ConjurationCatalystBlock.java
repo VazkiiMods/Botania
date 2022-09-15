@@ -12,19 +12,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.block.BlockMod;
 
-public class BlockAlchemyCatalyst extends BlockMod implements PoolOverlayProvider {
+public class ConjurationCatalystBlock extends AlchemyCatalystBlock {
 
-	public BlockAlchemyCatalyst(Properties builder) {
+	public ConjurationCatalystBlock(Properties builder) {
 		super(builder);
 	}
 
 	@Override
 	public ResourceLocation getIcon(Level world, BlockPos pos) {
-		return MiscellaneousModels.INSTANCE.alchemyCatalystOverlay.texture();
+		return MiscellaneousModels.INSTANCE.conjurationCatalystOverlay.texture();
 	}
-
 }

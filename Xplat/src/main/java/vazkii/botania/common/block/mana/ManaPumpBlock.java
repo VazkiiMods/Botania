@@ -10,38 +10,34 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileBellows;
-import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.block.tile.mana.TilePump;
 
-public class BlockBellows extends BlockMod implements EntityBlock {
+public class ManaPumpBlock extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape SHAPE = box(3, 0, 3, 13, 10.0, 13);
+	private static final VoxelShape X_SHAPE = box(0, 0, 4, 16, 8, 12);
+	private static final VoxelShape Z_SHAPE = box(4, 0, 0, 12, 8, 16);
 
-	public BlockBellows(Properties builder) {
+	public ManaPumpBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
@@ -54,39 +50,46 @@ public class BlockBellows extends BlockMod implements EntityBlock {
 
 	@NotNull
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-		return SHAPE;
-	}
-
-	@NotNull
-	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection());
-	}
-
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (PlayerHelper.isTruePlayer(player)) {
-			((TileBellows) world.getBlockEntity(pos)).interact();
-		}
-		return InteractionResult.SUCCESS;
+		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@NotNull
 	@Override
-	public RenderShape getRenderShape(BlockState state) {
-		return RenderShape.ENTITYBLOCK_ANIMATED;
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
+			return X_SHAPE;
+		} else {
+			return Z_SHAPE;
+		}
+	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+		return ((TilePump) world.getBlockEntity(pos)).comparator;
 	}
 
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileBellows(pos, state);
+		return new TilePump(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.BELLOWS, TileBellows::commonTick);
+		return createTickerHelper(type, ModTiles.PUMP, TilePump::commonTick);
+	}
+
+	@Override
+	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
+		if (world.hasNeighborSignal(pos)) {
+			ManaPrismBlock.redstoneParticlesInShape(state, world, pos, rand);
+		}
 	}
 }

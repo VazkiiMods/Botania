@@ -39,8 +39,8 @@ import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.decor.FlowerMotifBlock;
 import vazkii.botania.common.block.decor.PetalBlock;
-import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.lib.LibMisc;
@@ -411,7 +411,7 @@ public class ItemModelProvider implements DataProvider {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(texName), consumer);
 		});
 
-		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockPool).forEach(i -> {
+		takeAll(itemBlocks, i -> i.getBlock() instanceof ManaPoolBlock).forEach(i -> {
 			ResourceLocation fullModel = ModelLocationUtils.getModelLocation(i.getBlock(), "_full");
 			OverrideHolder overrides = new OverrideHolder().add(fullModel, Pair.of(prefix("full"), 1.0));
 			consumer.accept(ModelLocationUtils.getModelLocation(i),
@@ -435,7 +435,7 @@ public class ItemModelProvider implements DataProvider {
 					new TextureMapping().put(TextureSlot.WALL, prefix("block/" + baseName)), consumer);
 		});
 
-		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockSpreader).forEach(i -> {
+		takeAll(itemBlocks, i -> i.getBlock() instanceof ManaSpreaderBlock).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
 			String outside;
 			if (i.getBlock() == ModBlocks.elvenSpreader) {

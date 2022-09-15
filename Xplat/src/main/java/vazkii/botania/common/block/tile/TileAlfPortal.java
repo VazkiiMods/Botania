@@ -44,7 +44,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.AlfheimPortalBreadTrigger;
 import vazkii.botania.common.advancements.AlfheimPortalTrigger;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.ModTags;
@@ -399,7 +399,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 
 		return BlockPos.betweenClosedStream(getBlockPos().offset(-range, -range, -range), getBlockPos().offset(range, range, range))
 				.filter(level::hasChunkAt)
-				.filter(p -> level.getBlockState(p).is(ModBlocks.naturaPylon) && level.getBlockState(p.below()).getBlock() instanceof BlockPool)
+				.filter(p -> level.getBlockState(p).is(ModBlocks.naturaPylon) && level.getBlockState(p.below()).getBlock() instanceof ManaPoolBlock)
 				.map(BlockPos::immutable)
 				.collect(Collectors.toList());
 	}

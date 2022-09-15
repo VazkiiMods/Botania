@@ -22,7 +22,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
@@ -132,7 +132,7 @@ public class SubTileEndoflame extends GeneratingFlowerBlockEntity {
 	}
 
 	private int getBurnTime(ItemStack stack) {
-		if (stack.isEmpty() || Block.byItem(stack.getItem()) instanceof BlockSpreader) {
+		if (stack.isEmpty() || Block.byItem(stack.getItem()) instanceof ManaSpreaderBlock) {
 			return 0;
 		} else {
 			return IXplatAbstractions.INSTANCE.getSmeltingBurnTime(stack);

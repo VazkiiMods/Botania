@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
 import java.util.Random;
@@ -53,7 +53,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Tile
 		double time = ClientTickHandler.ticksInGame + partialTicks;
 
 		float r = 1, g = 1, b = 1;
-		if (spreader.getVariant() == BlockSpreader.Variant.GAIA) {
+		if (spreader.getVariant() == ManaSpreaderBlock.Variant.GAIA) {
 			int color = Mth.hsvToRgb((float) ((time * 2 + new Random(spreader.getBlockPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
 			r = (color >> 16 & 0xFF) / 255F;
 			g = (color >> 8 & 0xFF) / 255F;

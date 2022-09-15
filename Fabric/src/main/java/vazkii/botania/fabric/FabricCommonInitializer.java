@@ -58,9 +58,9 @@ import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.mana.BlockForestDrum;
-import vazkii.botania.common.block.mana.BlockManaDetector;
-import vazkii.botania.common.block.mana.BlockManaVoid;
+import vazkii.botania.common.block.mana.DrumBlock;
+import vazkii.botania.common.block.mana.ManaDetectorBlock;
+import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
@@ -278,11 +278,11 @@ public class FabricCommonInitializer implements ModInitializer {
 				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
 		);
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
-				(level, pos, state, be, side) -> new BlockManaVoid.ManaReceiverImpl(level, pos, state),
+				(level, pos, state, be, side) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
 				ModBlocks.manaVoid);
 		BotaniaFabricCapabilities.SPARK_ATTACHABLE.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
-				(level, pos, state, be, context) -> new BlockForestDrum.ManaTriggerImpl(level, pos, state),
+				(level, pos, state, be, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
 				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
@@ -290,7 +290,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				ModBlocks.manaBomb
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
-				(level, pos, state, be, context) -> new BlockManaDetector.ManaTriggerImpl(level, pos, state),
+				(level, pos, state, be, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
 				ModBlocks.manaDetector
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(

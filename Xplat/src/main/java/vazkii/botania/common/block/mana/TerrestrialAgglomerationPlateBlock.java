@@ -38,11 +38,11 @@ import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.mixin.AccessorRecipeManager;
 
-public class BlockTerraPlate extends BlockModWaterloggable implements EntityBlock {
+public class TerrestrialAgglomerationPlateBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 3, 16);
 
-	public BlockTerraPlate(Properties builder) {
+	public TerrestrialAgglomerationPlateBlock(Properties builder) {
 		super(builder);
 	}
 
