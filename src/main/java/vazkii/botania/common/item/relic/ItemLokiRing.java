@@ -13,6 +13,7 @@ package vazkii.botania.common.item.relic;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gtnewhorizon.gtnhlib.GTNHLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -26,6 +27,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -58,6 +61,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 	private static final String TAG_X_ORIGIN = "xOrigin";
 	private static final String TAG_Y_ORIGIN = "yOrigin";
 	private static final String TAG_Z_ORIGIN = "zOrigin";
+	private static final String TAG_MODE = "mode";
 
 	public ItemLokiRing() {
 		super(LibItemNames.LOKI_RING);
@@ -89,7 +93,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 
 		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
 
-		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking()) {
+		if(heldItemStack == null && event.action == Action.RIGHT_CLICK_BLOCK && player.isSneaking() && isRingEnabled(lokiRing)) {
 			if(originCoords.posY == -1 && lookPos != null) {
 				setOriginPos(lokiRing, lookPos.blockX, lookPos.blockY, lookPos.blockZ);
 				setCursorList(lokiRing, null);
@@ -121,7 +125,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 				}
 				}
 			}
-		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && player.isSneaking()) {
+		} else if(heldItemStack != null && event.action == Action.RIGHT_CLICK_BLOCK && lookPos != null && isRingEnabled(lokiRing)) {
 			for(ChunkCoordinates cursor : cursors) {
 				int x = lookPos.blockX + cursor.posX;
 				int y = lookPos.blockY + cursor.posY;
@@ -137,7 +141,23 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 			}
 		}
 	}
-
+	public static void toggleMode(ItemStack stack) {
+		stack.stackTagCompound.setBoolean(TAG_MODE,!stack.stackTagCompound.getBoolean(TAG_MODE));
+	}
+	@SideOnly(Side.CLIENT)
+	public static void renderHUDNotification(){
+		Minecraft mc = Minecraft.getMinecraft();
+		String text = getLokiModeText(getLokiRing(mc.thePlayer));
+		GTNHLib.proxy.printMessageAboveHotbar(text, 60, true, true);
+	}
+	public static String getLokiModeText(ItemStack stack){
+		return EnumChatFormatting.GOLD + StatCollector.translateToLocal("item.botania:lokiRing.name") + " " + (isRingEnabled(stack) ?
+				EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.lokiOn") :
+				EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.lokiOff"));
+	}
+	public static boolean isRingEnabled (final ItemStack stack){
+		return stack.stackTagCompound.getBoolean(TAG_MODE);
+	}
 	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing == null || player.worldObj.isRemote || !(item instanceof ISequentialBreaker))
@@ -206,7 +226,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		return getLokiRing(player) == stack ? getOriginPos(stack) : null;
 	}
 
-	private static ItemStack getLokiRing(EntityPlayer player) {
+	public static ItemStack getLokiRing(EntityPlayer player) {
 		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);

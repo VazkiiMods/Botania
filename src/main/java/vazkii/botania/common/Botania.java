@@ -63,7 +63,6 @@ public class Botania {
 		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
 		
 		lightHelper = coloredLightsLoaded ? new LightHelperColored() : new LightHelperVanilla();
-
 		proxy.preInit(event);
 	}
 	@EventHandler
