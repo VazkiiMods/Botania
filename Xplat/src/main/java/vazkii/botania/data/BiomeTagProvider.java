@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class BiomeTagProvider extends TagsProvider<Biome> {
 	public BiomeTagProvider(DataGenerator generator) {
@@ -24,13 +24,13 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
 		tag(BiomeTags.IS_OVERWORLD);
 		tag(BiomeTags.IS_NETHER);
 
-		tag(ModTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST).addTag(BiomeTags.IS_OVERWORLD);
-		tag(ModTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST)
+		tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST).addTag(BiomeTags.IS_OVERWORLD);
+		tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST)
 				.addOptionalTag(new ResourceLocation("forge", "is_mushroom"))
 				.addOptionalTag(new ResourceLocation("c", "mushroom"));
 
-		tag(ModTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST).addTag(BiomeTags.IS_OVERWORLD)
+		tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST).addTag(BiomeTags.IS_OVERWORLD)
 				.addTag(BiomeTags.IS_NETHER);
-		tag(ModTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST);
+		tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST);
 	}
 }

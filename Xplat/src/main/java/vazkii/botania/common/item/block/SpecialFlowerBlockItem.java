@@ -24,15 +24,15 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.flower.generating.HydroangeasBlockEntity;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
 public class SpecialFlowerBlockItem extends BlockItem {
-	private static final TagKey<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
-	private static final TagKey<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
-	private static final TagKey<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
+	private static final TagKey<Item> GENERATING = BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS;
+	private static final TagKey<Item> FUNCTIONAL = BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
+	private static final TagKey<Item> MISC = BotaniaTags.Items.MISC_SPECIAL_FLOWERS;
 
 	public SpecialFlowerBlockItem(Block block1, Properties props) {
 		super(block1, props);

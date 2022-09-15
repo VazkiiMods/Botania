@@ -26,7 +26,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemWithBannerPattern;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -67,7 +67,7 @@ public class TinyPotatoBlockItem extends BlockItem implements ItemWithBannerPatt
 
 	@Override
 	public TagKey<BannerPattern> getBannerPattern() {
-		return ModTags.BannerPatterns.PATTERN_ITEM_TINY_POTATO;
+		return BotaniaTags.BannerPatterns.PATTERN_ITEM_TINY_POTATO;
 	}
 
 	@Override

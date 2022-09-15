@@ -39,7 +39,7 @@ import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -65,8 +65,8 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 					}
 			},
 			'P', BotaniaBlocks.terraPlate,
-			'R', PatchouliAPI.get().tagMatcher(ModTags.Blocks.TERRA_PLATE_BASE),
-			'0', PatchouliAPI.get().tagMatcher(ModTags.Blocks.TERRA_PLATE_BASE),
+			'R', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
+			'0', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(
 					IXplatAbstractions.INSTANCE.isFabric()
 							? TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "lapis_blocks"))

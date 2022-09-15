@@ -30,9 +30,9 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.block.red_string.RedStringBlock;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ModTags;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -63,51 +63,51 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 
-		tag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
+		tag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getFloatingFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(BOTANIA_BLOCK)
+		tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(BOTANIA_BLOCK)
 				.filter(b -> b instanceof FloatingSpecialFlowerBlock)
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new)
 		);
 
-		tag(ModTags.Blocks.FLOATING_FLOWERS).addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS)
-				.addTag(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS);
+		tag(BotaniaTags.Blocks.FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS)
+				.addTag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
-		tag(ModTags.Blocks.MYSTICAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(ModTags.Blocks.SHINY_FLOWERS).add(
+		tag(BotaniaTags.Blocks.SHINY_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getShinyFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getDoubleFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(ModTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy, bergamute);
-		tag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy, bergamute);
+		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(
 				dandelifeon, endoflame, entropinnyum,
 				gourmaryllis, hydroangeas, kekimurus,
 				munchdew, narslimmus, rafflowsia, rosaArcana,
 				shulkMeNot, spectrolus, thermalily
 		);
-		tag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(
 				agricarnation, agricarnationChibi, bellethorn, bellethornChibi,
 				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
@@ -116,72 +116,72 @@ public class BlockTagProvider extends BlockTagsProvider {
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
 				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tangleberrieChibi, tigerseye, vinculotus
 		);
-		tag(ModTags.Blocks.SPECIAL_FLOWERS).addTag(ModTags.Blocks.MISC_SPECIAL_FLOWERS)
-				.addTag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
-				.addTag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
+		tag(BotaniaTags.Blocks.SPECIAL_FLOWERS).addTag(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
-		tag(ModTags.Blocks.MINI_FLOWERS).add(
+		tag(BotaniaTags.Blocks.MINI_FLOWERS).add(
 				getModBlocks(b -> b instanceof SpecialFlowerBlock && registry.getKey(b).getPath().endsWith("_chibi"))
 		);
 
-		tag(ModTags.Blocks.ENCHANTER_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
-				.addTag(ModTags.Blocks.SHINY_FLOWERS)
-				.addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS);
+		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.SHINY_FLOWERS)
+				.addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS);
 
 		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
-		tag(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		tag(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS);
+		tag(BlockTags.TALL_FLOWERS).addTag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
+		tag(BlockTags.SMALL_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
 
 		tag(BlockTags.IMPERMEABLE).add(BotaniaBlocks.elfGlass, BotaniaBlocks.manaGlass, BotaniaBlocks.bifrost, BotaniaBlocks.bifrostPerm);
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(BotaniaBlocks.manasteelBlock, BotaniaBlocks.terrasteelBlock, BotaniaBlocks.elementiumBlock,
 				BotaniaBlocks.manaDiamondBlock, BotaniaBlocks.dragonstoneBlock);
 
 		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BotaniaGrassBlock));
-		tag(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(BotaniaBlocks.elementiumBlock);
-		tag(ModTags.Blocks.BLOCKS_MANASTEEL).add(BotaniaBlocks.manasteelBlock);
-		tag(ModTags.Blocks.BLOCKS_TERRASTEEL).add(BotaniaBlocks.terrasteelBlock);
+		tag(BotaniaTags.Blocks.BLOCKS_ELEMENTIUM).add(BotaniaBlocks.elementiumBlock);
+		tag(BotaniaTags.Blocks.BLOCKS_MANASTEEL).add(BotaniaBlocks.manasteelBlock);
+		tag(BotaniaTags.Blocks.BLOCKS_TERRASTEEL).add(BotaniaBlocks.terrasteelBlock);
 
-		tag(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
+		tag(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
 				BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, BotaniaBlocks.corporeaBrickStairs,
 				BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaCrystalCube, BotaniaBlocks.corporeaFunnel, BotaniaBlocks.corporeaIndex,
 				BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs);
 
 		tag(BlockTags.SAND); // We aren't calling vanilla's generation, so need to add a dummy so that using this below doesn't error out.
-		tag(ModTags.Blocks.TERRAFORMABLE)
+		tag(BotaniaTags.Blocks.TERRAFORMABLE)
 				.add(Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.INFESTED_STONE, Blocks.STONE, Blocks.POLISHED_ANDESITE, Blocks.POLISHED_DIORITE, Blocks.POLISHED_GRANITE)
 				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
 				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
 				.addTag(BlockTags.SAND);
-		tag(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
-		tag(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
+		tag(BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
+		tag(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool, BotaniaBlocks.terraPlate, BotaniaBlocks.runeAltar);
-		tag(ModTags.Blocks.LAPUTA_IMMOBILE);
+		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
 
-		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.livingrock, BotaniaBlocks.shimmerrock);
+		tag(BotaniaTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.livingrock, BotaniaBlocks.shimmerrock);
 
 		tag(BlockTags.CLIMBABLE).add(BotaniaBlocks.solidVines);
 
 		tag(BlockTags.PLANKS).add(livingwoodPlanks, livingwoodPlanksMossy, livingwoodFramed, livingwoodPatternFramed,
 				dreamwoodPlanks, dreamwoodPlanksMossy, dreamwoodFramed, dreamwoodPatternFramed, shimmerwoodPlanks);
 
-		tag(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING).add(livingwoodGlimmering, livingwoodLogGlimmering,
+		tag(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING).add(livingwoodGlimmering, livingwoodLogGlimmering,
 				livingwoodStrippedGlimmering, livingwoodLogStrippedGlimmering);
-		tag(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING).add(dreamwoodGlimmering, dreamwoodLogGlimmering,
+		tag(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING).add(dreamwoodGlimmering, dreamwoodLogGlimmering,
 				dreamwoodStrippedGlimmering, dreamwoodLogStrippedGlimmering);
 
-		tag(ModTags.Blocks.LIVINGWOOD_LOGS)
+		tag(BotaniaTags.Blocks.LIVINGWOOD_LOGS)
 				.add(livingwoodLog, livingwood, livingwoodLogStripped, livingwoodStripped)
-				.addTag(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING);
-		tag(ModTags.Blocks.DREAMWOOD_LOGS)
+				.addTag(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING);
+		tag(BotaniaTags.Blocks.DREAMWOOD_LOGS)
 				.add(dreamwoodLog, dreamwood, dreamwoodLogStripped, dreamwoodStripped)
-				.addTag(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING);
-		tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.LIVINGWOOD_LOGS).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
+				.addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING);
+		tag(BlockTags.LOGS_THAT_BURN).addTag(BotaniaTags.Blocks.LIVINGWOOD_LOGS).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
-		tag(ModTags.Blocks.GHOST_RAIL_BARRIER).addTag(ModTags.Blocks.DREAMWOOD_LOGS);
+		tag(BotaniaTags.Blocks.GHOST_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
-		tag(ModTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
+		tag(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
 
-		tag(ModTags.Blocks.WEIGHT_LENS_WHITELIST);
+		tag(BotaniaTags.Blocks.WEIGHT_LENS_WHITELIST);
 
 		tag(BlockTags.MUSHROOM_GROW_BLOCK).add(
 				BotaniaFluffBlocks.biomeStoneFungal, BotaniaFluffBlocks.biomeStoneFungalSlab, BotaniaFluffBlocks.biomeStoneFungalStairs, BotaniaFluffBlocks.biomeStoneFungalWall,

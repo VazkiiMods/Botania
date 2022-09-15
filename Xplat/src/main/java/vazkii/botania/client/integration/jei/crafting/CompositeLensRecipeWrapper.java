@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 	private final List<Item> allLenses;
 
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
-		allLenses = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.LENS).spliterator(), false)
+		allLenses = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
 				.map(ItemStack::new)
 				.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 				.filter(s -> ((LensItem) s.getItem()).isCombinable(s))

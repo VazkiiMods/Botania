@@ -33,7 +33,7 @@ import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HornHarvestable.EnumHornType;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
@@ -98,7 +98,7 @@ public class HornItem extends Item {
 			}
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type, user)
-					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(ModTags.Blocks.SPECIAL_FLOWERS)
+					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && state.is(BlockTags.LEAVES)
 							|| type == EnumHornType.COVERING && state.is(Blocks.SNOW)) {
 				coords.add(pos.immutable());

@@ -54,7 +54,7 @@ import vazkii.botania.common.item.AncientWillItem;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
 import java.util.*;
@@ -198,7 +198,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 
 	void registerCompositeLensRecipeWrapper(DisplayRegistry helper) {
 		List<ItemStack> lensStacks =
-				StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.LENS).spliterator(), false)
+				StreamSupport.stream(Registry.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
 						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))

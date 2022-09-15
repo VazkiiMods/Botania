@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.function.Consumer;
 
@@ -47,9 +47,9 @@ public class RuneProvider extends BotaniaRecipeProvider {
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;
 
-		Ingredient manaSteel = Ingredient.of(ModTags.Items.INGOTS_MANASTEEL);
-		Ingredient manaDiamond = Ingredient.of(ModTags.Items.GEMS_MANA_DIAMOND);
-		Ingredient manaPowder = Ingredient.of(ModTags.Items.DUSTS_MANA);
+		Ingredient manaSteel = Ingredient.of(BotaniaTags.Items.INGOTS_MANASTEEL);
+		Ingredient manaDiamond = Ingredient.of(BotaniaTags.Items.GEMS_MANA_DIAMOND);
+		Ingredient manaPowder = Ingredient.of(BotaniaTags.Items.DUSTS_MANA);
 		consumer.accept(new FinishedRecipe(idFor("water"), new ItemStack(BotaniaItems.runeWater, 2), costTier1, manaPowder, manaSteel, Ingredient.of(Items.BONE_MEAL), Ingredient.of(Blocks.SUGAR_CANE), Ingredient.of(Items.FISHING_ROD)));
 		consumer.accept(new FinishedRecipe(idFor("fire"), new ItemStack(BotaniaItems.runeFire, 2), costTier1, manaPowder, manaSteel, Ingredient.of(Items.NETHER_BRICK), Ingredient.of(Items.GUNPOWDER), Ingredient.of(Items.NETHER_WART)));
 

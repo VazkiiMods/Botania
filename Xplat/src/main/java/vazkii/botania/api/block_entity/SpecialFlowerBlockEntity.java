@@ -35,7 +35,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 /**
  * Common superclass of all magical flower block entities
@@ -69,7 +69,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, SpecialFlowerBlockEntity self) {
-		if (self.isFloating != state.is(ModTags.Blocks.FLOATING_FLOWERS)) {
+		if (self.isFloating != state.is(BotaniaTags.Blocks.FLOATING_FLOWERS)) {
 			BotaniaAPI.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
 			self.isFloating = !self.isFloating;
 		}

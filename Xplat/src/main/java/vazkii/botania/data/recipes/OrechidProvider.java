@@ -26,7 +26,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.function.Consumer;
 
@@ -64,14 +64,14 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 		consumer.accept(netherrack(Blocks.NETHER_GOLD_ORE, 3635));
 		consumer.accept(netherrack(Blocks.ANCIENT_DEBRIS, 148));
 
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneForest, ModTags.Biomes.MARIMORPHOSIS_FOREST_BONUS));
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStonePlains, ModTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS));
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneMountain, ModTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS));
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneFungal, ModTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS));
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneSwamp, ModTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS));
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneDesert, ModTags.Biomes.MARIMORPHOSIS_DESERT_BONUS));
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneTaiga, ModTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS));
-		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneMesa, ModTags.Biomes.MARIMORPHOSIS_MESA_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneForest, BotaniaTags.Biomes.MARIMORPHOSIS_FOREST_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStonePlains, BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneMountain, BotaniaTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneFungal, BotaniaTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneSwamp, BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneDesert, BotaniaTags.Biomes.MARIMORPHOSIS_DESERT_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneTaiga, BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS));
+		consumer.accept(biomeStone(BotaniaFluffBlocks.biomeStoneMesa, BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS));
 	}
 
 	protected ResourceLocation orechidId(Block b) {

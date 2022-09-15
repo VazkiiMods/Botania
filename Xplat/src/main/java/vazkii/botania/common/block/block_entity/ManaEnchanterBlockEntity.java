@@ -51,7 +51,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -117,7 +117,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 			'L', Blocks.LAPIS_BLOCK,
 			'B', OBSIDIAN_MATCHER.get(),
 			'0', OBSIDIAN_MATCHER.get(),
-			'F', PatchouliAPI.get().tagMatcher(ModTags.Blocks.ENCHANTER_FLOWERS)
+			'F', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.ENCHANTER_FLOWERS)
 	));
 
 	private static final Supplier<IMultiblock> FORMED_MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
@@ -126,7 +126,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 			'L', BotaniaBlocks.enchanter,
 			'B', OBSIDIAN_MATCHER.get(),
 			'0', OBSIDIAN_MATCHER.get(),
-			'F', PatchouliAPI.get().predicateMatcher(BotaniaBlocks.whiteFlower, state -> state.is(ModTags.Blocks.ENCHANTER_FLOWERS))
+			'F', PatchouliAPI.get().predicateMatcher(BotaniaBlocks.whiteFlower, state -> state.is(BotaniaTags.Blocks.ENCHANTER_FLOWERS))
 	));
 
 	public State stage = State.IDLE;

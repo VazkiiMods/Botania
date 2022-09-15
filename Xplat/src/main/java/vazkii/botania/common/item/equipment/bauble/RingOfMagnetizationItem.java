@@ -28,7 +28,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.mixin.AccessorItemEntity;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -129,17 +129,17 @@ public class RingOfMagnetizationItem extends BaubleItem {
 		if (stack.isEmpty()
 				|| IXplatAbstractions.INSTANCE.findManaItem(stack) != null
 				|| IXplatAbstractions.INSTANCE.findRelic(stack) != null
-				|| stack.is(ModTags.Items.MAGNET_RING_BLACKLIST)) {
+				|| stack.is(BotaniaTags.Items.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 
 		BlockPos pos = item.blockPosition();
 
-		if (item.level.getBlockState(pos).is(ModTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.level.getBlockState(pos).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 
-		if (item.level.getBlockState(pos.below()).is(ModTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.level.getBlockState(pos.below()).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 

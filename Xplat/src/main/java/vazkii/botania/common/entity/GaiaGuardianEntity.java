@@ -75,7 +75,7 @@ import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.mixin.AccessorMobEffect;
 import vazkii.botania.network.EffectType;
@@ -160,7 +160,7 @@ public class GaiaGuardianEntity extends Mob {
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final TagKey<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
+	private static final TagKey<Block> BLACKLIST = BotaniaTags.Blocks.GAIA_BREAK_BLACKLIST;
 
 	private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
 

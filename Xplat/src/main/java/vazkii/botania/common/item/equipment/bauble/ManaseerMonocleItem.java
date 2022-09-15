@@ -39,7 +39,7 @@ import vazkii.botania.api.item.CosmeticBauble;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.IProxy;
 
 import java.util.List;
@@ -110,12 +110,12 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 		return !EquipmentHandler.findOrEmpty(stack -> {
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
-				if (stack.is(ModTags.Items.BURST_VIEWERS)) {
+				if (stack.is(BotaniaTags.Items.BURST_VIEWERS)) {
 					return true;
 				}
 				if (item instanceof CosmeticAttachable attach) {
 					ItemStack cosmetic = attach.getCosmeticItem(stack);
-					return !cosmetic.isEmpty() && cosmetic.is(ModTags.Items.BURST_VIEWERS);
+					return !cosmetic.isEmpty() && cosmetic.is(BotaniaTags.Items.BURST_VIEWERS);
 				}
 			}
 			return false;

@@ -10,7 +10,7 @@ import net.minecraftforge.common.Tags;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.function.Consumer;
@@ -34,11 +34,11 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(BotaniaItems.baubleBox)
 				.define('C', Tags.Items.CHESTS_WOODEN)
 				.define('G', Items.GOLD_INGOT)
-				.define('M', ModTags.Items.INGOTS_MANASTEEL)
+				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
 				.pattern(" M ")
 				.pattern("MCG")
 				.pattern(" M ")
-				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
 
 		registerRedStringBlock(consumer, BotaniaBlocks.redStringContainer, Ingredient.of(Tags.Items.CHESTS_WOODEN), conditionsFromTag(Tags.Items.CHESTS_WOODEN));

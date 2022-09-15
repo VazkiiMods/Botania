@@ -60,8 +60,8 @@ import vazkii.botania.common.item.material.*;
 import vazkii.botania.common.item.record.BotaniaRecordItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.LinkedHashMap;
@@ -99,7 +99,7 @@ public final class BotaniaItems {
 	public static final Item manaSteel = make(prefix(LibItemNames.MANASTEEL_INGOT), new Item(defaultBuilder()));
 	public static final Item manaPearl = make(prefix(LibItemNames.MANA_PEARL), new Item(defaultBuilder()));
 	public static final Item manaDiamond = make(prefix(LibItemNames.MANA_DIAMOND), new Item(defaultBuilder()));
-	public static final Item livingwoodTwig = make(prefix(LibItemNames.LIVINGWOOD_TWIG), new BotaniaBannerPatternItem(ModTags.BannerPatterns.PATTERN_ITEM_LIVINGWOOD_TWIG, defaultBuilder()));
+	public static final Item livingwoodTwig = make(prefix(LibItemNames.LIVINGWOOD_TWIG), new BotaniaBannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_LIVINGWOOD_TWIG, defaultBuilder()));
 	public static final Item terrasteel = make(prefix(LibItemNames.TERRASTEEL_INGOT), new TerrasteelIngotItem(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item lifeEssence = make(prefix(LibItemNames.LIFE_ESSENCE), new Item(defaultBuilder().rarity(Rarity.UNCOMMON)));
 	public static final Item redstoneRoot = make(prefix(LibItemNames.REDSTONE_ROOT), new Item(defaultBuilder()));
@@ -107,7 +107,7 @@ public final class BotaniaItems {
 	public static final Item pixieDust = make(prefix(LibItemNames.PIXIE_DUST), new Item(defaultBuilder()));
 	public static final Item dragonstone = make(prefix(LibItemNames.DRAGONSTONE), new Item(defaultBuilder()));
 	public static final Item redString = make(prefix(LibItemNames.RED_STRING), new Item(defaultBuilder()));
-	public static final Item dreamwoodTwig = make(prefix(LibItemNames.DREAMWOOD_TWIG), new BotaniaBannerPatternItem(ModTags.BannerPatterns.PATTERN_ITEM_DREAMWOOD_TWIG, defaultBuilder()));
+	public static final Item dreamwoodTwig = make(prefix(LibItemNames.DREAMWOOD_TWIG), new BotaniaBannerPatternItem(BotaniaTags.BannerPatterns.PATTERN_ITEM_DREAMWOOD_TWIG, defaultBuilder()));
 	public static final Item gaiaIngot = make(prefix(LibItemNames.GAIA_INGOT), new ManaResourceItem(defaultBuilder().rarity(Rarity.RARE)));
 	public static final Item enderAirBottle = make(prefix(LibItemNames.ENDER_AIR_BOTTLE), new EnderAirItem(defaultBuilder()));
 	public static final Item manaString = make(prefix(LibItemNames.MANA_STRING), new Item(defaultBuilder()));

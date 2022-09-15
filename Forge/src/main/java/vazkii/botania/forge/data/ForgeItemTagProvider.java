@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ModTags;
 
 import static vazkii.botania.common.item.BotaniaItems.*;
 
@@ -30,23 +30,23 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 	protected void addTags() {
 		this.tag(Tags.Items.SHEARS).add(manasteelShears, elementiumShears);
 
-		this.tag(forge("dusts/mana")).addTag(ModTags.Items.DUSTS_MANA);
+		this.tag(forge("dusts/mana")).addTag(BotaniaTags.Items.DUSTS_MANA);
 		this.tag(forge("dusts")).addTag(forge("dusts/mana"));
 
-		this.tag(forge("gems/dragonstone")).addTag(ModTags.Items.GEMS_DRAGONSTONE);
-		this.tag(forge("gems/mana_diamond")).addTag(ModTags.Items.GEMS_MANA_DIAMOND);
+		this.tag(forge("gems/dragonstone")).addTag(BotaniaTags.Items.GEMS_DRAGONSTONE);
+		this.tag(forge("gems/mana_diamond")).addTag(BotaniaTags.Items.GEMS_MANA_DIAMOND);
 		this.tag(forge("gems")).addTag(forge("gems/dragonstone")).addTag(forge("gems/mana_diamond"));
 
-		this.tag(forge("ingots/elementium")).addTag(ModTags.Items.INGOTS_ELEMENTIUM);
-		this.tag(forge("ingots/manasteel")).addTag(ModTags.Items.INGOTS_MANASTEEL);
-		this.tag(forge("ingots/terrasteel")).addTag(ModTags.Items.INGOTS_TERRASTEEL);
+		this.tag(forge("ingots/elementium")).addTag(BotaniaTags.Items.INGOTS_ELEMENTIUM);
+		this.tag(forge("ingots/manasteel")).addTag(BotaniaTags.Items.INGOTS_MANASTEEL);
+		this.tag(forge("ingots/terrasteel")).addTag(BotaniaTags.Items.INGOTS_TERRASTEEL);
 		this.tag(forge("ingots")).addTag(forge("ingots/elementium"))
 				.addTag(forge("ingots/manasteel"))
 				.addTag(forge("ingots/terrasteel"));
 
-		this.tag(forge("nuggets/elementium")).addTag(ModTags.Items.NUGGETS_ELEMENTIUM);
-		this.tag(forge("nuggets/manasteel")).addTag(ModTags.Items.NUGGETS_MANASTEEL);
-		this.tag(forge("nuggets/terrasteel")).addTag(ModTags.Items.NUGGETS_TERRASTEEL);
+		this.tag(forge("nuggets/elementium")).addTag(BotaniaTags.Items.NUGGETS_ELEMENTIUM);
+		this.tag(forge("nuggets/manasteel")).addTag(BotaniaTags.Items.NUGGETS_MANASTEEL);
+		this.tag(forge("nuggets/terrasteel")).addTag(BotaniaTags.Items.NUGGETS_TERRASTEEL);
 		this.tag(forge("nuggets")).addTag(forge("nuggets/elementium"))
 				.addTag(forge("nuggets/manasteel"))
 				.addTag(forge("nuggets/terrasteel"));

@@ -27,7 +27,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public class WeightLens extends Lens {
 	}
 
 	private static boolean canSilkTouch(ServerLevel level, BlockPos pos, BlockState state, int harvestLevel, @Nullable Entity owner) {
-		if (state.is(ModTags.Blocks.WEIGHT_LENS_WHITELIST)) {
+		if (state.is(BotaniaTags.Blocks.WEIGHT_LENS_WHITELIST)) {
 			return true;
 		}
 		ItemStack harvestToolStack = BoreLens.getHarvestToolStack(harvestLevel, state).copy();

@@ -46,7 +46,7 @@ import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 
@@ -138,7 +138,7 @@ public class LaputaShardItem extends Item implements LensEffect, TinyPlanetExcem
 		return !state.isAir()
 				&& !isFlowingFluid
 				&& !(block instanceof FallingBlock)
-				&& !state.is(ModTags.Blocks.LAPUTA_IMMOBILE)
+				&& !state.is(BotaniaTags.Blocks.LAPUTA_IMMOBILE)
 				&& state.getDestroySpeed(world, pos) != -1;
 	}
 

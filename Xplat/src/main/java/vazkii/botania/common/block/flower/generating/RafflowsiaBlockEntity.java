@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -94,7 +94,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 						BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
 
 						BlockState state = getLevel().getBlockState(pos);
-						if (state.is(ModTags.Blocks.SPECIAL_FLOWERS) && !state.is(BotaniaFlowerBlocks.rafflowsia)) {
+						if (state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS) && !state.is(BotaniaFlowerBlocks.rafflowsia)) {
 							streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
 
 							getLevel().destroyBlock(pos, false);

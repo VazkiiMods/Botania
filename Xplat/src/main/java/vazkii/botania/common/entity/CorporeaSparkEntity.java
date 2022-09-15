@@ -37,7 +37,7 @@ import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.*;
 
@@ -81,7 +81,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		}
 
 		CorporeaNode node = getSparkNode();
-		if (node instanceof DummyCorporeaNode && !level.getBlockState(getAttachPos()).is(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
+		if (node instanceof DummyCorporeaNode && !level.getBlockState(getAttachPos()).is(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
 		}

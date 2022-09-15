@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 @Mixin(Bee.class)
 public abstract class MixinBee extends Animal {
@@ -38,7 +38,7 @@ public abstract class MixinBee extends Animal {
 		at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/animal/Bee;level:Lnet/minecraft/world/level/Level;", ordinal = 1)
 	)
 	private void isSpecialFlower(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		if (level.isLoaded(pos) && level.getBlockState(pos).is(ModTags.Blocks.SPECIAL_FLOWERS)) {
+		if (level.isLoaded(pos) && level.getBlockState(pos).is(BotaniaTags.Blocks.SPECIAL_FLOWERS)) {
 			cir.setReturnValue(true);
 		}
 	}

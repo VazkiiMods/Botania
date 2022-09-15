@@ -12,7 +12,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.common.item.material.ManaResourceItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class TerrasteelIngotItem extends ManaResourceItem implements ItemWithBannerPattern {
 	public TerrasteelIngotItem(Properties props) {
@@ -21,6 +21,6 @@ public class TerrasteelIngotItem extends ManaResourceItem implements ItemWithBan
 
 	@Override
 	public TagKey<BannerPattern> getBannerPattern() {
-		return ModTags.BannerPatterns.PATTERN_ITEM_TERRASTEEL;
+		return BotaniaTags.BannerPatterns.PATTERN_ITEM_TERRASTEEL;
 	}
 }

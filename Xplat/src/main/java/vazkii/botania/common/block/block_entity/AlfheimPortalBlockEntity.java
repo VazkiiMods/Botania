@@ -47,7 +47,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
@@ -86,10 +86,10 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				return (blockGetter, pos, state) -> state.is(tag());
 			}
 		}
-		var horizontal = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, BotaniaBlocks.livingwoodLog);
-		var vertical = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, BotaniaBlocks.livingwoodLog);
-		var horizontalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, BotaniaBlocks.livingwoodLogGlimmering);
-		var verticalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, BotaniaBlocks.livingwoodLogGlimmering);
+		var horizontal = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, BotaniaBlocks.livingwoodLog);
+		var vertical = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, BotaniaBlocks.livingwoodLog);
+		var horizontalGlimmer = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, BotaniaBlocks.livingwoodLogGlimmering);
+		var verticalGlimmer = new Matcher(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, BotaniaBlocks.livingwoodLogGlimmering);
 
 		return PatchouliAPI.get().makeMultiblock(
 				new String[][] {

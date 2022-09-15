@@ -88,7 +88,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
@@ -173,13 +173,13 @@ public class FabricCommonInitializer implements ModInitializer {
 		ModFeatures.registerFeatures(bind(Registry.FEATURE));
 		SkyblockChunkGenerator.submitRegistration(bind(Registry.CHUNK_GENERATOR));
 		BiomeModifications.addFeature(
-				BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
-						.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
+				BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
+						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
 				ModFeatures.MYSTICAL_FLOWERS_ID);
 		BiomeModifications.addFeature(
-				BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
-						.and(Predicate.not(BiomeSelectors.tag(ModTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
+				BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
+						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
 				ModFeatures.MYSTICAL_MUSHROOMS_ID);
 

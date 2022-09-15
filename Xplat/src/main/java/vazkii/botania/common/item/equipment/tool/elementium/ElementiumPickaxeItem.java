@@ -15,7 +15,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class ElementiumPickaxeItem extends ManasteelPickaxeItem {
 
@@ -36,10 +36,10 @@ public class ElementiumPickaxeItem extends ManasteelPickaxeItem {
 			return false;
 		}
 
-		return stack.is(ModTags.Items.DISPOSABLE);
+		return stack.is(BotaniaTags.Items.DISPOSABLE);
 	}
 
 	private static boolean isSemiDisposable(ItemStack stack) {
-		return stack.is(ModTags.Items.SEMI_DISPOSABLE);
+		return stack.is(BotaniaTags.Items.SEMI_DISPOSABLE);
 	}
 }

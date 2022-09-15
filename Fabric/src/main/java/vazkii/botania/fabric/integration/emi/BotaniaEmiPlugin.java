@@ -34,7 +34,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 import java.util.function.Function;
@@ -139,7 +139,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		))));
 
 		registry.addRecipe(new CompositeLensEmiRecipe(
-				StreamSupport.stream(Registry.ITEM.getOrCreateTag(ModTags.Items.LENS).spliterator(), false)
+				StreamSupport.stream(Registry.ITEM.getOrCreateTag(BotaniaTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
 						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))

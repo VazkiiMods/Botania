@@ -52,7 +52,7 @@ import vazkii.botania.common.item.WorldshaperssSextantItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -178,7 +178,7 @@ public final class HUDHandler {
 				ItemStack stack = inv.getItem(i - (useAccessories ? invSize : 0));
 
 				if (!stack.isEmpty()) {
-					anyRequest = anyRequest || stack.is(ModTags.Items.MANA_USING_ITEMS);
+					anyRequest = anyRequest || stack.is(BotaniaTags.Items.MANA_USING_ITEMS);
 				}
 			}
 

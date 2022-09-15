@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
@@ -107,6 +107,6 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern {
 
 	@Override
 	public TagKey<BannerPattern> getBannerPattern() {
-		return ModTags.BannerPatterns.PATTERN_ITEM_LEXICON;
+		return BotaniaTags.BannerPatterns.PATTERN_ITEM_LEXICON;
 	}
 }

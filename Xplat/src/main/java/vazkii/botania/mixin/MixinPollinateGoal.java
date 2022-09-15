@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.function.Predicate;
 
@@ -38,6 +38,6 @@ public class MixinPollinateGoal {
 	@SuppressWarnings("target")
 	@Inject(method = "<init>(Lnet/minecraft/world/entity/animal/Bee;)V", at = @At("TAIL"))
 	private void extendPredicate(Bee outer, CallbackInfo ci) {
-		VALID_POLLINATION_BLOCKS = VALID_POLLINATION_BLOCKS.or(b -> b.is(ModTags.Blocks.SPECIAL_FLOWERS));
+		VALID_POLLINATION_BLOCKS = VALID_POLLINATION_BLOCKS.or(b -> b.is(BotaniaTags.Blocks.SPECIAL_FLOWERS));
 	}
 }

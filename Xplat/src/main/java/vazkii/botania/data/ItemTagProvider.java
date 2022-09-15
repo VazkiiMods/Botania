@@ -21,8 +21,8 @@ import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.lens.LensItem;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ModTags;
 
 import java.util.Comparator;
 
@@ -45,27 +45,27 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.FENCES, ItemTags.FENCES);
 		this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
 
-		this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
-		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
-		this.copy(ModTags.Blocks.FLOATING_FLOWERS, ModTags.Items.FLOATING_FLOWERS);
-		this.copy(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.copy(ModTags.Blocks.MYSTICAL_FLOWERS, ModTags.Items.MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS, BotaniaTags.Items.MUNDANE_FLOATING_FLOWERS);
+		this.copy(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.SPECIAL_FLOATING_FLOWERS);
+		this.copy(BotaniaTags.Blocks.FLOATING_FLOWERS, BotaniaTags.Items.FLOATING_FLOWERS);
+		this.copy(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.MYSTICAL_FLOWERS, BotaniaTags.Items.MYSTICAL_FLOWERS);
 
-		this.copy(ModTags.Blocks.MISC_SPECIAL_FLOWERS, ModTags.Items.MISC_SPECIAL_FLOWERS);
-		this.copy(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS, ModTags.Items.GENERATING_SPECIAL_FLOWERS);
-		this.copy(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS, ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS);
-		this.copy(ModTags.Blocks.SPECIAL_FLOWERS, ModTags.Items.SPECIAL_FLOWERS);
-		this.copy(ModTags.Blocks.MINI_FLOWERS, ModTags.Items.MINI_FLOWERS);
-		this.tag(ModTags.Items.CONTRIBUTOR_HEADFLOWERS)
-				.addTag(ModTags.Items.SPECIAL_FLOWERS)
+		this.copy(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS, BotaniaTags.Items.MISC_SPECIAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOWERS, BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS, BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.SPECIAL_FLOWERS, BotaniaTags.Items.SPECIAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.MINI_FLOWERS, BotaniaTags.Items.MINI_FLOWERS);
+		this.tag(BotaniaTags.Items.CONTRIBUTOR_HEADFLOWERS)
+				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
 				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem());
 
-		this.tag(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.tag(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
+		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.tag(ItemTags.SMALL_FLOWERS).addTag(BotaniaTags.Items.MYSTICAL_FLOWERS).addTag(BotaniaTags.Items.SPECIAL_FLOWERS);
 
-		this.tag(ModTags.Items.BURST_VIEWERS).add(monocle);
-		this.tag(ModTags.Items.TERRA_PICK_BLACKLIST).add(auraRing, auraRingGreater, terrasteelHelm, spark);
-		TagsProvider.TagAppender<Item> builder = this.tag(ModTags.Items.LENS);
+		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
+		this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(auraRing, auraRingGreater, terrasteelHelm, spark);
+		TagsProvider.TagAppender<Item> builder = this.tag(BotaniaTags.Items.LENS);
 		Registry.ITEM.stream().filter(i -> i instanceof LensItem && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(builder::add);
@@ -75,55 +75,55 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 
-		this.tag(ModTags.Items.DUSTS_MANA).add(manaPowder);
+		this.tag(BotaniaTags.Items.DUSTS_MANA).add(manaPowder);
 
-		this.tag(ModTags.Items.GEMS_DRAGONSTONE).add(dragonstone);
-		this.tag(ModTags.Items.GEMS_MANA_DIAMOND).add(manaDiamond);
+		this.tag(BotaniaTags.Items.GEMS_DRAGONSTONE).add(dragonstone);
+		this.tag(BotaniaTags.Items.GEMS_MANA_DIAMOND).add(manaDiamond);
 
-		this.tag(ModTags.Items.INGOTS_ELEMENTIUM).add(elementium);
-		this.tag(ModTags.Items.INGOTS_MANASTEEL).add(manaSteel);
-		this.tag(ModTags.Items.INGOTS_TERRASTEEL).add(terrasteel);
+		this.tag(BotaniaTags.Items.INGOTS_ELEMENTIUM).add(elementium);
+		this.tag(BotaniaTags.Items.INGOTS_MANASTEEL).add(manaSteel);
+		this.tag(BotaniaTags.Items.INGOTS_TERRASTEEL).add(terrasteel);
 
-		this.tag(ModTags.Items.NUGGETS_ELEMENTIUM).add(elementiumNugget);
-		this.tag(ModTags.Items.NUGGETS_MANASTEEL).add(manasteelNugget);
-		this.tag(ModTags.Items.NUGGETS_TERRASTEEL).add(terrasteelNugget);
+		this.tag(BotaniaTags.Items.NUGGETS_ELEMENTIUM).add(elementiumNugget);
+		this.tag(BotaniaTags.Items.NUGGETS_MANASTEEL).add(manasteelNugget);
+		this.tag(BotaniaTags.Items.NUGGETS_TERRASTEEL).add(terrasteelNugget);
 
-		this.copy(ModTags.Blocks.BLOCKS_ELEMENTIUM, ModTags.Items.BLOCKS_ELEMENTIUM);
-		this.copy(ModTags.Blocks.BLOCKS_MANASTEEL, ModTags.Items.BLOCKS_MANASTEEL);
-		this.copy(ModTags.Blocks.BLOCKS_TERRASTEEL, ModTags.Items.BLOCKS_TERRASTEEL);
+		this.copy(BotaniaTags.Blocks.BLOCKS_ELEMENTIUM, BotaniaTags.Items.BLOCKS_ELEMENTIUM);
+		this.copy(BotaniaTags.Blocks.BLOCKS_MANASTEEL, BotaniaTags.Items.BLOCKS_MANASTEEL);
+		this.copy(BotaniaTags.Blocks.BLOCKS_TERRASTEEL, BotaniaTags.Items.BLOCKS_TERRASTEEL);
 
 		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
-		this.copy(ModTags.Blocks.LIVINGWOOD_LOGS, ModTags.Items.LIVINGWOOD_LOGS);
-		this.copy(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, ModTags.Items.LIVINGWOOD_LOGS_GLIMMERING);
-		this.copy(ModTags.Blocks.DREAMWOOD_LOGS, ModTags.Items.DREAMWOOD_LOGS);
-		this.copy(ModTags.Blocks.DREAMWOOD_LOGS_GLIMMERING, ModTags.Items.DREAMWOOD_LOGS_GLIMMERING);
+		this.copy(BotaniaTags.Blocks.LIVINGWOOD_LOGS, BotaniaTags.Items.LIVINGWOOD_LOGS);
+		this.copy(BotaniaTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, BotaniaTags.Items.LIVINGWOOD_LOGS_GLIMMERING);
+		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS, BotaniaTags.Items.DREAMWOOD_LOGS);
+		this.copy(BotaniaTags.Blocks.DREAMWOOD_LOGS_GLIMMERING, BotaniaTags.Items.DREAMWOOD_LOGS_GLIMMERING);
 
-		this.tag(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
-		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
+		this.tag(BotaniaTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
+		this.tag(BotaniaTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
 				.addOptional(new ResourceLocation("quark", "basalt"))
 				.addOptional(new ResourceLocation("quark", "jasper"))
 				.addOptional(new ResourceLocation("quark", "limestone"))
 				.addOptional(new ResourceLocation("quark", "marble"))
 				.addOptional(new ResourceLocation("quark", "slate"));
 
-		this.tag(ModTags.Items.RUNES).add(
+		this.tag(BotaniaTags.Items.RUNES).add(
 				runeWater, runeFire, runeEarth, runeAir,
 				runeSpring, runeSummer, runeAutumn, runeWinter,
 				runeMana, runeLust, runeGluttony, runeGreed,
 				runeSloth, runeWrath, runeEnvy, runePride
 		);
 
-		TagAppender<Item> allPetals = this.tag(ModTags.Items.PETALS);
+		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
 		for (DyeColor color : DyeColor.values()) {
-			var petalTag = ModTags.Items.getPetalTag(color);
+			var petalTag = BotaniaTags.Items.getPetalTag(color);
 			this.tag(petalTag).add(getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 
-		this.tag(ModTags.Items.LOONIUM_BLACKLIST).add(lexicon, overgrowthSeed,
+		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST).add(lexicon, overgrowthSeed,
 				blackLotus, blackerLotus).addTag(ItemTags.MUSIC_DISCS);
-		this.tag(ModTags.Items.MAGNET_RING_BLACKLIST);
-		this.tag(ModTags.Items.RODS).add(
+		this.tag(BotaniaTags.Items.MAGNET_RING_BLACKLIST);
+		this.tag(BotaniaTags.Items.RODS).add(
 				dirtRod,
 				skyDirtRod,
 				terraformRod,
@@ -137,7 +137,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				rainbowRod,
 				gravityRod,
 				missileRod);
-		this.tag(ModTags.Items.MANA_USING_ITEMS).add(
+		this.tag(BotaniaTags.Items.MANA_USING_ITEMS).add(
 				bloodPendant,
 				cobbleRod,
 				crystalBow,

@@ -24,8 +24,8 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.ModTags;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -91,7 +91,7 @@ public class ContributorList {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				var item = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.CONTRIBUTOR_HEADFLOWERS).spliterator(), false)
+				var item = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(BotaniaTags.Items.CONTRIBUTOR_HEADFLOWERS).spliterator(), false)
 						.filter(h -> h.is(resKey -> resKey.location().getPath().equals(flowerName)))
 						.findFirst()
 						.map(Holder::value)

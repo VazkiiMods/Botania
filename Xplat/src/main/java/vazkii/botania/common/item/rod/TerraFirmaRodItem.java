@@ -32,7 +32,7 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +86,7 @@ public class TerraFirmaRodItem extends Item {
 				continue;
 			}
 
-			if (state.is(ModTags.Blocks.TERRAFORMABLE)) {
+			if (state.is(BotaniaTags.Blocks.TERRAFORMABLE)) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
 				for (Direction dir : Direction.Plane.HORIZONTAL) {
@@ -94,7 +94,7 @@ public class TerraFirmaRodItem extends Item {
 					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
 					if (state_.isAir() || state_.getMaterial().isReplaceable()
-							|| block_ instanceof FlowerBlock && !state_.is(ModTags.Blocks.SPECIAL_FLOWERS)
+							|| block_ instanceof FlowerBlock && !state_.is(BotaniaTags.Blocks.SPECIAL_FLOWERS)
 							|| block_ instanceof DoublePlantBlock) {
 						airBlocks.add(pos_);
 					}

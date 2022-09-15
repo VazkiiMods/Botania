@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ModTags {
+public class BotaniaTags {
 	public static class Items {
 		public static final TagKey<Item> DUSTS_MANA = tag("mana_dusts");
 

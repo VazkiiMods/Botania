@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,15 +91,15 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 			} else if (!validWater.isEmpty()) {
 				placePos = validWater.get(level.random.nextInt(validWater.size()));
 				if (Math.random() < rareChance) {
-					entity = random(ModTags.Entities.COCOON_RARE_AQUATIC);
+					entity = random(BotaniaTags.Entities.COCOON_RARE_AQUATIC);
 				} else {
-					entity = random(ModTags.Entities.COCOON_COMMON_AQUATIC);
+					entity = random(BotaniaTags.Entities.COCOON_COMMON_AQUATIC);
 				}
 			} else {
 				if (Math.random() < rareChance) {
-					entity = random(ModTags.Entities.COCOON_RARE);
+					entity = random(BotaniaTags.Entities.COCOON_RARE);
 				} else {
-					entity = random(ModTags.Entities.COCOON_COMMON);
+					entity = random(BotaniaTags.Entities.COCOON_COMMON);
 				}
 			}
 

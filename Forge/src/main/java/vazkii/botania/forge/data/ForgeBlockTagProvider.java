@@ -12,8 +12,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ModTags;
 
 public class ForgeBlockTagProvider extends BlockTagsProvider {
 	public static final TagKey<Block> MUSHROOMS = forge("mushrooms");
@@ -42,12 +42,12 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 		}
 
 		tag(TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("buzzier_bees", "flower_blacklist")))
-				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
-				.addTag(ModTags.Blocks.SPECIAL_FLOWERS);
+				.addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.SPECIAL_FLOWERS);
 
-		tag(ELEMENTIUM).addTag(ModTags.Blocks.BLOCKS_ELEMENTIUM);
-		tag(MANASTEEL).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
-		tag(TERRASTEEL).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
+		tag(ELEMENTIUM).addTag(BotaniaTags.Blocks.BLOCKS_ELEMENTIUM);
+		tag(MANASTEEL).addTag(BotaniaTags.Blocks.BLOCKS_MANASTEEL);
+		tag(TERRASTEEL).addTag(BotaniaTags.Blocks.BLOCKS_TERRASTEEL);
 		tag(Tags.Blocks.STORAGE_BLOCKS).addTag(ELEMENTIUM).addTag(MANASTEEL).addTag(TERRASTEEL);
 		tag(Tags.Blocks.GLASS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);
 		tag(Tags.Blocks.GLASS_PANES).add(BotaniaFluffBlocks.managlassPane, BotaniaFluffBlocks.alfglassPane, BotaniaFluffBlocks.bifrostPane);

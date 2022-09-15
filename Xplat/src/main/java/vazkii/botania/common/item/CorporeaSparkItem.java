@@ -25,7 +25,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.CorporeaSparkEntity;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class CorporeaSparkItem extends Item {
 	}
 
 	private static boolean canPlace(Level world, CorporeaSparkEntity spark) {
-		return world.getBlockState(spark.getAttachPos()).is(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)
+		return world.getBlockState(spark.getAttachPos()).is(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE)
 				|| !(spark.getSparkNode() instanceof DummyCorporeaNode);
 	}
 

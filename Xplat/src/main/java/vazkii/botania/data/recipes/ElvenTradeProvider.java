@@ -26,7 +26,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,8 +45,8 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(id("dreamwood_log"), new ItemStack(BotaniaBlocks.dreamwoodLog), Ingredient.of(BotaniaBlocks.livingwoodLog)));
 		consumer.accept(new FinishedRecipe(id("dreamwood"), new ItemStack(BotaniaBlocks.dreamwood), Ingredient.of(BotaniaBlocks.livingwood)));
 
-		Ingredient manaDiamond = Ingredient.of(ModTags.Items.GEMS_MANA_DIAMOND);
-		Ingredient manaSteel = Ingredient.of(ModTags.Items.INGOTS_MANASTEEL);
+		Ingredient manaDiamond = Ingredient.of(BotaniaTags.Items.GEMS_MANA_DIAMOND);
+		Ingredient manaSteel = Ingredient.of(BotaniaTags.Items.INGOTS_MANASTEEL);
 		consumer.accept(new FinishedRecipe(id("elementium"), new ItemStack(BotaniaItems.elementium), manaSteel, manaSteel));
 		consumer.accept(new FinishedRecipe(id("elementium_block"), new ItemStack(BotaniaBlocks.elementiumBlock), Ingredient.of(BotaniaBlocks.manasteelBlock), Ingredient.of(BotaniaBlocks.manasteelBlock)));
 

@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.internal_caps.SpectralRailComponent;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class SpectralRailBlock extends BaseRailBlock {
@@ -54,7 +54,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 		BlockState state = cart.level.getBlockState(entPos);
 		boolean air = state.isAir();
 
-		if (state.is(ModTags.Blocks.GHOST_RAIL_BARRIER)
+		if (state.is(BotaniaTags.Blocks.GHOST_RAIL_BARRIER)
 				|| (!state.is(BotaniaBlocks.ghostRail) && state.is(BlockTags.RAILS))) {
 			cart.level.levelEvent(LevelEvent.PARTICLES_EYE_OF_ENDER_DEATH, entPos, 0);
 			persistentData.floatTicks = 0;

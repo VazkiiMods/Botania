@@ -38,7 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -133,7 +133,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
 				pos.offset(range, rangeY, range))) {
 			BlockState state = level.getBlockState(bPos);
-			if (state.is(ModTags.Blocks.ENDER_AIR_CONVERTABLE)) {
+			if (state.is(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE)) {
 				possibleCoords.add(bPos.immutable());
 			}
 		}

@@ -39,14 +39,14 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class ShadedMesaRodItem extends Item {
-	private static final TagKey<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
+	private static final TagKey<EntityType<?>> BLACKLIST = BotaniaTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
 	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !e.getType().is(BLACKLIST);

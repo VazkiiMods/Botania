@@ -48,7 +48,7 @@ import vazkii.botania.common.item.StoneOfTemperanceItem;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.common.item.relic.RingOfThorItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
@@ -302,7 +302,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 		@Override
 		public boolean canReceiveManaFromItem(ItemStack otherStack) {
-			return !otherStack.is(ModTags.Items.TERRA_PICK_BLACKLIST);
+			return !otherStack.is(BotaniaTags.Items.TERRA_PICK_BLACKLIST);
 		}
 
 		@Override

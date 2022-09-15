@@ -34,7 +34,7 @@ import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.mixin.AccessorAdvancementProvider;
 
 import java.util.List;
@@ -69,13 +69,13 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement root = Advancement.Builder.advancement()
 				.display(rootDisplay(BotaniaItems.lexicon, "itemGroup.botania",
 						"botania.desc", prefix("textures/block/livingwood_log.png")))
-				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
+				.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer, mainId("root"));
 
 		Advancement flowerPickup = Advancement.Builder.advancement()
 				.display(simple(BotaniaBlocks.pinkFlower, "flowerPickup", FrameType.TASK))
 				.parent(root)
-				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
+				.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer, mainId("flower_pickup"));
 
 		Advancement manaPoolPickup = Advancement.Builder.advancement()
@@ -87,7 +87,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement runePickup = Advancement.Builder.advancement()
 				.display(simple(BotaniaBlocks.runeAltar, "runePickup", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("rune", onPickup(ModTags.Items.RUNES))
+				.addCriterion("rune", onPickup(BotaniaTags.Items.RUNES))
 				.save(consumer, mainId("rune_pickup"));
 
 		Advancement terrasteelPickup = Advancement.Builder.advancement()
@@ -132,7 +132,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(simple(BotaniaFlowerBlocks.endoflame, "generatingFlower", FrameType.TASK))
 				.parent(flowerPickup)
-				.addCriterion("flower", onPickup(ModTags.Items.GENERATING_SPECIAL_FLOWERS))
+				.addCriterion("flower", onPickup(BotaniaTags.Items.GENERATING_SPECIAL_FLOWERS))
 				.save(consumer, mainId("generating_flower"));
 
 		// Parent: mana pool
@@ -144,7 +144,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(simple(BotaniaFlowerBlocks.bellethorn, "functionalFlower", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("flower", onPickup(ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS))
+				.addCriterion("flower", onPickup(BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOWERS))
 				.save(consumer, mainId("functional_flower"));
 		Advancement.Builder.advancement()
 				.display(simple(BotaniaItems.poolMinecart, "manaCartCraft", FrameType.TASK))
@@ -283,7 +283,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		// Lexicon locks
 		Advancement.Builder.advancement()
 				.parent(root)
-				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
+				.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("flower_pickup_lexicon"));
@@ -308,7 +308,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
 				.addCriterion("altar", onPickup(BotaniaBlocks.runeAltar))
-				.addCriterion("rune", onPickup(ModTags.Items.RUNES))
+				.addCriterion("rune", onPickup(BotaniaTags.Items.RUNES))
 				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("runic_altar_pickup"));
@@ -328,7 +328,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement root = Advancement.Builder.advancement()
 				.display(rootDisplay(BotaniaItems.dice, "advancement.botania_challenge",
 						"advancement.botania_challenge.desc", prefix("textures/block/livingrock_bricks.png")))
-				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
+				.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer, challengeId("root"));
 
 		// hardmode Gaia Guardian related

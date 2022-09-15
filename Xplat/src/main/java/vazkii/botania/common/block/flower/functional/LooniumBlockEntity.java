@@ -41,7 +41,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
@@ -86,7 +86,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					Collections.shuffle(stacks);
 					stack = stacks.get(0);
 				}
-			} while (stack.isEmpty() || stack.is(ModTags.Items.LOONIUM_BLACKLIST));
+			} while (stack.isEmpty() || stack.is(BotaniaTags.Items.LOONIUM_BLACKLIST));
 
 			int bound = RANGE * 2 + 1;
 			int xp = getEffectivePos().getX() - RANGE + rand.nextInt(bound);
