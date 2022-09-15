@@ -9,7 +9,7 @@ import dev.emi.emi.api.widget.SlotWidget;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.lens.LensItem;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class CompositeLensEmiRecipe extends EmiPatternCraftingRecipe {
 		return new GeneratedSlotWidget(r -> {
 			ItemStack a = lenses.get(r.nextInt(lenses.size())).getItemStack();
 			ItemStack b = lenses.get(r.nextInt(lenses.size())).getItemStack();
-			((ItemLens) a.getItem()).setCompositeLens(a.copy(), b);
+			((LensItem) a.getItem()).setCompositeLens(a.copy(), b);
 			return EmiStack.of(a);
 		}, unique, x, y);
 	}

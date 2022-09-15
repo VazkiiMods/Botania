@@ -12,12 +12,13 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.BurstProperties;
 
-public class LensGravity extends Lens {
+public class MessengerLens extends Lens {
 
 	@Override
 	public void apply(ItemStack stack, BurstProperties props) {
-		props.gravity = 0.0015F;
-		props.ticksBeforeManaLoss *= 1.2F;
+		props.maxMana /= 5;
+		props.ticksBeforeManaLoss *= 3;
+		props.motionModifier *= 3F;
 	}
 
 }

@@ -20,7 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
@@ -66,7 +66,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(ModTags.Items.BURST_VIEWERS).add(monocle);
 		this.tag(ModTags.Items.TERRA_PICK_BLACKLIST).add(auraRing, auraRingGreater, terrasteelHelm, spark);
 		TagsProvider.TagAppender<Item> builder = this.tag(ModTags.Items.LENS);
-		Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+		Registry.ITEM.stream().filter(i -> i instanceof LensItem && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(builder::add);
 

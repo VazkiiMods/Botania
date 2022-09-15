@@ -34,12 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class LensPaint extends Lens {
+public class PaintslingerLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		int storedColor = ItemLens.getStoredColor(stack);
+		int storedColor = LensItem.getStoredColor(stack);
 		if (!entity.level.isClientSide && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if (pos.getType() == HitResult.Type.ENTITY) {
 				Entity collidedWith = ((EntityHitResult) pos).getEntity();

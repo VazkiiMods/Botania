@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.ManaBurst;
 
-public class LensBounce extends Lens {
+public class BounceLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {

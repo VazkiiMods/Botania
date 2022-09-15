@@ -23,7 +23,7 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
 		allLenses = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.LENS).spliterator(), false)
 				.map(ItemStack::new)
-				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
-				.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
+				.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
+				.filter(s -> ((LensItem) s.getItem()).isCombinable(s))
 				.map(ItemStack::getItem)
 				.toList();
 	}
@@ -64,10 +64,10 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 				}
 
 				ItemStack secondLensStack = new ItemStack(secondLens);
-				if (((ItemLens) firstLens).canCombineLenses(firstLensStack, secondLensStack)) {
+				if (((LensItem) firstLens).canCombineLenses(firstLensStack, secondLensStack)) {
 					firstInput.add(firstLensStack);
 					secondInput.add(secondLensStack);
-					outputs.add(((ItemLens) firstLens).setCompositeLens(firstLensStack.copy(), secondLensStack));
+					outputs.add(((LensItem) firstLens).setCompositeLens(firstLensStack.copy(), secondLensStack));
 				}
 			}
 		}

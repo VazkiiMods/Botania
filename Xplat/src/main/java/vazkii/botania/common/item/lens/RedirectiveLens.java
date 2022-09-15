@@ -22,7 +22,7 @@ import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class LensRedirect extends Lens {
+public class RedirectiveLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {

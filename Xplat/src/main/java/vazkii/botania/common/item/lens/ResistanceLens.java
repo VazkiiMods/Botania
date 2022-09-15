@@ -12,12 +12,12 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.BurstProperties;
 
-public class LensEfficiency extends Lens {
+public class ResistanceLens extends Lens {
 
 	@Override
 	public void apply(ItemStack stack, BurstProperties props) {
-		props.manaLossPerTick /= 5F;
-		props.ticksBeforeManaLoss *= 1.1F;
+		props.ticksBeforeManaLoss *= 2.25F;
+		props.motionModifier *= 0.8F;
 	}
 
 }

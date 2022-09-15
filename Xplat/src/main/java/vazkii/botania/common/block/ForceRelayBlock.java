@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.lens.LensPiston;
+import vazkii.botania.common.item.lens.ForceLens;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -72,7 +72,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 
 					if (newState.getValue(MovingPistonBlock.TYPE) == PistonType.DEFAULT) {
 						// Move the actual bound blocks
-						if (LensPiston.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection)) {
+						if (ForceLens.moveBlocks(world, destPos.relative(moveDirection.getOpposite()), moveDirection)) {
 							// Move dest side of our binding
 							data.mapping.put(newSrcPos, data.mapping.get(newSrcPos).relative(moveDirection));
 						}

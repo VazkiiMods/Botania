@@ -11,7 +11,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Have an Item implement this to be counted as a lens that can be combined with an ItemLens.
+ * Have an Item implement this to be counted as a lens that can be combined with an LensItem.
  */
 public interface CompositableLens extends Lens {
 

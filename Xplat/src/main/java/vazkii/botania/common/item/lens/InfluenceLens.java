@@ -24,7 +24,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.item.ModItems;
 
-public class LensInfluence extends Lens {
+public class InfluenceLens extends Lens {
 
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {

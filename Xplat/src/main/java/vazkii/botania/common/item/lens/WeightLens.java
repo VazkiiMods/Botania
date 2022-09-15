@@ -32,7 +32,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
-public class LensWeight extends Lens {
+public class WeightLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
@@ -60,7 +60,7 @@ public class LensWeight extends Lens {
 		if (state.is(ModTags.Blocks.WEIGHT_LENS_WHITELIST)) {
 			return true;
 		}
-		ItemStack harvestToolStack = LensMine.getHarvestToolStack(harvestLevel, state).copy();
+		ItemStack harvestToolStack = BoreLens.getHarvestToolStack(harvestLevel, state).copy();
 		if (harvestToolStack.isEmpty()) {
 			return false;
 		}

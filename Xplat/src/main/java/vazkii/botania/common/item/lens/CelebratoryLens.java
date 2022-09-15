@@ -19,7 +19,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
-public class LensFirework extends Lens {
+public class CelebratoryLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {

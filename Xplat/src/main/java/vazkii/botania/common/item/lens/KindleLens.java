@@ -19,7 +19,7 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
 
-public class LensFire extends Lens {
+public class KindleLens extends Lens {
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();

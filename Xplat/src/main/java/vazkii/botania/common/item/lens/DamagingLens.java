@@ -19,7 +19,7 @@ import vazkii.botania.api.internal.ManaBurst;
 
 import java.util.List;
 
-public class LensDamage extends Lens {
+public class DamagingLens extends Lens {
 
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {

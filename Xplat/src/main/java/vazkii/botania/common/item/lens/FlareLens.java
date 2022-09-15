@@ -16,7 +16,7 @@ import vazkii.botania.api.mana.ManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.helper.ColorHelper;
 
-public class LensFlare extends Lens {
+public class FlareLens extends Lens {
 
 	@Override
 	public boolean allowBurstShooting(ItemStack stack, ManaSpreader spreader, boolean redstone) {
@@ -45,7 +45,7 @@ public class LensFlare extends Lens {
 		float mz = (float) (-(Mth.cos(rotationYaw / 180.0F * (float) Math.PI) * Mth.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D);
 		float my = (float) (Mth.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
 
-		int storedColor = ItemLens.getStoredColor(stack);
+		int storedColor = LensItem.getStoredColor(stack);
 		int hex = -1;
 
 		var level = spreader.getManaReceiverLevel();

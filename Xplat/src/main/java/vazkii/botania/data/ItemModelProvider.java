@@ -41,7 +41,7 @@ import vazkii.botania.common.block.decor.FlowerMotifBlock;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.ModelWithOverrides;
@@ -111,7 +111,7 @@ public class ItemModelProvider implements DataProvider {
 		// Written manually
 		items.remove(manaGun);
 
-		takeAll(items, i -> i instanceof ItemLens).forEach(i -> {
+		takeAll(items, i -> i instanceof LensItem).forEach(i -> {
 			ResourceLocation lens;
 			if (i == lensTime || i == lensWarp || i == lensFire) {
 				// To avoid z-fighting

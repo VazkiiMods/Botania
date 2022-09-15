@@ -8,23 +8,18 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
 
-public class LensStorm extends Lens {
+public class PhantomLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
-		Entity entity = burst.entity();
-		if (pos.getType() == HitResult.Type.BLOCK) {
-			if (!entity.level.isClientSide && !burst.isFake() && !isManaBlock) {
-				entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Explosion.BlockInteraction.DESTROY);
-			}
-			return true;
+		if (!isManaBlock) {
+			shouldKill = false;
+			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 		}
 
 		return shouldKill;

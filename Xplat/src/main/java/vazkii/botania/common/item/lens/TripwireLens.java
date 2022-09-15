@@ -18,7 +18,7 @@ import vazkii.botania.api.mana.ManaSpreader;
 
 import java.util.List;
 
-public class LensTripwire extends Lens {
+public class TripwireLens extends Lens {
 
 	@Override
 	public boolean allowBurstShooting(ItemStack stack, ManaSpreader spreader, boolean redstone) {

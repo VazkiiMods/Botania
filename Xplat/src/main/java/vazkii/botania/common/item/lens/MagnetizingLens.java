@@ -18,7 +18,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.Predicate;
 
-public class LensMagnet extends Lens {
+public class MagnetizingLens extends Lens {
 
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {

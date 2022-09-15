@@ -34,7 +34,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import java.util.List;
 import java.util.Map;
 
-public class LensPiston extends Lens {
+public class ForceLens extends Lens {
 
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {

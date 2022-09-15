@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.lens.LensItem;
 
 import java.util.Arrays;
 import java.util.List;
@@ -101,7 +101,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 		if (lens.getItem() instanceof Lens) {
 			ItemStack lensCopy = lens.copy();
 			lensCopy.setCount(1);
-			ItemLens.setLensColor(lensCopy, color);
+			LensItem.setLensColor(lensCopy, color);
 
 			return lensCopy;
 		}

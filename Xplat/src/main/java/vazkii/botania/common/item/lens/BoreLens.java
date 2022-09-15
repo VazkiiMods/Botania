@@ -36,7 +36,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class LensMine extends Lens {
+public class BoreLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
@@ -49,7 +49,7 @@ public class LensMine extends Lens {
 		BlockPos collidePos = ((BlockHitResult) rtr).getBlockPos();
 		BlockState state = world.getBlockState(collidePos);
 
-		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
+		ItemStack composite = ((LensItem) stack.getItem()).getCompositeLens(stack);
 		boolean warp = !composite.isEmpty() && composite.is(ModItems.lensWarp);
 
 		if (warp && (state.is(BotaniaBlocks.pistonRelay) || state.is(Blocks.PISTON) || state.is(Blocks.MOVING_PISTON) || state.is(Blocks.PISTON_HEAD))) {

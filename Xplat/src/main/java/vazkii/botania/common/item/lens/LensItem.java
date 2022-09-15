@@ -30,7 +30,7 @@ import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 
-public class ItemLens extends Item implements LensControl, CompositableLens, TinyPlanetExcempt {
+public class LensItem extends Item implements LensControl, CompositableLens, TinyPlanetExcempt {
 	public static final int PROP_NONE = 0,
 			PROP_POWER = 1,
 			PROP_ORIENTATION = 1 << 1,
@@ -45,7 +45,7 @@ public class ItemLens extends Item implements LensControl, CompositableLens, Tin
 	private final Lens lens;
 	private final int props;
 
-	public ItemLens(Item.Properties builder, Lens lens, int props) {
+	public LensItem(Item.Properties builder, Lens lens, int props) {
 		super(builder);
 		this.lens = lens;
 		this.props = props;
@@ -60,7 +60,7 @@ public class ItemLens extends Item implements LensControl, CompositableLens, Tin
 			stacks.add(Component.translatable("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
 		}
 
-		if (lens instanceof LensStorm) {
+		if (lens instanceof StormLens) {
 			stacks.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
@@ -158,8 +158,8 @@ public class ItemLens extends Item implements LensControl, CompositableLens, Tin
 	}
 
 	public static Lens getLens(ItemStack stack) {
-		if (stack.getItem() instanceof ItemLens) {
-			return ((ItemLens) stack.getItem()).lens;
+		if (stack.getItem() instanceof LensItem) {
+			return ((LensItem) stack.getItem()).lens;
 		} else {
 			return new Lens();
 		}

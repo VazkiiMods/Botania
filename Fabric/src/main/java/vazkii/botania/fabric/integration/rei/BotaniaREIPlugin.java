@@ -53,7 +53,7 @@ import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
 
@@ -200,8 +200,8 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		List<ItemStack> lensStacks =
 				StreamSupport.stream(Registry.ITEM.getTagOrEmpty(ModTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
-						.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
-						.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
+						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
+						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))
 						.toList();
 		List<Item> lenses = lensStacks.stream().map(ItemStack::getItem).toList();
 		List<EntryIngredient> inputs = Arrays.asList(EntryIngredients.ofItemStacks(lensStacks), EntryIngredients.of(new ItemStack(Items.SLIME_BALL)), EntryIngredients.ofItemStacks(lensStacks));
@@ -218,10 +218,10 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				}
 
 				ItemStack secondLensStack = new ItemStack(secondLens);
-				if (((ItemLens) firstLens.getItem()).canCombineLenses(firstLens, secondLensStack)) {
+				if (((LensItem) firstLens.getItem()).canCombineLenses(firstLens, secondLensStack)) {
 					firstInput.add(firstLens);
 					secondInput.add(secondLensStack);
-					outputs.add(((ItemLens) firstLens.getItem()).setCompositeLens(firstLens.copy(), secondLensStack));
+					outputs.add(((LensItem) firstLens.getItem()).setCompositeLens(firstLens.copy(), secondLensStack));
 				}
 			}
 		}
