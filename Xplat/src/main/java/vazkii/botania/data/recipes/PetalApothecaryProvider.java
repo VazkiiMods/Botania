@@ -34,8 +34,8 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PetalProvider extends BotaniaRecipeProvider {
-	public PetalProvider(DataGenerator gen) {
+public class PetalApothecaryProvider extends BotaniaRecipeProvider {
+	public PetalApothecaryProvider(DataGenerator gen) {
 		super(gen);
 	}
 

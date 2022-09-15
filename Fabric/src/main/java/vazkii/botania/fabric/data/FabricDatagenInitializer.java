@@ -48,9 +48,9 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		generator.addProvider(true, new ManaInfusionProvider(generator));
 		generator.addProvider(true, new PureDaisyProvider(generator));
 		generator.addProvider(true, new BrewProvider(generator));
-		generator.addProvider(true, new PetalProvider(generator));
-		generator.addProvider(true, new RuneProvider(generator));
-		generator.addProvider(true, new TerraPlateProvider(generator));
+		generator.addProvider(true, new PetalApothecaryProvider(generator));
+		generator.addProvider(true, new RunicAltarProvider(generator));
+		generator.addProvider(true, new TerrestrialAgglomerationProvider(generator));
 		generator.addProvider(true, new OrechidProvider(generator));
 		generator.addProvider(true, new BlockstateProvider(generator));
 		generator.addProvider(true, new FloatingFlowerModelProvider(generator));

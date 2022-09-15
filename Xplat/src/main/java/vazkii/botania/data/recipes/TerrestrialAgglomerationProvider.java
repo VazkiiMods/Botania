@@ -28,8 +28,8 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TerraPlateProvider extends BotaniaRecipeProvider {
-	public TerraPlateProvider(DataGenerator gen) {
+public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
+	public TerrestrialAgglomerationProvider(DataGenerator gen) {
 		super(gen);
 	}
 

@@ -31,8 +31,8 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RuneProvider extends BotaniaRecipeProvider {
-	public RuneProvider(DataGenerator gen) {
+public class RunicAltarProvider extends BotaniaRecipeProvider {
+	public RunicAltarProvider(DataGenerator gen) {
 		super(gen);
 	}
 
