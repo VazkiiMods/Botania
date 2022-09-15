@@ -29,7 +29,7 @@ public class EnableRelics implements LootItemCondition {
 
 	@Override
 	public LootItemConditionType getType() {
-		return ModLootModifiers.ENABLE_RELICS;
+		return BotaniaLootModifiers.ENABLE_RELICS;
 	}
 
 	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<EnableRelics> {

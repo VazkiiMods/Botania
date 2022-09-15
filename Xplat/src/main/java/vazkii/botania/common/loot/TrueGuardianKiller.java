@@ -33,7 +33,7 @@ public class TrueGuardianKiller implements LootItemCondition {
 
 	@Override
 	public LootItemConditionType getType() {
-		return ModLootModifiers.TRUE_GUARDIAN_KILLER;
+		return BotaniaLootModifiers.TRUE_GUARDIAN_KILLER;
 	}
 
 	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<TrueGuardianKiller> {

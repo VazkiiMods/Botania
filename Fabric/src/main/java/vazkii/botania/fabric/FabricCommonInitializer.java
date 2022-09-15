@@ -89,8 +89,8 @@ import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.common.loot.BotaniaLootModifiers;
 import vazkii.botania.common.loot.LootHandler;
-import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -186,8 +186,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		// Rest
 		BotaniaCriteriaTriggers.init();
 		BotaniaParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
-		ModLootModifiers.submitLootConditions(bind(Registry.LOOT_CONDITION_TYPE));
-		ModLootModifiers.submitLootFunctions(bind(Registry.LOOT_FUNCTION_TYPE));
+		BotaniaLootModifiers.submitLootConditions(bind(Registry.LOOT_CONDITION_TYPE));
+		BotaniaLootModifiers.submitLootFunctions(bind(Registry.LOOT_FUNCTION_TYPE));
 		ModStats.init();
 	}
 

@@ -108,8 +108,8 @@ import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.loot.BotaniaLootModifiers;
 import vazkii.botania.common.loot.LootHandler;
-import vazkii.botania.common.loot.ModLootModifiers;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -208,8 +208,8 @@ public class ForgeCommonInitializer {
 		BotaniaCriteriaTriggers.init();
 		bind(Registry.PARTICLE_TYPE_REGISTRY, BotaniaParticles::registerParticles);
 
-		bind(Registry.LOOT_ITEM_REGISTRY, ModLootModifiers::submitLootConditions);
-		bind(Registry.LOOT_FUNCTION_REGISTRY, ModLootModifiers::submitLootFunctions);
+		bind(Registry.LOOT_ITEM_REGISTRY, BotaniaLootModifiers::submitLootConditions);
+		bind(Registry.LOOT_FUNCTION_REGISTRY, BotaniaLootModifiers::submitLootFunctions);
 		// Vanilla's stat constructor does the registration too, so we use this
 		// event only for timing, not for registering
 		modBus.addListener((RegisterEvent evt) -> {

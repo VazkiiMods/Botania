@@ -44,7 +44,7 @@ public class BindUuid extends LootItemConditionalFunction {
 
 	@Override
 	public LootItemFunctionType getType() {
-		return ModLootModifiers.BIND_UUID;
+		return BotaniaLootModifiers.BIND_UUID;
 	}
 
 	public static class Serializer extends LootItemConditionalFunction.Serializer<BindUuid> {

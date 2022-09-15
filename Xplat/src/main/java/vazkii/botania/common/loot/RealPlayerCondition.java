@@ -46,7 +46,7 @@ public class RealPlayerCondition implements LootItemCondition {
 	@NotNull
 	@Override
 	public LootItemConditionType getType() {
-		return ModLootModifiers.KILLED_BY_REAL_PLAYER;
+		return BotaniaLootModifiers.KILLED_BY_REAL_PLAYER;
 	}
 
 	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<RealPlayerCondition> {

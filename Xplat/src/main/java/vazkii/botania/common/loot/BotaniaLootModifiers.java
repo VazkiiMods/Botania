@@ -16,7 +16,7 @@ import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ModLootModifiers {
+public class BotaniaLootModifiers {
 	public static final LootItemConditionType TRUE_GUARDIAN_KILLER = new LootItemConditionType(new TrueGuardianKiller.Serializer());
 	public static final LootItemConditionType ENABLE_RELICS = new LootItemConditionType(new EnableRelics.Serializer());
 	public static final LootItemConditionType KILLED_BY_REAL_PLAYER = new LootItemConditionType(new RealPlayerCondition.Serializer());
