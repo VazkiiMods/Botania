@@ -30,9 +30,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import vazkii.botania.common.block.block_entity.red_string.RedStringInterceptorBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class RedStringInterceptorBlock extends RedStringBlock {
 
@@ -75,6 +75,6 @@ public class RedStringInterceptorBlock extends RedStringBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_INTERCEPTOR, RedStringInterceptorBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_INTERCEPTOR, RedStringInterceptorBlockEntity::commonTick);
 	}
 }

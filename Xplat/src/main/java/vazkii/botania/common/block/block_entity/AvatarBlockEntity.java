@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.HashMap;
@@ -44,7 +43,7 @@ public class AvatarBlockEntity extends SimpleInventoryBlockEntity implements Ava
 	private final Map<UUID, Integer> boostCooldowns = new HashMap<>();
 
 	public AvatarBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.AVATAR, pos, state);
+		super(BotaniaBlockEntities.AVATAR, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, AvatarBlockEntity self) {

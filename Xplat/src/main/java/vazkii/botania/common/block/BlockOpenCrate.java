@@ -23,9 +23,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.OpenCrateBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class BlockOpenCrate extends BlockMod implements EntityBlock {
 
@@ -74,7 +74,7 @@ public class BlockOpenCrate extends BlockMod implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.OPEN_CRATE, OpenCrateBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.OPEN_CRATE, OpenCrateBlockEntity::serverTick);
 		}
 		return null;
 	}

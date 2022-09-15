@@ -14,13 +14,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.common.block.tile.ModTiles;
-
 public class EyeOfTheAncientsBlockEntity extends BotaniaBlockEntity {
 	public int entities = 0;
 
 	public EyeOfTheAncientsBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.FOREST_EYE, pos, state);
+		super(BotaniaBlockEntities.FOREST_EYE, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, EyeOfTheAncientsBlockEntity self) {

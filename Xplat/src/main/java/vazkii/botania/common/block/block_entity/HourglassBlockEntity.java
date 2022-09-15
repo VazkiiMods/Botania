@@ -32,7 +32,6 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -53,7 +52,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 	public boolean move = true;
 
 	public HourglassBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.HOURGLASS, pos, state);
+		super(BotaniaBlockEntities.HOURGLASS, pos, state);
 	}
 
 	private boolean isDust() {

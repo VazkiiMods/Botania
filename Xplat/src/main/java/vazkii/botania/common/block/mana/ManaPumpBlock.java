@@ -29,8 +29,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class ManaPumpBlock extends BlockModWaterloggable implements EntityBlock {
 
@@ -83,7 +83,7 @@ public class ManaPumpBlock extends BlockModWaterloggable implements EntityBlock 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.PUMP, ManaPumpBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.PUMP, ManaPumpBlockEntity::commonTick);
 	}
 
 	@Override

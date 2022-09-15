@@ -13,12 +13,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.proxy.IProxy;
 
 public class StarfieldCreatorBlockEntity extends BotaniaBlockEntity {
 	public StarfieldCreatorBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.STARFIELD, pos, state);
+		super(BotaniaBlockEntities.STARFIELD, pos, state);
 	}
 
 	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, StarfieldCreatorBlockEntity self) {

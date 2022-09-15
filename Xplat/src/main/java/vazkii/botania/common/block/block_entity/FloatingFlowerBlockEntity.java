@@ -20,7 +20,6 @@ import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class FloatingFlowerBlockEntity extends BotaniaBlockEntity implements FloatingFlowerProvider {
 	private static final String TAG_FLOATING_DATA = "floating";
@@ -37,7 +36,7 @@ public class FloatingFlowerBlockEntity extends BotaniaBlockEntity implements Flo
 	};
 
 	public FloatingFlowerBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.MINI_ISLAND, pos, state);
+		super(BotaniaBlockEntities.MINI_ISLAND, pos, state);
 	}
 
 	@Override

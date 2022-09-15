@@ -33,9 +33,9 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.InventoryHelper;
 
 public class RunicAltarBlock extends BlockModWaterloggable implements EntityBlock {
@@ -106,9 +106,9 @@ public class RunicAltarBlock extends BlockModWaterloggable implements EntityBloc
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide) {
-			return createTickerHelper(type, ModTiles.RUNE_ALTAR, RunicAltarBlockEntity::clientTick);
+			return createTickerHelper(type, BotaniaBlockEntities.RUNE_ALTAR, RunicAltarBlockEntity::clientTick);
 		} else {
-			return createTickerHelper(type, ModTiles.RUNE_ALTAR, RunicAltarBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.RUNE_ALTAR, RunicAltarBlockEntity::serverTick);
 		}
 	}
 

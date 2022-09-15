@@ -25,7 +25,7 @@ import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaRequestor;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	public boolean locked = false;
 
 	public CorporeaCrystalCubeBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CORPOREA_CRYSTAL_CUBE, pos, state);
+		super(BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, CorporeaCrystalCubeBlockEntity self) {

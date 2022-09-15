@@ -33,9 +33,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.InventoryHelper;
 
 public class BotanicalBreweryBlock extends BlockModWaterloggable implements EntityBlock {
@@ -112,7 +112,7 @@ public class BotanicalBreweryBlock extends BlockModWaterloggable implements Enti
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.BREWERY, BreweryBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.BREWERY, BreweryBlockEntity::commonTick);
 	}
 
 }

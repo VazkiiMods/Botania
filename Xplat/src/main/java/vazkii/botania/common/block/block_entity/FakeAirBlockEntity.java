@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.flower.functional.BubbellBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class FakeAirBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -26,7 +25,7 @@ public class FakeAirBlockEntity extends BotaniaBlockEntity {
 	private BlockPos flowerPos = BlockPos.ZERO;
 
 	public FakeAirBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.FAKE_AIR, pos, state);
+		super(BotaniaBlockEntities.FAKE_AIR, pos, state);
 	}
 
 	public void setFlower(BlockEntity tile) {

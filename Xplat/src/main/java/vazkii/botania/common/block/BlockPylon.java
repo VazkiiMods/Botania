@@ -26,8 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 21, 14);
@@ -80,7 +80,7 @@ public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.PYLON, PylonBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.PYLON, PylonBlockEntity::commonTick);
 	}
 
 	@SoftImplement("IForgeBlock")

@@ -25,9 +25,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class CorporeaIndexBlock extends BlockModWaterloggable implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
@@ -57,6 +57,6 @@ public class CorporeaIndexBlock extends BlockModWaterloggable implements EntityB
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.CORPOREA_INDEX, CorporeaIndexBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.CORPOREA_INDEX, CorporeaIndexBlockEntity::commonTick);
 	}
 }

@@ -46,9 +46,9 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.block.PetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -195,9 +195,9 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide) {
-			return createTickerHelper(type, ModTiles.ALTAR, PetalApothecaryBlockEntity::clientTick);
+			return createTickerHelper(type, BotaniaBlockEntities.ALTAR, PetalApothecaryBlockEntity::clientTick);
 		} else {
-			return createTickerHelper(type, ModTiles.ALTAR, PetalApothecaryBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.ALTAR, PetalApothecaryBlockEntity::serverTick);
 		}
 	}
 

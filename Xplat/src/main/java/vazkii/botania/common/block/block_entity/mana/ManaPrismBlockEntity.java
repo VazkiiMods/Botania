@@ -28,12 +28,12 @@ import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger {
 	public ManaPrismBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.PRISM, pos, state);
+		super(BotaniaBlockEntities.PRISM, pos, state);
 	}
 
 	@Override

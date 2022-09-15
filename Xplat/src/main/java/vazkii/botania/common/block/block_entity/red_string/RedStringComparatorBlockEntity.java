@@ -12,13 +12,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class RedStringComparatorBlockEntity extends RedStringBlockEntity {
 	private int comparatorValue = 0;
 
 	public RedStringComparatorBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.RED_STRING_COMPARATOR, pos, state);
+		super(BotaniaBlockEntities.RED_STRING_COMPARATOR, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, RedStringComparatorBlockEntity self) {

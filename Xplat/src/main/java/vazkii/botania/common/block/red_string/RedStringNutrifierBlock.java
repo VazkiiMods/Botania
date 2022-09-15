@@ -25,9 +25,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import vazkii.botania.common.block.block_entity.red_string.RedStringNutrifierBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class RedStringNutrifierBlock extends RedStringBlock implements BonemealableBlock {
 
@@ -60,6 +60,6 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_FERTILIZER, RedStringNutrifierBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_FERTILIZER, RedStringNutrifierBlockEntity::commonTick);
 	}
 }

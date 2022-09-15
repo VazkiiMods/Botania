@@ -59,6 +59,8 @@ import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.block_entity.*;
+import vazkii.botania.common.block.block_entity.BlockEntityConstants;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
 import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
@@ -66,8 +68,6 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
-import vazkii.botania.common.block.tile.BlockEntityConstants;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.command.SkyblockCommand;
@@ -141,7 +141,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ModBlocks.registerItemBlocks(bind(Registry.ITEM));
 		ModFluffBlocks.registerBlocks(bind(Registry.BLOCK));
 		ModFluffBlocks.registerItemBlocks(bind(Registry.ITEM));
-		ModTiles.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
+		BotaniaBlockEntities.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
 		ModItems.registerItems(bind(Registry.ITEM));
 		ModSubtiles.registerBlocks(bind(Registry.BLOCK));
 		ModSubtiles.registerItemBlocks(bind(Registry.ITEM));
@@ -269,7 +269,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
 			var torch = (AnimatedTorchBlockEntity) be;
 			return hourglass -> torch.toggle();
-		}, ModTiles.ANIMATED_TORCH);
+		}, BotaniaBlockEntities.ANIMATED_TORCH);
 		BotaniaFabricCapabilities.MANA_GHOST.registerForBlocks(
 				(level, pos, state, be, context) -> ((ManaCollisionGhost) state.getBlock()),
 				ModBlocks.manaDetector,
@@ -303,8 +303,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		);
 		BotaniaFabricCapabilities.WANDABLE.registerSelf(
 				BlockEntityConstants.SELF_WANDADBLE_BES.toArray(BlockEntityType[]::new));
-		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, ModTiles.RED_STRING_CONTAINER);
-		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, ModTiles.RED_STRING_DISPENSER);
+		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRING_CONTAINER);
+		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRING_DISPENSER);
 
 		if (IXplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
 			FluxfieldTRStorage.register();

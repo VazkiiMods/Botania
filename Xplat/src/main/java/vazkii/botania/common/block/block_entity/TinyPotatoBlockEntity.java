@@ -43,7 +43,6 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.TinyPotatoBlock;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -67,7 +66,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	private int birthdayTick = 0;
 
 	public TinyPotatoBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.TINY_POTATO, pos, state);
+		super(BotaniaBlockEntities.TINY_POTATO, pos, state);
 	}
 
 	public void interact(Player player, InteractionHand hand, ItemStack stack, Direction side) {

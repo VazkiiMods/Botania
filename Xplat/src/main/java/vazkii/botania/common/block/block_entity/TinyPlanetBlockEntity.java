@@ -12,12 +12,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
 public class TinyPlanetBlockEntity extends BotaniaBlockEntity {
 	public TinyPlanetBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.TINY_PLANET, pos, state);
+		super(BotaniaBlockEntities.TINY_PLANET, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TinyPlanetBlockEntity self) {

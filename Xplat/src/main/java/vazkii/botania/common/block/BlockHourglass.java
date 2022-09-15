@@ -36,9 +36,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.HourglassBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ItemTwigWand;
 
 public class BlockHourglass extends BlockModWaterloggable implements EntityBlock {
@@ -134,6 +134,6 @@ public class BlockHourglass extends BlockModWaterloggable implements EntityBlock
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.HOURGLASS, HourglassBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.HOURGLASS, HourglassBlockEntity::commonTick);
 	}
 }

@@ -46,7 +46,6 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -70,7 +69,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 	private boolean noParticle = false;
 
 	public LuminizerBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.LIGHT_RELAY, pos, state);
+		super(BotaniaBlockEntities.LIGHT_RELAY, pos, state);
 	}
 
 	public void mountEntity(Entity e) {

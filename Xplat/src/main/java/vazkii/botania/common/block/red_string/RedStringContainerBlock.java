@@ -21,9 +21,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class RedStringContainerBlock extends RedStringBlock {
@@ -42,7 +42,7 @@ public class RedStringContainerBlock extends RedStringBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_CONTAINER, RedStringContainerBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_CONTAINER, RedStringContainerBlockEntity::commonTick);
 	}
 
 }

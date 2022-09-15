@@ -15,8 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.ModTiles;
-
 public class GaiaHeadBlockEntity extends SkullBlockEntity {
 	public GaiaHeadBlockEntity(BlockPos pos, BlockState state) {
 		super(pos, state);
@@ -25,7 +23,7 @@ public class GaiaHeadBlockEntity extends SkullBlockEntity {
 	@NotNull
 	@Override
 	public BlockEntityType<GaiaHeadBlockEntity> getType() {
-		return ModTiles.GAIA_HEAD;
+		return BotaniaBlockEntities.GAIA_HEAD;
 	}
 
 }

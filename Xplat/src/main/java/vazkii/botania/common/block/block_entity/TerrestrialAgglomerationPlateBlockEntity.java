@@ -37,7 +37,6 @@ import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
@@ -79,7 +78,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 	private int mana;
 
 	public TerrestrialAgglomerationPlateBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.TERRA_PLATE, pos, state);
+		super(BotaniaBlockEntities.TERRA_PLATE, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TerrestrialAgglomerationPlateBlockEntity self) {

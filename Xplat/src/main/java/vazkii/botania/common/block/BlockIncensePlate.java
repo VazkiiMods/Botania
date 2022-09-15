@@ -36,8 +36,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.IncensePlateBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class BlockIncensePlate extends BlockModWaterloggable implements EntityBlock {
 
@@ -131,7 +131,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.INCENSE_PLATE, IncensePlateBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.INCENSE_PLATE, IncensePlateBlockEntity::commonTick);
 	}
 
 	@Override

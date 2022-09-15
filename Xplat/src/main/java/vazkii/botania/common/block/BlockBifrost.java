@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.ModItems;
 
 public class BlockBifrost extends BlockBifrostPerm implements EntityBlock {
@@ -47,7 +47,7 @@ public class BlockBifrost extends BlockBifrostPerm implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return BlockMod.createTickerHelper(type, ModTiles.BIFROST, BifrostBlockEntity::serverTick);
+			return BlockMod.createTickerHelper(type, BotaniaBlockEntities.BIFROST, BifrostBlockEntity::serverTick);
 		}
 		return null;
 	}

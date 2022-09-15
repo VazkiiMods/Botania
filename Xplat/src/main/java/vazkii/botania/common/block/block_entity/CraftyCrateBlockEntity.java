@@ -40,7 +40,6 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorRecipeManager;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -68,7 +67,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	}
 
 	public CraftyCrateBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CRAFT_CRATE, pos, state);
+		super(BotaniaBlockEntities.CRAFT_CRATE, pos, state);
 	}
 
 	@Override

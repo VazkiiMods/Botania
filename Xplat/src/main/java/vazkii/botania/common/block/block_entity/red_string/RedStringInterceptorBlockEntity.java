@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.handler.ModSounds;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class RedStringInterceptorBlockEntity extends RedStringBlockEntity {
 	private static final Set<RedStringInterceptorBlockEntity> interceptors = new HashSet<>();
 
 	public RedStringInterceptorBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.RED_STRING_INTERCEPTOR, pos, state);
+		super(BotaniaBlockEntities.RED_STRING_INTERCEPTOR, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, RedStringInterceptorBlockEntity self) {

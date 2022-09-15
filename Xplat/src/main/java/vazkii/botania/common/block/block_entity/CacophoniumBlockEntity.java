@@ -16,7 +16,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ItemCacophonium;
 
 public class CacophoniumBlockEntity extends BotaniaBlockEntity {
@@ -25,7 +24,7 @@ public class CacophoniumBlockEntity extends BotaniaBlockEntity {
 	public ItemStack stack = ItemStack.EMPTY;
 
 	public CacophoniumBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CACOPHONIUM, pos, state);
+		super(BotaniaBlockEntities.CACOPHONIUM, pos, state);
 	}
 
 	public void annoyDirewolf() {

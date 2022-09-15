@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
@@ -29,7 +28,7 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 	private int mana = 0;
 
 	public LifeImbuerBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.SPAWNER_CLAW, pos, state);
+		super(BotaniaBlockEntities.SPAWNER_CLAW, pos, state);
 	}
 
 	public static void onSpawnerNearPlayer(Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {

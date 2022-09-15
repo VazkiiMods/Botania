@@ -23,7 +23,6 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -35,7 +34,7 @@ public class PylonBlockEntity extends BlockEntity {
 	private int ticks = 0;
 
 	public PylonBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.PYLON, pos, state);
+		super(BotaniaBlockEntities.PYLON, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, PylonBlockEntity self) {

@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 	public boolean gaiaSpiritGiven;
 
 	public CocoonBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.COCOON, pos, state);
+		super(BotaniaBlockEntities.COCOON, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, CocoonBlockEntity self) {

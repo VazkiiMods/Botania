@@ -14,13 +14,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.level.storage.ServerLevelData;
 
-import vazkii.botania.common.block.tile.ModTiles;
-
 public class TeruTeruBozuBlockEntity extends BotaniaBlockEntity {
 	private boolean wasRaining = false;
 
 	public TeruTeruBozuBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.TERU_TERU_BOZU, pos, state);
+		super(BotaniaBlockEntities.TERU_TERU_BOZU, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TeruTeruBozuBlockEntity self) {

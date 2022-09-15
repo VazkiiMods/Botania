@@ -28,8 +28,8 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,7 +54,7 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	private boolean retainMissing = false;
 
 	public CorporeaRetainerBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CORPOREA_RETAINER, pos, state);
+		super(BotaniaBlockEntities.CORPOREA_RETAINER, pos, state);
 	}
 
 	public void remember(BlockPos pos, CorporeaRequestMatcher request, int count, int missing) {

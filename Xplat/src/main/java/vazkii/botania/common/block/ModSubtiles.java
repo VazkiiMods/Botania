@@ -20,11 +20,11 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.flower.ManastarBlockEntity;
 import vazkii.botania.common.block.flower.PureDaisyBlockEntity;
 import vazkii.botania.common.block.flower.functional.*;
 import vazkii.botania.common.block.flower.generating.*;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -601,7 +601,7 @@ public class ModSubtiles {
 		r.accept(LABELLIA, getId(labellia));
 	}
 
-	public static void registerWandHudCaps(ModTiles.BECapConsumer<WandHUD> consumer) {
+	public static void registerWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
 		consumer.accept(be -> new SpectrolusBlockEntity.WandHud((SpectrolusBlockEntity) be), SPECTROLUS);
 		consumer.accept(be -> new GeneratingFlowerBlockEntity.GeneratingWandHud<>((GeneratingFlowerBlockEntity) be),
 				HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,

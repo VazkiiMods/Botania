@@ -1,4 +1,4 @@
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.block_entity;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -9,25 +9,25 @@ import vazkii.botania.common.block.ModSubtiles;
 import java.util.Set;
 
 public final class BlockEntityConstants {
-	public static final Set<BlockEntityType<?>> SELF_WANDADBLE_BES = ImmutableSet.of(ModTiles.ALF_PORTAL, ModTiles.ANIMATED_TORCH, ModTiles.CORPOREA_CRYSTAL_CUBE, ModTiles.CORPOREA_RETAINER,
-			ModTiles.CRAFT_CRATE, ModTiles.ENCHANTER, ModTiles.HOURGLASS, ModTiles.PLATFORM, ModTiles.POOL,
-			ModTiles.RUNE_ALTAR, ModTiles.SPREADER, ModTiles.TURNTABLE,
+	public static final Set<BlockEntityType<?>> SELF_WANDADBLE_BES = ImmutableSet.of(BotaniaBlockEntities.ALF_PORTAL, BotaniaBlockEntities.ANIMATED_TORCH, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, BotaniaBlockEntities.CORPOREA_RETAINER,
+			BotaniaBlockEntities.CRAFT_CRATE, BotaniaBlockEntities.ENCHANTER, BotaniaBlockEntities.HOURGLASS, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.POOL,
+			BotaniaBlockEntities.RUNE_ALTAR, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TURNTABLE,
 			ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
 			ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI
 	);
 
 	public static final Set<BlockEntityType<?>> SELF_MANA_TRIGGER_BES = ImmutableSet.of(
-			ModTiles.ANIMATED_TORCH, ModTiles.HOURGLASS, ModTiles.PRISM
+			BotaniaBlockEntities.ANIMATED_TORCH, BotaniaBlockEntities.HOURGLASS, BotaniaBlockEntities.PRISM
 	);
 
 	public static final Set<BlockEntityType<?>> SELF_MANA_RECEIVER_BES = ImmutableSet.of(
-			ModTiles.AVATAR, ModTiles.BREWERY, ModTiles.DISTRIBUTOR, ModTiles.ENCHANTER,
-			ModTiles.POOL, ModTiles.FLUXFIELD, ModTiles.RUNE_ALTAR,
-			ModTiles.SPAWNER_CLAW, ModTiles.SPREADER, ModTiles.TERRA_PLATE
+			BotaniaBlockEntities.AVATAR, BotaniaBlockEntities.BREWERY, BotaniaBlockEntities.DISTRIBUTOR, BotaniaBlockEntities.ENCHANTER,
+			BotaniaBlockEntities.POOL, BotaniaBlockEntities.FLUXFIELD, BotaniaBlockEntities.RUNE_ALTAR,
+			BotaniaBlockEntities.SPAWNER_CLAW, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TERRA_PLATE
 	);
 
 	public static final Set<BlockEntityType<?>> SELF_SPARK_ATTACHABLE_BES = ImmutableSet.of(
-			ModTiles.ENCHANTER, ModTiles.POOL, ModTiles.TERRA_PLATE
+			BotaniaBlockEntities.ENCHANTER, BotaniaBlockEntities.POOL, BotaniaBlockEntities.TERRA_PLATE
 	);
 
 	private BlockEntityConstants() {}

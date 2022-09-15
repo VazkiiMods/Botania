@@ -36,7 +36,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
@@ -55,7 +54,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	public int signal = 0;
 
 	public BreweryBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.BREWERY, pos, state);
+		super(BotaniaBlockEntities.BREWERY, pos, state);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {

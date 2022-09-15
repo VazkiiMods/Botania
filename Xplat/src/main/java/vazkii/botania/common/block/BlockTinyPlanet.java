@@ -23,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaCollisionGhost;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TinyPlanetBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class BlockTinyPlanet extends BlockModWaterloggable implements ManaCollisionGhost, EntityBlock {
 
@@ -49,7 +49,7 @@ public class BlockTinyPlanet extends BlockModWaterloggable implements ManaCollis
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.TINY_PLANET, TinyPlanetBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.TINY_PLANET, TinyPlanetBlockEntity::commonTick);
 	}
 
 	@Override

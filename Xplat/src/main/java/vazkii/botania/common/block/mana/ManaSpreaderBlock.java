@@ -39,8 +39,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -271,6 +271,6 @@ public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBl
 	@org.jetbrains.annotations.Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.SPREADER, ManaSpreaderBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.SPREADER, ManaSpreaderBlockEntity::commonTick);
 	}
 }

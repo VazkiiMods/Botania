@@ -47,9 +47,9 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.handler.ModSounds;
@@ -100,7 +100,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	private boolean sendPacket = false;
 
 	public ManaPoolBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.POOL, pos, state);
+		super(BotaniaBlockEntities.POOL, pos, state);
 	}
 
 	@Override

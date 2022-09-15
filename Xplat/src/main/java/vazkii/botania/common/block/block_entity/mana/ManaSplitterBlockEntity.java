@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ManaSplitterBlockEntity extends BotaniaBlockEntity implements ManaR
 	private final List<ManaReceiver> validPools = new ArrayList<>();
 
 	public ManaSplitterBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.DISTRIBUTOR, pos, state);
+		super(BotaniaBlockEntities.DISTRIBUTOR, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, ManaSplitterBlockEntity self) {

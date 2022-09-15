@@ -39,7 +39,6 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
@@ -71,7 +70,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	private int recipeKeepTicks = 0;
 
 	public RunicAltarBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.RUNE_ALTAR, pos, state);
+		super(BotaniaBlockEntities.RUNE_ALTAR, pos, state);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {

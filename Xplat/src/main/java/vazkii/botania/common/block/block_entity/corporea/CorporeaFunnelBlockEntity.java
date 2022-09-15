@@ -22,7 +22,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaRequestor;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor {
 	public CorporeaFunnelBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CORPOREA_FUNNEL, pos, state);
+		super(BotaniaBlockEntities.CORPOREA_FUNNEL, pos, state);
 	}
 
 	public void doRequest() {

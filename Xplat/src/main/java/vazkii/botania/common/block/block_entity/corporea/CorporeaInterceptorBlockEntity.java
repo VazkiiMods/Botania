@@ -21,7 +21,7 @@ import vazkii.botania.api.corporea.CorporeaInterceptor;
 import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.Set;
 
 public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity implements CorporeaInterceptor {
 	public CorporeaInterceptorBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CORPOREA_INTERCEPTOR, pos, state);
+		super(BotaniaBlockEntities.CORPOREA_INTERCEPTOR, pos, state);
 	}
 
 	@Override

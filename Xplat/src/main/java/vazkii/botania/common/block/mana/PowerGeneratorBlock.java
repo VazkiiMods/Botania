@@ -20,8 +20,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class PowerGeneratorBlock extends BlockMod implements EntityBlock {
 
@@ -39,7 +39,7 @@ public class PowerGeneratorBlock extends BlockMod implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.FLUXFIELD, PowerGeneratorBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.FLUXFIELD, PowerGeneratorBlockEntity::serverTick);
 		}
 		return null;
 	}

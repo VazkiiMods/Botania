@@ -22,7 +22,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.network.serverbound.PacketIndexStringRequest;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -263,7 +263,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	public boolean hasCloseby;
 
 	public CorporeaIndexBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CORPOREA_INDEX, pos, state);
+		super(BotaniaBlockEntities.CORPOREA_INDEX, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, CorporeaIndexBlockEntity self) {

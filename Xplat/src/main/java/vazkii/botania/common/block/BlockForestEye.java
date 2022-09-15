@@ -22,8 +22,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.EyeOfTheAncientsBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class BlockForestEye extends BlockModWaterloggable implements EntityBlock {
 
@@ -60,7 +60,7 @@ public class BlockForestEye extends BlockModWaterloggable implements EntityBlock
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.FOREST_EYE, EyeOfTheAncientsBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.FOREST_EYE, EyeOfTheAncientsBlockEntity::serverTick);
 		}
 		return null;
 	}

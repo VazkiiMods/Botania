@@ -21,9 +21,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class RedStringSpooferBlock extends RedStringBlock {
 
@@ -41,7 +41,7 @@ public class RedStringSpooferBlock extends RedStringBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_RELAY, RedStringSpooferBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.RED_STRING_RELAY, RedStringSpooferBlockEntity::commonTick);
 	}
 
 }

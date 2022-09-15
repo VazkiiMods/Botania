@@ -26,8 +26,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class SpreaderTurntableBlockEntity extends BotaniaBlockEntity implements Wandable {
 	private static final String TAG_SPEED = "speed";
@@ -37,7 +37,7 @@ public class SpreaderTurntableBlockEntity extends BotaniaBlockEntity implements 
 	private boolean backwards = false;
 
 	public SpreaderTurntableBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.TURNTABLE, pos, state);
+		super(BotaniaBlockEntities.TURNTABLE, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, SpreaderTurntableBlockEntity self) {

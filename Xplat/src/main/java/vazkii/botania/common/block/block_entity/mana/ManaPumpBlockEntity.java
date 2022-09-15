@@ -15,8 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class ManaPumpBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_ACTIVE = "active";
@@ -32,7 +32,7 @@ public class ManaPumpBlockEntity extends BotaniaBlockEntity {
 	private int lastComparator = 0;
 
 	public ManaPumpBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.PUMP, pos, state);
+		super(BotaniaBlockEntities.PUMP, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, ManaPumpBlockEntity self) {

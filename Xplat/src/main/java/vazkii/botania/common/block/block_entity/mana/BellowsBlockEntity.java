@@ -22,8 +22,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
@@ -36,7 +36,7 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 	public float moving = 0F;
 
 	public BellowsBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.BELLOWS, pos, state);
+		super(BotaniaBlockEntities.BELLOWS, pos, state);
 	}
 
 	public void interact() {

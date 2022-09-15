@@ -50,8 +50,8 @@ import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.forge.CapabilityUtil;
@@ -162,7 +162,7 @@ public class ForgeClientInitializer {
 
 	private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
 		var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, WandHUD>>();
-		ModTiles.registerWandHudCaps((factory, types) -> {
+		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> {
 			for (var type : types) {
 				ret.put(type, factory);
 			}

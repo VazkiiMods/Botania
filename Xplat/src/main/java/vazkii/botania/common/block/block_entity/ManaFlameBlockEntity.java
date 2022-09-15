@@ -12,15 +12,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.ModTiles;
-
 public class ManaFlameBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_COLOR = "color";
 
 	private int color = 0x20FF20;
 
 	public ManaFlameBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.MANA_FLAME, pos, state);
+		super(BotaniaBlockEntities.MANA_FLAME, pos, state);
 	}
 
 	public void setColor(int color) {

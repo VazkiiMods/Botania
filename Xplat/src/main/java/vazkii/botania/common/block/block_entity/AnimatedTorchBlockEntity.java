@@ -32,7 +32,6 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -65,7 +64,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 	private TorchMode torchMode = TorchMode.TOGGLE;
 
 	public AnimatedTorchBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.ANIMATED_TORCH, pos, state);
+		super(BotaniaBlockEntities.ANIMATED_TORCH, pos, state);
 	}
 
 	public void handRotate() {

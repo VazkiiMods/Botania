@@ -34,8 +34,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CocoonBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ModItems;
 
 public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
@@ -118,6 +118,6 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.COCOON, CocoonBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.COCOON, CocoonBlockEntity::commonTick);
 	}
 }

@@ -31,8 +31,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TeruTeruBozuBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.helper.EntityHelper;
 
 public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBlock {
@@ -125,7 +125,7 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.TERU_TERU_BOZU, TeruTeruBozuBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.TERU_TERU_BOZU, TeruTeruBozuBlockEntity::serverTick);
 		}
 		return null;
 	}

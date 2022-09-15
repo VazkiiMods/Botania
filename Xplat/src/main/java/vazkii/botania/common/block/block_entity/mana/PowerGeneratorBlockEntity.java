@@ -14,8 +14,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.ManaReceiver;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class PowerGeneratorBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
@@ -26,7 +26,7 @@ public class PowerGeneratorBlockEntity extends BotaniaBlockEntity implements Man
 	private int energy = 0;
 
 	public PowerGeneratorBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.FLUXFIELD, pos, state);
+		super(BotaniaBlockEntities.FLUXFIELD, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, PowerGeneratorBlockEntity self) {

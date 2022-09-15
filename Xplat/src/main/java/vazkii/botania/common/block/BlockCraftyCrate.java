@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.CraftyCrateBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class BlockCraftyCrate extends BlockOpenCrate {
 
@@ -61,7 +61,7 @@ public class BlockCraftyCrate extends BlockOpenCrate {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.CRAFT_CRATE, CraftyCrateBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.CRAFT_CRATE, CraftyCrateBlockEntity::serverTick);
 		}
 		return null;
 	}

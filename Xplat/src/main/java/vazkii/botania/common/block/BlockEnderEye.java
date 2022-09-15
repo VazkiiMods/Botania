@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.EnderOverseerBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class BlockEnderEye extends BlockMod implements EntityBlock {
 
@@ -61,7 +61,7 @@ public class BlockEnderEye extends BlockMod implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.ENDER_EYE, EnderOverseerBlockEntity::serverTick);
+			return createTickerHelper(type, BotaniaBlockEntities.ENDER_EYE, EnderOverseerBlockEntity::serverTick);
 		}
 		return null;
 	}

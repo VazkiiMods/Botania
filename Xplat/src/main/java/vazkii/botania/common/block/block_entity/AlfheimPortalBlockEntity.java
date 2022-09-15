@@ -46,7 +46,6 @@ import vazkii.botania.common.advancements.AlfheimPortalTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -125,7 +124,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	private UUID breadPlayer = null;
 
 	public AlfheimPortalBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.ALF_PORTAL, pos, state);
+		super(BotaniaBlockEntities.ALF_PORTAL, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState blockState, AlfheimPortalBlockEntity self) {

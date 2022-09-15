@@ -40,9 +40,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBlock {
 
@@ -137,6 +137,6 @@ public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBloc
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.TINY_POTATO, TinyPotatoBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.TINY_POTATO, TinyPotatoBlockEntity::commonTick);
 	}
 }

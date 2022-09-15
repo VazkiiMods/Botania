@@ -23,12 +23,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class OpenCrateBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	public OpenCrateBlockEntity(BlockPos pos, BlockState state) {
-		this(ModTiles.OPEN_CRATE, pos, state);
+		this(BotaniaBlockEntities.OPEN_CRATE, pos, state);
 	}
 
 	protected OpenCrateBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

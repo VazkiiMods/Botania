@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.common.block.flower.generating.DandelifeonBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class CellularBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_GENERATION = "generation";
@@ -32,7 +31,7 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	private BlockPos validCoords = Bound.UNBOUND_POS;
 
 	public CellularBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.CELL_BLOCK, pos, state);
+		super(BotaniaBlockEntities.CELL_BLOCK, pos, state);
 	}
 
 	public void setGeneration(DandelifeonBlockEntity flower, int gen) {

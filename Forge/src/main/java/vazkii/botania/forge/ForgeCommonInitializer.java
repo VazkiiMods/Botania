@@ -72,6 +72,8 @@ import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.block_entity.*;
+import vazkii.botania.common.block.block_entity.BlockEntityConstants;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
@@ -83,8 +85,6 @@ import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
-import vazkii.botania.common.block.tile.BlockEntityConstants;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
@@ -174,7 +174,7 @@ public class ForgeCommonInitializer {
 		bind(Registry.ITEM_REGISTRY, ModBlocks::registerItemBlocks);
 		bind(Registry.BLOCK_REGISTRY, ModFluffBlocks::registerBlocks);
 		bind(Registry.ITEM_REGISTRY, ModFluffBlocks::registerItemBlocks);
-		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, ModTiles::registerTiles);
+		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, BotaniaBlockEntities::registerTiles);
 		bind(Registry.ITEM_REGISTRY, ModItems::registerItems);
 		bind(Registry.BLOCK_REGISTRY, ModSubtiles::registerBlocks);
 		bind(Registry.ITEM_REGISTRY, ModSubtiles::registerItemBlocks);
@@ -571,7 +571,7 @@ public class ForgeCommonInitializer {
 			e.addCapability(prefix("fe"), CapabilityUtil.makeProvider(CapabilityEnergy.ENERGY, energyStorage));
 		}
 
-		if (be.getType() == ModTiles.ANIMATED_TORCH) {
+		if (be.getType() == BotaniaBlockEntities.ANIMATED_TORCH) {
 			e.addCapability(prefix("hourglass_trigger"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.HOURGLASS_TRIGGER,
 					hourglass -> ((AnimatedTorchBlockEntity) be).toggle()));
 		}

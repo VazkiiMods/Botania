@@ -15,15 +15,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.ModTiles;
-
 public class BifrostBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
 
 	public BifrostBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.BIFROST, pos, state);
+		super(BotaniaBlockEntities.BIFROST, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, BifrostBlockEntity self) {

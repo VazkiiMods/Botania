@@ -6,8 +6,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 
 
 import team.reborn.energy.api.EnergyStorage;
@@ -15,7 +15,7 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class FluxfieldTRStorage extends SimpleEnergyStorage {
 	public static void register() {
-		EnergyStorage.SIDED.registerForBlockEntity((be, dir) -> new FluxfieldTRStorage(be), ModTiles.FLUXFIELD);
+		EnergyStorage.SIDED.registerForBlockEntity((be, dir) -> new FluxfieldTRStorage(be), BotaniaBlockEntities.FLUXFIELD);
 	}
 
 	public static int transferEnergyToNeighbors(Level level, BlockPos pos, int energy) {

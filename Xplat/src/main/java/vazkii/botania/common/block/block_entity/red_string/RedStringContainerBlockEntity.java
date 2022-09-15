@@ -13,12 +13,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class RedStringContainerBlockEntity extends RedStringBlockEntity {
 	public RedStringContainerBlockEntity(BlockPos pos, BlockState state) {
-		this(ModTiles.RED_STRING_CONTAINER, pos, state);
+		this(BotaniaBlockEntities.RED_STRING_CONTAINER, pos, state);
 	}
 
 	protected RedStringContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

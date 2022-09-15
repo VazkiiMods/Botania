@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.AnimatedTorchBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock {
 
@@ -102,7 +102,7 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 	@org.jetbrains.annotations.Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.ANIMATED_TORCH, AnimatedTorchBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.ANIMATED_TORCH, AnimatedTorchBlockEntity::commonTick);
 	}
 
 	@Override

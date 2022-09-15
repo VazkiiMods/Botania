@@ -18,7 +18,6 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -28,7 +27,7 @@ import java.util.List;
 
 public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity {
 	public SparkTinkererBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.SPARK_CHANGER, pos, state);
+		super(BotaniaBlockEntities.SPARK_CHANGER, pos, state);
 	}
 
 	public void doSwap() {

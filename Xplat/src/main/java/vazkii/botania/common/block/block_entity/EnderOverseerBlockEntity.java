@@ -20,14 +20,13 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.List;
 
 public class EnderOverseerBlockEntity extends BotaniaBlockEntity {
 	public EnderOverseerBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.ENDER_EYE, pos, state);
+		super(BotaniaBlockEntities.ENDER_EYE, pos, state);
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, EnderOverseerBlockEntity self) {

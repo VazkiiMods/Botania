@@ -13,11 +13,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class RedStringDispenserBlockEntity extends RedStringContainerBlockEntity {
 	public RedStringDispenserBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.RED_STRING_DISPENSER, pos, state);
+		super(BotaniaBlockEntities.RED_STRING_DISPENSER, pos, state);
 	}
 
 	@Override

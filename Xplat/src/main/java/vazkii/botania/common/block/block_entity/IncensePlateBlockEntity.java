@@ -31,7 +31,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
@@ -48,7 +47,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	public int comparatorOutput = 0;
 
 	public IncensePlateBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.INCENSE_PLATE, pos, state);
+		super(BotaniaBlockEntities.INCENSE_PLATE, pos, state);
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, IncensePlateBlockEntity self) {

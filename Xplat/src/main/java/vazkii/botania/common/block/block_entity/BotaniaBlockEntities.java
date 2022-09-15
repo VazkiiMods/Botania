@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.tile;
+package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.block_entity.*;
 import vazkii.botania.common.block.block_entity.corporea.*;
 import vazkii.botania.common.block.block_entity.mana.*;
 import vazkii.botania.common.block.block_entity.red_string.*;
@@ -35,7 +34,7 @@ import java.util.function.Function;
 import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ModTiles {
+public class BotaniaBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();
 	public static final BlockEntityType<PetalApothecaryBlockEntity> ALTAR = type(prefix(LibBlockNames.ALTAR), PetalApothecaryBlockEntity::new,
 			defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
@@ -111,15 +110,15 @@ public class ModTiles {
 	}
 
 	public static void registerWandHudCaps(BECapConsumer<WandHUD> consumer) {
-		consumer.accept(be -> new AnimatedTorchBlockEntity.WandHud((AnimatedTorchBlockEntity) be), ModTiles.ANIMATED_TORCH);
-		consumer.accept(be -> new BreweryBlockEntity.WandHud((BreweryBlockEntity) be), ModTiles.BREWERY);
-		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), ModTiles.CORPOREA_RETAINER);
-		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), ModTiles.CRAFT_CRATE);
-		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), ModTiles.ENCHANTER);
-		consumer.accept(be -> new HourglassBlockEntity.WandHud((HourglassBlockEntity) be), ModTiles.HOURGLASS);
-		consumer.accept(be -> new ManaPoolBlockEntity.WandHud((ManaPoolBlockEntity) be), ModTiles.POOL);
-		consumer.accept(be -> new ManaPrismBlockEntity.WandHud((ManaPrismBlockEntity) be), ModTiles.PRISM);
-		consumer.accept(be -> new ManaSpreaderBlockEntity.WandHud((ManaSpreaderBlockEntity) be), ModTiles.SPREADER);
-		consumer.accept(be -> new SpreaderTurntableBlockEntity.WandHud((SpreaderTurntableBlockEntity) be), ModTiles.TURNTABLE);
+		consumer.accept(be -> new AnimatedTorchBlockEntity.WandHud((AnimatedTorchBlockEntity) be), BotaniaBlockEntities.ANIMATED_TORCH);
+		consumer.accept(be -> new BreweryBlockEntity.WandHud((BreweryBlockEntity) be), BotaniaBlockEntities.BREWERY);
+		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), BotaniaBlockEntities.CORPOREA_RETAINER);
+		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), BotaniaBlockEntities.CRAFT_CRATE);
+		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), BotaniaBlockEntities.ENCHANTER);
+		consumer.accept(be -> new HourglassBlockEntity.WandHud((HourglassBlockEntity) be), BotaniaBlockEntities.HOURGLASS);
+		consumer.accept(be -> new ManaPoolBlockEntity.WandHud((ManaPoolBlockEntity) be), BotaniaBlockEntities.POOL);
+		consumer.accept(be -> new ManaPrismBlockEntity.WandHud((ManaPrismBlockEntity) be), BotaniaBlockEntities.PRISM);
+		consumer.accept(be -> new ManaSpreaderBlockEntity.WandHud((ManaSpreaderBlockEntity) be), BotaniaBlockEntities.SPREADER);
+		consumer.accept(be -> new SpreaderTurntableBlockEntity.WandHud((SpreaderTurntableBlockEntity) be), BotaniaBlockEntities.TURNTABLE);
 	}
 }

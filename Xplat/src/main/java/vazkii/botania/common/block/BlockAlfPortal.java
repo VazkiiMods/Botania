@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 public class BlockAlfPortal extends BlockMod implements EntityBlock {
 
@@ -47,6 +47,6 @@ public class BlockAlfPortal extends BlockMod implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.ALF_PORTAL, AlfheimPortalBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.ALF_PORTAL, AlfheimPortalBlockEntity::commonTick);
 	}
 }

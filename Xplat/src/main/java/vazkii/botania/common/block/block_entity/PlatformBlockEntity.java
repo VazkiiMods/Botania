@@ -22,7 +22,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BlockPlatform;
-import vazkii.botania.common.block.tile.ModTiles;
 
 public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable {
 	private static final String TAG_CAMO = "camo";
@@ -31,7 +30,7 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 	private BlockState camoState;
 
 	public PlatformBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.PLATFORM, pos, state);
+		super(BotaniaBlockEntities.PLATFORM, pos, state);
 	}
 
 	@Override

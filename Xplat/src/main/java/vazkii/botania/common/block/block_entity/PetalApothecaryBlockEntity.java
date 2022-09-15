@@ -40,7 +40,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BlockAltar;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
@@ -63,7 +62,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	private int recipeKeepTicks = 0;
 
 	public PetalApothecaryBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.ALTAR, pos, state);
+		super(BotaniaBlockEntities.ALTAR, pos, state);
 	}
 
 	public boolean collideEntityItem(ItemEntity item) {

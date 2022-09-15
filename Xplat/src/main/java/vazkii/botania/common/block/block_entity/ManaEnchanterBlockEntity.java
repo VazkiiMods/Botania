@@ -50,7 +50,6 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.network.EffectType;
@@ -149,7 +148,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 	}
 
 	public ManaEnchanterBlockEntity(BlockPos pos, BlockState state) {
-		super(ModTiles.ENCHANTER, pos, state);
+		super(BotaniaBlockEntities.ENCHANTER, pos, state);
 	}
 
 	@Override

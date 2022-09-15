@@ -31,8 +31,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.item.ItemTwigWand;
 
 public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
@@ -56,7 +56,7 @@ public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.ENCHANTER, ManaEnchanterBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.ENCHANTER, ManaEnchanterBlockEntity::commonTick);
 	}
 
 	@Override
