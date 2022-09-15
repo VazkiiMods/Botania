@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.internal_caps.GhostRailComponent;
+import vazkii.botania.common.internal_caps.SpectralRailComponent;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -46,7 +46,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 
 	private void updateFloating(AbstractMinecart cart) {
 		cart.level.getProfiler().push("cartFloating");
-		GhostRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(cart);
+		SpectralRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(cart);
 		int floatTicks = persistentData.floatTicks;
 		Preconditions.checkState(floatTicks > 0);
 
@@ -86,7 +86,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 			return;
 		}
 
-		GhostRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(c);
+		SpectralRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(c);
 		if (!c.isAlive() || persistentData.floatTicks <= 0) {
 			c.noPhysics = false;
 			return;

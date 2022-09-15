@@ -134,7 +134,7 @@ public interface IXplatAbstractions {
 
 	// Capability access (internal caps)
 	EthicalComponent ethicalComponent(PrimedTnt tnt);
-	GhostRailComponent ghostRailComponent(AbstractMinecart cart);
+	SpectralRailComponent ghostRailComponent(AbstractMinecart cart);
 	ItemFlagsComponent itemFlagsComponent(ItemEntity item);
 	KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps);
 	@Nullable

@@ -27,7 +27,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class CCAInternalEntityComponents implements EntityComponentInitializer {
 	public static final ComponentKey<CCAEthicalComponent> TNT_ETHICAL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("tnt_ethical"), CCAEthicalComponent.class);
-	public static final ComponentKey<CCAGhostRailComponent> GHOST_RAIL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("ghost_rail"), CCAGhostRailComponent.class);
+	public static final ComponentKey<CCASpectralRailComponent> GHOST_RAIL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("ghost_rail"), CCASpectralRailComponent.class);
 	public static final ComponentKey<CCAItemFlagsComponent> INTERNAL_ITEM = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("iitem"), CCAItemFlagsComponent.class);
 	public static final ComponentKey<CCAKeptItemsComponent> KEPT_ITEMS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("kept_items"), CCAKeptItemsComponent.class);
 	public static final ComponentKey<CCALooniumComponent> LOONIUM_DROP = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("loonium_drop"), CCALooniumComponent.class);
@@ -43,7 +43,7 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 		registry.registerFor(PrimedTnt.class, TNT_ETHICAL, CCAEthicalComponent::new);
 		registry.registerFor(Slime.class, NARSLIMMUS, e -> new CCANarslimmusComponent());
 		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new CCAItemFlagsComponent());
-		registry.registerFor(AbstractMinecart.class, GHOST_RAIL, e -> new CCAGhostRailComponent());
+		registry.registerFor(AbstractMinecart.class, GHOST_RAIL, e -> new CCASpectralRailComponent());
 		registry.registerFor(Creeper.class, TIGERSEYE, creeper -> new CCATigerseyeComponent());
 		// Never copy as we handle it ourselves in ItemKeepIvy.onPlayerRespawn
 		registry.registerForPlayers(KEPT_ITEMS, e -> new CCAKeptItemsComponent(), RespawnCopyStrategy.NEVER_COPY);
@@ -57,7 +57,7 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 		}
 	}
 
-	public static class CCAGhostRailComponent extends GhostRailComponent implements Component {
+	public static class CCASpectralRailComponent extends SpectralRailComponent implements Component {
 	}
 
 	public static class CCAItemFlagsComponent extends ItemFlagsComponent implements Component {

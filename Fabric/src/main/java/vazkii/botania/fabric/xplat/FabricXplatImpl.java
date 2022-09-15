@@ -347,7 +347,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public GhostRailComponent ghostRailComponent(AbstractMinecart cart) {
+	public SpectralRailComponent ghostRailComponent(AbstractMinecart cart) {
 		return CCAInternalEntityComponents.GHOST_RAIL.get(cart);
 	}
 

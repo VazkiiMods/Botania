@@ -21,7 +21,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ForgeInternalEntityCapabilities {
 	public static final Capability<EthicalComponent> TNT_ETHICAL = CapabilityManager.get(new CapabilityToken<>() {});
-	public static final Capability<GhostRailComponent> GHOST_RAIL = CapabilityManager.get(new CapabilityToken<>() {});
+	public static final Capability<SpectralRailComponent> GHOST_RAIL = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<ItemFlagsComponent> INTERNAL_ITEM = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<KeptItemsComponent> KEPT_ITEMS = CapabilityManager.get(new CapabilityToken<>() {});
 	public static final Capability<LooniumComponent> LOONIUM_DROP = CapabilityManager.get(new CapabilityToken<>() {});
@@ -33,7 +33,7 @@ public final class ForgeInternalEntityCapabilities {
 		@SubscribeEvent
 		public static void registerCaps(RegisterCapabilitiesEvent evt) {
 			evt.register(EthicalComponent.class);
-			evt.register(GhostRailComponent.class);
+			evt.register(SpectralRailComponent.class);
 			evt.register(ItemFlagsComponent.class);
 			evt.register(KeptItemsComponent.class);
 			evt.register(LooniumComponent.class);
@@ -52,7 +52,7 @@ public final class ForgeInternalEntityCapabilities {
 				evt.addCapability(prefix("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new EthicalComponent(tnt)));
 			}
 			if (entity instanceof AbstractMinecart) {
-				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new GhostRailComponent()));
+				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new SpectralRailComponent()));
 			}
 			if (entity instanceof ItemEntity) {
 				evt.addCapability(prefix("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ItemFlagsComponent()));

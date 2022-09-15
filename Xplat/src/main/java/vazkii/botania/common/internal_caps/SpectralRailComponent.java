@@ -12,7 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.block.SpectralRailBlock;
 
-public class GhostRailComponent extends SerializableComponent {
+public class SpectralRailComponent extends SerializableComponent {
 	public int floatTicks = 0;
 
 	@Override

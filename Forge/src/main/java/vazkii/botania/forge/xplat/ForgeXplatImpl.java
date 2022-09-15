@@ -297,7 +297,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	}
 
 	@Override
-	public GhostRailComponent ghostRailComponent(AbstractMinecart cart) {
+	public SpectralRailComponent ghostRailComponent(AbstractMinecart cart) {
 		return cart.getCapability(ForgeInternalEntityCapabilities.GHOST_RAIL).orElseThrow(IllegalStateException::new);
 	}
 
