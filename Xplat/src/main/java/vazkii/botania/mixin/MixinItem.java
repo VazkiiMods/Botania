@@ -15,14 +15,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.item.material.ItemSelfReturning;
+import vazkii.botania.common.item.material.SelfReturningItem;
 
 @Mixin(Item.class)
 public class MixinItem {
 	@Inject(at = @At("HEAD"), method = "getCraftingRemainingItem", cancellable = true)
 	private void returnSelf(CallbackInfoReturnable<Item> cir) {
 		Item self = (Item) (Object) this;
-		if (self instanceof ItemSelfReturning) {
+		if (self instanceof SelfReturningItem) {
 			cir.setReturnValue(self);
 		}
 	}

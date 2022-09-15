@@ -31,8 +31,8 @@ import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 
-public class ItemEnderAir extends Item {
-	public ItemEnderAir(Properties props) {
+public class EnderAirItem extends Item {
+	public EnderAirItem(Properties props) {
 		super(props);
 	}
 

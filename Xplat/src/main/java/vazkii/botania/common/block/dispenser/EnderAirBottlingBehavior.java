@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.material.ItemEnderAir;
+import vazkii.botania.common.item.material.EnderAirItem;
 
 public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 	private final DefaultDispenseItemBehavior defaultBehaviour = new DefaultDispenseItemBehavior();
@@ -50,7 +50,7 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 	private static boolean pickupInEnd(Level world, BlockPos facingPos) {
 		return world.dimension() == Level.END
 				&& world.isEmptyBlock(facingPos) && world.isEmptyBlock(facingPos.above())
-				&& ItemEnderAir.isClearFromDragonBreath(world, new AABB(facingPos).inflate(2.0D));
+				&& EnderAirItem.isClearFromDragonBreath(world, new AABB(facingPos).inflate(2.0D));
 	}
 
 	@NotNull
@@ -58,7 +58,7 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
 		Level world = source.getLevel();
 		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-		if (pickupInEnd(world, blockpos) || ItemEnderAir.pickupFromEntity(world, new AABB(blockpos))) {
+		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {
 			this.setSuccess(true);
 			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
 		}

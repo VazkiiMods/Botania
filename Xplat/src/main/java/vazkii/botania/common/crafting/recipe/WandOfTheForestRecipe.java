@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.material.ItemPetal;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 
 public class WandOfTheForestRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WandOfTheForestRecipe> SERIALIZER = new Serializer();
@@ -42,7 +42,7 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 			Item item = stack.getItem();
 
 			int colorId;
-			if (item instanceof ItemPetal petal) {
+			if (item instanceof MysticalPetalItem petal) {
 				colorId = petal.color.getId();
 			} else if (item instanceof BlockItem block && block.getBlock() instanceof BotaniaMushroomBlock mushroom) {
 				colorId = mushroom.color.getId();

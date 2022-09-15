@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.material.RuneItem;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -31,7 +31,7 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 		// TODO classify these as catalysts instead?
 		for (EmiIngredient ing : input) {
 			for (EmiStack stack : ing.getEmiStacks()) {
-				if (stack.getItemStack().getItem() instanceof ItemRune) {
+				if (stack.getItemStack().getItem() instanceof RuneItem) {
 					stack.setRemainder(stack.copy());
 				}
 			}

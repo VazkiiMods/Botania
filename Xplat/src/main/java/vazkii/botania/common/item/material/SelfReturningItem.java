@@ -13,9 +13,9 @@ import net.minecraft.world.item.Item;
 /**
  * Just a marker class, see {@link vazkii.botania.mixin.MixinItem#returnSelf}
  */
-public class ItemSelfReturning extends Item {
+public class SelfReturningItem extends Item {
 
-	public ItemSelfReturning(Item.Properties builder) {
+	public SelfReturningItem(Item.Properties builder) {
 		super(builder);
 	}
 

@@ -13,9 +13,9 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 
-public class ItemRune extends Item implements CustomApothecaryColor {
+public class RuneItem extends Item implements CustomApothecaryColor {
 
-	public ItemRune(Item.Properties builder) {
+	public RuneItem(Item.Properties builder) {
 		super(builder);
 	}
 

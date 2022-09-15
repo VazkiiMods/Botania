@@ -18,10 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.common.helper.ColorHelper;
 
-public class ItemPetal extends BlockItem implements CustomApothecaryColor {
+public class MysticalPetalItem extends BlockItem implements CustomApothecaryColor {
 	public final DyeColor color;
 
-	public ItemPetal(Block buriedPetals, DyeColor color, Properties props) {
+	public MysticalPetalItem(Block buriedPetals, DyeColor color, Properties props) {
 		super(buriedPetals, props);
 		this.color = color;
 	}

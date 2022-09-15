@@ -34,12 +34,12 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.material.ItemSelfReturning;
+import vazkii.botania.common.item.material.SelfReturningItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public class ItemRainbowRod extends ItemSelfReturning {
+public class ItemRainbowRod extends SelfReturningItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_RAINBOW);
 

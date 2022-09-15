@@ -40,7 +40,7 @@ import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.item.material.ItemPetal;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.mixin.client.AccessorMinecraft;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -126,7 +126,7 @@ public final class ColorHandler {
 				: -1,
 				ModItems.twigWand, ModItems.dreamwoodWand);
 
-		ItemColor petalHandler = (s, t) -> t == 0 ? ColorHelper.getColorValue(((ItemPetal) s.getItem()).color) : -1;
+		ItemColor petalHandler = (s, t) -> t == 0 ? ColorHelper.getColorValue(((MysticalPetalItem) s.getItem()).color) : -1;
 		for (DyeColor color : DyeColor.values()) {
 			items.register(petalHandler, ModItems.getPetal(color));
 		}

@@ -85,7 +85,7 @@ import vazkii.botania.common.item.equipment.bauble.GreaterBandOfManaItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.material.ItemEnderAir;
+import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.ModTags;
@@ -213,7 +213,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(TerraTruncatorItem::onTickEnd);
 		UseBlockCallback.EVENT.register(RedStringInterceptorBlock::onInteract);
 		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
-		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
+		UseItemCallback.EVENT.register(EnderAirItem::onPlayerInteract);
 	}
 
 	private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

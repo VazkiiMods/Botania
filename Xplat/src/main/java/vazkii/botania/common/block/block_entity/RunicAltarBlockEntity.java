@@ -45,7 +45,7 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.material.RuneItem;
 import vazkii.botania.common.proxy.IProxy;
 
 import java.util.ArrayList;
@@ -279,7 +279,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				for (int i = 0; i < inventorySize(); i++) {
 					ItemStack stack = getItemHandler().getItem(i);
 					if (!stack.isEmpty()) {
-						if (stack.getItem() instanceof ItemRune && (player == null || !player.getAbilities().instabuild)) {
+						if (stack.getItem() instanceof RuneItem && (player == null || !player.getAbilities().instabuild)) {
 							ItemEntity outputRune = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, stack.copy());
 							level.addFreshEntity(outputRune);
 						}

@@ -19,8 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.ModItems;
 
-public class ItemManaResource extends Item {
-	public ItemManaResource(Properties props) {
+public class ManaResourceItem extends Item {
+	public ManaResourceItem(Properties props) {
 		super(props);
 	}
 

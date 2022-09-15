@@ -42,7 +42,7 @@ import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.item.material.ItemPetal;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.data.util.ModelWithOverrides;
 import vazkii.botania.data.util.OverrideHolder;
@@ -468,7 +468,7 @@ public class ItemModelProvider implements DataProvider {
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), BotaniaBlocks.naturaPylon.asItem(), BotaniaBlocks.teruTeruBozu.asItem())
 						.forEach(i -> builtinEntity(i, consumer));
 
-		takeAll(itemBlocks, i -> i instanceof ItemPetal).forEach(i -> {
+		takeAll(itemBlocks, i -> i instanceof MysticalPetalItem).forEach(i -> {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(prefix("item/petal")), consumer);
 		});
 

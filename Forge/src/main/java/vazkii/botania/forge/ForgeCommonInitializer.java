@@ -104,7 +104,7 @@ import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.material.ItemEnderAir;
+import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.LibMisc;
@@ -287,7 +287,7 @@ public class ForgeCommonInitializer {
 			ItemLokiRing.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 		});
 		bus.addListener((PlayerInteractEvent.RightClickItem e) -> {
-			InteractionResultHolder<ItemStack> result = ItemEnderAir.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand());
+			InteractionResultHolder<ItemStack> result = EnderAirItem.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand());
 			if (result.getResult().consumesAction()) {
 				e.setCanceled(true);
 				e.setCancellationResult(result.getResult());
