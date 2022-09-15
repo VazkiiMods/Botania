@@ -20,7 +20,7 @@ import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
-import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.internal_caps.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -36,7 +36,7 @@ public class CCAInternalEntityComponents implements EntityComponentInitializer {
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		for (Class<? extends Monster> clz : SubTileLoonuim.VALID_MOBS) {
+		for (Class<? extends Monster> clz : LooniumBlockEntity.VALID_MOBS) {
 			registry.registerFor(clz, LOONIUM_DROP, e -> new CCALooniumComponent());
 		}
 

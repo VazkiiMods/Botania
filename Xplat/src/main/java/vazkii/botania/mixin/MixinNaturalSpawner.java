@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
+import vazkii.botania.common.block.flower.generating.NarslimmusBlockEntity;
 import vazkii.botania.common.brew.potion.PotionBloodthirst;
 import vazkii.botania.common.brew.potion.PotionEmptiness;
 
@@ -33,7 +33,7 @@ public class MixinNaturalSpawner {
 		method = "spawnCategoryForPosition(Lnet/minecraft/world/entity/MobCategory;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/NaturalSpawner$SpawnPredicate;Lnet/minecraft/world/level/NaturalSpawner$AfterSpawnCallback;)V"
 	)
 	private static Entity onSpawned(Entity entity) {
-		SubTileNarslimmus.onSpawn(entity);
+		NarslimmusBlockEntity.onSpawn(entity);
 		return entity;
 	}
 

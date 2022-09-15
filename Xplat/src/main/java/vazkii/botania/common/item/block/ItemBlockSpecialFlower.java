@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
+import vazkii.botania.common.block.flower.generating.HydroangeasBlockEntity;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -65,14 +65,14 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
 		CompoundTag tag = stack.getTagElement("BlockEntityTag");
-		return tag != null && tag.contains(SubTileHydroangeas.TAG_PASSIVE_DECAY_TICKS);
+		return tag != null && tag.contains(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS);
 	}
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
 		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		if (tag != null) {
-			float frac = 1 - tag.getInt(SubTileHydroangeas.TAG_PASSIVE_DECAY_TICKS) / (float) SubTileHydroangeas.DECAY_TIME;
+			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Math.round(13F * frac);
 		}
 		return 0;
@@ -82,7 +82,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	public int getBarColor(ItemStack stack) {
 		CompoundTag tag = stack.getTagElement("BlockEntityTag");
 		if (tag != null) {
-			float frac = 1 - tag.getInt(SubTileHydroangeas.TAG_PASSIVE_DECAY_TICKS) / (float) SubTileHydroangeas.DECAY_TIME;
+			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
 		}
 		return 0;

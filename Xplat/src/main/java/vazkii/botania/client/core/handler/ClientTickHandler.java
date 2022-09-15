@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.render.block_entity.RedStringBlockEntityRenderer;
-import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.flower.functional.VinculotusBlockEntity;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
@@ -44,7 +44,7 @@ public final class ClientTickHandler {
 
 		if (mc.level == null) {
 			ManaNetworkHandler.instance.clear();
-			SubTileVinculotus.existingFlowers.clear();
+			VinculotusBlockEntity.existingFlowers.clear();
 		}
 
 		if (!mc.isPaused()) {

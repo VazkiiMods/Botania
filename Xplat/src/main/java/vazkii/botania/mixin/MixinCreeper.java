@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
+import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
 
 @Mixin(Creeper.class)
 public class MixinCreeper extends Monster {
@@ -29,6 +29,6 @@ public class MixinCreeper extends Monster {
 	// Lithium expects no mod adding AI goals late, so we add a goal that is initially disabled.
 	@Inject(method = "registerGoals", at = @At("TAIL"))
 	private void addTigerseyeGoal(CallbackInfo ci) {
-		goalSelector.addGoal(3, new SubTileTigerseye.CreeperAvoidPlayerGoal((Creeper) (Object) this));
+		goalSelector.addGoal(3, new TigerseyeBlockEntity.CreeperAvoidPlayerGoal((Creeper) (Object) this));
 	}
 }

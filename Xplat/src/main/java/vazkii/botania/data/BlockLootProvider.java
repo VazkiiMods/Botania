@@ -55,7 +55,7 @@ import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.subtile.generating.*;
+import vazkii.botania.common.block.flower.generating.*;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -116,18 +116,18 @@ public class BlockLootProvider implements DataProvider {
 		functionTable.put(ModBlocks.tinyPotato, BlockLootProvider::genTinyPotato);
 
 		// Flower NBT saving
-		functionTable.put(ModSubtiles.gourmaryllis, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOODS, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT, SubTileGourmaryllis.TAG_STREAK_LENGTH));
-		functionTable.put(ModSubtiles.gourmaryllisFloating, b -> genCopyNbt(b, SubTileGourmaryllis.TAG_LAST_FOODS, SubTileGourmaryllis.TAG_LAST_FOOD_COUNT, SubTileGourmaryllis.TAG_STREAK_LENGTH));
-		functionTable.put(ModSubtiles.hydroangeas, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, SubTileHydroangeas.TAG_PASSIVE_DECAY_TICKS));
-		functionTable.put(ModSubtiles.hydroangeasFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN, SubTileHydroangeas.TAG_PASSIVE_DECAY_TICKS));
-		functionTable.put(ModSubtiles.munchdew, b -> genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
-		functionTable.put(ModSubtiles.munchdewFloating, b -> genCopyNbt(b, SubTileMunchdew.TAG_COOLDOWN));
-		functionTable.put(ModSubtiles.rafflowsia, b -> genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWERS, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));
-		functionTable.put(ModSubtiles.rafflowsiaFloating, b -> genCopyNbt(b, SubTileRafflowsia.TAG_LAST_FLOWERS, SubTileRafflowsia.TAG_LAST_FLOWER_TIMES));
-		functionTable.put(ModSubtiles.spectrolus, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
-		functionTable.put(ModSubtiles.spectrolusFloating, b -> genCopyNbt(b, SubTileSpectrolus.TAG_NEXT_COLOR));
-		functionTable.put(ModSubtiles.thermalily, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
-		functionTable.put(ModSubtiles.thermalilyFloating, b -> genCopyNbt(b, SubTileHydroangeas.TAG_COOLDOWN));
+		functionTable.put(ModSubtiles.gourmaryllis, b -> genCopyNbt(b, GourmaryllisBlockEntity.TAG_LAST_FOODS, GourmaryllisBlockEntity.TAG_LAST_FOOD_COUNT, GourmaryllisBlockEntity.TAG_STREAK_LENGTH));
+		functionTable.put(ModSubtiles.gourmaryllisFloating, b -> genCopyNbt(b, GourmaryllisBlockEntity.TAG_LAST_FOODS, GourmaryllisBlockEntity.TAG_LAST_FOOD_COUNT, GourmaryllisBlockEntity.TAG_STREAK_LENGTH));
+		functionTable.put(ModSubtiles.hydroangeas, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN, HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(ModSubtiles.hydroangeasFloating, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN, HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(ModSubtiles.munchdew, b -> genCopyNbt(b, MunchdewBlockEntity.TAG_COOLDOWN));
+		functionTable.put(ModSubtiles.munchdewFloating, b -> genCopyNbt(b, MunchdewBlockEntity.TAG_COOLDOWN));
+		functionTable.put(ModSubtiles.rafflowsia, b -> genCopyNbt(b, RafflowsiaBlockEntity.TAG_LAST_FLOWERS, RafflowsiaBlockEntity.TAG_LAST_FLOWER_TIMES));
+		functionTable.put(ModSubtiles.rafflowsiaFloating, b -> genCopyNbt(b, RafflowsiaBlockEntity.TAG_LAST_FLOWERS, RafflowsiaBlockEntity.TAG_LAST_FLOWER_TIMES));
+		functionTable.put(ModSubtiles.spectrolus, b -> genCopyNbt(b, SpectrolusBlockEntity.TAG_NEXT_COLOR));
+		functionTable.put(ModSubtiles.spectrolusFloating, b -> genCopyNbt(b, SpectrolusBlockEntity.TAG_NEXT_COLOR));
+		functionTable.put(ModSubtiles.thermalily, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN));
+		functionTable.put(ModSubtiles.thermalilyFloating, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN));
 	}
 
 	@Override

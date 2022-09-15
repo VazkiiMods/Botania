@@ -71,14 +71,14 @@ import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.BotaniaCriteriaTriggers;
 import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.flower.functional.DaffomillBlockEntity;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
+import vazkii.botania.common.block.flower.functional.TigerseyeBlockEntity;
+import vazkii.botania.common.block.flower.functional.VinculotusBlockEntity;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
-import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
-import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
-import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
-import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
@@ -260,12 +260,12 @@ public class ForgeCommonInitializer {
 				e.setResult(problem);
 			}
 		});
-		bus.addListener((PlayerEvent.StartTracking e) -> SubTileDaffomill.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
+		bus.addListener((PlayerEvent.StartTracking e) -> DaffomillBlockEntity.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
 		bus.addListener((LootTableLoadEvent e) -> LootHandler.lootLoad(e.getName(), b -> e.getTable().addPool(b.build())));
 		bus.addListener((ManaNetworkEvent e) -> ManaNetworkHandler.instance.onNetworkEvent(e.getReceiver(), e.getType(), e.getAction()));
 		bus.addListener((EntityJoinLevelEvent e) -> {
 			if (!e.getLevel().isClientSide) {
-				SubTileTigerseye.pacifyAfterLoad(e.getEntity(), (ServerLevel) e.getLevel());
+				TigerseyeBlockEntity.pacifyAfterLoad(e.getEntity(), (ServerLevel) e.getLevel());
 			}
 		});
 
@@ -312,7 +312,7 @@ public class ForgeCommonInitializer {
 		// FabricMixinEnderMan
 		bus.addListener((EntityTeleportEvent.EnderEntity e) -> {
 			if (e.getEntityLiving() instanceof EnderMan em) {
-				var newPos = SubTileVinculotus.onEndermanTeleport(em, e.getTargetX(), e.getTargetY(), e.getTargetZ());
+				var newPos = VinculotusBlockEntity.onEndermanTeleport(em, e.getTargetX(), e.getTargetY(), e.getTargetZ());
 				if (newPos != null) {
 					e.setTargetX(newPos.x());
 					e.setTargetY(newPos.y());
@@ -341,7 +341,7 @@ public class ForgeCommonInitializer {
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
 				});
-				SubTileLoonuim.dropLooniumItems(living, stack -> {
+				LooniumBlockEntity.dropLooniumItems(living, stack -> {
 					e.getDrops().clear();
 					var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
 					ent.setDefaultPickUpDelay();

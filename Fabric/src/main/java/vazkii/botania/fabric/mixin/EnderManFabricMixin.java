@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.flower.functional.VinculotusBlockEntity;
 
 @Mixin(EnderMan.class)
 public class EnderManFabricMixin {
@@ -42,7 +42,7 @@ public class EnderManFabricMixin {
 		double x = args.get(0);
 		double y = args.get(1);
 		double z = args.get(2);
-		Vec3 vincPos = SubTileVinculotus.onEndermanTeleport((EnderMan) (Object) this, x, y, z);
+		Vec3 vincPos = VinculotusBlockEntity.onEndermanTeleport((EnderMan) (Object) this, x, y, z);
 		if (vincPos != null) {
 			args.set(0, vincPos.x());
 			args.set(1, vincPos.y());

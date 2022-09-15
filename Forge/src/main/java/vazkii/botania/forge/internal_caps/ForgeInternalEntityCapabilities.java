@@ -12,7 +12,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.CapabilityUtil;
@@ -60,7 +60,7 @@ public final class ForgeInternalEntityCapabilities {
 			if (entity instanceof Player) {
 				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new KeptItemsComponent()));
 			}
-			for (Class<?> clz : SubTileLoonuim.VALID_MOBS) {
+			for (Class<?> clz : LooniumBlockEntity.VALID_MOBS) {
 				if (clz.isInstance(entity)) {
 					evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
 					break;

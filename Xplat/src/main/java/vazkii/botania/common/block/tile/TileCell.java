@@ -13,7 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.Bound;
-import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
+import vazkii.botania.common.block.flower.generating.DandelifeonBlockEntity;
 
 public class TileCell extends TileMod {
 	private static final String TAG_GENERATION = "generation";
@@ -34,7 +34,7 @@ public class TileCell extends TileMod {
 		super(ModTiles.CELL_BLOCK, pos, state);
 	}
 
-	public void setGeneration(SubTileDandelifeon flower, int gen) {
+	public void setGeneration(DandelifeonBlockEntity flower, int gen) {
 		generation = gen;
 		if (!ticked) {
 			flowerCoords = flower.getEffectivePos();
@@ -45,7 +45,7 @@ public class TileCell extends TileMod {
 		}
 	}
 
-	public boolean isSameFlower(SubTileDandelifeon flower) {
+	public boolean isSameFlower(DandelifeonBlockEntity flower) {
 		return validCoords.equals(getBlockPos()) && flowerCoords.equals(flower.getEffectivePos());
 	}
 

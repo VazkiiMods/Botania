@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
+import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 
 import java.util.Collections;
 import java.util.Set;
@@ -66,16 +66,16 @@ public class MixinSoundEngine {
 			// halving 8 times already brings the multiplier to near zero, so no
 			// need to keep going if we've seen more than 8.
 			var level = Minecraft.getInstance().level;
-			Pair<Integer, SubTileBergamute> countAndBerg = level == null
+			Pair<Integer, BergamuteBlockEntity> countAndBerg = level == null
 					? Pair.of(0, null)
-					: SubTileBergamute.getBergamutesNearby(level, tmpSound.getX(), tmpSound.getY(), tmpSound.getZ(), 8);
+					: BergamuteBlockEntity.getBergamutesNearby(level, tmpSound.getX(), tmpSound.getY(), tmpSound.getZ(), 8);
 			int count = countAndBerg.getFirst();
 			if (count > 0) {
 				if (mutedSounds == null) {
 					mutedSounds = Collections.newSetFromMap(new WeakHashMap<>());
 				}
 				if (mutedSounds.add(tmpSound) && Math.random() < 0.5) {
-					SubTileBergamute.particle(countAndBerg.getSecond());
+					BergamuteBlockEntity.particle(countAndBerg.getSecond());
 				}
 
 				// If the multiplier here is adjusted, also adjust the count constant passed to getBergamutesNearby

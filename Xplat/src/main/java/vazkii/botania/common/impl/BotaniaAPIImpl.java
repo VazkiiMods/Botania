@@ -35,7 +35,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
+import vazkii.botania.common.block.flower.functional.SolegnoliaBlockEntity;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
@@ -241,7 +241,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public boolean hasSolegnoliaAround(Entity e) {
-		return SubTileSolegnolia.hasSolegnoliaAround(e);
+		return SolegnoliaBlockEntity.hasSolegnoliaAround(e);
 	}
 
 	@Override

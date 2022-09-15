@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
-import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
+import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
@@ -110,7 +110,7 @@ public class DrumBlock extends BlockModWaterloggable {
 				ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos, null);
 			} else {
 				int range = 10;
-				List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !SubTileBergamute.isBergamuteNearby(world, e.getX(), e.getY(), e.getZ()));
+				List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), e -> !BergamuteBlockEntity.isBergamuteNearby(world, e.getX(), e.getY(), e.getZ()));
 				List<Mob> shearables = new ArrayList<>();
 
 				for (Mob entity : entities) {

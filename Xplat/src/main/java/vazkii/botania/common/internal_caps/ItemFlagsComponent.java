@@ -10,7 +10,7 @@ package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 
-import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
+import vazkii.botania.common.block.flower.functional.SpectranthemumBlockEntity;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
 
@@ -35,7 +35,7 @@ public class ItemFlagsComponent extends SerializableComponent {
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {
-		spectranthemumTeleported = tag.getBoolean(SubTileSpectranthemum.TAG_TELEPORTED);
+		spectranthemumTeleported = tag.getBoolean(SpectranthemumBlockEntity.TAG_TELEPORTED);
 		alfPortalSpawned = tag.getBoolean(TileAlfPortal.TAG_PORTAL_FLAG);
 		apothecarySpawned = tag.getBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED);
 		timeCounter = tag.getInt("timeCounter");
@@ -44,7 +44,7 @@ public class ItemFlagsComponent extends SerializableComponent {
 
 	@Override
 	public void writeToNbt(CompoundTag tag) {
-		tag.putBoolean(SubTileSpectranthemum.TAG_TELEPORTED, spectranthemumTeleported);
+		tag.putBoolean(SpectranthemumBlockEntity.TAG_TELEPORTED, spectranthemumTeleported);
 		tag.putBoolean(TileAlfPortal.TAG_PORTAL_FLAG, alfPortalSpawned);
 		tag.putBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 		tag.putInt("timeCounter", timeCounter);

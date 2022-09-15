@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
+import vazkii.botania.common.block.flower.functional.BubbellBlockEntity;
 
 public class TileFakeAir extends TileMod {
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -34,7 +34,7 @@ public class TileFakeAir extends TileMod {
 	}
 
 	public boolean canStay() {
-		return SubTileBubbell.isValidBubbell(level, flowerPos);
+		return BubbellBlockEntity.isValidBubbell(level, flowerPos);
 	}
 
 	@Override

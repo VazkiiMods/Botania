@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
@@ -52,7 +52,7 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		var self = (LivingEntity) (Object) this;
-		SubTileLoonuim.dropLooniumItems(self, stack -> {
+		LooniumBlockEntity.dropLooniumItems(self, stack -> {
 			self.spawnAtLocation(stack);
 			ci.cancel();
 		});

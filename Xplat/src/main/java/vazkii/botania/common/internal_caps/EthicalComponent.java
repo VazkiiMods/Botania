@@ -11,14 +11,14 @@ package vazkii.botania.common.internal_caps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.PrimedTnt;
 
-import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
+import vazkii.botania.common.block.flower.generating.EntropinnyumBlockEntity;
 
 public class EthicalComponent extends SerializableComponent {
 	protected static final String TAG_UNETHICAL = "botania:unethical";
 	protected boolean unethical;
 
 	public EthicalComponent(PrimedTnt entity) {
-		unethical = SubTileEntropinnyum.isUnethical(entity);
+		unethical = EntropinnyumBlockEntity.isUnethical(entity);
 	}
 
 	public final boolean isUnethical() {

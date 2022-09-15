@@ -29,7 +29,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
+import vazkii.botania.common.block.flower.functional.HeiseiDreamBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
@@ -64,7 +64,7 @@ public class ItemDivaCharm extends ItemBauble {
 					@SuppressWarnings("unchecked")
 					List<Enemy> mobs = (List<Enemy>) (List<?>) player.level.getEntitiesOfClass(Entity.class, new AABB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Enemy.class));
 					if (mobs.size() > 1) {
-						if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
+						if (HeiseiDreamBlockEntity.brainwashEntity(target, mobs)) {
 							target.heal(target.getMaxHealth());
 							((AccessorEntity) target).callUnsetRemoved();
 							if (target instanceof Creeper) {

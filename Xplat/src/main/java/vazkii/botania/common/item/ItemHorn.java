@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HornHarvestable.EnumHornType;
-import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
+import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -93,7 +93,7 @@ public class ItemHorn extends Item {
 			BlockEntity be = world.getBlockEntity(pos);
 			HornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, pos, state, be);
 
-			if (SubTileBergamute.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
+			if (BergamuteBlockEntity.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
 			}
 			if (harvestable != null

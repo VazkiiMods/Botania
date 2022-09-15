@@ -20,10 +20,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
-import vazkii.botania.common.block.subtile.SubTileManastar;
-import vazkii.botania.common.block.subtile.SubTilePureDaisy;
-import vazkii.botania.common.block.subtile.functional.*;
-import vazkii.botania.common.block.subtile.generating.*;
+import vazkii.botania.common.block.flower.ManastarBlockEntity;
+import vazkii.botania.common.block.flower.PureDaisyBlockEntity;
+import vazkii.botania.common.block.flower.functional.*;
+import vazkii.botania.common.block.flower.generating.*;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.item.ModItems;
@@ -183,58 +183,58 @@ public class ModSubtiles {
 	public static final Block labellia = new BlockSpecialFlower(MobEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, () -> ModSubtiles.LABELLIA);
 	public static final Block labelliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, () -> ModSubtiles.LABELLIA);
 
-	public static final BlockEntityType<SubTilePureDaisy> PURE_DAISY = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating);
-	public static final BlockEntityType<SubTileManastar> MANASTAR = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileManastar::new, manastar, manastarFloating);
-	public static final BlockEntityType<SubTileHydroangeas> HYDROANGEAS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileHydroangeas::new, hydroangeas, hydroangeasFloating);
-	public static final BlockEntityType<SubTileEndoflame> ENDOFLAME = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileEndoflame::new, endoflame, endoflameFloating);
-	public static final BlockEntityType<SubTileThermalily> THERMALILY = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileThermalily::new, thermalily, thermalilyFloating);
-	public static final BlockEntityType<SubTileArcaneRose> ROSA_ARCANA = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileArcaneRose::new, rosaArcana, rosaArcanaFloating);
-	public static final BlockEntityType<SubTileMunchdew> MUNCHDEW = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileMunchdew::new, munchdew, munchdewFloating);
-	public static final BlockEntityType<SubTileEntropinnyum> ENTROPINNYUM = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileEntropinnyum::new, entropinnyum, entropinnyumFloating);
-	public static final BlockEntityType<SubTileKekimurus> KEKIMURUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileKekimurus::new, kekimurus, kekimurusFloating);
-	public static final BlockEntityType<SubTileGourmaryllis> GOURMARYLLIS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileGourmaryllis::new, gourmaryllis, gourmaryllisFloating);
-	public static final BlockEntityType<SubTileNarslimmus> NARSLIMMUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileNarslimmus::new, narslimmus, narslimmusFloating);
-	public static final BlockEntityType<SubTileSpectrolus> SPECTROLUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileSpectrolus::new, spectrolus, spectrolusFloating);
-	public static final BlockEntityType<SubTileDandelifeon> DANDELIFEON = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileDandelifeon::new, dandelifeon, dandelifeonFloating);
-	public static final BlockEntityType<SubTileRafflowsia> RAFFLOWSIA = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileRafflowsia::new, rafflowsia, rafflowsiaFloating);
-	public static final BlockEntityType<SubTileShulkMeNot> SHULK_ME_NOT = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileShulkMeNot::new, shulkMeNot, shulkMeNotFloating);
-	public static final BlockEntityType<SubTileBellethorn> BELLETHORNE = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileBellethorn::new, bellethorn, bellethornFloating);
-	public static final BlockEntityType<SubTileBellethorn.Mini> BELLETHORNE_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileBellethorn.Mini::new, bellethornChibi, bellethornChibiFloating);
-	public static final BlockEntityType<SubTileBergamute> BERGAMUTE = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileBergamute::new, bergamute, bergamuteFloating);
-	public static final BlockEntityType<SubTileDreadthorn> DREADTHORN = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileDreadthorn::new, dreadthorn, dreadthornFloating);
-	public static final BlockEntityType<SubTileHeiseiDream> HEISEI_DREAM = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileHeiseiDream::new, heiseiDream, heiseiDreamFloating);
-	public static final BlockEntityType<SubTileTigerseye> TIGERSEYE = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileTigerseye::new, tigerseye, tigerseyeFloating);
-	public static final BlockEntityType<SubTileJadedAmaranthus> JADED_AMARANTHUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileJadedAmaranthus::new, jadedAmaranthus, jadedAmaranthusFloating);
-	public static final BlockEntityType<SubTileOrechid> ORECHID = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileOrechid::new, orechid, orechidFloating);
-	public static final BlockEntityType<SubTileFallenKanade> FALLEN_KANADE = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileFallenKanade::new, fallenKanade, fallenKanadeFloating);
-	public static final BlockEntityType<SubTileExoflame> EXOFLAME = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileExoflame::new, exoflame, exoflameFloating);
-	public static final BlockEntityType<SubTileAgricarnation> AGRICARNATION = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileAgricarnation::new, agricarnation, agricarnationFloating);
-	public static final BlockEntityType<SubTileAgricarnation.Mini> AGRICARNATION_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileAgricarnation.Mini::new, agricarnationChibi, agricarnationChibiFloating);
-	public static final BlockEntityType<SubTileHopperhock> HOPPERHOCK = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileHopperhock::new, hopperhock, hopperhockFloating);
-	public static final BlockEntityType<SubTileHopperhock.Mini> HOPPERHOCK_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileHopperhock.Mini::new, hopperhockChibi, hopperhockChibiFloating);
-	public static final BlockEntityType<SubTileTangleberrie> TANGLEBERRIE = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileTangleberrie::new, tangleberrie, tangleberrieFloating);
-	public static final BlockEntityType<SubTileTangleberrie.Mini> TANGLEBERRIE_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileTangleberrie.Mini::new, tangleberrieChibi, tangleberrieChibiFloating);
-	public static final BlockEntityType<SubTileJiyuulia> JIYUULIA = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileJiyuulia::new, jiyuulia, jiyuuliaFloating);
-	public static final BlockEntityType<SubTileJiyuulia.Mini> JIYUULIA_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileJiyuulia.Mini::new, jiyuuliaChibi, jiyuuliaChibiFloating);
-	public static final BlockEntityType<SubTileRannuncarpus> RANNUNCARPUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating);
-	public static final BlockEntityType<SubTileRannuncarpus.Mini> RANNUNCARPUS_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileRannuncarpus.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating);
-	public static final BlockEntityType<SubTileHyacidus> HYACIDUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileHyacidus::new, hyacidus, hyacidusFloating);
-	public static final BlockEntityType<SubTileLabellia> LABELLIA = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileLabellia::new, labellia, labelliaFloating);
-	public static final BlockEntityType<SubTilePollidisiac> POLLIDISIAC = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTilePollidisiac::new, pollidisiac, pollidisiacFloating);
-	public static final BlockEntityType<SubTileClayconia> CLAYCONIA = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileClayconia::new, clayconia, clayconiaFloating);
-	public static final BlockEntityType<SubTileClayconia.Mini> CLAYCONIA_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileClayconia.Mini::new, clayconiaChibi, clayconiaChibiFloating);
-	public static final BlockEntityType<SubTileLoonuim> LOONIUM = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileLoonuim::new, loonium, looniumFloating);
-	public static final BlockEntityType<SubTileDaffomill> DAFFOMILL = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileDaffomill::new, daffomill, daffomillFloating);
-	public static final BlockEntityType<SubTileVinculotus> VINCULOTUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileVinculotus::new, vinculotus, vinculotusFloating);
-	public static final BlockEntityType<SubTileSpectranthemum> SPECTRANTHEMUM = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileSpectranthemum::new, spectranthemum, spectranthemumFloating);
-	public static final BlockEntityType<SubTileMedumone> MEDUMONE = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileMedumone::new, medumone, medumoneFloating);
-	public static final BlockEntityType<SubTileMarimorphosis> MARIMORPHOSIS = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileMarimorphosis::new, marimorphosis, marimorphosisFloating);
-	public static final BlockEntityType<SubTileMarimorphosis.Mini> MARIMORPHOSIS_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileMarimorphosis.Mini::new, marimorphosisChibi, marimorphosisChibiFloating);
-	public static final BlockEntityType<SubTileBubbell> BUBBELL = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileBubbell::new, bubbell, bubbellFloating);
-	public static final BlockEntityType<SubTileBubbell.Mini> BUBBELL_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileBubbell.Mini::new, bubbellChibi, bubbellChibiFloating);
-	public static final BlockEntityType<SubTileSolegnolia> SOLEGNOLIA = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileSolegnolia::new, solegnolia, solegnoliaFloating);
-	public static final BlockEntityType<SubTileSolegnolia.Mini> SOLEGNOLIA_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileSolegnolia.Mini::new, solegnoliaChibi, solegnoliaChibiFloating);
-	public static final BlockEntityType<SubTileOrechidIgnem> ORECHID_IGNEM = IXplatAbstractions.INSTANCE.createBlockEntityType(SubTileOrechidIgnem::new, orechidIgnem, orechidIgnemFloating);
+	public static final BlockEntityType<PureDaisyBlockEntity> PURE_DAISY = IXplatAbstractions.INSTANCE.createBlockEntityType(PureDaisyBlockEntity::new, pureDaisy, pureDaisyFloating);
+	public static final BlockEntityType<ManastarBlockEntity> MANASTAR = IXplatAbstractions.INSTANCE.createBlockEntityType(ManastarBlockEntity::new, manastar, manastarFloating);
+	public static final BlockEntityType<HydroangeasBlockEntity> HYDROANGEAS = IXplatAbstractions.INSTANCE.createBlockEntityType(HydroangeasBlockEntity::new, hydroangeas, hydroangeasFloating);
+	public static final BlockEntityType<EndoflameBlockEntity> ENDOFLAME = IXplatAbstractions.INSTANCE.createBlockEntityType(EndoflameBlockEntity::new, endoflame, endoflameFloating);
+	public static final BlockEntityType<ThermalilyBlockEntity> THERMALILY = IXplatAbstractions.INSTANCE.createBlockEntityType(ThermalilyBlockEntity::new, thermalily, thermalilyFloating);
+	public static final BlockEntityType<RosaArcanaBlockEntity> ROSA_ARCANA = IXplatAbstractions.INSTANCE.createBlockEntityType(RosaArcanaBlockEntity::new, rosaArcana, rosaArcanaFloating);
+	public static final BlockEntityType<MunchdewBlockEntity> MUNCHDEW = IXplatAbstractions.INSTANCE.createBlockEntityType(MunchdewBlockEntity::new, munchdew, munchdewFloating);
+	public static final BlockEntityType<EntropinnyumBlockEntity> ENTROPINNYUM = IXplatAbstractions.INSTANCE.createBlockEntityType(EntropinnyumBlockEntity::new, entropinnyum, entropinnyumFloating);
+	public static final BlockEntityType<KekimurusBlockEntity> KEKIMURUS = IXplatAbstractions.INSTANCE.createBlockEntityType(KekimurusBlockEntity::new, kekimurus, kekimurusFloating);
+	public static final BlockEntityType<GourmaryllisBlockEntity> GOURMARYLLIS = IXplatAbstractions.INSTANCE.createBlockEntityType(GourmaryllisBlockEntity::new, gourmaryllis, gourmaryllisFloating);
+	public static final BlockEntityType<NarslimmusBlockEntity> NARSLIMMUS = IXplatAbstractions.INSTANCE.createBlockEntityType(NarslimmusBlockEntity::new, narslimmus, narslimmusFloating);
+	public static final BlockEntityType<SpectrolusBlockEntity> SPECTROLUS = IXplatAbstractions.INSTANCE.createBlockEntityType(SpectrolusBlockEntity::new, spectrolus, spectrolusFloating);
+	public static final BlockEntityType<DandelifeonBlockEntity> DANDELIFEON = IXplatAbstractions.INSTANCE.createBlockEntityType(DandelifeonBlockEntity::new, dandelifeon, dandelifeonFloating);
+	public static final BlockEntityType<RafflowsiaBlockEntity> RAFFLOWSIA = IXplatAbstractions.INSTANCE.createBlockEntityType(RafflowsiaBlockEntity::new, rafflowsia, rafflowsiaFloating);
+	public static final BlockEntityType<ShulkMeNotBlockEntity> SHULK_ME_NOT = IXplatAbstractions.INSTANCE.createBlockEntityType(ShulkMeNotBlockEntity::new, shulkMeNot, shulkMeNotFloating);
+	public static final BlockEntityType<BellethornBlockEntity> BELLETHORNE = IXplatAbstractions.INSTANCE.createBlockEntityType(BellethornBlockEntity::new, bellethorn, bellethornFloating);
+	public static final BlockEntityType<BellethornBlockEntity.Mini> BELLETHORNE_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(BellethornBlockEntity.Mini::new, bellethornChibi, bellethornChibiFloating);
+	public static final BlockEntityType<BergamuteBlockEntity> BERGAMUTE = IXplatAbstractions.INSTANCE.createBlockEntityType(BergamuteBlockEntity::new, bergamute, bergamuteFloating);
+	public static final BlockEntityType<DreadthornBlockEntity> DREADTHORN = IXplatAbstractions.INSTANCE.createBlockEntityType(DreadthornBlockEntity::new, dreadthorn, dreadthornFloating);
+	public static final BlockEntityType<HeiseiDreamBlockEntity> HEISEI_DREAM = IXplatAbstractions.INSTANCE.createBlockEntityType(HeiseiDreamBlockEntity::new, heiseiDream, heiseiDreamFloating);
+	public static final BlockEntityType<TigerseyeBlockEntity> TIGERSEYE = IXplatAbstractions.INSTANCE.createBlockEntityType(TigerseyeBlockEntity::new, tigerseye, tigerseyeFloating);
+	public static final BlockEntityType<JadedAmaranthusBlockEntity> JADED_AMARANTHUS = IXplatAbstractions.INSTANCE.createBlockEntityType(JadedAmaranthusBlockEntity::new, jadedAmaranthus, jadedAmaranthusFloating);
+	public static final BlockEntityType<OrechidBlockEntity> ORECHID = IXplatAbstractions.INSTANCE.createBlockEntityType(OrechidBlockEntity::new, orechid, orechidFloating);
+	public static final BlockEntityType<FallenKanadeBlockEntity> FALLEN_KANADE = IXplatAbstractions.INSTANCE.createBlockEntityType(FallenKanadeBlockEntity::new, fallenKanade, fallenKanadeFloating);
+	public static final BlockEntityType<ExoflameBlockEntity> EXOFLAME = IXplatAbstractions.INSTANCE.createBlockEntityType(ExoflameBlockEntity::new, exoflame, exoflameFloating);
+	public static final BlockEntityType<AgricarnationBlockEntity> AGRICARNATION = IXplatAbstractions.INSTANCE.createBlockEntityType(AgricarnationBlockEntity::new, agricarnation, agricarnationFloating);
+	public static final BlockEntityType<AgricarnationBlockEntity.Mini> AGRICARNATION_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(AgricarnationBlockEntity.Mini::new, agricarnationChibi, agricarnationChibiFloating);
+	public static final BlockEntityType<HopperhockBlockEntity> HOPPERHOCK = IXplatAbstractions.INSTANCE.createBlockEntityType(HopperhockBlockEntity::new, hopperhock, hopperhockFloating);
+	public static final BlockEntityType<HopperhockBlockEntity.Mini> HOPPERHOCK_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(HopperhockBlockEntity.Mini::new, hopperhockChibi, hopperhockChibiFloating);
+	public static final BlockEntityType<TangleberrieBlockEntity> TANGLEBERRIE = IXplatAbstractions.INSTANCE.createBlockEntityType(TangleberrieBlockEntity::new, tangleberrie, tangleberrieFloating);
+	public static final BlockEntityType<TangleberrieBlockEntity.Mini> TANGLEBERRIE_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(TangleberrieBlockEntity.Mini::new, tangleberrieChibi, tangleberrieChibiFloating);
+	public static final BlockEntityType<JiyuuliaBlockEntity> JIYUULIA = IXplatAbstractions.INSTANCE.createBlockEntityType(JiyuuliaBlockEntity::new, jiyuulia, jiyuuliaFloating);
+	public static final BlockEntityType<JiyuuliaBlockEntity.Mini> JIYUULIA_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(JiyuuliaBlockEntity.Mini::new, jiyuuliaChibi, jiyuuliaChibiFloating);
+	public static final BlockEntityType<RannuncarpusBlockEntity> RANNUNCARPUS = IXplatAbstractions.INSTANCE.createBlockEntityType(RannuncarpusBlockEntity::new, rannuncarpus, rannuncarpusFloating);
+	public static final BlockEntityType<RannuncarpusBlockEntity.Mini> RANNUNCARPUS_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(RannuncarpusBlockEntity.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating);
+	public static final BlockEntityType<HyacidusBlockEntity> HYACIDUS = IXplatAbstractions.INSTANCE.createBlockEntityType(HyacidusBlockEntity::new, hyacidus, hyacidusFloating);
+	public static final BlockEntityType<LabelliaBlockEntity> LABELLIA = IXplatAbstractions.INSTANCE.createBlockEntityType(LabelliaBlockEntity::new, labellia, labelliaFloating);
+	public static final BlockEntityType<PollidisiacBlockEntity> POLLIDISIAC = IXplatAbstractions.INSTANCE.createBlockEntityType(PollidisiacBlockEntity::new, pollidisiac, pollidisiacFloating);
+	public static final BlockEntityType<ClayconiaBlockEntity> CLAYCONIA = IXplatAbstractions.INSTANCE.createBlockEntityType(ClayconiaBlockEntity::new, clayconia, clayconiaFloating);
+	public static final BlockEntityType<ClayconiaBlockEntity.Mini> CLAYCONIA_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(ClayconiaBlockEntity.Mini::new, clayconiaChibi, clayconiaChibiFloating);
+	public static final BlockEntityType<LooniumBlockEntity> LOONIUM = IXplatAbstractions.INSTANCE.createBlockEntityType(LooniumBlockEntity::new, loonium, looniumFloating);
+	public static final BlockEntityType<DaffomillBlockEntity> DAFFOMILL = IXplatAbstractions.INSTANCE.createBlockEntityType(DaffomillBlockEntity::new, daffomill, daffomillFloating);
+	public static final BlockEntityType<VinculotusBlockEntity> VINCULOTUS = IXplatAbstractions.INSTANCE.createBlockEntityType(VinculotusBlockEntity::new, vinculotus, vinculotusFloating);
+	public static final BlockEntityType<SpectranthemumBlockEntity> SPECTRANTHEMUM = IXplatAbstractions.INSTANCE.createBlockEntityType(SpectranthemumBlockEntity::new, spectranthemum, spectranthemumFloating);
+	public static final BlockEntityType<MedumoneBlockEntity> MEDUMONE = IXplatAbstractions.INSTANCE.createBlockEntityType(MedumoneBlockEntity::new, medumone, medumoneFloating);
+	public static final BlockEntityType<MarimorphosisBlockEntity> MARIMORPHOSIS = IXplatAbstractions.INSTANCE.createBlockEntityType(MarimorphosisBlockEntity::new, marimorphosis, marimorphosisFloating);
+	public static final BlockEntityType<MarimorphosisBlockEntity.Mini> MARIMORPHOSIS_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(MarimorphosisBlockEntity.Mini::new, marimorphosisChibi, marimorphosisChibiFloating);
+	public static final BlockEntityType<BubbellBlockEntity> BUBBELL = IXplatAbstractions.INSTANCE.createBlockEntityType(BubbellBlockEntity::new, bubbell, bubbellFloating);
+	public static final BlockEntityType<BubbellBlockEntity.Mini> BUBBELL_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(BubbellBlockEntity.Mini::new, bubbellChibi, bubbellChibiFloating);
+	public static final BlockEntityType<SolegnoliaBlockEntity> SOLEGNOLIA = IXplatAbstractions.INSTANCE.createBlockEntityType(SolegnoliaBlockEntity::new, solegnolia, solegnoliaFloating);
+	public static final BlockEntityType<SolegnoliaBlockEntity.Mini> SOLEGNOLIA_CHIBI = IXplatAbstractions.INSTANCE.createBlockEntityType(SolegnoliaBlockEntity.Mini::new, solegnoliaChibi, solegnoliaChibiFloating);
+	public static final BlockEntityType<OrechidIgnemBlockEntity> ORECHID_IGNEM = IXplatAbstractions.INSTANCE.createBlockEntityType(OrechidIgnemBlockEntity::new, orechidIgnem, orechidIgnemFloating);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
@@ -602,13 +602,13 @@ public class ModSubtiles {
 	}
 
 	public static void registerWandHudCaps(ModTiles.BECapConsumer<WandHUD> consumer) {
-		consumer.accept(be -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);
+		consumer.accept(be -> new SpectrolusBlockEntity.WandHud((SpectrolusBlockEntity) be), SPECTROLUS);
 		consumer.accept(be -> new GeneratingFlowerBlockEntity.GeneratingWandHud<>((GeneratingFlowerBlockEntity) be),
 				HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,
 				DANDELIFEON, RAFFLOWSIA, SHULK_ME_NOT);
 
-		consumer.accept(be -> new SubTileHopperhock.WandHud((SubTileHopperhock) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
-		consumer.accept(be -> new SubTileRannuncarpus.WandHud((SubTileRannuncarpus) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
+		consumer.accept(be -> new HopperhockBlockEntity.WandHud((HopperhockBlockEntity) be), HOPPERHOCK, HOPPERHOCK_CHIBI);
+		consumer.accept(be -> new RannuncarpusBlockEntity.WandHud((RannuncarpusBlockEntity) be), RANNUNCARPUS, RANNUNCARPUS_CHIBI);
 		consumer.accept(be -> new FunctionalFlowerBlockEntity.FunctionalWandHud<>((FunctionalFlowerBlockEntity) be),
 				BELLETHORNE, BELLETHORNE_CHIBI, DREADTHORN, HEISEI_DREAM, TIGERSEYE,
 				JADED_AMARANTHUS, ORECHID, FALLEN_KANADE, EXOFLAME, AGRICARNATION, AGRICARNATION_CHIBI,
