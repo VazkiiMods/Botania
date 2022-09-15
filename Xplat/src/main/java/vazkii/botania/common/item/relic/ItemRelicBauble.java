@@ -16,12 +16,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public abstract class ItemRelicBauble extends ItemBauble {
+public abstract class ItemRelicBauble extends BaubleItem {
 
 	public ItemRelicBauble(Properties props) {
 		super(props);

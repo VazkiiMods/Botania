@@ -52,7 +52,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.*;
 import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.fabric.xplat.FabricXplatImpl;
@@ -234,7 +234,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	void registerTerraPickTippingRecipeWrapper(DisplayRegistry helper) {
 		List<EntryIngredient> inputs = ImmutableList.of(EntryIngredients.of(ModItems.terraPick), EntryIngredients.of(ModItems.elementiumPick));
 		ItemStack output = new ItemStack(ModItems.terraPick);
-		ItemTerraPick.setTipped(output);
+		TerraShattererItem.setTipped(output);
 
 		helper.add(new DefaultCustomDisplay(null, inputs, Collections.singletonList(EntryIngredients.of(output))));
 	}

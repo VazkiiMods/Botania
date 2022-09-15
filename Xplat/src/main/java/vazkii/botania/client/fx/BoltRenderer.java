@@ -94,7 +94,7 @@ public class BoltRenderer {
 			data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
 		}
 		data.lastUpdateTimestamp = timestamp;
-		// todo XXX ItemThunderSword calls this method from logical server in SP, don't do that.
+		// todo XXX ThundercallerItem calls this method from logical server in SP, don't do that.
 		synchronized (boltOwners) {
 			boltOwners.add(data);
 		}

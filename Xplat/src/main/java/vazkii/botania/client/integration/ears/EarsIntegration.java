@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.lib.LibMisc;
 
 public class EarsIntegration {
@@ -59,9 +59,9 @@ public class EarsIntegration {
 
 			for (int slot = 0; slot < equipment.getContainerSize(); slot++) {
 				ItemStack item = equipment.getItem(slot);
-				if (item.getItem() instanceof ItemFlightTiara tiara &&
+				if (item.getItem() instanceof FlugelTiaraItem tiara &&
 						tiara.hasRender(item, player) &&
-						ItemFlightTiara.getVariant(item) > 0) {
+						FlugelTiaraItem.getVariant(item) > 0) {
 					return true;
 				}
 			}

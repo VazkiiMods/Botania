@@ -53,7 +53,7 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -113,7 +113,7 @@ public class ForgeClientInitializer {
 		});
 		bus.addListener((CustomizeGuiOverlayEvent.DebugText e) -> DebugHandler.onDrawDebugText(e.getLeft()));
 		bus.addListener((InputEvent.Key e) -> {
-			ItemDodgeRing.ClientLogic.onKeyDown();
+			RingOfDexterousMotionItem.ClientLogic.onKeyDown();
 			KonamiHandler.handleInput(e.getKey(), e.getAction(), e.getModifiers());
 		});
 		bus.addListener((TickEvent.RenderTickEvent e) -> {

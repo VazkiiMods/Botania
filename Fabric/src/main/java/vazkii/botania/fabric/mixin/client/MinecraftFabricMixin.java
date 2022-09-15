@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftFabricMixin {
@@ -45,6 +45,6 @@ public abstract class MinecraftFabricMixin {
 
 	@Inject(method = "startAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;resetAttackStrengthTicker()V"))
 	private void leftClickEmpty(CallbackInfoReturnable<Boolean> ci) {
-		ItemTerraSword.leftClick(player.getMainHandItem());
+		TerraBladeItem.leftClick(player.getMainHandItem());
 	}
 }

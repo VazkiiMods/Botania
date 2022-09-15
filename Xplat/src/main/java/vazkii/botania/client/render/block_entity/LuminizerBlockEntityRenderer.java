@@ -32,7 +32,7 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
-import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -55,7 +55,7 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.getCameraEntity() instanceof LivingEntity view) {
-			if (ItemMonocle.hasMonocle(view) && SpecialFlowerBlockEntityRenderer.hasBindingAttempt(view, tile.getBlockPos())) {
+			if (ManaseerMonocleItem.hasMonocle(view) && SpecialFlowerBlockEntityRenderer.hasBindingAttempt(view, tile.getBlockPos())) {
 				SpecialFlowerBlockEntityRenderer.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), LuminizerBlockEntity.MAX_DIST));
 			}
 		}

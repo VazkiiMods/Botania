@@ -33,7 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.proxy.IProxy;
 
 import java.util.ArrayList;
@@ -101,8 +101,8 @@ public class TrinketsIntegration extends EquipmentHandler {
 	}
 
 	public static final Trinket WRAPPER = new Trinket() {
-		private ItemBauble getItem(ItemStack stack) {
-			return (ItemBauble) stack.getItem();
+		private BaubleItem getItem(ItemStack stack) {
+			return (BaubleItem) stack.getItem();
 		}
 
 		@Override
@@ -149,7 +149,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 		public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntity> contextModel,
 				PoseStack matrices, MultiBufferSource vertexConsumers, int light, LivingEntity livingEntity,
 				float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-			ItemBauble item = (ItemBauble) stack.getItem();
+			BaubleItem item = (BaubleItem) stack.getItem();
 			if (!item.hasRender(stack, livingEntity)) {
 				return;
 			}

@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.item.ItemVirus;
-import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
+import vazkii.botania.common.item.equipment.bauble.CrimsonPendantItem;
 
 @Mixin(Entity.class)
 public class MixinEntity {
@@ -30,7 +30,7 @@ public class MixinEntity {
 		if (((Object) this) instanceof LivingEntity self) {
 			if (ItemVirus.onLivingHurt(self, source)) {
 				cir.setReturnValue(true);
-			} else if (ItemSuperLavaPendant.onDamage(self, source)) {
+			} else if (CrimsonPendantItem.onDamage(self, source)) {
 				cir.setReturnValue(true);
 			}
 		}

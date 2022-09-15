@@ -10,11 +10,11 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.spongepowered.asm.mixin.Mixin;
 
 import vazkii.botania.client.model.armor.ArmorModels;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 
 import java.util.function.Consumer;
 
-@Mixin(ItemManasteelArmor.class)
+@Mixin(ManasteelArmorItem.class)
 public abstract class ItemManasteelArmorForgeMixin extends Item {
 	private ItemManasteelArmorForgeMixin(Properties props) {
 		super(props);

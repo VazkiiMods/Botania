@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 
 public class TerrasteelHelmetLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 	public TerrasteelHelmetLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> renderer) {
@@ -36,8 +36,8 @@ public class TerrasteelHelmetLayer extends RenderLayer<AbstractClientPlayer, Pla
 	@Override
 	public void render(@NotNull PoseStack ms, @NotNull MultiBufferSource buffers, int light, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ItemStack helm = player.getItemBySlot(EquipmentSlot.HEAD);
-		if (!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm terraHelm) {
-			if (ItemTerrasteelHelm.hasAnyWill(helm) && !terraHelm.hasPhantomInk(helm)) {
+		if (!helm.isEmpty() && helm.getItem() instanceof TerrasteelHelmItem terraHelm) {
+			if (TerrasteelHelmItem.hasAnyWill(helm) && !terraHelm.hasPhantomInk(helm)) {
 				ms.pushPose();
 				getParentModel().head.translateAndRotate(ms);
 				ms.translate(-0.2, -0.15, -0.3);

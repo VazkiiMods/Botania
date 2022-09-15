@@ -20,7 +20,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -54,7 +54,7 @@ public class PacketDodge implements IPacket {
 			}
 
 			player.causeFoodExhaustion(0.3F);
-			ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
+			ItemNBTHelper.setInt(ringStack, RingOfDexterousMotionItem.TAG_DODGE_COOLDOWN, RingOfDexterousMotionItem.MAX_CD);
 		});
 	}
 }

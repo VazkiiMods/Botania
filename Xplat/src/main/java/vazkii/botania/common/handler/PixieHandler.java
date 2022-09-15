@@ -27,7 +27,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import vazkii.botania.common.entity.PixieEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
+import vazkii.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -77,7 +77,7 @@ public final class PixieHandler {
 				PixieEntity pixie = new PixieEntity(player.level);
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
-				if (((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
+				if (((ElementiumHelmItem) ModItems.elementiumHelm).hasArmorSet(player)) {
 					pixie.setApplyPotionEffect(new MobEffectInstance(potions[player.level.random.nextInt(potions.length)], 40, 0));
 				}
 

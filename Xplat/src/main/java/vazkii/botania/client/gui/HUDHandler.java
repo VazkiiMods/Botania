@@ -49,9 +49,9 @@ import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
+import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -80,14 +80,14 @@ public final class HUDHandler {
 			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
-				ItemFlightTiara.ClientLogic.renderHUD(ms, mc.player, tiara);
+				FlugelTiaraItem.ClientLogic.renderHUD(ms, mc.player, tiara);
 				profiler.pop();
 			}
 
 			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
-				ItemDodgeRing.ClientLogic.renderHUD(ms, mc.player, dodgeRing, partialTicks);
+				RingOfDexterousMotionItem.ClientLogic.renderHUD(ms, mc.player, dodgeRing, partialTicks);
 				profiler.pop();
 			}
 		}
@@ -152,9 +152,9 @@ public final class HUDHandler {
 			profiler.endSection();
 		}*/
 
-		if (ItemMonocle.hasMonocle(mc.player)) {
+		if (ManaseerMonocleItem.hasMonocle(mc.player)) {
 			profiler.push("monocle");
-			ItemMonocle.Hud.render(ms, mc.player);
+			ManaseerMonocleItem.Hud.render(ms, mc.player);
 			profiler.pop();
 		}
 

@@ -26,8 +26,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.common.block.flower.functional.LooniumBlockEntity;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.item.ItemCraftingHalo;
-import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
+import vazkii.botania.common.item.equipment.bauble.SojournersSashItem;
+import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
 import vazkii.botania.common.item.rod.ItemGravityRod;
 
 @Mixin(LivingEntity.class)
@@ -46,7 +46,7 @@ public abstract class LivingEntityFabricMixin extends Entity {
 	@Inject(method = "dropAllDeathLoot", at = @At(shift = At.Shift.AFTER, value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;dropFromLootTable(Lnet/minecraft/world/damagesource/DamageSource;Z)V"))
 	private void dropEnd(DamageSource source, CallbackInfo ci) {
 		var self = (LivingEntity) (Object) this;
-		ItemElementiumAxe.onEntityDrops(lastHurtByPlayerTime > 0, source, self, self::spawnAtLocation);
+		ElementiumAxeItem.onEntityDrops(lastHurtByPlayerTime > 0, source, self, self::spawnAtLocation);
 	}
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
@@ -84,6 +84,6 @@ public abstract class LivingEntityFabricMixin extends Entity {
 
 	@Inject(at = @At("RETURN"), method = "jumpFromGround")
 	private void onJump(CallbackInfo ci) {
-		ItemTravelBelt.onPlayerJump((LivingEntity) (Object) this);
+		SojournersSashItem.onPlayerJump((LivingEntity) (Object) this);
 	}
 }

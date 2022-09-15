@@ -15,7 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
+import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -40,12 +40,12 @@ public class PacketJump implements IPacket {
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
 		server.execute(() -> {
-			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);
+			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof CirrusAmuletItem, player);
 			if (!amuletStack.isEmpty()) {
 				player.causeFoodExhaustion(0.3F);
 				player.fallDistance = 0;
 
-				ItemCloudPendant.setJumping(player);
+				CirrusAmuletItem.setJumping(player);
 			}
 		});
 	}

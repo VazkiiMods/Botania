@@ -17,14 +17,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelArmor;
+import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelArmorItem;
 
 @Mixin(PiglinAi.class)
 public class PiglinAiFabricMixin {
 	@Inject(at = @At("HEAD"), method = "isWearingGold", cancellable = true)
 	private static void terrasteelNeutral(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
 		for (ItemStack stack : entity.getArmorSlots()) {
-			if (stack.getItem() instanceof ItemTerrasteelArmor armor
+			if (stack.getItem() instanceof TerrasteelArmorItem armor
 					&& armor.makesPiglinsNeutral(stack, entity)) {
 				cir.setReturnValue(true);
 				break;

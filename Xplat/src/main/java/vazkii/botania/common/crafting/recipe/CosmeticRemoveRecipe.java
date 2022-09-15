@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.item.CosmeticAttachable;
 import vazkii.botania.api.item.CosmeticBauble;
-import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 
 public class CosmeticRemoveRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<CosmeticRemoveRecipe> SERIALIZER = new SimpleRecipeSerializer<>(CosmeticRemoveRecipe::new);
@@ -86,7 +86,7 @@ public class CosmeticRemoveRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.getItem() instanceof ItemBauble bauble) {
+			if (s.getItem() instanceof BaubleItem bauble) {
 				ItemStack stack = bauble.getCosmeticItem(s);
 				stack.setCount(1);
 				return stack;

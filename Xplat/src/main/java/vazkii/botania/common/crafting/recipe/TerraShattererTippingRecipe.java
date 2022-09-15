@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 public class TerraShattererTippingRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<TerraShattererTippingRecipe> SERIALIZER = new SimpleRecipeSerializer<>(TerraShattererTippingRecipe::new);
@@ -42,7 +42,7 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemTerraPick && !ItemTerraPick.isTipped(stack)) {
+				if (stack.getItem() instanceof TerraShattererItem && !TerraShattererItem.isTipped(stack)) {
 					foundTerraPick = true;
 				} else if (stack.is(ModItems.elementiumPick)) {
 					foundElementiumPick = true;
@@ -62,7 +62,7 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerraPick) {
+			if (!stack.isEmpty() && stack.getItem() instanceof TerraShattererItem) {
 				terraPick = stack;
 			}
 		}
@@ -72,7 +72,7 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 		}
 
 		ItemStack terraPickCopy = terraPick.copy();
-		ItemTerraPick.setTipped(terraPickCopy);
+		TerraShattererItem.setTipped(terraPickCopy);
 		return terraPickCopy;
 	}
 

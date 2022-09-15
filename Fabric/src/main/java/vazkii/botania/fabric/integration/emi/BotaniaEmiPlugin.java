@@ -32,7 +32,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.ModTags;
 
@@ -147,7 +147,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 						.toList()));
 
 		ItemStack tipped = new ItemStack(ModItems.terraPick);
-		ItemTerraPick.setTipped(tipped);
+		TerraShattererItem.setTipped(tipped);
 		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(ModItems.terraPick),
 				EmiStack.of(ModItems.elementiumPick)), EmiStack.of(tipped), null));
 

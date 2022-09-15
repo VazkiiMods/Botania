@@ -37,8 +37,8 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.mixin.client.AccessorMinecraft;
@@ -163,7 +163,7 @@ public final class ColorHandler {
 
 			Brew brew = ((BrewItem) s.getItem()).getBrew(s);
 			if (brew == BotaniaBrews.fallbackBrew) {
-				return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
+				return s.getItem() instanceof TaintedBloodPendantItem ? 0xC6000E : 0x989898;
 			}
 
 			int color = brew.getColor(s);
@@ -205,7 +205,7 @@ public final class ColorHandler {
 
 		items.register((s, t) -> t == 1 ? Mth.hsvToRgb(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(Util.getMillis() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
 
-		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
+		items.register((s, t) -> t == 1 && TerraShattererItem.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
 		ItemColor lensHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s, Minecraft.getInstance().level) : -1;
 		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime,

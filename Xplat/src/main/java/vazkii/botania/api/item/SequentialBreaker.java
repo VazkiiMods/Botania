@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * An item that implements this can break multiple blocks at once
  * with a Ring of Loki. Usage of this interface requires an implementation
- * (see ItemTerraPick).
+ * (see TerraShattererItem).
  */
 public interface SequentialBreaker {
 

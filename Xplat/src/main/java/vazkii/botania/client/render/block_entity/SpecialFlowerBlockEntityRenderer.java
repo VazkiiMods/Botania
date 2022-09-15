@@ -33,7 +33,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class SpecialFlowerBlockEntityRenderer<T extends SpecialFlowerBlockEntity
 			return;
 		}
 
-		if (!ItemMonocle.hasMonocle(view)) {
+		if (!ManaseerMonocleItem.hasMonocle(view)) {
 			return;
 		}
 		BlockPos pos = null;

@@ -21,10 +21,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumShovel;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.VitreousPickaxeItem;
+import vazkii.botania.common.item.equipment.tool.elementium.ElementiumShovelItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeFabricMixin {
@@ -37,13 +37,13 @@ public class ServerPlayerGameModeFabricMixin {
 		ServerPlayer player = this.player;
 		ItemStack stack = player.getMainHandItem();
 		if (stack.is(ModItems.terraAxe)) {
-			((ItemTerraAxe) ModItems.terraAxe).onBlockStartBreak(stack, pos, player);
+			((TerraTruncatorItem) ModItems.terraAxe).onBlockStartBreak(stack, pos, player);
 		} else if (stack.is(ModItems.terraPick)) {
-			((ItemTerraPick) ModItems.terraPick).onBlockStartBreak(stack, pos, player);
+			((TerraShattererItem) ModItems.terraPick).onBlockStartBreak(stack, pos, player);
 		} else if (stack.is(ModItems.elementiumShovel)) {
-			((ItemElementiumShovel) ModItems.elementiumShovel).onBlockStartBreak(stack, pos, player);
+			((ElementiumShovelItem) ModItems.elementiumShovel).onBlockStartBreak(stack, pos, player);
 		} else if (stack.is(ModItems.glassPick)) {
-			((ItemGlassPick) ModItems.glassPick).onBlockStartBreak(stack, pos, player);
+			((VitreousPickaxeItem) ModItems.glassPick).onBlockStartBreak(stack, pos, player);
 		}
 	}
 }

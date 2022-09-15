@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -40,6 +40,6 @@ public class PacketLeftClick implements IPacket {
 		// The swing packet will run on the netty thread immediately,
 		// so we need to fetch the attack strength ahead of time
 		float scale = player.getAttackStrengthScale(0F);
-		server.execute(() -> ItemTerraSword.trySpawnBurst(player, scale));
+		server.execute(() -> TerraBladeItem.trySpawnBurst(player, scale));
 	}
 }

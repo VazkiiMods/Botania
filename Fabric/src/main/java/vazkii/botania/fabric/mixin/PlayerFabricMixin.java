@@ -36,8 +36,8 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.PixieHandler;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
+import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 
@@ -81,7 +81,7 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 		Container worn = EquipmentHandler.getAllWorn(self);
 		for (int i = 0; i < worn.getContainerSize(); i++) {
 			ItemStack stack = worn.getItem(i);
-			if (stack.getItem() instanceof ItemHolyCloak cloak) {
+			if (stack.getItem() instanceof CloakOfVirtueItem cloak) {
 				amount = cloak.onPlayerDamage(self, src, amount);
 			}
 		}
@@ -99,34 +99,34 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 	public void onDrop(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> cir) {
 		Level world = this.level;
 		if (!stack.isEmpty() && !world.isClientSide) {
-			ItemMagnetRing.onTossItem((Player) (Object) this);
+			RingOfMagnetizationItem.onTossItem((Player) (Object) this);
 		}
 	}
 
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void tickBeltTiara(CallbackInfo ci) {
-		ItemFlightTiara.updatePlayerFlyStatus((Player) (Object) this);
-		ItemTravelBelt.tickBelt((Player) (Object) this);
+		FlugelTiaraItem.updatePlayerFlyStatus((Player) (Object) this);
+		SojournersSashItem.tickBelt((Player) (Object) this);
 	}
 
 	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"))
 	private float cushionFall(float originalDist) {
-		return ItemTravelBelt.onPlayerFall((Player) (Object) this, originalDist);
+		return SojournersSashItem.onPlayerFall((Player) (Object) this, originalDist);
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;tick()V"), method = "aiStep")
 	private void tickArmor(CallbackInfo ci) {
 		Player self = (Player) (Object) this;
 		for (ItemStack stack : inventory.armor) {
-			if (stack.getItem() instanceof ItemManasteelArmor) {
-				((ItemManasteelArmor) stack.getItem()).onArmorTick(stack, self.level, self);
+			if (stack.getItem() instanceof ManasteelArmorItem) {
+				((ManasteelArmorItem) stack.getItem()).onArmorTick(stack, self.level, self);
 			}
 		}
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;setLastHurtMob(Lnet/minecraft/world/entity/Entity;)V"), method = "attack")
 	private void onAttack(Entity target, CallbackInfo ci) {
-		ItemDivaCharm.onEntityDamaged((Player) (Object) this, target);
+		CharmOfTheDivaItem.onEntityDamaged((Player) (Object) this, target);
 	}
 
 	// Multiply the damage on crit. Targets the first float LOAD after the sprint check for the crit.
@@ -139,7 +139,7 @@ public abstract class PlayerFabricMixin extends LivingEntity {
 	private float onCritMul(float f, Entity target) {
 		if (target instanceof LivingEntity living) {
 			((PlayerAccess) this).botania$setCritTarget(living);
-			return f * ItemTerrasteelHelm.getCritDamageMult((Player) (Object) this);
+			return f * TerrasteelHelmItem.getCritDamageMult((Player) (Object) this);
 		}
 		return f;
 	}

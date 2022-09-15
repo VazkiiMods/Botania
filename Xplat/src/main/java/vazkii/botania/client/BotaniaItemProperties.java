@@ -13,10 +13,10 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.brew.BaseBrewItem;
-import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
-import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.bauble.RingOfMagnetizationItem;
+import vazkii.botania.common.item.equipment.tool.bow.LivingwoodBowItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.network.TriConsumer;
@@ -77,7 +77,7 @@ public final class BotaniaItemProperties {
 		consumer.accept(ModItems.manaweaveBoots, holidayId, holidayGetter);
 		consumer.accept(ModItems.manaweaveLegs, holidayId, holidayGetter);
 
-		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
+		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> RingOfMagnetizationItem.getCooldown(stack) <= 0 ? 1 : 0;
 		consumer.accept(ModItems.magnetRing, prefix("active"), ringOnGetter);
 		consumer.accept(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
 
@@ -86,11 +86,11 @@ public final class BotaniaItemProperties {
 		consumer.accept(ModItems.manasteelSword, prefix("elucidator"),
 				(stack, world, entity, seed) -> "the elucidator".equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
 		consumer.accept(ModItems.terraAxe, prefix("active"),
-				(stack, world, entity, seed) -> entity instanceof Player player && !ItemTerraAxe.shouldBreak(player) ? 0 : 1);
+				(stack, world, entity, seed) -> entity instanceof Player player && !TerraTruncatorItem.shouldBreak(player) ? 0 : 1);
 		consumer.accept(ModItems.terraPick, prefix("tipped"),
-				(stack, world, entity, seed) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
+				(stack, world, entity, seed) -> TerraShattererItem.isTipped(stack) ? 1 : 0);
 		consumer.accept(ModItems.terraPick, prefix("active"),
-				(stack, world, entity, seed) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
+				(stack, world, entity, seed) -> TerraShattererItem.isEnabled(stack) ? 1 : 0);
 		consumer.accept(ModItems.infiniteFruit, prefix("boot"),
 				(stack, worldIn, entity, seed) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
 		consumer.accept(ModItems.tornadoRod, prefix("active"),
@@ -102,7 +102,7 @@ public final class BotaniaItemProperties {
 			if (entity == null) {
 				return 0.0F;
 			} else {
-				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
+				LivingwoodBowItem item = ((LivingwoodBowItem) stack.getItem());
 				return entity.getUseItem() != stack
 						? 0.0F
 						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;

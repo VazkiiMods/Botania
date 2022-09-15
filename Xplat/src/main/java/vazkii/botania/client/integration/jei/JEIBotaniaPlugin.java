@@ -61,8 +61,8 @@ import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.BaseBrewItem;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
@@ -84,15 +84,15 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.incenseStick, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.bloodPendant, interpreter);
 
-		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.flightTiara, (stack, ctx) -> String.valueOf(ItemFlightTiara.getVariant(stack)));
+		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.flightTiara, (stack, ctx) -> String.valueOf(FlugelTiaraItem.getVariant(stack)));
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.lexicon, (stack, ctx) -> String.valueOf(ItemNBTHelper.getBoolean(stack, ItemLexicon.TAG_ELVEN_UNLOCK, false)));
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.laputaShard, (stack, ctx) -> String.valueOf(ItemLaputaShard.getShardLevel(stack)));
 
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.terraPick, (stack, ctx) -> {
 			if (ctx == UidContext.Recipe) {
-				return String.valueOf(ItemTerraPick.isTipped(stack));
+				return String.valueOf(TerraShattererItem.isTipped(stack));
 			}
-			return String.valueOf(ItemTerraPick.getLevel(stack)) + ItemTerraPick.isTipped(stack);
+			return String.valueOf(TerraShattererItem.getLevel(stack)) + TerraShattererItem.isTipped(stack);
 		});
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.manaTablet, (stack, ctx) -> {
 			int mana = IXplatAbstractions.INSTANCE.findManaItem(stack).getMana();

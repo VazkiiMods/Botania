@@ -31,7 +31,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 import java.util.function.Predicate;
 
@@ -128,7 +128,7 @@ public final class ToolCommons {
 
 		int modifier = 0;
 		if (stack.is(ModItems.terraPick)) {
-			modifier = ItemTerraPick.getLevel(stack);
+			modifier = TerraShattererItem.getLevel(stack);
 		}
 
 		int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);

@@ -53,7 +53,7 @@ import vazkii.botania.client.render.entity.*;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.mixin.client.AccessorRenderBuffers;
@@ -125,12 +125,12 @@ public class FabricClientInitializer implements ClientModInitializer {
 
 	private static void registerArmors() {
 		Item[] armors = Registry.ITEM.stream()
-				.filter(i -> i instanceof ItemManasteelArmor
+				.filter(i -> i instanceof ManasteelArmorItem
 						&& Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.toArray(Item[]::new);
 
 		ArmorRenderer renderer = (matrices, vertexConsumers, stack, entity, slot, light, contextModel) -> {
-			ItemManasteelArmor armor = (ItemManasteelArmor) stack.getItem();
+			ManasteelArmorItem armor = (ManasteelArmorItem) stack.getItem();
 			var model = ArmorModels.get(stack);
 			var texture = armor.getArmorTexture(stack, entity, slot, "");
 			if (model != null) {

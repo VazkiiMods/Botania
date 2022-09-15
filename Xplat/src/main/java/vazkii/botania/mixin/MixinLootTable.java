@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
+import vazkii.botania.common.item.equipment.tool.elementium.ElementiumPickaxeItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.Consumer;
@@ -50,7 +50,7 @@ public class MixinLootTable {
 			Entity e = context.getParamOrNull(LootContextParams.THIS_ENTITY);
 			ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
 			if (e != null && tool != null) {
-				if (ItemElementiumPick.shouldFilterOut(e, tool, stack)) {
+				if (ElementiumPickaxeItem.shouldFilterOut(e, tool, stack)) {
 					return;
 				}
 			}

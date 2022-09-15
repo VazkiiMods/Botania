@@ -25,7 +25,7 @@ import vazkii.botania.client.model.ManaBlasterModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.client.AccessorModelBakery;
@@ -66,7 +66,7 @@ public class MiscellaneousModels {
 			mainAtlas("item/spark_upgrade_rune_recessive"),
 			mainAtlas("item/spark_upgrade_rune_isolated")
 	};
-	public final BakedModel[] tiaraWingIcons = new BakedModel[ItemFlightTiara.WING_TYPES];
+	public final BakedModel[] tiaraWingIcons = new BakedModel[FlugelTiaraItem.WING_TYPES];
 	public final BakedModel[] thirdEyeLayers = new BakedModel[3];
 
 	public BakedModel goldfishModel,

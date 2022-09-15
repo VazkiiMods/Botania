@@ -42,7 +42,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.block_entity.PylonBlockEntityRenderer;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.mixin.client.AccessorItemRenderer;
 import vazkii.botania.mixin.client.AccessorRenderType;
 
@@ -166,7 +166,7 @@ public final class RenderHelper extends RenderType {
 				.createCompositeState(true);
 		BABYLON_ICON = makeLayer(ResourcesLib.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
 
-		RenderStateShard.TextureStateShard haloTexture = new RenderStateShard.TextureStateShard(ItemFlightTiara.textureHalo, false, true);
+		RenderStateShard.TextureStateShard haloTexture = new RenderStateShard.TextureStateShard(FlugelTiaraItem.textureHalo, false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(haloTexture)
 				.setShaderState(new ShaderStateShard(CoreShaders::halo))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)

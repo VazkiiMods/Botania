@@ -22,7 +22,7 @@ import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 
 @Mixin(Player.class)
 public abstract class MixinPlayer extends LivingEntity implements PlayerAccess {
@@ -61,7 +61,7 @@ public abstract class MixinPlayer extends LivingEntity implements PlayerAccess {
 	)
 	private DamageSource onDamageTarget(DamageSource source, float amount) {
 		if (this.terraWillCritTarget != null) {
-			ItemTerrasteelHelm.onEntityAttacked(source, amount, (Player) (Object) this, terraWillCritTarget);
+			TerrasteelHelmItem.onEntityAttacked(source, amount, (Player) (Object) this, terraWillCritTarget);
 			this.terraWillCritTarget = null;
 		}
 		return source;

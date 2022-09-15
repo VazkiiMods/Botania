@@ -33,7 +33,7 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntit
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.mixin.AccessorAdvancementProvider;
 
@@ -237,7 +237,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("spawner_mover_use"));
 		DisplayInfo tiaraWings = simple(ModItems.flightTiara, "tiaraWings", FrameType.TASK);
 		tiaraWings.getIcon().getOrCreateTag().putInt("variant", 1);
-		InventoryChangeTrigger.TriggerInstance[] variants = IntStream.range(1, ItemFlightTiara.WING_TYPES)
+		InventoryChangeTrigger.TriggerInstance[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
 				.mapToObj(i -> {
 					CompoundTag tag = new CompoundTag();
 					tag.putInt("variant", i);

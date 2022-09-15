@@ -17,14 +17,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.client.core.handler.KonamiHandler;
-import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 
 @Mixin(KeyboardHandler.class)
 public class KeyboardHandlerFabricMixin {
 	@Inject(at = @At("HEAD"), method = "keyPress")
 	private void keyEvent(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
 		if (window == Minecraft.getInstance().getWindow().getWindow()) {
-			ItemDodgeRing.ClientLogic.onKeyDown();
+			RingOfDexterousMotionItem.ClientLogic.onKeyDown();
 			KonamiHandler.handleInput(key, action, modifiers);
 		}
 	}

@@ -44,7 +44,7 @@ import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.mixin.client.AccessorModelManager;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
@@ -331,7 +331,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);
 					ms.translate(0F, 0.8F, 0F);
-					ItemFlightTiara.ClientLogic.renderHalo(null, null, ms, buffers, partialTicks);
+					FlugelTiaraItem.ClientLogic.renderHalo(null, null, ms, buffers, partialTicks);
 				}
 				case "kingdaddydmac" -> {
 					ms.scale(0.5F, 0.5F, 0.5F);

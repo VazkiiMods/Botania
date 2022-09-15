@@ -98,12 +98,12 @@ import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
+import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
@@ -251,8 +251,8 @@ public class ForgeCommonInitializer {
 		}
 		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ItemExchangeRod) ModItems.exchangeRod).onLeftClick(
 				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
-		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> ItemTerraSword.leftClick(e.getItemStack()));
-		bus.addListener((AttackEntityEvent e) -> ItemTerraSword.attackEntity(
+		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> TerraBladeItem.leftClick(e.getItemStack()));
+		bus.addListener((AttackEntityEvent e) -> TerraBladeItem.attackEntity(
 				e.getEntity(), e.getEntity().level, InteractionHand.MAIN_HAND, e.getTarget(), null));
 		bus.addListener((RegisterCommandsEvent e) -> this.registerCommands(
 				e.getDispatcher(), e.getCommandSelection() == Commands.CommandSelection.DEDICATED));
@@ -273,13 +273,13 @@ public class ForgeCommonInitializer {
 
 		bus.addListener((ServerAboutToStartEvent e) -> this.serverAboutToStart(e.getServer()));
 		bus.addListener((ServerStoppingEvent e) -> this.serverStopping(e.getServer()));
-		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> ItemFlightTiara.playerLoggedOut((ServerPlayer) e.getEntity()));
+		bus.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> FlugelTiaraItem.playerLoggedOut((ServerPlayer) e.getEntity()));
 		bus.addListener((PlayerEvent.Clone e) -> ItemKeepIvy.onPlayerRespawn(e.getOriginal(), e.getEntity(), !e.isWasDeath()));
 		bus.addListener((TickEvent.LevelTickEvent e) -> {
 			if (e.phase == TickEvent.Phase.END && e.level instanceof ServerLevel level) {
 				CommonTickHandler.onTick(level);
 				ItemGrassSeeds.onTickEnd(level);
-				ItemTerraAxe.onTickEnd(level);
+				TerraTruncatorItem.onTickEnd(level);
 			}
 		});
 		bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
@@ -324,7 +324,7 @@ public class ForgeCommonInitializer {
 		});
 		// FabricMixinExplosion
 		bus.addListener((ExplosionEvent e) -> {
-			if (ItemGoddessCharm.shouldProtectExplosion(e.getLevel(), e.getExplosion().getPosition())) {
+			if (BenevolentGoddessCharmItem.shouldProtectExplosion(e.getLevel(), e.getExplosion().getPosition())) {
 				e.getExplosion().clearToBlow();
 			}
 		});
@@ -338,7 +338,7 @@ public class ForgeCommonInitializer {
 		{
 			bus.addListener((LivingDropsEvent e) -> {
 				var living = e.getEntity();
-				ItemElementiumAxe.onEntityDrops(e.isRecentlyHit(), e.getSource(), living, stack -> {
+				ElementiumAxeItem.onEntityDrops(e.isRecentlyHit(), e.getSource(), living, stack -> {
 					var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
@@ -355,7 +355,7 @@ public class ForgeCommonInitializer {
 					SoulCrossMobEffect.onEntityKill(e.getEntity(), killer);
 				}
 			});
-			bus.addListener((LivingEvent.LivingJumpEvent e) -> ItemTravelBelt.onPlayerJump(e.getEntity()));
+			bus.addListener((LivingEvent.LivingJumpEvent e) -> SojournersSashItem.onPlayerJump(e.getEntity()));
 		}
 		// FabricMixinPlayer
 		{
@@ -365,13 +365,13 @@ public class ForgeCommonInitializer {
 					e.setCanceled(true);
 				}
 			});
-			bus.addListener((ItemTossEvent e) -> ItemMagnetRing.onTossItem(e.getPlayer()));
+			bus.addListener((ItemTossEvent e) -> RingOfMagnetizationItem.onTossItem(e.getPlayer()));
 			bus.addListener((LivingHurtEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
 					Container worn = EquipmentHandler.getAllWorn(player);
 					for (int i = 0; i < worn.getContainerSize(); i++) {
 						ItemStack stack = worn.getItem(i);
-						if (stack.getItem() instanceof ItemHolyCloak cloak) {
+						if (stack.getItem() instanceof CloakOfVirtueItem cloak) {
 							e.setAmount(cloak.onPlayerDamage(player, e.getSource(), e.getAmount()));
 						}
 					}
@@ -379,18 +379,18 @@ public class ForgeCommonInitializer {
 					PixieHandler.onDamageTaken(player, e.getSource());
 				}
 				if (e.getSource().getDirectEntity() instanceof Player player) {
-					ItemDivaCharm.onEntityDamaged(player, e.getEntity());
+					CharmOfTheDivaItem.onEntityDamaged(player, e.getEntity());
 				}
 			});
 			bus.addListener((LivingEvent.LivingTickEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
-					ItemFlightTiara.updatePlayerFlyStatus(player);
-					ItemTravelBelt.tickBelt(player);
+					FlugelTiaraItem.updatePlayerFlyStatus(player);
+					SojournersSashItem.tickBelt(player);
 				}
 			});
 			bus.addListener((LivingFallEvent e) -> {
 				if (e.getEntity() instanceof Player player) {
-					e.setDistance(ItemTravelBelt.onPlayerFall(player, e.getDistance()));
+					e.setDistance(SojournersSashItem.onPlayerFall(player, e.getDistance()));
 				}
 			});
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
@@ -398,11 +398,11 @@ public class ForgeCommonInitializer {
 				if (e.getEntity().level.isClientSide
 						|| result == Event.Result.DENY
 						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
-						|| !ItemTerrasteelHelm.hasTerraArmorSet(e.getEntity())
+						|| !TerrasteelHelmItem.hasTerraArmorSet(e.getEntity())
 						|| !(e.getTarget() instanceof LivingEntity target)) {
 					return;
 				}
-				e.setDamageModifier(e.getDamageModifier() * ItemTerrasteelHelm.getCritDamageMult(e.getEntity()));
+				e.setDamageModifier(e.getDamageModifier() * TerrasteelHelmItem.getCritDamageMult(e.getEntity()));
 				((PlayerAccess) e.getEntity()).botania$setCritTarget(target);
 			});
 
@@ -442,10 +442,10 @@ public class ForgeCommonInitializer {
 
 	private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
 			ModItems.manaMirror, ItemManaMirror.ManaItemImpl::new,
-			ModItems.manaRing, ItemManaRing.ManaItemImpl::new,
-			ModItems.manaRingGreater, ItemGreaterManaRing.GreaterManaItemImpl::new,
+			ModItems.manaRing, BandOfManaItem.ManaItemImpl::new,
+			ModItems.manaRingGreater, GreaterBandOfManaItem.GreaterManaItemImpl::new,
 			ModItems.manaTablet, ItemManaTablet.ManaItemImpl::new,
-			ModItems.terraPick, ItemTerraPick.ManaItemImpl::new
+			ModItems.terraPick, TerraShattererItem.ManaItemImpl::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
@@ -461,7 +461,7 @@ public class ForgeCommonInitializer {
 	private void attachItemCaps(AttachCapabilitiesEvent<ItemStack> e) {
 		var stack = e.getObject();
 
-		if (stack.getItem() instanceof ItemBauble
+		if (stack.getItem() instanceof BaubleItem
 				&& EquipmentHandler.instance instanceof CurioIntegration ci) {
 			e.addCapability(prefix("curio"), ci.initCapability(stack));
 		}

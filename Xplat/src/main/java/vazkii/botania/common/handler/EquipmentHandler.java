@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -60,7 +60,7 @@ public abstract class EquipmentHandler {
 	public abstract void onInit(Item item);
 
 	public boolean isAccessory(ItemStack stack) {
-		return stack.is(ModTags.Items.RODS) || stack.getItem() instanceof ItemBauble || IXplatAbstractions.INSTANCE.findManaItem(stack) != null;
+		return stack.is(ModTags.Items.RODS) || stack.getItem() instanceof BaubleItem || IXplatAbstractions.INSTANCE.findManaItem(stack) != null;
 	}
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.
@@ -82,12 +82,12 @@ public abstract class EquipmentHandler {
 				ItemStack current = inv.getItem(i);
 
 				if (!ItemStack.matches(old, current)) {
-					if (old.getItem() instanceof ItemBauble bauble) {
+					if (old.getItem() instanceof BaubleItem bauble) {
 						player.getAttributes().removeAttributeModifiers(bauble.getEquippedAttributeModifiers(old));
 						bauble.onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
-						ItemBauble bauble = (ItemBauble) current.getItem();
+						BaubleItem bauble = (BaubleItem) current.getItem();
 						player.getAttributes().addTransientAttributeModifiers(bauble.getEquippedAttributeModifiers(current));
 						bauble.onEquipped(current, player);
 					}
@@ -96,7 +96,7 @@ public abstract class EquipmentHandler {
 				}
 
 				if (canEquip(current, player)) {
-					((ItemBauble) current.getItem()).onWornTick(current, player);
+					((BaubleItem) current.getItem()).onWornTick(current, player);
 				}
 			}
 			player.level.getProfiler().pop();
@@ -139,7 +139,7 @@ public abstract class EquipmentHandler {
 		public void onInit(Item item) {}
 
 		private static boolean canEquip(ItemStack stack, LivingEntity living) {
-			return stack.getItem() instanceof ItemBauble bauble && bauble.canEquip(stack, living);
+			return stack.getItem() instanceof BaubleItem bauble && bauble.canEquip(stack, living);
 		}
 	}
 }

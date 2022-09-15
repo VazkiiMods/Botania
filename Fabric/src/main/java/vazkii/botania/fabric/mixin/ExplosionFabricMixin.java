@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
+import vazkii.botania.common.item.equipment.bauble.BenevolentGoddessCharmItem;
 
 @Mixin(Explosion.class)
 public abstract class ExplosionFabricMixin {
@@ -44,7 +44,7 @@ public abstract class ExplosionFabricMixin {
 
 	@Inject(method = "finalizeExplosion", at = @At("HEAD"))
 	private void onAffectWorld(boolean particles, CallbackInfo ci) {
-		if (ItemGoddessCharm.shouldProtectExplosion(level, new Vec3(x, y, z))) {
+		if (BenevolentGoddessCharmItem.shouldProtectExplosion(level, new Vec3(x, y, z))) {
 			clearToBlow();
 		}
 	}

@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 
 public class ManaBarTooltipComponent implements ClientTooltipComponent {
 	private final float percentageFull;
@@ -71,7 +71,7 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 			return;
 		}
 
-		boolean ss = level >= ItemTerraPick.LEVELS.length - 1;
+		boolean ss = level >= TerraShattererItem.LEVELS.length - 1;
 		String rank = I18n.get("botania.rank" + pickLevel).replaceAll("&", "\u00a7");
 
 		font.drawInBatch(rank, mouseX, mouseY - 16, 0xFFFFFF, true, matrix, buffers, false, 0, 0xF000F0);
@@ -90,7 +90,7 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 		ps.translate(0, 0, z);
 
 		if (pickLevel >= 0) {
-			boolean ss = pickLevel >= ItemTerraPick.LEVELS.length - 1;
+			boolean ss = pickLevel >= TerraShattererItem.LEVELS.length - 1;
 
 			int rainbowWidth = Math.min(totalWidth - (ss ? 0 : 1), (int) (totalWidth * percentageFull));
 			float huePer = totalWidth == 0 ? 0F : 1F / totalWidth;

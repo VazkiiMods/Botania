@@ -9,10 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumArmor;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveArmor;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelArmor;
+import vazkii.botania.common.item.equipment.armor.elementium.ElementiumArmorItem;
+import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
+import vazkii.botania.common.item.equipment.armor.manaweave.ManaweaveArmorItem;
+import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelArmorItem;
 
 import java.util.Collections;
 import java.util.EnumMap;
@@ -43,13 +43,13 @@ public class ArmorModels {
 	@Nullable
 	public static ArmorModel get(ItemStack stack) {
 		Item item = stack.getItem();
-		if (item instanceof ItemManaweaveArmor armor) {
+		if (item instanceof ManaweaveArmorItem armor) {
 			return manaweave.get(armor.getSlot());
-		} else if (item instanceof ItemElementiumArmor armor) {
+		} else if (item instanceof ElementiumArmorItem armor) {
 			return elementium.get(armor.getSlot());
-		} else if (item instanceof ItemTerrasteelArmor armor) {
+		} else if (item instanceof TerrasteelArmorItem armor) {
 			return terrasteel.get(armor.getSlot());
-		} else if (item instanceof ItemManasteelArmor armor) { // manasteel must be last because the other types extend from it
+		} else if (item instanceof ManasteelArmorItem armor) { // manasteel must be last because the other types extend from it
 			return manasteel.get(armor.getSlot());
 		}
 

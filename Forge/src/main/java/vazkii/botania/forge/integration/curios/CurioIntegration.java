@@ -47,7 +47,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.forge.CapabilityUtil;
 
@@ -123,8 +123,8 @@ public class CurioIntegration extends EquipmentHandler {
 			this.stack = stack;
 		}
 
-		private ItemBauble getItem() {
-			return (ItemBauble) stack.getItem();
+		private BaubleItem getItem() {
+			return (BaubleItem) stack.getItem();
 		}
 
 		@Override
@@ -185,7 +185,7 @@ public class CurioIntegration extends EquipmentHandler {
 						float ageInTicks, float netHeadYaw, float headPitch) {
 			LivingEntity livingEntity = slotContext.entity();
 			M contextModel = renderLayerParent.getModel();
-			ItemBauble item = (ItemBauble) stack.getItem();
+			BaubleItem item = (BaubleItem) stack.getItem();
 
 			if (!item.hasRender(stack, livingEntity)) {
 				return;
