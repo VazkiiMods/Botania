@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IVariable;
 
 import java.util.List;
@@ -39,9 +39,9 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 		Level world = Minecraft.getInstance().level;
 		Map<ResourceLocation, ? extends Recipe<?>> map;
 		if ("runic_altar".equals(recipeType)) {
-			map = ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE);
+			map = BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.RUNE_TYPE);
 		} else if ("petal_apothecary".equals(recipeType)) {
-			map = ModRecipeTypes.getRecipes(world, ModRecipeTypes.PETAL_TYPE);
+			map = BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.PETAL_TYPE);
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}

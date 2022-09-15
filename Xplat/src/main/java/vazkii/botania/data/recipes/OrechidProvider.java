@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.lib.ModTags;
 
@@ -87,19 +87,19 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected Result stone(Block output, int weight) {
-		return new Result(ModRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.STONE, forBlock(output), weight);
+		return new Result(BotaniaRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.STONE, forBlock(output), weight);
 	}
 
 	protected Result deepslate(Block output, int weight) {
-		return new Result(ModRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.DEEPSLATE, forBlock(output), weight);
+		return new Result(BotaniaRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.DEEPSLATE, forBlock(output), weight);
 	}
 
 	protected Result netherrack(Block output, int weight) {
-		return new Result(ModRecipeTypes.ORECHID_IGNEM_SERIALIZER, ignemId(output), Blocks.NETHERRACK, forBlock(output), weight);
+		return new Result(BotaniaRecipeTypes.ORECHID_IGNEM_SERIALIZER, ignemId(output), Blocks.NETHERRACK, forBlock(output), weight);
 	}
 
 	protected Result biomeStone(Block output, TagKey<Biome> biome) {
-		return new BiomeResult(ModRecipeTypes.MARIMORPHOSIS_SERIALIZER, marimorphosisId(output), Blocks.STONE, forBlock(output), 1, 11, biome);
+		return new BiomeResult(BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER, marimorphosisId(output), Blocks.STONE, forBlock(output), 1, 11, biome);
 	}
 
 	protected static StateIngredient forBlock(Block block) {

@@ -24,7 +24,7 @@ import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Arrays;
@@ -120,7 +120,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	private PureDaisyRecipe findRecipe(BlockPos coords) {
 		BlockState state = getLevel().getBlockState(coords);
 
-		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(level, ModRecipeTypes.PURE_DAISY_TYPE).values()) {
+		for (Recipe<?> recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.PURE_DAISY_TYPE).values()) {
 			if (recipe instanceof PureDaisyRecipe daisyRecipe && daisyRecipe.matches(getLevel(), coords, this, state)) {
 				return daisyRecipe;
 			}

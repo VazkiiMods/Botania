@@ -83,6 +83,6 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@NotNull
 	@Override
 	public RecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
-		return ModRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;
+		return BotaniaRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;
 	}
 }

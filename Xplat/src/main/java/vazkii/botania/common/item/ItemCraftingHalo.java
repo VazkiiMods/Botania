@@ -61,7 +61,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.crafting.AssemblyHaloContainer;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.network.EffectType;
@@ -263,7 +263,7 @@ public class ItemCraftingHalo extends Item {
 		if (position <= 0 || position >= SEGMENTS || id == null) {
 			return null;
 		} else {
-			return ModRecipeTypes.getRecipes(world, RecipeType.CRAFTING).get(id);
+			return BotaniaRecipeTypes.getRecipes(world, RecipeType.CRAFTING).get(id);
 		}
 	}
 
@@ -317,7 +317,7 @@ public class ItemCraftingHalo extends Item {
 		String savedId = ItemNBTHelper.getString(halo, TAG_LAST_CRAFTING, "");
 		ResourceLocation id = savedId.isEmpty() ? null : ResourceLocation.tryParse(savedId);
 
-		return ModRecipeTypes.getRecipes(world, RecipeType.CRAFTING).get(id);
+		return BotaniaRecipeTypes.getRecipes(world, RecipeType.CRAFTING).get(id);
 	}
 
 	private static boolean wasEquipped(ItemStack stack) {

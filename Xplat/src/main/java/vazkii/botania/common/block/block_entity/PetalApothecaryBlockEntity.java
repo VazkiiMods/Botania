@@ -40,7 +40,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.PetalApothecaryBlock;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -99,7 +99,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		}
 
 		if (SEED_PATTERN.matcher(stack.getDescriptionId()).find()) {
-			Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
+			Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getItemHandler(), level);
 			maybeRecipe.ifPresent(recipe -> {
 				saveLastRecipe();
 				ItemStack output = recipe.assemble(getItemHandler());
@@ -329,7 +329,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				float anglePer = 360F / amt;
 
 				Optional<PetalApothecaryRecipe> maybeRecipe = altar.level.getRecipeManager()
-						.getRecipeFor(ModRecipeTypes.PETAL_TYPE, altar.getItemHandler(), altar.level);
+						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, altar.getItemHandler(), altar.level);
 				maybeRecipe.ifPresent(recipe -> {
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderSystem.setShaderTexture(0, HUDHandler.manaBar);

@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -63,7 +63,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(id("diamond_return"), new ItemStack(Items.DIAMOND), Ingredient.of(Items.DIAMOND)));
 		consumer.accept(new FinishedRecipe(id("diamond_block_return"), new ItemStack(Blocks.DIAMOND_BLOCK), Ingredient.of(Blocks.DIAMOND_BLOCK)));
 
-		SpecialRecipeBuilder.special(ModRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER).save(consumer, id("lexicon_elven").toString());
+		SpecialRecipeBuilder.special(BotaniaRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER).save(consumer, id("lexicon_elven").toString());
 	}
 
 	private static ResourceLocation id(String path) {
@@ -113,7 +113,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.ELVEN_TRADE_SERIALIZER;
+			return BotaniaRecipeTypes.ELVEN_TRADE_SERIALIZER;
 		}
 
 		@Nullable

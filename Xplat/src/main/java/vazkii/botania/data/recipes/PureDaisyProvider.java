@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import java.util.function.Consumer;
@@ -108,7 +108,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.PURE_DAISY_SERIALIZER;
+			return BotaniaRecipeTypes.PURE_DAISY_SERIALIZER;
 		}
 
 		@Nullable
@@ -140,7 +140,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.COPYING_PURE_DAISY_SERIALIZER;
+			return BotaniaRecipeTypes.COPYING_PURE_DAISY_SERIALIZER;
 		}
 	}
 }

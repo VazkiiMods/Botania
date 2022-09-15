@@ -9,8 +9,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.MarimorphosisRecipe;
-import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.LibMisc;
 
 public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<MarimorphosisRecipe> {
@@ -29,6 +29,6 @@ public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<Marim
 
 	@Override
 	protected RecipeType<MarimorphosisRecipe> recipeType() {
-		return ModRecipeTypes.MARIMORPHOSIS_TYPE;
+		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
 }

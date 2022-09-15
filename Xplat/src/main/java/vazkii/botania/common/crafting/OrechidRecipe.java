@@ -58,12 +58,12 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 
 	@Override
 	public RecipeType<?> getType() {
-		return ModRecipeTypes.ORECHID_TYPE;
+		return BotaniaRecipeTypes.ORECHID_TYPE;
 	}
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.ORECHID_SERIALIZER;
+		return BotaniaRecipeTypes.ORECHID_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<OrechidRecipe> {

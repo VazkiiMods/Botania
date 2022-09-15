@@ -50,8 +50,8 @@ import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
-import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraShattererTippingRecipe;
@@ -132,18 +132,18 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(@NotNull IRecipeRegistration registry) {
-		registry.addRecipes(BreweryRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.BREW_TYPE, BY_ID));
-		registry.addRecipes(PureDaisyRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.PURE_DAISY_TYPE, BY_ID));
-		registry.addRecipes(PetalApothecaryRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.PETAL_TYPE, BY_ID));
-		registry.addRecipes(ElvenTradeRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE, BY_ID));
-		registry.addRecipes(RunicAltarRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.RUNE_TYPE, BY_ID));
-		registry.addRecipes(ManaPoolRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)));
-		registry.addRecipes(TerrestrialAgglomerationRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
+		registry.addRecipes(BreweryRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.BREW_TYPE, BY_ID));
+		registry.addRecipes(PureDaisyRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.PURE_DAISY_TYPE, BY_ID));
+		registry.addRecipes(PetalApothecaryRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.PETAL_TYPE, BY_ID));
+		registry.addRecipes(ElvenTradeRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.ELVEN_TRADE_TYPE, BY_ID));
+		registry.addRecipes(RunicAltarRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.RUNE_TYPE, BY_ID));
+		registry.addRecipes(ManaPoolRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)));
+		registry.addRecipes(TerrestrialAgglomerationRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
 
 		Comparator<OrechidRecipe> comp = BY_INPUT.thenComparing(BY_WEIGHT).thenComparing(BY_ID);
-		registry.addRecipes(OrechidRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ORECHID_TYPE, comp));
-		registry.addRecipes(OrechidIgnemRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ORECHID_IGNEM_TYPE, comp));
-		registry.addRecipes(MarimorphosisRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.MARIMORPHOSIS_TYPE, comp));
+		registry.addRecipes(OrechidRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.ORECHID_TYPE, comp));
+		registry.addRecipes(OrechidIgnemRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE, comp));
+		registry.addRecipes(MarimorphosisRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, comp));
 	}
 
 	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
@@ -164,7 +164,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {
 		@SuppressWarnings("unchecked")
-		Collection<T> recipes = (Collection<T>) ModRecipeTypes.getRecipes(Minecraft.getInstance().level, type).values();
+		Collection<T> recipes = (Collection<T>) BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type).values();
 		List<T> list = new ArrayList<>(recipes);
 		list.sort(comparator);
 		return list;

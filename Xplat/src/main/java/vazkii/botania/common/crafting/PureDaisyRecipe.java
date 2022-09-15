@@ -103,7 +103,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.PURE_DAISY_SERIALIZER;
+		return BotaniaRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<PureDaisyRecipe> {

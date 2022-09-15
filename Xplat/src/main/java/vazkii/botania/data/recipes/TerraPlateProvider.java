@@ -20,7 +20,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
@@ -80,7 +80,7 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.TERRA_PLATE_SERIALIZER;
+			return BotaniaRecipeTypes.TERRA_PLATE_SERIALIZER;
 		}
 
 		@Nullable

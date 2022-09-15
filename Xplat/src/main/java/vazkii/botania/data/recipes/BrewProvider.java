@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.function.Consumer;
@@ -98,7 +98,7 @@ public class BrewProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.BREW_SERIALIZER;
+			return BotaniaRecipeTypes.BREW_SERIALIZER;
 		}
 
 		@Nullable

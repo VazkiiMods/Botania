@@ -90,7 +90,7 @@ public class RecipeTerraPlate implements TerrestrialAgglomerationRecipe {
 	@NotNull
 	@Override
 	public RecipeSerializer<RecipeTerraPlate> getSerializer() {
-		return ModRecipeTypes.TERRA_PLATE_SERIALIZER;
+		return BotaniaRecipeTypes.TERRA_PLATE_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<RecipeTerraPlate> {

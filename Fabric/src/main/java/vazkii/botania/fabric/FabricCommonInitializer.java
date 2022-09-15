@@ -71,7 +71,7 @@ import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.command.SkyblockCommand;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.*;
@@ -156,8 +156,8 @@ public class FabricCommonInitializer implements ModInitializer {
 		ModItems.registerMenuTypes(bind(Registry.MENU));
 		ModItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
 		BotaniaBannerPatterns.submitRegistrations(bind(Registry.BANNER_PATTERN));
-		ModRecipeTypes.submitRecipeTypes(bind(Registry.RECIPE_TYPE));
-		ModRecipeTypes.submitRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
+		BotaniaRecipeTypes.submitRecipeTypes(bind(Registry.RECIPE_TYPE));
+		BotaniaRecipeTypes.submitRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
 
 		// Entities
 		ModEntities.registerEntities(bind(Registry.ENTITY_TYPE));

@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
@@ -29,7 +29,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		this.recipe = PatchouliUtils.getRecipe(ModRecipeTypes.BREW_TYPE, id);
+		this.recipe = PatchouliUtils.getRecipe(BotaniaRecipeTypes.BREW_TYPE, id);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -261,7 +261,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.MANA_INFUSION_SERIALIZER;
+			return BotaniaRecipeTypes.MANA_INFUSION_SERIALIZER;
 		}
 
 		@Nullable

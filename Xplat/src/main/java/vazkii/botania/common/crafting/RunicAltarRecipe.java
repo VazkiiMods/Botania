@@ -84,7 +84,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.RUNE_SERIALIZER;
+		return BotaniaRecipeTypes.RUNE_SERIALIZER;
 	}
 
 	@Override

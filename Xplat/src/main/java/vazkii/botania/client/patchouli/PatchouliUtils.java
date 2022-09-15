@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IVariable;
 
@@ -38,7 +38,7 @@ public class PatchouliUtils {
 	 */
 	public static <T extends Recipe<C>, C extends Container> T getRecipe(RecipeType<T> type, ResourceLocation id) {
 		@SuppressWarnings("unchecked")
-		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) ModRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
+		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
 		T r = map.get(id);
 		if (r != null) {
 			return r;
@@ -70,7 +70,7 @@ public class PatchouliUtils {
 	 */
 	public static <T extends Recipe<C>, C extends Container> List<T> getRecipeGroup(RecipeType<T> type, String group) {
 		@SuppressWarnings("unchecked")
-		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) ModRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
+		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
 		List<T> list = new ArrayList<>();
 		for (T value : map.values()) {
 			if (group.equals(value.getGroup())) {

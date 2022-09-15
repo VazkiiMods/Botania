@@ -101,7 +101,7 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.BREW_SERIALIZER;
+		return BotaniaRecipeTypes.BREW_SERIALIZER;
 	}
 
 	@Override

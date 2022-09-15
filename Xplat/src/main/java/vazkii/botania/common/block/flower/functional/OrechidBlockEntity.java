@@ -25,7 +25,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.handler.OrechidManager;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -133,7 +133,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public RecipeType<? extends OrechidRecipe> getRecipeType() {
-		return ModRecipeTypes.ORECHID_TYPE;
+		return BotaniaRecipeTypes.ORECHID_TYPE;
 	}
 
 	public Predicate<BlockState> getReplaceMatcher() {

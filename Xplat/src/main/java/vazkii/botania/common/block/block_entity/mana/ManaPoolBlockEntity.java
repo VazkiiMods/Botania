@@ -50,7 +50,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
@@ -134,7 +134,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	public static List<ManaInfusionRecipe> manaInfusionRecipes(Level world) {
-		return ModRecipeTypes.getRecipes(world, ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
+		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.MANA_INFUSION_TYPE).values().stream()
 				.filter(r -> r instanceof ManaInfusionRecipe)
 				.map(r -> (ManaInfusionRecipe) r)
 				.collect(Collectors.toList());

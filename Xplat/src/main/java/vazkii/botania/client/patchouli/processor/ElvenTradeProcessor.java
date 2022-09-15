@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -32,7 +32,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	public void setup(IVariableProvider variables) {
 		ImmutableList.Builder<ElvenTradeRecipe> builder = ImmutableList.builder();
 		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.ELVEN_TRADE_TYPE, new ResourceLocation(s.asString()));
+			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(BotaniaRecipeTypes.ELVEN_TRADE_TYPE, new ResourceLocation(s.asString()));
 			if (recipe != null) {
 				builder.add(recipe);
 			}

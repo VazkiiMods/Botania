@@ -107,7 +107,7 @@ public class PetalsRecipe implements PetalApothecaryRecipe {
 	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.PETAL_SERIALIZER;
+		return BotaniaRecipeTypes.PETAL_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<PetalsRecipe> {

@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 
 public class MarimorphosisBlockEntity extends OrechidBlockEntity {
 	private static final int COST = 12;
@@ -40,7 +40,7 @@ public class MarimorphosisBlockEntity extends OrechidBlockEntity {
 
 	@Override
 	public RecipeType<? extends OrechidRecipe> getRecipeType() {
-		return ModRecipeTypes.MARIMORPHOSIS_TYPE;
+		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
 
 	@Override

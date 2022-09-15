@@ -158,16 +158,16 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 			BotaniaAPI.LOGGER.error("Error adding strippable entry to REI", e);
 		}
 
-		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
-		helper.registerRecipeFiller(OrechidRecipe.class, ModRecipeTypes.ORECHID_TYPE,
+		Object2IntMap<Block> weights = getWeights(BotaniaRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.ORECHID_TYPE,
 				r -> new OrechidREIDisplay(r, weights.getInt(r.getInput())));
 
-		Object2IntMap<Block> weightsIgnem = getWeights(ModRecipeTypes.ORECHID_IGNEM_TYPE, helper.getRecipeManager());
-		helper.registerRecipeFiller(OrechidIgnemRecipe.class, ModRecipeTypes.ORECHID_IGNEM_TYPE,
+		Object2IntMap<Block> weightsIgnem = getWeights(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(OrechidIgnemRecipe.class, BotaniaRecipeTypes.ORECHID_IGNEM_TYPE,
 				r -> new OrechidIgnemREIDisplay(r, weightsIgnem.getInt(r.getInput())));
 
-		Object2IntMap<Block> weightsMarim = getWeights(ModRecipeTypes.MARIMORPHOSIS_TYPE, helper.getRecipeManager());
-		helper.registerRecipeFiller(MarimorphosisRecipe.class, ModRecipeTypes.MARIMORPHOSIS_TYPE,
+		Object2IntMap<Block> weightsMarim = getWeights(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, helper.getRecipeManager());
+		helper.registerRecipeFiller(MarimorphosisRecipe.class, BotaniaRecipeTypes.MARIMORPHOSIS_TYPE,
 				r -> new MarimorphosisREIDisplay(r, weightsMarim.getInt(r.getInput())));
 	}
 

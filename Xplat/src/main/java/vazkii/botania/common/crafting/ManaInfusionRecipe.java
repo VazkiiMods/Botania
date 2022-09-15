@@ -60,7 +60,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 	@NotNull
 	@Override
 	public RecipeSerializer<ManaInfusionRecipe> getSerializer() {
-		return ModRecipeTypes.MANA_INFUSION_SERIALIZER;
+		return BotaniaRecipeTypes.MANA_INFUSION_SERIALIZER;
 	}
 
 	@Override

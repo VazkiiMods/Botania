@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -126,7 +126,7 @@ public class RuneProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.RUNE_SERIALIZER;
+			return BotaniaRecipeTypes.RUNE_SERIALIZER;
 		}
 
 		@Nullable
@@ -149,7 +149,7 @@ public class RuneProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public RecipeSerializer<?> getType() {
-			return ModRecipeTypes.RUNE_HEAD_SERIALIZER;
+			return BotaniaRecipeTypes.RUNE_HEAD_SERIALIZER;
 		}
 	}
 }

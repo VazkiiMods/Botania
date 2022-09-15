@@ -31,28 +31,28 @@ public class OrechidIgnemRecipe extends OrechidRecipe {
 
 	@Override
 	public RecipeType<?> getType() {
-		return ModRecipeTypes.ORECHID_IGNEM_TYPE;
+		return BotaniaRecipeTypes.ORECHID_IGNEM_TYPE;
 	}
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.ORECHID_IGNEM_SERIALIZER;
+		return BotaniaRecipeTypes.ORECHID_IGNEM_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<OrechidIgnemRecipe> {
 		@Override
 		public OrechidIgnemRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new OrechidIgnemRecipe(ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json));
+			return new OrechidIgnemRecipe(BotaniaRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json));
 		}
 
 		@Override
 		public OrechidIgnemRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new OrechidIgnemRecipe(ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer));
+			return new OrechidIgnemRecipe(BotaniaRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
 		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull OrechidIgnemRecipe recipe) {
-			ModRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
+			BotaniaRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
 		}
 	}
 }

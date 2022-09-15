@@ -47,18 +47,18 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 
 	@Override
 	public RecipeType<?> getType() {
-		return ModRecipeTypes.MARIMORPHOSIS_TYPE;
+		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.MARIMORPHOSIS_SERIALIZER;
+		return BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER;
 	}
 
 	public static class Serializer extends RecipeSerializerBase<MarimorphosisRecipe> {
 		@Override
 		public MarimorphosisRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			OrechidRecipe base = ModRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
+			OrechidRecipe base = BotaniaRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
 
 			var biomes = TagKey.create(Registry.BIOME_REGISTRY,
 					new ResourceLocation(GsonHelper.getAsString(json, "biome_bonus_tag")));
@@ -72,7 +72,7 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 
 		@Override
 		public MarimorphosisRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			OrechidRecipe base = ModRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer);
+			OrechidRecipe base = BotaniaRecipeTypes.ORECHID_SERIALIZER.fromNetwork(recipeId, buffer);
 
 			TagKey<Biome> biomes = TagKey.create(Registry.BIOME_REGISTRY, buffer.readResourceLocation());
 			int weightBonus = buffer.readVarInt();
@@ -82,7 +82,7 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 
 		@Override
 		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull MarimorphosisRecipe recipe) {
-			ModRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
+			BotaniaRecipeTypes.ORECHID_SERIALIZER.toNetwork(buffer, recipe);
 
 			buffer.writeResourceLocation(recipe.biomes.location());
 			buffer.writeVarInt(recipe.weightBonus);

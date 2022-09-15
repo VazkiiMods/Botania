@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.OrechidRecipe;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -37,6 +37,6 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<OrechidReci
 
 	@Override
 	protected RecipeType<OrechidRecipe> recipeType() {
-		return ModRecipeTypes.ORECHID_TYPE;
+		return BotaniaRecipeTypes.ORECHID_TYPE;
 	}
 }

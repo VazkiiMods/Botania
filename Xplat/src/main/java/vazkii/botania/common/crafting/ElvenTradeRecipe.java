@@ -89,7 +89,7 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.ELVEN_TRADE_SERIALIZER;
+		return BotaniaRecipeTypes.ELVEN_TRADE_SERIALIZER;
 	}
 
 	@NotNull

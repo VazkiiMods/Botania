@@ -25,7 +25,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -104,7 +104,7 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 		@Override
 		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull HeadRecipe recipe) {
-			ModRecipeTypes.RUNE_SERIALIZER.toNetwork(buf, recipe);
+			BotaniaRecipeTypes.RUNE_SERIALIZER.toNetwork(buf, recipe);
 		}
 	}
 
