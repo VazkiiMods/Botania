@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 
@@ -29,12 +29,12 @@ public class BlockCraftyCrate extends BlockOpenCrate {
 
 	public BlockCraftyCrate(Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
+		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.CRATE_PATTERN, CraftyCratePattern.NONE));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.CRATE_PATTERN);
+		builder.add(BotaniaStateProperties.CRATE_PATTERN);
 	}
 
 	@Override

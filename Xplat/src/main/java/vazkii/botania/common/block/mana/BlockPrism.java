@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.mana.ManaCollisionGhost;
-import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
@@ -50,7 +50,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, Ma
 		super(builder);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.POWERED, false)
-				.setValue(BotaniaStateProps.HAS_LENS, false));
+				.setValue(BotaniaStateProperties.HAS_LENS, false));
 	}
 
 	@NotNull
@@ -92,7 +92,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, Ma
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BlockStateProperties.POWERED, BotaniaStateProps.HAS_LENS);
+		builder.add(BlockStateProperties.POWERED, BotaniaStateProperties.HAS_LENS);
 	}
 
 	@Override

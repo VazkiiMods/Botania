@@ -46,7 +46,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
-import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
@@ -246,7 +246,7 @@ public class TileEnchanter extends TileMod implements ManaReceiver, SparkAttacha
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileEnchanter self) {
-		Direction.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
+		Direction.Axis axis = state.getValue(BotaniaStateProperties.ENCHANTER_DIRECTION);
 
 		for (BlockPos offset : PYLON_LOCATIONS.get(axis)) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.offset(offset));

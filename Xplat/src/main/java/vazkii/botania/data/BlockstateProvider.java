@@ -25,9 +25,9 @@ import net.minecraft.world.level.block.state.properties.*;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.AlfheimPortalState;
+import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -126,10 +126,10 @@ public class BlockstateProvider implements DataProvider {
 		var alfPortalActivatedModel = ModelTemplates.CUBE_ALL.create(getModelLocation(alfPortal, "_activated"), TextureMapping.cube(getModelLocation(alfPortal, "_activated")), this.modelOutput);
 		this.blockstates.add(
 				MultiVariantGenerator.multiVariant(alfPortal).with(
-						PropertyDispatch.property(BotaniaStateProps.ALFPORTAL_STATE)
-								.select(AlfPortalState.OFF, Variant.variant().with(VariantProperties.MODEL, alfPortalModel))
-								.select(AlfPortalState.ON_X, Variant.variant().with(VariantProperties.MODEL, alfPortalActivatedModel))
-								.select(AlfPortalState.ON_Z, Variant.variant().with(VariantProperties.MODEL, alfPortalActivatedModel))
+						PropertyDispatch.property(BotaniaStateProperties.ALFPORTAL_STATE)
+								.select(AlfheimPortalState.OFF, Variant.variant().with(VariantProperties.MODEL, alfPortalModel))
+								.select(AlfheimPortalState.ON_X, Variant.variant().with(VariantProperties.MODEL, alfPortalActivatedModel))
+								.select(AlfheimPortalState.ON_Z, Variant.variant().with(VariantProperties.MODEL, alfPortalActivatedModel))
 				));
 		remainingBlocks.remove(alfPortal);
 
@@ -148,9 +148,9 @@ public class BlockstateProvider implements DataProvider {
 		var crateTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/crate")), Optional.empty(),
 				TextureSlot.BOTTOM, TextureSlot.SIDE);
 		var craftCrateBottomTex = getBlockTexture(craftCrate, "_bottom");
-		var crateDispatch = PropertyDispatch.property(BotaniaStateProps.CRATE_PATTERN);
-		for (var pattern : CratePattern.values()) {
-			String suffix = pattern == CratePattern.NONE ? "" : "_" + pattern.getSerializedName().substring("crafty_".length());
+		var crateDispatch = PropertyDispatch.property(BotaniaStateProperties.CRATE_PATTERN);
+		for (var pattern : CraftyCratePattern.values()) {
+			String suffix = pattern == CraftyCratePattern.NONE ? "" : "_" + pattern.getSerializedName().substring("crafty_".length());
 			var model = crateTemplate.create(getModelLocation(craftCrate, suffix),
 					new TextureMapping().put(TextureSlot.BOTTOM, craftCrateBottomTex)
 							.put(TextureSlot.SIDE, getBlockTexture(craftCrate, suffix)),

@@ -16,7 +16,7 @@ import net.minecraft.util.StringRepresentable;
 import java.util.List;
 import java.util.Locale;
 
-public enum CratePattern implements StringRepresentable {
+public enum CraftyCratePattern implements StringRepresentable {
 	NONE(true, true, true,
 			true, true, true,
 			true, true, true),
@@ -50,7 +50,7 @@ public enum CratePattern implements StringRepresentable {
 
 	public final List<Boolean> openSlots;
 
-	CratePattern(Boolean... pattern) {
+	CraftyCratePattern(Boolean... pattern) {
 		this.openSlots = ImmutableList.copyOf(pattern);
 		Preconditions.checkArgument(this.openSlots.size() == 9, "Malformed pattern");
 	}

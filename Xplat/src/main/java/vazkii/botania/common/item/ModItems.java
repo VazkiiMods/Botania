@@ -24,7 +24,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
@@ -319,15 +319,15 @@ public final class ModItems {
 	public static final Item poolMinecart = make(prefix(LibItemNames.POOL_MINECART), new ItemPoolMinecart(unstackable()));
 	public static final Item keepIvy = make(prefix(LibItemNames.KEEP_IVY), new ItemKeepIvy(defaultBuilder()));
 	public static final Item placeholder = make(prefix(LibItemNames.PLACEHOLDER), new ItemSelfReturning(defaultBuilder()));
-	public static final Item craftPattern1_1 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "1_1"), new ItemCraftPattern(CratePattern.CRAFTY_1_1, unstackable()));
-	public static final Item craftPattern2_2 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "2_2"), new ItemCraftPattern(CratePattern.CRAFTY_2_2, unstackable()));
-	public static final Item craftPattern1_2 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "1_2"), new ItemCraftPattern(CratePattern.CRAFTY_1_2, unstackable()));
-	public static final Item craftPattern2_1 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "2_1"), new ItemCraftPattern(CratePattern.CRAFTY_2_1, unstackable()));
-	public static final Item craftPattern1_3 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "1_3"), new ItemCraftPattern(CratePattern.CRAFTY_1_3, unstackable()));
-	public static final Item craftPattern3_1 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "3_1"), new ItemCraftPattern(CratePattern.CRAFTY_3_1, unstackable()));
-	public static final Item craftPattern2_3 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "2_3"), new ItemCraftPattern(CratePattern.CRAFTY_2_3, unstackable()));
-	public static final Item craftPattern3_2 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "3_2"), new ItemCraftPattern(CratePattern.CRAFTY_3_2, unstackable()));
-	public static final Item craftPatternDonut = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "donut"), new ItemCraftPattern(CratePattern.CRAFTY_DONUT, unstackable()));
+	public static final Item craftPattern1_1 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "1_1"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_1_1, unstackable()));
+	public static final Item craftPattern2_2 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "2_2"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_2_2, unstackable()));
+	public static final Item craftPattern1_2 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "1_2"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_1_2, unstackable()));
+	public static final Item craftPattern2_1 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "2_1"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_2_1, unstackable()));
+	public static final Item craftPattern1_3 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "1_3"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_1_3, unstackable()));
+	public static final Item craftPattern3_1 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "3_1"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_3_1, unstackable()));
+	public static final Item craftPattern2_3 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "2_3"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_2_3, unstackable()));
+	public static final Item craftPattern3_2 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "3_2"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_3_2, unstackable()));
+	public static final Item craftPatternDonut = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "donut"), new ItemCraftPattern(CraftyCratePattern.CRAFTY_DONUT, unstackable()));
 
 	// Guardian of Gaia drops
 	public static final Item dice = make(prefix(LibItemNames.DICE), new ItemDice(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity())));

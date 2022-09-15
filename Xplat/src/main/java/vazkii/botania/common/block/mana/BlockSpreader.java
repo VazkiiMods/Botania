@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.Lens;
-import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
@@ -79,20 +79,20 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 
 	public BlockSpreader(Variant v, Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BotaniaStateProps.HAS_SCAFFOLDING, false));
+		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));
 		this.variant = v;
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(BotaniaStateProps.HAS_SCAFFOLDING);
+		builder.add(BotaniaStateProperties.HAS_SCAFFOLDING);
 	}
 
 	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-		if (blockState.getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
+		if (blockState.getValue(BotaniaStateProperties.HAS_SCAFFOLDING)) {
 			return SHAPE_SCAFFOLDING;
 		}
 		BlockEntity be = blockGetter.getBlockEntity(blockPos);
@@ -166,7 +166,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 		boolean playerHasScaffolding = !heldItem.isEmpty() && heldItem.is(Items.SCAFFOLDING);
 		boolean shouldInsert = (playerHasLens && !lensIsSame)
 				|| (playerHasWool && !woolIsSame)
-				|| (playerHasScaffolding && !state.getValue(BotaniaStateProps.HAS_SCAFFOLDING));
+				|| (playerHasScaffolding && !state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING));
 
 		if (shouldInsert) {
 			if (playerHasLens) {
@@ -193,7 +193,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 				spreader.setChanged();
 				world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
-				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, true));
+				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, true));
 				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
 				if (!player.getAbilities().instabuild) {
@@ -205,12 +205,12 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 			return InteractionResult.SUCCESS;
 		}
 
-		if (state.getValue(BotaniaStateProps.HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
+		if (state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING) && player.isSecondaryUseActive()) {
 			if (!player.getAbilities().instabuild) {
 				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
 				player.getInventory().placeItemBackInInventory(scaffolding);
 			}
-			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.HAS_SCAFFOLDING, false));
+			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));
 			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
 			world.playSound(player, pos, ModSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
@@ -251,7 +251,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock 
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), padding);
 			}
 
-			if (state.getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
+			if (state.getValue(BotaniaStateProperties.HAS_SCAFFOLDING)) {
 				ItemStack scaffolding = new ItemStack(Items.SCAFFOLDING);
 				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), scaffolding);
 			}

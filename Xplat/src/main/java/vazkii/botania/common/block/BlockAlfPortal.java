@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
@@ -30,12 +30,12 @@ public class BlockAlfPortal extends BlockMod implements EntityBlock {
 
 	public BlockAlfPortal(Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
+		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.ALFPORTAL_STATE, AlfheimPortalState.OFF));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.ALFPORTAL_STATE);
+		builder.add(BotaniaStateProperties.ALFPORTAL_STATE);
 	}
 
 	@NotNull

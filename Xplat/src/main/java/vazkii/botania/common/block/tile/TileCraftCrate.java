@@ -37,8 +37,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorRecipeManager;
@@ -85,12 +85,12 @@ public class TileCraftCrate extends TileOpenCrate implements Wandable {
 		};
 	}
 
-	public CratePattern getPattern() {
+	public CraftyCratePattern getPattern() {
 		BlockState state = getBlockState();
 		if (!state.is(ModBlocks.craftCrate)) {
-			return CratePattern.NONE;
+			return CraftyCratePattern.NONE;
 		}
-		return state.getValue(BotaniaStateProps.CRATE_PATTERN);
+		return state.getValue(BotaniaStateProperties.CRATE_PATTERN);
 	}
 
 	private boolean isLocked(int slot) {
@@ -281,7 +281,7 @@ public class TileCraftCrate extends TileOpenCrate implements Wandable {
 					int yp = yc + i * 18;
 
 					boolean enabled = true;
-					if (crate.getPattern() != CratePattern.NONE) {
+					if (crate.getPattern() != CraftyCratePattern.NONE) {
 						enabled = crate.getPattern().openSlots.get(index);
 					}
 

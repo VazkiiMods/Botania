@@ -42,8 +42,8 @@ import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.PetalApothecary;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
@@ -264,7 +264,7 @@ public final class ModBlocks {
 	public static final Block brewery = new BlockBrewery(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block terraPlate = new BlockTerraPlate(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block alfPortal = new BlockAlfPortal(BlockBehaviour.Properties.of(Material.WOOD).strength(10).sound(SoundType.WOOD)
-			.lightLevel(s -> s.getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
+			.lightLevel(s -> s.getValue(BotaniaStateProperties.ALFPORTAL_STATE) != AlfheimPortalState.OFF ? 15 : 0));
 
 	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).lightLevel(s -> 7).requiresCorrectToolForDrops());
 	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, BlockBehaviour.Properties.copy(manaPylon));

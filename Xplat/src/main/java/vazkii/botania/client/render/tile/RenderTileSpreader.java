@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.mana.BlockSpreader;
@@ -107,7 +107,7 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 
 		ms.popPose();
 
-		if (spreader.getBlockState().getValue(BotaniaStateProps.HAS_SCAFFOLDING)) {
+		if (spreader.getBlockState().getValue(BotaniaStateProperties.HAS_SCAFFOLDING)) {
 			BakedModel scaffolding = getScaffoldingModel(spreader);
 			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
 					.renderModel(ms.last(), buffer, spreader.getBlockState(),

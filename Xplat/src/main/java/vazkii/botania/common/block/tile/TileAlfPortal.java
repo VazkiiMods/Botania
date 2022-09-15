@@ -38,8 +38,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
 import vazkii.botania.common.advancements.AlfPortalTrigger;
@@ -128,12 +128,12 @@ public class TileAlfPortal extends TileMod implements Wandable {
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState blockState, TileAlfPortal self) {
-		if (blockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
+		if (blockState.getValue(BotaniaStateProperties.ALFPORTAL_STATE) == AlfheimPortalState.OFF) {
 			self.ticksOpen = 0;
 			return;
 		}
-		AlfPortalState state = blockState.getValue(BotaniaStateProps.ALFPORTAL_STATE);
-		AlfPortalState newState = self.getValidState();
+		AlfheimPortalState state = blockState.getValue(BotaniaStateProperties.ALFPORTAL_STATE);
+		AlfheimPortalState newState = self.getValidState();
 
 		self.ticksOpen++;
 
@@ -181,14 +181,14 @@ public class TileAlfPortal extends TileMod implements Wandable {
 			}
 			self.closeNow = false;
 		} else if (newState != state) {
-			if (newState == AlfPortalState.OFF) {
+			if (newState == AlfheimPortalState.OFF) {
 				for (int i = 0; i < 36; i++) {
 					self.blockParticle(state);
 				}
 			}
 
 			if (!level.isClientSide) {
-				level.setBlockAndUpdate(worldPosition, blockState.setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
+				level.setBlockAndUpdate(worldPosition, blockState.setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 			}
 		} else if (self.explode) {
 			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
@@ -221,7 +221,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 		return false;
 	}
 
-	private void blockParticle(AlfPortalState state) {
+	private void blockParticle(AlfheimPortalState state) {
 		double dh, dy;
 
 		// Pick one of the inner positions
@@ -264,8 +264,8 @@ public class TileAlfPortal extends TileMod implements Wandable {
 			}
 			default -> throw new AssertionError();
 		}
-		double dx = state == AlfPortalState.ON_X ? 0 : dh;
-		double dz = state == AlfPortalState.ON_Z ? 0 : dh;
+		double dx = state == AlfheimPortalState.ON_X ? 0 : dh;
+		double dz = state == AlfheimPortalState.ON_Z ? 0 : dh;
 
 		float motionMul = 0.2F;
 		WispParticleData data = WispParticleData.wisp((float) (Math.random() * 0.15F + 0.1F), (float) (Math.random() * 0.25F), (float) (Math.random() * 0.5F + 0.5F), (float) (Math.random() * 0.25F));
@@ -274,11 +274,11 @@ public class TileAlfPortal extends TileMod implements Wandable {
 
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
-		AlfPortalState state = getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
-		if (state == AlfPortalState.OFF) {
-			AlfPortalState newState = getValidState();
-			if (newState != AlfPortalState.OFF) {
-				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
+		AlfheimPortalState state = getBlockState().getValue(BotaniaStateProperties.ALFPORTAL_STATE);
+		if (state == AlfheimPortalState.OFF) {
+			AlfheimPortalState newState = getValidState();
+			if (newState != AlfheimPortalState.OFF) {
+				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 				if (player instanceof ServerPlayer serverPlayer) {
 					AlfPortalTrigger.INSTANCE.trigger(serverPlayer, serverPlayer.getLevel(), getBlockPos(), stack);
 				}
@@ -291,7 +291,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 
 	private AABB getPortalAABB() {
 		AABB aabb = new AABB(worldPosition.offset(-1, 1, 0), worldPosition.offset(2, 4, 1));
-		if (getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X) {
+		if (getBlockState().getValue(BotaniaStateProperties.ALFPORTAL_STATE) == AlfheimPortalState.ON_X) {
 			aabb = new AABB(worldPosition.offset(0, 1, -1), worldPosition.offset(1, 4, 2));
 		}
 
@@ -381,16 +381,16 @@ public class TileAlfPortal extends TileMod implements Wandable {
 		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
 	}
 
-	private AlfPortalState getValidState() {
+	private AlfheimPortalState getValidState() {
 		Rotation rot = MULTIBLOCK.get().validate(level, getBlockPos());
 		if (rot == null) {
-			return AlfPortalState.OFF;
+			return AlfheimPortalState.OFF;
 		}
 
 		lightPylons();
 		return switch (rot) {
-			case NONE, CLOCKWISE_180 -> AlfPortalState.ON_Z;
-			case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> AlfPortalState.ON_X;
+			case NONE, CLOCKWISE_180 -> AlfheimPortalState.ON_Z;
+			case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> AlfheimPortalState.ON_X;
 		};
 	}
 

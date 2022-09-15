@@ -17,14 +17,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.ModBlocks;
 
 public class ItemCraftPattern extends Item {
-	public final CratePattern pattern;
+	public final CraftyCratePattern pattern;
 
-	public ItemCraftPattern(CratePattern pattern, Properties props) {
+	public ItemCraftPattern(CraftyCratePattern pattern, Properties props) {
 		super(props);
 		this.pattern = pattern;
 	}
@@ -37,8 +37,8 @@ public class ItemCraftPattern extends Item {
 		BlockState state = world.getBlockState(pos);
 
 		if (state.is(ModBlocks.craftCrate)) {
-			if (pattern != state.getValue(BotaniaStateProps.CRATE_PATTERN)) {
-				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.CRATE_PATTERN, this.pattern));
+			if (pattern != state.getValue(BotaniaStateProperties.CRATE_PATTERN)) {
+				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.CRATE_PATTERN, this.pattern));
 				return InteractionResult.SUCCESS;
 			}
 		}

@@ -26,7 +26,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.api.mana.TinyPlanetExcempt;
-import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
@@ -85,9 +85,9 @@ public class TilePrism extends TileExposedSimpleInventory implements ManaTrigger
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			BlockState state = getBlockState();
 			boolean hasLens = !getItemHandler().getItem(0).isEmpty();
-			if (!state.is(ModBlocks.prism) || state.getValue(BotaniaStateProps.HAS_LENS) != hasLens) {
+			if (!state.is(ModBlocks.prism) || state.getValue(BotaniaStateProperties.HAS_LENS) != hasLens) {
 				BlockState base = state.is(ModBlocks.prism) ? state : ModBlocks.prism.defaultBlockState();
-				level.setBlockAndUpdate(worldPosition, base.setValue(BotaniaStateProps.HAS_LENS, hasLens));
+				level.setBlockAndUpdate(worldPosition, base.setValue(BotaniaStateProperties.HAS_LENS, hasLens));
 			}
 		}
 	}

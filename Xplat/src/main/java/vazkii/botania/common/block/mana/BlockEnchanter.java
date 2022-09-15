@@ -29,7 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -39,12 +39,12 @@ public class BlockEnchanter extends BlockMod implements EntityBlock {
 
 	public BlockEnchanter(Properties builder) {
 		super(builder);
-		registerDefaultState(defaultBlockState().setValue(BotaniaStateProps.ENCHANTER_DIRECTION, Direction.Axis.X));
+		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, Direction.Axis.X));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(BotaniaStateProps.ENCHANTER_DIRECTION);
+		builder.add(BotaniaStateProperties.ENCHANTER_DIRECTION);
 	}
 
 	@NotNull

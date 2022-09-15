@@ -12,7 +12,7 @@ import net.minecraft.util.StringRepresentable;
 
 import java.util.Locale;
 
-public enum AlfPortalState implements StringRepresentable {
+public enum AlfheimPortalState implements StringRepresentable {
 	OFF,
 	ON_Z,
 	ON_X;

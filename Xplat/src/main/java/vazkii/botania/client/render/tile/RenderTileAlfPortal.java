@@ -22,8 +22,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.tile.TileAlfPortal;
@@ -34,15 +34,15 @@ public class RenderTileAlfPortal implements BlockEntityRenderer<TileAlfPortal> {
 
 	@Override
 	public void render(@NotNull TileAlfPortal portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		AlfPortalState state = portal.getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
-		if (state == AlfPortalState.OFF) {
+		AlfheimPortalState state = portal.getBlockState().getValue(BotaniaStateProperties.ALFPORTAL_STATE);
+		if (state == AlfheimPortalState.OFF) {
 			return;
 		}
 
 		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
 
 		ms.pushPose();
-		if (state == AlfPortalState.ON_X) {
+		if (state == AlfheimPortalState.ON_X) {
 			ms.translate(0.75, 1, 2);
 			ms.mulPose(Vector3f.YP.rotationDegrees(90));
 		} else {
@@ -52,7 +52,7 @@ public class RenderTileAlfPortal implements BlockEntityRenderer<TileAlfPortal> {
 		ms.popPose();
 
 		ms.pushPose();
-		if (state == AlfPortalState.ON_X) {
+		if (state == AlfheimPortalState.ON_X) {
 			ms.translate(0.25, 1, -1);
 			ms.mulPose(Vector3f.YP.rotationDegrees(90));
 		} else {

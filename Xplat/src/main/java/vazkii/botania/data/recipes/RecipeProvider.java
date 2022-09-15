@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.apache.commons.lang3.mutable.MutableObject;
 
-import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -1177,8 +1177,8 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_crafty_crate", conditionsFromItem(ModBlocks.craftCrate))
 				.save(consumer);
 
-		for (CratePattern pattern : CratePattern.values()) {
-			if (pattern == CratePattern.NONE) {
+		for (CraftyCratePattern pattern : CraftyCratePattern.values()) {
+			if (pattern == CraftyCratePattern.NONE) {
 				continue;
 			}
 			Item item = Registry.ITEM.getOptional(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getSerializedName().split("_", 2)[1])).get();
