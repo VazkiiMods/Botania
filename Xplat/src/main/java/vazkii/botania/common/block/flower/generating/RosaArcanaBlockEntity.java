@@ -25,7 +25,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.ExperienceHelper;
 
@@ -89,7 +89,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 					newEntity.setDeltaMovement(entity.getDeltaMovement());
 					level.addFreshEntity(newEntity);
 
-					level.playSound(null, getEffectivePos(), ModSounds.arcaneRoseDisenchant, SoundSource.BLOCKS, 1F, this.level.random.nextFloat() * 0.1F + 0.9F);
+					level.playSound(null, getEffectivePos(), BotaniaSounds.arcaneRoseDisenchant, SoundSource.BLOCKS, 1F, this.level.random.nextFloat() * 0.1F + 0.9F);
 					while (xp > 0) {
 						int i = ExperienceOrb.getExperienceValue(xp);
 						xp -= i;

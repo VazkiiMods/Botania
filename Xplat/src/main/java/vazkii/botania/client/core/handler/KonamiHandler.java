@@ -19,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.glfw.GLFW;
 
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.ItemLexicon;
 
 public class KonamiHandler {
@@ -49,7 +49,7 @@ public class KonamiHandler {
 			if (konamiTime == 0 && key == KONAMI_CODE[nextLetter]) {
 				nextLetter++;
 				if (nextLetter >= KONAMI_CODE.length) {
-					mc.getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.way, 1.0F));
+					mc.getSoundManager().play(SimpleSoundInstance.forUI(BotaniaSounds.way, 1.0F));
 					nextLetter = 0;
 					konamiTime = 240;
 				}

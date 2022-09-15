@@ -24,8 +24,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ExoflameFurnaceHandler;
-import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 
 public class BellowsBlockEntity extends BotaniaBlockEntity {
@@ -65,7 +65,7 @@ public class BellowsBlockEntity extends BotaniaBlockEntity {
 
 		if (self.movePos < max && self.active && self.moving >= 0F) {
 			if (self.moving == 0F) {
-				level.playSound(null, worldPosition, ModSounds.bellows, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(null, worldPosition, BotaniaSounds.bellows, SoundSource.BLOCKS, 1F, 1F);
 			}
 
 			if (tile instanceof AbstractFurnaceBlockEntity furnace) {

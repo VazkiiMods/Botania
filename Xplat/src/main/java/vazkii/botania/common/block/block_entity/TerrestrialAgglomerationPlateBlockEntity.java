@@ -38,7 +38,7 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
@@ -112,7 +112,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 					ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5, result);
 					item.setDeltaMovement(Vec3.ZERO);
 					level.addFreshEntity(item);
-					level.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
+					level.playSound(null, item.getX(), item.getY(), item.getZ(), BotaniaSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
 					self.mana = 0;
 					level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);

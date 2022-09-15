@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.PinkWitherEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class ItemPinkinator extends Item {
 				pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null, null);
 				world.addFreshEntity(pink);
 				pink.spawnAnim();
-				pink.playSound(ModSounds.pinkinator, 1F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+				pink.playSound(BotaniaSounds.pinkinator, 1F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) world, player.getX(), player.getY(), player.getZ());
 				stack.shrink(1);
 				return InteractionResultHolder.success(stack);

@@ -16,8 +16,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
@@ -45,7 +45,7 @@ public class PacketDodge implements IPacket {
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
 		server.execute(() -> {
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 
 			ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);
 			if (ringStack.isEmpty()) {

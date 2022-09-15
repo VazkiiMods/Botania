@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.mixin.AccessorMob;
 
@@ -139,7 +139,7 @@ public class ItemCacophonium extends Item {
 		SoundEvent sound = getSound(stack);
 
 		if (sound != null) {
-			world.playSound(null, x, y, z, sound, category, volume, sound == ModSounds.doit ? 1F : (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.0F);
+			world.playSound(null, x, y, z, sound, category, volume, sound == BotaniaSounds.doit ? 1F : (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.0F);
 		}
 	}
 
@@ -147,7 +147,7 @@ public class ItemCacophonium extends Item {
 	@VisibleForTesting
 	public static SoundEvent getSound(ItemStack stack) {
 		if (isDOIT(stack)) {
-			return ModSounds.doit;
+			return BotaniaSounds.doit;
 		} else {
 			try {
 				return Registry.SOUND_EVENT.getOptional(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, ""))).orElse(null);

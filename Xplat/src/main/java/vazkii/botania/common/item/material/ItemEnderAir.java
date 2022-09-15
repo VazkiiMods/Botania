@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.entity.EnderAirBottleEntity;
 import vazkii.botania.common.entity.EnderAirEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
@@ -83,7 +83,7 @@ public class ItemEnderAir extends Item {
 			stack.shrink(1);
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.enderAirThrow, SoundSource.PLAYERS, 1F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.enderAirThrow, SoundSource.PLAYERS, 1F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isClientSide) {
 			EnderAirBottleEntity b = new EnderAirBottleEntity(player, world);

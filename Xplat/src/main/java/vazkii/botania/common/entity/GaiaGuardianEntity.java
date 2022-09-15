@@ -70,7 +70,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -265,7 +265,7 @@ public class GaiaGuardianEntity extends Mob {
 				e.getAttribute(Attributes.ARMOR).setBaseValue(15);
 			}
 
-			e.playSound(ModSounds.gaiaSummon, 1F, 1F);
+			e.playSound(BotaniaSounds.gaiaSummon, 1F, 1F);
 			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null, null);
 			world.addFreshEntity(e);
 		}
@@ -499,7 +499,7 @@ public class GaiaGuardianEntity extends Mob {
 			}
 		}
 
-		playSound(ModSounds.gaiaDeath, 1F, (1F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F);
+		playSound(BotaniaSounds.gaiaDeath, 1F, (1F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F);
 		level.addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
 	}
 
@@ -907,7 +907,7 @@ public class GaiaGuardianEntity extends Mob {
 		MagicMissileEntity missile = new MagicMissileEntity(this, true);
 		missile.setPos(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
 		if (missile.findTarget()) {
-			playSound(ModSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
+			playSound(BotaniaSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
 			level.addFreshEntity(missile);
 		}
 	}
@@ -942,8 +942,8 @@ public class GaiaGuardianEntity extends Mob {
 		teleportTo(newX, newY, newZ);
 
 		//play sound
-		level.playSound(null, oldX, oldY, oldZ, ModSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
-		this.playSound(ModSounds.gaiaTeleport, 1F, 1F);
+		level.playSound(null, oldX, oldY, oldZ, BotaniaSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
+		this.playSound(BotaniaSounds.gaiaTeleport, 1F, 1F);
 
 		var random = getRandom();
 
@@ -1020,7 +1020,7 @@ public class GaiaGuardianEntity extends Mob {
 		private final GaiaGuardianEntity guardian;
 
 		private DopplegangerMusic(GaiaGuardianEntity guardian) {
-			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
+			super(guardian.hardMode ? BotaniaSounds.gaiaMusic2 : BotaniaSounds.gaiaMusic1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
 			this.guardian = guardian;
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();

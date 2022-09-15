@@ -37,7 +37,7 @@ import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.advancements.ManaBlasterTrigger;
 import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.IProxy;
 
@@ -70,7 +70,7 @@ public class ItemManaGun extends Item {
 
 		if (player.isShiftKeyDown() && hasClip(stack)) {
 			rotatePos(stack);
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlasterCycle, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manaBlasterCycle, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 			if (!world.isClientSide) {
 				ItemStack lens = getLens(stack);
 				ItemsRemainingRenderHandler.send(player, lens, -2);
@@ -81,7 +81,7 @@ public class ItemManaGun extends Item {
 			ManaBurstEntity burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isClientSide) {
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundSource.PLAYERS, 1F, 1);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manaBlaster, SoundSource.PLAYERS, 1F, 1);
 					world.addFreshEntity(burst);
 					ManaBlasterTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
 					setCooldown(stack, effCd);
@@ -89,7 +89,7 @@ public class ItemManaGun extends Item {
 					player.setDeltaMovement(player.getDeltaMovement().subtract(burst.getDeltaMovement().multiply(0.1, 0.3, 0.1)));
 				}
 			} else if (!world.isClientSide) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlasterMisfire, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manaBlasterMisfire, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 			}
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		}

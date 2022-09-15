@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 					int size = slime.getSize();
 					if (!slime.level.isClientSide) {
 						slime.discard();
-						slime.playSound(size > 1 ? ModSounds.narslimmusEatBig : ModSounds.narslimmusEatSmall, 1F, 1F);
+						slime.playSound(size > 1 ? BotaniaSounds.narslimmusEatBig : BotaniaSounds.narslimmusEatSmall, 1F, 1F);
 						addMana(manaForSize(size));
 						sync();
 					}

@@ -51,8 +51,8 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ManaNetworkHandler;
-import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
@@ -198,7 +198,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	private void craftingFanciness() {
 		if (soundTicks == 0) {
-			level.playSound(null, worldPosition, ModSounds.manaPoolCraft, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, worldPosition, BotaniaSounds.manaPoolCraft, SoundSource.BLOCKS, 1F, 1F);
 			soundTicks = 6;
 		}
 

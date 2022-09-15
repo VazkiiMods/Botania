@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -77,7 +77,7 @@ public class RedStringInterceptorBlockEntity extends RedStringBlockEntity {
 		interceptors.removeAll(remove);
 		if (did) {
 			player.swing(hand);
-			world.playSound(null, pos, ModSounds.redStringInterceptorClick, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(null, pos, BotaniaSounds.redStringInterceptorClick, SoundSource.BLOCKS, 1F, 1F);
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;

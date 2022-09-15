@@ -28,7 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.mixin.AccessorAbstractHorse;
 
 public class ItemVirus extends Item {
@@ -84,7 +84,7 @@ public class ItemVirus extends Item {
 				jumpHeight.setBaseValue(horse.getAttribute(Attributes.JUMP_STRENGTH).getBaseValue());
 				jumpHeight.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
 
-				newHorse.playSound(ModSounds.virusInfect, 1.0F + living.level.random.nextFloat(), living.level.random.nextFloat() * 0.7F + 1.3F);
+				newHorse.playSound(BotaniaSounds.virusInfect, 1.0F + living.level.random.nextFloat(), living.level.random.nextFloat() * 0.7F + 1.3F);
 				newHorse.finalizeSpawn((ServerLevelAccessor) player.level, player.level.getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
 				newHorse.setAge(horse.getAge());
 				player.level.addFreshEntity(newHorse);

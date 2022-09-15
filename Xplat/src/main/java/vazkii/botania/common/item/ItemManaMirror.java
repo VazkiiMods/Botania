@@ -36,7 +36,7 @@ import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -99,7 +99,7 @@ public class ItemManaMirror extends Item {
 			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, ctx.getClickedPos(), null);
 			if (receiver instanceof ManaPool pool) {
 				bindPool(ctx.getItemInHand(), pool);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundSource.PLAYERS, 1F, 1F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
 				return InteractionResult.SUCCESS;
 			}
 		}

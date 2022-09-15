@@ -24,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class MagicLandmineEntity extends Entity {
 		}
 
 		if (tickCount >= 55) {
-			level.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
+			level.playSound(null, getX(), getY(), getZ(), BotaniaSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;

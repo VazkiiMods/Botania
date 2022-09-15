@@ -47,8 +47,8 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
 import vazkii.botania.common.item.ModItems;
@@ -245,7 +245,7 @@ public class ItemFlightTiara extends ItemBauble {
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if (!wasSprting && isSprinting && cooldown == 0) {
 					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
-					player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+					player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if (cooldown > 0) {

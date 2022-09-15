@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.entity.BabylonWeaponEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.VecHelper;
 
@@ -97,7 +97,7 @@ public class ItemKingKey extends ItemRelic {
 			weapon.setRotation(Mth.wrapDegrees(-living.getYRot() + 180));
 
 			world.addFreshEntity(weapon);
-			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + world.random.nextFloat() * 3F);
+			weapon.playSound(BotaniaSounds.babylonSpawn, 1F, 1F + world.random.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}
 	}

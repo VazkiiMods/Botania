@@ -40,7 +40,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -136,7 +136,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
 						level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 					}
-					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.runeAltarCraft, SoundSource.BLOCKS, 1F, 1F, false);
+					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.runeAltarCraft, SoundSource.BLOCKS, 1F, 1F, false);
 				}
 				return true;
 			}
@@ -213,7 +213,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		}
 
 		if (manaToGet != this.manaToGet) {
-			level.playSound(null, worldPosition, ModSounds.runeAltarStart, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, worldPosition, BotaniaSounds.runeAltarStart, SoundSource.BLOCKS, 1F, 1F);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}

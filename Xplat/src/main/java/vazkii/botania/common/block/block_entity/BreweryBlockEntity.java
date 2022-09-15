@@ -38,7 +38,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 
 import java.util.List;
@@ -188,7 +188,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 						level.addParticle(data, worldPosition.getX() + 0.7 - Math.random() * 0.4, worldPosition.getY() + 0.9 - Math.random() * 0.2, worldPosition.getZ() + 0.7 - Math.random() * 0.4, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
 					}
 				}
-				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.potionCreate, SoundSource.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F, false);
+				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.potionCreate, SoundSource.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F, false);
 			}
 			return true;
 		} else {

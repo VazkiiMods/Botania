@@ -30,7 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -71,7 +71,7 @@ public class ItemLexicon extends Item implements ItemWithBannerPattern {
 		if (playerIn instanceof ServerPlayer player) {
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getLevel(), player.getX(), player.getY(), player.getZ());
 			PatchouliAPI.get().openBookGUI((ServerPlayer) playerIn, Registry.ITEM.getKey(this));
-			playerIn.playSound(ModSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
+			playerIn.playSound(BotaniaSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
 		return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);

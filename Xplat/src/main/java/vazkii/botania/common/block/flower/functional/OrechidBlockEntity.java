@@ -26,7 +26,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.OrechidManager;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -79,7 +79,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	protected void playSound(BlockPos coords) {
-		getLevel().playSound(null, coords, ModSounds.orechid, SoundSource.BLOCKS, 1F, 1F);
+		getLevel().playSound(null, coords, BotaniaSounds.orechid, SoundSource.BLOCKS, 1F, 1F);
 	}
 
 	@Nullable

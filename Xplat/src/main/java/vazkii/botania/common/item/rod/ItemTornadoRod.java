@@ -33,7 +33,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.brew.BotaniaMobEffects;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketAvatarTornadoRod;
@@ -84,7 +84,7 @@ public class ItemTornadoRod extends Item {
 						player.setDeltaMovement(new Vec3(oldMot.x(), my, oldMot.z()));
 					}
 
-					player.playSound(ModSounds.airRod, 1F, 1F);
+					player.playSound(BotaniaSounds.airRod, 1F, 1F);
 					for (int i = 0; i < 5; i++) {
 						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
 						world.addParticle(data, player.getX(), player.getY(), player.getZ(),
@@ -226,7 +226,7 @@ public class ItemTornadoRod extends Item {
 	}
 
 	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
-		p.level.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+		p.level.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 		p.addEffect(new MobEffectInstance(BotaniaMobEffects.featherfeet, 100, 0));
 		tile.receiveMana(-COST);
 	}

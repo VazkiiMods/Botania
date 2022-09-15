@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	public ThermalilyBlockEntity(BlockPos pos, BlockState state) {
@@ -35,7 +35,7 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 
 	@Override
 	public void playSound() {
-		getLevel().playSound(null, getEffectivePos(), ModSounds.thermalily, SoundSource.BLOCKS, 1F, 1F);
+		getLevel().playSound(null, getEffectivePos(), BotaniaSounds.thermalily, SoundSource.BLOCKS, 1F, 1F);
 	}
 
 	@Override

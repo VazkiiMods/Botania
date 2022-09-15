@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.entity.ThornChakramEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 public class ItemThornChakram extends Item {
 
@@ -39,10 +39,10 @@ public class ItemThornChakram extends Item {
 			ThornChakramEntity c = new ThornChakramEntity(player, world, copy);
 			c.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
 
-			SoundEvent sound = ModSounds.thornChakramThrow;
+			SoundEvent sound = BotaniaSounds.thornChakramThrow;
 			if (stack.is(ModItems.flareChakram)) {
 				c.setFire(true);
-				sound = ModSounds.flareChakramThrow;
+				sound = BotaniaSounds.flareChakramThrow;
 			}
 
 			world.addFreshEntity(c);

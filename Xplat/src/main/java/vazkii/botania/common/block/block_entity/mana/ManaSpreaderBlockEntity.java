@@ -50,8 +50,8 @@ import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntit
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.entity.ManaBurstEntity.PositionProperties;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.ManaNetworkHandler;
-import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -447,7 +447,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 						level.addFreshEntity(burst);
 						burst.ping();
 						if (!BotaniaConfig.common().silentSpreaders()) {
-							level.playSound(null, worldPosition, ModSounds.spreaderFire, SoundSource.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
+							level.playSound(null, worldPosition, BotaniaSounds.spreaderFire, SoundSource.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 						}
 					}
 				}

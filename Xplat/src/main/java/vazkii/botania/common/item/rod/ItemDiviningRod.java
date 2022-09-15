@@ -30,7 +30,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Random;
@@ -55,7 +55,7 @@ public class ItemDiviningRod extends Item {
 				long seedxor = world.random.nextLong();
 				doHighlight(world, p.blockPosition(), range, seedxor);
 			} else {
-				world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundSource.PLAYERS, 1F, 1F);
+				world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.divinationRod, SoundSource.PLAYERS, 1F, 1F);
 			}
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		}

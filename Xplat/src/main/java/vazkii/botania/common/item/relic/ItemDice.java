@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ResourceLocationHelper;
@@ -68,7 +68,7 @@ public class ItemDice extends ItemRelic {
 				return InteractionResultHolder.success(stack);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.diceOfFate, SoundSource.PLAYERS, 1F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.diceOfFate, SoundSource.PLAYERS, 1F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
 			List<Integer> possible = new ArrayList<>();
 			for (int i = 0; i < 6; i++) {

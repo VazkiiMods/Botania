@@ -53,7 +53,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.proxy.IProxy;
@@ -107,7 +107,7 @@ public class ItemTwigWand extends Item {
 		if (axis != null) {
 			if (!world.isClientSide) {
 				world.setBlockAndUpdate(pos, BotaniaBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
-				world.playSound(null, pos, ModSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
 			} else {
 				for (int i = 0; i < 50; i++) {
@@ -150,7 +150,7 @@ public class ItemTwigWand extends Item {
 					bindPos.pos().getX() + 0.5, bindPos.pos().getY() + 0.5, bindPos.pos().getZ() + 0.5,
 					pos.getX(), pos.getY(), pos.getZ()));
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundSource.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
 			return true;
 		}
 		return false;
@@ -202,7 +202,7 @@ public class ItemTwigWand extends Item {
 			}
 
 			if (world.isClientSide) {
-				player.playSound(ModSounds.ding, 0.11F, 1F);
+				player.playSound(BotaniaSounds.ding, 0.11F, 1F);
 			}
 
 			return InteractionResult.SUCCESS;
@@ -314,7 +314,7 @@ public class ItemTwigWand extends Item {
 			if (!world.isClientSide) {
 				setBindMode(stack, !getBindMode(stack));
 			} else {
-				player.playSound(ModSounds.ding, 0.1F, 1F);
+				player.playSound(BotaniaSounds.ding, 0.1F, 1F);
 			}
 		}
 

@@ -33,7 +33,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.material.ItemSelfReturning;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -106,7 +106,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 			}
 
 			if (placedAny) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.bifrostRod, SoundSource.PLAYERS, 1F, 1F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.bifrostRod, SoundSource.PLAYERS, 1F, 1F);
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldowns().addCooldown(this, player.isCreative() ? 10 : TIME);
 			}

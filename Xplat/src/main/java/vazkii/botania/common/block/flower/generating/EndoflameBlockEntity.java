@@ -23,7 +23,7 @@ import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -75,7 +75,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								EntityHelper.shrinkItem(item);
-								getLevel().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
+								getLevel().playSound(null, getEffectivePos(), BotaniaSounds.endoflame, SoundSource.BLOCKS, 1F, 1F);
 								getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
 								sync();
 

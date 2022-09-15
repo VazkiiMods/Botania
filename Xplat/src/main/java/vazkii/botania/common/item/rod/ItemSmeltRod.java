@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.Map;
@@ -98,8 +98,8 @@ public class ItemSmeltRod extends Item {
 								if (data.progress <= 0) {
 									if (!world.isClientSide) {
 										world.setBlockAndUpdate(pos.getBlockPos(), Block.byItem(result.getItem()).defaultBlockState());
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRod, SoundSource.PLAYERS, 1F, 1F);
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRod2, SoundSource.PLAYERS, 1F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.smeltRod, SoundSource.PLAYERS, 1F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.smeltRod2, SoundSource.PLAYERS, 1F, 1F);
 
 										ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
 										playerData.remove(p);
@@ -128,7 +128,7 @@ public class ItemSmeltRod extends Item {
 								world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
 							}
 							if (time % 10 == 0) {
-								world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRodSimmer, SoundSource.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+								world.playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.smeltRodSimmer, SoundSource.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 							}
 						}
 					});

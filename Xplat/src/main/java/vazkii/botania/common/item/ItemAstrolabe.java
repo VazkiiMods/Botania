@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
@@ -82,7 +82,7 @@ public class ItemAstrolabe extends Item {
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @NotNull InteractionHand hand) {
 		ItemStack stack = playerIn.getItemInHand(hand);
 		if (playerIn.isShiftKeyDown()) {
-			playerIn.playSound(ModSounds.astrolabeConfigure, 1F, 1F);
+			playerIn.playSound(BotaniaSounds.astrolabeConfigure, 1F, 1F);
 			if (!worldIn.isClientSide) {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;

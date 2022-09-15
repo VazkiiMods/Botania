@@ -169,7 +169,7 @@ public class ForgeCommonInitializer {
 	private void registryInit() {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		// Core item/block/BE
-		bind(Registry.SOUND_EVENT_REGISTRY, ModSounds::init);
+		bind(Registry.SOUND_EVENT_REGISTRY, BotaniaSounds::init);
 		bind(Registry.BLOCK_REGISTRY, BotaniaBlocks::registerBlocks);
 		bind(Registry.ITEM_REGISTRY, BotaniaBlocks::registerItemBlocks);
 		bind(Registry.BLOCK_REGISTRY, BotaniaFluffBlocks::registerBlocks);

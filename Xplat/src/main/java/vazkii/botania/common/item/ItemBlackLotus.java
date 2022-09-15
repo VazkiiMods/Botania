@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ManaDissolvable;
 import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
@@ -56,7 +56,7 @@ public class ItemBlackLotus extends Item implements ManaDissolvable {
 			IXplatAbstractions.INSTANCE.sendToTracking(item, new PacketBotaniaEffect(EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ()));
 		}
 
-		item.playSound(ModSounds.blackLotus, 1F, t2 ? 0.1F : 1F);
+		item.playSound(BotaniaSounds.blackLotus, 1F, t2 ? 0.1F : 1F);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
@@ -111,7 +111,7 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 			setChargeTicks(chargeTime + 1);
 
 			if (level.random.nextInt(20) == 0) {
-				level.playSound(null, getX(), getY(), getZ(), ModSounds.babylonSpawn, SoundSource.PLAYERS, 0.1F, 1F + level.random.nextFloat() * 3F);
+				level.playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonSpawn, SoundSource.PLAYERS, 0.1F, 1F + level.random.nextFloat() * 3F);
 			}
 		} else {
 			if (liveTime < delay) {
@@ -128,7 +128,7 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 				Vec3 thisVec = VecHelper.fromEntityCenter(this);
 
 				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
-				level.playSound(null, getX(), getY(), getZ(), ModSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level.random.nextFloat() * 3F);
+				level.playSound(null, getX(), getY(), getZ(), BotaniaSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level.random.nextFloat() * 3F);
 			}
 
 			if (!level.isClientSide) {

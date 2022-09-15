@@ -44,8 +44,8 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 import vazkii.botania.common.proxy.IProxy;
@@ -115,7 +115,7 @@ public class CurioIntegration extends EquipmentHandler {
 	}
 
 	public static class Wrapper implements ICurio {
-		private static final SoundInfo SOUND_INFO = new SoundInfo(ModSounds.equipBauble, 0.1F, 1.3F);
+		private static final SoundInfo SOUND_INFO = new SoundInfo(BotaniaSounds.equipBauble, 0.1F, 1.3F);
 
 		private final ItemStack stack;
 

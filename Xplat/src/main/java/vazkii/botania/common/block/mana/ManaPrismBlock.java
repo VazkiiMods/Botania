@@ -41,7 +41,7 @@ import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
 import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlock, ManaCollisionGhost {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
@@ -116,14 +116,14 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 			}
 
 			prism.getItemHandler().setItem(0, toInsert);
-			world.playSound(player, pos, ModSounds.prismAddLens, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.prismAddLens, SoundSource.BLOCKS, 1F, 1F);
 			return InteractionResult.SUCCESS;
 		}
 		if (!lens.isEmpty() && (mainHandEmpty || lensIsSame)) {
 			player.getInventory().placeItemBackInInventory(lens);
 			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
 
-			world.playSound(player, pos, ModSounds.prismRemoveLens, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.prismRemoveLens, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		}

@@ -50,7 +50,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
@@ -193,7 +193,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 						int enchantLvl = e.getValue();
 						if (!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
 							this.enchants.add(new EnchantmentInstance(ench, enchantLvl));
-							level.playSound(null, worldPosition, ModSounds.ding, SoundSource.BLOCKS, 1F, 1F);
+							level.playSound(null, worldPosition, BotaniaSounds.ding, SoundSource.BLOCKS, 1F, 1F);
 							addedEnch = true;
 							break;
 						}
@@ -270,7 +270,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
 			IXplatAbstractions.INSTANCE.sendToNear(level, worldPosition, new PacketBotaniaEffect(EffectType.ENCHANTER_DESTROY,
 					worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5));
-			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, worldPosition, BotaniaSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
 		}
 
 		switch (self.stage) {
@@ -333,7 +333,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
 						level.addParticle(data, getBlockPos().getX() + Math.random() * 0.4 - 0.2, getBlockPos().getY(), getBlockPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
 					}
-					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
+					level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), BotaniaSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
 				}
 				return true;
 			}

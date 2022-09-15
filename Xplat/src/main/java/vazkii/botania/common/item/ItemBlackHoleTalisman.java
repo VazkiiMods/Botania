@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 
@@ -62,7 +62,7 @@ public class ItemBlackHoleTalisman extends Item {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getBlock(stack) != null && player.isShiftKeyDown()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-			player.playSound(ModSounds.blackHoleTalismanConfigure, 1F, 1F);
+			player.playSound(BotaniaSounds.blackHoleTalismanConfigure, 1F, 1F);
 			return InteractionResultHolder.success(stack);
 		}
 

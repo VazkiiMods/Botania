@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.entity.VineBallEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 public class ItemVineBall extends Item {
 
@@ -34,7 +34,7 @@ public class ItemVineBall extends Item {
 			player.getItemInHand(hand).shrink(1);
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.vineBallThrow, SoundSource.NEUTRAL, 1F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.vineBallThrow, SoundSource.NEUTRAL, 1F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isClientSide) {
 			VineBallEntity ball = new VineBallEntity(player, true);

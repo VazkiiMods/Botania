@@ -28,7 +28,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.FlameRingEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ItemFireRod extends Item {
@@ -60,7 +60,7 @@ public class ItemFireRod extends Item {
 			}
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 
-			ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.fireRod, player != null ? SoundSource.PLAYERS : SoundSource.BLOCKS, 1F, 1F);
+			ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), BotaniaSounds.fireRod, player != null ? SoundSource.PLAYERS : SoundSource.BLOCKS, 1F, 1F);
 		}
 
 		return InteractionResult.SUCCESS;

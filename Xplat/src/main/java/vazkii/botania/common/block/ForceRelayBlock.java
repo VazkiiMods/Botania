@@ -29,7 +29,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
 import vazkii.botania.network.EffectType;
@@ -97,7 +97,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 			GlobalPos clicked = GlobalPos.of(world.dimension(), pos.immutable());
 			if (ItemTwigWand.getBindMode(stack)) {
 				activeBindingAttempts.put(player.getUUID(), clicked);
-				world.playSound(null, pos, ModSounds.ding, SoundSource.BLOCKS, 0.5F, 1F);
+				world.playSound(null, pos, BotaniaSounds.ding, SoundSource.BLOCKS, 0.5F, 1F);
 			} else {
 				var data = WorldData.get(world);
 				if (IXplatAbstractions.INSTANCE.isDevEnvironment()) {

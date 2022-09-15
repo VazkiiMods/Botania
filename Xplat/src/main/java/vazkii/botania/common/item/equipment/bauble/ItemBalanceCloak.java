@@ -18,7 +18,7 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 public class ItemBalanceCloak extends ItemHolyCloak {
 
@@ -42,7 +42,7 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 				amount.setValue(player.getHealth() - 1);
 			}
 
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
 				double x = player.getX() + Math.random() * player.getBbWidth() * 2 - player.getBbWidth();
 				double y = player.getY() + Math.random() * player.getBbHeight();

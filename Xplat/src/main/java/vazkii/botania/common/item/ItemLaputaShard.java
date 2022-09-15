@@ -43,7 +43,7 @@ import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.ModTags;
@@ -99,7 +99,7 @@ public class ItemLaputaShard extends Item implements LensEffect, TinyPlanetExcem
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
 		if (!world.isClientSide && pos.getY() < world.getMaxBuildHeight() - BASE_OFFSET && !world.dimensionType().hasCeiling()) {
-			world.playSound(null, pos, ModSounds.laputaStart, SoundSource.BLOCKS, 1.0F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 1.3F);
+			world.playSound(null, pos, BotaniaSounds.laputaStart, SoundSource.BLOCKS, 1.0F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = ctx.getItemInHand();
 			spawnFirstBurst(world, pos, stack);
 			if (ctx.getPlayer() != null) {

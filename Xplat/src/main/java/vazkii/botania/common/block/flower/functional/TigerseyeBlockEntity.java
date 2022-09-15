@@ -24,7 +24,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.mixin.*;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -55,7 +55,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 			if (getMana() >= COST) {
 				if (pacifyCreeper(entity)) {
 					IXplatAbstractions.INSTANCE.tigersEyeComponent(entity).setPacified();
-					entity.playSound(ModSounds.tigerseyePacify, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
+					entity.playSound(BotaniaSounds.tigerseyePacify, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
 					level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 					addMana(-COST);
 					sync();

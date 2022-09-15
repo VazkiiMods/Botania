@@ -31,7 +31,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.entity.MagicMissileEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ItemMissileRod extends Item {
@@ -83,7 +83,7 @@ public class ItemMissileRod extends Item {
 		missile.setPos(x, y, z);
 		if (missile.findTarget()) {
 			if (!world.isClientSide) {
-				missile.playSound(world.random.nextInt(100) == 0 ? ModSounds.missileFunny : ModSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
+				missile.playSound(world.random.nextInt(100) == 0 ? BotaniaSounds.missileFunny : BotaniaSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
 				world.addFreshEntity(missile);
 			}
 

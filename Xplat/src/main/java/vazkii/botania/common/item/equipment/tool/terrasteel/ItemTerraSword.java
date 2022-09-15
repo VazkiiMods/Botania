@@ -29,7 +29,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.LensEffect;
 import vazkii.botania.common.entity.ManaBurstEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.network.serverbound.PacketLeftClick;
@@ -69,7 +69,7 @@ public class ItemTerraSword extends ItemManasteelSword implements LensEffect {
 			ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);
 			player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 

@@ -22,7 +22,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.entity.FallingStarEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
@@ -83,7 +83,7 @@ public class ItemStarSword extends ItemManasteelSword {
 			}
 
 			stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
 		}
 	}
 

@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class ItemTemperanceStone extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
 		return InteractionResultHolder.success(stack);
 	}
 

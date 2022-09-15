@@ -43,7 +43,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.decor.TinyPotatoBlock;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 
@@ -92,7 +92,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 
 			if (name.getString().toLowerCase(Locale.ROOT).trim().endsWith("shia labeouf") && nextDoIt == 0) {
 				nextDoIt = 40;
-				level.playSound(null, worldPosition, ModSounds.doit, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(null, worldPosition, BotaniaSounds.doit, SoundSource.BLOCKS, 1F, 1F);
 			}
 
 			for (int i = 0; i < inventorySize(); i++) {

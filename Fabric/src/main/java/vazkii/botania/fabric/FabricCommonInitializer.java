@@ -136,7 +136,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 	private void registryInit() {
 		// Core item/block/BE
-		ModSounds.init(bind(Registry.SOUND_EVENT));
+		BotaniaSounds.init(bind(Registry.SOUND_EVENT));
 		BotaniaBlocks.registerBlocks(bind(Registry.BLOCK));
 		BotaniaBlocks.registerItemBlocks(bind(Registry.ITEM));
 		BotaniaFluffBlocks.registerBlocks(bind(Registry.BLOCK));

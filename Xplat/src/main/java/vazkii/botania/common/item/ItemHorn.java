@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HornHarvestable.EnumHornType;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -68,7 +68,7 @@ public class ItemHorn extends Item {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
 				breakGrass(world, stack, living.blockPosition(), living);
 			}
-			world.playSound(null, living.getX(), living.getY(), living.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), BotaniaSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 

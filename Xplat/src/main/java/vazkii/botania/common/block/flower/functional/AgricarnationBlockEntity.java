@@ -21,7 +21,7 @@ import net.minecraft.world.level.material.Material;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Set;
@@ -71,7 +71,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 					if (BotaniaConfig.common().blockBreakParticles()) {
 						getLevel().levelEvent(LevelEvent.PARTICLES_PLANT_GROWTH, pos, 6 + getLevel().random.nextInt(4));
 					}
-					getLevel().playSound(null, x, y, z, ModSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+					getLevel().playSound(null, x, y, z, BotaniaSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}

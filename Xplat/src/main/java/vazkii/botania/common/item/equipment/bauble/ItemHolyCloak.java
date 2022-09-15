@@ -32,8 +32,8 @@ import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.CloakModel;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.IProxy;
 
@@ -104,7 +104,7 @@ public class ItemHolyCloak extends ItemBauble {
 	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
 		if (!src.isMagic()) {
 			amount.setValue(0);
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
 				double x = player.getX() + Math.random() * player.getBbWidth() * 2 - player.getBbWidth();
 				double y = player.getY() + Math.random() * player.getBbHeight();

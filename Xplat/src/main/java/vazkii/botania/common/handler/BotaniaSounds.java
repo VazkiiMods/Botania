@@ -17,7 +17,7 @@ import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public final class ModSounds {
+public final class BotaniaSounds {
 	private static final List<SoundEvent> EVENTS = new ArrayList<>();
 	//blocks
 	public static final SoundEvent altarCraft = makeSoundEvent("altar_craft");
@@ -131,5 +131,5 @@ public final class ModSounds {
 		}
 	}
 
-	private ModSounds() {}
+	private BotaniaSounds() {}
 }

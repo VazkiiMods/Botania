@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class ShulkMeNotBlockEntity extends GeneratingFlowerBlockEntity {
 
 						for (int i = 0; i < 10; i++) {
 							// so it's really loud >_>
-							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
+							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, BotaniaSounds.shulkMeNot, SoundSource.BLOCKS, 10F, 1F);
 						}
 						particles(world, pos, target);
 						particles(world, pos, shulker);

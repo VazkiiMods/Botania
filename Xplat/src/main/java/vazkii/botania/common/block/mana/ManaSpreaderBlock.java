@@ -41,7 +41,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 
@@ -179,7 +179,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 				}
 
 				spreader.getItemHandler().setItem(0, toInsert);
-				world.playSound(player, pos, ModSounds.spreaderAddLens, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(player, pos, BotaniaSounds.spreaderAddLens, SoundSource.BLOCKS, 1F, 1F);
 			} else if (playerHasWool) {
 				Block woolBlock = Block.byItem(heldItem.getItem());
 
@@ -191,7 +191,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 
 				spreader.paddingColor = ColorHelper.getWoolColor(woolBlock);
 				spreader.setChanged();
-				world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(player, pos, BotaniaSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 			} else { // playerHasScaffolding
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, true));
 				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
@@ -200,7 +200,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 					heldItem.shrink(1);
 				}
 
-				world.playSound(player, pos, ModSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(player, pos, BotaniaSounds.spreaderScaffold, SoundSource.BLOCKS, 1F, 1F);
 			}
 			return InteractionResult.SUCCESS;
 		}
@@ -213,7 +213,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));
 			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
-			world.playSound(player, pos, ModSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.spreaderUnScaffold, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		}
@@ -221,7 +221,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			player.getInventory().placeItemBackInInventory(lens);
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
 
-			world.playSound(player, pos, ModSounds.spreaderRemoveLens, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.spreaderRemoveLens, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		}
@@ -230,7 +230,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 			spreader.paddingColor = null;
 			spreader.setChanged();
 
-			world.playSound(player, pos, ModSounds.spreaderUncover, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(player, pos, BotaniaSounds.spreaderUncover, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		}

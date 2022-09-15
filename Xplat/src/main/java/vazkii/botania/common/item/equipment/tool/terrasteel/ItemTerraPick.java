@@ -41,7 +41,7 @@ import vazkii.botania.api.item.SequentialBreaker;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTemperanceStone;
@@ -117,7 +117,7 @@ public class ItemTerraPick extends ItemManasteelPick implements SequentialBreake
 		if (level != 0) {
 			setEnabled(stack, !isEnabled(stack));
 			if (!world.isClientSide) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
 			}
 		}
 

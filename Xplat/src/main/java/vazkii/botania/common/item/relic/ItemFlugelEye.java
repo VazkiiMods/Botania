@@ -34,7 +34,7 @@ import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.network.EffectType;
@@ -74,7 +74,7 @@ public class ItemFlugelEye extends ItemRelic {
 				ItemStack stack = ctx.getItemInHand();
 				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location(), nbt);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
 			}
 
 			return InteractionResult.SUCCESS;
@@ -131,7 +131,7 @@ public class ItemFlugelEye extends ItemRelic {
 
 	private static void moveParticlesAndSound(Entity entity) {
 		IXplatAbstractions.INSTANCE.sendToTracking(entity, new PacketBotaniaEffect(EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getId()));
-		entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
+		entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
 	}
 
 	@Override

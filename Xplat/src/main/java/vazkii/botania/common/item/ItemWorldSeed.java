@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.MathHelper;
 
 public class ItemWorldSeed extends Item {
@@ -49,7 +49,7 @@ public class ItemWorldSeed extends Item {
 				player.teleportTo(player.getX(), player.getY() + 1, player.getZ());
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.worldSeedTeleport, SoundSource.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.worldSeedTeleport, SoundSource.PLAYERS, 1F, 1F);
 			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.25F, 1F, 0.25F, 10);
 			((ServerLevel) world).sendParticles(data, player.getX(), player.getY() + player.getBbHeight() / 2, player.getZ(), 50, player.getBbWidth() / 8, player.getBbHeight() / 4, player.getBbWidth() / 8, 0);
 

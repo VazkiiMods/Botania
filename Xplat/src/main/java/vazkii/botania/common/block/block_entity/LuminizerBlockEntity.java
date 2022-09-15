@@ -47,7 +47,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.entity.BotaniaEntities;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 
@@ -82,7 +82,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		level.addFreshEntity(mover);
 		e.startRiding(mover);
 		if (!(e instanceof ItemEntity)) {
-			mover.playSound(ModSounds.lightRelay, 1F, (float) Math.random() * 0.3F + 0.7F);
+			mover.playSound(BotaniaSounds.lightRelay, 1F, (float) Math.random() * 0.3F + 0.7F);
 		}
 		if (e instanceof ServerPlayer serverPlayer) {
 			PlayerHelper.grantCriterion(serverPlayer, prefix("main/luminizer_ride"), "code_triggered");
@@ -307,7 +307,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 			boolean isItem = getVehicle() instanceof ItemEntity;
 			if (!isItem && tickCount % 30 == 0) {
-				playSound(ModSounds.lightRelay, 0.25F, (float) Math.random() * 0.3F + 0.7F);
+				playSound(BotaniaSounds.lightRelay, 0.25F, (float) Math.random() * 0.3F + 0.7F);
 			}
 
 			BlockPos pos = blockPosition();

@@ -34,7 +34,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
-import vazkii.botania.common.handler.ModSounds;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 
@@ -141,7 +141,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 			}
 
 			for (int i = 0; i < 10; i++) {
-				world.playSound(null, pos, ModSounds.drum, SoundSource.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, BotaniaSounds.drum, SoundSource.BLOCKS, 1F, 1F);
 			}
 		}
 	}
