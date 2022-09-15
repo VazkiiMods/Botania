@@ -6,11 +6,15 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.string;
+package vazkii.botania.common.block.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,34 +27,39 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.string.TileRedString;
-import vazkii.botania.common.block.tile.string.TileRedStringComparator;
+import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 
-public class BlockRedStringComparator extends BlockRedString {
+public class RedStringNutrifierBlock extends RedStringBlock implements BonemealableBlock {
 
-	public BlockRedStringComparator(BlockBehaviour.Properties builder) {
+	public RedStringNutrifierBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
 	@Override
-	public boolean hasAnalogOutputSignal(BlockState state) {
-		return true;
+	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+		return ((TileRedStringFertilizer) world.getBlockEntity(pos)).canGrow(world, isClient);
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((TileRedStringComparator) world.getBlockEntity(pos)).getComparatorValue();
+	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+		return ((TileRedStringFertilizer) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
+	}
+
+	@Override
+	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+		((TileRedStringFertilizer) world.getBlockEntity(pos)).grow(world, rand);
 	}
 
 	@NotNull
 	@Override
 	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRedStringComparator(pos, state);
+		return new TileRedStringFertilizer(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_COMPARATOR, TileRedStringComparator::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_FERTILIZER, TileRedStringFertilizer::commonTick);
 	}
 }

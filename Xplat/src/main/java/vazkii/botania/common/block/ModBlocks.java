@@ -50,7 +50,7 @@ import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.decor.stairs.BotaniaStairBlock;
 import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
-import vazkii.botania.common.block.string.*;
+import vazkii.botania.common.block.red_string.*;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
@@ -296,12 +296,12 @@ public final class ModBlocks {
 	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, BlockBehaviour.Properties.of(Material.WOOD).strength(-1, Float.MAX_VALUE).sound(SoundType.WOOD).isValidSpawn(NO_SPAWN).noOcclusion());
 	public static final Block tinyPotato = new TinyPotatoBlock(BlockBehaviour.Properties.of(Material.WOOL).strength(0.25F));
 	public static final Block enderEye = new BlockEnderEye(BlockBehaviour.Properties.copy(manasteelBlock));
-	public static final Block redStringContainer = new BlockRedStringContainer(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block redStringDispenser = new BlockRedStringDispenser(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block redStringFertilizer = new BlockRedStringFertilizer(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block redStringComparator = new BlockRedStringComparator(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block redStringRelay = new BlockRedStringRelay(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block redStringInterceptor = new BlockRedStringInterceptor(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block redStringContainer = new RedStringContainerBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block redStringDispenser = new RedStringDispenserBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block redStringFertilizer = new RedStringNutrifierBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block redStringComparator = new RedStringComparatorBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block redStringRelay = new RedStringSpooferBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block redStringInterceptor = new RedStringInterceptorBlock(BlockBehaviour.Properties.copy(livingrock));
 
 	public static final Block corporeaIndex = new CorporeaIndexBlock(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops());
 	public static final Block corporeaFunnel = new CorporeaFunnelBlock(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());

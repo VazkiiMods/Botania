@@ -61,7 +61,7 @@ import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
-import vazkii.botania.common.block.string.BlockRedStringInterceptor;
+import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.tile.*;
@@ -209,7 +209,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
 		ServerTickEvents.END_WORLD_TICK.register(ItemTerraAxe::onTickEnd);
-		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
+		UseBlockCallback.EVENT.register(RedStringInterceptorBlock::onInteract);
 		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
 		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
 	}

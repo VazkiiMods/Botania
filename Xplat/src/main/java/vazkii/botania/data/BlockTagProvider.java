@@ -29,7 +29,7 @@ import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.block.string.BlockRedString;
+import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
@@ -217,7 +217,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 						|| b instanceof BlockAltar
 						|| b instanceof BlockPylon
 						|| b instanceof ManaPoolBlock
-						|| b instanceof BlockRedString
+						|| b instanceof RedStringBlock
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
 						|| Registry.BLOCK.getKey(b).getPath().contains("corporea")
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)

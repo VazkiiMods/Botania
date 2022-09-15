@@ -74,7 +74,7 @@ import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.mana.DrumBlock;
 import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
-import vazkii.botania.common.block.string.BlockRedStringInterceptor;
+import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
@@ -281,7 +281,7 @@ public class ForgeCommonInitializer {
 			}
 		});
 		bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
-			BlockRedStringInterceptor.onInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
+			RedStringInterceptorBlock.onInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 			ItemLokiRing.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 		});
 		bus.addListener((PlayerInteractEvent.RightClickItem e) -> {

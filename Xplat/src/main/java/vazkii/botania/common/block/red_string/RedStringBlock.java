@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.string;
+package vazkii.botania.common.block.red_string;
 
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.BlockMod;
 
-public abstract class BlockRedString extends BlockMod implements EntityBlock {
+public abstract class RedStringBlock extends BlockMod implements EntityBlock {
 
-	public BlockRedString(BlockBehaviour.Properties builder) {
+	public RedStringBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 	}
 

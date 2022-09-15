@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.string;
+package vazkii.botania.common.block.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,9 +25,9 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 
-public class BlockRedStringRelay extends BlockRedString {
+public class RedStringSpooferBlock extends RedStringBlock {
 
-	public BlockRedStringRelay(BlockBehaviour.Properties builder) {
+	public RedStringSpooferBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));
 	}

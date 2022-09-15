@@ -35,7 +35,7 @@ import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.decor.FlowerMotifBlock;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.decor.panes.BotaniaPaneBlock;
-import vazkii.botania.common.block.string.BlockRedString;
+import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -482,7 +482,7 @@ public class BlockstateProvider implements DataProvider {
 			this.blockstates.add(MultiVariantGenerator.multiVariant(b, AccessorBlockModelGenerators.createRotatedVariants(model)));
 		});
 
-		takeAll(remainingBlocks, b -> b instanceof BlockRedString).forEach(this::redStringBlock);
+		takeAll(remainingBlocks, b -> b instanceof RedStringBlock).forEach(this::redStringBlock);
 
 		takeAll(remainingBlocks, b -> b instanceof BlockModDoubleFlower).forEach(b -> {
 			var bottom = ModelTemplates.CROSS.create(b, TextureMapping.cross(b), this.modelOutput);
