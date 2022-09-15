@@ -22,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.string.TileRedString;
-import vazkii.botania.common.block.tile.string.TileRedStringComparator;
+import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.tile.red_string.RedStringComparatorBlockEntity;
 
 public class RedStringComparatorBlock extends RedStringBlock {
 
@@ -39,18 +39,18 @@ public class RedStringComparatorBlock extends RedStringBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((TileRedStringComparator) world.getBlockEntity(pos)).getComparatorValue();
+		return ((RedStringComparatorBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
 	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRedStringComparator(pos, state);
+	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new RedStringComparatorBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_COMPARATOR, TileRedStringComparator::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_COMPARATOR, RedStringComparatorBlockEntity::commonTick);
 	}
 }

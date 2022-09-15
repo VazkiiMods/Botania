@@ -31,12 +31,12 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ColorHelper;
 
 import java.util.Random;
 
-public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<TilePool> {
+public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPoolBlockEntity> {
 
 	// Overrides for when we call this renderer from a cart
 	public static int cartMana = -1;
@@ -47,7 +47,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<TilePool
 	}
 
 	@Override
-	public void render(@Nullable TilePool pool, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable ManaPoolBlockEntity pool, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		boolean fab = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.FABULOUS;
@@ -74,7 +74,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<TilePool
 		int mana = pool == null ? cartMana : pool.getCurrentMana();
 		int cap = pool == null ? -1 : pool.manaCap;
 		if (cap == -1) {
-			cap = TilePool.MAX_MANA;
+			cap = ManaPoolBlockEntity.MAX_MANA;
 		}
 
 		float waterLevel = (float) mana / (float) cap * 0.4F;

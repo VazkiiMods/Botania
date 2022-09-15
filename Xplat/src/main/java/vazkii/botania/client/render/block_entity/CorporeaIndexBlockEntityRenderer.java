@@ -30,9 +30,9 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
 
-public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<TileCorporeaIndex> {
+public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<CorporeaIndexBlockEntity> {
 	private static final RenderType LAYER = RenderType.entityCutoutNoCull(new ResourceLocation(ResourcesLib.MODEL_CORPOREA_INDEX));
 	private static final float ANGLE = (float) Math.sin(Math.toRadians(45));
 	private final ModelPart ring;
@@ -57,12 +57,12 @@ public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<Til
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(@NotNull TileCorporeaIndex blockEntity) {
+	public boolean shouldRenderOffScreen(@NotNull CorporeaIndexBlockEntity blockEntity) {
 		return true;
 	}
 
 	@Override
-	public void render(@Nullable TileCorporeaIndex index, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable CorporeaIndexBlockEntity index, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.translate(0.5, 0, 0.5);
 
@@ -96,7 +96,7 @@ public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<Til
 
 		if (index != null && index.closeby > 0F) {
 			float starScale = 0.02F;
-			float starRadius = (float) TileCorporeaIndex.RADIUS * index.closeby + (index.closeby == 1F ? 0F : index.hasCloseby ? partialTicks : -partialTicks) * 0.2F;
+			float starRadius = (float) CorporeaIndexBlockEntity.RADIUS * index.closeby + (index.closeby == 1F ? 0F : index.hasCloseby ? partialTicks : -partialTicks) * 0.2F;
 			double rads = (index.ticksWithCloseby + partialTicks) * 2 * Math.PI / 180;
 			double starX = Math.cos(rads) * starRadius;
 			double starZ = Math.sin(rads) * starRadius;

@@ -35,7 +35,7 @@ import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -178,7 +178,7 @@ public class ItemManaMirror extends Item {
 
 		@Override
 		public int getMaxMana() {
-			return TilePool.MAX_MANA;
+			return ManaPoolBlockEntity.MAX_MANA;
 		}
 
 		@Override

@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDispl
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
 			CategoryUtils.drawOverlay(helper, matrices, PETAL_OVERLAY, center.x - 24, center.y - 42, 42, 11, 85, 82);
-			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
+			HUDHandler.renderManaBar(matrices, center.x - 43, center.y + 52, 0x0000FF, 0.75F, display.getManaCost(), ManaPoolBlockEntity.MAX_MANA / 10);
 		})));
 
 		for (EntryIngredient o : inputs) {

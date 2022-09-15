@@ -39,7 +39,7 @@ import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.block.tile.mana.TilePrism;
+import vazkii.botania.common.block.tile.mana.ManaPrismBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 
@@ -98,7 +98,7 @@ public class ManaPrismBlock extends BlockModWaterloggable implements EntityBlock
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof TilePrism prism)) {
+		if (!(tile instanceof ManaPrismBlockEntity prism)) {
 			return InteractionResult.PASS;
 		}
 
@@ -166,7 +166,7 @@ public class ManaPrismBlock extends BlockModWaterloggable implements EntityBlock
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TilePrism(pos, state);
+		return new ManaPrismBlockEntity(pos, state);
 	}
 
 	@Override

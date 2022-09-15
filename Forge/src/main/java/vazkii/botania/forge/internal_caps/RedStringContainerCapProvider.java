@@ -11,14 +11,14 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.tile.string.TileRedStringContainer;
+import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
 
 public class RedStringContainerCapProvider implements ICapabilityProvider {
 	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);
 
-	private final TileRedStringContainer container;
+	private final RedStringContainerBlockEntity container;
 
-	public RedStringContainerCapProvider(TileRedStringContainer container) {
+	public RedStringContainerCapProvider(RedStringContainerBlockEntity container) {
 		this.container = container;
 	}
 

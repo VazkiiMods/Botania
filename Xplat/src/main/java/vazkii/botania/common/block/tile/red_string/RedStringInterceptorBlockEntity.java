@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.tile.string;
+package vazkii.botania.common.block.tile.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -26,15 +26,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TileRedStringInterceptor extends TileRedString {
-	private static final Set<TileRedStringInterceptor> interceptors = new HashSet<>();
+public class RedStringInterceptorBlockEntity extends RedStringBlockEntity {
+	private static final Set<RedStringInterceptorBlockEntity> interceptors = new HashSet<>();
 
-	public TileRedStringInterceptor(BlockPos pos, BlockState state) {
+	public RedStringInterceptorBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.RED_STRING_INTERCEPTOR, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileRedStringInterceptor self) {
-		TileRedString.commonTick(level, worldPosition, state, self);
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, RedStringInterceptorBlockEntity self) {
+		RedStringBlockEntity.commonTick(level, worldPosition, state, self);
 		if (!level.isClientSide) {
 			interceptors.add(self);
 		}
@@ -54,10 +54,10 @@ public class TileRedStringInterceptor extends TileRedString {
 			return InteractionResult.PASS;
 		}
 
-		List<TileRedStringInterceptor> remove = new ArrayList<>();
+		List<RedStringInterceptorBlockEntity> remove = new ArrayList<>();
 		boolean did = false;
 
-		for (TileRedStringInterceptor inter : interceptors) {
+		for (RedStringInterceptorBlockEntity inter : interceptors) {
 			if (!inter.saneState()) {
 				remove.add(inter);
 				continue;

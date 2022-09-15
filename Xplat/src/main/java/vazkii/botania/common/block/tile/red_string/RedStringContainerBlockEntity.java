@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.tile.string;
+package vazkii.botania.common.block.tile.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,12 +16,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class TileRedStringContainer extends TileRedString {
-	public TileRedStringContainer(BlockPos pos, BlockState state) {
+public class RedStringContainerBlockEntity extends RedStringBlockEntity {
+	public RedStringContainerBlockEntity(BlockPos pos, BlockState state) {
 		this(ModTiles.RED_STRING_CONTAINER, pos, state);
 	}
 
-	protected TileRedStringContainer(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected RedStringContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 

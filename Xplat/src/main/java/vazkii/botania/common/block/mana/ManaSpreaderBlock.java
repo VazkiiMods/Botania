@@ -40,7 +40,7 @@ import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.block.tile.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -96,7 +96,7 @@ public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBl
 			return SHAPE_SCAFFOLDING;
 		}
 		BlockEntity be = blockGetter.getBlockEntity(blockPos);
-		return be instanceof TileSpreader spreader && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
+		return be instanceof ManaSpreaderBlockEntity spreader && spreader.paddingColor != null ? SHAPE_PADDING : SHAPE;
 	}
 
 	@NotNull
@@ -113,7 +113,7 @@ public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBl
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		Direction orientation = placer == null ? Direction.WEST : Direction.orderedByNearest(placer)[0].getOpposite();
-		TileSpreader spreader = (TileSpreader) world.getBlockEntity(pos);
+		ManaSpreaderBlockEntity spreader = (ManaSpreaderBlockEntity) world.getBlockEntity(pos);
 
 		switch (orientation) {
 			case DOWN:
@@ -145,7 +145,7 @@ public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBl
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof TileSpreader spreader)) {
+		if (!(tile instanceof ManaSpreaderBlockEntity spreader)) {
 			return InteractionResult.PASS;
 		}
 
@@ -242,7 +242,7 @@ public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBl
 	public void onRemove(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (!(tile instanceof TileSpreader spreader)) {
+			if (!(tile instanceof ManaSpreaderBlockEntity spreader)) {
 				return;
 			}
 
@@ -265,12 +265,12 @@ public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBl
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileSpreader(pos, state);
+		return new ManaSpreaderBlockEntity(pos, state);
 	}
 
 	@org.jetbrains.annotations.Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.SPREADER, TileSpreader::commonTick);
+		return createTickerHelper(type, ModTiles.SPREADER, ManaSpreaderBlockEntity::commonTick);
 	}
 }

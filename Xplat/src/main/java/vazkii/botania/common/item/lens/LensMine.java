@@ -28,7 +28,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.block.tile.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -80,7 +80,7 @@ public class LensMine extends Lens {
 					boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
 					boolean doWarp = warp && !sourceless;
 					Vec3 dropPosition;
-					if (doWarp && world.getBlockEntity(source) instanceof TileSpreader spreader) {
+					if (doWarp && world.getBlockEntity(source) instanceof ManaSpreaderBlockEntity spreader) {
 						Vec3 sourceVec = Vec3.atCenterOf(source);
 						/* NB: this looks backwards but it's right. spreaders take rotX/rotY to respectively mean
 						* "rotation *parallel* to the X and Y axes", while vanilla's methods take XRot/YRot

@@ -13,7 +13,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
 
-import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
+import vazkii.botania.common.block.tile.corporea.CorporeaRetainerBlockEntity;
 
 public class InterceptorTest {
 
@@ -47,7 +47,7 @@ public class InterceptorTest {
 	}
 
 	private static void assertHasPendingRequest(GameTestHelper helper, BlockPos retainerPos, boolean invert) {
-		TileCorporeaRetainer retainer = (TileCorporeaRetainer) helper.getBlockEntity(retainerPos);
+		CorporeaRetainerBlockEntity retainer = (CorporeaRetainerBlockEntity) helper.getBlockEntity(retainerPos);
 		if (retainer == null) {
 			throw new GameTestAssertPosException("Expected corporea retainer", helper.absolutePos(retainerPos), retainerPos, helper.getTick());
 		}

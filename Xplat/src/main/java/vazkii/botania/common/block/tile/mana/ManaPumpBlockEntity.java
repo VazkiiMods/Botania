@@ -18,7 +18,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod {
+public class ManaPumpBlockEntity extends TileMod {
 	private static final String TAG_ACTIVE = "active";
 
 	public float innerRingPos;
@@ -31,11 +31,11 @@ public class TilePump extends TileMod {
 	public boolean hasRedstone = false;
 	private int lastComparator = 0;
 
-	public TilePump(BlockPos pos, BlockState state) {
+	public ManaPumpBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.PUMP, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TilePump self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, ManaPumpBlockEntity self) {
 		self.hasRedstone = level.hasNeighborSignal(worldPosition);
 
 		float max = 8F;

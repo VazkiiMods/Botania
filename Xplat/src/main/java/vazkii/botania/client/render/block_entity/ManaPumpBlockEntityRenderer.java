@@ -20,9 +20,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.common.block.tile.mana.TilePump;
+import vazkii.botania.common.block.tile.mana.ManaPumpBlockEntity;
 
-public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<TilePump> {
+public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPumpBlockEntity> {
 	public static BakedModel headModel = null;
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
@@ -31,7 +31,7 @@ public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<TilePump
 	}
 
 	@Override
-	public void render(TilePump pump, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(ManaPumpBlockEntity pump, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.translate(0.5, 0, 0.5);
 		float angle = 0;

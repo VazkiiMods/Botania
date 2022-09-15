@@ -22,14 +22,14 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.tile.mana.TilePrism;
+import vazkii.botania.common.block.tile.mana.ManaPrismBlockEntity;
 
-public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<TilePrism> {
+public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<ManaPrismBlockEntity> {
 
 	public ManaPrismBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull TilePrism prism, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull ManaPrismBlockEntity prism, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
 
 		ItemStack stack = prism.getItemHandler().getItem(0);

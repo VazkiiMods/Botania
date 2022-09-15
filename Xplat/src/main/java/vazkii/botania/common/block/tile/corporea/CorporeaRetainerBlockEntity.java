@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class TileCorporeaRetainer extends TileMod implements Wandable {
+public class CorporeaRetainerBlockEntity extends TileMod implements Wandable {
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
 	private static final String TAG_REQUEST_Z = "requestZ";
@@ -53,7 +53,7 @@ public class TileCorporeaRetainer extends TileMod implements Wandable {
 	private int requestCount;
 	private boolean retainMissing = false;
 
-	public TileCorporeaRetainer(BlockPos pos, BlockState state) {
+	public CorporeaRetainerBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.CORPOREA_RETAINER, pos, state);
 	}
 
@@ -138,9 +138,9 @@ public class TileCorporeaRetainer extends TileMod implements Wandable {
 	}
 
 	public static class WandHud implements WandHUD {
-		private final TileCorporeaRetainer retainer;
+		private final CorporeaRetainerBlockEntity retainer;
 
-		public WandHud(TileCorporeaRetainer retainer) {
+		public WandHud(CorporeaRetainerBlockEntity retainer) {
 			this.retainer = retainer;
 		}
 

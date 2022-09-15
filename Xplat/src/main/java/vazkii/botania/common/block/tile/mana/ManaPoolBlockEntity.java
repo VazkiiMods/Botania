@@ -64,8 +64,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttachable,
-		IThrottledPacket, Wandable {
+public class ManaPoolBlockEntity extends TileMod implements ManaPool, KeyLocked, SparkAttachable,
+		ThrottledPacket, Wandable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -99,7 +99,7 @@ public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttac
 	private int ticks = 0;
 	private boolean sendPacket = false;
 
-	public TilePool(BlockPos pos, BlockState state) {
+	public ManaPoolBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.POOL, pos, state);
 	}
 
@@ -247,7 +247,7 @@ public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttac
 		}
 	}
 
-	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, TilePool self) {
+	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, ManaPoolBlockEntity self) {
 		self.initManaCapAndNetwork();
 		double particleChance = 1F - (double) self.getCurrentMana() / (double) self.manaCap * 0.1;
 		if (Math.random() > particleChance) {
@@ -259,7 +259,7 @@ public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttac
 		}
 	}
 
-	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TilePool self) {
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, ManaPoolBlockEntity self) {
 		self.initManaCapAndNetwork();
 		boolean wasDoingTransfer = self.isDoingTransfer;
 		self.isDoingTransfer = false;
@@ -289,7 +289,7 @@ public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttac
 					if (self.outputting) {
 						for (Direction dir : Direction.Plane.HORIZONTAL) {
 							BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-							if (tile instanceof TileBellows bellows && bellows.getLinkedTile() == self) {
+							if (tile instanceof BellowsBlockEntity bellows && bellows.getLinkedTile() == self) {
 								bellowCount++;
 							}
 						}
@@ -393,9 +393,9 @@ public class TilePool extends TileMod implements ManaPool, KeyLocked, SparkAttac
 	}
 
 	public static class WandHud implements WandHUD {
-		private final TilePool pool;
+		private final ManaPoolBlockEntity pool;
 
-		public WandHud(TilePool pool) {
+		public WandHud(ManaPoolBlockEntity pool) {
 			this.pool = pool;
 		}
 

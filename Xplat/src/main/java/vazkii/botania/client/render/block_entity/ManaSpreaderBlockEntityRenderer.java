@@ -30,16 +30,16 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.block.tile.mana.ManaSpreaderBlockEntity;
 
 import java.util.Random;
 
-public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<TileSpreader> {
+public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<ManaSpreaderBlockEntity> {
 
 	public ManaSpreaderBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull TileSpreader spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull ManaSpreaderBlockEntity spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 
 		ms.translate(0.5F, 0.5, 0.5F);
@@ -116,7 +116,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Tile
 
 	}
 
-	private BakedModel getCoreModel(TileSpreader tile) {
+	private BakedModel getCoreModel(ManaSpreaderBlockEntity tile) {
 		return switch (tile.getVariant()) {
 			case GAIA -> MiscellaneousModels.INSTANCE.gaiaSpreaderCore;
 			case REDSTONE -> MiscellaneousModels.INSTANCE.redstoneSpreaderCore;
@@ -129,7 +129,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Tile
 		return MiscellaneousModels.INSTANCE.spreaderPaddings.get(color);
 	}
 
-	private BakedModel getScaffoldingModel(TileSpreader tile) {
+	private BakedModel getScaffoldingModel(ManaSpreaderBlockEntity tile) {
 		return switch (tile.getVariant()) {
 			case MANA, REDSTONE -> MiscellaneousModels.INSTANCE.manaSpreaderScaffolding;
 			case ELVEN -> MiscellaneousModels.INSTANCE.elvenSpreaderScaffolding;

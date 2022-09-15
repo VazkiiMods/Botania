@@ -65,7 +65,7 @@ import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.command.SkyblockCommand;
@@ -331,7 +331,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 	private void serverStopping(MinecraftServer server) {
 		ManaNetworkHandler.instance.clear();
-		TileCorporeaIndex.clearIndexCache();
+		CorporeaIndexBlockEntity.clearIndexCache();
 	}
 
 }

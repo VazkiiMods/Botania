@@ -43,7 +43,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.tile.mana.IThrottledPacket;
+import vazkii.botania.common.block.tile.mana.ThrottledPacket;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.proxy.IProxy;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -459,7 +459,7 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 
 		if (!fake && !noParticles && !level.isClientSide) {
 			if (receiver != null && receiver.canReceiveManaFromBursts() && onReceiverImpact(receiver)) {
-				if (tile instanceof IThrottledPacket throttledPacket) {
+				if (tile instanceof ThrottledPacket throttledPacket) {
 					throttledPacket.markDispatchable();
 				} else if (tile != null) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);

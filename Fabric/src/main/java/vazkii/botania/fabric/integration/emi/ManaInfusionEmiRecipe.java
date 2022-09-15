@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		widgets.add(new BlendTextureWidget(TEXTURE, 28, 0, 65, 44, 0, 0));
-		widgets.add(new ManaWidget(7, 50, mana, TilePool.MAX_MANA / 10));
+		widgets.add(new ManaWidget(7, 50, mana, ManaPoolBlockEntity.MAX_MANA / 10));
 		widgets.addSlot(input.get(0), 21, 13).drawBack(false);
 		widgets.addSlot(POOL, 50, 13).catalyst(true).drawBack(false);
 		if (catalysts.size() > 0) {

@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileDistributor;
+import vazkii.botania.common.block.tile.mana.ManaSplitterBlockEntity;
 
 public class ManaDistributorBlock extends BlockModWaterloggable implements EntityBlock {
 
@@ -44,14 +44,14 @@ public class ManaDistributorBlock extends BlockModWaterloggable implements Entit
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileDistributor(pos, state);
+		return new ManaSplitterBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.DISTRIBUTOR, TileDistributor::serverTick);
+			return createTickerHelper(type, ModTiles.DISTRIBUTOR, ManaSplitterBlockEntity::serverTick);
 		}
 		return null;
 	}

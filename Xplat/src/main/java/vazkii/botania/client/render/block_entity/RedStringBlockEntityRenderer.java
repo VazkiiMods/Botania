@@ -23,13 +23,13 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.tile.string.TileRedString;
+import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 
 import java.util.Random;
 
-public class RedStringBlockEntityRenderer<T extends TileRedString> implements BlockEntityRenderer<T> {
+public class RedStringBlockEntityRenderer<T extends RedStringBlockEntity> implements BlockEntityRenderer<T> {
 	// 0 -> none, 10 -> full
 	private static int transparency = 0;
 
@@ -46,7 +46,7 @@ public class RedStringBlockEntityRenderer<T extends TileRedString> implements Bl
 	public RedStringBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(TileRedString tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(RedStringBlockEntity tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		if (transparency <= 0) {
 			return;
 		}

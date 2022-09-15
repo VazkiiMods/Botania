@@ -13,19 +13,19 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.tile.string.TileRedStringContainer;
+import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
 
 import java.util.Iterator;
 
 @SuppressWarnings("UnstableApiUsage")
 public class RedStringContainerStorage implements Storage<ItemVariant> {
-	private final TileRedStringContainer container;
+	private final RedStringContainerBlockEntity container;
 	private final Direction direction;
 
 	private BlockApiCache<Storage<ItemVariant>, Direction> cache;
 	private BlockPos cachePos;
 
-	public RedStringContainerStorage(TileRedStringContainer container, Direction direction) {
+	public RedStringContainerStorage(RedStringContainerBlockEntity container, Direction direction) {
 		this.container = container;
 		this.direction = direction;
 	}

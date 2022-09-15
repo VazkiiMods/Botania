@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileRFGenerator;
+import vazkii.botania.common.block.tile.mana.PowerGeneratorBlockEntity;
 
 public class PowerGeneratorBlock extends BlockMod implements EntityBlock {
 
@@ -32,14 +32,14 @@ public class PowerGeneratorBlock extends BlockMod implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRFGenerator(pos, state);
+		return new PowerGeneratorBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.FLUXFIELD, TileRFGenerator::serverTick);
+			return createTickerHelper(type, ModTiles.FLUXFIELD, PowerGeneratorBlockEntity::serverTick);
 		}
 		return null;
 	}

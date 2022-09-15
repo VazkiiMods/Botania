@@ -45,7 +45,7 @@ import vazkii.botania.common.advancements.AlfheimPortalBreadTrigger;
 import vazkii.botania.common.advancements.AlfheimPortalTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -424,7 +424,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 	}
 
 	public boolean consumeMana(List<BlockPos> pylons, int totalCost, boolean close) {
-		List<TilePool> consumePools = new ArrayList<>();
+		List<ManaPoolBlockEntity> consumePools = new ArrayList<>();
 		int consumed = 0;
 
 		if (pylons.size() < 2) {
@@ -443,7 +443,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 			}
 
 			tile = level.getBlockEntity(pos.below());
-			if (tile instanceof TilePool pool) {
+			if (tile instanceof ManaPoolBlockEntity pool) {
 				if (pool.getCurrentMana() < costPer) {
 					closeNow = closeNow || close;
 					return false;
@@ -455,7 +455,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 		}
 
 		if (consumed >= expectedConsumption) {
-			for (TilePool pool : consumePools) {
+			for (ManaPoolBlockEntity pool : consumePools) {
 				pool.receiveMana(-costPer);
 			}
 			return true;

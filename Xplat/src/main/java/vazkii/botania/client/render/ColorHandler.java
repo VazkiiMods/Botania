@@ -33,7 +33,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.block.tile.TilePlatform;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.*;
@@ -68,7 +68,7 @@ public final class ColorHandler {
 					int color = ColorHelper.getColorValue(DyeColor.WHITE);
 					if (world != null && pos != null) {
 						BlockEntity te = world.getBlockEntity(pos);
-						if (te instanceof TilePool pool) {
+						if (te instanceof ManaPoolBlockEntity pool) {
 							color = ColorHelper.getColorValue(pool.getColor());
 						}
 					}
@@ -141,7 +141,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			if (t == 1) {
 				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(s);
-				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) TilePool.MAX_MANA, 1F);
+				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ManaPoolBlockEntity.MAX_MANA, 1F);
 			}
 			return -1;
 		}, ModItems.manaMirror);

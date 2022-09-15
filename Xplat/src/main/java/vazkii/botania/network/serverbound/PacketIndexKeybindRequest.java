@@ -15,7 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -44,7 +44,7 @@ public record PacketIndexKeybindRequest(ItemStack stack) implements IPacket {
 				return;
 			}
 
-			for (TileCorporeaIndex index : TileCorporeaIndex.getNearbyValidIndexes(player)) {
+			for (CorporeaIndexBlockEntity index : CorporeaIndexBlockEntity.getNearbyValidIndexes(player)) {
 				index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(stack, true), stack.getCount());
 			}
 		});

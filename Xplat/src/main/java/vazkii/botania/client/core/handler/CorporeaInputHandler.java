@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.RecipeBookAccess;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.mixin.client.AccessorAbstractContainerScreen;
 import vazkii.botania.mixin.client.AccessorRecipeBookComponent;
 import vazkii.botania.mixin.client.AccessorRecipeBookPage;
@@ -40,7 +40,7 @@ public class CorporeaInputHandler {
 
 		if (mc.level == null || !supportedGuiFilter.test(mc.screen)
 				|| !ClientProxy.CORPOREA_REQUEST.matches(keyCode, scanCode)
-				|| TileCorporeaIndex.getNearbyValidIndexes(mc.player).isEmpty()) {
+				|| CorporeaIndexBlockEntity.getNearbyValidIndexes(mc.player).isEmpty()) {
 			return false;
 		}
 

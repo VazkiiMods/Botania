@@ -34,7 +34,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
-import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+import vazkii.botania.common.block.tile.red_string.RedStringSpooferBlockEntity;
 import vazkii.botania.common.lib.ModTags;
 
 /**
@@ -74,7 +74,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 			self.isFloating = !self.isFloating;
 		}
 		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
-		if (tileBelow instanceof TileRedStringRelay relay) {
+		if (tileBelow instanceof RedStringSpooferBlockEntity relay) {
 			BlockPos coords = relay.getBinding();
 			if (coords != null) {
 				self.positionOverride = coords;

@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.*;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
+import vazkii.botania.common.block.tile.corporea.CorporeaRetainerBlockEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
@@ -123,7 +123,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 	@Override
 	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
-		TileCorporeaRetainer.addCorporeaRequestMatcher(id, clazz, deserializer);
+		CorporeaRetainerBlockEntity.addCorporeaRequestMatcher(id, clazz, deserializer);
 	}
 
 	public void clearCache() {

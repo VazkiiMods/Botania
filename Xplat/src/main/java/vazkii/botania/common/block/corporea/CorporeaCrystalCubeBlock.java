@@ -31,8 +31,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
+import vazkii.botania.common.block.tile.corporea.BaseCorporeaBlockEntity;
+import vazkii.botania.common.block.tile.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.common.item.ItemTwigWand;
 
 public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements EntityBlock {
@@ -46,7 +46,7 @@ public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements E
 	@Override
 	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
 		if (!world.isClientSide) {
-			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
+			CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos);
 			cube.doRequest(player.isShiftKeyDown());
 		}
 	}
@@ -64,7 +64,7 @@ public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements E
 			if (stack.getItem() instanceof ItemTwigWand && player.isShiftKeyDown()) {
 				return InteractionResult.PASS;
 			}
-			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
+			CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos);
 			if (cube.locked) {
 				if (!world.isClientSide) {
 					player.displayClientMessage(Component.translatable("botaniamisc.crystalCubeLocked"), false);
@@ -79,15 +79,15 @@ public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements E
 
 	@NotNull
 	@Override
-	public TileCorporeaBase newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCorporeaCrystalCube(pos, state);
+	public BaseCorporeaBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new CorporeaCrystalCubeBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
 		if (!level.isClientSide) {
-			return createTickerHelper(type, ModTiles.CORPOREA_CRYSTAL_CUBE, TileCorporeaCrystalCube::serverTick);
+			return createTickerHelper(type, ModTiles.CORPOREA_CRYSTAL_CUBE, CorporeaCrystalCubeBlockEntity::serverTick);
 		}
 		return null;
 	}
@@ -99,6 +99,6 @@ public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements E
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((TileCorporeaCrystalCube) world.getBlockEntity(pos)).getComparatorValue();
+		return ((CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
 	}
 }

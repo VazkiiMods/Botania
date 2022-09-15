@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
+import vazkii.botania.common.block.tile.corporea.BaseCorporeaBlockEntity;
+import vazkii.botania.common.block.tile.corporea.CorporeaInterceptorBlockEntity;
 
 public class CorporeaInterceptorBlock extends BlockMod implements EntityBlock {
 
@@ -55,8 +55,8 @@ public class CorporeaInterceptorBlock extends BlockMod implements EntityBlock {
 
 	@NotNull
 	@Override
-	public TileCorporeaBase newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCorporeaInterceptor(pos, state);
+	public BaseCorporeaBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new CorporeaInterceptorBlockEntity(pos, state);
 	}
 
 }

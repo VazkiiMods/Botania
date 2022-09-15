@@ -60,7 +60,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements WandBindable, KeyLocked, IThrottledPacket, ManaSpreader, Wandable {
+public class ManaSpreaderBlockEntity extends TileExposedSimpleInventory implements WandBindable, KeyLocked, ThrottledPacket, ManaSpreader, Wandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -133,7 +133,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	private List<PositionProperties> lastTentativeBurst;
 	private boolean invalidTentativeBurst = false;
 
-	public TileSpreader(BlockPos pos, BlockState state) {
+	public ManaSpreaderBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.SPREADER, pos, state);
 	}
 
@@ -154,7 +154,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 		BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.COLLECTOR, ManaNetworkAction.REMOVE);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileSpreader self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, ManaSpreaderBlockEntity self) {
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(level, self);
 		boolean wasInNetwork = inNetwork;
 		if (!inNetwork && !self.isRemoved()) {
@@ -539,9 +539,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	}
 
 	public static class WandHud implements WandHUD {
-		private final TileSpreader spreader;
+		private final ManaSpreaderBlockEntity spreader;
 
-		public WandHud(TileSpreader spreader) {
+		public WandHud(ManaSpreaderBlockEntity spreader) {
 			this.spreader = spreader;
 		}
 

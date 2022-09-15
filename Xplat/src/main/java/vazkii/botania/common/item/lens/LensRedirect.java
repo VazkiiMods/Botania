@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaSpreader;
-import vazkii.botania.common.block.tile.mana.IThrottledPacket;
+import vazkii.botania.common.block.tile.mana.ThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -107,7 +107,7 @@ public class LensRedirect extends Lens {
 			spreader.setRotationY((float) angle);
 
 			spreader.commitRedirection();
-			if (spreader instanceof IThrottledPacket pkt) {
+			if (spreader instanceof ThrottledPacket pkt) {
 				pkt.markDispatchable();
 			}
 		}

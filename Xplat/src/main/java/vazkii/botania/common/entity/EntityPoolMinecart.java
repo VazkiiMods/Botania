@@ -31,8 +31,8 @@ import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.block.tile.mana.TilePump;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.tile.mana.ManaPumpBlockEntity;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -100,8 +100,8 @@ public class EntityPoolMinecart extends AbstractMinecart {
 		super.tick();
 
 		if (level.isClientSide) {
-			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
-			int color = TilePool.PARTICLE_COLOR;
+			double particleChance = 1F - (double) getMana() / (double) ManaPoolBlockEntity.MAX_MANA * 0.1;
+			int color = ManaPoolBlockEntity.PARTICLE_COLOR;
 			float red = (color >> 16 & 0xFF) / 255F;
 			float green = (color >> 8 & 0xFF) / 255F;
 			float blue = (color & 0xFF) / 255F;
@@ -123,7 +123,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 			BlockPos pumpPos = pos.relative(dir);
 			BlockState pumpState = level.getBlockState(pumpPos);
 			if (pumpState.is(ModBlocks.pump)) {
-				TilePump pump = (TilePump) level.getBlockEntity(pumpPos);
+				ManaPumpBlockEntity pump = (ManaPumpBlockEntity) level.getBlockEntity(pumpPos);
 				BlockPos poolPos = pumpPos.relative(dir);
 				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
 
@@ -139,7 +139,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 							int cartMana = getMana();
 							int poolMana = pool.getCurrentMana();
 							int transfer = Math.min(TRANSFER_RATE, poolMana);
-							int actualTransfer = Math.min(TilePool.MAX_MANA - cartMana, transfer);
+							int actualTransfer = Math.min(ManaPoolBlockEntity.MAX_MANA - cartMana, transfer);
 							if (actualTransfer > 0) {
 								pool.receiveMana(-transfer);
 								setMana(cartMana + actualTransfer);
@@ -167,7 +167,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 
 					if (can) {
 						pump.hasCartOnTop = true;
-						pump.comparator = (int) ((double) getMana() / (double) TilePool.MAX_MANA * 15); // different from TilePool.calculateComparatorLevel, kept for compatibility
+						pump.comparator = (int) ((double) getMana() / (double) ManaPoolBlockEntity.MAX_MANA * 15); // different from ManaPoolBlockEntity.calculateComparatorLevel, kept for compatibility
 					}
 
 				}
@@ -194,7 +194,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 
 	@SoftImplement("IForgeMinecart")
 	public int getComparatorLevel() {
-		return TilePool.calculateComparatorLevel(getMana(), TilePool.MAX_MANA);
+		return ManaPoolBlockEntity.calculateComparatorLevel(getMana(), ManaPoolBlockEntity.MAX_MANA);
 	}
 
 	public int getMana() {

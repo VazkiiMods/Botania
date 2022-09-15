@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -82,7 +82,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 	public void draw(ManaInfusionRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 40, 0);
-		HUDHandler.renderManaBar(ms, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
+		HUDHandler.renderManaBar(ms, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), ManaPoolBlockEntity.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 	}
 

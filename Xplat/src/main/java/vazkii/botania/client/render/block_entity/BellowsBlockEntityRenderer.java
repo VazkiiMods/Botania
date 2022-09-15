@@ -23,9 +23,9 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BellowsModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
-import vazkii.botania.common.block.tile.mana.TileBellows;
+import vazkii.botania.common.block.tile.mana.BellowsBlockEntity;
 
-public class BellowsBlockEntityRenderer implements BlockEntityRenderer<TileBellows> {
+public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity> {
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_BELLOWS);
 	private final BellowsModel model;
 
@@ -34,7 +34,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<TileBello
 	}
 
 	@Override
-	public void render(@Nullable TileBellows bellows, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable BellowsBlockEntity bellows, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);

@@ -33,12 +33,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements CorporeaRequestor {
+public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor {
 	public static final double RADIUS = 2.5;
 	public static final int MAX_REQUEST = 1 << 16;
 
-	private static final Set<TileCorporeaIndex> serverIndexes = Collections.newSetFromMap(new WeakHashMap<>());
-	private static final Set<TileCorporeaIndex> clientIndexes = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<CorporeaIndexBlockEntity> serverIndexes = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<CorporeaIndexBlockEntity> clientIndexes = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap<>();
 
@@ -262,11 +262,11 @@ public class TileCorporeaIndex extends TileCorporeaBase implements CorporeaReque
 	public float closeby = 0F;
 	public boolean hasCloseby;
 
-	public TileCorporeaIndex(BlockPos pos, BlockState state) {
+	public CorporeaIndexBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.CORPOREA_INDEX, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileCorporeaIndex self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, CorporeaIndexBlockEntity self) {
 		double x = worldPosition.getX() + 0.5;
 		double y = worldPosition.getY() + 0.5;
 		double z = worldPosition.getZ() + 0.5;
@@ -297,7 +297,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements CorporeaReque
 		}
 	}
 
-	public static List<TileCorporeaIndex> getNearbyValidIndexes(Player player) {
+	public static List<CorporeaIndexBlockEntity> getNearbyValidIndexes(Player player) {
 		return (player.level.isClientSide ? clientIndexes : serverIndexes)
 				.stream().filter(i -> i.getSpark() != null && i.isInRange(player))
 				.collect(Collectors.toList());
@@ -346,13 +346,13 @@ public class TileCorporeaIndex extends TileCorporeaBase implements CorporeaReque
 		}
 	}
 
-	private static void addIndex(TileCorporeaIndex index) {
-		Set<TileCorporeaIndex> set = index.level.isClientSide ? clientIndexes : serverIndexes;
+	private static void addIndex(CorporeaIndexBlockEntity index) {
+		Set<CorporeaIndexBlockEntity> set = index.level.isClientSide ? clientIndexes : serverIndexes;
 		set.add(index);
 	}
 
-	private static void removeIndex(TileCorporeaIndex index) {
-		Set<TileCorporeaIndex> set = index.level.isClientSide ? clientIndexes : serverIndexes;
+	private static void removeIndex(CorporeaIndexBlockEntity index) {
+		Set<CorporeaIndexBlockEntity> set = index.level.isClientSide ? clientIndexes : serverIndexes;
 		set.remove(index);
 	}
 
@@ -386,10 +386,10 @@ public class TileCorporeaIndex extends TileCorporeaBase implements CorporeaReque
 			return;
 		}
 
-		List<TileCorporeaIndex> nearbyIndexes = getNearbyValidIndexes(player);
+		List<CorporeaIndexBlockEntity> nearbyIndexes = getNearbyValidIndexes(player);
 		if (!nearbyIndexes.isEmpty()) {
 			String msg = message.toLowerCase(Locale.ROOT).trim();
-			for (TileCorporeaIndex index : nearbyIndexes) {
+			for (CorporeaIndexBlockEntity index : nearbyIndexes) {
 				String name = "";
 				int count = 0;
 				for (Pattern pattern : patterns.keySet()) {

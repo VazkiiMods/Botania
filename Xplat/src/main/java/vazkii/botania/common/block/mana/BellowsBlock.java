@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileBellows;
+import vazkii.botania.common.block.tile.mana.BellowsBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 
 public class BellowsBlock extends BlockMod implements EntityBlock {
@@ -67,7 +67,7 @@ public class BellowsBlock extends BlockMod implements EntityBlock {
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (PlayerHelper.isTruePlayer(player)) {
-			((TileBellows) world.getBlockEntity(pos)).interact();
+			((BellowsBlockEntity) world.getBlockEntity(pos)).interact();
 		}
 		return InteractionResult.SUCCESS;
 	}
@@ -81,12 +81,12 @@ public class BellowsBlock extends BlockMod implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileBellows(pos, state);
+		return new BellowsBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.BELLOWS, TileBellows::commonTick);
+		return createTickerHelper(type, ModTiles.BELLOWS, BellowsBlockEntity::commonTick);
 	}
 }

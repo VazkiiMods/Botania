@@ -27,10 +27,10 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
+import vazkii.botania.common.block.tile.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.mixin.AccessorItemEntity;
 
-public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRenderer<TileCorporeaCrystalCube> {
+public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRenderer<CorporeaCrystalCubeBlockEntity> {
 	// Ugly but there's no other way to get the model besides grabbing it from the event
 	public static BakedModel cubeModel = null;
 	private ItemEntity entity = null;
@@ -41,7 +41,7 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 	}
 
 	@Override
-	public void render(@Nullable TileCorporeaCrystalCube cube, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@Nullable CorporeaCrystalCubeBlockEntity cube, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if (entity == null) {

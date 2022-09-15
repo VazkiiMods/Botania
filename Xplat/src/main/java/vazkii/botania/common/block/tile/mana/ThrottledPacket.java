@@ -13,7 +13,7 @@ package vazkii.botania.common.block.tile.mana;
  * markDispatchable marks that this block entity needs to send a packet. Further handling is to be done
  * in the block entity itself.
  */
-public interface IThrottledPacket {
+public interface ThrottledPacket {
 
 	void markDispatchable();
 

@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
+import vazkii.botania.common.block.tile.corporea.CorporeaRetainerBlockEntity;
 
 public class CorporeaRetainerBlock extends BlockMod implements EntityBlock {
 
@@ -53,7 +53,7 @@ public class CorporeaRetainerBlock extends BlockMod implements EntityBlock {
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			((TileCorporeaRetainer) world.getBlockEntity(pos)).fulfilRequest();
+			((CorporeaRetainerBlockEntity) world.getBlockEntity(pos)).fulfilRequest();
 			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 		} else if (!power && powered) {
 			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
@@ -67,12 +67,12 @@ public class CorporeaRetainerBlock extends BlockMod implements EntityBlock {
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((TileCorporeaRetainer) world.getBlockEntity(pos)).getComparatorValue();
+		return ((CorporeaRetainerBlockEntity) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCorporeaRetainer(pos, state);
+		return new CorporeaRetainerBlockEntity(pos, state);
 	}
 }

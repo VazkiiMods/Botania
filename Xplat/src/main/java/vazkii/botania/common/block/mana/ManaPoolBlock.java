@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import java.util.List;
@@ -91,7 +91,7 @@ public class ManaPoolBlock extends BlockModWaterloggable implements EntityBlock 
 	public InteractionResult use(@NotNull BlockState state, Level world, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 		BlockEntity te = world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.getItem() instanceof DyeItem dye && te instanceof TilePool pool) {
+		if (stack.getItem() instanceof DyeItem dye && te instanceof ManaPoolBlockEntity pool) {
 			DyeColor color = dye.getDyeColor();
 			if (color != pool.getColor()) {
 				pool.setColor(color);
@@ -116,19 +116,19 @@ public class ManaPoolBlock extends BlockModWaterloggable implements EntityBlock 
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TilePool(pos, state);
+		return new ManaPoolBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.POOL, level.isClientSide ? TilePool::clientTick : TilePool::serverTick);
+		return createTickerHelper(type, ModTiles.POOL, level.isClientSide ? ManaPoolBlockEntity::clientTick : ManaPoolBlockEntity::serverTick);
 	}
 
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
 		if (entity instanceof ItemEntity item) {
-			TilePool tile = (TilePool) world.getBlockEntity(pos);
+			ManaPoolBlockEntity tile = (ManaPoolBlockEntity) world.getBlockEntity(pos);
 			tile.collideEntityItem(item);
 		}
 	}
@@ -150,7 +150,7 @@ public class ManaPoolBlock extends BlockModWaterloggable implements EntityBlock 
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		TilePool pool = (TilePool) world.getBlockEntity(pos);
-		return TilePool.calculateComparatorLevel(pool.getCurrentMana(), pool.manaCap);
+		ManaPoolBlockEntity pool = (ManaPoolBlockEntity) world.getBlockEntity(pos);
+		return ManaPoolBlockEntity.calculateComparatorLevel(pool.getCurrentMana(), pool.manaCap);
 	}
 }

@@ -31,8 +31,8 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 
-public class TilePrism extends TileExposedSimpleInventory implements ManaTrigger {
-	public TilePrism(BlockPos pos, BlockState state) {
+public class ManaPrismBlockEntity extends TileExposedSimpleInventory implements ManaTrigger {
+	public ManaPrismBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.PRISM, pos, state);
 	}
 
@@ -93,9 +93,9 @@ public class TilePrism extends TileExposedSimpleInventory implements ManaTrigger
 	}
 
 	public static class WandHud implements WandHUD {
-		private final TilePrism prism;
+		private final ManaPrismBlockEntity prism;
 
-		public WandHud(TilePrism prism) {
+		public WandHud(ManaPrismBlockEntity prism) {
 			this.prism = prism;
 		}
 

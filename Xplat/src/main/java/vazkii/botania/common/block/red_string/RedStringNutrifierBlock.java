@@ -26,8 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.string.TileRedString;
-import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
+import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.tile.red_string.RedStringNutrifierBlockEntity;
 
 public class RedStringNutrifierBlock extends RedStringBlock implements BonemealableBlock {
 
@@ -38,28 +38,28 @@ public class RedStringNutrifierBlock extends RedStringBlock implements Bonemeala
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return ((TileRedStringFertilizer) world.getBlockEntity(pos)).canGrow(world, isClient);
+		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canGrow(world, isClient);
 	}
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return ((TileRedStringFertilizer) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
+		return ((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
-		((TileRedStringFertilizer) world.getBlockEntity(pos)).grow(world, rand);
+		((RedStringNutrifierBlockEntity) world.getBlockEntity(pos)).grow(world, rand);
 	}
 
 	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRedStringFertilizer(pos, state);
+	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new RedStringNutrifierBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_FERTILIZER, TileRedStringFertilizer::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_FERTILIZER, RedStringNutrifierBlockEntity::commonTick);
 	}
 }

@@ -28,14 +28,14 @@ import vazkii.botania.common.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 
-public class TileBellows extends TileMod {
+public class BellowsBlockEntity extends TileMod {
 	private static final String TAG_ACTIVE = "active";
 
 	public float movePos;
 	public boolean active = false;
 	public float moving = 0F;
 
-	public TileBellows(BlockPos pos, BlockState state) {
+	public BellowsBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.BELLOWS, pos, state);
 	}
 
@@ -45,10 +45,10 @@ public class TileBellows extends TileMod {
 		}
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileBellows self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, BellowsBlockEntity self) {
 		boolean disable = true;
 		BlockEntity tile = self.getLinkedTile();
-		if (!self.active && tile instanceof TilePool pool) {
+		if (!self.active && tile instanceof ManaPoolBlockEntity pool) {
 			boolean transfer = pool.isDoingTransfer;
 			if (transfer) {
 				if (pool.ticksDoingTransfer > 0) {

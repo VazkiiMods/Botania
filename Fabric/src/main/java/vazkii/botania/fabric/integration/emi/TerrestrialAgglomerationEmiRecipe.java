@@ -6,7 +6,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
-		widgets.add(new ManaWidget(2, 100, mana, TilePool.MAX_MANA / 10));
+		widgets.add(new ManaWidget(2, 100, mana, ManaPoolBlockEntity.MAX_MANA / 10));
 		RunicAltarEmiRecipe.addRunicAltarWidgets(widgets, this, input, PLATE, output.get(0));
 	}
 }

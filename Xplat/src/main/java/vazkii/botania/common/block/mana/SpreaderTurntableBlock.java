@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.BlockOpenCrate;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileTurntable;
+import vazkii.botania.common.block.tile.mana.SpreaderTurntableBlockEntity;
 
 public class SpreaderTurntableBlock extends BlockMod implements EntityBlock {
 
@@ -34,13 +34,13 @@ public class SpreaderTurntableBlock extends BlockMod implements EntityBlock {
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileTurntable(pos, state);
+		return new SpreaderTurntableBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.TURNTABLE, TileTurntable::commonTick);
+		return createTickerHelper(type, ModTiles.TURNTABLE, SpreaderTurntableBlockEntity::commonTick);
 	}
 
 	@Override

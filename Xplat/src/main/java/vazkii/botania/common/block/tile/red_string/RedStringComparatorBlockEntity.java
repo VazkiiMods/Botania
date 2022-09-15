@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.tile.string;
+package vazkii.botania.common.block.tile.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -14,15 +14,15 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
-public class TileRedStringComparator extends TileRedString {
+public class RedStringComparatorBlockEntity extends RedStringBlockEntity {
 	private int comparatorValue = 0;
 
-	public TileRedStringComparator(BlockPos pos, BlockState state) {
+	public RedStringComparatorBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.RED_STRING_COMPARATOR, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileRedStringComparator self) {
-		TileRedString.commonTick(level, worldPosition, state, self);
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, RedStringComparatorBlockEntity self) {
+		RedStringBlockEntity.commonTick(level, worldPosition, state, self);
 		BlockPos binding = self.getBinding();
 		BlockState bindState = self.getStateAtBinding();
 		int origVal = self.comparatorValue;

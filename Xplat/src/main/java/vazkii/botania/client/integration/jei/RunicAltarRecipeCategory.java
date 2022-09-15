@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -80,7 +80,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	public void draw(RunicAltarRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
-		HUDHandler.renderManaBar(ms, 6, 98, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
+		HUDHandler.renderManaBar(ms, 6, 98, 0x0000FF, 0.75F, recipe.getManaUsage(), ManaPoolBlockEntity.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 	}
 

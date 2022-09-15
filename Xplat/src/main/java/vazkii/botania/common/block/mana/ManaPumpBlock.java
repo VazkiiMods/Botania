@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TilePump;
+import vazkii.botania.common.block.tile.mana.ManaPumpBlockEntity;
 
 public class ManaPumpBlock extends BlockModWaterloggable implements EntityBlock {
 
@@ -71,19 +71,19 @@ public class ManaPumpBlock extends BlockModWaterloggable implements EntityBlock 
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-		return ((TilePump) world.getBlockEntity(pos)).comparator;
+		return ((ManaPumpBlockEntity) world.getBlockEntity(pos)).comparator;
 	}
 
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TilePump(pos, state);
+		return new ManaPumpBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.PUMP, TilePump::commonTick);
+		return createTickerHelper(type, ModTiles.PUMP, ManaPumpBlockEntity::commonTick);
 	}
 
 	@Override

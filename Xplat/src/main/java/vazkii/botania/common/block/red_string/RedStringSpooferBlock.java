@@ -22,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.string.TileRedString;
-import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.tile.red_string.RedStringSpooferBlockEntity;
 
 public class RedStringSpooferBlock extends RedStringBlock {
 
@@ -34,14 +34,14 @@ public class RedStringSpooferBlock extends RedStringBlock {
 
 	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRedStringRelay(pos, state);
+	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new RedStringSpooferBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_RELAY, TileRedStringRelay::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_RELAY, RedStringSpooferBlockEntity::commonTick);
 	}
 
 }

@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -28,6 +28,6 @@ public record PacketIndexStringRequest(String message) implements IPacket {
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
-		server.execute(() -> TileCorporeaIndex.onChatMessage(player, message()));
+		server.execute(() -> CorporeaIndexBlockEntity.onChatMessage(player, message()));
 	}
 }

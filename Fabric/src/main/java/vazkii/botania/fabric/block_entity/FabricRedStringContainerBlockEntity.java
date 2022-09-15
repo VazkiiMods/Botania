@@ -10,10 +10,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.block.tile.string.TileRedStringContainer;
+import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 
-public class FabricRedStringContainerBlockEntity extends TileRedStringContainer {
+public class FabricRedStringContainerBlockEntity extends RedStringContainerBlockEntity {
 	private final RedStringContainerStorage[] storages = new RedStringContainerStorage[Direction.values().length];
 	private BlockPos clientPos;
 
@@ -21,7 +21,7 @@ public class FabricRedStringContainerBlockEntity extends TileRedStringContainer 
 		super(pos, state);
 	}
 
-	public static Storage<ItemVariant> getStorage(TileRedStringContainer container, Direction direction) {
+	public static Storage<ItemVariant> getStorage(RedStringContainerBlockEntity container, Direction direction) {
 		if (container instanceof FabricRedStringContainerBlockEntity c) {
 			return c.storage(direction);
 		}

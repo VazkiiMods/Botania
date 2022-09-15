@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -40,7 +40,7 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
-		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), TilePool.MAX_MANA / 2,
+		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), ManaPoolBlockEntity.MAX_MANA / 2,
 				new ItemStack(ModItems.terrasteel), Ingredient.of(ModItems.manaSteel),
 				Ingredient.of(ModItems.manaPearl), Ingredient.of(ModItems.manaDiamond)));
 	}

@@ -29,8 +29,8 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileCorporeaFunnel extends TileCorporeaBase implements CorporeaRequestor {
-	public TileCorporeaFunnel(BlockPos pos, BlockState state) {
+public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor {
+	public CorporeaFunnelBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.CORPOREA_FUNNEL, pos, state);
 	}
 

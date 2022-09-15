@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.Blocks;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
@@ -389,7 +389,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.display(simple(ModBlocks.corporeaIndex, "superCorporeaRequest", FrameType.CHALLENGE))
 				.parent(root)
 				.addCriterion("big_request", new CorporeaRequestTrigger.Instance(
-						EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(TileCorporeaIndex.MAX_REQUEST), LocationPredicate.ANY))
+						EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(CorporeaIndexBlockEntity.MAX_REQUEST), LocationPredicate.ANY))
 				.save(consumer, challengeId("super_corporea_request"));
 		Advancement.Builder.advancement()
 				.display(simple(ModItems.terraPick, "rankSSPick", FrameType.CHALLENGE))

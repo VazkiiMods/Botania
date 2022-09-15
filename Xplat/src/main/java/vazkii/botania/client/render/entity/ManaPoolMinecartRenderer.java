@@ -24,11 +24,11 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
 public class ManaPoolMinecartRenderer extends MinecartRenderer<EntityPoolMinecart> {
-	private static final TilePool DUMMY = new TilePool(ManaBurst.NO_SOURCE, ModBlocks.manaPool.defaultBlockState());
+	private static final ManaPoolBlockEntity DUMMY = new ManaPoolBlockEntity(ManaBurst.NO_SOURCE, ModBlocks.manaPool.defaultBlockState());
 
 	public ManaPoolMinecartRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx, ModelLayers.MINECART);

@@ -80,9 +80,9 @@ import vazkii.botania.common.block.mana.ManaDetectorBlock;
 import vazkii.botania.common.block.mana.ManaVoidBlock;
 import vazkii.botania.common.block.red_string.RedStringInterceptorBlock;
 import vazkii.botania.common.block.tile.*;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.block.tile.mana.TileRFGenerator;
-import vazkii.botania.common.block.tile.string.TileRedStringContainer;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.tile.mana.PowerGeneratorBlockEntity;
+import vazkii.botania.common.block.tile.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
@@ -533,7 +533,7 @@ public class ForgeCommonInitializer {
 			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, new SidedInvWrapper(inv, null)));
 		}
 
-		if (be instanceof TileRFGenerator gen) {
+		if (be instanceof PowerGeneratorBlockEntity gen) {
 			// we only provide a view of the energy level, no interaction allowed
 			var energyStorage = new IEnergyStorage() {
 				@Override
@@ -543,7 +543,7 @@ public class ForgeCommonInitializer {
 
 				@Override
 				public int getMaxEnergyStored() {
-					return TileRFGenerator.MAX_ENERGY;
+					return PowerGeneratorBlockEntity.MAX_ENERGY;
 				}
 
 				@Override
@@ -579,7 +579,7 @@ public class ForgeCommonInitializer {
 					(Wandable) be));
 		}
 
-		if (be instanceof TileRedStringContainer container) {
+		if (be instanceof RedStringContainerBlockEntity container) {
 			e.addCapability(prefix("red_string"), new RedStringContainerCapProvider(container));
 		}
 
@@ -618,7 +618,7 @@ public class ForgeCommonInitializer {
 
 	private void serverStopping(MinecraftServer server) {
 		ManaNetworkHandler.instance.clear();
-		TileCorporeaIndex.clearIndexCache();
+		CorporeaIndexBlockEntity.clearIndexCache();
 	}
 
 }

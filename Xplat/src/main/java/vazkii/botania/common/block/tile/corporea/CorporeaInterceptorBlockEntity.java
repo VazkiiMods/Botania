@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class TileCorporeaInterceptor extends TileCorporeaBase implements CorporeaInterceptor {
-	public TileCorporeaInterceptor(BlockPos pos, BlockState state) {
+public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity implements CorporeaInterceptor {
+	public CorporeaInterceptorBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.CORPOREA_INTERCEPTOR, pos, state);
 	}
 
@@ -55,10 +55,10 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements Corpore
 			if (missing > 0 && !getBlockState().getValue(BlockStateProperties.POWERED)) {
 				BlockPos requestorPos = source.getSparkNode().getPos();
 
-				List<TileCorporeaRetainer> retainers = new ArrayList<>();
+				List<CorporeaRetainerBlockEntity> retainers = new ArrayList<>();
 				for (Direction dir : Direction.values()) {
 					BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-					if (tile instanceof TileCorporeaRetainer retainer) {
+					if (tile instanceof CorporeaRetainerBlockEntity retainer) {
 						retainers.add(retainer);
 						retainer.forget();
 					}
@@ -67,7 +67,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements Corpore
 				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true));
 				level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
 
-				for (TileCorporeaRetainer retainer : retainers) {
+				for (CorporeaRetainerBlockEntity retainer : retainers) {
 					retainer.remember(requestorPos, request, count, missing);
 				}
 			}

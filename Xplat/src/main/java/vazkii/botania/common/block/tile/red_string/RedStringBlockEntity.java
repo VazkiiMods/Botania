@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.tile.string;
+package vazkii.botania.common.block.tile.red_string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,15 +25,15 @@ import vazkii.botania.common.block.tile.TileMod;
 
 import java.util.Objects;
 
-public abstract class TileRedString extends TileMod implements Bound {
+public abstract class RedStringBlockEntity extends TileMod implements Bound {
 
 	private BlockPos binding;
 
-	protected TileRedString(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected RedStringBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos pos_, BlockState state, TileRedString self) {
+	public static void commonTick(Level level, BlockPos pos_, BlockState state, RedStringBlockEntity self) {
 		Direction dir = self.getOrientation();
 		int range = self.getRange();
 		BlockPos currBinding = self.getBinding();
@@ -46,7 +46,7 @@ public abstract class TileRedString extends TileMod implements Bound {
 			}
 
 			BlockEntity tile = level.getBlockEntity(pos_);
-			if (tile instanceof TileRedString) {
+			if (tile instanceof RedStringBlockEntity) {
 				continue;
 			}
 

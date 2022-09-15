@@ -29,7 +29,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements CorporeaRequestor, Wandable {
+public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor, Wandable {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";
@@ -40,11 +40,11 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements Corpore
 	private int compValue = 0;
 	public boolean locked = false;
 
-	public TileCorporeaCrystalCube(BlockPos pos, BlockState state) {
+	public CorporeaCrystalCubeBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.CORPOREA_CRYSTAL_CUBE, pos, state);
 	}
 
-	public static void serverTick(Level level, BlockPos pos, BlockState state, TileCorporeaCrystalCube self) {
+	public static void serverTick(Level level, BlockPos pos, BlockState state, CorporeaCrystalCubeBlockEntity self) {
 		++self.ticks;
 		if (self.ticks % 20 == 0) {
 			self.updateCount();

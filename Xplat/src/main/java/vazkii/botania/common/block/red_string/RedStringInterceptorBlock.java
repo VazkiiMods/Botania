@@ -31,8 +31,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.string.TileRedString;
-import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
+import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.tile.red_string.RedStringInterceptorBlockEntity;
 
 public class RedStringInterceptorBlock extends RedStringBlock {
 
@@ -48,7 +48,7 @@ public class RedStringInterceptorBlock extends RedStringBlock {
 	}
 
 	public static InteractionResult onInteract(Player player, Level world, InteractionHand hand, BlockHitResult hit) {
-		return TileRedStringInterceptor.onInteract(player, world, hit.getBlockPos(), hand);
+		return RedStringInterceptorBlockEntity.onInteract(player, world, hit.getBlockPos(), hand);
 	}
 
 	@Override
@@ -68,13 +68,13 @@ public class RedStringInterceptorBlock extends RedStringBlock {
 
 	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRedStringInterceptor(pos, state);
+	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new RedStringInterceptorBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_INTERCEPTOR, TileRedStringInterceptor::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_INTERCEPTOR, RedStringInterceptorBlockEntity::commonTick);
 	}
 }

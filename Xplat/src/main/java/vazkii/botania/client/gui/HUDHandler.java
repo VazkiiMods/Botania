@@ -40,9 +40,9 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileRuneAltar;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.corporea.CorporeaCrystalCubeBlockEntity;
+import vazkii.botania.common.block.tile.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemCraftingHalo;
@@ -109,7 +109,7 @@ public final class HUDHandler {
 						profiler.pop();
 					}
 				}
-				if (tile instanceof TilePool pool && !mc.player.getMainHandItem().isEmpty()) {
+				if (tile instanceof ManaPoolBlockEntity pool && !mc.player.getMainHandItem().isEmpty()) {
 					renderPoolRecipeHUD(ms, pool, mc.player.getMainHandItem());
 				}
 			}
@@ -118,13 +118,13 @@ public final class HUDHandler {
 					TileAltar.Hud.render(altar, ms, mc);
 				} else if (tile instanceof TileRuneAltar runeAltar) {
 					TileRuneAltar.Hud.render(runeAltar, ms, mc);
-				} else if (tile instanceof TileCorporeaCrystalCube cube) {
+				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
 					renderCrystalCubeHUD(ms, cube);
 				}
 			}
 		}
 
-		if (!TileCorporeaIndex.getNearbyValidIndexes(mc.player).isEmpty() && mc.screen instanceof ChatScreen) {
+		if (!CorporeaIndexBlockEntity.getNearbyValidIndexes(mc.player).isEmpty() && mc.screen instanceof ChatScreen) {
 			profiler.push("nearIndex");
 			renderNearIndexDisplay(ms);
 			profiler.pop();
@@ -239,7 +239,7 @@ public final class HUDHandler {
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
-	private static void renderPoolRecipeHUD(PoseStack ms, TilePool tile, ItemStack stack) {
+	private static void renderPoolRecipeHUD(PoseStack ms, ManaPoolBlockEntity tile, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		ProfilerFiller profiler = mc.getProfiler();
 
@@ -268,7 +268,7 @@ public final class HUDHandler {
 		profiler.pop();
 	}
 
-	private static void renderCrystalCubeHUD(PoseStack ms, TileCorporeaCrystalCube tile) {
+	private static void renderCrystalCubeHUD(PoseStack ms, CorporeaCrystalCubeBlockEntity tile) {
 		Minecraft mc = Minecraft.getInstance();
 		ProfilerFiller profiler = mc.getProfiler();
 

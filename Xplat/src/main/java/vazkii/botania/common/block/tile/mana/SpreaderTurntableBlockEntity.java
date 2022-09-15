@@ -29,21 +29,21 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileTurntable extends TileMod implements Wandable {
+public class SpreaderTurntableBlockEntity extends TileMod implements Wandable {
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
 
 	private int speed = 1;
 	private boolean backwards = false;
 
-	public TileTurntable(BlockPos pos, BlockState state) {
+	public SpreaderTurntableBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.TURNTABLE, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileTurntable self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, SpreaderTurntableBlockEntity self) {
 		if (!level.hasNeighborSignal(worldPosition)) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.above());
-			if (tile instanceof TileSpreader spreader) {
+			if (tile instanceof ManaSpreaderBlockEntity spreader) {
 				spreader.rotationX += self.speed * (self.backwards ? -1 : 1);
 				if (spreader.rotationX >= 360F) {
 					spreader.rotationX -= 360F;
@@ -79,9 +79,9 @@ public class TileTurntable extends TileMod implements Wandable {
 	}
 
 	public static class WandHud implements WandHUD {
-		private final TileTurntable turntable;
+		private final SpreaderTurntableBlockEntity turntable;
 
-		public WandHud(TileTurntable turntable) {
+		public WandHud(SpreaderTurntableBlockEntity turntable) {
 			this.turntable = turntable;
 		}
 

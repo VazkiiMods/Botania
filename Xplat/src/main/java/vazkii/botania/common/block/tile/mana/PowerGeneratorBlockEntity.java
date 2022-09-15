@@ -18,18 +18,18 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class TileRFGenerator extends TileMod implements ManaReceiver {
+public class PowerGeneratorBlockEntity extends TileMod implements ManaReceiver {
 	private static final int MANA_TO_FE = IXplatAbstractions.INSTANCE.isForge() ? 10 : 3;
 	public static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
 	private static final String TAG_MANA = "mana";
 	private int energy = 0;
 
-	public TileRFGenerator(BlockPos pos, BlockState state) {
+	public PowerGeneratorBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.FLUXFIELD, pos, state);
 	}
 
-	public static void serverTick(Level level, BlockPos pos, BlockState state, TileRFGenerator self) {
+	public static void serverTick(Level level, BlockPos pos, BlockState state, PowerGeneratorBlockEntity self) {
 		int toTransfer = Math.min(self.energy, 160 * MANA_TO_FE);
 		int unconsumed = IXplatAbstractions.INSTANCE.transferEnergyToNeighbors(level, pos, toTransfer);
 		if (unconsumed != toTransfer) {

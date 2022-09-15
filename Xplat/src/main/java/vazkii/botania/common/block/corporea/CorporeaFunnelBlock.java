@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
+import vazkii.botania.common.block.tile.corporea.BaseCorporeaBlockEntity;
+import vazkii.botania.common.block.tile.corporea.CorporeaFunnelBlockEntity;
 
 public class CorporeaFunnelBlock extends BlockMod implements EntityBlock {
 
@@ -41,7 +41,7 @@ public class CorporeaFunnelBlock extends BlockMod implements EntityBlock {
 
 		if (power && !powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
-			((TileCorporeaFunnel) world.getBlockEntity(pos)).doRequest();
+			((CorporeaFunnelBlockEntity) world.getBlockEntity(pos)).doRequest();
 		} else if (!power && powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
 		}
@@ -49,8 +49,8 @@ public class CorporeaFunnelBlock extends BlockMod implements EntityBlock {
 
 	@NotNull
 	@Override
-	public TileCorporeaBase newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileCorporeaFunnel(pos, state);
+	public BaseCorporeaBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new CorporeaFunnelBlockEntity(pos, state);
 	}
 
 }

@@ -22,14 +22,14 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileDistributor extends TileMod implements ManaReceiver {
+public class ManaSplitterBlockEntity extends TileMod implements ManaReceiver {
 	private final List<ManaReceiver> validPools = new ArrayList<>();
 
-	public TileDistributor(BlockPos pos, BlockState state) {
+	public ManaSplitterBlockEntity(BlockPos pos, BlockState state) {
 		super(ModTiles.DISTRIBUTOR, pos, state);
 	}
 
-	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileDistributor self) {
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, ManaSplitterBlockEntity self) {
 		self.validPools.clear();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pos = worldPosition.relative(dir);

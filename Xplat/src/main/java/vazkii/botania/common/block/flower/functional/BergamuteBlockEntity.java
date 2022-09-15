@@ -18,7 +18,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.block.tile.mana.ManaPoolBlockEntity;
 
 import java.util.*;
 
@@ -79,7 +79,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 	}
 
 	public static void particle(BergamuteBlockEntity berg) {
-		int color = TilePool.PARTICLE_COLOR;
+		int color = ManaPoolBlockEntity.PARTICLE_COLOR;
 		float red = (color >> 16 & 0xFF) / 255F;
 		float green = (color >> 8 & 0xFF) / 255F;
 		float blue = (color & 0xFF) / 255F;

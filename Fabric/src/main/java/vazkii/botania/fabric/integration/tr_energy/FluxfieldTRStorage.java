@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.mana.TileRFGenerator;
+import vazkii.botania.common.block.tile.mana.PowerGeneratorBlockEntity;
 
 
 import team.reborn.energy.api.EnergyStorage;
@@ -41,10 +41,10 @@ public class FluxfieldTRStorage extends SimpleEnergyStorage {
 		return energy;
 	}
 
-	private final TileRFGenerator generator;
+	private final PowerGeneratorBlockEntity generator;
 
-	public FluxfieldTRStorage(TileRFGenerator generator) {
-		super(TileRFGenerator.MAX_ENERGY, 0, 0);
+	public FluxfieldTRStorage(PowerGeneratorBlockEntity generator) {
+		super(PowerGeneratorBlockEntity.MAX_ENERGY, 0, 0);
 		this.generator = generator;
 	}
 

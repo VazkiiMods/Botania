@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.string.TileRedString;
-import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
+import vazkii.botania.common.block.tile.red_string.RedStringBlockEntity;
+import vazkii.botania.common.block.tile.red_string.RedStringDispenserBlockEntity;
 
 public class RedStringDispenserBlock extends RedStringBlock {
 
@@ -46,7 +46,7 @@ public class RedStringDispenserBlock extends RedStringBlock {
 		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			((TileRedStringDispenser) world.getBlockEntity(pos)).tickDispenser();
+			((RedStringDispenserBlockEntity) world.getBlockEntity(pos)).tickDispenser();
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), Block.UPDATE_INVISIBLE);
 		} else if (!power && powered) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_INVISIBLE);
@@ -55,13 +55,13 @@ public class RedStringDispenserBlock extends RedStringBlock {
 
 	@NotNull
 	@Override
-	public TileRedString newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new TileRedStringDispenser(pos, state);
+	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+		return new RedStringDispenserBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_DISPENSER, TileRedStringDispenser::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_DISPENSER, RedStringDispenserBlockEntity::commonTick);
 	}
 }
