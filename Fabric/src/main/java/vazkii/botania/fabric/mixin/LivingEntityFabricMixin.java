@@ -28,7 +28,7 @@ import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.equipment.bauble.SojournersSashItem;
 import vazkii.botania.common.item.equipment.tool.elementium.ElementiumAxeItem;
-import vazkii.botania.common.item.rod.ItemGravityRod;
+import vazkii.botania.common.item.rod.ShadedMesaRodItem;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityFabricMixin extends Entity {
@@ -76,7 +76,7 @@ public abstract class LivingEntityFabricMixin extends Entity {
 		if (!level.isClientSide) {
 			if (stack.getItem() instanceof ItemCraftingHalo halo && halo.onEntitySwing(stack, self)) {
 				ci.cancel();
-			} else if (stack.getItem() instanceof ItemGravityRod rod) {
+			} else if (stack.getItem() instanceof ShadedMesaRodItem rod) {
 				rod.onEntitySwing(stack, self);
 			}
 		}

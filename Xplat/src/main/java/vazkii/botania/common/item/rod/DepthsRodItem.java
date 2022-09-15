@@ -21,18 +21,18 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 
-public class ItemCobbleRod extends Item {
+public class DepthsRodItem extends Item {
 
 	static final int COST = 150;
 
-	public ItemCobbleRod(Properties props) {
+	public DepthsRodItem(Properties props) {
 		super(props);
 	}
 
 	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
-		return ItemDirtRod.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
+		return LandsRodItem.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
 	}
 
 	public static class BlockProviderImpl implements BlockProvider {

@@ -60,7 +60,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemExchangeRod extends Item implements WireframeCoordinateListProvider {
+public class ShiftingCrustRodItem extends Item implements WireframeCoordinateListProvider {
 
 	private static final int RANGE = 3;
 	private static final int COST = 40;
@@ -77,7 +77,7 @@ public class ItemExchangeRod extends Item implements WireframeCoordinateListProv
 	private static final String TAG_SWAP_CLICKED_AXIS = "swapClickAxis";
 	private static final String TAG_TEMPERANCE_STONE = "temperanceStone";
 
-	public ItemExchangeRod(Properties props) {
+	public ShiftingCrustRodItem(Properties props) {
 		super(props);
 	}
 

@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ItemGravityRod extends Item {
+public class ShadedMesaRodItem extends Item {
 	private static final TagKey<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
@@ -56,7 +56,7 @@ public class ItemGravityRod extends Item {
 	private static final String TAG_TARGET = "target";
 	private static final String TAG_DIST = "dist";
 
-	public ItemGravityRod(Properties props) {
+	public ShadedMesaRodItem(Properties props) {
 		super(props);
 	}
 
@@ -116,7 +116,7 @@ public class ItemGravityRod extends Item {
 	// Calls hook above on Fabric
 	public static InteractionResult onAttack(Player player, Level level, InteractionHand hand, Entity target, @Nullable EntityHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.is(ModItems.gravityRod) && ((ItemGravityRod) stack.getItem()).onLeftClickEntity(stack, player, target)) {
+		if (stack.is(ModItems.gravityRod) && ((ShadedMesaRodItem) stack.getItem()).onLeftClickEntity(stack, player, target)) {
 			return InteractionResult.FAIL;
 		}
 		return InteractionResult.PASS;

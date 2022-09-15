@@ -32,11 +32,11 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 
-public class ItemWaterRod extends Item {
+public class SeasRodItem extends Item {
 
 	public static final int COST = 75;
 
-	public ItemWaterRod(Properties props) {
+	public SeasRodItem(Properties props) {
 		super(props);
 	}
 

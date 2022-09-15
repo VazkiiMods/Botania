@@ -249,7 +249,7 @@ public class ForgeCommonInitializer {
 				}
 			});
 		}
-		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ItemExchangeRod) ModItems.exchangeRod).onLeftClick(
+		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ShiftingCrustRodItem) ModItems.exchangeRod).onLeftClick(
 				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
 		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> TerraBladeItem.leftClick(e.getItemStack()));
 		bus.addListener((AttackEntityEvent e) -> TerraBladeItem.attackEntity(
@@ -416,21 +416,21 @@ public class ForgeCommonInitializer {
 	// Instead, let's declare ahead of time what items get which caps, similar to how we do it for Fabric.
 	// Needs to be lazy since items aren't initialized yet
 	private static final Supplier<Map<Item, Function<ItemStack, AvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
-			ModItems.dirtRod, s -> new ItemDirtRod.AvatarBehavior(),
-			ModItems.diviningRod, s -> new ItemDiviningRod.AvatarBehavior(),
-			ModItems.fireRod, s -> new ItemFireRod.AvatarBehavior(),
-			ModItems.missileRod, s -> new ItemMissileRod.AvatarBehavior(),
-			ModItems.rainbowRod, s -> new ItemRainbowRod.AvatarBehavior(),
-			ModItems.tornadoRod, s -> new ItemTornadoRod.AvatarBehavior()
+			ModItems.dirtRod, s -> new LandsRodItem.AvatarBehavior(),
+			ModItems.diviningRod, s -> new PlentifulMantleRodItem.AvatarBehavior(),
+			ModItems.fireRod, s -> new HellsRodItem.AvatarBehavior(),
+			ModItems.missileRod, s -> new UnstableReservoirRodItem.AvatarBehavior(),
+			ModItems.rainbowRod, s -> new BifrostRodItem.AvatarBehavior(),
+			ModItems.tornadoRod, s -> new SkiesRodItem.AvatarBehavior()
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
-			ModItems.dirtRod, ItemDirtRod.BlockProviderImpl::new,
-			ModItems.skyDirtRod, ItemDirtRod.BlockProviderImpl::new,
+			ModItems.dirtRod, LandsRodItem.BlockProviderImpl::new,
+			ModItems.skyDirtRod, LandsRodItem.BlockProviderImpl::new,
 			ModItems.blackHoleTalisman, ItemBlackHoleTalisman.BlockProviderImpl::new,
-			ModItems.cobbleRod, s -> new ItemCobbleRod.BlockProviderImpl(),
+			ModItems.cobbleRod, s -> new DepthsRodItem.BlockProviderImpl(),
 			ModItems.enderHand, ItemEnderHand.BlockProviderImpl::new,
-			ModItems.terraformRod, s -> new ItemTerraformRod.BlockProviderImpl()
+			ModItems.terraformRod, s -> new TerraFirmaRodItem.BlockProviderImpl()
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(

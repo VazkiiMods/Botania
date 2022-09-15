@@ -180,19 +180,19 @@ public final class ModItems {
 	public static final Item infusedSeeds = make(prefix(LibItemNames.INFUSED_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.INFUSED, defaultBuilder()));
 	public static final Item mutatedSeeds = make(prefix(LibItemNames.MUTATED_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.MUTATED, defaultBuilder()));
 
-	public static final Item dirtRod = make(prefix(LibItemNames.DIRT_ROD), new ItemDirtRod(unstackable()));
-	public static final Item skyDirtRod = make(prefix(LibItemNames.SKY_DIRT_ROD), new ItemSkyDirtRod(unstackable()));
-	public static final Item terraformRod = make(prefix(LibItemNames.TERRAFORM_ROD), new ItemTerraformRod(unstackable().rarity(Rarity.UNCOMMON)));
-	public static final Item cobbleRod = make(prefix(LibItemNames.COBBLE_ROD), new ItemCobbleRod(unstackable()));
-	public static final Item waterRod = make(prefix(LibItemNames.WATER_ROD), new ItemWaterRod(unstackable()));
-	public static final Item tornadoRod = make(prefix(LibItemNames.TORNADO_ROD), new ItemTornadoRod(unstackable()));
-	public static final Item fireRod = make(prefix(LibItemNames.FIRE_ROD), new ItemFireRod(unstackable()));
-	public static final Item diviningRod = make(prefix(LibItemNames.DIVINING_ROD), new ItemDiviningRod(unstackable()));
-	public static final Item smeltRod = make(prefix(LibItemNames.SMELT_ROD), new ItemSmeltRod(unstackable()));
-	public static final Item exchangeRod = make(prefix(LibItemNames.EXCHANGE_ROD), new ItemExchangeRod(unstackable()));
-	public static final Item rainbowRod = make(prefix(LibItemNames.RAINBOW_ROD), new ItemRainbowRod(unstackable()));
-	public static final Item gravityRod = make(prefix(LibItemNames.GRAVITY_ROD), new ItemGravityRod(unstackable()));
-	public static final Item missileRod = make(prefix(LibItemNames.MISSILE_ROD), new ItemMissileRod(unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item dirtRod = make(prefix(LibItemNames.DIRT_ROD), new LandsRodItem(unstackable()));
+	public static final Item skyDirtRod = make(prefix(LibItemNames.SKY_DIRT_ROD), new HighlandsRodItem(unstackable()));
+	public static final Item terraformRod = make(prefix(LibItemNames.TERRAFORM_ROD), new TerraFirmaRodItem(unstackable().rarity(Rarity.UNCOMMON)));
+	public static final Item cobbleRod = make(prefix(LibItemNames.COBBLE_ROD), new DepthsRodItem(unstackable()));
+	public static final Item waterRod = make(prefix(LibItemNames.WATER_ROD), new SeasRodItem(unstackable()));
+	public static final Item tornadoRod = make(prefix(LibItemNames.TORNADO_ROD), new SkiesRodItem(unstackable()));
+	public static final Item fireRod = make(prefix(LibItemNames.FIRE_ROD), new HellsRodItem(unstackable()));
+	public static final Item diviningRod = make(prefix(LibItemNames.DIVINING_ROD), new PlentifulMantleRodItem(unstackable()));
+	public static final Item smeltRod = make(prefix(LibItemNames.SMELT_ROD), new MoltenCoreRodItem(unstackable()));
+	public static final Item exchangeRod = make(prefix(LibItemNames.EXCHANGE_ROD), new ShiftingCrustRodItem(unstackable()));
+	public static final Item rainbowRod = make(prefix(LibItemNames.RAINBOW_ROD), new BifrostRodItem(unstackable()));
+	public static final Item gravityRod = make(prefix(LibItemNames.GRAVITY_ROD), new ShadedMesaRodItem(unstackable()));
+	public static final Item missileRod = make(prefix(LibItemNames.MISSILE_ROD), new UnstableReservoirRodItem(unstackable().rarity(Rarity.UNCOMMON)));
 
 	// Equipment
 	public static final Item manasteelHelm = make(prefix(LibItemNames.MANASTEEL_HELM), new ManasteelHelmItem(unstackableCustomDamage()));

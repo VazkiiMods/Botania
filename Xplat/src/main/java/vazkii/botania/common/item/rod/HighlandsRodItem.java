@@ -31,9 +31,9 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
 
-public class ItemSkyDirtRod extends ItemDirtRod {
+public class HighlandsRodItem extends LandsRodItem {
 
-	public ItemSkyDirtRod(Properties props) {
+	public HighlandsRodItem(Properties props) {
 		super(props);
 	}
 

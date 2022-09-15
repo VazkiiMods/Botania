@@ -18,7 +18,7 @@ import vazkii.botania.common.item.equipment.tool.bow.LivingwoodBowItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.relic.FruitOfGrisaiaItem;
-import vazkii.botania.common.item.rod.ItemTornadoRod;
+import vazkii.botania.common.item.rod.SkiesRodItem;
 import vazkii.botania.network.TriConsumer;
 
 import java.util.Locale;
@@ -94,7 +94,7 @@ public final class BotaniaItemProperties {
 		consumer.accept(ModItems.infiniteFruit, prefix("boot"),
 				(stack, worldIn, entity, seed) -> FruitOfGrisaiaItem.isBoot(stack) ? 1F : 0F);
 		consumer.accept(ModItems.tornadoRod, prefix("active"),
-				(stack, world, living, seed) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
+				(stack, world, living, seed) -> SkiesRodItem.isFlying(stack) ? 1 : 0);
 
 		// [VanillaCopy] ItemProperties.BOW's minecraft:pulling property
 		ClampedItemPropertyFunction pulling = (stack, worldIn, entity, seed) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;

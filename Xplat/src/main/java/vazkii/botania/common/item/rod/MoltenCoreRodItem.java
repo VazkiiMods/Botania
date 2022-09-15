@@ -37,7 +37,7 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ItemSmeltRod extends Item {
+public class MoltenCoreRodItem extends Item {
 
 	private static final int TIME = 10;
 	private static final int COST = 300;
@@ -45,7 +45,7 @@ public class ItemSmeltRod extends Item {
 
 	public static final Map<Player, SmeltData> playerData = new WeakHashMap<>();
 
-	public ItemSmeltRod(Properties props) {
+	public MoltenCoreRodItem(Properties props) {
 		super(props);
 	}
 

@@ -37,10 +37,10 @@ import vazkii.botania.common.lib.ModTags;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemTerraformRod extends Item {
+public class TerraFirmaRodItem extends Item {
 	private static final int COST_PER = 55;
 
-	public ItemTerraformRod(Properties props) {
+	public TerraFirmaRodItem(Properties props) {
 		super(props);
 	}
 
@@ -148,8 +148,8 @@ public class ItemTerraformRod extends Item {
 		@Override
 		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
 			if (block == Blocks.DIRT) {
-				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, true)) ||
-						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, false));
+				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, LandsRodItem.COST, true)) ||
+						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, LandsRodItem.COST, false));
 			}
 			return false;
 		}
@@ -157,7 +157,7 @@ public class ItemTerraformRod extends Item {
 		@Override
 		public int getBlockCount(Player player, ItemStack requestor, Block block) {
 			if (block == Blocks.DIRT) {
-				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, ItemDirtRod.COST);
+				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, LandsRodItem.COST);
 			}
 			return 0;
 		}

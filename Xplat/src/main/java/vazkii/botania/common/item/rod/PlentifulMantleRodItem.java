@@ -35,13 +35,13 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Random;
 
-public class ItemDiviningRod extends Item {
+public class PlentifulMantleRodItem extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_DIVINING);
 
 	static final int COST = 3000;
 
-	public ItemDiviningRod(Properties props) {
+	public PlentifulMantleRodItem(Properties props) {
 		super(props);
 	}
 
@@ -84,7 +84,7 @@ public class ItemDiviningRod extends Item {
 			Level world = te.getLevel();
 			ManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
-				ItemDiviningRod.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
+				PlentifulMantleRodItem.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
 				receiver.receiveMana(-COST);
 			}
 		}

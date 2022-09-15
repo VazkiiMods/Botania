@@ -39,7 +39,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public class ItemRainbowRod extends SelfReturningItem {
+public class BifrostRodItem extends SelfReturningItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_RAINBOW);
 
@@ -47,7 +47,7 @@ public class ItemRainbowRod extends SelfReturningItem {
 	private static final int MANA_COST_AVATAR = 4;
 	private static final int TIME = 600;
 
-	public ItemRainbowRod(Properties props) {
+	public BifrostRodItem(Properties props) {
 		super(props);
 	}
 

@@ -38,7 +38,7 @@ import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.rod.ItemExchangeRod;
+import vazkii.botania.common.item.rod.ShiftingCrustRodItem;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
@@ -246,7 +246,7 @@ public class ItemAstrolabe extends Item {
 
 	public void displayRemainderCounter(Player player, ItemStack stack) {
 		Block block = getBlock(stack);
-		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block.asItem());
+		int count = ShiftingCrustRodItem.getInventoryItemCount(player, stack, block.asItem());
 		if (!player.level.isClientSide) {
 			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}

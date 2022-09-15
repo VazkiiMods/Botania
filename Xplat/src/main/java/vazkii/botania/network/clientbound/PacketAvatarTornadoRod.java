@@ -12,7 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.common.item.rod.ItemTornadoRod;
+import vazkii.botania.common.item.rod.SkiesRodItem;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -45,9 +45,9 @@ public record PacketAvatarTornadoRod(boolean elytra) implements IPacket {
 							var player = Minecraft.getInstance().player;
 							var world = Minecraft.getInstance().level;
 							if (elytra) {
-								ItemTornadoRod.doAvatarElytraBoost(player, world);
+								SkiesRodItem.doAvatarElytraBoost(player, world);
 							} else {
-								ItemTornadoRod.doAvatarJump(player, world);
+								SkiesRodItem.doAvatarJump(player, world);
 							}
 						}
 					}

@@ -31,14 +31,14 @@ import vazkii.botania.common.entity.FlameRingEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class ItemFireRod extends Item {
+public class HellsRodItem extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_FIRE);
 
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
 
-	public ItemFireRod(Properties props) {
+	public HellsRodItem(Properties props) {
 		super(props);
 	}
 

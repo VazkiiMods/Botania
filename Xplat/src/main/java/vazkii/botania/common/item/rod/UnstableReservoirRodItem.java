@@ -34,14 +34,14 @@ import vazkii.botania.common.entity.MagicMissileEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class ItemMissileRod extends Item {
+public class UnstableReservoirRodItem extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_MISSILE);
 
 	private static final int COST_PER = 120;
 	private static final int COST_AVATAR = 40;
 
-	public ItemMissileRod(Properties props) {
+	public UnstableReservoirRodItem(Properties props) {
 		super(props);
 	}
 

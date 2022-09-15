@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class ItemTornadoRod extends Item {
+public class SkiesRodItem extends Item {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(ResourcesLib.MODEL_AVATAR_TORNADO);
 
@@ -56,7 +56,7 @@ public class ItemTornadoRod extends Item {
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_FLYCOUNTER = "flyCounter";
 
-	public ItemTornadoRod(Properties props) {
+	public SkiesRodItem(Properties props) {
 		super(props);
 	}
 
