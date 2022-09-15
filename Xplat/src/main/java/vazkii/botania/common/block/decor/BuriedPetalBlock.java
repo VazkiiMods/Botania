@@ -29,13 +29,13 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 
-public class BlockBuriedPetals extends BushBlock implements BonemealableBlock {
+public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 1.6, 16);
 
 	public final DyeColor color;
 
-	public BlockBuriedPetals(DyeColor color, Properties builder) {
+	public BuriedPetalBlock(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}

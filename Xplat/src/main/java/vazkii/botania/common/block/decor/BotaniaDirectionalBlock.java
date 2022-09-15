@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
-public class BlockModDirectional extends DirectionalBlock {
-	public BlockModDirectional(Properties properties) {
+public class BotaniaDirectionalBlock extends DirectionalBlock {
+	public BotaniaDirectionalBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
 	}

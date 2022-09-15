@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 
 @Mixin(FarmBlock.class)
 public class MixinFarmBlock {
@@ -28,7 +28,7 @@ public class MixinFarmBlock {
 		cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT
 	)
 	private void floatingFlowerOverride(BlockState state, LevelReader world, BlockPos pos, CallbackInfoReturnable<Boolean> cir, BlockState stateAbove) {
-		if (stateAbove.getBlock() instanceof BlockFloatingFlower) {
+		if (stateAbove.getBlock() instanceof FloatingFlowerBlock) {
 			cir.setReturnValue(true);
 		}
 	}

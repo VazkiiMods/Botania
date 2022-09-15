@@ -30,7 +30,7 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.BlockPetalBlock;
+import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -92,7 +92,7 @@ public final class ColorHandler {
 		);
 
 		// Petal Block
-		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ColorHelper.getColorValue(((BlockPetalBlock) state.getBlock()).color) : -1,
+		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ColorHelper.getColorValue(((PetalBlock) state.getBlock()).color) : -1,
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,

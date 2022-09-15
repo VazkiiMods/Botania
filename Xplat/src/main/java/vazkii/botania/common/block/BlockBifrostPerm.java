@@ -19,9 +19,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.block.decor.BlockModGlass;
+import vazkii.botania.common.block.decor.BotaniaGlassBlock;
 
-public class BlockBifrostPerm extends BlockModGlass implements BeaconBeamBlock {
+public class BlockBifrostPerm extends BotaniaGlassBlock implements BeaconBeamBlock {
 	public BlockBifrostPerm(Properties builder) {
 		super(builder);
 	}

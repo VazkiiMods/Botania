@@ -44,11 +44,11 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 
-public class BlockTinyPotato extends BlockModWaterloggable implements EntityBlock {
+public class TinyPotatoBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(6, 0, 6, 10, 6, 10);
 
-	public BlockTinyPotato(Properties builder) {
+	public TinyPotatoBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState()
 				.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));

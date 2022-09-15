@@ -25,7 +25,7 @@ import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.mana.BlockForestDrum;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockSpreader;
@@ -200,7 +200,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
 				getModBlocks(b -> b == enchantedSoil
-						|| b instanceof BlockFloatingFlower || b instanceof BlockAltGrass)
+						|| b instanceof FloatingFlowerBlock || b instanceof BlockAltGrass)
 		);
 		var pickaxe = Set.of(
 				alchemyCatalyst, conjurationCatalyst,

@@ -33,11 +33,11 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class BlockManaFlame extends BlockModWaterloggable implements EntityBlock {
+public class ManaFlameBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 4, 4, 12, 12, 12);
 
-	public BlockManaFlame(Properties builder) {
+	public ManaFlameBlock(Properties builder) {
 		super(builder);
 	}
 

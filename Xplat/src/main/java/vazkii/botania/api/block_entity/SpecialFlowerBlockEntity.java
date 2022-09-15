@@ -33,7 +33,7 @@ import vazkii.botania.api.block.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.ModTags;
 
@@ -149,7 +149,7 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
-		if (getBlockState().getBlock() instanceof BlockFloatingFlower) {
+		if (getBlockState().getBlock() instanceof FloatingFlowerBlock) {
 			setFloating(true);
 		}
 

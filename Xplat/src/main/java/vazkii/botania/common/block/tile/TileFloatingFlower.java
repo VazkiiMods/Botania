@@ -19,7 +19,7 @@ import vazkii.botania.api.block.FloatingFlowerImpl;
 import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 
 public class TileFloatingFlower extends TileMod implements FloatingFlowerProvider {
 	private static final String TAG_FLOATING_DATA = "floating";
@@ -27,7 +27,7 @@ public class TileFloatingFlower extends TileMod implements FloatingFlowerProvide
 		@Override
 		public ItemStack getDisplayStack() {
 			Block b = getBlockState().getBlock();
-			if (b instanceof BlockFloatingFlower floatingFlower) {
+			if (b instanceof FloatingFlowerBlock floatingFlower) {
 				return new ItemStack(ModBlocks.getShinyFlower(floatingFlower.color));
 			} else {
 				return ItemStack.EMPTY;

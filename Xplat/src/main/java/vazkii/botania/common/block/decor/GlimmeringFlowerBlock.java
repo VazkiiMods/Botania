@@ -17,9 +17,9 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BlockModFlower;
 
-public class BlockShinyFlower extends BlockModFlower {
+public class GlimmeringFlowerBlock extends BlockModFlower {
 
-	public BlockShinyFlower(DyeColor color, Properties builder) {
+	public GlimmeringFlowerBlock(DyeColor color, Properties builder) {
 		super(color, builder);
 	}
 

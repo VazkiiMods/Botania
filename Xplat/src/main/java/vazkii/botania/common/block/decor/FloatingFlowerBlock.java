@@ -40,12 +40,12 @@ import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class BlockFloatingFlower extends BlockModWaterloggable implements EntityBlock {
+public class FloatingFlowerBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	public final DyeColor color;
 
-	public BlockFloatingFlower(DyeColor color, Properties props) {
+	public FloatingFlowerBlock(DyeColor color, Properties props) {
 		super(props);
 		this.color = color;
 	}

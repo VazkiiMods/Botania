@@ -21,7 +21,7 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.material.ItemPetal;
@@ -44,7 +44,7 @@ public class TwigWandRecipe extends ShapedRecipe {
 			int colorId;
 			if (item instanceof ItemPetal petal) {
 				colorId = petal.color.getId();
-			} else if (item instanceof BlockItem block && block.getBlock() instanceof BlockModMushroom mushroom) {
+			} else if (item instanceof BlockItem block && block.getBlock() instanceof BotaniaMushroomBlock mushroom) {
 				colorId = mushroom.color.getId();
 			} else {
 				continue;

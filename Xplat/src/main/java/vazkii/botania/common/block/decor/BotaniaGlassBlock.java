@@ -6,13 +6,12 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.block.decor.panes;
+package vazkii.botania.common.block.decor;
 
-import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.AbstractGlassBlock;
 
-public class BlockModPane extends IronBarsBlock {
-
-	public BlockModPane(Properties props) {
+public class BotaniaGlassBlock extends AbstractGlassBlock {
+	public BotaniaGlassBlock(Properties props) {
 		super(props);
 	}
 }

@@ -22,10 +22,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BlockMotifFlower extends FlowerBlock {
+public class FlowerMotifBlock extends FlowerBlock {
 	private final boolean hidden;
 
-	public BlockMotifFlower(MobEffect effect, int effectDuration, Properties properties, boolean hidden) {
+	public FlowerMotifBlock(MobEffect effect, int effectDuration, Properties properties, boolean hidden) {
 		super(effect, effectDuration, properties);
 		this.hidden = hidden;
 	}

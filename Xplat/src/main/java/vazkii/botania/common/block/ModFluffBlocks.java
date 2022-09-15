@@ -23,9 +23,9 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 
-import vazkii.botania.common.block.decor.BlockModDirectional;
-import vazkii.botania.common.block.decor.panes.BlockModPane;
-import vazkii.botania.common.block.decor.stairs.BlockModStairs;
+import vazkii.botania.common.block.decor.BotaniaDirectionalBlock;
+import vazkii.botania.common.block.decor.panes.BotaniaPaneBlock;
+import vazkii.botania.common.block.decor.stairs.BotaniaStairBlock;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -36,225 +36,225 @@ import static vazkii.botania.common.lib.LibBlockNames.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModFluffBlocks {
-	public static final Block livingwoodStairs = new BlockModStairs(livingwood.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStairs = new BotaniaStairBlock(livingwood.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodWall = new WallBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodFence = new FenceBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block livingwoodStrippedStairs = new BlockModStairs(livingwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStrippedStairs = new BotaniaStairBlock(livingwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block livingwoodPlankStairs = new BlockModStairs(livingwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(livingwoodPlanks));
+	public static final Block livingwoodPlankStairs = new BotaniaStairBlock(livingwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(livingwoodPlanks));
 	public static final Block livingwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwoodPlanks));
 
-	public static final Block livingrockStairs = new BlockModStairs(livingrock.defaultBlockState(), BlockBehaviour.Properties.copy(livingrock));
+	public static final Block livingrockStairs = new BotaniaStairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockWall = new WallBlock(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block livingrockBrickStairs = new BlockModStairs(livingrockBrick.defaultBlockState(), BlockBehaviour.Properties.copy(livingrockBrick));
+	public static final Block livingrockBrickStairs = new BotaniaStairBlock(livingrockBrick.defaultBlockState(), BlockBehaviour.Properties.copy(livingrockBrick));
 	public static final Block livingrockBrickSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingrockBrick));
 	public static final Block livingrockBrickWall = new WallBlock(BlockBehaviour.Properties.copy(livingrockBrick));
-	public static final Block livingrockBrickMossyStairs = new BlockModStairs(livingrockBrickMossy.defaultBlockState(), BlockBehaviour.Properties.copy(livingrockBrickMossy));
+	public static final Block livingrockBrickMossyStairs = new BotaniaStairBlock(livingrockBrickMossy.defaultBlockState(), BlockBehaviour.Properties.copy(livingrockBrickMossy));
 	public static final Block livingrockBrickMossySlab = new SlabBlock(BlockBehaviour.Properties.copy(livingrockBrickMossy));
 	public static final Block livingrockBrickMossyWall = new WallBlock(BlockBehaviour.Properties.copy(livingrockBrickMossy));
 
-	public static final Block dreamwoodStairs = new BlockModStairs(dreamwood.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStairs = new BotaniaStairBlock(dreamwood.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodWall = new WallBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodFence = new FenceBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.copy(dreamwood));
-	public static final Block dreamwoodStrippedStairs = new BlockModStairs(dreamwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStrippedStairs = new BotaniaStairBlock(dreamwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.copy(dreamwood));
-	public static final Block dreamwoodPlankStairs = new BlockModStairs(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwoodPlanks));
+	public static final Block dreamwoodPlankStairs = new BotaniaStairBlock(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwoodPlanks));
 	public static final Block dreamwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwoodPlanks));
 
 	public static final Block darkQuartz = new BlockMod(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK));
 	public static final Block darkQuartzChiseled = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block darkQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block darkQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block darkQuartzStairs = new BlockModStairs(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block darkQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
 	public static final Block manaQuartz = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block manaQuartzChiseled = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block manaQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block manaQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block manaQuartzStairs = new BlockModStairs(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block manaQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
 	public static final Block blazeQuartz = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block blazeQuartzChiseled = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block blazeQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block blazeQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block blazeQuartzStairs = new BlockModStairs(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block blazeQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
 	public static final Block lavenderQuartz = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block lavenderQuartzChiseled = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block lavenderQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block lavenderQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block lavenderQuartzStairs = new BlockModStairs(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block lavenderQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
 	public static final Block redQuartz = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block redQuartzChiseled = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block redQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block redQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block redQuartzStairs = new BlockModStairs(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block redQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
 	public static final Block elfQuartz = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block elfQuartzChiseled = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block elfQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block elfQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block elfQuartzStairs = new BlockModStairs(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block elfQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
 	public static final Block sunnyQuartz = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block sunnyQuartzChiseled = new BlockMod(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block sunnyQuartzPillar = new RotatedPillarBlock(BlockBehaviour.Properties.copy(darkQuartz));
 	public static final Block sunnyQuartzSlab = new SlabBlock(BlockBehaviour.Properties.copy(darkQuartz));
-	public static final Block sunnyQuartzStairs = new BlockModStairs(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
+	public static final Block sunnyQuartzStairs = new BotaniaStairBlock(darkQuartz.defaultBlockState(), BlockBehaviour.Properties.copy(darkQuartz));
 
 	public static final Block whitePavement = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block whitePavementStair = new BlockModStairs(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block whitePavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block whitePavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
 	public static final Block blackPavement = new BlockMod(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block blackPavementStair = new BlockModStairs(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block blackPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block blackPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
 	public static final Block bluePavement = new BlockMod(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block bluePavementStair = new BlockModStairs(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block bluePavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block bluePavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
 	public static final Block yellowPavement = new BlockMod(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block yellowPavementStair = new BlockModStairs(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block yellowPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block yellowPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
 	public static final Block redPavement = new BlockMod(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block redPavementStair = new BlockModStairs(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block redPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block redPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
 	public static final Block greenPavement = new BlockMod(BlockBehaviour.Properties.copy(whitePavement));
-	public static final Block greenPavementStair = new BlockModStairs(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
+	public static final Block greenPavementStair = new BotaniaStairBlock(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block greenPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
 	public static final Block biomeStoneForest = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 10).sound(SoundType.TUFF).requiresCorrectToolForDrops());
 	public static final Block biomeStoneForestSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
-	public static final Block biomeStoneForestStairs = new BlockModStairs(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
+	public static final Block biomeStoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeCobblestoneForest = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeCobblestoneForestSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
-	public static final Block biomeCobblestoneForestStairs = new BlockModStairs(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
+	public static final Block biomeCobblestoneForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeCobblestoneForestWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeBrickForest = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeBrickForestSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
-	public static final Block biomeBrickForestStairs = new BlockModStairs(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
+	public static final Block biomeBrickForestStairs = new BotaniaStairBlock(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeBrickForestWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeChiseledBrickForest = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest));
 
 	public static final Block biomeStonePlains = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.CALCITE));
 	public static final Block biomeStonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
-	public static final Block biomeStonePlainsStairs = new BlockModStairs(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
+	public static final Block biomeStonePlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeStonePlainsWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeCobblestonePlains = new BlockMod(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeCobblestonePlainsSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
-	public static final Block biomeCobblestonePlainsStairs = new BlockModStairs(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
+	public static final Block biomeCobblestonePlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeCobblestonePlainsWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeBrickPlains = new RotatedPillarBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeBrickPlainsSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
-	public static final Block biomeBrickPlainsStairs = new BlockModStairs(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
+	public static final Block biomeBrickPlainsStairs = new BotaniaStairBlock(biomeStonePlains.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeBrickPlainsWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStonePlains));
 	public static final Block biomeChiseledBrickPlains = new BlockMod(BlockBehaviour.Properties.copy(biomeStonePlains));
 
 	public static final Block biomeStoneMountain = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE_TILES));
 	public static final Block biomeStoneMountainSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
-	public static final Block biomeStoneMountainStairs = new BlockModStairs(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMountain));
+	public static final Block biomeStoneMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeStoneMountainWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeCobblestoneMountain = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeCobblestoneMountainSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
-	public static final Block biomeCobblestoneMountainStairs = new BlockModStairs(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMountain));
+	public static final Block biomeCobblestoneMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeCobblestoneMountainWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeBrickMountain = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeBrickMountainSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
-	public static final Block biomeBrickMountainStairs = new BlockModStairs(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMountain));
+	public static final Block biomeBrickMountainStairs = new BotaniaStairBlock(biomeStoneMountain.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeBrickMountainWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMountain));
 	public static final Block biomeChiseledBrickMountain = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneMountain));
 
 	public static final Block biomeStoneFungal = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE_BRICKS));
 	public static final Block biomeStoneFungalSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
-	public static final Block biomeStoneFungalStairs = new BlockModStairs(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneFungal));
+	public static final Block biomeStoneFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeStoneFungalWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeCobblestoneFungal = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeCobblestoneFungalSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
-	public static final Block biomeCobblestoneFungalStairs = new BlockModStairs(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneFungal));
+	public static final Block biomeCobblestoneFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeCobblestoneFungalWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeBrickFungal = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeBrickFungalSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
-	public static final Block biomeBrickFungalStairs = new BlockModStairs(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneFungal));
+	public static final Block biomeBrickFungalStairs = new BotaniaStairBlock(biomeStoneFungal.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeBrickFungalWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneFungal));
 	public static final Block biomeChiseledBrickFungal = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneFungal));
 
 	public static final Block biomeStoneSwamp = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE_TILES));
 	public static final Block biomeStoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
-	public static final Block biomeStoneSwampStairs = new BlockModStairs(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
+	public static final Block biomeStoneSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeStoneSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeCobblestoneSwamp = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeCobblestoneSwampSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
-	public static final Block biomeCobblestoneSwampStairs = new BlockModStairs(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
+	public static final Block biomeCobblestoneSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeCobblestoneSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
-	public static final Block biomeBrickSwamp = new BlockModDirectional(BlockBehaviour.Properties.copy(biomeStoneSwamp));
+	public static final Block biomeBrickSwamp = new BotaniaDirectionalBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
-	public static final Block biomeBrickSwampStairs = new BlockModStairs(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
+	public static final Block biomeBrickSwampStairs = new BotaniaStairBlock(biomeStoneSwamp.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
-	public static final Block biomeChiseledBrickSwamp = new BlockModDirectional(BlockBehaviour.Properties.copy(biomeStoneSwamp));
+	public static final Block biomeChiseledBrickSwamp = new BotaniaDirectionalBlock(BlockBehaviour.Properties.copy(biomeStoneSwamp));
 
 	public static final Block biomeStoneDesert = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE));
 	public static final Block biomeStoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
-	public static final Block biomeStoneDesertStairs = new BlockModStairs(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneDesert));
+	public static final Block biomeStoneDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeStoneDesertWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeCobblestoneDesert = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeCobblestoneDesertSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
-	public static final Block biomeCobblestoneDesertStairs = new BlockModStairs(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneDesert));
+	public static final Block biomeCobblestoneDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeCobblestoneDesertWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeBrickDesert = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeBrickDesertSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
-	public static final Block biomeBrickDesertStairs = new BlockModStairs(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneDesert));
+	public static final Block biomeBrickDesertStairs = new BotaniaStairBlock(biomeStoneDesert.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeBrickDesertWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneDesert));
 	public static final Block biomeChiseledBrickDesert = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneDesert));
 
 	public static final Block biomeStoneTaiga = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.DEEPSLATE));
 	public static final Block biomeStoneTaigaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
-	public static final Block biomeStoneTaigaStairs = new BlockModStairs(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneTaiga));
+	public static final Block biomeStoneTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeStoneTaigaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeCobblestoneTaiga = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeCobblestoneTaigaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
-	public static final Block biomeCobblestoneTaigaStairs = new BlockModStairs(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneTaiga));
+	public static final Block biomeCobblestoneTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeCobblestoneTaigaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeBrickTaiga = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeBrickTaigaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
-	public static final Block biomeBrickTaigaStairs = new BlockModStairs(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneTaiga));
+	public static final Block biomeBrickTaigaStairs = new BotaniaStairBlock(biomeStoneTaiga.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeBrickTaigaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 	public static final Block biomeChiseledBrickTaiga = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneTaiga));
 
 	public static final Block biomeStoneMesa = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest).sound(SoundType.CALCITE));
 	public static final Block biomeStoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
-	public static final Block biomeStoneMesaStairs = new BlockModStairs(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
+	public static final Block biomeStoneMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeStoneMesaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeCobblestoneMesa = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeCobblestoneMesaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
-	public static final Block biomeCobblestoneMesaStairs = new BlockModStairs(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
+	public static final Block biomeCobblestoneMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeCobblestoneMesaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesa = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesaSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
-	public static final Block biomeBrickMesaStairs = new BlockModStairs(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
+	public static final Block biomeBrickMesaStairs = new BotaniaStairBlock(biomeStoneMesa.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesaWall = new WallBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 	public static final Block biomeChiseledBrickMesa = new RotatedPillarBlock(BlockBehaviour.Properties.copy(biomeStoneMesa));
 
 	public static final Block shimmerrockSlab = new SlabBlock(BlockBehaviour.Properties.copy(shimmerrock));
-	public static final Block shimmerrockStairs = new BlockModStairs(shimmerrock.defaultBlockState(), BlockBehaviour.Properties.copy(shimmerrock));
+	public static final Block shimmerrockStairs = new BotaniaStairBlock(shimmerrock.defaultBlockState(), BlockBehaviour.Properties.copy(shimmerrock));
 
 	public static final Block shimmerwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(shimmerwoodPlanks));
-	public static final Block shimmerwoodPlankStairs = new BlockModStairs(shimmerwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(shimmerwoodPlanks));
+	public static final Block shimmerwoodPlankStairs = new BotaniaStairBlock(shimmerwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(shimmerwoodPlanks));
 
-	public static final Block managlassPane = new BlockModPane(BlockBehaviour.Properties.copy(manaGlass));
-	public static final Block alfglassPane = new BlockModPane(BlockBehaviour.Properties.copy(elfGlass));
-	public static final Block bifrostPane = new BlockModPane(BlockBehaviour.Properties.copy(bifrostPerm));
+	public static final Block managlassPane = new BotaniaPaneBlock(BlockBehaviour.Properties.copy(manaGlass));
+	public static final Block alfglassPane = new BotaniaPaneBlock(BlockBehaviour.Properties.copy(elfGlass));
+	public static final Block bifrostPane = new BotaniaPaneBlock(BlockBehaviour.Properties.copy(bifrostPerm));
 
 	public static void registerBlocks(BiConsumer<Block, ResourceLocation> r) {
 

@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.TallFlowerBlock;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
+import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.BiConsumer;
@@ -46,8 +46,8 @@ public final class BlockRenderLayers {
 
 		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
-					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock
-							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom) {
+					if (b instanceof FloatingFlowerBlock || b instanceof FlowerBlock
+							|| b instanceof TallFlowerBlock || b instanceof BotaniaMushroomBlock) {
 						consumer.accept(b, RenderType.cutout());
 					}
 				});

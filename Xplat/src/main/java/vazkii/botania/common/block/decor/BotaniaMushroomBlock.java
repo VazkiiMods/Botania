@@ -30,12 +30,12 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
-public class BlockModMushroom extends MushroomBlock implements CustomApothecaryColor {
+public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	public final DyeColor color;
 
-	public BlockModMushroom(DyeColor color, Properties builder) {
+	public BotaniaMushroomBlock(DyeColor color, Properties builder) {
 		super(builder, () -> TreeFeatures.HUGE_BROWN_MUSHROOM /* Doesn't matter, we override the grow method */);
 		this.color = color;
 	}

@@ -12,11 +12,11 @@ import net.minecraft.world.item.DyeColor;
 
 import vazkii.botania.common.block.BlockMod;
 
-public class BlockPetalBlock extends BlockMod {
+public class PetalBlock extends BlockMod {
 
 	public final DyeColor color;
 
-	public BlockPetalBlock(DyeColor color, Properties builder) {
+	public PetalBlock(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}

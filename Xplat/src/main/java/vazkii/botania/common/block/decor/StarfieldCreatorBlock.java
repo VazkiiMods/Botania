@@ -26,11 +26,11 @@ import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileStarfield;
 
-public class BlockStarfield extends BlockModWaterloggable implements EntityBlock {
+public class StarfieldCreatorBlock extends BlockModWaterloggable implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
-	public BlockStarfield(Properties builder) {
+	public StarfieldCreatorBlock(Properties builder) {
 		super(builder);
 	}
 

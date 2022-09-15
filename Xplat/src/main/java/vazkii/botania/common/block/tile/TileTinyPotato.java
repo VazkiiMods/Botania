@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.BlockTinyPotato;
+import vazkii.botania.common.block.decor.TinyPotatoBlock;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -169,7 +169,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Nameab
 						player.sendSystemMessage(message);
 					}
 					jump();
-					BlockTinyPotato.spawnHearts((ServerLevel) level, getBlockPos());
+					TinyPotatoBlock.spawnHearts((ServerLevel) level, getBlockPos());
 				}
 
 				if (messageIndex == messageTimes.size() - 1) {
