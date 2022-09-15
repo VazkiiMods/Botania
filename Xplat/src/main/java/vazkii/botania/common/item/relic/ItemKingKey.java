@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.entity.EntityBabylonWeapon;
+import vazkii.botania.common.entity.BabylonWeaponEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -89,7 +89,7 @@ public class ItemKingKey extends ItemRelic {
 
 			Vec3 end = pl.add(axis1);
 
-			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living, world);
+			BabylonWeaponEntity weapon = new BabylonWeaponEntity(living, world);
 			weapon.setPos(end.x, end.y, end.z);
 			weapon.setYRot(living.getYRot());
 			weapon.setVariety(rand.nextInt(WEAPON_TYPES));

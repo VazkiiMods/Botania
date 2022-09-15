@@ -18,11 +18,11 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-public class EntityEnderAir extends Entity {
+public class EnderAirEntity extends Entity {
 	private static final String TAG_AGE = "Age";
 	private static final int MAX_AGE = 3 * 20;
 
-	public EntityEnderAir(EntityType<?> type, Level level) {
+	public EnderAirEntity(EntityType<?> type, Level level) {
 		super(type, level);
 	}
 
@@ -33,9 +33,9 @@ public class EntityEnderAir extends Entity {
 			discard();
 		}
 		if (level.isClientSide && random.nextBoolean()) {
-			float r = (EntityEnderAirBottle.PARTICLE_COLOR >> 16 & 0xFF) / 255.0F;
-			float g = (EntityEnderAirBottle.PARTICLE_COLOR >> 8 & 0xFF) / 255.0F;
-			float b = (EntityEnderAirBottle.PARTICLE_COLOR & 0xFF) / 255.0F;
+			float r = (EnderAirBottleEntity.PARTICLE_COLOR >> 16 & 0xFF) / 255.0F;
+			float g = (EnderAirBottleEntity.PARTICLE_COLOR >> 8 & 0xFF) / 255.0F;
+			float b = (EnderAirBottleEntity.PARTICLE_COLOR & 0xFF) / 255.0F;
 			for (int i = 0; i < 5; i++) {
 				double x = this.getX() + random.nextDouble();
 				double y = this.getY() + random.nextDouble();

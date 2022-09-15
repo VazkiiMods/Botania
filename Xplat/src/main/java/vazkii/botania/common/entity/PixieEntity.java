@@ -23,19 +23,19 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 
-public class EntityPixie extends FlyingMob {
-	private static final EntityDataAccessor<Integer> PIXIE_TYPE = SynchedEntityData.defineId(EntityPixie.class, EntityDataSerializers.INT);
+public class PixieEntity extends FlyingMob {
+	private static final EntityDataAccessor<Integer> PIXIE_TYPE = SynchedEntityData.defineId(PixieEntity.class, EntityDataSerializers.INT);
 
 	private LivingEntity summoner = null;
 	private float damage = 0;
 	private MobEffectInstance effect = null;
 
-	public EntityPixie(EntityType<EntityPixie> type, Level world) {
+	public PixieEntity(EntityType<PixieEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityPixie(Level world) {
-		this(ModEntities.PIXIE, world);
+	public PixieEntity(Level world) {
+		this(BotaniaEntities.PIXIE, world);
 	}
 
 	@Override

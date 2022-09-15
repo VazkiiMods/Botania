@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.ManaBurstEntity;
 
 @Mixin(ThrowableProjectile.class)
 public class MixinThrowableProjectile {
 	@ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;scale(D)Lnet/minecraft/world/phys/Vec3;"))
 	private double noDrag(double origScale) {
 		// Do not apply drag to bursts
-		if ((Object) this instanceof EntityManaBurst) {
+		if ((Object) this instanceof ManaBurstEntity) {
 			return 1;
 		}
 		return origScale;

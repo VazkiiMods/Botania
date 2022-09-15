@@ -24,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -101,9 +101,9 @@ public record PacketBotaniaEffect(EffectType type, double x, double y, double z,
 							SparkleParticleData data = SparkleParticleData.sparkle(5F, 1, 0, 1, 120);
 							for (int i = 0; i < 360; i += 8) {
 								float rad = i * (float) Math.PI / 180F;
-								double wx = x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
+								double wx = x + 0.5 - Math.cos(rad) * GaiaGuardianEntity.ARENA_RANGE;
 								double wy = y + 0.5;
-								double wz = z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
+								double wz = z + 0.5 - Math.sin(rad) * GaiaGuardianEntity.ARENA_RANGE;
 								IProxy.INSTANCE.addParticleForceNear(world, data, wx, wy, wz, 0, 0, 0);
 							}
 						}

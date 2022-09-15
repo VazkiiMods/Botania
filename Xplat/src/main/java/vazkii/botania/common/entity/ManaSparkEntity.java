@@ -45,21 +45,21 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EntityManaSpark extends EntitySparkBase implements ManaSpark {
+public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
-	private static final EntityDataAccessor<Integer> UPGRADE = SynchedEntityData.defineId(EntityManaSpark.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> UPGRADE = SynchedEntityData.defineId(ManaSparkEntity.class, EntityDataSerializers.INT);
 
 	private final Set<ManaSpark> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private int removeTransferants = 2;
 
-	public EntityManaSpark(EntityType<EntityManaSpark> type, Level world) {
+	public ManaSparkEntity(EntityType<ManaSparkEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityManaSpark(Level world) {
-		this(ModEntities.SPARK, world);
+	public ManaSparkEntity(Level world) {
+		this(BotaniaEntities.SPARK, world);
 	}
 
 	@Override

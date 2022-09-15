@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityPixie;
+import vazkii.botania.common.entity.PixieEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
@@ -129,7 +129,7 @@ public class ItemBottledMana extends Item {
 			}
 			case 13 -> { // Pixie Friend
 				if (!living.level.isClientSide) {
-					EntityPixie pixie = new EntityPixie(living.level);
+					PixieEntity pixie = new PixieEntity(living.level);
 					pixie.setPos(living.getX(), living.getY() + 1.5, living.getZ());
 					living.level.addFreshEntity(pixie);
 				}

@@ -27,9 +27,9 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.armor.ArmorModels;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 
-public class GaiaGuardianRenderer extends HumanoidMobRenderer<EntityDoppleganger, HumanoidModel<EntityDoppleganger>> {
+public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity, HumanoidModel<GaiaGuardianEntity>> {
 
 	public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	public static final float DEFAULT_DISFIGURATION = 0.025F;
@@ -46,7 +46,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<EntityDoppleganger
 	}
 
 	@Override
-	public void render(@NotNull EntityDoppleganger dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(@NotNull GaiaGuardianEntity dopple, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		int invulTime = dopple.getInvulTime();
 		ShaderInstance shader = CoreShaders.doppleganger();
 		if (shader != null) {
@@ -74,7 +74,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<EntityDoppleganger
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull EntityDoppleganger entity) {
+	public ResourceLocation getTextureLocation(@NotNull GaiaGuardianEntity entity) {
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer)) {
@@ -85,11 +85,11 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<EntityDoppleganger
 	}
 
 	@Override
-	protected boolean isBodyVisible(EntityDoppleganger dopple) {
+	protected boolean isBodyVisible(GaiaGuardianEntity dopple) {
 		return true;
 	}
 
-	private static class Model extends HumanoidModel<EntityDoppleganger> {
+	private static class Model extends HumanoidModel<GaiaGuardianEntity> {
 		Model(ModelPart root) {
 			super(root, RenderHelper::getDopplegangerLayer);
 		}

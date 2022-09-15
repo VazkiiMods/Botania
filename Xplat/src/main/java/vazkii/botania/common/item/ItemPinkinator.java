@@ -27,8 +27,8 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.entity.EntityPinkWither;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.PinkWitherEntity;
 import vazkii.botania.common.handler.ModSounds;
 
 import java.util.List;
@@ -46,9 +46,9 @@ public class ItemPinkinator extends Item {
 		int range = 16;
 		List<WitherBoss> withers = world.getEntitiesOfClass(WitherBoss.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
 		for (WitherBoss wither : withers) {
-			if (!world.isClientSide && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
+			if (!world.isClientSide && wither.isAlive() && !(wither instanceof PinkWitherEntity)) {
 				wither.discard();
-				EntityPinkWither pink = ModEntities.PINK_WITHER.create(world);
+				PinkWitherEntity pink = BotaniaEntities.PINK_WITHER.create(world);
 				pink.moveTo(wither.getX(), wither.getY(), wither.getZ(), wither.getYRot(), wither.getXRot());
 				pink.setNoAi(wither.isNoAi());
 				if (wither.hasCustomName()) {

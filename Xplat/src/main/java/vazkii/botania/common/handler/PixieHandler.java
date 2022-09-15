@@ -24,7 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-import vazkii.botania.common.entity.EntityPixie;
+import vazkii.botania.common.entity.PixieEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
@@ -74,7 +74,7 @@ public final class PixieHandler {
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(ModItems.elementiumSword));
 
 			if (Math.random() < chance) {
-				EntityPixie pixie = new EntityPixie(player.level);
+				PixieEntity pixie = new PixieEntity(player.level);
 				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
 				if (((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {

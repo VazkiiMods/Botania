@@ -48,8 +48,8 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
-import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
+import vazkii.botania.common.entity.ManaBurstEntity;
+import vazkii.botania.common.entity.ManaBurstEntity.PositionProperties;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.MathHelper;
@@ -439,7 +439,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		boolean redstone = getVariant() == ManaSpreaderBlock.Variant.REDSTONE;
 		if ((receiver != null || redstone) && !invalidTentativeBurst) {
 			if (canShootBurst && (redstone || receiver.canReceiveManaFromBursts() && !receiver.isFull())) {
-				EntityManaBurst burst = getBurst(false);
+				ManaBurstEntity burst = getBurst(false);
 				if (burst != null) {
 					if (!level.isClientSide) {
 						mana -= burst.getStartingMana();
@@ -471,7 +471,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			return;
 		}
 
-		EntityManaBurst fakeBurst = getBurst(true);
+		ManaBurstEntity fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
 		ManaReceiver receiver = fakeBurst.getCollidedTile(true);
 
@@ -485,13 +485,13 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	@Override
 	public ManaBurst runBurstSimulation() {
-		EntityManaBurst fakeBurst = getBurst(true);
+		ManaBurstEntity fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
 		fakeBurst.getCollidedTile(true);
 		return fakeBurst;
 	}
 
-	private EntityManaBurst getBurst(boolean fake) {
+	private ManaBurstEntity getBurst(boolean fake) {
 		ManaSpreaderBlock.Variant variant = getVariant();
 		float gravity = 0F;
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
@@ -502,7 +502,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 
 		if (getCurrentMana() >= props.maxMana || fake) {
-			EntityManaBurst burst = new EntityManaBurst(getLevel(), getBlockPos(), getRotationX(), getRotationY(), fake);
+			ManaBurstEntity burst = new ManaBurstEntity(getLevel(), getBlockPos(), getRotationX(), getRotationY(), fake);
 			burst.setSourceLens(lens);
 
 			if (mapmakerOverride) {
@@ -584,7 +584,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	@Override
 	public void onClientDisplayTick() {
 		if (level != null) {
-			EntityManaBurst burst = getBurst(true);
+			ManaBurstEntity burst = getBurst(true);
 			burst.getCollidedTile(false);
 		}
 	}

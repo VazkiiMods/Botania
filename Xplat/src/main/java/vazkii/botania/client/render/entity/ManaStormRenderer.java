@@ -19,26 +19,26 @@ import net.minecraft.world.inventory.InventoryMenu;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.EntityManaStorm;
+import vazkii.botania.common.entity.ManaStormEntity;
 
-public class ManaStormRenderer extends EntityRenderer<EntityManaStorm> {
+public class ManaStormRenderer extends EntityRenderer<ManaStormEntity> {
 
 	public ManaStormRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
 	@Override
-	public void render(EntityManaStorm storm, float yaw, float pticks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(ManaStormEntity storm, float yaw, float pticks, PoseStack ms, MultiBufferSource buffers, int light) {
 		ms.pushPose();
 		float maxScale = 1.95F;
-		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
+		float scale = 0.05F + ((float) storm.burstsFired / ManaStormEntity.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / ManaStormEntity.DEATH_TIME) * maxScale;
 		RenderHelper.renderStar(ms, buffers, 0x00FF00, scale, scale, scale, storm.getUUID().getMostSignificantBits());
 		ms.popPose();
 	}
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull EntityManaStorm entity) {
+	public ResourceLocation getTextureLocation(@NotNull ManaStormEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 

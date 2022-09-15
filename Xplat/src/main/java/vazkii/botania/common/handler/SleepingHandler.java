@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
 
 public final class SleepingHandler {
 
@@ -26,7 +26,7 @@ public final class SleepingHandler {
 	public static Player.BedSleepingProblem trySleep(Player player, BlockPos sleepPos) {
 		Level world = player.level;
 		if (!world.isClientSide()) {
-			boolean nearGuardian = ((ServerLevel) world).getEntities(ModEntities.DOPPLEGANGER, EntitySelector.ENTITY_STILL_ALIVE)
+			boolean nearGuardian = ((ServerLevel) world).getEntities(BotaniaEntities.DOPPLEGANGER, EntitySelector.ENTITY_STILL_ALIVE)
 					.stream()
 					.anyMatch(e -> e.getPlayersAround().contains(player));
 

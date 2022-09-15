@@ -40,22 +40,22 @@ import vazkii.botania.common.item.ModItems;
 
 import java.util.Map;
 
-public class EntityVineBall extends ThrowableProjectile implements ItemSupplier {
-	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(EntityVineBall.class, EntityDataSerializers.FLOAT);
+public class VineBallEntity extends ThrowableProjectile implements ItemSupplier {
+	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(VineBallEntity.class, EntityDataSerializers.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,
 			Direction.WEST, VineBlock.WEST, Direction.EAST, VineBlock.EAST);
 
-	public EntityVineBall(EntityType<EntityVineBall> type, Level world) {
+	public VineBallEntity(EntityType<VineBallEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityVineBall(LivingEntity thrower, boolean gravity) {
-		super(ModEntities.VINE_BALL, thrower, thrower.level);
+	public VineBallEntity(LivingEntity thrower, boolean gravity) {
+		super(BotaniaEntities.VINE_BALL, thrower, thrower.level);
 		entityData.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
-	public EntityVineBall(double x, double y, double z, Level worldIn) {
-		super(ModEntities.VINE_BALL, x, y, z, worldIn);
+	public VineBallEntity(double x, double y, double z, Level worldIn) {
+		super(BotaniaEntities.VINE_BALL, x, y, z, worldIn);
 		entityData.set(GRAVITY, 0.03F);
 	}
 

@@ -72,8 +72,8 @@ import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.command.SkyblockCommand;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
@@ -119,7 +119,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
 		CraftyCrateBlockEntity.registerListener();
@@ -160,10 +160,10 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaRecipeTypes.submitRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
 
 		// Entities
-		ModEntities.registerEntities(bind(Registry.ENTITY_TYPE));
-		ModEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
+		BotaniaEntities.registerEntities(bind(Registry.ENTITY_TYPE));
+		BotaniaEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
 		PixieHandler.registerAttribute(bind(Registry.ATTRIBUTE));
-		MinecartComparatorLogicRegistry.register(ModEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
+		MinecartComparatorLogicRegistry.register(BotaniaEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 
 		// Potions
 		BotaniaMobEffects.registerPotions(bind(Registry.MOB_EFFECT));

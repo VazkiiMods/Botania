@@ -12,16 +12,16 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.entity.EntityCorporeaSpark;
+import vazkii.botania.common.entity.CorporeaSparkEntity;
 
-public class CorporeaSparkRenderer extends BaseSparkRenderer<EntityCorporeaSpark> {
+public class CorporeaSparkRenderer extends BaseSparkRenderer<CorporeaSparkEntity> {
 
 	public CorporeaSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
 	@Override
-	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
+	public TextureAtlasSprite getBaseIcon(CorporeaSparkEntity entity) {
 		return entity.isCreative() ? MiscellaneousModels.INSTANCE.corporeaWorldIconCreative.sprite() : entity.isMaster() ? MiscellaneousModels.INSTANCE.corporeaWorldIconMaster.sprite() : MiscellaneousModels.INSTANCE.corporeaWorldIcon.sprite();
 	}
 

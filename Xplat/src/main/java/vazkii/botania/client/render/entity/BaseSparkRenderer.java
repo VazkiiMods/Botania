@@ -25,12 +25,12 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.EntitySparkBase;
+import vazkii.botania.common.entity.SparkBaseEntity;
 import vazkii.botania.common.helper.ColorHelper;
 
 import java.util.Random;
 
-public abstract class BaseSparkRenderer<T extends EntitySparkBase> extends EntityRenderer<T> {
+public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends EntityRenderer<T> {
 
 	public BaseSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
@@ -86,7 +86,7 @@ public abstract class BaseSparkRenderer<T extends EntitySparkBase> extends Entit
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull EntitySparkBase entity) {
+	public ResourceLocation getTextureLocation(@NotNull SparkBaseEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 

@@ -20,15 +20,15 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 
 public class TrueGuardianKiller implements LootItemCondition {
 
 	@Override
 	public boolean test(@NotNull LootContext context) {
 		Entity victim = context.getParamOrNull(LootContextParams.THIS_ENTITY);
-		return victim instanceof EntityDoppleganger
-				&& context.getParamOrNull(LootContextParams.KILLER_ENTITY) == ((EntityDoppleganger) victim).trueKiller;
+		return victim instanceof GaiaGuardianEntity
+				&& context.getParamOrNull(LootContextParams.KILLER_ENTITY) == ((GaiaGuardianEntity) victim).trueKiller;
 	}
 
 	@Override

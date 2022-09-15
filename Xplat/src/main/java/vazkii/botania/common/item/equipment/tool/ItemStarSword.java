@@ -21,7 +21,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.entity.EntityFallingStar;
+import vazkii.botania.common.entity.FallingStarEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
@@ -67,7 +67,7 @@ public class ItemStarSword extends ItemManasteelSword {
 			posVec = posVec.add(motVec);
 			motVec = motVec.normalize().reverse().scale(1.5);
 
-			EntityFallingStar star = new EntityFallingStar(player, world);
+			FallingStarEntity star = new FallingStarEntity(player, world);
 			star.setPos(posVec.x, posVec.y, posVec.z);
 			star.setDeltaMovement(motVec);
 			world.addFreshEntity(star);
@@ -75,7 +75,7 @@ public class ItemStarSword extends ItemManasteelSword {
 			if (!world.isRaining()
 					&& Math.abs(world.getDayTime() - 18000) < 1800
 					&& Math.random() < 0.125) {
-				EntityFallingStar bonusStar = new EntityFallingStar(player, world);
+				FallingStarEntity bonusStar = new FallingStarEntity(player, world);
 				bonusStar.setPos(posVec.x, posVec.y, posVec.z);
 				bonusStar.setDeltaMovement(motVec.x + Math.random() - 0.5,
 						motVec.y + Math.random() - 0.5, motVec.z + Math.random() - 0.5);

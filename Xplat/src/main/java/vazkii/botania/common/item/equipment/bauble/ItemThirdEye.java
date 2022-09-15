@@ -30,7 +30,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
-import vazkii.botania.common.entity.EntityMagicMissile;
+import vazkii.botania.common.entity.MagicMissileEntity;
 import vazkii.botania.common.proxy.IProxy;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class ItemThirdEye extends ItemBauble {
 
 		double range = 24;
 		AABB aabb = new AABB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).inflate(range);
-		List<LivingEntity> mobs = living.level.getEntitiesOfClass(LivingEntity.class, aabb, EntityMagicMissile.targetPredicate(living));
+		List<LivingEntity> mobs = living.level.getEntitiesOfClass(LivingEntity.class, aabb, MagicMissileEntity.targetPredicate(living));
 
 		for (LivingEntity e : mobs) {
 			MobEffectInstance potion = e.getEffect(MobEffects.GLOWING);

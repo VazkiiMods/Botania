@@ -21,9 +21,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.EntityPixie;
+import vazkii.botania.common.entity.PixieEntity;
 
-public class PixieModel extends EntityModel<EntityPixie> {
+public class PixieModel extends EntityModel<PixieEntity> {
 	private final ModelPart body;
 	private final ModelPart leftWingT;
 	private final ModelPart leftWingB;
@@ -77,7 +77,7 @@ public class PixieModel extends EntityModel<EntityPixie> {
 	}
 
 	@Override
-	public void setupAnim(EntityPixie entity, float f, float f1, float f2, float f3, float f4) {
+	public void setupAnim(PixieEntity entity, float f, float f1, float f2, float f3, float f4) {
 		evil = entity.getPixieType() == 1;
 		rightWingT.yRot = -(Mth.cos(f2 * 1.7F) * (float) Math.PI * 0.5F);
 		leftWingT.yRot = Mth.cos(f2 * 1.7F) * (float) Math.PI * 0.5F;

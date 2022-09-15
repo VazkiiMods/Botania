@@ -21,9 +21,9 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.block_entity.SpecialFlowerBlockEntityRenderer;
-import vazkii.botania.common.entity.EntityMagicLandmine;
+import vazkii.botania.common.entity.MagicLandmineEntity;
 
-public class MagicLandmineRenderer extends EntityRenderer<EntityMagicLandmine> {
+public class MagicLandmineRenderer extends EntityRenderer<MagicLandmineEntity> {
 	private static final double INITIAL_OFFSET = -1.0 / 16 + 0.005;
 	// Global y offset so that overlapping landmines do not Z-fight
 	public static double offY = INITIAL_OFFSET;
@@ -37,7 +37,7 @@ public class MagicLandmineRenderer extends EntityRenderer<EntityMagicLandmine> {
 	}
 
 	@Override
-	public void render(EntityMagicLandmine e, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(MagicLandmineEntity e, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		super.render(e, entityYaw, partialTicks, ms, buffers, light);
 
 		ms.pushPose();
@@ -63,7 +63,7 @@ public class MagicLandmineRenderer extends EntityRenderer<EntityMagicLandmine> {
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull EntityMagicLandmine entity) {
+	public ResourceLocation getTextureLocation(@NotNull MagicLandmineEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 }

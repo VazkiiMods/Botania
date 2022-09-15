@@ -26,8 +26,8 @@ import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.entity.EntityFlameRing;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.FlameRingEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -51,7 +51,7 @@ public class ItemFireRod extends Item {
 		BlockPos pos = ctx.getClickedPos();
 
 		if (!world.isClientSide && player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-			EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
+			FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
 			entity.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			world.addFreshEntity(entity);
 
@@ -74,7 +74,7 @@ public class ItemFireRod extends Item {
 			ManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 
 			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
-				EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
+				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
 				entity.setPos(te.getBlockPos().getX() + 0.5, te.getBlockPos().getY(), te.getBlockPos().getZ() + 0.5);
 				world.addFreshEntity(entity);
 				receiver.receiveMana(-COST);

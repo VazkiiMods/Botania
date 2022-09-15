@@ -36,7 +36,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
 import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.advancements.ManaBlasterTrigger;
-import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.IProxy;
@@ -78,7 +78,7 @@ public class ItemManaGun extends Item {
 			}
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		} else if (getCooldown(stack) <= 0) {
-			EntityManaBurst burst = getBurst(player, stack, true, hand);
+			ManaBurstEntity burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isClientSide) {
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundSource.PLAYERS, 1F, 1);
@@ -132,8 +132,8 @@ public class ItemManaGun extends Item {
 		return props;
 	}
 
-	private EntityManaBurst getBurst(Player player, ItemStack stack, boolean request, InteractionHand hand) {
-		EntityManaBurst burst = new EntityManaBurst(player);
+	private ManaBurstEntity getBurst(Player player, ItemStack stack, boolean request, InteractionHand hand) {
+		ManaBurstEntity burst = new ManaBurstEntity(player);
 		BurstProperties props = getBurstProps(player, stack, request, hand);
 
 		burst.setSourceLens(getLens(stack));

@@ -30,7 +30,7 @@ import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -106,7 +106,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.display(simple(BotaniaBlocks.gaiaHead, "gaiaGuardianKill", FrameType.TASK))
 				.parent(elfPortalOpen)
 				.addCriterion("guardian", KilledTrigger.TriggerInstance
-						.playerKilledEntity(EntityPredicate.Builder.entity().of(ModEntities.DOPPLEGANGER)))
+						.playerKilledEntity(EntityPredicate.Builder.entity().of(BotaniaEntities.DOPPLEGANGER)))
 				.save(consumer, mainId("gaia_guardian_kill"));
 
 		Advancement enderAirMake = Advancement.Builder.advancement()
@@ -339,7 +339,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.parent(root)
 				.addCriterion("guardian", KilledTrigger.TriggerInstance.playerKilledEntity(
 						EntityPredicate.Builder.entity()
-								.of(ModEntities.DOPPLEGANGER)
+								.of(BotaniaEntities.DOPPLEGANGER)
 								.nbt(new NbtPredicate(hardmodeNbt)).build()))
 				.save(consumer, challengeId("gaia_guardian_hardmode"));
 

@@ -40,20 +40,20 @@ import vazkii.botania.common.helper.VecHelper;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class EntityMagicMissile extends ThrowableProjectile {
+public class MagicMissileEntity extends ThrowableProjectile {
 	private static final String TAG_TIME = "time";
-	private static final EntityDataAccessor<Boolean> EVIL = SynchedEntityData.defineId(EntityMagicMissile.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Integer> TARGET = SynchedEntityData.defineId(EntityMagicMissile.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> EVIL = SynchedEntityData.defineId(MagicMissileEntity.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> TARGET = SynchedEntityData.defineId(MagicMissileEntity.class, EntityDataSerializers.INT);
 
 	double lockX, lockY = Integer.MIN_VALUE, lockZ;
 	int time = 0;
 
-	public EntityMagicMissile(EntityType<EntityMagicMissile> type, Level world) {
+	public MagicMissileEntity(EntityType<MagicMissileEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityMagicMissile(LivingEntity owner, boolean evil) {
-		super(ModEntities.MAGIC_MISSILE, owner, owner.level);
+	public MagicMissileEntity(LivingEntity owner, boolean evil) {
+		super(BotaniaEntities.MAGIC_MISSILE, owner, owner.level);
 		setEvil(evil);
 	}
 

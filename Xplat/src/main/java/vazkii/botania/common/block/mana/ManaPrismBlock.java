@@ -40,7 +40,7 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
-import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.ModSounds;
 
 public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlock, ManaCollisionGhost {
@@ -63,7 +63,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	@Override
 	public VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		if (context instanceof EntityCollisionContext econtext
-				&& econtext.getEntity() instanceof EntityManaBurst) {
+				&& econtext.getEntity() instanceof ManaBurstEntity) {
 			// Expose the shape so bursts can actually collide with us
 			// they will still go through the prism via ManaCollisionGhost
 			return SHAPE;

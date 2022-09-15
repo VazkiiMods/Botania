@@ -15,7 +15,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.network.IPacket;
 
 import java.util.UUID;
@@ -64,7 +64,7 @@ public record PacketSpawnDoppleganger(ClientboundAddEntityPacket inner, int play
 				if (player != null) {
 					player.connection.handleAddEntity(inner);
 					Entity e = player.level.getEntity(inner.getId());
-					if (e instanceof EntityDoppleganger dopple) {
+					if (e instanceof GaiaGuardianEntity dopple) {
 						dopple.readSpawnData(playerCount, hardMode, source, bossInfoUuid);
 					}
 				}

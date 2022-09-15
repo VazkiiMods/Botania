@@ -29,8 +29,8 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.entity.EntityMagicMissile;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.MagicMissileEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -73,11 +73,11 @@ public class ItemMissileRod extends Item {
 	}
 
 	public static boolean spawnMissile(Level world, LivingEntity thrower, double x, double y, double z) {
-		EntityMagicMissile missile;
+		MagicMissileEntity missile;
 		if (thrower != null) {
-			missile = new EntityMagicMissile(thrower, false);
+			missile = new MagicMissileEntity(thrower, false);
 		} else {
-			missile = ModEntities.MAGIC_MISSILE.create(world);
+			missile = BotaniaEntities.MAGIC_MISSILE.create(world);
 		}
 
 		missile.setPos(x, y, z);

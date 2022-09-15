@@ -46,7 +46,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.LuminizerBlock;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -78,7 +78,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			return;
 		}
 
-		EntityPlayerMover mover = new EntityPlayerMover(level, worldPosition, nextDest);
+		PlayerMoverEntity mover = new PlayerMoverEntity(level, worldPosition, nextDest);
 		level.addFreshEntity(mover);
 		e.startRiding(mover);
 		if (!(e instanceof ItemEntity)) {
@@ -274,19 +274,19 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		cmp.putBoolean(TAG_NO_PARTICLE, noParticle);
 	}
 
-	public static class EntityPlayerMover extends Entity {
+	public static class PlayerMoverEntity extends Entity {
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
 		private static final String TAG_EXIT_Z = "exitZ";
-		private static final EntityDataAccessor<BlockPos> EXIT_POS = SynchedEntityData.defineId(EntityPlayerMover.class, EntityDataSerializers.BLOCK_POS);
+		private static final EntityDataAccessor<BlockPos> EXIT_POS = SynchedEntityData.defineId(PlayerMoverEntity.class, EntityDataSerializers.BLOCK_POS);
 
-		public EntityPlayerMover(EntityType<EntityPlayerMover> type, Level world) {
+		public PlayerMoverEntity(EntityType<PlayerMoverEntity> type, Level world) {
 			super(type, world);
 			noPhysics = true;
 		}
 
-		public EntityPlayerMover(Level world, BlockPos pos, BlockPos exitPos) {
-			this(ModEntities.PLAYER_MOVER, world);
+		public PlayerMoverEntity(Level world, BlockPos pos, BlockPos exitPos) {
+			this(BotaniaEntities.PLAYER_MOVER, world);
 			setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			setExit(exitPos);
 		}

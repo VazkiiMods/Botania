@@ -23,16 +23,16 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.PixieModel;
-import vazkii.botania.common.entity.EntityPixie;
+import vazkii.botania.common.entity.PixieEntity;
 
-public class PixieRenderer extends MobRenderer<EntityPixie, PixieModel> {
+public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel> {
 
 	public PixieRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx, new PixieModel(ctx.bakeLayer(BotaniaModelLayers.PIXIE)), 0.0F);
 	}
 
 	@Override
-	public void render(EntityPixie mob, float yaw, float partialTicks, PoseStack pos, MultiBufferSource buffers, int light) {
+	public void render(PixieEntity mob, float yaw, float partialTicks, PoseStack pos, MultiBufferSource buffers, int light) {
 		ShaderInstance shader = CoreShaders.doppleganger();
 		if (shader != null) {
 			shader.safeGetUniform("BotaniaDisfiguration").set(GaiaGuardianRenderer.DEFAULT_DISFIGURATION);
@@ -43,7 +43,7 @@ public class PixieRenderer extends MobRenderer<EntityPixie, PixieModel> {
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull EntityPixie entity) {
+	public ResourceLocation getTextureLocation(@NotNull PixieEntity entity) {
 		return ClientProxy.dootDoot
 				? new ResourceLocation(ResourcesLib.MODEL_PIXIE_HALLOWEEN)
 				: new ResourceLocation(ResourcesLib.MODEL_PIXIE);

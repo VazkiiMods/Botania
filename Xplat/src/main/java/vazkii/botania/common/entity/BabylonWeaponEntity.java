@@ -39,7 +39,7 @@ import vazkii.botania.common.item.relic.ItemKingKey;
 
 import java.util.List;
 
-public class EntityBabylonWeapon extends EntityThrowableCopy {
+public class BabylonWeaponEntity extends ThrowableCopyEntity {
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
 	private static final String TAG_CHARGE_TICKS = "chargeTicks";
@@ -47,19 +47,19 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	private static final String TAG_DELAY = "delay";
 	private static final String TAG_ROTATION = "rotation";
 
-	private static final EntityDataAccessor<Boolean> CHARGING = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Integer> VARIETY = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> CHARGE_TICKS = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> LIVE_TICKS = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> DELAY = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Float> ROTATION = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Boolean> CHARGING = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> VARIETY = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> CHARGE_TICKS = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> LIVE_TICKS = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> DELAY = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> ROTATION = SynchedEntityData.defineId(BabylonWeaponEntity.class, EntityDataSerializers.FLOAT);
 
-	public EntityBabylonWeapon(EntityType<EntityBabylonWeapon> type, Level world) {
+	public BabylonWeaponEntity(EntityType<BabylonWeaponEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityBabylonWeapon(LivingEntity thrower, Level world) {
-		super(ModEntities.BABYLON_WEAPON, thrower, world);
+	public BabylonWeaponEntity(LivingEntity thrower, Level world) {
+		super(BotaniaEntities.BABYLON_WEAPON, thrower, world);
 	}
 
 	@Override

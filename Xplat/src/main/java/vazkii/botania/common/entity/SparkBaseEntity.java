@@ -28,12 +28,12 @@ import vazkii.botania.api.item.SparkEntity;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public abstract class EntitySparkBase extends Entity implements SparkEntity {
+public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	private static final String TAG_INVIS = "invis";
 	private static final String TAG_NETWORK = "network";
-	private static final EntityDataAccessor<Integer> NETWORK = SynchedEntityData.defineId(EntitySparkBase.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> NETWORK = SynchedEntityData.defineId(SparkBaseEntity.class, EntityDataSerializers.INT);
 
-	public EntitySparkBase(EntityType<?> type, Level world) {
+	public SparkBaseEntity(EntityType<?> type, Level world) {
 		super(type, world);
 	}
 

@@ -30,12 +30,12 @@ import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.function.Predicate;
 
-public class EntityThrownItem extends ItemEntity {
-	public EntityThrownItem(EntityType<EntityThrownItem> type, Level world) {
+public class ThrownItemEntity extends ItemEntity {
+	public ThrownItemEntity(EntityType<ThrownItemEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityThrownItem(Level world, double x,
+	public ThrownItemEntity(Level world, double x,
 			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
 		setPickUpDelay(((AccessorItemEntity) item).getPickupDelay());
@@ -46,7 +46,7 @@ public class EntityThrownItem extends ItemEntity {
 	@NotNull
 	@Override
 	public EntityType<?> getType() {
-		return ModEntities.THROWN_ITEM;
+		return BotaniaEntities.THROWN_ITEM;
 	}
 
 	@Override

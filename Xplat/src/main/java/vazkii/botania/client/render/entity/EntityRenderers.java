@@ -21,7 +21,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.GaiaHeadBlockEntity;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -34,26 +34,26 @@ public final class EntityRenderers {
 	}
 
 	public static void registerEntityRenderers(EntityRendererConsumer consumer) {
-		consumer.accept(ModEntities.MANA_BURST, NoopRenderer::new);
-		consumer.accept(ModEntities.PLAYER_MOVER, NoopRenderer::new);
-		consumer.accept(ModEntities.FLAME_RING, NoopRenderer::new);
-		consumer.accept(ModEntities.MAGIC_LANDMINE, MagicLandmineRenderer::new);
-		consumer.accept(ModEntities.MAGIC_MISSILE, NoopRenderer::new);
-		consumer.accept(ModEntities.FALLING_STAR, NoopRenderer::new);
-		consumer.accept(ModEntities.ENDER_AIR, NoopRenderer::new);
-		consumer.accept(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
-		consumer.accept(ModEntities.PIXIE, PixieRenderer::new);
-		consumer.accept(ModEntities.DOPPLEGANGER, GaiaGuardianRenderer::new);
-		consumer.accept(ModEntities.SPARK, ManaSparkRenderer::new);
-		consumer.accept(ModEntities.CORPOREA_SPARK, CorporeaSparkRenderer::new);
-		consumer.accept(ModEntities.POOL_MINECART, ManaPoolMinecartRenderer::new);
-		consumer.accept(ModEntities.PINK_WITHER, PinkWitherRenderer::new);
-		consumer.accept(ModEntities.MANA_STORM, ManaStormRenderer::new);
-		consumer.accept(ModEntities.BABYLON_WEAPON, BabylonWeaponRenderer::new);
+		consumer.accept(BotaniaEntities.MANA_BURST, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.PLAYER_MOVER, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.FLAME_RING, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.MAGIC_LANDMINE, MagicLandmineRenderer::new);
+		consumer.accept(BotaniaEntities.MAGIC_MISSILE, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.FALLING_STAR, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.ENDER_AIR, NoopRenderer::new);
+		consumer.accept(BotaniaEntities.THROWN_ITEM, ItemEntityRenderer::new);
+		consumer.accept(BotaniaEntities.PIXIE, PixieRenderer::new);
+		consumer.accept(BotaniaEntities.DOPPLEGANGER, GaiaGuardianRenderer::new);
+		consumer.accept(BotaniaEntities.SPARK, ManaSparkRenderer::new);
+		consumer.accept(BotaniaEntities.CORPOREA_SPARK, CorporeaSparkRenderer::new);
+		consumer.accept(BotaniaEntities.POOL_MINECART, ManaPoolMinecartRenderer::new);
+		consumer.accept(BotaniaEntities.PINK_WITHER, PinkWitherRenderer::new);
+		consumer.accept(BotaniaEntities.MANA_STORM, ManaStormRenderer::new);
+		consumer.accept(BotaniaEntities.BABYLON_WEAPON, BabylonWeaponRenderer::new);
 
-		consumer.accept(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
-		consumer.accept(ModEntities.VINE_BALL, ThrownItemRenderer::new);
-		consumer.accept(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
+		consumer.accept(BotaniaEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
+		consumer.accept(BotaniaEntities.VINE_BALL, ThrownItemRenderer::new);
+		consumer.accept(BotaniaEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
 	}
 
 	public static void addAuxiliaryPlayerRenders(PlayerRenderer renderer,

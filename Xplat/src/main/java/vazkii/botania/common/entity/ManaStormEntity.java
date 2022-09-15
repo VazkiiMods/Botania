@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.item.ModItems;
 
-public class EntityManaStorm extends Entity {
+public class ManaStormEntity extends Entity {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_BURST_COLOR = "burstColor";
 	private static final String TAG_BURSTS_FIRED = "burstsFired";
@@ -36,7 +36,7 @@ public class EntityManaStorm extends Entity {
 	public int burstsFired;
 	public int deathTime;
 
-	public EntityManaStorm(EntityType<EntityManaStorm> type, Level world) {
+	public ManaStormEntity(EntityType<ManaStormEntity> type, Level world) {
 		super(type, world);
 	}
 
@@ -66,7 +66,7 @@ public class EntityManaStorm extends Entity {
 	}
 
 	private void spawnBurst() {
-		EntityManaBurst burst = ModEntities.MANA_BURST.create(level);
+		ManaBurstEntity burst = BotaniaEntities.MANA_BURST.create(level);
 		burst.setPos(getX(), getY(), getZ());
 
 		float motionModifier = 0.5F;

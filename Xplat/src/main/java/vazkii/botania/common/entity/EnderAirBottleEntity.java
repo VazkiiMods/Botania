@@ -47,20 +47,20 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSupplier {
+public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSupplier {
 	public static final int PARTICLE_COLOR = 0x000008;
 	private static final ResourceLocation GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
 
-	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, Level world) {
+	public EnderAirBottleEntity(EntityType<EnderAirBottleEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityEnderAirBottle(LivingEntity entity, Level world) {
-		super(ModEntities.ENDER_AIR_BOTTLE, entity, world);
+	public EnderAirBottleEntity(LivingEntity entity, Level world) {
+		super(BotaniaEntities.ENDER_AIR_BOTTLE, entity, world);
 	}
 
-	public EntityEnderAirBottle(double x, double y, double z, Level world) {
-		super(ModEntities.ENDER_AIR_BOTTLE, x, y, z, world);
+	public EnderAirBottleEntity(double x, double y, double z, Level world) {
+		super(BotaniaEntities.ENDER_AIR_BOTTLE, x, y, z, world);
 	}
 
 	private void convertBlock(@NotNull BlockPos pos) {

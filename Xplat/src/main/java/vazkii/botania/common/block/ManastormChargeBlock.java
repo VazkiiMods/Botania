@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.common.entity.EntityManaStorm;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.ManaStormEntity;
 
 public class ManastormChargeBlock extends BotaniaBlock {
 
@@ -41,7 +41,7 @@ public class ManastormChargeBlock extends BotaniaBlock {
 			if (!burst.isFake() && !world.isClientSide) {
 				world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 				world.removeBlock(pos, false);
-				EntityManaStorm storm = ModEntities.MANA_STORM.create(world);
+				ManaStormEntity storm = BotaniaEntities.MANA_STORM.create(world);
 				storm.burstColor = burst.getColor();
 				storm.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				world.addFreshEntity(storm);

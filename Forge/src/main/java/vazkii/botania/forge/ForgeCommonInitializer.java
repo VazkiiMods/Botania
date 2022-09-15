@@ -90,8 +90,8 @@ import vazkii.botania.common.brew.BotaniaMobEffects;
 import vazkii.botania.common.brew.effect.SoulCrossMobEffect;
 import vazkii.botania.common.command.SkyblockCommand;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.handler.*;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
@@ -151,7 +151,7 @@ public class ForgeCommonInitializer {
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
 		CraftyCrateBlockEntity.registerListener();
@@ -187,8 +187,8 @@ public class ForgeCommonInitializer {
 		bind(Registry.RECIPE_SERIALIZER_REGISTRY, BotaniaRecipeTypes::submitRecipeSerializers);
 
 		// Entities
-		bind(Registry.ENTITY_TYPE_REGISTRY, ModEntities::registerEntities);
-		modBus.addListener((EntityAttributeCreationEvent e) -> ModEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
+		bind(Registry.ENTITY_TYPE_REGISTRY, BotaniaEntities::registerEntities);
+		modBus.addListener((EntityAttributeCreationEvent e) -> BotaniaEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
 		modBus.addListener((EntityAttributeModificationEvent e) -> {
 			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
 		});

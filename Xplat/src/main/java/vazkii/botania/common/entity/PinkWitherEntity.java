@@ -26,8 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.mixin.AccessorGoalSelector;
 import vazkii.botania.mixin.AccessorWitherEntity;
 
-public class EntityPinkWither extends WitherBoss {
-	public EntityPinkWither(EntityType<EntityPinkWither> type, Level world) {
+public class PinkWitherEntity extends WitherBoss {
+	public PinkWitherEntity(EntityType<PinkWitherEntity> type, Level world) {
 		super(type, world);
 	}
 

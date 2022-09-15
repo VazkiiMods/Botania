@@ -20,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 
@@ -52,11 +52,11 @@ public interface IProxy {
 
 	}
 
-	default void addBoss(EntityDoppleganger boss) {
+	default void addBoss(GaiaGuardianEntity boss) {
 
 	}
 
-	default void removeBoss(EntityDoppleganger boss) {
+	default void removeBoss(GaiaGuardianEntity boss) {
 
 	}
 

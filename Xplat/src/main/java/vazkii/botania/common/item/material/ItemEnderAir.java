@@ -24,8 +24,8 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityEnderAir;
-import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.entity.EnderAirBottleEntity;
+import vazkii.botania.common.entity.EnderAirEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 
@@ -67,7 +67,7 @@ public class ItemEnderAir extends Item {
 	}
 
 	public static boolean pickupFromEntity(Level level, AABB area) {
-		var entities = level.getEntitiesOfClass(EntityEnderAir.class, area, EntitySelector.ENTITY_STILL_ALIVE);
+		var entities = level.getEntitiesOfClass(EnderAirEntity.class, area, EntitySelector.ENTITY_STILL_ALIVE);
 		if (!entities.isEmpty()) {
 			entities.get(0).discard();
 			return true;
@@ -86,7 +86,7 @@ public class ItemEnderAir extends Item {
 		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.enderAirThrow, SoundSource.PLAYERS, 1F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isClientSide) {
-			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
+			EnderAirBottleEntity b = new EnderAirBottleEntity(player, world);
 			b.shootFromRotation(player, player.getXRot(), player.getYRot(), 0F, 1.5F, 1F);
 			world.addFreshEntity(b);
 		}

@@ -41,8 +41,8 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.LensEffect;
 import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
@@ -207,7 +207,7 @@ public class ItemLaputaShard extends Item implements LensEffect, TinyPlanetExcem
 					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
 					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
 
-					EntityManaBurst burst = getBurst(world, pos_, copyLens);
+					ManaBurstEntity burst = getBurst(world, pos_, copyLens);
 					world.addFreshEntity(burst);
 					return;
 				}
@@ -234,8 +234,8 @@ public class ItemLaputaShard extends Item implements LensEffect, TinyPlanetExcem
 		}
 	}
 
-	public EntityManaBurst getBurst(Level world, BlockPos pos, ItemStack stack) {
-		EntityManaBurst burst = ModEntities.MANA_BURST.create(world);
+	public ManaBurstEntity getBurst(Level world, BlockPos pos, ItemStack stack) {
+		ManaBurstEntity burst = BotaniaEntities.MANA_BURST.create(world);
 		burst.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
 		burst.setColor(0x00EAFF);

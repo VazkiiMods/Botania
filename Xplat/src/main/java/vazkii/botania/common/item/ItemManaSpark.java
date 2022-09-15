@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityManaSpark;
+import vazkii.botania.common.entity.ManaSparkEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ItemManaSpark extends Item {
@@ -39,7 +39,7 @@ public class ItemManaSpark extends Item {
 			if (attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
-					EntityManaSpark spark = new EntityManaSpark(world);
+					ManaSparkEntity spark = new ManaSparkEntity(world);
 					spark.setPos(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
 					world.addFreshEntity(spark);
 					attach.attachSpark(spark);

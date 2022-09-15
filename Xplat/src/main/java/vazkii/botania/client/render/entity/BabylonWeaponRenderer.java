@@ -27,18 +27,18 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.EntityBabylonWeapon;
+import vazkii.botania.common.entity.BabylonWeaponEntity;
 
 import java.util.Random;
 
-public class BabylonWeaponRenderer extends EntityRenderer<EntityBabylonWeapon> {
+public class BabylonWeaponRenderer extends EntityRenderer<BabylonWeaponEntity> {
 
 	public BabylonWeaponRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
 	@Override
-	public void render(@NotNull EntityBabylonWeapon weapon, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+	public void render(@NotNull BabylonWeaponEntity weapon, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(weapon.getRotation()));
 
@@ -83,7 +83,7 @@ public class BabylonWeaponRenderer extends EntityRenderer<EntityBabylonWeapon> {
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(@NotNull EntityBabylonWeapon entity) {
+	public ResourceLocation getTextureLocation(@NotNull BabylonWeaponEntity entity) {
 		return InventoryMenu.BLOCK_ATLAS;
 	}
 

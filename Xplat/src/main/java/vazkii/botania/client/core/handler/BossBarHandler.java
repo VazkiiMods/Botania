@@ -21,7 +21,7 @@ import net.minecraft.world.item.Items;
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 
 import java.util.*;
 
@@ -30,11 +30,11 @@ public final class BossBarHandler {
 	private BossBarHandler() {}
 
 	// Only access on the client thread!
-	public static final Set<EntityDoppleganger> bosses = Collections.newSetFromMap(new WeakHashMap<>());
+	public static final Set<GaiaGuardianEntity> bosses = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ResourcesLib.GUI_BOSS_BAR);
 
 	public static OptionalInt onBarRender(PoseStack ps, int x, int y, BossEvent bossEvent, boolean drawName) {
-		for (EntityDoppleganger currentBoss : bosses) {
+		for (GaiaGuardianEntity currentBoss : bosses) {
 			if (currentBoss.getBossInfoUuid().equals(bossEvent.getId())) {
 				Minecraft mc = Minecraft.getInstance();
 				// todo boss_bar.png has textures for different colors, respect bossEvent's getColor()?
@@ -82,7 +82,7 @@ public final class BossBarHandler {
 		return 5;
 	}
 
-	private static void drawHealthBar(PoseStack ms, EntityDoppleganger currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
+	private static void drawHealthBar(PoseStack ms, GaiaGuardianEntity currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
 		var shader = CoreShaders.dopplegangerBar();
 		if (shader != null) {
 			float time = currentBoss.getInvulTime();

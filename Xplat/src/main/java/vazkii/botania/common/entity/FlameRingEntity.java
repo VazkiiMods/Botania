@@ -27,8 +27,8 @@ import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
 
-public class EntityFlameRing extends Entity {
-	public EntityFlameRing(EntityType<EntityFlameRing> type, Level world) {
+public class FlameRingEntity extends Entity {
+	public FlameRingEntity(EntityType<FlameRingEntity> type, Level world) {
 		super(type, world);
 	}
 

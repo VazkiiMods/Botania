@@ -30,7 +30,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.List;
 
-public class EntityFallingStar extends EntityThrowableCopy {
+public class FallingStarEntity extends ThrowableCopyEntity {
 
 	private static final String TAG_HAS_BEEN_IN_AIR = "hasBeenInAir";
 	/*
@@ -39,12 +39,12 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	*/
 	private boolean hasBeenInAir = false;
 
-	public EntityFallingStar(EntityType<EntityFallingStar> type, Level world) {
+	public FallingStarEntity(EntityType<FallingStarEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityFallingStar(LivingEntity e, Level world) {
-		super(ModEntities.FALLING_STAR, e, world);
+	public FallingStarEntity(LivingEntity e, Level world) {
+		super(BotaniaEntities.FALLING_STAR, e, world);
 	}
 
 	@Override

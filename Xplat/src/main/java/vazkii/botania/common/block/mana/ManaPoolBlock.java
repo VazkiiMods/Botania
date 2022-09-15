@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.ManaBurstEntity;
 
 import java.util.List;
 
@@ -105,7 +105,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
 		if (context instanceof EntityCollisionContext econtext
-				&& econtext.getEntity() instanceof EntityManaBurst) {
+				&& econtext.getEntity() instanceof ManaBurstEntity) {
 			// Sometimes the pool's collision box is too thin for bursts shot straight up.
 			return BURST_SHAPE;
 		} else {

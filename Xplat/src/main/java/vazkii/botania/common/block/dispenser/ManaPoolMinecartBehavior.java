@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityPoolMinecart;
+import vazkii.botania.common.entity.ManaPoolMinecartEntity;
 
 // [VanillaCopy] MinecartItem
 public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
@@ -62,7 +62,7 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 			}
 		}
 
-		AbstractMinecart entityminecart = new EntityPoolMinecart(world, d0, d1 + d3, d2);
+		AbstractMinecart entityminecart = new ManaPoolMinecartEntity(world, d0, d1 + d3, d2);
 		if (stack.hasCustomHoverName()) {
 			entityminecart.setCustomName(stack.getHoverName());
 		}

@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
@@ -44,7 +44,7 @@ public abstract class MixinPlayer extends LivingEntity implements PlayerAccess {
 		method = "checkRidingStatistics", locals = LocalCapture.CAPTURE_FAILSOFT
 	)
 	private void trackLuminizerTravel(double dx, double dy, double dz, CallbackInfo ci, int cm, Entity mount) {
-		if (mount.getType() == ModEntities.PLAYER_MOVER) {
+		if (mount.getType() == BotaniaEntities.PLAYER_MOVER) {
 			awardStat(ModStats.LUMINIZER_ONE_CM, cm);
 		}
 	}

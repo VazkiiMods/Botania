@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.lib.ModTags;
 
 public class EntityTagProvider extends EntityTypeTagsProvider {
@@ -43,10 +43,10 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME, EntityType.END_CRYSTAL, EntityType.PAINTING,
 				EntityType.COMMAND_BLOCK_MINECART, EntityType.MARKER, EntityType.AREA_EFFECT_CLOUD,
 				EntityType.EVOKER_FANGS, EntityType.LEASH_KNOT,
-				ModEntities.CORPOREA_SPARK, ModEntities.DOPPLEGANGER, ModEntities.FLAME_RING, ModEntities.MAGIC_LANDMINE,
-				ModEntities.MAGIC_MISSILE, ModEntities.MANA_BURST, ModEntities.PINK_WITHER, ModEntities.SPARK, ModEntities.PLAYER_MOVER);
+				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.DOPPLEGANGER, BotaniaEntities.FLAME_RING, BotaniaEntities.MAGIC_LANDMINE,
+				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.PLAYER_MOVER);
 
 		var bosses = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("c", "bosses"));
-		tag(bosses).add(ModEntities.DOPPLEGANGER);
+		tag(bosses).add(BotaniaEntities.DOPPLEGANGER);
 	}
 }

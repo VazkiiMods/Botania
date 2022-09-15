@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.entity.EntityThrownItem;
+import vazkii.botania.common.entity.ThrownItemEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -257,7 +257,7 @@ public class ItemGravityRod extends Item {
 						float mot = ManaItemHandler.instance().hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.setDeltaMovement(moveVector.x * mot, moveVector.y, moveVector.z * mot);
 						if (!player.level.isClientSide) {
-							EntityThrownItem thrown = new EntityThrownItem(item.level, item.getX(), item.getY(), item.getZ(), item);
+							ThrownItemEntity thrown = new ThrownItemEntity(item.level, item.getX(), item.getY(), item.getZ(), item);
 							item.level.addFreshEntity(thrown);
 						}
 						item.discard();

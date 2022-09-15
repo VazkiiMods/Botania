@@ -16,7 +16,7 @@ import net.minecraft.world.item.context.UseOnContext;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.ModItems;
 
 public class ItemManaResource extends Item {
@@ -30,7 +30,7 @@ public class ItemManaResource extends Item {
 		ItemStack stack = ctx.getItemInHand();
 
 		if (stack.is(ModItems.terrasteel) || stack.is(ModItems.gaiaIngot)) {
-			return EntityDoppleganger.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), stack.is(ModItems.gaiaIngot))
+			return GaiaGuardianEntity.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), stack.is(ModItems.gaiaIngot))
 					? InteractionResult.SUCCESS
 					: InteractionResult.FAIL;
 		} else if (stack.is(ModItems.livingroot)) {

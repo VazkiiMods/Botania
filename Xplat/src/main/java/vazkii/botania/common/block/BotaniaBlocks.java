@@ -51,8 +51,8 @@ import vazkii.botania.common.block.decor.stairs.BotaniaStairBlock;
 import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.red_string.*;
-import vazkii.botania.common.entity.EntityEnderAirBottle;
-import vazkii.botania.common.entity.EntityVineBall;
+import vazkii.botania.common.entity.EnderAirBottleEntity;
+import vazkii.botania.common.entity.VineBallEntity;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockWithSpecialRenderer;
@@ -923,7 +923,7 @@ public final class BotaniaBlocks {
 			@NotNull
 			@Override
 			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
-				return new EntityEnderAirBottle(pos.x(), pos.y(), pos.z(), world);
+				return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world);
 			}
 		});
 
@@ -936,7 +936,7 @@ public final class BotaniaBlocks {
 			@NotNull
 			@Override
 			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
-				return new EntityVineBall(pos.x(), pos.y(), pos.z(), world);
+				return new VineBallEntity(pos.x(), pos.y(), pos.z(), world);
 			}
 		});
 

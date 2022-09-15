@@ -24,17 +24,17 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 // [VanillaCopy] ThrowableProjectile
-public abstract class EntityThrowableCopy extends Projectile {
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> entityType, Level level) {
+public abstract class ThrowableCopyEntity extends Projectile {
+	protected ThrowableCopyEntity(EntityType<? extends ThrowableCopyEntity> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> entityType, double d, double e, double f, Level level) {
+	protected ThrowableCopyEntity(EntityType<? extends ThrowableCopyEntity> entityType, double d, double e, double f, Level level) {
 		this(entityType, level);
 		this.setPos(d, e, f);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> entityType, LivingEntity livingEntity, Level level) {
+	protected ThrowableCopyEntity(EntityType<? extends ThrowableCopyEntity> entityType, LivingEntity livingEntity, Level level) {
 		this(entityType, livingEntity.getX(), livingEntity.getEyeY() - 0.10000000149011612D, livingEntity.getZ(), level);
 		this.setOwner(livingEntity);
 	}

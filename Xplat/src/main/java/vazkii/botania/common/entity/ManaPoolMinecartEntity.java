@@ -36,17 +36,17 @@ import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class EntityPoolMinecart extends AbstractMinecart {
+public class ManaPoolMinecartEntity extends AbstractMinecart {
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
-	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(EntityPoolMinecart.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(ManaPoolMinecartEntity.class, EntityDataSerializers.INT);
 
-	public EntityPoolMinecart(EntityType<EntityPoolMinecart> type, Level world) {
+	public ManaPoolMinecartEntity(EntityType<ManaPoolMinecartEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityPoolMinecart(Level world, double x, double y, double z) {
-		super(ModEntities.POOL_MINECART, world, x, y, z);
+	public ManaPoolMinecartEntity(Level world, double x, double y, double z) {
+		super(BotaniaEntities.POOL_MINECART, world, x, y, z);
 	}
 
 	@Override

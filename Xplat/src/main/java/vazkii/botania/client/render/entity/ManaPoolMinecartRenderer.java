@@ -25,9 +25,9 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
-import vazkii.botania.common.entity.EntityPoolMinecart;
+import vazkii.botania.common.entity.ManaPoolMinecartEntity;
 
-public class ManaPoolMinecartRenderer extends MinecartRenderer<EntityPoolMinecart> {
+public class ManaPoolMinecartRenderer extends MinecartRenderer<ManaPoolMinecartEntity> {
 	private static final ManaPoolBlockEntity DUMMY = new ManaPoolBlockEntity(ManaBurst.NO_SOURCE, BotaniaBlocks.manaPool.defaultBlockState());
 
 	public ManaPoolMinecartRenderer(EntityRendererProvider.Context ctx) {
@@ -35,7 +35,7 @@ public class ManaPoolMinecartRenderer extends MinecartRenderer<EntityPoolMinecar
 	}
 
 	@Override
-	protected void renderMinecartContents(EntityPoolMinecart poolCart, float partialTicks, @NotNull BlockState state, PoseStack ms, MultiBufferSource buffers, int light) {
+	protected void renderMinecartContents(ManaPoolMinecartEntity poolCart, float partialTicks, @NotNull BlockState state, PoseStack ms, MultiBufferSource buffers, int light) {
 		super.renderMinecartContents(poolCart, partialTicks, state, ms, buffers, light);
 		ManaPoolBlockEntityRenderer.cartMana = poolCart.getMana();
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(DUMMY)

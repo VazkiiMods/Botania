@@ -17,7 +17,7 @@ import net.minecraft.world.damagesource.DamageSource;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -42,7 +42,7 @@ public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuard
 		);
 	}
 
-	public void trigger(ServerPlayer player, EntityDoppleganger guardian, DamageSource src) {
+	public void trigger(ServerPlayer player, GaiaGuardianEntity guardian, DamageSource src) {
 		trigger(player, instance -> instance.test(player, guardian, src));
 	}
 
@@ -62,7 +62,7 @@ public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuard
 			return ID;
 		}
 
-		boolean test(ServerPlayer player, EntityDoppleganger guardian, DamageSource src) {
+		boolean test(ServerPlayer player, GaiaGuardianEntity guardian, DamageSource src) {
 			return this.guardian.matches(player, guardian) && this.killingBlow.matches(player, src);
 		}
 

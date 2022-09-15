@@ -41,21 +41,21 @@ import vazkii.botania.common.lib.ModTags;
 
 import java.util.*;
 
-public class EntityCorporeaSpark extends EntitySparkBase implements CorporeaSpark {
+public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpark {
 	private static final int SCAN_RANGE = 8;
 
 	private static final String TAG_MASTER = "master";
 	private static final String TAG_CREATIVE = "creative";
 
-	private static final EntityDataAccessor<Boolean> MASTER = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> CREATIVE = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> MASTER = SynchedEntityData.defineId(CorporeaSparkEntity.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> CREATIVE = SynchedEntityData.defineId(CorporeaSparkEntity.class, EntityDataSerializers.BOOLEAN);
 
 	private CorporeaSpark master;
 	private Set<CorporeaSpark> connections = new LinkedHashSet<>();
 	private List<CorporeaSpark> relatives = new ArrayList<>();
 	private boolean firstTick = true;
 
-	public EntityCorporeaSpark(EntityType<EntityCorporeaSpark> type, Level world) {
+	public CorporeaSparkEntity(EntityType<CorporeaSparkEntity> type, Level world) {
 		super(type, world);
 	}
 
@@ -174,11 +174,11 @@ public class EntityCorporeaSpark extends EntitySparkBase implements CorporeaSpar
 
 		List<CorporeaSpark> sparks = spark.getRelatives();
 		if (sparks.isEmpty()) {
-			EntityManaSpark.particleBeam(player, spark.entity(), spark.getMaster().entity());
+			ManaSparkEntity.particleBeam(player, spark.entity(), spark.getMaster().entity());
 		} else {
 			for (CorporeaSpark endSpark : sparks) {
 				if (!checked.contains(endSpark)) {
-					EntityManaSpark.particleBeam(player, spark.entity(), endSpark.entity());
+					ManaSparkEntity.particleBeam(player, spark.entity(), endSpark.entity());
 					checked.add(endSpark);
 					displayRelatives(player, checked, endSpark);
 				}

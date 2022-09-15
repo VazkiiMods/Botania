@@ -92,7 +92,7 @@ import java.util.stream.Collectors;
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class EntityDoppleganger extends Mob {
+public class GaiaGuardianEntity extends Mob {
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
 
@@ -162,7 +162,7 @@ public class EntityDoppleganger extends Mob {
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 	private static final TagKey<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
 
-	private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(EntityDoppleganger.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(GaiaGuardianEntity.class, EntityDataSerializers.INT);
 
 	private static final List<BlockPos> PYLON_LOCATIONS = ImmutableList.of(
 			new BlockPos(4, 1, 4),
@@ -186,11 +186,11 @@ public class EntityDoppleganger extends Mob {
 	private boolean hardMode = false;
 	private BlockPos source = BlockPos.ZERO;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(ModEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
+	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(BotaniaEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);
 	private UUID bossInfoUUID = bossInfo.getId();
 	public Player trueKiller = null;
 
-	public EntityDoppleganger(EntityType<EntityDoppleganger> type, Level world) {
+	public GaiaGuardianEntity(EntityType<GaiaGuardianEntity> type, Level world) {
 		super(type, world);
 		xpReward = 825;
 		if (world.isClientSide) {
@@ -244,7 +244,7 @@ public class EntityDoppleganger extends Mob {
 		if (!world.isClientSide) {
 			stack.shrink(1);
 
-			EntityDoppleganger e = ModEntities.DOPPLEGANGER.create(world);
+			GaiaGuardianEntity e = BotaniaEntities.DOPPLEGANGER.create(world);
 			e.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
 			e.setHealth(1F);
@@ -490,11 +490,11 @@ public class EntityDoppleganger extends Mob {
 			}
 
 			// Stop all the pixies leftover from the fight
-			for (EntityPixie pixie : level.getEntitiesOfClass(EntityPixie.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
+			for (PixieEntity pixie : level.getEntitiesOfClass(PixieEntity.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
 				pixie.spawnAnim();
 				pixie.discard();
 			}
-			for (EntityMagicLandmine landmine : level.getEntitiesOfClass(EntityMagicLandmine.class, getArenaBB(getSource()))) {
+			for (MagicLandmineEntity landmine : level.getEntitiesOfClass(MagicLandmineEntity.class, getArenaBB(getSource()))) {
 				landmine.discard();
 			}
 		}
@@ -561,7 +561,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	private static int countGaiaGuardiansAround(Level world, BlockPos source) {
-		List<EntityDoppleganger> l = world.getEntitiesOfClass(EntityDoppleganger.class, getArenaBB(source));
+		List<GaiaGuardianEntity> l = world.getEntitiesOfClass(GaiaGuardianEntity.class, getArenaBB(source));
 		return l.size();
 	}
 
@@ -697,7 +697,7 @@ public class EntityDoppleganger extends Mob {
 					case 2 -> {
 						if (!players.isEmpty()) {
 							for (int j = 0; j < 1 + level.random.nextInt(hardMode ? 8 : 5); j++) {
-								EntityPixie pixie = new EntityPixie(level);
+								PixieEntity pixie = new PixieEntity(level);
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
 								pixie.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(pixie.blockPosition()),
@@ -839,7 +839,7 @@ public class EntityDoppleganger extends Mob {
 								int y = (int) players.get(random.nextInt(players.size())).getY();
 								int z = source.getZ() - 10 + random.nextInt(20);
 
-								EntityMagicLandmine landmine = ModEntities.MAGIC_LANDMINE.create(level);
+								MagicLandmineEntity landmine = BotaniaEntities.MAGIC_LANDMINE.create(level);
 								landmine.setPos(x + 0.5, y, z + 0.5);
 								landmine.summoner = this;
 								level.addFreshEntity(landmine);
@@ -849,7 +849,7 @@ public class EntityDoppleganger extends Mob {
 
 						for (int pl = 0; pl < playerCount; pl++) {
 							for (int i = 0; i < (spawnPixies ? level.random.nextInt(hardMode ? 6 : 3) : 1); i++) {
-								EntityPixie pixie = new EntityPixie(level);
+								PixieEntity pixie = new PixieEntity(level);
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
 								pixie.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(pixie.blockPosition()),
@@ -904,7 +904,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	private void spawnMissile() {
-		EntityMagicMissile missile = new EntityMagicMissile(this, true);
+		MagicMissileEntity missile = new MagicMissileEntity(this, true);
 		missile.setPos(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
 		if (missile.findTarget()) {
 			playSound(ModSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
@@ -1017,9 +1017,9 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	private static class DopplegangerMusic extends AbstractTickableSoundInstance {
-		private final EntityDoppleganger guardian;
+		private final GaiaGuardianEntity guardian;
 
-		private DopplegangerMusic(EntityDoppleganger guardian) {
+		private DopplegangerMusic(GaiaGuardianEntity guardian) {
 			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS, SoundInstance.createUnseededRandom());
 			this.guardian = guardian;
 			this.x = guardian.getSource().getX();
@@ -1028,7 +1028,7 @@ public class EntityDoppleganger extends Mob {
 			this.looping = true;
 		}
 
-		public static void play(EntityDoppleganger guardian) {
+		public static void play(GaiaGuardianEntity guardian) {
 			Minecraft.getInstance().getSoundManager().play(new DopplegangerMusic(guardian));
 		}
 

@@ -22,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.entity.EntityCorporeaSpark;
-import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
+import vazkii.botania.common.entity.CorporeaSparkEntity;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.lib.ModTags;
 
@@ -41,13 +41,13 @@ public class ItemCorporeaSpark extends Item {
 		return attachSpark(ctx.getLevel(), ctx.getClickedPos(), ctx.getItemInHand()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
 	}
 
-	private static boolean canPlace(Level world, EntityCorporeaSpark spark) {
+	private static boolean canPlace(Level world, CorporeaSparkEntity spark) {
 		return world.getBlockState(spark.getAttachPos()).is(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)
 				|| !(spark.getSparkNode() instanceof DummyCorporeaNode);
 	}
 
 	public static boolean attachSpark(Level world, BlockPos pos, ItemStack stack) {
-		EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);
+		CorporeaSparkEntity spark = BotaniaEntities.CORPOREA_SPARK.create(world);
 		if (stack.is(ModItems.corporeaSparkMaster)) {
 			spark.setMaster(true);
 		}

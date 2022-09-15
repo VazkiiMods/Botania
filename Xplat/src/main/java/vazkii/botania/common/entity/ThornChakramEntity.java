@@ -39,20 +39,20 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 
-public class EntityThornChakram extends ThrowableProjectile implements ItemSupplier {
-	private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Boolean> FLARE = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Integer> RETURN_TO = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.INT);
+public class ThornChakramEntity extends ThrowableProjectile implements ItemSupplier {
+	private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(ThornChakramEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> FLARE = SynchedEntityData.defineId(ThornChakramEntity.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> RETURN_TO = SynchedEntityData.defineId(ThornChakramEntity.class, EntityDataSerializers.INT);
 	private static final int MAX_BOUNCES = 16;
 	private boolean bounced = false;
 	private ItemStack stack = ItemStack.EMPTY;
 
-	public EntityThornChakram(EntityType<EntityThornChakram> type, Level world) {
+	public ThornChakramEntity(EntityType<ThornChakramEntity> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityThornChakram(LivingEntity e, Level world, ItemStack stack) {
-		super(ModEntities.THORN_CHAKRAM, e, world);
+	public ThornChakramEntity(LivingEntity e, Level world, ItemStack stack) {
+		super(BotaniaEntities.THORN_CHAKRAM, e, world);
 		this.stack = stack.copy();
 	}
 

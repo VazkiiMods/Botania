@@ -28,10 +28,10 @@ import vazkii.botania.common.handler.ModSounds;
 
 import java.util.List;
 
-public class EntityMagicLandmine extends Entity {
-	public EntityDoppleganger summoner;
+public class MagicLandmineEntity extends Entity {
+	public GaiaGuardianEntity summoner;
 
-	public EntityMagicLandmine(EntityType<EntityMagicLandmine> type, Level world) {
+	public MagicLandmineEntity(EntityType<MagicLandmineEntity> type, Level world) {
 		super(type, world);
 	}
 

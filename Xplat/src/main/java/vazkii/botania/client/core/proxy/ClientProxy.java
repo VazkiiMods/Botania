@@ -26,7 +26,7 @@ import org.lwjgl.glfw.GLFW;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.fx.BoltParticleOptions;
 import vazkii.botania.client.fx.BoltRenderer;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.proxy.IProxy;
@@ -80,12 +80,12 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public void addBoss(EntityDoppleganger boss) {
+	public void addBoss(GaiaGuardianEntity boss) {
 		BossBarHandler.bosses.add(boss);
 	}
 
 	@Override
-	public void removeBoss(EntityDoppleganger boss) {
+	public void removeBoss(GaiaGuardianEntity boss) {
 		BossBarHandler.bosses.remove(boss);
 	}
 

@@ -28,7 +28,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.LensEffect;
-import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
@@ -66,7 +66,7 @@ public class ItemTerraSword extends ItemManasteelSword implements LensEffect {
 		if (!player.getMainHandItem().isEmpty()
 				&& player.getMainHandItem().is(ModItems.terraSword)
 				&& attackStrength == 1) {
-			EntityManaBurst burst = getBurst(player, player.getMainHandItem());
+			ManaBurstEntity burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);
 			player.getMainHandItem().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
 			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundSource.PLAYERS, 1F, 1F);
@@ -78,8 +78,8 @@ public class ItemTerraSword extends ItemManasteelSword implements LensEffect {
 		return MANA_PER_DAMAGE;
 	}
 
-	public static EntityManaBurst getBurst(Player player, ItemStack stack) {
-		EntityManaBurst burst = new EntityManaBurst(player);
+	public static ManaBurstEntity getBurst(Player player, ItemStack stack) {
+		ManaBurstEntity burst = new ManaBurstEntity(player);
 
 		float motionModifier = 7F;
 

@@ -51,7 +51,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
 
-public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
+public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -74,15 +74,15 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 	private static final String TAG_MAGNETIZE_POS = "magnetizePos";
 	private static final String TAG_LEFT_SOURCE = "leftSource";
 
-	private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> START_MANA = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> MIN_MANA_LOSS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Float> MANA_LOSS_PER_TICK = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.FLOAT);
-	private static final EntityDataAccessor<BlockPos> SOURCE_COORDS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.BLOCK_POS);
-	private static final EntityDataAccessor<ItemStack> SOURCE_LENS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.ITEM_STACK);
-	private static final EntityDataAccessor<Boolean> LEFT_SOURCE_POS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> START_MANA = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> MIN_MANA_LOSS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> MANA_LOSS_PER_TICK = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<BlockPos> SOURCE_COORDS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.BLOCK_POS);
+	private static final EntityDataAccessor<ItemStack> SOURCE_LENS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.ITEM_STACK);
+	private static final EntityDataAccessor<Boolean> LEFT_SOURCE_POS = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.BOOLEAN);
 
 	private float accumulatedManaLoss = 0;
 	private boolean fake = false;
@@ -99,7 +99,7 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
-	public EntityManaBurst(EntityType<EntityManaBurst> type, Level world) {
+	public ManaBurstEntity(EntityType<ManaBurstEntity> type, Level world) {
 		super(type, world);
 	}
 
@@ -124,8 +124,8 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 		return new Vec3(mx, my, mz);
 	}
 
-	public EntityManaBurst(Level level, BlockPos pos, float rotX, float rotY, boolean fake) {
-		this(ModEntities.MANA_BURST, level);
+	public ManaBurstEntity(Level level, BlockPos pos, float rotX, float rotY, boolean fake) {
+		this(BotaniaEntities.MANA_BURST, level);
 
 		this.fake = fake;
 
@@ -141,8 +141,8 @@ public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 		setDeltaMovement(calculateBurstVelocity(getXRot(), getYRot()));
 	}
 
-	public EntityManaBurst(Player player) {
-		super(ModEntities.MANA_BURST, player, player.level);
+	public ManaBurstEntity(Player player) {
+		super(BotaniaEntities.MANA_BURST, player, player.level);
 
 		setBurstSourceCoords(NO_SOURCE);
 		setRot(player.getYRot() + 180, -player.getXRot());

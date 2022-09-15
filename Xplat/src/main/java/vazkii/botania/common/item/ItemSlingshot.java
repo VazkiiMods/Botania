@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.EntityVineBall;
+import vazkii.botania.common.entity.VineBallEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 
@@ -51,7 +51,7 @@ public class ItemSlingshot extends Item {
 				PlayerHelper.consumeAmmo(player, AMMO_FUNC);
 			}
 
-			EntityVineBall ball = new EntityVineBall(living, false);
+			VineBallEntity ball = new VineBallEntity(living, false);
 			ball.shootFromRotation(living, living.getXRot(), living.getYRot(), 0F, 1.5F, 1F);
 			ball.setDeltaMovement(ball.getDeltaMovement().scale(1.6));
 			world.addFreshEntity(ball);
