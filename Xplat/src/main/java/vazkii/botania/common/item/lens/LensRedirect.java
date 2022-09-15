@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.common.block.tile.mana.IThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
@@ -25,7 +25,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 public class LensRedirect extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		BlockPos sourcePos = burst.getBurstSourceBlockPos();
 		var burstEntity = burst.entity();
 		if (!burstEntity.level.isClientSide && !burst.isFake()) {
@@ -43,11 +43,11 @@ public class LensRedirect extends Lens {
 	}
 
 	@Nullable
-	private static Vec3 getSourceVec(IManaBurst burst) {
+	private static Vec3 getSourceVec(ManaBurst burst) {
 		var entity = burst.entity();
 		var owner = entity.getOwner();
 		var sourcePos = burst.getBurstSourceBlockPos();
-		if (!sourcePos.equals(IManaBurst.NO_SOURCE)) {
+		if (!sourcePos.equals(ManaBurst.NO_SOURCE)) {
 			var sourceVec = Vec3.atCenterOf(sourcePos);
 			AABB axis;
 			VoxelShape collideShape = entity.level.getBlockState(sourcePos).getCollisionShape(entity.level, sourcePos);
@@ -69,14 +69,14 @@ public class LensRedirect extends Lens {
 		}
 	}
 
-	private void handleHitEntity(IManaBurst burst, EntityHitResult result) {
+	private void handleHitEntity(ManaBurst burst, EntityHitResult result) {
 		var sourceVec = getSourceVec(burst);
 		if (sourceVec != null) {
 			result.getEntity().lookAt(EntityAnchorArgument.Anchor.EYES, sourceVec);
 		}
 	}
 
-	private void handleHitBlock(IManaBurst burst, BlockHitResult result) {
+	private void handleHitBlock(ManaBurst burst, BlockHitResult result) {
 		var sourceVec = getSourceVec(burst);
 		if (sourceVec == null) {
 			return;

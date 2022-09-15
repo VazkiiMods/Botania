@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
 
 /**
@@ -87,7 +87,7 @@ public abstract class TileEntityFunctionalFlower extends TileEntityBindableSpeci
 	@Nullable
 	@Override
 	public BlockPos findClosestTarget() {
-		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+		ManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 		var closestPool = network.getClosestPool(getBlockPos(), getLevel(), getBindingRadius());
 		return closestPool == null ? null : closestPool.getManaReceiverPos();
 	}

@@ -22,7 +22,7 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -93,7 +93,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		shouldKill = getLens(stack).collideBurst(burst, pos, isManaBlock, shouldKill, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
@@ -105,7 +105,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
+	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		int storedColor = getStoredColor(stack);
 
 		if (storedColor == 16 && burst.entity().level.isClientSide) {
@@ -147,7 +147,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public boolean doParticles(IManaBurst burst, ItemStack stack) {
+	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		return true;
 	}
 
@@ -206,7 +206,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public int getManaToTransfer(IManaBurst burst, ItemStack stack, IManaReceiver receiver) {
+	public int getManaToTransfer(ManaBurst burst, ItemStack stack, IManaReceiver receiver) {
 		return getLens(stack).getManaToTransfer(burst, stack, receiver);
 	}
 

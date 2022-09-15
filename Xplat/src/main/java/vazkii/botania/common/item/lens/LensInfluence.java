@@ -21,13 +21,13 @@ import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.item.ModItems;
 
 public class LensInfluence extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
+	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!burst.isFake()) {
 			double range = 3.5;
@@ -37,7 +37,7 @@ public class LensInfluence extends Lens {
 			var arrows = entity.level.getEntitiesOfClass(AbstractArrow.class, bounds);
 			var fallingBlocks = entity.level.getEntitiesOfClass(FallingBlockEntity.class, bounds);
 			var primedTnt = entity.level.getEntitiesOfClass(PrimedTnt.class, bounds);
-			var bursts = entity.level.getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(IManaBurst.class));
+			var bursts = entity.level.getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(ManaBurst.class));
 
 			var concat = Iterables.concat(items, expOrbs, arrows, fallingBlocks, primedTnt, bursts);
 			for (Entity movable : concat) {
@@ -45,7 +45,7 @@ public class LensInfluence extends Lens {
 					continue;
 				}
 
-				if (movable instanceof IManaBurst otherBurst) {
+				if (movable instanceof ManaBurst otherBurst) {
 					ItemStack lens = otherBurst.getSourceLens();
 					if (!lens.isEmpty() && lens.is(ModItems.lensInfluence)) {
 						continue;

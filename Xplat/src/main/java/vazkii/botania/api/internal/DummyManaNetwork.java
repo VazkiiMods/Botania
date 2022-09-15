@@ -16,7 +16,7 @@ import vazkii.botania.api.mana.*;
 import java.util.Collections;
 import java.util.Set;
 
-public class DummyManaNetwork implements IManaNetwork {
+public class DummyManaNetwork implements ManaNetwork {
 
 	public static final DummyManaNetwork instance = new DummyManaNetwork();
 

@@ -26,7 +26,7 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -34,7 +34,7 @@ import java.util.List;
 
 public class LensWeight extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
 		if (!entity.level.isClientSide && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			int harvestLevel = BotaniaConfig.common().harvestLevelWeight();

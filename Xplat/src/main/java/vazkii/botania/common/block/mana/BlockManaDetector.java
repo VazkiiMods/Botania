@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -64,7 +64,7 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost {
 		}
 
 		@Override
-		public void onBurstCollision(IManaBurst burst) {
+		public void onBurstCollision(ManaBurst burst) {
 			if (!world.isClientSide && !burst.isFake()) {
 				if (!state.getValue(BlockStateProperties.POWERED) && !world.getBlockTicks().hasScheduledTick(pos, state.getBlock())) {
 					world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));

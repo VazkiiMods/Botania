@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 
 import java.util.UUID;
 
@@ -28,7 +28,7 @@ public interface IManaSpreader extends IManaCollector {
 
 	void setLastBurstDeathTick(int ticksExisted);
 
-	IManaBurst runBurstSimulation();
+	ManaBurst runBurstSimulation();
 
 	/**
 	 * @return The X rotation, in degrees
@@ -64,9 +64,9 @@ public interface IManaSpreader extends IManaCollector {
 	 * Pings this object back, telling it that the burst passed in is still alive
 	 * in the world. The UUID parameter should be the UUID with which the burst
 	 * was created, this is used to let the object handle the check for if it's the
-	 * correct ID internally. IManaBurst implementations should do this every tick.
+	 * correct ID internally. ManaBurst implementations should do this every tick.
 	 */
-	void pingback(IManaBurst burst, UUID expectedIdentity);
+	void pingback(ManaBurst burst, UUID expectedIdentity);
 
 	/**
 	 * @return A unique and persistent identifier for this spreader

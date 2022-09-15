@@ -38,7 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -51,7 +51,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
 
-public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
+public class EntityManaBurst extends ThrowableProjectile implements ManaBurst {
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";

@@ -24,7 +24,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.ISparkEntity;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.PacketBotaniaEffect;
@@ -37,7 +37,7 @@ import java.util.function.Function;
 public class LensPaint extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		int storedColor = ItemLens.getStoredColor(stack);
 		if (!entity.level.isClientSide && !burst.isFake() && storedColor > -1 && storedColor < 17) {

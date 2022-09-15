@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
 
 import java.util.List;
@@ -22,12 +22,12 @@ public class LensTripwire extends Lens {
 
 	@Override
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		IManaBurst burst = spreader.runBurstSimulation();
+		ManaBurst burst = spreader.runBurstSimulation();
 		return burst.hasTripped();
 	}
 
 	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
+	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (burst.isFake()) {
 			if (entity.level.isClientSide) {

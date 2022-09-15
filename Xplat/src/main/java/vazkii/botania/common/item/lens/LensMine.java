@@ -26,7 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -38,7 +38,7 @@ import java.util.stream.Stream;
 
 public class LensMine extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 		Level world = entity.level;
 
@@ -77,7 +77,7 @@ public class LensMine extends Lens {
 						world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, collidePos, Block.getId(state));
 					}
 
-					boolean sourceless = source.equals(IManaBurst.NO_SOURCE);
+					boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
 					boolean doWarp = warp && !sourceless;
 					Vec3 dropPosition;
 					if (doWarp && world.getBlockEntity(source) instanceof TileSpreader spreader) {

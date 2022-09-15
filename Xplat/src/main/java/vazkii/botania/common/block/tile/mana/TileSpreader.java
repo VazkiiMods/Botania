@@ -42,7 +42,7 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.block.mana.BlockSpreader;
@@ -198,10 +198,10 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 				double z = self.lastPingbackZ;
 				AABB aabb = new AABB(x, y, z, x, y, z).inflate(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
 				@SuppressWarnings("unchecked")
-				List<IManaBurst> bursts = (List<IManaBurst>) (List<?>) level.getEntitiesOfClass(ThrowableProjectile.class, aabb, Predicates.instanceOf(IManaBurst.class));
-				IManaBurst found = null;
+				List<ManaBurst> bursts = (List<ManaBurst>) (List<?>) level.getEntitiesOfClass(ThrowableProjectile.class, aabb, Predicates.instanceOf(ManaBurst.class));
+				ManaBurst found = null;
 				UUID identity = self.getIdentifier();
-				for (IManaBurst burst : bursts) {
+				for (ManaBurst burst : bursts) {
 					if (burst != null && identity.equals(burst.getShooterUUID())) {
 						found = burst;
 						break;
@@ -484,7 +484,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	}
 
 	@Override
-	public IManaBurst runBurstSimulation() {
+	public ManaBurst runBurstSimulation() {
 		EntityManaBurst fakeBurst = getBurst(true);
 		fakeBurst.setScanBeam();
 		fakeBurst.getCollidedTile(true);
@@ -590,7 +590,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	}
 
 	@Override
-	public float getManaYieldMultiplier(IManaBurst burst) {
+	public float getManaYieldMultiplier(ManaBurst burst) {
 		return 1F;
 	}
 
@@ -758,7 +758,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements WandBind
 	}
 
 	@Override
-	public void pingback(IManaBurst burst, UUID expectedIdentity) {
+	public void pingback(ManaBurst burst, UUID expectedIdentity) {
 		if (getIdentifier().equals(expectedIdentity)) {
 			pingbackTicks = TICKS_ALLOWED_WITHOUT_PINGBACK;
 			Entity e = burst.entity();

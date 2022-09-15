@@ -25,7 +25,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.entity.EntityManaBurst;
@@ -99,12 +99,12 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	public void apply(ItemStack stack, BurstProperties props, Level level) {}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		return shouldKill;
 	}
 
 	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
+	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
 		AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(1);
 		List<LivingEntity> entities = entity.level.getEntitiesOfClass(LivingEntity.class, axis);
@@ -139,7 +139,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	}
 
 	@Override
-	public boolean doParticles(IManaBurst burst, ItemStack stack) {
+	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		return true;
 	}
 }

@@ -17,11 +17,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 
 public class LensFire extends Lens {
 	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
+	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide) {
 			entity.setSecondsOnFire(3);
@@ -29,7 +29,7 @@ public class LensFire extends Lens {
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 
 		if (!entity.level.isClientSide && rtr.getType() == HitResult.Type.BLOCK

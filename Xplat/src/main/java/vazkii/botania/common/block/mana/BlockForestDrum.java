@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
@@ -96,7 +96,7 @@ public class BlockForestDrum extends BlockModWaterloggable {
 		}
 
 		@Override
-		public void onBurstCollision(IManaBurst burst) {
+		public void onBurstCollision(ManaBurst burst) {
 			if (burst.isFake()) {
 				return;
 			}

@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * A basic interface for a world's Mana Network.
  */
-public interface IManaNetwork {
+public interface ManaNetwork {
 
 	/**
 	 * Clears the entire Mana Network of all it's contents, you probably

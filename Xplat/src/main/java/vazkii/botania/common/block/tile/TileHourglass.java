@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.item.ModItems;
@@ -102,7 +102,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements IManaTr
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst) {
+	public void onBurstCollision(ManaBurst burst) {
 		if (!level.isClientSide && !burst.isFake()) {
 			if (isDust()) {
 				time++;

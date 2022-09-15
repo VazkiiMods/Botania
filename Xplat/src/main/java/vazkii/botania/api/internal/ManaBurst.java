@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public interface IManaBurst {
+public interface ManaBurst {
 	BlockPos NO_SOURCE = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	boolean isFake();

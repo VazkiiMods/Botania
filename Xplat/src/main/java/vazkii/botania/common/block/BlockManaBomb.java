@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.entity.EntityManaStorm;
 import vazkii.botania.common.entity.ModEntities;
@@ -37,7 +37,7 @@ public class BlockManaBomb extends BlockMod {
 		}
 
 		@Override
-		public void onBurstCollision(IManaBurst burst) {
+		public void onBurstCollision(ManaBurst burst) {
 			if (!burst.isFake() && !world.isClientSide) {
 				world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 				world.removeBlock(pos, false);

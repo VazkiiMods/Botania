@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 
 /**
  * Any BlockEntity that implements this is technically bound
@@ -20,7 +20,7 @@ import vazkii.botania.api.internal.IManaBurst;
  * over with a Wand of the Forest.
  */
 public interface Bound {
-	BlockPos UNBOUND_POS = IManaBurst.NO_SOURCE;
+	BlockPos UNBOUND_POS = ManaBurst.NO_SOURCE;
 
 	/**
 	 * Gets where this block is bound to

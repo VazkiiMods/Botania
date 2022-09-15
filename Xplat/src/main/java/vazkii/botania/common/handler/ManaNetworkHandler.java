@@ -13,14 +13,14 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
 
-public final class ManaNetworkHandler implements IManaNetwork {
+public final class ManaNetworkHandler implements ManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 

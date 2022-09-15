@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -37,7 +37,7 @@ public class TilePrism extends TileExposedSimpleInventory implements IManaTrigge
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst) {
+	public void onBurstCollision(ManaBurst burst) {
 		ItemStack lens = getItemHandler().getItem(0);
 		boolean active = !getBlockState().getValue(BlockStateProperties.POWERED);
 		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt excempt) || excempt.shouldPull(lens));

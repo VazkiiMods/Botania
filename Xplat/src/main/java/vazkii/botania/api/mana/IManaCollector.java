@@ -9,7 +9,7 @@
 package vazkii.botania.api.mana;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 
 /**
  * Any {@link IManaReceiver} that also implements this is considered a mana collector, by
@@ -17,10 +17,10 @@ import vazkii.botania.api.internal.IManaBurst;
  * <br>
  * <b>Implementation Instructions:</b><br>
  * - When joining the world (e.g. on first tick), call
- * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#ADD}.
  * - When leaving the world (e.g. in setRemoved), call
- * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#COLLECTOR}, and action {@link ManaNetworkAction#REMOVE}.
  *
  * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.
@@ -37,7 +37,7 @@ public interface IManaCollector extends IManaReceiver {
 	 * in the burst. 0.9, for example, is 90%, so 10% of the mana in the burst will get
 	 * dissipated.
 	 */
-	float getManaYieldMultiplier(IManaBurst burst);
+	float getManaYieldMultiplier(ManaBurst burst);
 
 	/**
 	 * Gets the maximum amount of mana this collector can have.

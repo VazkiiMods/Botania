@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
-import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
@@ -225,7 +225,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public IManaNetwork getManaNetworkInstance() {
+	public ManaNetwork getManaNetworkInstance() {
 		return ManaNetworkHandler.instance;
 	}
 

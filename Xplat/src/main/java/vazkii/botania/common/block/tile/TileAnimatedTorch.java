@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.ModBlocks;
@@ -133,7 +133,7 @@ public class TileAnimatedTorch extends TileMod implements IManaTrigger, Wandable
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst) {
+	public void onBurstCollision(ManaBurst burst) {
 		if (!burst.isFake()) {
 			toggle();
 		}

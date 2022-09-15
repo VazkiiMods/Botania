@@ -19,10 +19,10 @@ import vazkii.botania.api.BotaniaAPI;
  * <br>
  * <b>Implementation Instructions:</b><br>
  * - When joining the world (e.g. on first tick), call
- * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#POOL}, and action {@link ManaNetworkAction#ADD}.
  * - When leaving the world (e.g. in setRemoved), call
- * {@link vazkii.botania.api.internal.IManaNetwork#fireManaNetworkEvent}
+ * {@link vazkii.botania.api.internal.ManaNetwork#fireManaNetworkEvent}
  * with this object, type {@link ManaBlockType#POOL}, and action {@link ManaNetworkAction#REMOVE}.
  *
  * Get the mana network using {@link BotaniaAPI#getManaNetworkInstance()}.

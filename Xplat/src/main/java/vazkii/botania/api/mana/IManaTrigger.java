@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 
 /**
  * A Block or Block Entity with this capability will receive a callback when a burst
@@ -16,6 +16,6 @@ import vazkii.botania.api.internal.IManaBurst;
  */
 public interface IManaTrigger {
 
-	void onBurstCollision(IManaBurst burst);
+	void onBurstCollision(ManaBurst burst);
 
 }

@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -235,7 +235,7 @@ public class ItemManaMirror extends Item {
 
 		@Override
 		public BlockPos getManaReceiverPos() {
-			return IManaBurst.NO_SOURCE;
+			return ManaBurst.NO_SOURCE;
 		}
 
 		@Override

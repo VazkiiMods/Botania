@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 
 import java.util.function.Supplier;
@@ -33,7 +33,7 @@ public class TEISR {
 	public TEISR(Block block) {
 		Preconditions.checkArgument(block instanceof EntityBlock);
 		this.block = block;
-		this.dummy = Suppliers.memoize(() -> ((EntityBlock) block).newBlockEntity(IManaBurst.NO_SOURCE, block.defaultBlockState()));
+		this.dummy = Suppliers.memoize(() -> ((EntityBlock) block).newBlockEntity(ManaBurst.NO_SOURCE, block.defaultBlockState()));
 	}
 
 	public void render(ItemStack stack, ItemTransforms.TransformType mode, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

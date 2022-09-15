@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.function.Predicate;
@@ -21,14 +21,14 @@ import java.util.function.Predicate;
 public class LensMagnet extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
+	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		BlockPos basePos = entity.blockPosition();
 		boolean magnetized = burst.getMagnetizedPos() != null;
 		int range = 3;
 
 		BlockPos source = burst.getBurstSourceBlockPos();
-		final boolean sourceless = source.equals(IManaBurst.NO_SOURCE);
+		final boolean sourceless = source.equals(ManaBurst.NO_SOURCE);
 
 		Predicate<BlockPos> predicate = pos -> {
 			var state = entity.level.getBlockState(pos);

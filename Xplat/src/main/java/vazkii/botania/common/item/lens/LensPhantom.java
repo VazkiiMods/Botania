@@ -11,12 +11,12 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 
 public class LensPhantom extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		if (!isManaBlock) {
 			shouldKill = false;
 			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));

@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
@@ -59,9 +59,9 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	public static void applyEffect(Level world, double x, double y, double z) {
 		int range = 8;
-		List<ThrowableProjectile> entities = world.getEntitiesOfClass(ThrowableProjectile.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
+		List<ThrowableProjectile> entities = world.getEntitiesOfClass(ThrowableProjectile.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(ManaBurst.class));
 		for (ThrowableProjectile entity : entities) {
-			IManaBurst burst = (IManaBurst) entity;
+			ManaBurst burst = (ManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
 			if (lens != null && lens.getItem() instanceof ITinyPlanetExcempt excempt && !excempt.shouldPull(lens)) {
 				continue;

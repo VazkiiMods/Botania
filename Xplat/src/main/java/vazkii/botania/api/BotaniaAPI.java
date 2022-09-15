@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
-import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.internal.ManaNetwork;
 
 import java.util.Collections;
 import java.util.Map;
@@ -197,7 +197,7 @@ public interface BotaniaAPI {
 		return Rarity.EPIC;
 	}
 
-	default IManaNetwork getManaNetworkInstance() {
+	default ManaNetwork getManaNetworkInstance() {
 		return DummyManaNetwork.instance;
 	}
 

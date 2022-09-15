@@ -36,7 +36,7 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
@@ -254,12 +254,12 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void apply(ItemStack stack, BurstProperties props, Level level) {}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
+	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		return false;
 	}
 
 	@Override
-	public void updateBurst(IManaBurst burst, ItemStack stack) {
+	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
 		Entity entity = burst.entity();
@@ -319,7 +319,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	}
 
 	@Override
-	public boolean doParticles(IManaBurst burst, ItemStack stack) {
+	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NbtUtils.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
