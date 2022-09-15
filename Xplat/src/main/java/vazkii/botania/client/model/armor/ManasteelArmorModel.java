@@ -14,7 +14,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.util.Mth;
 
-public class ModelArmorManasteel {
+public class ManasteelArmorModel {
 	public static MeshDefinition createInsideMesh() {
 		var deformation = new CubeDeformation(0.01F);
 		var mesh = new MeshDefinition();

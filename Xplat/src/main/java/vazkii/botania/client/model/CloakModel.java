@@ -22,13 +22,13 @@ import net.minecraft.client.renderer.RenderType;
 /**
  * @author wiiv
  */
-public class ModelCloak extends Model {
+public class CloakModel extends Model {
 
 	private final ModelPart collar;
 	private final ModelPart sideL;
 	private final ModelPart sideR;
 
-	public ModelCloak(ModelPart root) {
+	public CloakModel(ModelPart root) {
 		super(RenderType::entityCutout);
 
 		collar = root.getChild("collar");

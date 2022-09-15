@@ -19,7 +19,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
-public class ModelHourglass extends Model {
+public class HourglassModel extends Model {
 
 	private final ModelPart top;
 	private final ModelPart glassT;
@@ -30,7 +30,7 @@ public class ModelHourglass extends Model {
 	private final ModelPart sandT;
 	private final ModelPart sandB;
 
-	public ModelHourglass(ModelPart root) {
+	public HourglassModel(ModelPart root) {
 		super(RenderType::entityTranslucent);
 
 		top = root.getChild("top");

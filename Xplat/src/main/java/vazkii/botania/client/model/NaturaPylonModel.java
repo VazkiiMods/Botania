@@ -17,7 +17,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.util.Mth;
 
-public class ModelNaturaPylon implements PylonModel {
+public class NaturaPylonModel implements PylonModel {
 
 	private final ModelPart platef;
 	private final ModelPart plateb;
@@ -34,7 +34,7 @@ public class ModelNaturaPylon implements PylonModel {
 	private final ModelPart shardlfb;
 	private final ModelPart shardrfb;
 
-	public ModelNaturaPylon(ModelPart root) {
+	public NaturaPylonModel(ModelPart root) {
 		platef = root.getChild("platef");
 		plateb = root.getChild("plateb");
 		platel = root.getChild("platel");

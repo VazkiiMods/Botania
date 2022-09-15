@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.tile.TileBrewery;
 
-public class BreweryModel extends Model {
+public class BotanicalBreweryModel extends Model {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(ResourcesLib.MODEL_BREWERY);
 	final ModelPart top;
 	final ModelPart pole;
@@ -37,7 +37,7 @@ public class BreweryModel extends Model {
 
 	final ModelPart plate;
 
-	public BreweryModel(ModelPart root) {
+	public BotanicalBreweryModel(ModelPart root) {
 		super(RenderType::entitySolid);
 
 		top = root.getChild("top");

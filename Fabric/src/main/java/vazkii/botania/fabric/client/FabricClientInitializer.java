@@ -45,7 +45,7 @@ import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.gui.bag.FlowerPouchGui;
 import vazkii.botania.client.gui.box.BaubleBoxGui;
 import vazkii.botania.client.integration.ears.EarsIntegration;
-import vazkii.botania.client.model.ModLayerDefinitions;
+import vazkii.botania.client.model.BotaniaLayerDefinitions;
 import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
@@ -78,7 +78,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		BotaniaItemProperties.init((i, id, propGetter) -> FabricModelPredicateProviderRegistry.register(i.asItem(), id, propGetter));
 
 		// BE/Entity Renderer
-		ModLayerDefinitions.init((loc, supplier) -> EntityModelLayerRegistry.registerModelLayer(loc, supplier::get));
+		BotaniaLayerDefinitions.init((loc, supplier) -> EntityModelLayerRegistry.registerModelLayer(loc, supplier::get));
 		EntityRenderers.registerBlockEntityRenderers(BlockEntityRendererRegistry::register);
 		for (var pair : EntityRenderers.BE_ITEM_RENDERER_FACTORIES.entrySet()) {
 			var block = pair.getKey();

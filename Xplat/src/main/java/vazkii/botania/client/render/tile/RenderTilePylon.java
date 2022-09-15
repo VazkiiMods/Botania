@@ -38,18 +38,18 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_NATURA);
 	public static final ResourceLocation GAIA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_GAIA);
 
-	private final ModelPylonMana manaModel;
-	private final ModelPylonNatura naturaModel;
-	private final ModelPylonGaia gaiaModel;
+	private final ManaPylonModel manaModel;
+	private final NaturaPylonModel naturaModel;
+	private final GaiaPylonModel gaiaModel;
 
 	// Overrides for when we call this without an actual pylon
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 	private static ItemTransforms.TransformType forceTransform = ItemTransforms.TransformType.NONE;
 
 	public RenderTilePylon(BlockEntityRendererProvider.Context ctx) {
-		manaModel = new ModelPylonMana(ctx.bakeLayer(ModModelLayers.PYLON_MANA));
-		naturaModel = new ModelPylonNatura(ctx.bakeLayer(ModModelLayers.PYLON_NATURA));
-		gaiaModel = new ModelPylonGaia(ctx.bakeLayer(ModModelLayers.PYLON_GAIA));
+		manaModel = new ManaPylonModel(ctx.bakeLayer(BotaniaModelLayers.PYLON_MANA));
+		naturaModel = new NaturaPylonModel(ctx.bakeLayer(BotaniaModelLayers.PYLON_NATURA));
+		gaiaModel = new GaiaPylonModel(ctx.bakeLayer(BotaniaModelLayers.PYLON_GAIA));
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 		boolean renderingItem = pylon == null;
 		boolean direct = renderingItem && (forceTransform == ItemTransforms.TransformType.GUI || forceTransform.firstPerson()); // loosely based off ItemRenderer logic
 		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
-		IPylonModel model;
+		PylonModel model;
 		ResourceLocation texture;
 		RenderType shaderLayer;
 		switch (type) {

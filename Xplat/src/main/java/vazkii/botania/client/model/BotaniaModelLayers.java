@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ModModelLayers {
+public class BotaniaModelLayers {
 	public static final ModelLayerLocation AVATAR = make("avatar");
 	public static final ModelLayerLocation BELLOWS = make("bellows");
 	public static final ModelLayerLocation BREWERY = make("brewery");

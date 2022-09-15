@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.ModelHourglass;
+import vazkii.botania.client.model.BotaniaModelLayers;
+import vazkii.botania.client.model.HourglassModel;
 import vazkii.botania.common.block.tile.TileHourglass;
 
 import java.util.Random;
@@ -31,10 +31,10 @@ import java.util.Random;
 public class RenderTileHourglass implements BlockEntityRenderer<TileHourglass> {
 
 	final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_HOURGLASS);
-	private final ModelHourglass model;
+	private final HourglassModel model;
 
 	public RenderTileHourglass(BlockEntityRendererProvider.Context ctx) {
-		model = new ModelHourglass(ctx.bakeLayer(ModModelLayers.HOURGLASS));
+		model = new HourglassModel(ctx.bakeLayer(BotaniaModelLayers.HOURGLASS));
 	}
 
 	@Override

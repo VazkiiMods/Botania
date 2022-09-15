@@ -45,7 +45,7 @@ import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.client.gui.bag.FlowerPouchGui;
 import vazkii.botania.client.gui.box.BaubleBoxGui;
 import vazkii.botania.client.integration.ears.EarsIntegration;
-import vazkii.botania.client.model.ModLayerDefinitions;
+import vazkii.botania.client.model.BotaniaLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.EntityRenderers;
@@ -210,7 +210,7 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void registerEntityLayers(EntityRenderersEvent.RegisterLayerDefinitions evt) {
-		ModLayerDefinitions.init(evt::registerLayerDefinition);
+		BotaniaLayerDefinitions.init(evt::registerLayerDefinition);
 	}
 
 	@SubscribeEvent

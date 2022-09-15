@@ -43,7 +43,7 @@ import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class GunModel implements BakedModel {
+public class ManaBlasterModel implements BakedModel {
 	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
 	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
 
@@ -51,7 +51,7 @@ public class GunModel implements BakedModel {
 	private final BakedModel originalModelClip;
 	private final Map<Pair<Item, Boolean>, BakedModel> cache = new HashMap<>();
 
-	public GunModel(ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
+	public ManaBlasterModel(ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
 
@@ -78,7 +78,7 @@ public class GunModel implements BakedModel {
 
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if (!lens.isEmpty()) {
-				return GunModel.this.cache.getOrDefault(Pair.of(lens.getItem(), clip),
+				return ManaBlasterModel.this.cache.getOrDefault(Pair.of(lens.getItem(), clip),
 						Minecraft.getInstance().getModelManager().getMissingModel());
 			} else {
 				return clip ? originalModelClip : originalModel;

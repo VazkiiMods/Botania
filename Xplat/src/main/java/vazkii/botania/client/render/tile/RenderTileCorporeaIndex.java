@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.ModModelLayers;
+import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporeaIndex> {
@@ -39,7 +39,7 @@ public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporea
 	private final ModelPart cube;
 
 	public RenderTileCorporeaIndex(BlockEntityRendererProvider.Context ctx) {
-		ModelPart root = ctx.bakeLayer(ModModelLayers.CORPOREA_INDEX);
+		ModelPart root = ctx.bakeLayer(BotaniaModelLayers.CORPOREA_INDEX);
 		this.ring = root.getChild("ring");
 		this.cube = root.getChild("cube");
 	}

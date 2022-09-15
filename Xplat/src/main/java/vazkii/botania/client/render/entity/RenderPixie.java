@@ -21,14 +21,14 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.ModelPixie;
+import vazkii.botania.client.model.BotaniaModelLayers;
+import vazkii.botania.client.model.PixieModel;
 import vazkii.botania.common.entity.EntityPixie;
 
-public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
+public class RenderPixie extends MobRenderer<EntityPixie, PixieModel> {
 
 	public RenderPixie(EntityRendererProvider.Context ctx) {
-		super(ctx, new ModelPixie(ctx.bakeLayer(ModModelLayers.PIXIE)), 0.0F);
+		super(ctx, new PixieModel(ctx.bakeLayer(BotaniaModelLayers.PIXIE)), 0.0F);
 	}
 
 	@Override

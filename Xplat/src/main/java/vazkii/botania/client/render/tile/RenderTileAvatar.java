@@ -28,8 +28,8 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.ModelAvatar;
+import vazkii.botania.client.model.AvatarModel;
+import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -40,10 +40,10 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 	};
 
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_AVATAR);
-	private final ModelAvatar model;
+	private final AvatarModel model;
 
 	public RenderTileAvatar(BlockEntityRendererProvider.Context context) {
-		model = new ModelAvatar(context.bakeLayer(ModModelLayers.AVATAR));
+		model = new AvatarModel(context.bakeLayer(BotaniaModelLayers.AVATAR));
 	}
 
 	@Override

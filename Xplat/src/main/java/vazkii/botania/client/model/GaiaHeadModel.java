@@ -15,7 +15,7 @@ import net.minecraft.client.model.SkullModelBase;
 
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 
-public class ModelGaiaHead extends SkullModelBase {
+public class GaiaHeadModel extends SkullModelBase {
 	@Override
 	public void setupAnim(float animationProgress, float yRot, float xRot) {
 		var type = RenderTileGaiaHead.getViewType();

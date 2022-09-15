@@ -19,14 +19,14 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
-public class ModelTeruTeruBozu extends Model {
+public class TeruTeruBozuModel extends Model {
 
 	private final ModelPart thread;
 	private final ModelPart cloth;
 	private final ModelPart happyFace;
 	private final ModelPart sadFace;
 
-	public ModelTeruTeruBozu(ModelPart root) {
+	public TeruTeruBozuModel(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
 		sadFace = root.getChild("sad_face");
 		happyFace = root.getChild("happy_face");

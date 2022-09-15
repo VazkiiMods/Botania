@@ -17,15 +17,15 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.ModelBrewery;
+import vazkii.botania.client.model.BotaniaModelLayers;
+import vazkii.botania.client.model.BotanicalBreweryModel;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 public class RenderTileBrewery implements BlockEntityRenderer<TileBrewery> {
-	final ModelBrewery model;
+	final BotanicalBreweryModel model;
 
 	public RenderTileBrewery(BlockEntityRendererProvider.Context ctx) {
-		model = new ModelBrewery(ctx.bakeLayer(ModModelLayers.BREWERY));
+		model = new BotanicalBreweryModel(ctx.bakeLayer(BotaniaModelLayers.BREWERY));
 	}
 
 	@Override

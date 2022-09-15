@@ -19,14 +19,14 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
-public class ModelBellows extends Model {
+public class BellowsModel extends Model {
 
 	private final ModelPart top;
 	private final ModelPart base;
 	private final ModelPart pipe;
 	private final ModelPart funnel;
 
-	public ModelBellows(ModelPart root) {
+	public BellowsModel(ModelPart root) {
 		super(RenderType::entityCutout);
 
 		top = root.getChild("top");

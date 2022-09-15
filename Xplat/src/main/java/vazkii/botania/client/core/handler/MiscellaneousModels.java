@@ -21,7 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.GunModel;
+import vazkii.botania.client.model.ManaBlasterModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
@@ -194,7 +194,7 @@ public class MiscellaneousModels {
 		BakedModel originalModel = map.get(key);
 		ModelResourceLocation clipKey = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
 		BakedModel originalModelClip = map.get(clipKey);
-		map.put(key, new GunModel(loader, originalModel, originalModelClip));
+		map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
 
 		// Tiny Potato
 		ModelResourceLocation tinyPotato = new ModelResourceLocation("botania:tiny_potato", "inventory");

@@ -18,7 +18,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
-public class ModelAvatar extends Model {
+public class AvatarModel extends Model {
 
 	private final ModelPart body;
 	private final ModelPart rightarm;
@@ -27,7 +27,7 @@ public class ModelAvatar extends Model {
 	private final ModelPart leftleg;
 	private final ModelPart head;
 
-	public ModelAvatar(ModelPart root) {
+	public AvatarModel(ModelPart root) {
 		super(RenderType::entitySolid);
 		leftleg = root.getChild("left_leg");
 		rightarm = root.getChild("right_arm");

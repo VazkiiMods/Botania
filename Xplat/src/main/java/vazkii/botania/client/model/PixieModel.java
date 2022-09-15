@@ -23,7 +23,7 @@ import net.minecraft.util.Mth;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityPixie;
 
-public class ModelPixie extends EntityModel<EntityPixie> {
+public class PixieModel extends EntityModel<EntityPixie> {
 	private final ModelPart body;
 	private final ModelPart leftWingT;
 	private final ModelPart leftWingB;
@@ -37,8 +37,8 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 				: RenderType.entityCutoutNoCull(texture);
 	}
 
-	public ModelPixie(ModelPart root) {
-		super(ModelPixie::pixieLayer);
+	public PixieModel(ModelPart root) {
+		super(PixieModel::pixieLayer);
 
 		body = root.getChild("body");
 		leftWingT = root.getChild("leftWingT");

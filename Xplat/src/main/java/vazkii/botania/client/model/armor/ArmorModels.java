@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.model.ModModelLayers;
+import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumArmor;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveArmor;
@@ -19,29 +19,29 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class ArmorModels {
-	private static Map<EquipmentSlot, ModelArmor> manasteel = Collections.emptyMap();
-	private static Map<EquipmentSlot, ModelArmor> manaweave = Collections.emptyMap();
-	private static Map<EquipmentSlot, ModelArmor> elementium = Collections.emptyMap();
-	private static Map<EquipmentSlot, ModelArmor> terrasteel = Collections.emptyMap();
+	private static Map<EquipmentSlot, ArmorModel> manasteel = Collections.emptyMap();
+	private static Map<EquipmentSlot, ArmorModel> manaweave = Collections.emptyMap();
+	private static Map<EquipmentSlot, ArmorModel> elementium = Collections.emptyMap();
+	private static Map<EquipmentSlot, ArmorModel> terrasteel = Collections.emptyMap();
 
-	private static Map<EquipmentSlot, ModelArmor> make(EntityRendererProvider.Context ctx, ModelLayerLocation inner, ModelLayerLocation outer) {
-		Map<EquipmentSlot, ModelArmor> ret = new EnumMap<>(EquipmentSlot.class);
+	private static Map<EquipmentSlot, ArmorModel> make(EntityRendererProvider.Context ctx, ModelLayerLocation inner, ModelLayerLocation outer) {
+		Map<EquipmentSlot, ArmorModel> ret = new EnumMap<>(EquipmentSlot.class);
 		for (var slot : EquipmentSlot.values()) {
 			var mesh = ctx.bakeLayer(slot == EquipmentSlot.LEGS ? inner : outer);
-			ret.put(slot, new ModelArmor(mesh, slot));
+			ret.put(slot, new ArmorModel(mesh, slot));
 		}
 		return ret;
 	}
 
 	public static void init(EntityRendererProvider.Context ctx) {
-		manasteel = make(ctx, ModModelLayers.MANASTEEL_INNER_ARMOR, ModModelLayers.MANASTEEL_OUTER_ARMOR);
-		manaweave = make(ctx, ModModelLayers.MANAWEAVE_INNER_ARMOR, ModModelLayers.MANAWEAVE_OUTER_ARMOR);
-		elementium = make(ctx, ModModelLayers.ELEMENTIUM_INNER_ARMOR, ModModelLayers.ELEMENTIUM_OUTER_ARMOR);
-		terrasteel = make(ctx, ModModelLayers.TERRASTEEL_INNER_ARMOR, ModModelLayers.TERRASTEEL_OUTER_ARMOR);
+		manasteel = make(ctx, BotaniaModelLayers.MANASTEEL_INNER_ARMOR, BotaniaModelLayers.MANASTEEL_OUTER_ARMOR);
+		manaweave = make(ctx, BotaniaModelLayers.MANAWEAVE_INNER_ARMOR, BotaniaModelLayers.MANAWEAVE_OUTER_ARMOR);
+		elementium = make(ctx, BotaniaModelLayers.ELEMENTIUM_INNER_ARMOR, BotaniaModelLayers.ELEMENTIUM_OUTER_ARMOR);
+		terrasteel = make(ctx, BotaniaModelLayers.TERRASTEEL_INNER_ARMOR, BotaniaModelLayers.TERRASTEEL_OUTER_ARMOR);
 	}
 
 	@Nullable
-	public static ModelArmor get(ItemStack stack) {
+	public static ArmorModel get(ItemStack stack) {
 		Item item = stack.getItem();
 		if (item instanceof ItemManaweaveArmor armor) {
 			return manaweave.get(armor.getSlot());

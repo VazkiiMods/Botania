@@ -28,8 +28,8 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.ModelCloak;
+import vazkii.botania.client.model.BotaniaModelLayers;
+import vazkii.botania.client.model.CloakModel;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -80,7 +80,7 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	public static class Renderer implements AccessoryRenderer {
-		private static ModelCloak model = null;
+		private static CloakModel model = null;
 
 		@Override
 		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -90,7 +90,7 @@ public class ItemHolyCloak extends ItemBauble {
 			ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			if (model == null) {
-				model = new ModelCloak(Minecraft.getInstance().getEntityModels().bakeLayer(ModModelLayers.CLOAK));
+				model = new CloakModel(Minecraft.getInstance().getEntityModels().bakeLayer(BotaniaModelLayers.CLOAK));
 			}
 
 			VertexConsumer buffer = buffers.getBuffer(model.renderType(item.getCloakTexture()));

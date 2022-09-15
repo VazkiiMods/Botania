@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import vazkii.botania.client.model.ModelGaiaHead;
+import vazkii.botania.client.model.GaiaHeadModel;
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.common.block.BlockGaiaHead;
 
@@ -46,7 +46,7 @@ public abstract class MixinSkullBlockRenderer {
 	)
 	private static void registerModel(EntityModelSet entityModelSet, CallbackInfoReturnable<Map<SkullBlock.Type, SkullModelBase>> cir,
 			ImmutableMap.Builder<SkullBlock.Type, SkullModelBase> builder) {
-		builder.put(BlockGaiaHead.GAIA_TYPE, new ModelGaiaHead());
+		builder.put(BlockGaiaHead.GAIA_TYPE, new GaiaHeadModel());
 
 		// placeholder to avoid crash
 		SKIN_BY_TYPE.put(BlockGaiaHead.GAIA_TYPE, DefaultPlayerSkin.getDefaultSkin());
