@@ -18,18 +18,18 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ItemManaSpark;
+import vazkii.botania.common.item.ItemObedienceStick;
 
-public class BehaviourManaSpark extends OptionalDispenseItemBehavior {
+public class StickBehavior extends OptionalDispenseItemBehavior {
 
 	@NotNull
 	@Override
-	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
+	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.getLevel();
 		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
 		BlockPos pos = source.getPos().relative(facing);
 
-		setSuccess(ItemManaSpark.attachSpark(world, pos, stack));
+		setSuccess(ItemObedienceStick.applyStick(world, pos));
 
 		return stack;
 	}

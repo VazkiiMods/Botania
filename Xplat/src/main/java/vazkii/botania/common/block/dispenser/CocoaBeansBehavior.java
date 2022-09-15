@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-public class BehaviourCocoaBeans extends OptionalDispenseItemBehavior {
+public class CocoaBeansBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {

@@ -14,33 +14,23 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
 
-public class BehaviourSeeds extends OptionalDispenseItemBehavior {
-	private final Block block;
+import vazkii.botania.common.item.ItemCorporeaSpark;
 
-	public BehaviourSeeds(Block block) {
-		this.block = block;
-	}
+public class CorporeaSparkBehavior extends OptionalDispenseItemBehavior {
 
 	@NotNull
 	@Override
-	public ItemStack execute(BlockSource source, ItemStack stack) {
-		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
-		BlockPos pos = source.getPos().relative(facing);
+	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
 		Level world = source.getLevel();
+		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
+		BlockPos pos = source.getPos().relative(facing);
 
-		setSuccess(false);
-		if (world.isEmptyBlock(pos) && block.defaultBlockState().canSurvive(world, pos)) {
-			world.setBlockAndUpdate(pos, block.defaultBlockState());
-			stack.shrink(1);
-			setSuccess(true);
-		}
+		setSuccess(ItemCorporeaSpark.attachSpark(world, pos, stack));
 
 		return stack;
 	}
-
 }

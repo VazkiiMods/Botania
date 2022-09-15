@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.block.ModBlocks;
 
 // Taken from vanilla pumpkin dispense behaviour
-public class BehaviourFelPumpkin extends OptionalDispenseItemBehavior {
+public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {

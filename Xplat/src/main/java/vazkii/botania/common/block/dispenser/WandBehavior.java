@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class BehaviourWand extends OptionalDispenseItemBehavior {
+public class WandBehavior extends OptionalDispenseItemBehavior {
 
 	@NotNull
 	@Override

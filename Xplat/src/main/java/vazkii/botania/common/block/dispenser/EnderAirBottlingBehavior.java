@@ -25,11 +25,11 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemEnderAir;
 
-public class BehaviourEnderAirBottling extends OptionalDispenseItemBehavior {
+public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 	private final DefaultDispenseItemBehavior defaultBehaviour = new DefaultDispenseItemBehavior();
 	private final DispenseItemBehavior parent;
 
-	public BehaviourEnderAirBottling(DispenseItemBehavior parent) {
+	public EnderAirBottlingBehavior(DispenseItemBehavior parent) {
 		this.parent = parent;
 	}
 

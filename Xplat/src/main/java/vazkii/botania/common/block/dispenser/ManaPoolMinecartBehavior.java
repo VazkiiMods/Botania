@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
 // [VanillaCopy] MinecartItem
-public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
+public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 	private final DefaultDispenseItemBehavior behaviourDefaultDispenseItem = new DefaultDispenseItemBehavior();
 
 	@NotNull

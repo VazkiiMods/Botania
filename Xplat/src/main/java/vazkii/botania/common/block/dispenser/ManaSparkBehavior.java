@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.item.ItemCorporeaSpark;
+import vazkii.botania.common.item.ItemManaSpark;
 
-public class BehaviourCorporeaSpark extends OptionalDispenseItemBehavior {
+public class ManaSparkBehavior extends OptionalDispenseItemBehavior {
 
 	@NotNull
 	@Override
@@ -29,8 +29,9 @@ public class BehaviourCorporeaSpark extends OptionalDispenseItemBehavior {
 		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
 		BlockPos pos = source.getPos().relative(facing);
 
-		setSuccess(ItemCorporeaSpark.attachSpark(world, pos, stack));
+		setSuccess(ItemManaSpark.attachSpark(world, pos, stack));
 
 		return stack;
 	}
+
 }

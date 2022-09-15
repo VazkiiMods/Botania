@@ -900,12 +900,12 @@ public final class ModBlocks {
 	}
 
 	public static void addDispenserBehaviours() {
-		DispenserBlock.registerBehavior(ModItems.twigWand, new BehaviourWand());
-		DispenserBlock.registerBehavior(ModItems.dreamwoodWand, new BehaviourWand());
-		DispenserBlock.registerBehavior(ModItems.obedienceStick, new BehaviourStick());
-		DispenserBlock.registerBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
-		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
-		DispenserBlock.registerBehavior(ModItems.spark, new BehaviourManaSpark());
+		DispenserBlock.registerBehavior(ModItems.twigWand, new WandBehavior());
+		DispenserBlock.registerBehavior(ModItems.dreamwoodWand, new WandBehavior());
+		DispenserBlock.registerBehavior(ModItems.obedienceStick, new StickBehavior());
+		DispenserBlock.registerBehavior(ModItems.poolMinecart, new ManaPoolMinecartBehavior());
+		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new FelPumpkinBehavior());
+		DispenserBlock.registerBehavior(ModItems.spark, new ManaSparkBehavior());
 		DispenserBlock.registerBehavior(ModBlocks.gaiaHead, new OptionalDispenseItemBehavior() {
 			@NotNull
 			@Override
@@ -915,7 +915,7 @@ public final class ModBlocks {
 			}
 		});
 
-		DispenseItemBehavior behavior = new BehaviourCorporeaSpark();
+		DispenseItemBehavior behavior = new CorporeaSparkBehavior();
 		DispenserBlock.registerBehavior(ModItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(ModItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(ModItems.corporeaSparkCreative, behavior);
@@ -928,7 +928,7 @@ public final class ModBlocks {
 		});
 
 		behavior = AccessorDispenserBlock.getDispenserRegistry().get(Items.GLASS_BOTTLE);
-		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
+		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
 
 		DispenserBlock.registerBehavior(ModItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(ModItems.elementiumShears, new ShearsDispenseItemBehavior());
