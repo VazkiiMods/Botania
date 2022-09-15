@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -28,12 +28,12 @@ import vazkii.botania.common.block.tile.TileHourglass;
 
 import java.util.Random;
 
-public class RenderTileHourglass implements BlockEntityRenderer<TileHourglass> {
+public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer<TileHourglass> {
 
 	final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_HOURGLASS);
 	private final HourglassModel model;
 
-	public RenderTileHourglass(BlockEntityRendererProvider.Context ctx) {
+	public HoveringHourglassBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		model = new HourglassModel(ctx.bakeLayer(BotaniaModelLayers.HOURGLASS));
 	}
 

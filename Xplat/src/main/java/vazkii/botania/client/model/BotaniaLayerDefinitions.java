@@ -15,7 +15,7 @@ import vazkii.botania.client.model.armor.ElementiumArmorModel;
 import vazkii.botania.client.model.armor.ManasteelArmorModel;
 import vazkii.botania.client.model.armor.ManaweaveRobeModel;
 import vazkii.botania.client.model.armor.TerrasteelArmorModel;
-import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
+import vazkii.botania.client.render.block_entity.CorporeaIndexBlockEntityRenderer;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -26,7 +26,7 @@ public class BotaniaLayerDefinitions {
 		consumer.accept(BotaniaModelLayers.BELLOWS, () -> LayerDefinition.create(BellowsModel.createMesh(), 64, 32));
 		consumer.accept(BotaniaModelLayers.BREWERY, () -> LayerDefinition.create(BotanicalBreweryModel.createMesh(), 32, 16));
 		consumer.accept(BotaniaModelLayers.CLOAK, () -> LayerDefinition.create(CloakModel.createMesh(), 64, 64));
-		consumer.accept(BotaniaModelLayers.CORPOREA_INDEX, () -> LayerDefinition.create(RenderTileCorporeaIndex.createMesh(), 64, 32));
+		consumer.accept(BotaniaModelLayers.CORPOREA_INDEX, () -> LayerDefinition.create(CorporeaIndexBlockEntityRenderer.createMesh(), 64, 32));
 		consumer.accept(BotaniaModelLayers.HOURGLASS, () -> LayerDefinition.create(HourglassModel.createMesh(), 64, 32));
 		consumer.accept(BotaniaModelLayers.ELEMENTIUM_INNER_ARMOR, () -> LayerDefinition.create(ElementiumArmorModel.createInsideMesh(), 64, 128));
 		consumer.accept(BotaniaModelLayers.ELEMENTIUM_OUTER_ARMOR, () -> LayerDefinition.create(ElementiumArmorModel.createOutsideMesh(), 64, 128));

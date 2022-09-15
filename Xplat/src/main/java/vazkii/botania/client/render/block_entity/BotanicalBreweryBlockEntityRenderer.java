@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -21,10 +21,10 @@ import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.BotanicalBreweryModel;
 import vazkii.botania.common.block.tile.TileBrewery;
 
-public class RenderTileBrewery implements BlockEntityRenderer<TileBrewery> {
+public class BotanicalBreweryBlockEntityRenderer implements BlockEntityRenderer<TileBrewery> {
 	final BotanicalBreweryModel model;
 
-	public RenderTileBrewery(BlockEntityRendererProvider.Context ctx) {
+	public BotanicalBreweryBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		model = new BotanicalBreweryModel(ctx.bakeLayer(BotaniaModelLayers.BREWERY));
 	}
 

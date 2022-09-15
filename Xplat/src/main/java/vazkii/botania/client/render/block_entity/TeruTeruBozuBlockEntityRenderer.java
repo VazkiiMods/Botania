@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -28,13 +28,13 @@ import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import java.util.Random;
 
-public class RenderTileTeruTeruBozu implements BlockEntityRenderer<TileTeruTeruBozu> {
+public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<TileTeruTeruBozu> {
 
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU_HALLOWEEN);
 	private final TeruTeruBozuModel model;
 
-	public RenderTileTeruTeruBozu(BlockEntityRendererProvider.Context ctx) {
+	public TeruTeruBozuBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		model = new TeruTeruBozuModel(ctx.bakeLayer(BotaniaModelLayers.TERU_TERU_BOZU));
 	}
 

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -54,13 +54,13 @@ import java.util.regex.Pattern;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato> {
+public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TileTinyPotato> {
 	public static final String DEFAULT = "default";
 	public static final String HALLOWEEN = "halloween";
 	private static final Pattern ESCAPED = Pattern.compile("[^a-z0-9/._-]");
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTileTinyPotato(BlockEntityRendererProvider.Context ctx) {
+	public TinyPotatoBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 

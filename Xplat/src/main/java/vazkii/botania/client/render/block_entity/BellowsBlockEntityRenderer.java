@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -25,11 +25,11 @@ import vazkii.botania.client.model.BellowsModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 
-public class RenderTileBellows implements BlockEntityRenderer<TileBellows> {
+public class BellowsBlockEntityRenderer implements BlockEntityRenderer<TileBellows> {
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_BELLOWS);
 	private final BellowsModel model;
 
-	public RenderTileBellows(BlockEntityRendererProvider.Context ctx) {
+	public BellowsBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		model = new BellowsModel(ctx.bakeLayer(BotaniaModelLayers.BELLOWS));
 	}
 

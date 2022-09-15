@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -22,11 +22,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.mana.TilePump;
 
-public class RenderTilePump implements BlockEntityRenderer<TilePump> {
+public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<TilePump> {
 	public static BakedModel headModel = null;
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTilePump(BlockEntityRendererProvider.Context ctx) {
+	public ManaPumpBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 

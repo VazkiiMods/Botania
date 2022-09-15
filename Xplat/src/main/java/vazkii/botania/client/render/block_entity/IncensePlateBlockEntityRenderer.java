@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -27,11 +27,11 @@ import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import java.util.Map;
 
-public class RenderTileIncensePlate implements BlockEntityRenderer<TileIncensePlate> {
+public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<TileIncensePlate> {
 
 	private static final Map<Direction, Integer> ROTATIONS = ImmutableMap.of(Direction.NORTH, 180, Direction.SOUTH, 0, Direction.WEST, 270, Direction.EAST, 90);
 
-	public RenderTileIncensePlate(BlockEntityRendererProvider.Context ctx) {}
+	public IncensePlateBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@NotNull TileIncensePlate plate, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

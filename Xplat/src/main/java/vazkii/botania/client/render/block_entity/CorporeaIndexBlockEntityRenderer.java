@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -32,13 +32,13 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
-public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporeaIndex> {
+public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<TileCorporeaIndex> {
 	private static final RenderType LAYER = RenderType.entityCutoutNoCull(new ResourceLocation(ResourcesLib.MODEL_CORPOREA_INDEX));
 	private static final float ANGLE = (float) Math.sin(Math.toRadians(45));
 	private final ModelPart ring;
 	private final ModelPart cube;
 
-	public RenderTileCorporeaIndex(BlockEntityRendererProvider.Context ctx) {
+	public CorporeaIndexBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		ModelPart root = ctx.bakeLayer(BotaniaModelLayers.CORPOREA_INDEX);
 		this.ring = root.getChild("ring");
 		this.cube = root.getChild("cube");

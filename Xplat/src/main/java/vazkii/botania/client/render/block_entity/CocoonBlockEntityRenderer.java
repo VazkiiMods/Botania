@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -24,10 +24,10 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.tile.TileCocoon;
 
-public class RenderTileCocoon implements BlockEntityRenderer<TileCocoon> {
+public class CocoonBlockEntityRenderer implements BlockEntityRenderer<TileCocoon> {
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTileCocoon(BlockEntityRendererProvider.Context ctx) {
+	public CocoonBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 

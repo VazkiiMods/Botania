@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -35,10 +35,10 @@ import vazkii.botania.client.render.entity.GaiaGuardianRenderer;
 import java.util.Collections;
 import java.util.Map;
 
-public class RenderTileGaiaHead extends SkullBlockRenderer {
+public class GaiaHeadBlockEntityRenderer extends SkullBlockRenderer {
 	public static Map<SkullBlock.Type, SkullModelBase> models = Collections.emptyMap();
 
-	public RenderTileGaiaHead(BlockEntityRendererProvider.Context ctx) {
+	public GaiaHeadBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		super(ctx);
 		models = SkullBlockRenderer.createSkullRenderers(ctx.getModelSet());
 	}

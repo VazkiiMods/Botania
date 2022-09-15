@@ -20,7 +20,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.render.tile.RenderTileSpecialFlower;
+import vazkii.botania.client.render.block_entity.SpecialFlowerBlockEntityRenderer;
 import vazkii.botania.common.entity.EntityMagicLandmine;
 
 public class MagicLandmineRenderer extends EntityRenderer<EntityMagicLandmine> {
@@ -56,7 +56,7 @@ public class MagicLandmineRenderer extends EntityRenderer<EntityMagicLandmine> {
 			alpha *= Math.min(1F - (e.tickCount - 47 + partialTicks) / 8F, 1F);
 		}
 
-		RenderTileSpecialFlower.renderRectangle(ms, buffers, aabb, false, color, (byte) alpha);
+		SpecialFlowerBlockEntityRenderer.renderRectangle(ms, buffers, aabb, false, color, (byte) alpha);
 		offY += 0.001;
 		ms.popPose();
 	}

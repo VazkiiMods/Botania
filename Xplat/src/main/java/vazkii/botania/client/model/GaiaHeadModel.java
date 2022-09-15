@@ -13,13 +13,13 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.model.SkullModelBase;
 
-import vazkii.botania.client.render.tile.RenderTileGaiaHead;
+import vazkii.botania.client.render.block_entity.GaiaHeadBlockEntityRenderer;
 
 public class GaiaHeadModel extends SkullModelBase {
 	@Override
 	public void setupAnim(float animationProgress, float yRot, float xRot) {
-		var type = RenderTileGaiaHead.getViewType();
-		var model = RenderTileGaiaHead.models.get(type);
+		var type = GaiaHeadBlockEntityRenderer.getViewType();
+		var model = GaiaHeadBlockEntityRenderer.models.get(type);
 		if (model != null) {
 			model.setupAnim(animationProgress, yRot, xRot);
 		}
@@ -27,8 +27,8 @@ public class GaiaHeadModel extends SkullModelBase {
 
 	@Override
 	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-		var type = RenderTileGaiaHead.getViewType();
-		var model = RenderTileGaiaHead.models.get(type);
+		var type = GaiaHeadBlockEntityRenderer.getViewType();
+		var model = GaiaHeadBlockEntityRenderer.models.get(type);
 		if (model != null) {
 			model.renderToBuffer(ms, buffer, light, overlay, r, g, b, a);
 		}

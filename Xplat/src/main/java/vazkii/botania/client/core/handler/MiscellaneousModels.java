@@ -23,8 +23,8 @@ import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.ManaBlasterModel;
 import vazkii.botania.client.model.TinyPotatoModel;
-import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
-import vazkii.botania.client.render.tile.RenderTilePump;
+import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
+import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
@@ -201,8 +201,8 @@ public class MiscellaneousModels {
 		BakedModel originalPotato = map.get(tinyPotato);
 		map.put(tinyPotato, new TinyPotatoModel(originalPotato));
 
-		RenderTileCorporeaCrystalCube.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
-		RenderTilePump.headModel = map.get(prefix("block/pump_head"));
+		CorporeaCrystalCubeBlockEntityRenderer.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
+		ManaPumpBlockEntityRenderer.headModel = map.get(prefix("block/pump_head"));
 
 		// Spreader cores, paddings and scaffoldings
 		elvenSpreaderCore = map.get(prefix("block/elven_spreader_core"));

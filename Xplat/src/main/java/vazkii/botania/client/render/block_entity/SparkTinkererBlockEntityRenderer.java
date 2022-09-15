@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
@@ -22,9 +22,9 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.tile.TileSparkChanger;
 
-public class RenderTileSparkChanger implements BlockEntityRenderer<TileSparkChanger> {
+public class SparkTinkererBlockEntityRenderer implements BlockEntityRenderer<TileSparkChanger> {
 
-	public RenderTileSparkChanger(BlockEntityRendererProvider.Context ctx) {}
+	public SparkTinkererBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@NotNull TileSparkChanger tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

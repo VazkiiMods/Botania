@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -32,7 +32,7 @@ import vazkii.botania.common.block.tile.TilePylon;
 
 import java.util.Random;
 
-public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
+public class PylonBlockEntityRenderer implements BlockEntityRenderer<TilePylon> {
 
 	public static final ResourceLocation MANA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_MANA);
 	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_NATURA);
@@ -46,7 +46,7 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 	private static ItemTransforms.TransformType forceTransform = ItemTransforms.TransformType.NONE;
 
-	public RenderTilePylon(BlockEntityRendererProvider.Context ctx) {
+	public PylonBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		manaModel = new ManaPylonModel(ctx.bakeLayer(BotaniaModelLayers.PYLON_MANA));
 		naturaModel = new NaturaPylonModel(ctx.bakeLayer(BotaniaModelLayers.PYLON_NATURA));
 		gaiaModel = new GaiaPylonModel(ctx.bakeLayer(BotaniaModelLayers.PYLON_GAIA));
@@ -128,8 +128,8 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 		@Override
 		public void render(ItemStack stack, ItemTransforms.TransformType type, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 			if (Block.byItem(stack.getItem()) instanceof BlockPylon pylon) {
-				RenderTilePylon.forceVariant = pylon.variant;
-				RenderTilePylon.forceTransform = type;
+				PylonBlockEntityRenderer.forceVariant = pylon.variant;
+				PylonBlockEntityRenderer.forceTransform = type;
 				super.render(stack, type, ms, buffers, light, overlay);
 			}
 		}

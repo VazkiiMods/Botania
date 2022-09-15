@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import vazkii.botania.client.render.tile.*;
+import vazkii.botania.client.render.block_entity.*;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -68,99 +68,99 @@ public final class EntityRenderers {
 	}
 
 	public static void registerBlockEntityRenderers(BERConsumer consumer) {
-		consumer.register(ModTiles.ALTAR, RenderTileAltar::new);
-		consumer.register(ModTiles.SPREADER, RenderTileSpreader::new);
-		consumer.register(ModTiles.POOL, RenderTilePool::new);
-		consumer.register(ModTiles.RUNE_ALTAR, RenderTileRuneAltar::new);
-		consumer.register(ModTiles.PYLON, RenderTilePylon::new);
-		consumer.register(ModTiles.ENCHANTER, RenderTileEnchanter::new);
-		consumer.register(ModTiles.ALF_PORTAL, RenderTileAlfPortal::new);
-		consumer.register(ModTiles.MINI_ISLAND, RenderTileFloatingFlower::new);
-		consumer.register(ModTiles.TINY_POTATO, RenderTileTinyPotato::new);
-		consumer.register(ModTiles.STARFIELD, RenderTileStarfield::new);
-		consumer.register(ModTiles.BREWERY, RenderTileBrewery::new);
-		consumer.register(ModTiles.TERRA_PLATE, RenderTileTerraPlate::new);
-		consumer.register(ModTiles.RED_STRING_COMPARATOR, RenderTileRedString::new);
-		consumer.register(ModTiles.RED_STRING_CONTAINER, RenderTileRedString::new);
-		consumer.register(ModTiles.RED_STRING_DISPENSER, RenderTileRedString::new);
-		consumer.register(ModTiles.RED_STRING_FERTILIZER, RenderTileRedString::new);
-		consumer.register(ModTiles.RED_STRING_INTERCEPTOR, RenderTileRedString::new);
-		consumer.register(ModTiles.RED_STRING_RELAY, RenderTileRedString::new);
-		consumer.register(ModTiles.PRISM, RenderTilePrism::new);
-		consumer.register(ModTiles.CORPOREA_INDEX, RenderTileCorporeaIndex::new);
-		consumer.register(ModTiles.PUMP, RenderTilePump::new);
-		consumer.register(ModTiles.CORPOREA_CRYSTAL_CUBE, RenderTileCorporeaCrystalCube::new);
-		consumer.register(ModTiles.INCENSE_PLATE, RenderTileIncensePlate::new);
-		consumer.register(ModTiles.HOURGLASS, RenderTileHourglass::new);
-		consumer.register(ModTiles.SPARK_CHANGER, RenderTileSparkChanger::new);
-		consumer.register(ModTiles.COCOON, RenderTileCocoon::new);
-		consumer.register(ModTiles.LIGHT_RELAY, RenderTileLightRelay::new);
-		consumer.register(ModTiles.BELLOWS, RenderTileBellows::new);
+		consumer.register(ModTiles.ALTAR, PetalApothecaryBlockEntityRenderer::new);
+		consumer.register(ModTiles.SPREADER, ManaSpreaderBlockEntityRenderer::new);
+		consumer.register(ModTiles.POOL, ManaPoolBlockEntityRenderer::new);
+		consumer.register(ModTiles.RUNE_ALTAR, RunicAltarBlockEntityRenderer::new);
+		consumer.register(ModTiles.PYLON, PylonBlockEntityRenderer::new);
+		consumer.register(ModTiles.ENCHANTER, ManaEnchanterBlockEntityRenderer::new);
+		consumer.register(ModTiles.ALF_PORTAL, AlfheimPortalBlockEntityRenderer::new);
+		consumer.register(ModTiles.MINI_ISLAND, FloatingFlowerBlockEntityRenderer::new);
+		consumer.register(ModTiles.TINY_POTATO, TinyPotatoBlockEntityRenderer::new);
+		consumer.register(ModTiles.STARFIELD, StarfieldCreatorBlockEntityRenderer::new);
+		consumer.register(ModTiles.BREWERY, BotanicalBreweryBlockEntityRenderer::new);
+		consumer.register(ModTiles.TERRA_PLATE, TerrestrialAgglomerationPlateBlockEntityRenderer::new);
+		consumer.register(ModTiles.RED_STRING_COMPARATOR, RedStringBlockEntityRenderer::new);
+		consumer.register(ModTiles.RED_STRING_CONTAINER, RedStringBlockEntityRenderer::new);
+		consumer.register(ModTiles.RED_STRING_DISPENSER, RedStringBlockEntityRenderer::new);
+		consumer.register(ModTiles.RED_STRING_FERTILIZER, RedStringBlockEntityRenderer::new);
+		consumer.register(ModTiles.RED_STRING_INTERCEPTOR, RedStringBlockEntityRenderer::new);
+		consumer.register(ModTiles.RED_STRING_RELAY, RedStringBlockEntityRenderer::new);
+		consumer.register(ModTiles.PRISM, ManaPrismBlockEntityRenderer::new);
+		consumer.register(ModTiles.CORPOREA_INDEX, CorporeaIndexBlockEntityRenderer::new);
+		consumer.register(ModTiles.PUMP, ManaPumpBlockEntityRenderer::new);
+		consumer.register(ModTiles.CORPOREA_CRYSTAL_CUBE, CorporeaCrystalCubeBlockEntityRenderer::new);
+		consumer.register(ModTiles.INCENSE_PLATE, IncensePlateBlockEntityRenderer::new);
+		consumer.register(ModTiles.HOURGLASS, HoveringHourglassBlockEntityRenderer::new);
+		consumer.register(ModTiles.SPARK_CHANGER, SparkTinkererBlockEntityRenderer::new);
+		consumer.register(ModTiles.COCOON, CocoonBlockEntityRenderer::new);
+		consumer.register(ModTiles.LIGHT_RELAY, LuminizerBlockEntityRenderer::new);
+		consumer.register(ModTiles.BELLOWS, BellowsBlockEntityRenderer::new);
 		@SuppressWarnings("unchecked")
-		BlockEntityRendererProvider<TileGaiaHead> gaia = ctx -> (BlockEntityRenderer<TileGaiaHead>) (BlockEntityRenderer<?>) new RenderTileGaiaHead(ctx);
+		BlockEntityRendererProvider<TileGaiaHead> gaia = ctx -> (BlockEntityRenderer<TileGaiaHead>) (BlockEntityRenderer<?>) new GaiaHeadBlockEntityRenderer(ctx);
 		consumer.register(ModTiles.GAIA_HEAD, gaia);
-		consumer.register(ModTiles.TERU_TERU_BOZU, RenderTileTeruTeruBozu::new);
-		consumer.register(ModTiles.AVATAR, RenderTileAvatar::new);
-		consumer.register(ModTiles.ANIMATED_TORCH, RenderTileAnimatedTorch::new);
+		consumer.register(ModTiles.TERU_TERU_BOZU, TeruTeruBozuBlockEntityRenderer::new);
+		consumer.register(ModTiles.AVATAR, AvatarBlockEntityRenderer::new);
+		consumer.register(ModTiles.ANIMATED_TORCH, AnimatedTorchBlockEntityRenderer::new);
 
-		consumer.register(ModSubtiles.PURE_DAISY, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.MANASTAR, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.HYDROANGEAS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.ENDOFLAME, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.THERMALILY, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.ROSA_ARCANA, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.MUNCHDEW, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.ENTROPINNYUM, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.KEKIMURUS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.GOURMARYLLIS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.NARSLIMMUS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.SPECTROLUS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.DANDELIFEON, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.RAFFLOWSIA, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.SHULK_ME_NOT, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.BELLETHORNE, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.BELLETHORNE_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.BERGAMUTE, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.DREADTHORN, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.HEISEI_DREAM, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.TIGERSEYE, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.JADED_AMARANTHUS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.ORECHID, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.FALLEN_KANADE, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.EXOFLAME, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.AGRICARNATION, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.AGRICARNATION_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.HOPPERHOCK, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.HOPPERHOCK_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.TANGLEBERRIE, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.TANGLEBERRIE_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.JIYUULIA, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.JIYUULIA_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.RANNUNCARPUS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.RANNUNCARPUS_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.HYACIDUS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.POLLIDISIAC, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.CLAYCONIA, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.CLAYCONIA_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.LOONIUM, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.DAFFOMILL, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.VINCULOTUS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.SPECTRANTHEMUM, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.MEDUMONE, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.MARIMORPHOSIS, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.MARIMORPHOSIS_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.BUBBELL, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.BUBBELL_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.SOLEGNOLIA, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.SOLEGNOLIA_CHIBI, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.ORECHID_IGNEM, RenderTileSpecialFlower::new);
-		consumer.register(ModSubtiles.LABELLIA, RenderTileSpecialFlower::new);
+		consumer.register(ModSubtiles.PURE_DAISY, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.MANASTAR, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.HYDROANGEAS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.ENDOFLAME, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.THERMALILY, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.ROSA_ARCANA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.MUNCHDEW, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.ENTROPINNYUM, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.KEKIMURUS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.GOURMARYLLIS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.NARSLIMMUS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.SPECTROLUS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.DANDELIFEON, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.RAFFLOWSIA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.SHULK_ME_NOT, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.BELLETHORNE, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.BELLETHORNE_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.BERGAMUTE, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.DREADTHORN, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.HEISEI_DREAM, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.TIGERSEYE, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.JADED_AMARANTHUS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.ORECHID, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.FALLEN_KANADE, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.EXOFLAME, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.AGRICARNATION, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.AGRICARNATION_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.HOPPERHOCK, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.HOPPERHOCK_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.TANGLEBERRIE, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.TANGLEBERRIE_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.JIYUULIA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.JIYUULIA_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.RANNUNCARPUS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.RANNUNCARPUS_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.HYACIDUS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.POLLIDISIAC, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.CLAYCONIA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.CLAYCONIA_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.LOONIUM, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.DAFFOMILL, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.VINCULOTUS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.SPECTRANTHEMUM, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.MEDUMONE, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.MARIMORPHOSIS, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.MARIMORPHOSIS_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.BUBBELL, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.BUBBELL_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.SOLEGNOLIA, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.SOLEGNOLIA_CHIBI, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.ORECHID_IGNEM, SpecialFlowerBlockEntityRenderer::new);
+		consumer.register(ModSubtiles.LABELLIA, SpecialFlowerBlockEntityRenderer::new);
 	}
 
 	public static final Map<Block, Function<Block, TEISR>> BE_ITEM_RENDERER_FACTORIES = Map.of(
-			ModBlocks.manaPylon, RenderTilePylon.ItemRenderer::new,
-			ModBlocks.naturaPylon, RenderTilePylon.ItemRenderer::new,
-			ModBlocks.gaiaPylon, RenderTilePylon.ItemRenderer::new,
+			ModBlocks.manaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
+			ModBlocks.naturaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
+			ModBlocks.gaiaPylon, PylonBlockEntityRenderer.ItemRenderer::new,
 			ModBlocks.teruTeruBozu, TEISR::new,
 			ModBlocks.avatar, TEISR::new,
 			ModBlocks.bellows, TEISR::new,

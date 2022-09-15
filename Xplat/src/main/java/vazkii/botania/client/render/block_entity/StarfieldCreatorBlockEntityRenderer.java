@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -19,8 +19,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileStarfield;
 
-public class RenderTileStarfield implements BlockEntityRenderer<TileStarfield> {
-	public RenderTileStarfield(BlockEntityRendererProvider.Context ctx) {}
+public class StarfieldCreatorBlockEntityRenderer implements BlockEntityRenderer<TileStarfield> {
+	public StarfieldCreatorBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(TileStarfield tile, float partialTicsk, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {

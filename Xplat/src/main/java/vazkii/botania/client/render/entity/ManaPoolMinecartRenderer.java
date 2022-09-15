@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.client.render.block_entity.ManaPoolBlockEntityRenderer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
@@ -37,7 +37,7 @@ public class ManaPoolMinecartRenderer extends MinecartRenderer<EntityPoolMinecar
 	@Override
 	protected void renderMinecartContents(EntityPoolMinecart poolCart, float partialTicks, @NotNull BlockState state, PoseStack ms, MultiBufferSource buffers, int light) {
 		super.renderMinecartContents(poolCart, partialTicks, state, ms, buffers, light);
-		RenderTilePool.cartMana = poolCart.getMana();
+		ManaPoolBlockEntityRenderer.cartMana = poolCart.getMana();
 		Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(DUMMY)
 				.render(null, ClientTickHandler.partialTicks, ms, buffers, light, OverlayTexture.NO_OVERLAY);
 	}

@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.client.render.tile.RenderTileRedString;
+import vazkii.botania.client.render.block_entity.RedStringBlockEntityRenderer;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -39,7 +39,7 @@ public final class ClientTickHandler {
 	}
 
 	public static void clientTickEnd(Minecraft mc) {
-		RenderTileRedString.tick();
+		RedStringBlockEntityRenderer.tick();
 		ItemsRemainingRenderHandler.tick();
 
 		if (mc.level == null) {

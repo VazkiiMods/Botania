@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -28,9 +28,9 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
-public class RenderTileAlfPortal implements BlockEntityRenderer<TileAlfPortal> {
+public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<TileAlfPortal> {
 
-	public RenderTileAlfPortal(BlockEntityRendererProvider.Context ctx) {}
+	public AlfheimPortalBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@NotNull TileAlfPortal portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -36,13 +36,13 @@ import vazkii.botania.common.helper.ColorHelper;
 
 import java.util.Random;
 
-public class RenderTilePool implements BlockEntityRenderer<TilePool> {
+public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<TilePool> {
 
 	// Overrides for when we call this renderer from a cart
 	public static int cartMana = -1;
 	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTilePool(BlockEntityRendererProvider.Context ctx) {
+	public ManaPoolBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
 		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 

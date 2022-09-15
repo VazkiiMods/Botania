@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -34,11 +34,11 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RenderTileRuneAltar implements BlockEntityRenderer<TileRuneAltar> {
+public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<TileRuneAltar> {
 	private final ModelPart spinningCube;
 	private static final ResourceLocation cubeTex = prefix("textures/block/runic_altar_cube.png");
 
-	public RenderTileRuneAltar(BlockEntityRendererProvider.Context manager) {
+	public RunicAltarBlockEntityRenderer(BlockEntityRendererProvider.Context manager) {
 		var mesh = new MeshDefinition();
 		// todo 1.17 this doesn't properly map the full texture onto the cube. Needs more param fiddling.
 		mesh.getRoot().addOrReplaceChild("cube", CubeListBuilder.create().addBox(0, 0, 0, 1, 1, 1), PartPose.ZERO);

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -29,7 +29,7 @@ import vazkii.botania.common.item.ItemTwigWand;
 
 import java.util.Random;
 
-public class RenderTileRedString<T extends TileRedString> implements BlockEntityRenderer<T> {
+public class RedStringBlockEntityRenderer<T extends TileRedString> implements BlockEntityRenderer<T> {
 	// 0 -> none, 10 -> full
 	private static int transparency = 0;
 
@@ -43,7 +43,7 @@ public class RenderTileRedString<T extends TileRedString> implements BlockEntity
 		}
 	}
 
-	public RenderTileRedString(BlockEntityRendererProvider.Context ctx) {}
+	public RedStringBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(TileRedString tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

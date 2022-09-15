@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.client.model.GaiaHeadModel;
-import vazkii.botania.client.render.tile.RenderTileGaiaHead;
+import vazkii.botania.client.render.block_entity.GaiaHeadBlockEntityRenderer;
 import vazkii.botania.common.block.BlockGaiaHead;
 
 import java.util.Map;
@@ -55,7 +55,7 @@ public abstract class MixinSkullBlockRenderer {
 	@Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
 	private static void hookGetRenderType(SkullBlock.Type type, GameProfile gameProfile, CallbackInfoReturnable<RenderType> cir) {
 		if (type == BlockGaiaHead.GAIA_TYPE) {
-			RenderTileGaiaHead.hookGetRenderType(cir);
+			GaiaHeadBlockEntityRenderer.hookGetRenderType(cir);
 		}
 	}
 }

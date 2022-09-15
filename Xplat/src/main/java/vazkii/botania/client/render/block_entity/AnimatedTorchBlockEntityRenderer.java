@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
@@ -24,9 +24,9 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 import java.util.Random;
 
-public class RenderTileAnimatedTorch implements BlockEntityRenderer<TileAnimatedTorch> {
+public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<TileAnimatedTorch> {
 
-	public RenderTileAnimatedTorch(BlockEntityRendererProvider.Context ctx) {}
+	public AnimatedTorchBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(TileAnimatedTorch te, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
@@ -24,9 +24,9 @@ import vazkii.botania.api.mana.Lens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 
-public class RenderTilePrism implements BlockEntityRenderer<TilePrism> {
+public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<TilePrism> {
 
-	public RenderTilePrism(BlockEntityRendererProvider.Context ctx) {}
+	public ManaPrismBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@NotNull TilePrism prism, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

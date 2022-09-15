@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.render.tile;
+package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -37,7 +37,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay> {
+public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<TileLightRelay> {
 
 	private static final Map<LuminizerVariant, Material> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
 		m.put(LuminizerVariant.DEFAULT, MiscellaneousModels.INSTANCE.lightRelayWorldIcon);
@@ -46,7 +46,7 @@ public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay>
 		m.put(LuminizerVariant.TOGGLE, MiscellaneousModels.INSTANCE.lightRelayToggleWorldIcon);
 	});
 
-	public RenderTileLightRelay(BlockEntityRendererProvider.Context ctx) {}
+	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@NotNull TileLightRelay tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -55,8 +55,8 @@ public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay>
 		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.getCameraEntity() instanceof LivingEntity view) {
-			if (ItemMonocle.hasMonocle(view) && RenderTileSpecialFlower.hasBindingAttempt(view, tile.getBlockPos())) {
-				RenderTileSpecialFlower.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), TileLightRelay.MAX_DIST));
+			if (ItemMonocle.hasMonocle(view) && SpecialFlowerBlockEntityRenderer.hasBindingAttempt(view, tile.getBlockPos())) {
+				SpecialFlowerBlockEntityRenderer.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), TileLightRelay.MAX_DIST));
 			}
 		}
 
