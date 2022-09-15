@@ -940,7 +940,7 @@ public final class ModBlocks {
 			}
 		});
 
-		SeedBehaviours.init();
+		SeedBehaviors.init();
 	}
 
 	public static void addAxeStripping() {

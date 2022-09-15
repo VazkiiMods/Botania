@@ -12,7 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 
-public class SeedBehaviours {
+public class SeedBehaviors {
 
 	// This entire class is a copy from Quark, for the seed planting feature
 	// Quark's own feature disables itself if Botania is present
