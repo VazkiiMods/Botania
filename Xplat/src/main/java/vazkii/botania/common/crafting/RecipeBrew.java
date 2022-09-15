@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.IBrewContainer;
+import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -57,7 +57,7 @@ public class RecipeBrew implements IBrewRecipe {
 				break;
 			}
 
-			if (stack.getItem() instanceof IBrewContainer) {
+			if (stack.getItem() instanceof BrewContainer) {
 				continue;
 			}
 
@@ -117,7 +117,7 @@ public class RecipeBrew implements IBrewRecipe {
 
 	@Override
 	public ItemStack getOutput(ItemStack stack) {
-		if (stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer container)) {
+		if (stack.isEmpty() || !(stack.getItem() instanceof BrewContainer container)) {
 			return new ItemStack(Items.GLASS_BOTTLE); // Fallback...
 		}
 

@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
  * a brew. This is only used in vanilla to prevent the brew item
  * from going back into the brewery but other mods might use it for whatever.
  */
-public interface IBrewItem {
+public interface BrewItem {
 
 	Brew getBrew(ItemStack brew);
 

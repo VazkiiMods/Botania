@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
@@ -50,7 +50,7 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemBrewBase extends Item implements IBrewItem {
+public class ItemBrewBase extends Item implements BrewItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";

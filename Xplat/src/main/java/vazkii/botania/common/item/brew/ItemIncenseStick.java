@@ -22,14 +22,14 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.IBrewContainer;
-import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.api.brew.BrewContainer;
+import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
 
-public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer {
+public class ItemIncenseStick extends Item implements BrewItem, BrewContainer {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;

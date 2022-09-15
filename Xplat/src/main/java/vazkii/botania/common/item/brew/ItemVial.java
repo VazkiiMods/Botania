@@ -12,10 +12,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.IBrewContainer;
+import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.common.item.ModItems;
 
-public class ItemVial extends Item implements IBrewContainer {
+public class ItemVial extends Item implements BrewContainer {
 
 	public ItemVial(Properties builder) {
 		super(builder);

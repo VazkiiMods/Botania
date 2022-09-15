@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
  * it can be used a center item for brew recipes and can contain
  * a brew.
  */
-public interface IBrewContainer {
+public interface BrewContainer {
 
 	/**
 	 * Returs an ItemStack that should be an item that has the brew

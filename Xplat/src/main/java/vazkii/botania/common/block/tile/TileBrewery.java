@@ -27,8 +27,8 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.api.brew.IBrewContainer;
-import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.api.brew.BrewContainer;
+import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.IBrewRecipe;
@@ -58,7 +58,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem brew && brew.getBrew(stack) != null && brew.getBrew(stack) != ModBrews.fallbackBrew || getItemHandler().getItem(0).isEmpty() != stack.getItem() instanceof IBrewContainer) {
+		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof BrewItem brew && brew.getBrew(stack) != null && brew.getBrew(stack) != ModBrews.fallbackBrew || getItemHandler().getItem(0).isEmpty() != stack.getItem() instanceof BrewContainer) {
 			return false;
 		}
 
@@ -198,7 +198,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 
 	public int getManaCost() {
 		ItemStack stack = getItemHandler().getItem(0);
-		if (recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer container)) {
+		if (recipe == null || stack.isEmpty() || !(stack.getItem() instanceof BrewContainer container)) {
 			return 0;
 		}
 		return container.getManaCost(recipe.getBrew(), stack);

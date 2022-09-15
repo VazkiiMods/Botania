@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.BlockPlatform;
@@ -161,7 +161,7 @@ public final class ColorHandler {
 				return -1;
 			}
 
-			Brew brew = ((IBrewItem) s.getItem()).getBrew(s);
+			Brew brew = ((BrewItem) s.getItem()).getBrew(s);
 			if (brew == ModBrews.fallbackBrew) {
 				return s.getItem() instanceof ItemBloodPendant ? 0xC6000E : 0x989898;
 			}

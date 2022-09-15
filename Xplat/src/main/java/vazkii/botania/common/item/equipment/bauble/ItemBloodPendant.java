@@ -35,8 +35,8 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.brew.IBrewContainer;
-import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.api.brew.BrewContainer;
+import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
@@ -48,7 +48,7 @@ import vazkii.botania.mixin.client.AccessorMinecraft;
 
 import java.util.List;
 
-public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem {
+public class ItemBloodPendant extends ItemBauble implements BrewContainer, BrewItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 
@@ -94,7 +94,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
+		Brew brew = ((BrewItem) stack.getItem()).getBrew(stack);
 		if (brew != ModBrews.fallbackBrew && living instanceof Player player && !living.level.isClientSide) {
 			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
