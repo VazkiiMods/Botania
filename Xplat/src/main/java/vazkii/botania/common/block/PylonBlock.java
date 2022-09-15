@@ -48,7 +48,7 @@ public class PylonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 		}
 
 		public Block getTargetBlock() {
-			return this == MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
+			return this == MANA ? BotaniaBlocks.enchanter : BotaniaBlocks.alfPortal;
 		}
 	}
 

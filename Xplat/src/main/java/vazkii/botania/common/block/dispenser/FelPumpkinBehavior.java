@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 // Taken from vanilla pumpkin dispense behaviour
 public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
@@ -28,7 +28,7 @@ public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
 		Level world = source.getLevel();
 		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-		Block blockcarvedpumpkin = ModBlocks.felPumpkin;
+		Block blockcarvedpumpkin = BotaniaBlocks.felPumpkin;
 		this.setSuccess(false);
 		if (world.isEmptyBlock(blockpos) && world.getBlockState(blockpos.below()).is(Blocks.IRON_BARS)
 				&& world.getBlockState(blockpos.below(2)).is(Blocks.IRON_BARS)) // Botania - Check for iron bars

@@ -32,7 +32,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.DelayHelper;
 
@@ -49,7 +49,7 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 	private DyeColor nextColor = DyeColor.WHITE;
 
 	public SpectrolusBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.SPECTROLUS, pos, state);
+		super(BotaniaFlowerBlocks.SPECTROLUS, pos, state);
 	}
 
 	@Override

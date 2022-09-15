@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
@@ -25,7 +25,7 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 	final int RANGE = 4;
 
 	public JadedAmaranthusBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.JADED_AMARANTHUS, pos, state);
+		super(BotaniaFlowerBlocks.JADED_AMARANTHUS, pos, state);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class JadedAmaranthusBlockEntity extends FunctionalFlowerBlockEntity {
 
 			for (int i = 0; i < RANGE * 2; i++) {
 				DyeColor color = DyeColor.byId(getLevel().random.nextInt(16));
-				BlockState flower = ModBlocks.getFlower(color).defaultBlockState();
+				BlockState flower = BotaniaBlocks.getFlower(color).defaultBlockState();
 
 				if (getLevel().isEmptyBlock(up) && flower.canSurvive(getLevel(), up)) {
 					if (BotaniaConfig.common().blockBreakParticles()) {

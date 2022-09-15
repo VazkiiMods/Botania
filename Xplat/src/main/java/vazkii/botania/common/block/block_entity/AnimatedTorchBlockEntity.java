@@ -31,7 +31,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -69,7 +69,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 
 	public void handRotate() {
 		if (!level.isClientSide) {
-			level.blockEvent(getBlockPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
+			level.blockEvent(getBlockPos(), BotaniaBlocks.animatedTorch, 0, (side + 1) % 4);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class AnimatedTorchBlockEntity extends BotaniaBlockEntity implements Mana
 
 	public void toggle() {
 		if (!level.isClientSide) {
-			level.blockEvent(getBlockPos(), ModBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
+			level.blockEvent(getBlockPos(), BotaniaBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
 			nextRandomRotation = level.random.nextInt(4);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}

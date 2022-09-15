@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.common.item.ModItems;
@@ -58,7 +58,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 	@NotNull
 	@Override
 	public BlockState getDisplayBlockState() {
-		return ModBlocks.manaPool.defaultBlockState();
+		return BotaniaBlocks.manaPool.defaultBlockState();
 	}
 
 	@NotNull
@@ -87,7 +87,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 	@Override
 	public void destroy(DamageSource source) {
 		super.destroy(source);
-		spawnAtLocation(ModBlocks.manaPool, 0);
+		spawnAtLocation(BotaniaBlocks.manaPool, 0);
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class EntityPoolMinecart extends AbstractMinecart {
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pumpPos = pos.relative(dir);
 			BlockState pumpState = level.getBlockState(pumpPos);
-			if (pumpState.is(ModBlocks.pump)) {
+			if (pumpState.is(BotaniaBlocks.pump)) {
 				ManaPumpBlockEntity pump = (ManaPumpBlockEntity) level.getBlockEntity(pumpPos);
 				BlockPos poolPos = pumpPos.relative(dir);
 				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());

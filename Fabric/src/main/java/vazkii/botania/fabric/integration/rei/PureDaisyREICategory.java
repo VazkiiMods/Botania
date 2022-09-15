@@ -24,14 +24,14 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PureDaisyREICategory implements DisplayCategory<PureDaisyREIDisplay> {
-	private final EntryStack<ItemStack> daisy = EntryStacks.of(new ItemStack(ModSubtiles.pureDaisy));
+	private final EntryStack<ItemStack> daisy = EntryStacks.of(new ItemStack(BotaniaFlowerBlocks.pureDaisy));
 	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	@Override

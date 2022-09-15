@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -42,20 +42,20 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
-		consumer.accept(new FinishedRecipe(id("dreamwood_log"), new ItemStack(ModBlocks.dreamwoodLog), Ingredient.of(ModBlocks.livingwoodLog)));
-		consumer.accept(new FinishedRecipe(id("dreamwood"), new ItemStack(ModBlocks.dreamwood), Ingredient.of(ModBlocks.livingwood)));
+		consumer.accept(new FinishedRecipe(id("dreamwood_log"), new ItemStack(BotaniaBlocks.dreamwoodLog), Ingredient.of(BotaniaBlocks.livingwoodLog)));
+		consumer.accept(new FinishedRecipe(id("dreamwood"), new ItemStack(BotaniaBlocks.dreamwood), Ingredient.of(BotaniaBlocks.livingwood)));
 
 		Ingredient manaDiamond = Ingredient.of(ModTags.Items.GEMS_MANA_DIAMOND);
 		Ingredient manaSteel = Ingredient.of(ModTags.Items.INGOTS_MANASTEEL);
 		consumer.accept(new FinishedRecipe(id("elementium"), new ItemStack(ModItems.elementium), manaSteel, manaSteel));
-		consumer.accept(new FinishedRecipe(id("elementium_block"), new ItemStack(ModBlocks.elementiumBlock), Ingredient.of(ModBlocks.manasteelBlock), Ingredient.of(ModBlocks.manasteelBlock)));
+		consumer.accept(new FinishedRecipe(id("elementium_block"), new ItemStack(BotaniaBlocks.elementiumBlock), Ingredient.of(BotaniaBlocks.manasteelBlock), Ingredient.of(BotaniaBlocks.manasteelBlock)));
 
 		consumer.accept(new FinishedRecipe(id("pixie_dust"), new ItemStack(ModItems.pixieDust), Ingredient.of(ModItems.manaPearl)));
 		consumer.accept(new FinishedRecipe(id("dragonstone"), new ItemStack(ModItems.dragonstone), manaDiamond));
-		consumer.accept(new FinishedRecipe(id("dragonstone_block"), new ItemStack(ModBlocks.dragonstoneBlock), Ingredient.of(ModBlocks.manaDiamondBlock)));
+		consumer.accept(new FinishedRecipe(id("dragonstone_block"), new ItemStack(BotaniaBlocks.dragonstoneBlock), Ingredient.of(BotaniaBlocks.manaDiamondBlock)));
 
 		consumer.accept(new FinishedRecipe(id("elf_quartz"), new ItemStack(ModItems.elfQuartz), Ingredient.of(Items.QUARTZ)));
-		consumer.accept(new FinishedRecipe(id("elf_glass"), new ItemStack(ModBlocks.elfGlass), Ingredient.of(ModBlocks.manaGlass)));
+		consumer.accept(new FinishedRecipe(id("elf_glass"), new ItemStack(BotaniaBlocks.elfGlass), Ingredient.of(BotaniaBlocks.manaGlass)));
 
 		consumer.accept(new FinishedRecipe(id("iron_return"), new ItemStack(Items.IRON_INGOT), Ingredient.of(Items.IRON_INGOT)));
 		consumer.accept(new FinishedRecipe(id("iron_block_return"), new ItemStack(Blocks.IRON_BLOCK), Ingredient.of(Blocks.IRON_BLOCK)));

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.Set;
 
@@ -12,8 +12,8 @@ public final class BlockEntityConstants {
 	public static final Set<BlockEntityType<?>> SELF_WANDADBLE_BES = ImmutableSet.of(BotaniaBlockEntities.ALF_PORTAL, BotaniaBlockEntities.ANIMATED_TORCH, BotaniaBlockEntities.CORPOREA_CRYSTAL_CUBE, BotaniaBlockEntities.CORPOREA_RETAINER,
 			BotaniaBlockEntities.CRAFT_CRATE, BotaniaBlockEntities.ENCHANTER, BotaniaBlockEntities.HOURGLASS, BotaniaBlockEntities.PLATFORM, BotaniaBlockEntities.POOL,
 			BotaniaBlockEntities.RUNE_ALTAR, BotaniaBlockEntities.SPREADER, BotaniaBlockEntities.TURNTABLE,
-			ModSubtiles.DAFFOMILL, ModSubtiles.HOPPERHOCK, ModSubtiles.HOPPERHOCK_CHIBI,
-			ModSubtiles.RANNUNCARPUS, ModSubtiles.RANNUNCARPUS_CHIBI
+			BotaniaFlowerBlocks.DAFFOMILL, BotaniaFlowerBlocks.HOPPERHOCK, BotaniaFlowerBlocks.HOPPERHOCK_CHIBI,
+			BotaniaFlowerBlocks.RANNUNCARPUS, BotaniaFlowerBlocks.RANNUNCARPUS_CHIBI
 	);
 
 	public static final Set<BlockEntityType<?>> SELF_MANA_TRIGGER_BES = ImmutableSet.of(

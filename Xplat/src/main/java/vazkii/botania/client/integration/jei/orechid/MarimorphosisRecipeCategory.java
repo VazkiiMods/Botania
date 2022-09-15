@@ -8,7 +8,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeMarimorphosis;
 import vazkii.botania.common.lib.LibMisc;
@@ -18,7 +18,7 @@ public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<Recip
 			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "marimorphosis", RecipeMarimorphosis.class);
 
 	public MarimorphosisRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(ModSubtiles.marimorphosis), Component.translatable("botania.nei.marimorphosis"));
+		super(guiHelper, new ItemStack(BotaniaFlowerBlocks.marimorphosis), Component.translatable("botania.nei.marimorphosis"));
 	}
 
 	@NotNull

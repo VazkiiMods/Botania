@@ -53,7 +53,7 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 
 	@Override
 	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-		return state.is(ModBlocks.redStringRelay)
+		return state.is(BotaniaBlocks.redStringRelay)
 				|| super.mayPlaceOn(state, worldIn, pos);
 	}
 

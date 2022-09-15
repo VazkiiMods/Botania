@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
@@ -36,7 +36,7 @@ public class LifeImbuerBlockEntity extends BotaniaBlockEntity implements ManaRec
 			return;
 		}
 		BlockPos up = pos.above();
-		if (level.getBlockState(up).is(ModBlocks.spawnerClaw)) {
+		if (level.getBlockState(up).is(BotaniaBlocks.spawnerClaw)) {
 			BlockEntity be = level.getBlockEntity(pos.above());
 
 			if (be instanceof LifeImbuerBlockEntity claw && claw.mana > 5) {

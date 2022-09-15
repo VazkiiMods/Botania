@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.common.lib.ModTags;
 
-import static vazkii.botania.common.block.ModPatterns.*;
+import static vazkii.botania.common.block.BotaniaBannerPatterns.*;
 
 public class BannerTagProvider extends TagsProvider<BannerPattern> {
 	public BannerTagProvider(DataGenerator generator) {

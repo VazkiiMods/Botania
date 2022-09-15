@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.*;
 
@@ -134,17 +134,17 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		} else if (type == IslandType.MYCEL) {
 			return Blocks.MYCELIUM.defaultBlockState();
 		} else if (type == IslandType.DRY) {
-			return ModBlocks.dryGrass.defaultBlockState();
+			return BotaniaBlocks.dryGrass.defaultBlockState();
 		} else if (type == IslandType.GOLDEN) {
-			return ModBlocks.goldenGrass.defaultBlockState();
+			return BotaniaBlocks.goldenGrass.defaultBlockState();
 		} else if (type == IslandType.VIVID) {
-			return ModBlocks.vividGrass.defaultBlockState();
+			return BotaniaBlocks.vividGrass.defaultBlockState();
 		} else if (type == IslandType.SCORCHED) {
-			return ModBlocks.scorchedGrass.defaultBlockState();
+			return BotaniaBlocks.scorchedGrass.defaultBlockState();
 		} else if (type == IslandType.INFUSED) {
-			return ModBlocks.infusedGrass.defaultBlockState();
+			return BotaniaBlocks.infusedGrass.defaultBlockState();
 		} else if (type == IslandType.MUTATED) {
-			return ModBlocks.mutatedGrass.defaultBlockState();
+			return BotaniaBlocks.mutatedGrass.defaultBlockState();
 		} else {
 			return Blocks.GRASS_BLOCK.defaultBlockState();
 		}

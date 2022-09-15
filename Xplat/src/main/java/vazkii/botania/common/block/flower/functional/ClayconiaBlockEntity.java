@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public ClayconiaBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.CLAYCONIA, pos, state);
+		this(BotaniaFlowerBlocks.CLAYCONIA, pos, state);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class ClayconiaBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends ClayconiaBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(ModSubtiles.CLAYCONIA_CHIBI, pos, state);
+			super(BotaniaFlowerBlocks.CLAYCONIA_CHIBI, pos, state);
 		}
 
 		@Override

@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.DelayHelper;
@@ -37,7 +37,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	private int burnTime = 0;
 
 	public EndoflameBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.ENDOFLAME, pos, state);
+		super(BotaniaFlowerBlocks.ENDOFLAME, pos, state);
 	}
 
 	@Override

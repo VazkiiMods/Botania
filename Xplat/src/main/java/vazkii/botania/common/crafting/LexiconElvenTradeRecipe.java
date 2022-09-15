@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
@@ -47,7 +47,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(ModBlocks.alfPortal);
+		return new ItemStack(BotaniaBlocks.alfPortal);
 	}
 
 	@NotNull

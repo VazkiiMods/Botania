@@ -40,7 +40,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -63,7 +63,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
 	public LooniumBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.LOONIUM, pos, state);
+		super(BotaniaFlowerBlocks.LOONIUM, pos, state);
 	}
 
 	@Override

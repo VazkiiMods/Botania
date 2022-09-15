@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.Collections;
 import java.util.Set;
@@ -33,7 +33,7 @@ public class SolegnoliaBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public SolegnoliaBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.SOLEGNOLIA, pos, state);
+		this(BotaniaFlowerBlocks.SOLEGNOLIA, pos, state);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class SolegnoliaBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends SolegnoliaBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(ModSubtiles.SOLEGNOLIA_CHIBI, pos, state);
+			super(BotaniaFlowerBlocks.SOLEGNOLIA_CHIBI, pos, state);
 		}
 
 		@Override

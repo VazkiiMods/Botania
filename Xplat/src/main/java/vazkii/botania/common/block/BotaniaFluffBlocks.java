@@ -31,11 +31,11 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import java.util.function.BiConsumer;
 
-import static vazkii.botania.common.block.ModBlocks.*;
+import static vazkii.botania.common.block.BotaniaBlocks.*;
 import static vazkii.botania.common.lib.LibBlockNames.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public final class ModFluffBlocks {
+public final class BotaniaFluffBlocks {
 	public static final Block livingwoodStairs = new BotaniaStairBlock(livingwood.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodWall = new WallBlock(BlockBehaviour.Properties.copy(livingwood));

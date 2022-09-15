@@ -15,8 +15,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
-import vazkii.botania.common.block.ModBlocks;
 
 public class LensWarp extends Lens {
 
@@ -28,7 +28,7 @@ public class LensWarp extends Lens {
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-		if (entity.level.getBlockState(hit).is(ModBlocks.pistonRelay)) {
+		if (entity.level.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
 			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(entity.level);
 			BlockPos dest = data.mapping.get(hit);
 

@@ -23,7 +23,7 @@ import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -50,7 +50,7 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 	private final int[] ticksRemaining = new int[POSITIONS.length];
 
 	public PureDaisyBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.PURE_DAISY, pos, state);
+		super(BotaniaFlowerBlocks.PURE_DAISY, pos, state);
 		Arrays.fill(prevTicksRemaining, -1);
 		Arrays.fill(ticksRemaining, -1);
 	}

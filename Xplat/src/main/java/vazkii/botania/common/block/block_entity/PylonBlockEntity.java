@@ -19,8 +19,8 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.PylonBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ColorHelper;
@@ -105,7 +105,7 @@ public class PylonBlockEntity extends BlockEntity {
 	}
 
 	private boolean portalOff() {
-		return !level.getBlockState(centerPos).is(ModBlocks.alfPortal)
+		return !level.getBlockState(centerPos).is(BotaniaBlocks.alfPortal)
 				|| level.getBlockState(centerPos).getValue(BotaniaStateProperties.ALFPORTAL_STATE) == AlfheimPortalState.OFF;
 	}
 

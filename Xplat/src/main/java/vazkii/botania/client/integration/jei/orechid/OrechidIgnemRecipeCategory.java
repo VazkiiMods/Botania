@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeOrechidIgnem;
 import vazkii.botania.common.lib.LibMisc;
@@ -27,7 +27,7 @@ public class OrechidIgnemRecipeCategory extends OrechidRecipeCategoryBase<Recipe
 			mezz.jei.api.recipe.RecipeType.create(LibMisc.MOD_ID, "orechid_ignem", RecipeOrechidIgnem.class);
 
 	public OrechidIgnemRecipeCategory(IGuiHelper guiHelper) {
-		super(guiHelper, new ItemStack(ModSubtiles.orechidIgnem), Component.translatable("botania.nei.orechidIgnem"));
+		super(guiHelper, new ItemStack(BotaniaFlowerBlocks.orechidIgnem), Component.translatable("botania.nei.orechidIgnem"));
 	}
 
 	@NotNull

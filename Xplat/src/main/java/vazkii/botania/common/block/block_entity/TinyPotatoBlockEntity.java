@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.ModStats;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.decor.TinyPotatoBlock;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -97,7 +97,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 
 			for (int i = 0; i < inventorySize(); i++) {
 				var son = getItemHandler().getItem(i);
-				if (!son.isEmpty() && son.is(ModBlocks.tinyPotato.asItem())) {
+				if (!son.isEmpty() && son.is(BotaniaBlocks.tinyPotato.asItem())) {
 					player.sendSystemMessage(Component.literal("Don't talk to me or my son ever again."));
 					return;
 				}
@@ -237,7 +237,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	@NotNull
 	@Override
 	public Component getName() {
-		return ModBlocks.tinyPotato.getName();
+		return BotaniaBlocks.tinyPotato.getName();
 	}
 
 	@Nullable

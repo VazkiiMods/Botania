@@ -116,9 +116,9 @@ public class FabricCommonInitializer implements ModInitializer {
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
@@ -137,25 +137,25 @@ public class FabricCommonInitializer implements ModInitializer {
 	private void registryInit() {
 		// Core item/block/BE
 		ModSounds.init(bind(Registry.SOUND_EVENT));
-		ModBlocks.registerBlocks(bind(Registry.BLOCK));
-		ModBlocks.registerItemBlocks(bind(Registry.ITEM));
-		ModFluffBlocks.registerBlocks(bind(Registry.BLOCK));
-		ModFluffBlocks.registerItemBlocks(bind(Registry.ITEM));
+		BotaniaBlocks.registerBlocks(bind(Registry.BLOCK));
+		BotaniaBlocks.registerItemBlocks(bind(Registry.ITEM));
+		BotaniaFluffBlocks.registerBlocks(bind(Registry.BLOCK));
+		BotaniaFluffBlocks.registerItemBlocks(bind(Registry.ITEM));
 		BotaniaBlockEntities.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
 		ModItems.registerItems(bind(Registry.ITEM));
-		ModSubtiles.registerBlocks(bind(Registry.BLOCK));
-		ModSubtiles.registerItemBlocks(bind(Registry.ITEM));
-		ModSubtiles.registerTEs(bind(Registry.BLOCK_ENTITY_TYPE));
-		ModBlocks.addDispenserBehaviours();
-		ModBlocks.addAxeStripping();
+		BotaniaFlowerBlocks.registerBlocks(bind(Registry.BLOCK));
+		BotaniaFlowerBlocks.registerItemBlocks(bind(Registry.ITEM));
+		BotaniaFlowerBlocks.registerTEs(bind(Registry.BLOCK_ENTITY_TYPE));
+		BotaniaBlocks.addDispenserBehaviours();
+		BotaniaBlocks.addAxeStripping();
 
 		int blazeTime = 2400;
-		FuelRegistry.INSTANCE.add(ModBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
+		FuelRegistry.INSTANCE.add(BotaniaBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
 
 		// GUI and Recipe
 		ModItems.registerMenuTypes(bind(Registry.MENU));
 		ModItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
-		ModPatterns.submitRegistrations(bind(Registry.BANNER_PATTERN));
+		BotaniaBannerPatterns.submitRegistrations(bind(Registry.BANNER_PATTERN));
 		ModRecipeTypes.submitRecipeTypes(bind(Registry.RECIPE_TYPE));
 		ModRecipeTypes.submitRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
 
@@ -263,43 +263,43 @@ public class FabricCommonInitializer implements ModInitializer {
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(ModBlocks::getMushroom).toArray(Block[]::new));
+				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
 		BotaniaFabricCapabilities.HORN_HARVEST.registerForBlocks((w, p, s, be, c) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(ModBlocks::getShinyFlower).toArray(Block[]::new));
+				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
 		BotaniaFabricCapabilities.HOURGLASS_TRIGGER.registerForBlockEntities((be, c) -> {
 			var torch = (AnimatedTorchBlockEntity) be;
 			return hourglass -> torch.toggle();
 		}, BotaniaBlockEntities.ANIMATED_TORCH);
 		BotaniaFabricCapabilities.MANA_GHOST.registerForBlocks(
 				(level, pos, state, be, context) -> ((ManaCollisionGhost) state.getBlock()),
-				ModBlocks.manaDetector,
-				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
-				ModBlocks.prism, ModBlocks.tinyPlanet
+				BotaniaBlocks.manaDetector,
+				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
+				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet
 		);
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerSelf(
 				BlockEntityConstants.SELF_MANA_RECEIVER_BES.toArray(BlockEntityType[]::new)
 		);
 		BotaniaFabricCapabilities.MANA_RECEIVER.registerForBlocks(
 				(level, pos, state, be, side) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
-				ModBlocks.manaVoid);
+				BotaniaBlocks.manaVoid);
 		BotaniaFabricCapabilities.SPARK_ATTACHABLE.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
-				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum
+				BotaniaBlocks.canopyDrum, BotaniaBlocks.gatheringDrum, BotaniaBlocks.wildDrum
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
-				ModBlocks.manaBomb
+				BotaniaBlocks.manaBomb
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
 				(level, pos, state, be, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
-				ModBlocks.manaDetector
+				BotaniaBlocks.manaDetector
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(
 				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(
 				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, world, pos),
-				ModBlocks.pistonRelay
+				BotaniaBlocks.pistonRelay
 		);
 		BotaniaFabricCapabilities.WANDABLE.registerSelf(
 				BlockEntityConstants.SELF_WANDADBLE_BES.toArray(BlockEntityType[]::new));

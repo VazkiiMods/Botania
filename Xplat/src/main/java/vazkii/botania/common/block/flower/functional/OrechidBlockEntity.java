@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.handler.OrechidManager;
@@ -48,7 +48,7 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public OrechidBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.ORECHID, pos, state);
+		this(BotaniaFlowerBlocks.ORECHID, pos, state);
 	}
 
 	@Override

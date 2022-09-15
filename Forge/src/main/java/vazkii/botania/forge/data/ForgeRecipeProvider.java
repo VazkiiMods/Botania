@@ -8,7 +8,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.data.recipes.BotaniaRecipeProvider;
@@ -25,7 +25,7 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 
 	@Override
 	protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapeless(ModBlocks.azulejo0)
+		ShapelessRecipeBuilder.shapeless(BotaniaBlocks.azulejo0)
 				.requires(Items.BLUE_DYE)
 				.requires(Tags.Items.STORAGE_BLOCKS_QUARTZ)
 				.unlockedBy("has_item", conditionsFromItem(Items.BLUE_DYE))
@@ -41,8 +41,8 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
 				.save(consumer);
 
-		registerRedStringBlock(consumer, ModBlocks.redStringContainer, Ingredient.of(Tags.Items.CHESTS_WOODEN), conditionsFromTag(Tags.Items.CHESTS_WOODEN));
-		ShapelessRecipeBuilder.shapeless(ModBlocks.corporeaRetainer)
+		registerRedStringBlock(consumer, BotaniaBlocks.redStringContainer, Ingredient.of(Tags.Items.CHESTS_WOODEN), conditionsFromTag(Tags.Items.CHESTS_WOODEN));
+		ShapelessRecipeBuilder.shapeless(BotaniaBlocks.corporeaRetainer)
 				.requires(Tags.Items.CHESTS_WOODEN)
 				.requires(ModItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(ModItems.corporeaSpark))

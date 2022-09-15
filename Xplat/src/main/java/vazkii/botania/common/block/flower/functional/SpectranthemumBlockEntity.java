@@ -22,7 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.IProxy;
@@ -46,7 +46,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	private BlockPos bindPos = Bound.UNBOUND_POS;
 
 	public SpectranthemumBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.SPECTRANTHEMUM, pos, state);
+		super(BotaniaFlowerBlocks.SPECTRANTHEMUM, pos, state);
 	}
 
 	@Override

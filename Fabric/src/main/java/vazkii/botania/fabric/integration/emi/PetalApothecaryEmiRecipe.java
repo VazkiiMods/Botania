@@ -5,12 +5,12 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 
 public class PetalApothecaryEmiRecipe extends BotaniaEmiRecipe {
-	private static final EmiStack APOTHECARY = EmiStack.of(ModBlocks.defaultAltar);
+	private static final EmiStack APOTHECARY = EmiStack.of(BotaniaBlocks.defaultAltar);
 
 	public PetalApothecaryEmiRecipe(PetalApothecaryRecipe recipe) {
 		super(BotaniaEmiPlugin.PETAL_APOTHECARY, recipe);

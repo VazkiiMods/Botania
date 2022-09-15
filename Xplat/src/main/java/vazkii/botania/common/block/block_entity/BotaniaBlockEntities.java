@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.corporea.*;
 import vazkii.botania.common.block.block_entity.mana.*;
 import vazkii.botania.common.block.block_entity.red_string.*;
@@ -31,7 +31,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static vazkii.botania.common.block.ModBlocks.*;
+import static vazkii.botania.common.block.BotaniaBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BotaniaBlockEntities {
@@ -54,7 +54,7 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<PlatformBlockEntity> PLATFORM = type(prefix(LibBlockNames.PLATFORM), PlatformBlockEntity::new, abstrusePlatform, spectralPlatform, infrangiblePlatform);
 	public static final BlockEntityType<AlfheimPortalBlockEntity> ALF_PORTAL = type(prefix(LibBlockNames.ALF_PORTAL), AlfheimPortalBlockEntity::new, alfPortal);
 	public static final BlockEntityType<BifrostBlockEntity> BIFROST = type(prefix(LibBlockNames.BIFROST), BifrostBlockEntity::new, bifrost);
-	public static final BlockEntityType<FloatingFlowerBlockEntity> MINI_ISLAND = type(prefix(LibBlockNames.MINI_ISLAND), FloatingFlowerBlockEntity::new, Arrays.stream(DyeColor.values()).map(ModBlocks::getFloatingFlower).toArray(Block[]::new));
+	public static final BlockEntityType<FloatingFlowerBlockEntity> MINI_ISLAND = type(prefix(LibBlockNames.MINI_ISLAND), FloatingFlowerBlockEntity::new, Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getFloatingFlower).toArray(Block[]::new));
 	public static final BlockEntityType<TinyPotatoBlockEntity> TINY_POTATO = type(prefix(LibBlockNames.TINY_POTATO), TinyPotatoBlockEntity::new, tinyPotato);
 	public static final BlockEntityType<LifeImbuerBlockEntity> SPAWNER_CLAW = type(prefix(LibBlockNames.SPAWNER_CLAW), LifeImbuerBlockEntity::new, spawnerClaw);
 	public static final BlockEntityType<EnderOverseerBlockEntity> ENDER_EYE = type(prefix(LibBlockNames.ENDER_EYE_BLOCK), EnderOverseerBlockEntity::new, enderEye);

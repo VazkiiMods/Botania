@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -51,10 +51,10 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 		ResourceLocation location = prefix("textures/gui/terrasteel_jei_overlay.png");
 		background = guiHelper.createBlankDrawable(114, 131);
 		overlay = guiHelper.createDrawable(location, 42, 29, 64, 64);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.terraPlate));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.terraPlate));
 		localizedName = Component.translatable("botania.nei.terraPlate");
 
-		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.livingrock));
+		IDrawable livingrock = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.livingrock));
 		terraPlate = new TerrestrialAgglomerationDrawable(livingrock, livingrock,
 				guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Blocks.LAPIS_BLOCK))
 		);
@@ -108,6 +108,6 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 		}
 
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 92)
-				.addItemStack(new ItemStack(ModBlocks.terraPlate));
+				.addItemStack(new ItemStack(BotaniaBlocks.terraPlate));
 	}
 }

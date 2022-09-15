@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class FallenKanadeBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 120;
 
 	public FallenKanadeBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.FALLEN_KANADE, pos, state);
+		super(BotaniaFlowerBlocks.FALLEN_KANADE, pos, state);
 	}
 
 	@Override

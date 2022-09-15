@@ -14,12 +14,12 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.ModSounds;
 
 public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	public ThermalilyBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.THERMALILY, pos, state, FluidTags.LAVA, 900, 20, 6000);
+		super(BotaniaFlowerBlocks.THERMALILY, pos, state, FluidTags.LAVA, 900, 20, 6000);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
@@ -27,7 +27,7 @@ public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 	private int state = NONE;
 
 	public ManastarBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.MANASTAR, pos, state);
+		super(BotaniaFlowerBlocks.MANASTAR, pos, state);
 	}
 
 	@Override

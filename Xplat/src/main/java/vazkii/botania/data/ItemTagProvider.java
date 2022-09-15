@@ -19,7 +19,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
@@ -58,7 +58,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.MINI_FLOWERS, ModTags.Items.MINI_FLOWERS);
 		this.tag(ModTags.Items.CONTRIBUTOR_HEADFLOWERS)
 				.addTag(ModTags.Items.SPECIAL_FLOWERS)
-				.add(ModBlocks.motifDaybloom.asItem(), ModBlocks.motifNightshade.asItem());
+				.add(BotaniaBlocks.motifDaybloom.asItem(), BotaniaBlocks.motifNightshade.asItem());
 
 		this.tag(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.tag(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
@@ -70,8 +70,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(builder::add);
 
-		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), divaCharm,
-				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), monocle);
+		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.alchemyCatalyst.asItem(), divaCharm,
+				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
 		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 
@@ -116,7 +116,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		TagAppender<Item> allPetals = this.tag(ModTags.Items.PETALS);
 		for (DyeColor color : DyeColor.values()) {
 			var petalTag = ModTags.Items.getPetalTag(color);
-			this.tag(petalTag).add(getPetal(color), ModBlocks.getMushroom(color).asItem());
+			this.tag(petalTag).add(getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 

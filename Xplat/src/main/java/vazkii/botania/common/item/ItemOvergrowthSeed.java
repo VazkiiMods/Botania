@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 public class ItemOvergrowthSeed extends Item {
 
@@ -38,7 +38,7 @@ public class ItemOvergrowthSeed extends Item {
 		if (state.is(Blocks.GRASS_BLOCK)) {
 			if (!world.isClientSide) {
 				world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-				world.setBlockAndUpdate(pos, ModBlocks.enchantedSoil.defaultBlockState());
+				world.setBlockAndUpdate(pos, BotaniaBlocks.enchantedSoil.defaultBlockState());
 				ctx.getItemInHand().shrink(1);
 			}
 			return InteractionResult.SUCCESS;

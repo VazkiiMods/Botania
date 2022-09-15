@@ -8,7 +8,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.*;
@@ -58,10 +58,10 @@ public final class BotaniaItemProperties {
 			boolean renderFull = ((ManaPoolBlock) block).variant == ManaPoolBlock.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
 			return renderFull ? 1F : 0F;
 		};
-		consumer.accept(ModBlocks.manaPool, poolFullId, poolFull);
-		consumer.accept(ModBlocks.dilutedPool, poolFullId, poolFull);
-		consumer.accept(ModBlocks.creativePool, poolFullId, poolFull);
-		consumer.accept(ModBlocks.fabulousPool, poolFullId, poolFull);
+		consumer.accept(BotaniaBlocks.manaPool, poolFullId, poolFull);
+		consumer.accept(BotaniaBlocks.dilutedPool, poolFullId, poolFull);
+		consumer.accept(BotaniaBlocks.creativePool, poolFullId, poolFull);
+		consumer.accept(BotaniaBlocks.fabulousPool, poolFullId, poolFull);
 
 		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
 			ItemBrewBase item = ((ItemBrewBase) stack.getItem());

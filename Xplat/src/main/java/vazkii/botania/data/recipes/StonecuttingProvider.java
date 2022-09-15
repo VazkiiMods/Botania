@@ -24,8 +24,8 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
@@ -54,33 +54,33 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 			registerForQuartz(variant, consumer);
 		}
 
-		consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockSlab, 2));
-		consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockStairs));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockSlab, 2));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockStairs));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockWall));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModBlocks.livingrockBrick));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickSlab, 2));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickStairs));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickWall));
-		consumer.accept(stonecutting(ModBlocks.livingrock, ModBlocks.livingrockBrickChiseled));
-		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickSlab, 2));
-		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickStairs));
-		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickWall));
-		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModBlocks.livingrockBrickChiseled));
-		consumer.accept(stonecutting(ModBlocks.livingrockBrickMossy, ModFluffBlocks.livingrockBrickMossySlab, 2));
-		consumer.accept(stonecutting(ModBlocks.livingrockBrickMossy, ModFluffBlocks.livingrockBrickMossyStairs));
-		consumer.accept(stonecutting(ModBlocks.livingrockBrickMossy, ModFluffBlocks.livingrockBrickMossyWall));
+		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockWall));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrick));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockBrickSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockBrickStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockBrickWall));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickChiseled));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickWall));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickChiseled));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaFluffBlocks.livingrockBrickMossySlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaFluffBlocks.livingrockBrickMossyStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaFluffBlocks.livingrockBrickMossyWall));
 
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaSlab, 2));
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaStairs));
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrick));
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrickSlab, 2));
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrickStairs));
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrickWall));
-		consumer.accept(stonecutting(ModBlocks.corporeaBrick, ModBlocks.corporeaBrickSlab, 2));
-		consumer.accept(stonecutting(ModBlocks.corporeaBrick, ModBlocks.corporeaBrickStairs));
-		consumer.accept(stonecutting(ModBlocks.corporeaBrick, ModBlocks.corporeaBrickWall));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrickWall));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickWall));
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)

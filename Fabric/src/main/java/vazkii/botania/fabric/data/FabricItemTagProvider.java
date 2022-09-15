@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.relic.ItemDice;
 
 import static vazkii.botania.common.item.ModItems.*;
@@ -36,7 +36,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 	@Override
 	protected void addTags() {
 		for (var color : DyeColor.values()) {
-			this.tag(MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
+			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color).asItem());
 		}
 		this.copy(FabricBlockTagProvider.MUSHROOMS, MUSHROOMS);
 		this.copy(FabricBlockTagProvider.QUARTZ_BLOCKS, QUARTZ_BLOCKS);
@@ -140,7 +140,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 		this.tag(itemTag(new ResourceLocation("modern_industrialization", "replicator_blacklist")))
 				.add(ItemDice.RELIC_STACKS.get().stream().map(ItemStack::getItem).toArray(Item[]::new))
 				.add(dice, manaTablet, manaRing, manaRingGreater, blackerLotus, blackHoleTalisman, flowerBag,
-						spawnerMover, terraPick, ModBlocks.terrasteelBlock.asItem());
+						spawnerMover, terraPick, BotaniaBlocks.terrasteelBlock.asItem());
 	}
 
 	private static TagKey<Item> accessory(String name) {

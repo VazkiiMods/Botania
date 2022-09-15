@@ -87,7 +87,7 @@ public class BotaniaFlowerBlock extends FlowerBlock implements BonemealableBlock
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel world, @NotNull RandomSource rand, @NotNull BlockPos pos, @NotNull BlockState state) {
-		Block block = ModBlocks.getDoubleFlower(color);
+		Block block = BotaniaBlocks.getDoubleFlower(color);
 		if (block instanceof DoublePlantBlock) {
 			DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos, 3);
 		}

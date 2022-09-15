@@ -20,7 +20,7 @@ import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -37,7 +37,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public AgricarnationBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.AGRICARNATION, pos, state);
+		this(BotaniaFlowerBlocks.AGRICARNATION, pos, state);
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class AgricarnationBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends AgricarnationBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(ModSubtiles.AGRICARNATION_CHIBI, pos, state);
+			super(BotaniaFlowerBlocks.AGRICARNATION_CHIBI, pos, state);
 		}
 
 		@Override

@@ -17,7 +17,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 
@@ -28,7 +28,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int MANA_COST = 12;
 
 	public PollidisiacBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.POLLIDISIAC, pos, state);
+		super(BotaniaFlowerBlocks.POLLIDISIAC, pos, state);
 	}
 
 	@Override

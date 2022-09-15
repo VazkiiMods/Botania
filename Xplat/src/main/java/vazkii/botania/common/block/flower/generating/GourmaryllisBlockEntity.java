@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 
 import java.util.LinkedList;
@@ -48,7 +48,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	private int lastFoodCount = 0;
 
 	public GourmaryllisBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.GOURMARYLLIS, pos, state);
+		super(BotaniaFlowerBlocks.GOURMARYLLIS, pos, state);
 	}
 
 	private int getMaxStreak() {

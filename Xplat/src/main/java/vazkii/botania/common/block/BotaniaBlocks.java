@@ -65,7 +65,7 @@ import java.util.function.BiConsumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public final class ModBlocks {
+public final class BotaniaBlocks {
 	private static final BlockBehaviour.StateArgumentPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
 	private static final BlockBehaviour.StatePredicate NO_SUFFOCATION = (state, world, pos) -> false;
 
@@ -904,9 +904,9 @@ public final class ModBlocks {
 		DispenserBlock.registerBehavior(ModItems.dreamwoodWand, new WandBehavior());
 		DispenserBlock.registerBehavior(ModItems.obedienceStick, new StickBehavior());
 		DispenserBlock.registerBehavior(ModItems.poolMinecart, new ManaPoolMinecartBehavior());
-		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new FelPumpkinBehavior());
+		DispenserBlock.registerBehavior(BotaniaBlocks.felPumpkin, new FelPumpkinBehavior());
 		DispenserBlock.registerBehavior(ModItems.spark, new ManaSparkBehavior());
-		DispenserBlock.registerBehavior(ModBlocks.gaiaHead, new OptionalDispenseItemBehavior() {
+		DispenserBlock.registerBehavior(BotaniaBlocks.gaiaHead, new OptionalDispenseItemBehavior() {
 			@NotNull
 			@Override
 			protected ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
@@ -954,12 +954,12 @@ public final class ModBlocks {
 		xplat.addAxeStripping(dreamwood, dreamwoodStripped);
 		xplat.addAxeStripping(dreamwoodGlimmering, dreamwoodStrippedGlimmering);
 
-		xplat.addAxeStripping(ModFluffBlocks.livingwoodStairs, ModFluffBlocks.livingwoodStrippedStairs);
-		xplat.addAxeStripping(ModFluffBlocks.livingwoodSlab, ModFluffBlocks.livingwoodStrippedSlab);
-		xplat.addAxeStripping(ModFluffBlocks.livingwoodWall, ModFluffBlocks.livingwoodStrippedWall);
-		xplat.addAxeStripping(ModFluffBlocks.dreamwoodStairs, ModFluffBlocks.dreamwoodStrippedStairs);
-		xplat.addAxeStripping(ModFluffBlocks.dreamwoodSlab, ModFluffBlocks.dreamwoodStrippedSlab);
-		xplat.addAxeStripping(ModFluffBlocks.dreamwoodWall, ModFluffBlocks.dreamwoodStrippedWall);
+		xplat.addAxeStripping(BotaniaFluffBlocks.livingwoodStairs, BotaniaFluffBlocks.livingwoodStrippedStairs);
+		xplat.addAxeStripping(BotaniaFluffBlocks.livingwoodSlab, BotaniaFluffBlocks.livingwoodStrippedSlab);
+		xplat.addAxeStripping(BotaniaFluffBlocks.livingwoodWall, BotaniaFluffBlocks.livingwoodStrippedWall);
+		xplat.addAxeStripping(BotaniaFluffBlocks.dreamwoodStairs, BotaniaFluffBlocks.dreamwoodStrippedStairs);
+		xplat.addAxeStripping(BotaniaFluffBlocks.dreamwoodSlab, BotaniaFluffBlocks.dreamwoodStrippedSlab);
+		xplat.addAxeStripping(BotaniaFluffBlocks.dreamwoodWall, BotaniaFluffBlocks.dreamwoodStrippedWall);
 	}
 
 	public static Block getFlower(DyeColor color) {

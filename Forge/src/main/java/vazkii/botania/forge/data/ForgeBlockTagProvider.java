@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
@@ -33,12 +33,12 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 	@Override
 	protected void addTags() {
 		tag(Tags.Blocks.STORAGE_BLOCKS_QUARTZ).add(
-				ModFluffBlocks.darkQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.blazeQuartz,
-				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz
+				BotaniaFluffBlocks.darkQuartz, BotaniaFluffBlocks.manaQuartz, BotaniaFluffBlocks.blazeQuartz,
+				BotaniaFluffBlocks.lavenderQuartz, BotaniaFluffBlocks.redQuartz, BotaniaFluffBlocks.elfQuartz, BotaniaFluffBlocks.sunnyQuartz
 		);
 
 		for (DyeColor color : DyeColor.values()) {
-			this.tag(MUSHROOMS).add(ModBlocks.getMushroom(color));
+			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color));
 		}
 
 		tag(TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("buzzier_bees", "flower_blacklist")))
@@ -49,8 +49,8 @@ public class ForgeBlockTagProvider extends BlockTagsProvider {
 		tag(MANASTEEL).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
 		tag(TERRASTEEL).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
 		tag(Tags.Blocks.STORAGE_BLOCKS).addTag(ELEMENTIUM).addTag(MANASTEEL).addTag(TERRASTEEL);
-		tag(Tags.Blocks.GLASS).add(ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm);
-		tag(Tags.Blocks.GLASS_PANES).add(ModFluffBlocks.managlassPane, ModFluffBlocks.alfglassPane, ModFluffBlocks.bifrostPane);
+		tag(Tags.Blocks.GLASS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);
+		tag(Tags.Blocks.GLASS_PANES).add(BotaniaFluffBlocks.managlassPane, BotaniaFluffBlocks.alfglassPane, BotaniaFluffBlocks.bifrostPane);
 	}
 
 	private static TagKey<Block> forge(String name) {

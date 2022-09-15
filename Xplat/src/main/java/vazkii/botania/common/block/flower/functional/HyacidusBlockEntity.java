@@ -19,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class HyacidusBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 20;
 
 	public HyacidusBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.HYACIDUS, pos, state);
+		super(BotaniaFlowerBlocks.HYACIDUS, pos, state);
 	}
 
 	@Override

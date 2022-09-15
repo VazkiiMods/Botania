@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public final class ModPatterns {
+public final class BotaniaBannerPatterns {
 	private static final List<BannerPattern> ALL = new ArrayList<>();
 	public static final BannerPattern FLOWER = make(LibMisc.MOD_ID + ":flower");
 	public static final BannerPattern LEXICON = make(LibMisc.MOD_ID + ":lexicon");

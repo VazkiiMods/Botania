@@ -44,8 +44,8 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.LuminizerBlock;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -208,15 +208,15 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 	public BlockPos getNextDestination() {
 		BlockState state = getBlockState();
-		if (state.is(ModBlocks.lightRelayToggle) && state.getValue(BlockStateProperties.POWERED)) {
+		if (state.is(BotaniaBlocks.lightRelayToggle) && state.getValue(BlockStateProperties.POWERED)) {
 			return null;
-		} else if (state.is(ModBlocks.lightRelayFork)) {
+		} else if (state.is(BotaniaBlocks.lightRelayFork)) {
 			BlockPos torchPos = null;
 			for (int i = -2; i < 3; i++) {
 				BlockPos testPos = worldPosition.offset(0, i, 0);
 
 				BlockState testState = level.getBlockState(testPos);
-				if (testState.is(ModBlocks.animatedTorch)) {
+				if (testState.is(BotaniaBlocks.animatedTorch)) {
 					torchPos = testPos;
 					break;
 				}
@@ -318,7 +318,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 				BlockEntity tile = level.getBlockEntity(pos);
 				if (tile instanceof LuminizerBlockEntity relay) {
 					BlockState state = level.getBlockState(pos);
-					if (state.is(ModBlocks.lightRelayDetector)) {
+					if (state.is(BotaniaBlocks.lightRelayDetector)) {
 						level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 						level.scheduleTick(pos, state.getBlock(), 2);
 					}

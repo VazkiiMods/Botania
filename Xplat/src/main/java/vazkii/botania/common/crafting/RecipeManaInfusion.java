@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.Objects;
 
@@ -100,7 +100,7 @@ public class RecipeManaInfusion implements ManaInfusionRecipe {
 	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(ModBlocks.manaPool);
+		return new ItemStack(BotaniaBlocks.manaPool);
 	}
 
 	public static class Serializer extends RecipeSerializerBase<RecipeManaInfusion> {

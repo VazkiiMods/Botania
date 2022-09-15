@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.BotaniaBlock;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
 
 public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
@@ -43,7 +43,7 @@ public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 		for (var direction : Direction.values()) {
 			var neighborPos = pos.relative(direction);
 			var neighborState = world.getBlockState(neighborPos);
-			if (!neighborState.is(ModBlocks.corporeaInterceptor)) {
+			if (!neighborState.is(BotaniaBlocks.corporeaInterceptor)) {
 				if (world.getSignal(neighborPos, direction) > 0) {
 					power = true;
 					break;

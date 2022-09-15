@@ -51,10 +51,10 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.BotaniaGrassBlock;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.flower.generating.*;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -99,35 +99,35 @@ public class BlockLootProvider implements DataProvider {
 		}
 
 		// Empty
-		functionTable.put(ModBlocks.bifrost, BlockLootProvider::empty);
-		functionTable.put(ModBlocks.cocoon, BlockLootProvider::empty);
-		functionTable.put(ModBlocks.fakeAir, BlockLootProvider::empty);
-		functionTable.put(ModBlocks.manaFlame, BlockLootProvider::empty);
+		functionTable.put(BotaniaBlocks.bifrost, BlockLootProvider::empty);
+		functionTable.put(BotaniaBlocks.cocoon, BlockLootProvider::empty);
+		functionTable.put(BotaniaBlocks.fakeAir, BlockLootProvider::empty);
+		functionTable.put(BotaniaBlocks.manaFlame, BlockLootProvider::empty);
 
 		// Redirects
-		functionTable.put(ModBlocks.cacophonium, b -> genRegular(Blocks.NOTE_BLOCK));
-		functionTable.put(ModBlocks.enchantedSoil, b -> genRegular(Blocks.DIRT));
-		functionTable.put(ModBlocks.enchanter, b -> genRegular(Blocks.LAPIS_BLOCK));
+		functionTable.put(BotaniaBlocks.cacophonium, b -> genRegular(Blocks.NOTE_BLOCK));
+		functionTable.put(BotaniaBlocks.enchantedSoil, b -> genRegular(Blocks.DIRT));
+		functionTable.put(BotaniaBlocks.enchanter, b -> genRegular(Blocks.LAPIS_BLOCK));
 
 		// Special
-		functionTable.put(ModBlocks.cellBlock, BlockLootProvider::genCellBlock);
-		functionTable.put(ModBlocks.root, BlockLootProvider::genRoot);
-		functionTable.put(ModBlocks.solidVines, BlockLootProvider::genSolidVine);
-		functionTable.put(ModBlocks.tinyPotato, BlockLootProvider::genTinyPotato);
+		functionTable.put(BotaniaBlocks.cellBlock, BlockLootProvider::genCellBlock);
+		functionTable.put(BotaniaBlocks.root, BlockLootProvider::genRoot);
+		functionTable.put(BotaniaBlocks.solidVines, BlockLootProvider::genSolidVine);
+		functionTable.put(BotaniaBlocks.tinyPotato, BlockLootProvider::genTinyPotato);
 
 		// Flower NBT saving
-		functionTable.put(ModSubtiles.gourmaryllis, b -> genCopyNbt(b, GourmaryllisBlockEntity.TAG_LAST_FOODS, GourmaryllisBlockEntity.TAG_LAST_FOOD_COUNT, GourmaryllisBlockEntity.TAG_STREAK_LENGTH));
-		functionTable.put(ModSubtiles.gourmaryllisFloating, b -> genCopyNbt(b, GourmaryllisBlockEntity.TAG_LAST_FOODS, GourmaryllisBlockEntity.TAG_LAST_FOOD_COUNT, GourmaryllisBlockEntity.TAG_STREAK_LENGTH));
-		functionTable.put(ModSubtiles.hydroangeas, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN, HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS));
-		functionTable.put(ModSubtiles.hydroangeasFloating, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN, HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS));
-		functionTable.put(ModSubtiles.munchdew, b -> genCopyNbt(b, MunchdewBlockEntity.TAG_COOLDOWN));
-		functionTable.put(ModSubtiles.munchdewFloating, b -> genCopyNbt(b, MunchdewBlockEntity.TAG_COOLDOWN));
-		functionTable.put(ModSubtiles.rafflowsia, b -> genCopyNbt(b, RafflowsiaBlockEntity.TAG_LAST_FLOWERS, RafflowsiaBlockEntity.TAG_LAST_FLOWER_TIMES));
-		functionTable.put(ModSubtiles.rafflowsiaFloating, b -> genCopyNbt(b, RafflowsiaBlockEntity.TAG_LAST_FLOWERS, RafflowsiaBlockEntity.TAG_LAST_FLOWER_TIMES));
-		functionTable.put(ModSubtiles.spectrolus, b -> genCopyNbt(b, SpectrolusBlockEntity.TAG_NEXT_COLOR));
-		functionTable.put(ModSubtiles.spectrolusFloating, b -> genCopyNbt(b, SpectrolusBlockEntity.TAG_NEXT_COLOR));
-		functionTable.put(ModSubtiles.thermalily, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN));
-		functionTable.put(ModSubtiles.thermalilyFloating, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN));
+		functionTable.put(BotaniaFlowerBlocks.gourmaryllis, b -> genCopyNbt(b, GourmaryllisBlockEntity.TAG_LAST_FOODS, GourmaryllisBlockEntity.TAG_LAST_FOOD_COUNT, GourmaryllisBlockEntity.TAG_STREAK_LENGTH));
+		functionTable.put(BotaniaFlowerBlocks.gourmaryllisFloating, b -> genCopyNbt(b, GourmaryllisBlockEntity.TAG_LAST_FOODS, GourmaryllisBlockEntity.TAG_LAST_FOOD_COUNT, GourmaryllisBlockEntity.TAG_STREAK_LENGTH));
+		functionTable.put(BotaniaFlowerBlocks.hydroangeas, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN, HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(BotaniaFlowerBlocks.hydroangeasFloating, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN, HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS));
+		functionTable.put(BotaniaFlowerBlocks.munchdew, b -> genCopyNbt(b, MunchdewBlockEntity.TAG_COOLDOWN));
+		functionTable.put(BotaniaFlowerBlocks.munchdewFloating, b -> genCopyNbt(b, MunchdewBlockEntity.TAG_COOLDOWN));
+		functionTable.put(BotaniaFlowerBlocks.rafflowsia, b -> genCopyNbt(b, RafflowsiaBlockEntity.TAG_LAST_FLOWERS, RafflowsiaBlockEntity.TAG_LAST_FLOWER_TIMES));
+		functionTable.put(BotaniaFlowerBlocks.rafflowsiaFloating, b -> genCopyNbt(b, RafflowsiaBlockEntity.TAG_LAST_FLOWERS, RafflowsiaBlockEntity.TAG_LAST_FLOWER_TIMES));
+		functionTable.put(BotaniaFlowerBlocks.spectrolus, b -> genCopyNbt(b, SpectrolusBlockEntity.TAG_NEXT_COLOR));
+		functionTable.put(BotaniaFlowerBlocks.spectrolusFloating, b -> genCopyNbt(b, SpectrolusBlockEntity.TAG_NEXT_COLOR));
+		functionTable.put(BotaniaFlowerBlocks.thermalily, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN));
+		functionTable.put(BotaniaFlowerBlocks.thermalilyFloating, b -> genCopyNbt(b, HydroangeasBlockEntity.TAG_COOLDOWN));
 	}
 
 	@Override

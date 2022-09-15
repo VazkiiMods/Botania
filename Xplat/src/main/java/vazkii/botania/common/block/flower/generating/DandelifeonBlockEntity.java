@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.CellularBlockEntity;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	};
 
 	public DandelifeonBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.DANDELIFEON, pos, state);
+		super(BotaniaFlowerBlocks.DANDELIFEON, pos, state);
 	}
 
 	@Override
@@ -176,14 +176,14 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		if (gen == -2) {
 			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
 			addMana(val);
-		} else if (stateAt.is(ModBlocks.cellBlock)) {
+		} else if (stateAt.is(BotaniaBlocks.cellBlock)) {
 			if (gen < 0) {
 				world.removeBlock(pos, false);
 			} else {
 				((CellularBlockEntity) tile).setGeneration(this, gen);
 			}
 		} else if (gen >= 0 && stateAt.isAir()) {
-			world.setBlockAndUpdate(pos, ModBlocks.cellBlock.defaultBlockState());
+			world.setBlockAndUpdate(pos, BotaniaBlocks.cellBlock.defaultBlockState());
 			tile = world.getBlockEntity(pos);
 			((CellularBlockEntity) tile).setGeneration(this, gen);
 		}

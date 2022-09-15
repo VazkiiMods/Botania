@@ -24,7 +24,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.ExperienceHelper;
@@ -39,7 +39,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int RANGE = 1;
 
 	public RosaArcanaBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.ROSA_ARCANA, pos, state);
+		super(BotaniaFlowerBlocks.ROSA_ARCANA, pos, state);
 	}
 
 	@Override

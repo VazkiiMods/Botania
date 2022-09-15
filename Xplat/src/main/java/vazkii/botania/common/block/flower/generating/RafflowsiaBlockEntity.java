@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.LinkedList;
@@ -44,7 +44,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int[] STREAK_OUTPUTS = { 2000, 2100, 2200, 2300, 3280, 4033, 4657, 5150, 6622, 7860, 10418, 12600, 14769, 16671, 19000, 25400, 33471, 40900, 47579, 53600, 59057, 64264, 69217, 74483, 79352, 83869, 88059, 92129, 96669, 100940, 105239, 112044, 118442, 124612, 130583, 136228, 141703, 178442, 213959, 247725, 279956, 313671, 345833, 377227, 437689, 495526, 553702, 638554 };
 
 	public RafflowsiaBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.RAFFLOWSIA, pos, state);
+		super(BotaniaFlowerBlocks.RAFFLOWSIA, pos, state);
 	}
 
 	private int getMaxStreak() {
@@ -94,7 +94,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 						BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
 
 						BlockState state = getLevel().getBlockState(pos);
-						if (state.is(ModTags.Blocks.SPECIAL_FLOWERS) && !state.is(ModSubtiles.rafflowsia)) {
+						if (state.is(ModTags.Blocks.SPECIAL_FLOWERS) && !state.is(BotaniaFlowerBlocks.rafflowsia)) {
 							streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
 
 							getLevel().destroyBlock(pos, false);

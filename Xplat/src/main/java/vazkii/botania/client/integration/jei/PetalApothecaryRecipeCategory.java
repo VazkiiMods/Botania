@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec2;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -47,7 +47,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 		localizedName = Component.translatable("botania.nei.petalApothecary");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.defaultAltar));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.defaultAltar));
 	}
 
 	@NotNull
@@ -84,7 +84,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PetalApothecaryRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
-				.addItemStack(new ItemStack(ModBlocks.defaultAltar));
+				.addItemStack(new ItemStack(BotaniaBlocks.defaultAltar));
 
 		double angleBetweenEach = 360.0 / recipe.getIngredients().size();
 		Vec2 point = new Vec2(48, 13), center = new Vec2(48, 45);

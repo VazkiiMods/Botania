@@ -35,7 +35,7 @@ import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
@@ -94,7 +94,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		Optional<BotanicalBreweryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.BREW_TYPE, getItemHandler(), level);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew;
-			level.setBlockAndUpdate(worldPosition, ModBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
+			level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
 		});
 	}
 
@@ -125,7 +125,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		if (self.recipe != null) {
 			if (!self.recipe.matches(self.getItemHandler(), level)) {
 				self.recipe = null;
-				level.setBlockAndUpdate(worldPosition, ModBlocks.brewery.defaultBlockState());
+				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState());
 			}
 
 			if (self.recipe != null) {
@@ -151,7 +151,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 					ItemStack output = self.recipe.getOutput(self.getItemHandler().getItem(0));
 					ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 					level.addFreshEntity(outputItem);
-					level.blockEvent(worldPosition, ModBlocks.brewery, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
+					level.blockEvent(worldPosition, BotaniaBlocks.brewery, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
 
 					for (int i = 0; i < self.inventorySize(); i++) {
 						self.getItemHandler().setItem(i, ItemStack.EMPTY);

@@ -27,7 +27,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public class RecipePetals implements PetalApothecaryRecipe {
 	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(ModBlocks.defaultAltar);
+		return new ItemStack(BotaniaBlocks.defaultAltar);
 	}
 
 	@NotNull

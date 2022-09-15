@@ -38,7 +38,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -168,7 +168,7 @@ public final class SkyblockWorldEvents {
 		for (var info : structureBlockInfos) {
 			if ("light".equals(info.nbt.getString("metadata"))) {
 				BlockPos lightPos = startPoint.offset(info.pos);
-				if (level.setBlockAndUpdate(lightPos, ModBlocks.manaFlame.defaultBlockState())) {
+				if (level.setBlockAndUpdate(lightPos, BotaniaBlocks.manaFlame.defaultBlockState())) {
 					int r = 70 + level.random.nextInt(185);
 					int g = 70 + level.random.nextInt(185);
 					int b = 70 + level.random.nextInt(185);

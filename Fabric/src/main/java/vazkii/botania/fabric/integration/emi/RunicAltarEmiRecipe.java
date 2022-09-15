@@ -8,7 +8,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.item.material.ItemRune;
 
@@ -19,8 +19,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = prefix("textures/gui/petal_overlay.png");
-	private static final EmiStack LIVINGROCK = EmiStack.of(ModBlocks.livingrock);
-	private static final EmiStack ALTAR = EmiStack.of(ModBlocks.runeAltar);
+	private static final EmiStack LIVINGROCK = EmiStack.of(BotaniaBlocks.livingrock);
+	private static final EmiStack ALTAR = EmiStack.of(BotaniaBlocks.runeAltar);
 	private final List<EmiIngredient> ingredients;
 	private final int mana;
 

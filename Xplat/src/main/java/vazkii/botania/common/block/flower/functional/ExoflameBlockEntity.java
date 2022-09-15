@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
@@ -24,7 +24,7 @@ public class ExoflameBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 300;
 
 	public ExoflameBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.EXOFLAME, pos, state);
+		super(BotaniaFlowerBlocks.EXOFLAME, pos, state);
 	}
 
 	@Override

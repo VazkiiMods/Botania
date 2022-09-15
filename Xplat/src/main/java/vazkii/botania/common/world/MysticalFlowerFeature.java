@@ -18,8 +18,8 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
-import vazkii.botania.common.block.ModBlocks;
 
 /**
  * This Feature is essentially the same as vanilla's
@@ -45,7 +45,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 				}
 
 				var color = ((BotaniaFlowerBlock) state.getBlock()).color;
-				var doubleFlower = ModBlocks.getDoubleFlower(color);
+				var doubleFlower = BotaniaBlocks.getDoubleFlower(color);
 				DoublePlantBlock.placeAt(level, doubleFlower.defaultBlockState(), pos, Block.UPDATE_CLIENTS);
 			} else {
 				level.setBlock(pos, state, Block.UPDATE_CLIENTS);

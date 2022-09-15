@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 public class ItemCraftPattern extends Item {
 	public final CraftyCratePattern pattern;
@@ -36,7 +36,7 @@ public class ItemCraftPattern extends Item {
 		BlockPos pos = ctx.getClickedPos();
 		BlockState state = world.getBlockState(pos);
 
-		if (state.is(ModBlocks.craftCrate)) {
+		if (state.is(BotaniaBlocks.craftCrate)) {
 			if (pattern != state.getValue(BotaniaStateProperties.CRATE_PATTERN)) {
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProperties.CRATE_PATTERN, this.pattern));
 				return InteractionResult.SUCCESS;

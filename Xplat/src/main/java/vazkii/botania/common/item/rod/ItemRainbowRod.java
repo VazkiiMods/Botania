@@ -31,7 +31,7 @@ import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BifrostBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.material.ItemSelfReturning;
@@ -56,7 +56,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
-			BlockState bifrost = ModBlocks.bifrost.defaultBlockState();
+			BlockState bifrost = BotaniaBlocks.bifrost.defaultBlockState();
 			Vec3 vector = player.getLookAngle().normalize();
 
 			double x = player.getX();
@@ -116,7 +116,7 @@ public class ItemRainbowRod extends ItemSelfReturning {
 	}
 
 	private static boolean placeBridgeSegment(Level world, BlockPos center, BlockPos.MutableBlockPos placePos, int time) {
-		BlockState bifrost = ModBlocks.bifrost.defaultBlockState();
+		BlockState bifrost = BotaniaBlocks.bifrost.defaultBlockState();
 		boolean placed = false;
 
 		for (int i = -1; i <= 1; i++) {
@@ -181,12 +181,12 @@ public class ItemRainbowRod extends ItemSelfReturning {
 						BlockPos pos = new BlockPos(ex, py, ez);
 						BlockState state = world.getBlockState(pos);
 						if (state.isAir()) {
-							if (world.setBlockAndUpdate(pos, ModBlocks.bifrost.defaultBlockState())) {
+							if (world.setBlockAndUpdate(pos, BotaniaBlocks.bifrost.defaultBlockState())) {
 								BifrostBlockEntity bifrostBlockEntity = (BifrostBlockEntity) world.getBlockEntity(pos);
 								bifrostBlockEntity.ticks = 10;
 								receiver.receiveMana(-MANA_COST_AVATAR);
 							}
-						} else if (state.is(ModBlocks.bifrost)) {
+						} else if (state.is(BotaniaBlocks.bifrost)) {
 							BifrostBlockEntity bifrostBlockEntity = (BifrostBlockEntity) world.getBlockEntity(pos);
 							if (bifrostBlockEntity.ticks < 2) {
 								bifrostBlockEntity.ticks += 10;

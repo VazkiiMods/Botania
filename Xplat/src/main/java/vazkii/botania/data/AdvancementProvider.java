@@ -27,8 +27,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.advancements.*;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ItemLexicon;
@@ -73,19 +73,19 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("root"));
 
 		Advancement flowerPickup = Advancement.Builder.advancement()
-				.display(simple(ModBlocks.pinkFlower, "flowerPickup", FrameType.TASK))
+				.display(simple(BotaniaBlocks.pinkFlower, "flowerPickup", FrameType.TASK))
 				.parent(root)
 				.addCriterion("flower", onPickup(ModTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer, mainId("flower_pickup"));
 
 		Advancement manaPoolPickup = Advancement.Builder.advancement()
-				.display(simple(ModBlocks.manaPool, "manaPoolPickup", FrameType.TASK))
+				.display(simple(BotaniaBlocks.manaPool, "manaPoolPickup", FrameType.TASK))
 				.parent(flowerPickup)
-				.addCriterion("pickup", onPickup(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool))
+				.addCriterion("pickup", onPickup(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool, BotaniaBlocks.fabulousPool))
 				.save(consumer, mainId("mana_pool_pickup"));
 
 		Advancement runePickup = Advancement.Builder.advancement()
-				.display(simple(ModBlocks.runeAltar, "runePickup", FrameType.TASK))
+				.display(simple(BotaniaBlocks.runeAltar, "runePickup", FrameType.TASK))
 				.parent(manaPoolPickup)
 				.addCriterion("rune", onPickup(ModTags.Items.RUNES))
 				.save(consumer, mainId("rune_pickup"));
@@ -97,13 +97,13 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("terrasteel_pickup"));
 
 		Advancement elfPortalOpen = Advancement.Builder.advancement()
-				.display(simple(ModBlocks.alfPortal, "elfPortalOpen", FrameType.TASK))
+				.display(simple(BotaniaBlocks.alfPortal, "elfPortalOpen", FrameType.TASK))
 				.parent(terrasteelPickup)
 				.addCriterion("portal", new AlfheimPortalTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, LocationPredicate.ANY))
 				.save(consumer, mainId("elf_portal_open"));
 
 		Advancement gaiaGuardianKill = Advancement.Builder.advancement()
-				.display(simple(ModBlocks.gaiaHead, "gaiaGuardianKill", FrameType.TASK))
+				.display(simple(BotaniaBlocks.gaiaHead, "gaiaGuardianKill", FrameType.TASK))
 				.parent(elfPortalOpen)
 				.addCriterion("guardian", KilledTrigger.TriggerInstance
 						.playerKilledEntity(EntityPredicate.Builder.entity().of(ModEntities.DOPPLEGANGER)))
@@ -130,19 +130,19 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 		// Parent: mystical flowers
 		Advancement.Builder.advancement()
-				.display(simple(ModSubtiles.endoflame, "generatingFlower", FrameType.TASK))
+				.display(simple(BotaniaFlowerBlocks.endoflame, "generatingFlower", FrameType.TASK))
 				.parent(flowerPickup)
 				.addCriterion("flower", onPickup(ModTags.Items.GENERATING_SPECIAL_FLOWERS))
 				.save(consumer, mainId("generating_flower"));
 
 		// Parent: mana pool
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.enchanter, "enchanterMake", FrameType.TASK))
+				.display(simple(BotaniaBlocks.enchanter, "enchanterMake", FrameType.TASK))
 				.parent(manaPoolPickup)
 				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, mainId("enchanter_make"));
 		Advancement.Builder.advancement()
-				.display(simple(ModSubtiles.bellethorn, "functionalFlower", FrameType.TASK))
+				.display(simple(BotaniaFlowerBlocks.bellethorn, "functionalFlower", FrameType.TASK))
 				.parent(manaPoolPickup)
 				.addCriterion("flower", onPickup(ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS))
 				.save(consumer, mainId("functional_flower"));
@@ -177,7 +177,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, mainId("bauble_wear"));
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.tinyPotato, "tinyPotatoPet", FrameType.TASK))
+				.display(simple(BotaniaBlocks.tinyPotato, "tinyPotatoPet", FrameType.TASK))
 				.parent(manaPoolPickup)
 				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, mainId("tiny_potato_pet"));
@@ -189,9 +189,9 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.addCriterion("shoot", new ManaBlasterTrigger.Instance(EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, null))
 				.save(consumer, mainId("mana_blaster_shoot"));
 		Advancement.Builder.advancement()
-				.display(simple(ModSubtiles.pollidisiac, "pollidisiacPickup", FrameType.TASK))
+				.display(simple(BotaniaFlowerBlocks.pollidisiac, "pollidisiacPickup", FrameType.TASK))
 				.parent(runePickup)
-				.addCriterion("pollidisiac", onPickup(ModSubtiles.pollidisiac))
+				.addCriterion("pollidisiac", onPickup(BotaniaFlowerBlocks.pollidisiac))
 				.save(consumer, mainId("pollidisiac_pickup"));
 		Advancement.Builder.advancement()
 				.display(simple(ModItems.dirtRod, "dirtRodCraft", FrameType.TASK))
@@ -199,7 +199,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.addCriterion("dirtrod", onPickup(ModItems.dirtRod))
 				.save(consumer, mainId("dirt_rod_craft"));
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.brewery, "brewPickup", FrameType.TASK))
+				.display(simple(BotaniaBlocks.brewery, "brewPickup", FrameType.TASK))
 				.parent(runePickup)
 				.addCriterion("pickup", onPickup(ModItems.brewFlask, ModItems.brewVial))
 				.save(consumer, mainId("brew_pickup"));
@@ -213,19 +213,19 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 		// Parent: elven portal
 		Advancement.Builder.advancement()
-				.display(simple(ModSubtiles.heiseiDream, "heiseiDreamPickup", FrameType.TASK))
+				.display(simple(BotaniaFlowerBlocks.heiseiDream, "heiseiDreamPickup", FrameType.TASK))
 				.parent(elfPortalOpen)
-				.addCriterion("heisei_dream", onPickup(ModSubtiles.heiseiDream))
+				.addCriterion("heisei_dream", onPickup(BotaniaFlowerBlocks.heiseiDream))
 				.save(consumer, mainId("heisei_dream_pickup"));
 		Advancement.Builder.advancement()
-				.display(simple(ModSubtiles.kekimurus, "kekimurusPickup", FrameType.TASK))
+				.display(simple(BotaniaFlowerBlocks.kekimurus, "kekimurusPickup", FrameType.TASK))
 				.parent(elfPortalOpen)
-				.addCriterion("kekimurus", onPickup(ModSubtiles.kekimurus))
+				.addCriterion("kekimurus", onPickup(BotaniaFlowerBlocks.kekimurus))
 				.save(consumer, mainId("kekimurus_pickup"));
 		Advancement.Builder.advancement()
-				.display(simple(ModSubtiles.bubbell, "bubbellPickup", FrameType.TASK))
+				.display(simple(BotaniaFlowerBlocks.bubbell, "bubbellPickup", FrameType.TASK))
 				.parent(elfPortalOpen)
-				.addCriterion("bubbell", onPickup(ModSubtiles.bubbell))
+				.addCriterion("bubbell", onPickup(BotaniaFlowerBlocks.bubbell))
 				.save(consumer, mainId("bubbell_pickup"));
 
 		// Parent: gaia guardian
@@ -257,27 +257,27 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		builder.save(consumer, mainId("tiara_wings"));
 
 		Advancement.Builder.advancement()
-				.display(simple(ModSubtiles.dandelifeon, "dandelifeonPickup", FrameType.TASK))
+				.display(simple(BotaniaFlowerBlocks.dandelifeon, "dandelifeonPickup", FrameType.TASK))
 				.parent(gaiaGuardianKill)
-				.addCriterion("dandelifeon", onPickup(ModSubtiles.dandelifeon))
+				.addCriterion("dandelifeon", onPickup(BotaniaFlowerBlocks.dandelifeon))
 				.save(consumer, mainId("dandelifeon_pickup"));
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.manaBomb, "manaBombIgnite", FrameType.TASK))
+				.display(simple(BotaniaBlocks.manaBomb, "manaBombIgnite", FrameType.TASK))
 				.parent(gaiaGuardianKill)
-				.addCriterion("bomb", onPickup(ModBlocks.manaBomb))
+				.addCriterion("bomb", onPickup(BotaniaBlocks.manaBomb))
 				.save(consumer, mainId("mana_bomb_ignite"));
 
 		// Parent: ender air
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.lightRelayDefault, "luminizerRide", FrameType.TASK))
+				.display(simple(BotaniaBlocks.lightRelayDefault, "luminizerRide", FrameType.TASK))
 				.parent(enderAirMake)
 				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, mainId("luminizer_ride"));
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.corporeaCrystalCube, "corporeaCraft", FrameType.TASK))
+				.display(simple(BotaniaBlocks.corporeaCrystalCube, "corporeaCraft", FrameType.TASK))
 				.parent(enderAirMake)
-				.addCriterion("pickup", onPickup(ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel,
-						ModBlocks.corporeaIndex, ModBlocks.corporeaInterceptor, ModBlocks.corporeaRetainer))
+				.addCriterion("pickup", onPickup(BotaniaBlocks.corporeaCrystalCube, BotaniaBlocks.corporeaFunnel,
+						BotaniaBlocks.corporeaIndex, BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaRetainer))
 				.save(consumer, mainId("corporea_craft"));
 
 		// Lexicon locks
@@ -289,25 +289,25 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, mainId("flower_pickup_lexicon"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
-				.addCriterion("apothecary", onPickup(ModBlocks.defaultAltar))
+				.addCriterion("apothecary", onPickup(BotaniaBlocks.defaultAltar))
 				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("apothecary_pickup"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
-				.addCriterion("daisy", onPickup(ModSubtiles.pureDaisy))
+				.addCriterion("daisy", onPickup(BotaniaFlowerBlocks.pureDaisy))
 				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("pure_daisy_pickup"));
 		Advancement.Builder.advancement()
 				.parent(root)
-				.addCriterion("pickup", onPickup(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool))
+				.addCriterion("pickup", onPickup(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool, BotaniaBlocks.fabulousPool))
 				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("mana_pool_pickup_lexicon"));
 		Advancement.Builder.advancement()
 				.parent(flowerPickup)
-				.addCriterion("altar", onPickup(ModBlocks.runeAltar))
+				.addCriterion("altar", onPickup(BotaniaBlocks.runeAltar))
 				.addCriterion("rune", onPickup(ModTags.Items.RUNES))
 				.addCriterion("elven_lexicon", elvenLexicon)
 				.requirements(RequirementsStrategy.OR)
@@ -372,9 +372,9 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 						EntityPredicate.Composite.ANY, EntityPredicate.ANY, DamageSourcePredicate.ANY))
 				.save(consumer, challengeId("gaia_guardian_no_armor"));
 		Advancement.Builder.advancement()
-				.display(hidden(ModBlocks.motifDaybloom, "old_flower_pickup", FrameType.CHALLENGE))
+				.display(hidden(BotaniaBlocks.motifDaybloom, "old_flower_pickup", FrameType.CHALLENGE))
 				.parent(root)
-				.addCriterion("flower", onPickup(ModBlocks.motifDaybloom, ModBlocks.motifNightshade))
+				.addCriterion("flower", onPickup(BotaniaBlocks.motifDaybloom, BotaniaBlocks.motifNightshade))
 				.requirements(RequirementsStrategy.OR)
 				.save(consumer, challengeId("old_flower_pickup"));
 		DisplayInfo desuGun = simple(ModItems.manaGun, "desuGun", FrameType.CHALLENGE);
@@ -386,7 +386,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 						EntityPredicate.Composite.ANY, ItemPredicate.ANY, EntityPredicate.ANY, true))
 				.save(consumer, challengeId("desu_gun"));
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.corporeaIndex, "superCorporeaRequest", FrameType.CHALLENGE))
+				.display(simple(BotaniaBlocks.corporeaIndex, "superCorporeaRequest", FrameType.CHALLENGE))
 				.parent(root)
 				.addCriterion("big_request", new CorporeaRequestTrigger.Instance(
 						EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(CorporeaIndexBlockEntity.MAX_REQUEST), LocationPredicate.ANY))
@@ -410,7 +410,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.addCriterion("bread", new AlfheimPortalBreadTrigger.Instance(EntityPredicate.Composite.ANY, LocationPredicate.ANY))
 				.save(consumer, challengeId("alf_portal_bread"));
 		Advancement.Builder.advancement()
-				.display(simple(ModBlocks.tinyPotato, "tinyPotatoBirthday", FrameType.CHALLENGE))
+				.display(simple(BotaniaBlocks.tinyPotato, "tinyPotatoBirthday", FrameType.CHALLENGE))
 				.parent(root)
 				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, challengeId("tiny_potato_birthday"));

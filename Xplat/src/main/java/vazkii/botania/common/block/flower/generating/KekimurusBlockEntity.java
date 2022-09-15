@@ -18,13 +18,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 public class KekimurusBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int RANGE = 5;
 
 	public KekimurusBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.KEKIMURUS, pos, state);
+		super(BotaniaFlowerBlocks.KEKIMURUS, pos, state);
 	}
 
 	@Override

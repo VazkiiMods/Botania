@@ -23,7 +23,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.ModTags;
 
@@ -86,7 +86,7 @@ public class ContributorList {
 				if (i < 0 || i >= 16) {
 					throw new NumberFormatException();
 				}
-				stack = cachedStacks.computeIfAbsent(ModBlocks.getFlower(DyeColor.byId(i)).asItem(), ContributorList::configureStack);
+				stack = cachedStacks.computeIfAbsent(BotaniaBlocks.getFlower(DyeColor.byId(i)).asItem(), ContributorList::configureStack);
 			} catch (NumberFormatException e) {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);

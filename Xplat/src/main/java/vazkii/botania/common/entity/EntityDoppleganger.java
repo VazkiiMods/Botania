@@ -69,7 +69,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.GaiaGuardianNoArmorTrigger;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -137,7 +137,7 @@ public class EntityDoppleganger extends Mob {
 								"_________",
 						}
 				},
-				'P', ModBlocks.gaiaPylon,
+				'P', BotaniaBlocks.gaiaPylon,
 				'B', Blocks.BEACON,
 				'I', beaconBase,
 				'0', beaconBase
@@ -280,7 +280,7 @@ public class EntityDoppleganger extends Mob {
 			BlockPos pos_ = beaconPos.offset(coords);
 
 			BlockState state = world.getBlockState(pos_);
-			if (!state.is(ModBlocks.gaiaPylon)) {
+			if (!state.is(BotaniaBlocks.gaiaPylon)) {
 				invalidPylonBlocks.add(pos_);
 			}
 		}

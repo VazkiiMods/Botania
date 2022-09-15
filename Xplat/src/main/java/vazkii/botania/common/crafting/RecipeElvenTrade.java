@@ -24,7 +24,7 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,7 +102,7 @@ public class RecipeElvenTrade implements ElvenTradeRecipe {
 	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(ModBlocks.alfPortal);
+		return new ItemStack(BotaniaBlocks.alfPortal);
 	}
 
 	@NotNull

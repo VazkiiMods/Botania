@@ -27,9 +27,9 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.block.BotaniaFluffBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -53,19 +53,19 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	@Override
 	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(new FinishedRecipe(id("manasteel"), new ItemStack(ModItems.manaSteel), Ingredient.of(Items.IRON_INGOT), 3000));
-		consumer.accept(new FinishedRecipe(id("manasteel_block"), new ItemStack(ModBlocks.manasteelBlock), ingr(Blocks.IRON_BLOCK), 27000));
+		consumer.accept(new FinishedRecipe(id("manasteel_block"), new ItemStack(BotaniaBlocks.manasteelBlock), ingr(Blocks.IRON_BLOCK), 27000));
 
 		consumer.accept(new FinishedRecipe(id("mana_pearl"), new ItemStack(ModItems.manaPearl), ingr(Items.ENDER_PEARL), 6000));
 
 		consumer.accept(new FinishedRecipe(id("mana_diamond"), new ItemStack(ModItems.manaDiamond), Ingredient.of(Items.DIAMOND), 10000));
-		consumer.accept(new FinishedRecipe(id("mana_diamond_block"), new ItemStack(ModBlocks.manaDiamondBlock), ingr(Blocks.DIAMOND_BLOCK), 90000));
+		consumer.accept(new FinishedRecipe(id("mana_diamond_block"), new ItemStack(BotaniaBlocks.manaDiamondBlock), ingr(Blocks.DIAMOND_BLOCK), 90000));
 
 		Ingredient dust = Ingredient.of(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
 		consumer.accept(new FinishedRecipe(id("mana_powder_dust"), new ItemStack(ModItems.manaPowder), dust, 500));
 		Ingredient dyeIngredient = Ingredient.of(Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(Item[]::new));
 		consumer.accept(new FinishedRecipe(id("mana_powder_dye"), new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
 
-		consumer.accept(new FinishedRecipe(id("piston_relay"), new ItemStack(ModBlocks.pistonRelay), ingr(Blocks.PISTON), 15000));
+		consumer.accept(new FinishedRecipe(id("piston_relay"), new ItemStack(BotaniaBlocks.pistonRelay), ingr(Blocks.PISTON), 15000));
 		consumer.accept(new FinishedRecipe(id("mana_cookie"), new ItemStack(ModItems.manaCookie), ingr(Items.COOKIE), 20000));
 		consumer.accept(new FinishedRecipe(id("grass_seeds"), new ItemStack(ModItems.grassSeeds), ingr(Blocks.GRASS), 2500));
 		consumer.accept(new FinishedRecipe(id("podzol_seeds"), new ItemStack(ModItems.podzolSeeds), ingr(Blocks.DEAD_BUSH), 2500));
@@ -73,9 +73,9 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(new FinishedRecipe(id("mycel_seeds"), new ItemStack(ModItems.mycelSeeds), Ingredient.of(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM), 6500));
 
 		consumer.accept(new FinishedRecipe(id("mana_quartz"), new ItemStack(ModItems.manaQuartz), ingr(Items.QUARTZ), 250));
-		consumer.accept(new FinishedRecipe(id("tiny_potato"), new ItemStack(ModBlocks.tinyPotato), ingr(Items.POTATO), 1337));
+		consumer.accept(new FinishedRecipe(id("tiny_potato"), new ItemStack(BotaniaBlocks.tinyPotato), ingr(Items.POTATO), 1337));
 
-		consumer.accept(new FinishedRecipe(id("mana_glass"), new ItemStack(ModBlocks.manaGlass), ingr(Blocks.GLASS), 150));
+		consumer.accept(new FinishedRecipe(id("mana_glass"), new ItemStack(BotaniaBlocks.manaGlass), ingr(Blocks.GLASS), 150));
 		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(ModItems.manaString), ingr(Items.STRING), 5000));
 
 		consumer.accept(new FinishedRecipe(id("mana_bottle"), new ItemStack(ModItems.manaBottle), ingr(Items.GLASS_BOTTLE), 5000));
@@ -87,12 +87,12 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(FinishedRecipe.alchemy(id("glowstone_deconstruct"), new ItemStack(Items.GLOWSTONE_DUST, 4), ingr(Blocks.GLOWSTONE), 25));
 		consumer.accept(FinishedRecipe.alchemy(id("quartz_deconstruct"), new ItemStack(Items.QUARTZ, 4), ingr(Blocks.QUARTZ_BLOCK), 25));
-		consumer.accept(FinishedRecipe.alchemy(id("dark_quartz_deconstruct"), new ItemStack(ModItems.darkQuartz, 4), ingr(ModFluffBlocks.darkQuartz), 25));
-		consumer.accept(FinishedRecipe.alchemy(id("mana_quartz_deconstruct"), new ItemStack(ModItems.manaQuartz, 4), ingr(ModFluffBlocks.manaQuartz), 25));
-		consumer.accept(FinishedRecipe.alchemy(id("blaze_quartz_deconstruct"), new ItemStack(ModItems.blazeQuartz, 4), ingr(ModFluffBlocks.blazeQuartz), 25));
-		consumer.accept(FinishedRecipe.alchemy(id("lavender_quartz_deconstruct"), new ItemStack(ModItems.lavenderQuartz, 4), ingr(ModFluffBlocks.lavenderQuartz), 25));
-		consumer.accept(FinishedRecipe.alchemy(id("red_quartz_deconstruct"), new ItemStack(ModItems.redQuartz, 4), ingr(ModFluffBlocks.redQuartz), 25));
-		consumer.accept(FinishedRecipe.alchemy(id("elf_quartz_deconstruct"), new ItemStack(ModItems.elfQuartz, 4), ingr(ModFluffBlocks.elfQuartz), 25));
+		consumer.accept(FinishedRecipe.alchemy(id("dark_quartz_deconstruct"), new ItemStack(ModItems.darkQuartz, 4), ingr(BotaniaFluffBlocks.darkQuartz), 25));
+		consumer.accept(FinishedRecipe.alchemy(id("mana_quartz_deconstruct"), new ItemStack(ModItems.manaQuartz, 4), ingr(BotaniaFluffBlocks.manaQuartz), 25));
+		consumer.accept(FinishedRecipe.alchemy(id("blaze_quartz_deconstruct"), new ItemStack(ModItems.blazeQuartz, 4), ingr(BotaniaFluffBlocks.blazeQuartz), 25));
+		consumer.accept(FinishedRecipe.alchemy(id("lavender_quartz_deconstruct"), new ItemStack(ModItems.lavenderQuartz, 4), ingr(BotaniaFluffBlocks.lavenderQuartz), 25));
+		consumer.accept(FinishedRecipe.alchemy(id("red_quartz_deconstruct"), new ItemStack(ModItems.redQuartz, 4), ingr(BotaniaFluffBlocks.redQuartz), 25));
+		consumer.accept(FinishedRecipe.alchemy(id("elf_quartz_deconstruct"), new ItemStack(ModItems.elfQuartz, 4), ingr(BotaniaFluffBlocks.elfQuartz), 25));
 
 		consumer.accept(FinishedRecipe.alchemy(id("chiseled_stone_bricks"), new ItemStack(Blocks.CHISELED_STONE_BRICKS, 1), ingr(Blocks.STONE_BRICKS), 150));
 		consumer.accept(FinishedRecipe.alchemy(id("ice"), new ItemStack(Blocks.ICE), ingr(Blocks.SNOW_BLOCK), 2250));
@@ -145,18 +145,18 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		cycle(consumer, 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES, Items.GLOW_BERRIES);
 
-		consumer.accept(mini(ModSubtiles.agricarnationChibi, ModSubtiles.agricarnation));
-		consumer.accept(mini(ModSubtiles.clayconiaChibi, ModSubtiles.clayconia));
-		consumer.accept(mini(ModSubtiles.bellethornChibi, ModSubtiles.bellethorn));
-		consumer.accept(mini(ModSubtiles.bubbellChibi, ModSubtiles.bubbell));
-		consumer.accept(mini(ModSubtiles.hopperhockChibi, ModSubtiles.hopperhock));
-		consumer.accept(mini(ModSubtiles.jiyuuliaChibi, ModSubtiles.jiyuulia));
-		consumer.accept(mini(ModSubtiles.tangleberrieChibi, ModSubtiles.tangleberrie));
-		consumer.accept(mini(ModSubtiles.marimorphosisChibi, ModSubtiles.marimorphosis));
-		consumer.accept(mini(ModSubtiles.rannuncarpusChibi, ModSubtiles.rannuncarpus));
-		consumer.accept(mini(ModSubtiles.solegnoliaChibi, ModSubtiles.solegnolia));
+		consumer.accept(mini(BotaniaFlowerBlocks.agricarnationChibi, BotaniaFlowerBlocks.agricarnation));
+		consumer.accept(mini(BotaniaFlowerBlocks.clayconiaChibi, BotaniaFlowerBlocks.clayconia));
+		consumer.accept(mini(BotaniaFlowerBlocks.bellethornChibi, BotaniaFlowerBlocks.bellethorn));
+		consumer.accept(mini(BotaniaFlowerBlocks.bubbellChibi, BotaniaFlowerBlocks.bubbell));
+		consumer.accept(mini(BotaniaFlowerBlocks.hopperhockChibi, BotaniaFlowerBlocks.hopperhock));
+		consumer.accept(mini(BotaniaFlowerBlocks.jiyuuliaChibi, BotaniaFlowerBlocks.jiyuulia));
+		consumer.accept(mini(BotaniaFlowerBlocks.tangleberrieChibi, BotaniaFlowerBlocks.tangleberrie));
+		consumer.accept(mini(BotaniaFlowerBlocks.marimorphosisChibi, BotaniaFlowerBlocks.marimorphosis));
+		consumer.accept(mini(BotaniaFlowerBlocks.rannuncarpusChibi, BotaniaFlowerBlocks.rannuncarpus));
+		consumer.accept(mini(BotaniaFlowerBlocks.solegnoliaChibi, BotaniaFlowerBlocks.solegnolia));
 
-		consumer.accept(FinishedRecipe.alchemy(id("hydroangeas_motif"), new ItemStack(ModBlocks.motifHydroangeas), ingr(ModSubtiles.hydroangeas), 2500));
+		consumer.accept(FinishedRecipe.alchemy(id("hydroangeas_motif"), new ItemStack(BotaniaBlocks.motifHydroangeas), ingr(BotaniaFlowerBlocks.hydroangeas), 2500));
 
 		consumer.accept(FinishedRecipe.conjuration(id("redstone_dupe"), new ItemStack(Items.REDSTONE, 2), ingr(Items.REDSTONE), 5000));
 		consumer.accept(FinishedRecipe.conjuration(id("glowstone_dupe"), new ItemStack(Items.GLOWSTONE_DUST, 2), ingr(Items.GLOWSTONE_DUST), 5000));
@@ -201,8 +201,8 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
-		private static final StateIngredient CONJURATION = StateIngredientHelper.of(ModBlocks.conjurationCatalyst);
-		private static final StateIngredient ALCHEMY = StateIngredientHelper.of(ModBlocks.alchemyCatalyst);
+		private static final StateIngredient CONJURATION = StateIngredientHelper.of(BotaniaBlocks.conjurationCatalyst);
+		private static final StateIngredient ALCHEMY = StateIngredientHelper.of(BotaniaBlocks.alchemyCatalyst);
 
 		private final ResourceLocation id;
 		private final Ingredient input;

@@ -143,14 +143,14 @@ public class ForgeCommonInitializer {
 		ForgePacketHandler.init();
 		registerEvents();
 
-		evt.enqueueWork(ModBlocks::addDispenserBehaviours);
-		ModBlocks.addAxeStripping();
+		evt.enqueueWork(BotaniaBlocks::addDispenserBehaviours);
+		BotaniaBlocks.addAxeStripping();
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), EntityDoppleganger.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
@@ -170,15 +170,15 @@ public class ForgeCommonInitializer {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		// Core item/block/BE
 		bind(Registry.SOUND_EVENT_REGISTRY, ModSounds::init);
-		bind(Registry.BLOCK_REGISTRY, ModBlocks::registerBlocks);
-		bind(Registry.ITEM_REGISTRY, ModBlocks::registerItemBlocks);
-		bind(Registry.BLOCK_REGISTRY, ModFluffBlocks::registerBlocks);
-		bind(Registry.ITEM_REGISTRY, ModFluffBlocks::registerItemBlocks);
+		bind(Registry.BLOCK_REGISTRY, BotaniaBlocks::registerBlocks);
+		bind(Registry.ITEM_REGISTRY, BotaniaBlocks::registerItemBlocks);
+		bind(Registry.BLOCK_REGISTRY, BotaniaFluffBlocks::registerBlocks);
+		bind(Registry.ITEM_REGISTRY, BotaniaFluffBlocks::registerItemBlocks);
 		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, BotaniaBlockEntities::registerTiles);
 		bind(Registry.ITEM_REGISTRY, ModItems::registerItems);
-		bind(Registry.BLOCK_REGISTRY, ModSubtiles::registerBlocks);
-		bind(Registry.ITEM_REGISTRY, ModSubtiles::registerItemBlocks);
-		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, ModSubtiles::registerTEs);
+		bind(Registry.BLOCK_REGISTRY, BotaniaFlowerBlocks::registerBlocks);
+		bind(Registry.ITEM_REGISTRY, BotaniaFlowerBlocks::registerItemBlocks);
+		bind(Registry.BLOCK_ENTITY_TYPE_REGISTRY, BotaniaFlowerBlocks::registerTEs);
 
 		// GUI and Recipe
 		bind(Registry.MENU_REGISTRY, ModItems::registerMenuTypes);
@@ -235,7 +235,7 @@ public class ForgeCommonInitializer {
 
 		int blazeTime = 2400 * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
 		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
-			if (e.getItemStack().is(ModBlocks.blazeBlock.asItem())) {
+			if (e.getItemStack().is(BotaniaBlocks.blazeBlock.asItem())) {
 				e.setBurnTime(blazeTime);
 			}
 		});
@@ -506,21 +506,21 @@ public class ForgeCommonInitializer {
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(ModBlocks::getMushroom).toArray(Block[]::new));
+				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getMushroom).toArray(Block[]::new));
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
-				Arrays.stream(DyeColor.values()).map(ModBlocks::getShinyFlower).toArray(Block[]::new));
+				Arrays.stream(DyeColor.values()).map(BotaniaBlocks::getShinyFlower).toArray(Block[]::new));
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_GHOST, (w, p, s) -> ((ManaCollisionGhost) s.getBlock()),
-				ModBlocks.manaDetector,
-				ModBlocks.abstrusePlatform, ModBlocks.infrangiblePlatform, ModBlocks.spectralPlatform,
-				ModBlocks.prism, ModBlocks.tinyPlanet);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, ManaVoidBlock.ManaReceiverImpl::new, ModBlocks.manaVoid);
+				BotaniaBlocks.manaDetector,
+				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
+				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, ManaVoidBlock.ManaReceiverImpl::new, BotaniaBlocks.manaVoid);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, DrumBlock.ManaTriggerImpl::new,
-				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.gatheringDrum);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManastormChargeBlock.ManaTriggerImpl::new, ModBlocks.manaBomb);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManaDetectorBlock.ManaTriggerImpl::new, ModBlocks.manaDetector);
+				BotaniaBlocks.canopyDrum, BotaniaBlocks.wildDrum, BotaniaBlocks.gatheringDrum);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManastormChargeBlock.ManaTriggerImpl::new, BotaniaBlocks.manaBomb);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManaDetectorBlock.ManaTriggerImpl::new, BotaniaBlocks.manaDetector);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.WANDABLE,
 				(world, pos, state) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, world, pos),
-				ModBlocks.pistonRelay);
+				BotaniaBlocks.pistonRelay);
 	}
 
 	private void attachBeCaps(AttachCapabilitiesEvent<BlockEntity> e) {

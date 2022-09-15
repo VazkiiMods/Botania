@@ -5,13 +5,13 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
 import java.util.List;
 
 public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
-	private static final EmiStack PLATE = EmiStack.of(ModBlocks.terraPlate);
+	private static final EmiStack PLATE = EmiStack.of(BotaniaBlocks.terraPlate);
 	private final int mana;
 
 	public TerrestrialAgglomerationEmiRecipe(TerrestrialAgglomerationRecipe recipe) {

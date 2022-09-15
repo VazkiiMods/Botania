@@ -18,7 +18,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class MedumoneBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 6;
 
 	public MedumoneBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.MEDUMONE, pos, state);
+		super(BotaniaFlowerBlocks.MEDUMONE, pos, state);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.NoteBlock;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -90,7 +90,7 @@ public class ItemCacophonium extends Item {
 
 			Block block = world.getBlockState(pos).getBlock();
 			if (block instanceof NoteBlock) {
-				world.setBlockAndUpdate(pos, ModBlocks.cacophonium.defaultBlockState());
+				world.setBlockAndUpdate(pos, BotaniaBlocks.cacophonium.defaultBlockState());
 				((CacophoniumBlockEntity) world.getBlockEntity(pos)).stack = stack.copy();
 				stack.shrink(1);
 				return InteractionResult.SUCCESS;

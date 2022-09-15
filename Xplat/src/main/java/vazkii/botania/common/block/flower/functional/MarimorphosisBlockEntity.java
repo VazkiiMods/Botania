@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
 public class MarimorphosisBlockEntity extends OrechidBlockEntity {
@@ -30,7 +30,7 @@ public class MarimorphosisBlockEntity extends OrechidBlockEntity {
 	}
 
 	public MarimorphosisBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.MARIMORPHOSIS, pos, state);
+		this(BotaniaFlowerBlocks.MARIMORPHOSIS, pos, state);
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class MarimorphosisBlockEntity extends OrechidBlockEntity {
 
 	public static class Mini extends MarimorphosisBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(ModSubtiles.MARIMORPHOSIS_CHIBI, pos, state);
+			super(BotaniaFlowerBlocks.MARIMORPHOSIS_CHIBI, pos, state);
 		}
 
 		@Override

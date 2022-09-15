@@ -22,7 +22,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -34,7 +34,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int MAX_MANA = manaForSize(4);
 
 	public NarslimmusBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.NARSLIMMUS, pos, state);
+		super(BotaniaFlowerBlocks.NARSLIMMUS, pos, state);
 	}
 
 	@Override

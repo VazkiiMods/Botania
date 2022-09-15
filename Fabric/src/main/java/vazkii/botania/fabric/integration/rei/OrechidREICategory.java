@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> categoryId, Block orechid) {
 		this.categoryId = categoryId;
 		this.orechid = EntryStacks.of(orechid);
-		this.langKey = "botania.nei." + (orechid == ModSubtiles.orechidIgnem ? "orechidIgnem" : Registry.BLOCK.getKey(orechid).getPath());
+		this.langKey = "botania.nei." + (orechid == BotaniaFlowerBlocks.orechidIgnem ? "orechidIgnem" : Registry.BLOCK.getKey(orechid).getPath());
 	}
 
 	@Override

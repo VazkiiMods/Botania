@@ -45,7 +45,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.item.FlowerPlaceable;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -70,7 +70,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	}
 
 	public RannuncarpusBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.RANNUNCARPUS, pos, state);
+		this(BotaniaFlowerBlocks.RANNUNCARPUS, pos, state);
 	}
 
 	@Override
@@ -267,7 +267,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 
 	public static class Mini extends RannuncarpusBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(ModSubtiles.RANNUNCARPUS_CHIBI, pos, state);
+			super(BotaniaFlowerBlocks.RANNUNCARPUS_CHIBI, pos, state);
 		}
 
 		@Override

@@ -35,7 +35,7 @@ import net.minecraft.world.phys.EntityHitResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.Map;
@@ -100,7 +100,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 
 			BlockPos pos = hit.getBlockPos();
 			BlockState hitState = level.getBlockState(hit.getBlockPos());
-			if (!hitState.is(ModBlocks.solidVines)) {
+			if (!hitState.is(BotaniaBlocks.solidVines)) {
 				pos = pos.relative(dir);
 			}
 
@@ -108,8 +108,8 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 			if (dir.getAxis() != Direction.Axis.Y) {
 				while (pos.getY() > level.dimensionType().minY() && vinesPlaced < 9) {
 					BlockState state = level.getBlockState(pos);
-					if (state.getMaterial().isReplaceable() && !state.is(ModBlocks.solidVines)) {
-						BlockState stateToPlace = ModBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
+					if (state.getMaterial().isReplaceable() && !state.is(BotaniaBlocks.solidVines)) {
+						BlockState stateToPlace = BotaniaBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
 
 						if (!stateToPlace.canSurvive(level, pos)) {
 							break;
@@ -118,7 +118,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 						level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateToPlace));
 						vinesPlaced++;
 					}
-					if (level.getBlockState(pos).is(ModBlocks.solidVines)) {
+					if (level.getBlockState(pos).is(BotaniaBlocks.solidVines)) {
 						pos = pos.below();
 					} else {
 						break;

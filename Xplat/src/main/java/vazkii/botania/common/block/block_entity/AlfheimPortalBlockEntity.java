@@ -43,7 +43,7 @@ import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.advancements.AlfheimPortalBreadTrigger;
 import vazkii.botania.common.advancements.AlfheimPortalTrigger;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -86,10 +86,10 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				return (blockGetter, pos, state) -> state.is(tag());
 			}
 		}
-		var horizontal = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, ModBlocks.livingwoodLog);
-		var vertical = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, ModBlocks.livingwoodLog);
-		var horizontalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, ModBlocks.livingwoodLogGlimmering);
-		var verticalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, ModBlocks.livingwoodLogGlimmering);
+		var horizontal = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.X, BotaniaBlocks.livingwoodLog);
+		var vertical = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS, Direction.Axis.Y, BotaniaBlocks.livingwoodLog);
+		var horizontalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.X, BotaniaBlocks.livingwoodLogGlimmering);
+		var verticalGlimmer = new Matcher(ModTags.Blocks.LIVINGWOOD_LOGS_GLIMMERING, Direction.Axis.Y, BotaniaBlocks.livingwoodLogGlimmering);
 
 		return PatchouliAPI.get().makeMultiblock(
 				new String[][] {
@@ -103,7 +103,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				'w', horizontal,
 				'G', verticalGlimmer,
 				'g', horizontalGlimmer,
-				'0', ModBlocks.alfPortal
+				'0', BotaniaBlocks.alfPortal
 		);
 	});
 
@@ -174,7 +174,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 		if (self.closeNow) {
 			if (!level.isClientSide) {
-				level.setBlockAndUpdate(worldPosition, ModBlocks.alfPortal.defaultBlockState());
+				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.alfPortal.defaultBlockState());
 			}
 			for (int i = 0; i < 36; i++) {
 				self.blockParticle(state);
@@ -399,7 +399,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 		return BlockPos.betweenClosedStream(getBlockPos().offset(-range, -range, -range), getBlockPos().offset(range, range, range))
 				.filter(level::hasChunkAt)
-				.filter(p -> level.getBlockState(p).is(ModBlocks.naturaPylon) && level.getBlockState(p.below()).getBlock() instanceof ManaPoolBlock)
+				.filter(p -> level.getBlockState(p).is(BotaniaBlocks.naturaPylon) && level.getBlockState(p.below()).getBlock() instanceof ManaPoolBlock)
 				.map(BlockPos::immutable)
 				.collect(Collectors.toList());
 	}

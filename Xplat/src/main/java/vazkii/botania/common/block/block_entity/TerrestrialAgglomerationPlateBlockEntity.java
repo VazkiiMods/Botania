@@ -36,7 +36,7 @@ import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
@@ -64,7 +64,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 							"RLR"
 					}
 			},
-			'P', ModBlocks.terraPlate,
+			'P', BotaniaBlocks.terraPlate,
 			'R', PatchouliAPI.get().tagMatcher(ModTags.Blocks.TERRA_PLATE_BASE),
 			'0', PatchouliAPI.get().tagMatcher(ModTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(

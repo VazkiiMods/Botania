@@ -35,14 +35,14 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDisplay> {
-	private final EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(ModBlocks.alfPortal));
+	private final EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(BotaniaBlocks.alfPortal));
 	private final ResourceLocation TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
 
 	@Override

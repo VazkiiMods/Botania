@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -49,7 +49,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 		localizedName = Component.translatable("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.runeAltar));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.runeAltar));
 	}
 
 	@NotNull
@@ -87,7 +87,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RunicAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
-				.addItemStack(new ItemStack(ModBlocks.runeAltar));
+				.addItemStack(new ItemStack(BotaniaBlocks.runeAltar));
 
 		double angleBetweenEach = 360.0 / recipe.getIngredients().size();
 		Vec2 point = new Vec2(48, 13), center = new Vec2(48, 45);

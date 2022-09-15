@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
@@ -43,7 +43,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 	private final Component localizedName;
 	private final IDrawable overlay;
 	private final IDrawable icon;
-	private final ItemStack renderStack = new ItemStack(ModBlocks.manaPool);
+	private final ItemStack renderStack = new ItemStack(BotaniaBlocks.manaPool);
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(142, 55);

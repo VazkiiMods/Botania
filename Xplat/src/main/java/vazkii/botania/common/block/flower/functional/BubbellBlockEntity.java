@@ -19,8 +19,8 @@ import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.FakeAirBlockEntity;
 
 public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
@@ -36,7 +36,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public BubbellBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.BUBBELL, pos, state);
+		this(BotaniaFlowerBlocks.BUBBELL, pos, state);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 				if (getEffectivePos().distSqr(pos) < range * range) {
 					BlockState state = getLevel().getBlockState(pos);
 					if (state.getMaterial() == Material.WATER) {
-						getLevel().setBlock(pos, ModBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
+						getLevel().setBlock(pos, BotaniaBlocks.fakeAir.defaultBlockState(), Block.UPDATE_CLIENTS);
 						FakeAirBlockEntity air = (FakeAirBlockEntity) getLevel().getBlockEntity(pos);
 						air.setFlower(this);
 					}
@@ -113,7 +113,7 @@ public class BubbellBlockEntity extends FunctionalFlowerBlockEntity {
 
 	public static class Mini extends BubbellBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(ModSubtiles.BUBBELL_CHIBI, pos, state);
+			super(BotaniaFlowerBlocks.BUBBELL_CHIBI, pos, state);
 		}
 
 		@Override

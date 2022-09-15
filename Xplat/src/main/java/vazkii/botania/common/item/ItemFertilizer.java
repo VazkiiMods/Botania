@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class ItemFertilizer extends Item {
 					for (int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.offset(i + 1, k + 1, j + 1);
 						if (world.isEmptyBlock(pos_) && (!world.dimensionType().ultraWarm() || pos_.getY() < 255)
-								&& ModBlocks.whiteFlower.defaultBlockState().canSurvive(world, pos_)) {
+								&& BotaniaBlocks.whiteFlower.defaultBlockState().canSurvive(world, pos_)) {
 							validCoords.add(pos_);
 						}
 					}
@@ -54,7 +54,7 @@ public class ItemFertilizer extends Item {
 			for (int i = 0; i < flowerCount; i++) {
 				BlockPos coords = validCoords.get(world.random.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				world.setBlockAndUpdate(coords, ModBlocks.getFlower(DyeColor.byId(world.random.nextInt(16))).defaultBlockState());
+				world.setBlockAndUpdate(coords, BotaniaBlocks.getFlower(DyeColor.byId(world.random.nextInt(16))).defaultBlockState());
 			}
 			ctx.getItemInHand().shrink(1);
 		} else {

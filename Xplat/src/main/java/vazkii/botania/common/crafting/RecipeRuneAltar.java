@@ -27,7 +27,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.RunicAltarRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class RecipeRuneAltar implements RunicAltarRecipe {
 	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(ModBlocks.runeAltar);
+		return new ItemStack(BotaniaBlocks.runeAltar);
 	}
 
 	@NotNull

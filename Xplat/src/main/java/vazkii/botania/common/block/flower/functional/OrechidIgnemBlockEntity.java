@@ -13,14 +13,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
 public class OrechidIgnemBlockEntity extends OrechidBlockEntity {
 	private static final int COST = 20000;
 
 	public OrechidIgnemBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.ORECHID_IGNEM, pos, state);
+		super(BotaniaFlowerBlocks.ORECHID_IGNEM, pos, state);
 	}
 
 	@Override

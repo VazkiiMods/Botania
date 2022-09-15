@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 
 public class JiyuuliaBlockEntity extends TangleberrieBlockEntity {
 	private static final double RANGE = 8;
@@ -24,7 +24,7 @@ public class JiyuuliaBlockEntity extends TangleberrieBlockEntity {
 	}
 
 	public JiyuuliaBlockEntity(BlockPos pos, BlockState state) {
-		this(ModSubtiles.JIYUULIA, pos, state);
+		this(BotaniaFlowerBlocks.JIYUULIA, pos, state);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class JiyuuliaBlockEntity extends TangleberrieBlockEntity {
 
 	public static class Mini extends JiyuuliaBlockEntity {
 		public Mini(BlockPos pos, BlockState state) {
-			super(ModSubtiles.JIYUULIA_CHIBI, pos, state);
+			super(BotaniaFlowerBlocks.JIYUULIA_CHIBI, pos, state);
 		}
 
 		@Override

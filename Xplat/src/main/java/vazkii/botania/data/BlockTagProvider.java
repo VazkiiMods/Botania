@@ -39,8 +39,8 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static vazkii.botania.common.block.ModBlocks.*;
-import static vazkii.botania.common.block.ModSubtiles.*;
+import static vazkii.botania.common.block.BotaniaBlocks.*;
+import static vazkii.botania.common.block.BotaniaFlowerBlocks.*;
 
 public class BlockTagProvider extends BlockTagsProvider {
 	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
@@ -51,7 +51,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 	@Override
 	protected void addTags() {
-		tag(BlockTags.RAILS).add(ModBlocks.ghostRail);
+		tag(BlockTags.RAILS).add(BotaniaBlocks.ghostRail);
 		tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
 		tag(BlockTags.WOODEN_SLABS).add(getModBlocks(b -> b instanceof SlabBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
 		tag(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairBlock));
@@ -60,12 +60,12 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
 		tag(BlockTags.WOODEN_FENCES).add(getModBlocks(b -> b instanceof FenceBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
 		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
-		tag(BlockTags.DRAGON_IMMUNE).add(ModBlocks.infrangiblePlatform);
-		tag(BlockTags.WITHER_IMMUNE).add(ModBlocks.infrangiblePlatform);
+		tag(BlockTags.DRAGON_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
+		tag(BlockTags.WITHER_IMMUNE).add(BotaniaBlocks.infrangiblePlatform);
 
 		tag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
-						.map(ModBlocks::getFloatingFlower)
+						.map(BotaniaBlocks::getFloatingFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
@@ -81,21 +81,21 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(ModTags.Blocks.MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
-						.map(ModBlocks::getFlower)
+						.map(BotaniaBlocks::getFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(ModTags.Blocks.SHINY_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
-						.map(ModBlocks::getShinyFlower)
+						.map(BotaniaBlocks::getShinyFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
-						.map(ModBlocks::getDoubleFlower)
+						.map(BotaniaBlocks::getDoubleFlower)
 						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
@@ -132,19 +132,19 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
 		tag(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS);
 
-		tag(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
-		tag(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
-				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
+		tag(BlockTags.IMPERMEABLE).add(BotaniaBlocks.elfGlass, BotaniaBlocks.manaGlass, BotaniaBlocks.bifrost, BotaniaBlocks.bifrostPerm);
+		tag(BlockTags.BEACON_BASE_BLOCKS).add(BotaniaBlocks.manasteelBlock, BotaniaBlocks.terrasteelBlock, BotaniaBlocks.elementiumBlock,
+				BotaniaBlocks.manaDiamondBlock, BotaniaBlocks.dragonstoneBlock);
 
 		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BotaniaGrassBlock));
-		tag(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
-		tag(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
-		tag(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
+		tag(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(BotaniaBlocks.elementiumBlock);
+		tag(ModTags.Blocks.BLOCKS_MANASTEEL).add(BotaniaBlocks.manasteelBlock);
+		tag(ModTags.Blocks.BLOCKS_TERRASTEEL).add(BotaniaBlocks.terrasteelBlock);
 
 		tag(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
-				ModBlocks.corporeaBlock, ModBlocks.corporeaBrick, ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrickStairs,
-				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,
-				ModBlocks.corporeaInterceptor, ModBlocks.corporeaSlab, ModBlocks.corporeaStairs);
+				BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab, BotaniaBlocks.corporeaBrickStairs,
+				BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaCrystalCube, BotaniaBlocks.corporeaFunnel, BotaniaBlocks.corporeaIndex,
+				BotaniaBlocks.corporeaInterceptor, BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaStairs);
 
 		tag(BlockTags.SAND); // We aren't calling vanilla's generation, so need to add a dummy so that using this below doesn't error out.
 		tag(ModTags.Blocks.TERRAFORMABLE)
@@ -152,14 +152,14 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
 				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
 				.addTag(BlockTags.SAND);
-		tag(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
-		tag(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
-				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
+		tag(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, BotaniaBlocks.manaPylon, BotaniaBlocks.naturaPylon, BotaniaBlocks.gaiaPylon);
+		tag(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool,
+				BotaniaBlocks.fabulousPool, BotaniaBlocks.terraPlate, BotaniaBlocks.runeAltar);
 		tag(ModTags.Blocks.LAPUTA_IMMOBILE);
 
-		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
+		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.livingrock, BotaniaBlocks.shimmerrock);
 
-		tag(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
+		tag(BlockTags.CLIMBABLE).add(BotaniaBlocks.solidVines);
 
 		tag(BlockTags.PLANKS).add(livingwoodPlanks, livingwoodPlanksMossy, livingwoodFramed, livingwoodPatternFramed,
 				dreamwoodPlanks, dreamwoodPlanksMossy, dreamwoodFramed, dreamwoodPatternFramed, shimmerwoodPlanks);
@@ -184,10 +184,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(ModTags.Blocks.WEIGHT_LENS_WHITELIST);
 
 		tag(BlockTags.MUSHROOM_GROW_BLOCK).add(
-				ModFluffBlocks.biomeStoneFungal, ModFluffBlocks.biomeStoneFungalSlab, ModFluffBlocks.biomeStoneFungalStairs, ModFluffBlocks.biomeStoneFungalWall,
-				ModFluffBlocks.biomeBrickFungal, ModFluffBlocks.biomeBrickFungalSlab, ModFluffBlocks.biomeBrickFungalStairs, ModFluffBlocks.biomeBrickFungalWall,
-				ModFluffBlocks.biomeCobblestoneFungal, ModFluffBlocks.biomeCobblestoneFungalSlab, ModFluffBlocks.biomeCobblestoneFungalStairs, ModFluffBlocks.biomeCobblestoneFungalWall,
-				ModFluffBlocks.biomeChiseledBrickFungal, fungalAltar);
+				BotaniaFluffBlocks.biomeStoneFungal, BotaniaFluffBlocks.biomeStoneFungalSlab, BotaniaFluffBlocks.biomeStoneFungalStairs, BotaniaFluffBlocks.biomeStoneFungalWall,
+				BotaniaFluffBlocks.biomeBrickFungal, BotaniaFluffBlocks.biomeBrickFungalSlab, BotaniaFluffBlocks.biomeBrickFungalStairs, BotaniaFluffBlocks.biomeBrickFungalWall,
+				BotaniaFluffBlocks.biomeCobblestoneFungal, BotaniaFluffBlocks.biomeCobblestoneFungalSlab, BotaniaFluffBlocks.biomeCobblestoneFungalStairs, BotaniaFluffBlocks.biomeCobblestoneFungalWall,
+				BotaniaFluffBlocks.biomeChiseledBrickFungal, fungalAltar);
 
 		registerMiningTags();
 	}
@@ -206,7 +206,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				alchemyCatalyst, conjurationCatalyst,
 				manasteelBlock, elementiumBlock, terrasteelBlock, manaDiamondBlock, dragonstoneBlock,
 				manaGlass, elfGlass, bifrostPerm,
-				ModFluffBlocks.managlassPane, ModFluffBlocks.alfglassPane, ModFluffBlocks.bifrostPane,
+				BotaniaFluffBlocks.managlassPane, BotaniaFluffBlocks.alfglassPane, BotaniaFluffBlocks.bifrostPane,
 				runeAltar, brewery, terraPlate, distributor, manaVoid, manaDetector,
 				pistonRelay, tinyPlanet, spawnerClaw,
 				rfGenerator, prism, pump, sparkChanger, forestEye, enderEye,

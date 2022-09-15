@@ -38,7 +38,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
@@ -78,7 +78,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			return false;
 		}
 
-		if (stack.is(ModBlocks.livingrock.asItem())) {
+		if (stack.is(BotaniaBlocks.livingrock.asItem())) {
 			if (!level.isClientSide) {
 				ItemStack toSpawn = player != null && player.getAbilities().instabuild ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5, toSpawn);
@@ -161,7 +161,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (self.manaToGet == 0) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(ModBlocks.livingrock.asItem())) {
+				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())) {
 					ItemStack stack = item.getItem();
 					if (self.addItem(null, stack, null)) {
 						EntityHelper.syncItem(item);
@@ -228,7 +228,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			lastRecipe.add(stack.copy());
 		}
 		recipeKeepTicks = 400;
-		level.blockEvent(getBlockPos(), ModBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
+		level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
 	public void trySetLastRecipe(Player player) {
@@ -259,7 +259,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
 			ItemEntity livingrock = null;
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().is(ModBlocks.livingrock.asItem())) {
+				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().is(BotaniaBlocks.livingrock.asItem())) {
 					livingrock = item;
 					break;
 				}
@@ -272,8 +272,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				level.addFreshEntity(outputItem);
 				currentRecipe = null;
-				level.blockEvent(getBlockPos(), ModBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
-				level.blockEvent(getBlockPos(), ModBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
+				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
+				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
 				for (int i = 0; i < inventorySize(); i++) {
@@ -393,7 +393,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					if (progress == 1F) {
-						mc.getItemRenderer().renderGuiItem(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
+						mc.getItemRenderer().renderGuiItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
 						PoseStack pose = RenderSystem.getModelViewStack();
 						pose.pushPose();
 						pose.translate(0, 0, 100);

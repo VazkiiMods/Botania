@@ -37,7 +37,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
 import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
@@ -307,7 +307,7 @@ public final class HUDHandler {
 
 		GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
 		GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
-		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(ModBlocks.corporeaIndex), x, y + 10);
+		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
 
 		mc.font.drawShadow(ms, txt0, x + 20, y, 0xFFFFFF);
 		mc.font.drawShadow(ms, txt1, x + 20, y + 14, 0xFFFFFF);

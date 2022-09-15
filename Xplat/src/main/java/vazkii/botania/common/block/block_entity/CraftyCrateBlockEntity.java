@@ -39,7 +39,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.mixin.AccessorRecipeManager;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -87,7 +87,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 	public CraftyCratePattern getPattern() {
 		BlockState state = getBlockState();
-		if (!state.is(ModBlocks.craftCrate)) {
+		if (!state.is(BotaniaBlocks.craftCrate)) {
 			return CraftyCratePattern.NONE;
 		}
 		return state.getValue(BotaniaStateProperties.CRATE_PATTERN);

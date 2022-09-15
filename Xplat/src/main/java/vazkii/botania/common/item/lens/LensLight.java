@@ -18,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
 
 public class LensLight extends Lens {
@@ -33,13 +33,13 @@ public class LensLight extends Lens {
 			BlockState stateAt = entity.level.getBlockState(rtr.getBlockPos());
 			BlockState neighbor = entity.level.getBlockState(neighborPos);
 
-			if (stateAt.is(ModBlocks.manaFlame)) {
+			if (stateAt.is(BotaniaBlocks.manaFlame)) {
 				entity.level.removeBlock(rtr.getBlockPos(), false);
 			} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
 				var fluid = entity.level.getFluidState(neighborPos);
 				var water = fluid.isSource() && fluid.is(FluidTags.WATER);
 				entity.level.setBlockAndUpdate(neighborPos,
-						ModBlocks.manaFlame.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, water));
+						BotaniaBlocks.manaFlame.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, water));
 
 				if (entity.level.getBlockEntity(neighborPos) instanceof ManaFlameBlockEntity manaFlame) {
 					manaFlame.setColor(burst.getColor());

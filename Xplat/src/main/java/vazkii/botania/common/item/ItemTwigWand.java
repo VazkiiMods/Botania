@@ -50,8 +50,8 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -106,7 +106,7 @@ public class ItemTwigWand extends Item {
 
 		if (axis != null) {
 			if (!world.isClientSide) {
-				world.setBlockAndUpdate(pos, ModBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
+				world.setBlockAndUpdate(pos, BotaniaBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
 				world.playSound(null, pos, ModSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
 			} else {
@@ -139,9 +139,9 @@ public class ItemTwigWand extends Item {
 		BlockPos pos = ctx.getClickedPos();
 		Player player = ctx.getPlayer();
 
-		GlobalPos bindPos = ((ForceRelayBlock) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUUID());
+		GlobalPos bindPos = ((ForceRelayBlock) BotaniaBlocks.pistonRelay).activeBindingAttempts.get(player.getUUID());
 		if (bindPos != null && bindPos.dimension() == world.dimension()) {
-			((ForceRelayBlock) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUUID());
+			((ForceRelayBlock) BotaniaBlocks.pistonRelay).activeBindingAttempts.remove(player.getUUID());
 			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(world);
 			data.mapping.put(bindPos.pos(), pos.immutable());
 			data.setDirty();

@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
@@ -22,7 +22,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 	private final int mana;
 
 	static {
-		ItemStack stack = new ItemStack(ModBlocks.manaPool);
+		ItemStack stack = new ItemStack(BotaniaBlocks.manaPool);
 		ItemNBTHelper.setBoolean(stack, "RenderFull", true);
 		POOL = EmiStack.of(stack);
 	}

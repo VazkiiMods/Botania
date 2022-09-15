@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 
 import java.util.*;
@@ -29,7 +29,7 @@ public class BergamuteBlockEntity extends SpecialFlowerBlockEntity {
 	private boolean disabled = false;
 
 	public BergamuteBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.BERGAMUTE, pos, state);
+		super(BotaniaFlowerBlocks.BERGAMUTE, pos, state);
 	}
 
 	@Override

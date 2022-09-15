@@ -21,7 +21,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 
 public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer> {
 
@@ -56,10 +56,10 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 				ItemStack stack;
 				if (slot.index < 16) {
 					var color = DyeColor.byId(slot.index);
-					stack = new ItemStack(ModBlocks.getFlower(color));
+					stack = new ItemStack(BotaniaBlocks.getFlower(color));
 				} else {
 					var color = DyeColor.byId(slot.index - 16);
-					stack = new ItemStack(ModBlocks.getDoubleFlower(color));
+					stack = new ItemStack(BotaniaBlocks.getDoubleFlower(color));
 				}
 
 				int x = this.leftPos + slot.x;

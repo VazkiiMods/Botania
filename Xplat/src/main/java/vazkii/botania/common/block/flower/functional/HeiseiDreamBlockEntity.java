@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.mixin.AccessorGoalSelector;
 import vazkii.botania.mixin.AccessorHurtByTargetGoal;
 import vazkii.botania.mixin.AccessorMob;
@@ -36,7 +36,7 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 100;
 
 	public HeiseiDreamBlockEntity(BlockPos pos, BlockState state) {
-		super(ModSubtiles.HEISEI_DREAM, pos, state);
+		super(BotaniaFlowerBlocks.HEISEI_DREAM, pos, state);
 	}
 
 	@Override

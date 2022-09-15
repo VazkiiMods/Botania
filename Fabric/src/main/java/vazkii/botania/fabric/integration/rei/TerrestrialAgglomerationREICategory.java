@@ -27,7 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
@@ -36,7 +36,7 @@ import java.util.List;
 
 public class TerrestrialAgglomerationREICategory implements DisplayCategory<TerrestrialAgglomerationREIDisplay> {
 	private static final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/terrasteel_jei_overlay.png");
-	private final EntryStack<ItemStack> icon = EntryStacks.of(ModBlocks.terraPlate);
+	private final EntryStack<ItemStack> icon = EntryStacks.of(BotaniaBlocks.terraPlate);
 
 	@Override
 	public @NotNull CategoryIdentifier<TerrestrialAgglomerationREIDisplay> getCategoryIdentifier() {

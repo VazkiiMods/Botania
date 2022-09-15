@@ -16,7 +16,7 @@ import net.minecraftforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 
@@ -58,7 +58,7 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 			return super.getQuads(state, side, rand, extraData, renderType);
 		} else {
 			// Some people used this to get an invisible block in the past, accommodate that.
-			if (heldState.is(ModBlocks.manaGlass)) {
+			if (heldState.is(BotaniaBlocks.manaGlass)) {
 				return Collections.emptyList();
 			}
 

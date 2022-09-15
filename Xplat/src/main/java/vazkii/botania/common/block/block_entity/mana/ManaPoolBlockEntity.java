@@ -46,7 +46,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
@@ -106,7 +106,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	@Override
 	public boolean isFull() {
 		BlockState stateBelow = level.getBlockState(worldPosition.below());
-		return !stateBelow.is(ModBlocks.manaVoid) && getCurrentMana() >= manaCap;
+		return !stateBelow.is(BotaniaBlocks.manaVoid) && getCurrentMana() >= manaCap;
 	}
 
 	@Override
@@ -313,7 +313,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 							}
 
 							int manaVal = Math.min(transfRate, Math.min(self.manaCap - self.getCurrentMana(), mana.getMana()));
-							if (manaVal == 0 && self.level.getBlockState(worldPosition.below()).is(ModBlocks.manaVoid)) {
+							if (manaVal == 0 && self.level.getBlockState(worldPosition.below()).is(BotaniaBlocks.manaVoid)) {
 								manaVal = Math.min(transfRate, mana.getMana());
 							}
 							mana.addMana(-manaVal);
@@ -493,7 +493,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		int space = Math.max(0, manaCap - getCurrentMana());
 		if (space > 0) {
 			return space;
-		} else if (level.getBlockState(worldPosition.below()).is(ModBlocks.manaVoid)) {
+		} else if (level.getBlockState(worldPosition.below()).is(BotaniaBlocks.manaVoid)) {
 			return manaCap;
 		} else {
 			return 0;

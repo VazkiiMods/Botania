@@ -49,7 +49,7 @@ import vazkii.botania.client.model.BotaniaLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
 import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.EntityRenderers;
-import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.item.ModItems;
@@ -167,7 +167,7 @@ public class ForgeClientInitializer {
 				ret.put(type, factory);
 			}
 		});
-		ModSubtiles.registerWandHudCaps((factory, types) -> {
+		BotaniaFlowerBlocks.registerWandHudCaps((factory, types) -> {
 			for (var type : types) {
 				ret.put(type, factory);
 			}

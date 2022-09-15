@@ -13,8 +13,8 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Blocks;
 
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.test.TestingUtil;
 
 public class PistonRelayTest {
@@ -33,7 +33,7 @@ public class PistonRelayTest {
 			var activateFirstPiston = new BlockPos(4, 2, 0);
 			helper.setBlock(activateFirstPiston, Blocks.REDSTONE_BLOCK);
 		}).thenExecuteAfter(4, () -> {
-			helper.assertBlockPresent(ModBlocks.pistonRelay, initialRelay.south());
+			helper.assertBlockPresent(BotaniaBlocks.pistonRelay, initialRelay.south());
 			helper.assertBlockPresent(Blocks.ANDESITE, initialAndesite.south());
 			helper.assertBlockPresent(Blocks.SLIME_BLOCK, initialSlimeUnderAndesite.south());
 			helper.assertBlockPresent(Blocks.DIORITE, initialDiorite.south());
@@ -43,7 +43,7 @@ public class PistonRelayTest {
 			helper.setBlock(activateSecondPiston, Blocks.REDSTONE_BLOCK);
 		}).thenExecuteAfter(4, () -> {
 			var relayPos = initialRelay.south().west();
-			helper.assertBlockPresent(ModBlocks.pistonRelay, relayPos);
+			helper.assertBlockPresent(BotaniaBlocks.pistonRelay, relayPos);
 			// Andesite should not have moved
 			helper.assertBlockPresent(Blocks.ANDESITE, initialAndesite.south());
 			helper.assertBlockPresent(Blocks.SLIME_BLOCK, initialSlimeUnderAndesite.south());
@@ -68,7 +68,7 @@ public class PistonRelayTest {
 			helper.pullLever(lever);
 		}).thenExecuteAfter(4, () -> {
 			var relayAfter = new BlockPos(0, 2, 1);
-			helper.assertBlockPresent(ModBlocks.pistonRelay, relayAfter);
+			helper.assertBlockPresent(BotaniaBlocks.pistonRelay, relayAfter);
 			helper.assertBlockPresent(Blocks.COBBLESTONE, initialCobble);
 			TestingUtil.assertEquals(data.mapping.get(helper.absolutePos(relayAfter)),
 					helper.absolutePos(initialCobble),

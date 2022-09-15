@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -47,7 +47,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRe
 		ResourceLocation location = prefix("textures/gui/nei_brewery.png");
 		background = guiHelper.createDrawable(location, 28, 6, 131, 55);
 		localizedName = Component.translatable("botania.nei.brewery");
-		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.brewery));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BotaniaBlocks.brewery));
 	}
 
 	@NotNull
