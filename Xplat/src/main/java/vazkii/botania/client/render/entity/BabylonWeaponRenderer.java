@@ -31,9 +31,9 @@ import vazkii.botania.common.entity.EntityBabylonWeapon;
 
 import java.util.Random;
 
-public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
+public class BabylonWeaponRenderer extends EntityRenderer<EntityBabylonWeapon> {
 
-	public RenderBabylonWeapon(EntityRendererProvider.Context ctx) {
+	public BabylonWeaponRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 

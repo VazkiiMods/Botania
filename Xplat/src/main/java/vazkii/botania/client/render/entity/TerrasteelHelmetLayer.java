@@ -28,8 +28,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
-public class LayerTerraHelmet extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
-	public LayerTerraHelmet(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> renderer) {
+public class TerrasteelHelmetLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+	public TerrasteelHelmetLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> renderer) {
 		super(renderer);
 	}
 

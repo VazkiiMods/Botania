@@ -29,7 +29,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.armor.ArmorModels;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
-public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, HumanoidModel<EntityDoppleganger>> {
+public class GaiaGuardianRenderer extends HumanoidMobRenderer<EntityDoppleganger, HumanoidModel<EntityDoppleganger>> {
 
 	public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	public static final float DEFAULT_DISFIGURATION = 0.025F;
@@ -37,7 +37,7 @@ public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, 
 	private final Model normalModel;
 	private final Model slimModel;
 
-	public RenderDoppleganger(EntityRendererProvider.Context ctx) {
+	public GaiaGuardianRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx, new Model(ctx.bakeLayer(ModelLayers.PLAYER)), 0F);
 		this.normalModel = (Model) this.getModel();
 		this.slimModel = new Model(ctx.bakeLayer(ModelLayers.PLAYER_SLIM));

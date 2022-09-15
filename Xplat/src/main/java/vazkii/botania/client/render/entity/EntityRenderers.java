@@ -37,19 +37,19 @@ public final class EntityRenderers {
 		consumer.accept(ModEntities.MANA_BURST, NoopRenderer::new);
 		consumer.accept(ModEntities.PLAYER_MOVER, NoopRenderer::new);
 		consumer.accept(ModEntities.FLAME_RING, NoopRenderer::new);
-		consumer.accept(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
+		consumer.accept(ModEntities.MAGIC_LANDMINE, MagicLandmineRenderer::new);
 		consumer.accept(ModEntities.MAGIC_MISSILE, NoopRenderer::new);
 		consumer.accept(ModEntities.FALLING_STAR, NoopRenderer::new);
 		consumer.accept(ModEntities.ENDER_AIR, NoopRenderer::new);
 		consumer.accept(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
-		consumer.accept(ModEntities.PIXIE, RenderPixie::new);
-		consumer.accept(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
-		consumer.accept(ModEntities.SPARK, RenderManaSpark::new);
-		consumer.accept(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
-		consumer.accept(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
-		consumer.accept(ModEntities.PINK_WITHER, RenderPinkWither::new);
-		consumer.accept(ModEntities.MANA_STORM, RenderManaStorm::new);
-		consumer.accept(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
+		consumer.accept(ModEntities.PIXIE, PixieRenderer::new);
+		consumer.accept(ModEntities.DOPPLEGANGER, GaiaGuardianRenderer::new);
+		consumer.accept(ModEntities.SPARK, ManaSparkRenderer::new);
+		consumer.accept(ModEntities.CORPOREA_SPARK, CorporeaSparkRenderer::new);
+		consumer.accept(ModEntities.POOL_MINECART, ManaPoolMinecartRenderer::new);
+		consumer.accept(ModEntities.PINK_WITHER, PinkWitherRenderer::new);
+		consumer.accept(ModEntities.MANA_STORM, ManaStormRenderer::new);
+		consumer.accept(ModEntities.BABYLON_WEAPON, BabylonWeaponRenderer::new);
 
 		consumer.accept(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
 		consumer.accept(ModEntities.VINE_BALL, ThrownItemRenderer::new);
@@ -60,7 +60,7 @@ public final class EntityRenderers {
 			Consumer<RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>> consumer) {
 		consumer.accept(new ContributorFancinessHandler(renderer));
 		consumer.accept(new ManaTabletRenderHandler(renderer));
-		consumer.accept(new LayerTerraHelmet(renderer));
+		consumer.accept(new TerrasteelHelmetLayer(renderer));
 	}
 
 	public interface BERConsumer {

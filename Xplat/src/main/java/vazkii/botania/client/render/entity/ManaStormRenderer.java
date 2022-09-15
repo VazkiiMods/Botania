@@ -21,9 +21,9 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
-public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
+public class ManaStormRenderer extends EntityRenderer<EntityManaStorm> {
 
-	public RenderManaStorm(EntityRendererProvider.Context ctx) {
+	public ManaStormRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 

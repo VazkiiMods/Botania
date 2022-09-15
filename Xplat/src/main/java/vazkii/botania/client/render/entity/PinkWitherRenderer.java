@@ -17,11 +17,11 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.lib.ResourcesLib;
 
-public class RenderPinkWither extends WitherBossRenderer {
+public class PinkWitherRenderer extends WitherBossRenderer {
 
 	private static final ResourceLocation resource = new ResourceLocation(ResourcesLib.MODEL_PINK_WITHER);
 
-	public RenderPinkWither(EntityRendererProvider.Context ctx) {
+	public PinkWitherRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 

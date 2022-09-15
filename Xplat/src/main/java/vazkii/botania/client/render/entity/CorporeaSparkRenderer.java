@@ -12,20 +12,17 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.entity.EntityManaSpark;
+import vazkii.botania.common.entity.EntityCorporeaSpark;
 
-public class RenderManaSpark extends RenderSparkBase<EntityManaSpark> {
+public class CorporeaSparkRenderer extends BaseSparkRenderer<EntityCorporeaSpark> {
 
-	public RenderManaSpark(EntityRendererProvider.Context ctx) {
+	public CorporeaSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
 	@Override
-	public TextureAtlasSprite getSpinningIcon(EntityManaSpark entity) {
-		int upgrade = entity.getUpgrade().ordinal() - 1;
-		return upgrade >= 0 && upgrade < MiscellaneousModels.INSTANCE.sparkUpgradeIcons.length
-				? MiscellaneousModels.INSTANCE.sparkUpgradeIcons[upgrade].sprite()
-				: null;
+	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
+		return entity.isCreative() ? MiscellaneousModels.INSTANCE.corporeaWorldIconCreative.sprite() : entity.isMaster() ? MiscellaneousModels.INSTANCE.corporeaWorldIconMaster.sprite() : MiscellaneousModels.INSTANCE.corporeaWorldIcon.sprite();
 	}
 
 }

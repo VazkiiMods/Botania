@@ -25,9 +25,9 @@ import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.PixieModel;
 import vazkii.botania.common.entity.EntityPixie;
 
-public class RenderPixie extends MobRenderer<EntityPixie, PixieModel> {
+public class PixieRenderer extends MobRenderer<EntityPixie, PixieModel> {
 
-	public RenderPixie(EntityRendererProvider.Context ctx) {
+	public PixieRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx, new PixieModel(ctx.bakeLayer(BotaniaModelLayers.PIXIE)), 0.0F);
 	}
 
@@ -35,8 +35,8 @@ public class RenderPixie extends MobRenderer<EntityPixie, PixieModel> {
 	public void render(EntityPixie mob, float yaw, float partialTicks, PoseStack pos, MultiBufferSource buffers, int light) {
 		ShaderInstance shader = CoreShaders.doppleganger();
 		if (shader != null) {
-			shader.safeGetUniform("BotaniaDisfiguration").set(RenderDoppleganger.DEFAULT_DISFIGURATION);
-			shader.safeGetUniform("BotaniaGrainIntensity").set(RenderDoppleganger.DEFAULT_GRAIN_INTENSITY);
+			shader.safeGetUniform("BotaniaDisfiguration").set(GaiaGuardianRenderer.DEFAULT_DISFIGURATION);
+			shader.safeGetUniform("BotaniaGrainIntensity").set(GaiaGuardianRenderer.DEFAULT_GRAIN_INTENSITY);
 		}
 		super.render(mob, yaw, partialTicks, pos, buffers, light);
 	}

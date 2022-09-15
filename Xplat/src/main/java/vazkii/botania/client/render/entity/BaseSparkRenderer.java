@@ -30,9 +30,9 @@ import vazkii.botania.common.helper.ColorHelper;
 
 import java.util.Random;
 
-public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityRenderer<T> {
+public abstract class BaseSparkRenderer<T extends EntitySparkBase> extends EntityRenderer<T> {
 
-	public RenderSparkBase(EntityRendererProvider.Context ctx) {
+	public BaseSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 

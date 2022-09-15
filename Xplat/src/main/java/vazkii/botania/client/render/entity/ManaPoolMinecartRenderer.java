@@ -27,10 +27,10 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
-public class RenderPoolMinecart extends MinecartRenderer<EntityPoolMinecart> {
+public class ManaPoolMinecartRenderer extends MinecartRenderer<EntityPoolMinecart> {
 	private static final TilePool DUMMY = new TilePool(ManaBurst.NO_SOURCE, ModBlocks.manaPool.defaultBlockState());
 
-	public RenderPoolMinecart(EntityRendererProvider.Context ctx) {
+	public ManaPoolMinecartRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx, ModelLayers.MINECART);
 	}
 

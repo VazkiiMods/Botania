@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.fx.BoltRenderer;
-import vazkii.botania.client.render.entity.RenderMagicLandmine;
+import vazkii.botania.client.render.entity.MagicLandmineRenderer;
 import vazkii.botania.common.item.ItemCraftingHalo;
 
 public final class WorldOverlays {
@@ -16,7 +16,7 @@ public final class WorldOverlays {
 		ItemCraftingHalo.Rendering.onRenderWorldLast(camera, tickDelta, matrix, buffers);
 		BoundTileRenderer.onWorldRenderLast(camera, matrix, level);
 		AstrolabePreviewHandler.onWorldRenderLast(matrix, buffers, level);
-		RenderMagicLandmine.onWorldRenderLast();
+		MagicLandmineRenderer.onWorldRenderLast();
 	}
 
 	private WorldOverlays() {}

@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.SkullBlock;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.client.render.entity.RenderDoppleganger;
+import vazkii.botania.client.render.entity.GaiaGuardianRenderer;
 
 import java.util.Collections;
 import java.util.Map;
@@ -83,8 +83,8 @@ public class RenderTileGaiaHead extends SkullBlockRenderer {
 						ShaderInstance shader = CoreShaders.doppleganger();
 						if (shader != null) {
 							RenderSystem.setShader(CoreShaders::doppleganger);
-							shader.safeGetUniform("BotaniaDisfiguration").set(RenderDoppleganger.DEFAULT_DISFIGURATION);
-							shader.safeGetUniform("BotaniaGrainIntensity").set(RenderDoppleganger.DEFAULT_GRAIN_INTENSITY);
+							shader.safeGetUniform("BotaniaDisfiguration").set(GaiaGuardianRenderer.DEFAULT_DISFIGURATION);
+							shader.safeGetUniform("BotaniaGrainIntensity").set(GaiaGuardianRenderer.DEFAULT_GRAIN_INTENSITY);
 						}
 					}, compose::clearRenderState);
 		}

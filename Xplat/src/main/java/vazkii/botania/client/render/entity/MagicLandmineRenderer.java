@@ -23,12 +23,12 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTileSpecialFlower;
 import vazkii.botania.common.entity.EntityMagicLandmine;
 
-public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
+public class MagicLandmineRenderer extends EntityRenderer<EntityMagicLandmine> {
 	private static final double INITIAL_OFFSET = -1.0 / 16 + 0.005;
 	// Global y offset so that overlapping landmines do not Z-fight
 	public static double offY = INITIAL_OFFSET;
 
-	public RenderMagicLandmine(EntityRendererProvider.Context ctx) {
+	public MagicLandmineRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
 	}
 
