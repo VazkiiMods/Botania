@@ -23,11 +23,11 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 
-public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
+public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_FLOWER_BAG);
 
-	public GuiFlowerBag(ContainerFlowerBag container, Inventory playerInv, Component title) {
+	public FlowerPouchGui(FlowerPouchContainer container, Inventory playerInv, Component title) {
 		super(container, playerInv, title);
 		imageHeight += 36;
 

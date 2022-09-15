@@ -19,13 +19,13 @@ import net.minecraft.world.entity.player.Inventory;
 
 import vazkii.botania.client.lib.LibResources;
 
-public class GuiBaubleBox extends AbstractContainerScreen<ContainerBaubleBox> {
+public class BaubleBoxGui extends AbstractContainerScreen<BaubleBoxContainer> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
 	private int mouseX;
 	private int mouseY;
 
-	public GuiBaubleBox(ContainerBaubleBox container, Inventory player, Component title) {
+	public BaubleBoxGui(BaubleBoxContainer container, Inventory player, Component title) {
 		super(container, player, title);
 	}
 

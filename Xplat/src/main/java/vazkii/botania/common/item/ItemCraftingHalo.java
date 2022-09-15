@@ -58,7 +58,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
+import vazkii.botania.client.gui.crafting.AssemblyHaloContainer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -98,7 +98,7 @@ public class ItemCraftingHalo extends Item {
 				// crafting matrix to update properly.
 				ContainerLevelAccess wp = ContainerLevelAccess.create(world, BlockPos.ZERO);
 				player.openMenu(new SimpleMenuProvider(
-						(windowId, playerInv, p) -> new ContainerCraftingHalo(windowId, playerInv, wp),
+						(windowId, playerInv, p) -> new AssemblyHaloContainer(windowId, playerInv, wp),
 						stack.getHoverName()));
 			} else {
 				if (recipe == null) {
@@ -293,7 +293,7 @@ public class ItemCraftingHalo extends Item {
 	public static void onItemCrafted(Player player, Container inv) {
 		AbstractContainerMenu container = player.containerMenu;
 
-		if (!(container instanceof ContainerCraftingHalo) ||
+		if (!(container instanceof AssemblyHaloContainer) ||
 				!(inv instanceof CraftingContainer cc)) {
 			return;
 		}

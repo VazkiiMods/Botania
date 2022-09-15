@@ -21,9 +21,9 @@ import org.jetbrains.annotations.NotNull;
  * So on the server we have this container while the client will think it's just interacting
  * with a normal WorkbenchContainer.
  */
-public class ContainerCraftingHalo extends CraftingMenu {
+public class AssemblyHaloContainer extends CraftingMenu {
 
-	public ContainerCraftingHalo(int windowId, Inventory playerInv, ContainerLevelAccess wp) {
+	public AssemblyHaloContainer(int windowId, Inventory playerInv, ContainerLevelAccess wp) {
 		super(windowId, playerInv, wp);
 	}
 

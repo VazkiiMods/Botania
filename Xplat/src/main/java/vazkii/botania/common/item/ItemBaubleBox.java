@@ -25,7 +25,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.client.gui.box.ContainerBaubleBox;
+import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -61,7 +61,7 @@ public class ItemBaubleBox extends Item {
 
 				@Override
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-					return new ContainerBaubleBox(syncId, inv, stack);
+					return new BaubleBoxContainer(syncId, inv, stack);
 				}
 			}, buf -> buf.writeBoolean(hand == InteractionHand.MAIN_HAND));
 		}
@@ -84,7 +84,7 @@ public class ItemBaubleBox extends Item {
 			@NotNull ClickAction clickAction, @NotNull Player player) {
 		return InventoryHelper.overrideStackedOnOther(
 				ItemBaubleBox::getInventory,
-				player.containerMenu instanceof ContainerBaubleBox,
+				player.containerMenu instanceof BaubleBoxContainer,
 				box, slot, clickAction, player);
 	}
 
@@ -95,7 +95,7 @@ public class ItemBaubleBox extends Item {
 			@NotNull Player player, @NotNull SlotAccess cursorAccess) {
 		return InventoryHelper.overrideOtherStackedOnMe(
 				ItemBaubleBox::getInventory,
-				player.containerMenu instanceof ContainerBaubleBox,
+				player.containerMenu instanceof BaubleBoxContainer,
 				box, toInsert, clickAction, cursorAccess);
 	}
 }

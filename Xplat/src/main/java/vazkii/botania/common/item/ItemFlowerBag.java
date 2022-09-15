@@ -37,7 +37,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.client.gui.bag.ContainerFlowerBag;
+import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.common.block.BlockModDoubleFlower;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.helper.EntityHelper;
@@ -136,7 +136,7 @@ public class ItemFlowerBag extends Item {
 
 				@Override
 				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
-					return new ContainerFlowerBag(syncId, inv, stack);
+					return new FlowerPouchContainer(syncId, inv, stack);
 				}
 			}, buf -> buf.writeBoolean(hand == InteractionHand.MAIN_HAND));
 		}
@@ -190,7 +190,7 @@ public class ItemFlowerBag extends Item {
 			@NotNull ClickAction clickAction, @NotNull Player player) {
 		return InventoryHelper.overrideStackedOnOther(
 				ItemFlowerBag::getInventory,
-				player.containerMenu instanceof ContainerFlowerBag,
+				player.containerMenu instanceof FlowerPouchContainer,
 				bag, slot, clickAction, player);
 	}
 
@@ -201,7 +201,7 @@ public class ItemFlowerBag extends Item {
 			@NotNull Player player, @NotNull SlotAccess cursorAccess) {
 		return InventoryHelper.overrideOtherStackedOnMe(
 				ItemFlowerBag::getInventory,
-				player.containerMenu instanceof ContainerFlowerBag,
+				player.containerMenu instanceof FlowerPouchContainer,
 				bag, toInsert, clickAction, cursorAccess);
 	}
 }

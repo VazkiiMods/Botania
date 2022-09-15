@@ -42,8 +42,8 @@ import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.client.gui.bag.GuiFlowerBag;
-import vazkii.botania.client.gui.box.GuiBaubleBox;
+import vazkii.botania.client.gui.bag.FlowerPouchGui;
+import vazkii.botania.client.gui.box.BaubleBoxGui;
 import vazkii.botania.client.integration.ears.EarsIntegration;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.BlockRenderLayers;
@@ -76,8 +76,8 @@ public class ForgeClientInitializer {
 	public static void clientInit(FMLClientSetupEvent evt) {
 		// GUIs
 		evt.enqueueWork(() -> {
-			MenuScreens.register(ModItems.FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
-			MenuScreens.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
+			MenuScreens.register(ModItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+			MenuScreens.register(ModItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
 		});
 
 		// Events

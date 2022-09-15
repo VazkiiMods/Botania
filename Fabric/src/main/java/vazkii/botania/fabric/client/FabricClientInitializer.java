@@ -42,8 +42,8 @@ import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.client.gui.bag.GuiFlowerBag;
-import vazkii.botania.client.gui.box.GuiBaubleBox;
+import vazkii.botania.client.gui.bag.FlowerPouchGui;
+import vazkii.botania.client.gui.box.BaubleBoxGui;
 import vazkii.botania.client.integration.ears.EarsIntegration;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.model.armor.ArmorModels;
@@ -69,8 +69,8 @@ public class FabricClientInitializer implements ClientModInitializer {
 		FabricPacketHandler.initClient();
 
 		// Guis
-		ScreenRegistry.register(ModItems.FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
-		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
+		ScreenRegistry.register(ModItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+		ScreenRegistry.register(ModItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
 
 		// Blocks and Items
 		ModelLoadingRegistry.INSTANCE.registerModelProvider(MiscellaneousModels.INSTANCE::onModelRegister);

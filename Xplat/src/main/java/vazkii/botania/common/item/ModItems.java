@@ -25,8 +25,8 @@ import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
-import vazkii.botania.client.gui.bag.ContainerFlowerBag;
-import vazkii.botania.client.gui.box.ContainerBaubleBox;
+import vazkii.botania.client.gui.bag.FlowerPouchContainer;
+import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.handler.ModSounds;
@@ -390,8 +390,8 @@ public final class ModItems {
 	public static final Item questgiverMark = make(prefix(LibItemNames.COSMETIC_PREFIX + "questgiver_mark"), new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK, unstackable()));
 	public static final Item thinkingHand = make(prefix(LibItemNames.COSMETIC_PREFIX + "thinking_hand"), new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.THINKING_HAND, unstackable()));
 
-	public static final MenuType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(ContainerBaubleBox::fromNetwork);
-	public static final MenuType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(ContainerFlowerBag::fromNetwork);
+	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::fromNetwork);
+	public static final MenuType<FlowerPouchContainer> FLOWER_BAG_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(FlowerPouchContainer::fromNetwork);
 
 	private static <T extends Item> T make(ResourceLocation id, T item) {
 		var old = ALL.put(id, item);

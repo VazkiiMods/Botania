@@ -25,15 +25,15 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemBaubleBox;
 import vazkii.botania.common.item.ModItems;
 
-public class ContainerBaubleBox extends AbstractContainerMenu {
-	public static ContainerBaubleBox fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
+public class BaubleBoxContainer extends AbstractContainerMenu {
+	public static BaubleBoxContainer fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
 		InteractionHand hand = buf.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-		return new ContainerBaubleBox(windowId, inv, inv.player.getItemInHand(hand));
+		return new BaubleBoxContainer(windowId, inv, inv.player.getItemInHand(hand));
 	}
 
 	private final ItemStack box;
 
-	public ContainerBaubleBox(int windowId, Inventory playerInv, ItemStack box) {
+	public BaubleBoxContainer(int windowId, Inventory playerInv, ItemStack box) {
 		super(ModItems.BAUBLE_BOX_CONTAINER, windowId);
 		int i;
 		int j;

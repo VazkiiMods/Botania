@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
-import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
+import vazkii.botania.client.gui.crafting.AssemblyHaloContainer;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraShattererTippingRecipeWrapper;
@@ -172,7 +172,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registry) {
-		registry.addRecipeTransferHandler(ContainerCraftingHalo.class, null, RecipeTypes.CRAFTING, 1, 9, 10, 36);
+		registry.addRecipeTransferHandler(AssemblyHaloContainer.class, null, RecipeTypes.CRAFTING, 1, 9, 10, 36);
 	}
 
 	@Override

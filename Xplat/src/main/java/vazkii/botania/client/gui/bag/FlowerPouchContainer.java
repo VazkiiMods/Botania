@@ -27,16 +27,16 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
 
-public class ContainerFlowerBag extends AbstractContainerMenu {
-	public static ContainerFlowerBag fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
+public class FlowerPouchContainer extends AbstractContainerMenu {
+	public static FlowerPouchContainer fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
 		InteractionHand hand = buf.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-		return new ContainerFlowerBag(windowId, inv, inv.player.getItemInHand(hand));
+		return new FlowerPouchContainer(windowId, inv, inv.player.getItemInHand(hand));
 	}
 
 	private final ItemStack bag;
 	public final Container flowerBagInv;
 
-	public ContainerFlowerBag(int windowId, Inventory playerInv, ItemStack bag) {
+	public FlowerPouchContainer(int windowId, Inventory playerInv, ItemStack bag) {
 		super(ModItems.FLOWER_BAG_CONTAINER, windowId);
 
 		this.bag = bag;
