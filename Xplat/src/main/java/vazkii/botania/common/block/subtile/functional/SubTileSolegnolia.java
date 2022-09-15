@@ -15,14 +15,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.Collections;
 import java.util.Set;
 
-public class SubTileSolegnolia extends TileEntityFunctionalFlower {
+public class SubTileSolegnolia extends FunctionalFlowerBlockEntity {
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
 

@@ -27,8 +27,8 @@ import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -38,11 +38,11 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> implements BlockEntityRenderer<T> {
+public class RenderTileSpecialFlower<T extends SpecialFlowerBlockEntity> implements BlockEntityRenderer<T> {
 	public RenderTileSpecialFlower(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(TileEntitySpecialFlower tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(SpecialFlowerBlockEntity tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		if (tile.isFloating()) {
 			RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, overlay);
 		}
@@ -61,7 +61,7 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> implemen
 		boolean hasBindingAttempt = hasBindingAttempt(view, tile.getBlockPos());
 
 		if (hasBindingAttempt || tile.getBlockPos().equals(pos)) {
-			TileEntitySpecialFlower flower = tile;
+			SpecialFlowerBlockEntity flower = tile;
 			ms.pushPose();
 			if (hasBindingAttempt) {
 				ms.translate(0, 0.005, 0);

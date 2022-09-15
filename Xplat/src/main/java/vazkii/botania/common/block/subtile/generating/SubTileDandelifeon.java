@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileCell;
@@ -22,7 +22,7 @@ import vazkii.botania.common.block.tile.TileCell;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubTileDandelifeon extends TileEntityGeneratingFlower {
+public class SubTileDandelifeon extends GeneratingFlowerBlockEntity {
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
 //	private static final int MAX_GENERATIONS = 100;

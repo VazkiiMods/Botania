@@ -14,13 +14,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.xplat.BotaniaConfig;
 
-public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
+public class SubTileJadedAmaranthus extends FunctionalFlowerBlockEntity {
 	private static final int COST = 100;
 	final int RANGE = 4;
 

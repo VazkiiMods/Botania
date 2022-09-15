@@ -15,14 +15,14 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.MathHelper;
 
 import java.util.*;
 
-public class SubTileVinculotus extends TileEntityFunctionalFlower {
+public class SubTileVinculotus extends FunctionalFlowerBlockEntity {
 	public static final Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final int RANGE = 64;
 

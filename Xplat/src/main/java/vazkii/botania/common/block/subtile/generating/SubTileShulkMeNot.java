@@ -22,14 +22,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
 
 import java.util.List;
 
-public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
+public class SubTileShulkMeNot extends GeneratingFlowerBlockEntity {
 	private static final int RADIUS = 8;
 
 	public SubTileShulkMeNot(BlockPos pos, BlockState state) {

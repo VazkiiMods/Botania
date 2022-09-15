@@ -20,15 +20,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.WispParticleData;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class SubTileFluidGenerator extends TileEntityGeneratingFlower {
+public abstract class SubTileFluidGenerator extends GeneratingFlowerBlockEntity {
 	private static final String TAG_BURN_TIME = "burnTime";
 	public static final String TAG_COOLDOWN = "cooldown";
 

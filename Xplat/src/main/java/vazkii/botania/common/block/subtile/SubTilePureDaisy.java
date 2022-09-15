@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.PureDaisyRecipe;
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
@@ -29,7 +29,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Arrays;
 
-public class SubTilePureDaisy extends TileEntitySpecialFlower {
+public class SubTilePureDaisy extends SpecialFlowerBlockEntity {
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
 	private static final int RECIPE_COMPLETE_EVENT = 0;

@@ -13,12 +13,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.ExoflameHeatable;
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class SubTileExoflame extends TileEntityFunctionalFlower {
+public class SubTileExoflame extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;

@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.crafting.RecipePureDaisy;
 import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.crafting.StateIngredientHelper;
@@ -38,7 +38,7 @@ public class StateCopyPureDaisyRecipe extends RecipePureDaisy {
 	}
 
 	@Override
-	public boolean set(Level world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
+	public boolean set(Level world, BlockPos pos, SpecialFlowerBlockEntity pureDaisy) {
 		if (!world.isClientSide) {
 			Block block = getOutputState().getBlock();
 			world.setBlockAndUpdate(pos, block.withPropertiesOf(world.getBlockState(pos)));

@@ -17,11 +17,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.block_entity.BindableSpecialFlowerBlockEntity;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaCollector;
 import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.api.subtile.TileEntityBindableSpecialFlower;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -44,7 +44,7 @@ public class ItemObedienceStick extends Item {
 		var be = world.getBlockEntity(pos);
 		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, pos, state, be, null);
 		if (receiver instanceof ManaPool || receiver instanceof ManaCollector) {
-			int range = receiver instanceof ManaPool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
+			int range = receiver instanceof ManaPool ? FunctionalFlowerBlockEntity.LINK_RANGE : GeneratingFlowerBlockEntity.LINK_RANGE;
 
 			for (BlockPos iterPos : BlockPos.betweenClosed(pos.offset(-range, -range, -range), pos.offset(range, range, range))) {
 				if (MathHelper.distSqr(iterPos, pos) > range * range) {
@@ -52,7 +52,7 @@ public class ItemObedienceStick extends Item {
 				}
 
 				BlockEntity tile = world.getBlockEntity(iterPos);
-				if (tile instanceof TileEntityBindableSpecialFlower<?>bindable && bindable.wouldBeValidBinding(pos)) {
+				if (tile instanceof BindableSpecialFlowerBlockEntity<?>bindable && bindable.wouldBeValidBinding(pos)) {
 					bindable.setBindingPos(pos);
 					ItemTwigWand.doParticleBeamWithOffset(world, iterPos, pos);
 				}

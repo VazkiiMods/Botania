@@ -30,15 +30,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.DelayHelper;
 
 import java.util.function.Predicate;
 
-public class SubTileSpectrolus extends TileEntityGeneratingFlower {
+public class SubTileSpectrolus extends GeneratingFlowerBlockEntity {
 	public static final String TAG_NEXT_COLOR = "nextColor";
 	private static final int WOOL_GEN = 1200;
 	private static final int SHEEP_GEN = 5000;

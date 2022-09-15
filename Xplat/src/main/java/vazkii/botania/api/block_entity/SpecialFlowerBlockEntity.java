@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.subtile;
+package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -40,7 +40,7 @@ import vazkii.botania.common.lib.ModTags;
 /**
  * Common superclass of all magical flower block entities
  */
-public abstract class TileEntitySpecialFlower extends BlockEntity implements FloatingFlowerProvider {
+public abstract class SpecialFlowerBlockEntity extends BlockEntity implements FloatingFlowerProvider {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
@@ -64,11 +64,11 @@ public abstract class TileEntitySpecialFlower extends BlockEntity implements Flo
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_FLOATING_DATA = "floating";
 
-	public TileEntitySpecialFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	public SpecialFlowerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileEntitySpecialFlower self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, SpecialFlowerBlockEntity self) {
 		if (self.isFloating != state.is(ModTags.Blocks.FLOATING_FLOWERS)) {
 			BotaniaAPI.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
 			self.isFloating = !self.isFloating;

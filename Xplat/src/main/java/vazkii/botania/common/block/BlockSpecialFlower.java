@@ -30,16 +30,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 
 import java.util.function.Supplier;
 
 public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
-	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
+	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 
-	public BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
+	public BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
 		super(stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 	}
@@ -73,12 +73,12 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return BlockMod.createTickerHelper(type, blockEntityType.get(), TileEntitySpecialFlower::commonTick);
+		return BlockMod.createTickerHelper(type, blockEntityType.get(), SpecialFlowerBlockEntity::commonTick);
 	}
 
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		((TileEntitySpecialFlower) level.getBlockEntity(pos)).setPlacedBy(level, pos, state, placer, stack);
+		((SpecialFlowerBlockEntity) level.getBlockEntity(pos)).setPlacedBy(level, pos, state, placer, stack);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock {
 
 	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TileEntityFunctionalFlower flower && rand.nextBoolean()) {
+		if (te instanceof FunctionalFlowerBlockEntity flower && rand.nextBoolean()) {
 			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
 				VoxelShape shape = state.getShape(world, pos);
 				if (!shape.isEmpty()) {

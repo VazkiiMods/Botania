@@ -16,15 +16,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.MathHelper;
 
 import java.util.List;
 
-public class SubTileTangleberrie extends TileEntityFunctionalFlower {
+public class SubTileTangleberrie extends FunctionalFlowerBlockEntity {
 	private static final double RANGE = 7;
 	private static final double MAXDISTANCE = 6;
 	private static final double RANGE_MINI = 3;

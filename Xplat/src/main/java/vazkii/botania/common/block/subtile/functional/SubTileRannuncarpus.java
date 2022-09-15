@@ -42,9 +42,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.item.FlowerPlaceable;
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
@@ -52,7 +52,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.*;
 
-public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements Wandable {
+public class SubTileRannuncarpus extends FunctionalFlowerBlockEntity implements Wandable {
 	private static final int PICKUP_RANGE = 2;
 	private static final int PICKUP_RANGE_Y = 3;
 	private static final int RANGE_PLACE_MANA = 8;

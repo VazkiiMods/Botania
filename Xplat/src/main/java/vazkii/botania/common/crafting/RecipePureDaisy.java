@@ -26,9 +26,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 public class RecipePureDaisy implements PureDaisyRecipe {
 
@@ -60,12 +60,12 @@ public class RecipePureDaisy implements PureDaisyRecipe {
 	}
 
 	@Override
-	public boolean matches(Level world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state) {
+	public boolean matches(Level world, BlockPos pos, SpecialFlowerBlockEntity pureDaisy, BlockState state) {
 		return input.test(state);
 	}
 
 	@Override
-	public boolean set(Level world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
+	public boolean set(Level world, BlockPos pos, SpecialFlowerBlockEntity pureDaisy) {
 		if (!world.isClientSide) {
 			boolean success = world.setBlockAndUpdate(pos, outputState);
 			if (success) {

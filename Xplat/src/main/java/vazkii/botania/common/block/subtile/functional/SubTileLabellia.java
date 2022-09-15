@@ -23,8 +23,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.DelayHelper;
@@ -32,7 +32,7 @@ import vazkii.botania.common.helper.EntityHelper;
 
 import java.util.List;
 
-public class SubTileLabellia extends TileEntityFunctionalFlower {
+public class SubTileLabellia extends FunctionalFlowerBlockEntity {
 	private static final int PICKUP_RANGE = 0;
 	private static final int RENAME_RANGE = 2;
 	private static final int COST = 500;

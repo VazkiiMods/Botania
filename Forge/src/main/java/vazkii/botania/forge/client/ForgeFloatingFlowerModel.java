@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 
 import java.util.*;
@@ -102,7 +102,7 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 				return ModelData.builder()
 						.with(FLOATING_PROPERTY, floating.getFloatingData())
 						.build();
-			} else if (be instanceof TileEntitySpecialFlower special && special.isFloating()) {
+			} else if (be instanceof SpecialFlowerBlockEntity special && special.isFloating()) {
 				return ModelData.builder()
 						.with(FLOATING_PROPERTY, special.getFloatingData())
 						.build();

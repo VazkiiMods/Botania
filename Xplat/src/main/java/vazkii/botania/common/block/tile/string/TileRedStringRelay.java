@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.tile.ModTiles;
 
 public class TileRedStringRelay extends TileRedString {
@@ -34,7 +34,7 @@ public class TileRedStringRelay extends TileRedString {
 		Block block = level.getBlockState(pos).getBlock();
 		if (isValidPlant(block)) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			return !(tile instanceof TileEntitySpecialFlower);
+			return !(tile instanceof SpecialFlowerBlockEntity);
 		}
 		return false;
 

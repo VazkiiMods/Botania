@@ -18,8 +18,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.ModTags;
 
@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class SubTileRafflowsia extends TileEntityGeneratingFlower {
+public class SubTileRafflowsia extends GeneratingFlowerBlockEntity {
 	public static final String TAG_LAST_FLOWERS = "lastFlowers";
 	public static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 	public static final String TAG_STREAK_LENGTH = "streakLength";

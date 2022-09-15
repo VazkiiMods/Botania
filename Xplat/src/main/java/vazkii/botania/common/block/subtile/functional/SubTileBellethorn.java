@@ -18,14 +18,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public class SubTileBellethorn extends TileEntityFunctionalFlower {
+public class SubTileBellethorn extends FunctionalFlowerBlockEntity {
 	public static final int RANGE = 6;
 	public static final int RANGE_MINI = 1;
 

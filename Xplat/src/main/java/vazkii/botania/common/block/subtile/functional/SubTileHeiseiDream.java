@@ -21,8 +21,8 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.mixin.AccessorGoalSelector;
 import vazkii.botania.mixin.AccessorHurtByTargetGoal;
@@ -31,7 +31,7 @@ import vazkii.botania.mixin.AccessorMob;
 import java.util.Arrays;
 import java.util.List;
 
-public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
+public class SubTileHeiseiDream extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 5;
 	private static final int COST = 100;
 

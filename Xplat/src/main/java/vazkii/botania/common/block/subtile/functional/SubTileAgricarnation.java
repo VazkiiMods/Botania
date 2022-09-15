@@ -18,15 +18,15 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Set;
 
-public class SubTileAgricarnation extends TileEntityFunctionalFlower {
+public class SubTileAgricarnation extends FunctionalFlowerBlockEntity {
 	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANT, Material.CACTUS, Material.GRASS,
 			Material.LEAVES, Material.VEGETABLE, Material.WATER_PLANT, Material.BAMBOO, Material.BAMBOO_SAPLING);
 	private static final int RANGE = 5;

@@ -10,7 +10,7 @@ package vazkii.botania.api.item;
 
 import net.minecraft.world.item.context.BlockPlaceContext;
 
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 
 /**
  * An Item that implements this can be placed by a Rannuncarpus.
@@ -21,5 +21,5 @@ public interface FlowerPlaceable {
 	 * @param ctx The placement context, aiming downwards towards the downward neighbor position
 	 * @return Whether the block was placed successfully
 	 */
-	boolean tryPlace(TileEntitySpecialFlower flower, BlockPlaceContext ctx);
+	boolean tryPlace(SpecialFlowerBlockEntity flower, BlockPlaceContext ctx);
 }

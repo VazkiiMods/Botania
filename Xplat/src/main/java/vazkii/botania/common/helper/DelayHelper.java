@@ -10,9 +10,9 @@ package vazkii.botania.common.helper;
 
 import net.minecraft.world.entity.item.ItemEntity;
 
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 public class DelayHelper {
@@ -22,7 +22,7 @@ public class DelayHelper {
 	/**
 	 * Like {@link #canInteractWith}, but does not use inherent delay
 	 */
-	public static boolean canInteractWithImmediate(TileEntitySpecialFlower tile, ItemEntity item) {
+	public static boolean canInteractWithImmediate(SpecialFlowerBlockEntity tile, ItemEntity item) {
 		return item.isAlive() && !item.getItem().isEmpty()
 				&& IXplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter > tile.getModulatedDelay();
 	}
@@ -31,15 +31,15 @@ public class DelayHelper {
 	 * @return Whether the given flower can act on the given item, taking into account inherent delay and modulating
 	 *         delay
 	 */
-	public static boolean canInteractWith(TileEntitySpecialFlower tile, ItemEntity item) {
+	public static boolean canInteractWith(SpecialFlowerBlockEntity tile, ItemEntity item) {
 		if (!item.isAlive() || item.getItem().isEmpty()) {
 			return false;
 		}
 		var flags = IXplatAbstractions.INSTANCE.itemFlagsComponent(item);
 		int inherentDelay = 0;
-		if (tile instanceof TileEntityFunctionalFlower) {
+		if (tile instanceof FunctionalFlowerBlockEntity) {
 			inherentDelay = FUNCTIONAL_INHERENT_DELAY;
-		} else if (tile instanceof TileEntityGeneratingFlower) {
+		} else if (tile instanceof GeneratingFlowerBlockEntity) {
 			inherentDelay = GENERATING_INHERENT_DELAY;
 		}
 		return flags.timeCounter > inherentDelay + tile.getModulatedDelay();

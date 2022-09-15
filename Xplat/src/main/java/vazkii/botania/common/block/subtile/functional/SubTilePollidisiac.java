@@ -15,15 +15,15 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
 
 import java.util.List;
 
-public class SubTilePollidisiac extends TileEntityFunctionalFlower {
+public class SubTilePollidisiac extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 6;
 	private static final int MANA_COST = 12;
 

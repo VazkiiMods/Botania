@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.subtile;
+package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,7 +30,7 @@ import java.util.Objects;
  * such as generating flowers to mana collectors, or functional flowers to pools.
  * Implements the bindability logic common to both types of flower.
  */
-public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpecialFlower implements WandBindable {
+public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerBlockEntity implements WandBindable {
 	/**
 	 * Superclass (or interface) of all BlockEntities that this flower is able to bind to.
 	 */
@@ -39,7 +39,7 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 	protected @Nullable BlockPos bindingPos = null;
 	private static final String TAG_BINDING = "binding";
 
-	public TileEntityBindableSpecialFlower(BlockEntityType<?> type, BlockPos pos, BlockState state, Class<T> bindClass) {
+	public BindableSpecialFlowerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Class<T> bindClass) {
 		super(type, pos, state);
 		this.bindClass = bindClass;
 	}
@@ -147,7 +147,7 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 		if (cmp.contains(TAG_BINDING)) {
 			bindingPos = NbtUtils.readBlockPos(cmp.getCompound(TAG_BINDING));
 		} else {
-			//In older versions of the mod (1.16, early 1.17), TileEntityGeneratingFlower and TileEntitySpecialFlower
+			//In older versions of the mod (1.16, early 1.17), GeneratingFlowerBlockEntity and SpecialFlowerBlockEntity
 			//implemented their own copies of the binding logic. Read data from the old locations.
 			if (cmp.contains("collectorX")) {
 				bindingPos = new BlockPos(cmp.getInt("collectorX"), cmp.getInt("collectorY"), cmp.getInt("collectorZ"));

@@ -20,8 +20,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
@@ -30,7 +30,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.Set;
 
-public class SubTileTigerseye extends TileEntityFunctionalFlower {
+public class SubTileTigerseye extends FunctionalFlowerBlockEntity {
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
 	private static final int COST = 70;

@@ -12,14 +12,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.mana.ManaPool;
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class SubTileManastar extends TileEntitySpecialFlower {
+public class SubTileManastar extends SpecialFlowerBlockEntity {
 	private static final int SET_STATE_EVENT = 0;
 	private static final int NONE = 0, DECREASING = 1, INCREASING = 2;
 

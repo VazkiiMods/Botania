@@ -20,15 +20,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.phys.AABB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public class SubTileNarslimmus extends TileEntityGeneratingFlower {
+public class SubTileNarslimmus extends GeneratingFlowerBlockEntity {
 
 	private static final int RANGE = 2;
 	private static final int MAX_MANA = manaForSize(4);

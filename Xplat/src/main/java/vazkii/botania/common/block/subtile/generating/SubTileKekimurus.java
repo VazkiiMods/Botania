@@ -16,11 +16,11 @@ import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.ModSubtiles;
 
-public class SubTileKekimurus extends TileEntityGeneratingFlower {
+public class SubTileKekimurus extends GeneratingFlowerBlockEntity {
 	private static final int RANGE = 5;
 
 	public SubTileKekimurus(BlockPos pos, BlockState state) {

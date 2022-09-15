@@ -25,8 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.state.enums.LuminizerVariant;
-import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;

@@ -22,15 +22,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
 import java.util.function.Supplier;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
-	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
+	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 
-	public BlockFloatingSpecialFlower(Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
+	public BlockFloatingSpecialFlower(Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
 		super(DyeColor.WHITE, props);
 		this.blockEntityType = blockEntityType;
 	}
@@ -42,13 +42,13 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		((TileEntitySpecialFlower) world.getBlockEntity(pos)).setPlacedBy(world, pos, state, entity, stack);
+		((SpecialFlowerBlockEntity) world.getBlockEntity(pos)).setPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		TileEntitySpecialFlower te = blockEntityType.get().create(pos, state);
+		SpecialFlowerBlockEntity te = blockEntityType.get().create(pos, state);
 		te.setFloating(true);
 		return te;
 	}
@@ -56,6 +56,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
-		return createTickerHelper(type, blockEntityType.get(), TileEntitySpecialFlower::commonTick);
+		return createTickerHelper(type, blockEntityType.get(), SpecialFlowerBlockEntity::commonTick);
 	}
 }

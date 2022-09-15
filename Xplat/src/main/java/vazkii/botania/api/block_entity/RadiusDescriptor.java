@@ -6,13 +6,13 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.subtile;
+package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
 
 /**
- * This object describes the Radius of a SubTileEntity. It can either be
+ * This object describes the Radius of a BlockEntity. It can either be
  * a circle or rectangle.
  */
 public sealed interface RadiusDescriptor permits RadiusDescriptor.Circle,RadiusDescriptor.Rectangle {

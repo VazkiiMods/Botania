@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
+import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.item.ModItems;
@@ -134,9 +134,9 @@ public class BindingTest {
 		String message = absoluteBindTarget == null ? "Flower should not have bound" : "Flower should have bound to " + absoluteBindTarget;
 
 		BlockEntity be = TestingUtil.assertAnyBlockEntity(helper, relativePos);
-		if (be instanceof TileEntityGeneratingFlower tege) {
+		if (be instanceof GeneratingFlowerBlockEntity tege) {
 			TestingUtil.assertEqualsAt(helper, relativePos, tege.getBinding(), absoluteBindTarget, () -> message);
-		} else if (be instanceof TileEntityFunctionalFlower tefe) {
+		} else if (be instanceof FunctionalFlowerBlockEntity tefe) {
 			TestingUtil.assertEqualsAt(helper, relativePos, tefe.getBinding(), absoluteBindTarget, () -> message);
 		} else {
 			TestingUtil.throwPositionedAssertion(helper, relativePos, () -> "Expected a flower here");
