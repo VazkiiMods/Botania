@@ -40,7 +40,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class BoundTileRenderer {
+public final class BoundBlockRenderer {
 	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(() -> {
 		Map<RenderType, BufferBuilder> ret = new IdentityHashMap<>();
 		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.bufferSize()));
@@ -50,7 +50,7 @@ public final class BoundTileRenderer {
 		return ret;
 	}), Tesselator.getInstance().getBuilder());
 
-	private BoundTileRenderer() {}
+	private BoundBlockRenderer() {}
 
 	public static void onWorldRenderLast(Camera camera, PoseStack ms, Level level) {
 		Player player = Minecraft.getInstance().player;
