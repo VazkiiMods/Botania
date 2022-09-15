@@ -15,16 +15,16 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.common.item.ModItems;
 
-public class ItemVial extends Item implements BrewContainer {
+public class VialItem extends Item implements BrewContainer {
 
-	public ItemVial(Properties builder) {
+	public VialItem(Properties builder) {
 		super(builder);
 	}
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
 		ItemStack brewStack = new ItemStack(stack.is(ModItems.flask) ? ModItems.brewFlask : ModItems.brewVial);
-		ItemBrewBase.setBrew(brewStack, brew);
+		BaseBrewItem.setBrew(brewStack, brew);
 		return brewStack;
 	}
 

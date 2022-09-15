@@ -29,12 +29,12 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 
 import java.util.List;
 
-public class ItemIncenseStick extends Item implements BrewItem, BrewContainer {
+public class IncenseStickItem extends Item implements BrewItem, BrewContainer {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
 
-	public ItemIncenseStick(Properties builder) {
+	public IncenseStickItem(Properties builder) {
 		super(builder);
 	}
 
@@ -60,7 +60,7 @@ public class ItemIncenseStick extends Item implements BrewItem, BrewContainer {
 		}
 
 		list.add(Component.translatable("botaniamisc.brewOf", Component.translatable(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
-		ItemBrewBase.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
+		BaseBrewItem.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
 	}
 
 	@Override

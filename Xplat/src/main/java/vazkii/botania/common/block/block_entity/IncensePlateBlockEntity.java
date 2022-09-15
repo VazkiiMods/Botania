@@ -33,7 +33,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.brew.ItemIncenseStick;
+import vazkii.botania.common.item.brew.IncenseStickItem;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 				self.spawnSmokeParticles();
 			}
 
-			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
+			Brew brew = ((IncenseStickItem) ModItems.incenseStick).getBrew(stack);
 			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			if (self.timeLeft > 0) {
 				self.timeLeft--;
@@ -140,8 +140,8 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 
 		burning = true;
-		Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
-		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * ItemIncenseStick.TIME_MULTIPLIER;
+		Brew brew = ((IncenseStickItem) ModItems.incenseStick).getBrew(stack);
+		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * IncenseStickItem.TIME_MULTIPLIER;
 	}
 
 	@Override
@@ -159,7 +159,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	}
 
 	public boolean acceptsItem(ItemStack stack) {
-		return !stack.isEmpty() && stack.is(ModItems.incenseStick) && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != BotaniaBrews.fallbackBrew;
+		return !stack.isEmpty() && stack.is(ModItems.incenseStick) && ((IncenseStickItem) ModItems.incenseStick).getBrew(stack) != BotaniaBrews.fallbackBrew;
 	}
 
 	@Override

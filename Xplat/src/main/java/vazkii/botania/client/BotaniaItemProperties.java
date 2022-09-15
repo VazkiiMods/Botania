@@ -12,7 +12,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.*;
-import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
@@ -64,7 +64,7 @@ public final class BotaniaItemProperties {
 		consumer.accept(BotaniaBlocks.fabulousPool, poolFullId, poolFull);
 
 		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
-			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
+			BaseBrewItem item = ((BaseBrewItem) stack.getItem());
 			return item.getSwigs() - item.getSwigsLeft(stack);
 		};
 		consumer.accept(ModItems.brewVial, prefix("swigs_taken"), brewGetter);

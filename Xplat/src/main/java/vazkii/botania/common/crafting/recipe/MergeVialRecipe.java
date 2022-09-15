@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.item.brew.BaseBrewItem;
 
 import java.util.Objects;
 
@@ -42,7 +42,7 @@ public class MergeVialRecipe extends CustomRecipe {
 				continue;
 			}
 
-			if (!(stack.getItem() instanceof ItemBrewBase vial)) {
+			if (!(stack.getItem() instanceof BaseBrewItem vial)) {
 				return false;
 			}
 
@@ -61,7 +61,7 @@ public class MergeVialRecipe extends CustomRecipe {
 	@Override
 	public ItemStack assemble(CraftingContainer inv) {
 		ItemStack firstStack = ItemStack.EMPTY;
-		ItemBrewBase brew = null;
+		BaseBrewItem brew = null;
 		int swigs = 0;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -72,7 +72,7 @@ public class MergeVialRecipe extends CustomRecipe {
 
 			if (brew == null) {
 				firstStack = stack.copy();
-				brew = ((ItemBrewBase) stack.getItem());
+				brew = ((BaseBrewItem) stack.getItem());
 			}
 			swigs += brew.getSwigsLeft(stack);
 			if (swigs >= brew.getSwigs()) {
@@ -99,7 +99,7 @@ public class MergeVialRecipe extends CustomRecipe {
 				continue;
 			}
 
-			ItemBrewBase brew = ((ItemBrewBase) stack.getItem());
+			BaseBrewItem brew = ((BaseBrewItem) stack.getItem());
 			if (!foundFirst) {
 				foundFirst = true;
 				swigs = brew.getSwigsLeft(stack);

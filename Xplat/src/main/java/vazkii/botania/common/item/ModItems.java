@@ -30,9 +30,9 @@ import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.item.brew.ItemBrewBase;
-import vazkii.botania.common.item.brew.ItemIncenseStick;
-import vazkii.botania.common.item.brew.ItemVial;
+import vazkii.botania.common.item.brew.BaseBrewItem;
+import vazkii.botania.common.item.brew.IncenseStickItem;
+import vazkii.botania.common.item.brew.VialItem;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
@@ -348,12 +348,12 @@ public final class ModItems {
 	public static final Item pinkinator = make(prefix(LibItemNames.PINKINATOR), new ItemPinkinator(unstackable().rarity(Rarity.UNCOMMON)));
 
 	// Brewing
-	public static final Item vial = make(prefix(LibItemNames.VIAL), new ItemVial(defaultBuilder()));
-	public static final Item flask = make(prefix(LibItemNames.FLASK), new ItemVial(defaultBuilder()));
-	public static final Item brewVial = make(prefix(LibItemNames.BREW_VIAL), new ItemBrewBase(unstackable(), 4, 32, () -> vial));
-	public static final Item brewFlask = make(prefix(LibItemNames.BREW_FLASK), new ItemBrewBase(unstackable(), 6, 24, () -> flask));
+	public static final Item vial = make(prefix(LibItemNames.VIAL), new VialItem(defaultBuilder()));
+	public static final Item flask = make(prefix(LibItemNames.FLASK), new VialItem(defaultBuilder()));
+	public static final Item brewVial = make(prefix(LibItemNames.BREW_VIAL), new BaseBrewItem(unstackable(), 4, 32, () -> vial));
+	public static final Item brewFlask = make(prefix(LibItemNames.BREW_FLASK), new BaseBrewItem(unstackable(), 6, 24, () -> flask));
 	public static final Item bloodPendant = make(prefix(LibItemNames.BLOOD_PENDANT), new ItemBloodPendant(unstackable()));
-	public static final Item incenseStick = make(prefix(LibItemNames.INCENSE_STICK), new ItemIncenseStick(unstackable()));
+	public static final Item incenseStick = make(prefix(LibItemNames.INCENSE_STICK), new IncenseStickItem(unstackable()));
 
 	// Cosmetics
 	public static final Item blackBowtie = make(prefix(LibItemNames.COSMETIC_PREFIX + "black_bowtie"), new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.BLACK_BOWTIE, unstackable()));

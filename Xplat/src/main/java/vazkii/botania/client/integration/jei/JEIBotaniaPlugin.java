@@ -60,7 +60,7 @@ import vazkii.botania.common.item.ItemLaputaShard;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -78,7 +78,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
-		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> ItemBrewBase.getSubtype(stack);
+		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> BaseBrewItem.getSubtype(stack);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.brewVial, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.brewFlask, interpreter);
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModItems.incenseStick, interpreter);

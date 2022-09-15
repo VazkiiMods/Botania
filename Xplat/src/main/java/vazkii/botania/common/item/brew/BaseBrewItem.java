@@ -50,7 +50,7 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ItemBrewBase extends Item implements BrewItem {
+public class BaseBrewItem extends Item implements BrewItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
@@ -59,7 +59,7 @@ public class ItemBrewBase extends Item implements BrewItem {
 	private final int drinkSpeed;
 	private final Supplier<Item> baseItem;
 
-	public ItemBrewBase(Properties builder, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
+	public BaseBrewItem(Properties builder, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
 		super(builder);
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
