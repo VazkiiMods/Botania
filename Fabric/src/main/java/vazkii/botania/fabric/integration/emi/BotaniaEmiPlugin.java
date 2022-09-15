@@ -19,14 +19,14 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.recipe.IBrewRecipe;
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
-import vazkii.botania.api.recipe.IManaInfusionRecipe;
-import vazkii.botania.api.recipe.IOrechidRecipe;
-import vazkii.botania.api.recipe.IPetalRecipe;
-import vazkii.botania.api.recipe.IPureDaisyRecipe;
-import vazkii.botania.api.recipe.IRuneAltarRecipe;
-import vazkii.botania.api.recipe.ITerraPlateRecipe;
+import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
+import vazkii.botania.api.recipe.ManaInfusionRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.api.recipe.PetalApothecaryRecipe;
+import vazkii.botania.api.recipe.PureDaisyRecipe;
+import vazkii.botania.api.recipe.RunicAltarRecipe;
+import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -151,54 +151,54 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(ModItems.terraPick),
 				EmiStack.of(ModItems.elementiumPick)), EmiStack.of(tipped), null));
 
-		for (IPetalRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.PETAL_TYPE)) {
+		for (PetalApothecaryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.PETAL_TYPE)) {
 			registry.addRecipe(new PetalApothecaryEmiRecipe(recipe));
 		}
-		for (IManaInfusionRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.MANA_INFUSION_TYPE)) {
+		for (ManaInfusionRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.MANA_INFUSION_TYPE)) {
 			registry.addRecipe(new ManaInfusionEmiRecipe(recipe));
 		}
-		for (IRuneAltarRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.RUNE_TYPE)) {
+		for (RunicAltarRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.RUNE_TYPE)) {
 			registry.addRecipe(new RunicAltarEmiRecipe(recipe));
 		}
-		for (ITerraPlateRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.TERRA_PLATE_TYPE)) {
+		for (TerrestrialAgglomerationRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.TERRA_PLATE_TYPE)) {
 			registry.addRecipe(new TerrestrialAgglomerationEmiRecipe(recipe));
 		}
-		for (IElvenTradeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ELVEN_TRADE_TYPE)) {
+		for (ElvenTradeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ELVEN_TRADE_TYPE)) {
 			registry.addRecipe(new ElvenTradeEmiRecipe(recipe));
 		}
 		List<ItemStack> containers = List.of(ModItems.vial, ModItems.flask, ModItems.incenseStick, ModItems.bloodPendant)
 				.stream().map(ItemStack::new).toList();
-		for (IBrewRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.BREW_TYPE)) {
+		for (BotanicalBreweryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.BREW_TYPE)) {
 			for (ItemStack container : containers) {
 				if (!recipe.getOutput(container.copy()).isEmpty()) {
 					registry.addRecipe(new BotanicalBreweryEmiRecipe(recipe, container));
 				}
 			}
 		}
-		for (IPureDaisyRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.PURE_DAISY_TYPE)) {
+		for (PureDaisyRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.PURE_DAISY_TYPE)) {
 			registry.addRecipe(new PureDaisyEmiRecipe(recipe));
 		}
 
 		Object2IntMap<Block> weights = getWeights(ModRecipeTypes.ORECHID_TYPE, registry.getRecipeManager());
 		EmiIngredient flower = EmiStack.of(ModSubtiles.orechid);
-		for (IOrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ORECHID_TYPE)) {
+		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ORECHID_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, weights.getInt(recipe.getInput()), flower));
 		}
 		weights = getWeights(ModRecipeTypes.ORECHID_IGNEM_TYPE, registry.getRecipeManager());
 		flower = EmiStack.of(ModSubtiles.orechidIgnem);
-		for (IOrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ORECHID_IGNEM_TYPE)) {
+		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ORECHID_IGNEM_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, weights.getInt(recipe.getInput()), flower));
 		}
 		weights = getWeights(ModRecipeTypes.MARIMORPHOSIS_TYPE, registry.getRecipeManager());
 		flower = EmiStack.of(ModSubtiles.marimorphosis);
-		for (IOrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.MARIMORPHOSIS_TYPE)) {
+		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipeTypes.MARIMORPHOSIS_TYPE)) {
 			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, weights.getInt(recipe.getInput()), flower));
 		}
 	}
 
-	public static Object2IntMap<Block> getWeights(RecipeType<? extends IOrechidRecipe> type, RecipeManager manager) {
+	public static Object2IntMap<Block> getWeights(RecipeType<? extends OrechidRecipe> type, RecipeManager manager) {
 		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
-		for (IOrechidRecipe recipe : manager.getAllRecipesFor(type)) {
+		for (OrechidRecipe recipe : manager.getAllRecipesFor(type)) {
 			map.addTo(recipe.getInput(), recipe.getWeight());
 		}
 		return map;

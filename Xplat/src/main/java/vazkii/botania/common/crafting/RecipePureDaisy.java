@@ -26,11 +26,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.IPureDaisyRecipe;
+import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
-public class RecipePureDaisy implements IPureDaisyRecipe {
+public class RecipePureDaisy implements PureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 

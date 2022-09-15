@@ -13,12 +13,12 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
-public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<IElvenTradeRecipe> {
+public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<ElvenTradeRecipe> {
 
-	public ElvenTradeREIDisplay(IElvenTradeRecipe recipe) {
+	public ElvenTradeREIDisplay(ElvenTradeRecipe recipe) {
 		super(recipe);
 		this.outputs = EntryIngredients.ofItemStacks(recipe.getOutputs());
 	}

@@ -34,8 +34,8 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.recipe.ICustomApothecaryColor;
-import vazkii.botania.api.recipe.IPetalRecipe;
+import vazkii.botania.api.recipe.CustomApothecaryColor;
+import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.gui.HUDHandler;
@@ -99,7 +99,7 @@ public class TileAltar extends TileSimpleInventory implements PetalApothecary {
 		}
 
 		if (SEED_PATTERN.matcher(stack.getDescriptionId()).find()) {
-			Optional<IPetalRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
+			Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
 			maybeRecipe.ifPresent(recipe -> {
 				saveLastRecipe();
 				ItemStack output = recipe.assemble(getItemHandler());
@@ -139,9 +139,9 @@ public class TileAltar extends TileSimpleInventory implements PetalApothecary {
 	}
 
 	@Nullable
-	private ICustomApothecaryColor getFlowerComponent(ItemStack stack) {
-		ICustomApothecaryColor c = null;
-		if (stack.getItem() instanceof ICustomApothecaryColor color) {
+	private CustomApothecaryColor getFlowerComponent(ItemStack stack) {
+		CustomApothecaryColor c = null;
+		if (stack.getItem() instanceof CustomApothecaryColor color) {
 			c = color;
 		}
 		return c;
@@ -238,7 +238,7 @@ public class TileAltar extends TileSimpleInventory implements PetalApothecary {
 			}
 
 			if (Math.random() >= 0.97) {
-				ICustomApothecaryColor comp = self.getFlowerComponent(stackAt);
+				CustomApothecaryColor comp = self.getFlowerComponent(stackAt);
 
 				int color = comp == null ? 0x888888 : comp.getParticleColor(stackAt);
 				float red = (color >> 16 & 0xFF) / 255F;
@@ -328,7 +328,7 @@ public class TileAltar extends TileSimpleInventory implements PetalApothecary {
 			if (amt > 0) {
 				float anglePer = 360F / amt;
 
-				Optional<IPetalRecipe> maybeRecipe = altar.level.getRecipeManager()
+				Optional<PetalApothecaryRecipe> maybeRecipe = altar.level.getRecipeManager()
 						.getRecipeFor(ModRecipeTypes.PETAL_TYPE, altar.getItemHandler(), altar.level);
 				maybeRecipe.ifPresent(recipe -> {
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);

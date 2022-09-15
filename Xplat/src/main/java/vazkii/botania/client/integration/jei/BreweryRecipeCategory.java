@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IBrewRecipe;
+import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -36,9 +36,9 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
+public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRecipe> {
 
-	public static final RecipeType<IBrewRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "brewery", IBrewRecipe.class);
+	public static final RecipeType<BotanicalBreweryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "brewery", BotanicalBreweryRecipe.class);
 	private final IDrawableStatic background;
 	private final IDrawable icon;
 	private final Component localizedName;
@@ -52,7 +52,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 
 	@NotNull
 	@Override
-	public RecipeType<IBrewRecipe> getRecipeType() {
+	public RecipeType<BotanicalBreweryRecipe> getRecipeType() {
 		return TYPE;
 	}
 
@@ -75,7 +75,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IBrewRecipe recipe, @NotNull IFocusGroup focuses) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull BotanicalBreweryRecipe recipe, @NotNull IFocusGroup focuses) {
 		List<ItemStack> outputs = new ArrayList<>();
 		List<ItemStack> containers = new ArrayList<>();
 

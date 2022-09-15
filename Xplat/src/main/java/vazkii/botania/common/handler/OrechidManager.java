@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
@@ -28,7 +28,7 @@ import java.util.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class OrechidManager implements ResourceManagerReloadListener {
-	private static final Map<RecipeType<? extends IOrechidRecipe>, ListMultimap<Block, ? extends IOrechidRecipe>> DATA = new HashMap<>();
+	private static final Map<RecipeType<? extends OrechidRecipe>, ListMultimap<Block, ? extends OrechidRecipe>> DATA = new HashMap<>();
 
 	public static void registerListener() {
 		IXplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("orechid"), new OrechidManager());
@@ -39,15 +39,15 @@ public class OrechidManager implements ResourceManagerReloadListener {
 		DATA.clear();
 	}
 
-	public static ListMultimap<Block, ? extends IOrechidRecipe> getFor(RecipeManager manager,
-			RecipeType<? extends IOrechidRecipe> type) {
+	public static ListMultimap<Block, ? extends OrechidRecipe> getFor(RecipeManager manager,
+			RecipeType<? extends OrechidRecipe> type) {
 		return DATA.computeIfAbsent(type, t -> {
-			ListMultimap<Block, IOrechidRecipe> map = ArrayListMultimap.create();
+			ListMultimap<Block, OrechidRecipe> map = ArrayListMultimap.create();
 			for (var recipe : manager.getAllRecipesFor(t)) {
 				map.put(recipe.getInput(), recipe);
 			}
 			for (var list : map.asMap().values()) {
-				((List<IOrechidRecipe>) list).sort(Comparator.comparingInt(IOrechidRecipe::getWeight));
+				((List<OrechidRecipe>) list).sort(Comparator.comparingInt(OrechidRecipe::getWeight));
 			}
 			return map;
 		});

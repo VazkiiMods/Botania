@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.recipe.IBrewRecipe;
+import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class BrewRecipeProcessor implements IComponentProcessor {
-	private IBrewRecipe recipe;
+	private BotanicalBreweryRecipe recipe;
 
 	@Override
 	public void setup(IVariableProvider variables) {

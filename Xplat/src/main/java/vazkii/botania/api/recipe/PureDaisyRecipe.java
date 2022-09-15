@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
-public interface IPureDaisyRecipe extends Recipe<Container> {
+public interface PureDaisyRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "pure_daisy");
 
 	/**

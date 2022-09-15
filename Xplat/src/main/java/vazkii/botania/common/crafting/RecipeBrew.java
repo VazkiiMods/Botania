@@ -29,14 +29,14 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewContainer;
-import vazkii.botania.api.recipe.IBrewRecipe;
+import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RecipeBrew implements IBrewRecipe {
+public class RecipeBrew implements BotanicalBreweryRecipe {
 	private final ResourceLocation id;
 	private final Brew brew;
 	private final NonNullList<Ingredient> inputs;

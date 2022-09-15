@@ -18,14 +18,14 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = prefix("textures/gui/elven_trade_overlay.png");
 
-	public ElvenTradeEmiRecipe(IElvenTradeRecipe recipe) {
+	public ElvenTradeEmiRecipe(ElvenTradeRecipe recipe) {
 		super(BotaniaEmiPlugin.ELVEN_TRADE, recipe);
 		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
 		this.output = recipe.getOutputs().stream().map(EmiStack::of).toList();

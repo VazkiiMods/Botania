@@ -11,7 +11,7 @@ package vazkii.botania.client.patchouli.processor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import vazkii.botania.api.recipe.ITerraPlateRecipe;
+import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
@@ -21,7 +21,7 @@ import vazkii.patchouli.api.IVariableProvider;
 import java.util.List;
 
 public class TerraPlateProcessor implements IComponentProcessor {
-	private ITerraPlateRecipe recipe;
+	private TerrestrialAgglomerationRecipe recipe;
 
 	@Override
 	public void setup(IVariableProvider variables) {

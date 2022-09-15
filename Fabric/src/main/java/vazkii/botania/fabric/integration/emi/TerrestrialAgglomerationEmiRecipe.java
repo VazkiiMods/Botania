@@ -4,7 +4,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 
-import vazkii.botania.api.recipe.ITerraPlateRecipe;
+import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
@@ -14,7 +14,7 @@ public class TerrestrialAgglomerationEmiRecipe extends BotaniaEmiRecipe {
 	private static final EmiStack PLATE = EmiStack.of(ModBlocks.terraPlate);
 	private final int mana;
 
-	public TerrestrialAgglomerationEmiRecipe(ITerraPlateRecipe recipe) {
+	public TerrestrialAgglomerationEmiRecipe(TerrestrialAgglomerationRecipe recipe) {
 		super(BotaniaEmiPlugin.TERRESTRIAL_AGGLOMERATION, recipe);
 		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
 		this.output = List.of(EmiStack.of(recipe.getResultItem()));

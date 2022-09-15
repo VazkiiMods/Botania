@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -85,7 +85,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	@Nullable
 	private BlockState getOreToPut(BlockPos coords, BlockState state) {
 		List<Output> values = new ArrayList<>();
-		for (IOrechidRecipe recipe : OrechidManager.getFor(getLevel().getRecipeManager(), getRecipeType())
+		for (OrechidRecipe recipe : OrechidManager.getFor(getLevel().getRecipeManager(), getRecipeType())
 				.get(state.getBlock())) {
 			Output output = new Output(recipe, recipe.getWeight(getLevel(), coords));
 			values.add(output);
@@ -98,9 +98,9 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	private static class Output implements WeightedEntry {
 		private final Weight weight;
-		private final IOrechidRecipe recipe;
+		private final OrechidRecipe recipe;
 
-		public Output(IOrechidRecipe recipe, int weight) {
+		public Output(OrechidRecipe recipe, int weight) {
 			this.weight = Weight.of(weight);
 			this.recipe = recipe;
 		}
@@ -132,7 +132,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		return true;
 	}
 
-	public RecipeType<? extends IOrechidRecipe> getRecipeType() {
+	public RecipeType<? extends OrechidRecipe> getRecipeType() {
 		return ModRecipeTypes.ORECHID_TYPE;
 	}
 

@@ -26,10 +26,10 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.ITerraPlateRecipe;
+import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
-public class RecipeTerraPlate implements ITerraPlateRecipe {
+public class RecipeTerraPlate implements TerrestrialAgglomerationRecipe {
 	private final ResourceLocation id;
 	private final int mana;
 	private final NonNullList<Ingredient> inputs;

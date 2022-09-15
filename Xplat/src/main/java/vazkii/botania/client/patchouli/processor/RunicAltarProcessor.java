@@ -10,7 +10,7 @@ package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.recipe.IRuneAltarRecipe;
+import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IVariable;
@@ -29,7 +29,7 @@ public class RunicAltarProcessor extends PetalApothecaryProcessor {
 			return super.process(key);
 		}
 		if (key.equals("mana")) {
-			return IVariable.wrap(((IRuneAltarRecipe) recipe).getManaUsage());
+			return IVariable.wrap(((RunicAltarRecipe) recipe).getManaUsage());
 		}
 		return super.process(key);
 	}

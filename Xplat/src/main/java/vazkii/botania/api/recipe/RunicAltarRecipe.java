@@ -11,40 +11,22 @@ package vazkii.botania.api.recipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.brew.Brew;
 
-public interface IBrewRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "brew");
-
-	Brew getBrew();
+public interface RunicAltarRecipe extends Recipe<Container> {
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "runic_altar");
 
 	int getManaUsage();
-
-	ItemStack getOutput(ItemStack container);
 
 	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
-	}
-
-	@NotNull
-	@Override
-	default ItemStack getResultItem() {
-		return ItemStack.EMPTY;
-	}
-
-	@NotNull
-	@Override
-	default ItemStack assemble(@NotNull Container inv) {
-		return ItemStack.EMPTY;
 	}
 
 	@Override

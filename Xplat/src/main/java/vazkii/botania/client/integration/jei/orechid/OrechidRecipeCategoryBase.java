@@ -30,14 +30,14 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.handler.OrechidManager;
 
 import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public abstract class OrechidRecipeCategoryBase<T extends IOrechidRecipe> implements IRecipeCategory<T> {
+public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> implements IRecipeCategory<T> {
 
 	private final IDrawableStatic background;
 	private final Component localizedName;
@@ -72,21 +72,21 @@ public abstract class OrechidRecipeCategoryBase<T extends IOrechidRecipe> implem
 		return icon;
 	}
 
-	public static float getTotalOreWeight(List<? extends IOrechidRecipe> weights, int myWeight) {
+	public static float getTotalOreWeight(List<? extends OrechidRecipe> weights, int myWeight) {
 		return weights.stream()
-				.map(IOrechidRecipe::getWeight)
+				.map(OrechidRecipe::getWeight)
 				.reduce(Integer::sum).orElse(myWeight * 64 * 64);
 	}
 
 	protected abstract RecipeType<T> recipeType();
 
-	protected List<? extends IOrechidRecipe> getOreWeights(Block input) {
-		ListMultimap<Block, ? extends IOrechidRecipe> multimap = OrechidManager.getFor(Minecraft.getInstance().level.getRecipeManager(), recipeType());
+	protected List<? extends OrechidRecipe> getOreWeights(Block input) {
+		ListMultimap<Block, ? extends OrechidRecipe> multimap = OrechidManager.getFor(Minecraft.getInstance().level.getRecipeManager(), recipeType());
 		return multimap.get(input);
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IOrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull OrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 9, 12).addItemStack(new ItemStack(recipe.getInput(), 64));
 		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12).addItemStack(iconStack);
 
@@ -104,7 +104,7 @@ public abstract class OrechidRecipeCategoryBase<T extends IOrechidRecipe> implem
 	}
 
 	@Override
-	public void draw(@NotNull IOrechidRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 17, 0);
 		RenderSystem.disableBlend();

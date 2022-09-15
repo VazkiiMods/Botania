@@ -35,7 +35,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
-import vazkii.botania.api.recipe.ITerraPlateRecipe;
+import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
@@ -88,7 +88,7 @@ public class TileTerraPlate extends TileMod implements SparkAttachable, ManaRece
 			List<ItemStack> items = self.getItems();
 			SimpleContainer inv = self.getInventory();
 
-			ITerraPlateRecipe recipe = self.getCurrentRecipe(inv);
+			TerrestrialAgglomerationRecipe recipe = self.getCurrentRecipe(inv);
 			if (recipe != null) {
 				removeMana = false;
 				ManaSpark spark = self.getAttachedSpark();
@@ -175,7 +175,7 @@ public class TileTerraPlate extends TileMod implements SparkAttachable, ManaRece
 	}
 
 	@Nullable
-	private ITerraPlateRecipe getCurrentRecipe(SimpleContainer items) {
+	private TerrestrialAgglomerationRecipe getCurrentRecipe(SimpleContainer items) {
 		if (items.isEmpty()) {
 			return null;
 		}
@@ -217,7 +217,7 @@ public class TileTerraPlate extends TileMod implements SparkAttachable, ManaRece
 
 	@Override
 	public boolean isFull() {
-		ITerraPlateRecipe recipe = getCurrentRecipe(getInventory());
+		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory());
 		return recipe == null || getCurrentMana() >= recipe.getMana();
 	}
 
@@ -255,12 +255,12 @@ public class TileTerraPlate extends TileMod implements SparkAttachable, ManaRece
 
 	@Override
 	public int getAvailableSpaceForMana() {
-		ITerraPlateRecipe recipe = getCurrentRecipe(getInventory());
+		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory());
 		return recipe == null ? 0 : Math.max(0, recipe.getMana() - getCurrentMana());
 	}
 
 	public float getCompletion() {
-		ITerraPlateRecipe recipe = getCurrentRecipe(getInventory());
+		TerrestrialAgglomerationRecipe recipe = getCurrentRecipe(getInventory());
 		if (recipe == null) {
 			return 0;
 		}

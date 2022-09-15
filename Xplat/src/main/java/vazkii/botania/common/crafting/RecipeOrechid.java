@@ -21,10 +21,10 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 
-public class RecipeOrechid implements IOrechidRecipe {
+public class RecipeOrechid implements OrechidRecipe {
 	private final ResourceLocation id;
 	private final Block input;
 	private final StateIngredient output;

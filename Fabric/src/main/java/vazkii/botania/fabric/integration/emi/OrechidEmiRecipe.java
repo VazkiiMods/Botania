@@ -7,14 +7,14 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 
 import java.util.List;
 
 public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 	private final EmiIngredient orechid;
 
-	public OrechidEmiRecipe(EmiRecipeCategory category, IOrechidRecipe recipe, int totalWeight, EmiIngredient orechid) {
+	public OrechidEmiRecipe(EmiRecipeCategory category, OrechidRecipe recipe, int totalWeight, EmiIngredient orechid) {
 		super(category, recipe);
 		final int weight = recipe.getWeight();
 		final int amount = Math.max(1, Math.round((float) (weight * 64) / totalWeight));

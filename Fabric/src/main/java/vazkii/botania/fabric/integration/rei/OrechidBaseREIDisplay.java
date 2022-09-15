@@ -16,13 +16,13 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class OrechidBaseREIDisplay<T extends IOrechidRecipe> implements Display {
+public abstract class OrechidBaseREIDisplay<T extends OrechidRecipe> implements Display {
 	private final List<EntryIngredient> stone;
 	private final List<EntryIngredient> ores;
 

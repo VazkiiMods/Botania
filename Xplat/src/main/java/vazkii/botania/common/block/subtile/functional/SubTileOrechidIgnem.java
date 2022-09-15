@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 
@@ -29,7 +29,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 	}
 
 	@Override
-	public RecipeType<? extends IOrechidRecipe> getRecipeType() {
+	public RecipeType<? extends OrechidRecipe> getRecipeType() {
 		return ModRecipeTypes.ORECHID_IGNEM_TYPE;
 	}
 

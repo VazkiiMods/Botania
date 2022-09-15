@@ -25,13 +25,13 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.Objects;
 
-public class RecipeManaInfusion implements IManaInfusionRecipe {
+public class RecipeManaInfusion implements ManaInfusionRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final Ingredient input;

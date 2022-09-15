@@ -7,7 +7,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -27,7 +27,7 @@ public class ManaInfusionEmiRecipe extends BotaniaEmiRecipe {
 		POOL = EmiStack.of(stack);
 	}
 
-	public ManaInfusionEmiRecipe(IManaInfusionRecipe recipe) {
+	public ManaInfusionEmiRecipe(ManaInfusionRecipe recipe) {
 		super(BotaniaEmiPlugin.MANA_INFUSION, recipe);
 		this.input = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
 		if (recipe.getRecipeCatalyst() != null) {

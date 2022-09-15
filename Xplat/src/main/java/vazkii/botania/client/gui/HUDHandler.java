@@ -34,7 +34,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
@@ -244,7 +244,7 @@ public final class HUDHandler {
 		ProfilerFiller profiler = mc.getProfiler();
 
 		profiler.push("poolRecipe");
-		IManaInfusionRecipe recipe = tile.getMatchingRecipe(stack, tile.getLevel().getBlockState(tile.getBlockPos().below()));
+		ManaInfusionRecipe recipe = tile.getMatchingRecipe(stack, tile.getLevel().getBlockState(tile.getBlockPos().below()));
 		if (recipe != null) {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 - 11;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;

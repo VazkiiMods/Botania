@@ -29,16 +29,16 @@ import net.minecraft.world.phys.Vec2;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.ITerraPlateRecipe;
+import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<ITerraPlateRecipe> {
-	public static final RecipeType<ITerraPlateRecipe> TYPE =
-			RecipeType.create(LibMisc.MOD_ID, "terra_plate", ITerraPlateRecipe.class);
+public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<TerrestrialAgglomerationRecipe> {
+	public static final RecipeType<TerrestrialAgglomerationRecipe> TYPE =
+			RecipeType.create(LibMisc.MOD_ID, "terra_plate", TerrestrialAgglomerationRecipe.class);
 
 	private final Component localizedName;
 	private final IDrawable background;
@@ -62,7 +62,7 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<I
 
 	@NotNull
 	@Override
-	public RecipeType<ITerraPlateRecipe> getRecipeType() {
+	public RecipeType<TerrestrialAgglomerationRecipe> getRecipeType() {
 		return TYPE;
 	}
 
@@ -85,7 +85,7 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<I
 	}
 
 	@Override
-	public void draw(@NotNull ITerraPlateRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull TerrestrialAgglomerationRecipe recipe, @NotNull IRecipeSlotsView view, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 25, 14);
 		HUDHandler.renderManaBar(ms, 6, 126, 0x0000FF, 0.75F, recipe.getMana(), 100000);
@@ -94,7 +94,7 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<I
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ITerraPlateRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull TerrestrialAgglomerationRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 37)
 				.addItemStack(recipe.getResultItem());
 

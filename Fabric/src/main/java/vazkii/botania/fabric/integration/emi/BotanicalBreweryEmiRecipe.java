@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.IBrewRecipe;
+import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -22,7 +22,7 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 	private final List<EmiIngredient> ingredients;
 	private final ResourceLocation id;
 
-	public BotanicalBreweryEmiRecipe(IBrewRecipe recipe, ItemStack container) {
+	public BotanicalBreweryEmiRecipe(BotanicalBreweryRecipe recipe, ItemStack container) {
 		super(BotaniaEmiPlugin.BOTANICAL_BREWERY, recipe);
 		this.ingredients = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
 		this.input = Stream.concat(Stream.of(EmiStack.of(container)), ingredients.stream()).toList();

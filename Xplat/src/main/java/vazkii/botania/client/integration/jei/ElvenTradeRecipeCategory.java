@@ -34,16 +34,16 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeRecipe> {
+public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecipe> {
 
-	public static final RecipeType<IElvenTradeRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "elven_trade", IElvenTradeRecipe.class);
+	public static final RecipeType<ElvenTradeRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "elven_trade", ElvenTradeRecipe.class);
 	private final Component localizedName;
 	private final IDrawable background;
 	private final IDrawable overlay;
@@ -58,7 +58,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 
 	@NotNull
 	@Override
-	public RecipeType<IElvenTradeRecipe> getRecipeType() {
+	public RecipeType<ElvenTradeRecipe> getRecipeType() {
 		return TYPE;
 	}
 
@@ -81,7 +81,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	}
 
 	@Override
-	public void draw(@NotNull IElvenTradeRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack matrices, double mouseX, double mouseY) {
+	public void draw(@NotNull ElvenTradeRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack matrices, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(matrices, 0, 4);
 		RenderSystem.disableBlend();
@@ -105,7 +105,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IElvenTradeRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ElvenTradeRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		int posX = 42;
 		for (var ingr : recipe.getIngredients()) {
 			builder.addSlot(RecipeIngredientRole.INPUT, posX, 0)

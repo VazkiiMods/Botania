@@ -26,13 +26,13 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IPetalRecipe;
+import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipePetals implements IPetalRecipe {
+public class RecipePetals implements PetalApothecaryRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final NonNullList<Ingredient> inputs;

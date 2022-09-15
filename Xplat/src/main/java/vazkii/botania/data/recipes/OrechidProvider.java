@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -112,13 +112,13 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static class Result implements net.minecraft.data.recipes.FinishedRecipe {
-		private final RecipeSerializer<? extends IOrechidRecipe> type;
+		private final RecipeSerializer<? extends OrechidRecipe> type;
 		private final ResourceLocation id;
 		private final Block input;
 		private final StateIngredient output;
 		private final int weight;
 
-		public Result(RecipeSerializer<? extends IOrechidRecipe> type, ResourceLocation id, Block input, StateIngredient output, int weight) {
+		public Result(RecipeSerializer<? extends OrechidRecipe> type, ResourceLocation id, Block input, StateIngredient output, int weight) {
 			this.type = type;
 			this.id = id;
 			this.input = input;
@@ -160,7 +160,7 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 		private final int bonusWeight;
 		private final TagKey<Biome> biome;
 
-		public BiomeResult(RecipeSerializer<? extends IOrechidRecipe> type, ResourceLocation id, Block input,
+		public BiomeResult(RecipeSerializer<? extends OrechidRecipe> type, ResourceLocation id, Block input,
 				StateIngredient output, int weight, int bonusWeight, TagKey<Biome> biome) {
 			super(type, id, input, output, weight);
 			this.bonusWeight = bonusWeight;

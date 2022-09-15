@@ -10,10 +10,10 @@ package vazkii.botania.fabric.integration.rei;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-import vazkii.botania.api.recipe.ITerraPlateRecipe;
+import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 
-public class TerrestrialAgglomerationREIDisplay extends BotaniaRecipeDisplay<ITerraPlateRecipe> {
-	public TerrestrialAgglomerationREIDisplay(ITerraPlateRecipe recipe) {
+public class TerrestrialAgglomerationREIDisplay extends BotaniaRecipeDisplay<TerrestrialAgglomerationRecipe> {
+	public TerrestrialAgglomerationREIDisplay(TerrestrialAgglomerationRecipe recipe) {
 		super(recipe);
 	}
 

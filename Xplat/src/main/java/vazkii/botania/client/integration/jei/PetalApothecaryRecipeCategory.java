@@ -28,15 +28,15 @@ import net.minecraft.world.phys.Vec2;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IPetalRecipe;
+import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalRecipe> {
+public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApothecaryRecipe> {
 
-	public static final RecipeType<IPetalRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", IPetalRecipe.class);
+	public static final RecipeType<PetalApothecaryRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "petals", PetalApothecaryRecipe.class);
 	private final IDrawableStatic background;
 	private final Component localizedName;
 	private final IDrawableStatic overlay;
@@ -52,7 +52,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 	@NotNull
 	@Override
-	public RecipeType<IPetalRecipe> getRecipeType() {
+	public RecipeType<PetalApothecaryRecipe> getRecipeType() {
 		return TYPE;
 	}
 
@@ -75,14 +75,14 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	}
 
 	@Override
-	public void draw(@NotNull IPetalRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(@NotNull PetalApothecaryRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
 		RenderSystem.disableBlend();
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IPetalRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PetalApothecaryRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
 				.addItemStack(new ItemStack(ModBlocks.defaultAltar));
 

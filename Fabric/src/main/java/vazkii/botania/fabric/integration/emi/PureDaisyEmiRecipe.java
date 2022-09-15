@@ -7,7 +7,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.recipe.IPureDaisyRecipe;
+import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 	private static final ResourceLocation TEXTURE = prefix("textures/gui/pure_daisy_overlay.png");
 	private static final EmiStack PURE_DAISY = EmiStack.of(ModSubtiles.pureDaisy);
 
-	public PureDaisyEmiRecipe(IPureDaisyRecipe recipe) {
+	public PureDaisyEmiRecipe(PureDaisyRecipe recipe) {
 		super(BotaniaEmiPlugin.PURE_DAISY, recipe);
 		this.input = List.of(EmiIngredient.of(recipe.getInput().getDisplayed().stream().map(s -> {
 			if (s.getFluidState().isEmpty()) {

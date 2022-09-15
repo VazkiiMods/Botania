@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
@@ -25,20 +25,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElvenTradeProcessor implements IComponentProcessor {
-	private List<IElvenTradeRecipe> recipes;
+	private List<ElvenTradeRecipe> recipes;
 	private int longestIngredientSize, mostInputs, mostOutputs;
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		ImmutableList.Builder<IElvenTradeRecipe> builder = ImmutableList.builder();
+		ImmutableList.Builder<ElvenTradeRecipe> builder = ImmutableList.builder();
 		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-			IElvenTradeRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.ELVEN_TRADE_TYPE, new ResourceLocation(s.asString()));
+			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.ELVEN_TRADE_TYPE, new ResourceLocation(s.asString()));
 			if (recipe != null) {
 				builder.add(recipe);
 			}
 		}
 		recipes = builder.build();
-		for (IElvenTradeRecipe recipe : recipes) {
+		for (ElvenTradeRecipe recipe : recipes) {
 			List<Ingredient> inputs = recipe.getIngredients();
 			for (Ingredient ingredient : inputs) {
 				int length = ingredient.getItems().length;
@@ -73,7 +73,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 		if (key.startsWith("output")) {
 			int index = Integer.parseInt(key.substring(6)) - 1;
 			if (index < mostOutputs) {
-				return IVariable.wrapList(recipes.stream().map(IElvenTradeRecipe::getOutputs)
+				return IVariable.wrapList(recipes.stream().map(ElvenTradeRecipe::getOutputs)
 						.map(l -> index < l.size() ? l.get(index) : ItemStack.EMPTY)
 						.map(IVariable::from)
 						.collect(Collectors.toList()));
@@ -83,7 +83,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	}
 
 	private IVariable interweaveIngredients(int inputIndex) {
-		List<Ingredient> recipes = this.recipes.stream().map(IElvenTradeRecipe::getIngredients).map(ingredients -> {
+		List<Ingredient> recipes = this.recipes.stream().map(ElvenTradeRecipe::getIngredients).map(ingredients -> {
 			if (inputIndex < ingredients.size()) {
 				return ingredients.get(inputIndex);
 			} else {

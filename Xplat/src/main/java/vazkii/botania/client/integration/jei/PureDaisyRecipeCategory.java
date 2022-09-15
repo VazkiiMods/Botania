@@ -31,16 +31,16 @@ import net.minecraft.world.level.material.FluidState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IPureDaisyRecipe;
+import vazkii.botania.api.recipe.PureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe> {
+public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe> {
 
-	public static final RecipeType<IPureDaisyRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "pure_daisy", IPureDaisyRecipe.class);
+	public static final RecipeType<PureDaisyRecipe> TYPE = RecipeType.create(LibMisc.MOD_ID, "pure_daisy", PureDaisyRecipe.class);
 	private final IDrawable background;
 	private final Component localizedName;
 	private final IDrawable overlay;
@@ -59,7 +59,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 
 	@NotNull
 	@Override
-	public RecipeType<IPureDaisyRecipe> getRecipeType() {
+	public RecipeType<PureDaisyRecipe> getRecipeType() {
 		return TYPE;
 	}
 
@@ -82,7 +82,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	}
 
 	@Override
-	public void draw(IPureDaisyRecipe recipe, IRecipeSlotsView slotsView, PoseStack ms, double mouseX, double mouseY) {
+	public void draw(PureDaisyRecipe recipe, IRecipeSlotsView slotsView, PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 17, 0);
 		RenderSystem.disableBlend();
@@ -90,7 +90,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IPureDaisyRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PureDaisyRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		StateIngredient input = recipe.getInput();
 
 		IRecipeSlotBuilder inputSlotBuilder = builder.addSlot(RecipeIngredientRole.INPUT, 9, 12)

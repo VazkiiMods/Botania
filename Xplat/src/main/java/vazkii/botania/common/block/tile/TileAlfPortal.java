@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.WispParticleData;
@@ -208,7 +208,7 @@ public class TileAlfPortal extends TileMod implements Wandable {
 	private boolean validateItemUsage(ItemEntity entity) {
 		ItemStack inputStack = entity.getItem();
 		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (recipe instanceof IElvenTradeRecipe tradeRecipe && tradeRecipe.containsItem(inputStack)) {
+			if (recipe instanceof ElvenTradeRecipe tradeRecipe && tradeRecipe.containsItem(inputStack)) {
 				return true;
 			}
 		}
@@ -307,17 +307,17 @@ public class TileAlfPortal extends TileMod implements Wandable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Collection<IElvenTradeRecipe> elvenTradeRecipes(Level world) {
+	public static Collection<ElvenTradeRecipe> elvenTradeRecipes(Level world) {
 		// By virtue of IRecipeType's type parameter,
-		// we know all the recipes in the map must be IElvenTradeRecipe.
+		// we know all the recipes in the map must be ElvenTradeRecipe.
 		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
-		return (Collection<IElvenTradeRecipe>) (Collection<?>) ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values();
+		return (Collection<ElvenTradeRecipe>) (Collection<?>) ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values();
 	}
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
 		for (Recipe<?> r : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (!(r instanceof IElvenTradeRecipe recipe)) {
+			if (!(r instanceof ElvenTradeRecipe recipe)) {
 				continue;
 			}
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);

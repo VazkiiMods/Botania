@@ -25,12 +25,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.ICustomApothecaryColor;
+import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 
-public class BlockModMushroom extends MushroomBlock implements ICustomApothecaryColor {
+public class BlockModMushroom extends MushroomBlock implements CustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	public final DyeColor color;

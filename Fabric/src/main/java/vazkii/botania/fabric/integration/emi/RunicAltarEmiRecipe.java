@@ -7,7 +7,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.api.recipe.IRuneAltarRecipe;
+import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.material.ItemRune;
@@ -24,7 +24,7 @@ public class RunicAltarEmiRecipe extends BotaniaEmiRecipe {
 	private final List<EmiIngredient> ingredients;
 	private final int mana;
 
-	public RunicAltarEmiRecipe(IRuneAltarRecipe recipe) {
+	public RunicAltarEmiRecipe(RunicAltarRecipe recipe) {
 		super(BotaniaEmiPlugin.RUNIC_ALTAR, recipe);
 		this.ingredients = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
 		this.input = Stream.concat(ingredients.stream(), Stream.of(LIVINGROCK)).toList();

@@ -11,6 +11,7 @@ package vazkii.botania.api.recipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -18,12 +19,12 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 
-public interface IRuneAltarRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "runic_altar");
+public interface TerrestrialAgglomerationRecipe extends Recipe<Container> {
+	ResourceLocation TERRA_PLATE_ID = new ResourceLocation(BotaniaAPI.MODID, "terra_plate");
+	ResourceLocation TYPE_ID = TERRA_PLATE_ID;
 
-	int getManaUsage();
+	int getMana();
 
-	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
@@ -32,6 +33,12 @@ public interface IRuneAltarRecipe extends Recipe<Container> {
 	@Override
 	default boolean canCraftInDimensions(int width, int height) {
 		return false;
+	}
+
+	@NotNull
+	@Override
+	default ItemStack getToastSymbol() {
+		return Registry.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
 	@Override

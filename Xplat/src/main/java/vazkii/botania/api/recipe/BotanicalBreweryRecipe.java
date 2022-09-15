@@ -18,27 +18,38 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.brew.Brew;
 
-public interface ITerraPlateRecipe extends Recipe<Container> {
-	ResourceLocation TERRA_PLATE_ID = new ResourceLocation(BotaniaAPI.MODID, "terra_plate");
-	ResourceLocation TYPE_ID = TERRA_PLATE_ID;
+public interface BotanicalBreweryRecipe extends Recipe<Container> {
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "brew");
 
-	int getMana();
+	Brew getBrew();
 
+	int getManaUsage();
+
+	ItemStack getOutput(ItemStack container);
+
+	@NotNull
 	@Override
 	default RecipeType<?> getType() {
 		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
+	@NotNull
 	@Override
-	default boolean canCraftInDimensions(int width, int height) {
-		return false;
+	default ItemStack getResultItem() {
+		return ItemStack.EMPTY;
 	}
 
 	@NotNull
 	@Override
-	default ItemStack getToastSymbol() {
-		return Registry.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+	default ItemStack assemble(@NotNull Container inv) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	default boolean canCraftInDimensions(int width, int height) {
+		return false;
 	}
 
 	@Override

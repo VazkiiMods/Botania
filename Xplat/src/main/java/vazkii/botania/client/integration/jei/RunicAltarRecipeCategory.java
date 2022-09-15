@@ -27,7 +27,7 @@ import net.minecraft.world.phys.Vec2;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IRuneAltarRecipe;
+import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -35,10 +35,10 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecipe> {
+public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipe> {
 
-	public static final RecipeType<IRuneAltarRecipe> TYPE =
-			RecipeType.create(LibMisc.MOD_ID, "runic_altar", IRuneAltarRecipe.class);
+	public static final RecipeType<RunicAltarRecipe> TYPE =
+			RecipeType.create(LibMisc.MOD_ID, "runic_altar", RunicAltarRecipe.class);
 	private final IDrawable background;
 	private final Component localizedName;
 	private final IDrawable overlay;
@@ -54,7 +54,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 	@NotNull
 	@Override
-	public RecipeType<IRuneAltarRecipe> getRecipeType() {
+	public RecipeType<RunicAltarRecipe> getRecipeType() {
 		return TYPE;
 	}
 
@@ -77,7 +77,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	}
 
 	@Override
-	public void draw(IRuneAltarRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(RunicAltarRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
 		HUDHandler.renderManaBar(ms, 6, 98, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
@@ -85,7 +85,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IRuneAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RunicAltarRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.CATALYST, 48, 45)
 				.addItemStack(new ItemStack(ModBlocks.runeAltar));
 

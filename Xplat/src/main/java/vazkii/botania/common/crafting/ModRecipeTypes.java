@@ -28,28 +28,28 @@ import java.util.function.BiConsumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModRecipeTypes {
-	public static final RecipeType<IManaInfusionRecipe> MANA_INFUSION_TYPE = new ModRecipeType<>();
+	public static final RecipeType<ManaInfusionRecipe> MANA_INFUSION_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeManaInfusion> MANA_INFUSION_SERIALIZER = new RecipeManaInfusion.Serializer();
 
-	public static final RecipeType<IElvenTradeRecipe> ELVEN_TRADE_TYPE = new ModRecipeType<>();
+	public static final RecipeType<ElvenTradeRecipe> ELVEN_TRADE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeElvenTrade> ELVEN_TRADE_SERIALIZER = new RecipeElvenTrade.Serializer();
 	public static final SimpleRecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new SimpleRecipeSerializer<>(LexiconElvenTradeRecipe::new);
 
-	public static final RecipeType<IPureDaisyRecipe> PURE_DAISY_TYPE = new ModRecipeType<>();
+	public static final RecipeType<PureDaisyRecipe> PURE_DAISY_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipePureDaisy> PURE_DAISY_SERIALIZER = new RecipePureDaisy.Serializer();
 	public static final RecipeSerializer<StateCopyPureDaisyRecipe> COPYING_PURE_DAISY_SERIALIZER = new StateCopyPureDaisyRecipe.Serializer();
 
-	public static final RecipeType<IBrewRecipe> BREW_TYPE = new ModRecipeType<>();
+	public static final RecipeType<BotanicalBreweryRecipe> BREW_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeBrew> BREW_SERIALIZER = new RecipeBrew.Serializer();
 
-	public static final RecipeType<IPetalRecipe> PETAL_TYPE = new ModRecipeType<>();
+	public static final RecipeType<PetalApothecaryRecipe> PETAL_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipePetals> PETAL_SERIALIZER = new RecipePetals.Serializer();
 
-	public static final RecipeType<IRuneAltarRecipe> RUNE_TYPE = new ModRecipeType<>();
+	public static final RecipeType<RunicAltarRecipe> RUNE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final RecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
-	public static final RecipeType<ITerraPlateRecipe> TERRA_PLATE_TYPE = new ModRecipeType<>();
+	public static final RecipeType<TerrestrialAgglomerationRecipe> TERRA_PLATE_TYPE = new ModRecipeType<>();
 	public static final RecipeSerializer<RecipeTerraPlate> TERRA_PLATE_SERIALIZER = new RecipeTerraPlate.Serializer();
 
 	public static final RecipeType<RecipeOrechid> ORECHID_TYPE = new ModRecipeType<>();
@@ -62,32 +62,32 @@ public class ModRecipeTypes {
 	public static final RecipeSerializer<RecipeMarimorphosis> MARIMORPHOSIS_SERIALIZER = new RecipeMarimorphosis.Serializer();
 
 	public static void submitRecipeTypes(BiConsumer<RecipeType<?>, ResourceLocation> r) {
-		r.accept(ELVEN_TRADE_TYPE, IElvenTradeRecipe.TYPE_ID);
-		r.accept(MANA_INFUSION_TYPE, IManaInfusionRecipe.TYPE_ID);
-		r.accept(PURE_DAISY_TYPE, IPureDaisyRecipe.TYPE_ID);
-		r.accept(BREW_TYPE, IBrewRecipe.TYPE_ID);
-		r.accept(PETAL_TYPE, IPetalRecipe.TYPE_ID);
-		r.accept(RUNE_TYPE, IRuneAltarRecipe.TYPE_ID);
-		r.accept(TERRA_PLATE_TYPE, ITerraPlateRecipe.TYPE_ID);
-		r.accept(ORECHID_TYPE, IOrechidRecipe.TYPE_ID);
-		r.accept(ORECHID_IGNEM_TYPE, IOrechidRecipe.IGNEM_TYPE_ID);
-		r.accept(MARIMORPHOSIS_TYPE, IOrechidRecipe.MARIMORPHOSIS_TYPE_ID);
+		r.accept(ELVEN_TRADE_TYPE, ElvenTradeRecipe.TYPE_ID);
+		r.accept(MANA_INFUSION_TYPE, ManaInfusionRecipe.TYPE_ID);
+		r.accept(PURE_DAISY_TYPE, PureDaisyRecipe.TYPE_ID);
+		r.accept(BREW_TYPE, BotanicalBreweryRecipe.TYPE_ID);
+		r.accept(PETAL_TYPE, PetalApothecaryRecipe.TYPE_ID);
+		r.accept(RUNE_TYPE, RunicAltarRecipe.TYPE_ID);
+		r.accept(TERRA_PLATE_TYPE, TerrestrialAgglomerationRecipe.TYPE_ID);
+		r.accept(ORECHID_TYPE, OrechidRecipe.TYPE_ID);
+		r.accept(ORECHID_IGNEM_TYPE, OrechidRecipe.IGNEM_TYPE_ID);
+		r.accept(MARIMORPHOSIS_TYPE, OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 	}
 
 	public static void submitRecipeSerializers(BiConsumer<RecipeSerializer<?>, ResourceLocation> r) {
-		r.accept(ELVEN_TRADE_SERIALIZER, IElvenTradeRecipe.TYPE_ID);
+		r.accept(ELVEN_TRADE_SERIALIZER, ElvenTradeRecipe.TYPE_ID);
 		r.accept(LEXICON_ELVEN_TRADE_SERIALIZER, prefix("elven_trade_lexicon"));
-		r.accept(MANA_INFUSION_SERIALIZER, IManaInfusionRecipe.TYPE_ID);
-		r.accept(PURE_DAISY_SERIALIZER, IPureDaisyRecipe.TYPE_ID);
+		r.accept(MANA_INFUSION_SERIALIZER, ManaInfusionRecipe.TYPE_ID);
+		r.accept(PURE_DAISY_SERIALIZER, PureDaisyRecipe.TYPE_ID);
 		r.accept(COPYING_PURE_DAISY_SERIALIZER, prefix("state_copying_pure_daisy"));
-		r.accept(BREW_SERIALIZER, IBrewRecipe.TYPE_ID);
-		r.accept(PETAL_SERIALIZER, IPetalRecipe.TYPE_ID);
-		r.accept(RUNE_SERIALIZER, IRuneAltarRecipe.TYPE_ID);
+		r.accept(BREW_SERIALIZER, BotanicalBreweryRecipe.TYPE_ID);
+		r.accept(PETAL_SERIALIZER, PetalApothecaryRecipe.TYPE_ID);
+		r.accept(RUNE_SERIALIZER, RunicAltarRecipe.TYPE_ID);
 		r.accept(RUNE_HEAD_SERIALIZER, prefix("runic_altar_head"));
-		r.accept(TERRA_PLATE_SERIALIZER, ITerraPlateRecipe.TYPE_ID);
-		r.accept(ORECHID_SERIALIZER, IOrechidRecipe.TYPE_ID);
-		r.accept(ORECHID_IGNEM_SERIALIZER, IOrechidRecipe.IGNEM_TYPE_ID);
-		r.accept(MARIMORPHOSIS_SERIALIZER, IOrechidRecipe.MARIMORPHOSIS_TYPE_ID);
+		r.accept(TERRA_PLATE_SERIALIZER, TerrestrialAgglomerationRecipe.TYPE_ID);
+		r.accept(ORECHID_SERIALIZER, OrechidRecipe.TYPE_ID);
+		r.accept(ORECHID_IGNEM_SERIALIZER, OrechidRecipe.IGNEM_TYPE_ID);
+		r.accept(MARIMORPHOSIS_SERIALIZER, OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 	}
 
 	private static class ModRecipeType<T extends Recipe<?>> implements RecipeType<T> {

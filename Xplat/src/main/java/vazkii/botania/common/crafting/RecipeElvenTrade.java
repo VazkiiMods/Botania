@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class RecipeElvenTrade implements IElvenTradeRecipe {
+public class RecipeElvenTrade implements ElvenTradeRecipe {
 	private final ResourceLocation id;
 	private final ImmutableList<ItemStack> outputs;
 	private final NonNullList<Ingredient> inputs;

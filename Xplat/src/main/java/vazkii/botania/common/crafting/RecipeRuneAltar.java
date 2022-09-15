@@ -26,14 +26,14 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IRuneAltarRecipe;
+import vazkii.botania.api.recipe.RunicAltarRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeRuneAltar implements IRuneAltarRecipe {
+public class RecipeRuneAltar implements RunicAltarRecipe {
 	private final ResourceLocation id;
 	private final ItemStack output;
 	private final NonNullList<Ingredient> inputs;

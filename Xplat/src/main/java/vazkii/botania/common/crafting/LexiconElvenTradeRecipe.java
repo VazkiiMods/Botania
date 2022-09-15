@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.ElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemLexicon;
@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
+public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	private final ResourceLocation id;
 
 	LexiconElvenTradeRecipe(ResourceLocation id) {

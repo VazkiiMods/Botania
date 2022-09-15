@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ManaInfusionProcessor implements IComponentProcessor {
-	private List<IManaInfusionRecipe> recipes;
+	private List<ManaInfusionRecipe> recipes;
 	private boolean hasCustomHeading;
 
 	@Override
@@ -37,13 +37,13 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			BotaniaAPI.LOGGER.warn("Mana infusion template has both 'recipes' and 'group', ignoring 'recipes'");
 		}
 
-		ImmutableList.Builder<IManaInfusionRecipe> builder = ImmutableList.builder();
+		ImmutableList.Builder<ManaInfusionRecipe> builder = ImmutableList.builder();
 		if (variables.has("group")) {
 			String group = variables.get("group").asString();
 			builder.addAll(PatchouliUtils.getRecipeGroup(ModRecipeTypes.MANA_INFUSION_TYPE, group));
 		} else {
 			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-				IManaInfusionRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.MANA_INFUSION_TYPE, new ResourceLocation(s.asString()));
+				ManaInfusionRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.MANA_INFUSION_TYPE, new ResourceLocation(s.asString()));
 				if (recipe != null) {
 					builder.add(recipe);
 				}
@@ -68,9 +68,9 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			case "input":
 				return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
 			case "output":
-				return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
+				return IVariable.wrapList(recipes.stream().map(ManaInfusionRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
 			case "catalyst":
-				return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getRecipeCatalyst)
+				return IVariable.wrapList(recipes.stream().map(ManaInfusionRecipe::getRecipeCatalyst)
 						.flatMap(ingr -> {
 							if (ingr == null) {
 								return Stream.of(ItemStack.EMPTY);
@@ -80,7 +80,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 						.map(IVariable::from)
 						.collect(Collectors.toList()));
 			case "mana":
-				return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
+				return IVariable.wrapList(recipes.stream().mapToInt(ManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
 			case "drop":
 				Component q = Component.literal("(?)").withStyle(ChatFormatting.BOLD);
 				return IVariable.from(Component.translatable("botaniamisc.drop").append(" ").append(q));

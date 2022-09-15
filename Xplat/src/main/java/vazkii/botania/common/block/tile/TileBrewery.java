@@ -31,7 +31,7 @@ import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.recipe.IBrewRecipe;
+import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -48,7 +48,7 @@ public class TileBrewery extends TileSimpleInventory implements ManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
-	public IBrewRecipe recipe;
+	public BotanicalBreweryRecipe recipe;
 	private int mana = 0;
 	private int manaLastTick = 0;
 	public int signal = 0;
@@ -91,7 +91,7 @@ public class TileBrewery extends TileSimpleInventory implements ManaReceiver {
 	}
 
 	private void findRecipe() {
-		Optional<IBrewRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.BREW_TYPE, getItemHandler(), level);
+		Optional<BotanicalBreweryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.BREW_TYPE, getItemHandler(), level);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew;
 			level.setBlockAndUpdate(worldPosition, ModBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));

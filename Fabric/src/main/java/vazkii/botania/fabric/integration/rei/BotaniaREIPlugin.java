@@ -46,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.AncientWillContainer;
-import vazkii.botania.api.recipe.IOrechidRecipe;
+import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -172,9 +172,9 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				r -> new MarimorphosisREIDisplay(r, weightsMarim.getInt(r.getInput())));
 	}
 
-	public static Object2IntMap<Block> getWeights(RecipeType<? extends IOrechidRecipe> type, RecipeManager manager) {
+	public static Object2IntMap<Block> getWeights(RecipeType<? extends OrechidRecipe> type, RecipeManager manager) {
 		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
-		for (IOrechidRecipe recipe : manager.getAllRecipesFor(type)) {
+		for (OrechidRecipe recipe : manager.getAllRecipesFor(type)) {
 			map.addTo(recipe.getInput(), recipe.getWeight());
 		}
 		return map;

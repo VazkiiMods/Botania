@@ -140,7 +140,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(ManaPoolRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)));
 		registry.addRecipes(TerrestrialAgglomerationRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
 
-		Comparator<IOrechidRecipe> comp = BY_INPUT.thenComparing(BY_WEIGHT).thenComparing(BY_ID);
+		Comparator<OrechidRecipe> comp = BY_INPUT.thenComparing(BY_WEIGHT).thenComparing(BY_ID);
 		registry.addRecipes(OrechidRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ORECHID_TYPE, comp));
 		registry.addRecipes(OrechidIgnemRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.ORECHID_IGNEM_TYPE, comp));
 		registry.addRecipes(MarimorphosisRecipeCategory.TYPE, sortRecipes(ModRecipeTypes.MARIMORPHOSIS_TYPE, comp));
@@ -148,9 +148,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
 	private static final Comparator<Recipe<?>> BY_GROUP = Comparator.comparing(Recipe::getGroup);
-	private static final Comparator<IOrechidRecipe> BY_INPUT = Comparator.comparing(r -> Registry.BLOCK.getId(r.getInput()));
-	private static final Comparator<IOrechidRecipe> BY_WEIGHT = Comparator.<IOrechidRecipe, Integer>comparing(IOrechidRecipe::getWeight).reversed();
-	private static final Comparator<IManaInfusionRecipe> BY_CATALYST = (l, r) -> {
+	private static final Comparator<OrechidRecipe> BY_INPUT = Comparator.comparing(r -> Registry.BLOCK.getId(r.getInput()));
+	private static final Comparator<OrechidRecipe> BY_WEIGHT = Comparator.<OrechidRecipe, Integer>comparing(OrechidRecipe::getWeight).reversed();
+	private static final Comparator<ManaInfusionRecipe> BY_CATALYST = (l, r) -> {
 		StateIngredient left = l.getRecipeCatalyst();
 		StateIngredient right = r.getRecipeCatalyst();
 		if (left == null) {
@@ -217,7 +217,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
 		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
-		for (IElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().level)) {
+		for (ElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().level)) {
 			if (recipe instanceof LexiconElvenTradeRecipe) {
 				continue;
 			}
@@ -231,13 +231,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 		recipeManager.byKey(prefix("petal_apothecary/daybloom_motif"))
 				.ifPresent(r -> {
-					if (r instanceof IPetalRecipe pr) {
+					if (r instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
 					}
 				});
 		recipeManager.byKey(prefix("petal_apothecary/nightshade_motif"))
 				.ifPresent(r -> {
-					if (r instanceof IPetalRecipe pr) {
+					if (r instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
 					}
 				});

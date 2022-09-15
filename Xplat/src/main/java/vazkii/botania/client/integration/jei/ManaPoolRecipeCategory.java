@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -35,10 +35,10 @@ import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionRecipe> {
+public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecipe> {
 
-	public static final RecipeType<IManaInfusionRecipe> TYPE =
-			RecipeType.create(LibMisc.MOD_ID, "mana_pool", IManaInfusionRecipe.class);
+	public static final RecipeType<ManaInfusionRecipe> TYPE =
+			RecipeType.create(LibMisc.MOD_ID, "mana_pool", ManaInfusionRecipe.class);
 	private final IDrawable background;
 	private final Component localizedName;
 	private final IDrawable overlay;
@@ -56,7 +56,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 	@NotNull
 	@Override
-	public RecipeType<IManaInfusionRecipe> getRecipeType() {
+	public RecipeType<ManaInfusionRecipe> getRecipeType() {
 		return TYPE;
 	}
 
@@ -79,7 +79,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	}
 
 	@Override
-	public void draw(IManaInfusionRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
+	public void draw(ManaInfusionRecipe recipe, @NotNull IRecipeSlotsView slotsView, @NotNull PoseStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 40, 0);
 		HUDHandler.renderManaBar(ms, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
@@ -87,7 +87,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	}
 
 	@Override
-	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull IManaInfusionRecipe recipe, @NotNull IFocusGroup focusGroup) {
+	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ManaInfusionRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 32, 12)
 				.addIngredients(recipe.getIngredients().get(0));
 

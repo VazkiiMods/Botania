@@ -25,7 +25,7 @@ import vazkii.botania.api.BotaniaAPI;
 import java.util.List;
 import java.util.Optional;
 
-public interface IElvenTradeRecipe extends Recipe<Container> {
+public interface ElvenTradeRecipe extends Recipe<Container> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "elven_trade");
 
 	/**

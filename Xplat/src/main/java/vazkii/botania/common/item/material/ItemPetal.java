@@ -15,10 +15,10 @@ import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.recipe.ICustomApothecaryColor;
+import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.common.helper.ColorHelper;
 
-public class ItemPetal extends BlockItem implements ICustomApothecaryColor {
+public class ItemPetal extends BlockItem implements CustomApothecaryColor {
 	public final DyeColor color;
 
 	public ItemPetal(Block buriedPetals, DyeColor color, Properties props) {

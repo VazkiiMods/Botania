@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 /**
  * An Item that implements this interface can have a special particle color when in the Petal Apothecary.
  */
-public interface ICustomApothecaryColor {
+public interface CustomApothecaryColor {
 	int getParticleColor(ItemStack stack);
 
 }
