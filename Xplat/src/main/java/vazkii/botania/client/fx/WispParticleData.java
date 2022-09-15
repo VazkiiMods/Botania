@@ -76,7 +76,7 @@ public class WispParticleData implements ParticleOptions {
 	@NotNull
 	@Override
 	public ParticleType<WispParticleData> getType() {
-		return ModParticles.WISP;
+		return BotaniaParticles.WISP;
 	}
 
 	@Override

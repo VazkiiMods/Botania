@@ -70,7 +70,7 @@ public class SparkleParticleData implements ParticleOptions {
 	@NotNull
 	@Override
 	public ParticleType<SparkleParticleData> getType() {
-		return ModParticles.SPARKLE;
+		return BotaniaParticles.SPARKLE;
 	}
 
 	@Override

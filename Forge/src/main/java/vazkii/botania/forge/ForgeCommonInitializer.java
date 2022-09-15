@@ -66,7 +66,7 @@ import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.PlayerAccess;
 import vazkii.botania.common.advancements.ModCriteriaTriggers;
@@ -204,7 +204,7 @@ public class ForgeCommonInitializer {
 
 		// Rest
 		ModCriteriaTriggers.init();
-		bind(Registry.PARTICLE_TYPE_REGISTRY, ModParticles::registerParticles);
+		bind(Registry.PARTICLE_TYPE_REGISTRY, BotaniaParticles::registerParticles);
 
 		bind(Registry.LOOT_ITEM_REGISTRY, ModLootModifiers::submitLootConditions);
 		bind(Registry.LOOT_FUNCTION_REGISTRY, ModLootModifiers::submitLootFunctions);

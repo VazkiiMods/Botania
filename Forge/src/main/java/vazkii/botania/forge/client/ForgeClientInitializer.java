@@ -38,7 +38,7 @@ import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
@@ -221,7 +221,7 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void registerParticleFactories(RegisterParticleProvidersEvent evt) {
-		ModParticles.FactoryHandler.registerFactories(new ModParticles.FactoryHandler.Consumer() {
+		BotaniaParticles.FactoryHandler.registerFactories(new BotaniaParticles.FactoryHandler.Consumer() {
 			@Override
 			public <T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor) {
 				evt.register(type, constructor::apply);

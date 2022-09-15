@@ -54,7 +54,7 @@ import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaNetworkCallback;
-import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.ModStats;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.*;
@@ -183,7 +183,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		// Rest
 		ModCriteriaTriggers.init();
-		ModParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
+		BotaniaParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
 		ModLootModifiers.submitLootConditions(bind(Registry.LOOT_CONDITION_TYPE));
 		ModLootModifiers.submitLootFunctions(bind(Registry.LOOT_FUNCTION_TYPE));
 		ModStats.init();

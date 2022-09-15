@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ModParticles {
+public class BotaniaParticles {
 	public static final ParticleType<WispParticleData> WISP = new WispParticleType();
 	public static final ParticleType<SparkleParticleData> SPARKLE = new SparkleParticleType();
 
@@ -34,8 +34,8 @@ public class ModParticles {
 		}
 
 		public static void registerFactories(Consumer consumer) {
-			consumer.register(ModParticles.WISP, WispParticleType.Factory::new);
-			consumer.register(ModParticles.SPARKLE, SparkleParticleType.Factory::new);
+			consumer.register(BotaniaParticles.WISP, WispParticleType.Factory::new);
+			consumer.register(BotaniaParticles.SPARKLE, SparkleParticleType.Factory::new);
 		}
 	}
 }

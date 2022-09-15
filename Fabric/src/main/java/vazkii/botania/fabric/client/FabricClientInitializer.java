@@ -38,7 +38,7 @@ import vazkii.botania.client.core.handler.KonamiHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.client.gui.HUDHandler;
 import vazkii.botania.client.gui.ManaBarTooltipComponent;
 import vazkii.botania.client.gui.TooltipHandler;
@@ -88,7 +88,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		EntityRenderers.registerEntityRenderers(EntityRendererRegistry::register);
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
 
-		ModParticles.FactoryHandler.registerFactories(new ModParticles.FactoryHandler.Consumer() {
+		BotaniaParticles.FactoryHandler.registerFactories(new BotaniaParticles.FactoryHandler.Consumer() {
 			@Override
 			public <T extends ParticleOptions> void register(ParticleType<T> type, Function<SpriteSet, ParticleProvider<T>> constructor) {
 				ParticleFactoryRegistry.getInstance().register(type, constructor::apply);
