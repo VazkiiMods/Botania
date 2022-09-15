@@ -11,8 +11,8 @@ package vazkii.botania.common.item.record;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.RecordItem;
 
-public class ItemModRecord extends RecordItem {
-	public ItemModRecord(int comparator, SoundEvent sound, Properties builder, int lengthInSeconds) {
+public class BotaniaRecordItem extends RecordItem {
+	public BotaniaRecordItem(int comparator, SoundEvent sound, Properties builder, int lengthInSeconds) {
 		super(comparator, sound, builder, lengthInSeconds);
 	}
 }
