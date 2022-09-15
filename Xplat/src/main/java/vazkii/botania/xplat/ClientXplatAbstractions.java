@@ -20,7 +20,7 @@ import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public interface IClientXplatAbstractions {
+public interface ClientXplatAbstractions {
 	ResourceLocation FLOATING_FLOWER_MODEL_LOADER_ID = prefix("floating_flower");
 
 	// Event firing
@@ -39,5 +39,5 @@ public interface IClientXplatAbstractions {
 	void restoreLastFilter(AbstractTexture texture);
 	void tessellateBlock(Level level, BlockState state, BlockPos pos, PoseStack ps, MultiBufferSource buffers, int overlay);
 
-	IClientXplatAbstractions INSTANCE = ServiceUtil.findService(IClientXplatAbstractions.class, null);
+	ClientXplatAbstractions INSTANCE = ServiceUtil.findService(ClientXplatAbstractions.class, null);
 }

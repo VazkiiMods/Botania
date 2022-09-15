@@ -25,7 +25,7 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.network.serverbound.DodgePacket;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class RingOfDexterousMotionItem extends BaubleItem {
 
@@ -131,6 +131,6 @@ public class RingOfDexterousMotionItem extends BaubleItem {
 
 		player.setDeltaMovement(sideVec);
 
-		IClientXplatAbstractions.INSTANCE.sendToServer(DodgePacket.INSTANCE);
+		ClientXplatAbstractions.INSTANCE.sendToServer(DodgePacket.INSTANCE);
 	}
 }

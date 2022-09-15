@@ -42,7 +42,7 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -155,7 +155,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION,
 					entity instanceof Creeper ? 100 : Integer.MAX_VALUE, 0));
 
-			IXplatAbstractions.INSTANCE.looniumComponent(entity).setDrop(stack);
+			XplatAbstractions.INSTANCE.looniumComponent(entity).setDrop(stack);
 
 			entity.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pos), MobSpawnType.SPAWNER, null, null);
 			world.addFreshEntity(entity);
@@ -201,7 +201,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
-		var comp = IXplatAbstractions.INSTANCE.looniumComponent(living);
+		var comp = XplatAbstractions.INSTANCE.looniumComponent(living);
 		if (comp != null && !comp.getDrop().isEmpty()) {
 			consumer.accept(comp.getDrop());
 		}

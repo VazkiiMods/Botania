@@ -31,7 +31,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.UUID;
 
@@ -86,7 +86,7 @@ public class SojournersSashItem extends BaubleItem {
 	public static void tickBelt(Player player) {
 		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof SojournersSashItem, player);
 
-		var stepHeight = IXplatAbstractions.INSTANCE.getStepHeightAttribute();
+		var stepHeight = XplatAbstractions.INSTANCE.getStepHeightAttribute();
 		AttributeInstance attrib = player.getAttribute(stepHeight);
 		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
 

@@ -39,7 +39,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Optional;
@@ -130,7 +130,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 	}
 
 	private static void moveParticlesAndSound(Entity entity) {
-		IXplatAbstractions.INSTANCE.sendToTracking(entity, new BotaniaEffectPacket(EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getId()));
+		XplatAbstractions.INSTANCE.sendToTracking(entity, new BotaniaEffectPacket(EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getId()));
 		entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), BotaniaSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 1F);
 	}
 
@@ -173,7 +173,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 			return;
 		}
 
-		var coordBoundItem = IXplatAbstractions.INSTANCE.findCoordBoundItem(stack);
+		var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(stack);
 		if (coordBoundItem == null) {
 			return;
 		}

@@ -46,7 +46,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.mixin.client.ModelManagerAccessor;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Locale;
 import java.util.Map;
@@ -159,7 +159,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		renderItems(potato, potatoFacing, name, partialTicks, ms, buffers, light, overlay);
 
 		ms.pushPose();
-		IClientXplatAbstractions.INSTANCE.fireRenderTinyPotato(potato, potato.name, partialTicks, ms, buffers, light, overlay);
+		ClientXplatAbstractions.INSTANCE.fireRenderTinyPotato(potato, potato.name, partialTicks, ms, buffers, light, overlay);
 		ms.popPose();
 		ms.popPose();
 

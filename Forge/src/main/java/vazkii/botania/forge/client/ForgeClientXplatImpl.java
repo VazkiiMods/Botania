@@ -24,9 +24,9 @@ import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.BotaniaPacket;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
-public class ForgeClientXplatImpl implements IClientXplatAbstractions {
+public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, name, tickDelta, ms, buffers, light, overlay));

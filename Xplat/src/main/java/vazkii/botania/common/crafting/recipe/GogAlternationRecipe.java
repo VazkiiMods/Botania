@@ -20,7 +20,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.RecipeSerializerBase;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class GogAlternationRecipe {
 	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new Serializer();
@@ -37,7 +37,7 @@ public class GogAlternationRecipe {
 				throw new IllegalArgumentException("Subrecipes must have matching types");
 			}
 
-			if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+			if (XplatAbstractions.INSTANCE.gogLoaded()) {
 				return gog;
 			} else {
 				return base;

@@ -30,7 +30,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.network.clientbound.ItemAgePacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -180,8 +180,8 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 	public static void onItemTrack(Entity entity, ServerPlayer player) {
 		if (entity instanceof ItemEntity item) {
 			int entityId = entity.getId();
-			int age = IXplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter;
-			IXplatAbstractions.INSTANCE.sendToPlayer(player, new ItemAgePacket(entityId, age));
+			int age = XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter;
+			XplatAbstractions.INSTANCE.sendToPlayer(player, new ItemAgePacket(entityId, age));
 		}
 	}
 }

@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.elementium.ElementiumPickaxeItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Consumer;
 
@@ -37,7 +37,7 @@ public class LootTableMixin {
 
 	@Inject(at = @At("RETURN"), method = "getRandomItemsRaw")
 	private void addGogSeeds(LootContext context, Consumer<ItemStack> stacksOut, CallbackInfo ci) {
-		if (IXplatAbstractions.INSTANCE.gogLoaded() && !callingGogTable) {
+		if (XplatAbstractions.INSTANCE.gogLoaded() && !callingGogTable) {
 			callingGogTable = true;
 			context.getLootTable(GOG_SEEDS).getRandomItems(context, stacksOut);
 			callingGogTable = false;

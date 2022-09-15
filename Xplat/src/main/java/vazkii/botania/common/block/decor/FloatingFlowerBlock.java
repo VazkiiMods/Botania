@@ -38,7 +38,7 @@ import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.FloatingFlowerVariant;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -59,7 +59,7 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 	@NotNull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
-		if (!IXplatAbstractions.INSTANCE.isPhysicalClient()) {
+		if (!XplatAbstractions.INSTANCE.isPhysicalClient()) {
 			return RenderShape.ENTITYBLOCK_ANIMATED;
 		}
 		return BotaniaConfig.client().staticFloaters() ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;

@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Map;
 
@@ -99,7 +99,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	}
 
 	private boolean isGlass(BlockState state) {
-		return state.getMaterial() == Material.GLASS || IXplatAbstractions.INSTANCE.isInGlassTag(state);
+		return state.getMaterial() == Material.GLASS || XplatAbstractions.INSTANCE.isInGlassTag(state);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IVariable;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class PatchouliUtils {
 		BotaniaAPI.LOGGER.warn("Template references nonexistent recipe {} of type {}", id, type);
 		if (!crafttweakerInfoNote) {
 			crafttweakerInfoNote = true;
-			if (IXplatAbstractions.INSTANCE.isModLoaded("crafttweaker")) {
+			if (XplatAbstractions.INSTANCE.isModLoaded("crafttweaker")) {
 				BotaniaAPI.LOGGER.info("""
 					To add a recipe that replaces a builtin recipe with CT,\s
 					add one with the same type, named the same as the path of the missing recipe.

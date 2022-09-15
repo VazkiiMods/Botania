@@ -28,7 +28,7 @@ import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -61,13 +61,13 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-RANGE, -RANGE, -RANGE), pos.offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for (ItemEntity item : items) {
-				ItemFlagsComponent flags = IXplatAbstractions.INSTANCE.itemFlagsComponent(item);
+				ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
 				if (!DelayHelper.canInteractWith(this, item) || flags.spectranthemumTeleported) {
 					continue;
 				}
 
 				ItemStack stack = item.getItem();
-				if (IXplatAbstractions.INSTANCE.findManaItem(stack) != null) {
+				if (XplatAbstractions.INSTANCE.findManaItem(stack) != null) {
 					continue;
 				}
 
@@ -90,7 +90,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		IXplatAbstractions.INSTANCE.sendToTracking(item, new BotaniaEffectPacket(EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getId(), p));
+		XplatAbstractions.INSTANCE.sendToTracking(item, new BotaniaEffectPacket(EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getId(), p));
 	}
 
 	@Override

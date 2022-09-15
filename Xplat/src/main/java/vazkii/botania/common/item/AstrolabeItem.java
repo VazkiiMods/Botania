@@ -39,7 +39,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.ShiftingCrustRodItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +140,7 @@ public class AstrolabeItem extends Item {
 			}
 
 			if (!stackInSlot.isEmpty()) {
-				var provider = IXplatAbstractions.INSTANCE.findBlockProvider(stackInSlot);
+				var provider = XplatAbstractions.INSTANCE.findBlockProvider(stackInSlot);
 				if (provider != null) {
 					providers.add(provider);
 				}
@@ -175,7 +175,7 @@ public class AstrolabeItem extends Item {
 				}
 			}
 			if (!stackInSlot.isEmpty()) {
-				var provider = IXplatAbstractions.INSTANCE.findBlockProvider(stackInSlot);
+				var provider = XplatAbstractions.INSTANCE.findBlockProvider(stackInSlot);
 				if (provider != null) {
 					providersToCheck.add(provider);
 				}

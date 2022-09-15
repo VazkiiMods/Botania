@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class RedStringContainerBlockEntity extends RedStringBlockEntity {
 	public RedStringContainerBlockEntity(BlockPos pos, BlockState state) {
@@ -28,6 +28,6 @@ public class RedStringContainerBlockEntity extends RedStringBlockEntity {
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
 		BlockEntity tile = level.getBlockEntity(pos);
-		return tile != null && IXplatAbstractions.INSTANCE.isRedStringContainerTarget(tile);
+		return tile != null && XplatAbstractions.INSTANCE.isRedStringContainerTarget(tile);
 	}
 }

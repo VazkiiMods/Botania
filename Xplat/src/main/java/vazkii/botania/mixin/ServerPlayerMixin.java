@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 @Mixin(ServerPlayer.class)
 public class ServerPlayerMixin {
@@ -27,7 +27,7 @@ public class ServerPlayerMixin {
 	 */
 	@Inject(at = @At("RETURN"), method = "initMenu")
 	private void onLogin(CallbackInfo ci) {
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockWorldEvents.onPlayerJoin((ServerPlayer) (Object) this);
 		}
 	}

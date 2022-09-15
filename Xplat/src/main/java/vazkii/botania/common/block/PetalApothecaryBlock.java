@@ -50,7 +50,7 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock, LiquidBlockContainer {
 
@@ -150,11 +150,11 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock, L
 
 	private boolean tryWithdrawFluid(Player player, InteractionHand hand, PetalApothecaryBlockEntity altar, BlockPos pos) {
 		Fluid fluid = altar.getFluid().asVanilla();
-		if (fluid == Fluids.EMPTY || fluid == Fluids.WATER && IXplatAbstractions.INSTANCE.gogLoaded()) {
+		if (fluid == Fluids.EMPTY || fluid == Fluids.WATER && XplatAbstractions.INSTANCE.gogLoaded()) {
 			return false;
 		}
 
-		boolean success = IXplatAbstractions.INSTANCE.insertFluidIntoPlayerItem(player, hand, fluid);
+		boolean success = XplatAbstractions.INSTANCE.insertFluidIntoPlayerItem(player, hand, fluid);
 		if (success) {
 			altar.setFluid(PetalApothecary.State.EMPTY);
 			// Usage of vanilla sound events: Subtitle is "Bucket fills"
@@ -171,12 +171,12 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock, L
 		if (altar.getFluid() != State.EMPTY) {
 			return false;
 		}
-		if (IXplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.WATER)) {
+		if (XplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.WATER)) {
 			altar.setFluid(State.WATER);
 			// Usage of vanilla sound event: Subtitle is "Bucket empties"
 			player.level.playSound(player, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1F, 1F);
 			return true;
-		} else if (IXplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.LAVA)) {
+		} else if (XplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.LAVA)) {
 			altar.setFluid(State.LAVA);
 			// Usage of vanilla sound event: Subtitle is "Bucket empties"
 			player.level.playSound(player, pos, SoundEvents.BUCKET_EMPTY_LAVA, SoundSource.BLOCKS, 1F, 1F);

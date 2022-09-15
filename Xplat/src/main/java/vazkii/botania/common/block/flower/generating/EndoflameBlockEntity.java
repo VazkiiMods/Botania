@@ -26,7 +26,7 @@ import vazkii.botania.common.block.mana.ManaSpreaderBlock;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -135,7 +135,7 @@ public class EndoflameBlockEntity extends GeneratingFlowerBlockEntity {
 		if (stack.isEmpty() || Block.byItem(stack.getItem()) instanceof ManaSpreaderBlock) {
 			return 0;
 		} else {
-			return IXplatAbstractions.INSTANCE.getSmeltingBurnTime(stack);
+			return XplatAbstractions.INSTANCE.getSmeltingBurnTime(stack);
 		}
 	}
 

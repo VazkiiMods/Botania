@@ -34,7 +34,7 @@ import vazkii.botania.api.block.HornHarvestable.EnumHornType;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,7 +91,7 @@ public class HornItem extends Item {
 			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 			BlockEntity be = world.getBlockEntity(pos);
-			HornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, pos, state, be);
+			HornHarvestable harvestable = XplatAbstractions.INSTANCE.findHornHarvestable(world, pos, state, be);
 
 			if (BergamuteBlockEntity.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
@@ -112,7 +112,7 @@ public class HornItem extends Item {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
 			BlockEntity be = world.getBlockEntity(currCoords);
-			HornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, currCoords, state, be);
+			HornHarvestable harvestable = XplatAbstractions.INSTANCE.findHornHarvestable(world, currCoords, state, be);
 
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type, user)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type, user);

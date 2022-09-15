@@ -20,7 +20,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
 import java.util.List;
@@ -389,7 +389,7 @@ public final class ForgeBotaniaConfig {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_SPEC);
 		BotaniaConfig.setCommon(COMMON);
 
-		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
+		if (XplatAbstractions.INSTANCE.isPhysicalClient()) {
 			ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
 			BotaniaConfig.setClient(CLIENT);
 		}

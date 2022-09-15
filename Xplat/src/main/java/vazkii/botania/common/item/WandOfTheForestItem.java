@@ -60,7 +60,7 @@ import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -146,7 +146,7 @@ public class WandOfTheForestItem extends Item {
 			data.mapping.put(bindPos.pos(), pos.immutable());
 			data.setDirty();
 
-			IXplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
+			XplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
 					bindPos.pos().getX() + 0.5, bindPos.pos().getY() + 0.5, bindPos.pos().getZ() + 0.5,
 					pos.getX(), pos.getY(), pos.getZ()));
 
@@ -207,7 +207,7 @@ public class WandOfTheForestItem extends Item {
 
 			return InteractionResult.SUCCESS;
 		} else {
-			var wandable = IXplatAbstractions.INSTANCE.findWandable(world, pos, state, tile);
+			var wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, tile);
 			if (wandable != null) {
 				return wandable.onUsedByWand(player, stack, side) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
 			}

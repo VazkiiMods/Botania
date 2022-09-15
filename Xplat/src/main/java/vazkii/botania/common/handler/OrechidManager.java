@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -31,7 +31,7 @@ public class OrechidManager implements ResourceManagerReloadListener {
 	private static final Map<RecipeType<? extends OrechidRecipe>, ListMultimap<Block, ? extends OrechidRecipe>> DATA = new HashMap<>();
 
 	public static void registerListener() {
-		IXplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("orechid"), new OrechidManager());
+		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("orechid"), new OrechidManager());
 	}
 
 	@Override

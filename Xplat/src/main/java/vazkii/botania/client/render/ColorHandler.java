@@ -42,7 +42,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.mixin.client.MinecraftAccessor;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public final class ColorHandler {
 	public interface BlockHandlerConsumer {
@@ -140,7 +140,7 @@ public final class ColorHandler {
 
 		items.register((s, t) -> {
 			if (t == 1) {
-				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(s);
+				var manaItem = XplatAbstractions.INSTANCE.findManaItem(s);
 				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ManaPoolBlockEntity.MAX_MANA, 1F);
 			}
 			return -1;
@@ -148,7 +148,7 @@ public final class ColorHandler {
 
 		items.register((s, t) -> {
 			if (t == 1) {
-				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(s);
+				var manaItem = XplatAbstractions.INSTANCE.findManaItem(s);
 				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ManaTabletItem.MAX_MANA, 1F);
 			}
 			return -1;

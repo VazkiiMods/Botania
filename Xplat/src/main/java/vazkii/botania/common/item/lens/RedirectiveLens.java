@@ -20,7 +20,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaSpreader;
 import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class RedirectiveLens extends Lens {
 
@@ -84,7 +84,7 @@ public class RedirectiveLens extends Lens {
 
 		var entity = burst.entity();
 		var hitPos = result.getBlockPos();
-		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(entity.level, hitPos,
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level, hitPos,
 				entity.level.getBlockState(hitPos), entity.level.getBlockEntity(hitPos), result.getDirection());
 		if (receiver instanceof ManaSpreader spreader) {
 			Vec3 tileVec = Vec3.atCenterOf(hitPos);

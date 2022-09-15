@@ -26,7 +26,7 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -46,7 +46,7 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	@Override
 	public String getDescriptionId(ItemStack stack) {
 		String name = super.getDescriptionId(stack);
-		if (IXplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
+		if (XplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
 			name = name.replaceAll("manaweave", "santaweave");
 		}
 		return name;
@@ -92,7 +92,7 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 
 	@Override
 	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		if (IXplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
+		if (XplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
 			list.add(Component.translatable("botaniamisc.santaweaveInfo"));
 			list.add(Component.literal(""));
 		}

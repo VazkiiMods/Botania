@@ -25,8 +25,8 @@ import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.network.serverbound.IndexStringRequestPacket;
-import vazkii.botania.xplat.IClientXplatAbstractions;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -362,7 +362,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	public void performPlayerRequest(ServerPlayer player, CorporeaRequestMatcher request, int count) {
-		if (!IXplatAbstractions.INSTANCE.fireCorporeaIndexRequestEvent(player, request, count, this.getSpark())) {
+		if (!XplatAbstractions.INSTANCE.fireCorporeaIndexRequestEvent(player, request, count, this.getSpark())) {
 			CorporeaResult res = this.doRequest(request, count, this.getSpark());
 
 			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -374,7 +374,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	public static class ClientHandler {
 		public static boolean onChat(Player player, String message) {
 			if (!getNearbyValidIndexes(player).isEmpty()) {
-				IClientXplatAbstractions.INSTANCE.sendToServer(new IndexStringRequestPacket(message));
+				ClientXplatAbstractions.INSTANCE.sendToServer(new IndexStringRequestPacket(message));
 				return true;
 			}
 			return false;

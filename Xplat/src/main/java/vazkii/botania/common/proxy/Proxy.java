@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 
 import java.util.function.Supplier;
@@ -30,7 +30,7 @@ public interface Proxy {
 	Proxy INSTANCE = make();
 
 	private static Proxy make() {
-		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
+		if (XplatAbstractions.INSTANCE.isPhysicalClient()) {
 			return new ClientProxy();
 		} else {
 			return new Proxy() {};

@@ -11,7 +11,7 @@ package vazkii.botania.fabric;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.io.*;
 import java.nio.file.*;
@@ -59,7 +59,7 @@ public final class FiberBotaniaConfig {
 		setupConfig(common, Paths.get("config", LibMisc.MOD_ID + "-common.json5"), serializer);
 		BotaniaConfig.setCommon(COMMON);
 
-		if (IXplatAbstractions.INSTANCE.isPhysicalClient()) {
+		if (XplatAbstractions.INSTANCE.isPhysicalClient()) {
 			ConfigTree client = CLIENT.configure(ConfigTree.builder());
 			setupConfig(client, Paths.get("config", LibMisc.MOD_ID + "-client.json5"), serializer);
 			BotaniaConfig.setClient(CLIENT);

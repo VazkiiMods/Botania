@@ -17,12 +17,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.mixin.AbstractFurnaceBlockEntityAccessor;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class ExoflameFurnaceHandler {
 	public static boolean canSmeltRecipe(AbstractFurnaceBlockEntity furnace, Recipe<?> recipe) {
 		var items = ((AbstractFurnaceBlockEntityAccessor) furnace).getItems();
-		return IXplatAbstractions.INSTANCE.canFurnaceBurn(furnace, recipe, items, furnace.getMaxStackSize());
+		return XplatAbstractions.INSTANCE.canFurnaceBurn(furnace, recipe, items, furnace.getMaxStackSize());
 	}
 
 	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace) {

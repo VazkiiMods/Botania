@@ -41,7 +41,7 @@ import vazkii.botania.common.block.block_entity.AvatarBlockEntity;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.mana.ManaPrismBlock;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -78,7 +78,7 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 			avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(stackOnAvatar);
 			return InteractionResult.SUCCESS;
-		} else if (!stackOnPlayer.isEmpty() && IXplatAbstractions.INSTANCE.findAvatarWieldable(stackOnPlayer) != null) {
+		} else if (!stackOnPlayer.isEmpty() && XplatAbstractions.INSTANCE.findAvatarWieldable(stackOnPlayer) != null) {
 			avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
 			return InteractionResult.SUCCESS;
 		}

@@ -17,13 +17,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {
 	@Inject(at = @At("RETURN"), method = "addPlayer")
 	private void onEntityAdd(ServerPlayer entity, CallbackInfo ci) {
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockWorldEvents.syncGogStatus(entity);
 		}
 	}

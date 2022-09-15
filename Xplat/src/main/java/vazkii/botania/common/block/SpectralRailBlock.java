@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.internal_caps.SpectralRailComponent;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class SpectralRailBlock extends BaseRailBlock {
 
@@ -46,7 +46,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 
 	private void updateFloating(AbstractMinecart cart) {
 		cart.level.getProfiler().push("cartFloating");
-		SpectralRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(cart);
+		SpectralRailComponent persistentData = XplatAbstractions.INSTANCE.ghostRailComponent(cart);
 		int floatTicks = persistentData.floatTicks;
 		Preconditions.checkState(floatTicks > 0);
 
@@ -76,7 +76,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 	@SoftImplement("IForgeBaseRailBlock")
 	public void onMinecartPass(BlockState state, Level world, BlockPos pos, AbstractMinecart cart) {
 		if (!world.isClientSide) {
-			IXplatAbstractions.INSTANCE.ghostRailComponent(cart).floatTicks = 20;
+			XplatAbstractions.INSTANCE.ghostRailComponent(cart).floatTicks = 20;
 			updateFloating(cart);
 		}
 	}
@@ -86,7 +86,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 			return;
 		}
 
-		SpectralRailComponent persistentData = IXplatAbstractions.INSTANCE.ghostRailComponent(c);
+		SpectralRailComponent persistentData = XplatAbstractions.INSTANCE.ghostRailComponent(c);
 		if (!c.isAlive() || persistentData.floatTicks <= 0) {
 			c.noPhysics = false;
 			return;

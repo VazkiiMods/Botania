@@ -19,7 +19,7 @@ import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.SparkAugmentItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +39,7 @@ public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity 
 		List<SparkAttachable> attachables = new ArrayList<>();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			var pos = worldPosition.relative(dir);
-			var attach = IXplatAbstractions.INSTANCE.findSparkAttachable(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), dir.getOpposite());
+			var attach = XplatAbstractions.INSTANCE.findSparkAttachable(level, pos, level.getBlockState(pos), level.getBlockEntity(pos), dir.getOpposite());
 			if (attach != null) {
 				ManaSpark spark = attach.getAttachedSpark();
 				if (spark != null) {

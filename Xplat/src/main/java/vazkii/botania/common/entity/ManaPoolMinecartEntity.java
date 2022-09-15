@@ -34,7 +34,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaPoolMinecartEntity extends AbstractMinecart {
 	private static final int TRANSFER_RATE = 10000;
@@ -125,7 +125,7 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 			if (pumpState.is(BotaniaBlocks.pump)) {
 				ManaPumpBlockEntity pump = (ManaPumpBlockEntity) level.getBlockEntity(pumpPos);
 				BlockPos poolPos = pumpPos.relative(dir);
-				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
+				var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, poolPos, dir.getOpposite());
 
 				if (receiver instanceof ManaPool pool) {
 					Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);

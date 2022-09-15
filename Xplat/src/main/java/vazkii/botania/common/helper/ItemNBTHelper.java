@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public final class ItemNBTHelper {
 
@@ -162,7 +162,7 @@ public final class ItemNBTHelper {
 
 	public static ItemStack duplicateAndClearMana(ItemStack stack) {
 		ItemStack copy = stack.copy();
-		ManaItem manaItem = IXplatAbstractions.INSTANCE.findManaItem(copy);
+		ManaItem manaItem = XplatAbstractions.INSTANCE.findManaItem(copy);
 		if (manaItem != null) {
 			manaItem.addMana(-manaItem.getMana());
 		}
@@ -177,8 +177,8 @@ public final class ItemNBTHelper {
 		if (!ItemStack.isSame(stack1, stack2)) {
 			return false;
 		}
-		ManaItem manaItem1 = IXplatAbstractions.INSTANCE.findManaItem(stack1);
-		ManaItem manaItem2 = IXplatAbstractions.INSTANCE.findManaItem(stack2);
+		ManaItem manaItem1 = XplatAbstractions.INSTANCE.findManaItem(stack1);
+		ManaItem manaItem2 = XplatAbstractions.INSTANCE.findManaItem(stack2);
 		if (manaItem1 != null && manaItem2 != null) {
 			if (getFullness(manaItem1) != getFullness(manaItem2)) {
 				return false;

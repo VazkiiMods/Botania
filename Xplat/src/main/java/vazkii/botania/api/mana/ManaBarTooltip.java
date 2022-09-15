@@ -11,7 +11,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 /**
  * Items with this tooltip component will render a mana bar above the tooltip.
@@ -26,7 +26,7 @@ public class ManaBarTooltip implements TooltipComponent {
 	 * @throws IllegalArgumentException if the item does not have the {@link ManaItem} capability.
 	 */
 	public static ManaBarTooltip fromManaItem(ItemStack stack) {
-		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 		if (manaItem != null) {
 			return new ManaBarTooltip(getFractionForDisplay(manaItem));
 		}

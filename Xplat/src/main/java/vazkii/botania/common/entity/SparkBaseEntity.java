@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.SparkEntity;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	private static final String TAG_INVIS = "invis";
@@ -53,7 +53,7 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	@Nullable
 	@Override
 	public ManaReceiver getAttachedManaReceiver() {
-		return IXplatAbstractions.INSTANCE.findManaReceiver(level, getAttachPos(), Direction.UP);
+		return XplatAbstractions.INSTANCE.findManaReceiver(level, getAttachPos(), Direction.UP);
 	}
 
 	@Override

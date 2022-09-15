@@ -17,7 +17,7 @@ import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class ManaSplitterBlockEntity extends BotaniaBlockEntity implements ManaR
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockPos pos = worldPosition.relative(dir);
 			if (level.hasChunkAt(pos)) {
-				var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, pos, dir.getOpposite());
+				var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, pos, dir.getOpposite());
 				if (receiver instanceof ManaPool) {
 					if (!receiver.isFull()) {
 						self.validPools.add(receiver);

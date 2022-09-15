@@ -42,7 +42,7 @@ import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.stream.IntStream;
 
@@ -128,7 +128,7 @@ public class FlowerPouchItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
-			IXplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
+			XplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
 					return stack.getHoverName();

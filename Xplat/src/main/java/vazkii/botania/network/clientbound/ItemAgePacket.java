@@ -15,7 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 
 import vazkii.botania.network.BotaniaPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -45,7 +45,7 @@ public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPac
 			Minecraft.getInstance().execute(() -> {
 				Entity e = Minecraft.getInstance().level.getEntity(entityId);
 				if (e instanceof ItemEntity item) {
-					IXplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter = counter;
+					XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter = counter;
 				}
 			});
 		}

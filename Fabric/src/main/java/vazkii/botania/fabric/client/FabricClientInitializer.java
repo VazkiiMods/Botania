@@ -57,7 +57,7 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.network.FabricPacketHandler;
 import vazkii.botania.mixin.client.RenderBuffersAccessor;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 
 import java.util.SortedMap;
@@ -113,7 +113,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 		registerArmors();
 		registerCapabilities();
 
-		if (IXplatAbstractions.INSTANCE.isModLoaded("ears")) {
+		if (XplatAbstractions.INSTANCE.isModLoaded("ears")) {
 			EarsIntegration.register();
 		}
 	}

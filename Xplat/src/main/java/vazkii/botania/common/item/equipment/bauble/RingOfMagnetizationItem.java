@@ -31,7 +31,7 @@ import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.mixin.ItemEntityAccessor;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 
 	@Override
 	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		if (IXplatAbstractions.INSTANCE.isModLoaded("malum")) {
+		if (XplatAbstractions.INSTANCE.isModLoaded("malum")) {
 			Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
 			attributes.put(Registry.ATTRIBUTE.get(new ResourceLocation("malum", "spirit_reach")),
 					new AttributeModifier(getBaubleUUID(stack), "Magnet Ring reach boost", 0.5, AttributeModifier.Operation.MULTIPLY_BASE));
@@ -121,14 +121,14 @@ public class RingOfMagnetizationItem extends BaubleItem {
 		int pickupDelay = ((ItemEntityAccessor) item).getPickupDelay();
 		if (!item.isAlive() || pickupDelay >= 40
 				|| BotaniaAPI.instance().hasSolegnoliaAround(item)
-				|| IXplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
+				|| XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
 			return false;
 		}
 
 		ItemStack stack = item.getItem();
 		if (stack.isEmpty()
-				|| IXplatAbstractions.INSTANCE.findManaItem(stack) != null
-				|| IXplatAbstractions.INSTANCE.findRelic(stack) != null
+				|| XplatAbstractions.INSTANCE.findManaItem(stack) != null
+				|| XplatAbstractions.INSTANCE.findRelic(stack) != null
 				|| stack.is(BotaniaTags.Items.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}

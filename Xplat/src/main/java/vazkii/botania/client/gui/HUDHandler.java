@@ -54,8 +54,8 @@ import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IClientXplatAbstractions;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -102,7 +102,7 @@ public final class HUDHandler {
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
-					var hud = IClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
+					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("wandItem");
 						hud.renderHUD(ms, mc);
@@ -185,7 +185,7 @@ public final class HUDHandler {
 			List<ItemStack> items = ManaItemHandler.instance().getManaItems(player);
 			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
 			for (ItemStack stack : Iterables.concat(items, acc)) {
-				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 				if (!manaItem.isNoExport()) {
 					totalMana += manaItem.getMana();
 					totalMaxMana += manaItem.getMaxMana();

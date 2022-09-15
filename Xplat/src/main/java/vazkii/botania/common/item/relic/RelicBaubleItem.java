@@ -17,7 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public abstract class RelicBaubleItem extends BaubleItem {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean held) {
 		if (!world.isClientSide && entity instanceof Player player) {
-			var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.tickBinding(player);
 			}
@@ -45,7 +45,7 @@ public abstract class RelicBaubleItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 		if (relic != null && entity instanceof Player ePlayer) {
 			relic.tickBinding(ePlayer);
 			if (relic.isRightPlayer(ePlayer)) {
@@ -58,7 +58,7 @@ public abstract class RelicBaubleItem extends BaubleItem {
 
 	@Override
 	public boolean canEquip(ItemStack stack, LivingEntity entity) {
-		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 		return entity instanceof Player player && relic != null && relic.isRightPlayer(player);
 	}
 }

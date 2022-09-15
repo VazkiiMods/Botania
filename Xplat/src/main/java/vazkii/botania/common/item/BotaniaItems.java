@@ -62,7 +62,7 @@ import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -390,8 +390,8 @@ public final class BotaniaItems {
 	public static final Item questgiverMark = make(prefix(LibItemNames.COSMETIC_PREFIX + "questgiver_mark"), new CosmeticBaubleItem(CosmeticBaubleItem.Variant.QUESTGIVER_MARK, unstackable()));
 	public static final Item thinkingHand = make(prefix(LibItemNames.COSMETIC_PREFIX + "thinking_hand"), new CosmeticBaubleItem(CosmeticBaubleItem.Variant.THINKING_HAND, unstackable()));
 
-	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::fromNetwork);
-	public static final MenuType<FlowerPouchContainer> FLOWER_BAG_CONTAINER = IXplatAbstractions.INSTANCE.createMenuType(FlowerPouchContainer::fromNetwork);
+	public static final MenuType<BaubleBoxContainer> BAUBLE_BOX_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(BaubleBoxContainer::fromNetwork);
+	public static final MenuType<FlowerPouchContainer> FLOWER_BAG_CONTAINER = XplatAbstractions.INSTANCE.createMenuType(FlowerPouchContainer::fromNetwork);
 
 	private static <T extends Item> T make(ResourceLocation id, T item) {
 		var old = ALL.put(id, item);
@@ -402,13 +402,13 @@ public final class BotaniaItems {
 	}
 
 	public static Item.Properties defaultBuilder() {
-		return IXplatAbstractions.INSTANCE.defaultItemBuilder();
+		return XplatAbstractions.INSTANCE.defaultItemBuilder();
 	}
 
 	// Forge does custom damage by just implementing a method on Item,
 	// Fabric does it by an extra lambda to the Properties object
 	public static Item.Properties defaultBuilderCustomDamage() {
-		return IXplatAbstractions.INSTANCE.defaultItemBuilderWithCustomDamageOnFabric();
+		return XplatAbstractions.INSTANCE.defaultItemBuilderWithCustomDamageOnFabric();
 	}
 
 	public static Item.Properties unstackableCustomDamage() {

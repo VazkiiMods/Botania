@@ -103,7 +103,7 @@ import vazkii.botania.fabric.internal_caps.CCAInternalEntityComponents;
 import vazkii.botania.fabric.mixin.AbstractFurnaceBlockEntityFabricAccessor;
 import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.network.BotaniaPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
@@ -116,7 +116,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class FabricXplatImpl implements IXplatAbstractions {
+public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean isFabric() {
 		return true;

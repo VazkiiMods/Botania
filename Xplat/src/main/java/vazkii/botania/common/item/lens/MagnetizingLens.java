@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.ManaBurst;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.function.Predicate;
 
@@ -33,7 +33,7 @@ public class MagnetizingLens extends Lens {
 		Predicate<BlockPos> predicate = pos -> {
 			var state = entity.level.getBlockState(pos);
 			var be = entity.level.getBlockEntity(pos);
-			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(entity.level, pos, state, be, null);
+			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(entity.level, pos, state, be, null);
 			return receiver != null
 					&& (sourceless || pos.distSqr(source) > 9)
 					&& receiver.canReceiveManaFromBursts()

@@ -31,7 +31,7 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Random;
 
@@ -69,7 +69,7 @@ public class PlentifulMantleRodItem extends Item {
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
-			if (state.is(IXplatAbstractions.INSTANCE.getOreTag())) {
+			if (state.is(XplatAbstractions.INSTANCE.getOreTag())) {
 				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, true, pos_.getX() + world.random.nextFloat(), pos_.getY() + world.random.nextFloat(), pos_.getZ() + world.random.nextFloat(), 0, 0, 0);
@@ -82,7 +82,7 @@ public class PlentifulMantleRodItem extends Item {
 		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
-			ManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 			if (receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 				PlentifulMantleRodItem.doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
 				receiver.receiveMana(-COST);

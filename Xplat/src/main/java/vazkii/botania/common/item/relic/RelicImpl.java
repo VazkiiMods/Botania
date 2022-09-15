@@ -13,7 +13,7 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.UUID;
@@ -81,7 +81,7 @@ public class RelicImpl implements Relic {
 	}
 
 	public static void addDefaultTooltip(ItemStack stack, List<Component> tooltip) {
-		var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
+		var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 		if (relic == null) {
 			return;
 		}

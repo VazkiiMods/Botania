@@ -34,7 +34,7 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.lens.ForceLens;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -100,7 +100,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 				world.playSound(null, pos, BotaniaSounds.ding, SoundSource.BLOCKS, 0.5F, 1F);
 			} else {
 				var data = WorldData.get(world);
-				if (IXplatAbstractions.INSTANCE.isDevEnvironment()) {
+				if (XplatAbstractions.INSTANCE.isDevEnvironment()) {
 					BotaniaAPI.LOGGER.info("PistonRelay pairs");
 					for (var e : data.mapping.entrySet()) {
 						BotaniaAPI.LOGGER.info("{} -> {}", e.getKey(), e.getValue());
@@ -108,7 +108,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 				}
 				BlockPos dest = data.mapping.get(pos);
 				if (dest != null) {
-					IXplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
+					XplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
 							pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
 							dest.getX(), dest.getY(), dest.getZ()));
 				}

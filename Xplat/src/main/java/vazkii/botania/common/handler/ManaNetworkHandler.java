@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -121,7 +121,7 @@ public final class ManaNetworkHandler implements ManaNetwork {
 
 	@Override
 	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
-		IXplatAbstractions.INSTANCE.fireManaNetworkEvent(thing, type, action);
+		XplatAbstractions.INSTANCE.fireManaNetworkEvent(thing, type, action);
 	}
 
 	private <T> Set<T> getAllInWorld(Map<Level, Set<T>> map, Level world) {

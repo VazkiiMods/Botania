@@ -29,7 +29,7 @@ import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.OrechidManager;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,11 +142,11 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public int getCost() {
-		return IXplatAbstractions.INSTANCE.gogLoaded() ? COST_GOG : COST;
+		return XplatAbstractions.INSTANCE.gogLoaded() ? COST_GOG : COST;
 	}
 
 	public int getDelay() {
-		return IXplatAbstractions.INSTANCE.gogLoaded() ? DELAY_GOG : DELAY;
+		return XplatAbstractions.INSTANCE.gogLoaded() ? DELAY_GOG : DELAY;
 	}
 
 	@Override

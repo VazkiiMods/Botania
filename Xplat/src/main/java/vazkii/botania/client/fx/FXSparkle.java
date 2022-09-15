@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.helper.CoreShaders;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class FXSparkle extends TextureSheetParticle {
 	private final boolean corrupt;
@@ -161,13 +161,13 @@ public class FXSparkle extends TextureSheetParticle {
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
-		IClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
+		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
 		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon() {
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
-		IClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
+		ClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 	}

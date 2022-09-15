@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Random;
 
@@ -53,7 +53,7 @@ public class FloatingFlowerBlockEntityRenderer implements BlockEntityRenderer<Fl
 		ms.mulPose(Vector3f.XP.rotationDegrees(4F * (float) Math.sin(worldTime * 0.04F)));
 		ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
 
-		IClientXplatAbstractions.INSTANCE.tessellateBlock(tile.getLevel(), tile.getBlockState(),
+		ClientXplatAbstractions.INSTANCE.tessellateBlock(tile.getLevel(), tile.getBlockState(),
 				tile.getBlockPos(), ms, buffers, overlay);
 
 		ms.popPose();

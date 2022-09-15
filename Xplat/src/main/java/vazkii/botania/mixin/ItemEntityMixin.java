@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 @Mixin(ItemEntity.class)
 public class ItemEntityMixin {
@@ -38,6 +38,6 @@ public class ItemEntityMixin {
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		IXplatAbstractions.INSTANCE.itemFlagsComponent(self).tick();
+		XplatAbstractions.INSTANCE.itemFlagsComponent(self).tick();
 	}
 }

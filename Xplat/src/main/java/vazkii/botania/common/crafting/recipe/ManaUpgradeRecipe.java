@@ -21,7 +21,7 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.RecipeSerializerBase;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaUpgradeRecipe extends ShapedRecipe {
 	public ManaUpgradeRecipe(ShapedRecipe compose) {
@@ -30,13 +30,13 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	public static ItemStack output(ItemStack output, Container inv) {
 		ItemStack out = output.copy();
-		var outItem = IXplatAbstractions.INSTANCE.findManaItem(out);
+		var outItem = XplatAbstractions.INSTANCE.findManaItem(out);
 		if (outItem == null) {
 			return out;
 		}
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			var item = IXplatAbstractions.INSTANCE.findManaItem(stack);
+			var item = XplatAbstractions.INSTANCE.findManaItem(stack);
 			if (!stack.isEmpty() && item != null) {
 				outItem.addMana(item.getMana());
 			}

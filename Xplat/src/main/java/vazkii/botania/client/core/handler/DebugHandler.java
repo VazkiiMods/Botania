@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public final class DebugHandler {
 		Level world = mc.level;
 		if (mc.options.renderDebug && BotaniaConfig.client().debugInfo()) {
 			left.add("");
-			String version = IXplatAbstractions.INSTANCE.getBotaniaVersion();
+			String version = XplatAbstractions.INSTANCE.getBotaniaVersion();
 
 			left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 

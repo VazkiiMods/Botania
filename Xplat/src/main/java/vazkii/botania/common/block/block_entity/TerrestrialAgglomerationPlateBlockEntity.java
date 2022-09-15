@@ -42,7 +42,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -68,7 +68,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 			'R', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'0', PatchouliAPI.get().tagMatcher(BotaniaTags.Blocks.TERRA_PLATE_BASE),
 			'L', PatchouliAPI.get().tagMatcher(
-					IXplatAbstractions.INSTANCE.isFabric()
+					XplatAbstractions.INSTANCE.isFabric()
 							? TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "lapis_blocks"))
 							: TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", "storage_blocks/lapis")))
 	));
@@ -100,7 +100,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				if (self.mana > 0) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 					int proportion = Float.floatToIntBits(self.getCompletion());
-					IXplatAbstractions.INSTANCE.sendToNear(level, worldPosition,
+					XplatAbstractions.INSTANCE.sendToNear(level, worldPosition,
 							new BotaniaEffectPacket(EffectType.TERRA_PLATE, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), proportion));
 				}
 

@@ -54,7 +54,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -268,7 +268,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 
 		if (FORMED_MULTIBLOCK.get().validate(level, worldPosition.below()) == null) {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
-			IXplatAbstractions.INSTANCE.sendToNear(level, worldPosition, new BotaniaEffectPacket(EffectType.ENCHANTER_DESTROY,
+			XplatAbstractions.INSTANCE.sendToNear(level, worldPosition, new BotaniaEffectPacket(EffectType.ENCHANTER_DESTROY,
 					worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5));
 			level.playSound(null, worldPosition, BotaniaSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
 		}

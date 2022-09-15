@@ -22,7 +22,7 @@ import vazkii.botania.common.block.block_entity.corporea.*;
 import vazkii.botania.common.block.block_entity.mana.*;
 import vazkii.botania.common.block.block_entity.red_string.*;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<PowerGeneratorBlockEntity> FLUXFIELD = type(prefix(LibBlockNames.FLUXFIELD), PowerGeneratorBlockEntity::new, rfGenerator);
 	public static final BlockEntityType<BreweryBlockEntity> BREWERY = type(prefix(LibBlockNames.BREWERY), BreweryBlockEntity::new, brewery);
 	public static final BlockEntityType<TerrestrialAgglomerationPlateBlockEntity> TERRA_PLATE = type(prefix(LibBlockNames.TERRA_PLATE), TerrestrialAgglomerationPlateBlockEntity::new, terraPlate);
-	public static final BlockEntityType<RedStringContainerBlockEntity> RED_STRING_CONTAINER = type(prefix(LibBlockNames.RED_STRING_CONTAINER), IXplatAbstractions.INSTANCE::newRedStringContainer, redStringContainer);
+	public static final BlockEntityType<RedStringContainerBlockEntity> RED_STRING_CONTAINER = type(prefix(LibBlockNames.RED_STRING_CONTAINER), XplatAbstractions.INSTANCE::newRedStringContainer, redStringContainer);
 	public static final BlockEntityType<RedStringDispenserBlockEntity> RED_STRING_DISPENSER = type(prefix(LibBlockNames.RED_STRING_DISPENSER), RedStringDispenserBlockEntity::new, redStringDispenser);
 	public static final BlockEntityType<RedStringNutrifierBlockEntity> RED_STRING_FERTILIZER = type(prefix(LibBlockNames.RED_STRING_FERTILIZER), RedStringNutrifierBlockEntity::new, redStringFertilizer);
 	public static final BlockEntityType<RedStringComparatorBlockEntity> RED_STRING_COMPARATOR = type(prefix(LibBlockNames.RED_STRING_COMPARATOR), RedStringComparatorBlockEntity::new, redStringComparator);
@@ -91,7 +91,7 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<AnimatedTorchBlockEntity> ANIMATED_TORCH = type(prefix(LibBlockNames.ANIMATED_TORCH), AnimatedTorchBlockEntity::new, animatedTorch);
 
 	private static <T extends BlockEntity> BlockEntityType<T> type(ResourceLocation id, BiFunction<BlockPos, BlockState, T> func, Block... blocks) {
-		var ret = IXplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);
+		var ret = XplatAbstractions.INSTANCE.createBlockEntityType(func, blocks);
 		var old = ALL.put(id, ret);
 		if (old != null) {
 			throw new IllegalArgumentException("Duplicate id " + id);

@@ -49,7 +49,7 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -139,7 +139,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 		AABB aabb = self.getPortalAABB();
 		boolean open = self.ticksOpen > 60;
-		IXplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.stacksIn);
+		XplatAbstractions.INSTANCE.fireElvenPortalUpdateEvent(self, aabb, open, self.stacksIn);
 
 		if (self.ticksOpen > 60) {
 			self.ticksSinceLastItem++;
@@ -155,7 +155,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 					}
 
 					ItemStack stack = item.getItem();
-					if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned) {
+					if (XplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned) {
 						continue;
 					}
 
@@ -338,7 +338,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
-		IXplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned = true;
+		XplatAbstractions.INSTANCE.itemFlagsComponent(item).alfPortalSpawned = true;
 		level.addFreshEntity(item);
 		ticksSinceLastItem = 0;
 	}

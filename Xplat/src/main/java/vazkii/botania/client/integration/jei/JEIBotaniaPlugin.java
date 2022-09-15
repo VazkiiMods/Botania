@@ -63,7 +63,7 @@ import vazkii.botania.common.item.ManaTabletItem;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -95,13 +95,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			return String.valueOf(TerraShattererItem.getLevel(stack)) + TerraShattererItem.isTipped(stack);
 		});
 		registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BotaniaItems.manaTablet, (stack, ctx) -> {
-			int mana = IXplatAbstractions.INSTANCE.findManaItem(stack).getMana();
+			int mana = XplatAbstractions.INSTANCE.findManaItem(stack).getMana();
 			return String.valueOf(mana) + ManaTabletItem.isStackCreative(stack);
 		});
 
 		for (Item item : new Item[] { BotaniaItems.manaRing, BotaniaItems.manaRingGreater }) {
 			registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, item, (stack, ctx) -> {
-				int mana = IXplatAbstractions.INSTANCE.findManaItem(stack).getMana();
+				int mana = XplatAbstractions.INSTANCE.findManaItem(stack).getMana();
 				return String.valueOf(mana);
 			});
 		}

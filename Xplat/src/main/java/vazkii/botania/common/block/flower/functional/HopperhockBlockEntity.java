@@ -38,7 +38,7 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,12 +76,12 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		BlockPos pos = getEffectivePos();
 
 		Predicate<ItemEntity> shouldPickup = item -> {
-			if (IXplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
+			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
 				return false;
 			}
 
 			// Flat 5 tick delay for newly infused items
-			var manaInfusionCooldown = IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown();
+			var manaInfusionCooldown = XplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown();
 			if (manaInfusionCooldown > 0) {
 				return manaInfusionCooldown <= ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5;
 			}
@@ -100,11 +100,11 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 				BlockPos inventoryPos = pos.relative(dir);
 				Direction sideOfInventory = dir.getOpposite();
 
-				if (IXplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
+				if (XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
 					List<ItemStack> filter = getFilterForInventory(getLevel(), inventoryPos, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
-					ItemStack simulate = IXplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, true);
+					ItemStack simulate = XplatAbstractions.INSTANCE.insertToInventory(level, inventoryPos, sideOfInventory, stack, true);
 					int inserted = stack.getCount() - simulate.getCount();
 
 					canAccept = canAccept && inserted > 0;
@@ -124,7 +124,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			if (direction != null && item.isAlive()) {
 				SpectranthemumBlockEntity.spawnExplosionParticles(item, 3);
 				InventoryHelper.checkEmpty(
-						IXplatAbstractions.INSTANCE.insertToInventory(level, pos.relative(direction),
+						XplatAbstractions.INSTANCE.insertToInventory(level, pos.relative(direction),
 								direction.getOpposite(), stack.split(amountToPutIn), false)
 				);
 

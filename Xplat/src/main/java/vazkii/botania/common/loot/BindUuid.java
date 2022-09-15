@@ -21,7 +21,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class BindUuid extends LootItemConditionalFunction {
 
@@ -33,7 +33,7 @@ public class BindUuid extends LootItemConditionalFunction {
 	@Override
 	public ItemStack run(@NotNull ItemStack stack, @NotNull LootContext context) {
 		if (context.getParamOrNull(LootContextParams.KILLER_ENTITY) instanceof Player player) {
-			var relic = IXplatAbstractions.INSTANCE.findRelic(stack);
+			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.bindToUUID(player.getUUID());
 			}

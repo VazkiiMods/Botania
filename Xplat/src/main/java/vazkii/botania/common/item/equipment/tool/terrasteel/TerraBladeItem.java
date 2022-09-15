@@ -33,7 +33,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
 import vazkii.botania.network.serverbound.LeftClickPacket;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class TerraBladeItem extends ManasteelSwordItem implements LensEffect {
 
 	public static void leftClick(ItemStack stack) {
 		if (!stack.isEmpty() && stack.getItem() instanceof TerraBladeItem) {
-			IClientXplatAbstractions.INSTANCE.sendToServer(LeftClickPacket.INSTANCE);
+			ClientXplatAbstractions.INSTANCE.sendToServer(LeftClickPacket.INSTANCE);
 		}
 	}
 

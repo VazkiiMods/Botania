@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.lib.BotaniaTags;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -30,7 +30,7 @@ public abstract class EquipmentHandler {
 
 	public static void init() {
 		if (instance == null) {
-			instance = IXplatAbstractions.INSTANCE.tryCreateEquipmentHandler();
+			instance = XplatAbstractions.INSTANCE.tryCreateEquipmentHandler();
 		}
 
 		// Fall back to hotbar
@@ -60,7 +60,7 @@ public abstract class EquipmentHandler {
 	public abstract void onInit(Item item);
 
 	public boolean isAccessory(ItemStack stack) {
-		return stack.is(BotaniaTags.Items.RODS) || stack.getItem() instanceof BaubleItem || IXplatAbstractions.INSTANCE.findManaItem(stack) != null;
+		return stack.is(BotaniaTags.Items.RODS) || stack.getItem() instanceof BaubleItem || XplatAbstractions.INSTANCE.findManaItem(stack) != null;
 	}
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.

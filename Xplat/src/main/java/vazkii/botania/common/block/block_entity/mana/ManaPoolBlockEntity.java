@@ -58,7 +58,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ManaTabletItem;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,7 +169,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			dissolvable.onDissolveTick(this, item);
 		}
 
-		if (IXplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown() > 0) {
+		if (XplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown() > 0) {
 			return false;
 		}
 
@@ -185,7 +185,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				IXplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).markNewlyInfused();
+				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).markNewlyInfused();
 				level.addFreshEntity(outputItem);
 
 				craftingFanciness();
@@ -280,7 +280,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			}
 
 			ItemStack stack = item.getItem();
-			var mana = IXplatAbstractions.INSTANCE.findManaItem(stack);
+			var mana = XplatAbstractions.INSTANCE.findManaItem(stack);
 			if (!stack.isEmpty() && mana != null) {
 				if (self.outputting && mana.canReceiveManaFromPool(self) || !self.outputting && mana.canExportManaToPool(self)) {
 					boolean didSomething = false;

@@ -40,7 +40,7 @@ import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -110,7 +110,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					}
 
 					for (ItemStack stack : stacks) {
-						var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+						var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 						if (stack.isEmpty() || manaItem == null) {
 							continue;
 						}
@@ -209,13 +209,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	private void particlesTowards(Entity e) {
-		IXplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
+		XplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
 				getId(), e.getId(), ColorHelper.getColorValue(getNetwork())));
 	}
 
 	public static void particleBeam(Player player, Entity e1, Entity e2) {
 		if (e1 != null && e2 != null && !e1.level.isClientSide) {
-			IXplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.SPARK_NET_INDICATOR,
+			XplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.SPARK_NET_INDICATOR,
 					e1.getX(), e1.getY(), e1.getZ(),
 					e1.getId(), e2.getId()));
 		}
@@ -294,7 +294,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	@Override
 	public SparkAttachable getAttachedTile() {
-		return IXplatAbstractions.INSTANCE.findSparkAttachable(level, getAttachPos(), level.getBlockState(getAttachPos()), level.getBlockEntity(getAttachPos()), Direction.UP);
+		return XplatAbstractions.INSTANCE.findSparkAttachable(level, getAttachPos(), level.getBlockState(getAttachPos()), level.getBlockEntity(getAttachPos()), Direction.UP);
 	}
 
 	private void filterTransfers() {

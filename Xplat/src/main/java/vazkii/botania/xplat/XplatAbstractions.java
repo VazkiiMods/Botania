@@ -70,7 +70,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
-public interface IXplatAbstractions {
+public interface XplatAbstractions {
 	// FML/Fabric Loader
 	default boolean gogLoaded() {
 		return isModLoaded(BotaniaAPI.GOG_MODID);
@@ -192,5 +192,5 @@ public interface IXplatAbstractions {
 	boolean isRedStringContainerTarget(BlockEntity be);
 	RedStringContainerBlockEntity newRedStringContainer(BlockPos pos, BlockState state);
 
-	IXplatAbstractions INSTANCE = ServiceUtil.findService(IXplatAbstractions.class, null);
+	XplatAbstractions INSTANCE = ServiceUtil.findService(XplatAbstractions.class, null);
 }

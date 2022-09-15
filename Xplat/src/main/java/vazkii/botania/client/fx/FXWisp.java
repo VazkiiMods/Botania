@@ -25,7 +25,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 public class FXWisp extends TextureSheetParticle {
 	private final boolean depthTest;
@@ -110,13 +110,13 @@ public class FXWisp extends TextureSheetParticle {
 
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
-		IClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
+		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon() {
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
-		IClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
+		ClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 	}

@@ -22,9 +22,9 @@ import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.network.BotaniaPacket;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
-public class FabricClientXplatImpl implements IClientXplatAbstractions {
+public class FabricClientXplatImpl implements ClientXplatAbstractions {
 	@Override
 	public void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		TinyPotatoRenderCallback.EVENT.invoker().onRender(potato, name, tickDelta, ms, buffers, light, overlay);

@@ -24,7 +24,7 @@ import vazkii.botania.api.corporea.CorporeaRequestor;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.InventoryHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,9 +81,9 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 		spark.onItemsRequested(stacks);
 		for (ItemStack reqStack : stacks) {
 			if (invPos != null
-					&& IXplatAbstractions.INSTANCE.insertToInventory(level, invPos, Direction.UP, reqStack, true).isEmpty()) {
+					&& XplatAbstractions.INSTANCE.insertToInventory(level, invPos, Direction.UP, reqStack, true).isEmpty()) {
 				InventoryHelper.checkEmpty(
-						IXplatAbstractions.INSTANCE.insertToInventory(level, invPos, Direction.UP, reqStack, false)
+						XplatAbstractions.INSTANCE.insertToInventory(level, invPos, Direction.UP, reqStack, false)
 				);
 			} else {
 				ItemEntity item = new ItemEntity(level, spark.entity().getX(), spark.entity().getY(), spark.entity().getZ(), reqStack);
@@ -95,12 +95,12 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 	@Nullable
 	private BlockPos getInvPos() {
 		BlockPos downOne = worldPosition.below();
-		if (IXplatAbstractions.INSTANCE.hasInventory(level, downOne, Direction.UP)) {
+		if (XplatAbstractions.INSTANCE.hasInventory(level, downOne, Direction.UP)) {
 			return downOne;
 		}
 
 		BlockPos downTwo = worldPosition.below(2);
-		if (IXplatAbstractions.INSTANCE.hasInventory(level, downTwo, Direction.UP)) {
+		if (XplatAbstractions.INSTANCE.hasInventory(level, downTwo, Direction.UP)) {
 			return downTwo;
 		}
 

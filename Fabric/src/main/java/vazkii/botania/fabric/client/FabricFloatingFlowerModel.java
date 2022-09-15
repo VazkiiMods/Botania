@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
 import java.util.function.Function;
@@ -151,7 +151,7 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		JsonObject json = jsonElement.getAsJsonObject();
 		JsonElement loader = json.get("loader");
 		if (loader != null && loader.isJsonPrimitive()
-				&& loader.getAsString().equals(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.toString())) {
+				&& loader.getAsString().equals(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.toString())) {
 			BlockModel flowerModel = context.deserialize(json.getAsJsonObject("flower"), BlockModel.class);
 			cir.setReturnValue(new FabricFloatingFlowerModel(flowerModel));
 		}

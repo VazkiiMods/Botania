@@ -38,7 +38,7 @@ import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Optional;
 
@@ -61,13 +61,13 @@ public class ManaMirrorItem extends Item {
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
 	}
 
@@ -96,7 +96,7 @@ public class ManaMirrorItem extends Item {
 		Player player = ctx.getPlayer();
 
 		if (player != null && player.isShiftKeyDown() && !world.isClientSide) {
-			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, ctx.getClickedPos(), null);
+			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, ctx.getClickedPos(), null);
 			if (receiver instanceof ManaPool pool) {
 				bindPool(ctx.getItemInHand(), pool);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
@@ -155,7 +155,7 @@ public class ManaMirrorItem extends Item {
 		ResourceKey<Level> type = pos.dimension();
 		Level world = server.getLevel(type);
 		if (world != null) {
-			var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
+			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, pos.pos(), null);
 			if (receiver instanceof ManaPool pool) {
 				return pool;
 			}

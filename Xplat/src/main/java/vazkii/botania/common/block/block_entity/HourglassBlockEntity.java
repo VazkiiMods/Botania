@@ -33,7 +33,7 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.item.BotaniaItems;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger, Wandable {
 	private static final String TAG_TIME = "time";
@@ -80,7 +80,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 
 				for (Direction facing : Direction.values()) {
 					BlockPos pos = worldPosition.relative(facing);
-					var trigger = IXplatAbstractions.INSTANCE.findHourglassTrigger(level, pos,
+					var trigger = XplatAbstractions.INSTANCE.findHourglassTrigger(level, pos,
 							level.getBlockState(pos), level.getBlockEntity(pos));
 					if (trigger != null) {
 						trigger.onTriggeredByHourglass(self);

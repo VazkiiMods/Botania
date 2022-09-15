@@ -43,7 +43,7 @@ import vazkii.botania.common.block.PetalApothecaryBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,19 +73,19 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
-			if (stack.getItem() instanceof MobBucketItem bucketItem && IXplatAbstractions.INSTANCE.getBucketFluid(bucketItem) == Fluids.WATER) {
+			if (stack.getItem() instanceof MobBucketItem bucketItem && XplatAbstractions.INSTANCE.getBucketFluid(bucketItem) == Fluids.WATER) {
 				setFluid(State.WATER);
 				bucketItem.checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
 				return true;
 			}
 
-			if (IXplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.WATER)) {
+			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.WATER)) {
 				setFluid(State.WATER);
 				return true;
 			}
 
-			if (IXplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.LAVA)) {
+			if (XplatAbstractions.INSTANCE.extractFluidFromItemEntity(item, Fluids.LAVA)) {
 				setFluid(State.LAVA);
 				return true;
 			}
@@ -111,7 +111,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				EntityHelper.shrinkItem(item);
 
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
-				IXplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
+				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
 				level.addFreshEntity(outputItem);
 
 				setFluid(State.EMPTY);
@@ -119,8 +119,8 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 			});
 			return maybeRecipe.isPresent();
-		} else if (!IXplatAbstractions.INSTANCE.isFluidContainer(item)
-				&& !IXplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned) {
+		} else if (!XplatAbstractions.INSTANCE.isFluidContainer(item)
+				&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
 			}

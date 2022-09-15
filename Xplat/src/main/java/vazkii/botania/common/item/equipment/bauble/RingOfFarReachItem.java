@@ -15,7 +15,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class RingOfFarReachItem extends BaubleItem {
 
@@ -26,7 +26,7 @@ public class RingOfFarReachItem extends BaubleItem {
 	@Override
 	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(IXplatAbstractions.INSTANCE.getReachDistanceAttribute(),
+		attributes.put(XplatAbstractions.INSTANCE.getReachDistanceAttribute(),
 				new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, AttributeModifier.Operation.ADDITION));
 		return attributes;
 	}

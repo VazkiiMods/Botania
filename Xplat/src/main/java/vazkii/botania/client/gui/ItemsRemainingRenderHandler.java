@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.network.clientbound.UpdateItemsRemainingPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.regex.Pattern;
 
@@ -113,7 +113,7 @@ public final class ItemsRemainingRenderHandler {
 	}
 
 	public static void send(Player entity, ItemStack stack, int count, @Nullable Component str) {
-		IXplatAbstractions.INSTANCE.sendToPlayer(entity, new UpdateItemsRemainingPacket(stack, count, str));
+		XplatAbstractions.INSTANCE.sendToPlayer(entity, new UpdateItemsRemainingPacket(stack, count, str));
 	}
 
 	public static void send(Player player, ItemStack displayStack, Pattern pattern) {

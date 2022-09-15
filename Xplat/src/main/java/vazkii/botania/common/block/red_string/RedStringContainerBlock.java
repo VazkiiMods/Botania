@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.red_string.RedStringBlockEntity;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class RedStringContainerBlock extends RedStringBlock {
 
@@ -36,7 +36,7 @@ public class RedStringContainerBlock extends RedStringBlock {
 	@NotNull
 	@Override
 	public RedStringBlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return IXplatAbstractions.INSTANCE.newRedStringContainer(pos, state);
+		return XplatAbstractions.INSTANCE.newRedStringContainer(pos, state);
 	}
 
 	@Nullable

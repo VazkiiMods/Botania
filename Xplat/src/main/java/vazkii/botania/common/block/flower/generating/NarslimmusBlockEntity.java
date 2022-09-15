@@ -24,7 +24,7 @@ import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 		if (ticksExisted % 5 == 0) {
 			List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (Slime slime : slimes) {
-				if (slime.isAlive() && IXplatAbstractions.INSTANCE.narslimmusComponent(slime).isNaturalSpawned()) {
+				if (slime.isAlive() && XplatAbstractions.INSTANCE.narslimmusComponent(slime).isNaturalSpawned()) {
 					int size = slime.getSize();
 					if (!slime.level.isClientSide) {
 						slime.discard();
@@ -93,7 +93,7 @@ public class NarslimmusBlockEntity extends GeneratingFlowerBlockEntity {
 		if (slimeChunk) {
 			entity.getSelfAndPassengers().forEach(e -> {
 				if (e instanceof Slime slime) {
-					IXplatAbstractions.INSTANCE.narslimmusComponent(slime).setNaturalSpawn(true);
+					XplatAbstractions.INSTANCE.narslimmusComponent(slime).setNaturalSpawn(true);
 				}
 			});
 		}

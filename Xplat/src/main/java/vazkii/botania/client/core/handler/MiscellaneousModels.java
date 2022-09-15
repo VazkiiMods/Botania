@@ -29,7 +29,7 @@ import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.client.ModelBakeryAccessor;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -185,9 +185,9 @@ public class MiscellaneousModels {
 		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "");
 		BakedModel infrangible = map.get(infrangibleName);
 
-		map.put(abstruseName, IClientXplatAbstractions.INSTANCE.wrapPlatformModel(abstruse));
-		map.put(spectralName, IClientXplatAbstractions.INSTANCE.wrapPlatformModel(spectral));
-		map.put(infrangibleName, IClientXplatAbstractions.INSTANCE.wrapPlatformModel(infrangible));
+		map.put(abstruseName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(abstruse));
+		map.put(spectralName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(spectral));
+		map.put(infrangibleName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(infrangible));
 
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");

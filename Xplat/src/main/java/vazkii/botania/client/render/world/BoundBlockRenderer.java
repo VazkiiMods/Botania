@@ -34,7 +34,7 @@ import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -65,7 +65,7 @@ public final class BoundBlockRenderer {
 		int color = 0xFF000000 | Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if (!player.getMainHandItem().isEmpty()) {
-			var coordBoundItem = IXplatAbstractions.INSTANCE.findCoordBoundItem(player.getMainHandItem());
+			var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(player.getMainHandItem());
 			if (coordBoundItem != null) {
 				BlockPos coords = coordBoundItem.getBinding(player.level);
 				if (coords != null) {
@@ -75,7 +75,7 @@ public final class BoundBlockRenderer {
 		}
 
 		if (!player.getOffhandItem().isEmpty()) {
-			var coordBoundItem = IXplatAbstractions.INSTANCE.findCoordBoundItem(player.getOffhandItem());
+			var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(player.getOffhandItem());
 			if (coordBoundItem != null) {
 				BlockPos coords = coordBoundItem.getBinding(player.level);
 				if (coords != null) {

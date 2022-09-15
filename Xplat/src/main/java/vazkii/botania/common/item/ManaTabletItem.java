@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Optional;
@@ -153,13 +153,13 @@ public class ManaTabletItem extends Item {
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 		return Math.round(13 * ManaBarTooltip.getFractionForDisplay(manaItem));
 	}
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+		var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 		return Mth.hsvToRgb(ManaBarTooltip.getFractionForDisplay(manaItem) / 3.0F, 1.0F, 1.0F);
 	}
 }

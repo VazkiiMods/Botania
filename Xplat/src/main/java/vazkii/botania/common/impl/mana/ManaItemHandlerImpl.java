@@ -24,7 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ManaProficiencyArmor;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -38,12 +38,12 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		List<ItemStack> toReturn = new ArrayList<>();
 
 		for (ItemStack stackInSlot : Iterables.concat(player.getInventory().items, player.getInventory().offhand)) {
-			if (!stackInSlot.isEmpty() && IXplatAbstractions.INSTANCE.findManaItem(stackInSlot) != null) {
+			if (!stackInSlot.isEmpty() && XplatAbstractions.INSTANCE.findManaItem(stackInSlot) != null) {
 				toReturn.add(stackInSlot);
 			}
 		}
 
-		IXplatAbstractions.INSTANCE.fireManaItemEvent(player, toReturn);
+		XplatAbstractions.INSTANCE.fireManaItemEvent(player, toReturn);
 		return toReturn;
 	}
 
@@ -60,7 +60,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		for (int slot = 0; slot < acc.getContainerSize(); slot++) {
 			ItemStack stackInSlot = acc.getItem(slot);
 
-			if (!stackInSlot.isEmpty() && IXplatAbstractions.INSTANCE.findManaItem(stackInSlot) != null) {
+			if (!stackInSlot.isEmpty() && XplatAbstractions.INSTANCE.findManaItem(stackInSlot) != null) {
 				toReturn.add(stackInSlot);
 			}
 		}
@@ -81,9 +81,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			var manaItem = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			if (manaItem.canExportManaToItem(stack) && manaItem.getMana() > 0) {
-				var requestor = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				var requestor = XplatAbstractions.INSTANCE.findManaItem(stack);
 				if (requestor != null && !requestor.canReceiveManaFromItem(stackInSlot)) {
 					continue;
 				}
@@ -119,9 +119,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			var manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			var manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			if (manaItemSlot.canExportManaToItem(stack)) {
-				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 				if (manaItem != null && !manaItem.canReceiveManaFromItem(stackInSlot)) {
 					continue;
 				}
@@ -162,9 +162,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			ManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			ManaItem manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			if (manaItemSlot.canReceiveManaFromItem(stack)) {
-				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
 					continue;
 				}
@@ -199,9 +199,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			ManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			ManaItem manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			if (manaItemSlot.getMana() + manaToSend <= manaItemSlot.getMaxMana() && manaItemSlot.canReceiveManaFromItem(stack)) {
-				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 				if (manaItem != null && !manaItem.canExportManaToItem(stackInSlot)) {
 					continue;
 				}
@@ -249,10 +249,10 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			if (stackInSlot == stack) {
 				continue;
 			}
-			ManaItem manaItemSlot = IXplatAbstractions.INSTANCE.findManaItem(stackInSlot);
+			ManaItem manaItemSlot = XplatAbstractions.INSTANCE.findManaItem(stackInSlot);
 			int availableMana = manaItemSlot.getMana();
 			if (manaItemSlot.canExportManaToItem(stack) && availableMana > cost) {
-				var manaItem = IXplatAbstractions.INSTANCE.findManaItem(stack);
+				var manaItem = XplatAbstractions.INSTANCE.findManaItem(stack);
 				if (manaItem != null && !manaItem.canReceiveManaFromItem(stackInSlot)) {
 					continue;
 				}
@@ -276,7 +276,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 
 		int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, tool);
 		discount += unbreaking * 0.05F;
-		discount = IXplatAbstractions.INSTANCE.fireManaDiscountEvent(player, discount, tool);
+		discount = XplatAbstractions.INSTANCE.fireManaDiscountEvent(player, discount, tool);
 
 		return discount;
 	}
@@ -300,6 +300,6 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		}
 
-		return IXplatAbstractions.INSTANCE.fireManaProficiencyEvent(player, manaItem, proficient);
+		return XplatAbstractions.INSTANCE.fireManaProficiencyEvent(player, manaItem, proficient);
 	}
 }

@@ -38,7 +38,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.AvatarSkiesRodPacket;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 import java.util.Map;
@@ -159,7 +159,7 @@ public class SkiesRodItem extends Item {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
-			ManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
+			ManaReceiver receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
 
 			if (!world.isClientSide) {
 				decAvatarCooldowns(cooldowns);
@@ -204,8 +204,8 @@ public class SkiesRodItem extends Item {
 				p.getDeltaMovement().z() + lookDir.z() * mult);
 
 		if (!world.isClientSide) {
-			IXplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodPacket(true));
-			IXplatAbstractions.INSTANCE.sendToTracking(p,
+			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodPacket(true));
+			XplatAbstractions.INSTANCE.sendToTracking(p,
 					new BotaniaEffectPacket(EffectType.AVATAR_TORNADO_BOOST,
 							p.getX(), p.getY(), p.getZ(),
 							p.getId()));
@@ -216,8 +216,8 @@ public class SkiesRodItem extends Item {
 		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
 
 		if (!world.isClientSide) {
-			IXplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodPacket(false));
-			IXplatAbstractions.INSTANCE.sendToTracking(p,
+			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodPacket(false));
+			XplatAbstractions.INSTANCE.sendToTracking(p,
 					new BotaniaEffectPacket(EffectType.AVATAR_TORNADO_JUMP,
 							p.getX(), p.getY(), p.getZ(),
 							p.getId())

@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.xplat.IClientXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -54,7 +54,7 @@ public class FloatingFlowerModelProvider implements DataProvider {
 
 				JsonObject obj = new JsonObject();
 				obj.addProperty("parent", "minecraft:block/block");
-				obj.addProperty("loader", IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.toString());
+				obj.addProperty("loader", ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.toString());
 				JsonObject flower = new JsonObject();
 				flower.addProperty("parent", ResourcesLib.PREFIX_MOD + "block/" + nonFloat);
 				obj.add("flower", flower);

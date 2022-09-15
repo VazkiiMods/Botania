@@ -56,8 +56,8 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.mixin.client.RenderBuffersAccessor;
-import vazkii.botania.xplat.IClientXplatAbstractions;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.ClientXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
 
 import java.io.IOException;
@@ -122,7 +122,7 @@ public class ForgeClientInitializer {
 			}
 		});
 		bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {
-			var manaItem = IXplatAbstractions.INSTANCE.findManaItem(e.getItemStack());
+			var manaItem = XplatAbstractions.INSTANCE.findManaItem(e.getItemStack());
 			if (manaItem == null) {
 				return;
 			}
@@ -145,7 +145,7 @@ public class ForgeClientInitializer {
 		ClientProxy.initSeasonal();
 		bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
 
-		if (IXplatAbstractions.INSTANCE.isModLoaded("ears")) {
+		if (XplatAbstractions.INSTANCE.isModLoaded("ears")) {
 			EarsIntegration.register();
 		}
 	}
@@ -195,7 +195,7 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
-		evt.register(IClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.getPath(),
+		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.getPath(),
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
 	}
 

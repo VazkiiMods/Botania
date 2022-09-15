@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class FabricBlockTagProvider extends BlockTagsProvider {
 		// We aren't calling vanilla's generation, so need to add dummy calls so that using them below doesn't error out.
 		vanillaTags.forEach(this::tag);
 
-		var oreTag = tag(IXplatAbstractions.INSTANCE.getOreTag());
+		var oreTag = tag(XplatAbstractions.INSTANCE.getOreTag());
 		vanillaTags.forEach(oreTag::addTag);
 	}
 }

@@ -47,7 +47,7 @@ import vazkii.botania.common.block.block_entity.mana.ThrottledPacket;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.BotaniaConfig;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -440,7 +440,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		BlockState state = level.getBlockState(collidePos);
 		Block block = state.getBlock();
 
-		var ghost = IXplatAbstractions.INSTANCE.findManaGhost(level, collidePos, state, tile);
+		var ghost = XplatAbstractions.INSTANCE.findManaGhost(level, collidePos, state, tile);
 		var ghostBehaviour = ghost != null ? ghost.getGhostBehaviour() : ManaCollisionGhost.Behaviour.RUN_ALL;
 
 		if (ghostBehaviour == ManaCollisionGhost.Behaviour.SKIP_ALL
@@ -454,7 +454,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			return;
 		}
 
-		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, collidePos, state, tile, hit.getDirection());
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, collidePos, state, tile, hit.getDirection());
 		collidedTile = receiver;
 
 		if (!fake && !noParticles && !level.isClientSide) {
@@ -467,7 +467,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			}
 		}
 
-		var trigger = IXplatAbstractions.INSTANCE.findManaTrigger(level, collidePos, state, tile);
+		var trigger = XplatAbstractions.INSTANCE.findManaTrigger(level, collidePos, state, tile);
 		if (trigger != null) {
 			trigger.onBurstCollision(this);
 		}
@@ -562,7 +562,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 	@Nullable
 	private ManaSpreader getShooter() {
-		var receiver = IXplatAbstractions.INSTANCE.findManaReceiver(level, getBurstSourceBlockPos(), null);
+		var receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, getBurstSourceBlockPos(), null);
 		return receiver instanceof ManaSpreader spreader ? spreader : null;
 	}
 

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class DelayHelper {
 	public static final int FUNCTIONAL_INHERENT_DELAY = 60;
@@ -24,7 +24,7 @@ public class DelayHelper {
 	 */
 	public static boolean canInteractWithImmediate(SpecialFlowerBlockEntity tile, ItemEntity item) {
 		return item.isAlive() && !item.getItem().isEmpty()
-				&& IXplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter > tile.getModulatedDelay();
+				&& XplatAbstractions.INSTANCE.itemFlagsComponent(item).timeCounter > tile.getModulatedDelay();
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class DelayHelper {
 		if (!item.isAlive() || item.getItem().isEmpty()) {
 			return false;
 		}
-		var flags = IXplatAbstractions.INSTANCE.itemFlagsComponent(item);
+		var flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
 		int inherentDelay = 0;
 		if (tile instanceof FunctionalFlowerBlockEntity) {
 			inherentDelay = FUNCTIONAL_INHERENT_DELAY;

@@ -42,7 +42,7 @@ import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.RecipeManagerAccessor;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 
@@ -62,7 +62,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	private int lastRecipeEpoch = recipeEpoch;
 
 	public static void registerListener() {
-		IXplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("craft_crate_epoch_counter"),
+		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("craft_crate_epoch_counter"),
 				(ResourceManagerReloadListener) mgr -> recipeEpoch++);
 	}
 

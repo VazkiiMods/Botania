@@ -16,10 +16,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 public class PowerGeneratorBlockEntity extends BotaniaBlockEntity implements ManaReceiver {
-	private static final int MANA_TO_FE = IXplatAbstractions.INSTANCE.isForge() ? 10 : 3;
+	private static final int MANA_TO_FE = XplatAbstractions.INSTANCE.isForge() ? 10 : 3;
 	public static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
 	private static final String TAG_MANA = "mana";
@@ -31,7 +31,7 @@ public class PowerGeneratorBlockEntity extends BotaniaBlockEntity implements Man
 
 	public static void serverTick(Level level, BlockPos pos, BlockState state, PowerGeneratorBlockEntity self) {
 		int toTransfer = Math.min(self.energy, 160 * MANA_TO_FE);
-		int unconsumed = IXplatAbstractions.INSTANCE.transferEnergyToNeighbors(level, pos, toTransfer);
+		int unconsumed = XplatAbstractions.INSTANCE.transferEnergyToNeighbors(level, pos, toTransfer);
 		if (unconsumed != toTransfer) {
 			self.energy -= (toTransfer - unconsumed);
 			self.setChanged();

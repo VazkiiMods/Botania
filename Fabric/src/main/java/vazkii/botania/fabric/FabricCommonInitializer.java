@@ -98,7 +98,7 @@ import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 import vazkii.botania.fabric.network.FabricPacketHandler;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
@@ -150,7 +150,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBlocks.addAxeStripping();
 
 		int blazeTime = 2400;
-		FuelRegistry.INSTANCE.add(BotaniaBlocks.blazeBlock.asItem(), blazeTime * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
+		FuelRegistry.INSTANCE.add(BotaniaBlocks.blazeBlock.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
 
 		// GUI and Recipe
 		BotaniaItems.registerMenuTypes(bind(Registry.MENU));
@@ -192,7 +192,7 @@ public class FabricCommonInitializer implements ModInitializer {
 	}
 
 	private void registerEvents() {
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> ((ShiftingCrustRodItem) BotaniaItems.exchangeRod).onLeftClick(player, world, hand, pos, direction));
@@ -306,7 +306,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRING_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRING_DISPENSER);
 
-		if (IXplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
+		if (XplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
 			FluxfieldTRStorage.register();
 		}
 	}
@@ -326,7 +326,7 @@ public class FabricCommonInitializer implements ModInitializer {
 	}
 
 	private void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext ctx, Commands.CommandSelection environment) {
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockCommand.register(dispatcher);
 		}
 	}

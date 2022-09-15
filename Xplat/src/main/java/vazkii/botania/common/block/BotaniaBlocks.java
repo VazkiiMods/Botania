@@ -58,7 +58,7 @@ import vazkii.botania.common.item.block.BlockItemWithSpecialRenderer;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.DispenserBlockAccessor;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Locale;
 import java.util.function.BiConsumer;
@@ -944,7 +944,7 @@ public final class BotaniaBlocks {
 	}
 
 	public static void addAxeStripping() {
-		IXplatAbstractions xplat = IXplatAbstractions.INSTANCE;
+		XplatAbstractions xplat = XplatAbstractions.INSTANCE;
 		xplat.addAxeStripping(livingwoodLog, livingwoodLogStripped);
 		xplat.addAxeStripping(livingwoodLogGlimmering, livingwoodLogStrippedGlimmering);
 		xplat.addAxeStripping(livingwood, livingwoodStripped);

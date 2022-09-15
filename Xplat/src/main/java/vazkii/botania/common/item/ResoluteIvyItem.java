@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.internal_caps.KeptItemsComponent;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class ResoluteIvyItem extends Item {
 		}
 
 		// The capabilities are not yet invalidated at this point, no need to do reviveCaps
-		KeptItemsComponent data = IXplatAbstractions.INSTANCE.keptItemsComponent(player, false);
+		KeptItemsComponent data = XplatAbstractions.INSTANCE.keptItemsComponent(player, false);
 		data.addAll(keeps);
 	}
 
@@ -55,7 +55,7 @@ public class ResoluteIvyItem extends Item {
 		if (!alive) {
 			// At this point, the Forge capabilities have been invalidated and are no longer
 			// accessible unless we do a hacky reviveCaps() call, see ForgeXplatImpl for details.
-			KeptItemsComponent keeps = IXplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer, true);
+			KeptItemsComponent keeps = XplatAbstractions.INSTANCE.keptItemsComponent(oldPlayer, true);
 
 			for (ItemStack stack : keeps.getStacks()) {
 				ItemStack copy = stack.copy();

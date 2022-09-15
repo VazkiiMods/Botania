@@ -104,7 +104,7 @@ import vazkii.botania.forge.mixin.RecipeProviderForgeAccessor;
 import vazkii.botania.forge.mixin.RegistryForgeAccessor;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.BotaniaPacket;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -115,7 +115,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ForgeXplatImpl implements IXplatAbstractions {
+public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean isForge() {
 		return true;
@@ -457,7 +457,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 	@Nullable
 	@Override
 	public EquipmentHandler tryCreateEquipmentHandler() {
-		if (IXplatAbstractions.INSTANCE.isModLoaded("curios")) {
+		if (XplatAbstractions.INSTANCE.isModLoaded("curios")) {
 			CurioIntegration.init();
 			return new CurioIntegration();
 		}

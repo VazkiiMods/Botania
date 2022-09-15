@@ -119,7 +119,7 @@ import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.forge.xplat.ForgeXplatImpl;
-import vazkii.botania.xplat.IXplatAbstractions;
+import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
@@ -233,14 +233,14 @@ public class ForgeCommonInitializer {
 		bus.addGenericListener(ItemStack.class, this::attachItemCaps);
 		bus.addGenericListener(BlockEntity.class, this::attachBeCaps);
 
-		int blazeTime = 2400 * (IXplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
+		int blazeTime = 2400 * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
 		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
 			if (e.getItemStack().is(BotaniaBlocks.blazeBlock.asItem())) {
 				e.setBurnTime(blazeTime);
 			}
 		});
 
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
 				InteractionResult result = SkyblockWorldEvents.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 				if (result == InteractionResult.SUCCESS) {
@@ -613,7 +613,7 @@ public class ForgeCommonInitializer {
 	}
 
 	private void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, boolean dedicated) {
-		if (IXplatAbstractions.INSTANCE.gogLoaded()) {
+		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockCommand.register(dispatcher);
 		}
 	}
