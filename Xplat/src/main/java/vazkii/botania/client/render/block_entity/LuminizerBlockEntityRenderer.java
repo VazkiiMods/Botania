@@ -30,7 +30,7 @@ import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.BlockLightRelay;
+import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 
@@ -60,7 +60,7 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 			}
 		}
 
-		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant).sprite();
+		TextureAtlasSprite iicon = sprites.get(((LuminizerBlock) state.getBlock()).variant).sprite();
 
 		ms.pushPose();
 		ms.translate(0.5, 0.3, 0.5);

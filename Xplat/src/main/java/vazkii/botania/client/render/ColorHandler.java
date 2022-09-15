@@ -28,8 +28,8 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.BrewItem;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.decor.PetalBlock;
@@ -107,7 +107,7 @@ public final class ColorHandler {
 						if (tile instanceof PlatformBlockEntity camo) {
 							BlockState camoState = camo.getCamoState();
 							if (camoState != null) {
-								return camoState.getBlock() instanceof BlockPlatform
+								return camoState.getBlock() instanceof PlatformBlock
 										? 0xFFFFFF
 										: Minecraft.getInstance().getBlockColors().getColor(camoState, world, pos, tintIndex);
 							}

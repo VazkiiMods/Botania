@@ -17,9 +17,9 @@ import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 
-public class ManaVoidBlock extends BlockMod implements PoolOverlayProvider {
+public class ManaVoidBlock extends BotaniaBlock implements PoolOverlayProvider {
 	private static final int SPARKLE_EVENT = 0;
 
 	public ManaVoidBlock(Properties builder) {

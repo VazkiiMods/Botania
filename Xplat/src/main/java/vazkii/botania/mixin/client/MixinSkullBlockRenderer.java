@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.client.model.GaiaHeadModel;
 import vazkii.botania.client.render.block_entity.GaiaHeadBlockEntityRenderer;
-import vazkii.botania.common.block.BlockGaiaHead;
+import vazkii.botania.common.block.GaiaHeadBlock;
 
 import java.util.Map;
 
@@ -46,15 +46,15 @@ public abstract class MixinSkullBlockRenderer {
 	)
 	private static void registerModel(EntityModelSet entityModelSet, CallbackInfoReturnable<Map<SkullBlock.Type, SkullModelBase>> cir,
 			ImmutableMap.Builder<SkullBlock.Type, SkullModelBase> builder) {
-		builder.put(BlockGaiaHead.GAIA_TYPE, new GaiaHeadModel());
+		builder.put(GaiaHeadBlock.GAIA_TYPE, new GaiaHeadModel());
 
 		// placeholder to avoid crash
-		SKIN_BY_TYPE.put(BlockGaiaHead.GAIA_TYPE, DefaultPlayerSkin.getDefaultSkin());
+		SKIN_BY_TYPE.put(GaiaHeadBlock.GAIA_TYPE, DefaultPlayerSkin.getDefaultSkin());
 	}
 
 	@Inject(at = @At("HEAD"), method = "getRenderType", cancellable = true)
 	private static void hookGetRenderType(SkullBlock.Type type, GameProfile gameProfile, CallbackInfoReturnable<RenderType> cir) {
-		if (type == BlockGaiaHead.GAIA_TYPE) {
+		if (type == GaiaHeadBlock.GAIA_TYPE) {
 			GaiaHeadBlockEntityRenderer.hookGetRenderType(cir);
 		}
 	}

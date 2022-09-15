@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import vazkii.botania.common.block.BlockBifrostPerm;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.PermanentBifrostBlock;
 
 @Mixin(BeaconBlockEntity.class)
 public class BeaconBlockEntityFabricMixin {
@@ -35,7 +35,7 @@ public class BeaconBlockEntityFabricMixin {
 	@ModifyVariable(method = "tick", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/item/DyeColor;getTextureDiffuseColors()[F"))
 	private static float[] bifrostColor(float[] obj, Level level) {
 		if (bifrost) {
-			return ((BlockBifrostPerm) ModBlocks.bifrostPerm).getBeaconColorMultiplier(
+			return ((PermanentBifrostBlock) ModBlocks.bifrostPerm).getBeaconColorMultiplier(
 					ModBlocks.bifrostPerm.defaultBlockState(),
 					level, BlockPos.ZERO, BlockPos.ZERO);
 		}

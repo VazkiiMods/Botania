@@ -51,7 +51,7 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.common.block.BlockPlatform;
+import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemTemperanceStone;
@@ -93,7 +93,7 @@ public class ItemExchangeRod extends Item implements WireframeCoordinateListProv
 
 		if (player != null && player.isShiftKeyDown()) {
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile == null && block.asItem() != Items.AIR && BlockPlatform.isValidBlock(wstate, world, pos)
+			if (tile == null && block.asItem() != Items.AIR && PlatformBlock.isValidBlock(wstate, world, pos)
 					&& (wstate.canOcclude() || block instanceof AbstractGlassBlock || block instanceof IronBarsBlock)
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());

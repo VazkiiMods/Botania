@@ -19,11 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.PowerGeneratorBlockEntity;
 
-public class PowerGeneratorBlock extends BlockMod implements EntityBlock {
+public class PowerGeneratorBlock extends BotaniaBlock implements EntityBlock {
 
 	public PowerGeneratorBlock(Properties builder) {
 		super(builder);

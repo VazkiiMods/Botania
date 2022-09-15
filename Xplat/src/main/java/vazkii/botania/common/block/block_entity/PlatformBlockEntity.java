@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.block.BlockPlatform;
+import vazkii.botania.common.block.PlatformBlock;
 
 public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable {
 	private static final String TAG_CAMO = "camo";
@@ -36,7 +36,7 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 	@Override
 	public boolean onUsedByWand(@Nullable Player player, ItemStack stack, Direction side) {
 		if (player != null) {
-			BlockPlatform.Variant variant = getVariant();
+			PlatformBlock.Variant variant = getVariant();
 			if (variant.indestructible && !player.isCreative()) {
 				return false;
 			}
@@ -69,16 +69,16 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 		}
 	}
 
-	private BlockPlatform.Variant getVariant() {
-		return ((BlockPlatform) getBlockState().getBlock()).getVariant();
+	private PlatformBlock.Variant getVariant() {
+		return ((PlatformBlock) getBlockState().getBlock()).getVariant();
 	}
 
-	private void swapSelfAndPass(PlatformBlockEntity tile, boolean empty, BlockPlatform.Variant variant) {
+	private void swapSelfAndPass(PlatformBlockEntity tile, boolean empty, PlatformBlock.Variant variant) {
 		swap(tile, empty);
 		swapSurroudings(tile, empty, variant);
 	}
 
-	private void swapSurroudings(PlatformBlockEntity tile, boolean empty, BlockPlatform.Variant variant) {
+	private void swapSurroudings(PlatformBlockEntity tile, boolean empty, PlatformBlock.Variant variant) {
 		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getBlockPos().relative(dir);
 			BlockEntity tileAt = level.getBlockEntity(pos);

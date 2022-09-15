@@ -288,7 +288,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				ModBlocks.canopyDrum, ModBlocks.gatheringDrum, ModBlocks.wildDrum
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
-				(level, pos, state, be, context) -> new BlockManaBomb.ManaTriggerImpl(level, pos, state),
+				(level, pos, state, be, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
 				ModBlocks.manaBomb
 		);
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerForBlocks(
@@ -298,7 +298,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaFabricCapabilities.MANA_TRIGGER.registerSelf(
 				BlockEntityConstants.SELF_MANA_TRIGGER_BES.toArray(BlockEntityType[]::new));
 		BotaniaFabricCapabilities.WANDABLE.registerForBlocks(
-				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
+				(world, pos, state, blockEntity, context) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay
 		);
 		BotaniaFabricCapabilities.WANDABLE.registerSelf(

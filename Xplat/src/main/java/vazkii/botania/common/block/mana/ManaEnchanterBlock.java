@@ -30,12 +30,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.item.ItemTwigWand;
 
-public class ManaEnchanterBlock extends BlockMod implements EntityBlock {
+public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 
 	public ManaEnchanterBlock(Properties builder) {
 		super(builder);

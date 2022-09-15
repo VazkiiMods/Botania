@@ -37,13 +37,13 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPrismBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.handler.ModSounds;
 
-public class ManaPrismBlock extends BlockModWaterloggable implements EntityBlock, ManaCollisionGhost {
+public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlock, ManaCollisionGhost {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
 	public ManaPrismBlock(Properties builder) {

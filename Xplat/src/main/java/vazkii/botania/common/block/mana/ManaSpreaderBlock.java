@@ -38,14 +38,14 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.state.BotaniaStateProperties;
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaSpreaderBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemTwigWand;
 
-public class ManaSpreaderBlock extends BlockModWaterloggable implements EntityBlock {
+public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 	private static final VoxelShape SHAPE_PADDING = box(1, 1, 1, 15, 15, 15);
 	private static final VoxelShape SHAPE_SCAFFOLDING = box(0, 0, 0, 16, 16, 16);

@@ -32,13 +32,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.InventoryHelper;
 
-public class BotanicalBreweryBlock extends BlockModWaterloggable implements EntityBlock {
+public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(6, 0.8, 6, 10, 15.2, 10);
 

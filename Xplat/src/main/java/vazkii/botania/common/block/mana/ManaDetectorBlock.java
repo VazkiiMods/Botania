@@ -23,9 +23,9 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 
-public class ManaDetectorBlock extends BlockMod implements ManaCollisionGhost {
+public class ManaDetectorBlock extends BotaniaBlock implements ManaCollisionGhost {
 
 	public ManaDetectorBlock(Properties builder) {
 		super(builder);

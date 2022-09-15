@@ -38,14 +38,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import java.util.List;
 
-public class ManaPoolBlock extends BlockModWaterloggable implements EntityBlock {
+public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape REAL_SHAPE;
 	private static final VoxelShape BURST_SHAPE;
 	static {

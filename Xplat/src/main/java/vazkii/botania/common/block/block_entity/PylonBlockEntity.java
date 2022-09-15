@@ -19,9 +19,9 @@ import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.block.BlockPylon;
+import vazkii.botania.common.block.BotaniaFlowerBlock;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.PylonBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.xplat.BotaniaConfig;
@@ -40,18 +40,18 @@ public class PylonBlockEntity extends BlockEntity {
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, PylonBlockEntity self) {
 		++self.ticks;
 
-		BlockPylon.Variant variant = ((BlockPylon) state.getBlock()).variant;
+		PylonBlock.Variant variant = ((PylonBlock) state.getBlock()).variant;
 
 		if (self.activated && level.isClientSide) {
 			if (!level.getBlockState(self.centerPos).is(variant.getTargetBlock())
-					|| variant == BlockPylon.Variant.NATURA && (self.portalOff() || !(level.getBlockState(worldPosition.below()).getBlock() instanceof ManaPoolBlock))) {
+					|| variant == PylonBlock.Variant.NATURA && (self.portalOff() || !(level.getBlockState(worldPosition.below()).getBlock() instanceof ManaPoolBlock))) {
 				self.activated = false;
 				return;
 			}
 
 			Vec3 centerBlock = new Vec3(self.centerPos.getX() + 0.5, self.centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), self.centerPos.getZ() + 0.5);
 
-			if (variant == BlockPylon.Variant.NATURA) {
+			if (variant == PylonBlock.Variant.NATURA) {
 				if (BotaniaConfig.client().elfPortalParticlesEnabled()) {
 					double worldTime = self.ticks;
 					worldTime += new Random(worldPosition.hashCode()).nextInt(1000);
@@ -77,7 +77,7 @@ public class PylonBlockEntity extends BlockEntity {
 				Vec3 movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 				Block block = level.getBlockState(worldPosition.below()).getBlock();
-				if (block instanceof BlockModFlower flower) {
+				if (block instanceof BotaniaFlowerBlock flower) {
 					int hex = ColorHelper.getColorValue(flower.color);
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;

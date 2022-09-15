@@ -32,13 +32,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.mixin.AccessorRecipeManager;
 
-public class TerrestrialAgglomerationPlateBlock extends BlockModWaterloggable implements EntityBlock {
+public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 3, 16);
 

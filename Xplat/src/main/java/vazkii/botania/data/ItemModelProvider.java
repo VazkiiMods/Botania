@@ -370,7 +370,7 @@ public class ItemModelProvider implements DataProvider {
 		ModelTemplates.SKULL_INVENTORY.create(ModelLocationUtils.getModelLocation(ModBlocks.gaiaHead.asItem()), new TextureMapping(), consumer);
 		itemBlocks.remove(ModBlocks.gaiaHead.asItem());
 
-		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockModDoubleFlower).forEach(i -> {
+		takeAll(itemBlocks, i -> i.getBlock() instanceof BotaniaDoubleFlowerBlock).forEach(i -> {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(TextureMapping.getBlockTexture(i.getBlock(), "_top")), consumer);
 		});
 
@@ -396,9 +396,9 @@ public class ItemModelProvider implements DataProvider {
 
 		Predicate<BlockItem> defaultGenerated = i -> {
 			Block b = i.getBlock();
-			return b instanceof BlockSpecialFlower || b instanceof BotaniaMushroomBlock
-					|| b instanceof BlockLightRelay
-					|| b instanceof BlockModFlower
+			return b instanceof SpecialFlowerBlock || b instanceof BotaniaMushroomBlock
+					|| b instanceof LuminizerBlock
+					|| b instanceof BotaniaFlowerBlock
 					|| b == ModBlocks.ghostRail;
 		};
 		takeAll(itemBlocks, defaultGenerated).forEach(i -> {

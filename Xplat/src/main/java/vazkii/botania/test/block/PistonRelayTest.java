@@ -13,7 +13,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.common.block.BlockPistonRelay;
+import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.test.TestingUtil;
 
@@ -26,7 +26,7 @@ public class PistonRelayTest {
 		var initialDiorite = new BlockPos(3, 4, 5);
 		var initialSlimeUnderDiorite = initialDiorite.below();
 
-		var data = BlockPistonRelay.WorldData.get(helper.getLevel());
+		var data = ForceRelayBlock.WorldData.get(helper.getLevel());
 		data.mapping.put(helper.absolutePos(initialRelay), helper.absolutePos(initialSlimeUnderDiorite));
 
 		helper.startSequence().thenExecute(() -> {
@@ -60,7 +60,7 @@ public class PistonRelayTest {
 		var initialRelay = new BlockPos(1, 2, 1);
 		var initialCobble = new BlockPos(1, 2, 0);
 
-		var data = BlockPistonRelay.WorldData.get(helper.getLevel());
+		var data = ForceRelayBlock.WorldData.get(helper.getLevel());
 		data.mapping.put(helper.absolutePos(initialRelay), helper.absolutePos(initialCobble));
 
 		helper.startSequence().thenExecute(() -> {

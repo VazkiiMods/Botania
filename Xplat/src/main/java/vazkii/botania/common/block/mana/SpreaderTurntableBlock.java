@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.block.BlockOpenCrate;
+import vazkii.botania.common.block.BotaniaBlock;
+import vazkii.botania.common.block.OpenCrateBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.SpreaderTurntableBlockEntity;
 
-public class SpreaderTurntableBlock extends BlockMod implements EntityBlock {
+public class SpreaderTurntableBlock extends BotaniaBlock implements EntityBlock {
 
 	public SpreaderTurntableBlock(Properties builder) {
 		super(builder);
@@ -46,7 +46,7 @@ public class SpreaderTurntableBlock extends BlockMod implements EntityBlock {
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		if (world.hasNeighborSignal(pos) && rand.nextDouble() < 0.2) {
-			BlockOpenCrate.redstoneParticlesOnFullBlock(world, pos, rand);
+			OpenCrateBlock.redstoneParticlesOnFullBlock(world, pos, rand);
 		}
 	}
 }

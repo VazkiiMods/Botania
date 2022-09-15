@@ -362,9 +362,9 @@ public class BlockstateProvider implements DataProvider {
 		particleOnly(remainingBlocks, lightRelayToggle, getBlockTexture(lightRelayToggle));
 
 		// Block groups
-		Predicate<Block> flowers = b -> b instanceof BlockSpecialFlower
+		Predicate<Block> flowers = b -> b instanceof SpecialFlowerBlock
 				|| b instanceof BotaniaMushroomBlock
-				|| b instanceof BlockModFlower;
+				|| b instanceof BotaniaFlowerBlock;
 		ModelTemplate crossTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);
 		takeAll(remainingBlocks, flowers).forEach(b -> singleVariantBlockState(b, crossTemplate.create(b, TextureMapping.cross(b), this.modelOutput))
 		);
@@ -472,7 +472,7 @@ public class BlockstateProvider implements DataProvider {
 				.create(prefix("block/petal_block"), new TextureMapping().put(TextureSlot.ALL, prefix("block/petal_block")), this.modelOutput);
 		takeAll(remainingBlocks, b -> b instanceof PetalBlock).forEach(b -> singleVariantBlockState(b, petalBlockModel));
 
-		takeAll(remainingBlocks, b -> b instanceof BlockAltGrass).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof BotaniaGrassBlock).forEach(b -> {
 			var model = ModelTemplates.CUBE_BOTTOM_TOP.create(b, new TextureMapping()
 					.put(TextureSlot.SIDE, getBlockTexture(b, "_side"))
 					.put(TextureSlot.BOTTOM, getBlockTexture(Blocks.DIRT))
@@ -484,7 +484,7 @@ public class BlockstateProvider implements DataProvider {
 
 		takeAll(remainingBlocks, b -> b instanceof RedStringBlock).forEach(this::redStringBlock);
 
-		takeAll(remainingBlocks, b -> b instanceof BlockModDoubleFlower).forEach(b -> {
+		takeAll(remainingBlocks, b -> b instanceof BotaniaDoubleFlowerBlock).forEach(b -> {
 			var bottom = ModelTemplates.CROSS.create(b, TextureMapping.cross(b), this.modelOutput);
 			var top = ModelTemplates.CROSS.create(getModelLocation(b, "_top"), TextureMapping.cross(getBlockTexture(b, "_top")), this.modelOutput);
 			this.blockstates.add(
@@ -645,7 +645,7 @@ public class BlockstateProvider implements DataProvider {
 
 		var apothecaryTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/petal_apothecary")), Optional.empty(),
 				TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
-		takeAll(remainingBlocks, b -> b instanceof BlockAltar).forEach(b -> singleVariantBlockState(b,
+		takeAll(remainingBlocks, b -> b instanceof PetalApothecaryBlock).forEach(b -> singleVariantBlockState(b,
 				apothecaryTemplate.create(b, new TextureMapping()
 						.put(TextureSlot.SIDE, getBlockTexture(b, "_side"))
 						.put(TextureSlot.TOP, getBlockTexture(b, "_top"))

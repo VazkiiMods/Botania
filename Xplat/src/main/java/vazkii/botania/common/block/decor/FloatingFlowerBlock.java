@@ -33,14 +33,14 @@ import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class FloatingFlowerBlock extends BlockModWaterloggable implements EntityBlock {
+public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	public final DyeColor color;

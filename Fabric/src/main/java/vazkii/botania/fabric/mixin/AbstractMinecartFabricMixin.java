@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.common.block.BlockGhostRail;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.SpectralRailBlock;
 
 @Mixin(AbstractMinecart.class)
 public class AbstractMinecartFabricMixin {
@@ -26,7 +26,7 @@ public class AbstractMinecartFabricMixin {
 	private void handleOnRail(BlockPos pos, BlockState state, CallbackInfo ci) {
 		if (state.is(ModBlocks.ghostRail)) {
 			AbstractMinecart self = (AbstractMinecart) (Object) this;
-			((BlockGhostRail) ModBlocks.ghostRail).onMinecartPass(state, self.level, pos, self);
+			((SpectralRailBlock) ModBlocks.ghostRail).onMinecartPass(state, self.level, pos, self);
 		}
 
 	}

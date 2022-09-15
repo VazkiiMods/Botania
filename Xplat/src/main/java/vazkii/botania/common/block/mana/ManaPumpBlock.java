@@ -28,11 +28,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
 
-public class ManaPumpBlock extends BlockModWaterloggable implements EntityBlock {
+public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape X_SHAPE = box(0, 0, 4, 16, 8, 12);
 	private static final VoxelShape Z_SHAPE = box(4, 0, 0, 12, 8, 16);

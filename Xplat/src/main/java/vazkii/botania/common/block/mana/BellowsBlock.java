@@ -32,12 +32,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
 import vazkii.botania.common.helper.PlayerHelper;
 
-public class BellowsBlock extends BlockMod implements EntityBlock {
+public class BellowsBlock extends BotaniaBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(3, 0, 3, 13, 10.0, 13);
 

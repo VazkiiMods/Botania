@@ -24,12 +24,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 
-public class CorporeaIndexBlock extends BlockModWaterloggable implements EntityBlock {
+public class CorporeaIndexBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
 
 	public CorporeaIndexBlock(BlockBehaviour.Properties builder) {

@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.flower.functional.BergamuteBlockEntity;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.item.ItemHorn;
@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DrumBlock extends BlockModWaterloggable {
+public class DrumBlock extends BotaniaWaterloggedBlock {
 
 	public enum Variant {
 		WILD,

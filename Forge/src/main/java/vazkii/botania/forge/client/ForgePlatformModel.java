@@ -16,8 +16,8 @@ import net.minecraftforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.block.block_entity.PlatformBlockEntity;
 
 import java.util.Collections;
@@ -46,7 +46,7 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
 			@NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
 		var data = extraData.get(PROPERTY);
-		if (state == null || !(state.getBlock() instanceof BlockPlatform) || data == null) {
+		if (state == null || !(state.getBlock() instanceof PlatformBlock) || data == null) {
 			return Minecraft.getInstance().getBlockRenderer().getBlockModelShaper()
 					.getModelManager().getMissingModel().getQuads(state, side, rand, extraData, renderType);
 		}

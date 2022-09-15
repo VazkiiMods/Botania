@@ -10,9 +10,9 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.world.item.DyeColor;
 
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 
-public class PetalBlock extends BlockMod {
+public class PetalBlock extends BotaniaBlock {
 
 	public final DyeColor color;
 

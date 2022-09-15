@@ -22,10 +22,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.LifeImbuerBlockEntity;
 
-public class LifeImbuerBlock extends BlockModWaterloggable implements EntityBlock {
+public class LifeImbuerBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 2, 14);
 

@@ -516,10 +516,10 @@ public class ForgeCommonInitializer {
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_RECEIVER, ManaVoidBlock.ManaReceiverImpl::new, ModBlocks.manaVoid);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, DrumBlock.ManaTriggerImpl::new,
 				ModBlocks.canopyDrum, ModBlocks.wildDrum, ModBlocks.gatheringDrum);
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, BlockManaBomb.ManaTriggerImpl::new, ModBlocks.manaBomb);
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManastormChargeBlock.ManaTriggerImpl::new, ModBlocks.manaBomb);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.MANA_TRIGGER, ManaDetectorBlock.ManaTriggerImpl::new, ModBlocks.manaDetector);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.WANDABLE,
-				(world, pos, state) -> (player, stack, side) -> ((BlockPistonRelay) state.getBlock()).onUsedByWand(player, stack, world, pos),
+				(world, pos, state) -> (player, stack, side) -> ((ForceRelayBlock) state.getBlock()).onUsedByWand(player, stack, world, pos),
 				ModBlocks.pistonRelay);
 	}
 

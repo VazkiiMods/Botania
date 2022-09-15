@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-import vazkii.botania.common.block.BlockPylon;
+import vazkii.botania.common.block.PylonBlock;
 
 @Mixin(EnchantmentMenu.class)
 public class EnchantmentMenuFabricMixin {
@@ -49,7 +49,7 @@ public class EnchantmentMenuFabricMixin {
 
 	@Unique
 	private float getPylonValue(BlockState state, LevelReader world, BlockPos pos) {
-		if (state.getBlock() instanceof BlockPylon pylon) {
+		if (state.getBlock() instanceof PylonBlock pylon) {
 			return pylon.getEnchantPowerBonus(state, world, pos);
 		}
 		return 0;

@@ -14,9 +14,9 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.PoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 
-public class AlchemyCatalystBlock extends BlockMod implements PoolOverlayProvider {
+public class AlchemyCatalystBlock extends BotaniaBlock implements PoolOverlayProvider {
 
 	public AlchemyCatalystBlock(Properties builder) {
 		super(builder);

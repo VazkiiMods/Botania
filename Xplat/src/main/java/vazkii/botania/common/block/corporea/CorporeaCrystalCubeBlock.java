@@ -29,13 +29,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.common.item.ItemTwigWand;
 
-public class CorporeaCrystalCubeBlock extends BlockModWaterloggable implements EntityBlock {
+public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(3.0, 0, 3.0, 13.0, 16, 13.0);
 

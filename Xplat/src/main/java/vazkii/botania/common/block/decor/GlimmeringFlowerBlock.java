@@ -15,9 +15,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.BotaniaFlowerBlock;
 
-public class GlimmeringFlowerBlock extends BlockModFlower {
+public class GlimmeringFlowerBlock extends BotaniaFlowerBlock {
 
 	public GlimmeringFlowerBlock(DyeColor color, Properties builder) {
 		super(color, builder);

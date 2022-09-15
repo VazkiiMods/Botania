@@ -44,7 +44,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.annotations.SoftImplement;
-import vazkii.botania.common.block.BlockLightRelay;
+import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.handler.ModSounds;
@@ -150,7 +150,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		}
 
 		Block block = level.getBlockState(nextDest).getBlock();
-		return block instanceof BlockLightRelay;
+		return block instanceof LuminizerBlock;
 	}
 
 	private BlockPos getEndpoint() {
@@ -228,7 +228,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 				for (int i = 1; i < MAX_DIST; i++) {
 					BlockPos testPos = worldPosition.relative(side, i);
 					BlockState testState = level.getBlockState(testPos);
-					if (testState.getBlock() instanceof BlockLightRelay) {
+					if (testState.getBlock() instanceof LuminizerBlock) {
 						return testPos;
 					}
 				}
@@ -245,7 +245,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		if (!(player.level.getBlockState(pos).getBlock() instanceof BlockLightRelay)
+		if (!(player.level.getBlockState(pos).getBlock() instanceof LuminizerBlock)
 				|| pos.distSqr(getBlockPos()) > MAX_DIST * MAX_DIST) {
 			return false;
 		}

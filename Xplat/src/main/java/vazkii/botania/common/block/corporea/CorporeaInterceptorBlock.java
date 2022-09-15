@@ -22,11 +22,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BotaniaBlock;
 import vazkii.botania.common.block.block_entity.corporea.BaseCorporeaBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaInterceptorBlockEntity;
 
-public class CorporeaInterceptorBlock extends BlockMod implements EntityBlock {
+public class CorporeaInterceptorBlock extends BotaniaBlock implements EntityBlock {
 
 	public CorporeaInterceptorBlock(BlockBehaviour.Properties builder) {
 		super(builder);

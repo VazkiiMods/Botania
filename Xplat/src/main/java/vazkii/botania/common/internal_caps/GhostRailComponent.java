@@ -10,18 +10,18 @@ package vazkii.botania.common.internal_caps;
 
 import net.minecraft.nbt.CompoundTag;
 
-import vazkii.botania.common.block.BlockGhostRail;
+import vazkii.botania.common.block.SpectralRailBlock;
 
 public class GhostRailComponent extends SerializableComponent {
 	public int floatTicks = 0;
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {
-		floatTicks = tag.getInt(BlockGhostRail.TAG_FLOAT_TICKS);
+		floatTicks = tag.getInt(SpectralRailBlock.TAG_FLOAT_TICKS);
 	}
 
 	@Override
 	public void writeToNbt(CompoundTag tag) {
-		tag.putInt(BlockGhostRail.TAG_FLOAT_TICKS, floatTicks);
+		tag.putInt(SpectralRailBlock.TAG_FLOAT_TICKS, floatTicks);
 	}
 }

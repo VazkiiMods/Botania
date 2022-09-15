@@ -38,8 +38,8 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.bag.FlowerPouchContainer;
-import vazkii.botania.common.block.BlockModDoubleFlower;
-import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
+import vazkii.botania.common.block.BotaniaFlowerBlock;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -55,16 +55,16 @@ public class ItemFlowerBag extends Item {
 
 	private static boolean isMysticalFlower(ItemStack stack) {
 		Block blk = Block.byItem(stack.getItem());
-		// Direct class compare needed because glimmering flowers also extend BlockModFlower
-		return !stack.isEmpty() && blk.getClass() == BlockModFlower.class;
+		// Direct class compare needed because glimmering flowers also extend BotaniaFlowerBlock
+		return !stack.isEmpty() && blk.getClass() == BotaniaFlowerBlock.class;
 	}
 
 	public static boolean isValid(int slot, ItemStack stack) {
 		Block blk = Block.byItem(stack.getItem());
 		if (slot < 16) {
-			return isMysticalFlower(stack) && slot == ((BlockModFlower) blk).color.getId();
+			return isMysticalFlower(stack) && slot == ((BotaniaFlowerBlock) blk).color.getId();
 		} else {
-			return blk instanceof BlockModDoubleFlower flower && (slot - 16) == flower.color.getId();
+			return blk instanceof BotaniaDoubleFlowerBlock flower && (slot - 16) == flower.color.getId();
 		}
 	}
 
@@ -80,14 +80,14 @@ public class ItemFlowerBag extends Item {
 	public static boolean onPickupItem(ItemEntity entity, Player player) {
 		ItemStack entityStack = entity.getItem();
 		var block = Block.byItem(entityStack.getItem());
-		if ((isMysticalFlower(entityStack) || block instanceof BlockModDoubleFlower)
+		if ((isMysticalFlower(entityStack) || block instanceof BotaniaDoubleFlowerBlock)
 				&& entityStack.getCount() > 0) {
 
 			int slot;
-			if (block instanceof BlockModDoubleFlower flower) {
+			if (block instanceof BotaniaDoubleFlowerBlock flower) {
 				slot = 16 + flower.color.getId();
 			} else {
-				slot = ((BlockModFlower) block).color.getId();
+				slot = ((BotaniaFlowerBlock) block).color.getId();
 			}
 
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {

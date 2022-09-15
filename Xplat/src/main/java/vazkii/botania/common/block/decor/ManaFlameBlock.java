@@ -28,12 +28,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.ManaFlameBlockEntity;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.xplat.IXplatAbstractions;
 
-public class ManaFlameBlock extends BlockModWaterloggable implements EntityBlock {
+public class ManaFlameBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(4, 4, 4, 12, 12, 12);
 

@@ -71,7 +71,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 
 		tag(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(BOTANIA_BLOCK)
-				.filter(b -> b instanceof BlockFloatingSpecialFlower)
+				.filter(b -> b instanceof FloatingSpecialFlowerBlock)
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new)
 		);
@@ -121,7 +121,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.addTag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
 		tag(ModTags.Blocks.MINI_FLOWERS).add(
-				getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getKey(b).getPath().endsWith("_chibi"))
+				getModBlocks(b -> b instanceof SpecialFlowerBlock && registry.getKey(b).getPath().endsWith("_chibi"))
 		);
 
 		tag(ModTags.Blocks.ENCHANTER_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
@@ -136,7 +136,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
 				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
 
-		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
+		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BotaniaGrassBlock));
 		tag(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
 		tag(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
 		tag(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
@@ -200,7 +200,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
 				getModBlocks(b -> b == enchantedSoil
-						|| b instanceof FloatingFlowerBlock || b instanceof BlockAltGrass)
+						|| b instanceof FloatingFlowerBlock || b instanceof BotaniaGrassBlock)
 		);
 		var pickaxe = Set.of(
 				alchemyCatalyst, conjurationCatalyst,
@@ -214,8 +214,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
 				getModBlocks(b -> pickaxe.contains(b)
-						|| b instanceof BlockAltar
-						|| b instanceof BlockPylon
+						|| b instanceof PetalApothecaryBlock
+						|| b instanceof PylonBlock
 						|| b instanceof ManaPoolBlock
 						|| b instanceof RedStringBlock
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
@@ -236,8 +236,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.MINEABLE_WITH_AXE).add(
 				getModBlocks(b -> axe.contains(b)
 						|| b instanceof DrumBlock
-						|| b instanceof BlockOpenCrate
-						|| b instanceof BlockPlatform
+						|| b instanceof OpenCrateBlock
+						|| b instanceof PlatformBlock
 						|| b instanceof ManaSpreaderBlock
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_WOOD)
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.DREAM_WOOD)

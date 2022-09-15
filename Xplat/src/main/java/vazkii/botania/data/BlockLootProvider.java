@@ -51,8 +51,8 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.common.block.BlockAltGrass;
-import vazkii.botania.common.block.BlockModDoubleFlower;
+import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
+import vazkii.botania.common.block.BotaniaGrassBlock;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.flower.generating.*;
@@ -89,9 +89,9 @@ public class BlockLootProvider implements DataProvider {
 			}
 			if (b instanceof SlabBlock) {
 				functionTable.put(b, BlockLootProvider::genSlab);
-			} else if (b instanceof BlockModDoubleFlower) {
+			} else if (b instanceof BotaniaDoubleFlowerBlock) {
 				functionTable.put(b, BlockLootProvider::genDoubleFlower);
-			} else if (b instanceof BlockAltGrass) {
+			} else if (b instanceof BotaniaGrassBlock) {
 				functionTable.put(b, BlockLootProvider::genAltGrass);
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, BlockLootProvider::genMetamorphicStone);

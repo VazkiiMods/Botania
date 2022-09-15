@@ -32,13 +32,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.InventoryHelper;
 
-public class RunicAltarBlock extends BlockModWaterloggable implements EntityBlock {
+public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape TOP = Block.box(0, 6, 0, 16, 12, 16);
 	private static final VoxelShape BOTTOM = Block.box(2, 0, 2, 14, 6, 14);

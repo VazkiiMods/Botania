@@ -39,7 +39,7 @@ import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.block.BlockAltar;
+import vazkii.botania.common.block.PetalApothecaryBlock;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.helper.EntityHelper;
@@ -298,12 +298,12 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 
 	@Override
 	public void setFluid(State fluid) {
-		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockAltar.FLUID, fluid));
+		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PetalApothecaryBlock.FLUID, fluid));
 	}
 
 	@Override
 	public State getFluid() {
-		return getBlockState().getValue(BlockAltar.FLUID);
+		return getBlockState().getValue(PetalApothecaryBlock.FLUID);
 	}
 
 	public boolean canAddLastRecipe() {

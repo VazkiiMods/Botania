@@ -22,8 +22,8 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.SlotLocked;
-import vazkii.botania.common.block.BlockModDoubleFlower;
-import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
+import vazkii.botania.common.block.BotaniaFlowerBlock;
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
 
@@ -98,9 +98,9 @@ public class FlowerPouchContainer extends AbstractContainerMenu {
 			} else {
 				Block b = Block.byItem(itemstack.getItem());
 				int slotId = -1;
-				if (b instanceof BlockModDoubleFlower flower) {
+				if (b instanceof BotaniaDoubleFlowerBlock flower) {
 					slotId = 16 + flower.color.getId();
-				} else if (b instanceof BlockModFlower flower) {
+				} else if (b instanceof BotaniaFlowerBlock flower) {
 					slotId = flower.color.getId();
 				}
 				if (slotId >= 0 && slotId < 32) {
