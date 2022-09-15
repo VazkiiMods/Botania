@@ -26,11 +26,11 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 public class ModelBrewery extends Model {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(LibResources.MODEL_BREWERY);
+	private static final ResourceLocation TEXTURE = new ResourceLocation(ResourcesLib.MODEL_BREWERY);
 	final ModelPart top;
 	final ModelPart pole;
 	final ModelPart bottom;

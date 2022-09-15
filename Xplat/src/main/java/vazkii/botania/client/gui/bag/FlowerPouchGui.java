@@ -20,12 +20,12 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.ModBlocks;
 
 public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_FLOWER_BAG);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.GUI_FLOWER_BAG);
 
 	public FlowerPouchGui(FlowerPouchContainer container, Inventory playerInv, Component title) {
 		super(container, playerInv, title);

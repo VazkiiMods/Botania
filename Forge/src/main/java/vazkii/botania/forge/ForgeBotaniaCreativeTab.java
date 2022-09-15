@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -15,7 +15,7 @@ public class ForgeBotaniaCreativeTab extends CreativeModeTab {
 	private ForgeBotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
 		hideTitle();
-		setBackgroundSuffix(LibResources.GUI_CREATIVE);
+		setBackgroundSuffix(ResourcesLib.GUI_CREATIVE);
 	}
 
 	@Override

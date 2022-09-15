@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
@@ -30,8 +30,8 @@ import java.util.Random;
 
 public class RenderTileTeruTeruBozu implements BlockEntityRenderer<TileTeruTeruBozu> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
-	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU);
+	private static final ResourceLocation textureHalloween = new ResourceLocation(ResourcesLib.MODEL_TERU_TERU_BOZU_HALLOWEEN);
 	private final ModelTeruTeruBozu model;
 
 	public RenderTileTeruTeruBozu(BlockEntityRendererProvider.Context ctx) {

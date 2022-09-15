@@ -26,21 +26,21 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 
 import java.util.Random;
 
 public class SkyblockSkyRenderer {
 
-	private static final ResourceLocation textureSkybox = new ResourceLocation(LibResources.MISC_SKYBOX);
-	private static final ResourceLocation textureRainbow = new ResourceLocation(LibResources.MISC_RAINBOW);
+	private static final ResourceLocation textureSkybox = new ResourceLocation(ResourcesLib.MISC_SKYBOX);
+	private static final ResourceLocation textureRainbow = new ResourceLocation(ResourcesLib.MISC_RAINBOW);
 	private static final ResourceLocation[] planetTextures = new ResourceLocation[] {
-			new ResourceLocation(LibResources.MISC_PLANET + "0.png"),
-			new ResourceLocation(LibResources.MISC_PLANET + "1.png"),
-			new ResourceLocation(LibResources.MISC_PLANET + "2.png"),
-			new ResourceLocation(LibResources.MISC_PLANET + "3.png"),
-			new ResourceLocation(LibResources.MISC_PLANET + "4.png"),
-			new ResourceLocation(LibResources.MISC_PLANET + "5.png")
+			new ResourceLocation(ResourcesLib.MISC_PLANET + "0.png"),
+			new ResourceLocation(ResourcesLib.MISC_PLANET + "1.png"),
+			new ResourceLocation(ResourcesLib.MISC_PLANET + "2.png"),
+			new ResourceLocation(ResourcesLib.MISC_PLANET + "3.png"),
+			new ResourceLocation(ResourcesLib.MISC_PLANET + "4.png"),
+			new ResourceLocation(ResourcesLib.MISC_PLANET + "5.png")
 	};
 
 	public static void renderExtra(PoseStack ms, ClientLevel world, float partialTicks, float insideVoid) {

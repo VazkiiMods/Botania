@@ -27,7 +27,7 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
@@ -39,8 +39,8 @@ import vazkii.botania.common.proxy.IProxy;
 
 public class ItemHolyCloak extends ItemBauble {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK_GLOW);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_HOLY_CLOAK);
+	private static final ResourceLocation textureGlow = new ResourceLocation(ResourcesLib.MODEL_HOLY_CLOAK_GLOW);
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";

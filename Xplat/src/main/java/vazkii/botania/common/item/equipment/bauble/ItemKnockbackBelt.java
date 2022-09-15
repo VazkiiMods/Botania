@@ -26,14 +26,14 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.proxy.IProxy;
 
 public class ItemKnockbackBelt extends ItemBauble {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_KNOCKBACK_BELT);
 
 	public ItemKnockbackBelt(Properties props) {
 		super(props);

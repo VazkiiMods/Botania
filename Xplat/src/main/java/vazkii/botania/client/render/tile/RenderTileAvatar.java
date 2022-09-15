@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.tile.TileAvatar;
@@ -39,7 +39,7 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 			180F, 0F, 90F, 270F
 	};
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_AVATAR);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_AVATAR);
 	private final ModelAvatar model;
 
 	public RenderTileAvatar(BlockEntityRendererProvider.Context context) {

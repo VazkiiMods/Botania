@@ -31,7 +31,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -44,8 +44,8 @@ import java.util.List;
 public class RenderLexicon {
 	private static BookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
-	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT));
-	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN));
+	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ResourcesLib.MODEL_LEXICA_DEFAULT));
+	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ResourcesLib.MODEL_LEXICA_ELVEN));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",

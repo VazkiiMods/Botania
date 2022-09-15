@@ -17,13 +17,13 @@ import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.handler.ModSounds;
 
 public class ItemBalanceCloak extends ItemHolyCloak {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BALANCE_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_BALANCE_CLOAK_GLOW);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_BALANCE_CLOAK);
+	private static final ResourceLocation textureGlow = new ResourceLocation(ResourcesLib.MODEL_BALANCE_CLOAK_GLOW);
 
 	public ItemBalanceCloak(Properties props) {
 		super(props);

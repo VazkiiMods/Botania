@@ -15,11 +15,11 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 
 public class RenderPinkWither extends WitherBossRenderer {
 
-	private static final ResourceLocation resource = new ResourceLocation(LibResources.MODEL_PINK_WITHER);
+	private static final ResourceLocation resource = new ResourceLocation(ResourcesLib.MODEL_PINK_WITHER);
 
 	public RenderPinkWither(EntityRendererProvider.Context ctx) {
 		super(ctx);

@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
@@ -93,7 +93,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	}
 
 	private static ResourceLocation taterLocation(String name) {
-		return prefix(LibResources.PREFIX_TINY_POTATO + "/" + normalizeName(name));
+		return prefix(ResourcesLib.PREFIX_TINY_POTATO + "/" + normalizeName(name));
 	}
 
 	private static String normalizeName(String name) {

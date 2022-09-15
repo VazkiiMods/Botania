@@ -15,11 +15,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 
 public class ItemAutocraftingHalo extends ItemCraftingHalo {
 
-	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_CYAN);
+	private static final ResourceLocation glowTexture = new ResourceLocation(ResourcesLib.MISC_GLOW_CYAN);
 
 	public ItemAutocraftingHalo(Item.Properties props) {
 		super(props);

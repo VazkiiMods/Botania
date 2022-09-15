@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.tile.TilePylon;
@@ -34,9 +34,9 @@ import java.util.Random;
 
 public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 
-	public static final ResourceLocation MANA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_MANA);
-	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
-	public static final ResourceLocation GAIA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_GAIA);
+	public static final ResourceLocation MANA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_MANA);
+	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_NATURA);
+	public static final ResourceLocation GAIA_TEXTURE = new ResourceLocation(ResourcesLib.MODEL_PYLON_GAIA);
 
 	private final ModelPylonMana manaModel;
 	private final ModelPylonNatura naturaModel;

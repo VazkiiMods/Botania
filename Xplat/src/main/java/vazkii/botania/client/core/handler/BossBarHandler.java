@@ -20,7 +20,7 @@ import net.minecraft.world.item.Items;
 
 import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import java.util.*;
@@ -31,7 +31,7 @@ public final class BossBarHandler {
 
 	// Only access on the client thread!
 	public static final Set<EntityDoppleganger> bosses = Collections.newSetFromMap(new WeakHashMap<>());
-	private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(LibResources.GUI_BOSS_BAR);
+	private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ResourcesLib.GUI_BOSS_BAR);
 
 	public static OptionalInt onBarRender(PoseStack ps, int x, int y, BossEvent bossEvent, boolean drawName) {
 		for (EntityDoppleganger currentBoss : bosses) {

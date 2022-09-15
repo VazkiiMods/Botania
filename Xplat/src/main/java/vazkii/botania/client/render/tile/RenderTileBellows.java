@@ -20,13 +20,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 
 public class RenderTileBellows implements BlockEntityRenderer<TileBellows> {
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BELLOWS);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_BELLOWS);
 	private final ModelBellows model;
 
 	public RenderTileBellows(BlockEntityRendererProvider.Context ctx) {

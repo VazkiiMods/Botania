@@ -10,7 +10,7 @@ package vazkii.botania.client.lib;
 
 import vazkii.botania.common.lib.LibMisc;
 
-public final class LibResources {
+public final class ResourcesLib {
 
 	public static final String PREFIX_MOD = LibMisc.MOD_ID + ":";
 	public static final String ENDING_JSON = ".json";

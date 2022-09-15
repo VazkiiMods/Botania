@@ -23,15 +23,15 @@ import net.minecraft.world.phys.AABB;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.handler.ModSounds;
 
 import java.util.List;
 
 public class ItemUnholyCloak extends ItemHolyCloak {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_UNHOLY_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_UNHOLY_CLOAK_GLOW);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_UNHOLY_CLOAK);
+	private static final ResourceLocation textureGlow = new ResourceLocation(ResourcesLib.MODEL_UNHOLY_CLOAK_GLOW);
 
 	public ItemUnholyCloak(Properties props) {
 		super(props);

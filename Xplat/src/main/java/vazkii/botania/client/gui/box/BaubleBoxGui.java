@@ -17,11 +17,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 
 public class BaubleBoxGui extends AbstractContainerScreen<BaubleBoxContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
+	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.GUI_BAUBLE_BOX);
 	private int mouseX;
 	private int mouseY;
 

@@ -44,7 +44,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
@@ -60,8 +60,8 @@ import java.util.List;
 
 public class ItemFlightTiara extends ItemBauble {
 
-	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
-	public static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
+	private static final ResourceLocation textureHud = new ResourceLocation(ResourcesLib.GUI_HUD_ICONS);
+	public static final ResourceLocation textureHalo = new ResourceLocation(ResourcesLib.MISC_HALO);
 
 	private static final String TAG_VARIANT = "variant";
 	private static final String TAG_FLYING = "flying";

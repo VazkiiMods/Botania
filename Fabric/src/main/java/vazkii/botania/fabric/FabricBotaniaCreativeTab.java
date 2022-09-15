@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -33,7 +33,7 @@ public final class FabricBotaniaCreativeTab extends CreativeModeTab {
 	public FabricBotaniaCreativeTab(int index, String langId) {
 		super(index, langId);
 		hideTitle();
-		setBackgroundSuffix(LibResources.GUI_CREATIVE);
+		setBackgroundSuffix(ResourcesLib.GUI_CREATIVE);
 	}
 
 	@NotNull

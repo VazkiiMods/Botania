@@ -29,7 +29,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.PhantomInkable;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.TooltipHandler;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -80,11 +80,11 @@ public class ItemManasteelArmor extends ArmorItem implements ICustomDamageItem, 
 	@SoftImplement("IForgeItem")
 	@NotNull
 	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
+		return hasPhantomInk(stack) ? ResourcesLib.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return LibResources.MODEL_MANASTEEL_NEW;
+		return ResourcesLib.MODEL_MANASTEEL_NEW;
 	}
 
 	@Override

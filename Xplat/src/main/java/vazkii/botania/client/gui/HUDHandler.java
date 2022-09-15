@@ -36,7 +36,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileRuneAltar;
@@ -63,7 +63,7 @@ public final class HUDHandler {
 
 	private HUDHandler() {}
 
-	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
+	public static final ResourceLocation manaBar = new ResourceLocation(ResourcesLib.GUI_MANA_HUD);
 
 	public static void onDrawScreenPost(PoseStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
