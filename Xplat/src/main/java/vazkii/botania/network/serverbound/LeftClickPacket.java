@@ -12,17 +12,15 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.common.handler.EquipmentHandler;
-import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PacketJump implements IPacket {
-	public static final PacketJump INSTANCE = new PacketJump();
-	public static final ResourceLocation ID = prefix("jmp");
+public class LeftClickPacket implements BotaniaPacket {
+	public static final LeftClickPacket INSTANCE = new LeftClickPacket();
+	public static final ResourceLocation ID = prefix("lc");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {
@@ -34,19 +32,14 @@ public class PacketJump implements IPacket {
 		return ID;
 	}
 
-	public static PacketJump decode(FriendlyByteBuf buf) {
+	public static LeftClickPacket decode(FriendlyByteBuf buf) {
 		return INSTANCE;
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
-		server.execute(() -> {
-			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof CirrusAmuletItem, player);
-			if (!amuletStack.isEmpty()) {
-				player.causeFoodExhaustion(0.3F);
-				player.fallDistance = 0;
-
-				CirrusAmuletItem.setJumping(player);
-			}
-		});
+		// The swing packet will run on the netty thread immediately,
+		// so we need to fetch the attack strength ahead of time
+		float scale = player.getAttackStrengthScale(0F);
+		server.execute(() -> TerraBladeItem.trySpawnBurst(player, scale));
 	}
 }

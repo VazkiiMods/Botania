@@ -13,12 +13,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.SkyblockWorldInfo;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PacketGogWorld implements IPacket {
-	public static final PacketGogWorld INSTANCE = new PacketGogWorld();
+public class GogWorldPacket implements BotaniaPacket {
+	public static final GogWorldPacket INSTANCE = new GogWorldPacket();
 	public static final ResourceLocation ID = prefix("gog");
 
 	@Override
@@ -29,12 +29,12 @@ public class PacketGogWorld implements IPacket {
 		return ID;
 	}
 
-	public static PacketGogWorld decode(FriendlyByteBuf buf) {
+	public static GogWorldPacket decode(FriendlyByteBuf buf) {
 		return INSTANCE;
 	}
 
 	public static class Handler {
-		public static void handle(PacketGogWorld packet) {
+		public static void handle(GogWorldPacket packet) {
 			Minecraft.getInstance().execute(() -> {
 				if (Minecraft.getInstance().level.getLevelData() instanceof SkyblockWorldInfo skyblockInfo) {
 					skyblockInfo.markGardenOfGlass();

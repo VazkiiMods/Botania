@@ -29,14 +29,14 @@ import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
-public record PacketBotaniaEffect(EffectType type, double x, double y, double z, int... args) implements IPacket {
+public record BotaniaEffectPacket(EffectType type, double x, double y, double z, int... args) implements BotaniaPacket {
 
 	public static final ResourceLocation ID = prefix("eff");
 
@@ -57,7 +57,7 @@ public record PacketBotaniaEffect(EffectType type, double x, double y, double z,
 		return ID;
 	}
 
-	public static PacketBotaniaEffect decode(FriendlyByteBuf buf) {
+	public static BotaniaEffectPacket decode(FriendlyByteBuf buf) {
 		EffectType type = EffectType.values()[buf.readByte()];
 		double x = buf.readDouble();
 		double y = buf.readDouble();
@@ -68,11 +68,11 @@ public record PacketBotaniaEffect(EffectType type, double x, double y, double z,
 			args[i] = buf.readVarInt();
 		}
 
-		return new PacketBotaniaEffect(type, x, y, z, args);
+		return new BotaniaEffectPacket(type, x, y, z, args);
 	}
 
 	public static class Handler {
-		public static void handle(PacketBotaniaEffect packet) {
+		public static void handle(BotaniaEffectPacket packet) {
 			var type = packet.type();
 			var x = packet.x();
 			var y = packet.y();

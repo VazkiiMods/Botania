@@ -13,11 +13,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.common.item.rod.SkiesRodItem;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public record PacketAvatarTornadoRod(boolean elytra) implements IPacket {
+public record AvatarSkiesRodPacket(boolean elytra) implements BotaniaPacket {
 	public static final ResourceLocation ID = prefix("atr");
 
 	@Override
@@ -30,12 +30,12 @@ public record PacketAvatarTornadoRod(boolean elytra) implements IPacket {
 		return ID;
 	}
 
-	public static PacketAvatarTornadoRod decode(FriendlyByteBuf buf) {
-		return new PacketAvatarTornadoRod(buf.readBoolean());
+	public static AvatarSkiesRodPacket decode(FriendlyByteBuf buf) {
+		return new AvatarSkiesRodPacket(buf.readBoolean());
 	}
 
 	public static class Handler {
-		public static void handle(PacketAvatarTornadoRod packet) {
+		public static void handle(AvatarSkiesRodPacket packet) {
 			boolean elytra = packet.elytra();
 			// Lambda trips verifier on forge
 			Minecraft.getInstance().execute(

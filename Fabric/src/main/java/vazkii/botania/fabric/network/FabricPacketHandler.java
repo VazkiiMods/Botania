@@ -23,11 +23,11 @@ import java.util.function.Function;
 
 public final class FabricPacketHandler {
 	public static void init() {
-		ServerPlayNetworking.registerGlobalReceiver(PacketDodge.ID, makeServerBoundHandler(PacketDodge::decode, PacketDodge::handle));
-		ServerPlayNetworking.registerGlobalReceiver(PacketIndexKeybindRequest.ID, makeServerBoundHandler(PacketIndexKeybindRequest::decode, PacketIndexKeybindRequest::handle));
-		ServerPlayNetworking.registerGlobalReceiver(PacketIndexStringRequest.ID, makeServerBoundHandler(PacketIndexStringRequest::decode, PacketIndexStringRequest::handle));
-		ServerPlayNetworking.registerGlobalReceiver(PacketJump.ID, makeServerBoundHandler(PacketJump::decode, PacketJump::handle));
-		ServerPlayNetworking.registerGlobalReceiver(PacketLeftClick.ID, makeServerBoundHandler(PacketLeftClick::decode, PacketLeftClick::handle));
+		ServerPlayNetworking.registerGlobalReceiver(DodgePacket.ID, makeServerBoundHandler(DodgePacket::decode, DodgePacket::handle));
+		ServerPlayNetworking.registerGlobalReceiver(IndexKeybindRequestPacket.ID, makeServerBoundHandler(IndexKeybindRequestPacket::decode, IndexKeybindRequestPacket::handle));
+		ServerPlayNetworking.registerGlobalReceiver(IndexStringRequestPacket.ID, makeServerBoundHandler(IndexStringRequestPacket::decode, IndexStringRequestPacket::handle));
+		ServerPlayNetworking.registerGlobalReceiver(JumpPacket.ID, makeServerBoundHandler(JumpPacket::decode, JumpPacket::handle));
+		ServerPlayNetworking.registerGlobalReceiver(LeftClickPacket.ID, makeServerBoundHandler(LeftClickPacket::decode, LeftClickPacket::handle));
 	}
 
 	private static <T> ServerPlayNetworking.PlayChannelHandler makeServerBoundHandler(Function<FriendlyByteBuf, T> decoder, TriConsumer<T, MinecraftServer, ServerPlayer> handle) {
@@ -35,12 +35,12 @@ public final class FabricPacketHandler {
 	}
 
 	public static void initClient() {
-		ClientPlayNetworking.registerGlobalReceiver(PacketAvatarTornadoRod.ID, makeClientBoundHandler(PacketAvatarTornadoRod::decode, PacketAvatarTornadoRod.Handler::handle));
-		ClientPlayNetworking.registerGlobalReceiver(PacketBotaniaEffect.ID, makeClientBoundHandler(PacketBotaniaEffect::decode, PacketBotaniaEffect.Handler::handle));
-		ClientPlayNetworking.registerGlobalReceiver(PacketGogWorld.ID, makeClientBoundHandler(PacketGogWorld::decode, PacketGogWorld.Handler::handle));
-		ClientPlayNetworking.registerGlobalReceiver(PacketItemAge.ID, makeClientBoundHandler(PacketItemAge::decode, PacketItemAge.Handler::handle));
-		ClientPlayNetworking.registerGlobalReceiver(PacketSpawnDoppleganger.ID, makeClientBoundHandler(PacketSpawnDoppleganger::decode, PacketSpawnDoppleganger.Handler::handle));
-		ClientPlayNetworking.registerGlobalReceiver(PacketUpdateItemsRemaining.ID, makeClientBoundHandler(PacketUpdateItemsRemaining::decode, PacketUpdateItemsRemaining.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(AvatarSkiesRodPacket.ID, makeClientBoundHandler(AvatarSkiesRodPacket::decode, AvatarSkiesRodPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(BotaniaEffectPacket.ID, makeClientBoundHandler(BotaniaEffectPacket::decode, BotaniaEffectPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(GogWorldPacket.ID, makeClientBoundHandler(GogWorldPacket::decode, GogWorldPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(ItemAgePacket.ID, makeClientBoundHandler(ItemAgePacket::decode, ItemAgePacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(SpawnGaiaGuardianPacket.ID, makeClientBoundHandler(SpawnGaiaGuardianPacket::decode, SpawnGaiaGuardianPacket.Handler::handle));
+		ClientPlayNetworking.registerGlobalReceiver(UpdateItemsRemainingPacket.ID, makeClientBoundHandler(UpdateItemsRemainingPacket::decode, UpdateItemsRemainingPacket.Handler::handle));
 	}
 
 	private static <T> ClientPlayNetworking.PlayChannelHandler makeClientBoundHandler(Function<FriendlyByteBuf, T> decoder, Consumer<T> handler) {

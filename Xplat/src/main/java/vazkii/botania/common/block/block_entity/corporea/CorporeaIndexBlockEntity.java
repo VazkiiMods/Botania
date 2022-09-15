@@ -24,7 +24,7 @@ import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.network.serverbound.PacketIndexStringRequest;
+import vazkii.botania.network.serverbound.IndexStringRequestPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -374,7 +374,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	public static class ClientHandler {
 		public static boolean onChat(Player player, String message) {
 			if (!getNearbyValidIndexes(player).isEmpty()) {
-				IClientXplatAbstractions.INSTANCE.sendToServer(new PacketIndexStringRequest(message));
+				IClientXplatAbstractions.INSTANCE.sendToServer(new IndexStringRequestPacket(message));
 				return true;
 			}
 			return false;

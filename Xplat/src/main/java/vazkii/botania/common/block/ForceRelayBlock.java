@@ -33,7 +33,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.lens.ForceLens;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.PacketBotaniaEffect;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
@@ -108,7 +108,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 				}
 				BlockPos dest = data.mapping.get(pos);
 				if (dest != null) {
-					IXplatAbstractions.INSTANCE.sendToNear(world, pos, new PacketBotaniaEffect(EffectType.PARTICLE_BEAM,
+					IXplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
 							pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
 							dest.getX(), dest.getY(), dest.getZ()));
 				}

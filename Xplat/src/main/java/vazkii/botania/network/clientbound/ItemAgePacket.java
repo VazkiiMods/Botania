@@ -14,12 +14,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public record PacketItemAge(int entityId, int timeCounter) implements IPacket {
+public record ItemAgePacket(int entityId, int timeCounter) implements BotaniaPacket {
 
 	public static final ResourceLocation ID = prefix("ia");
 
@@ -34,12 +34,12 @@ public record PacketItemAge(int entityId, int timeCounter) implements IPacket {
 		return ID;
 	}
 
-	public static PacketItemAge decode(FriendlyByteBuf buf) {
-		return new PacketItemAge(buf.readVarInt(), buf.readVarInt());
+	public static ItemAgePacket decode(FriendlyByteBuf buf) {
+		return new ItemAgePacket(buf.readVarInt(), buf.readVarInt());
 	}
 
 	public static class Handler {
-		public static void handle(PacketItemAge packet) {
+		public static void handle(ItemAgePacket packet) {
 			int entityId = packet.entityId();
 			int counter = packet.timeCounter();
 			Minecraft.getInstance().execute(() -> {

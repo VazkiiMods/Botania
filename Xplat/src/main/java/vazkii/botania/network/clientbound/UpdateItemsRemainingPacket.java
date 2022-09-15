@@ -17,11 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public record PacketUpdateItemsRemaining(ItemStack stack, int count, @Nullable Component tooltip) implements IPacket {
+public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable Component tooltip) implements BotaniaPacket {
 
 	public static final ResourceLocation ID = prefix("rem");
 
@@ -40,8 +40,8 @@ public record PacketUpdateItemsRemaining(ItemStack stack, int count, @Nullable C
 		return ID;
 	}
 
-	public static PacketUpdateItemsRemaining decode(FriendlyByteBuf buf) {
-		return new PacketUpdateItemsRemaining(
+	public static UpdateItemsRemainingPacket decode(FriendlyByteBuf buf) {
+		return new UpdateItemsRemainingPacket(
 				buf.readItem(),
 				buf.readVarInt(),
 				buf.readBoolean() ? buf.readComponent() : null
@@ -49,7 +49,7 @@ public record PacketUpdateItemsRemaining(ItemStack stack, int count, @Nullable C
 	}
 
 	public static class Handler {
-		public static void handle(PacketUpdateItemsRemaining packet) {
+		public static void handle(UpdateItemsRemainingPacket packet) {
 			ItemStack stack = packet.stack();
 			int count = packet.count();
 			Component tooltip = packet.tooltip();

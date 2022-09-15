@@ -63,7 +63,7 @@ import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -152,10 +152,10 @@ public interface IXplatAbstractions {
 	void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action);
 
 	// Networking
-	Packet<?> toVanillaClientboundPacket(IPacket packet);
-	void sendToPlayer(Player player, IPacket packet);
-	void sendToNear(Level level, BlockPos pos, IPacket packet);
-	void sendToTracking(Entity e, IPacket packet);
+	Packet<?> toVanillaClientboundPacket(BotaniaPacket packet);
+	void sendToPlayer(Player player, BotaniaPacket packet);
+	void sendToNear(Level level, BlockPos pos, BotaniaPacket packet);
+	void sendToTracking(Entity e, BotaniaPacket packet);
 
 	// Registrations
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);

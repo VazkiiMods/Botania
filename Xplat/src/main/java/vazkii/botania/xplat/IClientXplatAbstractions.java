@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.ServiceUtil;
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -27,7 +27,7 @@ public interface IClientXplatAbstractions {
 	void fireRenderTinyPotato(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay);
 
 	// Networking
-	void sendToServer(IPacket packet);
+	void sendToServer(BotaniaPacket packet);
 
 	// Capability access
 	@Nullable

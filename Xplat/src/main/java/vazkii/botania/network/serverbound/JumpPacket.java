@@ -14,18 +14,19 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.item.equipment.bauble.CirrusAmuletItem;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public record PacketIndexKeybindRequest(ItemStack stack) implements IPacket {
-	public static final ResourceLocation ID = prefix("idx");
+public class JumpPacket implements BotaniaPacket {
+	public static final JumpPacket INSTANCE = new JumpPacket();
+	public static final ResourceLocation ID = prefix("jmp");
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {
-		buf.writeItem(stack());
+
 	}
 
 	@Override
@@ -33,19 +34,18 @@ public record PacketIndexKeybindRequest(ItemStack stack) implements IPacket {
 		return ID;
 	}
 
-	public static PacketIndexKeybindRequest decode(FriendlyByteBuf buf) {
-		return new PacketIndexKeybindRequest(buf.readItem());
+	public static JumpPacket decode(FriendlyByteBuf buf) {
+		return INSTANCE;
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
-		var stack = this.stack();
 		server.execute(() -> {
-			if (player.isSpectator()) {
-				return;
-			}
+			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof CirrusAmuletItem, player);
+			if (!amuletStack.isEmpty()) {
+				player.causeFoodExhaustion(0.3F);
+				player.fallDistance = 0;
 
-			for (CorporeaIndexBlockEntity index : CorporeaIndexBlockEntity.getNearbyValidIndexes(player)) {
-				index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(stack, true), stack.getCount());
+				CirrusAmuletItem.setJumping(player);
 			}
 		});
 	}

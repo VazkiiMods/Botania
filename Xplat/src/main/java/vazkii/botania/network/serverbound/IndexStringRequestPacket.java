@@ -6,15 +6,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public record PacketIndexStringRequest(String message) implements IPacket {
+public record IndexStringRequestPacket(String message) implements BotaniaPacket {
 	public static final ResourceLocation ID = prefix("idxs");
 
-	public static PacketIndexStringRequest decode(FriendlyByteBuf buf) {
-		return new PacketIndexStringRequest(buf.readUtf());
+	public static IndexStringRequestPacket decode(FriendlyByteBuf buf) {
+		return new IndexStringRequestPacket(buf.readUtf());
 	}
 
 	@Override

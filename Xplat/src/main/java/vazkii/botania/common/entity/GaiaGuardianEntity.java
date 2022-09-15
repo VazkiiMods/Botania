@@ -79,8 +79,8 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.MobEffectAccessor;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.PacketBotaniaEffect;
-import vazkii.botania.network.clientbound.PacketSpawnDoppleganger;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.network.clientbound.SpawnGaiaGuardianPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -232,7 +232,7 @@ public class GaiaGuardianEntity extends Mob {
 			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
-				IXplatAbstractions.INSTANCE.sendToPlayer(player, new PacketBotaniaEffect(EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
+				IXplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
 				player.sendSystemMessage(Component.translatable("botaniamisc.badArena").withStyle(ChatFormatting.RED));
 			}
@@ -1008,7 +1008,7 @@ public class GaiaGuardianEntity extends Mob {
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return IXplatAbstractions.INSTANCE.toVanillaClientboundPacket(
-				new PacketSpawnDoppleganger(new ClientboundAddEntityPacket(this), playerCount, hardMode, source, bossInfoUUID));
+				new SpawnGaiaGuardianPacket(new ClientboundAddEntityPacket(this), playerCount, hardMode, source, bossInfoUUID));
 	}
 
 	@Override

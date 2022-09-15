@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import io.netty.buffer.Unpooled;
 
-public interface IPacket {
+public interface BotaniaPacket {
 	default FriendlyByteBuf toBuf() {
 		var ret = new FriendlyByteBuf(Unpooled.buffer());
 		encode(ret);

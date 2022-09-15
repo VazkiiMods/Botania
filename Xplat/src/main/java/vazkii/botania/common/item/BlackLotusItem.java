@@ -22,7 +22,7 @@ import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.PacketBotaniaEffect;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
@@ -53,7 +53,7 @@ public class BlackLotusItem extends Item implements ManaDissolvable {
 		if (!item.level.isClientSide) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			EntityHelper.shrinkItem(item);
-			IXplatAbstractions.INSTANCE.sendToTracking(item, new PacketBotaniaEffect(EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ()));
+			IXplatAbstractions.INSTANCE.sendToTracking(item, new BotaniaEffectPacket(EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ()));
 		}
 
 		item.playSound(BotaniaSounds.blackLotus, 1F, t2 ? 0.1F : 1F);

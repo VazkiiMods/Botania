@@ -21,15 +21,15 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PacketDodge implements IPacket {
-	public static final PacketDodge INSTANCE = new PacketDodge();
+public class DodgePacket implements BotaniaPacket {
+	public static final DodgePacket INSTANCE = new DodgePacket();
 	public static final ResourceLocation ID = prefix("do");
 
-	public static PacketDodge decode(FriendlyByteBuf buf) {
+	public static DodgePacket decode(FriendlyByteBuf buf) {
 		return INSTANCE;
 	}
 

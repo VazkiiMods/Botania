@@ -27,7 +27,7 @@ import vazkii.botania.common.helper.DelayHelper;
 import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.PacketBotaniaEffect;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
@@ -90,7 +90,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		IXplatAbstractions.INSTANCE.sendToTracking(item, new PacketBotaniaEffect(EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getId(), p));
+		IXplatAbstractions.INSTANCE.sendToTracking(item, new BotaniaEffectPacket(EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getId(), p));
 	}
 
 	@Override

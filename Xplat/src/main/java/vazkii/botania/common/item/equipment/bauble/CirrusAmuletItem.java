@@ -28,7 +28,7 @@ import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.network.serverbound.PacketJump;
+import vazkii.botania.network.serverbound.JumpPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 import java.util.Collections;
@@ -59,7 +59,7 @@ public class CirrusAmuletItem extends BaubleItem {
 					if (playerSp.input.jumping) {
 						if (!jumpDown && timesJumped < ((CirrusAmuletItem) stack.getItem()).getMaxAllowedJumps()) {
 							playerSp.jumpFromGround();
-							IClientXplatAbstractions.INSTANCE.sendToServer(PacketJump.INSTANCE);
+							IClientXplatAbstractions.INSTANCE.sendToServer(JumpPacket.INSTANCE);
 							timesJumped++;
 						}
 						jumpDown = true;

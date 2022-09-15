@@ -23,7 +23,7 @@ import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.network.ForgePacketHandler;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 public class ForgeClientXplatImpl implements IClientXplatAbstractions {
@@ -33,7 +33,7 @@ public class ForgeClientXplatImpl implements IClientXplatAbstractions {
 	}
 
 	@Override
-	public void sendToServer(IPacket packet) {
+	public void sendToServer(BotaniaPacket packet) {
 		ForgePacketHandler.CHANNEL.sendToServer(packet);
 	}
 

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
 
 public class FabricClientXplatImpl implements IClientXplatAbstractions {
@@ -31,7 +31,7 @@ public class FabricClientXplatImpl implements IClientXplatAbstractions {
 	}
 
 	@Override
-	public void sendToServer(IPacket packet) {
+	public void sendToServer(BotaniaPacket packet) {
 		ClientPlayNetworking.send(packet.getFabricId(), packet.toBuf());
 	}
 

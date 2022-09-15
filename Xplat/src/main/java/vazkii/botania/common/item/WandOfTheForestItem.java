@@ -58,7 +58,7 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.PacketBotaniaEffect;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -146,7 +146,7 @@ public class WandOfTheForestItem extends Item {
 			data.mapping.put(bindPos.pos(), pos.immutable());
 			data.setDirty();
 
-			IXplatAbstractions.INSTANCE.sendToNear(world, pos, new PacketBotaniaEffect(EffectType.PARTICLE_BEAM,
+			IXplatAbstractions.INSTANCE.sendToNear(world, pos, new BotaniaEffectPacket(EffectType.PARTICLE_BEAM,
 					bindPos.pos().getX() + 0.5, bindPos.pos().getY() + 0.5, bindPos.pos().getZ() + 0.5,
 					pos.getX(), pos.getY(), pos.getZ()));
 

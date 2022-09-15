@@ -39,7 +39,7 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.PacketBotaniaEffect;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.*;
@@ -209,13 +209,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	private void particlesTowards(Entity e) {
-		IXplatAbstractions.INSTANCE.sendToTracking(this, new PacketBotaniaEffect(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
+		IXplatAbstractions.INSTANCE.sendToTracking(this, new BotaniaEffectPacket(EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
 				getId(), e.getId(), ColorHelper.getColorValue(getNetwork())));
 	}
 
 	public static void particleBeam(Player player, Entity e1, Entity e2) {
 		if (e1 != null && e2 != null && !e1.level.isClientSide) {
-			IXplatAbstractions.INSTANCE.sendToPlayer(player, new PacketBotaniaEffect(EffectType.SPARK_NET_INDICATOR,
+			IXplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.SPARK_NET_INDICATOR,
 					e1.getX(), e1.getY(), e1.getZ(),
 					e1.getId(), e2.getId()));
 		}

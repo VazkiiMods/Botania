@@ -37,7 +37,7 @@ import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.mixin.CreeperAccessor;
 import vazkii.botania.mixin.EntityAccessor;
 import vazkii.botania.network.EffectType;
-import vazkii.botania.network.clientbound.PacketBotaniaEffect;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
@@ -73,7 +73,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 
 							ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
 							player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.divaCharm, SoundSource.PLAYERS, 1F, 1F);
-							IXplatAbstractions.INSTANCE.sendToTracking(target, new PacketBotaniaEffect(EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getId()));
+							IXplatAbstractions.INSTANCE.sendToTracking(target, new BotaniaEffectPacket(EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getId()));
 						}
 					}
 				}

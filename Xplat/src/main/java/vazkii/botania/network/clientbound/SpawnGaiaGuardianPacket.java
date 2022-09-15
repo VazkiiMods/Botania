@@ -16,14 +16,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 import vazkii.botania.common.entity.GaiaGuardianEntity;
-import vazkii.botania.network.IPacket;
+import vazkii.botania.network.BotaniaPacket;
 
 import java.util.UUID;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public record PacketSpawnDoppleganger(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
-		BlockPos source, UUID bossInfoId) implements IPacket {
+public record SpawnGaiaGuardianPacket(ClientboundAddEntityPacket inner, int playerCount, boolean hardMode,
+		BlockPos source, UUID bossInfoId) implements BotaniaPacket {
 
 	public static final ResourceLocation ID = prefix("spg");
 
@@ -41,8 +41,8 @@ public record PacketSpawnDoppleganger(ClientboundAddEntityPacket inner, int play
 		return ID;
 	}
 
-	public static PacketSpawnDoppleganger decode(FriendlyByteBuf buf) {
-		return new PacketSpawnDoppleganger(
+	public static SpawnGaiaGuardianPacket decode(FriendlyByteBuf buf) {
+		return new SpawnGaiaGuardianPacket(
 				new ClientboundAddEntityPacket(buf),
 				buf.readVarInt(),
 				buf.readBoolean(),
@@ -52,7 +52,7 @@ public record PacketSpawnDoppleganger(ClientboundAddEntityPacket inner, int play
 	}
 
 	public static class Handler {
-		public static void handle(PacketSpawnDoppleganger packet) {
+		public static void handle(SpawnGaiaGuardianPacket packet) {
 			var inner = packet.inner();
 			int playerCount = packet.playerCount();
 			boolean hardMode = packet.hardMode();
