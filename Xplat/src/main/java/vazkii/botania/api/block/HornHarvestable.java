@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
  * harvested by Botania horns.
  */
 @FunctionalInterface
-public interface IHornHarvestable {
+public interface HornHarvestable {
 	/**
 	 * Returns true if this block can be uprooted.
 	 * Note that the stack param can be empty if it's a drum breaking it.

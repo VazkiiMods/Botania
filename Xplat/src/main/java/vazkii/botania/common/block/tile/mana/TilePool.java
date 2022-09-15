@@ -34,8 +34,8 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.*;
@@ -65,7 +65,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable,
-		IThrottledPacket, IWandable {
+		IThrottledPacket, Wandable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -392,7 +392,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return true;
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TilePool pool;
 
 		public WandHud(TilePool pool) {

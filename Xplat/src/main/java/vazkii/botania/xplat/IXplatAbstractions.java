@@ -47,10 +47,10 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ServiceUtil;
-import vazkii.botania.api.block.IExoflameHeatable;
-import vazkii.botania.api.block.IHornHarvestable;
-import vazkii.botania.api.block.IHourglassTrigger;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.ExoflameHeatable;
+import vazkii.botania.api.block.HornHarvestable;
+import vazkii.botania.api.block.HourglassTrigger;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -102,11 +102,11 @@ public interface IXplatAbstractions {
 	@Nullable
 	IRelic findRelic(ItemStack stack);
 	@Nullable
-	IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	ExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	HornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
 	IManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 
@@ -124,7 +124,7 @@ public interface IXplatAbstractions {
 	@Nullable
 	IManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	@Nullable
-	IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 	boolean isFluidContainer(ItemEntity item);
 	boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid);
 	boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid);

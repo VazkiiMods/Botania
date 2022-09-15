@@ -14,10 +14,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * A TileEntity that implements this can be bound to another block
+ * A BlockEntity that implements this can be bound to another block
  * via the Wand of the Forest.
  */
-public interface IWandBindable extends ITileBound {
+public interface WandBindable extends Bound {
 
 	/**
 	 * Return true if the Wand can select this tile.

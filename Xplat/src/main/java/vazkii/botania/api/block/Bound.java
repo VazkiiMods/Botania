@@ -15,11 +15,11 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.internal.IManaBurst;
 
 /**
- * Any TileEntity that implements this is technically bound
+ * Any BlockEntity that implements this is technically bound
  * to something, and the binding will be shown when hovering
  * over with a Wand of the Forest.
  */
-public interface ITileBound {
+public interface Bound {
 	BlockPos UNBOUND_POS = IManaBurst.NO_SOURCE;
 
 	/**

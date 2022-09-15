@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.block.IAvatarTile;
+import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -155,7 +155,7 @@ public class ItemTornadoRod extends Item {
 
 	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
-		public void onAvatarUpdate(IAvatarTile tile) {
+		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
@@ -191,7 +191,7 @@ public class ItemTornadoRod extends Item {
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(IAvatarTile tile) {
+		public ResourceLocation getOverlayResource(Avatar tile) {
 			return avatarOverlay;
 		}
 	}

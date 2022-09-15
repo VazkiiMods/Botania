@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricClientCapabilities;
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.network.IPacket;
 import vazkii.botania.xplat.IClientXplatAbstractions;
@@ -37,7 +37,7 @@ public class FabricClientXplatImpl implements IClientXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, BlockEntity be) {
+	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, BlockEntity be) {
 		return BotaniaFabricClientCapabilities.WAND_HUD.find(level, pos, state, be, Unit.INSTANCE);
 	}
 

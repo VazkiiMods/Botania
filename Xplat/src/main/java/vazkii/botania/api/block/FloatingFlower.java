@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface IFloatingFlower {
+public interface FloatingFlower {
 
 	/**
 	 * @return The itemstack to display on top of the island

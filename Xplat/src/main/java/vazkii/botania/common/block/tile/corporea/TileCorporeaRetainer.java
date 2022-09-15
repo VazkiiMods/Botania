@@ -24,8 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class TileCorporeaRetainer extends TileMod implements IWandable {
+public class TileCorporeaRetainer extends TileMod implements Wandable {
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
 	private static final String TAG_REQUEST_Z = "requestZ";
@@ -137,7 +137,7 @@ public class TileCorporeaRetainer extends TileMod implements IWandable {
 		corporeaMatcherDeserializers.put(id, deserializer);
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TileCorporeaRetainer retainer;
 
 		public WandHud(TileCorporeaRetainer retainer) {

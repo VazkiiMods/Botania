@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.block.IFloatingFlower.IslandType;
+import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
 

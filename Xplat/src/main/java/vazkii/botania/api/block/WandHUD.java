@@ -8,14 +8,16 @@
  */
 package vazkii.botania.api.block;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.Minecraft;
 
 /**
- * A block with this capability will receive a custom callback when a Hovering
- * Hourglass adjacent to the block turns.
+ * Any block (entity) that has this capability renders a HUD when being hovered
+ * with a Wand of the Forest.
  */
-public interface IHourglassTrigger {
+public interface WandHUD {
 
-	void onTriggeredByHourglass(BlockEntity hourglass);
+	void renderHUD(PoseStack ms, Minecraft mc);
 
 }

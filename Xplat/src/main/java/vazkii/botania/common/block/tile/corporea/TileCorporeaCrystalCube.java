@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
@@ -29,7 +29,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, IWandable {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, Wandable {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";

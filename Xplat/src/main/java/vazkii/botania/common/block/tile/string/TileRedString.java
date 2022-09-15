@@ -20,12 +20,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.common.block.tile.TileMod;
 
 import java.util.Objects;
 
-public abstract class TileRedString extends TileMod implements ITileBound {
+public abstract class TileRedString extends TileMod implements Bound {
 
 	private BlockPos binding;
 

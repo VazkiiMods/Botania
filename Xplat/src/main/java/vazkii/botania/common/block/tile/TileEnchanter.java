@@ -38,8 +38,8 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -66,7 +66,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttachable, IWandable, Clearable {
+public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -492,7 +492,7 @@ public class TileEnchanter extends TileMod implements IManaReceiver, ISparkAttac
 		this.stage = State.IDLE;
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TileEnchanter enchanter;
 
 		public WandHud(TileEnchanter enchanter) {

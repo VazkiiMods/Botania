@@ -36,7 +36,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -60,7 +60,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class TileAlfPortal extends TileMod implements IWandable {
+public class TileAlfPortal extends TileMod implements Wandable {
 	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> {
 		record Matcher(TagKey<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
 			@Override

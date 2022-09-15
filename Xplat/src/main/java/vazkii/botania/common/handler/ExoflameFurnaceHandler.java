@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.IExoflameHeatable;
+import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 import vazkii.botania.xplat.IXplatAbstractions;
 
@@ -39,7 +39,7 @@ public class ExoflameFurnaceHandler {
 		}
 	}
 
-	public static class FurnaceExoflameHeatable implements IExoflameHeatable {
+	public static class FurnaceExoflameHeatable implements ExoflameHeatable {
 		private final AbstractFurnaceBlockEntity furnace;
 
 		public FurnaceExoflameHeatable(AbstractFurnaceBlockEntity furnace) {

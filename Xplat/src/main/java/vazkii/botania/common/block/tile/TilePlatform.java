@@ -19,11 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.BlockPlatform;
 
-public class TilePlatform extends TileMod implements IWandable {
+public class TilePlatform extends TileMod implements Wandable {
 	private static final String TAG_CAMO = "camo";
 
 	@Nullable

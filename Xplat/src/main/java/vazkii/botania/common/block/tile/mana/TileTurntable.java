@@ -23,13 +23,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileTurntable extends TileMod implements IWandable {
+public class TileTurntable extends TileMod implements Wandable {
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
 
@@ -78,7 +78,7 @@ public class TileTurntable extends TileMod implements IWandable {
 		return true;
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TileTurntable turntable;
 
 		public WandHud(TileTurntable turntable) {

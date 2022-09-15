@@ -58,8 +58,8 @@ import net.minecraftforge.registries.RegisterEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
-import vazkii.botania.api.block.IHornHarvestable;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.HornHarvestable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.ICoordBoundItem;
@@ -500,7 +500,7 @@ public class ForgeCommonInitializer {
 	}
 
 	private void registerBlockLookasides() {
-		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType, living) -> hornType == IHornHarvestable.EnumHornType.CANOPY,
+		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> (world, pos, stack, hornType, living) -> hornType == HornHarvestable.EnumHornType.CANOPY,
 				Blocks.VINE, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT, Blocks.TWISTING_VINES,
 				Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES, Blocks.WEEPING_VINES_PLANT);
 		CapabilityUtil.registerBlockLookaside(BotaniaForgeCapabilities.HORN_HARVEST, (w, p, s) -> DefaultHornHarvestable.INSTANCE,
@@ -576,7 +576,7 @@ public class ForgeCommonInitializer {
 
 		if (BlockEntityConstants.SELF_WANDADBLE_BES.contains(be.getType())) {
 			e.addCapability(prefix("wandable"), CapabilityUtil.makeProvider(BotaniaForgeCapabilities.WANDABLE,
-					(IWandable) be));
+					(Wandable) be));
 		}
 
 		if (be instanceof TileRedStringContainer container) {

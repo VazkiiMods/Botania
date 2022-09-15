@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.block.IAvatarTile;
+import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.xplat.IXplatAbstractions;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, IManaReceiver {
+public class TileAvatar extends TileSimpleInventory implements Avatar, IManaReceiver {
 	private static final int MAX_MANA = 6400;
 
 	private static final String TAG_ENABLED = "enabled";

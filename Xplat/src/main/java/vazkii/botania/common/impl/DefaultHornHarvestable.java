@@ -15,10 +15,10 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.block.HornHarvestable;
 
-public class DefaultHornHarvestable implements IHornHarvestable {
-	public static final IHornHarvestable INSTANCE = new DefaultHornHarvestable();
+public class DefaultHornHarvestable implements HornHarvestable {
+	public static final HornHarvestable INSTANCE = new DefaultHornHarvestable();
 
 	@Override
 	public boolean canHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType, @Nullable LivingEntity living) {

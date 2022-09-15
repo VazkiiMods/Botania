@@ -43,8 +43,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.ITileBound;
-import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.Bound;
+import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -85,13 +85,13 @@ public class ItemTwigWand extends Item {
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
 		BlockPos dest = ctx.getClickedPos();
 		if (!dest.equals(src)) {
-			setBindingAttempt(stack, ITileBound.UNBOUND_POS);
+			setBindingAttempt(stack, Bound.UNBOUND_POS);
 
 			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src);
-			if (srcTile instanceof IWandBindable bindable) {
+			if (srcTile instanceof WandBindable bindable) {
 				if (bindable.bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
 					doParticleBeamWithOffset(ctx.getLevel(), src, dest);
-					setBindingAttempt(stack, ITileBound.UNBOUND_POS);
+					setBindingAttempt(stack, Bound.UNBOUND_POS);
 				}
 				return true;
 			}
@@ -192,11 +192,11 @@ public class ItemTwigWand extends Item {
 		}
 
 		BlockEntity tile = world.getBlockEntity(pos);
-		boolean bindable = tile instanceof IWandBindable;
+		boolean bindable = tile instanceof WandBindable;
 
-		if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
+		if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((WandBindable) tile).canSelect(player, stack, pos, side)) {
 			if (boundPos.filter(pos::equals).isPresent()) {
-				setBindingAttempt(stack, ITileBound.UNBOUND_POS);
+				setBindingAttempt(stack, Bound.UNBOUND_POS);
 			} else {
 				setBindingAttempt(stack, pos);
 			}
@@ -300,8 +300,8 @@ public class ItemTwigWand extends Item {
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		getBindingAttempt(stack).ifPresent(coords -> {
 			BlockEntity tile = world.getBlockEntity(coords);
-			if (!(tile instanceof IWandBindable)) {
-				setBindingAttempt(stack, ITileBound.UNBOUND_POS);
+			if (!(tile instanceof WandBindable)) {
+				setBindingAttempt(stack, Bound.UNBOUND_POS);
 			}
 		});
 	}
@@ -416,7 +416,7 @@ public class ItemTwigWand extends Item {
 			var pos = ClientProxy.INSTANCE.getClientHit();
 			if (pos instanceof BlockHitResult bHit && pos.getType() == HitResult.Type.BLOCK) {
 				BlockEntity tile = world.getBlockEntity(bHit.getBlockPos());
-				if (tile instanceof ITileBound boundTile) {
+				if (tile instanceof Bound boundTile) {
 					return boundTile.getBinding();
 				}
 			}

@@ -14,16 +14,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.block.FloatingFlowerImpl;
-import vazkii.botania.api.block.IFloatingFlower;
-import vazkii.botania.api.block.IFloatingFlowerProvider;
+import vazkii.botania.api.block.FloatingFlowerProvider;
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
-public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvider {
+public class TileFloatingFlower extends TileMod implements FloatingFlowerProvider {
 	private static final String TAG_FLOATING_DATA = "floating";
-	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
+	private final FloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
 			Block b = getBlockState().getBlock();
@@ -40,7 +40,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 	}
 
 	@Override
-	public IFloatingFlower getFloatingData() {
+	public FloatingFlower getFloatingData() {
 		return floatingData;
 	}
 
@@ -51,7 +51,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
-		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
+		FloatingFlower.IslandType oldType = floatingData.getIslandType();
 		floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
 		if (oldType != floatingData.getIslandType() && level != null && level.isClientSide) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);

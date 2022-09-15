@@ -13,7 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.api.block.FloatingFlower;
 
 import java.util.Collections;
 import java.util.Map;
@@ -35,12 +35,12 @@ public interface BotaniaAPIClient {
 	 * @param islandType The islandtype to register
 	 * @param model      The model, only {@link ResourceLocation} allowed, no {@link ModelResourceLocation} allowed.
 	 */
-	default void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {}
+	default void registerIslandTypeModel(FloatingFlower.IslandType islandType, ResourceLocation model) {}
 
 	/**
 	 * @return An immutable and live view of the registered island type model map
 	 */
-	default Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
+	default Map<FloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
 		return Collections.emptyMap();
 	}
 

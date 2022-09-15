@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
@@ -118,7 +118,7 @@ public abstract class TileEntityGeneratingFlower extends TileEntityBindableSpeci
 		return Registry.ITEM.getOptional(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
-	public static class GeneratingWandHud<T extends TileEntityGeneratingFlower> implements IWandHUD {
+	public static class GeneratingWandHud<T extends TileEntityGeneratingFlower> implements WandHUD {
 		protected final T flower;
 
 		public GeneratingWandHud(T flower) {

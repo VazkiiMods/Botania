@@ -32,7 +32,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -241,7 +241,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static void exitBindingMode(ItemStack stack) {
-		setBindingCenter(stack, ITileBound.UNBOUND_POS);
+		setBindingCenter(stack, Bound.UNBOUND_POS);
 	}
 
 	private static void setBindingCenter(ItemStack stack, BlockPos pos) {

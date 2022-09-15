@@ -11,10 +11,10 @@ package vazkii.botania.api.block;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Block Entity implementing this may conditionally return {@link IFloatingFlower}.
+ * Block Entity implementing this may conditionally return {@link FloatingFlower}.
  * This is exposed for public reading, do not implement it on anything yourself.
  */
-public interface IFloatingFlowerProvider {
+public interface FloatingFlowerProvider {
 	@Nullable
-	IFloatingFlower getFloatingData();
+	FloatingFlower getFloatingData();
 }

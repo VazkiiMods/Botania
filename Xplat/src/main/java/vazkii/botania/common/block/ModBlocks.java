@@ -41,7 +41,7 @@ import net.minecraft.world.level.material.Material;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.block.IPetalApothecary;
+import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -191,7 +191,7 @@ public final class ModBlocks {
 
 	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE)
 			.requiresCorrectToolForDrops()
-			.lightLevel(s -> s.getValue(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
+			.lightLevel(s -> s.getValue(BlockAltar.FLUID) == PetalApothecary.State.LAVA ? 15 : 0));
 	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY, BlockBehaviour.Properties.copy(defaultAltar));
 	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.TUFF));
 	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.CALCITE));

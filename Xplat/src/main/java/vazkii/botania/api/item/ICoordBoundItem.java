@@ -13,13 +13,13 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.Bound;
 
 /**
  * Items with this capability can be bound to a position.
  * That position is highlighted when the item is being held
  *
- * @see ITileBound
+ * @see Bound
  */
 public interface ICoordBoundItem {
 

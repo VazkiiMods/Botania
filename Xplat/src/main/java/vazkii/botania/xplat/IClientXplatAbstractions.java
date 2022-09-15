@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.ServiceUtil;
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.network.IPacket;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -31,7 +31,7 @@ public interface IClientXplatAbstractions {
 
 	// Capability access
 	@Nullable
-	IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+	WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
 
 	// Rendering stuff
 	BakedModel wrapPlatformModel(BakedModel original);

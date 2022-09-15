@@ -29,7 +29,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class SubTileHopperhock extends TileEntityFunctionalFlower implements IWandable {
+public class SubTileHopperhock extends TileEntityFunctionalFlower implements Wandable {
 	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
 	private static final int RANGE = 6;

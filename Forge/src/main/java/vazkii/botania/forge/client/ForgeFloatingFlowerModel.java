@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 
@@ -37,9 +37,9 @@ import java.util.*;
 import java.util.function.Function;
 
 public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingFlowerModel> {
-	public static final ModelProperty<IFloatingFlower> FLOATING_PROPERTY = new ModelProperty<>();
+	public static final ModelProperty<FloatingFlower> FLOATING_PROPERTY = new ModelProperty<>();
 	private final UnbakedModel unbakedFlower;
-	private final Map<IFloatingFlower.IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
+	private final Map<FloatingFlower.IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
 
 	private ForgeFloatingFlowerModel(UnbakedModel flower) {
 		this.unbakedFlower = flower;
@@ -50,7 +50,7 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 	public Collection<Material> getMaterials(IGeometryBakingContext context, Function<ResourceLocation, UnbakedModel> modelGetter,
 			Set<Pair<String, String>> missingTextureErrors) {
 		Set<Material> ret = new HashSet<>();
-		for (Map.Entry<IFloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
+		for (Map.Entry<FloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
 			UnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
 			ret.addAll(unbakedIsland.getMaterials(modelGetter, missingTextureErrors));
 			unbakedIslands.put(e.getKey(), unbakedIsland);
@@ -78,8 +78,8 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		};
 		BakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, newTransform, name);
 
-		Map<IFloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
-		for (Map.Entry<IFloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
+		Map<FloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
+		for (Map.Entry<FloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
 			BakedModel bakedIsland = e.getValue().bake(bakery, spriteGetter, transform, name);
 			bakedIslands.put(e.getKey(), bakedIsland);
 		}
@@ -87,9 +87,9 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 	}
 
 	public static class Baked extends BakedModelWrapper<BakedModel> {
-		private final Map<IFloatingFlower.IslandType, BakedModel> islands;
+		private final Map<FloatingFlower.IslandType, BakedModel> islands;
 
-		Baked(BakedModel flower, Map<IFloatingFlower.IslandType, BakedModel> islands) {
+		Baked(BakedModel flower, Map<FloatingFlower.IslandType, BakedModel> islands) {
 			super(flower);
 			this.islands = islands;
 		}
@@ -122,7 +122,7 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		@Override
 		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
 				@NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
-			IFloatingFlower.IslandType type = IFloatingFlower.IslandType.GRASS;
+			FloatingFlower.IslandType type = FloatingFlower.IslandType.GRASS;
 			if (extraData.has(FLOATING_PROPERTY)) {
 				type = extraData.get(FLOATING_PROPERTY).getIslandType();
 			}

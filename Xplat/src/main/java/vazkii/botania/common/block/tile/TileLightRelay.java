@@ -38,8 +38,8 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.block.ITileBound;
-import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.Bound;
+import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -56,7 +56,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileLightRelay extends TileMod implements IWandBindable {
+public class TileLightRelay extends TileMod implements WandBindable {
 	public static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";
@@ -64,7 +64,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	private static final String TAG_BIND_Z = "bindZ";
 	private static final String TAG_NO_PARTICLE = "noParticle";
 
-	private BlockPos bindPos = ITileBound.UNBOUND_POS;
+	private BlockPos bindPos = Bound.UNBOUND_POS;
 	private int ticksElapsed = 0;
 	private boolean noParticle = false;
 

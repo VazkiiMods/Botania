@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
@@ -92,7 +92,7 @@ public class TilePrism extends TileExposedSimpleInventory implements IManaTrigge
 		}
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TilePrism prism;
 
 		public WandHud(TilePrism prism) {

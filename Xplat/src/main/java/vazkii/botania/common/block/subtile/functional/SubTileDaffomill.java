@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
@@ -34,7 +34,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 
 import java.util.List;
 
-public class SubTileDaffomill extends TileEntityFunctionalFlower implements IWandable {
+public class SubTileDaffomill extends TileEntityFunctionalFlower implements Wandable {
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
 	private static final String TAG_POWERED = "powered";

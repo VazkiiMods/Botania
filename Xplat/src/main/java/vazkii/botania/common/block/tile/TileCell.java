@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 
 public class TileCell extends TileMod {
@@ -27,8 +27,8 @@ public class TileCell extends TileMod {
 
 	private int generation;
 	private boolean ticked;
-	private BlockPos flowerCoords = ITileBound.UNBOUND_POS;
-	private BlockPos validCoords = ITileBound.UNBOUND_POS;
+	private BlockPos flowerCoords = Bound.UNBOUND_POS;
+	private BlockPos validCoords = Bound.UNBOUND_POS;
 
 	public TileCell(BlockPos pos, BlockState state) {
 		super(ModTiles.CELL_BLOCK, pos, state);

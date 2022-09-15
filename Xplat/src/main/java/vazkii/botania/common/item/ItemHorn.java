@@ -29,8 +29,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IHornHarvestable;
-import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
+import vazkii.botania.api.block.HornHarvestable;
+import vazkii.botania.api.block.HornHarvestable.EnumHornType;
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
@@ -91,7 +91,7 @@ public class ItemHorn extends Item {
 			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 			BlockEntity be = world.getBlockEntity(pos);
-			IHornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, pos, state, be);
+			HornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, pos, state, be);
 
 			if (SubTileBergamute.isBergamuteNearby(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
 				continue;
@@ -112,7 +112,7 @@ public class ItemHorn extends Item {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
 			BlockEntity be = world.getBlockEntity(currCoords);
-			IHornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, currCoords, state, be);
+			HornHarvestable harvestable = IXplatAbstractions.INSTANCE.findHornHarvestable(world, currCoords, state, be);
 
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type, user)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type, user);

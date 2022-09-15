@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.subtile.SubTileManastar;
@@ -601,7 +601,7 @@ public class ModSubtiles {
 		r.accept(LABELLIA, getId(labellia));
 	}
 
-	public static void registerWandHudCaps(ModTiles.BECapConsumer<IWandHUD> consumer) {
+	public static void registerWandHudCaps(ModTiles.BECapConsumer<WandHUD> consumer) {
 		consumer.accept(be -> new SubTileSpectrolus.WandHud((SubTileSpectrolus) be), SPECTROLUS);
 		consumer.accept(be -> new TileEntityGeneratingFlower.GeneratingWandHud<>((TileEntityGeneratingFlower) be),
 				HYDROANGEAS, ENDOFLAME, THERMALILY, ROSA_ARCANA, MUNCHDEW, ENTROPINNYUM, KEKIMURUS, GOURMARYLLIS, NARSLIMMUS,

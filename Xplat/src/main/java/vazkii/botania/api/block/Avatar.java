@@ -17,7 +17,7 @@ import java.util.UUID;
 /**
  * Base interface for the Avatar Block Entity
  */
-public interface IAvatarTile {
+public interface Avatar {
 
 	/**
 	 * Gets the avatar's inventory

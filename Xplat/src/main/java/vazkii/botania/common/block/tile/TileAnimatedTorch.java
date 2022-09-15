@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -36,7 +36,7 @@ import vazkii.botania.common.block.ModBlocks;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod implements IManaTrigger, IWandable {
+public class TileAnimatedTorch extends TileMod implements IManaTrigger, Wandable {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -139,7 +139,7 @@ public class TileAnimatedTorch extends TileMod implements IManaTrigger, IWandabl
 		}
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TileAnimatedTorch torch;
 
 		public WandHud(TileAnimatedTorch torch) {

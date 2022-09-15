@@ -19,7 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.network.ForgePacketHandler;
@@ -39,7 +39,7 @@ public class ForgeClientXplatImpl implements IClientXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IWandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeClientCapabilities.WAND_HUD, level, pos, state, be);
 	}
 

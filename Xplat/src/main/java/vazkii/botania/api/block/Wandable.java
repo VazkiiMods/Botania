@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Any block with this component can be used with the Wand for the Forest for some purpose.
  */
-public interface IWandable {
+public interface Wandable {
 
 	/**
 	 * Called when the block is used by a wand.

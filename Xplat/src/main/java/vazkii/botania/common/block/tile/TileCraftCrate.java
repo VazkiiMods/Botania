@@ -34,8 +34,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
@@ -48,7 +48,7 @@ import java.util.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileCraftCrate extends TileOpenCrate implements IWandable {
+public class TileCraftCrate extends TileOpenCrate implements Wandable {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
 
 	private static int recipeEpoch = 0;
@@ -257,7 +257,7 @@ public class TileCraftCrate extends TileOpenCrate implements IWandable {
 		return signal;
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TileCraftCrate crate;
 
 		public WandHud(TileCraftCrate crate) {

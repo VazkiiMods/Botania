@@ -26,7 +26,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -258,7 +258,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		return !isFull();
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TileBrewery brewery;
 
 		public WandHud(TileBrewery brewery) {

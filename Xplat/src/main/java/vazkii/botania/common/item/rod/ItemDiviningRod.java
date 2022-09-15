@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.block.IAvatarTile;
+import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -79,7 +79,7 @@ public class ItemDiviningRod extends Item {
 
 	public static class AvatarBehavior implements IAvatarWieldable {
 		@Override
-		public void onAvatarUpdate(IAvatarTile tile) {
+		public void onAvatarUpdate(Avatar tile) {
 			BlockEntity te = (BlockEntity) tile;
 			Level world = te.getLevel();
 			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, te.getBlockPos(), te.getBlockState(), te, null);
@@ -90,7 +90,7 @@ public class ItemDiviningRod extends Item {
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(IAvatarTile tile) {
+		public ResourceLocation getOverlayResource(Avatar tile) {
 			return avatarOverlay;
 		}
 	}

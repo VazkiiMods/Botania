@@ -43,8 +43,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IPetalApothecary;
-import vazkii.botania.api.block.IPetalApothecary.State;
+import vazkii.botania.api.block.PetalApothecary;
+import vazkii.botania.api.block.PetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -156,7 +156,7 @@ public class BlockAltar extends BlockMod implements EntityBlock, LiquidBlockCont
 
 		boolean success = IXplatAbstractions.INSTANCE.insertFluidIntoPlayerItem(player, hand, fluid);
 		if (success) {
-			altar.setFluid(IPetalApothecary.State.EMPTY);
+			altar.setFluid(PetalApothecary.State.EMPTY);
 			// Usage of vanilla sound events: Subtitle is "Bucket fills"
 			if (fluid == Fluids.WATER) {
 				player.level.playSound(player, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1F, 1F);

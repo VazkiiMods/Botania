@@ -21,7 +21,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CratePattern;
@@ -170,15 +170,15 @@ public final class ModItems {
 	public static final Item runeEnvy = make(prefix(LibItemNames.RUNE_ENVY), new ItemRune(defaultBuilder()));
 	public static final Item runePride = make(prefix(LibItemNames.RUNE_PRIDE), new ItemRune(defaultBuilder()));
 
-	public static final Item grassSeeds = make(prefix(LibItemNames.GRASS_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder()));
-	public static final Item podzolSeeds = make(prefix(LibItemNames.PODZOL_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.PODZOL, defaultBuilder()));
-	public static final Item mycelSeeds = make(prefix(LibItemNames.MYCEL_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.MYCEL, defaultBuilder()));
-	public static final Item drySeeds = make(prefix(LibItemNames.DRY_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.DRY, defaultBuilder()));
-	public static final Item goldenSeeds = make(prefix(LibItemNames.GOLDEN_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.GOLDEN, defaultBuilder()));
-	public static final Item vividSeeds = make(prefix(LibItemNames.VIVID_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.VIVID, defaultBuilder()));
-	public static final Item scorchedSeeds = make(prefix(LibItemNames.SCORCHED_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.SCORCHED, defaultBuilder()));
-	public static final Item infusedSeeds = make(prefix(LibItemNames.INFUSED_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.INFUSED, defaultBuilder()));
-	public static final Item mutatedSeeds = make(prefix(LibItemNames.MUTATED_SEEDS), new ItemGrassSeeds(IFloatingFlower.IslandType.MUTATED, defaultBuilder()));
+	public static final Item grassSeeds = make(prefix(LibItemNames.GRASS_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.GRASS, defaultBuilder()));
+	public static final Item podzolSeeds = make(prefix(LibItemNames.PODZOL_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.PODZOL, defaultBuilder()));
+	public static final Item mycelSeeds = make(prefix(LibItemNames.MYCEL_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.MYCEL, defaultBuilder()));
+	public static final Item drySeeds = make(prefix(LibItemNames.DRY_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.DRY, defaultBuilder()));
+	public static final Item goldenSeeds = make(prefix(LibItemNames.GOLDEN_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.GOLDEN, defaultBuilder()));
+	public static final Item vividSeeds = make(prefix(LibItemNames.VIVID_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.VIVID, defaultBuilder()));
+	public static final Item scorchedSeeds = make(prefix(LibItemNames.SCORCHED_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.SCORCHED, defaultBuilder()));
+	public static final Item infusedSeeds = make(prefix(LibItemNames.INFUSED_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.INFUSED, defaultBuilder()));
+	public static final Item mutatedSeeds = make(prefix(LibItemNames.MUTATED_SEEDS), new ItemGrassSeeds(FloatingFlower.IslandType.MUTATED, defaultBuilder()));
 
 	public static final Item dirtRod = make(prefix(LibItemNames.DIRT_ROD), new ItemDirtRod(unstackable()));
 	public static final Item skyDirtRod = make(prefix(LibItemNames.SKY_DIRT_ROD), new ItemSkyDirtRod(unstackable()));

@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.common.helper.MathHelper;
 
 import java.util.Objects;
@@ -30,7 +30,7 @@ import java.util.Objects;
  * such as generating flowers to mana collectors, or functional flowers to pools.
  * Implements the bindability logic common to both types of flower.
  */
-public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpecialFlower implements IWandBindable {
+public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpecialFlower implements WandBindable {
 	/**
 	 * Superclass (or interface) of all BlockEntities that this flower is able to bind to.
 	 */

@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.*;
 import vazkii.botania.common.block.tile.mana.*;
@@ -109,7 +109,7 @@ public class ModTiles {
 		void accept(Function<BlockEntity, T> factory, BlockEntityType<?>... types);
 	}
 
-	public static void registerWandHudCaps(BECapConsumer<IWandHUD> consumer) {
+	public static void registerWandHudCaps(BECapConsumer<WandHUD> consumer) {
 		consumer.accept(be -> new TileAnimatedTorch.WandHud((TileAnimatedTorch) be), ModTiles.ANIMATED_TORCH);
 		consumer.accept(be -> new TileBrewery.WandHud((TileBrewery) be), ModTiles.BREWERY);
 		consumer.accept(be -> new TileCorporeaRetainer.WandHud((TileCorporeaRetainer) be), ModTiles.CORPOREA_RETAINER);

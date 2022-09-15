@@ -40,11 +40,11 @@ import vazkii.botania.common.lib.ModTags;
 /**
  * Common superclass of all magical flower block entities
  */
-public abstract class TileEntitySpecialFlower extends BlockEntity implements IFloatingFlowerProvider {
+public abstract class TileEntitySpecialFlower extends BlockEntity implements FloatingFlowerProvider {
 	public static final int PODZOL_DELAY = 5;
 	public static final int MYCELIUM_DELAY = 10;
 
-	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
+	private final FloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
 			ResourceLocation id = Registry.BLOCK_ENTITY_TYPE.getKey(getType());
@@ -103,7 +103,7 @@ public abstract class TileEntitySpecialFlower extends BlockEntity implements IFl
 
 	@Nullable
 	@Override
-	public IFloatingFlower getFloatingData() {
+	public FloatingFlower getFloatingData() {
 		if (hasLevel() && isFloating()) {
 			return floatingData;
 		}
@@ -153,7 +153,7 @@ public abstract class TileEntitySpecialFlower extends BlockEntity implements IFl
 			setFloating(true);
 		}
 
-		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
+		FloatingFlower.IslandType oldType = floatingData.getIslandType();
 		readFromPacketNBT(cmp);
 		if (isFloating() && oldType != floatingData.getIslandType() && level != null) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
@@ -240,10 +240,10 @@ public abstract class TileEntitySpecialFlower extends BlockEntity implements IFl
 	 */
 	public int getModulatedDelay() {
 		if (isFloating()) {
-			IFloatingFlower.IslandType type = floatingData.getIslandType();
-			if (type == IFloatingFlower.IslandType.MYCEL) {
+			FloatingFlower.IslandType type = floatingData.getIslandType();
+			if (type == FloatingFlower.IslandType.MYCEL) {
 				return MYCELIUM_DELAY;
-			} else if (type == IFloatingFlower.IslandType.PODZOL) {
+			} else if (type == FloatingFlower.IslandType.PODZOL) {
 				return PODZOL_DELAY;
 			}
 		} else {

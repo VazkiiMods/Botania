@@ -74,10 +74,10 @@ import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaForgeCapabilities;
-import vazkii.botania.api.block.IExoflameHeatable;
-import vazkii.botania.api.block.IHornHarvestable;
-import vazkii.botania.api.block.IHourglassTrigger;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.ExoflameHeatable;
+import vazkii.botania.api.block.HornHarvestable;
+import vazkii.botania.api.block.HourglassTrigger;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
@@ -174,19 +174,19 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public ExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
-	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public HornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HORN_HARVEST, level, pos, state, be);
 	}
 
 	@Nullable
 	@Override
-	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, level, pos, state, be);
 	}
 
@@ -216,7 +216,7 @@ public class ForgeXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.WANDABLE, level, pos, state, be);
 	}
 

@@ -12,7 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 
-public class FloatingFlowerImpl implements IFloatingFlower {
+public class FloatingFlowerImpl implements FloatingFlower {
 	private IslandType type = IslandType.GRASS;
 
 	@Override

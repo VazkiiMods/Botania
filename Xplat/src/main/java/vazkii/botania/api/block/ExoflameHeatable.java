@@ -12,9 +12,9 @@ package vazkii.botania.api.block;
  * A Block Entity that has this component can be heated by an Exoflame flower.
  * NOTE: Do not attach this component to subclasses of AbstractFurnaceBlockEntity, as Botania already does so.
  */
-public interface IExoflameHeatable {
+public interface ExoflameHeatable {
 	/**
-	 * Can this TileEntity smelt its contents. If true, the Exoflame is allowed
+	 * Can this BlockEntity smelt its contents. If true, the Exoflame is allowed
 	 * to fuel it.
 	 */
 	boolean canSmelt();

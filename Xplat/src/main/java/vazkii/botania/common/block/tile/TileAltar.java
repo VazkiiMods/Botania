@@ -32,7 +32,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IPetalApothecary;
+import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.api.recipe.IPetalRecipe;
@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
+public class TileAltar extends TileSimpleInventory implements PetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;

@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.Bound;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -43,7 +43,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	public static final String TAG_TELEPORTED = "botania:teleported";
 
-	private BlockPos bindPos = ITileBound.UNBOUND_POS;
+	private BlockPos bindPos = Bound.UNBOUND_POS;
 
 	public SubTileSpectranthemum(BlockPos pos, BlockState state) {
 		super(ModSubtiles.SPECTRANTHEMUM, pos, state);

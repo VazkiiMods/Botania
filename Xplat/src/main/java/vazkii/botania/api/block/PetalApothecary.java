@@ -20,7 +20,7 @@ import java.util.Locale;
 /**
  * Base Interface for the Petal Apothecary block entity
  */
-public interface IPetalApothecary {
+public interface PetalApothecary {
 	enum State implements StringRepresentable {
 		EMPTY,
 		WATER,

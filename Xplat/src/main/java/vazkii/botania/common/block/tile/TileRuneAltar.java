@@ -30,7 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, IWandable {
+public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, Wandable {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;

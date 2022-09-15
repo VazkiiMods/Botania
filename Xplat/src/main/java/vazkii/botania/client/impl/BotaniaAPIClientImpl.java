@@ -15,22 +15,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.gui.HUDHandler;
 
 import java.util.Collections;
 import java.util.Map;
 
 public class BotaniaAPIClientImpl implements BotaniaAPIClient {
-	private final Map<IFloatingFlower.IslandType, ResourceLocation> islandTypeModels = Maps.newHashMap();
+	private final Map<FloatingFlower.IslandType, ResourceLocation> islandTypeModels = Maps.newHashMap();
 
 	@Override
-	public void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {
+	public void registerIslandTypeModel(FloatingFlower.IslandType islandType, ResourceLocation model) {
 		islandTypeModels.put(islandType, model);
 	}
 
 	@Override
-	public Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
+	public Map<FloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
 		return Collections.unmodifiableMap(islandTypeModels);
 	}
 

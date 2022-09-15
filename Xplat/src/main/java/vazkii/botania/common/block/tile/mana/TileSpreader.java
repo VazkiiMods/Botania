@@ -39,9 +39,9 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.IWandBindable;
-import vazkii.botania.api.block.IWandHUD;
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.WandBindable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
@@ -60,7 +60,7 @@ import vazkii.botania.xplat.IXplatAbstractions;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IWandable {
+public class TileSpreader extends TileExposedSimpleInventory implements WandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, Wandable {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -538,7 +538,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IWandBin
 		return null;
 	}
 
-	public static class WandHud implements IWandHUD {
+	public static class WandHud implements WandHUD {
 		private final TileSpreader spreader;
 
 		public WandHud(TileSpreader spreader) {

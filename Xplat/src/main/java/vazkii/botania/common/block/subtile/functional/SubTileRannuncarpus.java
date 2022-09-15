@@ -41,7 +41,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -52,7 +52,7 @@ import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.*;
 
-public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements IWandable {
+public class SubTileRannuncarpus extends TileEntityFunctionalFlower implements Wandable {
 	private static final int PICKUP_RANGE = 2;
 	private static final int PICKUP_RANGE_Y = 3;
 	private static final int RANGE_PLACE_MANA = 8;

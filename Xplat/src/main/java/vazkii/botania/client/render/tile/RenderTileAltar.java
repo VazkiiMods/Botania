@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.block.IPetalApothecary;
+import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAltar;
 
@@ -43,8 +43,8 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 		ms.pushPose();
 		ms.translate(0.5, 1.25, 0.5);
 
-		boolean water = altar.getFluid() == IPetalApothecary.State.WATER;
-		boolean lava = altar.getFluid() == IPetalApothecary.State.LAVA;
+		boolean water = altar.getFluid() == PetalApothecary.State.WATER;
+		boolean lava = altar.getFluid() == PetalApothecary.State.LAVA;
 		if (water || lava) {
 			ms.pushPose();
 			float v = 1F / 8F;

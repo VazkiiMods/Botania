@@ -175,19 +175,19 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public ExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.EXOFLAME_HEATABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
 	@Nullable
 	@Override
-	public IHornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public HornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.HORN_HARVEST.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
 	@Nullable
 	@Override
-	public IHourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.HOURGLASS_TRIGGER.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
@@ -217,7 +217,7 @@ public class FabricXplatImpl implements IXplatAbstractions {
 
 	@Nullable
 	@Override
-	public IWandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
+	public Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
 		return BotaniaFabricCapabilities.WANDABLE.find(level, pos, state, be, Unit.INSTANCE);
 	}
 
