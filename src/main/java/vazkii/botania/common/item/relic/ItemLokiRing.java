@@ -151,13 +151,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		GTNHLib.proxy.printMessageAboveHotbar(text, 60, true, true);
 	}
 	public static String getLokiModeText(ItemStack stack){
-		String text = EnumChatFormatting.GOLD + StatCollector.translateToLocal("item.botania:lokiRing.name") + " ";
-		if (isRingEnabled(stack)) {
-			text = text + EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.lokiOn");
-		} else {
-			text = text + EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.lokiOff");
-		}
-		return text;
+		return EnumChatFormatting.GOLD + StatCollector.translateToLocal("item.botania:lokiRing.name") + " " + (isRingEnabled(stack) ?
+				EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.lokiOn") :
+				EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.lokiOff"));
 	}
 	public static boolean isRingEnabled (final ItemStack stack){
 		return stack.stackTagCompound.getBoolean(TAG_MODE);
