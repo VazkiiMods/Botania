@@ -62,7 +62,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 	private static final String TAG_Y_ORIGIN = "yOrigin";
 	private static final String TAG_Z_ORIGIN = "zOrigin";
 	private static final String TAG_MODE = "mode";
-	private static boolean mode = true;
 
 	public ItemLokiRing() {
 		super(LibItemNames.LOKI_RING);
