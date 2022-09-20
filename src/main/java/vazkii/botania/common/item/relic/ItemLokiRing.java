@@ -62,6 +62,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 	private static final String TAG_Y_ORIGIN = "yOrigin";
 	private static final String TAG_Z_ORIGIN = "zOrigin";
 	private static final String TAG_MODE = "mode";
+	private static boolean mode = true;
 
 	public ItemLokiRing() {
 		super(LibItemNames.LOKI_RING);
@@ -142,7 +143,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		}
 	}
 	public static void toggleMode(ItemStack stack) {
-		stack.stackTagCompound.setBoolean(TAG_MODE,!stack.stackTagCompound.getBoolean(TAG_MODE));
+		stack.stackTagCompound.setBoolean(TAG_MODE, !isRingEnabled(stack));
 	}
 	@SideOnly(Side.CLIENT)
 	public static void renderHUDNotification(){
@@ -151,9 +152,13 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 		GTNHLib.proxy.printMessageAboveHotbar(text, 60, true, true);
 	}
 	public static String getLokiModeText(ItemStack stack){
-		return EnumChatFormatting.GOLD + StatCollector.translateToLocal("item.botania:lokiRing.name") + " " + (isRingEnabled(stack) ?
-				EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.lokiOn") :
-				EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.lokiOff"));
+		String text = EnumChatFormatting.GOLD + StatCollector.translateToLocal("item.botania:lokiRing.name") + " ";
+		if (isRingEnabled(stack)) {
+			text = text + EnumChatFormatting.GREEN + StatCollector.translateToLocal("botaniamisc.lokiOn");
+		} else {
+			text = text + EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.lokiOff");
+		}
+		return text;
 	}
 	public static boolean isRingEnabled (final ItemStack stack){
 		return stack.stackTagCompound.getBoolean(TAG_MODE);
