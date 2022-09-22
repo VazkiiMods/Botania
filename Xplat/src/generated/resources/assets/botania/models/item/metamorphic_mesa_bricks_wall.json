@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/wall_inventory",
+  "parent": "botania:block/shapes/wall_inventory_checkered",
   "textures": {
-    "wall": "botania:block/metamorphic_mesa_bricks"
+    "north": "botania:block/metamorphic_mesa_bricks_mirrored",
+    "side": "botania:block/metamorphic_mesa_bricks"
   }
 }

@@ -73,6 +73,8 @@ public class ItemModelProvider implements DataProvider {
 	private static final ModelTemplate GENERATED_2 = new ModelTemplate(Optional.of(new ResourceLocation("item/generated")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2);
 	private static final ModelTemplate HANDHELD_1 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1);
 	private static final ModelTemplate HANDHELD_3 = new ModelTemplate(Optional.of(new ResourceLocation("item/handheld")), Optional.empty(), TextureSlot.LAYER0, LAYER1, LAYER2, LAYER3);
+	private static final ModelTemplate WALL_INVENTORY = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory")), Optional.empty(), TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.WALL);
+	private static final ModelTemplate WALL_INVENTORY_CHECKERED = new ModelTemplate(Optional.of(prefix("block/shapes/wall_inventory_checkered")), Optional.empty(), TextureSlot.NORTH, TextureSlot.SIDE);
 	private static final TextureSlot OUTSIDE = TextureSlotAccessor.make("outside");
 	private static final TextureSlot CORE = TextureSlotAccessor.make("core");
 	private static final ModelTemplate SPREADER = new ModelTemplate(Optional.of(prefix("block/shapes/spreader_item")), Optional.empty(), TextureSlot.SIDE, TextureSlot.BACK, TextureSlot.INSIDE, OUTSIDE, CORE);
@@ -482,6 +484,19 @@ public class ItemModelProvider implements DataProvider {
 
 		consumer.accept(ModelLocationUtils.getModelLocation(BotaniaBlocks.elfGlass.asItem()), new DelegatedModel(prefix("block/elf_glass_0")));
 		itemBlocks.remove(BotaniaBlocks.elfGlass.asItem());
+
+		WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.biomeBrickPlainsWall.asItem()),
+						new TextureMapping()
+										.put(TextureSlot.TOP, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
+										.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
+										.put(TextureSlot.WALL, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains)), consumer);
+		itemBlocks.remove(BotaniaFluffBlocks.biomeBrickPlainsWall.asItem());
+
+		WALL_INVENTORY_CHECKERED.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.biomeBrickMesaWall.asItem()),
+						new TextureMapping()
+										.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa))
+										.put(TextureSlot.NORTH, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa, "_mirrored")), consumer);
+		itemBlocks.remove(BotaniaFluffBlocks.biomeBrickMesaWall.asItem());
 
 		itemBlocks.forEach(i -> {
 			consumer.accept(ModelLocationUtils.getModelLocation(i), new DelegatedModel(ModelLocationUtils.getModelLocation(i.getBlock())));
