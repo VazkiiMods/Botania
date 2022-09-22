@@ -17,7 +17,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.Util;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -26,13 +25,13 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.mixin.client.LevelRendererAccessor;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -116,38 +115,33 @@ public final class BoundBlockRenderer {
 	}
 
 	private static void renderBlockOutlineAt(Camera camera, PoseStack ms, MultiBufferSource buffers, Level level, BlockPos pos, int color, boolean thick) {
-		double renderPosX = camera.getPosition().x();
-		double renderPosY = camera.getPosition().y();
-		double renderPosZ = camera.getPosition().z();
+		VoxelShape shape = level.getBlockState(pos).getShape(level, pos);
 
-		ms.pushPose();
-		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ);
+		if (!shape.isEmpty()) {
+			double renderPosX = camera.getPosition().x();
+			double renderPosY = camera.getPosition().y();
+			double renderPosZ = camera.getPosition().z();
 
-		BlockState state = level.getBlockState(pos);
-		List<AABB> list = state.getShape(level, pos).toAabbs();
+			ms.pushPose();
+			ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ);
 
-		if (!list.isEmpty()) {
 			VertexConsumer buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
-			for (AABB axis : list) {
-				renderBlockOutline(ms, buffer, axis, color);
-			}
+			renderBlockOutline(ms, buffer, shape, color);
 
 			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
 			int alpha = 64;
 			color = (color & ~0xff000000) | (alpha << 24);
-			for (AABB axis : list) {
-				renderBlockOutline(ms, buffer, axis, color);
-			}
-		}
+			renderBlockOutline(ms, buffer, shape, color);
 
-		ms.popPose();
+			ms.popPose();
+		}
 	}
 
-	private static void renderBlockOutline(PoseStack pose, VertexConsumer buffer, AABB aabb, int color) {
+	private static void renderBlockOutline(PoseStack pose, VertexConsumer buffer, VoxelShape shape, int color) {
 		float a = ((color >> 24) & 0xFF) / 255.0F;
 		float r = ((color >> 16) & 0xFF) / 255.0F;
 		float g = ((color >> 8) & 0xFF) / 255.0F;
 		float b = (color & 0xFF) / 255.F;
-		LevelRenderer.renderLineBox(pose, buffer, aabb, r, g, b, a);
+		LevelRendererAccessor.renderShape(pose, buffer, shape, 0.0, 0.0, 0.0, r, g, b, a);
 	}
 }

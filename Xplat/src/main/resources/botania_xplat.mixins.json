@@ -63,6 +63,7 @@
     "client.RenderTypeAccessor",
     "client.ClientLevelDataMixin",
     "client.ItemInHandRendererMixin",
+    "client.LevelRendererAccessor",
     "client.LevelRendererMixin",
     "client.RecipeBookComponentMixin",
     "client.SkullBlockRendererMixin",
