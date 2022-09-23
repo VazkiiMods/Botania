@@ -80,9 +80,6 @@ repositories {
         url "https://maven.shedaniel.me/" // for rei
     }
     maven {
-        url "https://server.bbkr.space/artifactory/libs-release/" // for bannerplusplus
-    }
-    maven {
         name = "ParchmentMC"
         url = "https://maven.parchmentmc.net/"
     }
@@ -91,6 +88,13 @@ repositories {
         url "https://repo.unascribed.com" // for ears
         content {
             includeGroup "com.unascribed"
+        }
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven" // for "here be no dragons"
+        content {
+            includeGroup "maven.modrinth"
         }
     }
 }
@@ -114,7 +118,7 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.528"
 
-    modCompileOnly("dev.emi:emi:0.3.3+1.19") { transitive = false }
+    modImplementation("dev.emi:emi:0.3.3+1.19") { transitive = false }
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
@@ -140,6 +144,8 @@ dependencies {
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
 
     modCompileOnly "mezz.jei:jei-1.19.2-common-api:11.2.0.247"
+
+    modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
 }
 
 compileJava {
