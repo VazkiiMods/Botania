@@ -486,16 +486,18 @@ public class ItemModelProvider implements DataProvider {
 		itemBlocks.remove(BotaniaBlocks.elfGlass.asItem());
 
 		WALL_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.biomeBrickPlainsWall.asItem()),
-						new TextureMapping()
-										.put(TextureSlot.TOP, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
-										.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
-										.put(TextureSlot.WALL, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains)), consumer);
+				new TextureMapping()
+						.put(TextureSlot.TOP, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
+						.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains, "_top"))
+						.put(TextureSlot.WALL, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickPlains)),
+				consumer);
 		itemBlocks.remove(BotaniaFluffBlocks.biomeBrickPlainsWall.asItem());
 
 		WALL_INVENTORY_CHECKERED.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.biomeBrickMesaWall.asItem()),
-						new TextureMapping()
-										.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa))
-										.put(TextureSlot.NORTH, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa, "_mirrored")), consumer);
+				new TextureMapping()
+						.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa))
+						.put(TextureSlot.NORTH, TextureMapping.getBlockTexture(BotaniaFluffBlocks.biomeBrickMesa, "_mirrored")),
+				consumer);
 		itemBlocks.remove(BotaniaFluffBlocks.biomeBrickMesaWall.asItem());
 
 		itemBlocks.forEach(i -> {
