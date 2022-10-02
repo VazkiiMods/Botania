@@ -27,11 +27,11 @@ import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaSplitterBlockEntity;
 
-public class ManaDistributorBlock extends BotaniaWaterloggedBlock implements EntityBlock {
+public class ManaSplitterBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 16, 12);
 
-	public ManaDistributorBlock(Properties builder) {
+	public ManaSplitterBlock(Properties builder) {
 		super(builder);
 	}
 

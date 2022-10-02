@@ -270,7 +270,7 @@ public final class BotaniaBlocks {
 	public static final Block naturaPylon = new PylonBlock(PylonBlock.Variant.NATURA, BlockBehaviour.Properties.copy(manaPylon));
 	public static final Block gaiaPylon = new PylonBlock(PylonBlock.Variant.GAIA, BlockBehaviour.Properties.copy(manaPylon));
 
-	public static final Block distributor = new ManaDistributorBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
+	public static final Block distributor = new ManaSplitterBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block manaVoid = new ManaVoidBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block manaDetector = new ManaDetectorBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block pistonRelay = new ForceRelayBlock(BlockBehaviour.Properties.of(Material.METAL).strength(2, 10).sound(SoundType.METAL).isValidSpawn(NO_SPAWN));
