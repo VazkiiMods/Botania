@@ -148,6 +148,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			entity.setDeltaMovement(Vec3.ZERO);
 
 			entity.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
+			entity.setHealth(entity.getMaxHealth());
 			entity.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
 
 			entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,
