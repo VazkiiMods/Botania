@@ -18,6 +18,7 @@ import java.util.WeakHashMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import net.minecraftforge.event.world.WorldEvent;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
@@ -30,8 +31,8 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
-	public WeakHashMap<World, List<TileSignature>> manaPools = new WeakHashMap();
-	public WeakHashMap<World, List<TileSignature>> manaCollectors = new WeakHashMap();
+	public WeakHashMap<World, List<TileSignature>> manaPools = new WeakHashMap<>();
+	public WeakHashMap<World, List<TileSignature>> manaCollectors = new WeakHashMap<>();
 
 	@SubscribeEvent
 	public void onNetworkEvent(ManaNetworkEvent event) {
@@ -124,11 +125,11 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 		List<TileSignature> tiles;
 		if(!map.containsKey(world))
-			map.put(world, new ArrayList());
+			map.put(world, new ArrayList<>());
 
 		tiles = map.get(world);
 
-		if(!tiles.contains(tile))
+		if(tiles.stream().noneMatch(s -> s.tile == tile))
 			tiles.add(new TileSignature(tile, tile.getWorldObj().isRemote));
 	}
 
@@ -144,10 +145,15 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	private List<TileSignature> getAllInWorld(Map<World, List<TileSignature>> map, World world) {
 		if(!map.containsKey(world))
-			return new ArrayList();
+			return new ArrayList<>();
 
 		return map.get(world);
 	}
 
-
+	@SubscribeEvent
+	public void onWorldRemoved(WorldEvent.Unload e) {
+		World world = e.world;
+		manaPools.remove(world);
+		manaCollectors.remove(world);
+	}
 }
