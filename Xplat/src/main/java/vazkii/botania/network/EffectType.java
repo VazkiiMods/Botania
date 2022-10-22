@@ -15,8 +15,10 @@ public enum EffectType {
 	HALO_CRAFT(1), // Arg: Entity ID
 	AVATAR_TORNADO_JUMP(1), // Arg: Entity ID
 	AVATAR_TORNADO_BOOST(1), // Arg: Entity ID
+	THUNDERCALLER_EFFECT(-1) // Arg: All entity IDs hit by the bolt
 	;
 
+	// If -1, then variable length and the number of arguments is also sent over the network
 	public final int argCount;
 
 	EffectType(int argCount) {

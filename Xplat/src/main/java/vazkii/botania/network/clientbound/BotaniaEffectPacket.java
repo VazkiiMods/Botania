@@ -39,6 +39,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public record BotaniaEffectPacket(EffectType type, double x, double y, double z, int... args) implements BotaniaPacket {
 
 	public static final ResourceLocation ID = prefix("eff");
+	private static final int MAX_VARIABLE_ARGS = 128;
 
 	@Override
 	public void encode(FriendlyByteBuf buf) {
@@ -47,8 +48,18 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 		buf.writeDouble(y());
 		buf.writeDouble(z());
 
-		for (int i = 0; i < type().argCount; i++) {
-			buf.writeVarInt(args()[i]);
+		if (type().argCount != -1 && type().argCount != args().length) {
+			throw new IllegalArgumentException("Argument count mismatch");
+		}
+
+		if (type().argCount == -1) {
+			if (args().length > MAX_VARIABLE_ARGS) {
+				throw new IllegalArgumentException("Too many variable arguments");
+			}
+			buf.writeVarInt(args().length);
+		}
+		for (int arg : args) {
+			buf.writeVarInt(arg);
 		}
 	}
 
@@ -62,7 +73,16 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 		double x = buf.readDouble();
 		double y = buf.readDouble();
 		double z = buf.readDouble();
-		int[] args = new int[type.argCount];
+		int argCount;
+		if (type.argCount == -1) {
+			argCount = buf.readVarInt();
+			if (argCount > MAX_VARIABLE_ARGS) {
+				throw new IllegalArgumentException("Too many variable arguments");
+			}
+		} else {
+			argCount = type.argCount;
+		}
+		int[] args = new int[argCount];
 
 		for (int i = 0; i < args.length; i++) {
 			args[i] = buf.readVarInt();
@@ -322,6 +342,18 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 												0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.y()) + Math.abs(lookDir.x())) + -0.01F * (float) Math.random() * lookDir.z());
 									}
 								}
+							}
+						}
+						case THUNDERCALLER_EFFECT -> {
+							Vec3 source = new Vec3(x, y, z);
+							for (int id : args) {
+								var entity = world.getEntity(id);
+								if (entity == null) {
+									break;
+								}
+								var entityPos = VecHelper.fromEntityCenter(entity);
+								Proxy.INSTANCE.lightningFX(world, source, entityPos, 1, 0x0179C4, 0xAADFFF);
+								source = entityPos;
 							}
 						}
 					}

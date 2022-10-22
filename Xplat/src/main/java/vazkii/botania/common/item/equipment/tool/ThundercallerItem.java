@@ -8,6 +8,9 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
+
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,11 +23,11 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.helper.ItemNBTHelper;
-import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelSwordItem;
-import vazkii.botania.common.proxy.Proxy;
+import vazkii.botania.network.EffectType;
+import vazkii.botania.network.clientbound.BotaniaEffectPacket;
+import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -39,19 +42,19 @@ public class ThundercallerItem extends ManasteelSwordItem {
 
 	@Override
 	public boolean hurtEnemy(ItemStack stack, LivingEntity entity, @NotNull LivingEntity attacker) {
-		if (!(entity instanceof Player) && entity != null) {
+		if (!(entity instanceof Player)) {
 			double range = 8;
-			List<LivingEntity> alreadyTargetedEntities = new ArrayList<>();
+			IntList alreadyTargetedEntities = new IntArrayList();
 			int dmg = 5;
 			long lightningSeed = ItemNBTHelper.getLong(stack, TAG_LIGHTNING_SEED, 0);
 
-			Predicate<Entity> selector = e -> e instanceof LivingEntity && e instanceof Enemy && !(e instanceof Player) && !alreadyTargetedEntities.contains(e);
+			Predicate<Entity> selector = e -> e instanceof LivingEntity && e instanceof Enemy && !(e instanceof Player) && !alreadyTargetedEntities.contains(e.getId());
 
 			Random rand = new Random(lightningSeed);
-			LivingEntity lightningSource = entity;
+			LivingEntity prevTarget = entity;
 			int hops = entity.level.isThundering() ? 10 : 4;
 			for (int i = 0; i < hops; i++) {
-				List<Entity> entities = entity.level.getEntities(lightningSource, new AABB(lightningSource.getX() - range, lightningSource.getY() - range, lightningSource.getZ() - range, lightningSource.getX() + range, lightningSource.getY() + range, lightningSource.getZ() + range), selector);
+				List<Entity> entities = entity.level.getEntities(prevTarget, new AABB(prevTarget.getX() - range, prevTarget.getY() - range, prevTarget.getZ() - range, prevTarget.getX() + range, prevTarget.getY() + range, prevTarget.getZ() + range), selector);
 				if (entities.isEmpty()) {
 					break;
 				}
@@ -63,11 +66,16 @@ public class ThundercallerItem extends ManasteelSwordItem {
 					target.hurt(DamageSource.mobAttack(attacker), dmg);
 				}
 
-				Proxy.INSTANCE.lightningFX(entity.level, VecHelper.fromEntityCenter(lightningSource), VecHelper.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
-
-				alreadyTargetedEntities.add(target);
-				lightningSource = target;
+				alreadyTargetedEntities.add(target.getId());
+				prevTarget = target;
 				dmg--;
+			}
+
+			if (!alreadyTargetedEntities.isEmpty()) {
+				XplatAbstractions.INSTANCE.sendToTracking(attacker,
+						new BotaniaEffectPacket(EffectType.THUNDERCALLER_EFFECT,
+								attacker.getX(), attacker.getY() + attacker.getBbHeight() / 2.0, attacker.getZ(),
+								alreadyTargetedEntities.toArray(new int[0])));
 			}
 
 			if (!entity.level.isClientSide) {
