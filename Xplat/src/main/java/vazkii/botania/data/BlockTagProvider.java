@@ -189,6 +189,11 @@ public class BlockTagProvider extends BlockTagsProvider {
 				BotaniaFluffBlocks.biomeCobblestoneFungal, BotaniaFluffBlocks.biomeCobblestoneFungalSlab, BotaniaFluffBlocks.biomeCobblestoneFungalStairs, BotaniaFluffBlocks.biomeCobblestoneFungalWall,
 				BotaniaFluffBlocks.biomeChiseledBrickFungal, fungalAltar);
 
+		tag(BlockTags.LEAVES);
+		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE).addTag(BlockTags.LEAVES);
+
+		tag(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE).add(Blocks.SNOW);
+
 		registerMiningTags();
 	}
 

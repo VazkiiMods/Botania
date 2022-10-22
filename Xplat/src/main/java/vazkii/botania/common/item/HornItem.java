@@ -10,7 +10,6 @@ package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -99,8 +97,8 @@ public class HornItem extends Item {
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type, user)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS)
-							|| type == EnumHornType.CANOPY && state.is(BlockTags.LEAVES)
-							|| type == EnumHornType.COVERING && state.is(Blocks.SNOW)) {
+							|| type == EnumHornType.CANOPY && state.is(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE)
+							|| type == EnumHornType.COVERING && state.is(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE)) {
 				coords.add(pos.immutable());
 			}
 		}

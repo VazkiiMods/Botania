@@ -207,6 +207,16 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> WEIGHT_LENS_WHITELIST = tag("weight_lens_whitelist");
 
+		/**
+		 * Blocks in this tag can be broken by the Horn of the Canopy
+		 */
+		public static final TagKey<Block> HORN_OF_THE_CANOPY_BREAKABLE = tag("horn_of_the_canopy_breakable");
+
+		/**
+		 * Blocks in this tag can be broken by the Horn of the Canopy
+		 */
+		public static final TagKey<Block> HORN_OF_THE_COVERING_BREAKABLE = tag("horn_of_the_covering_breakable");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registry.BLOCK_REGISTRY, prefix(name));
 		}
