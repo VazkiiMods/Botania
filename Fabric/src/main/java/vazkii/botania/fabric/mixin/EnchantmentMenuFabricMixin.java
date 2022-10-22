@@ -10,24 +10,25 @@ package vazkii.botania.fabric.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.EnchantmentMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import vazkii.botania.common.block.PylonBlock;
 
 @Mixin(EnchantmentMenu.class)
 public class EnchantmentMenuFabricMixin {
-	/* todo 1.19
 	@SuppressWarnings("target")
 	@ModifyVariable(
-		method = "lambda$slotsChanged$0(Lnet/minecraft/world/item/ItemStack;"
-				+ "Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V",
-		at = @At(value = "STORE", ordinal = 0),
-		ordinal = 0
-	)
+			method = "method_17411",
+			at = @At(value = "STORE", ordinal = 0),
+			ordinal = 0)
 	private int botaniaPylonEnchanting(int obj, ItemStack stack, Level level, BlockPos pos) {
 		for (int x = -1; x <= 1; ++x) {
 			for (int z = -1; z <= 1; ++z) {
@@ -45,7 +46,6 @@ public class EnchantmentMenuFabricMixin {
 		}
 		return obj;
 	}
-	*/
 
 	@Unique
 	private float getPylonValue(BlockState state, LevelReader world, BlockPos pos) {
