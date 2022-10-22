@@ -440,6 +440,11 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
+	public Item.Properties noRepairOnForge(Item.Properties builder) {
+		return builder.setNoRepair();
+	}
+
+	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
 		return IForgeMenuType.create(constructor::apply);
 	}

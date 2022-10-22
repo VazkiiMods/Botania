@@ -21,6 +21,7 @@
     "LivingEntityFabricMixin",
     "PiglinAiFabricMixin",
     "PlayerFabricMixin",
+    "RepairItemRecipeFabricMixin",
     "ResultSlotFabricMixin",
     "ServerPlayerGameModeFabricMixin"
   ],

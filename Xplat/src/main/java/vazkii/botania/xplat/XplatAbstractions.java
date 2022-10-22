@@ -166,6 +166,14 @@ public interface XplatAbstractions {
 		return defaultItemBuilder();
 	}
 
+	/**
+	 * Forge allows items to opt out of craft-repairing using the builder.
+	 * Fabric we handle it manually in RepairItemRecipeFabricMixin
+	 */
+	default Item.Properties noRepairOnForge(Item.Properties builder) {
+		return builder;
+	}
+
 	<T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor);
 	Registry<Brew> createBrewRegistry();
 	@Nullable

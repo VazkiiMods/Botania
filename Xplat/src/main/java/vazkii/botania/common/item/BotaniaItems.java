@@ -250,7 +250,7 @@ public final class BotaniaItems {
 	public static final Item enderHand = make(prefix(LibItemNames.ENDER_HAND), new EnderHandItem(unstackable()));
 	public static final Item craftingHalo = make(prefix(LibItemNames.CRAFTING_HALO), new AssemblyHaloItem(unstackable()));
 	public static final Item autocraftingHalo = make(prefix(LibItemNames.AUTOCRAFTING_HALO), new ManufactoryHaloItem(unstackable()));
-	public static final Item spellCloth = make(prefix(LibItemNames.SPELL_CLOTH), new SpellbindingClothItem(unstackable().defaultDurability(35)/* todo 1.16-fabric.setNoRepair()*/));
+	public static final Item spellCloth = make(prefix(LibItemNames.SPELL_CLOTH), new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable().defaultDurability(35))));
 	public static final Item flowerBag = make(prefix(LibItemNames.FLOWER_BAG), new FlowerPouchItem(unstackable()));
 	public static final Item blackHoleTalisman = make(prefix(LibItemNames.BLACK_HOLE_TALISMAN), new BlackHoleTalismanItem(unstackable()));
 	public static final Item temperanceStone = make(prefix(LibItemNames.TEMPERANCE_STONE), new StoneOfTemperanceItem(unstackable()));

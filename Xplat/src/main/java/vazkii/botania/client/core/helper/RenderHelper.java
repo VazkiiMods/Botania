@@ -91,7 +91,6 @@ public final class RenderHelper extends RenderType {
 	}
 
 	static {
-		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
 		RenderType.CompositeState glState = RenderType.CompositeState.builder()
 				.setShaderState(POSITION_COLOR_SHADER)
 				.setWriteMaskState(COLOR_WRITE)
@@ -119,7 +118,6 @@ public final class RenderHelper extends RenderType {
 				.setTextureState(RenderStateShard.BLOCK_SHEET_MIPPED)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
-				// todo 1.17 .setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
 				.setLightmapState(LIGHTMAP).createCompositeState(true);
 		SPARK = makeLayer(ResourcesLib.PREFIX_MOD + "spark", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, glState);
 		glState = RenderType.CompositeState.builder()
@@ -134,8 +132,6 @@ public final class RenderHelper extends RenderType {
 				.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
-				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
-				// todo 1.17 .setAlphaState(oneTenthAlpha)
 				.setLightmapState(LIGHTMAP).createCompositeState(true);
 		ICON_OVERLAY = makeLayer(ResourcesLib.PREFIX_MOD + "icon_overlay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
 		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
@@ -383,7 +379,7 @@ public final class RenderHelper extends RenderType {
 			VertexConsumer ivertexbuilder = ItemRenderer.getFoilBufferDirect(buffers, rendertype, true, stack.hasFoil());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
 		} else {
-			// todo 1.17 BlockEntityWithoutLevelRenderer.instance.renderByItem(stack, ItemTransforms.TransformType.NONE, ms, buffers, light, overlay);
+			throw new IllegalArgumentException("Custom renderer items not supported");
 		}
 
 		ms.popPose();
