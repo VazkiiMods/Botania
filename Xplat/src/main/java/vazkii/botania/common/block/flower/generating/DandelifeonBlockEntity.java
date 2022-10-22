@@ -176,6 +176,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		if (gen == -2) {
 			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
 			addMana(val);
+			sync();
 		} else if (stateAt.is(BotaniaBlocks.cellBlock)) {
 			if (gen < 0) {
 				world.removeBlock(pos, false);

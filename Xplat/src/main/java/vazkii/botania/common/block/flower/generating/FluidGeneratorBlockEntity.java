@@ -62,6 +62,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 		if (!getLevel().isClientSide) {
 			if (burnTime > 0 && ticksExisted % getGenerationDelay() == 0) {
 				addMana(manaPerTick);
+				sync();
 			}
 		}
 
