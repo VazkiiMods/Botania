@@ -23,6 +23,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -47,7 +48,6 @@ public class BoltRenderer {
 	private Timestamp refreshTimestamp = Timestamp.ZERO;
 
 	private final Random random = new Random();
-	private final Minecraft minecraft = Minecraft.getInstance();
 
 	private final List<BoltEmitter> boltEmitters = new LinkedList<>();
 
@@ -65,38 +65,32 @@ public class BoltRenderer {
 	public void render(float partialTicks, PoseStack matrixStack, MultiBufferSource buffers) {
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.LIGHTNING);
 		Matrix4f matrix = matrixStack.last().pose();
-		Timestamp timestamp = new Timestamp(minecraft.level.getGameTime(), partialTicks);
+		Timestamp timestamp = new Timestamp(Minecraft.getInstance().level.getGameTime(), partialTicks);
 		boolean refresh = timestamp.isPassed(refreshTimestamp, (1 / REFRESH_TIME));
 		if (refresh) {
 			refreshTimestamp = timestamp;
 		}
 
-		// todo XXX see other synchronize block
-		synchronized (boltEmitters) {
-			for (Iterator<BoltEmitter> iter = boltEmitters.iterator(); iter.hasNext();) {
-				BoltEmitter emitter = iter.next();
-				emitter.renderTick(timestamp, refresh, matrix, buffer);
-				if (emitter.shouldRemove(timestamp)) {
-					iter.remove();
-				}
+		for (Iterator<BoltEmitter> iter = boltEmitters.iterator(); iter.hasNext();) {
+			BoltEmitter emitter = iter.next();
+			emitter.renderTick(timestamp, refresh, matrix, buffer);
+			if (emitter.shouldRemove(timestamp)) {
+				iter.remove();
 			}
 		}
 	}
 
-	public void add(BoltParticleOptions options, float partialTicks) {
-		if (minecraft.level == null) {
+	public void add(Level level, BoltParticleOptions options, float partialTicks) {
+		if (!level.isClientSide) {
 			return;
 		}
 		var emitter = new BoltEmitter(options);
-		Timestamp timestamp = new Timestamp(minecraft.level.getGameTime(), partialTicks);
+		Timestamp timestamp = new Timestamp(level.getGameTime(), partialTicks);
 		if ((!emitter.options.getSpawnFunction().isConsecutive() || emitter.bolts.isEmpty()) && timestamp.isPassed(emitter.lastBoltTimestamp, emitter.lastBoltDelay)) {
 			emitter.addBolt(new BoltInstance(options, timestamp), timestamp);
 		}
 		emitter.lastUpdateTimestamp = timestamp;
-		// todo XXX ThundercallerItem calls this method from logical server in SP, don't do that.
-		synchronized (boltEmitters) {
-			boltEmitters.add(emitter);
-		}
+		boltEmitters.add(emitter);
 	}
 
 	public class BoltEmitter {

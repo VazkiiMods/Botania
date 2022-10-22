@@ -191,7 +191,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.random.nextInt(20) == 0) {
 			Vec3 vec = Vec3.atCenterOf(self.getBlockPos());
 			Vec3 endVec = vec.add(0, 2.5, 0);
-			Proxy.INSTANCE.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
+			Proxy.INSTANCE.lightningFX(level, vec, endVec, 2F, 0x00948B, 0x00E4D7);
 		}
 
 		if (self.cooldown > 0) {

@@ -63,7 +63,7 @@ public class ThundercallerItem extends ManasteelSwordItem {
 					target.hurt(DamageSource.mobAttack(attacker), dmg);
 				}
 
-				Proxy.INSTANCE.lightningFX(VecHelper.fromEntityCenter(lightningSource), VecHelper.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
+				Proxy.INSTANCE.lightningFX(entity.level, VecHelper.fromEntityCenter(lightningSource), VecHelper.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
 
 				alreadyTargetedEntities.add(target);
 				lightningSource = target;
