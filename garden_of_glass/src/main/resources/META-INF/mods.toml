@@ -1,4 +1,4 @@
-modLoader="javafml"
+modLoader="lowcodefml"
 loaderVersion="[38,)"
 license="Botania License"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues"
