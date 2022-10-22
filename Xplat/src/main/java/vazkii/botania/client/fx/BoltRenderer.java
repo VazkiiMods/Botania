@@ -87,8 +87,7 @@ public class BoltRenderer {
 		if (minecraft.level == null) {
 			return;
 		}
-		var data = new BoltOwnerData();
-		data.lastBolt = newBoltData;
+		var data = new BoltOwnerData(newBoltData);
 		Timestamp timestamp = new Timestamp(minecraft.level.getGameTime(), partialTicks);
 		if ((!data.lastBolt.getSpawnFunction().isConsecutive() || data.bolts.isEmpty()) && timestamp.isPassed(data.lastBoltTimestamp, data.lastBoltDelay)) {
 			data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
@@ -103,14 +102,18 @@ public class BoltRenderer {
 	public class BoltOwnerData {
 
 		private final Set<BoltInstance> bolts = new ObjectOpenHashSet<>();
-		private BoltParticleOptions lastBolt;
+		private final BoltParticleOptions lastBolt;
 		private Timestamp lastBoltTimestamp = Timestamp.ZERO;
 		private Timestamp lastUpdateTimestamp = Timestamp.ZERO;
 		private double lastBoltDelay;
 
+		public BoltOwnerData(BoltParticleOptions lastBolt) {
+			this.lastBolt = lastBolt;
+		}
+
 		private void addBolt(BoltInstance instance, Timestamp timestamp) {
 			bolts.add(instance);
-			lastBoltDelay = instance.bolt.getSpawnFunction().getSpawnDelay(random);
+			lastBoltDelay = instance.options.getSpawnFunction().getSpawnDelay(random);
 			lastBoltTimestamp = timestamp;
 		}
 
@@ -132,28 +135,28 @@ public class BoltRenderer {
 
 	private static class BoltInstance {
 
-		private final BoltParticleOptions bolt;
+		private final BoltParticleOptions options;
 		private final List<BoltParticleOptions.BoltQuads> renderQuads;
 		private final Timestamp createdTimestamp;
 
-		public BoltInstance(BoltParticleOptions bolt, Timestamp timestamp) {
-			this.bolt = bolt;
-			this.renderQuads = bolt.generate();
+		public BoltInstance(BoltParticleOptions options, Timestamp timestamp) {
+			this.options = options;
+			this.renderQuads = options.generate();
 			this.createdTimestamp = timestamp;
 		}
 
 		public void render(Matrix4f matrix, VertexConsumer buffer, Timestamp timestamp) {
-			float lifeScale = timestamp.subtract(createdTimestamp).value() / bolt.getLifespan();
-			Pair<Integer, Integer> bounds = bolt.getFadeFunction().getRenderBounds(renderQuads.size(), lifeScale);
+			float lifeScale = timestamp.subtract(createdTimestamp).value() / options.getLifespan();
+			Pair<Integer, Integer> bounds = options.getFadeFunction().getRenderBounds(renderQuads.size(), lifeScale);
 			for (int i = bounds.getLeft(); i < bounds.getRight(); i++) {
 				renderQuads.get(i).getVecs().forEach(v -> buffer.vertex(matrix, (float) v.x, (float) v.y, (float) v.z)
-						.color(bolt.getColor().x(), bolt.getColor().y(), bolt.getColor().z(), bolt.getColor().w())
+						.color(options.getColor().x(), options.getColor().y(), options.getColor().z(), options.getColor().w())
 						.endVertex());
 			}
 		}
 
 		public boolean tick(Timestamp timestamp) {
-			return timestamp.isPassed(createdTimestamp, bolt.getLifespan());
+			return timestamp.isPassed(createdTimestamp, options.getLifespan());
 		}
 	}
 
