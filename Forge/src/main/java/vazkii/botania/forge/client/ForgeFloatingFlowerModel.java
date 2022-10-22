@@ -10,15 +10,16 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
@@ -86,12 +87,52 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		return new Baked(bakedFlower, bakedIslands);
 	}
 
-	public static class Baked extends BakedModelWrapper<BakedModel> {
+	@SuppressWarnings("deprecation") // shut up forge
+	public static class Baked implements BakedModel {
+		private final BakedModel flower;
 		private final Map<FloatingFlower.IslandType, BakedModel> islands;
 
 		Baked(BakedModel flower, Map<FloatingFlower.IslandType, BakedModel> islands) {
-			super(flower);
+			this.flower = flower;
 			this.islands = islands;
+		}
+
+		@Override
+		public boolean useAmbientOcclusion() {
+			return flower.useAmbientOcclusion();
+		}
+
+		@Override
+		public boolean isGui3d() {
+			return flower.isGui3d();
+		}
+
+		@Override
+		public boolean usesBlockLight() {
+			return flower.usesBlockLight();
+		}
+
+		@Override
+		public boolean isCustomRenderer() {
+			return false;
+		}
+
+		@NotNull
+		@Override
+		public TextureAtlasSprite getParticleIcon() {
+			return flower.getParticleIcon();
+		}
+
+		@NotNull
+		@Override
+		public ItemOverrides getOverrides() {
+			return flower.getOverrides();
+		}
+
+		@NotNull
+		@Override
+		public ItemTransforms getTransforms() {
+			return flower.getTransforms();
 		}
 
 		@NotNull
@@ -113,8 +154,8 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 		@NotNull
 		@Override
 		public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand) {
-			// Default to GRASS island
-			// TODO 1.19 verify
+			// This shouldn't be called from anywhere on forge (blocks use the other overload,
+			// items call getRenderPasses), but implement a default just in case
 			return getQuads(state, side, rand, ModelData.EMPTY, RenderType.cutout());
 		}
 
@@ -127,12 +168,18 @@ public class ForgeFloatingFlowerModel implements IUnbakedGeometry<ForgeFloatingF
 				type = extraData.get(FLOATING_PROPERTY).getIslandType();
 			}
 
-			List<BakedQuad> flower = super.getQuads(null, null, rand, ModelData.EMPTY, renderType);
-			List<BakedQuad> island = islands.get(type).getQuads(null, null, rand, ModelData.EMPTY, renderType);
+			List<BakedQuad> flower = this.flower.getQuads(state, side, rand, ModelData.EMPTY, renderType);
+			List<BakedQuad> island = islands.get(type).getQuads(state, side, rand, ModelData.EMPTY, renderType);
 			List<BakedQuad> ret = new ArrayList<>(flower.size() + island.size());
 			ret.addAll(flower);
 			ret.addAll(island);
 			return ret;
+		}
+
+		@NotNull
+		@Override
+		public List<BakedModel> getRenderPasses(@NotNull ItemStack stack, boolean fabulous) {
+			return List.of(flower, islands.get(FloatingFlower.IslandType.GRASS));
 		}
 	}
 
