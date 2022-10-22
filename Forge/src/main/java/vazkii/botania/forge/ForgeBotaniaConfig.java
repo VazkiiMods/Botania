@@ -405,6 +405,9 @@ public final class ForgeBotaniaConfig {
 
 	@SubscribeEvent
 	public static void onConfigLoad(ModConfigEvent.Reloading evt) {
-		BotaniaConfig.resetPatchouliFlags();
+		var config = evt.getConfig();
+		if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(LibMisc.MOD_ID)) {
+			BotaniaConfig.resetPatchouliFlags();
+		}
 	}
 }
