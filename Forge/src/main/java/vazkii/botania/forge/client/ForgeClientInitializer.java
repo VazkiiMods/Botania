@@ -73,6 +73,12 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 @Mod.EventBusSubscriber(modid = BotaniaAPI.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
 	@SubscribeEvent
+	public static void registerGuiOverlays(RegisterGuiOverlaysEvent e) {
+		e.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "hud",
+				(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
+	}
+
+	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent evt) {
 		// GUIs
 		evt.enqueueWork(() -> {
@@ -88,10 +94,6 @@ public class ForgeClientInitializer {
 				ClientTickHandler.clientTickEnd(Minecraft.getInstance());
 				KonamiHandler.clientTick(Minecraft.getInstance());
 			}
-		});
-		bus.addListener((RegisterGuiOverlaysEvent e) -> {
-			e.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "hud",
-					(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
 		});
 		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
 		bus.addListener((ScreenEvent.KeyPressed.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
