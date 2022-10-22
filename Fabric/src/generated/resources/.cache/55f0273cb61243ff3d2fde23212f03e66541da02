@@ -1,0 +1,17 @@
+// 1.19.2	Tags for minecraft:worldgen/biome
+62261dabfaace2f70ee1241293f5043d049c8ee4 data/botania/tags/worldgen/biome/marimorphosis_desert_bonus.json
+2b29bed70d41248918da97e8b41419cf2286737a data/botania/tags/worldgen/biome/marimorphosis_forest_bonus.json
+7e1fca1031d613bea88a1d1d2ecc73f2d7bc5ea0 data/botania/tags/worldgen/biome/marimorphosis_fungal_bonus.json
+95516d24b952f61158c27531bb2b069d9fe3cff6 data/botania/tags/worldgen/biome/marimorphosis_mesa_bonus.json
+1483829ea6755e28b5921ad4a046bd2f2782432a data/botania/tags/worldgen/biome/marimorphosis_mountain_bonus.json
+cbb5b6f344a8409ba96250529039b0cafdde1121 data/botania/tags/worldgen/biome/marimorphosis_plains_bonus.json
+cac351ab52021b951682076309ecd0f698e36fcb data/botania/tags/worldgen/biome/marimorphosis_swamp_bonus.json
+bc73df94d2c580e24e66239a334870c5b6a637c9 data/botania/tags/worldgen/biome/marimorphosis_taiga_bonus.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/desert.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/forest.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/mesa.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/mountain.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/mushroom.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/plains.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/swamp.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/c/tags/worldgen/biome/taiga.json

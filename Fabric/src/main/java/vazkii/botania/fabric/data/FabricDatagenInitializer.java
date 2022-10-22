@@ -31,6 +31,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 		generator.addProvider(true, blockTagProvider);
 		generator.addProvider(true, new FabricItemTagProvider(generator, blockTagProvider));
 		generator.addProvider(true, new FabricRecipeProvider(generator));
+		generator.addProvider(true, new FabricBiomeTagProvider(generator));
 	}
 
 	private static void configureXplatDatagen(DataGenerator generator) {

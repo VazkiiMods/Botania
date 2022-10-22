@@ -16,9 +16,6 @@ public class BiomeTagProvider extends TagsProvider<Biome> {
 
 	@Override
 	protected void addTags() {
-		// todo 1.19 generate marimorphosis tags
-		// todo 1.19 do we still want to block icy biomes from flowers and mushrooms? seems arbitrary
-
 		// need to do this so we can use them in addTag. It generates a dummy empty file,
 		// but whatever.
 		tag(BiomeTags.IS_OVERWORLD);
