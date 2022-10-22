@@ -10,6 +10,7 @@ package vazkii.botania.common.block.block_entity.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +43,8 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 				ItemStack stack = filter.get(level.random.nextInt(filter.size()));
 
 				if (!stack.isEmpty()) {
-					doCorporeaRequest(CorporeaHelper.instance().createMatcher(stack, true), stack.getCount(), spark);
+					var matcher = CorporeaHelper.instance().createMatcher(stack, true);
+					doCorporeaRequest(matcher, stack.getCount(), spark, null);
 				}
 			}
 		}
@@ -74,10 +76,10 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 	}
 
 	@Override
-	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark, @Nullable LivingEntity entity) {
 		BlockPos invPos = getInvPos();
 
-		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).stacks();
+		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, entity, true).stacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack reqStack : stacks) {
 			if (invPos != null

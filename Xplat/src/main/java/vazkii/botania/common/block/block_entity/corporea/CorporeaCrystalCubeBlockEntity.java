@@ -11,6 +11,7 @@ package vazkii.botania.common.block.block_entity.corporea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -72,15 +73,16 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		return itemCount;
 	}
 
-	public void doRequest(boolean fullStack) {
+	public void doRequest(Player player) {
 		if (level.isClientSide) {
 			return;
 		}
 
 		CorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
-			int count = fullStack ? requestTarget.getMaxStackSize() : 1;
-			doCorporeaRequest(CorporeaHelper.instance().createMatcher(requestTarget, true), count, spark);
+			int count = player.isShiftKeyDown() ? requestTarget.getMaxStackSize() : 1;
+			var matcher = CorporeaHelper.instance().createMatcher(requestTarget, true);
+			doCorporeaRequest(matcher, count, spark, player);
 		}
 	}
 
@@ -92,7 +94,8 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		int sum = 0;
 		CorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && !requestTarget.isEmpty()) {
-			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).stacks();
+			var matcher = CorporeaHelper.instance().createMatcher(requestTarget, true);
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(matcher, -1, spark, null, false).stacks();
 			for (ItemStack stack : stacks) {
 				sum += stack.getCount();
 			}
@@ -140,9 +143,9 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 	}
 
 	@Override
-	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark, @Nullable LivingEntity entity) {
 		if (!requestTarget.isEmpty()) {
-			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).stacks();
+			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, entity, true).stacks();
 			spark.onItemsRequested(stacks);
 			boolean did = false;
 			int sum = 0;

@@ -87,7 +87,7 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 		if (spark != null) {
 			BlockEntity te = spark.getSparkNode().getWorld().getBlockEntity(spark.getSparkNode().getPos());
 			if (te instanceof CorporeaRequestor requestor) {
-				requestor.doCorporeaRequest(request, requestCount, spark);
+				requestor.doCorporeaRequest(request, requestCount, spark, null);
 
 				forget();
 				setChanged();

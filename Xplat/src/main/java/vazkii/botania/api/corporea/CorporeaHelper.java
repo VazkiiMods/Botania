@@ -11,6 +11,7 @@ package vazkii.botania.api.corporea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -52,27 +53,14 @@ public interface CorporeaHelper {
 	}
 
 	/**
-	 * Bridge for requestItem() using an ItemStack.
-	 */
-	default CorporeaResult requestItem(ItemStack stack, CorporeaSpark spark, boolean checkNBT, boolean doit) {
-		return requestItem(createMatcher(stack, checkNBT), stack.getCount(), spark, doit);
-	}
-
-	/**
-	 * Bridge for requestItem() using a String and an item count.
-	 */
-	default CorporeaResult requestItem(String name, int count, CorporeaSpark spark, boolean doit) {
-		return requestItem(createMatcher(name), count, spark, doit);
-	}
-
-	/**
 	 * Requests items from the network associated with {@code spark}.
 	 * 
-	 * @param matcher   Specifies what you want to request
+	 * @param matcher   Specifies what you want to request. See {@link #createMatcher} to create one.
 	 * @param itemCount Specifies the maximum amount you want to request. If -1, the amount is unlimited.
+	 * @param requestor The entity that initiated this request, if there is one.
 	 * @param doit      If false, only counts the items instead of actually extracting
 	 */
-	default CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean doit) {
+	default CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, @Nullable LivingEntity requestor, boolean doit) {
 		return CorporeaResult.Dummy.INSTANCE;
 	}
 

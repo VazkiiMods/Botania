@@ -12,12 +12,15 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.BotaniaStats;
@@ -310,12 +313,12 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	@Override
-	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
-		doRequest(request, count, spark);
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark, @Nullable LivingEntity entity) {
+		doRequest(request, count, spark, entity);
 	}
 
-	private CorporeaResult doRequest(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark) {
-		CorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, true);
+	private CorporeaResult doRequest(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark, @Nullable LivingEntity entity) {
+		CorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, entity, true);
 		List<ItemStack> stacks = result.stacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack stack : stacks) {
@@ -363,7 +366,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 
 	public void performPlayerRequest(ServerPlayer player, CorporeaRequestMatcher request, int count) {
 		if (!XplatAbstractions.INSTANCE.fireCorporeaIndexRequestEvent(player, request, count, this.getSpark())) {
-			CorporeaResult res = this.doRequest(request, count, this.getSpark());
+			CorporeaResult res = this.doRequest(request, count, this.getSpark(), player);
 
 			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
 			player.awardStat(BotaniaStats.CORPOREA_ITEMS_REQUESTED, res.extractedCount());

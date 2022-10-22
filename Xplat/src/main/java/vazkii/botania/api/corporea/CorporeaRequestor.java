@@ -8,6 +8,10 @@
  */
 package vazkii.botania.api.corporea;
 
+import net.minecraft.world.entity.LivingEntity;
+
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A TileEntity that implements this be called by other TileEntities
  * to allow for it to do any request at any time. This is used by the
@@ -18,6 +22,6 @@ public interface CorporeaRequestor {
 	/**
 	 * Executes the passed in request.
 	 */
-	void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark);
+	void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark, @Nullable LivingEntity entity);
 
 }

@@ -8,18 +8,31 @@
  */
 package vazkii.botania.common.impl.corporea;
 
+import net.minecraft.world.entity.LivingEntity;
+
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 
 public class CorporeaRequestImpl implements CorporeaRequest {
 	private final CorporeaRequestMatcher matcher;
+	@Nullable
+	private final LivingEntity entity;
 	private int stillNeeded;
 	private int foundItems = 0;
 	private int extractedItems = 0;
 
-	public CorporeaRequestImpl(CorporeaRequestMatcher matcher, int stillNeeded) {
+	public CorporeaRequestImpl(CorporeaRequestMatcher matcher, int stillNeeded, @Nullable LivingEntity entity) {
 		this.matcher = matcher;
 		this.stillNeeded = stillNeeded;
+		this.entity = entity;
+	}
+
+	@Nullable
+	@Override
+	public LivingEntity getEntity() {
+		return entity;
 	}
 
 	@Override

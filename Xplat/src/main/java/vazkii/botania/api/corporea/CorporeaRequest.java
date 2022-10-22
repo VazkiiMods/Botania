@@ -8,7 +8,16 @@
  */
 package vazkii.botania.api.corporea;
 
+import net.minecraft.world.entity.LivingEntity;
+
+import org.jetbrains.annotations.Nullable;
+
 public interface CorporeaRequest {
+	/**
+	 * @return The entity that initiated this requestr, if available.
+	 */
+	@Nullable
+	LivingEntity getEntity();
 
 	CorporeaRequestMatcher getMatcher();
 

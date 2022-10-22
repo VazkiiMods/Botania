@@ -47,7 +47,7 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
 		if (!world.isClientSide) {
 			CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos);
-			cube.doRequest(player.isShiftKeyDown());
+			cube.doRequest(player);
 		}
 	}
 

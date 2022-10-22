@@ -19,10 +19,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
@@ -71,7 +74,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean doit) {
+	public CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, @Nullable LivingEntity entity, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 		if (XplatAbstractions.INSTANCE.fireCorporeaRequestEvent(matcher, itemCount, spark, !doit)) {
 			return new CorporeaResultImpl(stacks, 0, 0, Object2IntMaps.emptyMap());
@@ -81,7 +84,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		Set<CorporeaNode> nodes = getNodesOnNetwork(spark);
 		Map<CorporeaInterceptor, CorporeaSpark> interceptors = new HashMap<>();
 
-		CorporeaRequest request = new CorporeaRequestImpl(matcher, itemCount);
+		CorporeaRequest request = new CorporeaRequestImpl(matcher, itemCount, entity);
 		for (CorporeaNode node : nodes) {
 			CorporeaSpark invSpark = node.getSpark();
 
