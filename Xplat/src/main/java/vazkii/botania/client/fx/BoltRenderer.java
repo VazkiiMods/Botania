@@ -41,15 +41,15 @@ public class BoltRenderer {
 	public static final BoltRenderer INSTANCE = new BoltRenderer();
 	/** Amount of times per tick we refresh. 3 implies 60 Hz. */
 	private static final float REFRESH_TIME = 3F;
-	/** We will keep track of an owner's render data for 100 ticks after there are no bolts remaining. */
-	private static final double MAX_OWNER_TRACK_TIME = 100;
+	/** After there are no more bolts in an emitter, how much longer in ticks it should stay alive. */
+	private static final double LIFETIME_AFTER_LAST_BOLT = 100;
 
 	private Timestamp refreshTimestamp = Timestamp.ZERO;
 
 	private final Random random = new Random();
 	private final Minecraft minecraft = Minecraft.getInstance();
 
-	private final List<BoltOwnerData> boltOwners = new LinkedList<>();
+	private final List<BoltEmitter> boltEmitters = new LinkedList<>();
 
 	public static void onWorldRenderLast(Camera camera, float partialTicks, PoseStack ps, RenderBuffers buffers) {
 		ps.pushPose();
@@ -72,43 +72,43 @@ public class BoltRenderer {
 		}
 
 		// todo XXX see other synchronize block
-		synchronized (boltOwners) {
-			for (Iterator<BoltOwnerData> iter = boltOwners.iterator(); iter.hasNext();) {
-				BoltOwnerData data = iter.next();
-				data.renderTick(timestamp, refresh, matrix, buffer);
-				if (data.shouldRemove(timestamp)) {
+		synchronized (boltEmitters) {
+			for (Iterator<BoltEmitter> iter = boltEmitters.iterator(); iter.hasNext();) {
+				BoltEmitter emitter = iter.next();
+				emitter.renderTick(timestamp, refresh, matrix, buffer);
+				if (emitter.shouldRemove(timestamp)) {
 					iter.remove();
 				}
 			}
 		}
 	}
 
-	public void add(BoltParticleOptions newBoltData, float partialTicks) {
+	public void add(BoltParticleOptions options, float partialTicks) {
 		if (minecraft.level == null) {
 			return;
 		}
-		var data = new BoltOwnerData(newBoltData);
+		var emitter = new BoltEmitter(options);
 		Timestamp timestamp = new Timestamp(minecraft.level.getGameTime(), partialTicks);
-		if ((!data.lastBolt.getSpawnFunction().isConsecutive() || data.bolts.isEmpty()) && timestamp.isPassed(data.lastBoltTimestamp, data.lastBoltDelay)) {
-			data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
+		if ((!emitter.options.getSpawnFunction().isConsecutive() || emitter.bolts.isEmpty()) && timestamp.isPassed(emitter.lastBoltTimestamp, emitter.lastBoltDelay)) {
+			emitter.addBolt(new BoltInstance(options, timestamp), timestamp);
 		}
-		data.lastUpdateTimestamp = timestamp;
+		emitter.lastUpdateTimestamp = timestamp;
 		// todo XXX ThundercallerItem calls this method from logical server in SP, don't do that.
-		synchronized (boltOwners) {
-			boltOwners.add(data);
+		synchronized (boltEmitters) {
+			boltEmitters.add(emitter);
 		}
 	}
 
-	public class BoltOwnerData {
+	public class BoltEmitter {
 
 		private final Set<BoltInstance> bolts = new ObjectOpenHashSet<>();
-		private final BoltParticleOptions lastBolt;
+		private final BoltParticleOptions options;
 		private Timestamp lastBoltTimestamp = Timestamp.ZERO;
 		private Timestamp lastUpdateTimestamp = Timestamp.ZERO;
 		private double lastBoltDelay;
 
-		public BoltOwnerData(BoltParticleOptions lastBolt) {
-			this.lastBolt = lastBolt;
+		public BoltEmitter(BoltParticleOptions options) {
+			this.options = options;
 		}
 
 		private void addBolt(BoltInstance instance, Timestamp timestamp) {
@@ -122,14 +122,14 @@ public class BoltRenderer {
 			if (refresh) {
 				bolts.removeIf(bolt -> bolt.tick(timestamp));
 			}
-			if (bolts.isEmpty() && lastBolt != null && lastBolt.getSpawnFunction().isConsecutive()) {
-				addBolt(new BoltInstance(lastBolt, timestamp), timestamp);
+			if (bolts.isEmpty() && options != null && options.getSpawnFunction().isConsecutive()) {
+				addBolt(new BoltInstance(options, timestamp), timestamp);
 			}
 			bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
 		}
 
 		public boolean shouldRemove(Timestamp timestamp) {
-			return bolts.isEmpty() && timestamp.isPassed(lastUpdateTimestamp, MAX_OWNER_TRACK_TIME);
+			return bolts.isEmpty() && timestamp.isPassed(lastUpdateTimestamp, LIFETIME_AFTER_LAST_BOLT);
 		}
 	}
 
