@@ -139,7 +139,8 @@ public class BlackHoleTalismanItem extends Item {
 				continue;
 			}
 
-			if (toTake.asItem() == stack.getItem()) {
+			if (toTake.asItem() == stack.getItem()
+					&& (stack.getTag() == null || stack.getTag().isEmpty())) {
 				counts[i] = stack.getCount();
 				if (highestIdx == -1) {
 					highestIdx = i;
