@@ -1,0 +1,15 @@
+{
+  "type": "botania:mana_infusion",
+  "catalyst": {
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
+  },
+  "group": "botania:sapling_cycle",
+  "input": {
+    "item": "minecraft:mangrove_propagule"
+  },
+  "mana": 120,
+  "output": {
+    "item": "minecraft:oak_sapling"
+  }
+}

@@ -82,8 +82,8 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(FinishedRecipe.alchemy(id("rotten_flesh_to_leather"), new ItemStack(Items.LEATHER), ingr(Items.ROTTEN_FLESH), 600));
 
-		cycle(consumer, 40, "botania:log_cycle", Blocks.OAK_LOG, Blocks.SPRUCE_LOG, Blocks.BIRCH_LOG, Blocks.JUNGLE_LOG, Blocks.ACACIA_LOG, Blocks.DARK_OAK_LOG);
-		cycle(consumer, 120, "botania:sapling_cycle", Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING, Blocks.BIRCH_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING, Blocks.DARK_OAK_SAPLING);
+		cycle(consumer, 40, "botania:log_cycle", Blocks.OAK_LOG, Blocks.SPRUCE_LOG, Blocks.BIRCH_LOG, Blocks.JUNGLE_LOG, Blocks.ACACIA_LOG, Blocks.DARK_OAK_LOG, Blocks.MANGROVE_LOG);
+		cycle(consumer, 120, "botania:sapling_cycle", Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING, Blocks.BIRCH_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.MANGROVE_PROPAGULE);
 
 		consumer.accept(FinishedRecipe.alchemy(id("glowstone_deconstruct"), new ItemStack(Items.GLOWSTONE_DUST, 4), ingr(Blocks.GLOWSTONE), 25));
 		consumer.accept(FinishedRecipe.alchemy(id("quartz_deconstruct"), new ItemStack(Items.QUARTZ, 4), ingr(Blocks.QUARTZ_BLOCK), 25));

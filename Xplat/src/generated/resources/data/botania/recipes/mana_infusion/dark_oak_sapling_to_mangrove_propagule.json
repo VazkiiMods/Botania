@@ -4,12 +4,12 @@
     "type": "block",
     "block": "botania:alchemy_catalyst"
   },
-  "group": "botania:log_cycle",
+  "group": "botania:sapling_cycle",
   "input": {
-    "item": "minecraft:dark_oak_log"
+    "item": "minecraft:dark_oak_sapling"
   },
-  "mana": 40,
+  "mana": 120,
   "output": {
-    "item": "minecraft:oak_log"
+    "item": "minecraft:mangrove_propagule"
   }
 }
