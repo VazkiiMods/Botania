@@ -17,13 +17,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -46,13 +44,16 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.block.PetalApothecary.State;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.helper.InventoryHelper;
+import vazkii.botania.common.item.BotaniaItems;
+import vazkii.botania.common.item.rod.SeasRodItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock, LiquidBlockContainer {
+public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 
 	public static final EnumProperty<State> FLUID = EnumProperty.create("fluid", State.class);
 	private static final VoxelShape BASE = Block.box(2, 0, 2, 14, 2, 14);
@@ -60,20 +61,6 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock, L
 	private static final VoxelShape TOP = Block.box(2, 11, 2, 14, 16, 14);
 	private static final VoxelShape TOP_CUTOUT = Block.box(3, 12, 3, 13, 16, 13);
 	private static final VoxelShape SHAPE = Shapes.or(Shapes.or(BASE, PILLAR), Shapes.join(TOP, TOP_CUTOUT, BooleanOp.ONLY_FIRST));
-
-	@Override
-	public boolean canPlaceLiquid(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Fluid fluid) {
-		return state.getValue(FLUID) == State.EMPTY && fluid == Fluids.WATER;
-	}
-
-	@Override
-	public boolean placeLiquid(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull FluidState fluidState) {
-		if (canPlaceLiquid(level, pos, state, fluidState.getType())) {
-			level.setBlock(pos, state.setValue(FLUID, State.WATER), Block.UPDATE_ALL);
-			return true;
-		}
-		return false;
-	}
 
 	public enum Variant {
 		DEFAULT,
@@ -171,6 +158,16 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock, L
 		if (altar.getFluid() != State.EMPTY) {
 			return false;
 		}
+
+		ItemStack stack = player.getItemInHand(hand);
+		if (!stack.isEmpty()
+				&& stack.is(BotaniaItems.waterRod)
+				&& ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, false)) {
+			ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, true);
+			altar.setFluid(State.WATER);
+			return true;
+		}
+
 		if (XplatAbstractions.INSTANCE.extractFluidFromPlayerItem(player, hand, Fluids.WATER)) {
 			altar.setFluid(State.WATER);
 			// Usage of vanilla sound event: Subtitle is "Bucket empties"
