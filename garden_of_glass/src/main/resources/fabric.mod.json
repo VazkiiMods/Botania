@@ -10,7 +10,11 @@
     "williewillus"
   ],
   "contact": {
-    "sources": "https://github.com/Vazkii/Botania"
+    "irc": "ircs://irc.esper.net:6697/#vazkii",
+    "email": "~williewillus/violet-moon@lists.sr.ht",
+    "homepage": "https://botaniamod.net",
+    "sources": "https://github.com/VazkiiMods/Botania",
+    "issues": "https://github.com/VazkiiMods/Botania/issues",
   },
 
   "license": "Botania license",
