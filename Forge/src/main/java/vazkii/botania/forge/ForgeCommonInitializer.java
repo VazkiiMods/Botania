@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -52,7 +52,6 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.registries.RegisterEvent;
 
@@ -532,7 +531,7 @@ public class ForgeCommonInitializer {
 		}
 
 		if (be instanceof ExposedSimpleInventoryBlockEntity inv) {
-			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, new SidedInvWrapper(inv, null)));
+			e.addCapability(prefix("inv"), CapabilityUtil.makeProvider(ForgeCapabilities.ITEM_HANDLER, new SidedInvWrapper(inv, null)));
 		}
 
 		if (be instanceof PowerGeneratorBlockEntity gen) {
@@ -568,7 +567,7 @@ public class ForgeCommonInitializer {
 					return false;
 				}
 			};
-			e.addCapability(prefix("fe"), CapabilityUtil.makeProvider(CapabilityEnergy.ENERGY, energyStorage));
+			e.addCapability(prefix("fe"), CapabilityUtil.makeProvider(ForgeCapabilities.ENERGY, energyStorage));
 		}
 
 		if (be.getType() == BotaniaBlockEntities.ANIMATED_TORCH) {

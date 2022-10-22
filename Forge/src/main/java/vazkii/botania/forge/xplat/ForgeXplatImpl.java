@@ -53,18 +53,16 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkHooks;
@@ -222,12 +220,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean isFluidContainer(ItemEntity item) {
-		return item.getItem().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent();
+		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
 	}
 
 	@Override
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
-		return item.getItem().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
 					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
@@ -243,7 +241,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
 		var stack = player.getItemInHand(hand);
-		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
 					var extracted = h.drain(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
@@ -259,7 +257,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
 		var stack = player.getItemInHand(hand);
-		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
 				.map(h -> {
 					var filled = h.fill(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
 							IFluidHandler.FluidAction.EXECUTE);
@@ -276,7 +274,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos) {
 		var be = level.getBlockEntity(pos);
 		return be != null
-				&& be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, sideOfPos).isPresent();
+				&& be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos).isPresent();
 	}
 
 	@Override
@@ -286,7 +284,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 			return toInsert;
 		}
 
-		var cap = be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, sideOfPos);
+		var cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos);
 		return cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, toInsert, simulate))
 				.orElse(toInsert);
 	}
@@ -537,10 +535,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 			LazyOptional<IEnergyStorage> storage = LazyOptional.empty();
 
-			if (be.getCapability(CapabilityEnergy.ENERGY, e.getOpposite()).isPresent()) {
-				storage = be.getCapability(CapabilityEnergy.ENERGY, e.getOpposite());
-			} else if (be.getCapability(CapabilityEnergy.ENERGY, null).isPresent()) {
-				storage = be.getCapability(CapabilityEnergy.ENERGY, null);
+			if (be.getCapability(ForgeCapabilities.ENERGY, e.getOpposite()).isPresent()) {
+				storage = be.getCapability(ForgeCapabilities.ENERGY, e.getOpposite());
+			} else if (be.getCapability(ForgeCapabilities.ENERGY, null).isPresent()) {
+				storage = be.getCapability(ForgeCapabilities.ENERGY, null);
 			}
 
 			if (storage.isPresent()) {
@@ -557,7 +555,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean isRedStringContainerTarget(BlockEntity be) {
 		for (Direction dir : Direction.values()) {
-			if (be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir).isPresent()) {
+			if (be.getCapability(ForgeCapabilities.ITEM_HANDLER, dir).isPresent()) {
 				return true;
 			}
 		}

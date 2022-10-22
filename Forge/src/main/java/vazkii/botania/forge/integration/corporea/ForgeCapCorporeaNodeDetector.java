@@ -3,8 +3,8 @@ package vazkii.botania.forge.integration.corporea;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 import org.jetbrains.annotations.Nullable;
@@ -32,9 +32,9 @@ public class ForgeCapCorporeaNodeDetector implements CorporeaNodeDetector {
 			return null;
 		}
 
-		LazyOptional<IItemHandler> ret = be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP);
+		LazyOptional<IItemHandler> ret = be.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.UP);
 		if (!ret.isPresent()) {
-			ret = be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+			ret = be.getCapability(ForgeCapabilities.ITEM_HANDLER);
 		}
 		return ret.orElse(null);
 	}
