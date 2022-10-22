@@ -35,7 +35,7 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				.addOptional(new ResourceLocation("quark", "frog"));
 
 		tag(BotaniaTags.Entities.COCOON_COMMON_AQUATIC)
-				.add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID)
+				.add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID, EntityType.FROG)
 				.addOptional(new ResourceLocation("quark", "crab"));
 		tag(BotaniaTags.Entities.COCOON_RARE_AQUATIC).add(EntityType.DOLPHIN, EntityType.GLOW_SQUID, EntityType.AXOLOTL);
 

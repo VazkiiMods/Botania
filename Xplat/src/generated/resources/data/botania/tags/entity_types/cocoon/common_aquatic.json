@@ -6,6 +6,7 @@
     "minecraft:tropical_fish",
     "minecraft:pufferfish",
     "minecraft:squid",
+    "minecraft:frog",
     {
       "id": "quark:crab",
       "required": false
