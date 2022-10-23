@@ -1,15 +1,10 @@
 Garden of Glass
 ---
 
-This subdirectory is a separate mod workspace for Garden of Glass, Botania's skyblock mode.
+This subdirectory contains Garden of Glass, Botania's skyblock mode.
 
-This mod is nothing more than a dressed-up datapack. It contains recipe and other overrides in its /data, but otherwise has no code.
+This is nothing more than a dressed-up datapack. It contains recipe and other overrides in its /data, but otherwise has no code at all.
 
 The code side of GoG lives in Botania itself.
 
-Yes, this *could* be a proper Gradle subproject, but it's too small to be worth the effort to figure that out.
-
-So to test, simply `gradlew build` then copy it to your main Botania workspace's mods/ folder and run from there.
-
-Note that since nothing touches vanilla code, there's no need for a deobf JAR or even ForgeGradle/Loom themselves.
-We use the pure Java plugin and depend only on the artifact that provides Forge's @Mod annotation, and nothing else.
+To build, simply run `make` in this directory to produce a jar file that can be dropped into `mods/`.

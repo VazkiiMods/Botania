@@ -6,7 +6,7 @@ logoFile="logo_gog.png"
 
 [[mods]]
 modId="gardenofglass"
-version="${file.jarVersion}"
+version="@VERSION@"
 displayName="Garden of Glass"
 displayURL="https://botaniamod.net/gardenofglass.php"
 description="An extension to Botania that adds skyblock like gameplay."

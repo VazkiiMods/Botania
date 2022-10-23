@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "gardenofglass",
-  "version": "${version}",
+  "version": "@VERSION@",
 
   "name": "Garden of Glass",
   "description": "An extension to Botania that adds skyblock like gameplay",
