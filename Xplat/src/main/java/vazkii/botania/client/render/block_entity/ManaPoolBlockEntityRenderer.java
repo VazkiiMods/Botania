@@ -72,7 +72,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		ms.translate(0.5F, 1.5F, 0.5F);
 
 		int mana = pool == null ? cartMana : pool.getCurrentMana();
-		int cap = pool == null ? -1 : pool.manaCap;
+		int cap = pool == null ? -1 : pool.getMaxMana();
 		if (cap == -1) {
 			cap = ManaPoolBlockEntity.MAX_MANA;
 		}
