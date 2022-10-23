@@ -17,18 +17,19 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
 import vazkii.botania.common.block.PylonBlock;
 
 @Mixin(EnchantmentMenu.class)
 public class EnchantmentMenuFabricMixin {
 	@SuppressWarnings("target")
 	@ModifyVariable(
-			method = "method_17411(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V",
-			at = @At(value = "STORE", ordinal = 0),
-			ordinal = 0)
+		method = "method_17411(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V",
+		at = @At(value = "STORE", ordinal = 0),
+		ordinal = 0
+	)
 	private int botaniaPylonEnchanting(int obj, ItemStack stack, Level level, BlockPos pos) {
 		for (int x = -1; x <= 1; ++x) {
 			for (int z = -1; z <= 1; ++z) {
