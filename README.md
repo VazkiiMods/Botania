@@ -1,4 +1,4 @@
-<a href="https://github.com/VazkiiMods/Botania"><imf src="https://img.shields.io/github/repo-size/VazkiiMods/Botania">
+<a href="https://github.com/VazkiiMods/Botania"><img src="https://img.shields.io/github/repo-size/VazkiiMods/Botania">
 
 ![](web/assets/img/logo.png)  
 Welcome to the Botania repository.
