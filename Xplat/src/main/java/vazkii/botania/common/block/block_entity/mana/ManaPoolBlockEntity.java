@@ -88,7 +88,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	private Optional<DyeColor> legacyColor = Optional.empty();
 	private int mana;
 
-	public int manaCap = -1;
+	private int manaCap = -1;
 	private int soundTicks = 0;
 	private boolean canAccept = true;
 	private boolean canSpare = true;
@@ -108,13 +108,13 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	@Override
 	public boolean isFull() {
 		BlockState stateBelow = level.getBlockState(worldPosition.below());
-		return !stateBelow.is(BotaniaBlocks.manaVoid) && getCurrentMana() >= manaCap;
+		return !stateBelow.is(BotaniaBlocks.manaVoid) && getCurrentMana() >= getMaxMana();
 	}
 
 	@Override
 	public void receiveMana(int mana) {
 		int old = this.mana;
-		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
+		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, getMaxMana()));
 		if (old != this.mana) {
 			setChanged();
 			markDispatchable();
@@ -234,7 +234,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	private void initManaCapAndNetwork() {
-		if (manaCap == -1) {
+		if (getMaxMana() == -1) {
 			manaCap = ((ManaPoolBlock) getBlockState().getBlock()).variant == ManaPoolBlock.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
 		if (!ManaNetworkHandler.instance.isPoolIn(level, this) && !isRemoved()) {
@@ -244,7 +244,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, ManaPoolBlockEntity self) {
 		self.initManaCapAndNetwork();
-		double particleChance = 1F - (double) self.getCurrentMana() / (double) self.manaCap * 0.1;
+		double particleChance = 1F - (double) self.getCurrentMana() / (double) self.getMaxMana() * 0.1;
 		if (Math.random() > particleChance) {
 			float red = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
 			float green = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
@@ -314,7 +314,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 								didSomething = true;
 							}
 
-							int manaVal = Math.min(transfRate, Math.min(self.manaCap - self.getCurrentMana(), mana.getMana()));
+							int manaVal = Math.min(transfRate, Math.min(self.getMaxMana() - self.getCurrentMana(), mana.getMana()));
 							if (manaVal == 0 && self.level.getBlockState(worldPosition.below()).is(BotaniaBlocks.manaVoid)) {
 								manaVal = Math.min(transfRate, mana.getMana());
 							}
@@ -348,10 +348,10 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	@Override
 	public void writePacketNBT(CompoundTag cmp) {
-		cmp.putInt(TAG_MANA, mana);
+		cmp.putInt(TAG_MANA, getCurrentMana());
 		cmp.putBoolean(TAG_OUTPUTTING, outputting);
 
-		cmp.putInt(TAG_MANA_CAP, manaCap);
+		cmp.putInt(TAG_MANA_CAP, getMaxMana());
 		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
 		cmp.putBoolean(TAG_CAN_SPARE, canSpare);
 
@@ -414,7 +414,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			ItemStack poolStack = new ItemStack(pool.getBlockState().getBlock());
 			String name = poolStack.getHoverName().getString();
 			int color = 0x4444FF;
-			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, pool.getCurrentMana(), pool.manaCap, name);
+			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, pool.getCurrentMana(), pool.getMaxMana(), name);
 
 			int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 11;
 			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 30;
@@ -468,6 +468,11 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Override
+	public int getMaxMana() {
+		return manaCap;
+	}
+
+	@Override
 	public String getInputKey() {
 		return inputKey;
 	}
@@ -500,11 +505,11 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	@Override
 	public int getAvailableSpaceForMana() {
-		int space = Math.max(0, manaCap - getCurrentMana());
+		int space = Math.max(0, getMaxMana() - getCurrentMana());
 		if (space > 0) {
 			return space;
 		} else if (level.getBlockState(worldPosition.below()).is(BotaniaBlocks.manaVoid)) {
-			return manaCap;
+			return getMaxMana();
 		} else {
 			return 0;
 		}

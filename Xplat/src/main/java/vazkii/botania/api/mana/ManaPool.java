@@ -38,6 +38,11 @@ public interface ManaPool extends ManaReceiver {
 	boolean isOutputtingPower();
 
 	/**
+	 * @return Maximum amount of storable mana
+	 */
+	int getMaxMana();
+
+	/**
 	 * @return The color of this pool.
 	 */
 	Optional<DyeColor> getColor();

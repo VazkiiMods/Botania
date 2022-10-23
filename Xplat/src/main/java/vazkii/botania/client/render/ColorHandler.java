@@ -137,7 +137,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			if (t == 1) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(s);
-				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ManaPoolBlockEntity.MAX_MANA, 1F);
+				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) manaItem.getMaxMana(), 1F);
 			}
 			return -1;
 		}, BotaniaItems.manaMirror);
@@ -145,7 +145,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			if (t == 1) {
 				var manaItem = XplatAbstractions.INSTANCE.findManaItem(s);
-				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) ManaTabletItem.MAX_MANA, 1F);
+				return Mth.hsvToRgb(0.528F, (float) manaItem.getMana() / (float) manaItem.getMaxMana(), 1F);
 			}
 			return -1;
 		}, BotaniaItems.manaTablet);

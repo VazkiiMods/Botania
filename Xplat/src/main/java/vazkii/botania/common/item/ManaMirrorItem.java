@@ -45,6 +45,7 @@ import java.util.Optional;
 public class ManaMirrorItem extends Item {
 
 	private static final String TAG_MANA = "mana";
+	private static final String TAG_MAX_MANA = "maxMana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
 	private static final String TAG_POS = "pos";
 
@@ -85,6 +86,7 @@ public class ManaMirrorItem extends Item {
 				pool.receiveMana(getManaBacklog(stack));
 				setManaBacklog(stack, 0);
 				setMana(stack, pool.getCurrentMana());
+				setMaxMana(stack, pool.getMaxMana());
 			}
 		}
 	}
@@ -113,6 +115,10 @@ public class ManaMirrorItem extends Item {
 		} else {
 			ItemNBTHelper.removeEntry(stack, TAG_MANA);
 		}
+	}
+
+	protected static void setMaxMana(ItemStack stack, int maxMana) {
+		ItemNBTHelper.setInt(stack, TAG_MAX_MANA, maxMana);
 	}
 
 	protected static int getManaBacklog(ItemStack stack) {
@@ -178,7 +184,7 @@ public class ManaMirrorItem extends Item {
 
 		@Override
 		public int getMaxMana() {
-			return ManaPoolBlockEntity.MAX_MANA;
+			return ItemNBTHelper.getInt(stack, TAG_MAX_MANA, ManaPoolBlockEntity.MAX_MANA);
 		}
 
 		@Override
@@ -240,6 +246,11 @@ public class ManaMirrorItem extends Item {
 
 		@Override
 		public int getCurrentMana() {
+			return 0;
+		}
+
+		@Override
+		public int getMaxMana() {
 			return 0;
 		}
 
