@@ -12,6 +12,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:thor_ring": 1
+    "botania:thor_ring": 0
   }
 }

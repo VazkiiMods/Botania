@@ -12,6 +12,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:odin_ring": 1
+    "botania:odin_ring": 0
   }
 }

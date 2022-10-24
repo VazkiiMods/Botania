@@ -24,6 +24,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:loki_ring": 1
+    "botania:loki_ring": 0
   }
 }
