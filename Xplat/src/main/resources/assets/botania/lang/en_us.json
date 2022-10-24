@@ -1864,7 +1864,7 @@
   "botania.page.pureDaisy0": "Far from being just the most basic, the $(item)Pure Daisy$(0) is the most important flower a botanist can have.$(p)This flower will purify any adjacent $(item)Wood$(0) and $(item)Stone$(0) blocks (as seen on the next page) into their purified counterparts, $(item)Livingwood$(0) and $(item)Livingrock$(0). These resources are important crafting materials throughout a botanist's career.",
   "botania.page.pureDaisy1": "Just give it $(thing)a minute$(0) or so...",
   "botania.page.pureDaisy2": "$(item)Livingwood$(0) can be turned into twigs",
-  "botania.page.pureDaisy4": "A few other blocks can also be purified by placing them around the flower. While not as unique and essential as the living blocks, these recipes still can come in handy.$(p)$(item)Netherrack$(0) purifies into $(item)Cobblestone$(0), $(item)Soul Sand$(0) into $(item)Sand$(0), $(item)Ice$(0) into $(item)Packed Ice$(0), $(item)Water$(0) into $(item)Snow$(0), and $(item)End Stone$(0) into $(item)Cobbled Deepslate$(0).",
+  "botania.page.pureDaisy4": "A few other blocks can also be purified by placing them around the flower. While not as unique and essential as the living blocks, these recipes still can come in handy.$(p)$(item)Netherrack$(0) purifies into $(item)Cobblestone$(0), $(item)Soul Sand$(0) into $(item)Sand$(0), $(item)Blaze Mesh$(0) into $(item)Obsidian$(0), $(item)Water$(0) into $(item)Snow$(0), $(item)Ice$(0) into $(item)Packed Ice$(0), $(item)Packed Ice$(0) into $(item)Blue Ice$(0), and $(item)End Stone$(0) into $(item)Cobbled Deepslate$(0).",
   "botania.page.pureDaisy3": "A blank canvas to start your adventure",
 
   "botania.entry.wand": "Wand of the Forest",
