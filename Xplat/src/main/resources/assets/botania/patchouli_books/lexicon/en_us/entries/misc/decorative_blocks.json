@@ -92,5 +92,19 @@
       "text": "botania.page.decorativeBlocks23",
       "recipe": "botania:quartz_sunny"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:livingrock_bricks_stairs": 1,
+    "botania:livingrock_bricks_slab": 1,
+    "botania:livingrock_bricks_wall": 1,
+    "botania:mossy_livingrock_bricks_wall": 2,
+    "botania:mossy_livingrock_bricks_stairs": 2,
+    "botania:mossy_livingrock_bricks_slab": 2,
+    "botania:livingwood_fence": 5,
+    "botania:livingwood_planks_stairs": 5,
+    "botania:livingwood_fence_gate": 5,
+    "botania:livingwood_planks_slab": 5,
+    "botania:glimmering_stripped_livingwood_log": 9,
+    "botania:glimmering_stripped_livingwood": 9
+  }
 }

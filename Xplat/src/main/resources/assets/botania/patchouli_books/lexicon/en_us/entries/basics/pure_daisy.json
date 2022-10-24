@@ -35,11 +35,23 @@
   "extra_recipe_mappings": {
     "botania:floating_pure_daisy": 1,
     "botania:livingrock": 1,
+    "botania:livingrock_wall": 1,
+    "botania:livingrock_stairs": 1,
+    "botania:livingrock_slab": 1,
     "botania:livingwood": 1,
     "botania:livingwood_log": 1,
-    "minecraft:snow": 1,
-    "minecraft:packed_ice": 1,
-    "minecraft:blue_ice": 1,
-    "minecraft:obsidian": 1
+    "botania:stripped_livingwood_slab": 1,
+    "botania:livingwood_slab": 1,
+    "botania:livingwood_stairs": 1,
+    "botania:livingwood_wall": 1,
+    "botania:stripped_livingwood_log": 1,
+    "botania:stripped_livingwood_wall": 1,
+    "botania:stripped_livingwood": 1,
+    "botania:stripped_livingwood_stairs": 1,
+    "minecraft:cobblestone": 3,
+    "minecraft:snow_block": 3,
+    "minecraft:packed_ice": 3,
+    "minecraft:blue_ice": 3,
+    "minecraft:obsidian": 3
   }
 }
