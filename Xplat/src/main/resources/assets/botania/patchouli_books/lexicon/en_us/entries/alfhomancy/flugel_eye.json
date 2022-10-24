@@ -16,6 +16,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:flugel_eye": 1
+    "botania:flugel_eye": 0
   }
 }
