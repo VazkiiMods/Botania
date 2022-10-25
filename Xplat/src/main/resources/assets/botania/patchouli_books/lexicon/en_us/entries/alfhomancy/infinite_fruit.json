@@ -12,6 +12,6 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:infinite_fruit": 1
+    "botania:infinite_fruit": 0
   }
 }
