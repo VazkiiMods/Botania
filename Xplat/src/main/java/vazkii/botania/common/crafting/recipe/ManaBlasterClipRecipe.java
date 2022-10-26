@@ -36,9 +36,10 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ManaBlasterItem && !ManaBlasterItem.hasClip(stack)) {
+				if (stack.getItem() instanceof ManaBlasterItem
+						&& !ManaBlasterItem.hasClip(stack) && !foundGun) {
 					foundGun = true;
-				} else if (stack.is(BotaniaItems.clip)) {
+				} else if (stack.is(BotaniaItems.clip) && !foundClip) {
 					foundClip = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

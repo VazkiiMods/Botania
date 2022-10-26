@@ -36,7 +36,7 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.isEnchanted() && !foundEnchanted && !stack.is(BotaniaItems.spellCloth)) {
+				if (stack.isEnchanted() && !foundEnchanted) {
 					foundEnchanted = true;
 				} else if (stack.is(BotaniaItems.spellCloth) && !foundCloth) {
 					foundCloth = true;

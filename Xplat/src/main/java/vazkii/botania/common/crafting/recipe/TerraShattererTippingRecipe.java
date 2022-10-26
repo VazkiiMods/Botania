@@ -42,9 +42,10 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof TerraShattererItem && !TerraShattererItem.isTipped(stack)) {
+				if (stack.getItem() instanceof TerraShattererItem
+						&& !TerraShattererItem.isTipped(stack) && !foundTerraPick) {
 					foundTerraPick = true;
-				} else if (stack.is(BotaniaItems.elementiumPick)) {
+				} else if (stack.is(BotaniaItems.elementiumPick) && !foundElementiumPick) {
 					foundElementiumPick = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

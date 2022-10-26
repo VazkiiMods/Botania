@@ -36,7 +36,8 @@ public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ManaBlasterItem && !ManaBlasterItem.getLens(stack).isEmpty()) {
+				if (stack.getItem() instanceof ManaBlasterItem
+						&& !ManaBlasterItem.getLens(stack).isEmpty() && !foundGun) {
 					foundGun = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
