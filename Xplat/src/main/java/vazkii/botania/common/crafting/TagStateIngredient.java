@@ -43,7 +43,7 @@ public class TagStateIngredient extends BlocksStateIngredient {
 
 	@Override
 	public boolean test(BlockState state) {
-		return state.getBlock().builtInRegistryHolder().is(tag);
+		return state.is(tag);
 	}
 
 	@Override
