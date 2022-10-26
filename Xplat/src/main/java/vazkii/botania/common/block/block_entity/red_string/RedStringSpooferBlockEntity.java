@@ -9,11 +9,7 @@
 package vazkii.botania.common.block.block_entity.red_string;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -44,7 +40,7 @@ public class RedStringSpooferBlockEntity extends RedStringBlockEntity {
 		if (block instanceof FlowerPotBlock flowerPot) {
 			block = flowerPot.getContent();
 		}
-		return block instanceof FlowerBlock || block instanceof HugeMushroomBlock || block instanceof DoublePlantBlock;
+		return block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof DoublePlantBlock;
 	}
 
 }
