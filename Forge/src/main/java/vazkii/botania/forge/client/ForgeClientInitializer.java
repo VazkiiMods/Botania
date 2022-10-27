@@ -74,7 +74,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerGuiOverlays(RegisterGuiOverlaysEvent e) {
-		e.registerAbove(VanillaGuiOverlay.CROSSHAIR.id(), "hud",
+		e.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "hud",
 				(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
 	}
 
