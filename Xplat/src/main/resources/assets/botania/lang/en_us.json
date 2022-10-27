@@ -1960,7 +1960,7 @@
   "botania.tagline.sparks": "Simple and fast short-range Mana transporters",
   "botania.page.sparks0": "$(item)Sparks$(0) are interesting things. Created from a combination of raw energy and $(thing)Mana$(0), they can be placed only on a few specific $(thing)Mana$(0)-containing or -accepting blocks (notably $(l:mana/pool)$(item)Mana Pools$(0)$(/l)).$(p)Certain blocks have the ability to harness $(thing)Mana$(0) from $(item)Sparks$(0), but as of now their uses are sparse.",
   "botania.page.sparks1": "Placing a $(item)Spark$(0) over a $(l:mana/pool)$(item)Mana Pool$(0)$(/l) and another over a nearby block that can accept it will allow the latter to access the former's reserves on demand.$(p)To remove a $(item)Spark$(0), simply sneak-right click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l). Regular right-clicking will show which other $(item)Sparks$(0) this one can transfer to.",
-  "botania.page.sparks3": "Sparks can be dyed with $(item)Dye$(0); sparks with different colors will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
+  "botania.page.sparks3": "$(item)Sparks$(0) can be dyed with $(item)Dye$(0); $(item)sparks$(0) with different colors will never interact. They can also be splashed with a bit of $(l:misc/phantom_ink)$(item)Phantom Ink$(0)$(/l) to make them highly translucent (in case you think they look too obtrusive).",
   "botania.page.sparks2": "$(o)holds up spork$()",
 
   "botania.entry.sparkUpgrades": "Spark Augments",
