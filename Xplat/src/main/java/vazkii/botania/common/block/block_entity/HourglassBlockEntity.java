@@ -224,9 +224,16 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 				mc.getItemRenderer().renderGuiItem(stack, x, y);
 				mc.getItemRenderer().renderGuiItemDecorations(mc.font, stack, x, y);
 
-				int time = hourglass.getTotalTime();
-				String timeStr = StringUtil.formatTickDuration(time);
-				mc.font.drawShadow(ms, timeStr, x + 20, y, hourglass.getColor());
+				String first, second;
+				if (hourglass.isDust()) {
+					first = Integer.toString(hourglass.time);
+					second = Integer.toString(hourglass.getTotalTime());
+				} else {
+					first = StringUtil.formatTickDuration(hourglass.time);
+					second = StringUtil.formatTickDuration(hourglass.getTotalTime());
+				}
+				mc.font.drawShadow(ms, String.format("%s / %s", first, second),
+						x + 20, y, hourglass.getColor());
 
 				String status = "";
 				if (hourglass.lock) {
