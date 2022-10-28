@@ -190,19 +190,25 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 			profiler.push("crystalCube");
 			ItemStack target = cube.getRequestTarget();
 			if (!target.isEmpty()) {
-				String s1 = target.getHoverName().getString();
-				String s2 = cube.getItemCount() + "x";
-				int strlen = Math.max(mc.font.width(s1), mc.font.width(s2));
+				String nameStr = target.getHoverName().getString();
+				String countStr = cube.getItemCount() + "x";
+				String lockedStr = I18n.get("botaniamisc.locked");
+
+				int strlen = Math.max(mc.font.width(nameStr), mc.font.width(countStr));
+				if (cube.locked) {
+					strlen = Math.max(strlen, mc.font.width(lockedStr));
+				}
+
 				int w = mc.getWindow().getGuiScaledWidth();
 				int h = mc.getWindow().getGuiScaledHeight();
 				int boxH = h / 2 + (cube.locked ? 20 : 10);
 				GuiComponent.fill(ps, w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
 				GuiComponent.fill(ps, w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
 
-				mc.font.drawShadow(ps, s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
-				mc.font.drawShadow(ps, cube.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
+				mc.font.drawShadow(ps, nameStr, w / 2.0F + 30, h / 2.0F - 10, 0x6666FF);
+				mc.font.drawShadow(ps, countStr, w / 2.0F + 30, h / 2.0F, 0xFFFFFF);
 				if (cube.locked) {
-					mc.font.drawShadow(ps, I18n.get("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
+					mc.font.drawShadow(ps, lockedStr, w / 2.0F + 30, h / 2.0F + 10, 0xFFAA00);
 				}
 				mc.getItemRenderer().renderAndDecorateItem(target, w / 2 + 10, h / 2 - 10);
 			}
