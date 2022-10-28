@@ -8,9 +8,15 @@
  */
 package vazkii.botania.common.block.block_entity.corporea;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -174,5 +180,34 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 			return true;
 		}
 		return false;
+	}
+
+	public static class Hud {
+		public static void render(PoseStack ps, CorporeaCrystalCubeBlockEntity cube) {
+			Minecraft mc = Minecraft.getInstance();
+			ProfilerFiller profiler = mc.getProfiler();
+
+			profiler.push("crystalCube");
+			ItemStack target = cube.getRequestTarget();
+			if (!target.isEmpty()) {
+				String s1 = target.getHoverName().getString();
+				String s2 = cube.getItemCount() + "x";
+				int strlen = Math.max(mc.font.width(s1), mc.font.width(s2));
+				int w = mc.getWindow().getGuiScaledWidth();
+				int h = mc.getWindow().getGuiScaledHeight();
+				int boxH = h / 2 + (cube.locked ? 20 : 10);
+				GuiComponent.fill(ps, w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
+				GuiComponent.fill(ps, w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
+
+				mc.font.drawShadow(ps, s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
+				mc.font.drawShadow(ps, cube.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
+				if (cube.locked) {
+					mc.font.drawShadow(ps, I18n.get("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
+				}
+				mc.getItemRenderer().renderAndDecorateItem(target, w / 2 + 10, h / 2 - 10);
+			}
+
+			profiler.pop();
+		}
 	}
 }

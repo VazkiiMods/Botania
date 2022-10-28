@@ -119,7 +119,7 @@ public final class HUDHandler {
 				} else if (tile instanceof RunicAltarBlockEntity runeAltar) {
 					RunicAltarBlockEntity.Hud.render(runeAltar, ms, mc);
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
-					renderCrystalCubeHUD(ms, cube);
+					CorporeaCrystalCubeBlockEntity.Hud.render(ms, cube);
 				}
 			}
 		}
@@ -265,33 +265,6 @@ public final class HUDHandler {
 
 			RenderSystem.disableBlend();
 		}
-		profiler.pop();
-	}
-
-	private static void renderCrystalCubeHUD(PoseStack ms, CorporeaCrystalCubeBlockEntity tile) {
-		Minecraft mc = Minecraft.getInstance();
-		ProfilerFiller profiler = mc.getProfiler();
-
-		profiler.push("crystalCube");
-		ItemStack target = tile.getRequestTarget();
-		if (!target.isEmpty()) {
-			String s1 = target.getHoverName().getString();
-			String s2 = tile.getItemCount() + "x";
-			int strlen = Math.max(mc.font.width(s1), mc.font.width(s2));
-			int w = mc.getWindow().getGuiScaledWidth();
-			int h = mc.getWindow().getGuiScaledHeight();
-			int boxH = h / 2 + (tile.locked ? 20 : 10);
-			GuiComponent.fill(ms, w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
-			GuiComponent.fill(ms, w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
-
-			mc.font.drawShadow(ms, s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
-			mc.font.drawShadow(ms, tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
-			if (tile.locked) {
-				mc.font.drawShadow(ms, I18n.get("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
-			}
-			mc.getItemRenderer().renderAndDecorateItem(target, w / 2 + 10, h / 2 - 10);
-		}
-
 		profiler.pop();
 	}
 
