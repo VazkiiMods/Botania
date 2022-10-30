@@ -118,7 +118,7 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.528"
 
-    modImplementation("dev.emi:emi:0.3.3+1.19") { transitive = false }
+    modImplementation("dev.emi:emi:0.4.0+1.19") { transitive = false }
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
