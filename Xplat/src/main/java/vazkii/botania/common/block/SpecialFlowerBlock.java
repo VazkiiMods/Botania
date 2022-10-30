@@ -93,10 +93,9 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 				VoxelShape shape = state.getShape(world, pos);
 				if (!shape.isEmpty()) {
 					AABB localBox = shape.bounds();
-					BlockPos effPos = flower.getEffectivePos();
-					double x = effPos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
-					double y = effPos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
-					double z = effPos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
+					double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
+					double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
+					double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
 					world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
 				}
 			}
