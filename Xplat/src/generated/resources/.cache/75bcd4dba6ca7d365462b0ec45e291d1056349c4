@@ -28,6 +28,7 @@ d7dcc983bfdaf90fe776e2be93411250c03b9e7e data/botania/tags/blocks/mystical_flowe
 c2c6198ca6a711bf2d89080a82e564bae5739d3d data/botania/tags/blocks/terra_plate_base.json
 10fd0dc41dc5715e3707917341749645a6c1693b data/botania/tags/blocks/terraformable.json
 2ead7838be1f063018e6e13e8300f3a183adf5f5 data/botania/tags/blocks/terrasteel_blocks.json
+8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/botania/tags/blocks/unwandable.json
 8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/botania/tags/blocks/weight_lens_whitelist.json
 cd987b29beecbd4bef7fdcba4766ddedb537f3df data/minecraft/tags/blocks/beacon_base_blocks.json
 c466182d3ded520a0bfa3896c024409b7d2190fc data/minecraft/tags/blocks/climbable.json

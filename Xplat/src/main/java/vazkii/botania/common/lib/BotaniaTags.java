@@ -217,6 +217,11 @@ public class BotaniaTags {
 		 */
 		public static final TagKey<Block> HORN_OF_THE_COVERING_BREAKABLE = tag("horn_of_the_covering_breakable");
 
+		/**
+		 * Blocks in this tag can not have their state manipulated by a wand of the forest
+		 */
+		public static final TagKey<Block> UNWANDABLE = tag("unwandable");
+
 		private static TagKey<Block> tag(String name) {
 			return TagKey.create(Registry.BLOCK_REGISTRY, prefix(name));
 		}

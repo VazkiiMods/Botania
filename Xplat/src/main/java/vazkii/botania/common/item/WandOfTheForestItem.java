@@ -29,12 +29,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CommandBlock;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -56,6 +54,7 @@ import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
@@ -179,7 +178,7 @@ public class WandOfTheForestItem extends Item {
 
 			if (player.mayUseItemAt(pos, side, stack)
 					&& (!(block instanceof CommandBlock) || player.canUseGameMasterBlocks())) {
-				BlockState newState = rotate(state, side.getAxis());
+				BlockState newState = manipulateBlockstate(state, side);
 				if (newState != state) {
 					world.setBlockAndUpdate(pos, newState);
 					return InteractionResult.SUCCESS;
@@ -220,14 +219,24 @@ public class WandOfTheForestItem extends Item {
 		return InteractionResult.PASS;
 	}
 
-	private static BlockState rotate(BlockState old, Direction.Axis axis) {
+	private static BlockState manipulateBlockstate(BlockState old, Direction side) {
+		if (old.is(BotaniaTags.Blocks.UNWANDABLE)) {
+			return old;
+		}
+
+		BooleanProperty directionPropertyFromSide = PipeBlock.PROPERTY_BY_DIRECTION.get(side);
+		if (old.hasProperty(directionPropertyFromSide)) {
+			boolean oldValue = old.getValue(directionPropertyFromSide);
+			return old.setValue(directionPropertyFromSide, !oldValue);
+		}
+
 		for (Property<?> prop : old.getProperties()) {
 			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
 				@SuppressWarnings("unchecked")
 				Property<Direction> facingProp = (Property<Direction>) prop;
 
 				Direction oldDir = old.getValue(facingProp);
-				Direction newDir = rotateAround(oldDir, axis);
+				Direction newDir = rotateAround(oldDir, side.getAxis());
 				if (oldDir != newDir && facingProp.getPossibleValues().contains(newDir)) {
 					return old.setValue(facingProp, newDir);
 				}

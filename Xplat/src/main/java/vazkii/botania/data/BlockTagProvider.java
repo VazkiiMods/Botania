@@ -194,6 +194,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE).add(Blocks.SNOW);
 
+		tag(BotaniaTags.Blocks.UNWANDABLE);
+
 		registerMiningTags();
 	}
 
