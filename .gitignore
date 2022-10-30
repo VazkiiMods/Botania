@@ -11,12 +11,12 @@ build
 /Fabric/run
 
 ## eclipse
-/.settings
-/.metadata
-/.classpath
-/.project
-/eclipse
-/bin
+.settings
+.metadata
+.classpath
+.project
+eclipse
+bin
 
 ## gradle generated eclipse runs
 /*.launch
