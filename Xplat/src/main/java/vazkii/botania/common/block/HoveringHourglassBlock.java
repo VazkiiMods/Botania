@@ -37,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
-import vazkii.botania.common.block.block_entity.HourglassBlockEntity;
+import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.common.item.WandOfTheForestItem;
 
@@ -64,7 +64,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		HourglassBlockEntity hourglass = (HourglassBlockEntity) world.getBlockEntity(pos);
+		HoveringHourglassBlockEntity hourglass = (HoveringHourglassBlockEntity) world.getBlockEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && stack.getItem() instanceof WandOfTheForestItem) {
@@ -78,7 +78,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 			return InteractionResult.FAIL;
 		}
 
-		if (hgStack.isEmpty() && HourglassBlockEntity.getStackItemTime(stack) > 0) {
+		if (hgStack.isEmpty() && HoveringHourglassBlockEntity.getStackItemTime(stack) > 0) {
 			hourglass.getItemHandler().setItem(0, stack.copy());
 			stack.setCount(0);
 			return InteractionResult.SUCCESS;
@@ -128,12 +128,12 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 	@NotNull
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-		return new HourglassBlockEntity(pos, state);
+		return new HoveringHourglassBlockEntity(pos, state);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.HOURGLASS, HourglassBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.HOURGLASS, HoveringHourglassBlockEntity::commonTick);
 	}
 }

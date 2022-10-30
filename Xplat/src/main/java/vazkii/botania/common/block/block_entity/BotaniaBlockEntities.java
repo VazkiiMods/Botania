@@ -76,7 +76,7 @@ public class BotaniaBlockEntities {
 	public static final BlockEntityType<CorporeaInterceptorBlockEntity> CORPOREA_INTERCEPTOR = type(prefix(LibBlockNames.CORPOREA_INTERCEPTOR), CorporeaInterceptorBlockEntity::new, corporeaInterceptor);
 	public static final BlockEntityType<CorporeaCrystalCubeBlockEntity> CORPOREA_CRYSTAL_CUBE = type(prefix(LibBlockNames.CORPOREA_CRYSTAL_CUBE), CorporeaCrystalCubeBlockEntity::new, corporeaCrystalCube);
 	public static final BlockEntityType<IncensePlateBlockEntity> INCENSE_PLATE = type(prefix(LibBlockNames.INCENSE_PLATE), IncensePlateBlockEntity::new, incensePlate);
-	public static final BlockEntityType<HourglassBlockEntity> HOURGLASS = type(prefix(LibBlockNames.HOURGLASS), HourglassBlockEntity::new, hourglass);
+	public static final BlockEntityType<HoveringHourglassBlockEntity> HOURGLASS = type(prefix(LibBlockNames.HOURGLASS), HoveringHourglassBlockEntity::new, hourglass);
 	public static final BlockEntityType<SparkTinkererBlockEntity> SPARK_CHANGER = type(prefix(LibBlockNames.SPARK_CHANGER), SparkTinkererBlockEntity::new, sparkChanger);
 	public static final BlockEntityType<CocoonBlockEntity> COCOON = type(prefix(LibBlockNames.COCOON), CocoonBlockEntity::new, cocoon);
 	public static final BlockEntityType<LuminizerBlockEntity> LIGHT_RELAY = type(prefix(LibBlockNames.LIGHT_RELAY), LuminizerBlockEntity::new, lightRelayDefault, lightRelayDetector, lightRelayToggle, lightRelayFork);
@@ -115,7 +115,7 @@ public class BotaniaBlockEntities {
 		consumer.accept(be -> new CorporeaRetainerBlockEntity.WandHud((CorporeaRetainerBlockEntity) be), BotaniaBlockEntities.CORPOREA_RETAINER);
 		consumer.accept(be -> new CraftyCrateBlockEntity.WandHud((CraftyCrateBlockEntity) be), BotaniaBlockEntities.CRAFT_CRATE);
 		consumer.accept(be -> new ManaEnchanterBlockEntity.WandHud((ManaEnchanterBlockEntity) be), BotaniaBlockEntities.ENCHANTER);
-		consumer.accept(be -> new HourglassBlockEntity.WandHud((HourglassBlockEntity) be), BotaniaBlockEntities.HOURGLASS);
+		consumer.accept(be -> new HoveringHourglassBlockEntity.WandHud((HoveringHourglassBlockEntity) be), BotaniaBlockEntities.HOURGLASS);
 		consumer.accept(be -> new ManaPoolBlockEntity.WandHud((ManaPoolBlockEntity) be), BotaniaBlockEntities.POOL);
 		consumer.accept(be -> new ManaPrismBlockEntity.WandHud((ManaPrismBlockEntity) be), BotaniaBlockEntities.PRISM);
 		consumer.accept(be -> new ManaSpreaderBlockEntity.WandHud((ManaSpreaderBlockEntity) be), BotaniaBlockEntities.SPREADER);

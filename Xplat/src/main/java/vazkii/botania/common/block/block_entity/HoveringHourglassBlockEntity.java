@@ -35,7 +35,7 @@ import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger, Wandable {
+public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEntity implements ManaTrigger, Wandable {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -51,7 +51,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 	public boolean lock = false;
 	public boolean move = true;
 
-	public HourglassBlockEntity(BlockPos pos, BlockState state) {
+	public HoveringHourglassBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.HOURGLASS, pos, state);
 	}
 
@@ -60,7 +60,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 		return !stack.isEmpty() && stack.is(BotaniaItems.manaPowder);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, HourglassBlockEntity self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, HoveringHourglassBlockEntity self) {
 		int totalTime = self.getTotalTime();
 		boolean dust = self.isDust();
 
@@ -181,7 +181,7 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 		if (level != null && !level.isClientSide) {
 			time = 0;
 			timeFraction = 0F;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(HourglassBlockEntity.this);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(HoveringHourglassBlockEntity.this);
 		}
 	}
 
@@ -208,9 +208,9 @@ public class HourglassBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 	}
 
 	public static class WandHud implements WandHUD {
-		private final HourglassBlockEntity hourglass;
+		private final HoveringHourglassBlockEntity hourglass;
 
-		public WandHud(HourglassBlockEntity hourglass) {
+		public WandHud(HoveringHourglassBlockEntity hourglass) {
 			this.hourglass = hourglass;
 		}
 
