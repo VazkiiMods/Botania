@@ -277,7 +277,8 @@ public final class HUDHandler {
 		if (!target.isEmpty()) {
 			String s1 = target.getHoverName().getString();
 			String s2 = tile.getItemCount() + "x";
-			int strlen = Math.max(mc.font.width(s1), mc.font.width(s2));
+			String s3 = I18n.get("botaniamisc.locked");
+			int strlen = Math.max(Math.max(mc.font.width(s1), mc.font.width(s2)), mc.font.width(s3));
 			int w = mc.getWindow().getGuiScaledWidth();
 			int h = mc.getWindow().getGuiScaledHeight();
 			int boxH = h / 2 + (tile.locked ? 20 : 10);
