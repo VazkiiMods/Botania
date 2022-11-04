@@ -351,6 +351,22 @@ was contributed externally by that member of the community.
 
 ---
 
+{% include changelog_header.html version="1.16.5-420.3" %}
+
+* Add: Horn of the Canopy now breaks vines (from 1.18.1-426)
+* Add: Luminizers can now be phantom-inked to suppress their particles (from 1.17.1-422)
+* Change: Update Cacophonium Block texture to match new Note Block texture (from 1.17.1-422) (quat)
+* Change: Tater nameplates are hidden in F1 like vanilla ones (from 1.17.1-422)
+* Fix: Some buggy behaviors of fake mana bursts (from 1.18.1-428)
+* Fix: Bergamute muting effect not distinguishing dimensions (from 1.18.1-428)
+* Fix: Potential crashes in Bergamute code
+* Fix: Terra Shatterer AoE voiding blocks it can’t mine (from 1.18.1-428)
+* Fix: Rod of Shifting Crust wireframe mismatching the actual area sometimes (from 1.18.1-428)
+* Fix: Duplication glitch when mossifying a Petal Apothecary
+* Fix: Refactor and overall improve binding logic, preventing various directionality bugs with flower binding range (partial backport from 1.17.1-422) (quat)
+
+---
+
 {% include changelog_header.html version="1.16.5-420.2" %}
 
 * Fix: Mixin conflict with SpongeForge
