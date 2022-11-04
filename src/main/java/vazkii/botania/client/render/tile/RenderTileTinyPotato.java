@@ -191,7 +191,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	private void renderName(TileTinyPotato potato, String name, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
 		Minecraft mc = Minecraft.getInstance();
 		RayTraceResult pos = mc.objectMouseOver;
-		if (!name.isEmpty() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK
+		if (Minecraft.isGuiEnabled() && !name.isEmpty() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK
 				&& potato.getPos().equals(((BlockRayTraceResult) pos).getPos())) {
 			ms.push();
 			ms.translate(0F, -0.6F, 0F);

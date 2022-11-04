@@ -61,9 +61,11 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
+	private static final String TAG_NO_PARTICLE = "noParticle";
 
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
 	private int ticksElapsed = 0;
+	private boolean noParticle = false;
 
 	public TileLightRelay() {
 		super(ModTiles.LIGHT_RELAY);
@@ -92,7 +94,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 		BlockPos nextDest = getNextDestination();
 		if (nextDest != null && nextDest.getY() > -1 && isValidBinding()) {
-			if (world.isRemote) {
+			if (world.isRemote && !isNoParticle()) {
 				Vector3 vec = getMovementVector();
 				if (vec != null) {
 					double dist = 0.1;
@@ -176,6 +178,14 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		return null;
 	}
 
+	public void setNoParticle() {
+		noParticle = true;
+	}
+
+	public boolean isNoParticle() {
+		return noParticle;
+	}
+
 	public Vector3 getMovementVector() {
 		BlockPos dest = getNextDestination();
 		if (dest == null) {
@@ -246,6 +256,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				cmp.getInt(TAG_BIND_Y),
 				cmp.getInt(TAG_BIND_Z)
 		);
+		noParticle = cmp.getBoolean(TAG_NO_PARTICLE);
 	}
 
 	@Override
@@ -253,6 +264,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
 		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+		cmp.putBoolean(TAG_NO_PARTICLE, noParticle);
 	}
 
 	public static class EntityPlayerMover extends Entity {

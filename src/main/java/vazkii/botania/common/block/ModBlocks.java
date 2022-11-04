@@ -36,6 +36,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -44,6 +45,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -660,6 +662,31 @@ public final class ModBlocks {
 		BotaniaAPI.instance().registerHornHarvestableBlock(greenMushroom.getRegistryName(), DefaultHornHarvestable.INSTANCE);
 		BotaniaAPI.instance().registerHornHarvestableBlock(redMushroom.getRegistryName(), DefaultHornHarvestable.INSTANCE);
 		BotaniaAPI.instance().registerHornHarvestableBlock(blackShinyFlower.getRegistryName(), DefaultHornHarvestable.INSTANCE);
+
+		//1.18 backport (less the CAVE_VINES, since those don't exist yet)
+		//This is much less messy in 1.18 due to most of these methods having default impls
+		//In the interest of not changing the API classes (in case someone is repackaging them), have this mess:
+		IHornHarvestable isCanopy = new IHornHarvestable() {
+			@Override
+			public boolean canHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+				return hornType == IHornHarvestable.EnumHornType.CANOPY;
+			}
+
+			@Override
+			public boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+				return false;
+			}
+
+			@Override
+			public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+
+			}
+		};
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.VINE.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.TWISTING_VINES.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.TWISTING_VINES_PLANT.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.WEEPING_VINES.getRegistryName(), isCanopy);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Blocks.WEEPING_VINES_PLANT.getRegistryName(), isCanopy);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
