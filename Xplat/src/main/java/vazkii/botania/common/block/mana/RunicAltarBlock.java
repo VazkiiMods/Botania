@@ -56,10 +56,6 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (world.isClientSide) {
-			return InteractionResult.SUCCESS;
-		}
-
 		if (!(world.getBlockEntity(pos) instanceof RunicAltarBlockEntity altar)) {
 			return InteractionResult.PASS;
 		}
@@ -67,9 +63,7 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
 		if (altar.canAddLastRecipe() && mainHandEmpty) {
-			altar.trySetLastRecipe(player);
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-			return InteractionResult.SUCCESS;
+			return altar.trySetLastRecipe(player);
 		} else if (!altar.isEmpty() && mainHandEmpty) {
 			if (altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
