@@ -18,6 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -232,11 +233,12 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
-	public void trySetLastRecipe(Player player) {
+	public InteractionResult trySetLastRecipe(Player player) {
 		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
+		return lastRecipe == null || lastRecipe.isEmpty() ? InteractionResult.CONSUME : InteractionResult.SUCCESS;
 	}
 
 	@Override

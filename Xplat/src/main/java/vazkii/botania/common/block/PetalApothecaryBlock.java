@@ -113,8 +113,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
 		if (apothecary.canAddLastRecipe() && mainHandEmpty) {
-			apothecary.trySetLastRecipe(player);
-			return InteractionResult.SUCCESS;
+			return apothecary.trySetLastRecipe(player);
 		} else if (!apothecary.isEmpty() && mainHandEmpty) {
 			InventoryHelper.withdrawFromInventory(apothecary, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);

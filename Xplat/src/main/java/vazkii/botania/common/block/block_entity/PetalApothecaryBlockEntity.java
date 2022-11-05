@@ -17,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -159,12 +160,13 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		level.blockEvent(getBlockPos(), getBlockState().getBlock(), SET_KEEP_TICKS_EVENT, 400);
 	}
 
-	public void trySetLastRecipe(Player player) {
+	public InteractionResult trySetLastRecipe(Player player) {
 		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe,
 				SoundEvents.GENERIC_SPLASH);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
+		return lastRecipe == null || lastRecipe.isEmpty() ? InteractionResult.CONSUME : InteractionResult.SUCCESS;
 	}
 
 	public boolean isEmpty() {
