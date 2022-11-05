@@ -15,10 +15,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -43,6 +41,7 @@ import vazkii.botania.common.block.PetalApothecaryBlock;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -161,39 +160,9 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	}
 
 	public void trySetLastRecipe(Player player) {
-		tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
+		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-		}
-	}
-
-	public static void tryToSetLastRecipe(Player player, Container inv, List<ItemStack> lastRecipe) {
-		if (lastRecipe == null || lastRecipe.isEmpty() || player.level.isClientSide) {
-			return;
-		}
-
-		int index = 0;
-		boolean didAny = false;
-		for (ItemStack stack : lastRecipe) {
-			if (stack.isEmpty()) {
-				continue;
-			}
-
-			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-				ItemStack pstack = player.getInventory().getItem(i);
-				if (player.isCreative() || (!pstack.isEmpty() && pstack.sameItem(stack) && ItemStack.tagMatches(stack, pstack))) {
-					inv.setItem(index, player.isCreative() ? stack.copy() : pstack.split(1));
-					didAny = true;
-					index++;
-					break;
-				}
-			}
-		}
-
-		if (didAny) {
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
-			ServerPlayer mp = (ServerPlayer) player;
-			mp.inventoryMenu.broadcastChanges();
 		}
 	}
 

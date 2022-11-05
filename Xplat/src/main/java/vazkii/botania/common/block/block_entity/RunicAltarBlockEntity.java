@@ -42,6 +42,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
+import vazkii.botania.common.helper.InventoryHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.WandOfTheForestItem;
@@ -232,7 +233,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	public void trySetLastRecipe(Player player) {
-		PetalApothecaryBlockEntity.tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
+		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}

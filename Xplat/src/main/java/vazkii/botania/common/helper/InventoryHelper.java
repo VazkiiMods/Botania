@@ -9,6 +9,9 @@
 package vazkii.botania.common.helper;
 
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.SlotAccess;
@@ -25,6 +28,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.block_entity.SimpleInventoryBlockEntity;
 import vazkii.botania.mixin.HopperBlockEntityAccessor;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class InventoryHelper {
@@ -144,4 +148,33 @@ public class InventoryHelper {
 		}
 	}
 
+	public static void tryToSetLastRecipe(Player player, Container inv, List<ItemStack> lastRecipe) {
+		if (lastRecipe == null || lastRecipe.isEmpty() || player.level.isClientSide) {
+			return;
+		}
+
+		int index = 0;
+		boolean didAny = false;
+		for (ItemStack stack : lastRecipe) {
+			if (stack.isEmpty()) {
+				continue;
+			}
+
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack pstack = player.getInventory().getItem(i);
+				if (player.isCreative() || (!pstack.isEmpty() && pstack.sameItem(stack) && ItemStack.tagMatches(stack, pstack))) {
+					inv.setItem(index, player.isCreative() ? stack.copy() : pstack.split(1));
+					didAny = true;
+					index++;
+					break;
+				}
+			}
+		}
+
+		if (didAny) {
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
+			ServerPlayer mp = (ServerPlayer) player;
+			mp.inventoryMenu.broadcastChanges();
+		}
+	}
 }
