@@ -45,6 +45,10 @@
       ]
     },
     {
+      "type": "text",
+      "text": "botania.page.flowers17"
+    },
+    {
       "type": "botania:crafting_multi",
       "heading": "botania.page.flowers15",
       "text": "botania.page.flowers5",
@@ -78,11 +82,7 @@
     },
     {
       "type": "text",
-      "text": "botania.page.flowers10"
-    },
-    {
-      "type": "text",
-      "text": "botania.page.flowers12"
+      "text": "botania.page.flowers18"
     },
     {
       "type": "botania:crafting_multi",
