@@ -160,7 +160,8 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 	}
 
 	public void trySetLastRecipe(Player player) {
-		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
+		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe,
+				SoundEvents.GENERIC_SPLASH);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}

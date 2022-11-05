@@ -10,7 +10,7 @@ package vazkii.botania.common.helper;
 
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
@@ -148,7 +148,7 @@ public class InventoryHelper {
 		}
 	}
 
-	public static void tryToSetLastRecipe(Player player, Container inv, List<ItemStack> lastRecipe) {
+	public static void tryToSetLastRecipe(Player player, Container inv, List<ItemStack> lastRecipe, @Nullable SoundEvent sound) {
 		if (lastRecipe == null || lastRecipe.isEmpty() || player.level.isClientSide) {
 			return;
 		}
@@ -172,7 +172,9 @@ public class InventoryHelper {
 		}
 
 		if (didAny) {
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
+			if (sound != null) {
+				player.level.playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.BLOCKS, 0.1F, 10F);
+			}
 			ServerPlayer mp = (ServerPlayer) player;
 			mp.inventoryMenu.broadcastChanges();
 		}

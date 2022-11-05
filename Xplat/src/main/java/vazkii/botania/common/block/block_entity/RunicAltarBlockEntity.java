@@ -233,7 +233,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	}
 
 	public void trySetLastRecipe(Player player) {
-		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
+		InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, null);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
