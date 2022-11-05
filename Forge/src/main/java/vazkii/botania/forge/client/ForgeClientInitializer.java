@@ -78,8 +78,10 @@ public class ForgeClientInitializer {
 				(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
 	}
 
+	@SuppressWarnings("removal")
 	@SubscribeEvent
 	public static void clientInit(FMLClientSetupEvent evt) {
+		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		// GUIs
 		evt.enqueueWork(() -> {
 			MenuScreens.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
@@ -201,12 +203,10 @@ public class ForgeClientInitializer {
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
 	}
 
-	@SuppressWarnings("removal")
 	@SubscribeEvent
 	public static void onModelRegister(ModelEvent.RegisterAdditional evt) {
 		var resourceManager = Minecraft.getInstance().getResourceManager();
 		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, evt::register);
-		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
 
