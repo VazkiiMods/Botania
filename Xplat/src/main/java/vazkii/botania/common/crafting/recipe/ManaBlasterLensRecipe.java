@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.Lens;
+import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.common.item.ManaBlasterItem;
 
 public class ManaBlasterLensRecipe extends CustomRecipe {
@@ -60,7 +60,7 @@ public class ManaBlasterLensRecipe extends CustomRecipe {
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ManaBlasterItem) {
 					gun = stack;
-				} else if (stack.getItem() instanceof Lens) {
+				} else if (stack.getItem() instanceof BasicLensItem) {
 					lens = stack.copy();
 					lens.setCount(1);
 				}

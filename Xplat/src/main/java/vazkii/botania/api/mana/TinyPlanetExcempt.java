@@ -11,7 +11,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Any Item that implements LensEffect and this will have
+ * Any Item that implements LensEffectItem and this will have
  * a check before being pulled by the Tiny Planet.
  */
 public interface TinyPlanetExcempt {

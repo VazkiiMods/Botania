@@ -167,7 +167,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			ping();
 		}
 
-		LensEffect lens = getLensInstance();
+		LensEffectItem lens = getLensInstance();
 		if (lens != null) {
 			lens.updateBurst(this, getSourceLens());
 		}
@@ -344,7 +344,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			return;
 		}
 
-		LensEffect lens = getLensInstance();
+		LensEffectItem lens = getLensInstance();
 		if (lens != null && !lens.doParticles(this, getSourceLens())) {
 			return;
 		}
@@ -490,7 +490,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	private void onHitCommon(HitResult hit, boolean shouldKill) {
-		LensEffect lens = getLensInstance();
+		LensEffectItem lens = getLensInstance();
 		if (lens != null) {
 			shouldKill = lens.collideBurst(this, hit, collidedTile != null
 					&& collidedTile.canReceiveManaFromBursts(), shouldKill, getSourceLens());
@@ -526,7 +526,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			return false;
 		}
 
-		LensEffect lens = getLensInstance();
+		LensEffectItem lens = getLensInstance();
 		int mana = getMana();
 
 		if (lens != null) {
@@ -679,9 +679,9 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		_ticksExisted = ticks;
 	}
 
-	private LensEffect getLensInstance() {
+	private LensEffectItem getLensInstance() {
 		ItemStack lens = getSourceLens();
-		if (!lens.isEmpty() && lens.getItem() instanceof LensEffect effect) {
+		if (!lens.isEmpty() && lens.getItem() instanceof LensEffectItem effect) {
 			return effect;
 		}
 

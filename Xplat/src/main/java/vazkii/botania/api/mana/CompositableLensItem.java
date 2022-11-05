@@ -11,9 +11,9 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Have an Item implement this to be counted as a lens that can be combined with an LensItem.
+ * Have an Item implement this to be counted as a lens that can be combined with a LensItem.
  */
-public interface CompositableLens extends Lens {
+public interface CompositableLensItem extends BasicLensItem {
 
 	/**
 	 * Returns the properties of the itemstack, used to check if two lenses can combine.

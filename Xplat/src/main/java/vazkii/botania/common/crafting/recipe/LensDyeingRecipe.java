@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.Lens;
+import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.lens.LensItem;
 
@@ -63,7 +63,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof Lens && !foundLens) {
+				if (stack.getItem() instanceof BasicLensItem && !foundLens) {
 					foundLens = true;
 				} else if (!foundDye) {
 					int color = getStackColor(stack);
@@ -90,7 +90,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof Lens && lens.isEmpty()) {
+				if (stack.getItem() instanceof BasicLensItem && lens.isEmpty()) {
 					lens = stack;
 				} else {
 					color = getStackColor(stack);//We can assume if its not a lens its a dye because we checked it in matches()
@@ -98,7 +98,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 			}
 		}
 
-		if (lens.getItem() instanceof Lens) {
+		if (lens.getItem() instanceof BasicLensItem) {
 			ItemStack lensCopy = lens.copy();
 			lensCopy.setCount(1);
 			LensItem.setLensColor(lensCopy, color);

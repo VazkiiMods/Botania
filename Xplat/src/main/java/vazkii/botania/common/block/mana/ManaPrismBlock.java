@@ -34,7 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.Lens;
+import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
@@ -104,7 +104,7 @@ public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlo
 
 		ItemStack lens = prism.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
-		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof Lens;
+		boolean playerHasLens = !heldItem.isEmpty() && heldItem.getItem() instanceof BasicLensItem;
 		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 

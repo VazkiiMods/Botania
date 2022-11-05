@@ -30,7 +30,7 @@ import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.List;
 
-public class LensItem extends Item implements LensControl, CompositableLens, TinyPlanetExcempt {
+public class LensItem extends Item implements ControlLensItem, CompositableLensItem, TinyPlanetExcempt {
 	public static final int PROP_NONE = 0,
 			PROP_POWER = 1,
 			PROP_ORIENTATION = 1 << 1,
@@ -87,8 +87,8 @@ public class LensItem extends Item implements LensControl, CompositableLens, Tin
 		getLens(stack).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof vazkii.botania.api.mana.Lens) {
-			((vazkii.botania.api.mana.Lens) compositeLens.getItem()).apply(compositeLens, props, level);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem) {
+			((BasicLensItem) compositeLens.getItem()).apply(compositeLens, props, level);
 		}
 	}
 
@@ -97,8 +97,8 @@ public class LensItem extends Item implements LensControl, CompositableLens, Tin
 		shouldKill = getLens(stack).collideBurst(burst, pos, isManaBlock, shouldKill, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof vazkii.botania.api.mana.Lens) {
-			shouldKill = ((vazkii.botania.api.mana.Lens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem) {
+			shouldKill = ((BasicLensItem) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
 		}
 
 		return shouldKill;
@@ -115,8 +115,8 @@ public class LensItem extends Item implements LensControl, CompositableLens, Tin
 		getLens(stack).updateBurst(burst, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof vazkii.botania.api.mana.Lens) {
-			((vazkii.botania.api.mana.Lens) compositeLens.getItem()).updateBurst(burst, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem) {
+			((BasicLensItem) compositeLens.getItem()).updateBurst(burst, compositeLens);
 		}
 	}
 
@@ -152,8 +152,8 @@ public class LensItem extends Item implements LensControl, CompositableLens, Tin
 	}
 
 	public static boolean isBlacklisted(ItemStack lens1, ItemStack lens2) {
-		CompositableLens item1 = (CompositableLens) lens1.getItem();
-		CompositableLens item2 = (CompositableLens) lens2.getItem();
+		CompositableLensItem item1 = (CompositableLensItem) lens1.getItem();
+		CompositableLensItem item2 = (CompositableLensItem) lens2.getItem();
 		return (item1.getProps(lens1) & item2.getProps(lens2)) != 0;
 	}
 
@@ -167,8 +167,8 @@ public class LensItem extends Item implements LensControl, CompositableLens, Tin
 
 	@Override
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens) {
-		CompositableLens sourceItem = (CompositableLens) sourceLens.getItem();
-		CompositableLens compositeItem = (CompositableLens) compositeLens.getItem();
+		CompositableLensItem sourceItem = (CompositableLensItem) sourceLens.getItem();
+		CompositableLensItem compositeItem = (CompositableLensItem) compositeLens.getItem();
 		if (sourceItem == compositeItem) {
 			return false;
 		}

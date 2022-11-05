@@ -36,7 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.mana.Lens;
+import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -156,7 +156,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
 		ItemStack lens = spreader.getItemHandler().getItem(0);
-		boolean playerHasLens = heldItem.getItem() instanceof Lens;
+		boolean playerHasLens = heldItem.getItem() instanceof BasicLensItem;
 		boolean lensIsSame = playerHasLens && ItemStack.isSameItemSameTags(heldItem, lens);
 		ItemStack wool = spreader.paddingColor != null
 				? new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor))

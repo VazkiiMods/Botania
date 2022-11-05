@@ -230,7 +230,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 
 		ItemStack lens = self.getItemHandler().getItem(0);
-		LensControl control = self.getLensController(lens);
+		ControlLensItem control = self.getLensController(lens);
 		if (control != null) {
 			if (redstoneSpreader) {
 				if (shouldShoot) {
@@ -466,7 +466,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	public void checkForReceiver() {
 		ItemStack stack = getItemHandler().getItem(0);
-		LensControl control = getLensController(stack);
+		ControlLensItem control = getLensController(stack);
 		if (control != null && !control.allowBurstShooting(stack, this, false)) {
 			return;
 		}
@@ -497,8 +497,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 
 		ItemStack lens = getItemHandler().getItem(0);
-		if (!lens.isEmpty() && lens.getItem() instanceof LensEffect lensEffect) {
-			lensEffect.apply(lens, props, level);
+		if (!lens.isEmpty() && lens.getItem() instanceof LensEffectItem lensEffectItem) {
+			lensEffectItem.apply(lens, props, level);
 		}
 
 		if (getCurrentMana() >= props.maxMana || fake) {
@@ -528,8 +528,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		return null;
 	}
 
-	public LensControl getLensController(ItemStack stack) {
-		if (!stack.isEmpty() && stack.getItem() instanceof LensControl control) {
+	public ControlLensItem getLensController(ItemStack stack) {
+		if (!stack.isEmpty() && stack.getItem() instanceof ControlLensItem control) {
 			if (control.isControlLens(stack)) {
 				return control;
 			}
@@ -604,7 +604,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 			@Override
 			public boolean canPlaceItem(int index, ItemStack stack) {
-				return !stack.isEmpty() && stack.getItem() instanceof Lens;
+				return !stack.isEmpty() && stack.getItem() instanceof BasicLensItem;
 			}
 		};
 	}

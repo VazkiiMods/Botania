@@ -11,10 +11,10 @@ package vazkii.botania.api.mana;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * An extension of Lens that allows for the lens item to control the
+ * An extension of BasicLensItem that allows for the lens item to control the
  * spreader's behaviour.
  */
-public interface LensControl extends Lens {
+public interface ControlLensItem extends BasicLensItem {
 
 	boolean isControlLens(ItemStack stack);
 

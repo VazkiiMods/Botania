@@ -18,7 +18,7 @@ import vazkii.botania.api.internal.ManaBurst;
  * Have an item implement this for it to count as a lens effect and
  * be able to change the properties of Mana Bursts.
  */
-public interface LensEffect {
+public interface LensEffectItem {
 
 	/**
 	 * Called when a mana spreader that has this focus shoots a burst. This is where

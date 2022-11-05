@@ -22,8 +22,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.mana.BasicLensItem;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.api.mana.Lens;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.api.mana.TinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -40,7 +40,7 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 	public void onBurstCollision(ManaBurst burst) {
 		ItemStack lens = getItemHandler().getItem(0);
 		boolean active = !getBlockState().getValue(BlockStateProperties.POWERED);
-		boolean valid = !lens.isEmpty() && lens.getItem() instanceof Lens && (!(lens.getItem() instanceof TinyPlanetExcempt excempt) || excempt.shouldPull(lens));
+		boolean valid = !lens.isEmpty() && lens.getItem() instanceof BasicLensItem && (!(lens.getItem() instanceof TinyPlanetExcempt excempt) || excempt.shouldPull(lens));
 
 		if (active) {
 			burst.setSourceLens(valid ? lens.copy() : ItemStack.EMPTY);
@@ -51,7 +51,7 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 				Entity burstEntity = burst.entity();
 				BurstProperties properties = new BurstProperties(burst.getStartingMana(), burst.getMinManaLoss(), burst.getManaLossPerTick(), burst.getBurstGravity(), 1F, burst.getColor());
 
-				((Lens) lens.getItem()).apply(lens, properties, level);
+				((BasicLensItem) lens.getItem()).apply(lens, properties, level);
 
 				burst.setColor(properties.color);
 				burst.setStartingMana(properties.maxMana);
@@ -68,7 +68,7 @@ public class ManaPrismBlockEntity extends ExposedSimpleInventoryBlockEntity impl
 		return new SimpleContainer(1) {
 			@Override
 			public boolean canPlaceItem(int index, ItemStack stack) {
-				return !stack.isEmpty() && stack.getItem() instanceof Lens;
+				return !stack.isEmpty() && stack.getItem() instanceof BasicLensItem;
 			}
 
 			@Override
