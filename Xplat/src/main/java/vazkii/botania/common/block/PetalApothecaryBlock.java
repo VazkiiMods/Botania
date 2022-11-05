@@ -165,6 +165,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 				&& ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, false)) {
 			ManaItemHandler.instance().requestManaExact(stack, player, SeasRodItem.COST, true);
 			altar.setFluid(State.WATER);
+			player.level.playSound(player, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
 
