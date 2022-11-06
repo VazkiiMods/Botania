@@ -19,8 +19,8 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -53,20 +53,23 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			entity.setItem(stack);
 		}
 
-		double time = ClientTickHandler.ticksInGame + f;
-		double worldTicks = cube == null || cube.getLevel() == null ? 0 : time;
-
 		Minecraft mc = Minecraft.getInstance();
 		ms.pushPose();
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);
-		ms.translate(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
+		/*
+			Using Mth.sin(((float)entity.getAge() + f) / 10.0F + entity.bobOffs from ItemEntityRender#render to sync the bobbing.
+			Divided by a negative number to make the item inside not be static (-1 almost make the cube and item the same speed).
+			Making the divider smaller, slows down the cube bobbing (you can multiply instead to make it faster).
+			This still keeps the item and the cube in sync, the cube just doesn't move as much as the item,
+			but the item never goes outside the cube (based on the tests I made; some edge cases could exist).
+		*/
+		ms.translate(0F, (Mth.sin(((float) entity.getAge() + f) / 10.0F + entity.bobOffs) * 0.1F + 0.1F) / -7F, 0F);
 
 		if (!stack.isEmpty()) {
 			ms.pushPose();
-			float s = stack.getItem() instanceof BlockItem ? 0.7F : 0.5F;
-			ms.translate(0F, 0.8F, 0F);
-			ms.scale(s, s, s);
+			ms.translate(0F, 0.96F, 0F);
+			ms.scale(0.64F, 0.64F, 0.64F);
 			ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 			Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
 			ms.popPose();
