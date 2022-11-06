@@ -238,7 +238,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
-		return lastRecipe == null || lastRecipe.isEmpty() ? InteractionResult.CONSUME : InteractionResult.SUCCESS;
+		return lastRecipe == null || lastRecipe.isEmpty() ? InteractionResult.PASS : InteractionResult.SUCCESS;
 	}
 
 	@Override
