@@ -11,6 +11,7 @@
     },
     {
       "type": "botania:mana_infusion",
+      "heading": "botania.page.flowerShrinking2",
       "text": "botania.page.flowerShrinking1",
       "group": "botania:flower_shrinking"
     }
