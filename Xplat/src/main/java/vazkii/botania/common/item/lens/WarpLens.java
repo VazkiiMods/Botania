@@ -11,6 +11,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -23,8 +24,10 @@ public class WarpLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (entity.level.isClientSide || burst.isFake() || pos.getType() != HitResult.Type.BLOCK) {
-			return shouldKill;
+		Level world = entity.level;
+
+		if (world.isClientSide || pos.getType() != HitResult.Type.BLOCK) {
+			return false;
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
