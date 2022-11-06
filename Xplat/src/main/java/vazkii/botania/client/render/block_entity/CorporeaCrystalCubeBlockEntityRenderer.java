@@ -57,6 +57,13 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 		ms.pushPose();
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);
+		/*
+			Using Mth.sin(((float)entity.getAge() + f) / 10.0F + entity.bobOffs from ItemEntityRender#render to sync the bobbing.
+			Divided by a negative number to make the item inside not be static (-1 almost make the cube and item the same speed).
+			Making the divider smaller, slows down the cube bobbing (you can multiply instead to make it faster).
+			This still keeps the item and the cube in sync, the cube just doesn't move as much as the item,
+			but the item never goes outside the cube (based on the tests I made; some edge cases could exist).
+		*/
 		ms.translate(0F, (Mth.sin(((float) entity.getAge() + f) / 10.0F + entity.bobOffs) * 0.1F + 0.1F) / -7F, 0F);
 
 		if (!stack.isEmpty()) {
