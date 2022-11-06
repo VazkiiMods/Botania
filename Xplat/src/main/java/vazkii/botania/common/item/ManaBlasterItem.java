@@ -29,8 +29,8 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.BasicLensItem;
+import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ControlLensItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
