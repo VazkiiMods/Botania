@@ -88,6 +88,8 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			case "dropTip1":
 				Component drop = Component.keybind("key.drop").withStyle(ChatFormatting.GREEN);
 				return IVariable.from(Component.translatable("botaniamisc." + key, drop));
+			case "dropTip3":
+				return IVariable.from(Component.translatable("botaniamisc." + key));
 		}
 		return null;
 	}
