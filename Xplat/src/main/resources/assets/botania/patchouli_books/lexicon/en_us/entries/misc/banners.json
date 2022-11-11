@@ -1,7 +1,7 @@
 {
   "name": "botania.entry.banners",
   "category": "botania:misc",
-  "icon": "botania:lexicon",
+  "icon": "minecraft:flower_banner_pattern",
   "pages": [
     {
       "type": "text",
