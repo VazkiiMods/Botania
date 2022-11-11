@@ -1837,7 +1837,7 @@
   "botania.page.flowers1": "Flowers as far as the eye can see...",
   "botania.page.flowers2": "These flowers can be plucked for $(item)Mystical Petals$(0), which are used in the creation of magical instruments and plants.$(p)Right-clicking a petal upon the ground will $(thing)bury it$(0), making it emit particles.",
   "botania.page.flowers17": "These petals can also be crushed into the corresponding $(item)Dyes$(0).",
-  "botania.page.flowers14": "Mystical Petal",
+  "botania.page.flowers14": "Mystical Petals",
   "botania.page.flowers3": "Plucking petals off flowers.",
   "botania.page.flowers15": "Dye",
   "botania.page.flowers5": "Grinding Petals into Dye.",
