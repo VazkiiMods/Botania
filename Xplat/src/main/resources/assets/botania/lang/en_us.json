@@ -3132,7 +3132,7 @@
 
   "botania.entry.knockbackBelt": "Tectonic Girdle",
   "botania.tagline.knockbackBelt": "Prevent all knockback",
-  "botania.page.knockbackBelt0": "By harnessing the (relative) stability of tectonic forces, the $(item)Tectonic Girdle$(0) negates any $(thing)Knockback$(0) applied to its wearer from outside attacks.",
+  "botania.page.knockbackBelt0": "By harnessing the (relative) stability of tectonic forces, the $(item)Tectonic Girdle$(0) negates any $(thing)Knockback$(0) applied to its wearer from outside attacks and all recoil from the $(l:tools/mana_blaster)$(item)Mana Blaster$(0)$(/l).",
   "botania.page.knockbackBelt1": "The Steve who couldn't be moved",
 
   "botania.entry.icePendant": "Snowflake Pendant",

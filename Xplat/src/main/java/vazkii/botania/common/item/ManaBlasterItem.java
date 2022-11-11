@@ -38,6 +38,7 @@ import vazkii.botania.client.gui.TooltipHandler;
 import vazkii.botania.common.advancements.ManaBlasterTrigger;
 import vazkii.botania.common.entity.ManaBurstEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.proxy.Proxy;
 
@@ -85,7 +86,7 @@ public class ManaBlasterItem extends Item {
 					world.addFreshEntity(burst);
 					ManaBlasterTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
 					setCooldown(stack, effCd);
-				} else {
+				} else if (!EquipmentHandler.getAllWorn(player).hasAnyMatching(k -> k.is(BotaniaItems.knockbackBelt))) {
 					player.setDeltaMovement(player.getDeltaMovement().subtract(burst.getDeltaMovement().multiply(0.1, 0.3, 0.1)));
 				}
 			} else if (!world.isClientSide) {
