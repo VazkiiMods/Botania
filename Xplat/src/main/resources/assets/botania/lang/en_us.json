@@ -2118,6 +2118,7 @@
   "botania.tagline.flowerShrinking": "Smaller flowers with a smaller range",
   "botania.page.flowerShrinking0": "Some functional flowers can have a bit too much reach for certain use-cases. Tossing one of those into a $(l:mana/pool)$(item)Mana Pool$(0)$(/l) with an $(l:devices/mana_alchemy)$(item)Alchemy Catalyst$(0)$(/l) will (at the cost of some $(thing)Mana$(0)) shrink it, making its area of effect smaller. Every other function remains the same.",
   "botania.page.flowerShrinking1": "Like a nendoroid",
+  "botania.page.flowerShrinking2": "Petite Flowers",
 
   "botania.entry.flowerSpeed": "Modulating Delay",
   "botania.tagline.flowerSpeed": "Changing how long flowers take to work",
