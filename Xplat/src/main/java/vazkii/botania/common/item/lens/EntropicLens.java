@@ -23,8 +23,12 @@ public class EntropicLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
-		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-		if (pos.getType() == HitResult.Type.BLOCK && !entity.level.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
+		if (pos.getType() == HitResult.Type.BLOCK) {
+			BlockPos hit = ((BlockHitResult) pos).getBlockPos();
+			if (entity.level.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
+				return false;
+			}
+
 			if (!entity.level.isClientSide && !burst.isFake() && !isManaBlock) {
 				entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(),
 						burst.getMana() / 50F, Explosion.BlockInteraction.BREAK);
