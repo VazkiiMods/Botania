@@ -71,10 +71,10 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 				if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
 					ItemStack displayStack = stackAt.copy();
 					InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
-					if (did.consumesAction() && !ctx.getLevel().isClientSide) {
-						ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
-					}
-					if (did != InteractionResult.FAIL) {
+					if (did.consumesAction()) {
+						if (!ctx.getLevel().isClientSide) {
+							ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
+						}
 						player.getCooldowns().addCooldown(this, TIME);
 						return did;
 					}
