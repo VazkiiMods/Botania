@@ -9,7 +9,7 @@
     }
   ],
   "extra_recipe_mappings": {
-    "botania:black_lotus": 1,
-    "botania:blacker_lotus": 1
+    "botania:black_lotus": 0,
+    "botania:blacker_lotus": 0
   }
 }
