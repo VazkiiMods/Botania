@@ -6,6 +6,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.RedstoneLampBlock;
+
 import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.item.BotaniaItems;
