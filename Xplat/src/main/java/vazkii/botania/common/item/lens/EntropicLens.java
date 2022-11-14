@@ -26,7 +26,7 @@ public class EntropicLens extends Lens {
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			BlockPos hit = ((BlockHitResult) pos).getBlockPos();
 			if (entity.level.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
-				return false;
+				return shouldKill;
 			}
 
 			if (!entity.level.isClientSide && !burst.isFake() && !isManaBlock) {
@@ -35,8 +35,7 @@ public class EntropicLens extends Lens {
 			}
 			return true;
 		}
-
-		return false;
+		return shouldKill;
 	}
 
 }
