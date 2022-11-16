@@ -42,6 +42,7 @@
       "vazkii.botania.test.block.ForceRelayTest",
       "vazkii.botania.test.block.RannuncarpusTest",
       "vazkii.botania.test.block.TargetBlockTest",
+      "vazkii.botania.test.block.ApothecaryRecipeTest",
       "vazkii.botania.test.item.CacophoniumTest",
       "vazkii.botania.test.item.FlowerPouchTest",
       "vazkii.botania.test.item.LifeAggregatorTest",
