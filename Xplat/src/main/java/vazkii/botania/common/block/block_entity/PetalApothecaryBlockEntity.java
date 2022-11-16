@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -47,17 +48,16 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity implements PetalApothecary {
 
-	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int CRAFT_EFFECT_EVENT = 1;
 
 	public static final String ITEM_TAG_APOTHECARY_SPAWNED = "ApothecarySpawned";
 
 	private List<ItemStack> lastRecipe = null;
+	private Ingredient lastReagent = Ingredient.EMPTY;
 	private int recipeKeepTicks = 0;
 
 	public PetalApothecaryBlockEntity(BlockPos pos, BlockState state) {
@@ -97,10 +97,11 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			return true;
 		}
 
-		if (SEED_PATTERN.matcher(stack.getDescriptionId()).find()) {
-			Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getItemHandler(), level);
-			maybeRecipe.ifPresent(recipe -> {
-				saveLastRecipe();
+		Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getItemHandler(), level);
+		if (maybeRecipe.isPresent()) {
+			var recipe = maybeRecipe.get();
+			if (recipe.getReagent().test(item.getItem())) {
+				saveLastRecipe(recipe.getReagent());
 				ItemStack output = recipe.assemble(getItemHandler());
 
 				for (int i = 0; i < inventorySize(); i++) {
@@ -116,11 +117,17 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				setFluid(State.EMPTY);
 
 				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
-			});
-			return maybeRecipe.isPresent();
-		} else if (!XplatAbstractions.INSTANCE.isFluidContainer(item)
+				return true;
+			}
+		}
+
+		if (!XplatAbstractions.INSTANCE.isFluidContainer(item)
 				&& !XplatAbstractions.INSTANCE.itemFlagsComponent(item).apothecarySpawned) {
 			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
+				return false;
+			}
+
+			if (lastReagent.test(item.getItem())) {
 				return false;
 			}
 
@@ -129,6 +136,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					getItemHandler().setItem(i, stack.split(1));
 					EntityHelper.syncItem(item);
 					level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
+					clearLastRecipe();
 					return true;
 				}
 			}
@@ -146,7 +154,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		return c;
 	}
 
-	public void saveLastRecipe() {
+	public void saveLastRecipe(Ingredient reagent) {
 		lastRecipe = new ArrayList<>();
 		for (int i = 0; i < inventorySize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
@@ -155,8 +163,14 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			}
 			lastRecipe.add(stack.copy());
 		}
+		lastReagent = reagent;
 		recipeKeepTicks = 400;
 		level.blockEvent(getBlockPos(), getBlockState().getBlock(), SET_KEEP_TICKS_EVENT, 400);
+	}
+
+	public void clearLastRecipe() {
+		lastRecipe = null;
+		lastReagent = Ingredient.EMPTY;
 	}
 
 	public void trySetLastRecipe(Player player) {
@@ -181,7 +195,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		if (recipeKeepTicks > 0) {
 			--recipeKeepTicks;
 		} else {
-			lastRecipe = null;
+			clearLastRecipe();
 		}
 	}
 
@@ -306,9 +320,17 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
 					ItemStack stack = recipe.assemble(altar.getItemHandler());
-
 					mc.getItemRenderer().renderGuiItem(stack, xc + radius + 32, yc - 8);
-					mc.getItemRenderer().renderGuiItem(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
+
+					var reagents = recipe.getReagent().getItems();
+					ItemStack reagent;
+					if (reagents.length == 0) {
+						reagent = new ItemStack(Items.BARRIER);
+					} else {
+						int idx = (int) ((altar.level.getGameTime() / 20) % reagents.length);
+						reagent = reagents[idx];
+					}
+					mc.getItemRenderer().renderGuiItem(reagent, xc + radius + 16, yc + 6);
 					mc.font.draw(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
 				});
 
