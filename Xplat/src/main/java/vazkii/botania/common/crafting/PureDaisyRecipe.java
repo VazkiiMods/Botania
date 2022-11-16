@@ -60,7 +60,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 
 	@Override
 	public boolean matches(Level world, BlockPos pos, SpecialFlowerBlockEntity pureDaisy, BlockState state) {
-		return input.test(state);
+		return input.test(state) && outputState != state;
 	}
 
 	@Override

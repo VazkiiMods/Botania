@@ -41,7 +41,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Blocks.STONE), BotaniaBlocks.livingrock.defaultBlockState()));
 		consumer.accept(new StateCopyingRecipe(id("livingwood"),
-				StateIngredientHelper.tagExcluding(BlockTags.LOGS, StateIngredientHelper.of(BotaniaBlocks.livingwoodLog)),
+				StateIngredientHelper.of(BlockTags.LOGS),
 				BotaniaBlocks.livingwoodLog));
 
 		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredientHelper.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.defaultBlockState()));
