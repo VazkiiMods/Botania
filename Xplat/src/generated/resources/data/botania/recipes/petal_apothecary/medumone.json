@@ -22,5 +22,8 @@
   ],
   "output": {
     "item": "botania:medumone"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

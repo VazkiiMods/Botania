@@ -25,5 +25,8 @@
   ],
   "output": {
     "item": "botania:narslimmus"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

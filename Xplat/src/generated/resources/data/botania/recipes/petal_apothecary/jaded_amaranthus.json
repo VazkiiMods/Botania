@@ -19,5 +19,8 @@
   ],
   "output": {
     "item": "botania:jaded_amaranthus"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

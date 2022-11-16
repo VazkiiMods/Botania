@@ -19,5 +19,8 @@
   ],
   "output": {
     "item": "botania:clayconia"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

@@ -22,5 +22,8 @@
   ],
   "output": {
     "item": "botania:daffomill"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

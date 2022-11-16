@@ -22,5 +22,8 @@
   ],
   "output": {
     "item": "botania:rosa_arcana"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

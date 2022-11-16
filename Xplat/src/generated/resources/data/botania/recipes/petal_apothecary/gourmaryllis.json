@@ -25,5 +25,8 @@
   ],
   "output": {
     "item": "botania:gourmaryllis"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

@@ -31,5 +31,8 @@
   ],
   "output": {
     "item": "botania:orechid_ignem"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

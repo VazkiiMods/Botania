@@ -19,5 +19,8 @@
   ],
   "output": {
     "item": "botania:rannuncarpus"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

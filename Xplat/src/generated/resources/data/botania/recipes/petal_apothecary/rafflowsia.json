@@ -28,5 +28,8 @@
   ],
   "output": {
     "item": "botania:rafflowsia"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

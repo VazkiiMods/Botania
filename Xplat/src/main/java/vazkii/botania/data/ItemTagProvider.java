@@ -204,5 +204,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 				waterRod
 		);
 		this.tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(icePendant);
+
+		this.tag(BotaniaTags.Items.SEED_APOTHECARY_REAGENT)
+				.add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
+				.addOptionalTag(new ResourceLocation("forge", "seeds"));
 	}
 }

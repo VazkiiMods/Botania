@@ -31,5 +31,8 @@
   ],
   "output": {
     "item": "botania:vinculotus"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

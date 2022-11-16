@@ -34,5 +34,8 @@
   ],
   "output": {
     "item": "botania:loonium"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

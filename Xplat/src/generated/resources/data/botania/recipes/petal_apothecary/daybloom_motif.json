@@ -16,5 +16,8 @@
   ],
   "output": {
     "item": "botania:daybloom_motif"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

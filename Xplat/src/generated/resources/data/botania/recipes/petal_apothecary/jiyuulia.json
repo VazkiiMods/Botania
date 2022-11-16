@@ -22,5 +22,8 @@
   ],
   "output": {
     "item": "botania:jiyuulia"
+  },
+  "reagent": {
+    "tag": "botania:seed_apothecary_reagent"
   }
 }

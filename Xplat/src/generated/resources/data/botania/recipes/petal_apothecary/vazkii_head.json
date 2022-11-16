@@ -58,6 +58,9 @@
       "nbt": {
         "SkullOwner": "Vazkii"
       }
+    },
+    "reagent": {
+      "tag": "botania:seed_apothecary_reagent"
     }
   }
 }

@@ -113,6 +113,7 @@ public class BotaniaTags {
 		 * Items in this tag may consume mana
 		 */
 		public static final TagKey<Item> MANA_USING_ITEMS = tag("mana_using_items");
+		public static final TagKey<Item> SEED_APOTHECARY_REAGENT = tag("seed_apothecary_reagent");
 
 		public static TagKey<Item> getPetalTag(DyeColor color) {
 			return switch (color) {
