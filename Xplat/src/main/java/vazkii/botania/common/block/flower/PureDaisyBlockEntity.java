@@ -94,9 +94,10 @@ public class PureDaisyBlockEntity extends SpecialFlowerBlockEntity {
 				if (ticksRemaining[positionAt] <= 0) {
 					ticksRemaining[positionAt] = -1;
 
+					BlockState oldState = world.getBlockState(coords);
 					if (recipe.set(world, coords, this)) {
 						if (BotaniaConfig.common().blockBreakParticles()) {
-							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(recipe.getOutputState()));
+							getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(oldState));
 						}
 						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 					}
