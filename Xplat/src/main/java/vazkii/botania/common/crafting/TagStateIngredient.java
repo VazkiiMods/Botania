@@ -59,7 +59,7 @@ public class TagStateIngredient extends BlocksStateIngredient {
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "tag");
-		object.addProperty("tag", tag.toString());
+		object.addProperty("tag", tag.location().toString());
 		return object;
 	}
 
