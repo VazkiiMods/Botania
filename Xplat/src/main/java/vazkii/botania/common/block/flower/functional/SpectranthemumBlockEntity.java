@@ -37,11 +37,8 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
 
-	private static final int COST = 24;
+	private static final int BASE_COST = 2;
 	private static final int RANGE = 2;
-	private static final int BIND_RANGE = 12;
-
-	public static final String TAG_TELEPORTED = "botania:teleported";
 
 	private BlockPos bindPos = Bound.UNBOUND_POS;
 
@@ -61,8 +58,7 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-RANGE, -RANGE, -RANGE), pos.offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for (ItemEntity item : items) {
-				ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
-				if (!DelayHelper.canInteractWith(this, item) || flags.spectranthemumTeleported) {
+				if (!DelayHelper.canInteractWith(this, item)) {
 					continue;
 				}
 
@@ -71,11 +67,11 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 					continue;
 				}
 
-				int cost = stack.getCount() * COST;
+				// TODO: maybe teleport fewer items if the cost is too much?
+				int cost = BASE_COST * stack.getCount() * (int) Math.sqrt(bindPos.distToCenterSqr(item.position()));
 				if (getMana() >= cost) {
 					spawnExplosionParticles(item, 10);
 					item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
-					flags.spectranthemumTeleported = true;
 					item.setDeltaMovement(Vec3.ZERO);
 					spawnExplosionParticles(item, 10);
 					addMana(-cost);
@@ -96,11 +92,6 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
-	}
-
-	@Override
-	public RadiusDescriptor getSecondaryRadius() {
-		return RadiusDescriptor.Rectangle.square(getEffectivePos(), BIND_RANGE);
 	}
 
 	@Override
@@ -133,14 +124,14 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public int getMaxMana() {
-		return 16000;
+		return 5000;
 	}
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if (!bound && !pos.equals(bindPos) && pos.distSqr(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
+		if (!bound && !pos.equals(bindPos) && !pos.equals(getEffectivePos())) {
 			bindPos = pos;
 			sync();
 

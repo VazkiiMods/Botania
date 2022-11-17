@@ -16,7 +16,6 @@ import vazkii.botania.common.block.flower.functional.SpectranthemumBlockEntity;
 
 // Component for misc internal Botania flags
 public class ItemFlagsComponent extends SerializableComponent {
-	public boolean spectranthemumTeleported = false;
 	public boolean alfPortalSpawned = false;
 	public boolean apothecarySpawned = false;
 	/**
@@ -35,7 +34,6 @@ public class ItemFlagsComponent extends SerializableComponent {
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {
-		spectranthemumTeleported = tag.getBoolean(SpectranthemumBlockEntity.TAG_TELEPORTED);
 		alfPortalSpawned = tag.getBoolean(AlfheimPortalBlockEntity.TAG_PORTAL_FLAG);
 		apothecarySpawned = tag.getBoolean(PetalApothecaryBlockEntity.ITEM_TAG_APOTHECARY_SPAWNED);
 		timeCounter = tag.getInt("timeCounter");
@@ -44,7 +42,6 @@ public class ItemFlagsComponent extends SerializableComponent {
 
 	@Override
 	public void writeToNbt(CompoundTag tag) {
-		tag.putBoolean(SpectranthemumBlockEntity.TAG_TELEPORTED, spectranthemumTeleported);
 		tag.putBoolean(AlfheimPortalBlockEntity.TAG_PORTAL_FLAG, alfPortalSpawned);
 		tag.putBoolean(PetalApothecaryBlockEntity.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 		tag.putInt("timeCounter", timeCounter);
