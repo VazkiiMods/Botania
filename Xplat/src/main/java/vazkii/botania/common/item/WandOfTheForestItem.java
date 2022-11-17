@@ -17,8 +17,6 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
@@ -184,8 +182,8 @@ public class WandOfTheForestItem extends Item {
 				if (newState != state) {
 					world.setBlockAndUpdate(pos, newState);
 					ctx.getLevel().playSound(
-						ctx.getPlayer(), ctx.getClickedPos(), newState.getBlock().getSoundType(newState).getPlaceSound(),
-						SoundSource.BLOCKS, 1F, 1F
+							ctx.getPlayer(), ctx.getClickedPos(), newState.getBlock().getSoundType(newState).getPlaceSound(),
+							SoundSource.BLOCKS, 1F, 1F
 					);
 					return InteractionResult.SUCCESS;
 				}
