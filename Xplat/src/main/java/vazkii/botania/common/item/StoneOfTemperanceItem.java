@@ -13,7 +13,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -37,8 +40,7 @@ public class StoneOfTemperanceItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
+		toggleActive(stack, player, world);
 		return InteractionResultHolder.success(stack);
 	}
 
@@ -61,6 +63,22 @@ public class StoneOfTemperanceItem extends Item {
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack cursor, Slot slot, ClickAction click, Player player, SlotAccess access) {
+		Level world = player.getLevel();
+		if (click == ClickAction.SECONDARY && slot.allowModification(player) && cursor.isEmpty()) {
+			toggleActive(stack, player, world);
+			access.set(cursor);
+			return true;
+		}
+		return false;
+	}
+
+	private void toggleActive(ItemStack stack, Player player, Level world) {
+		ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
+		world.playSound(player, player.getX(), player.getY(), player.getZ(), BotaniaSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
 	}
 
 }
