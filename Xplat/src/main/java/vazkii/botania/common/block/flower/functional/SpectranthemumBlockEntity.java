@@ -24,7 +24,6 @@ import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.DelayHelper;
-import vazkii.botania.common.internal_caps.ItemFlagsComponent;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
@@ -68,13 +67,13 @@ public class SpectranthemumBlockEntity extends FunctionalFlowerBlockEntity {
 				}
 
 				// TODO: maybe teleport fewer items if the cost is too much?
-				int cost = BASE_COST * stack.getCount() * (int) Math.sqrt(bindPos.distToCenterSqr(item.position()));
+				double cost = BASE_COST * stack.getCount() * Math.sqrt(bindPos.distToCenterSqr(item.position()));
 				if (getMana() >= cost) {
 					spawnExplosionParticles(item, 10);
 					item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 					item.setDeltaMovement(Vec3.ZERO);
 					spawnExplosionParticles(item, 10);
-					addMana(-cost);
+					addMana(-(int) cost);
 					did = true;
 				}
 			}

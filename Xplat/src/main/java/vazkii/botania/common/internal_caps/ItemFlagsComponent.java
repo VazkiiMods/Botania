@@ -12,7 +12,6 @@ import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
 import vazkii.botania.common.block.block_entity.PetalApothecaryBlockEntity;
-import vazkii.botania.common.block.flower.functional.SpectranthemumBlockEntity;
 
 // Component for misc internal Botania flags
 public class ItemFlagsComponent extends SerializableComponent {
