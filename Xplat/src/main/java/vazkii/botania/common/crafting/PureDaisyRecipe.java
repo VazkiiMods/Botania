@@ -71,6 +71,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 				var server = serverLevel.getServer();
 				this.function.get(server.getFunctions()).ifPresent(command -> {
 					var context = server.getFunctions().getGameLoopSender()
+							.withLevel((ServerLevel) world)
 							.withPosition(Vec3.atBottomCenterOf(pos));
 					server.getFunctions().execute(command, context);
 				});
