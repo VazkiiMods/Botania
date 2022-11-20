@@ -11,7 +11,6 @@ package vazkii.botania.common.block.flower.functional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -76,14 +75,13 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	@Nullable
 	private OrechidRecipe findMatchingRecipe(BlockPos coords) {
 		BlockState input = level.getBlockState(coords);
-		List<Output> values = new ArrayList<>();
+		List<WeightedEntry.Wrapper<OrechidRecipe>> values = new ArrayList<>();
 		for (OrechidRecipe recipe : OrechidManager.getFor(getLevel().getRecipeManager(), getRecipeType())
 				.get(input.getBlock())) {
-			Output output = new Output(recipe, recipe.getWeight(getLevel(), coords));
-			values.add(output);
+			values.add(WeightedEntry.wrap(recipe, recipe.getWeight(getLevel(), coords)));
 		}
 		return WeightedRandom.getRandomItem(getLevel().random, values)
-				.map(o -> o.recipe)
+				.map(WeightedEntry.Wrapper::getData)
 				.orElse(null);
 	}
 
@@ -110,21 +108,6 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 			});
 
 			sync();
-		}
-	}
-
-	private static class Output implements WeightedEntry {
-		private final Weight weight;
-		private final OrechidRecipe recipe;
-
-		public Output(OrechidRecipe recipe, int weight) {
-			this.weight = Weight.of(weight);
-			this.recipe = recipe;
-		}
-
-		@Override
-		public Weight getWeight() {
-			return weight;
 		}
 	}
 
