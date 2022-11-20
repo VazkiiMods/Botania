@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -39,6 +40,8 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	StateIngredient getInput();
 
 	BlockState getOutputState();
+
+	CommandFunction.CacheableFunction getSuccessFunction();
 
 	int getTime();
 

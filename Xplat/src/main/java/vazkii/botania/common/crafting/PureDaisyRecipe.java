@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.StateIngredient;
@@ -92,6 +91,11 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 	}
 
 	@Override
+	public CommandFunction.CacheableFunction getSuccessFunction() {
+		return this.function;
+	}
+
+	@Override
 	public int getTime() {
 		return time;
 	}
@@ -126,7 +130,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 			buf.writeVarInt(recipe.time);
 		}
 
-		@Nullable
+		@NotNull
 		@Override
 		public PureDaisyRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
 			StateIngredient input = StateIngredientHelper.read(buf);
