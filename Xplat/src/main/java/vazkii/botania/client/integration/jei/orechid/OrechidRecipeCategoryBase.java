@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
-import com.google.common.collect.ListMultimap;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -33,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.OrechidRecipe;
 import vazkii.botania.common.handler.OrechidManager;
 
+import java.util.Collection;
 import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -72,7 +72,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 		return icon;
 	}
 
-	public static float getTotalOreWeight(List<? extends OrechidRecipe> weights, int myWeight) {
+	public static float getTotalOreWeight(Collection<? extends OrechidRecipe> weights, int myWeight) {
 		return weights.stream()
 				.map(OrechidRecipe::getWeight)
 				.reduce(Integer::sum).orElse(myWeight * 64 * 64);
@@ -80,9 +80,12 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 
 	protected abstract RecipeType<T> recipeType();
 
-	protected List<? extends OrechidRecipe> getOreWeights(Block input) {
-		ListMultimap<Block, ? extends OrechidRecipe> multimap = OrechidManager.getFor(Minecraft.getInstance().level.getRecipeManager(), recipeType());
-		return multimap.get(input);
+	protected Collection<T> getOreWeights(Block input) {
+		return OrechidManager.getMatchingRecipes(Minecraft.getInstance().level.getRecipeManager(),
+				recipeType(),
+				// TODO refactor input param to be a blockstate
+				input.defaultBlockState()
+		);
 	}
 
 	@Override

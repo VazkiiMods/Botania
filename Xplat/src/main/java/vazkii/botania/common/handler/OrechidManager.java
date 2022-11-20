@@ -8,15 +8,14 @@
  */
 package vazkii.botania.common.handler;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +27,7 @@ import java.util.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class OrechidManager implements ResourceManagerReloadListener {
-	private static final Map<RecipeType<? extends OrechidRecipe>, ListMultimap<Block, ? extends OrechidRecipe>> DATA = new HashMap<>();
+	private static final Map<RecipeType<? extends OrechidRecipe>, Map<BlockState, List<? extends OrechidRecipe>>> BY_TYPE = new IdentityHashMap<>();
 
 	public static void registerListener() {
 		XplatAbstractions.INSTANCE.registerReloadListener(PackType.SERVER_DATA, prefix("orechid"), new OrechidManager());
@@ -36,20 +35,34 @@ public class OrechidManager implements ResourceManagerReloadListener {
 
 	@Override
 	public void onResourceManagerReload(@NotNull ResourceManager manager) {
-		DATA.clear();
+		BY_TYPE.clear();
 	}
 
-	public static ListMultimap<Block, ? extends OrechidRecipe> getFor(RecipeManager manager,
-			RecipeType<? extends OrechidRecipe> type) {
-		return DATA.computeIfAbsent(type, t -> {
-			ListMultimap<Block, OrechidRecipe> map = ArrayListMultimap.create();
-			for (var recipe : manager.getAllRecipesFor(t)) {
-				map.put(recipe.getInput(), recipe);
+	public static <T extends OrechidRecipe> Collection<T> getMatchingRecipes(
+			RecipeManager manager,
+			RecipeType<T> type,
+			BlockState state) {
+		var byState = BY_TYPE.get(type);
+		if (byState == null) {
+			byState = new IdentityHashMap<>();
+			BY_TYPE.put(type, byState);
+		}
+
+		var list = byState.get(state);
+		if (list == null) {
+			var builder = ImmutableList.<T>builder();
+			for (var recipe : manager.getAllRecipesFor(type)) {
+				// todo should eventually become `recipe.getInput().matches(state)`
+				if (state.is(recipe.getInput())) {
+					builder.add(recipe);
+				}
 			}
-			for (var list : map.asMap().values()) {
-				((List<OrechidRecipe>) list).sort(Comparator.comparingInt(OrechidRecipe::getWeight));
-			}
-			return map;
-		});
+			list = builder.build();
+			byState.put(state, list);
+		}
+
+		@SuppressWarnings("unchecked") // we only add T's to this list in the above loop
+		List<T> result = (List<T>) list;
+		return result;
 	}
 }
