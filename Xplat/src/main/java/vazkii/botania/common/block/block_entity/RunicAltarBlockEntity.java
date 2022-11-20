@@ -289,7 +289,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					}
 				}
 
-				livingrock.getItem().shrink(1);
+				EntityHelper.shrinkItem(livingrock);
 			}
 		}
 
