@@ -22,7 +22,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +31,7 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 	private final int weightBonus;
 	private final TagKey<Biome> biomes;
 
-	public MarimorphosisRecipe(ResourceLocation id, Block input, StateIngredient output, int weight,
+	public MarimorphosisRecipe(ResourceLocation id, StateIngredient input, StateIngredient output, int weight,
 			CommandFunction.CacheableFunction successFunction,
 			int weightBonus, TagKey<Biome> biomes) {
 		super(id, input, output, weight, successFunction);

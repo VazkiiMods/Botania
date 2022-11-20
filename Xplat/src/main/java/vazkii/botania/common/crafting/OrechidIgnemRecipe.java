@@ -15,14 +15,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
 public class OrechidIgnemRecipe extends OrechidRecipe {
-	public OrechidIgnemRecipe(ResourceLocation id, Block input, StateIngredient output, int weight, CommandFunction.CacheableFunction successFunction) {
+	public OrechidIgnemRecipe(ResourceLocation id, StateIngredient input, StateIngredient output, int weight, CommandFunction.CacheableFunction successFunction) {
 		super(id, input, output, weight, successFunction);
 	}
 

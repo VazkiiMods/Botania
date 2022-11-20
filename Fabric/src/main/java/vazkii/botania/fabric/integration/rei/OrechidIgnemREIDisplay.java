@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.crafting.OrechidIgnemRecipe;
 
 public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay<OrechidIgnemRecipe> {
-	public OrechidIgnemREIDisplay(OrechidIgnemRecipe recipe, int totalWeight) {
-		super(recipe, totalWeight);
+	public OrechidIgnemREIDisplay(OrechidIgnemRecipe recipe) {
+		super(recipe);
 	}
 
 	@Override

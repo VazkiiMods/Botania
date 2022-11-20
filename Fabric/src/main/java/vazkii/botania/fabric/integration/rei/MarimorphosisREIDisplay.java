@@ -13,8 +13,8 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import vazkii.botania.common.crafting.MarimorphosisRecipe;
 
 public class MarimorphosisREIDisplay extends OrechidBaseREIDisplay<MarimorphosisRecipe> {
-	public MarimorphosisREIDisplay(MarimorphosisRecipe recipe, int totalWeight) {
-		super(recipe, totalWeight);
+	public MarimorphosisREIDisplay(MarimorphosisRecipe recipe) {
+		super(recipe);
 	}
 
 	@Override

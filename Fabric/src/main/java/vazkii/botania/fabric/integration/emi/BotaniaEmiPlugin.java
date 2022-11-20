@@ -10,14 +10,8 @@ import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
@@ -179,29 +173,18 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			registry.addRecipe(new PureDaisyEmiRecipe(recipe));
 		}
 
-		Object2IntMap<Block> weights = getWeights(BotaniaRecipeTypes.ORECHID_TYPE, registry.getRecipeManager());
 		EmiIngredient flower = EmiStack.of(BotaniaFlowerBlocks.orechid);
 		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, weights.getInt(recipe.getInput()), flower));
+			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, flower));
 		}
-		weights = getWeights(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE, registry.getRecipeManager());
 		flower = EmiStack.of(BotaniaFlowerBlocks.orechidIgnem);
 		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, weights.getInt(recipe.getInput()), flower));
+			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, flower));
 		}
-		weights = getWeights(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, registry.getRecipeManager());
 		flower = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
 		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, weights.getInt(recipe.getInput()), flower));
+			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, flower));
 		}
-	}
-
-	public static Object2IntMap<Block> getWeights(RecipeType<? extends OrechidRecipe> type, RecipeManager manager) {
-		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
-		for (OrechidRecipe recipe : manager.getAllRecipesFor(type)) {
-			map.addTo(recipe.getInput(), recipe.getWeight());
-		}
-		return map;
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {

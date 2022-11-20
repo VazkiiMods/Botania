@@ -15,7 +15,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,8 +25,8 @@ public interface OrechidRecipe extends Recipe<Container> {
 	ResourceLocation IGNEM_TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "orechid_ignem");
 	ResourceLocation MARIMORPHOSIS_TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "marimorphosis");
 
-	/** The input block - matching is not state- or tag-sensitive. Must be constant. */
-	Block getInput();
+	/** Valid inputs for the recipe */
+	StateIngredient getInput();
 
 	/** Output to display in recipes and to be used by default. */
 	StateIngredient getOutput();

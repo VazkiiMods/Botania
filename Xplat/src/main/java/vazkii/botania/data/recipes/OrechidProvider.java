@@ -87,19 +87,23 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 	}
 
 	protected Result stone(Block output, int weight) {
-		return new Result(BotaniaRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.STONE, forBlock(output), weight);
+		return new Result(BotaniaRecipeTypes.ORECHID_SERIALIZER, orechidId(output),
+				forBlock(Blocks.STONE), forBlock(output), weight);
 	}
 
 	protected Result deepslate(Block output, int weight) {
-		return new Result(BotaniaRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.DEEPSLATE, forBlock(output), weight);
+		return new Result(BotaniaRecipeTypes.ORECHID_SERIALIZER, orechidId(output),
+				forBlock(Blocks.DEEPSLATE), forBlock(output), weight);
 	}
 
 	protected Result netherrack(Block output, int weight) {
-		return new Result(BotaniaRecipeTypes.ORECHID_IGNEM_SERIALIZER, ignemId(output), Blocks.NETHERRACK, forBlock(output), weight);
+		return new Result(BotaniaRecipeTypes.ORECHID_IGNEM_SERIALIZER, ignemId(output),
+				forBlock(Blocks.NETHERRACK), forBlock(output), weight);
 	}
 
 	protected Result biomeStone(Block output, TagKey<Biome> biome) {
-		return new BiomeResult(BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER, marimorphosisId(output), Blocks.STONE, forBlock(output), 1, 11, biome);
+		return new BiomeResult(BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER, marimorphosisId(output),
+				forBlock(Blocks.STONE), forBlock(output), 1, 11, biome);
 	}
 
 	protected static StateIngredient forBlock(Block block) {
@@ -108,17 +112,18 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public String getName() {
-		return "Botania Orechid and Marimorphosis weight data";
+		return "Botania Orechid and Marimorphosis recipes";
 	}
 
 	protected static class Result implements net.minecraft.data.recipes.FinishedRecipe {
 		private final RecipeSerializer<? extends OrechidRecipe> type;
 		private final ResourceLocation id;
-		private final Block input;
+		private final StateIngredient input;
 		private final StateIngredient output;
 		private final int weight;
 
-		public Result(RecipeSerializer<? extends OrechidRecipe> type, ResourceLocation id, Block input, StateIngredient output, int weight) {
+		public Result(RecipeSerializer<? extends OrechidRecipe> type, ResourceLocation id,
+				StateIngredient input, StateIngredient output, int weight) {
 			this.type = type;
 			this.id = id;
 			this.input = input;
@@ -128,7 +133,7 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 
 		@Override
 		public void serializeRecipeData(JsonObject json) {
-			json.addProperty("input", Registry.BLOCK.getKey(input).toString());
+			json.add("input", input.serialize());
 			json.add("output", output.serialize());
 			json.addProperty("weight", weight);
 		}
@@ -160,8 +165,9 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 		private final int bonusWeight;
 		private final TagKey<Biome> biome;
 
-		public BiomeResult(RecipeSerializer<? extends OrechidRecipe> type, ResourceLocation id, Block input,
-				StateIngredient output, int weight, int bonusWeight, TagKey<Biome> biome) {
+		public BiomeResult(RecipeSerializer<? extends OrechidRecipe> type, ResourceLocation id,
+				StateIngredient input, StateIngredient output, int weight, int bonusWeight,
+				TagKey<Biome> biome) {
 			super(type, id, input, output, weight);
 			this.bonusWeight = bonusWeight;
 			this.biome = biome;

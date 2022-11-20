@@ -11,9 +11,6 @@ package vazkii.botania.fabric.integration.rei;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-
 import me.shedaniel.math.Point;
 import me.shedaniel.math.impl.PointHelper;
 import me.shedaniel.rei.api.client.REIRuntime;
@@ -37,10 +34,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -158,25 +152,12 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 			BotaniaAPI.LOGGER.error("Error adding strippable entry to REI", e);
 		}
 
-		Object2IntMap<Block> weights = getWeights(BotaniaRecipeTypes.ORECHID_TYPE, helper.getRecipeManager());
 		helper.registerRecipeFiller(OrechidRecipe.class, BotaniaRecipeTypes.ORECHID_TYPE,
-				r -> new OrechidREIDisplay(r, weights.getInt(r.getInput())));
-
-		Object2IntMap<Block> weightsIgnem = getWeights(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE, helper.getRecipeManager());
+				OrechidREIDisplay::new);
 		helper.registerRecipeFiller(OrechidIgnemRecipe.class, BotaniaRecipeTypes.ORECHID_IGNEM_TYPE,
-				r -> new OrechidIgnemREIDisplay(r, weightsIgnem.getInt(r.getInput())));
-
-		Object2IntMap<Block> weightsMarim = getWeights(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, helper.getRecipeManager());
+				OrechidIgnemREIDisplay::new);
 		helper.registerRecipeFiller(MarimorphosisRecipe.class, BotaniaRecipeTypes.MARIMORPHOSIS_TYPE,
-				r -> new MarimorphosisREIDisplay(r, weightsMarim.getInt(r.getInput())));
-	}
-
-	public static Object2IntMap<Block> getWeights(RecipeType<? extends vazkii.botania.api.recipe.OrechidRecipe> type, RecipeManager manager) {
-		Object2IntOpenHashMap<Block> map = new Object2IntOpenHashMap<>();
-		for (vazkii.botania.api.recipe.OrechidRecipe recipe : manager.getAllRecipesFor(type)) {
-			map.addTo(recipe.getInput(), recipe.getWeight());
-		}
-		return map;
+				MarimorphosisREIDisplay::new);
 	}
 
 	void registerAncientWillRecipeWrapper(DisplayRegistry helper) {

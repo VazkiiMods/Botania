@@ -21,19 +21,13 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
-import vazkii.botania.common.handler.OrechidManager;
-
-import java.util.Collection;
-import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -72,37 +66,16 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 		return icon;
 	}
 
-	public static float getTotalOreWeight(Collection<? extends OrechidRecipe> weights, int myWeight) {
-		return weights.stream()
-				.map(OrechidRecipe::getWeight)
-				.reduce(Integer::sum).orElse(myWeight * 64 * 64);
-	}
-
 	protected abstract RecipeType<T> recipeType();
-
-	protected Collection<T> getOreWeights(Block input) {
-		return OrechidManager.getMatchingRecipes(Minecraft.getInstance().level.getRecipeManager(),
-				recipeType(),
-				// TODO refactor input param to be a blockstate
-				input.defaultBlockState()
-		);
-	}
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull OrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 9, 12).addItemStack(new ItemStack(recipe.getInput(), 64));
+		builder.addSlot(RecipeIngredientRole.INPUT, 9, 12)
+				.addItemStacks(recipe.getInput().getDisplayedStacks());
 		builder.addSlot(RecipeIngredientRole.CATALYST, 39, 12).addItemStack(iconStack);
 
-		final int myWeight = recipe.getWeight();
-		final int amount = Math.max(1, Math.round((float) myWeight * 64 / getTotalOreWeight(getOreWeights(recipe.getInput()), myWeight)));
-
-		// Shouldn't ever return an empty list since the ore weight
-		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = recipe.getOutput().getDisplayedStacks();
-		stackList.forEach(s -> s.setCount(amount));
-
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
-				.addItemStacks(stackList)
+				.addItemStacks(recipe.getOutput().getDisplayedStacks())
 				.addTooltipCallback((view, tooltip) -> tooltip.addAll(recipe.getOutput().descriptionTooltip()));
 	}
 

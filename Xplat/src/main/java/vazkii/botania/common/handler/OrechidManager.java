@@ -52,8 +52,7 @@ public class OrechidManager implements ResourceManagerReloadListener {
 		if (list == null) {
 			var builder = ImmutableList.<T>builder();
 			for (var recipe : manager.getAllRecipesFor(type)) {
-				// todo should eventually become `recipe.getInput().matches(state)`
-				if (state.is(recipe.getInput())) {
+				if (recipe.getInput().test(state)) {
 					builder.add(recipe);
 				}
 			}

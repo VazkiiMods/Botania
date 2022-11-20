@@ -12,8 +12,6 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
-import net.minecraft.world.item.ItemStack;
-
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.OrechidRecipe;
@@ -26,16 +24,9 @@ public abstract class OrechidBaseREIDisplay<T extends OrechidRecipe> implements 
 	private final List<EntryIngredient> stone;
 	private final List<EntryIngredient> ores;
 
-	public OrechidBaseREIDisplay(T recipe, int totalWeight) {
-		final int myWeight = recipe.getWeight();
-		final int amount = Math.max(1, Math.round((float) (myWeight * 64) / totalWeight));
-
-		List<ItemStack> stackList = recipe.getOutput().getDisplayedStacks();
-		for (ItemStack stack : stackList) {
-			stack.setCount(amount);
-		}
-		stone = Collections.singletonList(EntryIngredient.of(EntryStacks.of(recipe.getInput(), 64)));
-		ores = Collections.singletonList(EntryIngredient.of(stackList.stream().map(EntryStacks::of).collect(Collectors.toList())));
+	public OrechidBaseREIDisplay(T recipe) {
+		stone = Collections.singletonList(EntryIngredient.of(recipe.getInput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
+		ores = Collections.singletonList(EntryIngredient.of(recipe.getOutput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
 	}
 
 	@Override

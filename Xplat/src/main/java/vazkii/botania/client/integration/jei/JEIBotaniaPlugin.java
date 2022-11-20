@@ -25,7 +25,6 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -140,7 +139,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(ManaPoolRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)));
 		registry.addRecipes(TerrestrialAgglomerationRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.TERRA_PLATE_TYPE, BY_ID));
 
-		Comparator<OrechidRecipe> comp = BY_INPUT.thenComparing(BY_WEIGHT).thenComparing(BY_ID);
+		Comparator<OrechidRecipe> comp = BY_WEIGHT.thenComparing(BY_ID);
 		registry.addRecipes(OrechidRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.ORECHID_TYPE, comp));
 		registry.addRecipes(OrechidIgnemRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE, comp));
 		registry.addRecipes(MarimorphosisRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, comp));
@@ -148,7 +147,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
 	private static final Comparator<Recipe<?>> BY_GROUP = Comparator.comparing(Recipe::getGroup);
-	private static final Comparator<OrechidRecipe> BY_INPUT = Comparator.comparing(r -> Registry.BLOCK.getId(r.getInput()));
 	private static final Comparator<OrechidRecipe> BY_WEIGHT = Comparator.<OrechidRecipe, Integer>comparing(OrechidRecipe::getWeight).reversed();
 	private static final Comparator<ManaInfusionRecipe> BY_CATALYST = (l, r) -> {
 		StateIngredient left = l.getRecipeCatalyst();

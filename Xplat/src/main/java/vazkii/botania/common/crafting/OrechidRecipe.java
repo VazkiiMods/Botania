@@ -12,13 +12,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.commands.CommandFunction;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,12 +24,12 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	private final ResourceLocation id;
-	private final Block input;
+	private final StateIngredient input;
 	private final StateIngredient output;
 	private final int weight;
 	private final CommandFunction.CacheableFunction successFunction;
 
-	public OrechidRecipe(ResourceLocation id, Block input, StateIngredient output, int weight, CommandFunction.CacheableFunction successFunction) {
+	public OrechidRecipe(ResourceLocation id, StateIngredient input, StateIngredient output, int weight, CommandFunction.CacheableFunction successFunction) {
 		this.id = id;
 		this.input = input;
 		this.output = output;
@@ -40,7 +38,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	}
 
 	@Override
-	public Block getInput() {
+	public StateIngredient getInput() {
 		return input;
 	}
 
@@ -77,9 +75,10 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	public static class Serializer extends RecipeSerializerBase<OrechidRecipe> {
 		@Override
 		public OrechidRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			var blockId = new ResourceLocation(GsonHelper.getAsString(json, "input"));
-			var input = Registry.BLOCK.getOptional(blockId)
-					.orElseThrow(() -> new JsonSyntaxException("Unknown block id: " + blockId));
+			var input = StateIngredientHelper.tryDeserialize(GsonHelper.getAsJsonObject(json, "input"));
+			if (input == null) {
+				throw new JsonSyntaxException("Unknown input: " + GsonHelper.getAsJsonObject(json, "input"));
+			}
 			var output = StateIngredientHelper.tryDeserialize(GsonHelper.getAsJsonObject(json, "output"));
 			if (output == null) {
 				throw new JsonSyntaxException("Unknown output: " + GsonHelper.getAsJsonObject(json, "output"));
@@ -96,7 +95,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 
 		@Override
 		public OrechidRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			var input = Registry.BLOCK.byId(buffer.readVarInt());
+			var input = StateIngredientHelper.read(buffer);
 			var output = StateIngredientHelper.read(buffer);
 			var weight = buffer.readVarInt();
 			return new OrechidRecipe(recipeId, input, output, weight, CommandFunction.CacheableFunction.NONE);
@@ -104,7 +103,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 
 		@Override
 		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull OrechidRecipe recipe) {
-			buffer.writeVarInt(Registry.BLOCK.getId(recipe.getInput()));
+			recipe.getInput().write(buffer);
 			recipe.getOutput().write(buffer);
 			buffer.writeVarInt(recipe.getWeight());
 		}
