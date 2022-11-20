@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.commands.CommandFunction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -21,12 +22,12 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.recipe.StateIngredient;
 
 public class OrechidIgnemRecipe extends OrechidRecipe {
-	public OrechidIgnemRecipe(ResourceLocation id, Block input, StateIngredient output, int weight) {
-		super(id, input, output, weight);
+	public OrechidIgnemRecipe(ResourceLocation id, Block input, StateIngredient output, int weight, CommandFunction.CacheableFunction successFunction) {
+		super(id, input, output, weight, successFunction);
 	}
 
 	private OrechidIgnemRecipe(OrechidRecipe recipe) {
-		this(recipe.getId(), recipe.getInput(), recipe.getOutput(), recipe.getWeight());
+		this(recipe.getId(), recipe.getInput(), recipe.getOutput(), recipe.getWeight(), recipe.getSuccessFunction());
 	}
 
 	@Override

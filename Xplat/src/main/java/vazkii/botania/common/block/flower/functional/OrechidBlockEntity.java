@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.functional;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -59,21 +61,10 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		int cost = getCost();
-		if (getMana() >= cost && ticksExisted % getDelay() == 0) {
+		if (getMana() >= getCost() && ticksExisted % getDelay() == 0) {
 			BlockPos coords = getCoordsToPut();
 			if (coords != null) {
-				BlockState state = getOreToPut(coords, getLevel().getBlockState(coords));
-				if (state != null) {
-					getLevel().setBlockAndUpdate(coords, state);
-					if (BotaniaConfig.common().blockBreakParticles()) {
-						getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
-					}
-					playSound(coords);
-
-					addMana(-cost);
-					sync();
-				}
+				trySetRecipe(coords, findMatchingRecipe(coords));
 			}
 		}
 	}
@@ -83,17 +74,43 @@ public class OrechidBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	@Nullable
-	private BlockState getOreToPut(BlockPos coords, BlockState state) {
+	private OrechidRecipe findMatchingRecipe(BlockPos coords) {
+		BlockState input = level.getBlockState(coords);
 		List<Output> values = new ArrayList<>();
 		for (OrechidRecipe recipe : OrechidManager.getFor(getLevel().getRecipeManager(), getRecipeType())
-				.get(state.getBlock())) {
+				.get(input.getBlock())) {
 			Output output = new Output(recipe, recipe.getWeight(getLevel(), coords));
 			values.add(output);
 		}
 		return WeightedRandom.getRandomItem(getLevel().random, values)
-				.map(oo -> oo.recipe.getOutput(getLevel(), coords)
-						.pick(getLevel().getRandom()))
+				.map(o -> o.recipe)
 				.orElse(null);
+	}
+
+	private void trySetRecipe(BlockPos coords, @Nullable OrechidRecipe recipe) {
+		if (recipe == null) {
+			return;
+		}
+
+		BlockState state = recipe.getOutput(level, coords).pick(level.random);
+		if (getLevel().setBlockAndUpdate(coords, state)) {
+			if (BotaniaConfig.common().blockBreakParticles()) {
+				getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
+			}
+			playSound(coords);
+			addMana(-getCost());
+
+			var serverLevel = (ServerLevel) this.level;
+			var server = serverLevel.getServer();
+			recipe.getSuccessFunction().get(server.getFunctions()).ifPresent(command -> {
+				var context = server.getFunctions().getGameLoopSender()
+						.withLevel(serverLevel)
+						.withPosition(Vec3.atBottomCenterOf(coords));
+				server.getFunctions().execute(command, context);
+			});
+
+			sync();
+		}
 	}
 
 	private static class Output implements WeightedEntry {

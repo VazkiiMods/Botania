@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -28,12 +29,14 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	private final Block input;
 	private final StateIngredient output;
 	private final int weight;
+	private final CommandFunction.CacheableFunction successFunction;
 
-	public OrechidRecipe(ResourceLocation id, Block input, StateIngredient output, int weight) {
+	public OrechidRecipe(ResourceLocation id, Block input, StateIngredient output, int weight, CommandFunction.CacheableFunction successFunction) {
 		this.id = id;
 		this.input = input;
 		this.output = output;
 		this.weight = weight;
+		this.successFunction = successFunction;
 	}
 
 	@Override
@@ -49,6 +52,11 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 	@Override
 	public int getWeight() {
 		return weight;
+	}
+
+	@Override
+	public CommandFunction.CacheableFunction getSuccessFunction() {
+		return this.successFunction;
 	}
 
 	@Override
@@ -77,8 +85,13 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 				throw new JsonSyntaxException("Unknown output: " + GsonHelper.getAsJsonObject(json, "output"));
 			}
 			var weight = GsonHelper.getAsInt(json, "weight");
+			var functionIdString = GsonHelper.getAsString(json, "success_function", null);
+			var functionId = functionIdString == null ? null : new ResourceLocation(functionIdString);
+			var function = functionId == null
+					? CommandFunction.CacheableFunction.NONE
+					: new CommandFunction.CacheableFunction(functionId);
 
-			return new OrechidRecipe(recipeId, input, output, weight);
+			return new OrechidRecipe(recipeId, input, output, weight, function);
 		}
 
 		@Override
@@ -86,7 +99,7 @@ public class OrechidRecipe implements vazkii.botania.api.recipe.OrechidRecipe {
 			var input = Registry.BLOCK.byId(buffer.readVarInt());
 			var output = StateIngredientHelper.read(buffer);
 			var weight = buffer.readVarInt();
-			return new OrechidRecipe(recipeId, input, output, weight);
+			return new OrechidRecipe(recipeId, input, output, weight, CommandFunction.CacheableFunction.NONE);
 		}
 
 		@Override

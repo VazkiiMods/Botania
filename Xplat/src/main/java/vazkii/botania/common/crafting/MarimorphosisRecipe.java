@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -31,8 +32,10 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 	private final int weightBonus;
 	private final TagKey<Biome> biomes;
 
-	public MarimorphosisRecipe(ResourceLocation id, Block input, StateIngredient output, int weight, int weightBonus, TagKey<Biome> biomes) {
-		super(id, input, output, weight);
+	public MarimorphosisRecipe(ResourceLocation id, Block input, StateIngredient output, int weight,
+			CommandFunction.CacheableFunction successFunction,
+			int weightBonus, TagKey<Biome> biomes) {
+		super(id, input, output, weight, successFunction);
 		this.weightBonus = weightBonus;
 		this.biomes = biomes;
 	}
@@ -67,7 +70,8 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 				throw new JsonSyntaxException("Weight combined with bonus cannot be 0 or less");
 			}
 
-			return new MarimorphosisRecipe(recipeId, base.getInput(), base.getOutput(), base.getWeight(), weightBonus, biomes);
+			return new MarimorphosisRecipe(recipeId, base.getInput(), base.getOutput(),
+					base.getWeight(), base.getSuccessFunction(), weightBonus, biomes);
 		}
 
 		@Override
@@ -77,7 +81,8 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 			TagKey<Biome> biomes = TagKey.create(Registry.BIOME_REGISTRY, buffer.readResourceLocation());
 			int weightBonus = buffer.readVarInt();
 
-			return new MarimorphosisRecipe(recipeId, base.getInput(), base.getOutput(), base.getWeight(), weightBonus, biomes);
+			return new MarimorphosisRecipe(recipeId, base.getInput(), base.getOutput(),
+					base.getWeight(), base.getSuccessFunction(), weightBonus, biomes);
 		}
 
 		@Override

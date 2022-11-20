@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -46,6 +47,8 @@ public interface OrechidRecipe extends Recipe<Container> {
 	default int getWeight(@NotNull Level level, @NotNull BlockPos pos) {
 		return getWeight();
 	}
+
+	CommandFunction.CacheableFunction getSuccessFunction();
 
 	@Override
 	default boolean matches(Container c, Level l) {
