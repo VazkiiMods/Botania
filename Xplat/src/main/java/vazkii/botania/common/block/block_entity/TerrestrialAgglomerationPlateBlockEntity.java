@@ -93,9 +93,12 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 				removeMana = false;
 				ManaSpark spark = self.getAttachedSpark();
 				if (spark != null) {
-					SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
-							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool)
-							.forEach(os -> os.registerTransfer(spark));
+					var otherSparks = SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork());
+					for (var otherSpark : otherSparks) {
+						if (spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool) {
+							otherSpark.registerTransfer(spark);
+						}
+					}
 				}
 				if (self.mana > 0) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);

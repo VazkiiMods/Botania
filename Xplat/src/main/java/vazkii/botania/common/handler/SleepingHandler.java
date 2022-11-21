@@ -26,12 +26,11 @@ public final class SleepingHandler {
 	public static Player.BedSleepingProblem trySleep(Player player, BlockPos sleepPos) {
 		Level world = player.level;
 		if (!world.isClientSide()) {
-			boolean nearGuardian = ((ServerLevel) world).getEntities(BotaniaEntities.DOPPLEGANGER, EntitySelector.ENTITY_STILL_ALIVE)
-					.stream()
-					.anyMatch(e -> e.getPlayersAround().contains(player));
-
-			if (nearGuardian) {
-				return Player.BedSleepingProblem.NOT_SAFE;
+			var entities = ((ServerLevel) world).getEntities(BotaniaEntities.DOPPLEGANGER, EntitySelector.ENTITY_STILL_ALIVE);
+			for (var entity : entities) {
+				if (entity.getPlayersAround().contains(player)) {
+					return Player.BedSleepingProblem.NOT_SAFE;
+				}
 			}
 		}
 		return null;

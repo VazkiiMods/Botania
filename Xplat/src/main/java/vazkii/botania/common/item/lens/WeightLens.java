@@ -30,8 +30,6 @@ import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.BotaniaConfig;
 
-import java.util.List;
-
 public class WeightLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
@@ -65,8 +63,13 @@ public class WeightLens extends Lens {
 			return false;
 		}
 		harvestToolStack.enchant(Enchantments.SILK_TOUCH, 1);
-		List<ItemStack> drops = Block.getDrops(state, level, pos, null, owner, harvestToolStack);
+
 		Item blockItem = state.getBlock().asItem();
-		return drops.stream().anyMatch(s -> s.getItem() == blockItem);
+		for (var drop : Block.getDrops(state, level, pos, null, owner, harvestToolStack)) {
+			if (drop.is(blockItem)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

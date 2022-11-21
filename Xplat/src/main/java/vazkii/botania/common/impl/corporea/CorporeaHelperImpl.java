@@ -95,7 +95,10 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 			}
 
 			var nodeStacks = doit ? node.extractItems(request) : node.countItems(request);
-			int sum = nodeStacks.stream().mapToInt(ItemStack::getCount).sum();
+			int sum = 0;
+			for (var stack : nodeStacks) {
+				sum += stack.getCount();
+			}
 			matchCountByNode.mergeInt(node, sum, Integer::sum);
 			stacks.addAll(nodeStacks);
 		}

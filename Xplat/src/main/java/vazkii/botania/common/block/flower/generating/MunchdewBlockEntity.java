@@ -79,11 +79,16 @@ public class MunchdewBlockEntity extends GeneratingFlowerBlockEntity {
 					break eatLeaves;
 				}
 
-				float maxDistance = coordsMap.values().stream().max(Float::compare).orElse(0f);
-				coordsMap.values().removeIf(dist -> dist < maxDistance - 1f);
+				float maxDistance = 0F;
+				for (float distance : coordsMap.values()) {
+					maxDistance = Math.max(maxDistance, distance);
+				}
+
+				float finalMaxDistance = maxDistance;
+				coordsMap.values().removeIf(dist -> dist < finalMaxDistance - 1f);
 				List<BlockPos> coords = new ArrayList<>(coordsMap.keySet());
 
-				BlockPos breakCoords = coords.get(new Random().nextInt(coords.size()));
+				BlockPos breakCoords = coords.get(level.getRandom().nextInt(coords.size()));
 				BlockState state = getLevel().getBlockState(breakCoords);
 				getLevel().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;

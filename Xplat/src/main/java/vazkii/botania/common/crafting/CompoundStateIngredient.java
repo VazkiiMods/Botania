@@ -17,7 +17,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -40,7 +39,12 @@ public class CompoundStateIngredient implements StateIngredient {
 
 	@Override
 	public boolean test(BlockState state) {
-		return ingredients.stream().anyMatch(stateIngredient -> stateIngredient.test(state));
+		for (var sub : this.ingredients) {
+			if (sub.test(state)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -93,7 +97,9 @@ public class CompoundStateIngredient implements StateIngredient {
 				} else if (ingredient instanceof BlockStateStateIngredient stateIngredient) {
 					this.resolvedBlocks.add(stateIngredient.getState());
 				} else if (ingredient instanceof BlocksStateIngredient stateIngredient) {
-					this.resolvedBlocks.addAll(stateIngredient.getBlocks().stream().map(Block::defaultBlockState).toList());
+					for (var block : stateIngredient.getBlocks()) {
+						this.resolvedBlocks.add(block.defaultBlockState());
+					}
 				}
 			}
 		}

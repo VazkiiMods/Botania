@@ -8,32 +8,23 @@
  */
 package vazkii.botania.api.mana.spark;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.function.Predicate;
 
 public final class SparkHelper {
 
 	public static final int SPARK_SCAN_RANGE = 12;
 
-	public static Stream<ManaSpark> getSparksAround(Level world, double x, double y, double z, DyeColor color) {
-		return getSparksAround(world, x, y, z).stream().filter(s -> s.getNetwork() == color);
-	}
-
-	public static List<ManaSpark> getSparksAround(Level world, double x, double y, double z) {
-		return SparkHelper.getEntitiesAround(ManaSpark.class, world, x, y, z);
-	}
-
-	public static <T> List<T> getEntitiesAround(Class<? extends T> clazz, Level world, double x, double y, double z) {
+	public static List<ManaSpark> getSparksAround(Level world, double x, double y, double z, DyeColor color) {
 		int r = SPARK_SCAN_RANGE;
+		Predicate<Entity> predicate = e -> e instanceof ManaSpark spark && spark.getNetwork() == color;
 		@SuppressWarnings("unchecked")
-		List<T> entities = (List<T>) (List<?>) world.getEntitiesOfClass(Entity.class, new AABB(x - r, y - r, z - r, x + r, y + r, z + r), Predicates.instanceOf(clazz));
+		List<ManaSpark> entities = (List<ManaSpark>) (List<?>) world.getEntitiesOfClass(Entity.class, new AABB(x - r, y - r, z - r, x + r, y + r, z + r), predicate);
 		return entities;
 	}
 

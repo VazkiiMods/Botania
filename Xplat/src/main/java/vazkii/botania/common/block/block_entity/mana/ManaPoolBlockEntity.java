@@ -62,7 +62,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool, KeyLocked, SparkAttachable,
 		ThrottledPacket, Wandable {
@@ -133,19 +132,12 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		return val;
 	}
 
-	public static List<ManaInfusionRecipe> manaInfusionRecipes(Level world) {
-		return BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.MANA_INFUSION_TYPE).values().stream()
-				.filter(r -> r instanceof ManaInfusionRecipe)
-				.map(r -> (ManaInfusionRecipe) r)
-				.collect(Collectors.toList());
-	}
-
 	public ManaInfusionRecipe getMatchingRecipe(@NotNull ItemStack stack, @NotNull BlockState state) {
 		List<ManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
 		List<ManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
 
-		for (ManaInfusionRecipe recipe : manaInfusionRecipes(level)) {
-			if (recipe.matches(stack)) {
+		for (var r : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE).values()) {
+			if (r instanceof ManaInfusionRecipe recipe && recipe.matches(stack)) {
 				if (recipe.getRecipeCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
 				} else if (recipe.getRecipeCatalyst().test(state)) {

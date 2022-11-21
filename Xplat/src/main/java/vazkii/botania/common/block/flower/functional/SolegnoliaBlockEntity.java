@@ -57,10 +57,14 @@ public class SolegnoliaBlockEntity extends FunctionalFlowerBlockEntity {
 	}
 
 	public static boolean hasSolegnoliaAround(Entity e) {
-		return existingFlowers.stream()
-				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.getLevel() == e.level)
-				.anyMatch(f -> f.getEffectivePos().distToCenterSqr(e.getX(), e.getY(), e.getZ()) <= f.getRange() * f.getRange());
+		for (var flower : existingFlowers) {
+			if (flower.redstoneSignal == 0 && flower.getLevel() == e.getLevel()
+					&& flower.getEffectivePos().distToCenterSqr(e.getX(), e.getY(), e.getZ())
+							<= flower.getRange() * flower.getRange()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

@@ -17,12 +17,14 @@ import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,6 +37,7 @@ import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
@@ -43,7 +46,6 @@ import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	private static final int TRANSFER_RATE = 1000;
@@ -94,7 +96,10 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 		switch (upgrade) {
 			case DISPERSIVE -> {
-				List<Player> players = SparkHelper.getEntitiesAround(Player.class, level, getX(), getY() + (getBbHeight() / 2.0), getZ());
+				AABB aabb = VecHelper.boxForRange(
+						this.position().with(Direction.Axis.Y, getY() + (getBbHeight() / 2.0)),
+						SparkHelper.SPARK_SCAN_RANGE);
+				List<Player> players = level.getEntitiesOfClass(Player.class, aabb, EntitySelector.ENTITY_STILL_ALIVE);
 
 				Map<Player, Map<ManaItem, Integer>> receivingPlayers = new HashMap<>();
 
@@ -153,27 +158,27 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 			}
 			case DOMINANT -> {
-				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
-						.filter(s -> {
-							SparkUpgradeType otherUpgrade = s.getUpgrade();
-							return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedManaReceiver() instanceof ManaPool;
-						})
-						.collect(Collectors.toList());
-				if (validSparks.size() > 0) {
+				List<ManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				validSparks.removeIf(s -> {
+					SparkUpgradeType otherUpgrade = s.getUpgrade();
+					return s == this || otherUpgrade != SparkUpgradeType.NONE || !(s.getAttachedManaReceiver() instanceof ManaPool);
+				});
+				if (!validSparks.isEmpty()) {
 					validSparks.get(level.random.nextInt(validSparks.size())).registerTransfer(this);
 				}
 
 			}
 			case RECESSIVE -> {
-				SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
-						.filter(s -> {
-							SparkUpgradeType otherUpgrade = s.getUpgrade();
-							return s != this
-									&& otherUpgrade != SparkUpgradeType.DOMINANT
-									&& otherUpgrade != SparkUpgradeType.RECESSIVE
-									&& otherUpgrade != SparkUpgradeType.ISOLATED;
-						})
-						.forEach(transfers::add);
+				var otherSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				for (var otherSpark : otherSparks) {
+					SparkUpgradeType otherUpgrade = otherSpark.getUpgrade();
+					if (otherSpark != this
+							&& otherUpgrade != SparkUpgradeType.DOMINANT
+							&& otherUpgrade != SparkUpgradeType.RECESSIVE
+							&& otherUpgrade != SparkUpgradeType.ISOLATED) {
+						transfers.add(otherSpark);
+					}
+				}
 			}
 			default -> {}
 		}

@@ -34,7 +34,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements CorporeaRequestor {
 	public static final double RADIUS = 2.5;
@@ -301,9 +300,13 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	public static List<CorporeaIndexBlockEntity> getNearbyValidIndexes(Player player) {
-		return (player.level.isClientSide ? clientIndexes : serverIndexes)
-				.stream().filter(i -> i.getSpark() != null && i.isInRange(player))
-				.collect(Collectors.toList());
+		List<CorporeaIndexBlockEntity> result = new ArrayList<>();
+		for (var index : (player.level.isClientSide ? clientIndexes : serverIndexes)) {
+			if (index.getSpark() != null && index.isInRange(player)) {
+				result.add(index);
+			}
+		}
+		return result;
 	}
 
 	@Override

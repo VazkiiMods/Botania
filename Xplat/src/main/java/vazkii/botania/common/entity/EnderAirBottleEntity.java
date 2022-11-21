@@ -43,7 +43,6 @@ import vazkii.botania.common.lib.BotaniaTags;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -140,7 +139,11 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 		Collections.shuffle(possibleCoords);
 
-		return possibleCoords.stream().limit(64).collect(Collectors.toList());
+		if (possibleCoords.size() > 64) {
+			return possibleCoords.subList(0, 64);
+		} else {
+			return possibleCoords;
+		}
 	}
 
 	@Override

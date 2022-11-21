@@ -31,7 +31,6 @@ import vazkii.botania.common.helper.ExperienceHelper;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int MANA_PER_XP = 50;
@@ -123,9 +122,8 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		itemstack.removeTagKey("Enchantments");
 		itemstack.removeTagKey("StoredEnchantments");
 
-		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack).entrySet().stream().filter((p_217012_0_) -> {
-			return p_217012_0_.getKey().isCurse();
-		}).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
+		map.keySet().removeIf(e -> !e.isCurse());
 		EnchantmentHelper.setEnchantments(map, itemstack);
 		itemstack.setRepairCost(0);
 		if (itemstack.is(Items.ENCHANTED_BOOK) && map.size() == 0) {

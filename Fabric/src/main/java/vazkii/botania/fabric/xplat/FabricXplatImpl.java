@@ -425,9 +425,11 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public void sendToNear(Level level, BlockPos pos, BotaniaPacket packet) {
 		var pkt = ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
-		PlayerLookup.tracking((ServerLevel) level, pos).stream()
-				.filter(p -> p.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
-				.forEach(p -> p.connection.send(pkt));
+		for (var player : PlayerLookup.tracking((ServerLevel) level, pos)) {
+			if (player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64) {
+				player.connection.send(pkt);
+			}
+		}
 	}
 
 	@Override

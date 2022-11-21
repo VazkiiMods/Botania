@@ -87,7 +87,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.helper.PlayerHelper.isTruePlayer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -654,17 +653,18 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	private void clearPotions(Player player) {
-		List<MobEffect> potionsToRemove = player.getActiveEffects().stream()
-				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && ((MobEffectAccessor) effect.getEffect()).getType() != MobEffectCategory.HARMFUL)
-				.map(MobEffectInstance::getEffect)
-				.distinct()
-				.collect(Collectors.toList());
+		Set<MobEffect> effectsToRemove = new HashSet<>();
+		for (var effectInstance : player.getActiveEffects()) {
+			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && ((MobEffectAccessor) effectInstance.getEffect()).getType() != MobEffectCategory.HARMFUL) {
+				effectsToRemove.add(effectInstance.getEffect());
+			}
+		}
 
-		potionsToRemove.forEach(potion -> {
-			player.removeEffect(potion);
+		for (var effect : effectsToRemove) {
+			player.removeEffect(effect);
 			((ServerLevel) level).getChunkSource().broadcastAndSend(player,
-					new ClientboundRemoveMobEffectPacket(player.getId(), potion));
-		});
+					new ClientboundRemoveMobEffectPacket(player.getId(), effect));
+		}
 	}
 
 	private void keepInsideArena(Player player) {

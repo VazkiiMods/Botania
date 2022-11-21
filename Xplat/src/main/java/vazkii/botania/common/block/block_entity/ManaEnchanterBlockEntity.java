@@ -235,9 +235,12 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		} else {
 			ManaSpark spark = getAttachedSpark();
 			if (spark != null) {
-				SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
-						.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool)
-						.forEach(os -> os.registerTransfer(spark));
+				var otherSparks = SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork());
+				for (var otherSpark : otherSparks) {
+					if (spark != otherSpark && otherSpark.getAttachedManaReceiver() instanceof ManaPool) {
+						otherSpark.registerTransfer(spark);
+					}
+				}
 			}
 			if (stageTicks % 5 == 0) {
 				sync();
