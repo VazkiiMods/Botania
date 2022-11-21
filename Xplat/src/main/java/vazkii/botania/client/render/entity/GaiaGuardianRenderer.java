@@ -77,11 +77,11 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 	public ResourceLocation getTextureLocation(@NotNull GaiaGuardianEntity entity) {
 		Minecraft mc = Minecraft.getInstance();
 
-		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer)) {
+		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer clientPlayer)) {
 			return DefaultPlayerSkin.getDefaultSkin(entity.getUUID());
 		}
 
-		return ((AbstractClientPlayer) mc.getCameraEntity()).getSkinTextureLocation();
+		return clientPlayer.getSkinTextureLocation();
 	}
 
 	@Override

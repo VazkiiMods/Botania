@@ -27,8 +27,8 @@ public class TrueGuardianKiller implements LootItemCondition {
 	@Override
 	public boolean test(@NotNull LootContext context) {
 		Entity victim = context.getParamOrNull(LootContextParams.THIS_ENTITY);
-		return victim instanceof GaiaGuardianEntity
-				&& context.getParamOrNull(LootContextParams.KILLER_ENTITY) == ((GaiaGuardianEntity) victim).trueKiller;
+		return victim instanceof GaiaGuardianEntity gg
+				&& context.getParamOrNull(LootContextParams.KILLER_ENTITY) == gg.trueKiller;
 	}
 
 	@Override

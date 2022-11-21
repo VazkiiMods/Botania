@@ -54,8 +54,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	}
 
 	public static boolean isWorldSkyblock(Level world) {
-		return world.getChunkSource() instanceof ServerChunkCache
-				&& ((ServerChunkCache) world.getChunkSource()).getGenerator() instanceof SkyblockChunkGenerator;
+		return world.getChunkSource() instanceof ServerChunkCache chunkCache && chunkCache.getGenerator() instanceof SkyblockChunkGenerator;
 	}
 
 	protected final BlockState defaultBlock;

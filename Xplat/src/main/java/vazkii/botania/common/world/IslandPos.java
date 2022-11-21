@@ -39,10 +39,10 @@ public final class IslandPos {
 	public boolean equals(Object o) {
 		if (this == o) {
 			return true;
-		} else if (!(o instanceof IslandPos)) {
+		}
+		if (!(o instanceof IslandPos islandPos)) {
 			return false;
 		}
-		IslandPos islandPos = (IslandPos) o;
 		return this.x == islandPos.x && this.z == islandPos.z;
 	}
 

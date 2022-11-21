@@ -85,11 +85,12 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 	@Override
 	public void tick() {
 		Entity thrower = getOwner();
-		if (!level.isClientSide && (thrower == null || !(thrower instanceof Player) || !thrower.isAlive())) {
-			discard();
+		if (!(thrower instanceof Player player) || !thrower.isAlive()) {
+			if (!level.isClientSide) {
+				discard();
+			}
 			return;
 		}
-		Player player = (Player) thrower;
 		if (!level.isClientSide) {
 			ItemStack stack = PlayerHelper.getFirstHeldItem(player, BotaniaItems.kingKey);
 			boolean newCharging = !stack.isEmpty() && KeyOfTheKingsLawItem.isCharging(stack);

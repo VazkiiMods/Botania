@@ -149,7 +149,7 @@ public class ManaBlasterModel implements BakedModel {
 
 			Function<Material, TextureAtlasSprite> textureGetter = ((ModelBakeryAccessor) bakery).getSpriteAtlasManager()::getSprite;
 			BakedModel lensBaked;
-			if (lensUnbaked instanceof BlockModel bm && ((BlockModel) lensUnbaked).getRootModel() == net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER) {
+			if (lensUnbaked instanceof BlockModel bm && bm.getRootModel() == net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER) {
 				lensBaked = new ItemModelGenerator()
 						.generateBlockModel(textureGetter, bm)
 						.bake(bakery, bm, textureGetter, transform, name, false);

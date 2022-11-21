@@ -485,7 +485,7 @@ public class AssemblyHaloItem extends Item {
 				GuiComponent.fill(ms, x + 66, y + 14, x + 92, y + 40, 0x22000000);
 				GuiComponent.fill(ms, x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
-				int wrap = recipe instanceof ShapedRecipe ? ((ShapedRecipe) recipe).getWidth() : 3;
+				int wrap = recipe instanceof ShapedRecipe shaped ? shaped.getWidth() : 3;
 				for (int i = 0; i < recipe.getIngredients().size(); i++) {
 					Ingredient ingr = recipe.getIngredients().get(i);
 					if (ingr != Ingredient.EMPTY) {

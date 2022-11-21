@@ -27,11 +27,10 @@ public class RingOfCorrectionItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (entity.level.isClientSide && !(entity instanceof Player)) {
+		if (entity.level.isClientSide || !(entity instanceof Player player)) {
 			return;
 		}
 
-		Player player = (Player) entity;
 		ItemStack currentStack = player.getMainHandItem();
 		if (currentStack.isEmpty() || !(currentStack.getItem() instanceof SortableTool tool)
 				|| !player.swinging) {

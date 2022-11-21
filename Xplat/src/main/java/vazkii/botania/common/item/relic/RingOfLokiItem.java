@@ -219,10 +219,10 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 			BlockPos currentBuildCenter = getBindingCenter(stack);
 			if (currentBuildCenter.getY() != Integer.MIN_VALUE) {
 				return currentBuildCenter;
-			} else if (mc.hitResult instanceof BlockHitResult
+			} else if (mc.hitResult instanceof BlockHitResult hitRes
 					&& mc.hitResult.getType() == HitResult.Type.BLOCK
 					&& !getCursorList(stack).isEmpty()) {
-				return ((BlockHitResult) mc.hitResult).getBlockPos();
+				return hitRes.getBlockPos();
 			}
 		}
 

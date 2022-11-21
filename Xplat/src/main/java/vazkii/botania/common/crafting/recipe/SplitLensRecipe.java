@@ -56,10 +56,10 @@ public class SplitLensRecipe extends CustomRecipe {
 
 	private ItemStack getComposite(ItemStack stack) {
 		Item item = stack.getItem();
-		if (!(item instanceof BasicLensItem)) {
+		if (!(item instanceof BasicLensItem basicLens)) {
 			return ItemStack.EMPTY;
 		}
-		return ((BasicLensItem) item).getCompositeLens(stack);
+		return basicLens.getCompositeLens(stack);
 	}
 
 	@NotNull

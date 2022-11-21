@@ -130,9 +130,9 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 
 	@Override
 	public boolean equals(Object o) {
-		return o instanceof BotanicalBreweryRecipe
-				&& brew == ((BotanicalBreweryRecipe) o).brew
-				&& inputs.equals(((BotanicalBreweryRecipe) o).inputs);
+		return o instanceof BotanicalBreweryRecipe brewRecipe
+				&& brew == brewRecipe.brew
+				&& inputs.equals(brewRecipe.inputs);
 	}
 
 	public static class Serializer extends RecipeSerializerBase<BotanicalBreweryRecipe> {

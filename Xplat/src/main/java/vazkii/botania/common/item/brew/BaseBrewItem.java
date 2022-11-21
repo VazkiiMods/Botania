@@ -104,7 +104,7 @@ public class BaseBrewItem extends Item implements BrewItem {
 			if (living instanceof Player player && !player.getAbilities().instabuild) {
 				if (swigs == 1) {
 					ItemStack result = getBaseStack();
-					if (!((Player) living).getInventory().add(result)) {
+					if (!player.getInventory().add(result)) {
 						return result;
 					} else {
 						return ItemStack.EMPTY;

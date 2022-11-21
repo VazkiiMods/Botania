@@ -87,8 +87,8 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		getLens(stack).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem) {
-			((BasicLensItem) compositeLens.getItem()).apply(compositeLens, props, level);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem lens) {
+			lens.apply(compositeLens, props, level);
 		}
 	}
 
@@ -97,8 +97,8 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		shouldKill = getLens(stack).collideBurst(burst, pos, isManaBlock, shouldKill, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem) {
-			shouldKill = ((BasicLensItem) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem lens) {
+			shouldKill = lens.collideBurst(burst, pos, isManaBlock, shouldKill, compositeLens);
 		}
 
 		return shouldKill;
@@ -115,8 +115,8 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		getLens(stack).updateBurst(burst, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem) {
-			((BasicLensItem) compositeLens.getItem()).updateBurst(burst, compositeLens);
+		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof BasicLensItem lens) {
+			lens.updateBurst(burst, compositeLens);
 		}
 	}
 
@@ -158,8 +158,8 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 	}
 
 	public static Lens getLens(ItemStack stack) {
-		if (stack.getItem() instanceof LensItem) {
-			return ((LensItem) stack.getItem()).lens;
+		if (stack.getItem() instanceof LensItem lens) {
+			return lens.lens;
 		} else {
 			return new Lens();
 		}

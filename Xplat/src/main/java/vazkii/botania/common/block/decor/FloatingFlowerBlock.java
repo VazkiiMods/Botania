@@ -83,7 +83,7 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 		ItemStack stack = player.getItemInHand(hand);
 		BlockEntity te = world.getBlockEntity(pos);
 		if (!stack.isEmpty() && te instanceof FloatingFlowerProvider provider && provider.getFloatingData() != null) {
-			FloatingFlower flower = ((FloatingFlowerProvider) te).getFloatingData();
+			FloatingFlower flower = provider.getFloatingData();
 			IslandType type = null;
 			if (stack.is(Items.SNOWBALL)) {
 				type = IslandType.SNOW;

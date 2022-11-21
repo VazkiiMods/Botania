@@ -146,7 +146,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 			type = EntityType.MOOSHROOM;
 		}
 		Entity entity = type.create(level);
-		return entity instanceof Mob ? (Mob) entity : null;
+		return entity instanceof Mob mob ? mob : null;
 	}
 
 	@Override

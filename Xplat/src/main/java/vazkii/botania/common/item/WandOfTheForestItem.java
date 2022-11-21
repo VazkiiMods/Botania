@@ -195,9 +195,8 @@ public class WandOfTheForestItem extends Item {
 		}
 
 		BlockEntity tile = world.getBlockEntity(pos);
-		boolean bindable = tile instanceof WandBindable;
 
-		if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((WandBindable) tile).canSelect(player, stack, pos, side)) {
+		if (getBindMode(stack) && tile instanceof WandBindable bindable && player.isShiftKeyDown() && bindable.canSelect(player, stack, pos, side)) {
 			if (boundPos.filter(pos::equals).isPresent()) {
 				setBindingAttempt(stack, Bound.UNBOUND_POS);
 			} else {
