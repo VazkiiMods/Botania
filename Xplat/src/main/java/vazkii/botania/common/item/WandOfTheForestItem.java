@@ -178,13 +178,11 @@ public class WandOfTheForestItem extends Item {
 
 			if (player.mayUseItemAt(pos, side, stack)
 					&& (!(block instanceof CommandBlock) || player.canUseGameMasterBlocks())) {
-				BlockState newState = Block.updateFromNeighbourShapes(
-						manipulateBlockstate(state, side), world, pos
-				);
-				if (newState != state && !newState.isAir()) {
+				BlockState newState = manipulateBlockstate(state, side);
+				if (newState != state) {
+					world.setBlockAndUpdate(pos, newState);
 					ctx.getLevel().playSound(
-							ctx.getPlayer(), ctx.getClickedPos(),
-							newState.getBlock().getSoundType(newState).getPlaceSound(),
+							ctx.getPlayer(), ctx.getClickedPos(), newState.getBlock().getSoundType(newState).getPlaceSound(),
 							SoundSource.BLOCKS, 1F, 1F
 					);
 					return InteractionResult.SUCCESS;
