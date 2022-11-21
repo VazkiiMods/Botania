@@ -66,7 +66,7 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 
 	@Override
 	public void handleEntityEvent(byte id) {
-		if (id == 3) {
+		if (id == EntityEvent.DEATH) {
 			for (int j = 0; j < 16; j++) {
 				level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(BotaniaItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
 			}
