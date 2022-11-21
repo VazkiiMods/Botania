@@ -24,6 +24,7 @@ public class EntropicLens extends Lens {
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		ThrowableProjectile entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
+			//TODO https://github.com/VazkiiMods/Botania/pull/4219#issuecomment-1321442839
 			BlockPos hit = ((BlockHitResult) pos).getBlockPos();
 			if (entity.level.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
 				return shouldKill;
