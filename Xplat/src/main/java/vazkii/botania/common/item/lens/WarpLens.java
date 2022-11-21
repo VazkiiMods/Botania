@@ -27,7 +27,9 @@ public class WarpLens extends Lens {
 		Level world = entity.level;
 
 		if (world.isClientSide || pos.getType() != HitResult.Type.BLOCK) {
-			return false;
+			// On the client, we don't know what the force relay mappings really are,
+			// so we can only pretend that we just hit a normal block.
+			return shouldKill;
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
