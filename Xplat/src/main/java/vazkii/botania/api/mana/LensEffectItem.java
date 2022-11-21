@@ -28,7 +28,7 @@ public interface LensEffectItem {
 
 	/**
 	 * Called when a mana burst fired from a mana spreader with this focus collides against
-	 * any block. This is called after the collision is handled.
+	 * any block or entity. This is called after the collision is handled.
 	 * 
 	 * @return True to kill the burst. False to keep it alive.
 	 */
