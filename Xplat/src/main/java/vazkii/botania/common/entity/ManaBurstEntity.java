@@ -19,6 +19,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
@@ -422,6 +423,31 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		}
 	}
 
+	@Override
+	public void handleEntityEvent(byte event) {
+		if (event == EntityEvent.DEATH) {
+			int color = getColor();
+			float r = (color >> 16 & 0xFF) / 255F;
+			float g = (color >> 8 & 0xFF) / 255F;
+			float b = (color & 0xFF) / 255F;
+
+			int mana = getMana();
+			int maxMana = getStartingMana();
+			float size = (float) mana / (float) maxMana;
+
+			if (!BotaniaConfig.client().subtlePowerSystem()) {
+				for (int i = 0; i < 4; i++) {
+					WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
+					level.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+				}
+			}
+			SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
+			level.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
+		} else {
+			super.handleEntityEvent(event);
+		}
+	}
+
 	public float getParticleSize() {
 		return (float) getMana() / (float) getStartingMana();
 	}
@@ -496,25 +522,9 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 					&& collidedTile.canReceiveManaFromBursts(), shouldKill, getSourceLens());
 		}
 
-		if (shouldKill && isAlive()) {
-			if (!fake && level.isClientSide) {
-				int color = getColor();
-				float r = (color >> 16 & 0xFF) / 255F;
-				float g = (color >> 8 & 0xFF) / 255F;
-				float b = (color & 0xFF) / 255F;
-
-				int mana = getMana();
-				int maxMana = getStartingMana();
-				float size = (float) mana / (float) maxMana;
-
-				if (!BotaniaConfig.client().subtlePowerSystem()) {
-					for (int i = 0; i < 4; i++) {
-						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
-						level.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
-					}
-				}
-				SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
-				level.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
+		if (!level.isClientSide && shouldKill && isAlive()) {
+			if (!fake) {
+				this.level.broadcastEntityEvent(this, EntityEvent.DEATH);
 			}
 
 			discard();
