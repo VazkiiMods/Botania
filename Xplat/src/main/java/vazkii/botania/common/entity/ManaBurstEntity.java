@@ -74,6 +74,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	private static final String TAG_TRIPPED = "tripped";
 	private static final String TAG_MAGNETIZE_POS = "magnetizePos";
 	private static final String TAG_LEFT_SOURCE = "leftSource";
+	private static final String TAG_ALREADY_COLLIDED_AT = "alreadyCollidedAt";
 
 	private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(ManaBurstEntity.class, EntityDataSerializers.INT);
@@ -283,6 +284,12 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).get().orThrow());
 		}
 		tag.putBoolean(TAG_LEFT_SOURCE, hasLeftSource());
+
+		var alreadyCollidedAt = new ListTag();
+		for (BlockPos pos : this.alreadyCollidedAt) {
+			alreadyCollidedAt.add(BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow());
+		}
+		tag.put(TAG_ALREADY_COLLIDED_AT, alreadyCollidedAt);
 	}
 
 	@Override
@@ -338,6 +345,12 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 			magnetizePos = null;
 		}
 		entityData.set(LEFT_SOURCE_POS, cmp.getBoolean(TAG_LEFT_SOURCE));
+
+		this.alreadyCollidedAt.clear();
+		for (var tag : cmp.getList(TAG_ALREADY_COLLIDED_AT, Tag.TAG_INT_ARRAY)) {
+			var pos = BlockPos.CODEC.parse(NbtOps.INSTANCE, tag).result();
+			pos.ifPresent(this.alreadyCollidedAt::add);
+		}
 	}
 
 	public void particles() {
@@ -504,9 +517,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 		onHitCommon(hit, true);
 
-		if (!hasAlreadyCollidedAt(collidePos)) {
-			alreadyCollidedAt.add(collidePos);
-		}
+		setCollidedAt(collidePos);
 	}
 
 	@Override
