@@ -39,6 +39,13 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.is(BotaniaItems.blackHoleTalisman) && !foundTalisman) {
+
+					// Avoid returning true for empty talismans
+					int count = BlackHoleTalismanItem.getBlockCount(stack);
+					if (count <= 0) {
+						return false;
+					}
+
 					foundTalisman = true;
 				} else {
 					return false;
