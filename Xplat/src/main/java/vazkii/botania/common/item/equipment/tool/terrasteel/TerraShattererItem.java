@@ -18,16 +18,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -104,38 +100,22 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 		}
 	}
 
-	@NotNull
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (hand == InteractionHand.MAIN_HAND && player.isShiftKeyDown() && !player.getOffhandItem().isEmpty()) {
-			return InteractionResultHolder.pass(stack);
-		}
+		if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
+			int tier = getLevel(stack);
+			BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
 
-		int level = getLevel(stack);
-
-		if (level != 0) {
-			setEnabled(stack, !isEnabled(stack));
-			if (!world.isClientSide) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
+			if (tier != 0 && blockhitresult.getType() != HitResult.Type.BLOCK) {
+				setEnabled(stack, !isEnabled(stack));
+				if (!level.isClientSide) {
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
+				}
+				return InteractionResultHolder.success(stack);
 			}
 		}
-
-		return InteractionResultHolder.success(stack);
-	}
-
-	@NotNull
-	@Override
-	public InteractionResult useOn(UseOnContext ctx) {
-		Player player = ctx.getPlayer();
-		if (player == null) {
-			return super.useOn(ctx);
-		} else if (ctx.getHand() == InteractionHand.MAIN_HAND && !player.getOffhandItem().isEmpty()) {
-			return InteractionResult.PASS;
-		}
-		return player.isShiftKeyDown()
-				? super.useOn(ctx)
-				: InteractionResult.PASS;
+		return InteractionResultHolder.pass(stack);
 	}
 
 	@Override
