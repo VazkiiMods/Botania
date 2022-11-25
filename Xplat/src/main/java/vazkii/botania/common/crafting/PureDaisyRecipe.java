@@ -33,8 +33,8 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 	public static final int DEFAULT_TIME = 150;
 
 	private final ResourceLocation id;
-	private final StateIngredient input;
-	private final BlockState outputState;
+	protected final StateIngredient input;
+	protected final BlockState outputState;
 	private final int time;
 	private final CommandFunction.CacheableFunction function;
 

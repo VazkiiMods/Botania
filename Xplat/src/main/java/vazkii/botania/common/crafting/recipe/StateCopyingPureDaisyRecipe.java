@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +36,11 @@ import vazkii.botania.common.crafting.StateIngredientHelper;
 public class StateCopyingPureDaisyRecipe extends PureDaisyRecipe {
 	public StateCopyingPureDaisyRecipe(ResourceLocation id, StateIngredient input, Block block, int time) {
 		super(id, input, block.defaultBlockState(), time, CommandFunction.CacheableFunction.NONE);
+	}
+
+	@Override
+	public boolean matches(Level world, BlockPos pos, SpecialFlowerBlockEntity pureDaisy, BlockState state) {
+		return input.test(state) && outputState.getBlock().withPropertiesOf(state) != state;
 	}
 
 	@Override
