@@ -21,24 +21,25 @@ These profiles were authored by williewillus and Alwinfy.
 * Physical symbols: <colors, items, etc.>
 * Likes:
 * Dislikes:
-* Image (?)
 
 Profile: <Personality/Occupation/Hobbies>
 
 ## Pure Daisy
-* Name: Pure Daisy
 * Gender: Gender is irrelevant for flowers (they/them)
 * Physical symbols: white, angel
 * Likes: Things being orderly, precision, perfectionism
 * Dislikes: Unexpected changes of plan, others not putting forth their full effort
 
 Pure Daisy is the flower your parents always compared you to. They were the
-perfect-attendance flower, the spelling-bee champion flower, the all-A's flower. Doted on
-by everyone, Pure Daisy embraces both the expectations and the praise heaped onto themself
-and works hard. They work as an executive at a highly prestigious finance company, and in
-their free time enjoy playing skill games that require absolute perfection in execution,
-such as *Touhou* or *osu!*. As a result of their perfectionism, Pure Daisy can easily get
-upset when things don't go according to plan.
+perfect-attendance flower, the spelling-bee champion flower, the all-A's flower.
+
+Doted on by everyone, Pure Daisy embraces both the expectations and the praise heaped onto
+themself and works hard. They work as an executive at a highly prestigious finance
+company, and in their free time enjoy playing skill games that require absolute perfection
+in execution, such as *Touhou* or *osu!*.
+
+As a result of their perfectionism, Pure Daisy can easily get upset when things don't go
+according to plan.
 
 ## Manastar
 Idea: data scientist
@@ -180,7 +181,6 @@ show their love by purchasing the band's old records and merch.
 * Physical symbols: Sichuan peppercorn, spicy Cheetos
 * Likes: Spicy food, naps, meadows
 * Dislikes: Anything that disrupts the above
-* Image (?)
 
 Endoflame is a kid who has gained a modest following online for their ability to stoically
 eat literally anything and everything spicy, up to and including actual flaming chunks of
@@ -192,14 +192,15 @@ aspirations beyond getting to eat the next spicy thing.
 * Physical symbols: Fire
 * Likes: Streaming, parties, (ostensibly) spicy foods
 * Dislikes: Trolls, their followers that send them weird messages
-* Image (?)
 
 Many find Thermalily, a small-time CorporeaNet entertainer, to be hot as hell at first--
 before they meet the streamer's fiery temper. While they meant to be a variety YouSparker
 at first, they were soon inspired by the Endoflame's adventures in spice to take on the
-challenges of sampling various hot-sauces for themself. However, despite all their
-attempts, their spice tolerance has stayed atrocious, and after every sampling they
-invariably need a five-minute break, often accompanied by loud cursing.
+challenges of sampling various hot-sauces for themself.
+
+However, despite all their attempts, their spice tolerance has stayed atrocious, and after
+every sampling they invariably need a five-minute break, often accompanied by loud
+cursing.
 
 ## Rosa Arcana
 Idea: TTRPG nerd
@@ -212,16 +213,16 @@ Idea: Hardcore vegan
 * Physical symbols: Fireworks, red, black, silver
 * Likes: Skydiving, scuba diving, hang-gliding, spelunking, urban exploration, pyrotechnics
 * Dislikes: Doing any of the above illegally
-* Image (?)
 
 Entropinnyum lives their life on the edge. They love exploring the risky, the unknown, and
 doing the things that others are too afraid of doing-- so much, in fact, that they've made
 a career out of it: they provide coaching for the various activities that they enjoy,
-helping others get a taste of their own exciting life. While this has given them a
-reputation of being overly reckless, in reality Entropinnyum knows their limits exactly,
-and never takes anything too far (often stopping right before the line). In fact,
-Entropinnyum despises those that actually *do* take things too far, in particular
-harboring a special hatred for illegally-traded explosives.
+helping others get a taste of their own exciting life.
+
+While this has given them a reputation of being overly reckless, in reality Entropinnyum
+knows their limits exactly, and never takes anything too far (often stopping right before
+the line). In fact, Entropinnyum despises those that actually *do* take things too far, in
+particular harboring a special hatred for illegally-traded explosives.
 
 ## Kekimurus
 Idea: Sweets connoisseur that somehow is immune to diabetes
@@ -237,15 +238,16 @@ Idea: plumber/adventurer
 * Physical symbols: Rainbow
 * Likes: Skittles, tapestry, weaving, sewing, mutton
 * Dislikes: Greyscale, bland colors, plastic
-* Image (?)
 
 Spectrolus loves every color of the rainbow, and loves every kind of love. They're an
 active member of various social justice initiatives, being a vocal proponent of activism
-in all its forms. Career-wise, Spectrolus is a connoisseur of fine ethically-spun wools,
-silks, and fabrics, using them to weave elaborate tapestries and articles of
-clothing. Although Spectrolus usually tries to eat a varied vegetarian diet, mutton is a
-guilty pleasure of theirs, and Spectrolus will scarf it down whenever given the
-opportunity.
+in all its forms.
+
+Career-wise, Spectrolus is a connoisseur of fine ethically-spun wools, silks, and fabrics,
+using them to weave elaborate tapestries and articles of clothing.
+
+Although Spectrolus usually tries to eat a varied vegetarian diet, mutton is a guilty
+pleasure of theirs, and Spectrolus will scarf it down whenever given the opportunity.
 
 ## Rafflowsia
 
@@ -259,12 +261,16 @@ opportunity.
 * Dislikes: Python, C/C++, software engineers who think theory is useless
 
 Dandelifeon is the eccentric young mathematics professor at the local university who
-specializes in the maths adjacent to theories of computation. (In practice, this means
-that students often get somewhat lost at their lectures.) Having worked through SICP at
-the age of 5 and graduated with a Ph. D at the age of 18, they rarely go out to socialize,
-preferring to instead bury themself in their studies. They spend their vanishingly little
-spare time ricing their Emacs installation, debating people online (often getting into
-pointless debates about languages with Heisei), and watching nerdy TV shows.
+specializes in the maths adjacent to theories of computation. In practice, this means
+that students often get somewhat lost at their lectures.
+
+Having worked through SICP at the age of 5 and graduated with a Ph. D at the age of 18,
+they rarely go out to socialize, preferring to instead bury themself in their
+studies.
+
+They spend their vanishingly little spare time ricing their Emacs installation, debating
+people online (often getting into pointless debates about programming languages with
+Heisei Dream), and watching nerdy TV shows.
 
 ## Shulk Me Not
 Idea: likes hobbies with high skill ceiling (sports, skill games, etc.)
@@ -282,28 +288,32 @@ Idea: somewhat of an asshole
 * Physical symbols: :trolled: emote
 * Likes: KenM, Rick Astley (they're an actual fan of his music), The Onion
 * Dislikes: Fake "trolling" (most of their friend-group's been subjected to the "shouting slurs doesn't count" rant at least thrice)
-* Image (?)
 
 Heisei Dream is a master of the old school internet trolling, in what they believe is its
 original, purest, most tasteful meaning. They love making jokes that poke fun at various
-celebrities, topics in the news, and indeed themself. They do enjoy, on extremely rare
-occasion, baiting for flamewars on inconsequential topics (such as "iOS vs Android" and
-"should the toilet paper roll go inside or outside"). When not trolling, Heisei Dream
-takes their studies in internet sociology surprisingly seriously.
+celebrities, topics in the news, and indeed themself.
+
+They do enjoy, on extremely rare occasion, baiting for flamewars on inconsequential topics
+(such as "iOS vs Android" and "should the toilet paper roll go inside or outside").
+
+When not trolling, Heisei Dream takes their studies in internet sociology surprisingly
+seriously.
 
 ## Tigerseye
 * Gender: Cat person
 * Physical symbols: Pusheen
 * Likes: Cats, Miles Edgeworth from *Ace Attorney*
 * Dislikes: Leafy greens
-* Image (?)
 
 Nobody knows how Tigerseye manages to keep cats, since they are a flower, but they
 do. They have 11 very-spoiled cats that live luxurious lives filled with food and belly
-rubs. Tigerseye has sworn off dating and marriage for the rest of their life, saying that
-their fur babies will last them until the day they finally wilt and die. Career-wise,
-Tigerseye serves as a skilled prosecutor and specializes in prosecuting sexual abuse
-offenders.
+rubs.
+
+Tigerseye has sworn off dating and marriage for the rest of their life, saying that their
+fur babies will last them until the day they finally wilt and die.
+
+Career-wise, Tigerseye serves as a skilled prosecutor and specializes in prosecuting
+sexual abuse offenders.
 
 ## Orechid
 Idea: miner
@@ -321,15 +331,16 @@ Idea: Canadian
 * Physical symbols: a party hat, but specifically the one from OSRS
 * Likes: Meeting new people, helping friends in need, Endoflame
 * Dislikes: When hangout plans fall through
-* Image (?)
 
 Despite their floral nature, Exoflame is by far the social butterfly of the group. Despite
 planning all the fun parties, hangouts, and trips, they alway make concerted efforts to
 spend quality time with their friends and family (much to the chagrin of Endoflame, their
-introverted younger sibling). Nor is their energy is limited to group settings-- Exoflame
-listens attentively whenever friends turn to them for help, often offering positive
-support and thoughtful advice that's exactly what the friend needs to hear. As a result,
-Exoflame is deeply trusted by nearly everybody they know.
+introverted younger sibling).
+
+Nor is their energy is limited to group settings-- Exoflame listens attentively whenever
+friends turn to them for help, often offering positive support and thoughtful advice
+that's exactly what the friend needs to hear. As a result, Exoflame is deeply trusted by
+nearly everybody they know.
 
 ## Agricarnation
 Idea: farmer
@@ -348,14 +359,15 @@ Idea: Librarian
 * Physical symbols: Toy slap hands
 * Likes: Piano, building castles and other large structures in Minecraft
 * Dislikes: Getting cold hands before work
-* Image (?)
 
 Rannuncarpus is extremely skilled with their hands and loves anything requiring fine
 manual skill. Though a professional pianist by trade, Rannuncarpus also performs
-electronics repair on the side for supplemental income. Interestingly enough, though
-highly skilled while on the job, Rannuncarpus can be surprisingly clumsy and prone to
-accident in their private life. Even so, they have an easygoing attitude and are always
-happy to hook up their friends and family with free concerts (or repairs).
+electronics repair on the side for supplemental income.
+
+Interestingly enough, though highly skilled while on the job, Rannuncarpus can be
+surprisingly clumsy and prone to accident in their private life. Even so, they have an
+easygoing attitude and are always happy to hook up their friends and family with free
+concerts (or repairs).
 
 ## Hyacidus
 Idea: Pharmacist that isn't very good
@@ -365,11 +377,11 @@ Idea: Pharmacist that isn't very good
 * Physical symbols: Heart (the actual organ)
 * Likes: Their students
 * Dislikes: People that try to date them after being rebuffed
-* Image (?)
 
 Pollidisiac is the ideal partner for many: attractive, intelligent, funny, and
-passionate. They are fascinated with sexuality, going as far as to get a Ph. D in
-it. However, Pollidisiac is actually asexual. They work as a researcher at a top-level
+passionate. They are fascinated with sexuality, going as far as to get a Ph. D in it.
+
+However, Pollidisiac is actually asexual. They work as a researcher at a top-level
 university, and teach classes on sexuality. One of their favorite things is when students
 come into class on day 1 snickering and joking about the course content, but by the end of
 the semester can hold mature and respectful conversations about the topic.
@@ -379,22 +391,24 @@ the semester can hold mature and respectful conversations about the topic.
 * Physical symbols: Play-Doh
 * Likes: Beaches, sandboxes, yoga, symmetry
 * Dislikes: Nonsymmetric or unbalanced things
-* Image (?)
 
 Clayconia is the local elementary schoolchild who is the master of the sandbox. They're
 able to create mindblowingly intricate and complex sandcastles, whether on the sandbox or
-the beach. Strangely, Clayconia doesn't think much about these. Their real focus is on
-modeling with clay. Play-Doh is the most readily available type available, though they
-hope to get into professional pottery once they get into high school. Clayconia also has
-an uncannily strange obsession with yoga. They have been enamored with it at an early age,
-and constantly ramble to their parents about their goal of achieving perfect *balance*.
+the beach.
+
+Strangely, Clayconia doesn't think much about these. Their real focus is on modeling with
+clay. Play-Doh is the most readily available type available, though they hope to get into
+professional pottery once they get into high school.
+
+Clayconia also has an uncannily strange obsession with yoga. They have been enamored with
+it at an early age, and constantly ramble to their parents about their goal of achieving
+perfect *balance*.
 
 ## Loonium
 * Gender: They buried it in Alaska but won't tell us where
 * Physical symbols: treasure chest
 * Likes: Geocaching, MIT puzzle hunt
 * Dislikes: Misplacing their items
-* Image (?)
 
 Loonium is a chronic hoarder, collecting any and all sort of trinkets and treasures,
 regardless of value. They frequently procure new items from the dungeons Entropinnyum
@@ -407,15 +421,18 @@ more valuable treasures and design elaborate treasure hunts for others.
 * Blurb: 
 * Likes: K-Pop, V-Tubers, Fashion
 * Dislikes: Antis of whatever they like at the moment
-* Image (?)
 
 Daffomill is always chasing the latest trends. They were one of the first users of Vine,
 was into K-Pop and Chinese animation before either was cool, and was the one that dragged
-their friends onto BrikBlok. This shouldn't come as a surprise, as Daffomill's day job is
-a social media manager. Daffomill has uncannily deep knowledge about whatever they're
-obsessed with at the moment, and are the go-to reference for any one who's out of the loop
-with the latest memes. Their dream is to attend every single concert of the international
-tour of their favorite Korean boyband, BTS (Big Tater Squad).
+their friends onto BrikBlok.
+
+This shouldn't come as a surprise, as Daffomill's day job is a social media
+manager. Daffomill has uncannily deep knowledge about whatever they're obsessed with at
+the moment, and are the go-to reference for any one who's out of the loop with the latest
+memes.
+
+Their dream is to attend every single concert of the international tour of their favorite
+Korean boyband, BTS (Big Tater Squad).
 
 ## Vinculotus
 Idea: mad scientist (ender tech)
@@ -434,7 +451,6 @@ Idea: Alchemist (but a modern nuclear scientist)
 * Physical symbols: Full-body plastic bubbles
 * Likes: Social distancing, going to the spa, solo scuba diving, chatting with Hydroangea over IRC
 * Dislikes: Parties
-* Image (?)
 
 An easy misconception is that Bubbell has a bright and bubbly personality, due to their
 name. In actuality, Bubbell is quite antisocial and avoids contact with most
@@ -448,17 +464,16 @@ Idea: sound/electrical engineer or physicist
 * Physical symbols: Any of the symbols that go on a circuit diagram
 * Likes: Technical Minecraft, Simping for Fourier, Jamming with Bergamute and Rannuncarpus
 * Dislikes: Modded Minecraft (too easy)
-* Image (?)
 
 ## Bergamute
 * Gender:
 * Physical symbols: Earmuffs
 * Likes: The "lofi hip hop radio - beats to relax/study to" YouTube livestream, frugality
 * Dislikes: noise, greed, waste
-* Image (?)
 
 Bergamute has "mute" in their name, but they actually love music. Bergamute strives their
 hardest to keep life simple and free of unnecessary things. They speak rarely, but their
-friends and coworkers listen and take Bergamute seriously when they do do so. Bergamute is
-a music composer, not making much money, but enough to live on, and Bergamute is
-completely satisfied with that.
+friends and coworkers listen and take Bergamute seriously when they do do so.
+
+Bergamute is a music composer, not making much money, but enough to live on, and Bergamute
+is completely satisfied with that.
