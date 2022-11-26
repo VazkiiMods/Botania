@@ -1,6 +1,20 @@
-# Botania Flowersonas
+# Introduction
+Welcome to the Botania `omake` file.
 
-Authors: williewillus, Alwinfy
+In ACG culture, [omake](https://en.wikipedia.org/wiki/Omake) files are often included with
+extra fun content associated with the main content.
+
+We hope you enjoy!
+
+TODO: Once flowersonas are complete, move this to Xplat resources so it's included in the
+release JARs
+
+# Botania Flower Character Profiles (fka Flowersonas)
+This section includes character profiles for each Miscellaneous, Generating, and
+Functional Flower in Botania. It's inspired by the character profiles included with the
+games of the [Touhou Project](https://en.touhouwiki.net/wiki/Touhou_Project).
+
+These profiles were authored by williewillus and Alwinfy.
 
 ## Template
 * Name: Flower Name
