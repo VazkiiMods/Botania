@@ -16,14 +16,6 @@ games of the [Touhou Project](https://en.touhouwiki.net/wiki/Touhou_Project).
 
 These profiles were authored by williewillus and Alwinfy.
 
-## NAME
-* Gender:
-* Physical symbols: <colors, items, etc.>
-* Likes:
-* Dislikes:
-
-Profile: <Personality/Occupation/Hobbies>
-
 ## Pure Daisy
 * Gender: Gender is irrelevant for flowers (they/them)
 * Physical symbols: white, angel
@@ -42,7 +34,10 @@ As a result of their perfectionism, Pure Daisy can easily get upset when things 
 according to plan.
 
 ## Manastar
-Idea: data scientist
+* Gender: Trans female (she/her)
+* Physical symbols: 0 and 1; blue and red
+* Likes: Data, programming socks, Clojure and Julia programming languages
+* Dislikes: R, MATLAB, people who think correlation means causation
 
 ## Daybloom
 * Gender: Male (he/him)
@@ -188,12 +183,12 @@ coal. In real life, though, they're a bit lazy, and they don't really have many
 aspirations beyond getting to eat the next spicy thing.
 
 ## Thermalily
-* Gender: Small-time Flintstagram/BrikBlok influencer
+* Gender: Female (she/her)
 * Physical symbols: Fire
 * Likes: Streaming, parties, (ostensibly) spicy foods
 * Dislikes: Trolls, their followers that send them weird messages
 
-Many find Thermalily, a small-time CorporeaNet entertainer, to be hot as hell at first--
+Many find Thermalily, a small-time CorporeaNet entertainer, to be hot as hell at first --
 before they meet the streamer's fiery temper. While they meant to be a variety YouSparker
 at first, they were soon inspired by the Endoflame's adventures in spice to take on the
 challenges of sampling various hot-sauces for themself.
@@ -203,9 +198,20 @@ every sampling they invariably need a five-minute break, often accompanied by lo
 cursing.
 
 ## Rosa Arcana
+* Gender: Male (he/him)
+* Physical symbols: 
+* Likes: 
+* Dislikes: Bad DM's
+
 Idea: TTRPG nerd
+Yes, his name has "Rosa" in it. No, he doesn't care.
 
 ## Munchdew
+* Gender:
+* Physical symbols: Head of lettuce
+* Likes: Tofu, soybeans
+* Dislikes: PETA, meat, snake-oil health products
+
 Idea: Hardcore vegan
 
 ## Entropinnyum
@@ -225,16 +231,32 @@ the line). In fact, Entropinnyum despises those that actually *do* take things t
 particular harboring a special hatred for illegally-traded explosives.
 
 ## Kekimurus
+* Gender: 
+* Physical symbols: cake, pie
+* Likes:
+* Dislikes: Having to eat savory food to survive
+
 Idea: Sweets connoisseur that somehow is immune to diabetes
 
 ## Gourmaryllis
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes:
+
 Idea: Nutritionist
 
 ## Narslimmus
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: Scaly reptiles, particularly turtles
+
 Idea: plumber/adventurer
 
 ## Spectrolus
-* Gender: Fluid; varies based on day, mood, phase of the moon, most recent syzygy, and/or last meal eaten
+* Gender: Fluid; varies based on day, mood, phase of the moon, most recent syzygy, and/or
+  last meal eaten
 * Physical symbols: Rainbow
 * Likes: Skittles, tapestry, weaving, sewing, mutton
 * Dislikes: Greyscale, bland colors, plastic
@@ -250,6 +272,12 @@ Although Spectrolus usually tries to eat a varied vegetarian diet, mutton is a g
 pleasure of theirs, and Spectrolus will scarf it down whenever given the opportunity.
 
 ## Rafflowsia
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes:
+
+Idea: coroner
 
 ## Dandelifeon
 * Gender: We asked and they enthusiastically gave us a lecture (with diagrams) on the
@@ -273,21 +301,42 @@ people online (often getting into pointless debates about programming languages 
 Heisei Dream), and watching nerdy TV shows.
 
 ## Shulk Me Not
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: Games that don't require thinking or skill
+
 Idea: likes hobbies with high skill ceiling (sports, skill games, etc.)
 
 ## Jaded Amaranthus
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
 
 ## Bellethorne
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: somewhat of an asshole
 
 ## Dreadthorne
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: somewhat of an asshole
 
 ## Heisei Dream
-* Gender: Hot topic of debate on many forums they frequent; they give a different response to each inquiry
+* Gender: Hot topic of debate on many forums they frequent; they give a different response
+  to each inquiry
 * Physical symbols: :trolled: emote
 * Likes: KenM, Rick Astley (they're an actual fan of his music), The Onion
-* Dislikes: Fake "trolling" (most of their friend-group's been subjected to the "shouting slurs doesn't count" rant at least thrice)
+* Dislikes: Fake "trolling" (most of their friend-group's been subjected to the "shouting
+  slurs doesn't count" rant at least thrice)
 
 Heisei Dream is a master of the old school internet trolling, in what they believe is its
 original, purest, most tasteful meaning. They love making jokes that poke fun at various
@@ -316,15 +365,30 @@ Career-wise, Tigerseye serves as a skilled prosecutor and specializes in prosecu
 sexual abuse offenders.
 
 ## Orechid
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: miner
 
 ## Orechid Ignem
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: Orechid's senior
 
 ## Fallen Kanade
+* Gender:
+* Physical symbols: Maple syrup (only the best)
+* Likes:
+* Dislikes: 
+
 Idea: Canadian
 
-* Physical symbols: Maple syrup (only the best)
+
 
 ## Exoflame
 * Gender: Tastefully done eyeliner that renders their features extra androgynous
@@ -343,15 +407,37 @@ that's exactly what the friend needs to hear. As a result, Exoflame is deeply tr
 nearly everybody they know.
 
 ## Agricarnation
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: farmer
 
 ## Hopperhock
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
 
 ## Tangleberrie
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
 
-## Jiyuulia
+## Jiyuuli
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: a
 
 ## Labellia
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: Librarian
 
 ## Rannuncarpus
@@ -370,6 +456,11 @@ easygoing attitude and are always happy to hook up their friends and family with
 concerts (or repairs).
 
 ## Hyacidus
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: Pharmacist that isn't very good
 
 ## Pollidisiac
@@ -435,15 +526,35 @@ Their dream is to attend every single concert of the international tour of their
 Korean boyband, BTS (Big Tater Squad).
 
 ## Vinculotus
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: mad scientist (ender tech)
 
 ## Spectranthemum
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: Stage magician (teleporting things)
 
 ## Medumone
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 (slows mobs down)
 
 ## Marimorphosis
+* Gender:
+* Physical symbols:
+* Likes:
+* Dislikes: 
+
 Idea: Alchemist (but a modern nuclear scientist)
 
 ## Bubbell
@@ -459,11 +570,12 @@ friends, though they are careful to not reveal too much about themselves. (TODO 
 refinement and distinguishing characteristics with Hydro)
 
 ## Solegnolia
-Idea: sound/electrical engineer or physicist
 * Gender: Pronouns are thor/thom/thors (!!rdj they really like Thor)
 * Physical symbols: Any of the symbols that go on a circuit diagram
 * Likes: Technical Minecraft, Simping for Fourier, Jamming with Bergamute and Rannuncarpus
 * Dislikes: Modded Minecraft (too easy)
+
+Idea: sound/electrical engineer or physicist
 
 ## Bergamute
 * Gender:
