@@ -27,16 +27,18 @@ Profile: <Personality/Occupation/Hobbies>
 
 ## Pure Daisy
 * Name: Pure Daisy
-* Gender: Gender is irrelevant for flowers.
+* Gender: Gender is irrelevant for flowers (they/them)
 * Physical symbols: white, angel
-* Blurb: Pure Daisy is the flower your parents always compared you to. They were the
-  perfect-attendance flower, the spelling-bee champion flower, the all-A's flower. Doted
-  on by everyone, Pure Daisy embraces both the expectations and the praise heaped onto
-  themself and works hard. They work as an executive at a highly prestigious company (TODO
-  doing what), and in their free time enjoys TODO. As a result of their perfectionism,
-  Pure Daisy can easily get upset when things don't go according to plan.
 * Likes: Things being orderly, precision, perfectionism
 * Dislikes: Unexpected changes of plan, others not putting forth their full effort
+
+Pure Daisy is the flower your parents always compared you to. They were the
+perfect-attendance flower, the spelling-bee champion flower, the all-A's flower. Doted on
+by everyone, Pure Daisy embraces both the expectations and the praise heaped onto themself
+and works hard. They work as an executive at a highly prestigious finance company, and in
+their free time enjoy playing skill games that require absolute perfection in execution,
+such as *Touhou* or *osu!*. As a result of their perfectionism, Pure Daisy can easily get
+upset when things don't go according to plan.
 
 ## Manastar
 Idea: data scientist
@@ -163,7 +165,7 @@ favorite element, they tend to feel out of place at social gatherings -- right n
 hour is about their limit for parties and such, after which they steal off for some alone
 time.
 
-## Daybloom and Nightshade Motif
+## Daybloom Motif and Nightshade Motif
 * Gender: Varies
 
 Since the band's breakup, many fans have missed the trio. This led to many impersonators
