@@ -16,14 +16,14 @@ games of the [Touhou Project](https://en.touhouwiki.net/wiki/Touhou_Project).
 
 These profiles were authored by williewillus and Alwinfy.
 
-## Template
-* Name: Flower Name
+## NAME
 * Gender:
 * Physical symbols: <colors, items, etc.>
-* Blurb: <Personality/Occupation/Hobbies>
 * Likes:
 * Dislikes:
 * Image (?)
+
+Profile: <Personality/Occupation/Hobbies>
 
 ## Pure Daisy
 * Name: Pure Daisy
@@ -42,38 +42,136 @@ These profiles were authored by williewillus and Alwinfy.
 Idea: data scientist
 
 ## Daybloom
-Idea: Retired idol duo with nightshade, imitated by motif
-
-* Name: Daybloom
-* Pronouns: he/him
-* Physical symbols: Sun (specifically a setting sun)
-* Blurb: Daybloom was formerly one of the hottest names in Minecraft, usually touring for around ten months every year. One day, however, a catastrophic 
-* Likes: Renewable energy, Nightshade
+* Gender: Male (he/him)
+* Physical symbols: Setting Sun
+* Likes: Fame, the grind, leadership, Nightshade, renewable energy
 * Dislikes: Hydroangea
+
+Daybloom was one of the hottest names in Minecraft, adored by his fanboys and fangirls,
+and usually touring for ten months in a year with the band he formed with his cousin
+Nightshade and high school friend Hydroangea.
+
+A musical genius, Daybloom was the guitarist and lead vocalist, and the brains of the
+entire operation. A tireless worker, Daybloom toiled day and night to get the band off of
+the ground and into the limelight, juggling management duties with performance and
+composition (because he didn't trust anyone else to do as good a job).
+
+One fated day, deep into a tour in which every show was a sellout, Hydroangea approached
+him and mentioned that they wanted to cut the tour short and return home due to excessive
+stress. Daybloom was shocked, then panicked. Did Hydroangea not understand the commitments
+that they had made, both to their fans and to their contract partners? This move would
+cost them dearly and destroy all the plans he had laid out for the group in the next
+two years.
+
+Daybloom considered Hydroangea a good friend, but in the heat of the moment, he lost his
+composure. The heated discussion ended with Hydroangea leaving for the next flight home.
+Daybloom and Nightshade, in a struggle, managed to finish the tour with a backup drummer
+and return home. Daybloom immediately began another round of planning; there was no time
+to lose salvaging the group's plans. He attempted to recruit a new full-time drummer, but
+after a few gigs that were panned as the worst of the band's history, it quickly became
+clear that what the fans truly appreciated were the dynamic trio of brave and outspoken
+Daybloom, demure and cute Nightshade, and stoic and thoughtful Hydroangea. Their best days
+were now behind them.
+
+With resignation, Daybloom announced his retirement. The group had made more than enough
+in their several-year run for him to live the rest of his life comfortably, but Daybloom
+ruminates on returning the industry quite often.
+
+His feelings about Hydroangea remain complicated. On one hand, Hydroangea's departure was
+the *de facto* reason the band broke up. On the other hand, he had come to understand and
+somewhat empathize with Hydroangea's reasoning. Despite usually being the confident and
+fearless leader during their performing years, he has not contacted Hydroangea since that
+night. However, their phone number remains in his contacts list, and perhaps one day
+Daybloom can muster up the confidence to tap the "Call" button.
 
 ## Nightshade
-Idea: Retired idol duo with daybloom, imitated by motif
+* Gender: Female (she/her)
+* Physical symbols: New Moon
+* Likes: Astrology, Daybloom, renewable energy
+* Dislikes: Making decisions
 
-* Name: Nightshade
-* Pronouns: she/her
-* Physical symbols: Moon (specifically a waning/new moon)
-* Blurb: 
-* Likes: Renewable energy, astrology, Daybloom
-* Dislikes: Hydroangea
+The younger cousin of Daybloom, Nightshade served as bassist and occasional vocalist of
+the group formed by the duo and their high school friend Hydroangea. She's known for her
+cute yet reserved personality.
 
-## Hydroangeas
-* Name: Hydroangeas
-* Gender: Fish
-* Physical symbols: <colors, symbols, etc.>
-* Blurb: Hydroangeas used to be an idol, before an incident involving a catastrophic loss
-  of balance took them out of commission. Nowadays, they can often be found soaking in a
-  pool or splashing around in the rain (miraculously, they've not managed to catch a cold
-  from it yet). While water is their element, their past experiences have led them to feel
-  out of place at social gatherings--- right now, an hour is about their limit for parties
-  and such, after which they steal off for some alone time.
-* Likes: The water, peace and quiet
-* Dislikes: Loud sounds, large crowds, Daybloom and Nightshade
-* Image (?)
+Nightshade often has decision paralysis and finds it hard to make major choices and
+decisions. As a result, she often left much of the band's creative work to Daybloom
+and Hydroangea.
+
+This came to a head one night during a tour. Hydroangeas had come and requested a leave of
+absence from the rest of the tour, which sent Daybloom into a panic. The conversation
+escalated into an impassioned argument, in which Nightshade heard several sentences she
+was sure both of them would regret saying sooner or later. But at the time, she felt
+powerless to step between them. When all was said and done, Hydroangea had left the hotel,
+and Daybloom was tearfully scrambling to figure out the logistics of such a drastic
+change.
+
+What if I had spoken up then?
+
+Could I have kept the band together?
+
+Those questions remains with Nightshade to this day. After Daybloom announced his
+retirement, Nightshade quickly followed suit. With her earnings, she opened a small shop
+where she gives psychic readings, astrological predictions, tarot card readings,
+*fengshui* calculations, among other similar arts. She has rarely touched her bass since.
+
+## Hydroangea
+* Name: Hydroangea
+* Gender: Fish (they/them)
+* Physical symbols: Ripples
+* Likes: Drumming, water, peace and quiet, meditation, self-reflection
+* Dislikes: Large crowds, stress
+
+Hydroangea was a drummer in high school, but never cared for making it big. In a massive
+stroke of luck, they somehow befriended Daybloom, who quickly recognized Hydroangeas'
+talent for the drumset and recruited them into his band. At first, the group played
+small-time gigs in bars and clubs, but quickly made a name for themselves. From
+hole-in-the-wall establishments, they went to auditoriums, to stadiums, to worldwide tours
+within a year. Hydroangea happily went along with it, appreciating the new experiences
+that came with each song, album, and tour.
+  
+The stresses of being world-famous quickly got to Hydroangea, however. Long hours
+rehearsing, composing, recording, and touring quickly wore down on Hydroangea,
+eventually leading to several panic attacks and visits to the psychiatrist.
+  
+One day, halfway through another grueling tour and after several long nights of thought,
+Hydroangea made up their mind. They met with Daybloom and Nightshade in their hotel
+room, and with sincerest apologies told the duo that Hydrangea would not be able to
+continue with the group after the tour was over. Daybloom did not take it well:
+  
+* "What about the fans?"
+* "Our contract extends for another two years!"
+* "Everyone is counting on you"!
+* "Please, just until our contract expires?"
+* "You're not pulling your weight here!"
+  
+were among the phrases Hydroangea heard in the room that day. Hydroangeas was torn once
+more between staying and going, but came to the realization that prioritizing their own
+health and well-being was more important than the next paycheck or the next moment under
+the spotlight.  Disappointed and saddened by their friends' lack of empathy, Hydroangea
+gathered their belongings, thanked and apologized to each and every member of the crew,
+and departed for home that night, knowing they would likely never see either Daybloom or
+Nightshade in person again.
+
+Today, Hydrangea lives a well-off life from the money made from the band's peak years, and
+continues to drum under a pseudonym, though they explicitly keep it amateur and refuse all
+offers to form a commercial group.
+
+When not drumming, they can often be found soaking in a pool or splashing around in the
+rain (miraculously, they've not managed to catch a cold from it yet). While water is their
+favorite element, they tend to feel out of place at social gatherings -- right now, an
+hour is about their limit for parties and such, after which they steal off for some alone
+time.
+
+## Daybloom and Nightshade Motif
+* Gender: Varies
+
+Since the band's breakup, many fans have missed the trio. This led to many impersonators
+popping up, which the fanbase have nicknamed "Motifs". These impersonators are often able
+to impressively imitate Daybloom and Nightshade's appearance and behavior, but are never
+able to replicate their musical prowess. Notably absent are Hydroangea impersonators, as
+Hydroangea put out a statement requesting fans to not impersonate them, and to instead
+show their love by purchasing the band's old records and merch.
 
 ## Endoflame
 * Name: Endoflame
