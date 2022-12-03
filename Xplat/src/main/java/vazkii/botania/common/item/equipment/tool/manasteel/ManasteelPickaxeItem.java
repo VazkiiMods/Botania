@@ -40,6 +40,8 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 
 	private static final int MANA_PER_DAMAGE = 60;
 
+	private static final int TIME = 5;
+
 	public ManasteelPickaxeItem(Properties props) {
 		this(BotaniaAPI.instance().getManasteelItemTier(), props, -2.8F);
 	}
@@ -69,14 +71,16 @@ public class ManasteelPickaxeItem extends PickaxeItem implements CustomDamageIte
 				if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
 					ItemStack displayStack = stackAt.copy();
 					InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);
-					if (did.consumesAction() && !ctx.getLevel().isClientSide) {
-						ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
+					if (did.consumesAction()) {
+						if (!ctx.getLevel().isClientSide) {
+							ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
+						}
+						player.getCooldowns().addCooldown(this, TIME);
+						return did;
 					}
-					return did;
 				}
 			}
 		}
-
 		return InteractionResult.PASS;
 	}
 
