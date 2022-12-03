@@ -2850,7 +2850,7 @@
 
   "botania.entry.temperanceStone": "Stone of Temperance",
   "botania.tagline.temperanceStone": "A limiter for the power of the Terrasteel Tools",
-  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, an active $(item)Stone of Temperance$(0) will prevent a $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) in the inventory from breaking any wider areas. This also affects the $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l). The stone can be toggled on/off with a sneak-right click.",
+  "botania.page.temperanceStone0": "The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) can tear through huge tracts of land like lightning when charged to its maximum potential; however, this might not always be the user's intention. A small, 3x3 region might be more fitting in certain cases; thus, an active $(item)Stone of Temperance$(0) in the inventory will prevent a $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) from breaking any wider areas. This also affects the $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l) and the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l). The stone can be toggled on/off by right clicking it, either in your inventory or your hand.",
   "botania.page.temperanceStone1": "Don't lose it",
 
   "botania.entry.terraAxe": "Terra Truncator",
