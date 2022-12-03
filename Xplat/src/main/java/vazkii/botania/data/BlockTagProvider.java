@@ -33,6 +33,7 @@ import vazkii.botania.common.block.red_string.RedStringBlock;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -121,7 +122,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.addTag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
 		tag(BotaniaTags.Blocks.MINI_FLOWERS).add(
-				getModBlocks(b -> b instanceof SpecialFlowerBlock && registry.getKey(b).getPath().endsWith("_chibi"))
+				getModBlocks(b -> XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
+						&& registry.getKey(b).getPath().endsWith("_chibi"))
 		);
 
 		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)

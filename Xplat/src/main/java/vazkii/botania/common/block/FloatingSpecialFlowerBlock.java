@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
@@ -18,10 +19,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.common.block.decor.FloatingFlowerBlock;
 
@@ -37,7 +41,23 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		SpecialFlowerBlock.redstoneParticlesIfPowered(state, world, pos, rand);
+		redstoneParticlesIfPowered(state, world, pos, rand);
+	}
+
+	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
+		BlockEntity te = world.getBlockEntity(pos);
+		if (te instanceof FunctionalFlowerBlockEntity flower && rand.nextBoolean()) {
+			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
+				VoxelShape shape = state.getShape(world, pos);
+				if (!shape.isEmpty()) {
+					AABB localBox = shape.bounds();
+					double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
+					double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
+					double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
+					world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
+				}
+			}
+		}
 	}
 
 	@Override

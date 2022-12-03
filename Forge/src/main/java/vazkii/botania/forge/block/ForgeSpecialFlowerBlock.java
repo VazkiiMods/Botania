@@ -1,15 +1,6 @@
-/*
- * This class is distributed as part of the Botania Mod.
- * Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- */
-package vazkii.botania.common.block;
+package vazkii.botania.forge.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,7 +13,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -30,17 +20,23 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
+import vazkii.botania.common.block.BotaniaBlock;
+import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.FloatingSpecialFlowerBlock;
 
 import java.util.function.Supplier;
 
-public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
+// Note: Keep in sync with FabricSpecialFlowerBlock. The only reason they are split is
+// because Forge patches the superclass constructor in stupid, incompatible ways.
+public class ForgeSpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType;
 
-	public SpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
-		super(stewEffect, stewDuration, props);
+	public ForgeSpecialFlowerBlock(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> blockEntityType) {
+		super(/* the only godforsaken reason why this class needs to be duplicated for each loader
+				is so that we can add a "() ->" here. Amazing. */
+				() -> stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 	}
 
@@ -83,22 +79,7 @@ public class SpecialFlowerBlock extends FlowerBlock implements EntityBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		redstoneParticlesIfPowered(state, world, pos, rand);
+		FloatingSpecialFlowerBlock.redstoneParticlesIfPowered(state, world, pos, rand);
 	}
 
-	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof FunctionalFlowerBlockEntity flower && rand.nextBoolean()) {
-			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
-				VoxelShape shape = state.getShape(world, pos);
-				if (!shape.isEmpty()) {
-					AABB localBox = shape.bounds();
-					double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
-					double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
-					double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
-					world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
-				}
-			}
-		}
-	}
 }

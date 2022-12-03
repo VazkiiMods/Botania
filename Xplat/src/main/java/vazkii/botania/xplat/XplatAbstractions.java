@@ -17,6 +17,7 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -35,9 +36,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
@@ -51,6 +54,7 @@ import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.api.corporea.CorporeaSpark;
@@ -69,6 +73,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public interface XplatAbstractions {
 	// FML/Fabric Loader
@@ -158,6 +163,10 @@ public interface XplatAbstractions {
 	void sendToTracking(Entity e, BotaniaPacket packet);
 
 	// Registrations
+	boolean isSpecialFlowerBlock(Block b);
+	FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
+			BlockBehaviour.Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType);
 	<T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> func, Block... blocks);
 	void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener);
 	Item.Properties defaultItemBuilder();

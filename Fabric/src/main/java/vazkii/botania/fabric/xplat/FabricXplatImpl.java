@@ -47,6 +47,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -65,9 +66,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluid;
@@ -78,6 +81,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.block.*;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestCallback;
 import vazkii.botania.api.corporea.CorporeaRequestCallback;
@@ -96,6 +100,7 @@ import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.fabric.FabricBotaniaCreativeTab;
+import vazkii.botania.fabric.block.FabricSpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.integration.trinkets.TrinketsIntegration;
@@ -113,6 +118,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -439,6 +445,16 @@ public class FabricXplatImpl implements XplatAbstractions {
 		if (e instanceof ServerPlayer) {
 			((ServerPlayer) e).connection.send(pkt);
 		}
+	}
+
+	@Override
+	public boolean isSpecialFlowerBlock(Block b) {
+		return b instanceof FabricSpecialFlowerBlock;
+	}
+
+	@Override
+	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration, BlockBehaviour.Properties props, Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
+		return new FabricSpecialFlowerBlock(effect, effectDuration, props, beType);
 	}
 
 	@Override

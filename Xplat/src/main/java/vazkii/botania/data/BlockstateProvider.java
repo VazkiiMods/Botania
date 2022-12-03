@@ -41,6 +41,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
 import vazkii.botania.mixin.TextureSlotAccessor;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.io.IOException;
 import java.util.*;
@@ -362,7 +363,7 @@ public class BlockstateProvider implements DataProvider {
 		particleOnly(remainingBlocks, lightRelayToggle, getBlockTexture(lightRelayToggle));
 
 		// Block groups
-		Predicate<Block> flowers = b -> b instanceof SpecialFlowerBlock
+		Predicate<Block> flowers = b -> XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
 				|| b instanceof BotaniaMushroomBlock
 				|| b instanceof BotaniaFlowerBlock;
 		ModelTemplate crossTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/cross")), Optional.empty(), TextureSlot.CROSS);

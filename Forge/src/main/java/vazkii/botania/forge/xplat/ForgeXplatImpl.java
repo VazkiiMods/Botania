@@ -21,6 +21,7 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -41,9 +42,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
@@ -76,6 +79,7 @@ import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HornHarvestable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.Wandable;
+import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.CorporeaRequestEvent;
@@ -95,6 +99,7 @@ import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.ForgeBotaniaCreativeTab;
+import vazkii.botania.forge.block.ForgeSpecialFlowerBlock;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
 import vazkii.botania.forge.mixin.AbstractFurnaceBlockEntityForgeAccessor;
@@ -110,6 +115,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -417,6 +423,18 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		if (!e.level.isClientSide) {
 			ForgePacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), packet);
 		}
+	}
+
+	@Override
+	public boolean isSpecialFlowerBlock(Block b) {
+		return b instanceof ForgeSpecialFlowerBlock;
+	}
+
+	@Override
+	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
+			BlockBehaviour.Properties props,
+			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
+		return new ForgeSpecialFlowerBlock(effect, effectDuration, props, beType);
 	}
 
 	@Override

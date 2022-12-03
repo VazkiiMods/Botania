@@ -48,6 +48,7 @@ import vazkii.botania.data.util.ModelWithOverrides;
 import vazkii.botania.data.util.OverrideHolder;
 import vazkii.botania.data.util.SimpleModelSupplierWithOverrides;
 import vazkii.botania.mixin.TextureSlotAccessor;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -398,7 +399,8 @@ public class ItemModelProvider implements DataProvider {
 
 		Predicate<BlockItem> defaultGenerated = i -> {
 			Block b = i.getBlock();
-			return b instanceof SpecialFlowerBlock || b instanceof BotaniaMushroomBlock
+			return XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
+					|| b instanceof BotaniaMushroomBlock
 					|| b instanceof LuminizerBlock
 					|| b instanceof BotaniaFlowerBlock
 					|| b == BotaniaBlocks.ghostRail;
