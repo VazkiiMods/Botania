@@ -85,8 +85,8 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 	}
 
 	@Override
-	public @Nullable StorageView<ItemVariant> exactView(TransactionContext transaction, ItemVariant resource) {
-		return getStorage().exactView(transaction, resource);
+	public @Nullable StorageView<ItemVariant> exactView(ItemVariant resource) {
+		return getStorage().exactView(resource);
 	}
 
 	@Override

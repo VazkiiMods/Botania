@@ -101,16 +101,13 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.officialMojangMappings()
-    /*
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.18.1:2021.12.19@zip")
+        parchment("org.parchmentmc.data:parchment-1.19.2:2022.11.27@zip")
     }
-    */
 
-    modImplementation "net.fabricmc:fabric-loader:0.14.9"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.60.0+1.19.2"
+    modImplementation "net.fabricmc:fabric-loader:0.14.11"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.68.0+1.19.2"
 
     compileOnly project(":Xplat")
 
