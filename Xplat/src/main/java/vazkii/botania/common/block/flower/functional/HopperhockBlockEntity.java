@@ -73,7 +73,8 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		boolean pulledAny = false;
 		int range = getRange();
 
-		BlockPos pos = getEffectivePos();
+		BlockPos inPos = getBlockPos();
+		BlockPos outPos = getEffectivePos();
 
 		Predicate<ItemEntity> shouldPickup = item -> {
 			if (XplatAbstractions.INSTANCE.preventsRemoteMovement(item)) {
@@ -88,7 +89,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 			return DelayHelper.canInteractWith(this, item);
 		};
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)), shouldPickup);
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(inPos.offset(-range, -range, -range), inPos.offset(range + 1, range + 1, range + 1)), shouldPickup);
 
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
@@ -97,7 +98,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			Direction direction = null;
 
 			for (Direction dir : Direction.values()) {
-				BlockPos inventoryPos = pos.relative(dir);
+				BlockPos inventoryPos = outPos.relative(dir);
 				Direction sideOfInventory = dir.getOpposite();
 
 				if (XplatAbstractions.INSTANCE.hasInventory(level, inventoryPos, sideOfInventory)) {
@@ -124,7 +125,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			if (direction != null && item.isAlive()) {
 				SpectranthemumBlockEntity.spawnExplosionParticles(item, 3);
 				InventoryHelper.checkEmpty(
-						XplatAbstractions.INSTANCE.insertToInventory(level, pos.relative(direction),
+						XplatAbstractions.INSTANCE.insertToInventory(level, outPos.relative(direction),
 								direction.getOpposite(), stack.split(amountToPutIn), false)
 				);
 
@@ -219,6 +220,11 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), getRange());
+	}
+
+	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		return RadiusDescriptor.Rectangle.square(getBlockPos(), 1);
 	}
 
 	public int getRange() {

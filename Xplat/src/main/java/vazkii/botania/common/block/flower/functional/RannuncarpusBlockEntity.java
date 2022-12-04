@@ -82,7 +82,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 
 		if (ticksExisted % 10 == 0) {
-			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getEffectivePos().offset(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
+			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getBlockPos().offset(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
 
 			List<ItemStack> filter = HopperhockBlockEntity.getFilterForInventory(getLevel(), getFilterPos(), false);
 
@@ -136,7 +136,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	}
 
 	private BlockPos getFilterPos() {
-		return getEffectivePos().below(isFloating() ? 1 : 2);
+		return getBlockPos().below(isFloating() ? 1 : 2);
 	}
 
 	public BlockState getUnderlyingBlock() {
@@ -241,10 +241,10 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
-		if (getPlaceRange() == PICKUP_RANGE) {
+		if (getPlaceRange() == PICKUP_RANGE && getEffectivePos().equals(getBlockPos())) {
 			return null;
 		}
-		return RadiusDescriptor.Rectangle.square(getEffectivePos(), PICKUP_RANGE);
+		return RadiusDescriptor.Rectangle.square(getBlockPos(), PICKUP_RANGE);
 	}
 
 	public int getPlaceRange() {

@@ -57,13 +57,14 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 
 		if (!level.isClientSide && redstoneSignal == 0 && getMana() >= COST) {
 			BlockPos effPos = getEffectivePos();
+			BlockPos realPos = getBlockPos();
 			int x = effPos.getX();
 			int y = effPos.getY();
 			int z = effPos.getZ();
 
 			for (ItemEntity nameTagEnt : level.getEntitiesOfClass(ItemEntity.class,
-					new AABB(x - PICKUP_RANGE, y, z - PICKUP_RANGE,
-							x + PICKUP_RANGE + 1, y + 1, z + PICKUP_RANGE + 1),
+					new AABB(realPos.offset(-PICKUP_RANGE, 0, -PICKUP_RANGE),
+							realPos.offset(PICKUP_RANGE + 1, 1, PICKUP_RANGE + 1)),
 					EntitySelector.ENTITY_STILL_ALIVE)) {
 				if (!DelayHelper.canInteractWith(this, nameTagEnt)) {
 					continue;
@@ -114,7 +115,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
-		return RadiusDescriptor.Rectangle.square(getEffectivePos(), PICKUP_RANGE);
+		return RadiusDescriptor.Rectangle.square(getBlockPos(), PICKUP_RANGE);
 	}
 
 	@Override

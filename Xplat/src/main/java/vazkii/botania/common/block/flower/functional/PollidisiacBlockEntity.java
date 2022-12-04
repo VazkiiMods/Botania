@@ -36,8 +36,9 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity {
 		super.tickFlower();
 
 		if (!getLevel().isClientSide) {
+			var pickupBounds = new AABB(getBlockPos().offset(-RANGE, -RANGE, -RANGE), getBlockPos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
+			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, pickupBounds);
 			var bounds = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
-			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, bounds);
 			List<Animal> animals = getLevel().getEntitiesOfClass(Animal.class, bounds);
 
 			for (Animal animal : animals) {
@@ -68,6 +69,11 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
+	}
+
+	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		return getBlockPos().equals(getEffectivePos()) ? null : RadiusDescriptor.Rectangle.square(getBlockPos(), RANGE);
 	}
 
 	@Override
