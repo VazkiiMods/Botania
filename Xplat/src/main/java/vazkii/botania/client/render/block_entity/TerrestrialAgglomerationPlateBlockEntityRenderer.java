@@ -32,13 +32,13 @@ public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEn
 		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
 		ms.pushPose();
+		ms.translate(0F, 3F / 16F + 0.001F, 0F);
 		ms.mulPose(Vector3f.XP.rotationDegrees(90F));
-		ms.translate(0F, 0F, -3F / 16F - 0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
-		RenderHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousModels.INSTANCE.terraPlateOverlay.sprite(), 1, 1, alpha);
+		RenderHelper.renderIconFullBright(ms, buffer, MiscellaneousModels.INSTANCE.terraPlateOverlay.sprite(), alpha);
 
 		ms.popPose();
 	}

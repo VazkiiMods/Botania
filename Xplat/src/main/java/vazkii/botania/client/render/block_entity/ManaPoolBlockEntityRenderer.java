@@ -69,47 +69,46 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 					.renderModel(ms.last(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}
 
-		ms.translate(0.5F, 1.5F, 0.5F);
-
-		int mana = pool == null ? cartMana : pool.getCurrentMana();
-		int cap = pool == null ? -1 : pool.manaCap;
-		if (cap == -1) {
-			cap = ManaPoolBlockEntity.MAX_MANA;
-		}
-
-		float waterLevel = (float) mana / (float) cap * 0.4F;
-
-		float s = 1F / 16F;
-		float v = 1F / 8F;
-		float w = -v * 3.5F;
-
 		if (pool != null) {
 			Block below = pool.getLevel().getBlockState(pool.getBlockPos().below()).getBlock();
 			if (below instanceof PoolOverlayProvider overlayProvider) {
 				var overlaySpriteId = overlayProvider.getIcon(pool.getLevel(), pool.getBlockPos());
 				var overlayIcon = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(overlaySpriteId);
 				ms.pushPose();
+
 				float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
-				ms.translate(-0.5F, -1F - 0.43F, -0.5F);
+
+				ms.translate(0, 1 / 16F + 0.001, 0);
 				ms.mulPose(Vector3f.XP.rotationDegrees(90F));
-				ms.scale(s, s, s);
 
 				VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
-				RenderHelper.renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
+				RenderHelper.renderIconCropped(
+						ms, buffer,
+						1, 1, 15, 15,
+						overlayIcon, 0xFFFFFF, alpha, light
+				);
 
 				ms.popPose();
 			}
 		}
 
-		if (waterLevel > 0) {
-			s = 1F / 256F * 14F;
+		int mana = pool == null ? cartMana : pool.getCurrentMana();
+		int maxMana = pool == null ? -1 : pool.manaCap;
+		if (maxMana == -1) {
+			maxMana = ManaPoolBlockEntity.MAX_MANA;
+		}
+
+		float manaLevel = (float) mana / (float) maxMana;
+		if (manaLevel > 0) {
 			ms.pushPose();
-			ms.translate(w, -1F - (0.43F - waterLevel), w);
+			ms.translate(0, Mth.clampedMap(manaLevel, 0, 1, 1 / 16F, 7 / 16F), 0);
 			ms.mulPose(Vector3f.XP.rotationDegrees(90F));
-			ms.scale(s, s, s);
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
-			RenderHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousModels.INSTANCE.manaWater.sprite(), 16, 16, 1);
+			RenderHelper.renderIconCropped(
+					ms, buffer,
+					1, 1, 15, 15,
+					MiscellaneousModels.INSTANCE.manaWater.sprite(), 0xFFFFFF, 1, light);
 
 			ms.popPose();
 		}

@@ -422,14 +422,86 @@ public final class RenderHelper extends RenderType {
 
 	/**
 	 * Draw an icon into the buffer, using the {@link RenderHelper#ICON_OVERLAY} vertex format
+	 *
+	 * @param startX   Start x position in blocks
+	 * @param startY   Start position in blocks
+	 * @param endX     End x position in blocks
+	 * @param endY     End y position in blocks
+	 *
+	 * @param uvStartX UV start x position in "pixels" (1/16th sprite size)
+	 * @param uvStartY UV start position in "pixels" (1/16th sprite size)
+	 * @param uvEndX   UV end x position in "pixels" (1/16th sprite size)
+	 * @param uvEndY   UV end y position in "pixels" (1/16th sprite size)
 	 */
-	public static void renderIcon(PoseStack ms, VertexConsumer buffer, int x, int y, TextureAtlasSprite icon, int width, int height, float alpha) {
+	public static void renderIconFullBright(
+			PoseStack ms, VertexConsumer buffer,
+			float startX, float startY, float endX, float endY,
+			int uvStartX, int uvStartY, int uvEndX, int uvEndY,
+			TextureAtlasSprite icon, int color, float alpha, int light) {
 		Matrix4f mat = ms.last().pose();
+		float red = ((color >> 16) & 0xFF) / 255F;
+		float green = ((color >> 8) & 0xFF) / 255F;
+		float blue = (color & 0xFF) / 255F;
+
+		buffer.vertex(mat, startX, endY, 0).color(red, green, blue, alpha).uv(icon.getU(uvStartX), icon.getV(uvEndY)).uv2(light).endVertex();
+		buffer.vertex(mat, endX, endY, 0).color(red, green, blue, alpha).uv(icon.getU(uvEndX), icon.getV(uvEndY)).uv2(light).endVertex();
+		buffer.vertex(mat, endX, startY, 0).color(red, green, blue, alpha).uv(icon.getU(uvEndX), icon.getV(uvStartY)).uv2(light).endVertex();
+		buffer.vertex(mat, startX, startY, 0).color(red, green, blue, alpha).uv(icon.getU(uvStartX), icon.getV(uvStartY)).uv2(light).endVertex();
+	}
+
+	/**
+	 * Draw an icon into the buffer, using the {@link RenderHelper#ICON_OVERLAY} vertex format
+	 *
+	 * @param uvStartX UV start x position in "pixels" (1/16th sprite size)
+	 * @param uvStartY UV start position in "pixels" (1/16th sprite size)
+	 * @param uvEndX   UV end x position in "pixels" (1/16th sprite size)
+	 * @param uvEndY   UV end y position in "pixels" (1/16th sprite size)
+	 */
+	public static void renderIconCropped(
+			PoseStack ms, VertexConsumer buffer,
+			int uvStartX, int uvStartY, int uvEndX, int uvEndY,
+			TextureAtlasSprite icon, int color, float alpha, int light) {
+		renderIconFullBright(
+				ms, buffer,
+				uvStartX / 16F, uvStartY / 16F, uvEndX / 16F, uvEndY / 16F,
+				uvStartX, uvStartY, uvEndX, uvEndY,
+				icon, color, alpha, light
+		);
+	}
+
+	/**
+	 * Draw an icon into the buffer, using the {@link RenderHelper#ICON_OVERLAY} vertex format
+	 * Renders the icon at a 1 block size with a full 16x16 UV
+	 */
+	public static void renderIconFullBright(
+			PoseStack ms, VertexConsumer buffer,
+			TextureAtlasSprite icon, int color, float alpha, int light) {
+		renderIconCropped(
+				ms, buffer,
+				0, 0, 16, 16,
+				icon, color, alpha, light
+		);
+	}
+
+	/**
+	 * Draw an icon into the buffer, using the {@link RenderHelper#ICON_OVERLAY} vertex format
+	 * Renders the icon in fullbright, at a 1 block size with a full 16x16 UV
+	 */
+	public static void renderIconFullBright(
+			PoseStack ms, VertexConsumer buffer,
+			TextureAtlasSprite icon, int color, float alpha) {
 		int fullbright = 0xF000F0;
-		buffer.vertex(mat, x, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV1()).uv2(fullbright).endVertex();
-		buffer.vertex(mat, x + width, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV1()).uv2(fullbright).endVertex();
-		buffer.vertex(mat, x + width, y, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV0()).uv2(fullbright).endVertex();
-		buffer.vertex(mat, x, y, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV0()).uv2(fullbright).endVertex();
+		renderIconFullBright(ms, buffer, icon, color, alpha, fullbright);
+	}
+
+	/**
+	 * Draw an icon into the buffer, using the {@link RenderHelper#ICON_OVERLAY} vertex format
+	 * Renders the icon in fullbright, with no color modification, at a 1 block size with a full 16x16 UV
+	 */
+	public static void renderIconFullBright(
+			PoseStack ms, VertexConsumer buffer,
+			TextureAtlasSprite icon, float alpha) {
+		renderIconFullBright(ms, buffer, icon, 0xFFFFFF, alpha);
 	}
 
 	private static class AstrolabeLayer extends RenderType {
