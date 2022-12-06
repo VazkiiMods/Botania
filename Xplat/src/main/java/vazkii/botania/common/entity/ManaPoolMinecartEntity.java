@@ -87,7 +87,6 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	@Override
 	public void destroy(DamageSource source) {
 		super.destroy(source);
-		spawnAtLocation(BotaniaBlocks.manaPool, 0);
 	}
 
 	@Override
