@@ -56,7 +56,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			time += new Random(pool.getBlockPos().getX() ^ pool.getBlockPos().getY() ^ pool.getBlockPos().getZ()).nextInt(100000);
 			time *= 0.005F;
-			int poolColor = ColorHelper.getColorValue(pool.getColor());
+			int poolColor = pool.getColor().map(ColorHelper::getColorValue).orElse(-1);
 			int color = vazkii.botania.common.helper.MathHelper.multiplyColor(Mth.hsvToRgb(Mth.frac(time), 0.6F, 1F), poolColor);
 
 			int red = (color & 0xFF0000) >> 16;

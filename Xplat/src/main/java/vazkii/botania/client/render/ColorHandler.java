@@ -44,6 +44,8 @@ import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.mixin.client.MinecraftAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Optional;
+
 public final class ColorHandler {
 	public interface BlockHandlerConsumer {
 		void register(BlockColor handler, Block... blocks);
@@ -65,19 +67,19 @@ public final class ColorHandler {
 						return -1;
 					}
 
-					int color = ColorHelper.getColorValue(DyeColor.WHITE);
+					Optional<Integer> color = Optional.empty();
 					if (world != null && pos != null) {
 						BlockEntity te = world.getBlockEntity(pos);
 						if (te instanceof ManaPoolBlockEntity pool) {
-							color = ColorHelper.getColorValue(pool.getColor());
+							color = pool.getColor().map(ColorHelper::getColorValue);
 						}
 					}
 					if (((ManaPoolBlock) state.getBlock()).variant == ManaPoolBlock.Variant.FABULOUS) {
 						float time = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.005F;
 						int fabulousColor = Mth.hsvToRgb(time - (int) time, 0.6F, 1F);
-						return vazkii.botania.common.helper.MathHelper.multiplyColor(fabulousColor, color);
+						return color.isEmpty() ? fabulousColor : vazkii.botania.common.helper.MathHelper.multiplyColor(fabulousColor, color.get());
 					}
-					return color;
+					return color.orElse(-1);
 				},
 				BotaniaBlocks.manaPool, BotaniaBlocks.creativePool, BotaniaBlocks.dilutedPool, BotaniaBlocks.fabulousPool
 		);

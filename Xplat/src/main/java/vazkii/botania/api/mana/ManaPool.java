@@ -12,6 +12,8 @@ import net.minecraft.world.item.DyeColor;
 
 import vazkii.botania.api.BotaniaAPI;
 
+import java.util.Optional;
+
 /**
  * Any {@link ManaReceiver} that also implements this is considered a Mana Pool,
  * by which nearby functional flowers will pull mana from it.<br>
@@ -38,13 +40,13 @@ public interface ManaPool extends ManaReceiver {
 	/**
 	 * @return The color of this pool.
 	 */
-	DyeColor getColor();
+	Optional<DyeColor> getColor();
 
 	/**
 	 * Sets the color of this pool.
 	 * 
 	 * @param color The color to set.
 	 */
-	void setColor(DyeColor color);
+	void setColor(Optional<DyeColor> color);
 
 }

@@ -16,18 +16,17 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -38,12 +37,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.state.BotaniaStateProperties.OptionalDyeColor;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
 import vazkii.botania.common.entity.ManaBurstEntity;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 
 import java.util.List;
+import java.util.Optional;
+
+import static vazkii.botania.api.state.BotaniaStateProperties.OPTIONAL_DYE_COLOR;
 
 public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape REAL_SHAPE;
@@ -68,6 +73,13 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	public ManaPoolBlock(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
+		registerDefaultState(defaultBlockState().setValue(OPTIONAL_DYE_COLOR, OptionalDyeColor.NONE));
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(OPTIONAL_DYE_COLOR);
 	}
 
 	@Override
@@ -89,15 +101,30 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	@NotNull
 	@Override
 	public InteractionResult use(@NotNull BlockState state, Level world, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-		BlockEntity te = world.getBlockEntity(pos);
+		BlockEntity be = world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (stack.getItem() instanceof DyeItem dye && te instanceof ManaPoolBlockEntity pool) {
-			DyeColor color = dye.getDyeColor();
-			if (color != pool.getColor()) {
-				pool.setColor(color);
-				stack.shrink(1);
+		Optional<DyeColor> itemColor = Optional.empty();
+		if (stack.getItem() instanceof MysticalPetalItem petalItem) {
+			itemColor = Optional.of(petalItem.color);
+		}
+		if (Block.byItem(stack.getItem()) instanceof BotaniaMushroomBlock mushroomBlock) {
+			itemColor = Optional.of(mushroomBlock.color);
+		}
+		if (itemColor.isPresent() && be instanceof ManaPoolBlockEntity pool) {
+			if (!itemColor.equals(pool.getColor())) {
+				pool.setColor(itemColor);
+				if (!player.getAbilities().instabuild) {
+					stack.shrink(1);
+				}
 				return InteractionResult.SUCCESS;
 			}
+		}
+		if (stack.is(Items.CLAY_BALL) && be instanceof ManaPoolBlockEntity pool && pool.getColor().isPresent()) {
+			pool.setColor(Optional.empty());
+			if (!player.getAbilities().instabuild) {
+				stack.shrink(1);
+			}
+			return InteractionResult.SUCCESS;
 		}
 		return super.use(state, world, pos, player, hand, hit);
 	}

@@ -42,6 +42,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.recipe.ManaInfusionRecipe;
+import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -62,6 +63,9 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static vazkii.botania.api.state.BotaniaStateProperties.OPTIONAL_DYE_COLOR;
 
 public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool, KeyLocked, SparkAttachable,
 		ThrottledPacket, Wandable {
@@ -71,7 +75,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_OUTPUTTING = "outputting";
-	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA_CAP = "manaCap";
 	private static final String TAG_CAN_ACCEPT = "canAccept";
 	private static final String TAG_CAN_SPARE = "canSpare";
@@ -82,7 +85,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	private boolean outputting = false;
 
-	private DyeColor color = DyeColor.WHITE;
+	private Optional<DyeColor> legacyColor = Optional.empty();
 	private int mana;
 
 	public int manaCap = -1;
@@ -252,6 +255,13 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, ManaPoolBlockEntity self) {
+
+		// Legacy color format
+		if (self.legacyColor.isPresent()) {
+			self.setColor(self.legacyColor);
+			self.legacyColor = Optional.empty();
+		}
+
 		self.initManaCapAndNetwork();
 		boolean wasDoingTransfer = self.isDoingTransfer;
 		self.isDoingTransfer = false;
@@ -340,7 +350,6 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putBoolean(TAG_OUTPUTTING, outputting);
-		cmp.putInt(TAG_COLOR, color.getId());
 
 		cmp.putInt(TAG_MANA_CAP, manaCap);
 		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
@@ -354,8 +363,17 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	public void readPacketNBT(CompoundTag cmp) {
 		mana = cmp.getInt(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
-		color = DyeColor.byId(cmp.getInt(TAG_COLOR));
 
+		// Legacy color format
+		if (cmp.contains("color")) {
+			DyeColor color = DyeColor.byId(cmp.getInt("color"));
+			// White was previously used as "no color"
+			if (color != DyeColor.WHITE) {
+				legacyColor = Optional.of(color);
+			} else {
+				legacyColor = Optional.empty();
+			}
+		}
 		if (cmp.contains(TAG_MANA_CAP)) {
 			manaCap = cmp.getInt(TAG_MANA_CAP);
 		}
@@ -493,14 +511,13 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 	}
 
 	@Override
-	public DyeColor getColor() {
-		return color;
+	public Optional<DyeColor> getColor() {
+		return getBlockState().getValue(OPTIONAL_DYE_COLOR).toDyeColor();
 	}
 
 	@Override
-	public void setColor(DyeColor color) {
-		this.color = color;
-		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+	public void setColor(Optional<DyeColor> color) {
+		level.setBlockAndUpdate(worldPosition, getBlockState().setValue(OPTIONAL_DYE_COLOR, BotaniaStateProperties.OptionalDyeColor.fromOptionalDyeColor(color)));
 	}
 
 	@Override

@@ -1945,7 +1945,7 @@
   "botania.page.pool10": "Making a $(item)Diluted Mana Pool$(0)",
   "botania.page.pool14": "The $(item)Diluted Mana Pool$(0) can be useful as a small buffer for a flower or system that doesn't use much $(thing)Mana$(0), as a normal pool holds a $(o)lot$() of it. Thanks to that, $(thing)Mana$(0) readings for a normal pool won't be very precise: due to its scale, the displayed bar's size on a normal pool will increase very slowly.",
   "botania.page.pool2": "Tossing certain resources into a $(item)Mana Pool$(0) will infuse them with $(thing)Mana$(0) from the pool, turning them into more magically-useful forms, like $(item)Manasteel Ingots$(0) or $(item)Mana Pearls$(0).$(p)A $(thing)Wand of the Forest$(0) can read the $(thing)Mana$(0) levels in a pool, much like a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l). A $(item)Redstone Comparator$(0) can also output a signal based on percentage full.",
-  "botania.page.pool8": "$(item)Manasteel Ingots$(0) can be crafted into blocks or nuggets through the usual recipes.$(p)Right-clicking with any color of $(item)Dye$(0) on a pool will have give the pool its color, for decoration or easier labelling.",
+  "botania.page.pool8": "$(item)Manasteel Ingots$(0) can be crafted into blocks or nuggets through the usual recipes.$(p)Right-clicking with any color of $(item)Mystical Petal$(0) on a pool will have give the pool its color, for decoration or easier labelling. You can wash the color off again with a $(item)Clay Ball$(0).",
   "botania.page.pool16": "Manasteel",
   "botania.page.pool3": "Infusing $(item)Manasteel$(0)",
   "botania.page.pool4": "Infusing $(item)Mana Pearls$(0)",

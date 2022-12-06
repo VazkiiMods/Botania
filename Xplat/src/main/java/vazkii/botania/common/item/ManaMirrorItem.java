@@ -249,12 +249,12 @@ public class ManaMirrorItem extends Item {
 		}
 
 		@Override
-		public DyeColor getColor() {
-			return DyeColor.WHITE;
+		public Optional<DyeColor> getColor() {
+			return Optional.empty();
 		}
 
 		@Override
-		public void setColor(DyeColor color) {}
+		public void setColor(Optional<DyeColor> color) {}
 
 	}
 
