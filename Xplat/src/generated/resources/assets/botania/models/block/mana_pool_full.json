@@ -1,7 +1,10 @@
 {
-  "parent": "botania:block/shapes/pool_full",
+  "parent": "botania:block/shapes/mana_pool_full",
   "textures": {
-    "all": "botania:block/livingrock",
-    "liquid": "botania:block/mana_water"
+    "bottom": "botania:block/mana_pool_bottom",
+    "inside": "botania:block/mana_pool_inside",
+    "mana": "botania:block/mana_water",
+    "side": "botania:block/mana_pool_side",
+    "top": "botania:block/mana_pool_top"
   }
 }

@@ -203,6 +203,7 @@ public final class BotaniaBlocks {
 	public static final Block mesaAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.MESA, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.CALCITE));
 
 	public static final Block livingrock = new BotaniaBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
+	public static final Block livingrockPolished = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrick = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickChiseled = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickCracked = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
@@ -494,6 +495,7 @@ public final class BotaniaBlocks {
 		r.accept(mesaAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MESA.name().toLowerCase(Locale.ROOT)));
 		r.accept(mossyAltar, prefix(LibBlockNames.APOTHECARY_PREFIX + PetalApothecaryBlock.Variant.MOSSY.name().toLowerCase(Locale.ROOT)));
 		r.accept(livingrock, prefix(LibBlockNames.LIVING_ROCK));
+		r.accept(livingrockPolished, prefix(LibBlockNames.LIVING_ROCK_POLISHED));
 		r.accept(livingrockBrick, prefix(LibBlockNames.LIVING_ROCK_BRICK));
 		r.accept(livingrockBrickChiseled, prefix(LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
 		r.accept(livingrockBrickCracked, prefix(LibBlockNames.LIVING_ROCK_BRICK_CRACKED));
@@ -753,6 +755,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(mesaAltar, props), Registry.BLOCK.getKey(mesaAltar));
 		r.accept(new BlockItem(mossyAltar, props), Registry.BLOCK.getKey(mossyAltar));
 		r.accept(new BlockItem(livingrock, props), Registry.BLOCK.getKey(livingrock));
+		r.accept(new BlockItem(livingrockPolished, props), Registry.BLOCK.getKey(livingrockPolished));
 		r.accept(new BlockItem(livingrockBrick, props), Registry.BLOCK.getKey(livingrockBrick));
 		r.accept(new BlockItem(livingrockBrickChiseled, props), Registry.BLOCK.getKey(livingrockBrickChiseled));
 		r.accept(new BlockItem(livingrockBrickCracked, props), Registry.BLOCK.getKey(livingrockBrickCracked));

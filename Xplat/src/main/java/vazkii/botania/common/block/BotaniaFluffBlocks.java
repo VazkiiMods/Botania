@@ -50,6 +50,9 @@ public final class BotaniaFluffBlocks {
 	public static final Block livingrockStairs = new BotaniaStairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockWall = new WallBlock(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block livingrockPolishedStairs = new BotaniaStairBlock(livingrock.defaultBlockState(), BlockBehaviour.Properties.copy(livingrockPolished));
+	public static final Block livingrockPolishedSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingrockPolished));
+	public static final Block livingrockPolishedWall = new WallBlock(BlockBehaviour.Properties.copy(livingrockPolished));
 	public static final Block livingrockBrickStairs = new BotaniaStairBlock(livingrockBrick.defaultBlockState(), BlockBehaviour.Properties.copy(livingrockBrick));
 	public static final Block livingrockBrickSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingrockBrick));
 	public static final Block livingrockBrickWall = new WallBlock(BlockBehaviour.Properties.copy(livingrockBrick));
@@ -272,6 +275,10 @@ public final class BotaniaFluffBlocks {
 		r.accept(livingrockStairs, prefix(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX));
 		r.accept(livingrockSlab, prefix(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX));
 		r.accept(livingrockWall, prefix(LibBlockNames.LIVING_ROCK + WALL_SUFFIX));
+
+		r.accept(livingrockPolishedStairs, prefix(LibBlockNames.LIVING_ROCK_POLISHED + STAIR_SUFFIX));
+		r.accept(livingrockPolishedSlab, prefix(LibBlockNames.LIVING_ROCK_POLISHED + SLAB_SUFFIX));
+		r.accept(livingrockPolishedWall, prefix(LibBlockNames.LIVING_ROCK_POLISHED + WALL_SUFFIX));
 
 		r.accept(livingrockBrickStairs, prefix(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX));
 		r.accept(livingrockBrickSlab, prefix(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX));
@@ -500,6 +507,10 @@ public final class BotaniaFluffBlocks {
 		r.accept(new BlockItem(livingrockStairs, props), Registry.BLOCK.getKey(livingrockStairs));
 		r.accept(new BlockItem(livingrockSlab, props), Registry.BLOCK.getKey(livingrockSlab));
 		r.accept(new BlockItem(livingrockWall, props), Registry.BLOCK.getKey(livingrockWall));
+
+		r.accept(new BlockItem(livingrockPolishedStairs, props), Registry.BLOCK.getKey(livingrockPolishedStairs));
+		r.accept(new BlockItem(livingrockPolishedSlab, props), Registry.BLOCK.getKey(livingrockPolishedSlab));
+		r.accept(new BlockItem(livingrockPolishedWall, props), Registry.BLOCK.getKey(livingrockPolishedWall));
 
 		r.accept(new BlockItem(livingrockBrickStairs, props), Registry.BLOCK.getKey(livingrockBrickStairs));
 		r.accept(new BlockItem(livingrockBrickSlab, props), Registry.BLOCK.getKey(livingrockBrickSlab));

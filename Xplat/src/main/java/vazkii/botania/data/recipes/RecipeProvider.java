@@ -1830,7 +1830,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(BotaniaBlocks.corporeaBlock, 8)
-				.requires(BotaniaBlocks.livingrockBrick)
+				.requires(BotaniaBlocks.livingrockPolished)
 				.requires(BotaniaItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
 				.save(consumer);
@@ -2087,6 +2087,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		deconstruct(consumer, BotaniaItems.elementiumNugget, BotaniaTags.Items.INGOTS_ELEMENTIUM, "elementium_to_nuggets");
 
 		recombineSlab(consumer, BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockSlab);
+		recombineSlab(consumer, BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockPolishedSlab);
 		recombineSlab(consumer, BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickSlab);
 		recombineSlab(consumer, BotaniaBlocks.livingwood, BotaniaFluffBlocks.livingwoodSlab);
 		recombineSlab(consumer, BotaniaBlocks.livingwoodPlanks, BotaniaFluffBlocks.livingwoodPlankSlab);
@@ -2127,11 +2128,17 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	private void registerDecor(Consumer<FinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shaped(BotaniaBlocks.livingrockBrick, 4)
+		ShapedRecipeBuilder.shaped(BotaniaBlocks.livingrockPolished, 4)
 				.define('R', BotaniaBlocks.livingrock)
 				.pattern("RR")
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
+				.save(consumer);
+		ShapedRecipeBuilder.shaped(BotaniaBlocks.livingrockBrick, 4)
+				.define('R', BotaniaBlocks.livingrockPolished)
+				.pattern("RR")
+				.pattern("RR")
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrockPolished))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(BotaniaBlocks.livingrockBrickChiseled, 4)
 				.define('R', BotaniaBlocks.livingrockBrick)
@@ -2176,6 +2183,10 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		stairs(BotaniaFluffBlocks.livingrockStairs, BotaniaBlocks.livingrock).save(consumer);
 		slabShape(BotaniaFluffBlocks.livingrockSlab, BotaniaBlocks.livingrock).save(consumer);
 		wallShape(BotaniaFluffBlocks.livingrockWall, BotaniaBlocks.livingrock, 6).save(consumer);
+
+		stairs(BotaniaFluffBlocks.livingrockPolishedStairs, BotaniaBlocks.livingrockPolished).save(consumer);
+		slabShape(BotaniaFluffBlocks.livingrockPolishedSlab, BotaniaBlocks.livingrockPolished).save(consumer);
+		wallShape(BotaniaFluffBlocks.livingrockPolishedWall, BotaniaBlocks.livingrockPolished, 6).save(consumer);
 
 		stairs(BotaniaFluffBlocks.livingrockBrickStairs, BotaniaBlocks.livingrockBrick).save(consumer);
 		slabShape(BotaniaFluffBlocks.livingrockBrickSlab, BotaniaBlocks.livingrockBrick).save(consumer);

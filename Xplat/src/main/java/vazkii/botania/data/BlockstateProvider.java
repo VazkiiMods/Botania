@@ -341,6 +341,19 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.remove(livingwoodFence);
 		remainingBlocks.remove(livingwoodFenceGate);
 
+		rotatedMirrored(remainingBlocks, livingrock, getBlockTexture(livingrock));
+
+		ResourceLocation polishedLivingrockTexture = getBlockTexture(livingrockPolished);
+		ResourceLocation polishedLivingrockSlabSideTexture = getBlockTexture(livingrockPolishedSlab);
+		ResourceLocation polishedLivingrockSlabDoubleModel = ModelTemplates.CUBE_COLUMN.create(
+				getModelLocation(livingrockPolishedSlab, "_double"),
+				new TextureMapping()
+						.put(TextureSlot.SIDE, polishedLivingrockSlabSideTexture)
+						.put(TextureSlot.END, polishedLivingrockTexture),
+				this.modelOutput
+		);
+		slabBlock(remainingBlocks, livingrockPolishedSlab, polishedLivingrockSlabDoubleModel, polishedLivingrockSlabSideTexture, polishedLivingrockTexture, polishedLivingrockTexture);
+
 		// block entities with only particles
 		particleOnly(remainingBlocks, animatedTorch, getBlockTexture(Blocks.REDSTONE_TORCH));
 		particleOnly(remainingBlocks, avatar, getBlockTexture(livingwoodLog));
@@ -443,15 +456,40 @@ public class BlockstateProvider implements DataProvider {
 					this.modelOutput);
 		}
 
-		var liquidSlot = TextureSlotAccessor.make("liquid");
-		var poolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/pool")), Optional.empty(), TextureSlot.ALL);
-		var poolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/pool_full")), Optional.of("_full"), TextureSlot.ALL, liquidSlot);
+		var manaSlot = TextureSlotAccessor.make("mana");
+		TextureSlot[] manaPoolSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE };
+		TextureSlot[] manaPoolFullSlots = new TextureSlot[] { TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.INSIDE, manaSlot };
+		var poolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/mana_pool")), Optional.empty(), manaPoolSlots);
+		var dilutedPoolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/diluted_mana_pool")), Optional.empty(), manaPoolSlots);
+		var creativePoolTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/creative_mana_pool")), Optional.empty(), manaPoolSlots);
+		var poolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
+		var dilutedPoolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/diluted_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
+		var creativePoolFullTemplate = new ModelTemplate(Optional.of(prefix("block/shapes/creative_mana_pool_full")), Optional.of("_full"), manaPoolFullSlots);
 		takeAll(remainingBlocks, manaPool, dilutedPool, fabulousPool, creativePool).forEach(b -> {
-			ResourceLocation tex = b == manaPool || b == fabulousPool
-					? getBlockTexture(livingrock)
-					: getBlockTexture(b);
-			poolFullTemplate.create(b, TextureMapping.cube(tex).put(liquidSlot, prefix("block/mana_water")), this.modelOutput);
-			singleVariantBlockState(b, poolTemplate.create(b, TextureMapping.cube(tex), this.modelOutput));
+			Block blockForTexture = b == fabulousPool ? manaPool : b;
+			ResourceLocation side = getBlockTexture(blockForTexture, "_side");
+			ResourceLocation top = getBlockTexture(blockForTexture, "_top");
+			ResourceLocation bottom = b == dilutedPool
+					? getBlockTexture(manaPool, "_bottom") : getBlockTexture(blockForTexture, "_bottom");
+			ResourceLocation inside = getBlockTexture(blockForTexture, "_inside");
+			ModelTemplate template = b == dilutedPool
+					? dilutedPoolTemplate
+					: b == creativePool
+							? creativePoolTemplate
+					: poolTemplate;
+			ModelTemplate fullTemplate = b == dilutedPool
+					? dilutedPoolFullTemplate
+					: b == creativePool
+							? creativePoolFullTemplate
+					: poolFullTemplate;
+			TextureMapping mapping = new TextureMapping()
+					.put(TextureSlot.SIDE, side)
+					.put(TextureSlot.TOP, top)
+					.put(TextureSlot.BOTTOM, bottom)
+					.put(TextureSlot.INSIDE, inside);
+
+			singleVariantBlockState(b, template.create(b, mapping, this.modelOutput));
+			fullTemplate.create(b, mapping.put(manaSlot, prefix("block/mana_water")), this.modelOutput);
 		});
 
 		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, getModelLocation(b)))

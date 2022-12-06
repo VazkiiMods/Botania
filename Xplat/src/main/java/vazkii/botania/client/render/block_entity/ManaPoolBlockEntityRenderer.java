@@ -51,6 +51,13 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		ms.pushPose();
 
 		boolean fab = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.FABULOUS;
+		boolean diluted = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.DILUTED;
+		boolean creative = pool != null && ((ManaPoolBlock) pool.getBlockState().getBlock()).variant == ManaPoolBlock.Variant.CREATIVE;
+
+		int insideUVStart = diluted ? 1 : 2;
+		int insideUVEnd = 16 - insideUVStart;
+		float poolBottom = insideUVStart / 16F + 0.001F;
+		float poolTop = (diluted ? 5 : creative ? 9 : 7) / 16F;
 
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
@@ -78,13 +85,13 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 
 				float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
 
-				ms.translate(0, 1 / 16F + 0.001, 0);
+				ms.translate(0, poolBottom, 0);
 				ms.mulPose(Vector3f.XP.rotationDegrees(90F));
 
 				VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
 				RenderHelper.renderIconCropped(
 						ms, buffer,
-						1, 1, 15, 15,
+						insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
 						overlayIcon, 0xFFFFFF, alpha, light
 				);
 
@@ -101,13 +108,13 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		float manaLevel = (float) mana / (float) maxMana;
 		if (manaLevel > 0) {
 			ms.pushPose();
-			ms.translate(0, Mth.clampedMap(manaLevel, 0, 1, 1 / 16F, 7 / 16F), 0);
+			ms.translate(0, Mth.clampedMap(manaLevel, 0, 1, poolBottom, poolTop), 0);
 			ms.mulPose(Vector3f.XP.rotationDegrees(90F));
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
 			RenderHelper.renderIconCropped(
 					ms, buffer,
-					1, 1, 15, 15,
+					insideUVStart, insideUVStart, insideUVEnd, insideUVEnd,
 					MiscellaneousModels.INSTANCE.manaWater.sprite(), 0xFFFFFF, 1, light);
 
 			ms.popPose();

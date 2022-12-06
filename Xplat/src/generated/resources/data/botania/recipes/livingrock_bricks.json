@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "R": {
-      "item": "botania:livingrock"
+      "item": "botania:polished_livingrock"
     }
   },
   "pattern": [

@@ -51,14 +51,23 @@ import java.util.Optional;
 import static vazkii.botania.api.state.BotaniaStateProperties.OPTIONAL_DYE_COLOR;
 
 public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBlock {
-	private static final VoxelShape REAL_SHAPE;
-	private static final VoxelShape BURST_SHAPE;
+	private static final VoxelShape NORMAL_SHAPE;
+	private static final VoxelShape DILUTED_SHAPE;
+	private static final VoxelShape CREATIVE_SHAPE;
+	private static final VoxelShape NORMAL_SHAPE_BURST;
+	private static final VoxelShape DILUTED_SHAPE_BURST;
+	private static final VoxelShape CREATIVE_SHAPE_BURST;
 	static {
-		VoxelShape slab = box(0, 0, 0, 16, 8, 16);
-		VoxelShape cutout = box(1, 1, 1, 15, 8, 15);
-		VoxelShape cutoutBurst = box(1, 6, 1, 15, 8, 15);
-		BURST_SHAPE = Shapes.join(slab, cutoutBurst, BooleanOp.ONLY_FIRST);
-		REAL_SHAPE = Shapes.join(slab, cutout, BooleanOp.ONLY_FIRST);
+		NORMAL_SHAPE_BURST = box(0, 0, 0, 16, 8, 16);
+		DILUTED_SHAPE_BURST = box(0, 0, 0, 16, 6, 16);
+		CREATIVE_SHAPE_BURST = box(0, 0, 0, 16, 10, 16);
+
+		VoxelShape cutout = box(2, 2, 2, 14, 16, 14);
+		VoxelShape dilutedCutout = box(1, 1, 1, 15, 6, 15);
+
+		NORMAL_SHAPE = Shapes.join(NORMAL_SHAPE_BURST, cutout, BooleanOp.ONLY_FIRST);
+		DILUTED_SHAPE = Shapes.join(DILUTED_SHAPE_BURST, dilutedCutout, BooleanOp.ONLY_FIRST);
+		CREATIVE_SHAPE = Shapes.join(CREATIVE_SHAPE_BURST, cutout, BooleanOp.ONLY_FIRST);
 	}
 
 	public enum Variant {
@@ -95,7 +104,11 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	@NotNull
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-		return REAL_SHAPE;
+		return switch (this.variant) {
+			case DILUTED -> DILUTED_SHAPE;
+			case CREATIVE -> CREATIVE_SHAPE;
+			case DEFAULT, FABULOUS -> NORMAL_SHAPE;
+		};
 	}
 
 	@NotNull
@@ -134,7 +147,11 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		if (context instanceof EntityCollisionContext econtext
 				&& econtext.getEntity() instanceof ManaBurstEntity) {
 			// Sometimes the pool's collision box is too thin for bursts shot straight up.
-			return BURST_SHAPE;
+			return switch (this.variant) {
+				case DILUTED -> DILUTED_SHAPE_BURST;
+				case CREATIVE -> CREATIVE_SHAPE_BURST;
+				case DEFAULT, FABULOUS -> NORMAL_SHAPE_BURST;
+			};
 		} else {
 			return super.getCollisionShape(state, world, pos, context);
 		}

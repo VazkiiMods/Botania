@@ -63,11 +63,11 @@ cc4f967b08052c03ce91be3de50f078469fb2749 data/minecraft/tags/items/music_discs.j
 5a8edc115bd46b1aaf4c4c720b921774a1a9deea data/minecraft/tags/items/planks.json
 d5f2792b94968c712824b9ab93ba589c15bd1886 data/minecraft/tags/items/rails.json
 8a23702b05296c8af5014d6aa6e9265ded85c7d9 data/minecraft/tags/items/sand.json
-d4169d14dd82dcf6d5825115c9004a65d3fa68cc data/minecraft/tags/items/slabs.json
+a01e6f58bac0c802977ef45bff0374c7030b2dac data/minecraft/tags/items/slabs.json
 ef6aa45a135e98ddd532aa5d076288280653df82 data/minecraft/tags/items/small_flowers.json
-23df9bb47333c14228d0edc58fa3ea4196da0458 data/minecraft/tags/items/stairs.json
+201298e855b770d34316738abb0e37a31ebd77b0 data/minecraft/tags/items/stairs.json
 589fa9d68f43847133a9115af36e85e50cf29be7 data/minecraft/tags/items/tall_flowers.json
-deac5e1628333a61c39cfd1df6a7d126b581e8d7 data/minecraft/tags/items/walls.json
+99110c18af7a6aa513ae990e843ba38bfc13bf3f data/minecraft/tags/items/walls.json
 b59d5b36ebe88ae60fca62eb6985e9825e0a9031 data/minecraft/tags/items/wooden_fences.json
 ae59e488a0b7f9d8c841b6b1ccb5b73696979f2f data/minecraft/tags/items/wooden_slabs.json
 0de991a3ac4bfeedb045d2e69aa0939aa75983b7 data/minecraft/tags/items/wooden_stairs.json

@@ -1,7 +1,20 @@
 {
   "variants": {
-    "": {
-      "model": "botania:block/livingrock"
-    }
+    "": [
+      {
+        "model": "botania:block/livingrock"
+      },
+      {
+        "model": "botania:block/livingrock_mirrored"
+      },
+      {
+        "model": "botania:block/livingrock",
+        "y": 180
+      },
+      {
+        "model": "botania:block/livingrock_mirrored",
+        "y": 180
+      }
+    ]
   }
 }

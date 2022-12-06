@@ -56,6 +56,9 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockSlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedWall));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockSlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockStairs));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockWall));
@@ -64,6 +67,14 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockBrickStairs));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockBrickWall));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrickChiseled));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockPolishedSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockPolishedStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockPolishedWall));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrick));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockBrickSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockBrickStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaFluffBlocks.livingrockBrickWall));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockBrickChiseled));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickSlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickStairs));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrick, BotaniaFluffBlocks.livingrockBrickWall));
