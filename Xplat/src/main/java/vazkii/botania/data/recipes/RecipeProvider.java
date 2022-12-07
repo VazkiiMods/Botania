@@ -192,15 +192,19 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
 				.save(consumer, prefix(Registry.ITEM.getKey(BotaniaBlocks.fabulousPool.asItem()).getPath() + "_upgrade"));
 		ShapedRecipeBuilder.shaped(BotaniaBlocks.runeAltar)
-				.define('P', IngredientAccessor.callFromValues(Stream.of(
-						new Ingredient.ItemValue(new ItemStack(BotaniaItems.manaPearl)),
-						new Ingredient.TagValue(BotaniaTags.Items.GEMS_MANA_DIAMOND))))
+				.define('P', BotaniaItems.manaPearl)
 				.define('S', BotaniaBlocks.livingrock)
 				.pattern("SSS")
 				.pattern("SPS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
 				.save(consumer);
+		ShapedRecipeBuilder.shaped(BotaniaBlocks.runeAltar)
+			.define('P', BotaniaTags.Items.GEMS_MANA_DIAMOND)
+			.define('S', BotaniaBlocks.livingrock)
+			.pattern("SSS")
+			.pattern("SPS")
+			.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
+			.save(consumer, prefix("runic_altar_alt"));
 		ShapedRecipeBuilder.shaped(BotaniaBlocks.manaPylon)
 				.define('D', BotaniaTags.Items.GEMS_MANA_DIAMOND)
 				.define('G', Items.GOLD_INGOT)
@@ -983,15 +987,21 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
 				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, consumer));
 		ShapedRecipeBuilder.shaped(BotaniaItems.manaTablet)
-				.define('P', IngredientAccessor.callFromValues(Stream.of(
-						new Ingredient.ItemValue(new ItemStack(BotaniaItems.manaPearl)),
-						new Ingredient.TagValue(BotaniaTags.Items.GEMS_MANA_DIAMOND))))
+				.define('P', BotaniaItems.manaPearl)
 				.define('S', BotaniaBlocks.livingrock)
 				.pattern("SSS")
 				.pattern("SPS")
 				.pattern("SSS")
-				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
+				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
 				.save(consumer);
+		ShapedRecipeBuilder.shaped(BotaniaItems.manaTablet)
+			.define('P', BotaniaTags.Items.GEMS_MANA_DIAMOND)
+			.define('S', BotaniaBlocks.livingrock)
+			.pattern("SSS")
+			.pattern("SPS")
+			.pattern("SSS")
+			.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
+			.save(consumer, prefix("mana_tablet_alt"));
 
 		ShapedRecipeBuilder.shaped(BotaniaItems.cacophonium)
 				.define('N', Items.NOTE_BLOCK)

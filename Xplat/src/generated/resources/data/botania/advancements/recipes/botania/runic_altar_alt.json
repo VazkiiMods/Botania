@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "botania:mana_pearl"
-            ]
+            "tag": "botania:mana_diamond_gems"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "botania:mana_tablet"
+        "recipe": "botania:runic_altar_alt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "botania:mana_tablet"
+      "botania:runic_altar_alt"
     ]
   }
 }

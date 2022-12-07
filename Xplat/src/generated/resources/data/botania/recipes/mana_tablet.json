@@ -1,14 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "P": [
-      {
-        "item": "botania:mana_pearl"
-      },
-      {
-        "tag": "botania:mana_diamond_gems"
-      }
-    ],
+    "P": {
+      "item": "botania:mana_pearl"
+    },
     "S": {
       "item": "botania:livingrock"
     }
