@@ -21,6 +21,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManastarBlockEntity extends SpecialFlowerBlockEntity {
 	private static final int SET_STATE_EVENT = 0;
+	// TODO: use a blockstate for this so that we can use different textures for the states
 	private static final int NONE = 0, DECREASING = 1, INCREASING = 2;
 
 	private int lastMana = 0;
