@@ -85,11 +85,6 @@ public class ManaPoolMinecartEntity extends AbstractMinecart {
 	}
 
 	@Override
-	public void destroy(DamageSource source) {
-		super.destroy(source);
-	}
-
-	@Override
 	public int getDefaultDisplayOffset() {
 		return 8;
 	}
