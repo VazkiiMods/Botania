@@ -40,7 +40,6 @@ import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
-import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.mixin.client.MinecraftAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
