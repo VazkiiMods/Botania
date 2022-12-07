@@ -3,8 +3,8 @@
   "biome_bonus": 11,
   "biome_bonus_tag": "botania:marimorphosis_plains_bonus",
   "input": {
-    "type": "block",
-    "block": "minecraft:stone"
+    "type": "tag",
+    "tag": "botania:marimorphosis_convertable"
   },
   "output": {
     "type": "block",

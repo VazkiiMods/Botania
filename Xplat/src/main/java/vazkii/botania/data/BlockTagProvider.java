@@ -182,6 +182,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BotaniaTags.Blocks.GHOST_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
 		tag(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
+		tag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE).add(Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
 
 		tag(BotaniaTags.Blocks.WEIGHT_LENS_WHITELIST);
 

@@ -103,11 +103,15 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 
 	protected Result biomeStone(Block output, TagKey<Biome> biome) {
 		return new BiomeResult(BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER, marimorphosisId(output),
-				forBlock(Blocks.STONE), forBlock(output), 1, 11, biome);
+				forTag(BotaniaTags.Blocks.MARIMORPHOSIS_CONVERTABLE), forBlock(output), 1, 11, biome);
 	}
 
 	protected static StateIngredient forBlock(Block block) {
 		return StateIngredientHelper.of(block);
+	}
+
+	protected static StateIngredient forTag(TagKey<Block> tag) {
+		return StateIngredientHelper.of(tag);
 	}
 
 	@Override
