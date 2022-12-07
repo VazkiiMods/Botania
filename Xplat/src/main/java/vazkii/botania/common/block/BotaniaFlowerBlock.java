@@ -26,7 +26,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public class BotaniaFlowerBlock extends FlowerBlock implements BonemealableBlock {
@@ -60,7 +60,7 @@ public class BotaniaFlowerBlock extends FlowerBlock implements BonemealableBlock
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		int hex = ColorHelper.getColorValue(this.color);
+		int hex = MysticalPetalItem.getPetalLikeColor(this.color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

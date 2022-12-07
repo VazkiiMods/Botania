@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothecaryColor {
@@ -65,7 +65,7 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		int hex = ColorHelper.getColorValue(color);
+		int hex = MysticalPetalItem.getPetalLikeColor(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -78,6 +78,6 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return ColorHelper.getColorValue(color);
+		return MysticalPetalItem.getPetalLikeColor(color);
 	}
 }

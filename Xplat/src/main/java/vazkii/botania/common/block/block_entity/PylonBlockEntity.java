@@ -23,7 +23,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
 import vazkii.botania.common.block.PylonBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
-import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.Random;
@@ -78,7 +78,7 @@ public class PylonBlockEntity extends BlockEntity {
 
 				Block block = level.getBlockState(worldPosition.below()).getBlock();
 				if (block instanceof BotaniaFlowerBlock flower) {
-					int hex = ColorHelper.getColorValue(flower.color);
+					int hex = MysticalPetalItem.getPetalLikeColor(flower.color);
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;

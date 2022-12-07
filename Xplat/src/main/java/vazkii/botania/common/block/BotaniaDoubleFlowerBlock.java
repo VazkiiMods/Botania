@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 
 public class BotaniaDoubleFlowerBlock extends TallFlowerBlock {
@@ -37,7 +37,7 @@ public class BotaniaDoubleFlowerBlock extends TallFlowerBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		int hex = ColorHelper.getColorValue(color);
+		int hex = MysticalPetalItem.getPetalLikeColor(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

@@ -35,8 +35,8 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.FloatingFlowerVariant;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -67,7 +67,7 @@ public class FloatingFlowerBlock extends BotaniaWaterloggedBlock implements Enti
 
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
-		int hex = ColorHelper.getColorValue(color);
+		int hex = MysticalPetalItem.getPetalLikeColor(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

@@ -35,11 +35,11 @@ import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.decor.PetalBlock;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.brew.BotaniaBrews;
-import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.TaintedBloodPendantItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
+import vazkii.botania.common.item.material.MysticalPetalItem;
 import vazkii.botania.mixin.client.MinecraftAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -70,7 +70,7 @@ public final class ColorHandler {
 					if (world != null && pos != null) {
 						BlockEntity te = world.getBlockEntity(pos);
 						if (te instanceof ManaPoolBlockEntity pool) {
-							color = pool.getColor().map(ColorHelper::getColorValue);
+							color = pool.getColor().map(MysticalPetalItem::getPetalLikeColor);
 						}
 					}
 					if (((ManaPoolBlock) state.getBlock()).variant == ManaPoolBlock.Variant.FABULOUS) {
@@ -93,7 +93,7 @@ public final class ColorHandler {
 		);
 
 		// Petal Block
-		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ColorHelper.getColorValue(((PetalBlock) state.getBlock()).color) : -1,
+		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? MysticalPetalItem.getPetalLikeColor(((PetalBlock) state.getBlock()).color) : -1,
 				BotaniaBlocks.petalBlockWhite, BotaniaBlocks.petalBlockOrange, BotaniaBlocks.petalBlockMagenta, BotaniaBlocks.petalBlockLightBlue,
 				BotaniaBlocks.petalBlockYellow, BotaniaBlocks.petalBlockLime, BotaniaBlocks.petalBlockPink, BotaniaBlocks.petalBlockGray,
 				BotaniaBlocks.petalBlockSilver, BotaniaBlocks.petalBlockCyan, BotaniaBlocks.petalBlockPurple, BotaniaBlocks.petalBlockBlue,
@@ -122,8 +122,8 @@ public final class ColorHandler {
 		items.register((s, t) -> t == 0 ? Mth.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
 				BotaniaItems.lifeEssence, BotaniaItems.gaiaIngot);
 
-		items.register((s, t) -> t == 1 ? ColorHelper.getColorValue(DyeColor.byId(WandOfTheForestItem.getColor1(s)))
-				: t == 2 ? ColorHelper.getColorValue(DyeColor.byId(WandOfTheForestItem.getColor2(s)))
+		items.register((s, t) -> t == 1 ? MysticalPetalItem.getPetalLikeColor(DyeColor.byId(WandOfTheForestItem.getColor1(s)))
+				: t == 2 ? MysticalPetalItem.getPetalLikeColor(DyeColor.byId(WandOfTheForestItem.getColor2(s)))
 				: -1,
 				BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
 

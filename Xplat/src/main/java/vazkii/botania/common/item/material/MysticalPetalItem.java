@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.CustomApothecaryColor;
-import vazkii.botania.common.helper.ColorHelper;
 
 public class MysticalPetalItem extends BlockItem implements CustomApothecaryColor {
 	public final DyeColor color;
@@ -35,6 +34,28 @@ public class MysticalPetalItem extends BlockItem implements CustomApothecaryColo
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return ColorHelper.getColorValue(color);
+		return getPetalLikeColor(color);
+	}
+
+	// Color value that looks like the petal textures
+	public static int getPetalLikeColor(DyeColor color) {
+		return switch (color) {
+			case WHITE -> 0xF0FFFF;
+			case ORANGE -> 0xF88A10;
+			case MAGENTA -> 0xDC04D7;
+			case LIGHT_BLUE -> 0x72C4FF;
+			case YELLOW -> 0xFFF148;
+			case LIME -> 0x62FF2C;
+			case PINK -> 0xFB8BC7;
+			case GRAY -> 0x71747C;
+			case LIGHT_GRAY -> 0x9DA8A7;
+			case CYAN -> 0x34B0D0;
+			case PURPLE -> 0x950BA8;
+			case BLUE -> 0x2448EB;
+			case BROWN -> 0x976405;
+			case GREEN -> 0x3AAB0D;
+			case RED -> 0xDD111F;
+			case BLACK -> 0x261E28;
+		};
 	}
 }
