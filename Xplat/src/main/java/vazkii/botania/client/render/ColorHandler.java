@@ -128,11 +128,6 @@ public final class ColorHandler {
 				: -1,
 				BotaniaItems.twigWand, BotaniaItems.dreamwoodWand);
 
-		ItemColor petalHandler = (s, t) -> t == 0 ? ColorHelper.getColorValue(((MysticalPetalItem) s.getItem()).color) : -1;
-		for (DyeColor color : DyeColor.values()) {
-			items.register(petalHandler, BotaniaItems.getPetal(color));
-		}
-
 		items.register((s, t) -> t == 0 ? Minecraft.getInstance().getBlockColors().getColor(((BlockItem) s.getItem()).getBlock().defaultBlockState(), null, null, t) : -1,
 				BotaniaBlocks.petalBlockWhite, BotaniaBlocks.petalBlockOrange, BotaniaBlocks.petalBlockMagenta, BotaniaBlocks.petalBlockLightBlue,
 				BotaniaBlocks.petalBlockYellow, BotaniaBlocks.petalBlockLime, BotaniaBlocks.petalBlockPink, BotaniaBlocks.petalBlockGray,

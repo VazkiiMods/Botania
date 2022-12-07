@@ -473,7 +473,7 @@ public class ItemModelProvider implements DataProvider {
 						.forEach(i -> builtinEntity(i, consumer));
 
 		takeAll(itemBlocks, i -> i instanceof MysticalPetalItem).forEach(i -> {
-			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(prefix("item/petal")), consumer);
+			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(TextureMapping.getItemTexture(i)), consumer);
 		});
 
 		ModelTemplates.FENCE_INVENTORY.create(ModelLocationUtils.getModelLocation(BotaniaFluffBlocks.dreamwoodFence.asItem()),
