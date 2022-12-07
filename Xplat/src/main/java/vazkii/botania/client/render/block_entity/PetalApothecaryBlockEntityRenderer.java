@@ -66,7 +66,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 					final float radiusMod = 0.1F;
 
 					double ticks = (ClientTickHandler.ticksInGame + pticks) * 0.5;
-					float offsetPerPetal = 360 / petals;
+					float offsetPerPetal = 360F / petals;
 
 					ms.pushPose();
 					ms.translate(-0.05F, -0.38F, 0F);
