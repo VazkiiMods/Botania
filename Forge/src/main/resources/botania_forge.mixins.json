@@ -6,8 +6,7 @@
   "mixins": [
     "AbstractFurnaceBlockEntityForgeAccessor",
     "RecipeProviderForgeAccessor",
-    "RegistryForgeAccessor",
-    "RecipeSerializerBaseForgeMixin"
+    "RegistryForgeAccessor"
   ],
   "client": [
     "client.ModelBakeryForgeAccessor",
