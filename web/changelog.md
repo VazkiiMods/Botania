@@ -11,15 +11,70 @@ title: "Changelog"
 Note: A name in parentheses at the end of a line item means that it
 was contributed externally by that member of the community.
 
-<!-- Copy everything in the next 7 lines to add a new changelog entry
-{% include changelog_header.html version="MCVER-BUILDNUM" %}
+<!--
+After each release, rename the version below to the released version,
+then start a new "Upcoming" section.
+-->
 
-* Add: This thing
-* Change: That thing
-* Fix: Other thing
+{% include changelog_header.html version="Upcoming" %}
+
+* Info: Ported to Minecraft 1.19
+* Add: NEW TEXTURES! Most all of the magical flowers and livingrock-based blocks have been retextured by ArtemisSystem and Falkory220, and several new decor variants have been added
+* Add: Document the 1.17 stone infusion cycle
+* Add: Enabled JEI integration on Fabric as well (shartte)
+* Add: Mangrove propagules to sapling infusion ring
+* Add: Frog to aquatic pool of Cocoon of Caprice
+* Add: Wand of the Forest can now toggle PipeBlock-like faces, such as those of the Huge Mushroom
+* Add: Hovering Hourglass HUD now shows the exact current time within the cycle
+* Add: Tectonic Girdle now prevents Mana Blaster's recoil (LeoBeliik)
+* Add: Petal Apothecary recipes' reagent item (seeds) can now be customized in JSON. This has implications on how the Apothecary matches items, see commit [3149ffd02cce6e972fbe04ef949ebb2790924dc1](https://github.com/VazkiiMods/Botania/commit/3149ffd02cce6e972fbe04ef949ebb2790924dc1) for more information.
+* Add: When rotating or modifying a block with the Wand of the Forest, play a sound
+* Add: Cobbled Deepslate, End Stone, Red Sand to Disposable blocks
+* Add: Tuff, Calcite, Stone, Basalt, Deepslate, Dripstone, Pointed Dripstone, Moss, Sandstone, and Red Sandstone to semi-disposable blocks
+* Add: Orechid, Orechid Ignem, and Marimorphosis recipes may now specify a function that is run on success
+* Add: Stone of Temperance can now be right-clicked in the inventory to toggle it on and off (LeoBeliik)
+* Add: Orechid, Orechid Ignem, and Marimorphosis recipes may now specify tags and blockstate properties for their inputs
+* Change: Marimorphosis now uses biome tags for its bonus boost
+* Change: Move world generation to JSON
+* Change: Some Introduction section entries are now marked priority to emphasize their importance (Aegide)
+* Change: ja_JP updates (RakuGaki-MC)
+* Change: Munchdew prioritizes eating further away and disconnected leaves first (TheRealWormbo)
+* Change: Horn of Canopy and Covering now use tags to decide what to break
+* Change: Endoflame no longer requires a valid spreader binding to start burning fuel
+* Change: Forge builds now include the suffix `-FORGE` like the Fabric ones
+* Change: Pure Daisy no longer runs if the input of a recipe is the same as the output
+* Change: Uncap the Spectranthemum distance limit (but the mana cost scales with distance)
+* Change: Unstreamify parts of the code for better performance
+* Change: After placing a torch with the Manasteel Pickaxe, there is a 5-tick cooldown in which another cannot be placed (LeoBeliik)
+* Change: Spoofed Hopperhocks, Labellias, Pollidisiacs, and Rannuncarpuses now take input at their true position instead of their spoofed position
+* Change: Mana pool's dye color is expressed in the blockstate, allowing models to be different for each. Separate the "white" and "undyed" cases.
+* Change: Mana pool's dyeing now uses mana petals for dyeing, and a clay ball to remove the color
+* Change: Marimorphosis now takes 1.8 stones and deepslate as inputs as well
+* Fix: Many, many lexicon fixes (Aegide)
+* Fix: Soul Cross not working on Forge
+* Fix: Wrong REI entrypoint being declared on Fabric (YerinAlexey)
+* Fix: Bound block highlight no longer renders every individual part of the VoxelShape
+* Fix: Loonium spawned mobs not being at max health
+* Fix: Delete orphaned and duplicate lang entries (Quezler)
+* Fix: Configs behaving strangely on Forge due to not checking if events were for Botania
+* Fix: Revert making Petal Apothecary a LiquidBlockContainer from 1.18.2-435, it interacted poorly in-world
+* Fix: Exclude any items with NBT from the Black Hole Talisman, to prevent data loss
+* Fix: Thundercaller lightning effects not showing up
+* Fix: Desyncs in Dandelifeon, Hydroangeas, Thermalily
+* Fix: Spell Cloth being repairable
+* Fix: Red String Spoofer binding to huge mushrooms blocks instead of small mushrooms
+* Fix: A bunch of dynamic recipes not matching as strictly as they should, leading to item loss
+* Fix: Hovering Hourglass HUD for Mana Powder being nonsensical
+* Fix: Red String Spoofer not binding to nether mushrooms
+* Fix: Corporea Crystal Cube "Locked" HUD overflowing the background
+* Fix: Rod of the Seas not making a sound when filling Petal Apothecary (LeoBeliik)
+* Fix: Item inside Corporea Crystal Cube render going outside the cube (LeoBeliik)
+* Fix: Bursts becoming visible after warping in some cases (LeoBeliik)
+* Fix: Livingrock item entity not resyncing when Runic Altar completes
+* Fix: Crafty Crate deleting items if the recipe returns air (KJP12)
+* Fix: Black Hole Talisman extraction recipe matching empty talismans (KJP12)
 
 ---
--->
 
 {% include changelog_header.html version="1.18.2-435" %}
 
