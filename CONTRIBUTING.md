@@ -24,13 +24,18 @@ Minecraft, are **not accepted**
 * Consider the patch workflow to help keep your changes small.  If you hate GitHub's PR
   model like [some of the maintainers
   do](https://www.vincent-lee.net/blog/2022-02-28-github/), feel free to email patches to
-  `~williewillus/violet-moon@lists.sr.ht`. See https://git-send-email.io to set up your Git
-  environment for mailing patches and https://git-rebase.io for help with the rebase-oriented workflow.
+  `~williewillus/violet-moon@lists.sr.ht`. See https://git-send-email.io to set up your
+  Git environment for mailing patches and https://git-rebase.io for help with the
+  rebase-oriented workflow.  Advanced users might like the
+  [branchless](https://github.com/arxanas/git-branchless) workflow which pairs
+  particularly well with the patch workflow.
 * Please write descriptive commit messages with proper separation between the title and
   summary of the message. Do not write commit messages consisting only of "Fix #123", that
   means nothing to e.g. someone reading the logs offline without access to GitHub.
 * If you fix a gameplay bug or add a new gameplay feature, consider adding a GameTest for
   it (see below)
+* If applicable, add an entry to the changelog in `web/changelog.md` under the "Upcoming"
+  section.
 
 ## Branching Discipline (for maintainers)
 Each major Minecraft version has a dedicated Git branch, the primary support version is marked
@@ -46,17 +51,20 @@ message.
 
 ## Making a Release (for maintainers)
 1. Pull from remote, test all changes, and commit everything.
-2. `git tag -a release-<VERSION>`. All Botania versions *must* follow the version format
-   `<MC-VER>-INT`, so it'll probably look like `git tag -a release-1.16.3-407`.
-   If you don't remember which version is next, look at the `build_number` in `gradle.properties`.
-3. In the Git editor that pops up, write the changelog. Finish the tag process (usually by
-   saving and closing the editor).
-4. Copy the changelog to the webpage version under `web/changelog.md`.
+2. Make sure the changelog in `web/changelog.md` is up to date, then change the "Upcoming"
+   version of the section to the version to be released, and start a new "Upcoming"
+   section. Commit this.
+3. Run `git tag -a release-<VERSION>`. All Botania versions *must* follow the version
+   format `<MC-VER>-INT`, so it'll probably look like `git tag -a release-1.16.3-407`.  If
+   you don't remember which version is next, look at the `build_number` in
+   `gradle.properties`.
+4. In the Git editor that pops up, copy the changelog for this version from
+   `web/changelog.md` into the editor, save, and close
 5. Increment the `build_number` in `gradle.properties` to the next version
-   (one greater than the version you just tagged). Commit this and the changelog.
+   (one greater than the version you just tagged). Commit this.
 6. Push the branch and the tag you just made: `git push origin <branch> <release tag>`
-7. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and wait for the tag
-   you just pushed to be compiled and built
+7. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and
+   wait for the tag you just pushed to be compiled and built
 8. Download the JAR and submit it to CurseForge and Modrinth
 9. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote
    username to ssh into the webserver, it'll take your current login name.
