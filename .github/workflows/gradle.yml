@@ -25,7 +25,7 @@ jobs:
     - name: Check lang files
       run: ./scripts/check_lang.sh
     - name: Build GoG
-      run: make -C garden_of_class jar
+      run: make -C garden_of_glass jar
     - name: Build with Gradle
       run: ./gradlew pmdMain spotlessJavaCheck build
     - name: PMD report
