@@ -24,6 +24,8 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', '**/gradle-wrapper.properties') }}
     - name: Check lang files
       run: ./scripts/check_lang.sh
+    - name: Build GoG
+      run: make -C garden_of_class jar
     - name: Build with Gradle
       run: ./gradlew pmdMain spotlessJavaCheck build
     - name: PMD report
@@ -45,5 +47,10 @@ jobs:
       with:
         name: Forge
         path: Forge/build/libs/*.jar
+    - name: Archive GoG Binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: GoG
+        path: garden_of_glass/*.jar
     - name: Cleanup
       run: ./gradlew --stop
