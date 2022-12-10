@@ -30,7 +30,7 @@ public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<ManaPri
 
 	@Override
 	public void render(@NotNull ManaPrismBlockEntity prism, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
+		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) * 0.997F - 0.5F;
 
 		ItemStack stack = prism.getItemHandler().getItem(0);
 
@@ -39,6 +39,7 @@ public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<ManaPri
 				ms.pushPose();
 				ms.mulPose(Vector3f.XP.rotationDegrees(90));
 				ms.translate(0.5F, 0.5F, pos);
+				ms.scale(1.003F, 1.003F, 1F);
 				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
 						light, overlay, ms, buffers, 0);
 				ms.popPose();
