@@ -136,13 +136,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 
 			List<LivingEntity> targetList = level.getEntitiesOfClass(LivingEntity.class, new AABB(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
 			if (targetList.contains(target)) {
-				Entity owner = getOwner();
-				if (owner instanceof LivingEntity livingOwner) {
-					target.hurt(owner instanceof Player playerOwner ? DamageSource.playerAttack(playerOwner) : DamageSource.mobAttack(livingOwner), evil ? 12 : 7);
-				} else {
-					target.hurt(DamageSource.GENERIC, evil ? 12 : 7);
-				}
-
+				target.hurt(this.getDamageSource(), evil ? 12 : 7);
 				discard();
 			}
 
@@ -152,6 +146,17 @@ public class MagicMissileEntity extends ThrowableProjectile {
 		}
 
 		time++;
+	}
+
+	private DamageSource getDamageSource() {
+		Entity owner = this.getOwner();
+		if (owner instanceof LivingEntity livingOwner) {
+			return owner instanceof Player playerOwner
+					? DamageSource.playerAttack(playerOwner)
+					: DamageSource.mobAttack(livingOwner);
+		} else {
+			return DamageSource.GENERIC;
+		}
 	}
 
 	@Override
@@ -179,16 +184,20 @@ public class MagicMissileEntity extends ThrowableProjectile {
 
 		double range = 12;
 		AABB bounds = new AABB(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
+		DamageSource source = this.getDamageSource();
+		Predicate<Entity> vulnerableTo = e -> !e.isInvulnerableTo(source);
 		List<? extends LivingEntity> entities;
 		if (isEvil()) {
-			entities = level.getEntitiesOfClass(Player.class, bounds);
+			entities = level.getEntitiesOfClass(Player.class, bounds,
+					EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(vulnerableTo));
 		} else {
 			Entity owner = getOwner();
-			Predicate<Entity> pred = EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(targetPredicate(owner));
+			Predicate<Entity> pred = EntitySelector.LIVING_ENTITY_STILL_ALIVE
+					.and(targetPredicate(owner)).and(vulnerableTo);
 			entities = level.getEntitiesOfClass(LivingEntity.class, bounds, pred);
 		}
 
-		if (entities.size() > 0) {
+		if (!entities.isEmpty()) {
 			target = entities.get(level.random.nextInt(entities.size()));
 			setTarget(target);
 		}
