@@ -263,17 +263,41 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean insertFluidIntoPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
 		var stack = player.getItemInHand(hand);
-		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
-				.map(h -> {
-					var filled = h.fill(new FluidStack(fluid, FluidType.BUCKET_VOLUME),
-							IFluidHandler.FluidAction.EXECUTE);
-					var success = filled == FluidType.BUCKET_VOLUME;
-					if (success && !player.getAbilities().instabuild) {
-						player.setItemInHand(hand, h.getContainer());
+		if (stack.isEmpty()) {
+			return false;
+		}
+
+		// Have to copy and simulate on a stack of size 1, because buckets don't accept
+		// fluid input if they're stacked (why Forge??)
+		ItemStack toFill = stack.copy();
+		toFill.setCount(1);
+
+		var maybeFluidHandler = toFill.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+		if (maybeFluidHandler.isPresent()) {
+			var fluidHandler = maybeFluidHandler.orElseThrow(IllegalStateException::new);
+			var fluidToFill = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
+			int filled = fluidHandler.fill(fluidToFill, IFluidHandler.FluidAction.SIMULATE);
+
+			if (filled == FluidType.BUCKET_VOLUME) {
+				fluidHandler.fill(fluidToFill, IFluidHandler.FluidAction.EXECUTE);
+
+				if (!player.getAbilities().instabuild) {
+					stack.shrink(1);
+					ItemStack result = fluidHandler.getContainer();
+					if (stack.isEmpty()) {
+						player.setItemInHand(hand, result);
+					} else {
+						if (!player.addItem(result)) {
+							player.drop(result, false);
+						}
 					}
-					return success;
-				})
-				.orElse(false);
+				}
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override
