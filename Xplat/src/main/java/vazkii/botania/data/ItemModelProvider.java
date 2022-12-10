@@ -116,7 +116,7 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(items, i -> i instanceof LensItem).forEach(i -> {
 			ResourceLocation lens;
-			if (i == lensTime || i == lensWarp || i == lensFire) {
+			if (i == lensTime || i == lensWarp || i == lensFire || i == lensTripwire) {
 				// To avoid z-fighting
 				lens = prefix("item/lens_small");
 			} else {
