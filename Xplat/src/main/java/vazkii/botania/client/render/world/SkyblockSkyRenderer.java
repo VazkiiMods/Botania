@@ -227,6 +227,7 @@ public class SkyblockSkyRenderer {
 
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
 		ms.pushPose();
+		starVBO.bind();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(t * 3));
@@ -265,6 +266,7 @@ public class SkyblockSkyRenderer {
 		ms.popPose();
 
 		ms.popPose();
+		VertexBuffer.unbind();
 		resetFog.run();
 	}
 
