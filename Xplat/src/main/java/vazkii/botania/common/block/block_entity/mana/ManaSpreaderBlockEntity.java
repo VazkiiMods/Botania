@@ -464,6 +464,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		}
 	}
 
+	// Should only be called on server
 	public void checkForReceiver() {
 		ItemStack stack = getItemHandler().getItem(0);
 		ControlLensItem control = getLensController(stack);
@@ -613,8 +614,8 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 	public void setChanged() {
 		super.setChanged();
 		if (level != null) {
-			checkForReceiver();
 			if (!level.isClientSide) {
+				checkForReceiver();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
