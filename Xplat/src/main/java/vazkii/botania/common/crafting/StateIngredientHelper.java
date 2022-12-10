@@ -125,12 +125,6 @@ public class StateIngredientHelper {
 	}
 
 	public static StateIngredient clearTheAir(StateIngredient ingredient) {
-		if (ingredient instanceof TagStateIngredient sit) {
-			if (sit.resolve().findAny().isEmpty()) {
-				return null;
-			}
-			return ingredient;
-		}
 		if (ingredient instanceof BlockStateIngredient || ingredient instanceof BlockStateStateIngredient) {
 			if (ingredient.test(Blocks.AIR.defaultBlockState())) {
 				return null;
