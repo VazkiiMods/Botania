@@ -305,15 +305,13 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(terraAxe);
 
 		ResourceLocation enabledModel = ModelLocationUtils.getModelLocation(terraPick, "_active");
-		HANDHELD_1.create(enabledModel, TextureMapping.layer0(terraPick).put(LAYER1, enabledModel), consumer);
+		ModelTemplates.FLAT_HANDHELD_ITEM.create(enabledModel, TextureMapping.layer0(enabledModel), consumer);
 
 		ResourceLocation tippedModel = ModelLocationUtils.getModelLocation(terraPick, "_tipped");
 		ModelTemplates.FLAT_HANDHELD_ITEM.create(tippedModel, TextureMapping.layer0(tippedModel), consumer);
 
 		ResourceLocation tippedEnabledModel = ModelLocationUtils.getModelLocation(terraPick, "_tipped_active");
-		HANDHELD_1.create(tippedEnabledModel,
-				TextureMapping.layer0(tippedModel).put(LAYER1, TextureMapping.getItemTexture(terraPick, "_active")),
-				consumer);
+		ModelTemplates.FLAT_HANDHELD_ITEM.create(tippedEnabledModel, TextureMapping.layer0(tippedEnabledModel), consumer);
 
 		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(terraPick),
 				TextureMapping.layer0(terraPick),
