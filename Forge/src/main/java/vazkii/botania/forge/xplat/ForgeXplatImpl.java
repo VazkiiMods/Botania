@@ -287,7 +287,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 					if (stack.isEmpty()) {
 						player.setItemInHand(hand, result);
 					} else {
-						player.getInventory().placeItemBackInInventory(result, false);
+						player.getInventory().placeItemBackInInventory(result);
 					}
 				}
 
