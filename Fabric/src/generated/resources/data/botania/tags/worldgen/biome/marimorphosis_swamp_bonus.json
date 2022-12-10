@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:swamp"
+    "#c:swamp",
+    "#c:jungle"
   ]
 }

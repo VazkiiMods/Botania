@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:mesa"
+    "#c:mesa",
+    "#c:savanna"
   ]
 }

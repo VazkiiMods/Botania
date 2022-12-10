@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:desert"
+    "#c:desert",
+    "#c:savanna"
   ]
 }

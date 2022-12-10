@@ -18,13 +18,13 @@ public class ForgeBiomeTagProvider extends TagsProvider<Biome> {
 
 	@Override
 	protected void addTags() {
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_DESERT_BONUS).addTag(Tags.Biomes.IS_DESERT);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_DESERT_BONUS).addTag(Tags.Biomes.IS_DESERT).addTag(BiomeTags.IS_SAVANNA);
 		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FOREST_BONUS).addTag(BiomeTags.IS_FOREST);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS).addTag(Tags.Biomes.IS_MUSHROOM);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS).addTag(BiomeTags.IS_BADLANDS);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_FUNGAL_BONUS).addTag(Tags.Biomes.IS_MUSHROOM).addTag(Tags.Biomes.IS_UNDERGROUND);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MESA_BONUS).addTag(BiomeTags.IS_BADLANDS).addTag(BiomeTags.IS_SAVANNA);
 		tag(BotaniaTags.Biomes.MARIMORPHOSIS_MOUNTAIN_BONUS).addTag(BiomeTags.IS_MOUNTAIN);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS).addTag(Tags.Biomes.IS_PLAINS);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS).addTag(Tags.Biomes.IS_SWAMP);
-		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS).addTag(BiomeTags.IS_TAIGA);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_PLAINS_BONUS).addTag(Tags.Biomes.IS_PLAINS).addTag(BiomeTags.IS_BEACH);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_SWAMP_BONUS).addTag(Tags.Biomes.IS_SWAMP).addTag(BiomeTags.IS_JUNGLE);
+		tag(BotaniaTags.Biomes.MARIMORPHOSIS_TAIGA_BONUS).addTag(Tags.Biomes.IS_CONIFEROUS).addTag(Tags.Biomes.IS_COLD).addTag(Tags.Biomes.IS_SNOWY);
 	}
 }

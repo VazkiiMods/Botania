@@ -1,5 +1,7 @@
 {
   "values": [
-    "#minecraft:is_taiga"
+    "#forge:is_coniferous",
+    "#forge:is_cold",
+    "#forge:is_snowy"
   ]
 }

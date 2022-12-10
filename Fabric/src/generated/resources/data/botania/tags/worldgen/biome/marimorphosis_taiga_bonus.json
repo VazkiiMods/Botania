@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#c:taiga"
+    "#c:tree_coniferous",
+    "#c:climate_cold",
+    "#c:snowy"
   ]
 }
