@@ -46,7 +46,8 @@
       "vazkii.botania.test.item.CacophoniumTest",
       "vazkii.botania.test.item.FlowerPouchTest",
       "vazkii.botania.test.item.LifeAggregatorTest",
-      "vazkii.botania.test.item.lens.BoreLensTest"
+      "vazkii.botania.test.item.lens.BoreLensTest",
+      "vazkii.botania.test.item.lens.EntropicWarpLensTest"
     ],
     "fabric-datagen": [
       "vazkii.botania.fabric.data.FabricDatagenInitializer"
