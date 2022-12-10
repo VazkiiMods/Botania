@@ -103,7 +103,7 @@ public final class BotaniaBlocks {
 	public static final Block redShinyFlower = new GlimmeringFlowerBlock(DyeColor.RED, BlockBehaviour.Properties.copy(whiteShinyFlower));
 	public static final Block blackShinyFlower = new GlimmeringFlowerBlock(DyeColor.BLACK, BlockBehaviour.Properties.copy(whiteShinyFlower));
 
-	public static final Block whiteBuriedPetals = new BuriedPetalBlock(DyeColor.WHITE, BlockBehaviour.Properties.copy(whiteFlower).lightLevel(s -> 4));
+	public static final Block whiteBuriedPetals = new BuriedPetalBlock(DyeColor.WHITE, BlockBehaviour.Properties.copy(whiteFlower).sound(SoundType.MOSS).lightLevel(s -> 4));
 	public static final Block orangeBuriedPetals = new BuriedPetalBlock(DyeColor.ORANGE, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 	public static final Block magentaBuriedPetals = new BuriedPetalBlock(DyeColor.MAGENTA, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 	public static final Block lightBlueBuriedPetals = new BuriedPetalBlock(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.copy(whiteBuriedPetals));
@@ -138,7 +138,7 @@ public final class BotaniaBlocks {
 	public static final Block redFloatingFlower = new FloatingFlowerBlock(DyeColor.RED, FLOATING_PROPS);
 	public static final Block blackFloatingFlower = new FloatingFlowerBlock(DyeColor.BLACK, FLOATING_PROPS);
 
-	public static final Block petalBlockWhite = new PetalBlock(DyeColor.WHITE, BlockBehaviour.Properties.of(Material.PLANT).strength(0.4F).sound(SoundType.GRASS));
+	public static final Block petalBlockWhite = new PetalBlock(DyeColor.WHITE, BlockBehaviour.Properties.of(Material.PLANT).strength(0.4F).sound(SoundType.MOSS));
 	public static final Block petalBlockOrange = new PetalBlock(DyeColor.ORANGE, BlockBehaviour.Properties.copy(petalBlockWhite));
 	public static final Block petalBlockMagenta = new PetalBlock(DyeColor.MAGENTA, BlockBehaviour.Properties.copy(petalBlockWhite));
 	public static final Block petalBlockLightBlue = new PetalBlock(DyeColor.LIGHT_BLUE, BlockBehaviour.Properties.copy(petalBlockWhite));
