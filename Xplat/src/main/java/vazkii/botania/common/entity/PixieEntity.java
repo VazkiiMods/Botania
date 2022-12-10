@@ -102,11 +102,16 @@ public class PixieEntity extends FlyingMob {
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amount) {
-		if (getPixieType() == 0 && source.getEntity() != summoner || getPixieType() == 1 && source.getEntity() instanceof Player) {
-			return super.hurt(source, amount);
+	public boolean isInvulnerableTo(@NotNull DamageSource source) {
+		if (getPixieType() == 0 && source.getEntity() == summoner) {
+			return true;
 		}
-		return false;
+
+		if (getPixieType() == 1 && !(source.getEntity() instanceof Player)) {
+			return true;
+		}
+
+		return super.isInvulnerableTo(source);
 	}
 
 	@Override
