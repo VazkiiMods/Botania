@@ -33,7 +33,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 	public ManaEnchanterBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
-	public void render(@NotNull ManaEnchanterBlockEntity enchanter, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(@NotNull ManaEnchanterBlockEntity enchanter, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = 0F;
 
 		if (enchanter.stage == ManaEnchanterBlockEntity.State.GATHER_MANA) {
@@ -54,19 +54,19 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 			item.setItem(enchanter.itemToEnchant);
 
 			ms.translate(0.5F, 1.25F, 0.5F);
-			Minecraft.getInstance().getEntityRenderDispatcher().render(item, 0, 0, 0, 0, f, ms, buffers, light);
+			Minecraft.getInstance().getEntityRenderDispatcher().render(item, 0, 0, 0, 0, partTicks, ms, buffers, light);
 			ms.translate(-0.5F, -1.25F, -0.5F);
 		}
 
 		ms.mulPose(Vector3f.XP.rotationDegrees(90F));
 		ms.translate(-2F, -2F, -0.001F);
 
-		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
+		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + partTicks) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
 
 		if (alpha > 0) {
 			if (enchanter.stage == ManaEnchanterBlockEntity.State.DO_ENCHANT || enchanter.stage == ManaEnchanterBlockEntity.State.RESET) {
-				int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;
-				int angle = ticks * 2;
+				float ticks = enchanter.stageTicks + enchanter.stage3EndTicks + partTicks;
+				float angle = ticks * 2;
 				float yTranslation = Math.min(20, ticks) / 20F * 1.15F;
 				float scale = ticks < 10 ? 1F : 1F - Math.min(20, ticks - 10) / 20F * 0.75F;
 
