@@ -48,7 +48,7 @@ public class BotaniaGrassBlock extends BotaniaBlock {
 		if (held.getItem() instanceof HoeItem && world.isEmptyBlock(pos.above())) {
 			held.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
 			world.setBlockAndUpdate(pos, Blocks.FARMLAND.defaultBlockState());
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return InteractionResult.PASS;

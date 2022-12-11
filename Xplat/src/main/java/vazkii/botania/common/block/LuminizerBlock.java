@@ -75,10 +75,10 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 					relay.setNoParticle();
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(relay);
 				}
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			} else if (!stack.is(Items.ENDER_PEARL)) {
 				relay.mountEntity(player);
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
 

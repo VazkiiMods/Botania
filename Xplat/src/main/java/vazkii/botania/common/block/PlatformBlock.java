@@ -147,7 +147,7 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 					camo.setCamoState(changeState);
 				}
 
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
 

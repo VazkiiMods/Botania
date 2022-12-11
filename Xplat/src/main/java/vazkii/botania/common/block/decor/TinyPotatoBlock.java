@@ -101,7 +101,7 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 				spawnHearts((ServerLevel) world, pos);
 			}
 		}
-		return InteractionResult.SUCCESS;
+		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 
 	public static void spawnHearts(ServerLevel level, BlockPos pos) {

@@ -65,12 +65,14 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 		ItemStack stack = player.getItemInHand(hand);
 		if (stack.isEmpty()) {
-			if (brew.recipe == null && !state.getValue(BlockStateProperties.POWERED)) {
+			if (!state.getValue(BlockStateProperties.POWERED)) {
 				InventoryHelper.withdrawFromInventory(brew, player);
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		} else {
-			return brew.addItem(player, stack, hand) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+			return brew.addItem(player, stack, hand)
+					? InteractionResult.sidedSuccess(world.isClientSide())
+					: InteractionResult.PASS;
 		}
 		return InteractionResult.PASS;
 	}

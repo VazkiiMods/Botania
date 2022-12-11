@@ -61,7 +61,7 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty()) {
-			if (stack.getItem() instanceof WandOfTheForestItem && player.isShiftKeyDown()) {
+			if (stack.getItem() instanceof WandOfTheForestItem && player.isSecondaryUseActive()) {
 				return InteractionResult.PASS;
 			}
 			CorporeaCrystalCubeBlockEntity cube = (CorporeaCrystalCubeBlockEntity) world.getBlockEntity(pos);
@@ -72,7 +72,7 @@ public class CorporeaCrystalCubeBlock extends BotaniaWaterloggedBlock implements
 			} else {
 				cube.setRequestTarget(stack);
 			}
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		return InteractionResult.PASS;
 	}

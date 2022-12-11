@@ -64,7 +64,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 				world.addFreshEntity(item);
 			}
 
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return InteractionResult.PASS;

@@ -129,7 +129,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 				if (!player.getAbilities().instabuild) {
 					stack.shrink(1);
 				}
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
 		if (stack.is(Items.CLAY_BALL) && be instanceof ManaPoolBlockEntity pool && pool.getColor().isPresent()) {
@@ -137,7 +137,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 			if (!player.getAbilities().instabuild) {
 				stack.shrink(1);
 			}
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		return super.use(state, world, pos, player, hand, hit);
 	}

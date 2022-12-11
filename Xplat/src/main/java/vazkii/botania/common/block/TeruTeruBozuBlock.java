@@ -66,7 +66,7 @@ public class TeruTeruBozuBlock extends BotaniaWaterloggedBlock implements Entity
 			if (!player.getAbilities().instabuild) {
 				stack.shrink(1);
 			}
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		return InteractionResult.PASS;
 	}
