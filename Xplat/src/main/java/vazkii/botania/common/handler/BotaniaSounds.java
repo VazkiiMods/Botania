@@ -27,6 +27,7 @@ public final class BotaniaSounds {
 	public static final SoundEvent enchanterFade = makeSoundEvent("enchanter_fade");
 	public static final SoundEvent enchanterForm = makeSoundEvent("enchanter_form");
 	public static final SoundEvent hornDoot = makeSoundEvent("horn_doot");
+	public static final SoundEvent incensePlateIgnite = makeSoundEvent("incense_plate_ignite");
 	public static final SoundEvent lightRelay = makeSoundEvent("light_relay");
 	public static final SoundEvent manaPoolCraft = makeSoundEvent("mana_pool_craft");
 	public static final SoundEvent potionCreate = makeSoundEvent("potion_create");

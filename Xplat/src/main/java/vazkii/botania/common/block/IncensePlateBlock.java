@@ -62,17 +62,6 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 		ItemStack stack = player.getItemInHand(hand);
 		boolean did = false;
 
-		if (world.isClientSide) {
-			if (state.getValue(BlockStateProperties.WATERLOGGED)
-					&& !plateStack.isEmpty()
-					&& !plate.burning
-					&& !stack.isEmpty()
-					&& stack.is(Items.FLINT_AND_STEEL)) {
-				plate.spawnSmokeParticles();
-			}
-			return InteractionResult.SUCCESS;
-		}
-
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setItem(0, stack.copy());
 			stack.shrink(1);
@@ -81,20 +70,20 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 			if (!stack.isEmpty() && stack.is(Items.FLINT_AND_STEEL)) {
 				plate.ignite();
 				stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
-				did = true;
 			} else {
 				player.getInventory().placeItemBackInInventory(plateStack);
 				plate.getItemHandler().setItem(0, ItemStack.EMPTY);
-
-				did = true;
 			}
+			did = true;
 		}
 
 		if (did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 		}
 
-		return did ? InteractionResult.SUCCESS : InteractionResult.PASS;
+		return did
+				? InteractionResult.sidedSuccess(world.isClientSide())
+				: InteractionResult.PASS;
 	}
 
 	@Override

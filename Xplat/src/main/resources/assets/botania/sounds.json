@@ -323,6 +323,15 @@
 		],
 		"subtitle": "botania.subtitle.hornDoot"
 	},
+	"incense_plate_ignite": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.flintandsteel.use"
+			}
+		],
+		"subtitle": "botania.subtitle.incensePlateIgnite"
+	},
 	"labellia": {
 		"sounds": [
 			{

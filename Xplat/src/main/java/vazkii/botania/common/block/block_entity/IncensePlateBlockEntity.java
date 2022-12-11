@@ -32,6 +32,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.brew.BotaniaBrews;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 
@@ -142,6 +143,7 @@ public class IncensePlateBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		burning = true;
 		Brew brew = ((IncenseStickItem) BotaniaItems.incenseStick).getBrew(stack);
 		timeLeft = brew.getPotionEffects(stack).get(0).getDuration() * IncenseStickItem.TIME_MULTIPLIER;
+		level.playSound(null, getBlockPos(), BotaniaSounds.incensePlateIgnite, SoundSource.BLOCKS, 1F, 1F);
 	}
 
 	@Override
