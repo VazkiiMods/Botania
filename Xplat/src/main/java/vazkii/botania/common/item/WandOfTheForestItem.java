@@ -322,7 +322,7 @@ public class WandOfTheForestItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (player.isShiftKeyDown()) {
+		if (player.isSecondaryUseActive()) {
 			if (!world.isClientSide) {
 				setBindMode(stack, !getBindMode(stack));
 			} else {

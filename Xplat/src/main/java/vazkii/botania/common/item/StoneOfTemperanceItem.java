@@ -41,7 +41,7 @@ public class StoneOfTemperanceItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		toggleActive(stack, player, world);
-		return InteractionResultHolder.success(stack);
+		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 	}
 
 	@Override

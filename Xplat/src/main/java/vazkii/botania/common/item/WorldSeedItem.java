@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.handler.BotaniaSounds;
-import vazkii.botania.common.helper.MathHelper;
 
 public class WorldSeedItem extends Item {
 
@@ -35,26 +34,26 @@ public class WorldSeedItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (world.isClientSide) {
-			return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
-		}
 
-		BlockPos coords = ((ServerLevel) world).getSharedSpawnPos();
-		if (world.dimension() == Level.OVERWORLD && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getX(), player.getY(), player.getZ()) > 24) {
-			player.setXRot(0F);
-			player.setYRot(0F);
-			player.teleportTo(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
+		BlockPos coords = world.getSharedSpawnPos();
+		boolean inRange = coords.distToCenterSqr(player.getX(), player.getY(), player.getZ()) <= 24 * 24;
+		if (world.dimension() == Level.OVERWORLD && !inRange) {
+			if (!world.isClientSide) {
+				player.setXRot(0F);
+				player.setYRot(0F);
+				player.teleportTo(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while (!world.noCollision(player, player.getBoundingBox())) {
-				player.teleportTo(player.getX(), player.getY() + 1, player.getZ());
+				while (!world.noCollision(player, player.getBoundingBox())) {
+					player.teleportTo(player.getX(), player.getY() + 1, player.getZ());
+				}
+
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.worldSeedTeleport, SoundSource.PLAYERS, 1F, 1F);
+				SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.25F, 1F, 0.25F, 10);
+				((ServerLevel) world).sendParticles(data, player.getX(), player.getY() + player.getBbHeight() / 2, player.getZ(), 50, player.getBbWidth() / 8, player.getBbHeight() / 4, player.getBbWidth() / 8, 0);
+				stack.shrink(1);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.worldSeedTeleport, SoundSource.PLAYERS, 1F, 1F);
-			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.25F, 1F, 0.25F, 10);
-			((ServerLevel) world).sendParticles(data, player.getX(), player.getY() + player.getBbHeight() / 2, player.getZ(), 50, player.getBbWidth() / 8, player.getBbHeight() / 4, player.getBbWidth() / 8, 0);
-
-			stack.shrink(1);
-			return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
 
 		return new InteractionResultHolder<>(InteractionResult.PASS, stack);

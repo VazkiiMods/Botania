@@ -140,7 +140,7 @@ public class FlowerPouchItem extends Item {
 				}
 			}, buf -> buf.writeBoolean(hand == InteractionHand.MAIN_HAND));
 		}
-		return InteractionResultHolder.success(player.getItemInHand(hand));
+		return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), world.isClientSide());
 	}
 
 	@NotNull

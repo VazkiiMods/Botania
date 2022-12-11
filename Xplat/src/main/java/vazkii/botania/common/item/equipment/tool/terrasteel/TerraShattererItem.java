@@ -103,7 +103,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
+		if (player.isSecondaryUseActive() && hand == InteractionHand.MAIN_HAND) {
 			int tier = getLevel(stack);
 			BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
 
@@ -112,7 +112,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 				if (!level.isClientSide) {
 					level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
 				}
-				return InteractionResultHolder.success(stack);
+				return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 			}
 		}
 		return InteractionResultHolder.pass(stack);

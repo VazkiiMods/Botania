@@ -69,7 +69,7 @@ public class ManaBlasterItem extends Item {
 			effCd = Math.max(2, COOLDOWN - (effect.getAmplifier() + 1) * 8);
 		}
 
-		if (player.isShiftKeyDown() && hasClip(stack)) {
+		if (player.isSecondaryUseActive() && hasClip(stack)) {
 			rotatePos(stack);
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manaBlasterCycle, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 			if (!world.isClientSide) {
@@ -89,8 +89,8 @@ public class ManaBlasterItem extends Item {
 				} else if (!EquipmentHandler.getAllWorn(player).hasAnyMatching(k -> k.is(BotaniaItems.knockbackBelt))) {
 					player.setDeltaMovement(player.getDeltaMovement().subtract(burst.getDeltaMovement().multiply(0.1, 0.3, 0.1)));
 				}
-			} else if (!world.isClientSide) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.manaBlasterMisfire, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+			} else {
+				player.playSound(BotaniaSounds.manaBlasterMisfire, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 			}
 			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		}

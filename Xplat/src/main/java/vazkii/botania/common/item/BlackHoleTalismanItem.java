@@ -60,10 +60,10 @@ public class BlackHoleTalismanItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (getBlock(stack) != null && player.isShiftKeyDown()) {
+		if (getBlock(stack) != null && player.isSecondaryUseActive()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
 			player.playSound(BotaniaSounds.blackHoleTalismanConfigure, 1F, 1F);
-			return InteractionResultHolder.success(stack);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
 
 		return InteractionResultHolder.pass(stack);

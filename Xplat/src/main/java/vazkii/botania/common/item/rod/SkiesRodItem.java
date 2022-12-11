@@ -131,7 +131,7 @@ public class SkiesRodItem extends Item {
 		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
-			return InteractionResultHolder.success(stack);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
 
 		return InteractionResultHolder.pass(stack);

@@ -26,6 +26,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -141,7 +142,7 @@ public class WorldshaperssSextantItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!player.isShiftKeyDown()) {
+		if (!player.isSecondaryUseActive()) {
 			BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 128, false);
 			if (rtr.getType() == HitResult.Type.BLOCK) {
 				if (!world.isClientSide) {
@@ -150,13 +151,13 @@ public class WorldshaperssSextantItem extends Item {
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getY());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getZ());
 				}
-				player.startUsingItem(hand);
+				return ItemUtils.startUsingInstantly(world, player, hand);
 			}
+			return InteractionResultHolder.pass(stack);
 		} else {
 			reset(world, stack);
+			return InteractionResultHolder.success(stack);
 		}
-
-		return InteractionResultHolder.success(stack);
 	}
 
 	private static double calculateRadius(ItemStack stack, LivingEntity living) {

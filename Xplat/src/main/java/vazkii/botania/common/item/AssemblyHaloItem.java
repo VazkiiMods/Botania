@@ -112,7 +112,7 @@ public class AssemblyHaloItem extends Item {
 			}
 		}
 
-		return InteractionResultHolder.success(stack);
+		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 	}
 
 	@Override

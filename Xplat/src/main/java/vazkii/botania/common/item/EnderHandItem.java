@@ -50,7 +50,7 @@ public class EnderHandItem extends Item {
 				ManaItemHandler.instance().requestManaExact(stack, player, COST_SELF, true);
 			}
 			player.playSound(SoundEvents.ENDER_CHEST_OPEN, 1F, 1F);
-			return InteractionResultHolder.success(stack);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
 		return InteractionResultHolder.pass(stack);
 	}
@@ -60,10 +60,10 @@ public class EnderHandItem extends Item {
 		if (entity.isAlive() && BotaniaConfig.common().enderPickpocketEnabled() && entity instanceof Player other && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
 			if (!player.level.isClientSide) {
 				player.openMenu(new SimpleMenuProvider((windowId, playerInv, p) -> ChestMenu.threeRows(windowId, playerInv, other.getEnderChestInventory()), stack.getHoverName()));
+				ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			}
-			ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.ENDER_CHEST_OPEN, 1F, 1F);
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(player.level.isClientSide());
 		}
 
 		return InteractionResult.PASS;

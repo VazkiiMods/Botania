@@ -81,7 +81,7 @@ public class DiceOfFateItem extends RelicItem {
 				int relicIdx = possible.get(world.random.nextInt(possible.size()));
 				player.sendSystemMessage(Component.translatable("botaniamisc.diceRoll", relicIdx + 1).withStyle(ChatFormatting.DARK_GREEN));
 				var toGive = RELIC_STACKS.get().get(relicIdx).copy();
-				return InteractionResultHolder.success(toGive);
+				return InteractionResultHolder.consume(toGive);
 			} else {
 				int roll = world.random.nextInt(6) + 1;
 				ResourceLocation tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
@@ -94,15 +94,13 @@ public class DiceOfFateItem extends RelicItem {
 
 				List<ItemStack> generated = table.getRandomItems(context);
 				for (ItemStack drop : generated) {
-					if (!player.getInventory().add(drop)) {
-						player.drop(drop, false);
-					}
+					player.getInventory().placeItemBackInInventory(drop);
 				}
 				String langKey = generated.isEmpty() ? "botaniamisc.dudDiceRoll" : "botaniamisc.diceRoll";
 				player.sendSystemMessage(Component.translatable(langKey, roll).withStyle(ChatFormatting.DARK_GREEN));
 
 				stack.shrink(1);
-				return InteractionResultHolder.success(stack);
+				return InteractionResultHolder.consume(stack);
 			}
 		}
 

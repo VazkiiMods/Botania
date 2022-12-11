@@ -46,22 +46,24 @@ public class PinkinatorItem extends Item {
 		int range = 16;
 		List<WitherBoss> withers = world.getEntitiesOfClass(WitherBoss.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
 		for (WitherBoss wither : withers) {
-			if (!world.isClientSide && wither.isAlive() && !(wither instanceof PinkWitherEntity)) {
-				wither.discard();
-				PinkWitherEntity pink = BotaniaEntities.PINK_WITHER.create(world);
-				pink.moveTo(wither.getX(), wither.getY(), wither.getZ(), wither.getYRot(), wither.getXRot());
-				pink.setNoAi(wither.isNoAi());
-				if (wither.hasCustomName()) {
-					pink.setCustomName(wither.getCustomName());
-					pink.setCustomNameVisible(wither.isCustomNameVisible());
+			if (wither.isAlive() && !(wither instanceof PinkWitherEntity)) {
+				if (!world.isClientSide) {
+					wither.discard();
+					PinkWitherEntity pink = BotaniaEntities.PINK_WITHER.create(world);
+					pink.moveTo(wither.getX(), wither.getY(), wither.getZ(), wither.getYRot(), wither.getXRot());
+					pink.setNoAi(wither.isNoAi());
+					if (wither.hasCustomName()) {
+						pink.setCustomName(wither.getCustomName());
+						pink.setCustomNameVisible(wither.isCustomNameVisible());
+					}
+					pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null, null);
+					world.addFreshEntity(pink);
+					pink.spawnAnim();
+					pink.playSound(BotaniaSounds.pinkinator, 1F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) world, player.getX(), player.getY(), player.getZ());
+					stack.shrink(1);
 				}
-				pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null, null);
-				world.addFreshEntity(pink);
-				pink.spawnAnim();
-				pink.playSound(BotaniaSounds.pinkinator, 1F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
-				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) world, player.getX(), player.getY(), player.getZ());
-				stack.shrink(1);
-				return InteractionResultHolder.success(stack);
+				return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 			}
 		}
 

@@ -81,7 +81,7 @@ public class AstrolabeItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @NotNull InteractionHand hand) {
 		ItemStack stack = playerIn.getItemInHand(hand);
-		if (playerIn.isShiftKeyDown()) {
+		if (playerIn.isSecondaryUseActive()) {
 			playerIn.playSound(BotaniaSounds.astrolabeConfigure, 1F, 1F);
 			if (!worldIn.isClientSide) {
 				int size = getSize(stack);
@@ -90,7 +90,7 @@ public class AstrolabeItem extends Item {
 				ItemsRemainingRenderHandler.send(playerIn, stack, 0, Component.literal(newSize + "x" + newSize));
 			}
 
-			return InteractionResultHolder.success(stack);
+			return InteractionResultHolder.sidedSuccess(stack, worldIn.isClientSide());
 		}
 
 		return InteractionResultHolder.pass(stack);
