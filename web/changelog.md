@@ -18,7 +18,14 @@ then start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Info: Ported to Minecraft 1.19
+* Nothing yet!
+
+--- 
+
+{% include changelog_header.html version="1.19.2-436" %}
+
+* Info: Ported to Minecraft 1.19.2
+  * We will reassess in a few weeks what the situation is with regards to 1.19.3.
 * Add: NEW TEXTURES! Most all of the magical flowers and livingrock-based blocks have been retextured by ArtemisSystem and Falkory220, and several new decor variants have been added
 * Add: Document the 1.17 stone infusion cycle
 * Add: Enabled JEI integration on Fabric as well (shartte)
@@ -34,6 +41,7 @@ then start a new "Upcoming" section.
 * Add: Orechid, Orechid Ignem, and Marimorphosis recipes may now specify a function that is run on success
 * Add: Stone of Temperance can now be right-clicked in the inventory to toggle it on and off (LeoBeliik)
 * Add: Orechid, Orechid Ignem, and Marimorphosis recipes may now specify tags and blockstate properties for their inputs
+* Add: Incense Plate now plays a sound when ignited
 * Change: Marimorphosis now uses biome tags for its bonus boost
 * Change: Move world generation to JSON
 * Change: Some Introduction section entries are now marked priority to emphasize their importance (Aegide)
@@ -50,6 +58,10 @@ then start a new "Upcoming" section.
 * Change: Mana pool's dye color is expressed in the blockstate, allowing models to be different for each. Separate the "white" and "undyed" cases.
 * Change: Mana pool's dyeing now uses mana petals for dyeing, and a clay ball to remove the color
 * Change: Marimorphosis now takes 1.8 stones and deepslate as inputs as well
+* Change: Missiles from the Rod of Unstable Reservoir no longer try to target entities that are invulnerable to the missiles
+* Change: Updated the sounds of Buried Petals and Petal Blocks
+* Change: Updated lexicon picture for Mystical Flowers
+* Change: Terra Shatterer only toggles its active state when sneaking (LeoBeliik)
 * Fix: Many, many lexicon fixes (Aegide)
 * Fix: Soul Cross not working on Forge
 * Fix: Wrong REI entrypoint being declared on Fabric (YerinAlexey)
@@ -73,6 +85,10 @@ then start a new "Upcoming" section.
 * Fix: Livingrock item entity not resyncing when Runic Altar completes
 * Fix: Crafty Crate deleting items if the recipe returns air (KJP12)
 * Fix: Black Hole Talisman extraction recipe matching empty talismans (KJP12)
+* Fix: Withdrawing fluids from Petal Apothecary with stacked buckets not working on Forge
+* Fix: Z-Fighting on Mana Prism with some lenses
+* Fix: Z-Fighting on Tripwire Lens
+* Fix: Mana Enchanter's rune effect animating choppily
 
 ---
 
