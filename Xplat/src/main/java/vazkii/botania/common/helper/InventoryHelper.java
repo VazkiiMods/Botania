@@ -148,9 +148,9 @@ public class InventoryHelper {
 		}
 	}
 
-	public static void tryToSetLastRecipe(Player player, Container inv, List<ItemStack> lastRecipe, @Nullable SoundEvent sound) {
-		if (lastRecipe == null || lastRecipe.isEmpty() || player.level.isClientSide) {
-			return;
+	public static boolean tryToSetLastRecipe(Player player, Container inv, @Nullable List<ItemStack> lastRecipe, @Nullable SoundEvent sound) {
+		if (lastRecipe == null || lastRecipe.isEmpty()) {
+			return false;
 		}
 
 		int index = 0;
@@ -178,5 +178,6 @@ public class InventoryHelper {
 			ServerPlayer mp = (ServerPlayer) player;
 			mp.inventoryMenu.broadcastChanges();
 		}
+		return didAny;
 	}
 }

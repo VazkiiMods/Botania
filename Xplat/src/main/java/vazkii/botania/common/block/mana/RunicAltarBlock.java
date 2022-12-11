@@ -64,16 +64,16 @@ public class RunicAltarBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 		if (altar.canAddLastRecipe() && mainHandEmpty) {
 			return altar.trySetLastRecipe(player);
-		} else if (!altar.isEmpty() && mainHandEmpty) {
-			if (altar.manaToGet == 0) {
-				InventoryHelper.withdrawFromInventory(altar, player);
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-				return InteractionResult.SUCCESS;
-			}
+		} else if (!altar.isEmpty() && altar.manaToGet == 0 && mainHandEmpty) {
+			InventoryHelper.withdrawFromInventory(altar, player);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		} else if (!stack.isEmpty()) {
 			boolean result = altar.addItem(player, stack, hand);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-			return result ? InteractionResult.SUCCESS : InteractionResult.PASS;
+			if (result) {
+				return InteractionResult.sidedSuccess(world.isClientSide());
+			}
 		}
 
 		return InteractionResult.PASS;

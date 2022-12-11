@@ -117,9 +117,9 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		} else if (!apothecary.isEmpty() && mainHandEmpty) {
 			InventoryHelper.withdrawFromInventory(apothecary, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		} else if (tryWithdrawFluid(player, hand, apothecary, pos) || tryDepositFluid(player, hand, apothecary, pos)) {
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return InteractionResult.PASS;
