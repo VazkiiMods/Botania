@@ -31,7 +31,7 @@ public class ManaResourceItem extends Item {
 
 		if (stack.is(BotaniaItems.terrasteel) || stack.is(BotaniaItems.gaiaIngot)) {
 			return GaiaGuardianEntity.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), stack.is(BotaniaItems.gaiaIngot))
-					? InteractionResult.SUCCESS
+					? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide())
 					: InteractionResult.FAIL;
 		} else if (stack.is(BotaniaItems.livingroot)) {
 			return Items.BONE_MEAL.useOn(ctx);

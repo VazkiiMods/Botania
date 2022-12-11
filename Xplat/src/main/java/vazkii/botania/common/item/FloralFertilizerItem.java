@@ -70,6 +70,6 @@ public class FloralFertilizerItem extends Item {
 			}
 		}
 
-		return InteractionResult.SUCCESS;
+		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 }

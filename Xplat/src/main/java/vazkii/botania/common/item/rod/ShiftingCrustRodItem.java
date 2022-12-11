@@ -91,7 +91,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		BlockState wstate = world.getBlockState(pos);
 		Block block = wstate.getBlock();
 
-		if (player != null && player.isShiftKeyDown()) {
+		if (player != null && player.isSecondaryUseActive()) {
 			BlockEntity tile = world.getBlockEntity(pos);
 			if (tile == null && block.asItem() != Items.AIR && PlatformBlock.isValidBlock(wstate, world, pos)
 					&& (wstate.canOcclude() || block instanceof AbstractGlassBlock || block instanceof IronBarsBlock)
@@ -101,7 +101,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				setHitPos(stack, ctx.getClickLocation());
 
 				displayRemainderCounter(player, stack);
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		} else if (canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 			Item replacement = getItemToPlace(stack);
@@ -116,7 +116,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 			}
 		}
 
-		return InteractionResult.SUCCESS;
+		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 
 	@Override

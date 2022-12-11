@@ -71,11 +71,12 @@ public class ManasteelAxeItem extends AxeItem implements CustomDamageItem, Sorta
 				ItemStack stackAt = player.getInventory().getItem(i);
 				if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
 					ItemStack displayStack = stackAt.copy();
-					if (PlayerHelper.substituteUse(ctx, stackAt).consumesAction()) {
+					var result = PlayerHelper.substituteUse(ctx, stackAt);
+					if (result.consumesAction()) {
 						if (!ctx.getLevel().isClientSide) {
 							ItemsRemainingRenderHandler.send(player, displayStack, SAPLING_PATTERN);
 						}
-						return InteractionResult.SUCCESS;
+						return result;
 					}
 				}
 			}

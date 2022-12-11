@@ -38,7 +38,9 @@ public class CorporeaSparkItem extends Item {
 	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
-		return attachSpark(ctx.getLevel(), ctx.getClickedPos(), ctx.getItemInHand()) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+		return attachSpark(ctx.getLevel(), ctx.getClickedPos(), ctx.getItemInHand())
+				? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide())
+				: InteractionResult.PASS;
 	}
 
 	private static boolean canPlace(Level world, CorporeaSparkEntity spark) {

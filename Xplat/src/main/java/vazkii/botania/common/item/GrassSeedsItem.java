@@ -93,7 +93,7 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 				}
 			}
 
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return InteractionResult.PASS;

@@ -169,7 +169,7 @@ public class FlowerPouchItem extends Item {
 
 			}
 
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		return InteractionResult.PASS;
 	}

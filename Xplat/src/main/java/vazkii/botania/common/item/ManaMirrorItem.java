@@ -97,12 +97,14 @@ public class ManaMirrorItem extends Item {
 		Level world = ctx.getLevel();
 		Player player = ctx.getPlayer();
 
-		if (player != null && player.isShiftKeyDown() && !world.isClientSide) {
+		if (player != null && player.isSecondaryUseActive()) {
 			var receiver = XplatAbstractions.INSTANCE.findManaReceiver(world, ctx.getClickedPos(), null);
 			if (receiver instanceof ManaPool pool) {
-				bindPool(ctx.getItemInHand(), pool);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
-				return InteractionResult.SUCCESS;
+				if (!world.isClientSide) {
+					bindPool(ctx.getItemInHand(), pool);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.ding, SoundSource.PLAYERS, 1F, 1F);
+				}
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
 

@@ -36,7 +36,9 @@ public class FloralObedienceStickItem extends Item {
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		return applyStick(world, pos) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+		return applyStick(world, pos)
+				? InteractionResult.sidedSuccess(world.isClientSide())
+				: InteractionResult.PASS;
 	}
 
 	public static boolean applyStick(Level world, BlockPos pos) {

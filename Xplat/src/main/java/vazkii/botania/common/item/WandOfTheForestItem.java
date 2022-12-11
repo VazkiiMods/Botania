@@ -171,7 +171,7 @@ public class WandOfTheForestItem extends Item {
 			return InteractionResult.PASS;
 		}
 
-		if (player.isShiftKeyDown()) {
+		if (player.isSecondaryUseActive()) {
 			if (boundPos.filter(loc -> tryCompleteBinding(loc, stack, ctx)).isPresent()) {
 				return InteractionResult.SUCCESS;
 			}

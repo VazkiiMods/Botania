@@ -50,20 +50,22 @@ public class HellsRodItem extends Item {
 		ItemStack stack = ctx.getItemInHand();
 		BlockPos pos = ctx.getClickedPos();
 
-		if (!world.isClientSide && player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-			FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
-			entity.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
-			world.addFreshEntity(entity);
+		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+			if (!world.isClientSide()) {
+				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
+				entity.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+				world.addFreshEntity(entity);
 
-			if (!player.isCreative()) {
-				player.getCooldowns().addCooldown(this, ManaItemHandler.instance().hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
+				if (!player.isCreative()) {
+					player.getCooldowns().addCooldown(this, ManaItemHandler.instance().hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
+				}
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
+
+				ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), BotaniaSounds.fireRod, SoundSource.PLAYERS, 1F, 1F);
 			}
-			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
-
-			ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), BotaniaSounds.fireRod, player != null ? SoundSource.PLAYERS : SoundSource.BLOCKS, 1F, 1F);
 		}
 
-		return InteractionResult.SUCCESS;
+		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 
 	public static class AvatarBehavior implements AvatarWieldable {

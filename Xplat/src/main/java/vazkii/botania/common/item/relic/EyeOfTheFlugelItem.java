@@ -61,7 +61,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 		BlockPos pos = ctx.getClickedPos();
 		Player player = ctx.getPlayer();
 
-		if (player != null && player.isShiftKeyDown()) {
+		if (player != null && player.isSecondaryUseActive()) {
 			if (world.isClientSide) {
 				for (int i = 0; i < 10; i++) {
 					float x1 = (float) (pos.getX() + Math.random());
@@ -77,7 +77,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
 			}
 
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return InteractionResult.PASS;

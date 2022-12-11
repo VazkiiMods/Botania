@@ -90,10 +90,12 @@ public class CacophoniumItem extends Item {
 
 			Block block = world.getBlockState(pos).getBlock();
 			if (block instanceof NoteBlock) {
-				world.setBlockAndUpdate(pos, BotaniaBlocks.cacophonium.defaultBlockState());
-				((CacophoniumBlockEntity) world.getBlockEntity(pos)).stack = stack.copy();
-				stack.shrink(1);
-				return InteractionResult.SUCCESS;
+				if (!world.isClientSide()) {
+					world.setBlockAndUpdate(pos, BotaniaBlocks.cacophonium.defaultBlockState());
+					((CacophoniumBlockEntity) world.getBlockEntity(pos)).stack = stack.copy();
+					stack.shrink(1);
+				}
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
 

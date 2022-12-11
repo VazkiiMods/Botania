@@ -60,10 +60,10 @@ public class AstrolabeItem extends Item {
 		BlockState state = ctx.getLevel().getBlockState(ctx.getClickedPos());
 		Player player = ctx.getPlayer();
 
-		if (player != null && player.isShiftKeyDown()) {
+		if (player != null && player.isSecondaryUseActive()) {
 			if (setBlock(stack, state)) {
 				displayRemainderCounter(player, stack);
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(player.level.isClientSide());
 			}
 		} else if (player != null) {
 			boolean did = placeAllBlocks(stack, player);

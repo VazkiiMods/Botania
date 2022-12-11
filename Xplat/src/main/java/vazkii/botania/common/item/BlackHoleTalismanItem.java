@@ -80,7 +80,7 @@ public class BlackHoleTalismanItem extends Item {
 		ItemStack stack = ctx.getItemInHand();
 
 		if (!state.isAir() && setBlock(stack, state.getBlock())) {
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		} else {
 			Block bBlock = getBlock(stack);
 
@@ -99,7 +99,7 @@ public class BlackHoleTalismanItem extends Item {
 						add(stack, remainder.getCount());
 					}
 				}
-				return InteractionResult.SUCCESS;
+				return InteractionResult.sidedSuccess(world.isClientSide());
 			} else {
 				if (player == null || player.getAbilities().instabuild || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);

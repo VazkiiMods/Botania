@@ -98,15 +98,17 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		if (!world.isClientSide && pos.getY() < world.getMaxBuildHeight() - BASE_OFFSET && !world.dimensionType().hasCeiling()) {
-			world.playSound(null, pos, BotaniaSounds.laputaStart, SoundSource.BLOCKS, 1.0F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 1.3F);
-			ItemStack stack = ctx.getItemInHand();
-			spawnFirstBurst(world, pos, stack);
-			if (ctx.getPlayer() != null) {
-				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) ctx.getPlayer(), stack, (ServerLevel) world, pos.getX(), pos.getY(), pos.getZ());
+		if (pos.getY() < world.getMaxBuildHeight() - BASE_OFFSET && !world.dimensionType().hasCeiling()) {
+			if (!world.isClientSide) {
+				world.playSound(null, pos, BotaniaSounds.laputaStart, SoundSource.BLOCKS, 1.0F + world.random.nextFloat(), world.random.nextFloat() * 0.7F + 1.3F);
+				ItemStack stack = ctx.getItemInHand();
+				spawnFirstBurst(world, pos, stack);
+				if (ctx.getPlayer() != null) {
+					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) ctx.getPlayer(), stack, (ServerLevel) world, pos.getX(), pos.getY(), pos.getZ());
+				}
+				stack.shrink(1);
 			}
-			stack.shrink(1);
-			return InteractionResult.SUCCESS;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
 		return InteractionResult.PASS;

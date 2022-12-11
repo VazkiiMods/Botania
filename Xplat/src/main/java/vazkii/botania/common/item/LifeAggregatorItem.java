@@ -80,7 +80,9 @@ public class LifeAggregatorItem extends Item {
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
 		if (getEntityId(ctx.getItemInHand()) == null) {
-			return captureSpawner(ctx) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+			return captureSpawner(ctx)
+					? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide())
+					: InteractionResult.PASS;
 		} else {
 			return placeSpawner(ctx);
 		}
