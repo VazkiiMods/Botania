@@ -514,7 +514,7 @@
   "botania.challenge.reedFarm": "Sugar Cane Farm",
   "botania.challenge.reedFarm.desc": "Create an automated sugar cane farm. Bonus points for not using pistons.",
   "botania.challenge.cobbleGen": "Cobble Generator",
-  "botania.challenge.cobbleGen.desc": "Create an automated cobblestone generator and harvester. Bonus points if it also generates smooth stone without a furnace.",
+  "botania.challenge.cobbleGen.desc": "Create an automated cobblestone generator and harvester. Bonus points if it also generates normal stone without a furnace.",
   "botania.challenge.pureDaisy": "Auto Pure Daisy",
   "botania.challenge.pureDaisy.desc": "Completely automate the $(l:basics/pure_daisy)Pure Daisy$(/l). Bonus points if only one spreader is used and/or if the wood/stone input is also automated.",
   "botania.challenge.battery": "Mana Battery",
