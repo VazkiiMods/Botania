@@ -392,23 +392,14 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 				// TEMP TEST
 				{
 					CorporeaRequestMatcher matcher = getMatcherFromMsg(message, player);
-					player.sendSystemMessage(Component.literal(matcher.toString()));
+					player.sendSystemMessage(matcher.getRequestName());
 
 					if (matcher instanceof CorporeaStringMatcher stringy) {
 						var startTime = System.nanoTime();
-						var foundIds = stringy.getComposingRegistryRanges();
+						var ranges = CorporeaStringMatcher.getRegistryRanges(stringy.expression);
 						var elapsedTime = System.nanoTime() - startTime;
-						var bob = new StringBuilder("In %.5f ms, %d entries: "
-							.formatted((float) elapsedTime / (1000 * 1000), foundIds.size()));
-						for (int i = 0; i < foundIds.size(); i += 2) {
-							bob.append(foundIds.getInt(i));
-							bob.append('-');
-							bob.append(foundIds.getInt(i + 1));
-							if (i < foundIds.size() - 2) {
-								bob.append(", ");
-							}
-						}
-						player.sendSystemMessage(Component.literal(bob.toString()));
+						player.sendSystemMessage(Component.literal(
+							"%.5f ms: %s".formatted((double) elapsedTime / (1000 * 1000), ranges.toString())));
 					}
 				}
 

@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common.impl.corporea;
 
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntList;
-import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
-import it.unimi.dsi.fastutil.ints.IntSortedSet;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +20,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
@@ -33,7 +32,8 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 
 	// Stored as a list of segments that must match.
 	// *foo*bar is stored as "", "foo", "bar"
-	private final String[] expression;
+	// TODO: stop being public
+	public final String[] expression;
 
 	public CorporeaStringMatcher(String expression) {
 		boolean contains = false;
@@ -59,7 +59,7 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 			return false;
 		}
 		// TODO: replace this with the proper `or` test
-		return testString(stack.getHoverName().getString());
+		return matchGlob(this.expression, stack.getHoverName().getString());
 		/*
 		if (stack.hasCustomHoverName()) {
 			return testString(stack.getHoverName().getString());
@@ -69,17 +69,6 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 			return false;
 		}
 		 */
-	}
-
-	@Override
-	public boolean testItem(Item item) {
-		var i18nVal = I18n.get(item.getDescriptionId());
-		return testString(i18nVal);
-	}
-
-	private boolean testString(String name) {
-		name = stripControlCodes(name.toLowerCase(Locale.ROOT).trim());
-		return matchGlob(name);
 	}
 
 	public static CorporeaStringMatcher createFromNBT(CompoundTag tag) {
@@ -112,7 +101,9 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 		return sj.toString();
 	}
 
-	private boolean matchGlob(String str) {
+	private static boolean matchGlob(String[] expression, String str) {
+		str = stripControlCodes(str.toLowerCase(Locale.ROOT).trim());
+
 		if (expression.length == 1) {
 			return expression[0].equals(str);
 		}
@@ -139,28 +130,30 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 	}
 
 	/**
-	 * Client side only, get the ranges of registry IDs this matches
+	 * Client side only, get the ranges of registry IDs the glob matches from the langfile
 	 */
-	public IntList getComposingRegistryRanges() {
+	public static RegistryRanges getRegistryRanges(String[] glob) {
 		// TODO what kind of set might be fastest, RB, AVL?
 		// I'm pretty sure inserting sorted is faster than inserting all and then sorting;
 		// they're both O(n log n) but the n in the log n is smaller when inserting sorted because
 		// there's fewer to cmp against ...
 		IntSortedSet regiMatches = new IntRBTreeSet();
-		Registry.ITEM.stream().forEach(item -> {
-			if (this.testItem(item)) {
+		for (Item item : Registry.ITEM) {
+			var name = I18n.get(item.getDescriptionId());
+			if (matchGlob(glob, name)) {
 				var id = Registry.ITEM.getId(item);
 				regiMatches.add(id);
 			}
-		});
+		}
 
 		// Compose these ints into a set of ranges (for compactness over the wire)
 		if (regiMatches.isEmpty()) {
-			return IntList.of();
+			return new RegistryRanges(IntList.of(), IntSet.of(), RegistryRanges.ITEM_REGISTRY_HASH);
 		}
 
 		// guess on the out size of the list, idk if this is a good one or not
-		var out = new IntArrayList(regiMatches.size() / 4);
+		var ranges = new IntArrayList(regiMatches.size() / 4);
+		var singletons = new IntOpenHashSet(regiMatches.size() / 4);
 		var regiIter = regiMatches.intIterator();
 		var anchor = regiIter.nextInt();
 		var prev = anchor;
@@ -169,18 +162,97 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 			var here = regiIter.nextInt();
 			assert here > prev;
 			if (here != prev + 1) {
-				// Start a new range
-				out.push(anchor);
-				out.push(prev);
+				// Then we've come to a gap
+				if (anchor == prev) {
+					singletons.add(anchor);
+				} else {
+					// Start a new range
+					ranges.push(anchor);
+					ranges.push(prev);
+				}
 				anchor = here;
 			}
 
 			prev = here;
 		}
-		out.add(anchor);
-		out.add(prev);
+		// and do it again to get the last element
+		if (anchor == prev) {
+			singletons.add(anchor);
+		} else {
+			// Start a new range
+			ranges.push(anchor);
+			ranges.push(prev);
+		}
+		assert ranges.size() % 2 == 0;
+		return new RegistryRanges(ranges, singletons, RegistryRanges.ITEM_REGISTRY_HASH);
+	}
 
-		assert out.size() % 2 == 0;
-		return out;
+	public static class RegistryRanges {
+		private static final int HASH_SEED = 0xBAD_5EED;
+
+		/**
+		 * Recalculated once each time the JVM is launched.
+		 */
+		public static final int ITEM_REGISTRY_HASH = Util.make(() -> {
+			int hash = HASH_SEED;
+
+			for (Item item : Registry.ITEM) {
+				hash = Objects.hash(hash, Registry.ITEM.getKey(item));
+			}
+
+			return hash;
+		});
+
+		/**
+		 * List of int range pairs; {@code [min0, max0, min0, max0, ...] }
+		 */
+		private final IntList ranges;
+		/**
+		 * List of singleton ranges
+		 */
+		private final IntSet singletons;
+
+		/**
+		 * Hash of the registry at creation time. We use this to try and detect if it's changed.
+		 * If so, the IDs won't be valid anymore, so fallback to the dumb English string checking,
+		 * which won't work on Quilt, but my god that's a like 1% of 1% chance you'll live
+		 */
+		private final int registryHash;
+
+		private RegistryRanges(IntList ranges, IntSet singletons, int registryHash) {
+			this.ranges = ranges;
+			this.singletons = singletons;
+			this.registryHash = registryHash;
+		}
+
+		@Override
+		public String toString() {
+			var bob = new StringBuilder("RegistryRanges[");
+			for (int i = 0; i < this.ranges.size(); i += 2) {
+				bob.append(this.ranges.getInt(i));
+				bob.append('-');
+				bob.append(this.ranges.getInt(i + 1));
+				if (i < this.ranges.size() - 2) {
+					bob.append(',');
+				} else {
+					bob.append(';');
+				}
+				bob.append(' ');
+			}
+
+			var first = true;
+			for (var item : this.singletons) {
+				if (!first) {
+					bob.append(", ");
+				}
+				bob.append(item);
+				first = false;
+			}
+
+			bob.append("; #");
+			bob.append(this.registryHash);
+			bob.append(']');
+			return bob.toString();
+		}
 	}
 }
