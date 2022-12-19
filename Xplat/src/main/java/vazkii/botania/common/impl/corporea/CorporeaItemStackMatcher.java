@@ -10,41 +10,47 @@ package vazkii.botania.common.impl.corporea;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
 public class CorporeaItemStackMatcher implements CorporeaRequestMatcher {
-	private static final String TAG_REQUEST_STACK = "requestStack";
-	private static final String TAG_REQUEST_CHECK_NBT = "requestCheckNBT";
+    private static final String TAG_REQUEST_STACK = "requestStack";
+    private static final String TAG_REQUEST_CHECK_NBT = "requestCheckNBT";
 
-	private final ItemStack match;
-	private final boolean checkNBT;
+    private final ItemStack match;
+    private final boolean checkNBT;
 
-	public CorporeaItemStackMatcher(ItemStack match, boolean checkNBT) {
-		this.match = match;
-		this.checkNBT = checkNBT;
-	}
+    public CorporeaItemStackMatcher(ItemStack match, boolean checkNBT) {
+        this.match = match;
+        this.checkNBT = checkNBT;
+    }
 
-	@Override
-	public boolean test(ItemStack stack) {
-		return !stack.isEmpty() && !match.isEmpty() && stack.sameItem(match) && (!checkNBT || ItemNBTHelper.matchTagAndManaFullness(stack, match));
-	}
+    @Override
+    public boolean test(ItemStack stack) {
+        return !stack.isEmpty() && !match.isEmpty() && stack.sameItem(match) && (!checkNBT || ItemNBTHelper.matchTagAndManaFullness(stack, match));
+    }
 
-	public static CorporeaItemStackMatcher createFromNBT(CompoundTag tag) {
-		return new CorporeaItemStackMatcher(ItemStack.of(tag.getCompound(TAG_REQUEST_STACK)), tag.getBoolean(TAG_REQUEST_CHECK_NBT));
-	}
+    @Override
+    public boolean testItem(Item item) {
+        return this.match.is(item);
+    }
 
-	@Override
-	public void writeToNBT(CompoundTag tag) {
-		CompoundTag cmp = match.save(new CompoundTag());
-		tag.put(TAG_REQUEST_STACK, cmp);
-		tag.putBoolean(TAG_REQUEST_CHECK_NBT, checkNBT);
-	}
+    public static CorporeaItemStackMatcher createFromNBT(CompoundTag tag) {
+        return new CorporeaItemStackMatcher(ItemStack.of(tag.getCompound(TAG_REQUEST_STACK)),
+            tag.getBoolean(TAG_REQUEST_CHECK_NBT));
+    }
 
-	@Override
-	public Component getRequestName() {
-		return match.getDisplayName();
-	}
+    @Override
+    public void writeToNBT(CompoundTag tag) {
+        CompoundTag cmp = match.save(new CompoundTag());
+        tag.put(TAG_REQUEST_STACK, cmp);
+        tag.putBoolean(TAG_REQUEST_CHECK_NBT, checkNBT);
+    }
+
+    @Override
+    public Component getRequestName() {
+        return match.getDisplayName();
+    }
 }

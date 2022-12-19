@@ -8,12 +8,17 @@
  */
 package vazkii.botania.common.impl.corporea;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
+import it.unimi.dsi.fastutil.ints.IntSortedSet;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
 import org.apache.commons.lang3.text.WordUtils;
-
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 
 import java.util.Locale;
@@ -23,9 +28,11 @@ import java.util.regex.Pattern;
 public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
-	public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" };
+	public static final String[] WILDCARD_STRINGS = {"...", "~", "+", "?"};
 	private static final String TAG_REQUEST_CONTENTS = "requestContents";
 
+	// Stored as a list of segments that must match.
+	// *foo*bar is stored as "", "foo", "bar"
 	private final String[] expression;
 
 	public CorporeaStringMatcher(String expression) {
@@ -51,12 +58,28 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 		if (stack.isEmpty()) {
 			return false;
 		}
+		// TODO: replace this with the proper `or` test
+		return testString(stack.getHoverName().getString());
+		/*
+		if (stack.hasCustomHoverName()) {
+			return testString(stack.getHoverName().getString());
+		} else {
+			// `getHoverName` returns the english translation without anvil renaming,
+			// and we don't want that!
+			return false;
+		}
+		 */
+	}
 
-		String name = stripControlCodes(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim());
-		return matchGlob(name)
-				|| matchGlob(name + "s")
-				|| matchGlob(name + "es")
-				|| name.endsWith("y") && matchGlob(name.substring(0, name.length() - 1) + "ies");
+	@Override
+	public boolean testItem(Item item) {
+		var i18nVal = I18n.get(item.getDescriptionId());
+		return testString(i18nVal);
+	}
+
+	private boolean testString(String name) {
+		name = stripControlCodes(name.toLowerCase(Locale.ROOT).trim());
+		return matchGlob(name);
 	}
 
 	public static CorporeaStringMatcher createFromNBT(CompoundTag tag) {
@@ -113,5 +136,51 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 	// Copy from StringUtils
 	private static String stripControlCodes(String str) {
 		return patternControlCode.matcher(str).replaceAll("");
+	}
+
+	/**
+	 * Client side only, get the ranges of registry IDs this matches
+	 */
+	public IntList getComposingRegistryRanges() {
+		// TODO what kind of set might be fastest, RB, AVL?
+		// I'm pretty sure inserting sorted is faster than inserting all and then sorting;
+		// they're both O(n log n) but the n in the log n is smaller when inserting sorted because
+		// there's fewer to cmp against ...
+		IntSortedSet regiMatches = new IntRBTreeSet();
+		Registry.ITEM.stream().forEach(item -> {
+			if (this.testItem(item)) {
+				var id = Registry.ITEM.getId(item);
+				regiMatches.add(id);
+			}
+		});
+
+		// Compose these ints into a set of ranges (for compactness over the wire)
+		if (regiMatches.isEmpty()) {
+			return IntList.of();
+		}
+
+		// guess on the out size of the list, idk if this is a good one or not
+		var out = new IntArrayList(regiMatches.size() / 4);
+		var regiIter = regiMatches.intIterator();
+		var anchor = regiIter.nextInt();
+		var prev = anchor;
+
+		while (regiIter.hasNext()) {
+			var here = regiIter.nextInt();
+			assert here > prev;
+			if (here != prev + 1) {
+				// Start a new range
+				out.push(anchor);
+				out.push(prev);
+				anchor = here;
+			}
+
+			prev = here;
+		}
+		out.add(anchor);
+		out.add(prev);
+
+		assert out.size() % 2 == 0;
+		return out;
 	}
 }
