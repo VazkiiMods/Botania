@@ -78,6 +78,7 @@ import vazkii.botania.common.handler.*;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.impl.corporea.DefaultCorporeaMatchers;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.BandOfManaItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
@@ -95,6 +96,7 @@ import vazkii.botania.common.world.BotaniaFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
+import vazkii.botania.fabric.integration.corporea.FabricTransferCorporeaNodeDetector;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
 import vazkii.botania.fabric.internal_caps.RedStringContainerStorage;
 import vazkii.botania.fabric.network.FabricPacketHandler;
@@ -123,6 +125,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		OrechidManager.registerListener();
 		CraftyCrateBlockEntity.registerListener();
+		CorporeaNodeDetectors.register(new FabricTransferCorporeaNodeDetector());
 
 		registerCapabilities();
 		registerEvents();
