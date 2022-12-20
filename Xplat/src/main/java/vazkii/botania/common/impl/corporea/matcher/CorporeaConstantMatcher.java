@@ -50,7 +50,7 @@ public class CorporeaConstantMatcher implements CorporeaRequestMatcher {
 		if (this.match) {
 			return Component.literal("*");
 		} else {
-			return Component.translatable("tag.botania_corporea_request.never");
+			return Component.translatable("key.botania_corporea_request.never");
 		}
 	}
 }
