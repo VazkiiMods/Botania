@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.block.block_entity.corporea;
 
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -20,15 +22,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+
 import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
-import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
-import vazkii.botania.network.serverbound.IndexStringRequestPacket;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaConstantMatcher;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaItemStackMatcher;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaStringMatcher;
+import vazkii.botania.network.serverbound.IndexRequestPacket;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -270,13 +275,13 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state,
-		CorporeaIndexBlockEntity self) {
+			CorporeaIndexBlockEntity self) {
 		double x = worldPosition.getX() + 0.5;
 		double y = worldPosition.getY() + 0.5;
 		double z = worldPosition.getZ() + 0.5;
 
 		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(x - RADIUS, y - RADIUS, z - RADIUS,
-			x + RADIUS, y + RADIUS, z + RADIUS));
+				x + RADIUS, y + RADIUS, z + RADIUS));
 		self.hasCloseby = false;
 		if (self.getSpark() != null) {
 			for (Player player : players) {
@@ -320,19 +325,19 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 
 	@Override
 	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark,
-		@Nullable LivingEntity entity) {
+			@Nullable LivingEntity entity) {
 		doRequest(request, count, spark, entity);
 	}
 
 	private CorporeaResult doRequest(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark,
-		@Nullable LivingEntity entity) {
+			@Nullable LivingEntity entity) {
 		CorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, entity, true);
 		List<ItemStack> stacks = result.stacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack stack : stacks) {
 			if (!stack.isEmpty()) {
 				ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5,
-					worldPosition.getZ() + 0.5, stack);
+						worldPosition.getZ() + 0.5, stack);
 				level.addFreshEntity(item);
 			}
 		}
@@ -341,9 +346,9 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 
 	private boolean isInRange(Player player) {
 		return player.level.dimension() == level.dimension()
-			&& MathHelper.pointDistancePlane(getBlockPos().getX() + 0.5, getBlockPos().getZ() + 0.5, player.getX(),
-			player.getZ()) < RADIUS
-			&& Math.abs(getBlockPos().getY() + 0.5 - player.getY()) < 5;
+				&& MathHelper.pointDistancePlane(getBlockPos().getX() + 0.5, getBlockPos().getZ() + 0.5, player.getX(),
+						player.getZ()) < RADIUS
+				&& Math.abs(getBlockPos().getY() + 0.5 - player.getY()) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -379,10 +384,10 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 			CorporeaResult res = this.doRequest(request, count, this.getSpark(), player);
 
 			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(),
-				res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
+					res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
 			player.awardStat(BotaniaStats.CORPOREA_ITEMS_REQUESTED, res.extractedCount());
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getLevel(), this.getBlockPos(),
-				res.extractedCount());
+					res.extractedCount());
 		}
 	}
 
@@ -390,30 +395,20 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 		public static boolean onChat(LocalPlayer player, String message) {
 			if (!getNearbyValidIndexes(player).isEmpty()) {
 				// TEMP TEST
-				{
-					CorporeaRequestMatcher matcher = getMatcherFromMsg(message, player);
-					player.sendSystemMessage(matcher.getRequestName());
+				var count2Matcher = getMatcherFromMsg(message, player);
 
-					if (matcher instanceof CorporeaStringMatcher stringy) {
-						var startTime = System.nanoTime();
-						var ranges = CorporeaStringMatcher.getRegistryRanges(stringy.expression);
-						var elapsedTime = System.nanoTime() - startTime;
-						player.sendSystemMessage(Component.literal(
-							"%.5f ms: %s".formatted((double) elapsedTime / (1000 * 1000), ranges.toString())));
-					}
-				}
-
-				ClientXplatAbstractions.INSTANCE.sendToServer(new IndexStringRequestPacket(message));
+				ClientXplatAbstractions.INSTANCE.sendToServer(
+						new IndexRequestPacket(count2Matcher.second(), count2Matcher.firstInt()));
 				return true;
 			}
 			return false;
 		}
 
-		public static CorporeaRequestMatcher getMatcherFromMsg(String message, LocalPlayer reqer) {
+		public static IntObjectPair<CorporeaRequestMatcher> getMatcherFromMsg(String message, LocalPlayer reqer) {
 			message = message.toLowerCase(Locale.ROOT).trim();
 
 			String name = "";
-			int count = -1;
+			int count = 0;
 			boolean foundAny = false;
 			for (var pattern : PATTERNS.keySet()) {
 				// They're in the set from least -> most specific
@@ -423,58 +418,41 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 					IRegexStacker stacker = PATTERNS.get(pattern);
 					count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
 					name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
+					foundAny = true;
 				}
 			}
 
 			// The nonsense values above will always be filled by this point
 			// TODO would it make more sense for the "no special RE" matches to be special-cased?
 			CorporeaRequestMatcher corpyMatcher;
-			if (name.equals("this")) {
+			if (!foundAny) {
+				// this should never be passed?
+				corpyMatcher = new CorporeaConstantMatcher(false);
+			} else if (name.equals("this")) {
 				ItemStack stack = reqer.getMainHandItem();
 				if (!stack.isEmpty()) {
 					// TODO: check nbt?
 					corpyMatcher = new CorporeaItemStackMatcher(stack, false);
 				} else {
 					// Well, you're gonna have a tough time checking for air
-					corpyMatcher = CorporeaRequestMatcher.Dummy.INSTANCE;
+					corpyMatcher = new CorporeaConstantMatcher(false);
 				}
 			} else {
 				corpyMatcher = new CorporeaStringMatcher(name);
 			}
 
-			return corpyMatcher;
+			return IntObjectPair.of(count, corpyMatcher);
 		}
 	}
 
-	public static void onChatMessage(ServerPlayer player, String message) {
+	public static void receiveRequestFromPlayer(ServerPlayer player, CorporeaRequestMatcher matcher, int count) {
 		if (player.isSpectator()) {
 			return;
 		}
 
 		List<CorporeaIndexBlockEntity> nearbyIndexes = getNearbyValidIndexes(player);
-		if (!nearbyIndexes.isEmpty()) {
-			String msg = message.toLowerCase(Locale.ROOT).trim();
-			String name = "";
-			int count = 0;
-			for (Pattern pattern : PATTERNS.keySet()) {
-				Matcher matcher = pattern.matcher(msg);
-				if (matcher.matches()) {
-					IRegexStacker stacker = PATTERNS.get(pattern);
-					count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
-					name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
-				}
-			}
-
-			if (name.equals("this")) {
-				ItemStack stack = player.getMainHandItem();
-				if (!stack.isEmpty()) {
-					name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
-				}
-			}
-
-			for (CorporeaIndexBlockEntity index : nearbyIndexes) {
-				index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(name), count);
-			}
+		for (CorporeaIndexBlockEntity index : nearbyIndexes) {
+			index.performPlayerRequest(player, matcher, count);
 		}
 	}
 

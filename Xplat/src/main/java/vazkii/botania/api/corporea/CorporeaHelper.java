@@ -10,13 +10,12 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
 import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.ServiceUtil;
 
 import java.util.Collections;
@@ -24,7 +23,8 @@ import java.util.Set;
 import java.util.function.Function;
 
 public interface CorporeaHelper {
-	CorporeaHelper INSTANCE = ServiceUtil.findService(CorporeaHelper.class, () -> new CorporeaHelper() {});
+	CorporeaHelper INSTANCE = ServiceUtil.findService(CorporeaHelper.class, () -> new CorporeaHelper() {
+	});
 
 	static CorporeaHelper instance() {
 		return INSTANCE;
@@ -54,13 +54,14 @@ public interface CorporeaHelper {
 
 	/**
 	 * Requests items from the network associated with {@code spark}.
-	 * 
+	 *
 	 * @param matcher   Specifies what you want to request. See {@link #createMatcher} to create one.
 	 * @param itemCount Specifies the maximum amount you want to request. If -1, the amount is unlimited.
 	 * @param requestor The entity that initiated this request, if there is one.
 	 * @param doit      If false, only counts the items instead of actually extracting
 	 */
-	default CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, @Nullable LivingEntity requestor, boolean doit) {
+	default CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark,
+		@Nullable LivingEntity requestor, boolean doit) {
 		return CorporeaResult.Dummy.INSTANCE;
 	}
 
@@ -89,5 +90,16 @@ public interface CorporeaHelper {
 		return 0;
 	}
 
-	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {}
+	/**
+	 * @deprecated Use the overload that can ser/de from a buffer also
+	 */
+	@Deprecated
+	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz,
+		Function<CompoundTag, T> nbtDeserializer) {
+	}
+
+	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz,
+		Function<CompoundTag, T> nbtDeserializer,
+		Function<FriendlyByteBuf, T> bufDeserializer) {
+	}
 }

@@ -206,6 +206,7 @@
   "tag.botania.seed_apothecary_reagent": "Seed Reagents",
 
   "key.botania_corporea_request": "Corporea Request",
+  "key.botania_corporea_request.never": "<nothing>",
 
   "botania.triggers.manaDetector": "Mana Burst",
   "botania.triggers.manaEmpty": "Mana Empty",
@@ -3464,7 +3465,7 @@
   "botania.entry.preventingDecay": "Numerical Mana",
   "botania.tagline.preventingDecay": "Seeing the numbers in mana",
   "botania.page.preventingDecay0": "no",
-  
+
   "botania.subtitle.agricarnation": "Agricarnation glimmers",
   "botania.subtitle.airRod": "Rod of the Skies whooshes",
   "botania.subtitle.altarCraft": "Petal Apothecary twinkles",
@@ -3549,6 +3550,6 @@
   "botania.subtitle.vineBallThrow": "Vine Ball flies",
   "botania.subtitle.virusInfect": "Virus infects",
   "botania.subtitle.worldSeedTeleport": "World Seed teleports",
-  
+
   "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
 }
