@@ -78,8 +78,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark,
-		@Nullable LivingEntity entity, boolean doit) {
+	public CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, @Nullable LivingEntity entity, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 		if (XplatAbstractions.INSTANCE.fireCorporeaRequestEvent(matcher, itemCount, spark, !doit)) {
 			return new CorporeaResultImpl(stacks, 0, 0, Object2IntMaps.emptyMap());
@@ -109,8 +108,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		}
 
 		for (CorporeaInterceptor interceptor : interceptors.keySet()) {
-			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, nodes,
-				doit);
+			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, nodes, doit);
 		}
 
 		return new CorporeaResultImpl(stacks, request.getFound(), request.getExtracted(), matchCountByNode);
@@ -118,8 +116,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 	@Override
 	public CorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
-		List<Entity> sparks = world.getEntitiesOfClass(Entity.class, new AABB(pos.above(), pos.offset(1, 2, 1)),
-			Predicates.instanceOf(CorporeaSpark.class));
+		List<Entity> sparks = world.getEntitiesOfClass(Entity.class, new AABB(pos.above(), pos.offset(1, 2, 1)), Predicates.instanceOf(CorporeaSpark.class));
 		return sparks.isEmpty() ? null : (CorporeaSpark) sparks.get(0);
 	}
 
@@ -135,14 +132,12 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz,
-		Function<CompoundTag, T> deserializer) {
+	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
 		this.registerRequestMatcher(id, clazz, deserializer, null);
 	}
 
 	@Override
-	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz,
-		Function<CompoundTag, T> nbtDeserializer, Function<FriendlyByteBuf, T> bufDeserializer) {
+	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> nbtDeserializer, Function<FriendlyByteBuf, T> bufDeserializer) {
 		corporeaMatcherSerializers.put(clazz, id);
 		corporeaMatcherDeserializers.put(id, new RequestDeserializer(nbtDeserializer, bufDeserializer));
 	}

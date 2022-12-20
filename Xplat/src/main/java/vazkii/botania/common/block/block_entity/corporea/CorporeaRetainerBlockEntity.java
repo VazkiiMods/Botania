@@ -137,8 +137,7 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			String mode = I18n.get("botaniamisc.retainer." + (retainer.retainMissing ? "retain_missing" : "retain_all"
-			));
+			String mode = I18n.get("botaniamisc.retainer." + (retainer.retainMissing ? "retain_missing" : "retain_all"));
 			int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
 

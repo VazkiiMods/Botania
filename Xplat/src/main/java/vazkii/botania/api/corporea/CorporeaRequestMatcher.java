@@ -30,14 +30,12 @@ public interface CorporeaRequestMatcher extends Predicate<ItemStack> {
 	/**
 	 * Serialize to NBT data, for the Corporea Retainer's benefit.
 	 */
-	default void writeToNBT(CompoundTag tag) {
-	}
+	default void writeToNBT(CompoundTag tag) {}
 
 	/**
 	 * Serialize over the wire, for requesting an item from an index.
 	 */
-	default void writeToBuf(FriendlyByteBuf buf) {
-	}
+	default void writeToBuf(FriendlyByteBuf buf) {}
 
 	/**
 	 * Returns the pretty name of the requested item, for printing request feedback on Corporea Indexes.

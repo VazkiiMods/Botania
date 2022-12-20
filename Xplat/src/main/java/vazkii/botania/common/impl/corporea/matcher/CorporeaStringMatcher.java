@@ -50,14 +50,6 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 	// TODO: stop being public
 	private final String[] expression;
 	private final RegistryRanges ranges;
-	// True if the current registry hash is different than one loaded from NBT.
-	//
-	// This will only be true when:
-	// - A request is intercepted
-	// - The server is closed
-	// - Mods are added/removed
-	// - The server is reopened
-	// and in that edge case we log an error and fallback to english string matching on the server
 
 	public CorporeaStringMatcher(String expression) {
 		boolean contains = false;
@@ -91,7 +83,14 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 		}
 
 		if (this.ranges.registryHash != RegistryRanges.ITEM_REGISTRY_HASH) {
-			// then something has gone wrong, and to *try* and make it work do the english search
+			// True if the current registry hash is different than one loaded from NBT.
+			//
+			// This will only be true when:
+			// - A request is intercepted
+			// - The server is closed
+			// - Mods are added/removed
+			// - The server is reopened
+			// and in that edge case we logged an error at deser, and fallback to english string matching on the server
 			return matchGlob(this.expression, stack.getHoverName().getString());
 		}
 

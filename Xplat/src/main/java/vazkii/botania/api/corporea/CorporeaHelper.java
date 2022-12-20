@@ -23,8 +23,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 public interface CorporeaHelper {
-	CorporeaHelper INSTANCE = ServiceUtil.findService(CorporeaHelper.class, () -> new CorporeaHelper() {
-	});
+	CorporeaHelper INSTANCE = ServiceUtil.findService(CorporeaHelper.class, () -> new CorporeaHelper() {});
 
 	static CorporeaHelper instance() {
 		return INSTANCE;
@@ -60,8 +59,7 @@ public interface CorporeaHelper {
 	 * @param requestor The entity that initiated this request, if there is one.
 	 * @param doit      If false, only counts the items instead of actually extracting
 	 */
-	default CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark,
-		@Nullable LivingEntity requestor, boolean doit) {
+	default CorporeaResult requestItem(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, @Nullable LivingEntity requestor, boolean doit) {
 		return CorporeaResult.Dummy.INSTANCE;
 	}
 
@@ -94,12 +92,9 @@ public interface CorporeaHelper {
 	 * @deprecated Use the overload that can ser/de from a buffer also
 	 */
 	@Deprecated
-	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz,
-		Function<CompoundTag, T> nbtDeserializer) {
+	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> nbtDeserializer) {
 	}
 
-	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz,
-		Function<CompoundTag, T> nbtDeserializer,
-		Function<FriendlyByteBuf, T> bufDeserializer) {
+	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> nbtDeserializer, Function<FriendlyByteBuf, T> bufDeserializer) {
 	}
 }

@@ -324,13 +324,11 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	@Override
-	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark,
-			@Nullable LivingEntity entity) {
+	public void doCorporeaRequest(CorporeaRequestMatcher request, int count, CorporeaSpark spark, @Nullable LivingEntity entity) {
 		doRequest(request, count, spark, entity);
 	}
 
-	private CorporeaResult doRequest(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark,
-			@Nullable LivingEntity entity) {
+	private CorporeaResult doRequest(CorporeaRequestMatcher matcher, int count, CorporeaSpark spark, @Nullable LivingEntity entity) {
 		CorporeaResult result = CorporeaHelper.instance().requestItem(matcher, count, spark, entity, true);
 		List<ItemStack> stacks = result.stacks();
 		spark.onItemsRequested(stacks);
@@ -346,8 +344,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 
 	private boolean isInRange(Player player) {
 		return player.level.dimension() == level.dimension()
-				&& MathHelper.pointDistancePlane(getBlockPos().getX() + 0.5, getBlockPos().getZ() + 0.5, player.getX(),
-						player.getZ()) < RADIUS
+				&& MathHelper.pointDistancePlane(getBlockPos().getX() + 0.5, getBlockPos().getZ() + 0.5, player.getX(), player.getZ()) < RADIUS
 				&& Math.abs(getBlockPos().getY() + 0.5 - player.getY()) < 5;
 	}
 
@@ -383,11 +380,9 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 		if (!XplatAbstractions.INSTANCE.fireCorporeaIndexRequestEvent(player, request, count, this.getSpark())) {
 			CorporeaResult res = this.doRequest(request, count, this.getSpark(), player);
 
-			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(),
-					res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
+			player.sendSystemMessage(Component.translatable("botaniamisc.requestMsg", count, request.getRequestName(), res.matchedCount(), res.extractedCount()).withStyle(ChatFormatting.LIGHT_PURPLE));
 			player.awardStat(BotaniaStats.CORPOREA_ITEMS_REQUESTED, res.extractedCount());
-			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getLevel(), this.getBlockPos(),
-					res.extractedCount());
+			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getLevel(), this.getBlockPos(), res.extractedCount());
 		}
 	}
 
