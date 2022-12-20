@@ -431,8 +431,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 			} else if (name.equals("this")) {
 				ItemStack stack = reqer.getMainHandItem();
 				if (!stack.isEmpty()) {
-					// TODO: check nbt?
-					corpyMatcher = new CorporeaItemStackMatcher(stack, false);
+					corpyMatcher = new CorporeaItemStackMatcher(stack, true);
 				} else {
 					// Well, you're gonna have a tough time checking for air
 					corpyMatcher = new CorporeaConstantMatcher(false);
