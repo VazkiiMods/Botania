@@ -9,6 +9,7 @@
 package vazkii.botania.common.impl.corporea.matcher;
 
 import it.unimi.dsi.fastutil.ints.*;
+
 import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Registry;
@@ -20,7 +21,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
 import org.apache.commons.lang3.text.WordUtils;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 
@@ -32,7 +35,7 @@ import java.util.regex.Pattern;
 public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
-	public static final String[] WILDCARD_STRINGS = {"...", "~", "+", "?"};
+	public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" };
 
 	// TODO: remove this when 1.20 comes around
 	private static final String TAG_REQUEST_CONTENTS_LEGACY = "requestContents";
@@ -41,7 +44,6 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 	private static final String TAG_RANGES_RANGES = "ranges";
 	private static final String TAG_RANGES_SINGLETONS = "singletons";
 	private static final String TAG_RANGES_HASH = "hash";
-
 
 	// Stored as a list of segments that must match.
 	// *foo*bar is stored as "", "foo", "bar"
@@ -56,7 +58,6 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 	// - Mods are added/removed
 	// - The server is reopened
 	// and in that edge case we log an error and fallback to english string matching on the server
-
 
 	public CorporeaStringMatcher(String expression) {
 		boolean contains = false;
@@ -95,12 +96,9 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 		}
 
 		if (stack.hasCustomHoverName()) {
-			// TODO: do we want to *not* get items with anvilled names?
-			// if we search `iron ingot` do we want to get an ingot named something else?
-			// for now I will write we do but that might change
-			if (matchGlob(this.expression, stack.getHoverName().getString())) {
-				return true;
-			}
+			// In alwinfy's words, "matching by name is matching by name."
+			// If the item is renamed, we don't want to get it if its "natural" name matches
+			return matchGlob(this.expression, stack.getHoverName().getString());
 		}
 		return this.ranges.containsItem(stack.getItem());
 	}
@@ -124,7 +122,7 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 			BotaniaAPI.LOGGER.warn("Registry hash when a CorporeaStringMatcher was written to NBT ({}) is different " +
 					"than the current hash ({}). " +
 					"This request will fall back to a server-side I18n check.",
-				hash, RegistryRanges.ITEM_REGISTRY_HASH);
+					hash, RegistryRanges.ITEM_REGISTRY_HASH);
 		}
 		return new CorporeaStringMatcher(expr, new RegistryRanges(ranges, IntSet.of(singletons), hash));
 	}
@@ -287,6 +285,7 @@ public class CorporeaStringMatcher implements CorporeaRequestMatcher {
 	 *                     which won't work on Quilt, but my god that's a like 1% of 1% chance you'll live
 	 */
 	private record RegistryRanges(int[] ranges, IntSet singletons, int registryHash) {
+
 		private static final int HASH_SEED = 0xBAD_5EED;
 
 		/**
