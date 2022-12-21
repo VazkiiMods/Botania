@@ -54,14 +54,12 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 			registerForQuartz(variant, consumer);
 		}
 
-		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedSlab, 2));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedStairs));
-		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedWall));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockSlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockStairs));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockWall));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedStairs));
+		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockPolishedWall));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockBrick));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockBrickSlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrock, BotaniaFluffBlocks.livingrockBrickStairs));
@@ -82,6 +80,8 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaFluffBlocks.livingrockBrickMossySlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaFluffBlocks.livingrockBrickMossyStairs));
 		consumer.accept(stonecutting(BotaniaBlocks.livingrockBrickMossy, BotaniaFluffBlocks.livingrockBrickMossyWall));
+		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockSlab, 2));
+		consumer.accept(stonecutting(BotaniaBlocks.shimmerrock, BotaniaFluffBlocks.shimmerrockStairs));
 
 		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab, 2));
 		consumer.accept(stonecutting(BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaStairs));
