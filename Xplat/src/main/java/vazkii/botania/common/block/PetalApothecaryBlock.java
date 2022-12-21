@@ -72,7 +72,9 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 		DESERT,
 		TAIGA,
 		MESA,
-		MOSSY
+		MOSSY,
+		LIVINGROCK,
+		DEEPSLATE
 	}
 
 	public final Variant variant;

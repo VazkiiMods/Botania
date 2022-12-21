@@ -876,31 +876,22 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
 				.save(consumer, prefix("cobweb"));
 
-		ShapedRecipeBuilder.shaped(BotaniaBlocks.defaultAltar)
-				.define('P', BotaniaTags.Items.PETALS)
-				.define('C', Items.COBBLESTONE)
-				.pattern("CPC")
-				.pattern(" C ")
-				.pattern("CCC")
+		petalApothecary(Items.COBBLESTONE, BotaniaBlocks.defaultAltar)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
 				.save(consumer);
-		ShapedRecipeBuilder.shaped(BotaniaBlocks.mossyAltar)
-				.define('P', BotaniaTags.Items.PETALS)
-				.define('C', Items.MOSSY_COBBLESTONE)
-				.pattern("CPC")
-				.pattern(" C ")
-				.pattern("CCC")
+		petalApothecary(Items.MOSSY_COBBLESTONE, BotaniaBlocks.mossyAltar)
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
+				.save(consumer);
+		petalApothecary(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockAltar)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
+				.save(consumer);
+		petalApothecary(Items.COBBLED_DEEPSLATE, BotaniaBlocks.deepslateAltar)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
 				.save(consumer);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			Block apothecary = Registry.BLOCK.getOptional(prefix("apothecary_" + metamorphicVariant)).get();
 			Block cobble = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
-			ShapedRecipeBuilder.shaped(apothecary)
-					.define('P', BotaniaTags.Items.PETALS)
-					.define('C', cobble)
-					.pattern("CPC")
-					.pattern(" C ")
-					.pattern("CCC")
+			petalApothecary(cobble, apothecary)
 					.group("botania:metamorphic_apothecary")
 					.unlockedBy("has_item", conditionsFromItem(cobble))
 					.unlockedBy("has_flower_item", conditionsFromItem(BotaniaFlowerBlocks.marimorphosis))
@@ -2429,6 +2420,15 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("Q")
 				.unlockedBy("has_item", conditionsFromItem(fullBlock))
 				.save(consumer, prefix("slab_recombine/" + Registry.ITEM.getKey(fullBlock.asItem()).getPath()));
+	}
+
+	protected ShapedRecipeBuilder petalApothecary(ItemLike block, ItemLike apothecary) {
+		return ShapedRecipeBuilder.shaped(apothecary)
+			.define('P', BotaniaTags.Items.PETALS)
+			.define('C', block)
+			.pattern("CPC")
+			.pattern(" C ")
+			.pattern("CCC");
 	}
 
 	protected void registerForQuartz(Consumer<FinishedRecipe> consumer, String variant, ItemLike baseItem) {

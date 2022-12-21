@@ -2,10 +2,12 @@
   "replace": false,
   "values": [
     "botania:alchemy_catalyst",
+    "botania:apothecary_deepslate",
     "botania:apothecary_default",
     "botania:apothecary_desert",
     "botania:apothecary_forest",
     "botania:apothecary_fungal",
+    "botania:apothecary_livingrock",
     "botania:apothecary_mesa",
     "botania:apothecary_mossy",
     "botania:apothecary_mountain",

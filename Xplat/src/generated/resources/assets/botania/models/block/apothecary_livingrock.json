@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/petal_apothecary",
+  "textures": {
+    "bottom": "botania:block/apothecary_livingrock_bottom",
+    "side": "botania:block/apothecary_livingrock_side",
+    "top": "botania:block/apothecary_livingrock_top"
+  }
+}

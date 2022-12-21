@@ -38,7 +38,8 @@ public class BotaniaBlockEntities {
 	private static final Map<ResourceLocation, BlockEntityType<?>> ALL = new HashMap<>();
 	public static final BlockEntityType<PetalApothecaryBlockEntity> ALTAR = type(prefix(LibBlockNames.ALTAR), PetalApothecaryBlockEntity::new,
 			defaultAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar,
-			swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar
+			swampAltar, desertAltar, taigaAltar, mesaAltar, mossyAltar,
+			livingrockAltar, deepslateAltar
 	);
 	public static final BlockEntityType<ManaSpreaderBlockEntity> SPREADER = type(prefix(LibBlockNames.SPREADER), ManaSpreaderBlockEntity::new, manaSpreader, redstoneSpreader, elvenSpreader, gaiaSpreader);
 	public static final BlockEntityType<ManaPoolBlockEntity> POOL = type(prefix(LibBlockNames.POOL), ManaPoolBlockEntity::new, manaPool, dilutedPool, fabulousPool, creativePool);
