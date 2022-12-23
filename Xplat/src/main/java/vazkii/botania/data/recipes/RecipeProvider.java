@@ -2424,11 +2424,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 	protected ShapedRecipeBuilder petalApothecary(ItemLike block, ItemLike apothecary) {
 		return ShapedRecipeBuilder.shaped(apothecary)
-			.define('P', BotaniaTags.Items.PETALS)
-			.define('C', block)
-			.pattern("CPC")
-			.pattern(" C ")
-			.pattern("CCC");
+				.define('P', BotaniaTags.Items.PETALS)
+				.define('C', block)
+				.pattern("CPC")
+				.pattern(" C ")
+				.pattern("CCC");
 	}
 
 	protected void registerForQuartz(Consumer<FinishedRecipe> consumer, String variant, ItemLike baseItem) {
