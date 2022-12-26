@@ -220,6 +220,7 @@
   "tag.botania.dragonstone_gems": "Dragonite",
   "tag.botania.mana_dusts": "Poudres de mana",
   "tag.botania.burst_viewers": "Mana-vision",
+  "tag.botania.seed_apothecary_reagent": "Graines",
 
   "key.botania_corporea_request": "Commande Corporea",
 
@@ -671,8 +672,14 @@
   "block.botania.apothecary_taiga": "Apothicaire en lunite",
   "block.botania.apothecary_mesa": "Apothicaire en rosite",
   "block.botania.apothecary_mossy": "Apothicaire moussu",
+  "block.botania.apothecary_livingrock": "Apothicaire de viveroche",
+  "block.botania.apothecary_deepslate": "Apothicaire des abîmes", 
 
   "block.botania.livingrock": "Viveroche",
+  "block.botania.polished_livingrock": "Viveroche polie",
+  "block.botania.polished_livingrock_slab": "Dalle de viveroche polie",
+  "block.botania.polished_livingrock_stairs": "Escalier de viveroche polie",
+  "block.botania.polished_livingrock_wall": "Muret de viveroche polie",
   "block.botania.livingrock_stairs": "Escalier de viveroche",
   "block.botania.livingrock_slab": "Dalle de viveroche",
   "block.botania.livingrock_wall": "Muret de viveroche",
@@ -2219,7 +2226,7 @@
   "botania.page.pool10": "Fabriquer un $(item)bassin de mana dilué$(0)",
   "botania.page.pool14": "Le $(item)bassin de mana dilué$(0) peut servir de zone tampon entre plusieurs systèmes.$(p)Mais l'intérêt principal d'être capable de contenir aussi peu de $(thing)mana$(0) est qu'il est très facile de voir l'évolution de la quantité. Lire ce genre d'informations serait compliqué, voir même impossible, à faire avec un $(item)bassin de mana$(0) normal.",
   "botania.page.pool2": "Lancer certains objets dans un $(item)bassin$(0) permettra de les infuser en $(thing)mana$(0), et donc de les transformer en leur variante magique.$(p)Une $(l:basics/wand)baguette sylvestre$(/l) peut vous aider à connaître la quantité de $(thing)mana$(0) d'un $(item)bassin$(0). Les $(item)comparateurs$(0) peuvent également vous aider.",
-  "botania.page.pool8": "Les $(item)lingots de manacier$(0) peuvent être transformés en pépites ou en blocs.$(p)Vous pouvez colorer vos $(item)bassins$(0) à l'aide de $(item)teintures$(0) en faisant clic-droit.",
+  "botania.page.pool8": "Les $(item)lingots de manacier$(0) peuvent être transformés en pépites ou en blocs.$(p)Vous pouvez colorer vos $(item)bassins$(0) à l'aide de $(l:basics/flowers)pétales mystiques$(/l) en faisant clic-droit. Une $(item)motte d'argile$(0) permet de décolorer un $(item)bassin$(0)",
   "botania.page.pool16": "Manacier",
   "botania.page.pool3": "Produire du $(item)manacier$(0)",
   "botania.page.pool4": "Produire des $(item)perles de mana$(0)",
@@ -2578,8 +2585,8 @@
 
   "botania.entry.spectranthemum": "Spectranthème",
   "botania.tagline.spectranthemum": "TAGLINE",
-  "botania.page.spectranthemum0": "Le transport à longue distance des objets est pénible.$(p)Le $(item)spectranthème$(0) utilises le $(thing)mana$(0) pour déformer l'espace-temps afin de téléporter les objets.$(p)Les objets récemment téléportés et les objets contenant du $(thing)mana$(0) provoquent des interférence. Ils ne peuvent pas être téléportés.",
-  "botania.page.spectranthemum1": "Pour spécifier où téléporter les objets, utilisez votre $(l:basics/wand)baguette sylvestre$(/l) en $(thing)mode liaison$(0) pour connecter votre fleur à un endroit, dans un rayon de 12 blocs.$(p)Pour voir la zone d'arrivée des objets, et pas le $(l:mana/pool)bassin de mana$(/l), faites shift en regardant la fleur avec votre $(l:basics/wand)baguette$(/l).",
+  "botania.page.spectranthemum0": "Le transport à longue distance des objets est pénible.$(p)Le $(item)spectranthème$(0) utilise le $(thing)mana$(0) pour déformer l'espace-temps afin de téléporter les objets.$(p)Les objets contenant du $(thing)mana$(0) provoquent des interférence, et ne peuvent pas être téléportés.",
+  "botania.page.spectranthemum1": "Le coût est proportionnel à la distance. Vous pouvez envoyer des objets jusqu'à 2000 blocs, mais attention à la facture !$(p)Pour spécifier où téléporter les objets, utilisez votre $(l:basics/wand)baguette sylvestre$(/l) en $(thing)mode liaison$(0) pour connecter votre fleur à un endroit, dans un rayon de 12 blocs.$(p)Pour voir la zone d'arrivée des objets, et pas le $(l:mana/pool)bassin de mana$(/l), faites shift en regardant la fleur avec votre $(l:basics/wand)baguette$(/l).",
   "botania.page.spectranthemum2": "Cette fleur obéit au principe du $(thing)chargement des tronçons$(0). C'est à dire que des objets ne seront pas téléportés dans une zone non-chargée.$(p)$(o)C'est un sujet complexe, et le but du $(item)Lexica Botania$(0) n'est pas d'en expliquer toutes les subtilités$().",
   "botania.page.spectranthemum3": "$(o)la Dimension Blanche$()",
   "_comment.spectranthemum.exp": "Spectre + Chrysanthème",
@@ -3258,7 +3265,7 @@
 
   "botania.entry.temperanceStone": "Pierre de modération",
   "botania.tagline.temperanceStone": "TAGLINE",
-  "botania.page.temperanceStone0": "Un $(l:tools/terra_pick)destructeur Terra$(/l) est capable ravager de larges zones, parfois un peu trop.$(p)Si vous portez sur vous une $(item)pierre de modération$(0) activée, alors le rayon d'action restera 3x3. Cet effet fonctionne sur le $(l:tools/terra_pick)destructeur Terra$(/l), mais également sur le $(l:tools/terra_axe)découpeur Terra$(/l).$(br)Shift-clic-droit permet d'activer ($(o)ou désactiver$()) votre $(item)pierre$(0).",
+  "botania.page.temperanceStone0": "Un $(l:tools/terra_pick)destructeur Terra$(/l) est capable de ravager de larges zones, parfois un peu trop.$(p)Si vous possédez une $(item)pierre de modération$(0) activée, alors le rayon d'action restera 3x3. Cet effet fonctionne également sur le $(l:tools/terra_axe)découpeur Terra$(/l), et sur le $(l:tools/exchange_rod)bâton équivalent$(/l).$(br)Clic-droit permet d'activer ($(o)ou désactiver$()) votre $(item)pierre$(0).",
   "botania.page.temperanceStone1": "$(o)à consommer avec modération$()",
 
   "botania.entry.terraAxe": "Découpeur Terra",
@@ -3359,7 +3366,7 @@
   "botania.page.redString8": "Fertiliseur de viveroche",
   "botania.page.redString9": "Le $(item)comparateur de viveroche$(0) va se lier à un bloc compatible avec les $(item)comparateurs$(0), comme les $(item)coffres$(0) ou les $(l:mana/pool)bassins de mana$(/l).$(p)Si le bloc lié est dans un certain état, alors un $(item)comparateur$(0) connecté à un $(item)comparateur de viveroche$(0) sera capable de mesurer l'état du bloc lié.",
   "botania.page.redString10": "Comparateur de viveroche",
-  "botania.page.redString11": "L'$(item)imposteur de viveroche$(0) va se lier à une $(item)fleur$(0) ou à un $(item)champignon$(0).$(p)Si une $(thing)fleur génératrice$(0) ou $(thing)fonctionnelle$(0) est placée sur un $(item)imposteur de viveroche$(0), alors le bloc lié héritera des propriétés de cette $(thing)fleur$(0).$(p)$(o)Il y a un imposteur parmi nous$().",
+  "botania.page.redString11": "L'$(item)imposteur de viveroche$(0) va se lier à une $(item)fleur$(0) ou à un $(item)champignon$(0).$(p)Si une $(thing)fleur génératrice$(0) ou $(thing)fonctionnelle$(0) est placée sur un $(item)imposteur de viveroche$(0), alors le bloc lié héritera des propriétés de cette $(thing)fleur$(0).$(br)Pour utiliser certaines $(thing)fleurs fonctionnelles$(0) qui utilisent des objets, vous devrez donner des objets directement à la fleur d'origine.$(p)$(o)Il y a un imposteur parmi nous$().",
   "botania.page.redString12": "Imposteur de viveroche",
   "botania.page.redString13": "L'$(item)intercepteur de viveroche$(0) va se lier à un bloc \"complexe\".$(p)Si le bloc lié est touché par un $(thing)joueur$(0), via un clic droit, alors l'$(item)intercepteur de viveroche$(0) produira un $(thing)signal redstone$(0).$(p)Si vous voyez un bloc qui peut stocker/interagir avec des objets, c'est très probablement un bloc \"complexe\".",
   "botania.page.redString14": "Intercepteur de viveroche",
@@ -3924,6 +3931,7 @@
 
   "botania.subtitle.holyCloak": "Cape de vertu activée",
   "botania.subtitle.hornDoot": "(pouet pouet)",
+  "botania.subtitle.incensePlateIgnite": "Porte-encens allumé",
   "botania.subtitle.labellia": "Labellia qui renomme ",
   "botania.subtitle.laputaStart": "Cristal de Laputa activé",
   "botania.subtitle.lexiconOpen": "Lexica Botania qui s'ouvre",
