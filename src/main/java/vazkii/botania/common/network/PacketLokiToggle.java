@@ -10,7 +10,6 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketLokiToggle implements IMessage, IMessageHandler<PacketLokiToggle, IMessage> {
-
     @Override
     public void fromBytes(ByteBuf byteBuf) {
         // not needed
@@ -26,8 +25,11 @@ public class PacketLokiToggle implements IMessage, IMessageHandler<PacketLokiTog
         EntityPlayerMP player = ctx.getServerHandler().playerEntity;
         final ItemStack aRing = ItemLokiRing.getLokiRing(player);
         if (aRing != null) {
-            ItemLokiRing.toggleMode(aRing);
-            PacketHandler.INSTANCE.sendTo(new PacketLokiToggleAck(), player);
+            boolean ringState = !ItemLokiRing.isRingEnabled(aRing);
+            ItemLokiRing.setMode(aRing, ringState);
+            PacketLokiToggleAck ackMessage = new PacketLokiToggleAck();
+            ackMessage.state = ringState;
+            PacketHandler.INSTANCE.sendTo(ackMessage, player);
         }
         return null;
     }

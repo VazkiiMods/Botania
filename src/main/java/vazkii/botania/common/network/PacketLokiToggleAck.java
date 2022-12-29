@@ -1,5 +1,6 @@
 package vazkii.botania.common.network;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 
 import net.minecraft.client.Minecraft;
@@ -13,14 +14,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PacketLokiToggleAck implements IMessage, IMessageHandler<PacketLokiToggleAck, IMessage> {
 
+    public boolean state;
+
     @Override
     public void fromBytes(ByteBuf byteBuf) {
-        // not needed
+        state = byteBuf.readBoolean();
     }
 
     @Override
     public void toBytes(ByteBuf byteBuf) {
-        // not needed
+        byteBuf.writeBoolean(state);
     }
 
     @SideOnly(Side.CLIENT)
@@ -29,7 +32,7 @@ public class PacketLokiToggleAck implements IMessage, IMessageHandler<PacketLoki
         Minecraft mc = Minecraft.getMinecraft();
         final ItemStack aRing = ItemLokiRing.getLokiRing(mc.thePlayer) ;
         if (aRing != null) {
-            ItemLokiRing.toggleMode(aRing);
+            ItemLokiRing.setMode(aRing, message.state);
             ItemLokiRing.renderHUDNotification();
         }
 

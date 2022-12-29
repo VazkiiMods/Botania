@@ -141,8 +141,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IExtendedWireframeC
 			}
 		}
 	}
-	public static void toggleMode(ItemStack stack) {
-		stack.stackTagCompound.setBoolean(TAG_MODE, !isRingEnabled(stack));
+	public static void setMode(ItemStack stack, boolean state) {
+		stack.stackTagCompound.setBoolean(TAG_MODE, state);
 	}
 	@SideOnly(Side.CLIENT)
 	public static void renderHUDNotification(){
