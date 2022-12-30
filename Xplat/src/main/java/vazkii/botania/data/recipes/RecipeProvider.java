@@ -604,8 +604,8 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(BotaniaItems.livingwoodTwig)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
-				.pattern("W")
-				.pattern("W")
+				.pattern(" W")
+				.pattern("W ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(BotaniaItems.redstoneRoot)
@@ -615,8 +615,8 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(BotaniaItems.dreamwoodTwig)
 				.define('W', BotaniaTags.Items.DREAMWOOD_LOGS)
-				.pattern("W")
-				.pattern("W")
+				.pattern(" W")
+				.pattern("W ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(BotaniaItems.gaiaIngot)

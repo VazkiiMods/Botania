@@ -6,8 +6,8 @@
     }
   },
   "pattern": [
-    "W",
-    "W"
+    " W",
+    "W "
   ],
   "result": {
     "item": "botania:dreamwood_twig"

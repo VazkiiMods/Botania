@@ -18,7 +18,7 @@ then start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
-* Nothing yet!
+* Change: Livingwood and Dreamwood Twigs are now crafted diagonally rather than vertically, to fix a conflict with a common utility recipe.
 
 --- 
 
