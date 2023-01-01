@@ -43,7 +43,7 @@ public final class ConfigHandler {
 
 	public static boolean useAdaptativeConfig = true;
 
-	public static boolean enableDefaultRecipes = false;
+	public static boolean enableDefaultRecipes = true;
 
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
