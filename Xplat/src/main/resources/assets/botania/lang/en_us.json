@@ -3441,7 +3441,7 @@
   "botania.tagline.challenges": "Challenge yourself",
   "botania.page.challenges0": "This book contains a multitude of $(thing)Challenges$(0)-- optional quests that challenge the player to create a mechanism from only $(thing)Botania$(0) and $(thing)Minecraft$(0) features.$(p)Of course, you can use items from other mods to complete them, but that's no fun.",
   "botania.page.challenges1": "All of the challenges are possible, of course. They just require some thinking, ingenuity, and knowledge of the ins and outs of redstone (and $(thing)Botania$(0) itself).$(p)We highly recommended not using features from external mods, as these $(thing)Challenges$(0) aren't really, well, challenging, if you can just place down a block that solves problems instantly.",
-  "botania.page.challenges2": "These challenges aren't obligatory in any way, and do not provide any material reward. They're purely suggestions as to what you can make $(thing)Botania$(0) can do. Challenges should marked \"complete\" manually.$(p)Keep in mind that the only boundaries in $(thing)Minecraft$(0) are those of your imagination, so don't stop at the ideas in here!",
+  "botania.page.challenges2": "These challenges aren't obligatory in any way, and do not provide any material reward. They're purely suggestions as to what you can do with $(thing)Botania$(0). Challenges should be marked \"complete\" manually.$(p)Keep in mind that the only boundaries in $(thing)Minecraft$(0) are those of your imagination, so don't stop at the ideas in here!",
 
   "botania.entry.cacophonium": "Cacophonium",
   "botania.tagline.cacophonium": "Mimic mob sounds",
