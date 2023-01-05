@@ -7,7 +7,11 @@ sources:
 tasks:
   - check_lang: |
       cd botania && ./scripts/check_lang.sh
+  - build_gog: |
+      cd botania && make -C garden_of_glass jar
   - build: |
       cd botania && ./gradlew pmdMain spotlessJavaCheck build
+  - check_datagen: |
+      cd botania && ./scripts/check_datagen.sh
   - test: |
       cd botania && ./gradlew :Fabric:runGameTest
