@@ -533,12 +533,13 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 					&& collidedTile.canReceiveManaFromBursts(), shouldKill, getSourceLens());
 		}
 
-		if (!level.isClientSide && shouldKill && isAlive()) {
-			if (!fake) {
+		if (shouldKill && isAlive()) {
+			if (fake) {
+				discard();
+			} else if (!this.level.isClientSide) {
 				this.level.broadcastEntityEvent(this, EntityEvent.DEATH);
+				discard();
 			}
-
-			discard();
 		}
 	}
 
