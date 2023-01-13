@@ -19,6 +19,7 @@ then start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Change: Livingwood and Dreamwood Twigs are now crafted diagonally rather than vertically, to fix a conflict with a common utility recipe.
+* Fix: Petal apothecary and mana pool hitboxes now work like the vanilla composter in that if you click anywhere in the "hole", a block will be placed above it instead of adjacent to the face you were targeting
 
 --- 
 

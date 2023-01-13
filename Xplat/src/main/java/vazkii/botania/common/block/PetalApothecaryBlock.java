@@ -60,7 +60,8 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	private static final VoxelShape PILLAR = Block.box(4, 2, 4, 12, 11, 12);
 	private static final VoxelShape TOP = Block.box(2, 11, 2, 14, 16, 14);
 	private static final VoxelShape TOP_CUTOUT = Block.box(3, 12, 3, 13, 16, 13);
-	private static final VoxelShape SHAPE = Shapes.or(Shapes.or(BASE, PILLAR), Shapes.join(TOP, TOP_CUTOUT, BooleanOp.ONLY_FIRST));
+	private static final VoxelShape SHAPE_INTERACT = Shapes.or(Shapes.or(BASE, PILLAR), TOP);
+	private static final VoxelShape SHAPE = Shapes.join(SHAPE_INTERACT, TOP_CUTOUT, BooleanOp.ONLY_FIRST);
 
 	public enum Variant {
 		DEFAULT,
@@ -95,6 +96,12 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
+	}
+
+	@NotNull
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return SHAPE_INTERACT;
 	}
 
 	@Override

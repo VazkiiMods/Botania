@@ -54,20 +54,20 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	private static final VoxelShape NORMAL_SHAPE;
 	private static final VoxelShape DILUTED_SHAPE;
 	private static final VoxelShape CREATIVE_SHAPE;
-	private static final VoxelShape NORMAL_SHAPE_BURST;
-	private static final VoxelShape DILUTED_SHAPE_BURST;
-	private static final VoxelShape CREATIVE_SHAPE_BURST;
+	private static final VoxelShape NORMAL_SHAPE_INTERACT;
+	private static final VoxelShape DILUTED_SHAPE_INTERACT;
+	private static final VoxelShape CREATIVE_SHAPE_INTERACT;
 	static {
-		NORMAL_SHAPE_BURST = box(0, 0, 0, 16, 8, 16);
-		DILUTED_SHAPE_BURST = box(0, 0, 0, 16, 6, 16);
-		CREATIVE_SHAPE_BURST = box(0, 0, 0, 16, 10, 16);
+		NORMAL_SHAPE_INTERACT = box(0, 0, 0, 16, 8, 16);
+		DILUTED_SHAPE_INTERACT = box(0, 0, 0, 16, 6, 16);
+		CREATIVE_SHAPE_INTERACT = box(0, 0, 0, 16, 10, 16);
 
 		VoxelShape cutout = box(2, 2, 2, 14, 16, 14);
 		VoxelShape dilutedCutout = box(1, 1, 1, 15, 6, 15);
 
-		NORMAL_SHAPE = Shapes.join(NORMAL_SHAPE_BURST, cutout, BooleanOp.ONLY_FIRST);
-		DILUTED_SHAPE = Shapes.join(DILUTED_SHAPE_BURST, dilutedCutout, BooleanOp.ONLY_FIRST);
-		CREATIVE_SHAPE = Shapes.join(CREATIVE_SHAPE_BURST, cutout, BooleanOp.ONLY_FIRST);
+		NORMAL_SHAPE = Shapes.join(NORMAL_SHAPE_INTERACT, cutout, BooleanOp.ONLY_FIRST);
+		DILUTED_SHAPE = Shapes.join(DILUTED_SHAPE_INTERACT, dilutedCutout, BooleanOp.ONLY_FIRST);
+		CREATIVE_SHAPE = Shapes.join(CREATIVE_SHAPE_INTERACT, cutout, BooleanOp.ONLY_FIRST);
 	}
 
 	public enum Variant {
@@ -111,6 +111,31 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 		};
 	}
 
+	@Override
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+		if (context instanceof EntityCollisionContext econtext
+				&& econtext.getEntity() instanceof ManaBurstEntity) {
+			// Sometimes the pool's collision box is too thin for bursts shot straight up.
+			return switch (this.variant) {
+				case DILUTED -> DILUTED_SHAPE_INTERACT;
+				case CREATIVE -> CREATIVE_SHAPE_INTERACT;
+				case DEFAULT, FABULOUS -> NORMAL_SHAPE_INTERACT;
+			};
+		} else {
+			return super.getCollisionShape(state, world, pos, context);
+		}
+	}
+
+	@NotNull
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+		return switch (this.variant) {
+			case DILUTED -> DILUTED_SHAPE_INTERACT;
+			case CREATIVE -> CREATIVE_SHAPE_INTERACT;
+			case DEFAULT, FABULOUS -> NORMAL_SHAPE_INTERACT;
+		};
+	}
+
 	@NotNull
 	@Override
 	public InteractionResult use(@NotNull BlockState state, Level world, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
@@ -140,21 +165,6 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 		return super.use(state, world, pos, player, hand, hit);
-	}
-
-	@Override
-	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		if (context instanceof EntityCollisionContext econtext
-				&& econtext.getEntity() instanceof ManaBurstEntity) {
-			// Sometimes the pool's collision box is too thin for bursts shot straight up.
-			return switch (this.variant) {
-				case DILUTED -> DILUTED_SHAPE_BURST;
-				case CREATIVE -> CREATIVE_SHAPE_BURST;
-				case DEFAULT, FABULOUS -> NORMAL_SHAPE_BURST;
-			};
-		} else {
-			return super.getCollisionShape(state, world, pos, context);
-		}
 	}
 
 	@NotNull
