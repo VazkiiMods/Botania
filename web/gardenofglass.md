@@ -18,8 +18,13 @@ The jarfile required to play in this gamemode is a mod, but contains no code and
 
 It contains some datapack additions to the base game, and tells the base Botania mod to enable other GoG features.
 
+To generate a server world with Garden of Glass:
 
-To generate a server world with Garden of Glass, set `level-type` to `botania:gardenofglass` in your server.properties file. On Fabric, modded level types are not supported by default, so you'll have to generate a GoG world in single player then upload it to the server.
+<!-- TODO there was also another earlier string, I think pre-1.16? Needs to be put here.-->
+1. If on Forge and below 1.19, set `level-type` to `botania:gardenofglass` in server.properties.
+2. If on Forge and at or above 1.19, set `level-type` to `gardenofglass:gardenofglass` instead.
+3. On Fabric, modded level types are not supported by default, so you'll have to generate
+   a GoG world in single player then upload it to the server.
 
 
 <a class="btn btn-lg btn-material-cyan" href="https://minecraft.curseforge.com/projects/botania-garden-of-glass" role="button" style="width:500px">Download Garden of Glass</a>
