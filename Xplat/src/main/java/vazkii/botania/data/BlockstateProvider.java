@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProperties;
@@ -58,6 +59,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider implements DataProvider {
 	private final DataGenerator generator;
+	protected static final Logger LOGGER = BotaniaAPI.LOGGER;
 
 	private final List<BlockStateGenerator> blockstates = new ArrayList<>();
 
@@ -79,7 +81,7 @@ public class BlockstateProvider implements DataProvider {
 		try {
 			registerStatesAndModels();
 		} catch (Exception e) {
-			BotaniaAPI.LOGGER.error("Error registering states and models", e);
+			LOGGER.error("Error registering states and models", e);
 		}
 
 		var root = generator.getOutputFolder();
@@ -90,7 +92,7 @@ public class BlockstateProvider implements DataProvider {
 			try {
 				DataProvider.saveStable(cache, state.get(), path);
 			} catch (IOException ex) {
-				BotaniaAPI.LOGGER.error("Error generating blockstate file for {}", id, ex);
+				LOGGER.error("Error generating blockstate file for {}", id, ex);
 			}
 		}
 
@@ -100,12 +102,12 @@ public class BlockstateProvider implements DataProvider {
 			try {
 				DataProvider.saveStable(cache, e.getValue().get(), path);
 			} catch (IOException ex) {
-				BotaniaAPI.LOGGER.error("Error generating model file {}", modelId, ex);
+				LOGGER.error("Error generating model file {}", modelId, ex);
 			}
 		}
 	}
 
-	private void registerStatesAndModels() {
+	protected void registerStatesAndModels() {
 		Set<Block> remainingBlocks = Registry.BLOCK.stream()
 				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
 				.collect(Collectors.toSet());
@@ -764,21 +766,21 @@ public class BlockstateProvider implements DataProvider {
 		remainingBlocks.forEach(this::cubeAllNoRemove);
 	}
 
-	public void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
+	protected void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
 		singleVariantBlockState(b, ModelTemplates.PARTICLE_ONLY.create(b, TextureMapping.particle(particle), this.modelOutput));
 		blocks.remove(b);
 	}
 
-	public void manualModel(Set<Block> blocks, Block b) {
+	protected void manualModel(Set<Block> blocks, Block b) {
 		singleVariantBlockState(b, getModelLocation(b));
 		blocks.remove(b);
 	}
 
-	public void stairsBlock(Set<Block> blocks, Block block, ResourceLocation sideTex, ResourceLocation bottomTex, ResourceLocation topTex) {
+	protected void stairsBlock(Set<Block> blocks, Block block, ResourceLocation sideTex, ResourceLocation bottomTex, ResourceLocation topTex) {
 		stairsBlockWithVariants(blocks, block, new ResourceLocation[] { sideTex }, new ResourceLocation[] { bottomTex }, new ResourceLocation[] { topTex });
 	}
 
-	public void checkeredStairsBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
+	protected void checkeredStairsBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
 		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
@@ -792,13 +794,13 @@ public class BlockstateProvider implements DataProvider {
 		stairsBlockWithModels(blocks, block, checkeredStairsInnerModel, checkeredStairsInnerModelRot90, checkeredStairsModel, checkeredStairsModelRot90, checkeredStairsOuterModel, checkeredStairsOuterModelRot90);
 	}
 
-	public void stairsBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
+	protected void stairsBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
 		var weights = new Integer[sideTextures.length];
 		Arrays.fill(weights, 1);
 		stairsBlockWithVariants(blocks, block, sideTextures, bottomTextures, topTextures, weights);
 	}
 
-	public void stairsBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
+	protected void stairsBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
 		int length = sideTextures.length;
 		if (length != topTextures.length || length != bottomTextures.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -822,19 +824,19 @@ public class BlockstateProvider implements DataProvider {
 		stairsBlockWithModels(blocks, block, innerModels, straightModels, outerModels, weights);
 	}
 
-	public void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights) {
+	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights) {
 		stairsBlockWithModels(blocks, block, innerModels, straightModels, outerModels, weights, true);
 	}
 
-	public void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation innerModel, ResourceLocation innerModelRot90, ResourceLocation straightModel, ResourceLocation straightModelRot90, ResourceLocation outerModel, ResourceLocation outerModelRot90) {
+	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation innerModel, ResourceLocation innerModelRot90, ResourceLocation straightModel, ResourceLocation straightModelRot90, ResourceLocation outerModel, ResourceLocation outerModelRot90) {
 		stairsBlockWithModels(blocks, block, new ResourceLocation[] { innerModel }, new ResourceLocation[] { innerModelRot90 }, new ResourceLocation[] { straightModel }, new ResourceLocation[] { straightModelRot90 }, new ResourceLocation[] { outerModel }, new ResourceLocation[] { outerModelRot90 }, new Integer[] { 1 }, true);
 	}
 
-	public void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights, Boolean uvlock) {
+	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] straightModels, ResourceLocation[] outerModels, Integer[] weights, Boolean uvlock) {
 		stairsBlockWithModels(blocks, block, innerModels, innerModels, straightModels, straightModels, outerModels, outerModels, weights, uvlock);
 	}
 
-	public void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] innerModelsRot90, ResourceLocation[] straightModels, ResourceLocation[] straightModelsRot90, ResourceLocation[] outerModels, ResourceLocation[] outerModelsRot90, Integer[] weights, Boolean uvlock) {
+	protected void stairsBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] innerModels, ResourceLocation[] innerModelsRot90, ResourceLocation[] straightModels, ResourceLocation[] straightModelsRot90, ResourceLocation[] outerModels, ResourceLocation[] outerModelsRot90, Integer[] weights, Boolean uvlock) {
 		int length = innerModels.length;
 		if (length != straightModels.length || length != outerModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -888,11 +890,11 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	public void slabBlock(Set<Block> blocks, Block block, ResourceLocation doubleModel, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+	protected void slabBlock(Set<Block> blocks, Block block, ResourceLocation doubleModel, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
 		slabBlockWithVariants(blocks, block, new ResourceLocation[] { doubleModel }, new ResourceLocation[] { side }, new ResourceLocation[] { bottom }, new ResourceLocation[] { top });
 	}
 
-	public void checkeredSlabBlock(Set<Block> blocks, Block block, ResourceLocation doubleModel, ResourceLocation texture, ResourceLocation mirroredTexture) {
+	protected void checkeredSlabBlock(Set<Block> blocks, Block block, ResourceLocation doubleModel, ResourceLocation texture, ResourceLocation mirroredTexture) {
 		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
@@ -901,13 +903,13 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithModels(blocks, block, slabModel, slabTopModel, doubleModel);
 	}
 
-	public void slabBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] doubleModels, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
+	protected void slabBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] doubleModels, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
 		var weights = new Integer[sideTextures.length];
 		Arrays.fill(weights, 1);
 		slabBlockWithVariants(blocks, block, doubleModels, sideTextures, bottomTextures, topTextures, weights);
 	}
 
-	public void slabBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] doubleModels, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
+	protected void slabBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] doubleModels, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
 		int length = sideTextures.length;
 		if (length != topTextures.length || length != bottomTextures.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -928,11 +930,11 @@ public class BlockstateProvider implements DataProvider {
 		slabBlockWithModels(blocks, block, bottomModels, topModels, doubleModels, weights);
 	}
 
-	public void slabBlockWithModels(Set<Block> blocks, Block block, ResourceLocation bottomModel, ResourceLocation topModel, ResourceLocation doubleModel) {
+	protected void slabBlockWithModels(Set<Block> blocks, Block block, ResourceLocation bottomModel, ResourceLocation topModel, ResourceLocation doubleModel) {
 		slabBlockWithModels(blocks, block, new ResourceLocation[] { bottomModel }, new ResourceLocation[] { topModel }, new ResourceLocation[] { doubleModel }, new Integer[] { 1 });
 	}
 
-	public void slabBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] bottomModels, ResourceLocation[] topModels, ResourceLocation[] doubleModels, Integer[] weights) {
+	protected void slabBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] bottomModels, ResourceLocation[] topModels, ResourceLocation[] doubleModels, Integer[] weights) {
 		int length = doubleModels.length;
 		if (length != topModels.length || length != bottomModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -949,15 +951,15 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	public void wallBlock(Set<Block> blocks, Block block, ResourceLocation texture) {
+	protected void wallBlock(Set<Block> blocks, Block block, ResourceLocation texture) {
 		wallBlock(blocks, block, texture, texture, texture);
 	}
 
-	public void wallBlock(Set<Block> blocks, Block block, ResourceLocation sideTexture, ResourceLocation bottomTexture, ResourceLocation topTexture) {
+	protected void wallBlock(Set<Block> blocks, Block block, ResourceLocation sideTexture, ResourceLocation bottomTexture, ResourceLocation topTexture) {
 		wallBlockWithVariants(blocks, block, new ResourceLocation[] { sideTexture }, new ResourceLocation[] { bottomTexture }, new ResourceLocation[] { topTexture });
 	}
 
-	public void checkeredWallBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
+	protected void checkeredWallBlock(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
 		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
@@ -970,21 +972,21 @@ public class BlockstateProvider implements DataProvider {
 		wallBlockWithModels(blocks, block, checkeredWallPostModel, checkeredWallSideModel, checkeredWallSideModelRot90, checkeredWallSideTallModel, checkeredWallSideTallModelRot90);
 	}
 
-	public void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
 		wallBlockWithVariants(blocks, block, textures, textures, textures);
 	}
 
-	public void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
 		wallBlockWithVariants(blocks, block, textures, textures, textures, weights);
 	}
 
-	public void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures) {
 		var weights = new Integer[sideTextures.length];
 		Arrays.fill(weights, 1);
 		wallBlockWithVariants(blocks, block, sideTextures, bottomTextures, topTextures, weights);
 	}
 
-	public void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
+	protected void wallBlockWithVariants(Set<Block> blocks, Block block, ResourceLocation[] sideTextures, ResourceLocation[] bottomTextures, ResourceLocation[] topTextures, Integer[] weights) {
 		int length = sideTextures.length;
 		if (length != bottomTextures.length && length != topTextures.length && length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1014,19 +1016,19 @@ public class BlockstateProvider implements DataProvider {
 		wallBlockWithModels(blocks, block, postModels, lowModels, tallModels, weights);
 	}
 
-	public void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights) {
+	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights) {
 		wallBlockWithModels(blocks, block, postModels, lowModels, tallModels, weights, true);
 	}
 
-	public void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation postModel, ResourceLocation lowModel, ResourceLocation lowModelRot90, ResourceLocation tallModel, ResourceLocation tallodelRot90) {
+	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation postModel, ResourceLocation lowModel, ResourceLocation lowModelRot90, ResourceLocation tallModel, ResourceLocation tallodelRot90) {
 		wallBlockWithModels(blocks, block, new ResourceLocation[] { postModel }, new ResourceLocation[] { lowModel }, new ResourceLocation[] { lowModelRot90 }, new ResourceLocation[] { tallModel }, new ResourceLocation[] { tallodelRot90 }, new Integer[] { 1 }, true);
 	}
 
-	public void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights, Boolean uvlock) {
+	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] tallModels, Integer[] weights, Boolean uvlock) {
 		wallBlockWithModels(blocks, block, postModels, lowModels, lowModels, tallModels, tallModels, weights, uvlock);
 	}
 
-	public void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] lowModelsRot90, ResourceLocation[] tallModels, ResourceLocation[] tallodelsRot90, Integer[] weights, Boolean uvlock) {
+	protected void wallBlockWithModels(Set<Block> blocks, Block block, ResourceLocation[] postModels, ResourceLocation[] lowModels, ResourceLocation[] lowModelsRot90, ResourceLocation[] tallModels, ResourceLocation[] tallodelsRot90, Integer[] weights, Boolean uvlock) {
 		int length = postModels.length;
 		if (length != lowModels.length || length != tallModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1063,14 +1065,14 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	public void fenceBlock(Block block, ResourceLocation tex) {
+	protected void fenceBlock(Block block, ResourceLocation tex) {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var postModel = ModelTemplates.FENCE_POST.create(block, mapping, this.modelOutput);
 		var sideModel = ModelTemplates.FENCE_SIDE.create(block, mapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceState(block, postModel, sideModel));
 	}
 
-	public void fenceGateBlock(Block block, ResourceLocation tex) {
+	protected void fenceGateBlock(Block block, ResourceLocation tex) {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var openModel = ModelTemplates.FENCE_GATE_OPEN.create(block, mapping, this.modelOutput);
 		var closedModel = ModelTemplates.FENCE_GATE_CLOSED.create(block, mapping, this.modelOutput);
@@ -1079,16 +1081,16 @@ public class BlockstateProvider implements DataProvider {
 		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel));
 	}
 
-	public void cubeAllNoRemove(Block block) {
+	protected void cubeAllNoRemove(Block block) {
 		cubeAll(new HashSet<>(), block);
 	}
 
-	public void cubeAll(Set<Block> blocks, Block block) {
+	protected void cubeAll(Set<Block> blocks, Block block) {
 		ResourceLocation texture = getBlockTexture(block);
 		cubeAllWithVariants(blocks, block, new ResourceLocation[] { texture });
 	}
 
-	public ResourceLocation checkeredBlockWithBlockstate(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
+	protected ResourceLocation checkeredBlockWithBlockstate(Set<Block> blocks, Block block, ResourceLocation texture, ResourceLocation mirroredTexture) {
 		BiFunction<String, Optional<String>, ModelTemplate> checkeredTemplate = (model, suffix) -> new ModelTemplate(Optional.of(prefix("block/shapes/" + model)), suffix, TextureSlot.SIDE, TextureSlot.NORTH);
 		TextureMapping checkeredMapping = new TextureMapping().put(TextureSlot.SIDE, texture).put(TextureSlot.NORTH, mirroredTexture);
 
@@ -1097,13 +1099,13 @@ public class BlockstateProvider implements DataProvider {
 		return blockModel;
 	}
 
-	public void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
+	protected void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
 		var weights = new Integer[textures.length];
 		Arrays.fill(weights, 1);
 		cubeAllWithVariants(blocks, block, textures, weights);
 	}
 
-	public void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
+	protected void cubeAllWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
 		int length = textures.length;
 		if (length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1117,7 +1119,7 @@ public class BlockstateProvider implements DataProvider {
 		cubeAllWithModels(blocks, block, models, weights);
 	}
 
-	public void cubeAllWithModels(Set<Block> blocks, Block block, ResourceLocation[] models, Integer[] weights) {
+	protected void cubeAllWithModels(Set<Block> blocks, Block block, ResourceLocation[] models, Integer[] weights) {
 		int length = models.length;
 		if (length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1128,21 +1130,21 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	public void singleVariantBlockState(Block b, ResourceLocation model) {
+	protected void singleVariantBlockState(Block b, ResourceLocation model) {
 		this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, model)));
 	}
 
-	public void rotatedMirrored(Set<Block> blocks, Block block, ResourceLocation texture) {
+	protected void rotatedMirrored(Set<Block> blocks, Block block, ResourceLocation texture) {
 		rotatedMirroredWithVariants(blocks, block, new ResourceLocation[] { texture });
 	}
 
-	public void rotatedMirroredWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
+	protected void rotatedMirroredWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures) {
 		var weights = new Integer[textures.length];
 		Arrays.fill(weights, 1);
 		rotatedMirroredWithVariants(blocks, block, textures, weights);
 	}
 
-	public void rotatedMirroredWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
+	protected void rotatedMirroredWithVariants(Set<Block> blocks, Block block, ResourceLocation[] textures, Integer[] weights) {
 		int length = textures.length;
 		if (length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1159,7 +1161,7 @@ public class BlockstateProvider implements DataProvider {
 		rotatedMirroredWithModels(blocks, block, models, mirroredModels, weights);
 	}
 
-	public void rotatedMirroredWithModels(Set<Block> blocks, Block block, ResourceLocation[] models, ResourceLocation[] mirroredModels, Integer[] weights) {
+	protected void rotatedMirroredWithModels(Set<Block> blocks, Block block, ResourceLocation[] models, ResourceLocation[] mirroredModels, Integer[] weights) {
 		int length = models.length;
 		if (length != mirroredModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1178,17 +1180,17 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	public void pillar(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
+	protected void pillar(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
 		pillarWithVariants(blocks, block, new ResourceLocation[] { top }, new ResourceLocation[] { side });
 	}
 
-	public void pillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures) {
+	protected void pillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures) {
 		var weights = new Integer[topTextures.length];
 		Arrays.fill(weights, 1);
 		pillarWithVariants(blocks, block, topTextures, sideTextures, weights);
 	}
 
-	public void pillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures, Integer[] weights) {
+	protected void pillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures, Integer[] weights) {
 		int length = topTextures.length;
 		if (length != sideTextures.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1205,7 +1207,7 @@ public class BlockstateProvider implements DataProvider {
 		pillarWithModels(blocks, block, topModels, horizontalModels, weights);
 	}
 
-	public void pillarWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] horizontalModels, Integer[] weights) {
+	protected void pillarWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] horizontalModels, Integer[] weights) {
 		int length = topModels.length;
 		if (length != horizontalModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1229,11 +1231,11 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	// Alternative pillar model that rotates and mirrors some additional faces
-	public void pillarAlt(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
+	protected void pillarAlt(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
 		pillarAltWithVariants(blocks, block, new ResourceLocation[] { top }, new ResourceLocation[] { side });
 	}
 
-	public void pillarAltWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures) {
+	protected void pillarAltWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures) {
 		int length = topTextures.length;
 		if (length != sideTextures.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1255,7 +1257,7 @@ public class BlockstateProvider implements DataProvider {
 		pillarAltWithModels(blocks, block, topModels, horizontalXModels, horizontalZModels);
 	}
 
-	public void pillarAltWithModels(Set<Block> blocks, Block block, ResourceLocation[] yModels, ResourceLocation[] xModels, ResourceLocation[] zModels) {
+	protected void pillarAltWithModels(Set<Block> blocks, Block block, ResourceLocation[] yModels, ResourceLocation[] xModels, ResourceLocation[] zModels) {
 		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
 				PropertyDispatch.property(BlockStateProperties.AXIS)
 						.select(Direction.Axis.Y, Stream.of(yModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
@@ -1265,17 +1267,17 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	public void directionalPillar(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation bottom, ResourceLocation side) {
+	protected void directionalPillar(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation bottom, ResourceLocation side) {
 		directionalPillarWithVariants(blocks, block, new ResourceLocation[] { top }, new ResourceLocation[] { top }, new ResourceLocation[] { side });
 	}
 
-	public void directionalPillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] bottomTextures, ResourceLocation[] sideTextures) {
+	protected void directionalPillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] bottomTextures, ResourceLocation[] sideTextures) {
 		var weights = new Integer[topTextures.length];
 		Arrays.fill(weights, 1);
 		directionalPillarWithVariants(blocks, block, topTextures, bottomTextures, sideTextures, weights);
 	}
 
-	public void directionalPillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] bottomTextures, ResourceLocation[] sideTextures, Integer[] weights) {
+	protected void directionalPillarWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] bottomTextures, ResourceLocation[] sideTextures, Integer[] weights) {
 		int length = topTextures.length;
 		if (length != bottomTextures.length || length != sideTextures.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1298,7 +1300,7 @@ public class BlockstateProvider implements DataProvider {
 		directionalPillarWithModels(blocks, block, topModels, horizontalModels, weights);
 	}
 
-	public void directionalPillarWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] horizontalModels, Integer[] weights) {
+	protected void directionalPillarWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] horizontalModels, Integer[] weights) {
 		int length = topModels.length;
 		if (length != horizontalModels.length || length != weights.length) {
 			throw new IllegalArgumentException("Arrays must have equal length");
@@ -1331,26 +1333,26 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	public <T> Variant withMaybe(VariantProperty<T> property, T value, boolean shouldAdd, Variant variant) {
+	protected <T> Variant withMaybe(VariantProperty<T> property, T value, boolean shouldAdd, Variant variant) {
 		if (shouldAdd) {
 			variant.with(property, value);
 		}
 		return variant;
 	}
 
-	public Variant maybeUVLock(Boolean uvlock, Variant variant) {
+	protected Variant maybeUVLock(Boolean uvlock, Variant variant) {
 		return withMaybe(VariantProperties.UV_LOCK, uvlock, uvlock, variant);
 	}
 
-	public Variant maybeWeight(int weight, Variant variant) {
+	protected Variant maybeWeight(int weight, Variant variant) {
 		return withMaybe(VariantProperties.WEIGHT, weight, weight != 1, variant);
 	}
 
-	public Variant maybeXRot(VariantProperties.Rotation rotation, Variant variant) {
+	protected Variant maybeXRot(VariantProperties.Rotation rotation, Variant variant) {
 		return withMaybe(VariantProperties.X_ROT, rotation, rotation != VariantProperties.Rotation.R0, variant);
 	}
 
-	public Variant maybeYRot(VariantProperties.Rotation rotation, Variant variant) {
+	protected Variant maybeYRot(VariantProperties.Rotation rotation, Variant variant) {
 		return withMaybe(VariantProperties.Y_ROT, rotation, rotation != VariantProperties.Rotation.R0, variant);
 	}
 
@@ -1361,11 +1363,11 @@ public class BlockstateProvider implements DataProvider {
 		List<T> ret = Arrays.asList(items);
 		for (T item : items) {
 			if (!src.contains(item)) {
-				BotaniaAPI.LOGGER.warn("Item {} not found in set", item);
+				LOGGER.warn("Item {} not found in set", item);
 			}
 		}
 		if (!src.removeAll(ret)) {
-			BotaniaAPI.LOGGER.warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
+			LOGGER.warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
 		}
 		return ret;
 	}
@@ -1383,12 +1385,12 @@ public class BlockstateProvider implements DataProvider {
 		}
 
 		if (ret.isEmpty()) {
-			BotaniaAPI.LOGGER.warn("takeAll predicate yielded nothing", new Throwable());
+			LOGGER.warn("takeAll predicate yielded nothing", new Throwable());
 		}
 		return ret;
 	}
 
-	public void redStringBlock(Block b) {
+	protected void redStringBlock(Block b) {
 		ResourceLocation selfName = getBlockTexture(b);
 		ResourceLocation front = prefix("block/red_string_sender");
 		var model = ModelTemplates.CUBE_ORIENTABLE.create(b, new TextureMapping()
