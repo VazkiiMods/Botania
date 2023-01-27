@@ -9,6 +9,7 @@
 package vazkii.botania.api.corporea;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -18,7 +19,6 @@ import java.util.function.Predicate;
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
  */
 public interface CorporeaRequestMatcher extends Predicate<ItemStack> {
-
 	/**
 	 * Returns whether the given stack matches the request's criteria.
 	 */
@@ -31,6 +31,11 @@ public interface CorporeaRequestMatcher extends Predicate<ItemStack> {
 	 * Serialize to NBT data, for the Corporea Retainer's benefit.
 	 */
 	default void writeToNBT(CompoundTag tag) {}
+
+	/**
+	 * Serialize over the wire, for requesting an item from an index.
+	 */
+	default void writeToBuf(FriendlyByteBuf buf) {}
 
 	/**
 	 * Returns the pretty name of the requested item, for printing request feedback on Corporea Indexes.

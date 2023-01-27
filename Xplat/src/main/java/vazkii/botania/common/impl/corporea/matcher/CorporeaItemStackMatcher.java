@@ -6,12 +6,12 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.impl.corporea;
+package vazkii.botania.common.impl.corporea.matcher;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-
 import vazkii.botania.api.corporea.CorporeaRequestMatcher;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
@@ -41,6 +41,18 @@ public class CorporeaItemStackMatcher implements CorporeaRequestMatcher {
 		CompoundTag cmp = match.save(new CompoundTag());
 		tag.put(TAG_REQUEST_STACK, cmp);
 		tag.putBoolean(TAG_REQUEST_CHECK_NBT, checkNBT);
+	}
+
+	public static CorporeaItemStackMatcher createFromBuf(FriendlyByteBuf buf) {
+		var stack = buf.readItem();
+		var checkNBT = buf.readBoolean();
+		return new CorporeaItemStackMatcher(stack, checkNBT);
+	}
+
+	@Override
+	public void writeToBuf(FriendlyByteBuf buf) {
+		buf.writeItem(this.match);
+		buf.writeBoolean(this.checkNBT);
 	}
 
 	@Override

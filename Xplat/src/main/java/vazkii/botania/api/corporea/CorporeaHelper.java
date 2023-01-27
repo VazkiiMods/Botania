@@ -10,13 +10,12 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
 import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.ServiceUtil;
 
 import java.util.Collections;
@@ -54,7 +53,7 @@ public interface CorporeaHelper {
 
 	/**
 	 * Requests items from the network associated with {@code spark}.
-	 * 
+	 *
 	 * @param matcher   Specifies what you want to request. See {@link #createMatcher} to create one.
 	 * @param itemCount Specifies the maximum amount you want to request. If -1, the amount is unlimited.
 	 * @param requestor The entity that initiated this request, if there is one.
@@ -89,5 +88,13 @@ public interface CorporeaHelper {
 		return 0;
 	}
 
-	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {}
+	/**
+	 * @deprecated Use the overload that can ser/de from a buffer also
+	 */
+	@Deprecated
+	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> nbtDeserializer) {
+	}
+
+	default <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> nbtDeserializer, Function<FriendlyByteBuf, T> bufDeserializer) {
+	}
 }

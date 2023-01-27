@@ -8,7 +8,10 @@
  */
 package vazkii.botania.common.block.block_entity.corporea;
 
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
+
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,7 +30,10 @@ import vazkii.botania.common.BotaniaStats;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.helper.MathHelper;
-import vazkii.botania.network.serverbound.IndexStringRequestPacket;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaConstantMatcher;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaItemStackMatcher;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaStringMatcher;
+import vazkii.botania.network.serverbound.IndexRequestPacket;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -42,7 +48,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	private static final Set<CorporeaIndexBlockEntity> serverIndexes = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final Set<CorporeaIndexBlockEntity> clientIndexes = Collections.newSetFromMap(new WeakHashMap<>());
 
-	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap<>();
+	private static final Map<Pattern, IRegexStacker> PATTERNS = new LinkedHashMap<>();
 
 	/**
 	 * (name) = Item name, or "this" for the name of the item in your hand
@@ -220,7 +226,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 			}
 		});
 
-		// [a ]nice [of ](name) = 69 
+		// [a ]nice [of ](name) = 69
 		addPattern("(?:a )?nice (?:of )?(.+)", new IRegexStacker() {
 			@Override
 			public int getCount(Matcher m) {
@@ -268,12 +274,14 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 		super(BotaniaBlockEntities.CORPOREA_INDEX, pos, state);
 	}
 
-	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, CorporeaIndexBlockEntity self) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state,
+			CorporeaIndexBlockEntity self) {
 		double x = worldPosition.getX() + 0.5;
 		double y = worldPosition.getY() + 0.5;
 		double z = worldPosition.getZ() + 0.5;
 
-		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
+		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(x - RADIUS, y - RADIUS, z - RADIUS,
+				x + RADIUS, y + RADIUS, z + RADIUS));
 		self.hasCloseby = false;
 		if (self.getSpark() != null) {
 			for (Player player : players) {
@@ -326,7 +334,8 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 		spark.onItemsRequested(stacks);
 		for (ItemStack stack : stacks) {
 			if (!stack.isEmpty()) {
-				ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
+				ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5,
+						worldPosition.getZ() + 0.5, stack);
 				level.addFreshEntity(item);
 			}
 		}
@@ -340,7 +349,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
-		patterns.put(Pattern.compile(pattern), stacker);
+		PATTERNS.put(Pattern.compile(pattern), stacker);
 	}
 
 	public static int i(Matcher m, int g) {
@@ -378,44 +387,66 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	public static class ClientHandler {
-		public static boolean onChat(Player player, String message) {
+		public static boolean onChat(LocalPlayer player, String message) {
 			if (!getNearbyValidIndexes(player).isEmpty()) {
-				ClientXplatAbstractions.INSTANCE.sendToServer(new IndexStringRequestPacket(message));
+				// TEMP TEST
+				var count2Matcher = getMatcherFromMsg(message, player);
+
+				ClientXplatAbstractions.INSTANCE.sendToServer(
+						new IndexRequestPacket(count2Matcher.second(), count2Matcher.firstInt()));
 				return true;
 			}
 			return false;
 		}
+
+		public static IntObjectPair<CorporeaRequestMatcher> getMatcherFromMsg(String message, LocalPlayer reqer) {
+			message = message.toLowerCase(Locale.ROOT).trim();
+
+			String name = "";
+			int count = 0;
+			boolean foundAny = false;
+			for (var pattern : PATTERNS.keySet()) {
+				// They're in the set from least -> most specific
+				// TODO could it be faster to iterate reversed and break once something is found?
+				Matcher matcher = pattern.matcher(message);
+				if (matcher.matches()) {
+					IRegexStacker stacker = PATTERNS.get(pattern);
+					count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
+					name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
+					foundAny = true;
+				}
+			}
+
+			// The nonsense values above will always be filled by this point
+			// TODO would it make more sense for the "no special RE" matches to be special-cased?
+			CorporeaRequestMatcher corpyMatcher;
+			if (!foundAny) {
+				// this should never be passed?
+				corpyMatcher = new CorporeaConstantMatcher(false);
+			} else if (name.equals("this")) {
+				ItemStack stack = reqer.getMainHandItem();
+				if (!stack.isEmpty()) {
+					corpyMatcher = new CorporeaItemStackMatcher(stack, true);
+				} else {
+					// Well, you're gonna have a tough time checking for air
+					corpyMatcher = new CorporeaConstantMatcher(false);
+				}
+			} else {
+				corpyMatcher = new CorporeaStringMatcher(name);
+			}
+
+			return IntObjectPair.of(count, corpyMatcher);
+		}
 	}
 
-	public static void onChatMessage(ServerPlayer player, String message) {
+	public static void receiveRequestFromPlayer(ServerPlayer player, CorporeaRequestMatcher matcher, int count) {
 		if (player.isSpectator()) {
 			return;
 		}
 
 		List<CorporeaIndexBlockEntity> nearbyIndexes = getNearbyValidIndexes(player);
-		if (!nearbyIndexes.isEmpty()) {
-			String msg = message.toLowerCase(Locale.ROOT).trim();
-			for (CorporeaIndexBlockEntity index : nearbyIndexes) {
-				String name = "";
-				int count = 0;
-				for (Pattern pattern : patterns.keySet()) {
-					Matcher matcher = pattern.matcher(msg);
-					if (matcher.matches()) {
-						IRegexStacker stacker = patterns.get(pattern);
-						count = Math.min(MAX_REQUEST, stacker.getCount(matcher));
-						name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
-					}
-				}
-
-				if (name.equals("this")) {
-					ItemStack stack = player.getMainHandItem();
-					if (!stack.isEmpty()) {
-						name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
-					}
-				}
-
-				index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(name), count);
-			}
+		for (CorporeaIndexBlockEntity index : nearbyIndexes) {
+			index.performPlayerRequest(player, matcher, count);
 		}
 	}
 

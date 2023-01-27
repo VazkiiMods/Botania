@@ -9,13 +9,12 @@
 package vazkii.botania.common.impl.corporea;
 
 import com.google.common.base.Predicates;
-
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -24,17 +23,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
-
 import org.jetbrains.annotations.Nullable;
-
 import vazkii.botania.api.corporea.*;
-import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEntity;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaItemStackMatcher;
+import vazkii.botania.common.impl.corporea.matcher.CorporeaStringMatcher;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 public class CorporeaHelperImpl implements CorporeaHelper {
+	// TODO: these should probably be a registry
+	public static final Map<ResourceLocation, RequestDeserializer> corporeaMatcherDeserializers =
+		new ConcurrentHashMap<>();
+	public static final Map<Class<? extends CorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers =
+		new ConcurrentHashMap<>();
 	private final WeakHashMap<CorporeaSpark, Set<CorporeaNode>> cachedNetworks = new WeakHashMap<>();
 
 	@Override
@@ -129,10 +133,20 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 	@Override
 	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
-		CorporeaRetainerBlockEntity.addCorporeaRequestMatcher(id, clazz, deserializer);
+		this.registerRequestMatcher(id, clazz, deserializer, null);
+	}
+
+	@Override
+	public <T extends CorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> nbtDeserializer, Function<FriendlyByteBuf, T> bufDeserializer) {
+		corporeaMatcherSerializers.put(clazz, id);
+		corporeaMatcherDeserializers.put(id, new RequestDeserializer(nbtDeserializer, bufDeserializer));
 	}
 
 	public void clearCache() {
 		cachedNetworks.clear();
+	}
+
+	public record RequestDeserializer(Function<CompoundTag, ? extends CorporeaRequestMatcher> nbtDeser,
+									  @Nullable Function<FriendlyByteBuf, ? extends CorporeaRequestMatcher> bufDeser) {
 	}
 }

@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-
 import vazkii.botania.network.TriConsumer;
 import vazkii.botania.network.clientbound.*;
 import vazkii.botania.network.serverbound.*;
@@ -25,7 +24,7 @@ public final class FabricPacketHandler {
 	public static void init() {
 		ServerPlayNetworking.registerGlobalReceiver(DodgePacket.ID, makeServerBoundHandler(DodgePacket::decode, DodgePacket::handle));
 		ServerPlayNetworking.registerGlobalReceiver(IndexKeybindRequestPacket.ID, makeServerBoundHandler(IndexKeybindRequestPacket::decode, IndexKeybindRequestPacket::handle));
-		ServerPlayNetworking.registerGlobalReceiver(IndexStringRequestPacket.ID, makeServerBoundHandler(IndexStringRequestPacket::decode, IndexStringRequestPacket::handle));
+		ServerPlayNetworking.registerGlobalReceiver(IndexRequestPacket.ID, makeServerBoundHandler(IndexRequestPacket::decode, IndexRequestPacket::handle));
 		ServerPlayNetworking.registerGlobalReceiver(JumpPacket.ID, makeServerBoundHandler(JumpPacket::decode, JumpPacket::handle));
 		ServerPlayNetworking.registerGlobalReceiver(LeftClickPacket.ID, makeServerBoundHandler(LeftClickPacket::decode, LeftClickPacket::handle));
 	}
@@ -47,6 +46,7 @@ public final class FabricPacketHandler {
 		return (_client, _handler, buf, _responseSender) -> handler.accept(decoder.apply(buf));
 	}
 
-	private FabricPacketHandler() {}
+	private FabricPacketHandler() {
+	}
 
 }
