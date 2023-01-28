@@ -21,6 +21,8 @@ public abstract class BotaniaGrassBlockForgeMixin implements IForgeBlock {
 			ToolAction toolAction, boolean simulate) {
 		if (toolAction == ToolActions.HOE_TILL && HoeItem.onlyIfAirAbove(context)) {
 			return Blocks.FARMLAND.defaultBlockState();
+		} else if (toolAction == ToolActions.SHOVEL_FLATTEN) {
+			return Blocks.DIRT_PATH.defaultBlockState();
 		}
 		return null;
 	}

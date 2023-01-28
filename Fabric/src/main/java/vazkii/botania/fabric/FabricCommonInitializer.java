@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicRegistry;
+import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
@@ -159,6 +160,7 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaBlocks.infusedGrass, BotaniaBlocks.mutatedGrass)) {
 			TillableBlockRegistry.register(b, HoeItem::onlyIfAirAbove,
 					Blocks.FARMLAND.defaultBlockState());
+			FlattenableBlockRegistry.register(b, Blocks.DIRT_PATH.defaultBlockState());
 		}
 
 		int blazeTime = 2400;
