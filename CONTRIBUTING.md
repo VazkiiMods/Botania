@@ -58,15 +58,13 @@ message.
    format `<MC-VER>-INT`, so it'll probably look like `git tag -a release-1.16.3-407`.  If
    you don't remember which version is next, look at the `build_number` in
    `gradle.properties`.
-4. In the Git editor that pops up, copy the changelog for this version from
-   `web/changelog.md` into the editor, save, and close
-5. Increment the `build_number` in `gradle.properties` to the next version
+4. Increment the `build_number` in `gradle.properties` to the next version
    (one greater than the version you just tagged). Commit this.
-6. Push the branch and the tag you just made: `git push origin <branch> <release tag>`
-7. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and
+5. Push the branch and the tag you just made: `git push origin <branch> <release tag>`
+6. Go to [Jenkins](https://ci.blamejared.com/job/Violet%20Moon/job/Botania/view/tags/) and
    wait for the tag you just pushed to be compiled and built
-8. Download the JAR and submit it to CurseForge and Modrinth
-9. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote
+7. Download the JAR and submit it to CurseForge and Modrinth
+8. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote
    username to ssh into the webserver, it'll take your current login name.
 
 ## Working with GameTest
