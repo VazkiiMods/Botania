@@ -12,15 +12,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 
@@ -40,18 +34,6 @@ public class BotaniaGrassBlock extends BotaniaBlock {
 	public BotaniaGrassBlock(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
-	}
-
-	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		ItemStack held = player.getItemInHand(hand);
-		if (held.getItem() instanceof HoeItem && world.isEmptyBlock(pos.above())) {
-			held.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
-			world.setBlockAndUpdate(pos, Blocks.FARMLAND.defaultBlockState());
-			return InteractionResult.sidedSuccess(world.isClientSide());
-		}
-
-		return InteractionResult.PASS;
 	}
 
 	@Override

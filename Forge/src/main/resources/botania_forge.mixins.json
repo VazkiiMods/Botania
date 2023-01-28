@@ -5,6 +5,7 @@
   "package": "vazkii.botania.forge.mixin",
   "mixins": [
     "AbstractFurnaceBlockEntityForgeAccessor",
+    "BotaniaGrassBlockForgeMixin",
     "RecipeProviderForgeAccessor",
     "RegistryForgeAccessor"
   ],
