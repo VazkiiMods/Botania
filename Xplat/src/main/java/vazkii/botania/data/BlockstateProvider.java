@@ -59,7 +59,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider implements DataProvider {
 	private final DataGenerator generator;
-	protected static final Logger LOGGER = BotaniaAPI.LOGGER;
 
 	private final List<BlockStateGenerator> blockstates = new ArrayList<>();
 
@@ -68,6 +67,10 @@ public class BlockstateProvider implements DataProvider {
 
 	public BlockstateProvider(DataGenerator generator) {
 		this.generator = generator;
+	}
+
+	protected static Logger getLogger() {
+		return BotaniaAPI.LOGGER;
 	}
 
 	@NotNull
@@ -81,7 +84,7 @@ public class BlockstateProvider implements DataProvider {
 		try {
 			registerStatesAndModels();
 		} catch (Exception e) {
-			LOGGER.error("Error registering states and models", e);
+			getLogger().error("Error registering states and models", e);
 		}
 
 		var root = generator.getOutputFolder();
@@ -92,7 +95,7 @@ public class BlockstateProvider implements DataProvider {
 			try {
 				DataProvider.saveStable(cache, state.get(), path);
 			} catch (IOException ex) {
-				LOGGER.error("Error generating blockstate file for {}", id, ex);
+				getLogger().error("Error generating blockstate file for {}", id, ex);
 			}
 		}
 
@@ -102,7 +105,7 @@ public class BlockstateProvider implements DataProvider {
 			try {
 				DataProvider.saveStable(cache, e.getValue().get(), path);
 			} catch (IOException ex) {
-				LOGGER.error("Error generating model file {}", modelId, ex);
+				getLogger().error("Error generating model file {}", modelId, ex);
 			}
 		}
 	}
@@ -1363,11 +1366,11 @@ public class BlockstateProvider implements DataProvider {
 		List<T> ret = Arrays.asList(items);
 		for (T item : items) {
 			if (!src.contains(item)) {
-				LOGGER.warn("Item {} not found in set", item);
+				getLogger().warn("Item {} not found in set", item);
 			}
 		}
 		if (!src.removeAll(ret)) {
-			LOGGER.warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
+			getLogger().warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
 		}
 		return ret;
 	}
@@ -1385,7 +1388,7 @@ public class BlockstateProvider implements DataProvider {
 		}
 
 		if (ret.isEmpty()) {
-			LOGGER.warn("takeAll predicate yielded nothing", new Throwable());
+			getLogger().warn("takeAll predicate yielded nothing", new Throwable());
 		}
 		return ret;
 	}
