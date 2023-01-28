@@ -6,6 +6,9 @@
         "items": [
           {
             "tag": "botania:mystical_flowers"
+          },
+          {
+            "tag": "botania:double_mystical_flowers"
           }
         ]
       },
