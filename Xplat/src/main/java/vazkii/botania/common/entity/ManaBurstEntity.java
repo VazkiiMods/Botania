@@ -113,7 +113,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		entityData.define(MIN_MANA_LOSS, 0);
 		entityData.define(MANA_LOSS_PER_TICK, 0F);
 		entityData.define(GRAVITY, 0F);
-		entityData.define(SOURCE_COORDS, BlockPos.ZERO);
+		entityData.define(SOURCE_COORDS, ManaBurst.NO_SOURCE);
 		entityData.define(SOURCE_LENS, ItemStack.EMPTY);
 		entityData.define(LEFT_SOURCE_POS, false);
 	}

@@ -27,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.*;
+import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
@@ -46,7 +47,7 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 	private static final Map<ResourceLocation, Function<CompoundTag, ? extends CorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
 	private static final Map<Class<? extends CorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
-	private BlockPos requestPos = BlockPos.ZERO;
+	private BlockPos requestPos = ManaBurst.NO_SOURCE;
 
 	@Nullable
 	private CorporeaRequestMatcher request;
