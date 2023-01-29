@@ -1,0 +1,8 @@
+{
+	"replace": false,
+	"values": {
+		"botania:mana_pylon": 8,
+		"botania:natura_pylon": 15,
+		"botania:gaia_pylon": 15
+	}
+}

@@ -33,6 +33,8 @@ public class PylonBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 21, 14);
 
 	public enum Variant {
+		// Note: The enchantment power values are duplicated in the following file. Make sure to keep them in sync:
+		// Fabric/src/main/resources/data/quilt/attachments/minecraft/block/enchanting_boosters.json
 		MANA(8f, 0.5f, 0.5f, 1f),
 		NATURA(15f, 0.5f, 1f, 0.5f),
 		GAIA(15f, 1f, 0.5f, 1f);
