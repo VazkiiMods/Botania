@@ -1,11 +1,28 @@
-plugins {
-    id 'com.diffplug.blowdryerSetup' version '1.6.0'
+
+pluginManagement {
+    repositories {
+        maven {
+            // RetroFuturaGradle
+            name "GTNH Maven"
+            url "http://jenkins.usrv.eu:8081/nexus/content/groups/public/"
+            allowInsecureProtocol = true
+            mavenContent {
+                includeGroup("com.gtnewhorizons.retrofuturagradle")
+            }
+        }
+        gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
+    }
 }
 
-apply plugin: 'com.diffplug.blowdryerSetup'
+plugins {
+    id 'com.diffplug.blowdryerSetup' version '1.6.0'
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.4.0' // Provides java toolchains
+}
 
 blowdryerSetup {
-// Pulls the spotless config from the example mod repository
-    github('GTNewHorizons/ExampleMod1.7.10', 'tag', '0.1.4')
+    repoSubfolder 'gtnhShared'
+    github('GTNewHorizons/ExampleMod1.7.10', 'tag', '0.2.0')
     //devLocal '.' // Use this when testing config updates locally
 }
