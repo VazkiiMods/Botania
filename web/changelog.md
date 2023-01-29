@@ -1,4 +1,4 @@
----
+	---
 layout: "default"
 title: "Changelog"
 ---
@@ -12,16 +12,31 @@ Note: A name in parentheses at the end of a line item means that it
 was contributed externally by that member of the community.
 
 <!--
-After each release, rename the version below to the released version,
-then start a new "Upcoming" section.
+Before each release, rename the version below to the released version,
+and start a new "Upcoming" section.
 -->
 
 {% include changelog_header.html version="Upcoming" %}
 
+---
+
+{% include changelog_header.html version="1.19.2-437" %}
+
+* Add: Polished Livingrock recipe for the Stonecutter
+* Add: Support the Fabric Transfer API in Corporea
+* Add: Livingrock and Deepslate Apothecaries
 * Change: Livingwood and Dreamwood Twigs are now crafted diagonally rather than vertically, to fix a conflict with a common utility recipe.
 * Change: Re-drew textures for Lunite, Gneiss, and Talc from the bottom to be less messy and have more vibrant palettes.
+* Change: Some palettes to use the colors of the new Mystical Petals
+* Change: fr_fr updates (Aegide)
+* Change: Mana Pools and Apothecaries have a more fitting interaction shape
+* Change: Allow Tall Mystical Flowers to count for Sky of Beginning
 * Fix: Petal apothecary and mana pool hitboxes now work like the vanilla composter in that if you click anywhere in the "hole", a block will be placed above it instead of adjacent to the face you were targeting
 * Fix: Pylons now work as enchantment boosters on Quilt with QSL
+* Fix: Lexicon referring to Stone as its old colloquial name Smooth Stone
+* Fix: Simulated mana bursts living longer than they should, causing extreme client lag
+* Fix: Botania Grasses not playing a sound or emitting Game Events when being tilled
+* Fix: Botania Grasses not being flattenable into Dirt Paths
 
 --- 
 
