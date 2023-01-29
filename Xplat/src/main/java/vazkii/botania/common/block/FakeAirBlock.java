@@ -37,7 +37,7 @@ public class FakeAirBlock extends AirBlock implements EntityBlock {
 	}
 
 	private boolean shouldRemove(Level world, BlockPos pos) {
-		return !world.isClientSide && world.getBlockEntity(pos) == null || !(world.getBlockEntity(pos) instanceof FakeAirBlockEntity fakeAir) || !fakeAir.canStay();
+		return !(world.getBlockEntity(pos) instanceof FakeAirBlockEntity fakeAir) || !fakeAir.canStay();
 	}
 
 	@Override

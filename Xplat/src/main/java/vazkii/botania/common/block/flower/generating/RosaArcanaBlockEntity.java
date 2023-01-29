@@ -27,7 +27,6 @@ import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.EntityHelper;
-import vazkii.botania.common.helper.ExperienceHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -53,8 +52,12 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 
 		List<Player> players = getLevel().getEntitiesOfClass(Player.class, effectBounds);
 		for (Player player : players) {
-			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.isOnGround()) {
-				ExperienceHelper.drainPlayerXP(player, 1);
+			// You would think checking totalExperience is right, but it seems to be
+			// possibly equal to zero even when the level is > 0.
+			// Instead, check the level and intra-level progress separately.
+			if ((player.experienceLevel > 0 || player.experienceProgress > 0)
+					&& player.isOnGround()) {
+				player.giveExperiencePoints(-1);
 				addMana(MANA_PER_XP);
 				sync();
 				return;
