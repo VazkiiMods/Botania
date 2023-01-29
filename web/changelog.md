@@ -29,9 +29,8 @@ and start a new "Upcoming" section.
 * Change: Re-drew textures for Lunite, Gneiss, and Talc from the bottom to be less messy and have more vibrant palettes.
 * Change: Some palettes to use the colors of the new Mystical Petals
 * Change: fr_fr updates (Aegide)
-* Change: Mana Pools and Apothecaries have a more fitting interaction shape
 * Change: Allow Tall Mystical Flowers to count for Sky of Beginning
-* Fix: Petal apothecary and mana pool hitboxes now work like the vanilla composter in that if you click anywhere in the "hole", a block will be placed above it instead of adjacent to the face you were targeting
+* Change: Petal apothecary and mana pool hitboxes now work like the vanilla composter; if you click anywhere in the "hole", a block will be placed above it instead of adjacent to the face you were targeting
 * Fix: Pylons now work as enchantment boosters on Quilt with QSL
 * Fix: Lexicon referring to Stone as its old colloquial name Smooth Stone
 * Fix: Simulated mana bursts living longer than they should, causing extreme client lag
