@@ -1,4 +1,4 @@
-//version: 1675013090
+//version: 1675110695
 /*
  DO NOT CHANGE THIS FILE!
  Also, you may replace this file at any time if there is an update available.
@@ -55,9 +55,9 @@ plugins {
     id 'eclipse'
     id 'scala'
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.jvm' version '1.5.30' apply false
-    id 'org.jetbrains.kotlin.kapt' version '1.5.30' apply false
-    id 'com.google.devtools.ksp' version '1.5.30-1.0.0' apply false
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0' apply false
+    id 'org.jetbrains.kotlin.kapt' version '1.8.0' apply false
+    id 'com.google.devtools.ksp' version '1.8.0-1.0.9' apply false
     id 'org.ajoberstar.grgit' version '4.1.1' // 4.1.1 is the last jvm8 supporting version ,unused, available for addon.gradle
     id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
     id 'com.palantir.git-version' version '0.13.0' apply false // 0.13.0 is the last jvm8 supporting version
@@ -66,7 +66,7 @@ plugins {
     id 'com.diffplug.spotless' version '6.7.2' apply false
     id 'com.modrinth.minotaur' version '2.+' apply false
     id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
-    id 'com.gtnewhorizons.retrofuturagradle' version '1.0.18'
+    id 'com.gtnewhorizons.retrofuturagradle' version '1.1.2'
 }
 boolean settingsupdated = verifySettingsGradle()
 settingsupdated = verifyGitAttributes() || settingsupdated
@@ -113,6 +113,7 @@ propertyDefaultIfUnset("modrinthRelations", "")
 propertyDefaultIfUnset("curseForgeProjectId", "")
 propertyDefaultIfUnset("curseForgeRelations", "")
 propertyDefaultIfUnset("minimizeShadowedDependencies", true)
+propertyDefaultIfUnset("relocateShadowedDependencies", true)
 // Deprecated properties (kept for backwards compat)
 propertyDefaultIfUnset("gradleTokenModId", "")
 propertyDefaultIfUnset("gradleTokenModName", "")
@@ -146,6 +147,33 @@ java {
     }
     if (!noPublishedSources) {
         withSourcesJar()
+    }
+}
+
+pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
+    // If Kotlin is enabled in the project
+    kotlin {
+        jvmToolchain(8)
+    }
+    // Kotlin hacks our source sets, so we hack Kotlin's tasks
+    def disabledKotlinTaskList = [
+        "kaptGenerateStubsMcLauncherKotlin",
+        "kaptGenerateStubsPatchedMcKotlin",
+        "kaptGenerateStubsInjectedTagsKotlin",
+        "compileMcLauncherKotlin",
+        "compilePatchedMcKotlin",
+        "compileInjectedTagsKotlin",
+        "kaptMcLauncherKotlin",
+        "kaptPatchedMcKotlin",
+        "kaptInjectedTagsKotlin",
+        "kspMcLauncherKotlin",
+        "kspPatchedMcKotlin",
+        "kspInjectedTagsKotlin",
+    ]
+    tasks.configureEach { task ->
+        if (task.name in disabledKotlinTaskList) {
+            task.enabled = false
+        }
     }
 }
 
@@ -309,7 +337,7 @@ if (identifiedVersion == versionOverride) {
     out.style(Style.Failure).text('Override version to ').style(Style.Identifier).text(modVersion).style(Style.Failure).println('!\7')
 }
 
-group = modGroup
+group = "com.github.GTNewHorizons"
 if (project.hasProperty("customArchiveBaseName") && customArchiveBaseName) {
     archivesBaseName = customArchiveBaseName
 } else {
@@ -502,6 +530,14 @@ dependencies {
     }
 }
 
+pluginManager.withPlugin('org.jetbrains.kotlin.kapt') {
+    if (usesMixins.toBoolean()) {
+        dependencies {
+            kapt('com.gtnewhorizon:gtnhmixins:2.1.10:processor')
+        }
+    }
+}
+
 apply from: 'dependencies.gradle'
 
 def mixingConfigRefMap = 'mixins.' + modId + '.refmap.json'
@@ -542,9 +578,11 @@ if (usesMixins.toBoolean()) {
     tasks.named("reobfJar", ReobfuscatedJar).configure {
         extraSrgFiles.from(mixinSrg)
     }
-}
 
-if (usesMixins.toBoolean()) {
+    tasks.named("processResources").configure {
+        dependsOn("generateAssets")
+    }
+
     tasks.named("compileJava", JavaCompile).configure {
         doFirst {
             new File(mixinTmpDir).mkdirs()
@@ -558,6 +596,25 @@ if (usesMixins.toBoolean()) {
             "-XDignore.symbol.file"
         ]
     }
+
+    pluginManager.withPlugin('org.jetbrains.kotlin.kapt') {
+        kapt {
+            correctErrorTypes = true
+            javacOptions {
+                option("-AreobfSrgFile=${tasks.reobfJar.srg.get().asFile}")
+                option("-AoutSrgFile=$mixinSrg")
+                option("-AoutRefMapFile=$refMap")
+            }
+        }
+        tasks.configureEach { task ->
+            if (task.name == "kaptKotlin") {
+                task.doFirst {
+                    new File(mixinTmpDir).mkdirs()
+                }
+            }
+        }
+    }
+
 }
 
 tasks.named("processResources", ProcessResources).configure {
@@ -613,6 +670,7 @@ if (usesShadowedDependencies.toBoolean()) {
     tasks.register('relocateShadowJar', ConfigureShadowRelocation) {
         target = tasks.shadowJar
         prefix = modGroup + ".shadow"
+        enabled = minimizeShadowedDependencies.toBoolean()
     }
     tasks.named("shadowJar", ShadowJar).configure {
         manifest {
@@ -628,7 +686,9 @@ if (usesShadowedDependencies.toBoolean()) {
             project.configurations.shadeCompile
         ]
         archiveClassifier.set('dev')
-        dependsOn(relocateShadowJar)
+        if (minimizeShadowedDependencies.toBoolean()) {
+            dependsOn(relocateShadowJar)
+        }
     }
     configurations.runtimeElements.outgoing.artifacts.clear()
     configurations.apiElements.outgoing.artifacts.clear()
@@ -653,16 +713,6 @@ if (usesShadowedDependencies.toBoolean()) {
 }
 ext.publishableDevJar = usesShadowedDependencies.toBoolean() ? tasks.shadowJar : tasks.jar
 ext.publishableObfJar = tasks.reobfJar
-
-tasks.named('extractForgeUserdev', Copy).configure { efu ->
-    doLast {
-        // Fix CoFH-repackaged CCL not finding mappings
-        project.copy {
-            from(mcpTasks.userdevDir("conf"))
-            into(new File(project.buildDir, "unpacked/conf"))
-        }
-    }
-}
 
 tasks.register('apiJar', Jar) {
     from(sourceSets.main.allSource) {
@@ -768,7 +818,7 @@ publishing {
                 artifact apiJar
             }
 
-            groupId = System.getenv("ARTIFACT_GROUP_ID") ?: "com.github.GTNewHorizons"
+            groupId = System.getenv("ARTIFACT_GROUP_ID") ?: project.group
             artifactId = System.getenv("ARTIFACT_ID") ?: project.name
             // Using the identified version, not project.version as it has the prepended 1.7.10
             version = System.getenv("RELEASE_VERSION") ?: identifiedVersion
