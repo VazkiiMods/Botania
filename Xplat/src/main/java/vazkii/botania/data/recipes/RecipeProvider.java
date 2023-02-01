@@ -1787,7 +1787,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		registerRedStringBlock(consumer, BotaniaBlocks.redStringComparator, Ingredient.of(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
 		registerRedStringBlock(consumer, BotaniaBlocks.redStringRelay, Ingredient.of(BotaniaBlocks.manaSpreader), conditionsFromItem(BotaniaBlocks.manaSpreader));
 		registerRedStringBlock(consumer, BotaniaBlocks.redStringInterceptor, Ingredient.of(Items.STONE_BUTTON), conditionsFromItem(Items.STONE_BUTTON));
-		ShapelessRecipeBuilder.shapeless(BotaniaItems.corporeaSpark)
+		ShapelessRecipeBuilder.shapeless(BotaniaItems.corporeaSpark, 4)
 				.requires(BotaniaItems.spark)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaItems.enderAirBottle)
