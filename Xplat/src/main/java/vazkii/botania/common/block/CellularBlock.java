@@ -9,6 +9,8 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,6 +23,14 @@ public class CellularBlock extends BotaniaBlock implements EntityBlock {
 
 	public CellularBlock(Properties builder) {
 		super(builder);
+	}
+
+	@Override
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		if (level.getBlockEntity(pos) instanceof CellularBlockEntity cell) {
+			cell.update(level);
+		}
+	
 	}
 
 	@NotNull

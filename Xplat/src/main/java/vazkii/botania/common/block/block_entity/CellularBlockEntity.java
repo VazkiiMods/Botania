@@ -10,10 +10,13 @@ package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.block.Bound;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.flower.generating.DandelifeonBlockEntity;
+import vazkii.botania.common.block.flower.generating.DandelifeonBlockEntity.Cell;
 
 public class CellularBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_GENERATION = "generation";
@@ -26,6 +29,7 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	private static final String TAG_VALID_Z = "validZ";
 
 	private int generation;
+	private int nextGeneration;
 	private boolean ticked;
 	private BlockPos flowerCoords = Bound.UNBOUND_POS;
 	private BlockPos validCoords = Bound.UNBOUND_POS;
@@ -34,8 +38,13 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 		super(BotaniaBlockEntities.CELL_BLOCK, pos, state);
 	}
 
-	public void setGeneration(DandelifeonBlockEntity flower, int gen) {
+	public void setImmediateGeneration(int gen) {
 		generation = gen;
+	}
+
+	public void setGeneration(DandelifeonBlockEntity flower, int gen) {
+		nextGeneration = gen;
+		getLevel().scheduleTick(getBlockPos(), BotaniaBlocks.cellBlock, 1);
 		if (!ticked) {
 			flowerCoords = flower.getEffectivePos();
 			validCoords = getBlockPos();
@@ -43,6 +52,13 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 		} else if (!validCoords.equals(getBlockPos()) || !flowerCoords.equals(flower.getEffectivePos())) {
 			level.removeBlock(worldPosition, false);
 		}
+	}
+
+	public void update(Level level) {
+		if (nextGeneration == -1) {
+			level.removeBlock(getBlockPos(), false);
+		}
+		generation = nextGeneration;
 	}
 
 	public boolean isSameFlower(DandelifeonBlockEntity flower) {

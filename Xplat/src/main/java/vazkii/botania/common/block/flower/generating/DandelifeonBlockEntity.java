@@ -49,146 +49,152 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (!getLevel().isClientSide) {
-			if (ticksExisted % SPEED == 0 && getLevel().hasNeighborSignal(getBlockPos())) {
+			if (getLevel().getGameTime() % SPEED == 0 && getLevel().hasNeighborSignal(getBlockPos())) {
 				runSimulation();
 			}
 		}
 	}
 
 	private void runSimulation() {
-		int[][] table = getCellTable();
-		List<int[]> changes = new ArrayList<>();
+		var table = new CellTable(RANGE, this);
+		List<LifeUpdate> changes = new ArrayList<>();
 		boolean wipe = false;
 
-		for (int i = 0; i < table.length; i++) {
-			for (int j = 0; j < table[0].length; j++) {
-				int gen = table[i][j];
-				int adj = getAdjCells(table, i, j);
+		for (int i = 0; i < table.diam; i++) {
+			for (int j = 0; j < table.diam; j++) {
+				int cell = table.at(i, j);
+				int adj = table.getAdjCells(i, j);
 
-				int newVal = gen;
-				if (adj < 2 || adj > 3) {
-					newVal = -1;
+				int cellUpdate;
+				if (adj == 3 && cell == Cell.DEAD) {
+					// spawn new cell
+					cellUpdate = table.getSpawnCellGeneration(i, j);
+				} else if ((adj == 2 || adj == 3) && Cell.isLive(cell)) {
+					// sustain extant cell
+					cellUpdate = cell + 1;
 				} else {
-					if (adj == 3 && gen == -1) {
-						newVal = getSpawnCellGeneration(table, i, j);
-					} else if (gen > -1) {
-						newVal = gen + 1;
-					}
+					// kill cell
+					cellUpdate = -1;
 				}
 
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
 				int allowDist = 1;
-				if (xdist <= allowDist && zdist <= allowDist && newVal > -1) {
-					gen = newVal;
-					newVal = gen == 1 ? -1 : -2;
-				}
-
-				if (newVal != gen) {
-					changes.add(new int[] { i, j, newVal, gen });
-					if (newVal == -2) {
+				if (xdist <= allowDist && zdist <= allowDist && cellUpdate > -1) {
+					if (cell == 1) {
+						// fresh cells shouldn't be placed here at all
+						cellUpdate = Cell.DEAD;
+					} else {
+						// save the new value and consume this cell
+						cell = cellUpdate;
+						cellUpdate = Cell.CONSUME;
 						wipe = true;
 					}
 				}
-			}
-		}
 
-		BlockPos pos = getEffectivePos();
-
-		for (int[] change : changes) {
-			BlockPos pos_ = pos.offset(-RANGE + change[0], 0, -RANGE + change[1]);
-			int val = change[2];
-			if (val != -2 && wipe) {
-				val = -1;
-			}
-
-			int old = change[3];
-
-			setBlockForGeneration(pos_, val, old);
-		}
-	}
-
-	private int[][] getCellTable() {
-		int diam = RANGE * 2 + 1;
-		int[][] table = new int[diam][diam];
-
-		BlockPos pos = getEffectivePos();
-
-		for (int i = 0; i < diam; i++) {
-			for (int j = 0; j < diam; j++) {
-				BlockPos pos_ = pos.offset(-RANGE + i, 0, -RANGE + j);
-				table[i][j] = getCellGeneration(pos_);
-			}
-		}
-
-		return table;
-	}
-
-	private int getCellGeneration(BlockPos pos) {
-		BlockEntity tile = getLevel().getBlockEntity(pos);
-		if (tile instanceof CellularBlockEntity cell) {
-			return cell.isSameFlower(this) ? cell.getGeneration() : 0;
-		}
-
-		return -1;
-	}
-
-	private int getAdjCells(int[][] table, int x, int z) {
-		int count = 0;
-		for (int[] shift : ADJACENT_BLOCKS) {
-			int xp = x + shift[0];
-			int zp = z + shift[1];
-			if (!isOffBounds(table, xp, zp)) {
-				int gen = table[xp][zp];
-				if (gen >= 0) {
-					count++;
+				if (cellUpdate != cell) {
+					changes.add(new LifeUpdate(i, j, cellUpdate, cell));
 				}
 			}
 		}
 
-		return count;
-	}
-
-	private int getSpawnCellGeneration(int[][] table, int x, int z) {
-		int max = -1;
-		for (int[] shift : ADJACENT_BLOCKS) {
-			int xp = x + shift[0];
-			int zp = z + shift[1];
-			if (!isOffBounds(table, xp, zp)) {
-				int gen = table[xp][zp];
-				if (gen > max) {
-					max = gen;
-				}
+		for (var change : changes) {
+			BlockPos pos_ = table.center.offset(-RANGE + change.x(), 0, -RANGE + change.z());
+			int newLife = change.newLife();
+			if (newLife != Cell.CONSUME && wipe) {
+				newLife = Cell.DEAD;
 			}
+
+			setBlockForGeneration(pos_, Math.min(newLife, MAX_MANA_GENERATIONS), change.oldLife());
 		}
-
-		return max == -1 ? -1 : max + 1;
 	}
 
-	boolean isOffBounds(int[][] table, int x, int z) {
-		return x < 0 || z < 0 || x >= table.length || z >= table[0].length;
-	}
-
-	void setBlockForGeneration(BlockPos pos, int gen, int prevGen) {
+	void setBlockForGeneration(BlockPos pos, int cell, int prevCell) {
 		Level world = getLevel();
 		BlockState stateAt = world.getBlockState(pos);
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (gen == -2) {
-			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
+		if (cell == Cell.CONSUME) {
+			int val = prevCell * MANA_PER_GEN;
+			world.removeBlock(pos, true);
 			addMana(val);
 			sync();
-		} else if (stateAt.is(BotaniaBlocks.cellBlock)) {
-			if (gen < 0) {
-				world.removeBlock(pos, false);
-			} else {
-				((CellularBlockEntity) tile).setGeneration(this, gen);
-			}
-		} else if (gen >= 0 && stateAt.isAir()) {
+		} else if (tile instanceof CellularBlockEntity cellBlock) {
+			cellBlock.setGeneration(this, cell);
+		} else if (Cell.isLive(cell) && stateAt.isAir()) {
 			world.setBlockAndUpdate(pos, BotaniaBlocks.cellBlock.defaultBlockState());
 			tile = world.getBlockEntity(pos);
-			((CellularBlockEntity) tile).setGeneration(this, gen);
+			((CellularBlockEntity) tile).setGeneration(this, cell);
+			((CellularBlockEntity) tile).setImmediateGeneration(-1); // so that other flowers know this is 'dead' this tick
 		}
 	}
+
+	public static final class Cell {
+		private Cell() {}
+
+		public static final int CONSUME = -2;
+		public static final int DEAD = -1;
+
+		public static boolean isLive(int i) {
+			return i >= 0;
+		}
+	}
+	private static class CellTable {
+		public final BlockPos center;
+		public final int diam;
+		private int[][] cells;
+
+		public CellTable(int range, DandelifeonBlockEntity dandie) {
+			center = dandie.getEffectivePos();
+			diam = range * 2 + 1;
+			// store everything in range + one outside
+			cells = new int[diam + 2][diam + 2];
+
+			for (int i = -1; i <= diam; i++) {
+				for (int j = -1; j <= diam; j++) {
+					BlockPos pos = center.offset(-range + i, 0, -range + j);
+					cells[i + 1][j + 1] = getCellGeneration(pos, dandie);
+				}
+			}
+		}
+
+		private static int getCellGeneration(BlockPos pos, DandelifeonBlockEntity dandie) {
+			BlockEntity tile = dandie.getLevel().getBlockEntity(pos);
+			if (tile instanceof CellularBlockEntity cell) {
+				return cell.isSameFlower(dandie) ? cell.getGeneration() : (cell.getGeneration() >> 2);
+			}
+
+			return Cell.DEAD;
+		}
+
+		public boolean inBounds(int x, int z) {
+			return x >= 0 && z >= 0 && x < diam && z < diam;
+		}
+
+		public int getAdjCells(int x, int z) {
+			int count = 0;
+			for (int[] shift : ADJACENT_BLOCKS) {
+				if (Cell.isLive(this.at(x + shift[0], z + shift[1]))) {
+					count++;
+				}
+			}
+
+			return count;
+		}
+
+		public int getSpawnCellGeneration(int x, int z) {
+			int max = -1;
+			for (int[] shift : ADJACENT_BLOCKS) {
+				max = Math.max(max, this.at(x + shift[0], z + shift[1]));
+			}
+
+			return max == -1 ? Cell.DEAD : max + 1;
+		}
+
+		public int at(int x, int z) {
+			return cells[x + 1][z + 1];
+		}
+	}
+	private static record LifeUpdate(int x, int z, int newLife, int oldLife) {}
 
 	@Override
 	public RadiusDescriptor getRadius() {
