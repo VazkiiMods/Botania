@@ -93,6 +93,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(FinishedRecipe.alchemy(id("lavender_quartz_deconstruct"), new ItemStack(BotaniaItems.lavenderQuartz, 4), ingr(BotaniaFluffBlocks.lavenderQuartz), 25));
 		consumer.accept(FinishedRecipe.alchemy(id("red_quartz_deconstruct"), new ItemStack(BotaniaItems.redQuartz, 4), ingr(BotaniaFluffBlocks.redQuartz), 25));
 		consumer.accept(FinishedRecipe.alchemy(id("elf_quartz_deconstruct"), new ItemStack(BotaniaItems.elfQuartz, 4), ingr(BotaniaFluffBlocks.elfQuartz), 25));
+		consumer.accept(FinishedRecipe.alchemy(id("sunny_quartz_deconstruct"), new ItemStack(BotaniaItems.sunnyQuartz, 4), ingr(BotaniaFluffBlocks.sunnyQuartz), 25));
 
 		consumer.accept(FinishedRecipe.alchemy(id("chiseled_stone_bricks"), new ItemStack(Blocks.CHISELED_STONE_BRICKS, 1), ingr(Blocks.STONE_BRICKS), 150));
 		consumer.accept(FinishedRecipe.alchemy(id("ice"), new ItemStack(Blocks.ICE), ingr(Blocks.SNOW_BLOCK), 2250));
