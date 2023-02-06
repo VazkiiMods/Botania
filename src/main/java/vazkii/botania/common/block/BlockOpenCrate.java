@@ -42,7 +42,7 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.item.block.ItemCubeWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -76,7 +76,7 @@ public class BlockOpenCrate extends BlockModContainer implements ILexiconable, I
 
 	@Override
 	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		GameRegistry.registerBlock(this, ItemCubeWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
 

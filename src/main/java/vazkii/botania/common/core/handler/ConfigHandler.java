@@ -24,7 +24,6 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibPotionNames;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -41,6 +40,7 @@ public final class ConfigHandler {
 
 	public static int hardcorePassiveGeneration = 72000;
 
+	public static boolean noMobSpawnOnBlocks = true;
 	public static boolean useAdaptativeConfig = true;
 
 	public static boolean enableDefaultRecipes = true;
@@ -131,6 +131,9 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable the Adaptative Config. Adaptative Config changes any default config values from old versions to the new defaults to make sure you aren't missing out on changes because of old configs. It will not touch any values that were changed manually.";
 		useAdaptativeConfig = loadPropBool("adaptativeConfig.enabled", desc, useAdaptativeConfig);
 		adaptor = new ConfigAdaptor(useAdaptativeConfig);
+
+		desc = "Mobs cannot Spawn on Blocks";
+		noMobSpawnOnBlocks = loadPropBool("noMobSpawnOnBlocks", desc, noMobSpawnOnBlocks);
 
 		desc = "Set this to false to disable the use of shaders for some of the mod's renders.";
 		useShaders = loadPropBool("shaders.enabled", desc, useShaders);

@@ -23,7 +23,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.item.block.ItemCubeWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -54,7 +54,7 @@ public class BlockPavement extends BlockMod {
 
 	@Override
 	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
+		GameRegistry.registerBlock(this, ItemCubeWithMetadataAndName.class, par1Str);
 		return super.setBlockName(par1Str);
 	}
 

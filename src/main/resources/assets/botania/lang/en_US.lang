@@ -6,6 +6,8 @@ generator.botania-skyblock.info=Not recommended for botania newcomers
 # Something that is not localized, translators, do NOT change this line.
 botaniamisc.noloc=botaniamisc.noloc
 
+nomobspawnsonthisblock.tip=Mobs cannot Spawn on this Block
+
 botaniamisc.nextPage=Next Page
 botaniamisc.prevPage=Previous Page
 botaniamisc.back=Back

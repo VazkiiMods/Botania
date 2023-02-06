@@ -6,6 +6,8 @@ generator.botania-skyblock.info=Не рекомендуется для нови�
 # Something that is not localized, translators, do NOT change this line.
 botaniamisc.noloc=botaniamisc.noloc
 
+botaniamisc.nextPage=Монстры не могут появляться на этом блоке
+
 botaniamisc.nextPage=След. страница
 botaniamisc.prevPage=Пред. страница
 botaniamisc.back=Назад
