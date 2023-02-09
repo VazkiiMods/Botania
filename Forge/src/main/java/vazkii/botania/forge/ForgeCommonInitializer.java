@@ -182,6 +182,7 @@ public class ForgeCommonInitializer {
 		// GUI and Recipe
 		bind(Registry.MENU_REGISTRY, BotaniaItems::registerMenuTypes);
 		bind(Registry.RECIPE_SERIALIZER_REGISTRY, BotaniaItems::registerRecipeSerializers);
+		bind(Registry.BANNER_PATTERN_REGISTRY, BotaniaBannerPatterns::submitRegistrations);
 		bind(Registry.RECIPE_TYPE_REGISTRY, BotaniaRecipeTypes::submitRecipeTypes);
 		bind(Registry.RECIPE_SERIALIZER_REGISTRY, BotaniaRecipeTypes::submitRecipeSerializers);
 
