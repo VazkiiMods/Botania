@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.render.block_entity;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
@@ -25,12 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.block_entity.IncensePlateBlockEntity;
 
-import java.util.Map;
-
 public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<IncensePlateBlockEntity> {
-
-	private static final Map<Direction, Integer> ROTATIONS = ImmutableMap.of(Direction.NORTH, 180, Direction.SOUTH, 0, Direction.WEST, 270, Direction.EAST, 90);
-
 	public IncensePlateBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
@@ -44,7 +38,13 @@ public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<Ince
 
 		ms.pushPose();
 		ms.translate(0.5F, 1.5F, 0.5F);
-		ms.mulPose(Vector3f.YP.rotationDegrees(ROTATIONS.get(facing)));
+		int degrees = switch (facing) {
+			default -> 0;
+			case WEST -> 90;
+			case SOUTH -> 180;
+			case EAST -> 270;
+		};
+		ms.mulPose(Vector3f.YP.rotationDegrees(degrees));
 		float s = 0.6F;
 		ms.translate(-0.11F, -1.35F, 0F);
 		ms.scale(s, s, s);
