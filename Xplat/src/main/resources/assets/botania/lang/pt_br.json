@@ -1650,7 +1650,7 @@
   "botania.page.thermalily0": "A $(item)Thermalily$(0) age como uma versão de $(item)Lava$(0) das $(item)Hydroangeas$(0). Como esperado, a flor absorve $(item)Lava$(0) ao redor dela, na mesma altura, para gerar $(thing)Mana$(0).$(p)Depois de absorver a $(item)Lava$(0), a flor produz $(thing)Mana$(0) por aproximadamente 45 segundos. Depois que ela acaba, ela precisa de um pouco de tempo para esfriar (em torno de 5 minutos) antes de poder absorver mais $(item)Lava$(0).",
   "botania.page.thermalily2": "A quantidade de $(thing)Mana$(0) que a $(item)Thermalily$(0) produz durante seu período ativo é muito alta, servindo como uma boa flor geradora para quando um impulso é necessário.$(p)Durante o período de \"resfriamento\", se a flor absorver mais $(thing)Lava$(0), ela a consome sem produzir $(thing)Mana$(0) e reseta os 5 minutos de espera.",
   "botania.page.thermalily3": "Enquanto colocar $(item)Lava$(0) no mundo é possível usando um $(item)Ejetor$(0), armazenar e carregar ela do $(thing)Nether$(0) ou do fundo da terra é história pra um outro dia.$(p)Com isso, a $(item)Thermalily$(0) é classificada como uma flor \"semi-automatizável\".",
-  "botania.page.thermalily1": "$(o)A flor mais trabalhosa no jogo$(0).",
+  "botania.page.thermalily4": "$(o)A flor mais trabalhosa no jogo$(0).",
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana pela experiência",

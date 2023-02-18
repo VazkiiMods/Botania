@@ -1641,7 +1641,7 @@
   "botania.entry.thermalily": "Thermalelie",
   "botania.tagline.thermalily": "Mana uit lava",
   "botania.page.thermalily0": "Er komt een punt waarop het langzaam genereren van $(thing)Mana$(0), zoals de $(item)Hydroangea$(0) en de $(item)Endovlam$(0) doen, niet genoeg is. Een antwoord daarop is de $(item)Thermalelie$(0), die net zo werkt als de $(item)Hydroangea$(0), alleen met $(item)Lava$(0). Bij het drinken van de Lava komt erg veel Mana vrij, maar de bloem warmt erdoor op waardoor hij tijd nodig heeft om af te koelen.",
-  "botania.page.thermalily1": "$(o)Thermalelie$(0)",
+  "botania.page.thermalily4": "$(o)Thermalelie$(0)",
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana uit ervaring",
