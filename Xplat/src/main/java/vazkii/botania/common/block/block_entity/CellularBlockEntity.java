@@ -38,11 +38,11 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 		super(BotaniaBlockEntities.CELL_BLOCK, pos, state);
 	}
 
-	public void setImmediateGeneration(int gen) {
+	public void setGeneration(int gen) {
 		generation = gen;
 	}
 
-	public void setGeneration(DandelifeonBlockEntity flower, int gen) {
+	public void setNextGeneration(DandelifeonBlockEntity flower, int gen) {
 		nextGeneration = gen;
 		getLevel().scheduleTick(getBlockPos(), BotaniaBlocks.cellBlock, 1);
 		if (!ticked) {
@@ -55,7 +55,7 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	}
 
 	public void update(Level level) {
-		if (nextGeneration == -1) {
+		if (nextGeneration == Cell.DEAD) {
 			level.removeBlock(getBlockPos(), false);
 		}
 		generation = nextGeneration;

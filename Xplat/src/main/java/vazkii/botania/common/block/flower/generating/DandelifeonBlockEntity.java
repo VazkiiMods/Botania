@@ -60,40 +60,40 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		List<LifeUpdate> changes = new ArrayList<>();
 		boolean wipe = false;
 
-		for (int i = 0; i < table.diam; i++) {
-			for (int j = 0; j < table.diam; j++) {
-				int cell = table.at(i, j);
+		for (int i = 0; i < table.diameter; i++) {
+			for (int j = 0; j < table.diameter; j++) {
+				int oldLife = table.at(i, j);
 				int adj = table.getAdjCells(i, j);
 
-				int cellUpdate;
-				if (adj == 3 && cell == Cell.DEAD) {
+				int newLife;
+				if (adj == 3 && oldLife == Cell.DEAD) {
 					// spawn new cell
-					cellUpdate = table.getSpawnCellGeneration(i, j);
-				} else if ((adj == 2 || adj == 3) && Cell.isLive(cell)) {
+					newLife = table.getSpawnCellGeneration(i, j);
+				} else if ((adj == 2 || adj == 3) && Cell.isLive(oldLife)) {
 					// sustain extant cell
-					cellUpdate = cell + 1;
+					newLife = oldLife + 1;
 				} else {
 					// kill cell
-					cellUpdate = -1;
+					newLife = Cell.DEAD;
 				}
 
 				int xdist = Math.abs(i - RANGE);
 				int zdist = Math.abs(j - RANGE);
 				int allowDist = 1;
-				if (xdist <= allowDist && zdist <= allowDist && cellUpdate > -1) {
-					if (cell == 1) {
+				if (xdist <= allowDist && zdist <= allowDist && Cell.isLive(newLife)) {
+					if (oldLife == 1) {
 						// fresh cells shouldn't be placed here at all
-						cellUpdate = Cell.DEAD;
+						newLife = Cell.DEAD;
 					} else {
 						// save the new value and consume this cell
-						cell = cellUpdate;
-						cellUpdate = Cell.CONSUME;
+						oldLife = newLife;
+						newLife = Cell.CONSUME;
 						wipe = true;
 					}
 				}
 
-				if (cellUpdate != cell) {
-					changes.add(new LifeUpdate(i, j, cellUpdate, cell));
+				if (newLife != oldLife) {
+					changes.add(new LifeUpdate(i, j, newLife, oldLife));
 				}
 			}
 		}
@@ -119,12 +119,12 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 			addMana(val);
 			sync();
 		} else if (tile instanceof CellularBlockEntity cellBlock) {
-			cellBlock.setGeneration(this, cell);
+			cellBlock.setNextGeneration(this, cell);
 		} else if (Cell.isLive(cell) && stateAt.isAir()) {
 			world.setBlockAndUpdate(pos, BotaniaBlocks.cellBlock.defaultBlockState());
 			tile = world.getBlockEntity(pos);
-			((CellularBlockEntity) tile).setGeneration(this, cell);
-			((CellularBlockEntity) tile).setImmediateGeneration(-1); // so that other flowers know this is 'dead' this tick
+			((CellularBlockEntity) tile).setNextGeneration(this, cell);
+			((CellularBlockEntity) tile).setGeneration(Cell.DEAD); // so that other flowers know this is 'dead' this tick
 		}
 	}
 
@@ -137,20 +137,23 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		public static boolean isLive(int i) {
 			return i >= 0;
 		}
+		public static int boundaryPunish(int life) {
+			return isLive(life) ? life / 4 : life;
+		}
 	}
 	private static class CellTable {
 		public final BlockPos center;
-		public final int diam;
+		public final int diameter;
 		private int[][] cells;
 
 		public CellTable(int range, DandelifeonBlockEntity dandie) {
 			center = dandie.getEffectivePos();
-			diam = range * 2 + 1;
+			diameter = range * 2 + 1;
 			// store everything in range + one outside
-			cells = new int[diam + 2][diam + 2];
+			cells = new int[diameter + 2][diameter + 2];
 
-			for (int i = -1; i <= diam; i++) {
-				for (int j = -1; j <= diam; j++) {
+			for (int i = -1; i <= diameter; i++) {
+				for (int j = -1; j <= diameter; j++) {
 					BlockPos pos = center.offset(-range + i, 0, -range + j);
 					cells[i + 1][j + 1] = getCellGeneration(pos, dandie);
 				}
@@ -160,14 +163,14 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		private static int getCellGeneration(BlockPos pos, DandelifeonBlockEntity dandie) {
 			BlockEntity tile = dandie.getLevel().getBlockEntity(pos);
 			if (tile instanceof CellularBlockEntity cell) {
-				return cell.isSameFlower(dandie) ? cell.getGeneration() : (cell.getGeneration() >> 2);
+				return cell.isSameFlower(dandie) ? cell.getGeneration() : Cell.boundaryPunish(cell.getGeneration());
 			}
 
 			return Cell.DEAD;
 		}
 
 		public boolean inBounds(int x, int z) {
-			return x >= 0 && z >= 0 && x < diam && z < diam;
+			return x >= 0 && z >= 0 && x < diameter && z < diameter;
 		}
 
 		public int getAdjCells(int x, int z) {
