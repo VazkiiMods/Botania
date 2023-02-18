@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,11 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
-	private static final int RANGE = 12;
-	private static final int SPEED = 10;
+	public static final int RANGE = 12;
+	public static final int SPEED = 10;
 //	private static final int MAX_GENERATIONS = 100;
-	private static final int MAX_MANA_GENERATIONS = 100;
-	private static final int MANA_PER_GEN = 60;
+	public static final int MAX_MANA_GENERATIONS = 100;
+	public static final int MANA_PER_GEN = 60;
+
+	private static final String TAG_RADIUS = "radius";
+
+	private int radius = RANGE;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
 			{ -1, -1 },
@@ -44,6 +49,10 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		super(BotaniaFlowerBlocks.DANDELIFEON, pos, state);
 	}
 
+	public int getRange() {
+		return radius;
+	}
+
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
@@ -56,7 +65,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	private void runSimulation() {
-		var table = new CellTable(RANGE, this);
+		var table = new CellTable(radius, this);
 		List<LifeUpdate> changes = new ArrayList<>();
 		boolean wipe = false;
 
@@ -77,8 +86,8 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 					newLife = Cell.DEAD;
 				}
 
-				int xdist = Math.abs(i - RANGE);
-				int zdist = Math.abs(j - RANGE);
+				int xdist = Math.abs(i - radius);
+				int zdist = Math.abs(j - radius);
 				int allowDist = 1;
 				if (xdist <= allowDist && zdist <= allowDist && Cell.isLive(newLife)) {
 					if (oldLife == 1) {
@@ -99,7 +108,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 
 		for (var change : changes) {
-			BlockPos pos_ = table.center.offset(-RANGE + change.x(), 0, -RANGE + change.z());
+			BlockPos pos_ = table.center.offset(-radius + change.x(), 0, -radius + change.z());
 			int newLife = change.newLife();
 			if (newLife != Cell.CONSUME && wipe) {
 				newLife = Cell.DEAD;
@@ -201,7 +210,7 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
+		return RadiusDescriptor.Rectangle.square(getEffectivePos(), radius);
 	}
 
 	@Override
@@ -217,6 +226,20 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 	@Override
 	public int getColor() {
 		return 0x9c0a7e;
+	}
+
+	@Override
+	public void writeToPacketNBT(CompoundTag cmp) {
+		super.writeToPacketNBT(cmp);
+		if (radius != RANGE) {
+			cmp.putInt(TAG_RADIUS, radius);
+		}
+	}
+
+	@Override
+	public void readFromPacketNBT(CompoundTag cmp) {
+		super.readFromPacketNBT(cmp);
+		radius = cmp.contains(TAG_RADIUS) ? cmp.getInt(TAG_RADIUS) : RANGE;
 	}
 
 }

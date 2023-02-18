@@ -62,7 +62,7 @@ public class CellularBlockEntity extends BotaniaBlockEntity {
 	}
 
 	public boolean isSameFlower(DandelifeonBlockEntity flower) {
-		return validCoords.equals(getBlockPos()) && flowerCoords.equals(flower.getEffectivePos());
+		return !ticked || validCoords.equals(getBlockPos()) && flowerCoords.equals(flower.getEffectivePos());
 	}
 
 	public int getGeneration() {

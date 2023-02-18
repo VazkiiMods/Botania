@@ -1,0 +1,33 @@
+{
+    DataVersion: 3120,
+    size: [40, 4, 23],
+    data: [
+        {pos: [10, 1, 11], state: "minecraft:grass_block{snowy:false}"},
+        {pos: [10, 1, 12], state: "minecraft:lever{face:wall,facing:south,powered:true}"},
+        {pos: [29, 1, 11], state: "minecraft:grass_block{snowy:false}"},
+        {pos: [29, 1, 12], state: "minecraft:lever{face:wall,facing:south,powered:false}"},
+        {pos: [10, 2, 11], state: "botania:dandelifeon", nbt: {id: "botania:dandelifeon", mana: 0, radius: 9, ticksExisted: 1239}},
+        {pos: [23, 2, 9], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [23, 2, 10], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [23, 2, 11], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [24, 2, 9], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [24, 2, 12], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [25, 2, 9], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [26, 2, 9], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [27, 2, 10], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [27, 2, 12], state: "botania:cell_block", nbt: {generation: 90, id: "botania:cell_block", ticked: 0b}},
+        {pos: [29, 2, 11], state: "botania:dandelifeon", nbt: {id: "botania:dandelifeon", mana: 0, radius: 9, ticksExisted: 1427}},
+        {pos: [32, 2, 11], state: "botania:cell_block", nbt: {generation: 0, id: "botania:cell_block", ticked: 0b}},
+        {pos: [32, 2, 12], state: "botania:cell_block", nbt: {generation: 0, id: "botania:cell_block", ticked: 0b}},
+        {pos: [33, 2, 11], state: "botania:cell_block", nbt: {generation: 0, id: "botania:cell_block", ticked: 0b}},
+        {pos: [33, 2, 12], state: "botania:cell_block", nbt: {generation: 0, id: "botania:cell_block", ticked: 0b}}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:grass_block{snowy:false}",
+        "minecraft:lever{face:wall,facing:south,powered:true}",
+        "minecraft:lever{face:wall,facing:south,powered:false}",
+        "botania:dandelifeon",
+        "botania:cell_block"
+    ]
+}
