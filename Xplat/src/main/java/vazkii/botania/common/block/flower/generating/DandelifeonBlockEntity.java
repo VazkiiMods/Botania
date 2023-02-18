@@ -146,10 +146,12 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 		public static boolean isLive(int i) {
 			return i >= 0;
 		}
+
 		public static int boundaryPunish(int life) {
 			return isLive(life) ? life / 4 : life;
 		}
 	}
+
 	private static class CellTable {
 		public final BlockPos center;
 		public final int diameter;
@@ -206,7 +208,9 @@ public class DandelifeonBlockEntity extends GeneratingFlowerBlockEntity {
 			return cells[x + 1][z + 1];
 		}
 	}
-	private static record LifeUpdate(int x, int z, int newLife, int oldLife) {}
+
+	private static record LifeUpdate(int x, int z, int newLife, int oldLife) {
+	}
 
 	@Override
 	public RadiusDescriptor getRadius() {

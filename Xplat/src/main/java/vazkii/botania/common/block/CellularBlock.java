@@ -30,7 +30,7 @@ public class CellularBlock extends BotaniaBlock implements EntityBlock {
 		if (level.getBlockEntity(pos) instanceof CellularBlockEntity cell) {
 			cell.update(level);
 		}
-	
+
 	}
 
 	@NotNull
