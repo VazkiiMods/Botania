@@ -30,7 +30,7 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 	private int passiveDecayTicks;
 
 	public HydroangeasBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaFlowerBlocks.HYDROANGEAS, pos, state, FluidTags.WATER, 40, 1, 0);
+		super(BotaniaFlowerBlocks.HYDROANGEAS, pos, state, FluidTags.WATER, 40, 1);
 	}
 
 	@Override
@@ -45,6 +45,11 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 				}
 			}
 		}
+	}
+
+	@Override
+	public int getCooldownTime(boolean finishedPrevious) {
+		return 0; // No cooldown at all
 	}
 
 	@Override

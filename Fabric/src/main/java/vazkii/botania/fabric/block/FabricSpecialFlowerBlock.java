@@ -90,6 +90,19 @@ public class FabricSpecialFlowerBlock extends FlowerBlock implements EntityBlock
 		redstoneParticlesIfPowered(state, world, pos, rand);
 	}
 
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState bs) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
+			return flower.getComparatorSignal();
+		}
+		return 0;
+	}
+
 	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, RandomSource rand) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof FunctionalFlowerBlockEntity flower && rand.nextBoolean()) {

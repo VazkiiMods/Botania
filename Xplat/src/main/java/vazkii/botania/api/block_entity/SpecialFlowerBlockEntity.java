@@ -235,6 +235,10 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 		return true;
 	}
 
+	public int getComparatorSignal() {
+		return 0;
+	}
+
 	/**
 	 * Returns the additional delay in ticks that an item must be on the ground before this flower will act on it.
 	 */

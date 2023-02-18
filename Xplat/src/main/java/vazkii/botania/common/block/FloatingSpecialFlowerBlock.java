@@ -78,4 +78,17 @@ public class FloatingSpecialFlowerBlock extends FloatingFlowerBlock {
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
 		return createTickerHelper(type, blockEntityType.get(), SpecialFlowerBlockEntity::commonTick);
 	}
+
+	@Override
+	public boolean hasAnalogOutputSignal(BlockState bs) {
+		return true;
+	}
+
+	@Override
+	public int getAnalogOutputSignal(BlockState bs, Level level, BlockPos pos) {
+		if (level.getBlockEntity(pos) instanceof SpecialFlowerBlockEntity flower) {
+			return flower.getComparatorSignal();
+		}
+		return 0;
+	}
 }
