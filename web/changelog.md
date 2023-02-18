@@ -18,6 +18,9 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Change: Tweaks to the Dandelifeon's rules; if you space them well, you can make very large setups :)
+* Change: The Corporea Spark recipe makes 4 now. Good riddance.
+
 ---
 
 {% include changelog_header.html version="1.19.2-437" %}
