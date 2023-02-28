@@ -29,7 +29,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -218,15 +217,9 @@ public interface BotaniaAPI {
 
 	default void sparkleFX(Level world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
-	default void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {
+	default void registerCorporeaNodeDetector(CorporeaNodeDetector detector) {}
 
-	}
-
-	default boolean isInGaiaArena(Entity entity) {
-		return isInGaiaArena(entity.getLevel(), entity.getX(), entity.getY(), entity.getZ());
-	}
-
-	default boolean isInGaiaArena(@Nullable Level level, double x, double y, double z) {
+	default boolean isInGaiaArena(Level level, double x, double y, double z) {
 		return false;
 	}
 }

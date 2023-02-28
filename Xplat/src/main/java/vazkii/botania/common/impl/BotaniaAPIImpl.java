@@ -31,7 +31,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -272,12 +271,10 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public boolean isInGaiaArena(@Nullable Level level, double x, double y, double z) {
-		if (level == null)
-			return false;
+	public boolean isInGaiaArena(Level level, double x, double y, double z) {
 		List<GaiaGuardianEntity> guardianEntities = level.getEntitiesOfClass(GaiaGuardianEntity.class, AABB.ofSize(new Vec3(x, y, z), GaiaGuardianEntity.ARENA_RANGE * 4, GaiaGuardianEntity.ARENA_RANGE * 4, GaiaGuardianEntity.ARENA_RANGE * 4));
 		for (GaiaGuardianEntity guardianEntity : guardianEntities) {
-			if (guardianEntity.getSource().distToCenterSqr(x, y, z) < GaiaGuardianEntity.ARENA_RANGE * GaiaGuardianEntity.ARENA_RANGE) {
+			if (GaiaGuardianEntity.getArenaBB(guardianEntity.getSource()).contains(x, y, z)) {
 				return true;
 			}
 		}

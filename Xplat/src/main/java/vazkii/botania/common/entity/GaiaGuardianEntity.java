@@ -566,7 +566,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@NotNull
-	private static AABB getArenaBB(@NotNull BlockPos source) {
+	public static AABB getArenaBB(@NotNull BlockPos source) {
 		double range = 15.0;
 		return new AABB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
 	}
