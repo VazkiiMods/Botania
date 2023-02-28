@@ -20,6 +20,10 @@ and start a new "Upcoming" section.
 
 * Change: Tweaks to the Dandelifeon's rules; if you space them well, you can make very large setups :)
 * Change: The Corporea Spark recipe makes 4 now. Good riddance.
+* Fix: zh_CN updates (Clayblockunova)
+* Fix: Banner patterns being broken on Forge
+* Fix: Missing Sunny Quartz destruction recipe
+* Fix: Incenses not rendering properly on Forge
 
 ---
 
