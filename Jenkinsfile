@@ -46,6 +46,7 @@ pipeline {
                 sh './gradlew build publish --no-daemon'
             }
         }
+	/*
         stage('Update CraftTweaker Docs') {
             when {
                 tag 'release-*'
@@ -81,6 +82,7 @@ pipeline {
                 }
             }
         }
+	*/
     }
     post {
         always {
