@@ -30,6 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
+import vazkii.botania.common.block.flower.generating.EntropinnyumBlockEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,8 @@ public class ForceLens extends Lens {
 	public static boolean moveBlocks(Level level, BlockPos pistonPos, Direction direction) {
 		PistonStructureResolver pistonStructureResolver = new PistonStructureResolver(level, pistonPos, direction, true);
 		if (pistonStructureResolver.resolve()) {
+			// this could produce unethical TNT entities, so perform appropriate checks
+			EntropinnyumBlockEntity.startTrackingTntEntities();
 			Map<BlockPos, BlockState> map = Maps.newHashMap();
 			List<BlockPos> positionsToPush = pistonStructureResolver.getToPush();
 			List<BlockState> statesToPush = Lists.newArrayList();
@@ -130,6 +133,7 @@ public class ForceLens extends Lens {
 				level.playSound(null, pistonPos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.25F + 0.6F);
 			}
 
+			EntropinnyumBlockEntity.endTrackingTntEntitiesAndCheck();
 			return true;
 		}
 

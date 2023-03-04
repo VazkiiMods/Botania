@@ -18,11 +18,15 @@ public class EthicalComponent extends SerializableComponent {
 	protected boolean unethical;
 
 	public EthicalComponent(PrimedTnt entity) {
-		unethical = EntropinnyumBlockEntity.isUnethical(entity);
+		EntropinnyumBlockEntity.addTrackedTntEntity(entity);
 	}
 
 	public final boolean isUnethical() {
 		return unethical;
+	}
+
+	public final void markUnethical() {
+		unethical = true;
 	}
 
 	@Override
