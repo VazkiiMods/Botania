@@ -9,13 +9,9 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TntBlock;
-import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
@@ -27,7 +23,6 @@ import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
@@ -35,69 +30,8 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int EXPLODE_EFFECT_EVENT = 0;
 	private static final int ANGRY_EFFECT_EVENT = 1;
 
-	private static boolean trackTntEntities = false;
-	private static final List<PrimedTnt> trackedTntEntities = new ArrayList<>();
-
 	public EntropinnyumBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaFlowerBlocks.ENTROPINNYUM, pos, state);
-	}
-
-	/**
-	 * A force relay, force lens mana burst or vanilla piston is about to start moving blocks.
-	 */
-	public static void startTrackingTntEntities() {
-		assert (!trackTntEntities && trackedTntEntities.isEmpty());
-		trackTntEntities = true;
-	}
-
-	/**
-	 * A TNT entity just spawned. Check it for potentially unethical spawning methods.
-	 * 
-	 * @param entity The TNT entity.
-	 */
-	public static void addTrackedTntEntity(PrimedTnt entity) {
-		if (trackTntEntities) {
-			trackedTntEntities.add(entity);
-		}
-	}
-
-	/**
-	 * A force relay, force lens mana burst,or vanilla piston finished converting all blocks into moving block entities.
-	 */
-	public static void endTrackingTntEntitiesAndCheck() {
-		assert (trackTntEntities);
-		trackTntEntities = false;
-		for (final var tnt : trackedTntEntities) {
-			checkUnethical(tnt);
-		}
-		trackedTntEntities.clear();
-	}
-
-	private static void checkUnethical(PrimedTnt entity) {
-		BlockPos center = entity.blockPosition();
-		if (!entity.getLevel().isLoaded(center)) {
-			return;
-		}
-
-		BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
-		for (final var dir : Direction.values()) {
-			blockPos.setWithOffset(center, dir);
-			if (!entity.getLevel().isLoaded(blockPos)) {
-				continue;
-			}
-
-			final var blockState = entity.getLevel().getBlockState(blockPos);
-			if (blockState.getBlock() == Blocks.MOVING_PISTON && blockState.hasBlockEntity()) {
-				final var blockEntity = entity.getLevel().getBlockEntity(blockPos);
-				if (blockEntity instanceof PistonMovingBlockEntity movingBlockEntity
-						&& movingBlockEntity.getMovementDirection() == dir
-						&& movingBlockEntity.getMovedState().getBlock() instanceof TntBlock) {
-					// found a moving block that marks the destination of a TNT block moving away from the TNT entity
-					XplatAbstractions.INSTANCE.ethicalComponent(entity).markUnethical();
-					break;
-				}
-			}
-		}
 	}
 
 	@Override

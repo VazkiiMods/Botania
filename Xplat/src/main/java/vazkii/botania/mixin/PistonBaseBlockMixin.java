@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.common.block.flower.generating.EntropinnyumBlockEntity;
+import vazkii.botania.common.helper.EthicalTntHelper;
 
 @Mixin(PistonBaseBlock.class)
 public class PistonBaseBlockMixin {
@@ -21,7 +21,7 @@ public class PistonBaseBlockMixin {
 	private void preMoveBlocks(Level level, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir) {
 		if (!level.isClientSide()) {
-			EntropinnyumBlockEntity.startTrackingTntEntities();
+			EthicalTntHelper.startTrackingTntEntities();
 		}
 	}
 
@@ -32,7 +32,7 @@ public class PistonBaseBlockMixin {
 	private void postMoveBlocks(Level level, BlockPos pos, Direction dir, boolean retract,
 			CallbackInfoReturnable<Boolean> cir) {
 		if (!level.isClientSide()) {
-			EntropinnyumBlockEntity.endTrackingTntEntitiesAndCheck();
+			EthicalTntHelper.endTrackingTntEntitiesAndCheck();
 		}
 	}
 }
