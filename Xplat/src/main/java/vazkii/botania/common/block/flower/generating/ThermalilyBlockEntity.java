@@ -24,7 +24,7 @@ public class ThermalilyBlockEntity extends FluidGeneratorBlockEntity {
 	public static final String TAG_COOLDOWN_MAGNITUDE = "cooldownStrength";
 
 	private int cooldownStrength = 15;
-	public static final int[] COOLDOWN_ROLL_PDF = {10, 5, 3, 2, 1, 1, 4, 8, 3, 2, 1, 1, 1, 2, 3};
+	public static final int[] COOLDOWN_ROLL_PDF = { 10, 5, 3, 2, 1, 1, 4, 8, 3, 2, 1, 1, 1, 2, 3 };
 	public static final int COOLDOWN_ROLL_TOTAL;
 
 	static {
