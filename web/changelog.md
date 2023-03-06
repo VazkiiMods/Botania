@@ -18,6 +18,8 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Fix: Mana spreaders now update their mana levels in real time, like pools do
+
 ---
 
 {% include changelog_header.html version="1.19.2-438" %}

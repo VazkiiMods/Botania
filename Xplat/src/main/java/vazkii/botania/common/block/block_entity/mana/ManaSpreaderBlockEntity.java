@@ -442,7 +442,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 				ManaBurstEntity burst = getBurst(false);
 				if (burst != null) {
 					if (!level.isClientSide) {
-						mana -= burst.getStartingMana();
+						this.receiveMana(-burst.getStartingMana());
 						burst.setShooterUUID(getIdentifier());
 						level.addFreshEntity(burst);
 						burst.ping();
