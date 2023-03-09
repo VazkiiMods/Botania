@@ -18,6 +18,7 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 
 ---

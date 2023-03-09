@@ -8,6 +8,8 @@
  */
 package vazkii.botania.client.core.helper;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -26,6 +28,8 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
@@ -79,6 +83,7 @@ public final class RenderHelper extends RenderType {
 	public static final RenderType ASTROLABE_PREVIEW = new AstrolabeLayer();
 	public static final RenderType STARFIELD;
 	public static final RenderType LIGHTNING;
+	public static final RenderType TRANSLUCENT;
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
@@ -183,6 +188,7 @@ public final class RenderHelper extends RenderType {
 				.setTransparencyState(LIGHTNING_TRANSPARENCY)
 				.createCompositeState(false);
 		LIGHTNING = makeLayer(ResourcesLib.PREFIX_MOD + "lightning", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
+		TRANSLUCENT = RenderType.entityTranslucentCull(TextureAtlas.LOCATION_BLOCKS);
 	}
 
 	private RenderHelper(String string, VertexFormat vertexFormat, VertexFormat.Mode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {
@@ -513,6 +519,112 @@ public final class RenderHelper extends RenderType {
 					}, () -> {
 						Sheets.translucentCullBlockSheet().clearRenderState();
 					});
+		}
+	}
+
+	public static void renderGuiItemAlpha(ItemStack stack, int x, int y, int alpha, ItemRenderer renderer) {
+		renderGuiItemAlpha(stack, x, y, alpha, renderer.getModel(stack, null, null, 0), renderer);
+	}
+
+	/**
+	 * Like {@link ItemRenderer::renderGuiItem} but with alpha
+	 */
+	// [VanillaCopy] with a small change
+	public static void renderGuiItemAlpha(ItemStack stack, int x, int y, int alpha, BakedModel model, ItemRenderer renderer) {
+		Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS).setFilter(false, false);
+
+		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
+
+		RenderSystem.enableBlend();
+		RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+		PoseStack modelViewStack = RenderSystem.getModelViewStack();
+		modelViewStack.pushPose();
+		modelViewStack.translate(x, y, 100.0F + renderer.blitOffset);
+		modelViewStack.translate(8.0D, 8.0D, 0.0D);
+		modelViewStack.scale(1.0F, -1.0F, 1.0F);
+		modelViewStack.scale(16.0F, 16.0F, 16.0F);
+		RenderSystem.applyModelViewMatrix();
+
+		boolean flatLight = !model.usesBlockLight();
+		if (flatLight) {
+			Lighting.setupForFlatItems();
+		}
+
+		MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+		renderer.render(
+				stack,
+				ItemTransforms.TransformType.GUI,
+				false,
+				new PoseStack(),
+				// This part differs from vanilla. We wrap the buffer to allow drawing translucently
+				wrapBuffer(buffer, alpha, alpha < 255),
+				LightTexture.FULL_BRIGHT,
+				OverlayTexture.NO_OVERLAY,
+				model
+		);
+		buffer.endBatch();
+
+		RenderSystem.enableDepthTest();
+
+		if (flatLight) {
+			Lighting.setupFor3DItems();
+		}
+
+		modelViewStack.popPose();
+		RenderSystem.applyModelViewMatrix();
+	}
+
+	private static MultiBufferSource wrapBuffer(MultiBufferSource buffer, int alpha, boolean forceTranslucent) {
+		return renderType -> new GhostVertexConsumer(buffer.getBuffer(forceTranslucent ? TRANSLUCENT : renderType), alpha);
+	}
+
+	// Borrowed with permission from https://github.com/XFactHD/FramedBlocks/blob/14f468810fc416b39447512810f0aa86e1012335/src/main/java/xfacthd/framedblocks/client/util/GhostVertexConsumer.java
+	public record GhostVertexConsumer(VertexConsumer wrapped, int alpha) implements VertexConsumer {
+		@Override
+		public VertexConsumer vertex(double x, double y, double z) {
+			return wrapped.vertex(x, y, z);
+		}
+
+		@Override
+		public VertexConsumer color(int red, int green, int blue, int alpha) {
+			return wrapped.color(red, green, blue, (alpha * this.alpha) / 0xFF);
+		}
+
+		@Override
+		public VertexConsumer uv(float u, float v) {
+			return wrapped.uv(u, v);
+		}
+
+		@Override
+		public VertexConsumer overlayCoords(int u, int v) {
+			return wrapped.overlayCoords(u, v);
+		}
+
+		@Override
+		public VertexConsumer uv2(int u, int v) {
+			return wrapped.uv2(u, v);
+		}
+
+		@Override
+		public VertexConsumer normal(float x, float y, float z) {
+			return wrapped.normal(x, y, z);
+		}
+
+		@Override
+		public void endVertex() {
+			wrapped.endVertex();
+		}
+
+		@Override
+		public void defaultColor(int r, int g, int b, int a) {
+			wrapped.defaultColor(r, g, b, a);
+		}
+
+		@Override
+		public void unsetDefaultColor() {
+			wrapped.unsetDefaultColor();
 		}
 	}
 }
