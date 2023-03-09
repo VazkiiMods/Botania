@@ -66,7 +66,8 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 
 	@Override
 	public boolean supportsInsertion() {
-		return getStorage().supportsInsertion();
+		// Since the binding target could change we can't know if "absolutely always 0" is correct.
+		return true;
 	}
 
 	@Override
@@ -76,7 +77,9 @@ public class RedStringContainerStorage implements Storage<ItemVariant> {
 
 	@Override
 	public boolean supportsExtraction() {
-		return getStorage().supportsExtraction();
+		// Since the binding target could change we can't know if "absolutely always 0" is correct.
+		// Corporea spark attachment also depends on this returning true for the UP direction.
+		return true;
 	}
 
 	@Override

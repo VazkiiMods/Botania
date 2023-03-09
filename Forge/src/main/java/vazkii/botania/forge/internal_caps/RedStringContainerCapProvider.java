@@ -31,10 +31,9 @@ public class RedStringContainerCapProvider implements ICapabilityProvider {
 				LazyOptional<?> optional = binding.getCapability(cap, side);
 				if (optional.isPresent()) {
 					return optional.cast();
-				} else {
-					return EMPTY.cast();
 				}
 			}
+			return EMPTY.cast();
 		}
 		return LazyOptional.empty();
 	}
