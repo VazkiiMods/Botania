@@ -114,7 +114,7 @@ public class EthicalTntHelper {
 			}
 
 			final var blockState = entity.getLevel().getBlockState(blockPos);
-			if (blockState.getBlock() == Blocks.MOVING_PISTON && blockState.hasBlockEntity()) {
+			if (blockState.is(Blocks.MOVING_PISTON)) {
 				final var blockEntity = entity.getLevel().getBlockEntity(blockPos);
 				if (blockEntity instanceof PistonMovingBlockEntity movingBlockEntity
 						&& movingBlockEntity.getMovementDirection() == dir
