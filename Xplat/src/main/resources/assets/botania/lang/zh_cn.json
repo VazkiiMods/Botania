@@ -1967,7 +1967,7 @@
   "botania.tagline.entropinnyum": "源自TNT的魔力",
   "botania.page.entropinnyum0": "为了制造一波$(thing)魔力$(0)，有时就需要来一波爆炸。$(p)在靠近$(item)热爆花$(0)的旱地上点燃一个$(item)TNT$(0)，花就会吸收爆炸产生的热与冲击并产生大量的$(thing)魔力$(0)，消除一切爆炸伤害。最后，为了吸收爆炸，花本身需要无$(thing)魔力$(0)，否则这个过程就会失败。",
   "botania.page.entropinnyum1": "$(o)男人从不回头看爆炸$(0)。",
-  "botania.page.entropinnyum2": "近年来热爆花的口味越来越挑剔，现在它只爱吃“符合伦理道德”、通过自然方法制作的TNT。给这朵花喂不符合伦理道德制作的TNT（比如复制出来的）效率会大幅降低。$(p)花的辨别能力是有限的。建议在这朵花附近最好还是不要放$(item)探测铁轨$(0)、$(item)粘性方块$(0)、和$(item)活塞$(0)之类的东西。",
+  "botania.page.entropinnyum2": "近年来热爆花的口味越来越挑剔，现在它只爱吃“符合伦理道德”、通过自然方法制作的TNT。给这朵花喂不符合伦理道德制作的TNT（比如复制出来的）效率会大幅降低。",
 
   "botania.entry.kekimurus": "贪食花",
   "botania.tagline.kekimurus": "蛋糕魔法",
