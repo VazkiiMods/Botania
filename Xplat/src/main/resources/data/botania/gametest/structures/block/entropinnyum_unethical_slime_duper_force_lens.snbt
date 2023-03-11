@@ -1,0 +1,42 @@
+{
+    DataVersion: 3120,
+    size: [19, 16, 19],
+    data: [
+        {pos: [9, 0, 9], state: "botania:floating_entropinnyum{waterlogged:false}", nbt: {floating: {islandType: "GRASS"}, id: "botania:entropinnyum", mana: 0, ticksExisted: 2112}},
+        {pos: [8, 1, 8], state: "minecraft:obsidian"},
+        {pos: [8, 1, 9], state: "minecraft:obsidian"},
+        {pos: [8, 1, 10], state: "minecraft:obsidian"},
+        {pos: [9, 1, 8], state: "minecraft:obsidian"},
+        {pos: [9, 1, 9], state: "minecraft:obsidian"},
+        {pos: [9, 1, 10], state: "minecraft:obsidian"},
+        {pos: [10, 1, 8], state: "minecraft:obsidian"},
+        {pos: [10, 1, 9], state: "minecraft:obsidian"},
+        {pos: [10, 1, 10], state: "minecraft:obsidian"},
+        {pos: [6, 14, 10], state: "minecraft:slime_block"},
+        {pos: [7, 14, 10], state: "minecraft:slime_block"},
+        {pos: [8, 14, 9], state: "minecraft:tnt{unstable:false}"},
+        {pos: [9, 14, 10], state: "minecraft:slime_block"},
+        {pos: [5, 15, 8], state: "minecraft:polished_blackstone_button{face:wall,facing:north,powered:false}"},
+        {pos: [5, 15, 9], state: "minecraft:observer{facing:north,powered:false}"},
+        {pos: [5, 15, 10], state: "botania:redstone_spreader{has_scaffolding:false,waterlogged:false}", nbt: {Items: [{Count: 1b, Slot: 0b, id: "botania:lens_piston"}], canShootBurst: 1b, forceClientBindingX: 0, forceClientBindingY: -2147483648, forceClientBindingZ: 0, id: "botania:mana_spreader", inputKey: "", lastPingbackX: -3.0999999791383743d, lastPingbackY: 101.5d, lastPingbackZ: -2.5d, mana: 1000, mapmakerOverrideEnabled: 0b, mmForcedColor: 2162464, mmForcedGravity: 0.0f, mmForcedManaLossPerTick: 4.0f, mmForcedManaPayload: 160, mmForcedTicksBeforeManaLoss: 60, mmForcedVelocityMultiplier: 1.0f, outputKey: "", paddingColor: -1, pingbackTicks: 19, requestUpdate: 0b, rotationX: 180.0f, rotationY: 0.0f, uuid: [I; -1376287956, 1680427308, -1152632342, -2068507880]}},
+        {pos: [5, 15, 11], state: "botania:creative_pool{color:none,waterlogged:false}", nbt: {canAccept: 1b, canSpare: 1b, id: "botania:mana_pool", inputKey: "", mana: 1000000, manaCap: 1000000, outputKey: "", outputting: 0b}},
+        {pos: [6, 15, 10], state: "minecraft:slime_block"},
+        {pos: [7, 15, 10], state: "minecraft:detector_rail{powered:false,shape:east_west,waterlogged:false}"},
+        {pos: [8, 15, 9], state: "minecraft:dead_bubble_coral_wall_fan{facing:west,waterlogged:false}"},
+        {pos: [9, 15, 9], state: "minecraft:slime_block"},
+        {pos: [9, 15, 10], state: "minecraft:slime_block"}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:obsidian",
+        "minecraft:slime_block",
+        "minecraft:tnt{unstable:false}",
+        "minecraft:observer{facing:north,powered:false}",
+        "minecraft:polished_blackstone_button{face:wall,facing:north,powered:false}",
+        "minecraft:detector_rail{powered:false,shape:east_west,waterlogged:false}",
+        "minecraft:dead_bubble_coral_wall_fan{facing:west,waterlogged:false}",
+        "botania:floating_entropinnyum{waterlogged:false}",
+        "botania:redstone_spreader{has_scaffolding:false,waterlogged:false}",
+        "botania:creative_pool{color:none,waterlogged:false}"
+    ]
+}
