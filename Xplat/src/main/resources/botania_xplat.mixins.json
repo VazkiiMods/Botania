@@ -38,6 +38,7 @@
     "NaturalSpawnerMixin",
     "NearestAttackableTargetGoalAccessor",
     "NoiseChunkAccessor",
+    "PistonBaseBlockAccessor",
     "PistonBaseBlockMixin",
     "PlayerMixin",
     "PollinateGoalMixin",
