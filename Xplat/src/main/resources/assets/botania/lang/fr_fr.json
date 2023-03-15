@@ -2678,7 +2678,7 @@
   "botania.tagline.entropinnyum": "TAGLINE",
   "botania.page.entropinnyum0": "Si vous voulez obtenir une explosion de $(thing)mana$(0), alors il faut une explosion.$(p)Amorcer du $(item)TNT$(), hors de l'eau, à côté d'une $(item)entropinnyum$(0) convertira cette puissance destructrice en $(thing)mana$(0) et annulera la destruction.$(p)Par contre, cela fonctionne seulement si l'$(item)entropinnyum$(0) est vidée de son $(thing)mana$(0) interne.",
   "botania.page.entropinnyum1": "$(o)destitution, décapitation$()",
-  "botania.page.entropinnyum2": "Les $(item)entropinnyums$(0) aiment bien les $(item)TNTs$() d'origine contrôlée, selon un savoir-faire reconnu.$(p)Donc si vous lui donnez des produits de mauvaise qualité, $(thing)dupliqués$(0) selon des méthodes douteuses, ce sera moins efficace.$(p)Enlevez les $(item)rails$(0), $(item)blocs collants$(0) et les $(item)pistons$(0) à proximité pour éviter de les perturber.",
+  "botania.page.entropinnyum2": "Les $(item)entropinnyums$(0) aiment bien les $(item)TNTs$() d'origine contrôlée, selon un savoir-faire reconnu.$(p)Donc si vous lui donnez des produits de mauvaise qualité, $(thing)dupliqués$(0) selon des méthodes douteuses, ce sera moins efficace.",
   "_comment.entropinnyum.info": "pseudo-Latin, pas forcément besoin de traduire",
 
   "botania.entry.kekimurus": "Gatorchidée",
