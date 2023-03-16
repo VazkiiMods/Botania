@@ -60,7 +60,9 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			Zombie.class
 	);
 
-	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
+	private ResourceLocation getLootTable() {
+		return new ResourceLocation("minecraft", "chests/simple_dungeon");
+	}
 
 	public LooniumBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaFlowerBlocks.LOONIUM, pos, state);
@@ -79,7 +81,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			do {
 				LootContext ctx = new LootContext.Builder((ServerLevel) world).create(LootContextParamSets.EMPTY);
 				List<ItemStack> stacks = ((ServerLevel) world).getServer().getLootTables()
-						.get(lootTable).getRandomItems(ctx);
+						.get(getLootTable()).getRandomItems(ctx);
 				if (stacks.isEmpty()) {
 					return;
 				} else {
@@ -185,20 +187,6 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
-	}
-
-	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
-		if (cmp.contains(TAG_LOOT_TABLE)) {
-			lootTable = new ResourceLocation(cmp.getString(TAG_LOOT_TABLE));
-		}
-	}
-
-	@Override
-	public void writeToPacketNBT(CompoundTag cmp) {
-		super.writeToPacketNBT(cmp);
-		cmp.putString(TAG_LOOT_TABLE, lootTable.toString());
 	}
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
