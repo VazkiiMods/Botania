@@ -34,13 +34,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.helper.StructureHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -50,7 +53,6 @@ import java.util.function.Consumer;
 public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
-	private static final String TAG_LOOT_TABLE = "lootTable";
 	public static final Set<Class<? extends Monster>> VALID_MOBS = Set.of(
 			Creeper.class,
 			EnderMan.class,
@@ -59,9 +61,49 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			Spider.class,
 			Zombie.class
 	);
+	private record StructureLoot(ResourceLocation loc, int weight) {
+		public StructureLoot(ResourceLocation loc) {
+			this(loc, 1);
+		}
+	}
 
-	private ResourceLocation getLootTable() {
-		return new ResourceLocation("minecraft", "chests/simple_dungeon");
+	//TODO make this pull from a JSON file in a datapack instead of being hardcoded
+	private static final Map<ResourceLocation, StructureLoot> lootTables = Map.of(
+		new ResourceLocation("minecraft:ancient_city"), new StructureLoot(new ResourceLocation("botania:loonium/ancient_city")),
+		new ResourceLocation("minecraft:bastion"), new StructureLoot(new ResourceLocation("botania:loonium/bastion")),
+		new ResourceLocation("minecraft:end_city"), new StructureLoot(new ResourceLocation("botania:loonium/end_city")),
+		new ResourceLocation("minecraft:fortress"), new StructureLoot(new ResourceLocation("minecraft:nether_bridge")),
+		new ResourceLocation("minecraft:stronghold"), new StructureLoot(new ResourceLocation("botania:loonium/stronghold")),
+		new ResourceLocation("minecraft:mansion"), new StructureLoot(new ResourceLocation("minecraft:woodland_mansion"))
+	);
+	private static final ResourceLocation defaultLootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
+
+	private LootTable getLootTable(ServerLevel level) {
+		List<StructureLoot> validLoot = new ArrayList<StructureLoot>();
+		int totalWeight = 0;
+		for (var entry : lootTables.entrySet()) {
+			ResourceLocation key = entry.getKey();
+			StructureLoot value = entry.getValue();
+			Structure structure = StructureHelper.getStructure(level, key);
+			if (StructureHelper.isInStructureBounds(level, getEffectivePos(), structure)) { //could be getBlockPos
+				validLoot.add(value);
+				totalWeight += value.weight();
+			}
+		}
+		if (totalWeight > 0) {
+			int roll = level.random.nextInt(totalWeight);
+			int i = 0;
+			while (true) {
+				roll -= validLoot.get(i).weight();
+				if (roll < 0) {
+					break;
+				}
+			}
+			return level.getServer().getLootTables().get(validLoot.get(i).loc());
+		}
+		else {
+			return level.getServer().getLootTables().get(defaultLootTable);
+		}
 	}
 
 	public LooniumBlockEntity(BlockPos pos, BlockState state) {
@@ -80,8 +122,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			ItemStack stack;
 			do {
 				LootContext ctx = new LootContext.Builder((ServerLevel) world).create(LootContextParamSets.EMPTY);
-				List<ItemStack> stacks = ((ServerLevel) world).getServer().getLootTables()
-						.get(getLootTable()).getRandomItems(ctx);
+				List<ItemStack> stacks = getLootTable((ServerLevel) world).getRandomItems(ctx);
 				if (stacks.isEmpty()) {
 					return;
 				} else {
