@@ -61,6 +61,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			Spider.class,
 			Zombie.class
 	);
+
 	private record StructureLoot(ResourceLocation loc, int weight) {
 		public StructureLoot(ResourceLocation loc) {
 			this(loc, 1);
@@ -69,12 +70,12 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	//TODO make this pull from a JSON file in a datapack instead of being hardcoded
 	private static final Map<ResourceLocation, StructureLoot> lootTables = Map.of(
-		new ResourceLocation("minecraft:ancient_city"), new StructureLoot(new ResourceLocation("botania:loonium/ancient_city")),
-		new ResourceLocation("minecraft:bastion"), new StructureLoot(new ResourceLocation("botania:loonium/bastion")),
-		new ResourceLocation("minecraft:end_city"), new StructureLoot(new ResourceLocation("botania:loonium/end_city")),
-		new ResourceLocation("minecraft:fortress"), new StructureLoot(new ResourceLocation("minecraft:nether_bridge")),
-		new ResourceLocation("minecraft:stronghold"), new StructureLoot(new ResourceLocation("botania:loonium/stronghold")),
-		new ResourceLocation("minecraft:mansion"), new StructureLoot(new ResourceLocation("minecraft:woodland_mansion"))
+			new ResourceLocation("minecraft:ancient_city"), new StructureLoot(new ResourceLocation("botania:loonium/ancient_city")),
+			new ResourceLocation("minecraft:bastion"), new StructureLoot(new ResourceLocation("botania:loonium/bastion")),
+			new ResourceLocation("minecraft:end_city"), new StructureLoot(new ResourceLocation("botania:loonium/end_city")),
+			new ResourceLocation("minecraft:fortress"), new StructureLoot(new ResourceLocation("minecraft:nether_bridge")),
+			new ResourceLocation("minecraft:stronghold"), new StructureLoot(new ResourceLocation("botania:loonium/stronghold")),
+			new ResourceLocation("minecraft:mansion"), new StructureLoot(new ResourceLocation("minecraft:woodland_mansion"))
 	);
 	private static final ResourceLocation defaultLootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
@@ -100,8 +101,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				}
 			}
 			return level.getServer().getLootTables().get(validLoot.get(i).loc());
-		}
-		else {
+		} else {
 			return level.getServer().getLootTables().get(defaultLootTable);
 		}
 	}
