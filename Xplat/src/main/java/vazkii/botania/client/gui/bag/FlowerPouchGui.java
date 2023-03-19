@@ -17,12 +17,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.item.FlowerPouchItem;
 
 public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer> {
 
@@ -57,14 +56,7 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 				int x = this.leftPos + slot.x;
 				int y = this.topPos + slot.y;
 				if (!slot.hasItem()) {
-					ItemStack missingFlower;
-					if (slot.index < 16) {
-						DyeColor color = DyeColor.byId(slot.index);
-						missingFlower = new ItemStack(BotaniaBlocks.getFlower(color));
-					} else {
-						DyeColor color = DyeColor.byId(slot.index - 16);
-						missingFlower = new ItemStack(BotaniaBlocks.getDoubleFlower(color));
-					}
+					ItemStack missingFlower = new ItemStack(FlowerPouchItem.getFlowerForSlot(slot.index));
 					RenderHelper.renderGuiItemAlpha(missingFlower, x, y, 0x5F, mc.getItemRenderer());
 				} else if (slot.getItem().getCount() == 1) {
 					ms.pushPose();
