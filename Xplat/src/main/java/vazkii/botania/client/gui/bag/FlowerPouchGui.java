@@ -20,6 +20,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.BotaniaBlocks;
 
@@ -52,23 +53,25 @@ public class FlowerPouchGui extends AbstractContainerScreen<FlowerPouchContainer
 		blit(ms, k, l, 0, 0, imageWidth, imageHeight);
 
 		for (Slot slot : menu.slots) {
-			if (slot.container == menu.flowerBagInv && !slot.hasItem()) {
-				ItemStack stack;
-				if (slot.index < 16) {
-					var color = DyeColor.byId(slot.index);
-					stack = new ItemStack(BotaniaBlocks.getFlower(color));
-				} else {
-					var color = DyeColor.byId(slot.index - 16);
-					stack = new ItemStack(BotaniaBlocks.getDoubleFlower(color));
-				}
-
+			if (slot.container == menu.flowerBagInv) {
 				int x = this.leftPos + slot.x;
 				int y = this.topPos + slot.y;
-				mc.getItemRenderer().renderGuiItem(stack, x, y);
-				ms.pushPose();
-				ms.translate(0, 0, mc.getItemRenderer().blitOffset + 200); // similar to ItemRenderer.renderGuiItemDecorations
-				mc.font.drawShadow(ms, "0", x + 11, y + 9, 0xFF6666);
-				ms.popPose();
+				if (!slot.hasItem()) {
+					ItemStack missingFlower;
+					if (slot.index < 16) {
+						DyeColor color = DyeColor.byId(slot.index);
+						missingFlower = new ItemStack(BotaniaBlocks.getFlower(color));
+					} else {
+						DyeColor color = DyeColor.byId(slot.index - 16);
+						missingFlower = new ItemStack(BotaniaBlocks.getDoubleFlower(color));
+					}
+					RenderHelper.renderGuiItemAlpha(missingFlower, x, y, 0x5F, mc.getItemRenderer());
+				} else if (slot.getItem().getCount() == 1) {
+					ms.pushPose();
+					ms.translate(0, 0, mc.getItemRenderer().blitOffset + 300); // similar to ItemRenderer.renderGuiItemDecorations
+					mc.font.drawShadow(ms, "1", x + 11, y + 9, 0xFFFFFF);
+					ms.popPose();
+				}
 			}
 		}
 	}
