@@ -12,6 +12,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.random.Weight;
+import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -62,45 +65,31 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			Zombie.class
 	);
 
-	private record StructureLoot(ResourceLocation loc, int weight) {
-		public StructureLoot(ResourceLocation loc) {
-			this(loc, 1);
-		}
-	}
-
 	//TODO make this pull from a JSON file in a datapack instead of being hardcoded
-	private static final Map<ResourceLocation, StructureLoot> lootTables = Map.of(
-			new ResourceLocation("minecraft:ancient_city"), new StructureLoot(new ResourceLocation("botania:loonium/ancient_city")),
-			new ResourceLocation("minecraft:bastion"), new StructureLoot(new ResourceLocation("botania:loonium/bastion")),
-			new ResourceLocation("minecraft:end_city"), new StructureLoot(new ResourceLocation("botania:loonium/end_city")),
-			new ResourceLocation("minecraft:fortress"), new StructureLoot(new ResourceLocation("minecraft:nether_bridge")),
-			new ResourceLocation("minecraft:stronghold"), new StructureLoot(new ResourceLocation("botania:loonium/stronghold")),
-			new ResourceLocation("minecraft:mansion"), new StructureLoot(new ResourceLocation("minecraft:woodland_mansion"))
+	private static final Map<ResourceLocation, WeightedEntry.Wrapper<ResourceLocation>> lootTables = Map.of(
+			new ResourceLocation("minecraft:ancient_city"), WeightedEntry.wrap(new ResourceLocation("botania:loonium/ancient_city"), 1),
+			new ResourceLocation("minecraft:bastion"), WeightedEntry.wrap(new ResourceLocation("botania:loonium/bastion"), 1),
+			new ResourceLocation("minecraft:end_city"), WeightedEntry.wrap(new ResourceLocation("botania:loonium/end_city"), 1),
+			new ResourceLocation("minecraft:fortress"), WeightedEntry.wrap(new ResourceLocation("minecraft:nether_bridge"), 1),
+			new ResourceLocation("minecraft:stronghold"), WeightedEntry.wrap(new ResourceLocation("botania:loonium/stronghold"), 1),
+			new ResourceLocation("minecraft:mansion"), WeightedEntry.wrap(new ResourceLocation("minecraft:woodland_mansion"), 1)
 	);
 	private static final ResourceLocation defaultLootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
+	//Returns an empty loot table if the selected ResourceLocation is invalid
 	private LootTable getLootTable(ServerLevel level) {
-		List<StructureLoot> validLoot = new ArrayList<StructureLoot>();
-		int totalWeight = 0;
+		List<WeightedEntry.Wrapper<ResourceLocation>> validLoot = new ArrayList<WeightedEntry.Wrapper<ResourceLocation>>();
 		for (var entry : lootTables.entrySet()) {
 			ResourceLocation key = entry.getKey();
-			StructureLoot value = entry.getValue();
+			WeightedEntry.Wrapper<ResourceLocation> value = entry.getValue();
 			Structure structure = StructureHelper.getStructure(level, key);
 			if (StructureHelper.isInStructureBounds(level, getEffectivePos(), structure)) { //could be getBlockPos
 				validLoot.add(value);
-				totalWeight += value.weight();
 			}
 		}
-		if (totalWeight > 0) {
-			int roll = level.random.nextInt(totalWeight);
-			int i = 0;
-			while (true) {
-				roll -= validLoot.get(i).weight();
-				if (roll < 0) {
-					break;
-				}
-			}
-			return level.getServer().getLootTables().get(validLoot.get(i).loc());
+		Optional<WeightedEntry.Wrapper<ResourceLocation>> roll = WeightedRandom.getRandomItem(level.random, validLoot);
+		if (roll.isPresent()) {
+			return level.getServer().getLootTables().get(roll.get().getData());
 		} else {
 			return level.getServer().getLootTables().get(defaultLootTable);
 		}
