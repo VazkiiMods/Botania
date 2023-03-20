@@ -53,6 +53,8 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.*;
 import java.util.function.Consumer;
 
+import javax.annotation.Nullable;
+
 public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
@@ -64,6 +66,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			Spider.class,
 			Zombie.class
 	);
+	private static final String TAG_CUSTOM_LOOT_TABLE = "lootTable";
+	private @Nullable ResourceLocation customLootTable = null;
 
 	//TODO make this pull from a JSON file in a datapack instead of being hardcoded
 	private static final Map<ResourceLocation, WeightedEntry.Wrapper<ResourceLocation>> lootTables = Map.of(
@@ -111,7 +115,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			ItemStack stack;
 			do {
 				LootContext ctx = new LootContext.Builder((ServerLevel) world).create(LootContextParamSets.EMPTY);
-				List<ItemStack> stacks = getLootTable((ServerLevel) world).getRandomItems(ctx);
+				LootTable table = customLootTable == null ? getLootTable((ServerLevel) world) : level.getServer().getLootTables().get(customLootTable);
+				List<ItemStack> stacks = table.getRandomItems(ctx);
 				if (stacks.isEmpty()) {
 					return;
 				} else {
@@ -217,6 +222,22 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	@Override
 	public RadiusDescriptor getRadius() {
 		return RadiusDescriptor.Rectangle.square(getEffectivePos(), RANGE);
+	}
+
+	@Override
+	public void readFromPacketNBT(CompoundTag cmp) {
+		super.readFromPacketNBT(cmp);
+		if (cmp.contains(TAG_CUSTOM_LOOT_TABLE)) {
+			customLootTable = new ResourceLocation(cmp.getString(TAG_CUSTOM_LOOT_TABLE));
+		}
+	}
+
+	@Override
+	public void writeToPacketNBT(CompoundTag cmp) {
+		super.writeToPacketNBT(cmp);
+		if (customLootTable != null) {
+			cmp.putString(TAG_CUSTOM_LOOT_TABLE, customLootTable.toString());
+		}
 	}
 
 	public static void dropLooniumItems(LivingEntity living, Consumer<ItemStack> consumer) {
