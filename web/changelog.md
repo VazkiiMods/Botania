@@ -18,6 +18,7 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: Looniums now change the loot table they pull from based on the structure in which they are placed, only applies to newly placed looniums
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 
 ---
