@@ -1,5 +1,7 @@
 package vazkii.botania.common.helper;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +13,7 @@ public class StructureHelper {
 		return level.registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).get(key);
 	}
 
-	public static boolean isInStructureBounds(ServerLevel level, BlockPos pos, Structure structure) {
+	public static boolean isInStructureBounds(ServerLevel level, BlockPos pos, @Nullable Structure structure) {
 		return structure == null ? false : level.structureManager().getStructureAt(pos, structure).isValid();
 	}
 }
