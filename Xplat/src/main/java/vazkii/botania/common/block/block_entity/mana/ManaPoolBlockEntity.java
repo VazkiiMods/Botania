@@ -183,7 +183,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).markNewlyInfused();
 				level.addFreshEntity(outputItem);
 
-				craftingFanciness();
+				craftingEffect(true);
 				return true;
 			}
 		}
@@ -191,8 +191,8 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		return false;
 	}
 
-	private void craftingFanciness() {
-		if (soundTicks == 0) {
+	public void craftingEffect(boolean playSound) {
+		if (playSound && soundTicks == 0) {
 			level.playSound(null, worldPosition, BotaniaSounds.manaPoolCraft, SoundSource.BLOCKS, 1F, 1F);
 			soundTicks = 6;
 		}
