@@ -87,7 +87,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			ResourceLocation key = entry.getKey();
 			WeightedEntry.Wrapper<ResourceLocation> value = entry.getValue();
 			Structure structure = StructureHelper.getStructure(level, key);
-			if (StructureHelper.isInStructureBounds(level, getEffectivePos(), structure)) { //could be getBlockPos
+			if (StructureHelper.isInStructureBounds(level, getBlockPos(), structure)) { 
 				validLoot.add(value);
 			}
 		}
