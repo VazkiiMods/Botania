@@ -58,18 +58,18 @@ import static vazkii.botania.common.block.BotaniaFluffBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider implements DataProvider {
-	private final DataGenerator generator;
+	protected final DataGenerator generator;
 
-	private final List<BlockStateGenerator> blockstates = new ArrayList<>();
+	protected final List<BlockStateGenerator> blockstates = new ArrayList<>();
 
-	private final Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
-	private final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput = models::put;
+	protected final Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
+	protected final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput = models::put;
 
 	public BlockstateProvider(DataGenerator generator) {
 		this.generator = generator;
 	}
 
-	protected static Logger getLogger() {
+	protected Logger getLogger() {
 		return BotaniaAPI.LOGGER;
 	}
 
@@ -1359,10 +1359,9 @@ public class BlockstateProvider implements DataProvider {
 		return withMaybe(VariantProperties.Y_ROT, rotation, rotation != VariantProperties.Rotation.R0, variant);
 	}
 
-	// ? extends T technically not correct, but is more convenient in ItemModelProvider
 	@SafeVarargs
 	@SuppressWarnings("varargs")
-	public static <T> Collection<T> takeAll(Set<? extends T> src, T... items) {
+	public final <T> Collection<T> takeAll(Set<T> src, T... items) {
 		List<T> ret = Arrays.asList(items);
 		for (T item : items) {
 			if (!src.contains(item)) {
@@ -1375,7 +1374,7 @@ public class BlockstateProvider implements DataProvider {
 		return ret;
 	}
 
-	public static <T> Collection<T> takeAll(Set<T> src, Predicate<T> pred) {
+	public final <T> Collection<T> takeAll(Set<T> src, Predicate<T> pred) {
 		List<T> ret = new ArrayList<>();
 
 		Iterator<T> iter = src.iterator();
