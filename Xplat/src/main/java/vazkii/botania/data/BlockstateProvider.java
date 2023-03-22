@@ -337,14 +337,10 @@ public class BlockstateProvider implements DataProvider {
 		wallBlock(remainingBlocks, livingwoodWall, getBlockTexture(livingwoodLog));
 		wallBlock(remainingBlocks, livingwoodStrippedWall, getBlockTexture(livingwoodLogStripped));
 
-		fenceBlock(dreamwoodFence, getBlockTexture(dreamwoodPlanks));
-		fenceGateBlock(dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
-		fenceBlock(livingwoodFence, getBlockTexture(livingwoodPlanks));
-		fenceGateBlock(livingwoodFenceGate, getBlockTexture(livingwoodPlanks));
-		remainingBlocks.remove(dreamwoodFence);
-		remainingBlocks.remove(dreamwoodFenceGate);
-		remainingBlocks.remove(livingwoodFence);
-		remainingBlocks.remove(livingwoodFenceGate);
+		fenceBlock(remainingBlocks, dreamwoodFence, getBlockTexture(dreamwoodPlanks));
+		fenceGateBlock(remainingBlocks, dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
+		fenceBlock(remainingBlocks, livingwoodFence, getBlockTexture(livingwoodPlanks));
+		fenceGateBlock(remainingBlocks, livingwoodFenceGate, getBlockTexture(livingwoodPlanks));
 
 		rotatedMirrored(remainingBlocks, livingrock, getBlockTexture(livingrock));
 
@@ -1068,20 +1064,22 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	protected void fenceBlock(Block block, ResourceLocation tex) {
+	protected void fenceBlock(Set<Block> blocks, Block block, ResourceLocation tex) {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var postModel = ModelTemplates.FENCE_POST.create(block, mapping, this.modelOutput);
 		var sideModel = ModelTemplates.FENCE_SIDE.create(block, mapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceState(block, postModel, sideModel));
+		blocks.remove(block);
 	}
 
-	protected void fenceGateBlock(Block block, ResourceLocation tex) {
+	protected void fenceGateBlock(Set<Block> blocks, Block block, ResourceLocation tex) {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var openModel = ModelTemplates.FENCE_GATE_OPEN.create(block, mapping, this.modelOutput);
 		var closedModel = ModelTemplates.FENCE_GATE_CLOSED.create(block, mapping, this.modelOutput);
 		var openWallModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(block, mapping, this.modelOutput);
 		var closedWallModel = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block, mapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel));
+		blocks.remove(block);
 	}
 
 	protected void cubeAllNoRemove(Block block) {
