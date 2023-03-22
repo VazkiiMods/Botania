@@ -1640,7 +1640,7 @@
   "botania.entry.loonium": "聚寶花",
   "botania.tagline.loonium": "召喚地牢的戰利品",
   "botania.page.loonium0": "任何疲於冒險的傢伙們都知 道$(thing)地牢$(0)會有些好東西.$(item)聚寶花$(0) 會消耗大量$(thing)瑪那$(0),使這些物品 實體化並掉落在附近.",
-  "botania.page.loonium1": "$(o)箱子箱子我需要箱子$(0)!",
+  "botania.page.loonium2": "$(o)箱子箱子我需要箱子$(0)!",
 
   "botania.entry.daffomill": "扇水仙",
   "botania.tagline.daffomill": "用風移動物品",

@@ -1580,7 +1580,7 @@
   "botania.entry.loonium": "Loonium",
   "botania.tagline.loonium": "Conjura recompensas de dungeons",
   "botania.page.loonium0": "Qualquer aventureiro sabe que $(thing)Masmorras$(0) podem possuir coisas valiosas. A $(item)Loonium$(0), a um extremo custo de $(thing)Mana$(0), materializa esses itens ao redor.",
-  "botania.page.loonium1": "$(o)Maior pilhagem da história$(0)!",
+  "botania.page.loonium2": "$(o)Maior pilhagem da história$(0)!",
 
   "botania.entry.daffomill": "Daffomill",
   "botania.tagline.daffomill": "Move itens com vento",

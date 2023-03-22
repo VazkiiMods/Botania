@@ -2219,7 +2219,7 @@
 	"botania.entry.loonium": "ルーニウム",
 	"botania.tagline.loonium": "ダンジョンの戦利品を呼び出す",
 	"botania.page.loonium0": "冒険者ならだれでも、$(thing)ダンジョン$(0)に貴重なアイテムが眠っているのを知っています。$(item)ルーニウム$(0)は、$(thing)マナ$(0)を大量に消費し、これらのアイテムを召喚し、冒険者たちに与えてくれます。$(p)しかし、落とし穴があります。各アイテムには、強力な保護モンスターがおり、倒すことで$(thing)ダンジョンの戦利品$(0)が入手できます。",
-	"botania.page.loonium1": "$(o)お宝を手に入れられるかな？$()",
+	"botania.page.loonium2": "$(o)お宝を手に入れられるかな？$()",
 
 	"botania.entry.daffomill": "ダフォミル",
 	"botania.tagline.daffomill": "風でアイテムを吹き飛ばす",

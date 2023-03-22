@@ -1424,7 +1424,7 @@
 
   "botania.entry.loonium": "Botinia",
   "botania.page.loonium0": "Cualquier aventurero cansado sabe que las $(thing)mazmorras$(0) pueden contener objetos valiosos. La $(item)botinia$(0) puede, usando una cantidad enorme de $(thing)maná$(0), materializar estos objetos y dejarlos caer en la cercanía.",
-  "botania.page.loonium1": "$(o)♪Tank Tank Heal Tank♪$(r)!",
+  "botania.page.loonium2": "$(o)♪Tank Tank Heal Tank♪$(r)!",
 
   "botania.entry.daffomill": "Polinillo",
   "botania.page.daffomill0": "El $(item)polinillo$(0) funciona como un ventilador. Empuja, con un pequeño coste de $(thing)maná$(0), a todo objeto que se encuentre delante suyo.$(p)Haciendo shift-clic derecho con una $(item)varita del bosque$(0) cambia su orientación. Para ver hacia donde mira puedes saber por las sutiles partículas de viento que emite.",

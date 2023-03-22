@@ -2228,8 +2228,9 @@
 
   "botania.entry.loonium": "Loonium",
   "botania.tagline.loonium": "Conjures dungeon loot",
-  "botania.page.loonium0": "Any adventurer knows that $(thing)Dungeons$(0) can hold valuable goodies. The $(item)Loonium$(0) will, when fed quite a bit of $(thing)Mana$(0), summon these items for said adventurers to collect.$(p)There's a catch, though: each item is held by a monster protecting it. These monsters are extra-strong, but will drop their precious $(thing)dungeon loot$(0) when killed.$(p)If placed somewhere with enough history, the $(item)Loonium$(0) will draw loot from its surroundings instead.",
-  "botania.page.loonium1": "$(o)I CAN HAZ PHAT LOOTZ$()?",
+  "botania.page.loonium0": "Any adventurer knows that the great structures of the world can hold valuable goodies. The $(item)Loonium$(0) will, when fed quite a bit of $(thing)Mana$(0), summon these items for said adventurers to collect.$(p)There's a catch, though: each item is held by a monster protecting it. These monsters are extra-strong, but will drop valuable loot when killed.",
+  "botania.page.loonium1": "Ordinarily the Loonium will summon treasure of the sort you would find in a $(thing)Dungeon$(0). However, the Loonium is sensitive to the large structures you can find in the world; if planted in one such structure, it'll instead summon treasure appropriate for its surroundings.",
+  "botania.page.loonium2": "$(o)I CAN HAZ PHAT LOOTZ$()?",
 
   "botania.entry.daffomill": "Daffomill",
   "botania.tagline.daffomill": "Moves items with wind",

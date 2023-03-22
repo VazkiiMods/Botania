@@ -2565,7 +2565,7 @@
   "botania.entry.loonium": "Trésorthensia",
   "botania.tagline.loonium": "TAGLINE",
   "botania.page.loonium0": "Tout bon aventurier sait qu'un $(thing)donjon$(0) contient des objets intéressants, mais c'est galère d'en trouver.$(p)Le $(item)trésorthensia$(0), s'il est nourri en $(thing)mana$(0), invoquera ces objets précieux.$(p)Attention:$(br)Ces trésors seront gardés par un monstre sur-puissant, qui les lâchera à sa mort.",
-  "botania.page.loonium1": "$(o)percepteur sans guilde fixe$()",
+  "botania.page.loonium2": "$(o)percepteur sans guilde fixe$()",
   "_comment.loonium.exp": "Trésor + Hortensia",
 
   "botania.entry.daffomill": "Tenzine",

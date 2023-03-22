@@ -1879,7 +1879,7 @@
   "botania.entry.loonium": "聚宝花",
   "botania.tagline.loonium": "召唤地牢的战利品",
   "botania.page.loonium0": "任何疲于冒险的家伙们都知道$(thing)地牢$(0)会有些好东西。$(item)聚宝花$(0)会消耗大量$(thing)魔力$(0)，使这些物品实体化，它也因此吸引了无数探险家。$(p)然而，天下没有免费的午餐。探险家们将会遇到守卫宝藏的怪物，而且这些怪物绝非等闲之辈，迎战时请务必小心。不过呢，这些强大的怪物会掉落$(thing)来自地牢的宝藏$(0)。",
-  "botania.page.loonium1": "$(o)箱子箱子我需要箱子$(0)！",
+  "botania.page.loonium2": "$(o)箱子箱子我需要箱子$(0)！",
 
   "botania.entry.daffomill": "扇水仙",
   "botania.tagline.daffomill": "用风移动物品",
