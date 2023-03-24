@@ -19,6 +19,7 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
+* Change: Rod of the Shifting Crust now delays neighbor updates until block replacement has finished, meaning torches or other blocks attached to exchanged blocks will no longer break.
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 
 ---
