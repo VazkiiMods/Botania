@@ -8,9 +8,11 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
@@ -38,20 +40,21 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
 import static vazkii.botania.common.block.BotaniaBlocks.*;
 import static vazkii.botania.common.block.BotaniaFlowerBlocks.*;
 
-public class BlockTagProvider extends BlockTagsProvider {
-	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
+public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
+	public static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace());
 
-	public BlockTagProvider(DataGenerator generator) {
-		super(generator);
+	public BlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, Registries.BLOCK, lookupProvider, (block) -> block.builtInRegistryHolder().key());
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		tag(BlockTags.RAILS).add(BotaniaBlocks.ghostRail);
 		tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
 		tag(BlockTags.WOODEN_SLABS).add(getModBlocks(b -> b instanceof SlabBlock && b.defaultBlockState().getMaterial() == Material.WOOD));
@@ -67,13 +70,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getFloatingFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(BOTANIA_BLOCK)
+		tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(BuiltInRegistries.BLOCK.stream().filter(BOTANIA_BLOCK)
 				.filter(b -> b instanceof FloatingSpecialFlowerBlock)
-				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+				.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 				.toArray(Block[]::new)
 		);
 
@@ -83,21 +86,21 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(BotaniaTags.Blocks.SHINY_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getShinyFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(BotaniaBlocks::getDoubleFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
@@ -123,7 +126,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(BotaniaTags.Blocks.MINI_FLOWERS).add(
 				getModBlocks(b -> XplatAbstractions.INSTANCE.isSpecialFlowerBlock(b)
-						&& registry.getKey(b).getPath().endsWith("_chibi"))
+						&& BuiltInRegistries.BLOCK.getKey(b).getPath().endsWith("_chibi"))
 		);
 
 		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
@@ -205,7 +208,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 	private void registerMiningTags() {
 		tag(BlockTags.MINEABLE_WITH_HOE).add(
 				getModBlocks(b -> b == cellBlock
-						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
 				)
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
@@ -228,15 +231,15 @@ public class BlockTagProvider extends BlockTagsProvider {
 						|| b instanceof PylonBlock
 						|| b instanceof ManaPoolBlock
 						|| b instanceof RedStringBlock
-						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
-						|| Registry.BLOCK.getKey(b).getPath().contains("corporea")
-						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)
-						|| Registry.BLOCK.getKey(b).getPath().contains("_quartz")
-						|| (Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.METAMORPHIC_PREFIX)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains("corporea")
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains("_quartz")
+						|| (BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.METAMORPHIC_PREFIX)
 								&& !(b instanceof WallBlock)) // vanilla includes #wall already
-						|| (Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_ROCK)
+						|| (BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_ROCK)
 								&& !(b instanceof WallBlock)) // vanilla includes #wall already
-						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERROCK)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERROCK)
 				)
 		);
 		var axe = Set.of(
@@ -249,17 +252,17 @@ public class BlockTagProvider extends BlockTagsProvider {
 						|| b instanceof OpenCrateBlock
 						|| b instanceof PlatformBlock
 						|| b instanceof ManaSpreaderBlock
-						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_WOOD)
-						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.DREAM_WOOD)
-						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_WOOD)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.DREAM_WOOD)
+						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
 				)
 		);
 	}
 
 	@NotNull
 	private Block[] getModBlocks(Predicate<Block> predicate) {
-		return registry.stream().filter(BOTANIA_BLOCK.and(predicate))
-				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+		return BuiltInRegistries.BLOCK.stream().filter(BOTANIA_BLOCK.and(predicate))
+				.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 				.toArray(Block[]::new);
 	}
 }

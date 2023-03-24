@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -250,7 +250,7 @@ public class BotaniaFlowerBlocks {
 	}
 
 	private static ResourceLocation getId(Block b) {
-		return Registry.BLOCK.getKey(b);
+		return BuiltInRegistries.BLOCK.getKey(b);
 	}
 
 	private static FlowerBlock createSpecialFlowerBlock(

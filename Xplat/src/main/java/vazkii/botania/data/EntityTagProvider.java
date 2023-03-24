@@ -8,9 +8,10 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -18,13 +19,15 @@ import net.minecraft.world.entity.EntityType;
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.lib.BotaniaTags;
 
-public class EntityTagProvider extends EntityTypeTagsProvider {
-	public EntityTagProvider(DataGenerator generator) {
-		super(generator);
+import java.util.concurrent.CompletableFuture;
+
+public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>> {
+	public EntityTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, Registries.ENTITY_TYPE, lookupProvider, (entityType) -> entityType.builtInRegistryHolder().key());
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		tag(BotaniaTags.Entities.COCOON_COMMON).add(
 				EntityType.PIG, EntityType.COW, EntityType.CHICKEN, EntityType.RABBIT, EntityType.SHEEP
 		);
@@ -46,7 +49,7 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.DOPPLEGANGER, BotaniaEntities.FLAME_RING, BotaniaEntities.MAGIC_LANDMINE,
 				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.PLAYER_MOVER);
 
-		var bosses = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("c", "bosses"));
+		var bosses = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("c", "bosses"));
 		tag(bosses).add(BotaniaEntities.DOPPLEGANGER);
 	}
 }

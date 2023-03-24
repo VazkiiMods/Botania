@@ -9,16 +9,12 @@
 package vazkii.botania.common.item.brew;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -36,19 +32,6 @@ public class IncenseStickItem extends Item implements BrewItem, BrewContainer {
 
 	public IncenseStickItem(Properties builder) {
 		super(builder);
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
-		super.fillItemCategory(tab, list);
-		if (allowedIn(tab)) {
-			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
-				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
-				if (!brewStack.isEmpty()) {
-					list.add(brewStack);
-				}
-			}
-		}
 	}
 
 	@Override

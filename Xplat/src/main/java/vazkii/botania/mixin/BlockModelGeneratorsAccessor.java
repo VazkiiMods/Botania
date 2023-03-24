@@ -26,7 +26,7 @@ public interface BlockModelGeneratorsAccessor {
 	}
 
 	@Invoker("createFenceGate")
-	static BlockStateGenerator makeFenceGateState(Block block, ResourceLocation openModel, ResourceLocation closedModel, ResourceLocation openWallModel, ResourceLocation closedWallModel) {
+	static BlockStateGenerator makeFenceGateState(Block block, ResourceLocation openModel, ResourceLocation closedModel, ResourceLocation openWallModel, ResourceLocation closedWallModel, boolean uvLock) {
 		throw new IllegalStateException();
 	}
 

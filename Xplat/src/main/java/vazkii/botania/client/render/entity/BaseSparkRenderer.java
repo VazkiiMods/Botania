@@ -10,8 +10,6 @@ package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -22,11 +20,13 @@ import net.minecraft.world.inventory.InventoryMenu;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.SparkBaseEntity;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -54,7 +54,7 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.SPARK);
 		ms.pushPose();
 		ms.mulPose(entityRenderDispatcher.cameraOrientation());
-		ms.mulPose(Vector3f.YP.rotationDegrees(180));
+		ms.mulPose(VecHelper.rotateY(180));
 		renderIcon(ms, buffer, iicon, iconColor);
 
 		ms.pushPose();

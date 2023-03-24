@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +27,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -55,19 +53,6 @@ public class TaintedBloodPendantItem extends BaubleItem implements BrewContainer
 	public TaintedBloodPendantItem(Properties props) {
 		super(props);
 		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
-	}
-
-	@Override
-	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-		super.fillItemCategory(tab, list);
-		if (allowedIn(tab)) {
-			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
-				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
-				if (!brewStack.isEmpty()) {
-					list.add(brewStack);
-				}
-			}
-		}
 	}
 
 	@Override

@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -33,6 +32,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
 import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.helper.ColorHelper;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -86,7 +86,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 				float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
 
 				ms.translate(0, poolBottom, 0);
-				ms.mulPose(Vector3f.XP.rotationDegrees(90F));
+				ms.mulPose(VecHelper.rotateX(90F));
 
 				VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
 				RenderHelper.renderIconCropped(
@@ -109,7 +109,7 @@ public class ManaPoolBlockEntityRenderer implements BlockEntityRenderer<ManaPool
 		if (manaLevel > 0) {
 			ms.pushPose();
 			ms.translate(0, Mth.clampedMap(manaLevel, 0, 1, poolBottom, poolTop), 0);
-			ms.mulPose(Vector3f.XP.rotationDegrees(90F));
+			ms.mulPose(VecHelper.rotateX(90F));
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
 			RenderHelper.renderIconCropped(

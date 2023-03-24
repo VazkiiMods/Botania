@@ -9,7 +9,6 @@
 package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -20,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.FloatingFlowerBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
@@ -47,11 +47,11 @@ public class FloatingFlowerBlockEntityRenderer implements BlockEntityRenderer<Fl
 		}
 
 		ms.translate(0.5F, 0, 0.5F);
-		ms.mulPose(Vector3f.YP.rotationDegrees(-((float) worldTime * 0.5F)));
+		ms.mulPose(VecHelper.rotateY(-((float) worldTime * 0.5F)));
 		ms.translate(-0.5, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0.5);
 
-		ms.mulPose(Vector3f.XP.rotationDegrees(4F * (float) Math.sin(worldTime * 0.04F)));
-		ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+		ms.mulPose(VecHelper.rotateX(4F * (float) Math.sin(worldTime * 0.04F)));
+		ms.mulPose(VecHelper.rotateY(90.0F));
 
 		ClientXplatAbstractions.INSTANCE.tessellateBlock(tile.getLevel(), tile.getBlockState(),
 				tile.getBlockPos(), ms, buffers, overlay);

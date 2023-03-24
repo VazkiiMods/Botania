@@ -11,6 +11,7 @@ package vazkii.botania.api;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -74,7 +75,7 @@ public interface BotaniaAPI {
 	}
 
 	default void registerPaintableBlock(Block block, Function<DyeColor, Block> transformer) {
-		registerPaintableBlock(Registry.BLOCK.getKey(block), transformer);
+		registerPaintableBlock(BuiltInRegistries.BLOCK.getKey(block), transformer);
 	}
 
 	/**

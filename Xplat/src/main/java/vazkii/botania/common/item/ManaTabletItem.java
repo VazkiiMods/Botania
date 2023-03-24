@@ -9,11 +9,9 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -41,22 +39,6 @@ public class ManaTabletItem extends Item {
 
 	public ManaTabletItem(Properties props) {
 		super(props);
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> stacks) {
-		if (allowedIn(tab)) {
-			stacks.add(new ItemStack(this));
-
-			ItemStack fullPower = new ItemStack(this);
-			setMana(fullPower, MAX_MANA);
-			stacks.add(fullPower);
-
-			ItemStack creative = new ItemStack(this);
-			setMana(creative, MAX_MANA);
-			setStackCreative(creative);
-			stacks.add(creative);
-		}
 	}
 
 	@NotNull

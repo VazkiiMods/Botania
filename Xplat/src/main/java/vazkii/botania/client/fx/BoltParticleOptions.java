@@ -13,12 +13,11 @@ package vazkii.botania.client.fx;
  * Imported October 2021 and heavily modified.
  */
 
-import com.mojang.math.Vector4f;
-
 import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector4f;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

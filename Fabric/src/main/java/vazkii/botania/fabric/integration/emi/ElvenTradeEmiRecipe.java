@@ -2,8 +2,6 @@ package vazkii.botania.fabric.integration.emi;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
 
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
@@ -17,6 +15,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
 

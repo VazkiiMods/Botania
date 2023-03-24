@@ -11,10 +11,10 @@ package vazkii.botania.data;
 import com.google.gson.JsonElement;
 
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
@@ -44,8 +44,9 @@ import vazkii.botania.mixin.BlockModelGeneratorsAccessor;
 import vazkii.botania.mixin.TextureSlotAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -58,15 +59,15 @@ import static vazkii.botania.common.block.BotaniaFluffBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider implements DataProvider {
-	protected final DataGenerator generator;
+	protected final PackOutput packOutput;
 
 	protected final List<BlockStateGenerator> blockstates = new ArrayList<>();
 
 	protected final Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
 	protected final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput = models::put;
 
-	public BlockstateProvider(DataGenerator generator) {
-		this.generator = generator;
+	public BlockstateProvider(PackOutput packOutput) {
+		this.packOutput = packOutput;
 	}
 
 	protected Logger getLogger() {
@@ -80,39 +81,34 @@ public class BlockstateProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(CachedOutput cache) {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		try {
 			registerStatesAndModels();
 		} catch (Exception e) {
 			getLogger().error("Error registering states and models", e);
 		}
 
-		var root = generator.getOutputFolder();
+		PackOutput.PathProvider blockstatePathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
+		PackOutput.PathProvider modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
+		List<CompletableFuture<?>> output = new ArrayList<>();
 
-		for (var state : blockstates) {
-			ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
-			var path = root.resolve("assets/" + id.getNamespace() + "/blockstates/" + id.getPath() + ".json");
-			try {
-				DataProvider.saveStable(cache, state.get(), path);
-			} catch (IOException ex) {
-				getLogger().error("Error generating blockstate file for {}", id, ex);
-			}
+		for (BlockStateGenerator state : blockstates) {
+			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+			Path path = blockstatePathProvider.json(id);
+			output.add(DataProvider.saveStable(cache, state.get(), path));
 		}
 
-		for (var e : models.entrySet()) {
-			var modelId = e.getKey();
-			var path = root.resolve("assets/" + modelId.getNamespace() + "/models/" + modelId.getPath() + ".json");
-			try {
-				DataProvider.saveStable(cache, e.getValue().get(), path);
-			} catch (IOException ex) {
-				getLogger().error("Error generating model file {}", modelId, ex);
-			}
+		for (Map.Entry<ResourceLocation, Supplier<JsonElement>> e : models.entrySet()) {
+			ResourceLocation modelId = e.getKey();
+			Path path = modelPathProvider.json(modelId);
+			output.add(DataProvider.saveStable(cache, e.getValue().get(), path));
 		}
+		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
 
 	protected void registerStatesAndModels() {
-		Set<Block> remainingBlocks = Registry.BLOCK.stream()
-				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
+		Set<Block> remainingBlocks = BuiltInRegistries.BLOCK.stream()
+				.filter(b -> LibMisc.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(b).getNamespace()))
 				.collect(Collectors.toSet());
 
 		// Manually written blockstate + models
@@ -385,7 +381,7 @@ public class BlockstateProvider implements DataProvider {
 		);
 
 		takeAll(remainingBlocks, b -> b instanceof FlowerMotifBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath().replace("_motif", "");
+			String name = BuiltInRegistries.BLOCK.getKey(b).getPath().replace("_motif", "");
 			singleVariantBlockState(b, crossTemplate.create(b, new TextureMapping()
 					.put(TextureSlot.CROSS, prefix("block/" + name)),
 					this.modelOutput));
@@ -654,19 +650,19 @@ public class BlockstateProvider implements DataProvider {
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
 			ResourceLocation quartzId = prefix(variant + "_quartz");
-			Block quartz = Registry.BLOCK.getOptional(quartzId).get();
+			Block quartz = BuiltInRegistries.BLOCK.get(quartzId);
 			singleVariantBlockState(quartz,
 					ModelTemplates.CUBE_BOTTOM_TOP.create(quartz, TextureMapping.cubeBottomTop(quartz), this.modelOutput));
 
 			ResourceLocation pillarId = prefix(variant + "_quartz_pillar");
-			Block pillar = Registry.BLOCK.getOptional(pillarId).get();
+			Block pillar = BuiltInRegistries.BLOCK.get(pillarId);
 			var pillarModel = ModelTemplates.CUBE_COLUMN.create(pillar,
 					TextureMapping.column(getBlockTexture(pillar, "_side"), getBlockTexture(pillar, "_end")),
 					this.modelOutput);
 			this.blockstates.add(BlockModelGeneratorsAccessor.createAxisAlignedPillarBlock(pillar, pillarModel));
 
 			ResourceLocation chiseledId = prefix("chiseled_" + variant + "_quartz");
-			Block chiseled = Registry.BLOCK.getOptional(chiseledId).get();
+			Block chiseled = BuiltInRegistries.BLOCK.get(chiseledId);
 			singleVariantBlockState(chiseled,
 					ModelTemplates.CUBE_COLUMN.create(chiseled, new TextureMapping()
 							.put(TextureSlot.SIDE, getBlockTexture(chiseled, "_side"))
@@ -698,7 +694,7 @@ public class BlockstateProvider implements DataProvider {
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof BotaniaPaneBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = BuiltInRegistries.BLOCK.getKey(b).getPath();
 			var mapping = new TextureMapping()
 					.put(TextureSlot.EDGE, getBlockTexture(b))
 					.put(TextureSlot.PANE, prefix("block/" + name.substring(0, name.length() - "_pane".length())));
@@ -722,7 +718,7 @@ public class BlockstateProvider implements DataProvider {
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof StairBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = BuiltInRegistries.BLOCK.getKey(b).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
 			boolean quartz = name.contains("quartz");
 			if (quartz) {
@@ -737,9 +733,9 @@ public class BlockstateProvider implements DataProvider {
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof SlabBlock).forEach(slabBlock -> {
-			String name = Registry.BLOCK.getKey(slabBlock).getPath();
+			String name = BuiltInRegistries.BLOCK.getKey(slabBlock).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
-			Block base = Registry.BLOCK.getOptional(prefix(baseName)).get();
+			Block base = BuiltInRegistries.BLOCK.get(prefix(baseName));
 			boolean quartz = name.contains("quartz");
 			if (quartz) {
 				var side = getBlockTexture(base, "_side");
@@ -755,9 +751,9 @@ public class BlockstateProvider implements DataProvider {
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof WallBlock).forEach(wallBlock -> {
-			String name = Registry.BLOCK.getKey(wallBlock).getPath();
+			String name = BuiltInRegistries.BLOCK.getKey(wallBlock).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.WALL_SUFFIX.length());
-			Block base = Registry.BLOCK.getOptional(prefix(baseName)).get();
+			Block base = BuiltInRegistries.BLOCK.get(prefix(baseName));
 			var baseTexture = getBlockTexture(base);
 			wallBlock(new HashSet<>(), wallBlock, baseTexture);
 		});
@@ -1078,7 +1074,7 @@ public class BlockstateProvider implements DataProvider {
 		var closedModel = ModelTemplates.FENCE_GATE_CLOSED.create(block, mapping, this.modelOutput);
 		var openWallModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(block, mapping, this.modelOutput);
 		var closedWallModel = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block, mapping, this.modelOutput);
-		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel));
+		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel, false));
 		blocks.remove(block);
 	}
 

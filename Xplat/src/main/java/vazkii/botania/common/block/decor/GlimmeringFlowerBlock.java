@@ -10,7 +10,7 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +24,7 @@ public class GlimmeringFlowerBlock extends BotaniaFlowerBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(@NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader world, @NotNull BlockPos pos, @NotNull BlockState state, boolean fuckifiknow) {
 		return false;
 	}
 

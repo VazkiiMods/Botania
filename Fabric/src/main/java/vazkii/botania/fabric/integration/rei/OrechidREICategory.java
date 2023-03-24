@@ -19,7 +19,6 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -44,7 +43,7 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> categoryId, Block orechid) {
 		this.categoryId = categoryId;
 		this.orechid = EntryStacks.of(orechid);
-		this.langKey = "botania.nei." + (orechid == BotaniaFlowerBlocks.orechidIgnem ? "orechidIgnem" : Registry.BLOCK.getKey(orechid).getPath());
+		this.langKey = "botania.nei." + (orechid == BotaniaFlowerBlocks.orechidIgnem ? "orechidIgnem" : "orechid");
 	}
 
 	@Override

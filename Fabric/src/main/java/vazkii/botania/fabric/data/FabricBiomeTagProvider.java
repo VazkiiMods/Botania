@@ -1,20 +1,21 @@
 package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
-import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.world.level.biome.Biome;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.data.BiomeTagProvider;
 
-public class FabricBiomeTagProvider extends TagsProvider<Biome> {
-	public FabricBiomeTagProvider(DataGenerator generator) {
-		super(generator, BuiltinRegistries.BIOME);
+import java.util.concurrent.CompletableFuture;
+
+public class FabricBiomeTagProvider extends BiomeTagProvider {
+	public FabricBiomeTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		// need to do this so we can use them in addTag. It generates a dummy empty file,
 		// but whatever.
 		tag(ConventionalBiomeTags.DESERT);

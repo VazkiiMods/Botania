@@ -12,9 +12,9 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
@@ -25,10 +25,10 @@ import vazkii.botania.common.item.BlackHoleTalismanItem;
 import vazkii.botania.common.item.BotaniaItems;
 
 public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SimpleRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
+	public static final NoOpRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new NoOpRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
 
 	public BlackHoleTalismanExtractRecipe(ResourceLocation id) {
-		super(id);
+		super(id, CraftingBookCategory.MISC);
 	}
 
 	@Override

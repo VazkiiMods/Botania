@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -21,6 +20,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.block_entity.mana.ManaPumpBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPumpBlockEntity> {
 	public static BakedModel headModel = null;
@@ -49,7 +49,7 @@ public class ManaPumpBlockEntityRenderer implements BlockEntityRenderer<ManaPump
 				angle = 90;
 				break;
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
+		ms.mulPose(VecHelper.rotateY(angle));
 		ms.translate(-0.5, 0, -0.5);
 		double diff = Math.max(0F, Math.min(8F, pump.innerRingPos + pump.moving * partialTicks));
 		ms.translate(0, 0, diff / 14);

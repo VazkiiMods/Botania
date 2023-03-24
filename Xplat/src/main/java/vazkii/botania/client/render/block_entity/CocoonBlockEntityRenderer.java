@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -23,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.block_entity.CocoonBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class CocoonBlockEntityRenderer implements BlockEntityRenderer<CocoonBlockEntity> {
 	private final BlockRenderDispatcher blockRenderDispatcher;
@@ -43,7 +43,7 @@ public class CocoonBlockEntityRenderer implements BlockEntityRenderer<CocoonBloc
 
 		ms.pushPose();
 		ms.translate(0.5, 0, 0);
-		ms.mulPose(Vector3f.XP.rotationDegrees(rot));
+		ms.mulPose(VecHelper.rotateX(rot));
 		ms.translate(-0.5, 0, 0);
 		BlockState state = cocoon.getBlockState();
 		BakedModel model = blockRenderDispatcher.getBlockModel(state);

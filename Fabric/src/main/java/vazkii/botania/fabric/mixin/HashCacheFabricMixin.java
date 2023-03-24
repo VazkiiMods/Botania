@@ -1,5 +1,6 @@
 package vazkii.botania.fabric.mixin;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.hash.HashCode;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +16,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -29,7 +29,7 @@ public abstract class HashCacheFabricMixin {
 	public abstract String version();
 
 	@Shadow
-	public abstract Map<Path, HashCode> data();
+	public abstract ImmutableMap<Path, HashCode> data();
 
 	@Inject(at = @At("HEAD"), method = "save", cancellable = true)
 	private void hookWrite(Path path, Path outputPath, String header, CallbackInfo ci) throws IOException {

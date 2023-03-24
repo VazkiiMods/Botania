@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -36,12 +35,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.block_entity.TinyPotatoBlockEntity;
 import vazkii.botania.common.handler.ContributorList;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.block.TinyPotatoBlockItem;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
@@ -129,7 +130,8 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				rotY = 270F;
 				break;
 		}
-		ms.mulPose(Vector3f.YN.rotationDegrees(rotY));
+		// TODO 1.19.3 check that this is correct
+		ms.mulPose(VecHelper.rotateY(-rotY));
 
 		float jump = potato.jumpTicks;
 		if (jump > 0) {
@@ -141,7 +143,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		float wiggle = (float) Math.sin(jump / 10 * Math.PI) * 0.05F;
 
 		ms.translate(wiggle, up, 0F);
-		ms.mulPose(Vector3f.ZP.rotationDegrees(rotZ));
+		ms.mulPose(VecHelper.rotateZ(rotZ));
 
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if (render) {
@@ -155,7 +157,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 
 		ms.translate(0F, 1.5F, 0F);
 		ms.pushPose();
-		ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+		ms.mulPose(VecHelper.rotateZ(180F));
 		renderItems(potato, potatoFacing, name, partialTicks, ms, buffers, light, overlay);
 
 		ms.pushPose();
@@ -163,8 +165,9 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		ms.popPose();
 		ms.popPose();
 
-		ms.mulPose(Vector3f.ZP.rotationDegrees(-rotZ));
-		ms.mulPose(Vector3f.YN.rotationDegrees(-rotY));
+		ms.mulPose(VecHelper.rotateZ(-rotZ));
+		// TODO 1.19.3 check that this is correct
+		ms.mulPose(VecHelper.rotateY(rotY));
 
 		renderName(potato, name, ms, buffers, light);
 		ms.popPose();
@@ -202,7 +205,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 
 	private void renderItems(TinyPotatoBlockEntity potato, Direction facing, String name, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
-		ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+		ms.mulPose(VecHelper.rotateZ(180F));
 		ms.translate(0F, -1F, 0F);
 		float s = 1F / 3.5F;
 		ms.scale(s, s, s);
@@ -262,7 +265,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					} else if (block) {
 						ms.translate(-0.4F, 0.8F, 0F);
 					} else {
-						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.mulPose(VecHelper.rotateY(-90F));
 					}
 					ms.translate(-0.3F, -1.9F, 0.04F);
 				}
@@ -272,7 +275,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					} else if (block) {
 						ms.translate(1F, 0.8F, 1F);
 					} else {
-						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.mulPose(VecHelper.rotateY(-90F));
 					}
 					ms.translate(-0.3F, -1.9F, -0.92F);
 				}
@@ -284,7 +287,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				ms.scale(0.5F, 0.5F, 0.5F);
 			}
 			if (block && side == Direction.NORTH) {
-				ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+				ms.mulPose(VecHelper.rotateY(180F));
 			}
 			renderItem(ms, buffers, light, overlay, stack);
 			ms.popPose();
@@ -302,30 +305,31 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				case "phi", "vazkii" -> {
 					ms.pushPose();
 					ms.translate(-0.15, 0.1, 0.4);
-					ms.mulPose(Vector3f.YP.rotationDegrees(90F));
-					ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(20));
+					ms.mulPose(VecHelper.rotateY(90F));
+					// TODO 1.19.3 check that this is correct
+					ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(20), 1, 0, 1));
 					renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.phiFlowerModel);
 					ms.popPose();
 					if (name.equals("vazkii")) {
 						ms.scale(1.25F, 1.25F, 1.25F);
-						ms.mulPose(Vector3f.XP.rotationDegrees(180F));
-						ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+						ms.mulPose(VecHelper.rotateX(180F));
+						ms.mulPose(VecHelper.rotateY(-90F));
 						ms.translate(0.2, -1.25, 0);
 						renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.nerfBatModel);
 					}
 				}
 				case "haighyorkie" -> {
 					ms.scale(1.25F, 1.25F, 1.25F);
-					ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
-					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+					ms.mulPose(VecHelper.rotateZ(180F));
+					ms.mulPose(VecHelper.rotateY(-90F));
 					ms.translate(-0.5F, -1.2F, -0.075F);
 					renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.goldfishModel);
 				}
 				case "martysgames", "marty" -> {
 					ms.scale(0.7F, 0.7F, 0.7F);
-					ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+					ms.mulPose(VecHelper.rotateZ(180F));
 					ms.translate(-0.3F, -2.7F, -1.2F);
-					ms.mulPose(Vector3f.ZP.rotationDegrees(15F));
+					ms.mulPose(VecHelper.rotateZ(15F));
 					renderItem(ms, buffers, light, overlay, new ItemStack(BotaniaItems.infiniteFruit, 1).setHoverName(Component.literal("das boot")));
 				}
 				case "jibril" -> {
@@ -335,8 +339,8 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				}
 				case "kingdaddydmac" -> {
 					ms.scale(0.5F, 0.5F, 0.5F);
-					ms.mulPose(Vector3f.ZP.rotationDegrees(180));
-					ms.mulPose(Vector3f.YP.rotationDegrees(90));
+					ms.mulPose(VecHelper.rotateZ(180));
+					ms.mulPose(VecHelper.rotateY(90));
 					ms.pushPose();
 					ms.translate(0F, -2.5F, 0.65F);
 					ItemStack ring = new ItemStack(BotaniaItems.manaRing);
@@ -350,8 +354,8 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				default -> {
 					ItemStack icon = ContributorList.getFlower(name);
 					if (!icon.isEmpty()) {
-						ms.mulPose(Vector3f.XP.rotationDegrees(180));
-						ms.mulPose(Vector3f.YP.rotationDegrees(180));
+						ms.mulPose(VecHelper.rotateX(180));
+						ms.mulPose(VecHelper.rotateY(180));
 						ms.translate(0, -0.75, -0.5);
 						Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemTransforms.TransformType.HEAD,
 								light, overlay, ms, buffers, 0);

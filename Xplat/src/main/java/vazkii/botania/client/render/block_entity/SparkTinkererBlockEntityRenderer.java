@@ -9,7 +9,6 @@
 package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -21,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.block_entity.SparkTinkererBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class SparkTinkererBlockEntityRenderer implements BlockEntityRenderer<SparkTinkererBlockEntity> {
 
@@ -29,11 +29,11 @@ public class SparkTinkererBlockEntityRenderer implements BlockEntityRenderer<Spa
 	@Override
 	public void render(@NotNull SparkTinkererBlockEntity tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
-		ms.mulPose(Vector3f.XP.rotationDegrees(90));
+		ms.mulPose(VecHelper.rotateX(90));
 		ms.translate(1.0F, -0.125F, -0.25F);
 		ItemStack stack = tileentity.getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
-			ms.mulPose(Vector3f.YP.rotationDegrees(180));
+			ms.mulPose(VecHelper.rotateY(180));
 			ms.translate(0.5F, 0.5F, 0);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
 					light, overlay, ms, buffers, 0);

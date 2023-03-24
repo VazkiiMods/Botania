@@ -11,8 +11,6 @@ package vazkii.botania.fabric;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -40,6 +38,7 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.DyeColor;
@@ -49,7 +48,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -92,11 +90,9 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
-import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.world.BotaniaFeatures;
-import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.corporea.FabricTransferCorporeaNodeDetector;
@@ -109,7 +105,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Predicate;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -122,9 +117,9 @@ public class FabricCommonInitializer implements ModInitializer {
 		PaintableData.init();
 		DefaultCorporeaMatchers.init();
 
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
@@ -143,16 +138,16 @@ public class FabricCommonInitializer implements ModInitializer {
 
 	private void registryInit() {
 		// Core item/block/BE
-		BotaniaSounds.init(bind(Registry.SOUND_EVENT));
-		BotaniaBlocks.registerBlocks(bind(Registry.BLOCK));
-		BotaniaBlocks.registerItemBlocks(bind(Registry.ITEM));
-		BotaniaFluffBlocks.registerBlocks(bind(Registry.BLOCK));
-		BotaniaFluffBlocks.registerItemBlocks(bind(Registry.ITEM));
-		BotaniaBlockEntities.registerTiles(bind(Registry.BLOCK_ENTITY_TYPE));
-		BotaniaItems.registerItems(bind(Registry.ITEM));
-		BotaniaFlowerBlocks.registerBlocks(bind(Registry.BLOCK));
-		BotaniaFlowerBlocks.registerItemBlocks(bind(Registry.ITEM));
-		BotaniaFlowerBlocks.registerTEs(bind(Registry.BLOCK_ENTITY_TYPE));
+		BotaniaSounds.init(bind(BuiltInRegistries.SOUND_EVENT));
+		BotaniaBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
+		BotaniaBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
+		BotaniaFluffBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
+		BotaniaFluffBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
+		BotaniaBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
+		BotaniaItems.registerItems(bind(BuiltInRegistries.ITEM));
+		BotaniaFlowerBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
+		BotaniaFlowerBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
+		BotaniaFlowerBlocks.registerTEs(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
 		BotaniaBlocks.addDispenserBehaviours();
 		BotaniaBlocks.addAxeStripping();
 		for (Block b : List.of(BotaniaBlocks.dryGrass, BotaniaBlocks.goldenGrass,
@@ -167,25 +162,27 @@ public class FabricCommonInitializer implements ModInitializer {
 		FuelRegistry.INSTANCE.add(BotaniaBlocks.blazeBlock.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
 
 		// GUI and Recipe
-		BotaniaItems.registerMenuTypes(bind(Registry.MENU));
-		BotaniaItems.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
-		BotaniaBannerPatterns.submitRegistrations(bind(Registry.BANNER_PATTERN));
-		BotaniaRecipeTypes.submitRecipeTypes(bind(Registry.RECIPE_TYPE));
-		BotaniaRecipeTypes.submitRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
+		BotaniaItems.registerMenuTypes(bind(BuiltInRegistries.MENU));
+		BotaniaItems.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
+		BotaniaBannerPatterns.submitRegistrations(bind(BuiltInRegistries.BANNER_PATTERN));
+		BotaniaRecipeTypes.submitRecipeTypes(bind(BuiltInRegistries.RECIPE_TYPE));
+		BotaniaRecipeTypes.submitRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
 
 		// Entities
-		BotaniaEntities.registerEntities(bind(Registry.ENTITY_TYPE));
+		BotaniaEntities.registerEntities(bind(BuiltInRegistries.ENTITY_TYPE));
 		BotaniaEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
-		PixieHandler.registerAttribute(bind(Registry.ATTRIBUTE));
+		PixieHandler.registerAttribute(bind(BuiltInRegistries.ATTRIBUTE));
 		MinecartComparatorLogicRegistry.register(BotaniaEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 
 		// Potions
-		BotaniaMobEffects.registerPotions(bind(Registry.MOB_EFFECT));
+		BotaniaMobEffects.registerPotions(bind(BuiltInRegistries.MOB_EFFECT));
 		BotaniaBrews.registerBrews();
 
 		// Worldgen
-		BotaniaFeatures.registerFeatures(bind(Registry.FEATURE));
-		SkyblockChunkGenerator.submitRegistration(bind(Registry.CHUNK_GENERATOR));
+		BotaniaFeatures.registerFeatures(bind(BuiltInRegistries.FEATURE));
+		// TODO 1.19.3
+		/*
+		SkyblockChunkGenerator.submitRegistration(bind(BuiltInRegistries.CHUNK_GENERATOR));
 		BiomeModifications.addFeature(
 				BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
 						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
@@ -196,12 +193,13 @@ public class FabricCommonInitializer implements ModInitializer {
 						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
 				BotaniaFeatures.MYSTICAL_MUSHROOMS_ID);
+		*/
 
 		// Rest
 		BotaniaCriteriaTriggers.init();
-		BotaniaParticles.registerParticles(bind(Registry.PARTICLE_TYPE));
-		BotaniaLootModifiers.submitLootConditions(bind(Registry.LOOT_CONDITION_TYPE));
-		BotaniaLootModifiers.submitLootFunctions(bind(Registry.LOOT_FUNCTION_TYPE));
+		BotaniaParticles.registerParticles(bind(BuiltInRegistries.PARTICLE_TYPE));
+		BotaniaLootModifiers.submitLootConditions(bind(BuiltInRegistries.LOOT_CONDITION_TYPE));
+		BotaniaLootModifiers.submitLootFunctions(bind(BuiltInRegistries.LOOT_FUNCTION_TYPE));
 		BotaniaStats.init();
 	}
 

@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
@@ -31,7 +32,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WaterBottleMatchingRecipe> SERIALIZER = new Serializer();
 
 	public WaterBottleMatchingRecipe(ResourceLocation id, String group, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result) {
-		super(id, group, width, height, NonNullList.of(Ingredient.EMPTY, recipeItems.stream().map(i -> {
+		super(id, group, CraftingBookCategory.MISC, width, height, NonNullList.of(Ingredient.EMPTY, recipeItems.stream().map(i -> {
 			if (i.test(new ItemStack(Items.POTION))) {
 				return Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER));
 			}

@@ -11,9 +11,6 @@ package vazkii.botania.fabric.client;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.math.Transformation;
-import com.mojang.math.Vector3f;
 
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
@@ -21,11 +18,7 @@ import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,12 +32,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /*
@@ -65,45 +56,7 @@ public class FabricFloatingFlowerModel extends BlockModel {
 		return Collections.emptyList();
 	}
 
-	@NotNull
-	@Override
-	public Collection<Material> getMaterials(Function<ResourceLocation, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-		Set<Material> ret = new HashSet<>();
-		for (Map.Entry<FloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
-			UnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
-			ret.addAll(unbakedIsland.getMaterials(modelGetter, missingTextureErrors));
-			unbakedIslands.put(e.getKey(), unbakedIsland);
-		}
-		ret.addAll(unbakedFlower.getMaterials(modelGetter, missingTextureErrors));
-		return ret;
-	}
-
-	@Nullable
-	@Override
-	public BakedModel bake(ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, ModelState transform, ResourceLocation name) {
-		final Transformation moveFlower = new Transformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
-		Transformation mul = moveFlower.compose(transform.getRotation());
-		ModelState newTransform = new ModelState() {
-			@Override
-			public Transformation getRotation() {
-				return mul;
-			}
-
-			@Override
-			public boolean isUvLocked() {
-				return transform.isUvLocked();
-			}
-		};
-		BakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, newTransform, name);
-
-		Map<FloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
-		for (Map.Entry<FloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
-			BakedModel bakedIsland = e.getValue().bake(bakery, spriteGetter, transform, name);
-			bakedIslands.put(e.getKey(), bakedIsland);
-		}
-		return new Baked(bakedFlower, bakedIslands);
-	}
-
+	// TODO 1.19.3 figure out if anything needs doing with a model here
 	public static class Baked extends ForwardingBakedModel {
 		private final Map<FloatingFlower.IslandType, BakedModel> islands;
 

@@ -11,7 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -182,7 +182,7 @@ public class BlackHoleTalismanItem extends Item {
 
 	public static boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
+			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, BuiltInRegistries.BLOCK.getKey(block).toString());
 			return true;
 		}
 		return false;
@@ -227,7 +227,7 @@ public class BlackHoleTalismanItem extends Item {
 	public static Block getBlock(ItemStack stack) {
 		ResourceLocation id = ResourceLocation.tryParse(getBlockName(stack));
 		if (id != null) {
-			return Registry.BLOCK.getOptional(id).orElse(null);
+			return BuiltInRegistries.BLOCK.getOptional(id).orElse(null);
 		}
 		return null;
 	}

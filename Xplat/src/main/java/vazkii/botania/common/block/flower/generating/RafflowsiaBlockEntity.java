@@ -9,11 +9,14 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,6 +29,7 @@ import vazkii.botania.common.lib.BotaniaTags;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 	public static final String TAG_LAST_FLOWERS = "lastFlowers";
@@ -114,7 +118,7 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 
 		ListTag flowerList = new ListTag();
 		for (Block flower : lastFlowers) {
-			flowerList.add(StringTag.valueOf(Registry.BLOCK.getKey(flower).toString()));
+			flowerList.add(StringTag.valueOf(BuiltInRegistries.BLOCK.getKey(flower).toString()));
 		}
 		cmp.put(TAG_LAST_FLOWERS, flowerList);
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerCount);
@@ -128,7 +132,13 @@ public class RafflowsiaBlockEntity extends GeneratingFlowerBlockEntity {
 		lastFlowers.clear();
 		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, Tag.TAG_STRING);
 		for (int i = 0; i < flowerList.size(); i++) {
-			lastFlowers.add(Registry.BLOCK.get(ResourceLocation.tryParse(flowerList.getString(i))));
+			ResourceLocation blockID = ResourceLocation.tryParse(flowerList.getString(i));
+			if (blockID == null) {
+				continue;
+			}
+			Optional<Holder.Reference<Block>> flower =
+					level.holderLookup(Registries.BLOCK).get(ResourceKey.create(Registries.BLOCK, blockID));
+			flower.map(f -> lastFlowers.add(f.value()));
 		}
 		lastFlowerCount = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);

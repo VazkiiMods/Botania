@@ -12,7 +12,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -103,7 +104,7 @@ public class AstrolabeItem extends Item {
 	}
 
 	public boolean placeAllBlocks(ItemStack requester, Player player, InteractionHand hand) {
-		Block blockToPlace = getBlock(requester);
+		Block blockToPlace = getBlock(requester, player.getLevel().holderLookup(Registries.BLOCK));
 		int size = getSize(requester);
 		BlockPlaceContext ctx = getBlockPlaceContext(player, hand, blockToPlace);
 		List<BlockPos> placePositions = getPlacePositions(ctx, size);
@@ -260,7 +261,7 @@ public class AstrolabeItem extends Item {
 	}
 
 	public void displayRemainderCounter(Player player, ItemStack stack) {
-		Block block = getBlock(stack);
+		Block block = getBlock(stack, player.level.holderLookup(Registries.BLOCK));
 		int count = ShiftingCrustRodItem.getInventoryItemCount(player, stack, block.asItem());
 		if (!player.getLevel().isClientSide) {
 			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
@@ -284,14 +285,17 @@ public class AstrolabeItem extends Item {
 		return ItemNBTHelper.getInt(stack, TAG_SIZE, 3) | 1;
 	}
 
-	public static Block getBlock(ItemStack stack) {
-		CompoundTag compound = ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, false);
-		return NbtUtils.readBlockState(compound).getBlock();
+	public static Block getBlock(ItemStack stack, HolderGetter<Block> holderGetter) {
+		return getBlockState(stack, holderGetter).getBlock();
+	}
+
+	public static BlockState getBlockState(ItemStack stack, HolderGetter<Block> holderGetter) {
+		return NbtUtils.readBlockState(holderGetter, ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, false));
 	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tip, TooltipFlag flags) {
-		Block block = getBlock(stack);
+		Block block = getBlock(stack, world.holderLookup(Registries.BLOCK));
 		int size = getSize(stack);
 
 		tip.add(Component.literal(size + " x " + size));

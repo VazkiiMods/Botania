@@ -15,7 +15,6 @@ package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
@@ -27,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 

@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -25,6 +24,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.HourglassModel;
 import vazkii.botania.common.block.block_entity.HoveringHourglassBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -61,7 +61,7 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 		if (hasWorld && hourglass.flipTicks > 0) {
 			rot += (hourglass.flipTicks - ticks) * (180F / 4F);
 		}
-		ms.mulPose(Vector3f.ZP.rotationDegrees(rot));
+		ms.mulPose(VecHelper.rotateZ(rot));
 
 		ms.scale(1F, -1F, -1F);
 		int color = hasWorld ? hourglass.getColor() : 0;

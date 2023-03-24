@@ -10,9 +10,9 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
@@ -21,7 +21,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -70,19 +69,6 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 	public LaputaShardItem(Properties props) {
 		super(props);
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
-		if (allowedIn(tab)) {
-			for (int i = 0; i <= 20; i += 5) {
-				ItemStack s = new ItemStack(this);
-				if (i != 0) {
-					s.getOrCreateTag().putInt(TAG_LEVEL, i - 1);
-				}
-				list.add(s);
-			}
-		}
 	}
 
 	@Override
@@ -289,7 +275,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 				BlockState placeState = Blocks.AIR.defaultBlockState();
 				if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
-					placeState = NbtUtils.readBlockState(lens.getTag().getCompound(TAG_STATE));
+					placeState = NbtUtils.readBlockState(entity.level.holderLookup(Registries.BLOCK), lens.getTag().getCompound(TAG_STATE));
 				}
 
 				if (entity.getLevel().dimensionType().ultraWarm() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
@@ -324,7 +310,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
-		BlockState state = NbtUtils.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
+		BlockState state = NbtUtils.readBlockState(entity.getLevel().holderLookup(Registries.BLOCK), lens.getOrCreateTag().getCompound(TAG_STATE));
 		entity.getLevel().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
 				entity.getDeltaMovement().x(), entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
 

@@ -11,7 +11,7 @@ package vazkii.botania.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -29,8 +29,8 @@ import java.util.function.Consumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
-	public TerrestrialAgglomerationProvider(DataGenerator gen) {
-		super(gen);
+	public TerrestrialAgglomerationProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), ManaPoolBlockEntity.MAX_MANA / 2,
 				new ItemStack(BotaniaItems.terrasteel), Ingredient.of(BotaniaItems.manaSteel),
 				Ingredient.of(BotaniaItems.manaPearl), Ingredient.of(BotaniaItems.manaDiamond)));

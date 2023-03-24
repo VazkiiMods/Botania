@@ -9,9 +9,10 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.world.entity.LivingEntity;
+
+import vazkii.botania.common.helper.VecHelper;
 
 public final class AccessoryRenderHelper {
 
@@ -21,7 +22,7 @@ public final class AccessoryRenderHelper {
 	public static void rotateIfSneaking(PoseStack ms, LivingEntity living) {
 		if (living.isCrouching()) {
 			ms.translate(0F, 0.2F, 0F);
-			ms.mulPose(Vector3f.XP.rotationDegrees(90F / (float) Math.PI));
+			ms.mulPose(VecHelper.rotateX(90F / (float) Math.PI));
 		}
 	}
 

@@ -15,7 +15,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,7 +34,7 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 	private final List<Item> allLenses;
 
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
-		allLenses = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
+		allLenses = StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
 				.map(ItemStack::new)
 				.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 				.filter(s -> ((LensItem) s.getItem()).isCombinable(s))

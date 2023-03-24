@@ -10,8 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -25,12 +23,14 @@ import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Quaternionf;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<CorporeaIndexBlockEntity> {
 	private static final RenderType LAYER = RenderType.entityCutoutNoCull(new ResourceLocation(ResourcesLib.MODEL_CORPOREA_INDEX));
@@ -80,17 +80,18 @@ public class CorporeaIndexBlockEntityRenderer implements BlockEntityRenderer<Cor
 		ms.pushPose();
 		ms.translate(0.0D, -1, 0.0D);
 
-		ms.mulPose(Vector3f.YP.rotationDegrees(rotation));
+		ms.mulPose(VecHelper.rotateY(rotation));
 		ms.translate(0.0D, 1.5F + translation / 2.0F, 0.0D);
-		ms.mulPose(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
+		// TODO 1.19.3 check that this is correct
+		ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(60.0F), ANGLE, 0.0F, ANGLE));
 		this.ring.render(ms, buffer, light, overlay);
 		ms.scale(0.875F, 0.875F, 0.875F);
-		ms.mulPose(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
-		ms.mulPose(Vector3f.YP.rotationDegrees(rotation));
+		ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(60.0F), ANGLE, 0.0F, ANGLE));
+		ms.mulPose(VecHelper.rotateY(rotation));
 		this.ring.render(ms, buffer, light, overlay);
 		ms.scale(0.875F, 0.875F, 0.875F);
-		ms.mulPose(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
-		ms.mulPose(Vector3f.YP.rotationDegrees(rotation));
+		ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(60.0F), ANGLE, 0.0F, ANGLE));
+		ms.mulPose(VecHelper.rotateY(rotation));
 		this.cube.render(ms, buffer, light, overlay);
 		ms.popPose();
 

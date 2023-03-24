@@ -8,14 +8,10 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-
-import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.ManaBarTooltip;
 import vazkii.botania.api.mana.ManaItem;
@@ -32,17 +28,6 @@ public class BandOfManaItem extends BaubleItem {
 
 	public BandOfManaItem(Properties props) {
 		super(props);
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> stacks) {
-		if (allowedIn(tab)) {
-			stacks.add(new ItemStack(this));
-
-			ItemStack full = new ItemStack(this);
-			setMana(full, MAX_MANA);
-			stacks.add(full);
-		}
 	}
 
 	@Override

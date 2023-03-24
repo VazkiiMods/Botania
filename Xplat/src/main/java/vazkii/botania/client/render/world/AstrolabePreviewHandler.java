@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -51,7 +52,7 @@ public final class AstrolabePreviewHandler {
 			}
 
 			if (!currentStack.isEmpty() && currentStack.getItem() instanceof AstrolabeItem) {
-				Block block = AstrolabeItem.getBlock(currentStack);
+				Block block = AstrolabeItem.getBlock(currentStack, level.holderLookup(Registries.BLOCK));
 				if (block != Blocks.AIR) {
 					renderPlayerLook(ms, buffer, player, currentStack, hand);
 				}
@@ -62,7 +63,7 @@ public final class AstrolabePreviewHandler {
 	}
 
 	private static void renderPlayerLook(PoseStack ms, VertexConsumer buffer, Player player, ItemStack stack, InteractionHand hand) {
-		Block blockToPlace = AstrolabeItem.getBlock(stack);
+		Block blockToPlace = AstrolabeItem.getBlock(stack, player.getLevel().holderLookup(Registries.BLOCK));
 		int size = AstrolabeItem.getSize(stack);
 		BlockPlaceContext ctx = AstrolabeItem.getBlockPlaceContext(player, hand, blockToPlace);
 		List<BlockPos> placePositions = AstrolabeItem.getPlacePositions(ctx, size);

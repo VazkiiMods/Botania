@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -22,6 +21,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEntityRenderer<TerrestrialAgglomerationPlateBlockEntity> {
 
@@ -33,7 +33,7 @@ public class TerrestrialAgglomerationPlateBlockEntityRenderer implements BlockEn
 
 		ms.pushPose();
 		ms.translate(0F, 3F / 16F + 0.001F, 0F);
-		ms.mulPose(Vector3f.XP.rotationDegrees(90F));
+		ms.mulPose(VecHelper.rotateX(90F));
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 

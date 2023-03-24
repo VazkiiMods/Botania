@@ -10,7 +10,7 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -60,7 +60,7 @@ public class WrapperResult implements FinishedRecipe {
 			return FinishedRecipe.super.serializeRecipe();
 		}
 		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty("type", Registry.RECIPE_SERIALIZER.getKey(this.type).toString());
+		jsonobject.addProperty("type", BuiltInRegistries.RECIPE_SERIALIZER.getKey(this.type).toString());
 		this.serializeRecipeData(jsonobject);
 		return jsonobject;
 	}

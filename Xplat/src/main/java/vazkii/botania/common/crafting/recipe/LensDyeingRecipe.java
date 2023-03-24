@@ -14,10 +14,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class LensDyeingRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SimpleRecipeSerializer<>(LensDyeingRecipe::new);
+	public static final NoOpRecipeSerializer<LensDyeingRecipe> SERIALIZER = new NoOpRecipeSerializer<>(LensDyeingRecipe::new);
 
 	private final Supplier<List<Ingredient>> dyes = Suppliers.memoize(() -> Arrays.asList(
 			Ingredient.of(Items.WHITE_DYE), Ingredient.of(Items.ORANGE_DYE),
@@ -46,7 +46,7 @@ public class LensDyeingRecipe extends CustomRecipe {
 	));
 
 	public LensDyeingRecipe(ResourceLocation id) {
-		super(id);
+		super(id, CraftingBookCategory.REDSTONE);
 	}
 
 	@NotNull

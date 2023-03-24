@@ -11,8 +11,6 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -21,7 +19,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,14 +26,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -51,6 +47,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.StringObfuscator;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.Proxy;
 
@@ -85,17 +82,6 @@ public class FlugelTiaraItem extends BaubleItem {
 	public FlugelTiaraItem(Properties props) {
 		super(props);
 		Proxy.INSTANCE.runOnClient(() -> () -> AccessoryRenderRegistry.register(this, new Renderer()));
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
-		if (allowedIn(tab)) {
-			for (int i = 0; i < SUBTYPES + 1; i++) {
-				ItemStack stack = new ItemStack(this);
-				ItemNBTHelper.setInt(stack, TAG_VARIANT, i);
-				list.add(stack);
-			}
-		}
 	}
 
 	@Override
@@ -300,13 +286,13 @@ public class FlugelTiaraItem extends BaubleItem {
 
 			for (int i = 0; i < 2; i++) {
 				ms.pushPose();
-				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+				ms.mulPose(VecHelper.rotateY(i == 0 ? flap : 180 - flap));
 
 				// move so flapping about the edge instead of center of texture
 				ms.translate(-1, 0, 0);
 
 				// rotate since the textures are stored rotated
-				ms.mulPose(Vector3f.ZP.rotationDegrees(-60));
+				ms.mulPose(VecHelper.rotateZ(-60));
 				ms.scale(1.5F, -1.5F, -1.5F);
 				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 				ms.popPose();
@@ -320,10 +306,10 @@ public class FlugelTiaraItem extends BaubleItem {
 			bipedModel.body.translateAndRotate(ms);
 			ms.translate(0, 0.5, 0.2);
 
-			ms.mulPose(Vector3f.YP.rotationDegrees(flap));
+			ms.mulPose(VecHelper.rotateY(flap));
 			ms.translate(-1.1, 0, 0);
 
-			ms.mulPose(Vector3f.ZP.rotationDegrees(-60));
+			ms.mulPose(VecHelper.rotateZ(-60));
 			ms.scale(1.6F, -1.6F, -1.6F);
 			Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 			ms.popPose();
@@ -338,7 +324,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				ms.pushPose();
 
 				if (i == 1) {
-					ms.mulPose(Vector3f.YP.rotationDegrees(180));
+					ms.mulPose(VecHelper.rotateY(180));
 					ms.translate(-1.6, 0, 0);
 				}
 
@@ -357,7 +343,7 @@ public class FlugelTiaraItem extends BaubleItem {
 
 			for (int i = 0; i < 2; i++) {
 				ms.pushPose();
-				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+				ms.mulPose(VecHelper.rotateY(i == 0 ? flap : 180 - flap));
 
 				ms.translate(-0.9, 0, 0);
 
@@ -376,7 +362,7 @@ public class FlugelTiaraItem extends BaubleItem {
 
 			for (int i = 0; i < 2; i++) {
 				ms.pushPose();
-				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+				ms.mulPose(VecHelper.rotateY(i == 0 ? flap : 180 - flap));
 
 				ms.translate(-1.3, 0, 0);
 
@@ -395,7 +381,7 @@ public class FlugelTiaraItem extends BaubleItem {
 
 			for (int i = 0; i < 2; i++) {
 				ms.pushPose();
-				ms.mulPose(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+				ms.mulPose(VecHelper.rotateY(i == 0 ? flap : 180 - flap));
 				ms.translate(-0.7, 0, 0);
 
 				ms.scale(1.5F, -1.5F, -1.5F);
@@ -463,12 +449,12 @@ public class FlugelTiaraItem extends BaubleItem {
 			}
 
 			ms.translate(0.2, -0.65, 0);
-			ms.mulPose(Vector3f.ZP.rotationDegrees(30));
+			ms.mulPose(VecHelper.rotateZ(30));
 
 			if (living != null) {
-				ms.mulPose(Vector3f.YP.rotationDegrees(living.tickCount + partialTicks));
+				ms.mulPose(VecHelper.rotateY(living.tickCount + partialTicks));
 			} else {
-				ms.mulPose(Vector3f.YP.rotationDegrees(ClientTickHandler.ticksInGame));
+				ms.mulPose(VecHelper.rotateY(ClientTickHandler.ticksInGame));
 			}
 
 			ms.scale(0.75F, -0.75F, -0.75F);

@@ -10,11 +10,11 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -60,7 +60,8 @@ public class ManaStormEntity extends Entity {
 			deathTime++;
 			if (deathTime >= DEATH_TIME) {
 				discard();
-				getLevel().explode(this, getX(), getY(), getZ(), 8F, true, Explosion.BlockInteraction.DESTROY);
+				// TODO 1.19.3 check all explosion interactions
+				getLevel().explode(this, getX(), getY(), getZ(), 8F, true, Level.ExplosionInteraction.BLOCK);
 			}
 		}
 	}
@@ -100,9 +101,8 @@ public class ManaStormEntity extends Entity {
 		cmp.putInt(TAG_DEATH_TIME, deathTime);
 	}
 
-	@NotNull
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return new ClientboundAddEntityPacket(this);
 	}
 

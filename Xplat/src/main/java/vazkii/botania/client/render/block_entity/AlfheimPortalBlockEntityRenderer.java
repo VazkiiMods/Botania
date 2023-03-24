@@ -10,9 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -21,12 +18,15 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.AlfheimPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.block.block_entity.AlfheimPortalBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<AlfheimPortalBlockEntity> {
 
@@ -44,7 +44,7 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {
 			ms.translate(0.75, 1, 2);
-			ms.mulPose(Vector3f.YP.rotationDegrees(90));
+			ms.mulPose(VecHelper.rotateY(90));
 		} else {
 			ms.translate(-1, 1, 0.75);
 		}
@@ -54,11 +54,11 @@ public class AlfheimPortalBlockEntityRenderer implements BlockEntityRenderer<Alf
 		ms.pushPose();
 		if (state == AlfheimPortalState.ON_X) {
 			ms.translate(0.25, 1, -1);
-			ms.mulPose(Vector3f.YP.rotationDegrees(90));
+			ms.mulPose(VecHelper.rotateY(90));
 		} else {
 			ms.translate(2, 1, 0.25);
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(180));
+		ms.mulPose(VecHelper.rotateY(180));
 		renderIcon(ms, buffers, MiscellaneousModels.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
 		ms.popPose();
 	}

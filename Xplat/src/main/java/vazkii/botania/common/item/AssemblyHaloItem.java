@@ -10,8 +10,6 @@ package vazkii.botania.common.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
@@ -55,6 +53,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -64,6 +63,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -384,7 +384,7 @@ public class AssemblyHaloItem extends Item {
 				boolean inside = false;
 				float rotationAngle = (seg + 0.5F) * segAngles + shift;
 				ms.pushPose();
-				ms.mulPose(Vector3f.YP.rotationDegrees(rotationAngle));
+				ms.mulPose(VecHelper.rotateY(rotationAngle));
 				ms.translate(s * m, -0.75F, 0F);
 
 				if (segmentLookedAt == seg) {
@@ -395,17 +395,17 @@ public class AssemblyHaloItem extends Item {
 				if (!slotStack.isEmpty()) {
 					float scale = seg == 0 ? 0.9F : 0.8F;
 					ms.scale(scale, scale, scale);
-					ms.mulPose(Vector3f.YP.rotationDegrees(180F));
+					ms.mulPose(VecHelper.rotateY(180F));
 					ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
-					ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+					ms.mulPose(VecHelper.rotateY(90.0F));
 					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI,
 							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getId());
 				}
 				ms.popPose();
 
 				ms.pushPose();
-				ms.mulPose(Vector3f.XP.rotationDegrees(180));
+				ms.mulPose(VecHelper.rotateX(180));
 				float r = 1, g = 1, b = 1, a = alpha;
 				if (inside) {
 					a += 0.3F;

@@ -12,7 +12,7 @@ import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
@@ -152,7 +152,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		))));
 
 		registry.addRecipe(new CompositeLensEmiRecipe(
-				StreamSupport.stream(Registry.ITEM.getOrCreateTag(BotaniaTags.Items.LENS).spliterator(), false)
+				StreamSupport.stream(BuiltInRegistries.ITEM.getOrCreateTag(BotaniaTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
 						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))

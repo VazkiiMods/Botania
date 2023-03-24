@@ -1,10 +1,9 @@
 package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
@@ -14,10 +13,14 @@ import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.relic.DiceOfFateItem;
+import vazkii.botania.data.BlockTagProvider;
+import vazkii.botania.data.ItemTagProvider;
+
+import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.common.item.BotaniaItems.*;
 
-public class FabricItemTagProvider extends ItemTagsProvider {
+public class FabricItemTagProvider extends ItemTagProvider {
 	public static final TagKey<Item> QUARTZ_BLOCKS = itemTag(new ResourceLocation("c", "quartz_blocks"));
 	private static final TagKey<Item> MUSHROOMS = itemTag(new ResourceLocation("c", "mushrooms"));
 	private static final TagKey<Item> GLASS = itemTag(new ResourceLocation("c", "glass"));
@@ -27,15 +30,15 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 	public static final TagKey<Item> WOODEN_CHESTS = itemTag(new ResourceLocation("c", "wooden_chests"));
 
 	private static TagKey<Item> itemTag(ResourceLocation location) {
-		return TagKey.create(Registry.ITEM_REGISTRY, location);
+		return TagKey.create(Registries.ITEM, location);
 	}
 
-	public FabricItemTagProvider(DataGenerator dataGenerator, BlockTagsProvider blockTagsProvider) {
-		super(dataGenerator, blockTagsProvider);
+	public FabricItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagProvider blockTagProvider) {
+		super(packOutput, lookupProvider, blockTagProvider);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		for (var color : DyeColor.values()) {
 			this.tag(MUSHROOMS).add(BotaniaBlocks.getMushroom(color).asItem());
 		}

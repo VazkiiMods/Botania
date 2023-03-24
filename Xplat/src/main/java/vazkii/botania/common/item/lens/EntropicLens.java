@@ -11,7 +11,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -32,7 +32,7 @@ public class EntropicLens extends Lens {
 
 			if (!entity.getLevel().isClientSide && !burst.isFake() && !isManaBlock) {
 				entity.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getZ(),
-						burst.getMana() / 50F, Explosion.BlockInteraction.BREAK);
+						burst.getMana() / 50F, Level.ExplosionInteraction.BLOCK);
 			}
 			return true;
 		}

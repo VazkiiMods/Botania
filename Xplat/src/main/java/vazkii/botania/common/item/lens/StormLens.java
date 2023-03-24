@@ -10,7 +10,7 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.ManaBurst;
@@ -22,7 +22,7 @@ public class StormLens extends Lens {
 		Entity entity = burst.entity();
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			if (!entity.getLevel().isClientSide && !burst.isFake() && !isManaBlock) {
-				entity.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Explosion.BlockInteraction.DESTROY);
+				entity.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Level.ExplosionInteraction.BLOCK);
 			}
 			return true;
 		}

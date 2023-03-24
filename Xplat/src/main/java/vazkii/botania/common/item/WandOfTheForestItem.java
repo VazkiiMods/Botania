@@ -8,13 +8,10 @@
  */
 package vazkii.botania.common.item;
 
-import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -24,7 +21,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -331,35 +327,6 @@ public class WandOfTheForestItem extends Item {
 		}
 
 		return InteractionResultHolder.success(stack);
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> stacks) {
-		if (allowedIn(group)) {
-			stacks.add(setColors(new ItemStack(this), 0, 0));
-			List<Pair<Integer, Integer>> colorPairs = Arrays.asList(
-					new Pair<>(0, 3), // White + Light Blue
-					new Pair<>(0, 6), // White + Pink
-					new Pair<>(3, 6), // Light Blue + Pink
-					new Pair<>(10, 11), // Purple + Blue
-					new Pair<>(14, 14), // Red
-					new Pair<>(11, 11), // Blue
-					new Pair<>(1, 1), // Orange
-					new Pair<>(15, 15), // Black
-					new Pair<>(7, 8), // Gray + Light Gray
-					new Pair<>(6, 7), // Pink + Gray
-					new Pair<>(4, 5), // Yellow + Lime
-					new Pair<>(0, 15) // White + Black
-			);
-			Collections.shuffle(colorPairs);
-			for (int i = 0; i < 7; i++) {
-				Pair<Integer, Integer> pair = colorPairs.get(i);
-				if (Math.random() < 0.5) {
-					pair = new Pair<>(pair.getSecond(), pair.getFirst());
-				}
-				stacks.add(setColors(new ItemStack(this), pair.getFirst(), pair.getSecond()));
-			}
-		}
 	}
 
 	@Override

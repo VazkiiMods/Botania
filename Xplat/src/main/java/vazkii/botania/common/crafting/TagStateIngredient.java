@@ -12,7 +12,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -33,11 +34,11 @@ public class TagStateIngredient extends BlocksStateIngredient {
 
 	public TagStateIngredient(ResourceLocation tag) {
 		super(ImmutableSet.of());
-		this.tag = TagKey.create(Registry.BLOCK_REGISTRY, tag);
+		this.tag = TagKey.create(Registries.BLOCK, tag);
 	}
 
 	public Stream<Block> resolve() {
-		return StreamSupport.stream(Registry.BLOCK.getTagOrEmpty(tag).spliterator(), false)
+		return StreamSupport.stream(BuiltInRegistries.BLOCK.getTagOrEmpty(tag).spliterator(), false)
 				.map(Holder::value);
 	}
 

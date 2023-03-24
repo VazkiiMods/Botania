@@ -10,8 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -24,6 +22,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
 
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -32,6 +31,7 @@ import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
 import java.util.EnumMap;
@@ -71,11 +71,11 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 		ms.scale(scale, scale, scale);
 
 		ms.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
-		ms.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+		ms.mulPose(VecHelper.rotateY(180.0F));
 
 		float off = 0.25F;
 		ms.translate(0F, off, 0F);
-		ms.mulPose(Vector3f.ZP.rotationDegrees((float) time));
+		ms.mulPose(VecHelper.rotateZ((float) time));
 		ms.translate(0F, -off, 0F);
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.LIGHT_RELAY);

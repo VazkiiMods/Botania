@@ -122,7 +122,7 @@ public final class BotaniaSounds {
 	public static final SoundEvent way = makeSoundEvent("way");
 
 	private static SoundEvent makeSoundEvent(String name) {
-		SoundEvent event = new SoundEvent(prefix(name));
+		SoundEvent event = SoundEvent.createVariableRangeEvent(prefix(name));
 		EVENTS.add(event);
 		return event;
 	}
