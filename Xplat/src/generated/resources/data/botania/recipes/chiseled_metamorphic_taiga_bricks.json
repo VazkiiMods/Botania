@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "Q": {
-      "item": "botania:metamorphic_taiga_bricks_slab"
+      "item": "botania:metamorphic_taiga_bricks"
     }
   },
   "pattern": [

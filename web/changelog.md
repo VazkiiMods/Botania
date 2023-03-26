@@ -20,6 +20,7 @@ and start a new "Upcoming" section.
 
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
+* Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
 
 ---
 
