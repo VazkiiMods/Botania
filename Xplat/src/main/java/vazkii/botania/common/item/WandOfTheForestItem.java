@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -51,6 +52,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.ForceRelayBlock;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
+import vazkii.botania.common.entity.ManaSparkEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
@@ -430,6 +432,10 @@ public class WandOfTheForestItem extends Item {
 				BlockEntity tile = world.getBlockEntity(bHit.getBlockPos());
 				if (tile instanceof Bound boundTile) {
 					return boundTile.getBinding();
+				}
+			} else if (pos instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof ManaSparkEntity manaSpark) {
+				if (manaSpark.getAttachedTile() instanceof BlockEntity attachedTo) {
+					return attachedTo.getBlockPos();
 				}
 			}
 
