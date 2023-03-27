@@ -23,11 +23,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.lwjgl.opengl.GL11;
@@ -43,6 +45,7 @@ import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
 import vazkii.botania.common.block.block_entity.mana.ManaPoolBlockEntity;
+import vazkii.botania.common.entity.ManaSparkEntity;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.AssemblyHaloItem;
@@ -121,6 +124,11 @@ public final class HUDHandler {
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
 					CorporeaCrystalCubeBlockEntity.Hud.render(ms, cube);
 				}
+			}
+		} else if (pos instanceof EntityHitResult result) {
+			final Entity entity = result.getEntity();
+			if (entity instanceof ManaSparkEntity manaSpark && PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+				ManaSparkEntity.WandHud.INSTANCE.renderHUD(manaSpark, ms, mc);
 			}
 		}
 
