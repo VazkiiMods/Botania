@@ -18,6 +18,7 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like network color and augments, similar to how Mana Spreaders show their lens.
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 
