@@ -40,7 +40,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.redstone.NeighborUpdater;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -52,12 +51,10 @@ import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.item.WireframeCoordinateListProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
-import vazkii.botania.common.CollectingNeighborUpdaterAccess;
 import vazkii.botania.common.block.PlatformBlock;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.StoneOfTemperanceItem;
-import vazkii.botania.mixin.LevelAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
@@ -257,29 +254,19 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 					&& stateAt.getBlock().asItem() != replacement) {
 				float hardness = stateAt.getDestroySpeed(world, pos);
 				if (!world.isClientSide) {
-					final NeighborUpdater neighborUpdater = ((LevelAccessor) world).getNeighborUpdater();
-					try {
-						if (neighborUpdater instanceof CollectingNeighborUpdaterAccess access) {
-							access.botania$pauseUpdates();
-						}
-						world.destroyBlock(pos, !player.getAbilities().instabuild);
-						BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapTemplateDirection(rod), pos, false);
-						InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
-						// TODO: provide an use context that overrides player facing direction/yaw?
-						//  currently it pulls from the player directly
+					world.destroyBlock(pos, !player.getAbilities().instabuild, player, 0);
+					BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapTemplateDirection(rod), pos, false);
+					InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
+					// TODO: provide an use context that overrides player facing direction/yaw?
+					//  currently it pulls from the player directly
 
-						if (!player.getAbilities().instabuild) {
-							if (result.consumesAction()) {
-								removeFromInventory(player, rod, replacement, true);
-								displayRemainderCounter(player, rod);
-							} else {
-								((ServerLevel) world).sendParticles(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
-										2, 0.1, 0.1, 0.1, 0);
-							}
-						}
-					} finally {
-						if (neighborUpdater instanceof CollectingNeighborUpdaterAccess access) {
-							access.botania$resumeUpdates();
+					if (!player.getAbilities().instabuild) {
+						if (result.consumesAction()) {
+							removeFromInventory(player, rod, replacement, true);
+							displayRemainderCounter(player, rod);
+						} else {
+							((ServerLevel) world).sendParticles(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+									2, 0.1, 0.1, 0.1, 0);
 						}
 					}
 				}
