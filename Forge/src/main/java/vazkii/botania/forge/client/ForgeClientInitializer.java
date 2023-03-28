@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -52,6 +54,7 @@ import vazkii.botania.client.render.entity.EntityRenderers;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntity;
+import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
 import vazkii.botania.forge.CapabilityUtil;
@@ -147,6 +150,7 @@ public class ForgeClientInitializer {
 
 		// Etc
 		ClientProxy.initSeasonal();
+		bus.addGenericListener(Entity.class, ForgeClientInitializer::attachEntityCapabilities);
 		bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("ears")) {
@@ -179,6 +183,16 @@ public class ForgeClientInitializer {
 		return Collections.unmodifiableMap(ret);
 	});
 
+	private static final Supplier<Map<EntityType<?>, Function<Entity, WandHUD>>> ENTITY_WAND_HUD = Suppliers.memoize(() -> {
+		var ret = new IdentityHashMap<EntityType<?>, Function<Entity, WandHUD>>();
+		BotaniaEntities.registerWandHudCaps((factory, types) -> {
+			for (var type : types) {
+				ret.put(type, factory);
+			}
+		});
+		return Collections.unmodifiableMap(ret);
+	});
+
 	private static void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
 		var be = e.getObject();
 
@@ -186,6 +200,16 @@ public class ForgeClientInitializer {
 		if (makeWandHud != null) {
 			e.addCapability(prefix("wand_hud"),
 					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(be)));
+		}
+	}
+
+	private static void attachEntityCapabilities(AttachCapabilitiesEvent<Entity> e) {
+		var entity = e.getObject();
+
+		var makeWandHud = ENTITY_WAND_HUD.get().get(entity.getType());
+		if (makeWandHud != null) {
+			e.addCapability(prefix("wand_hud"),
+					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(entity)));
 		}
 	}
 

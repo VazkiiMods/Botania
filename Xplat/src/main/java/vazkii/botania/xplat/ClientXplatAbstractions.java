@@ -8,6 +8,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,6 +33,9 @@ public interface ClientXplatAbstractions {
 	// Capability access
 	@Nullable
 	WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be);
+
+	@Nullable
+	WandHUD findWandHud(Entity entity);
 
 	// Rendering stuff
 	BakedModel wrapPlatformModel(BakedModel original);

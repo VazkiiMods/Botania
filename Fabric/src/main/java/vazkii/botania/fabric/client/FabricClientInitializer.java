@@ -52,6 +52,7 @@ import vazkii.botania.client.render.ColorHandler;
 import vazkii.botania.client.render.entity.*;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 import vazkii.botania.common.lib.LibMisc;
@@ -119,6 +120,7 @@ public class FabricClientInitializer implements ClientModInitializer {
 	}
 
 	private static void registerCapabilities() {
+		BotaniaEntities.registerWandHudCaps((factory, types) -> BotaniaFabricClientCapabilities.ENTITY_WAND_HUD.registerForTypes((e, c) -> factory.apply(e), types));
 		BotaniaBlockEntities.registerWandHudCaps((factory, types) -> BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> factory.apply(be), types));
 		BotaniaFlowerBlocks.registerWandHudCaps((factory, types) -> BotaniaFabricClientCapabilities.WAND_HUD.registerForBlockEntities((be, c) -> factory.apply(be), types));
 	}

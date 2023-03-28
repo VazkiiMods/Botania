@@ -126,9 +126,11 @@ public final class HUDHandler {
 				}
 			}
 		} else if (pos instanceof EntityHitResult result) {
-			final Entity entity = result.getEntity();
-			if (entity instanceof ManaSparkEntity manaSpark && PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
-				ManaSparkEntity.WandHud.INSTANCE.renderHUD(manaSpark, ms, mc);
+			var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
+			if (hud != null && PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+				profiler.push("wandItemEntityHud");
+				hud.renderHUD(ms, mc);
+				profiler.pop();
 			}
 		}
 

@@ -433,10 +433,6 @@ public class WandOfTheForestItem extends Item {
 				if (tile instanceof Bound boundTile) {
 					return boundTile.getBinding();
 				}
-			} else if (pos instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof ManaSparkEntity manaSpark) {
-				if (manaSpark.getAttachedTile() instanceof BlockEntity attachedTo) {
-					return attachedTo.getBlockPos();
-				}
 			}
 
 			return null;
