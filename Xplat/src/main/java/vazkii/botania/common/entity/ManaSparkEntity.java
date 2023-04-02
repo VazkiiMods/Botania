@@ -404,8 +404,6 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				mc.font.drawShadow(ms, upgradeName, x + 20, y + 5, color);
 				mc.getItemRenderer().renderAndDecorateItem(upgradeItem, x, y);
 			}
-
-			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		}
 	}
 }
