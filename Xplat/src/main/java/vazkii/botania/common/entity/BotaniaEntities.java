@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.function.Function;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,6 +23,7 @@ import vazkii.botania.common.block.block_entity.LuminizerBlockEntity.PlayerMover
 import vazkii.botania.common.lib.LibEntityNames;
 
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public final class BotaniaEntities {
 	public static final EntityType<ManaBurstEntity> MANA_BURST = EntityType.Builder.<ManaBurstEntity>of(
