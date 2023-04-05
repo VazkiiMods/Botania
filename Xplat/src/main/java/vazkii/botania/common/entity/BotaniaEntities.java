@@ -9,6 +9,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -17,10 +18,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity.PlayerMoverEntity;
 import vazkii.botania.common.lib.LibEntityNames;
 
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public final class BotaniaEntities {
 	public static final EntityType<ManaBurstEntity> MANA_BURST = EntityType.Builder.<ManaBurstEntity>of(
@@ -154,5 +157,14 @@ public final class BotaniaEntities {
 		consumer.accept(BotaniaEntities.PIXIE, Mob.createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 2.0));
 		consumer.accept(BotaniaEntities.PINK_WITHER, WitherBoss.createAttributes());
+	}
+
+	@FunctionalInterface
+	public interface ECapConsumer<T> {
+		void accept(Function<Entity, T> factory, EntityType<?>... types);
+	}
+
+	public static void registerWandHudCaps(ECapConsumer<WandHUD> consumer) {
+		consumer.accept(e -> new ManaSparkEntity.WandHud((ManaSparkEntity) e), SPARK);
 	}
 }

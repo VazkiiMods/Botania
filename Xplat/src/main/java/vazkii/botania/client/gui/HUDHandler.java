@@ -28,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.lwjgl.opengl.GL11;
@@ -121,6 +122,13 @@ public final class HUDHandler {
 				} else if (tile instanceof CorporeaCrystalCubeBlockEntity cube) {
 					CorporeaCrystalCubeBlockEntity.Hud.render(ms, cube);
 				}
+			}
+		} else if (pos instanceof EntityHitResult result) {
+			var hud = ClientXplatAbstractions.INSTANCE.findWandHud(result.getEntity());
+			if (hud != null && PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+				profiler.push("wandItemEntityHud");
+				hud.renderHUD(ms, mc);
+				profiler.pop();
 			}
 		}
 
