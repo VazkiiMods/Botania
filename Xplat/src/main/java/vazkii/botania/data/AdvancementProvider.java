@@ -431,7 +431,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 
 	protected static InventoryChangeTrigger.TriggerInstance onPickup(TagKey<Item> tag) {
 		return InventoryChangeTrigger.TriggerInstance.hasItems(
-			ItemPredicate.Builder.item().of(tag).build());
+				ItemPredicate.Builder.item().of(tag).build());
 	}
 
 	protected static InventoryChangeTrigger.TriggerInstance onPickup(ItemLike... items) {
