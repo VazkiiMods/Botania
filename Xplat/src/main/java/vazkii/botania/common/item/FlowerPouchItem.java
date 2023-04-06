@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.gui.bag.FlowerPouchContainer;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 import vazkii.botania.common.block.BotaniaFlowerBlock;
 import vazkii.botania.common.helper.EntityHelper;
@@ -53,36 +54,36 @@ public class FlowerPouchItem extends Item {
 		super(props);
 	}
 
-	private static boolean isMysticalFlower(ItemStack stack) {
-		Block blk = Block.byItem(stack.getItem());
-		// Direct class compare needed because glimmering flowers also extend BotaniaFlowerBlock
-		return !stack.isEmpty() && blk.getClass() == BotaniaFlowerBlock.class;
+	public static Item getFlowerForSlot(int slot) {
+		if (slot < 16) {
+			DyeColor color = DyeColor.byId(slot);
+			return BotaniaBlocks.getFlower(color).asItem();
+		} else {
+			DyeColor color = DyeColor.byId(slot - 16);
+			return BotaniaBlocks.getDoubleFlower(color).asItem();
+		}
 	}
 
-	public static boolean isValid(int slot, ItemStack stack) {
-		Block blk = Block.byItem(stack.getItem());
-		if (slot < 16) {
-			return isMysticalFlower(stack) && slot == ((BotaniaFlowerBlock) blk).color.getId();
-		} else {
-			return blk instanceof BotaniaDoubleFlowerBlock flower && (slot - 16) == flower.color.getId();
-		}
+	private static boolean isMysticalFlower(ItemStack stack) {
+		Class<? extends Block> blockClass = Block.byItem(stack.getItem()).getClass();
+		// Direct class compare needed because glimmering flowers also extend BotaniaFlowerBlock
+		// And we might want to add glimmering tall flowers at some point
+		return blockClass == BotaniaFlowerBlock.class || blockClass == BotaniaDoubleFlowerBlock.class;
 	}
 
 	public static SimpleContainer getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
 			public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
-				return isValid(slot, stack);
+				return stack.is(getFlowerForSlot(slot));
 			}
 		};
 	}
 
 	public static boolean onPickupItem(ItemEntity entity, Player player) {
 		ItemStack entityStack = entity.getItem();
-		var block = Block.byItem(entityStack.getItem());
-		if ((isMysticalFlower(entityStack) || block instanceof BotaniaDoubleFlowerBlock)
-				&& entityStack.getCount() > 0) {
-
+		Block block = Block.byItem(entityStack.getItem());
+		if (isMysticalFlower(entityStack) && entityStack.getCount() > 0) {
 			int slot;
 			if (block instanceof BotaniaDoubleFlowerBlock flower) {
 				slot = 16 + flower.color.getId();

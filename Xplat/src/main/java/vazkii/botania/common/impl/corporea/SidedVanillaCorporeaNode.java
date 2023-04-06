@@ -64,6 +64,7 @@ public class SidedVanillaCorporeaNode extends AbstractCorporeaNode {
 							builder.add(copy);
 						} else {
 							builder.addAll(breakDownBigStack(inv.removeItem(i, rem)));
+							inv.setChanged();
 						}
 						getSpark().onItemExtracted(copy);
 						request.trackExtracted(rem);

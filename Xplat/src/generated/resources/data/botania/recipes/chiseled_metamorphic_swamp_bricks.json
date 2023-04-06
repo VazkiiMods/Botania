@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "Q": {
-      "item": "botania:metamorphic_swamp_bricks_slab"
+      "item": "botania:metamorphic_swamp_bricks"
     }
   },
   "pattern": [

@@ -19,8 +19,11 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Add: Looniums now change the loot table they pull from based on the structure in which they are placed, only applies to newly placed looniums
+* Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like network color and augments, similar to how Mana Spreaders show their lens.
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
+* Change: Rod of the Shifting Crust now only processes neighbor updates for the replaced block and not the removed block, meaning torches or other blocks attached to exchanged blocks will no longer break as long as the new block can still support it.
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
+* Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
 
 ---
 

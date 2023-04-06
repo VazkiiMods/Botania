@@ -457,6 +457,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		if (consumed >= expectedConsumption) {
 			for (ManaPoolBlockEntity pool : consumePools) {
 				pool.receiveMana(-costPer);
+				pool.craftingEffect(false);
 			}
 			return true;
 		}

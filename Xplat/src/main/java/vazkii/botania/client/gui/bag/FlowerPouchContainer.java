@@ -52,7 +52,7 @@ public class FlowerPouchContainer extends AbstractContainerMenu {
 				addSlot(new Slot(flowerBagInv, slot, 17 + col * 18, 26 + row * 18) {
 					@Override
 					public boolean mayPlace(@NotNull ItemStack stack) {
-						return FlowerPouchItem.isValid(this.getContainerSlot(), stack);
+						return stack.is(FlowerPouchItem.getFlowerForSlot(slot));
 					}
 				});
 			}

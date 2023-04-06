@@ -52,10 +52,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -64,7 +61,6 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.common.item.BotaniaItems.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-import static vazkii.botania.data.BlockstateProvider.takeAll;
 
 public class ItemModelProvider implements DataProvider {
 	private static final TextureSlot LAYER1 = TextureSlotAccessor.make("layer1");
@@ -550,6 +546,39 @@ public class ItemModelProvider implements DataProvider {
 			json.add("display", BUILTIN_ENTITY_DISPLAY);
 			return json;
 		});
+	}
+
+	@SafeVarargs
+	@SuppressWarnings("varargs")
+	public static <T> Collection<T> takeAll(Set<? extends T> src, T... items) {
+		List<T> ret = Arrays.asList(items);
+		for (T item : items) {
+			if (!src.contains(item)) {
+				BotaniaAPI.LOGGER.warn("Item {} not found in set", item);
+			}
+		}
+		if (!src.removeAll(ret)) {
+			BotaniaAPI.LOGGER.warn("takeAll array didn't yield anything ({})", Arrays.toString(items));
+		}
+		return ret;
+	}
+
+	public static <T> Collection<T> takeAll(Set<T> src, Predicate<T> pred) {
+		List<T> ret = new ArrayList<>();
+
+		Iterator<T> iter = src.iterator();
+		while (iter.hasNext()) {
+			T item = iter.next();
+			if (pred.test(item)) {
+				iter.remove();
+				ret.add(item);
+			}
+		}
+
+		if (ret.isEmpty()) {
+			BotaniaAPI.LOGGER.warn("takeAll predicate yielded nothing", new Throwable());
+		}
+		return ret;
 	}
 
 	@NotNull

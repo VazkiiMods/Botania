@@ -8,8 +8,13 @@
  */
 package vazkii.botania.common.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -29,6 +34,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
@@ -362,4 +368,42 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		return attachable != null && attachable.areIncomingTranfersDone();
 	}
 
+	public record WandHud(ManaSparkEntity entity) implements WandHUD {
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			final ItemStack sparkItem = new ItemStack(BotaniaItems.spark);
+
+			int color = 0x4444FF;
+			{
+				final Component sparkName = sparkItem.getHoverName();
+				int width = mc.font.width(sparkName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 5;
+
+				mc.font.drawShadow(ms, sparkName, x, y + 5, color);
+			}
+
+			{
+				final DyeColor network = this.entity.getNetwork();
+				final Component colorName = Component.translatable("color.minecraft." + network.getName()).withStyle(ChatFormatting.ITALIC);
+				int width = mc.font.width(colorName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 20;
+
+				mc.font.drawShadow(ms, colorName, x, y + 5, network.getTextColor());
+			}
+
+			final SparkUpgradeType upgrade = this.entity.getUpgrade();
+			if (upgrade != SparkUpgradeType.NONE) {
+				final ItemStack upgradeItem = SparkAugmentItem.getByType(upgrade);
+				final Component upgradeName = upgradeItem.getHoverName();
+				int width = 16 + mc.font.width(upgradeName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
+
+				mc.font.drawShadow(ms, upgradeName, x + 20, y + 5, color);
+				mc.getItemRenderer().renderAndDecorateItem(upgradeItem, x, y);
+			}
+		}
+	}
 }

@@ -58,18 +58,18 @@ import static vazkii.botania.common.block.BotaniaFluffBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockstateProvider implements DataProvider {
-	private final DataGenerator generator;
+	protected final DataGenerator generator;
 
-	private final List<BlockStateGenerator> blockstates = new ArrayList<>();
+	protected final List<BlockStateGenerator> blockstates = new ArrayList<>();
 
-	private final Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
-	private final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput = models::put;
+	protected final Map<ResourceLocation, Supplier<JsonElement>> models = new HashMap<>();
+	protected final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput = models::put;
 
 	public BlockstateProvider(DataGenerator generator) {
 		this.generator = generator;
 	}
 
-	protected static Logger getLogger() {
+	protected Logger getLogger() {
 		return BotaniaAPI.LOGGER;
 	}
 
@@ -337,14 +337,10 @@ public class BlockstateProvider implements DataProvider {
 		wallBlock(remainingBlocks, livingwoodWall, getBlockTexture(livingwoodLog));
 		wallBlock(remainingBlocks, livingwoodStrippedWall, getBlockTexture(livingwoodLogStripped));
 
-		fenceBlock(dreamwoodFence, getBlockTexture(dreamwoodPlanks));
-		fenceGateBlock(dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
-		fenceBlock(livingwoodFence, getBlockTexture(livingwoodPlanks));
-		fenceGateBlock(livingwoodFenceGate, getBlockTexture(livingwoodPlanks));
-		remainingBlocks.remove(dreamwoodFence);
-		remainingBlocks.remove(dreamwoodFenceGate);
-		remainingBlocks.remove(livingwoodFence);
-		remainingBlocks.remove(livingwoodFenceGate);
+		fenceBlock(remainingBlocks, dreamwoodFence, getBlockTexture(dreamwoodPlanks));
+		fenceGateBlock(remainingBlocks, dreamwoodFenceGate, getBlockTexture(dreamwoodPlanks));
+		fenceBlock(remainingBlocks, livingwoodFence, getBlockTexture(livingwoodPlanks));
+		fenceGateBlock(remainingBlocks, livingwoodFenceGate, getBlockTexture(livingwoodPlanks));
 
 		rotatedMirrored(remainingBlocks, livingrock, getBlockTexture(livingrock));
 
@@ -1068,20 +1064,22 @@ public class BlockstateProvider implements DataProvider {
 		blocks.remove(block);
 	}
 
-	protected void fenceBlock(Block block, ResourceLocation tex) {
+	protected void fenceBlock(Set<Block> blocks, Block block, ResourceLocation tex) {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var postModel = ModelTemplates.FENCE_POST.create(block, mapping, this.modelOutput);
 		var sideModel = ModelTemplates.FENCE_SIDE.create(block, mapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceState(block, postModel, sideModel));
+		blocks.remove(block);
 	}
 
-	protected void fenceGateBlock(Block block, ResourceLocation tex) {
+	protected void fenceGateBlock(Set<Block> blocks, Block block, ResourceLocation tex) {
 		var mapping = TextureMapping.defaultTexture(tex);
 		var openModel = ModelTemplates.FENCE_GATE_OPEN.create(block, mapping, this.modelOutput);
 		var closedModel = ModelTemplates.FENCE_GATE_CLOSED.create(block, mapping, this.modelOutput);
 		var openWallModel = ModelTemplates.FENCE_GATE_WALL_OPEN.create(block, mapping, this.modelOutput);
 		var closedWallModel = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(block, mapping, this.modelOutput);
 		this.blockstates.add(BlockModelGeneratorsAccessor.makeFenceGateState(block, openModel, closedModel, openWallModel, closedWallModel));
+		blocks.remove(block);
 	}
 
 	protected void cubeAllNoRemove(Block block) {
@@ -1359,10 +1357,9 @@ public class BlockstateProvider implements DataProvider {
 		return withMaybe(VariantProperties.Y_ROT, rotation, rotation != VariantProperties.Rotation.R0, variant);
 	}
 
-	// ? extends T technically not correct, but is more convenient in ItemModelProvider
 	@SafeVarargs
 	@SuppressWarnings("varargs")
-	public static <T> Collection<T> takeAll(Set<? extends T> src, T... items) {
+	public final <T> Collection<T> takeAll(Set<T> src, T... items) {
 		List<T> ret = Arrays.asList(items);
 		for (T item : items) {
 			if (!src.contains(item)) {
@@ -1375,7 +1372,7 @@ public class BlockstateProvider implements DataProvider {
 		return ret;
 	}
 
-	public static <T> Collection<T> takeAll(Set<T> src, Predicate<T> pred) {
+	public final <T> Collection<T> takeAll(Set<T> src, Predicate<T> pred) {
 		List<T> ret = new ArrayList<>();
 
 		Iterator<T> iter = src.iterator();

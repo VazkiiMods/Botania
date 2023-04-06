@@ -2605,7 +2605,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
 		wallShape(brickWall, brick, 6).group("botania:metamorphic_brick_wall")
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
-		brick(chiseledBrick, brickSlab).unlockedBy("has_base_item", conditionsFromItem(brick))
+		brick(chiseledBrick, brick).unlockedBy("has_base_item", conditionsFromItem(brick))
 				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
 
 		slabShape(cobbleSlab, cobble).group("botania:metamorphic_cobble_slab")
