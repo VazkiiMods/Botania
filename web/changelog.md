@@ -23,6 +23,7 @@ and start a new "Upcoming" section.
 * Change: Rod of the Shifting Crust now only processes neighbor updates for the replaced block and not the removed block, meaning torches or other blocks attached to exchanged blocks will no longer break as long as the new block can still support it.
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 * Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
+* Fix: Sky of Beginning being granted only when *both* a Mystical Flower and Tall Mystical Flower were picked up, instead of either one
 
 ---
 

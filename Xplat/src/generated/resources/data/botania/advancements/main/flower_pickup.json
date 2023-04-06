@@ -1,14 +1,21 @@
 {
   "parent": "botania:main/root",
   "criteria": {
+    "double_flower": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "botania:double_mystical_flowers"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "flower": {
       "conditions": {
         "items": [
           {
             "tag": "botania:mystical_flowers"
-          },
-          {
-            "tag": "botania:double_mystical_flowers"
           }
         ]
       },
@@ -32,7 +39,8 @@
   },
   "requirements": [
     [
-      "flower"
+      "flower",
+      "double_flower"
     ]
   ]
 }

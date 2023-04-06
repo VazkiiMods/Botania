@@ -75,7 +75,9 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement flowerPickup = Advancement.Builder.advancement()
 				.display(simple(BotaniaBlocks.pinkFlower, "flowerPickup", FrameType.TASK))
 				.parent(root)
-				.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))
+				.addCriterion("flower", onPickup(BotaniaTags.Items.MYSTICAL_FLOWERS))
+				.addCriterion("double_flower", onPickup(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS))
+				.requirements(RequirementsStrategy.OR)
 				.save(consumer, mainId("flower_pickup"));
 
 		Advancement manaPoolPickup = Advancement.Builder.advancement()
@@ -427,13 +429,9 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 				.save(consumer, id);
 	}
 
-	@SafeVarargs
-	protected static InventoryChangeTrigger.TriggerInstance onPickup(TagKey<Item>... tags) {
-		ItemPredicate[] predicates = new ItemPredicate[tags.length];
-		for (int i = 0; i < tags.length; i++) {
-			predicates[i] = ItemPredicate.Builder.item().of(tags[i]).build();
-		}
-		return InventoryChangeTrigger.TriggerInstance.hasItems(predicates);
+	protected static InventoryChangeTrigger.TriggerInstance onPickup(TagKey<Item> tag) {
+		return InventoryChangeTrigger.TriggerInstance.hasItems(
+			ItemPredicate.Builder.item().of(tag).build());
 	}
 
 	protected static InventoryChangeTrigger.TriggerInstance onPickup(ItemLike... items) {
