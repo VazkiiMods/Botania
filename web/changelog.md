@@ -24,6 +24,7 @@ and start a new "Upcoming" section.
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 * Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
 * Fix: Sky of Beginning being granted only when *both* a Mystical Flower and Tall Mystical Flower were picked up, instead of either one
+* Fix: The JEI category for mana infusions no longer show the creative mana pool, to be consistent with EMI and REI
 
 ---
 
