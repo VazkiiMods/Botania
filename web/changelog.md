@@ -25,6 +25,7 @@ and start a new "Upcoming" section.
 * Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
 * Fix: Sky of Beginning being granted only when *both* a Mystical Flower and Tall Mystical Flower were picked up, instead of either one
 * Fix: The JEI category for mana infusions no longer show the creative mana pool, to be consistent with EMI and REI
+* Fix: Livingrock and deepslate apothecaries now show as workstations in the apothecary recipe category in EMI/REI/JEI
 
 ---
 

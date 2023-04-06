@@ -192,6 +192,8 @@ public final class BotaniaBlocks {
 	public static final Block defaultAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEFAULT, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE)
 			.requiresCorrectToolForDrops()
 			.lightLevel(s -> s.getValue(PetalApothecaryBlock.FLUID) == PetalApothecary.State.LAVA ? 15 : 0));
+	public static final Block deepslateAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEEPSLATE, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE));
+	public static final Block livingrockAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.LIVINGROCK, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.STONE));
 	public static final Block mossyAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.MOSSY, BlockBehaviour.Properties.copy(defaultAltar));
 	public static final Block forestAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.FOREST, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.TUFF));
 	public static final Block plainsAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.PLAINS, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.CALCITE));
@@ -201,8 +203,7 @@ public final class BotaniaBlocks {
 	public static final Block desertAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DESERT, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE));
 	public static final Block taigaAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.TAIGA, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE));
 	public static final Block mesaAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.MESA, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.CALCITE));
-	public static final Block livingrockAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.LIVINGROCK, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.STONE));
-	public static final Block deepslateAltar = new PetalApothecaryBlock(PetalApothecaryBlock.Variant.DEEPSLATE, BlockBehaviour.Properties.copy(defaultAltar).sound(SoundType.DEEPSLATE));
+	public static final Block[] ALL_APOTHECARIES = new Block[] { defaultAltar, deepslateAltar, livingrockAltar, mossyAltar, forestAltar, plainsAltar, mountainAltar, fungalAltar, swampAltar, desertAltar, taigaAltar, mesaAltar };
 
 	public static final Block livingrock = new BotaniaBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block livingrockPolished = new BotaniaBlock(BlockBehaviour.Properties.copy(livingrock));
