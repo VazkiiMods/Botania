@@ -19,7 +19,7 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Add: Mana pools with pylons on top of them will now play a small particle effect when trading items in the alfheim portal
-* Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like network color and augments, similar to how Mana Spreaders show their lens
+* Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like augments (for mana sparks) and network color (both mana and corporea sparks)
 * Change: Instead of always cooling down for 5 minutes, thermalilies now have a random cooldown between 20 seconds and 5 minutes. For automation, you can read how long the cooldown is with a comparator
 * Change: Entropinnyum's "unethical TNT" detection was changed, it's now more accurate and shouldn't cause any false positives
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item

@@ -166,5 +166,6 @@ public final class BotaniaEntities {
 
 	public static void registerWandHudCaps(ECapConsumer<WandHUD> consumer) {
 		consumer.accept(e -> new ManaSparkEntity.WandHud((ManaSparkEntity) e), SPARK);
+		consumer.accept(e -> new CorporeaSparkEntity.WandHud((CorporeaSparkEntity) e), CORPOREA_SPARK);
 	}
 }
