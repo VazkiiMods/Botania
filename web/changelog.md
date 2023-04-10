@@ -23,6 +23,7 @@ and start a new "Upcoming" section.
 * Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the
   crafting table segment or right-clicking the item in an inventory screen
 * Add: Mana lenses can now be merged using either honey bottles or slime balls
+* Add: Conversion chances for Orechid, Orechid Ignem, and Marimorphosis (including biome-specific chances for player's location) are now displayed in the recipe listings of JEI, REI, and EMI (Wormbo)
 * Add: Reintroduce the useShaders config option to disable Botania's special shaders
 * Add: zh_cn updates (Dawnwalker666)
 * Change: The Worldshaper's Sextant provides more control over the exact shape of circles

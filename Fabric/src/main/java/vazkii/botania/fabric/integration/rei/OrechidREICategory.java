@@ -11,6 +11,7 @@ package vazkii.botania.fabric.integration.rei;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.gui.widgets.Label;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
@@ -20,23 +21,25 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.client.integration.shared.OrechidUIHelper;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static vazkii.botania.fabric.integration.rei.PureDaisyREICategory.setupPureDaisyDisplay;
 
 public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay<?>> {
 	private final EntryStack<ItemStack> orechid;
 	private final CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> categoryId;
 	private final String langKey;
-	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> categoryId, Block orechid) {
 		this.categoryId = categoryId;
@@ -61,19 +64,39 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 
 	@Override
 	public @NotNull List<Widget> setupDisplay(OrechidBaseREIDisplay<?> display, Rectangle bounds) {
-		List<Widget> widgets = new ArrayList<>();
-		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 9);
+		List<Widget> widgets = setupPureDaisyDisplay(display, bounds, orechid);
 
-		widgets.add(Widgets.createRecipeBase(bounds));
-		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 23, center.y - 13, 0, 0, 65, 44))));
-		widgets.add(Widgets.createSlot(center).entry(orechid).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x - 30, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().get(0)).disableBackground());
+		final Double chance = getChance(display.getRecipe());
+		if (chance != null) {
+			final Component chanceComponent = OrechidUIHelper.getPercentageComponent(chance);
+			final Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 9);
+			final Label chanceLabel = Widgets.createLabel(new Point(center.x + 51, center.y - 11), chanceComponent)
+					.rightAligned().color(0x555555, 0xAAAAAA).noShadow();
+			chanceLabel.tooltip(getChanceTooltipComponents(chance, display.getRecipe()).toArray(Component[]::new));
+			widgets.add(chanceLabel);
+		}
+
 		return widgets;
+	}
+
+	@NotNull
+	protected Stream<Component> getChanceTooltipComponents(double chance, OrechidRecipe recipe) {
+		final var ratio = OrechidUIHelper.getRatioForChance(chance);
+		return Stream.of(OrechidUIHelper.getRatioTooltipComponent(ratio));
+	}
+
+	@Nullable
+	protected Double getChance(@NotNull OrechidRecipe recipe) {
+		return OrechidUIHelper.getChance(recipe, null);
 	}
 
 	@Override
 	public int getDisplayHeight() {
 		return 54;
+	}
+
+	@Override
+	public int getDisplayWidth(OrechidBaseREIDisplay<?> display) {
+		return 112;
 	}
 }

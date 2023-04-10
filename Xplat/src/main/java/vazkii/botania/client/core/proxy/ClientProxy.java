@@ -127,6 +127,9 @@ public class ClientProxy implements Proxy {
 	@Override
 	public Locale getLocale() {
 		final String languageCode = Minecraft.getInstance().getLanguageManager().getSelected().getCode();
-		return Locale.forLanguageTag(languageCode);
+		final var parts = languageCode.split("_", 3);
+		return parts.length > 2
+				? new Locale(parts[0], parts[1], parts[2])
+				: parts.length == 2 ? new Locale(parts[0], parts[1]) : new Locale(languageCode);
 	}
 }

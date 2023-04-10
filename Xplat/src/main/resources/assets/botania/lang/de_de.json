@@ -24,6 +24,8 @@
     "botaniamisc.toolRank": "%s&7-Rang",
     "botaniamisc.sextantMode.circle": "Kreismodus",
     "botaniamisc.sextantMode.sphere": "Kugelmodus",
+    "botaniamisc.conversionRatio": "Etwa %s von %s",
+    "botaniamisc.conversionChanceBiome": "%s in %s-Biom",
 
     "botania.color.rainbow": "Regenbogenfarben",
 

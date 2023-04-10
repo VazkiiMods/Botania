@@ -8,10 +8,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.recipe.OrechidRecipe;
+import vazkii.botania.client.integration.shared.OrechidUIHelper;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.MarimorphosisRecipe;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.stream.Stream;
 
 public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<MarimorphosisRecipe> {
 	public static final mezz.jei.api.recipe.RecipeType<MarimorphosisRecipe> TYPE =
@@ -31,4 +35,13 @@ public class MarimorphosisRecipeCategory extends OrechidRecipeCategoryBase<Marim
 	protected RecipeType<MarimorphosisRecipe> recipeType() {
 		return BotaniaRecipeTypes.MARIMORPHOSIS_TYPE;
 	}
+
+	@NotNull
+	@Override
+	protected Stream<Component> getChanceTooltipComponents(double chance, @NotNull OrechidRecipe recipe) {
+		Stream<Component> genericChanceTooltipComponents = super.getChanceTooltipComponents(chance, recipe);
+		Stream<Component> biomeChanceTooltipComponents = OrechidUIHelper.getBiomeChanceAndRatioTooltipComponents(chance, recipe);
+		return Stream.concat(genericChanceTooltipComponents, biomeChanceTooltipComponents);
+	}
+
 }

@@ -39,6 +39,8 @@
   "botaniamisc.lexiconcover2": "A Book by Vazkii",
   "botaniamisc.shiftinfo": "Hold %s for more info",
   "botaniamisc.ratio": "%sx Zoom (hover to zoom out)",
+  "botaniamisc.conversionRatio": "About %s out of %s",
+  "botaniamisc.conversionChanceBiome": "%s in %s biome",
   "botaniamisc.bottleTooltip": "It has an acquired taste",
   "botaniamisc.shardLevel": "Shard Power %s",
   "botaniamisc.shardRange": "Radius: %s",

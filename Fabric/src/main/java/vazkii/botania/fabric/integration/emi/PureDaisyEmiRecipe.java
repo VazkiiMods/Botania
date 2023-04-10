@@ -38,7 +38,7 @@ public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 
 	@Override
 	public int getDisplayWidth() {
-		return 76;
+		return 96;
 	}
 
 	@Override
@@ -48,9 +48,9 @@ public class PureDaisyEmiRecipe extends BotaniaEmiRecipe {
 
 	public static void addPureDaisyWidgets(WidgetHolder widgets, EmiRecipe recipe,
 			EmiIngredient input, EmiIngredient flower, EmiStack output) {
-		widgets.add(new BlendTextureWidget(TEXTURE, 7, 0, 65, 44, 0, 0));
-		widgets.addSlot(input, 0, 13).drawBack(false);
-		widgets.addSlot(flower, 29, 13).catalyst(true).drawBack(false);
-		widgets.addSlot(output, 58, 13).drawBack(false).recipeContext(recipe);
+		widgets.add(new BlendTextureWidget(TEXTURE, 17, 0, 65, 44, 0, 0));
+		widgets.addSlot(input, 10, 13).drawBack(false);
+		widgets.addSlot(flower, 39, 13).catalyst(true).drawBack(false);
+		widgets.addSlot(output, 68, 13).drawBack(false).recipeContext(recipe);
 	}
 }
