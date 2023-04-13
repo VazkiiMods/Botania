@@ -35,6 +35,7 @@ and start a new "Upcoming" section.
 * Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
 * Fix: Leaves placed by Worldshaper's Astrolabe no longer decay
 * Fix: Some items being missing from Forge equipment tags and Fabric bow tag
+* Fix: Using an empty bottle in the end will not attempt to pick up Ender Air if the player is aiming at a liquid (Wormbo)
 * Fix: Horn of the Canopy breaking persistent leaves
 * Fix: Thermalily not updating comparators properly
 * Fix: Kindle Lens not creating Soul Fire when it should
