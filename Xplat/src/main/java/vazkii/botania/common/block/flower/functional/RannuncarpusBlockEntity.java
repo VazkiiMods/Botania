@@ -63,6 +63,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	private static final int RANGE_PLACE_MINI = 2;
 	private static final int RANGE_PLACE_Y_MINI = 2;
 	private static final String TAG_STATE_SENSITIVE = "stateSensitive";
+	public static final int PLACE_INTERVAL_TICKS = 10;
 	private boolean stateSensitive = false;
 
 	protected RannuncarpusBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -81,7 +82,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 			return;
 		}
 
-		if (ticksExisted % 10 == 0) {
+		if (ticksExisted % PLACE_INTERVAL_TICKS == 0) {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getBlockPos().offset(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
 
 			List<ItemStack> filter = HopperhockBlockEntity.getFilterForInventory(getLevel(), getFilterPos(), false);
@@ -104,12 +105,11 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				}
 
 				if (stackItem instanceof BlockItem || stackItem instanceof FlowerPlaceable) {
-					BlockPos coords = getCandidatePosition(getLevel().random);
+					BlockPos coords = getCandidatePosition(getLevel().random, stack);
 					if (coords == null) {
 						continue;
 					}
-					BlockHitResult ray = new BlockHitResult(new Vec3(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP, coords, false);
-					BlockPlaceContext ctx = new RannuncarpusPlaceContext(getLevel(), stack, ray, worldPosition);
+					BlockPlaceContext ctx = getBlockPlaceContext(stack, coords);
 
 					boolean success = false;
 					if (stackItem instanceof FlowerPlaceable flowerPlaceable) {
@@ -135,6 +135,13 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 	}
 
+	@NotNull
+	private BlockPlaceContext getBlockPlaceContext(ItemStack stack, BlockPos coords) {
+		BlockHitResult ray = new BlockHitResult(new Vec3(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP,
+				coords, false);
+		return new RannuncarpusPlaceContext(getLevel(), stack, ray, worldPosition);
+	}
+
 	private BlockPos getFilterPos() {
 		return getBlockPos().below(isFloating() ? 1 : 2);
 	}
@@ -144,7 +151,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 	}
 
 	@Nullable
-	private BlockPos getCandidatePosition(RandomSource rand) {
+	private BlockPos getCandidatePosition(RandomSource rand, ItemStack stack) {
 		int rangePlace = getPlaceRange();
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
@@ -154,7 +161,8 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		for (BlockPos pos : BlockPos.betweenClosed(center.offset(-rangePlace, -rangePlaceY, -rangePlace),
 				center.offset(rangePlace, rangePlaceY, rangePlace))) {
 			BlockState state = getLevel().getBlockState(pos);
-			BlockState up = getLevel().getBlockState(pos.above());
+			BlockPos placementPos = pos.above();
+			BlockState up = getLevel().getBlockState(placementPos);
 
 			boolean matches;
 			if (stateSensitive) {
@@ -163,7 +171,8 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				matches = state.is(filter.getBlock());
 			}
 
-			if (matches && (up.isAir() || up.getMaterial().isReplaceable())) {
+			if (matches && (up.isAir() || up.getMaterial().isReplaceable()
+					|| up.canBeReplaced(getBlockPlaceContext(stack, placementPos)))) {
 				ret.add(pos.immutable());
 			}
 		}
