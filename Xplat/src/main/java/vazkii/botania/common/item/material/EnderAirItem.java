@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.material;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -19,8 +20,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -43,7 +48,7 @@ public class EnderAirItem extends Item {
 			return InteractionResultHolder.pass(stack);
 		}
 
-		if ((world.dimension() == Level.END && isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5)))
+		if ((world.dimension() == Level.END && isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5)) && notAimingAtFluid(world, player))
 				|| pickupFromEntity(world, player.getBoundingBox().inflate(1.0))) {
 
 			if (!world.isClientSide) {
@@ -51,12 +56,22 @@ public class EnderAirItem extends Item {
 				player.getInventory().placeItemBackInInventory(enderAir);
 				stack.shrink(1);
 				world.playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 0.5F, 1F);
+				world.gameEvent(player, GameEvent.FLUID_PICKUP, player.position());
 			}
 
-			return InteractionResultHolder.success(stack);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
 		}
 
 		return InteractionResultHolder.pass(stack);
+	}
+
+	private static boolean notAimingAtFluid(Level world, Player player) {
+		BlockHitResult hitResult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.ANY);
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos pos = hitResult.getBlockPos();
+			return world.mayInteract(player, pos) && world.getFluidState(pos).isEmpty();
+		}
+		return true;
 	}
 
 	public static boolean isClearFromDragonBreath(Level world, AABB aabb) {
