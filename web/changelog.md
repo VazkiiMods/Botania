@@ -20,10 +20,20 @@ and start a new "Upcoming" section.
 
 * Add: Looniums now change the loot table they pull from based on the structure in which they are placed, only applies to newly placed looniums
 * Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like network color and augments, similar to how Mana Spreaders show their lens.
+* Add: Mana pools with pylons on top of them will now play a small particle effect when trading items in the alfheim portal
+* Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like augments (for mana sparks) and network color (both mana and corporea sparks)
+* Change: Instead of always cooling down for 5 minutes, thermalilies now have a random cooldown between 20 seconds and 5 minutes. For automation, you can read how long the cooldown is with a comparator
+* Change: Entropinnyum's "unethical TNT" detection was changed, it's now more accurate and shouldn't cause any false positives
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
-* Change: Rod of the Shifting Crust now only processes neighbor updates for the replaced block and not the removed block, meaning torches or other blocks attached to exchanged blocks will no longer break as long as the new block can still support it.
+* Change: Rod of the Shifting Crust now only processes neighbor updates for the replaced block and not the removed block, meaning torches or other blocks attached to exchanged blocks will no longer break as long as the new block can still support it
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
+* Fix: Red stringed containers now always report and accessible inventory, so that corporea sparks will not pop off them
+* Fix: The fallback vanilla item transfer implementation in corporea now correctly updates inventories after taking items (this bug was not directly accessible, since neither fabric nor forge use this fallback implementation)
 * Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
+* Fix: Sky of Beginning being granted only when *both* a Mystical Flower and Tall Mystical Flower were picked up, instead of either one
+* Fix: The JEI category for mana infusions no longer show the creative mana pool, to be consistent with EMI and REI
+* Fix: Livingrock and deepslate apothecaries now show as workstations in the apothecary recipe category in EMI/REI/JEI
+* Internal: Changes to BlockstateProvider, see [these commits](https://github.com/VazkiiMods/Botania/compare/d1c3b3ae4f231d5e4e20677fac043bb315c4ef7e..a149645f8a3fc1d876600995eb7285654d358adc) for more details
 
 ---
 

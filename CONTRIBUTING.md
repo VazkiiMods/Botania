@@ -66,6 +66,9 @@ message.
 7. Download the JAR and submit it to CurseForge and Modrinth
 8. Push the website: `scripts/syncweb.sh <remote username>`. If you don't provide a remote
    username to ssh into the webserver, it'll take your current login name.
+9. Send an announcement email to `~williewillus/violet-moon-announce@lists.sr.ht`. Check
+   the list archives for examples of how to format the email. Post a link to the email in
+   the #mod_updates Discord channel.
 
 ## Working with GameTest
 1. Create a structure if wanted:

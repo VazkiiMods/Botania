@@ -83,15 +83,15 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			ms.popPose();
 		}
 
-		if (!stack.isEmpty()) {
+		if (!stack.isEmpty() && cube != null) {
 			int count = cube.getItemCount();
-			String countStr = "" + count;
+			String countStr = String.valueOf(count);
 			int color = 0xFFFFFF;
-			if (count > 9999) {
-				countStr = count / 1000 + "K";
+			if (count > 9_999) {
+				countStr = count / 1_000 + "K";
 				color = 0xFFFF00;
-				if (count > 9999999) {
-					countStr = count / 10000000 + "M";
+				if (count > 9_999_999) {
+					countStr = count / 1_000_000 + "M";
 					color = 0x00FF00;
 				}
 			}

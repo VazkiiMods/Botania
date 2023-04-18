@@ -384,13 +384,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			}
 
 			{
-				final DyeColor network = this.entity.getNetwork();
-				final Component colorName = Component.translatable("color.minecraft." + network.getName()).withStyle(ChatFormatting.ITALIC);
+				final DyeColor networkColor = this.entity.getNetwork();
+				final Component colorName = Component.translatable("color.minecraft." + networkColor.getName()).withStyle(ChatFormatting.ITALIC);
 				int width = mc.font.width(colorName) / 2;
 				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 + 20;
 
-				mc.font.drawShadow(ms, colorName, x, y + 5, network.getTextColor());
+				mc.font.drawShadow(ms, colorName, x, y + 5, networkColor.getTextColor());
 			}
 
 			final SparkUpgradeType upgrade = this.entity.getUpgrade();

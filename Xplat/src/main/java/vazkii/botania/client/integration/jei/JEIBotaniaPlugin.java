@@ -33,6 +33,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.jetbrains.annotations.NotNull;
@@ -179,20 +180,12 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.alfPortal), ElvenTradeRecipeCategory.TYPE);
 
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.manaPool), ManaPoolRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.creativePool), ManaPoolRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.dilutedPool), ManaPoolRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.fabulousPool), ManaPoolRecipeCategory.TYPE);
 
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.defaultAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.forestAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.plainsAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.mountainAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.fungalAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.swampAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.desertAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.taigaAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.mesaAltar), PetalApothecaryRecipeCategory.TYPE);
-		registry.addRecipeCatalyst(new ItemStack(BotaniaBlocks.mossyAltar), PetalApothecaryRecipeCategory.TYPE);
+		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
+			registry.addRecipeCatalyst(new ItemStack(apothecary), PetalApothecaryRecipeCategory.TYPE);
+		}
 
 		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.orechid), OrechidRecipeCategory.TYPE);
 		registry.addRecipeCatalyst(new ItemStack(BotaniaFlowerBlocks.orechidFloating), OrechidRecipeCategory.TYPE);

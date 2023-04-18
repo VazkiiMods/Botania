@@ -12,6 +12,7 @@ import dev.emi.emi.api.stack.EmiStack;
 
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
@@ -85,16 +86,9 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.craftingHalo));
 		registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BotaniaItems.autocraftingHalo));
 
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.defaultAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.desertAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.forestAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.fungalAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.mesaAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.mossyAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.mountainAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.plainsAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.swampAltar));
-		registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(BotaniaBlocks.taigaAltar));
+		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
+			registry.addWorkstation(PETAL_APOTHECARY, EmiStack.of(apothecary));
+		}
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.manaPool));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.dilutedPool));
 		registry.addWorkstation(MANA_INFUSION, EmiStack.of(BotaniaBlocks.fabulousPool));

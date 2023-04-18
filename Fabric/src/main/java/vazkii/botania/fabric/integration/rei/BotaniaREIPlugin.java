@@ -34,7 +34,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -84,28 +84,17 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 		));
 
 		helper.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(BotaniaItems.craftingHalo), EntryStacks.of(BotaniaItems.autocraftingHalo));
-		Set<ItemLike> apothecaries = ImmutableSet.of(
-				BotaniaBlocks.defaultAltar,
-				BotaniaBlocks.desertAltar,
-				BotaniaBlocks.forestAltar,
-				BotaniaBlocks.fungalAltar,
-				BotaniaBlocks.mesaAltar,
-				BotaniaBlocks.mossyAltar,
-				BotaniaBlocks.mountainAltar,
-				BotaniaBlocks.plainsAltar,
-				BotaniaBlocks.swampAltar,
-				BotaniaBlocks.taigaAltar);
-		for (ItemLike altar : apothecaries) {
-			helper.addWorkstations(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, EntryStacks.of(altar));
+		for (Block apothecary : BotaniaBlocks.ALL_APOTHECARIES) {
+			helper.addWorkstations(BotaniaREICategoryIdentifiers.PETAL_APOTHECARY, EntryStacks.of(apothecary));
 		}
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.BREWERY, EntryStacks.of(BotaniaBlocks.brewery));
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.ELVEN_TRADE, EntryStacks.of(BotaniaBlocks.alfPortal));
-		Set<ItemLike> manaPools = ImmutableSet.of(
+		Set<Block> manaPools = ImmutableSet.of(
 				BotaniaBlocks.manaPool,
 				BotaniaBlocks.dilutedPool,
 				BotaniaBlocks.fabulousPool
 		);
-		for (ItemLike pool : manaPools) {
+		for (Block pool : manaPools) {
 			helper.addWorkstations(BotaniaREICategoryIdentifiers.MANA_INFUSION, EntryStacks.of(pool));
 		}
 		helper.addWorkstations(BotaniaREICategoryIdentifiers.ORECHID, EntryStacks.of(BotaniaFlowerBlocks.orechid), EntryStacks.of(BotaniaFlowerBlocks.orechidFloating));

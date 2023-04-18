@@ -9,10 +9,14 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -31,6 +35,7 @@ import net.minecraft.world.phys.AABB;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaSpark;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
@@ -69,7 +74,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	@NotNull
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(isCreative() ? BotaniaItems.corporeaSparkCreative : isMaster() ? BotaniaItems.corporeaSparkMaster : BotaniaItems.corporeaSpark);
+		return new ItemStack(getSparkItem());
 	}
 
 	@Override
@@ -106,8 +111,12 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	}
 
 	private void dropAndKill() {
-		spawnAtLocation(new ItemStack(isCreative() ? BotaniaItems.corporeaSparkCreative : isMaster() ? BotaniaItems.corporeaSparkMaster : BotaniaItems.corporeaSpark), 0F);
+		spawnAtLocation(new ItemStack(getSparkItem()), 0F);
 		discard();
+	}
+
+	protected Item getSparkItem() {
+		return isCreative() ? BotaniaItems.corporeaSparkCreative : isMaster() ? BotaniaItems.corporeaSparkMaster : BotaniaItems.corporeaSpark;
 	}
 
 	@Override
@@ -308,6 +317,33 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
 		cmp.putBoolean(TAG_CREATIVE, isCreative());
+	}
+
+	public record WandHud(CorporeaSparkEntity entity) implements WandHUD {
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			final ItemStack sparkItem = new ItemStack(entity.getSparkItem());
+
+			int color = 0x4444FF;
+			{
+				final Component sparkName = sparkItem.getHoverName();
+				int width = mc.font.width(sparkName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 5;
+
+				mc.font.drawShadow(ms, sparkName, x, y + 5, color);
+			}
+
+			{
+				final DyeColor networkColor = this.entity.getNetwork();
+				final Component colorName = Component.translatable("color.minecraft." + networkColor.getName()).withStyle(ChatFormatting.ITALIC);
+				int width = mc.font.width(colorName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 + 20;
+
+				mc.font.drawShadow(ms, colorName, x, y + 5, networkColor.getTextColor());
+			}
+		}
 	}
 
 }
