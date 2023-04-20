@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 import vazkii.botania.test.TestingUtil;
@@ -35,7 +36,7 @@ public class HopperhockTest {
 	private static final float SPAWN_ITEM_Z = SPAWN_ITEM_POS.getZ();
 
 	@GameTest(template = TEMPLATE)
-	public void testInsertTop(GameTestHelper helper) {
+	public void testFurnaceInsertTop(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.below();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		spawnItem(helper, Items.COBBLESTONE);
@@ -47,7 +48,7 @@ public class HopperhockTest {
 	}
 
 	@GameTest(template = TEMPLATE)
-	public void testInsertSide(GameTestHelper helper) {
+	public void testFurnaceInsertSide(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.south();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		spawnItem(helper, Items.CHARCOAL);
@@ -59,7 +60,7 @@ public class HopperhockTest {
 	}
 
 	@GameTest(template = TEMPLATE)
-	public void testInsertBottom(GameTestHelper helper) {
+	public void testFurnaceInsertBottom(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.above();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		spawnItem(helper, Items.CHARCOAL);
@@ -73,7 +74,7 @@ public class HopperhockTest {
 	}
 
 	@GameTest(template = TEMPLATE)
-	public void testInventoryFull(GameTestHelper helper) {
+	public void testFurnaceInventoryFull(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.below();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		getFurnaceBlockEntity(helper, furnacePos).setItem(0, new ItemStack(Items.OAK_LOG, 64));
@@ -86,7 +87,7 @@ public class HopperhockTest {
 	}
 
 	@GameTest(template = TEMPLATE)
-	public void testAddToStack(GameTestHelper helper) {
+	public void testFurnaceAddToStack(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.below();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		getFurnaceBlockEntity(helper, furnacePos).setItem(0, new ItemStack(Items.OAK_LOG, 60));
@@ -100,7 +101,7 @@ public class HopperhockTest {
 	}
 
 	@GameTest(template = TEMPLATE)
-	public void testWrongItemForSlot(GameTestHelper helper) {
+	public void testFurnaceWrongItemForSlot(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.above();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		spawnItem(helper, Items.BRICKS);
@@ -112,7 +113,7 @@ public class HopperhockTest {
 	}
 
 	@GameTest(template = TEMPLATE)
-	public void testFilterMatch(GameTestHelper helper) {
+	public void testFurnaceFilterMatch(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.below();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		spawnItemFrame(helper, furnacePos.west(), Direction.WEST, Items.COBBLESTONE);
@@ -125,7 +126,7 @@ public class HopperhockTest {
 	}
 
 	@GameTest(template = TEMPLATE)
-	public void testFilterNoMatch(GameTestHelper helper) {
+	public void testFurnaceFilterNoMatch(GameTestHelper helper) {
 		var furnacePos = FLOWER_POS.below();
 		helper.setBlock(furnacePos, Blocks.FURNACE);
 		spawnItemFrame(helper, furnacePos.west(), Direction.WEST, Items.OAK_LOG);
@@ -134,6 +135,58 @@ public class HopperhockTest {
 		helper.startSequence().thenExecuteAfter(61, () -> {
 			helper.assertContainerEmpty(furnacePos);
 			helper.assertItemEntityPresent(Items.COBBLESTONE, SPAWN_ITEM_POS, 0);
+		}).thenSucceed();
+	}
+
+	@GameTest(template = TEMPLATE)
+	public void testComposterInsertTop(GameTestHelper helper) {
+		var composterPos = FLOWER_POS.below();
+		helper.setBlock(composterPos, Blocks.COMPOSTER);
+		spawnItem(helper, Items.PUMPKIN_PIE);
+
+		helper.succeedWhen(() -> {
+			helper.assertBlockProperty(composterPos, ComposterBlock.LEVEL, 1);
+			helper.assertEntityNotPresent(EntityType.ITEM);
+		});
+	}
+
+	@GameTest(template = TEMPLATE)
+	public void testComposterInsertSide(GameTestHelper helper) {
+		var composterPos = FLOWER_POS.south();
+		spawnItemAndExpectNoPickUp(helper, composterPos, Items.PUMPKIN_PIE);
+	}
+
+	@GameTest(template = TEMPLATE)
+	public void testComposterInsertBottom(GameTestHelper helper) {
+		var composterPos = FLOWER_POS.above();
+		spawnItemAndExpectNoPickUp(helper, composterPos, Items.PUMPKIN_PIE);
+	}
+
+	@GameTest(template = TEMPLATE)
+	public void testComposterInsertWrongItem(GameTestHelper helper) {
+		var composterPos = FLOWER_POS.below();
+		spawnItemAndExpectNoPickUp(helper, composterPos, Items.OAK_LOG);
+	}
+
+	@GameTest(template = TEMPLATE)
+	public void testComposterFull(GameTestHelper helper) {
+		var composterPos = FLOWER_POS.below();
+		helper.setBlock(composterPos, Blocks.COMPOSTER.defaultBlockState().setValue(ComposterBlock.LEVEL, 7));
+		spawnItem(helper, Items.PUMPKIN_PIE);
+
+		helper.startSequence().thenExecuteAfter(61, () -> {
+			helper.assertBlockProperty(composterPos, ComposterBlock.LEVEL, 8);
+			helper.assertItemEntityPresent(Items.PUMPKIN_PIE, SPAWN_ITEM_POS, 0);
+		}).thenExecute(helper::killAllEntities).thenSucceed();
+	}
+
+	private void spawnItemAndExpectNoPickUp(GameTestHelper helper, BlockPos composterPos, Item item) {
+		helper.setBlock(composterPos, Blocks.COMPOSTER);
+		spawnItem(helper, item);
+
+		helper.startSequence().thenExecuteAfter(61, () -> {
+			helper.assertBlockProperty(composterPos, ComposterBlock.LEVEL, 0);
+			helper.assertItemEntityPresent(item, SPAWN_ITEM_POS, 0);
 		}).thenSucceed();
 	}
 
