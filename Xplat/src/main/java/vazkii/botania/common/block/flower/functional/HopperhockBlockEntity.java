@@ -81,8 +81,14 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 				return false;
 			}
 
+			final ItemFlagsComponent flags = XplatAbstractions.INSTANCE.itemFlagsComponent(item);
+
 			// Flat 5 tick delay for newly infused items
-			var manaInfusionCooldown = XplatAbstractions.INSTANCE.itemFlagsComponent(item).getManaInfusionCooldown();
+			final int runicAltarCooldown = flags.getRunicAltarCooldown();
+			if (runicAltarCooldown > 0) {
+				return runicAltarCooldown <= ItemFlagsComponent.INITIAL_RUNIC_ALTAR_COOLDOWN - 5;
+			}
+			var manaInfusionCooldown = flags.getManaInfusionCooldown();
 			if (manaInfusionCooldown > 0) {
 				return manaInfusionCooldown <= ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5;
 			}
