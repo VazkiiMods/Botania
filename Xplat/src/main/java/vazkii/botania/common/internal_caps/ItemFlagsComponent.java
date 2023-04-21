@@ -34,7 +34,7 @@ public class ItemFlagsComponent extends SerializableComponent {
 	 */
 	private int runicAltarCooldown = 0;
 	public static final int INITIAL_MANA_INFUSION_COOLDOWN = 25;
-	public static final int INITIAL_RUNIC_ALTAR_COOLDOWN = 15;
+	public static final int INITIAL_RUNIC_ALTAR_COOLDOWN = 25;
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {
