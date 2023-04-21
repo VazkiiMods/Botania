@@ -17,12 +17,14 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.common.HurtByTargetGoalAccess;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.mixin.GoalSelectorAccessor;
 import vazkii.botania.mixin.HurtByTargetGoalAccessor;
@@ -78,6 +80,7 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 
 				// Move any HurtByTargetGoal to highest priority
 				GoalSelector targetSelector = ((MobAccessor) entity).getTargetSelector();
+				boolean modifiedGoals = false;
 				for (WrappedGoal entry : ((GoalSelectorAccessor) targetSelector).getAvailableGoals()) {
 					if (entry.getGoal() instanceof HurtByTargetGoal goal) {
 						// Remove all ignorals. We can't actually resize or overwrite
@@ -89,8 +92,16 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 						// Concurrent modification OK since we break out of the loop
 						targetSelector.removeGoal(goal);
 						targetSelector.addGoal(-1, goal);
+
+						((HurtByTargetGoalAccess) goal).botania$setBrainwashed();
+						modifiedGoals = true;
 						break;
 					}
+				}
+
+				if (!modifiedGoals) {
+					// For entities using the newer Brain system
+					entity.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, mob);
 				}
 
 				// Now set last hurt by, which HurtByTargetGoal will pick up
