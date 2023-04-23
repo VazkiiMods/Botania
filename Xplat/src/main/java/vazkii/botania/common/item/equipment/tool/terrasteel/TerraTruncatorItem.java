@@ -16,6 +16,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -231,9 +232,11 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 
 					boolean isWood = state.is(BlockTags.LOGS);
 					boolean isLeaf = state.is(BlockTags.LEAVES);
+					// TODO: Make "blocks the axe will propagate through" a tag
+					boolean shouldPropagateThrough = isWood || isLeaf
+							|| state.is(Blocks.MANGROVE_ROOTS);
 
-					// If it's not wood or a leaf, we aren't interested.
-					if (!isWood && !isLeaf) {
+					if (!shouldPropagateThrough) {
 						continue;
 					}
 
