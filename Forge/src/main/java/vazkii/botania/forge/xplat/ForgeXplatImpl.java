@@ -317,10 +317,10 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		if (be != null) {
 			cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos);
 		} else {
-			// check for vanilla interface, e.g. composter
+			// check vanilla interface for blocks not covered by forge capabilities, e.g. composter
 			var state = level.getBlockState(pos);
 			if (state.getBlock() instanceof WorldlyContainerHolder wch) {
-				cap = SidedInvWrapper.create(wch.getContainer(state, level, pos), sideOfPos)[0].cast();
+				cap = LazyOptional.of(() -> new SidedInvWrapper(wch.getContainer(state, level, pos), sideOfPos));
 			}
 		}
 
