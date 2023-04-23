@@ -4,6 +4,7 @@
     "type": "block",
     "block": "botania:alchemy_catalyst"
   },
+  "group": "botania:vine_and_lily_pad_cycle",
   "input": {
     "item": "minecraft:lily_pad"
   },
