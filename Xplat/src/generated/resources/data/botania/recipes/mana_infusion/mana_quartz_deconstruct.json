@@ -4,6 +4,7 @@
     "type": "block",
     "block": "botania:alchemy_catalyst"
   },
+  "group": "botania:block_deconstruction",
   "input": {
     "item": "botania:mana_quartz"
   },
