@@ -50,8 +50,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -63,7 +63,7 @@ public class WorldshaperssSextantItem extends Item {
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";
 	private static final String TAG_SOURCE_Z = "sourceZ";
-	private static final String TAG_SPHERE_MODE = "sphereMode";
+	private static final String TAG_MODE = "mode";
 
 	public WorldshaperssSextantItem(Properties builder) {
 		super(builder);
@@ -95,20 +95,24 @@ public class WorldshaperssSextantItem extends Item {
 			double radius = calculateRadius(stack, living);
 			WispParticleData data = WispParticleData.wisp(0.3F, 0F, 1F, 1F, 1);
 			world.addParticle(data, x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
-			boolean sphereMode = getSphereMode(stack);
+			var visualizer = getMode(stack).getVisualizer();
 			for (int i = count % 20; i < 360; i += 20) {
 				float radian = (float) (i * Math.PI / 180);
 				double cosR = Math.cos(radian) * radius;
 				double sinR = Math.sin(radian) * radius;
-				if (sphereMode) {
-					world.addParticle(data, x + cosR + 0.5, y + 1.3, z + sinR + 0.5, 0, 0.01, 0);
-					world.addParticle(data, x + sinR + 0.5, y + cosR + 1.5, z + 0.3, 0, 0, 0.01);
-					world.addParticle(data, x + 0.3, y + sinR + 1.5, z + cosR + 0.5, 0.01, 0, 0);
-				} else {
-					world.addParticle(data, x + cosR + 0.5, y + 1, z + sinR + 0.5, 0, 0.01, 0);
-				}
+				visualizer.visualize(world, x, y, z, data, cosR, sinR);
 			}
 		}
+	}
+
+	private static void visualizeSphere(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR) {
+		world.addParticle(data, x + cosR + 0.5, y + 1.3, z + sinR + 0.5, 0, 0.01, 0);
+		world.addParticle(data, x + sinR + 0.5, y + cosR + 1.5, z + 0.3, 0, 0, 0.01);
+		world.addParticle(data, x + 0.3, y + sinR + 1.5, z + cosR + 0.5, 0.01, 0, 0);
+	}
+
+	private static void visualizeCircle(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR) {
+		world.addParticle(data, x + cosR + 0.5, y + 1, z + sinR + 0.5, 0, 0.01, 0);
 	}
 
 	private static void makeSphere(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map) {
@@ -165,14 +169,9 @@ public class WorldshaperssSextantItem extends Item {
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-			boolean sphere = getSphereMode(stack);
 			if (y != Integer.MIN_VALUE) {
 				Map<BlockPos, IStateMatcher> map = new HashMap<>();
-				if (sphere) {
-					makeSphere(matcher, radius + 0.5, map);
-				} else {
-					makeCircle(matcher, radius + 0.5, map);
-				}
+				getMode(stack).getCreator().create(matcher, radius + 0.5, map);
 				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
 				Proxy.INSTANCE.showMultiblock(sparse, Component.literal("r = " + getRadiusString(radius)),
 						new BlockPos(x, y, z), Rotation.NONE);
@@ -203,14 +202,18 @@ public class WorldshaperssSextantItem extends Item {
 		).forEach(pos -> map.put(pos, matcher));
 	}
 
-	private static boolean getSphereMode(ItemStack stack) {
-		return ItemNBTHelper.getBoolean(stack, TAG_SPHERE_MODE, false);
+	private static Modes getMode(ItemStack stack) {
+		String modeString = ItemNBTHelper.getString(stack, TAG_MODE, "circle");
+		return Arrays.stream(Modes.values()).filter(m -> m.getKey().equals(modeString)).findFirst().orElse(Modes.CIRCLE);
 	}
 
 	private void reset(Level world, Player player, ItemStack stack) {
 		if (ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE) == Integer.MIN_VALUE) {
 			if (!world.isClientSide) {
-				setSphereMode(stack, !getSphereMode(stack));
+				Modes currentMode = getMode(stack);
+				int numModes = Modes.values().length;
+				int nextMode = currentMode.ordinal() + 1;
+				setMode(stack, Modes.values()[nextMode >= numModes ? 0 : nextMode]);
 			} else {
 				player.playSound(BotaniaSounds.ding, 0.1F, 1F);
 			}
@@ -222,8 +225,8 @@ public class WorldshaperssSextantItem extends Item {
 		}
 	}
 
-	private static void setSphereMode(ItemStack stack, boolean sphereMode) {
-		ItemNBTHelper.setBoolean(stack, TAG_SPHERE_MODE, sphereMode);
+	private static void setMode(ItemStack stack, Modes mode) {
+		ItemNBTHelper.setString(stack, TAG_MODE, mode.getKey());
 	}
 
 	@NotNull
@@ -264,9 +267,33 @@ public class WorldshaperssSextantItem extends Item {
 				net.minecraft.util.Mth.floor(lookVec.y),
 				net.minecraft.util.Mth.floor(lookVec.z));
 
-		return getSphereMode(stack)
-				? MathHelper.pointDistanceSpace(source.x, source.y, source.z, lookVec.x, lookVec.y, lookVec.z)
-				: MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
+		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
+	}
+
+	@Override
+	public Component getName(@NotNull ItemStack stack) {
+		Component mode = Component.literal(" (")
+				.append(Component.translatable(getModeString(stack)))
+				.append(")");
+		return super.getName(stack).plainCopy().append(mode);
+	}
+
+	public static String getModeString(ItemStack stack) {
+		return "botaniamisc.sextantMode." + getMode(stack).getKey();
+	}
+
+	private static String getRadiusString(double radius) {
+		NumberFormat format = getNumberFormat();
+
+		return format.format(radius);
+	}
+
+	private static NumberFormat getNumberFormat() {
+		var format = NumberFormat.getInstance(Proxy.INSTANCE.getLocale());
+		format.setRoundingMode(RoundingMode.HALF_UP);
+		format.setMaximumFractionDigits(1);
+		format.setMinimumFractionDigits(1);
+		return format;
 	}
 
 	public static class Hud {
@@ -307,35 +334,40 @@ public class WorldshaperssSextantItem extends Item {
 		}
 	}
 
-	@Override
-	public Component getName(@NotNull ItemStack stack) {
-		Component mode = Component.literal(" (")
-				.append(Component.translatable(getModeString(stack)))
-				.append(")");
-		return super.getName(stack).plainCopy().append(mode);
+	@FunctionalInterface
+	private interface ShapeCreator {
+		void create(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map);
 	}
 
-	public static String getModeString(ItemStack stack) {
-		return "botaniamisc.sextantMode." + (getSphereMode(stack) ? "sphere" : "circle");
+	@FunctionalInterface
+	private interface ShapeVisualizer {
+		void visualize(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR);
 	}
 
-	private static String getRadiusString(double radius) {
-		NumberFormat format = getNumberFormat(1);
+	public enum Modes {
+		CIRCLE("circle", WorldshaperssSextantItem::makeCircle, WorldshaperssSextantItem::visualizeCircle),
+		SPHERE("sphere", WorldshaperssSextantItem::makeSphere, WorldshaperssSextantItem::visualizeSphere);
 
-		return format.format(radius);
-	}
+		private final String key;
+		private final ShapeCreator creator;
+		private final ShapeVisualizer visualizer;
 
-	// these two methods should probably move to a Locale helper class:
-	private static NumberFormat getNumberFormat(int numDigits) {
-		var format = NumberFormat.getInstance(getLocale());
-		format.setRoundingMode(RoundingMode.HALF_UP);
-		format.setMaximumFractionDigits(numDigits);
-		format.setMinimumFractionDigits(numDigits);
-		return format;
-	}
+		Modes(String key, ShapeCreator creator, ShapeVisualizer visualizer) {
+			this.key = key;
+			this.creator = creator;
+			this.visualizer = visualizer;
+		}
 
-	private static Locale getLocale() {
-		final String languageCode = Minecraft.getInstance().getLanguageManager().getSelected().getCode();
-		return Locale.forLanguageTag(languageCode);
+		public String getKey() {
+			return key;
+		}
+
+		public ShapeCreator getCreator() {
+			return creator;
+		}
+
+		public ShapeVisualizer getVisualizer() {
+			return visualizer;
+		}
 	}
 }
