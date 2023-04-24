@@ -14,7 +14,5 @@ dependencies {
 
     compileOnly('curse.maven:cofh-lib-220333:2388748')
     compileOnly('curse.maven:minefactory-reloaded-66672:2366150')
-
-    runtimeOnly('com.github.GTNewHorizons:GT5-Unofficial:5.09.42.72:dev')
 }
 
