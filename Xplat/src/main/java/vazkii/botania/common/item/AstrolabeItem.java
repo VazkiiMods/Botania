@@ -12,8 +12,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,12 +23,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -97,7 +101,9 @@ public class AstrolabeItem extends Item {
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, Player player) {
-		List<BlockPos> blocksToPlace = getBlocksToPlace(stack, player);
+		Tuple<List<BlockPos>, BlockPlaceContext> blocks = getBlocksToPlace(stack, player);
+		BlockPlaceContext ctx = blocks.getB();
+		List<BlockPos> blocksToPlace = blocks.getA();
 		if (!hasBlocks(stack, player, blocksToPlace)) {
 			return false;
 		}
@@ -110,22 +116,28 @@ public class AstrolabeItem extends Item {
 
 		ItemStack stackToPlace = new ItemStack(getBlock(stack));
 		for (BlockPos coords : blocksToPlace) {
-			placeBlockAndConsume(player, stack, stackToPlace, coords);
+			BlockPlaceContext placeContext = BlockPlaceContext.at(ctx, coords, ctx.getClickedFace());
+			placeBlockAndConsume(player, stack, stackToPlace, placeContext);
 		}
 		ManaItemHandler.instance().requestManaExact(stack, player, cost, true);
 
 		return true;
 	}
 
-	private void placeBlockAndConsume(Player player, ItemStack requestor, ItemStack blockToPlace, BlockPos coords) {
+	private void placeBlockAndConsume(Player player, ItemStack requestor, ItemStack blockToPlace, BlockPlaceContext ctx) {
 		if (blockToPlace.isEmpty()) {
 			return;
 		}
 
 		Block block = Block.byItem(blockToPlace.getItem());
-		BlockState state = block.defaultBlockState();
-		player.getLevel().setBlockAndUpdate(coords, state);
-		player.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
+		BlockState state = block.getStateForPlacement(ctx);
+		if (state == null) {
+			return;
+		}
+		BlockPos coords = ctx.getClickedPos();
+		player.level.setBlockAndUpdate(coords, state);
+		player.level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
+		player.level.gameEvent(GameEvent.BLOCK_PLACE, coords, GameEvent.Context.of(player, state));
 
 		if (player.getAbilities().instabuild) {
 			return;
@@ -198,9 +210,10 @@ public class AstrolabeItem extends Item {
 		return false;
 	}
 
-	public static List<BlockPos> getBlocksToPlace(ItemStack stack, Player player) {
+	public static Tuple<List<BlockPos>, BlockPlaceContext> getBlocksToPlace(ItemStack stack, Player player) {
 		List<BlockPos> coords = new ArrayList<>();
 		BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 5, true);
+		BlockPlaceContext ctx = new BlockPlaceContext(player, player.swingingArm, new ItemStack(getBlock(stack).asItem()), rtr);
 		if (rtr.getType() == HitResult.Type.BLOCK) {
 			BlockPos pos = rtr.getBlockPos();
 			BlockState state = player.getLevel().getBlockState(pos);
@@ -230,9 +243,9 @@ public class AstrolabeItem extends Item {
 						int zp = pos.getZ() + z + dir.getStepZ();
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
-						BlockState state1 = player.getLevel().getBlockState(newPos);
-						if (player.getLevel().getWorldBorder().isWithinBounds(newPos)
-								&& (state1.isAir() || state1.getMaterial().isReplaceable())) {
+						BlockState state1 = player.level.getBlockState(newPos);
+						if (player.level.getWorldBorder().isWithinBounds(newPos)
+								&& (state1.isAir() || state1.getMaterial().isReplaceable() || state1.canBeReplaced(ctx))) {
 							coords.add(newPos);
 						}
 					}
@@ -241,7 +254,7 @@ public class AstrolabeItem extends Item {
 
 		}
 
-		return coords;
+		return new Tuple<>(coords, ctx);
 	}
 
 	public void displayRemainderCounter(Player player, ItemStack stack) {
@@ -254,7 +267,7 @@ public class AstrolabeItem extends Item {
 
 	private boolean setBlock(ItemStack stack, BlockState state) {
 		if (!state.isAir()) {
-			ItemNBTHelper.setCompound(stack, TAG_BLOCKSTATE, NbtUtils.writeBlockState(state));
+			ItemNBTHelper.setCompound(stack, TAG_BLOCKSTATE, NbtUtils.writeBlockState(state.getBlock().defaultBlockState()));
 			return true;
 		}
 		return false;
@@ -269,11 +282,14 @@ public class AstrolabeItem extends Item {
 	}
 
 	public static Block getBlock(ItemStack stack) {
-		return getBlockState(stack).getBlock();
+		CompoundTag compound = ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, false);
+		return NbtUtils.readBlockState(compound).getBlock();
 	}
 
-	public static BlockState getBlockState(ItemStack stack) {
-		return NbtUtils.readBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, false));
+	public static BlockState getBlockState(ItemStack stack, BlockPlaceContext ctx) {
+		Block block = getBlock(stack);
+		BlockState stateForPlacement = block.getStateForPlacement(ctx);
+		return stateForPlacement != null ? stateForPlacement : block.defaultBlockState();
 	}
 
 	@Override

@@ -18,8 +18,10 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -53,10 +55,11 @@ public final class AstrolabePreviewHandler {
 	}
 
 	private static void renderPlayerLook(PoseStack ms, VertexConsumer buffer, Player player, ItemStack stack) {
-		List<BlockPos> coords = AstrolabeItem.getBlocksToPlace(stack, player);
+		Tuple<List<BlockPos>, BlockPlaceContext> blocks = AstrolabeItem.getBlocksToPlace(stack, player);
+		List<BlockPos> coords = blocks.getA();
 		if (AstrolabeItem.hasBlocks(stack, player, coords)) {
-			BlockState state = AstrolabeItem.getBlockState(stack);
-
+			BlockPlaceContext ctx = blocks.getB();
+			BlockState state = AstrolabeItem.getBlockState(stack, ctx);
 			for (BlockPos coord : coords) {
 				renderBlockAt(ms, buffer, state, coord);
 			}
