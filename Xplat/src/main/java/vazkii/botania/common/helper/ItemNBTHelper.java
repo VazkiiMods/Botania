@@ -18,6 +18,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.mana.ManaItem;
@@ -131,14 +132,20 @@ public final class ItemNBTHelper {
 	 * If nullifyOnFail is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one.
 	 **/
+	@Nullable
+	@Contract("_, _, false -> !null")
 	public static CompoundTag getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : nullifyOnFail ? null : new CompoundTag();
 	}
 
+	@Nullable
+	@Contract("_, _, !null -> !null")
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getString(tag) : defaultExpected;
 	}
 
+	@Nullable
+	@Contract("_, _, _, false -> !null")
 	public static ListTag getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new ListTag();
 	}

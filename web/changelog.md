@@ -29,7 +29,10 @@ and start a new "Upcoming" section.
   by having the radius selection snap to the block grind instead of only allowing integers
   (Wormbo)
 * Change: The Rosa Arcana's XP orb mana yield now matches the player-based mana yield
+* Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Change: Worldshaper's Astrolabe now places blocks more like a player would, e.g. waterlogging blocks where appropriate, adding more candles to existing ones, or rotating directional blocks according to the player's view direction, targeted block side, or available attachment options
 * Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
+* Fix: Leaves placed by Worldshaper's Astrolabe no longer decay
 * Fix: Some items being missing from Forge equipment tags and Fabric bow tag
 * Fix: Horn of the Canopy breaking persistent leaves
 * Fix: Thermalily not updating comparators properly
