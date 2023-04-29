@@ -156,7 +156,8 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
 		BlockState filter = getUnderlyingBlock();
-		List<BlockPos> ret = new ArrayList<>();
+		List<BlockPos> primary = new ArrayList<>();
+		List<BlockPos> secondary = new ArrayList<>();
 
 		for (BlockPos pos : BlockPos.betweenClosed(center.offset(-rangePlace, -rangePlaceY, -rangePlace),
 				center.offset(rangePlace, rangePlaceY, rangePlace))) {
@@ -171,13 +172,17 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				matches = state.is(filter.getBlock());
 			}
 
-			if (matches && (up.isAir() || up.getMaterial().isReplaceable()
-					|| up.canBeReplaced(getBlockPlaceContext(stack, placementPos)))) {
-				ret.add(pos.immutable());
+			if (matches) {
+				if (up.isAir() || up.getMaterial().isReplaceable()) {
+					primary.add(pos.immutable());
+				} else if (up.canBeReplaced(getBlockPlaceContext(stack, placementPos))) {
+					secondary.add(pos.immutable());
+				}
 			}
 		}
 
-		return ret.isEmpty() ? null : ret.get(rand.nextInt(ret.size()));
+		return !primary.isEmpty() ? primary.get(rand.nextInt(primary.size()))
+				: !secondary.isEmpty() ? secondary.get(rand.nextInt(secondary.size())) : null;
 	}
 
 	@Override
