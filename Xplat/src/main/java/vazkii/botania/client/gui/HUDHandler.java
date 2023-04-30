@@ -15,7 +15,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -286,8 +285,7 @@ public final class HUDHandler {
 		int x = mc.getWindow().getGuiScaledWidth() - l - 20;
 		int y = mc.getWindow().getGuiScaledHeight() - 60;
 
-		GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
-		GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
+		RenderHelper.renderHUDBox(ms, x - 4, y - 4, x + l + 4, y + 35);
 		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
 
 		mc.font.drawShadow(ms, txt0, x + 20, y, 0xFFFFFF);
