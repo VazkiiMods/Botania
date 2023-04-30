@@ -580,6 +580,15 @@ public final class RenderHelper extends RenderType {
 		return renderType -> new GhostVertexConsumer(buffer.getBuffer(forceTranslucent ? TRANSLUCENT : renderType), alpha);
 	}
 
+	/*
+	* Renders a transparent black box with a soft border. The parameters describe the inner box, there will also be drawn
+	* another box that is 2px bigger in each direction
+	*/
+	public static void renderHUDBox(PoseStack ps, int startX, int startY, int endX, int endY) {
+		GuiComponent.fill(ps, startX, startY, endX, endY, 0x44000000);
+		GuiComponent.fill(ps, startX - 2, startY - 2, endX + 2, endY + 2, 0x44000000);
+	}
+
 	// Borrowed with permission from https://github.com/XFactHD/FramedBlocks/blob/14f468810fc416b39447512810f0aa86e1012335/src/main/java/xfacthd/framedblocks/client/util/GhostVertexConsumer.java
 	public record GhostVertexConsumer(VertexConsumer wrapped, int alpha) implements VertexConsumer {
 		@Override
