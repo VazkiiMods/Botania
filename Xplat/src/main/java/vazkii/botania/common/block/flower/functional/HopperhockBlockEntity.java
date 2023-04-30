@@ -10,7 +10,6 @@ package vazkii.botania.common.block.flower.functional;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -251,20 +250,21 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 		filterType = cmp.getInt(TAG_FILTER_TYPE);
 	}
 
-	public static class WandHud extends FunctionalWandHud<HopperhockBlockEntity> {
+	public static class WandHud extends BindableFlowerWandHud<HopperhockBlockEntity> {
 		public WandHud(HopperhockBlockEntity flower) {
 			super(flower);
 		}
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			super.renderHUD(ms, mc);
-
 			String filter = I18n.get("botaniamisc.filter" + flower.filterType);
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(filter) / 2;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+			int filterWidth = mc.font.width(filter);
+			int filterTextStart = (mc.getWindow().getGuiScaledWidth() - filterWidth) / 2;
+			int halfMinWidth = (filterWidth + 4) / 2;
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-			mc.font.drawShadow(ms, filter, x, y, ChatFormatting.GRAY.getColor());
+			super.renderHUD(ms, mc, halfMinWidth, halfMinWidth, 40);
+			mc.font.drawShadow(ms, filter, filterTextStart, centerY + 30, flower.getColor());
 		}
 	}
 
@@ -275,7 +275,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 
 	@Override
 	public int getColor() {
-		return 0x3F3F3F;
+		return 0x7F7F7F;
 	}
 
 	public static class Mini extends HopperhockBlockEntity {
