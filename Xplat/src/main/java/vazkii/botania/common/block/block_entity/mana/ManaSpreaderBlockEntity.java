@@ -9,14 +9,12 @@
 package vazkii.botania.common.block.block_entity.mana;
 
 import com.google.common.base.Predicates;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -45,6 +43,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.ExposedSimpleInventoryBlockEntity;
 import vazkii.botania.common.block.mana.ManaSpreaderBlock;
@@ -57,6 +56,8 @@ import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -548,37 +549,27 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			String name = new ItemStack(spreader.getBlockState().getBlock()).getHoverName().getString();
+			String spreaderName = new ItemStack(spreader.getBlockState().getBlock()).getHoverName().getString();
+
+			ItemStack lensStack = spreader.getItemHandler().getItem(0);
+			ItemStack recieverStack = spreader.receiver == null ? ItemStack.EMPTY : new ItemStack(spreader.level.getBlockState(spreader.receiver.getManaReceiverPos()).getBlock());
+
+			int width = 4 + Collections.max(Arrays.asList(
+					102, // Mana bar width
+					mc.font.width(spreaderName),
+					RenderHelper.itemWithNameWidth(mc, lensStack),
+					RenderHelper.itemWithNameWidth(mc, recieverStack)
+			));
+			int height = 22 + (lensStack.isEmpty() ? 0 : 18) + (recieverStack.isEmpty() ? 0 : 18);
+
+			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+			RenderHelper.renderHUDBox(ms, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 8 + height);
+
 			int color = spreader.getVariant().hudColor;
-			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, spreader.getCurrentMana(),
-					spreader.getMaxMana(), name);
-
-			ItemStack lens = spreader.getItemHandler().getItem(0);
-			if (!lens.isEmpty()) {
-				Component lensName = lens.getHoverName();
-				int width = 16 + mc.font.width(lensName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
-
-				mc.font.drawShadow(ms, lensName, x + 20, y + 5, color);
-				mc.getItemRenderer().renderAndDecorateItem(lens, x, y);
-			}
-
-			if (spreader.receiver != null) {
-				var receiverPos = spreader.receiver.getManaReceiverPos();
-				ItemStack recieverStack = new ItemStack(spreader.level.getBlockState(receiverPos).getBlock());
-				if (!recieverStack.isEmpty()) {
-					String stackName = recieverStack.getHoverName().getString();
-					int width = 16 + mc.font.width(stackName) / 2;
-					int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-					int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
-
-					mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
-					mc.getItemRenderer().renderAndDecorateItem(recieverStack, x, y);
-				}
-			}
-
-			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, spreader.getCurrentMana(), spreader.getMaxMana(), spreaderName);
+			RenderHelper.renderItemWithNameCentered(ms, mc, recieverStack, centerY + 30, color);
+			RenderHelper.renderItemWithNameCentered(ms, mc, lensStack, centerY + (recieverStack.isEmpty() ? 30 : 48), color);
 		}
 	}
 

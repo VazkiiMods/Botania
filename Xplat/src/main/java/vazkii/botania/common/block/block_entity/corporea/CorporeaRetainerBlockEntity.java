@@ -29,6 +29,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
@@ -148,10 +149,12 @@ public class CorporeaRetainerBlockEntity extends BotaniaBlockEntity implements W
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
 			String mode = I18n.get("botaniamisc.retainer." + (retainer.retainMissing ? "retain_missing" : "retain_all"));
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(mode) / 2;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 + 10;
+			int strWidth = mc.font.width(mode);
+			int x = (mc.getWindow().getGuiScaledWidth() - strWidth) / 2;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 + 8;
 
-			mc.font.drawShadow(ms, mode, x, y, ChatFormatting.GRAY.getColor());
+			RenderHelper.renderHUDBox(ms, x - 2, y, x + strWidth + 2, y + 12);
+			mc.font.drawShadow(ms, mode, x, y + 2, ChatFormatting.WHITE.getColor());
 		}
 	}
 
