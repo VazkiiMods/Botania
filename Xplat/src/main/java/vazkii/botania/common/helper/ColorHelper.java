@@ -52,5 +52,15 @@ public final class ColorHelper {
 		return (r << 16) | (g << 8) | b;
 	}
 
+	public static int getColorLegibleOnGrayBackground(DyeColor color) {
+		return switch (color) {
+			case BLACK -> 0x808080;
+			case GRAY -> 0xA0A0A0;
+			case BLUE -> 0x6666FF;
+			case BROWN -> 0x8B6543;
+			default -> color.getTextColor();
+		};
+	}
+
 	private ColorHelper() {}
 }
