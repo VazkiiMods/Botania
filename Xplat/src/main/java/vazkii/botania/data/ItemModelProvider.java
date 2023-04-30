@@ -198,6 +198,9 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(livingwoodBow);
 		items.remove(crystalBow);
 
+		singleGeneratedSuffixOverride(baubleBox, "_open", prefix("open"), 1.0, consumer);
+		items.remove(baubleBox);
+
 		singleGeneratedSuffixOverride(blackHoleTalisman, "_active", prefix("active"), 1.0, consumer);
 		items.remove(blackHoleTalisman);
 

@@ -27,6 +27,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class BotaniaItemProperties {
 	public static void init(TriConsumer<ItemLike, ResourceLocation, ClampedItemPropertyFunction> consumer) {
+		consumer.accept(BotaniaItems.baubleBox, prefix("open"),
+				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, BaubleBoxItem.TAG_OPEN, false) ? 1 : 0);
 		consumer.accept(BotaniaItems.blackHoleTalisman, prefix("active"),
 				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, BlackHoleTalismanItem.TAG_ACTIVE, false) ? 1 : 0);
 		consumer.accept(BotaniaItems.manaBottle, prefix("swigs_taken"),
