@@ -38,6 +38,8 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.corporea.CorporeaNode;
 import vazkii.botania.api.corporea.CorporeaSpark;
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
@@ -322,27 +324,25 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	public record WandHud(CorporeaSparkEntity entity) implements WandHUD {
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			final ItemStack sparkItem = new ItemStack(entity.getSparkItem());
+			ItemStack sparkStack = new ItemStack(entity.getSparkItem());
+			DyeColor networkColor = entity.getNetwork();
+			Component networkColorName = Component.translatable("color.minecraft." + networkColor.getName())
+					.withStyle(ChatFormatting.ITALIC);
+			int textColor = ColorHelper.getColorLegibleOnGrayBackground(networkColor);
 
-			int color = 0x4444FF;
-			{
-				final Component sparkName = sparkItem.getHoverName();
-				int width = mc.font.width(sparkName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 5;
+			int width = 4 + Math.max(
+					mc.font.width(networkColorName),
+					RenderHelper.itemWithNameWidth(mc, sparkStack)
+			);
+			int networkColorTextStart = mc.font.width(networkColorName) / 2;
 
-				mc.font.drawShadow(ms, sparkName, x, y + 5, color);
-			}
+			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-			{
-				final DyeColor networkColor = this.entity.getNetwork();
-				final Component colorName = Component.translatable("color.minecraft." + networkColor.getName()).withStyle(ChatFormatting.ITALIC);
-				int width = mc.font.width(colorName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 20;
+			RenderHelper.renderHUDBox(ms, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 38);
 
-				mc.font.drawShadow(ms, colorName, x, y + 5, networkColor.getTextColor());
-			}
+			RenderHelper.renderItemWithNameCentered(ms, mc, sparkStack, centerY + 10, textColor);
+			mc.font.drawShadow(ms, networkColorName, centerX - networkColorTextStart, centerY + 28, textColor);
 		}
 	}
 
