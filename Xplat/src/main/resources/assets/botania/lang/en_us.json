@@ -2898,7 +2898,7 @@
   "botania.entry.autocraftingHalo": "Manufactory Halo",
   "botania.tagline.autocraftingHalo": "An Assembly Halo that crafts for you",
   "botania.page.autocraftingHalo0": "The $(item)Manufactory Halo$(0) is an upgrade of the $(l:tools/crafting_halo)$(item)Assembly Halo$(0)$(/l): aside from doing all that the $(l:tools/crafting_halo)$(item)Assembly Halo$(0)$(/l) can do, the $(item)Manufactory Halo$(0) will (when $(o)not$() held) automatically craft all possible saved recipes.$(p)Automatic compression of ores while mining is just one of many applications this upgrade has.",
-  "botania.page.autocraftingHalo1": "Halo Now Launcher",
+  "botania.page.autocraftingHalo1": "Halo Now Launcher$(p)Automatic crafting can be toggled on/off by right-clicking the $(item)Manufactory Halo$(0) in your inventory, or by right-clicking its $(item)Crafting Table$(0) segment while sneaking.",
 
   "botania.entry.sextant": "Worldshaper's Sextant",
   "botania.tagline.sextant": "A tool to help create circles",
@@ -3544,6 +3544,7 @@
   "botania.subtitle.spreaderFire": "Spreader fwooshes",
   "botania.subtitle.starcaller": "Stars descend from the sky",
   "botania.subtitle.temperanceStoneConfigure": "Stone of Temperance dings",
+  "botania.subtitle.manufactoryHaloConfigure": "Manufactory Halo dings",
   "botania.subtitle.terraBlade": "Terrasteel Sword activates",
   "botania.subtitle.terraPickMode": "Terra Shatterer empowers",
   "botania.subtitle.terraformRod": "Land terraforms",
