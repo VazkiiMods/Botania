@@ -216,7 +216,7 @@ public class AssemblyHaloItem extends Item {
 		return false;
 	}
 
-	private static int getSegmentLookedAt(ItemStack stack, LivingEntity living) {
+	protected static int getSegmentLookedAt(ItemStack stack, LivingEntity living) {
 		float yaw = getCheckingAngle(living, getRotationBase(stack));
 
 		int angles = 360;
@@ -336,7 +336,7 @@ public class AssemblyHaloItem extends Item {
 		ItemNBTHelper.setFloat(stack, TAG_ROTATION_BASE, rotation);
 	}
 
-	public ResourceLocation getGlowResource() {
+	public ResourceLocation getGlowResource(ItemStack stack) {
 		return glowTexture;
 	}
 
@@ -348,7 +348,6 @@ public class AssemblyHaloItem extends Item {
 				return;
 			}
 
-			Minecraft mc = Minecraft.getInstance();
 			MultiBufferSource.BufferSource bufferSource = buffers.bufferSource();
 
 			double renderPosX = camera.getPosition().x();
@@ -379,7 +378,7 @@ public class AssemblyHaloItem extends Item {
 
 			int segmentLookedAt = getSegmentLookedAt(stack, player);
 			AssemblyHaloItem item = (AssemblyHaloItem) stack.getItem();
-			RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource());
+			RenderType layer = RenderHelper.getHaloLayer(item.getGlowResource(stack));
 
 			for (int seg = 0; seg < SEGMENTS; seg++) {
 				boolean inside = false;
