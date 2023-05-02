@@ -124,7 +124,9 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 
 	@Override
 	public void removed(@NotNull Player player) {
-		ItemNBTHelper.setBoolean(box, BaubleBoxItem.TAG_OPEN, false);
+		if (!player.level.isClientSide) {
+			ItemNBTHelper.setBoolean(box, BaubleBoxItem.TAG_OPEN, false);
+		}
 		super.removed(player);
 	}
 }
