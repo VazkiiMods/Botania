@@ -30,8 +30,7 @@ import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 public class PaintslingerLens extends Lens {
@@ -59,31 +58,28 @@ public class PaintslingerLens extends Lens {
 					spark.setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level.random.nextInt(16) : storedColor));
 				}
 			} else if (pos.getType() == HitResult.Type.BLOCK) {
-				BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-				BlockState state = entity.level.getBlockState(hit);
-				ResourceLocation blockId = Registry.BLOCK.getKey(state.getBlock());
+				BlockPos hitPos = ((BlockHitResult) pos).getBlockPos();
+				Block hitBlock = entity.level.getBlockState(hitPos).getBlock();
+				ResourceLocation blockId = Registry.BLOCK.getKey(hitBlock);
 
 				if (BotaniaAPI.instance().getPaintableBlocks().containsKey(blockId)) {
 					List<BlockPos> coordsToPaint = new ArrayList<>();
-					List<BlockPos> coordsFound = new ArrayList<>();
-					coordsFound.add(hit);
+					Queue<BlockPos> coordsToCheck = new ArrayDeque<>();
+					Set<BlockPos> checkedCoords = new HashSet<>();
+					coordsToCheck.add(hitPos);
+					checkedCoords.add(hitPos);
 
-					do {
-						List<BlockPos> iterCoords = new ArrayList<>(coordsFound);
-						for (BlockPos coords : iterCoords) {
-							coordsFound.remove(coords);
-							coordsToPaint.add(coords);
+					while (!coordsToCheck.isEmpty() && coordsToPaint.size() < 1000) {
+						BlockPos coords = coordsToCheck.remove();
+						coordsToPaint.add(coords);
 
-							for (Direction dir : Direction.values()) {
-								BlockPos coords_ = coords.relative(dir);
-								BlockState state_ = entity.level.getBlockState(coords_);
-								if (state_ == state && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_)) {
-									coordsFound.add(coords_);
-								}
+						for (Direction dir : Direction.values()) {
+							BlockPos candidatePos = coords.relative(dir);
+							if (checkedCoords.add(candidatePos) && entity.level.getBlockState(candidatePos).is(hitBlock)) {
+								coordsToCheck.add(candidatePos);
 							}
 						}
-					} while (!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
-
+					}
 					for (BlockPos coords : coordsToPaint) {
 						DyeColor placeColor = DyeColor.byId(storedColor == 16 ? entity.level.random.nextInt(16) : storedColor);
 						BlockState stateThere = entity.level.getBlockState(coords);
@@ -91,7 +87,7 @@ public class PaintslingerLens extends Lens {
 						Function<DyeColor, Block> f = BotaniaAPI.instance().getPaintableBlocks().get(blockId);
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
-							entity.level.setBlockAndUpdate(coords, newBlock.defaultBlockState());
+							entity.level.setBlockAndUpdate(coords, newBlock.withPropertiesOf(stateThere));
 							XplatAbstractions.INSTANCE.sendToNear(entity.level, coords, new BotaniaEffectPacket(EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
 						}
 					}
