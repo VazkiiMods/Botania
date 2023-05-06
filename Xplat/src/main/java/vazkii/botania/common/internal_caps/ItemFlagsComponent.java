@@ -29,7 +29,12 @@ public class ItemFlagsComponent extends SerializableComponent {
 	 * Used so certain mechanics don't interact with items immediately after they're produced.
 	 */
 	private int manaInfusionCooldown = 0;
+	/**
+	 * Similar to {@link #manaInfusionCooldown} but for the Runic Altar.
+	 */
+	private int runicAltarCooldown = 0;
 	public static final int INITIAL_MANA_INFUSION_COOLDOWN = 25;
+	public static final int INITIAL_RUNIC_ALTAR_COOLDOWN = 25;
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {
@@ -37,6 +42,7 @@ public class ItemFlagsComponent extends SerializableComponent {
 		apothecarySpawned = tag.getBoolean(PetalApothecaryBlockEntity.ITEM_TAG_APOTHECARY_SPAWNED);
 		timeCounter = tag.getInt("timeCounter");
 		manaInfusionCooldown = tag.getInt("manaInfusionCooldown");
+		runicAltarCooldown = tag.getInt("runicAltarCooldown");
 	}
 
 	@Override
@@ -45,12 +51,16 @@ public class ItemFlagsComponent extends SerializableComponent {
 		tag.putBoolean(PetalApothecaryBlockEntity.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 		tag.putInt("timeCounter", timeCounter);
 		tag.putInt("manaInfusionCooldown", manaInfusionCooldown);
+		tag.putInt("runicAltarCooldown", runicAltarCooldown);
 	}
 
 	public void tick() {
 		timeCounter++;
 		if (manaInfusionCooldown > 0) {
 			manaInfusionCooldown--;
+		}
+		if (runicAltarCooldown > 0) {
+			runicAltarCooldown--;
 		}
 	}
 
@@ -60,5 +70,13 @@ public class ItemFlagsComponent extends SerializableComponent {
 
 	public void markNewlyInfused() {
 		manaInfusionCooldown = INITIAL_MANA_INFUSION_COOLDOWN;
+	}
+
+	public int getRunicAltarCooldown() {
+		return runicAltarCooldown;
+	}
+
+	public void markAltarOutput() {
+		runicAltarCooldown = INITIAL_RUNIC_ALTAR_COOLDOWN;
 	}
 }

@@ -22,10 +22,11 @@ and start a new "Upcoming" section.
 * Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like network color and augments, similar to how Mana Spreaders show their lens.
 * Add: Mana pools with pylons on top of them will now play a small particle effect when trading items in the alfheim portal
 * Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like augments (for mana sparks) and network color (both mana and corporea sparks)
+* Add: Terra Truncator can now propagate its chopping through Mangrove Roots
 * Change: Instead of always cooling down for 5 minutes, thermalilies now have a random cooldown between 20 seconds and 5 minutes. For automation, you can read how long the cooldown is with a comparator
 * Change: Entropinnyum's "unethical TNT" detection was changed, it's now more accurate and shouldn't cause any false positives
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
-* Change: Rod of the Shifting Crust now only processes neighbor updates for the replaced block and not the removed block, meaning torches or other blocks attached to exchanged blocks will no longer break as long as the new block can still support it
+* Change: Rod of the Shifting Crust now delays processing neighbor updates until the block is replaced, meaning torches or other blocks attached to exchanged blocks will no longer break as long as the new block can still support it
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 * Fix: Red stringed containers now always report and accessible inventory, so that corporea sparks will not pop off them
 * Fix: The fallback vanilla item transfer implementation in corporea now correctly updates inventories after taking items (this bug was not directly accessible, since neither fabric nor forge use this fallback implementation)

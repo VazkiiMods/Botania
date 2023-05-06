@@ -21,6 +21,7 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -66,7 +67,9 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
@@ -300,19 +303,27 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos) {
+		var state = level.getBlockState(pos);
 		var be = level.getBlockEntity(pos);
-		return be != null
-				&& be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos).isPresent();
+		return be != null && be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos).isPresent()
+				|| state.getBlock() instanceof WorldlyContainerHolder wch
+						&& wch.getContainer(state, level, pos).getSlotsForFace(sideOfPos).length > 0;
 	}
 
 	@Override
 	public ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate) {
 		var be = level.getBlockEntity(pos);
-		if (be == null) {
-			return toInsert;
+		LazyOptional<IItemHandler> cap = LazyOptional.empty();
+		if (be != null) {
+			cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos);
+		} else {
+			// check vanilla interface for blocks not covered by forge capabilities, e.g. composter
+			var state = level.getBlockState(pos);
+			if (state.getBlock() instanceof WorldlyContainerHolder wch) {
+				cap = LazyOptional.of(() -> new SidedInvWrapper(wch.getContainer(state, level, pos), sideOfPos));
+			}
 		}
 
-		var cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos);
 		return cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, toInsert, simulate))
 				.orElse(toInsert);
 	}

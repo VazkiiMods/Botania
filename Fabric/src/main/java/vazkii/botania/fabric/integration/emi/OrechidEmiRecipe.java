@@ -12,6 +12,7 @@ import vazkii.botania.api.recipe.OrechidRecipe;
 
 public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 	private final EmiIngredient orechid;
+	private final int weight;
 
 	public OrechidEmiRecipe(EmiRecipeCategory category, OrechidRecipe recipe, EmiIngredient orechid) {
 		super(category, recipe);
@@ -24,6 +25,7 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 			throw new RuntimeException(e);
 		}
 		this.orechid = orechid;
+		this.weight = recipe.getWeight();
 	}
 
 	@Override
@@ -44,5 +46,9 @@ public class OrechidEmiRecipe extends BotaniaEmiRecipe {
 	@Override
 	public void addWidgets(WidgetHolder widgets) {
 		PureDaisyEmiRecipe.addPureDaisyWidgets(widgets, this, input.get(0), orechid, output.get(0));
+	}
+
+	public int getWeight() {
+		return weight;
 	}
 }
