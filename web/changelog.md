@@ -33,7 +33,7 @@ and start a new "Upcoming" section.
 * Fix: The fallback vanilla item transfer implementation in corporea now correctly updates inventories after taking items (this bug was not directly accessible, since neither fabric nor forge use this fallback implementation)
 * Fix: Metamorphic stone chiseled brick recipe is now consistent with chiseled livingrock recipe
 * Fix: Sky of Beginning being granted only when *both* a Mystical Flower and Tall Mystical Flower were picked up, instead of either one
-* Fix: The JEI category for mana infusions no longer show the creative mana pool, to be consistent with EMI and REI
+* Fix: The JEI category for mana infusion no longer shows the creative mana pool, to be consistent with EMI and REI
 * Fix: Livingrock and deepslate apothecaries now show as workstations in the apothecary recipe category in EMI/REI/JEI
 * Internal: Changes to BlockstateProvider, see [these commits](https://github.com/VazkiiMods/Botania/compare/d1c3b3ae4f231d5e4e20677fac043bb315c4ef7e..a149645f8a3fc1d876600995eb7285654d358adc) for more details
 
