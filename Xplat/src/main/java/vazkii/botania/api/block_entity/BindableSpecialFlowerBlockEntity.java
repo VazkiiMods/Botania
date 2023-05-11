@@ -177,7 +177,15 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 
 	public abstract int getColor();
 
-	public abstract ItemStack getHudIcon();
+	public abstract ItemStack getDefaultHudIcon();
+
+	public ItemStack getHudIcon() {
+		T boundTile = findBoundTile();
+		if (boundTile != null) {
+			return new ItemStack(((BlockEntity) boundTile).getBlockState().getBlock().asItem());
+		}
+		return getDefaultHudIcon();
+	}
 
 	public static class BindableFlowerWandHud<F extends BindableSpecialFlowerBlockEntity<?>> implements WandHUD {
 		protected final F flower;

@@ -95,7 +95,7 @@ public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerB
 	}
 
 	@Override
-	public ItemStack getHudIcon() {
+	public ItemStack getDefaultHudIcon() {
 		return Registry.ITEM.getOptional(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 

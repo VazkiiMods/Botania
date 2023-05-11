@@ -109,7 +109,7 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	}
 
 	@Override
-	public ItemStack getHudIcon() {
+	public ItemStack getDefaultHudIcon() {
 		return Registry.ITEM.getOptional(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
