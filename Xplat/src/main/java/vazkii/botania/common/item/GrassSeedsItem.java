@@ -10,6 +10,7 @@ package vazkii.botania.common.item;
 
 import com.google.common.collect.ImmutableMap;
 
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -35,17 +36,28 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 	 * active in that dimension.
 	 */
 	private static final Map<ResourceKey<Level>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
-	private static final Map<IslandType, float[]> COLORS = ImmutableMap.<IslandType, float[]>builder()
-			.put(IslandType.GRASS, new float[] { 0F, 0.4F, 0F })
-			.put(IslandType.PODZOL, new float[] { 0.5F, 0.37F, 0F })
-			.put(IslandType.MYCEL, new float[] { 0.27F, 0F, 0.33F })
-			.put(IslandType.DRY, new float[] { 0.4F, 0.5F, 0.05F })
-			.put(IslandType.GOLDEN, new float[] { 0.75F, 0.7F, 0F })
-			.put(IslandType.VIVID, new float[] { 0F, 0.5F, 0.1F })
-			.put(IslandType.SCORCHED, new float[] { 0.75F, 0F, 0F })
-			.put(IslandType.INFUSED, new float[] { 0F, 0.55F, 0.55F })
-			.put(IslandType.MUTATED, new float[] { 0.4F, 0.1F, 0.4F })
+	private static final Map<IslandType, Integer> IDS = ImmutableMap.<IslandType, Integer>builder()
+			.put(IslandType.GRASS, 0)
+			.put(IslandType.PODZOL, 1)
+			.put(IslandType.MYCEL, 2)
+			.put(IslandType.DRY, 3)
+			.put(IslandType.GOLDEN, 4)
+			.put(IslandType.VIVID, 5)
+			.put(IslandType.SCORCHED, 6)
+			.put(IslandType.INFUSED, 7)
+			.put(IslandType.MUTATED, 8)
 			.build();
+	private static final float[][] COLORS = new float[][] {
+			new float[] { 0F, 0.4F, 0F },
+			new float[] { 0.5F, 0.37F, 0F },
+			new float[] { 0.27F, 0F, 0.33F },
+			new float[] { 0.4F, 0.5F, 0.05F },
+			new float[] { 0.75F, 0.7F, 0F },
+			new float[] { 0F, 0.5F, 0.1F },
+			new float[] { 0.75F, 0F, 0F },
+			new float[] { 0F, 0.55F, 0.55F },
+			new float[] { 0.4F, 0.1F, 0.4F }
+	};
 
 	private final IslandType type;
 
@@ -59,8 +71,16 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 	public InteractionResult useOn(UseOnContext ctx) {
 		Level world = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();
-		BlockState state = world.getBlockState(pos);
 		ItemStack stack = ctx.getItemInHand();
+
+		return applySeeds(world, pos, stack)
+			? InteractionResult.sidedSuccess(world.isClientSide())
+			: InteractionResult.PASS;
+	}
+
+
+	public boolean applySeeds(Level world, BlockPos pos, ItemStack stack) {
+		BlockState state = world.getBlockState(pos);
 
 		if (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK) && type != IslandType.GRASS) {
 			if (!world.isClientSide) {
@@ -68,35 +88,38 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 				world.setBlockAndUpdate(pos, swapper.stateToSet);
 				stack.shrink(1);
 			} else {
-				float r = 0F;
-				float g = 0.4F;
-				float b = 0F;
-
-				if (COLORS.containsKey(type)) {
-					float[] colors = COLORS.get(type);
-					r = colors[0];
-					g = colors[1];
-					b = colors[2];
-				}
-
-				for (int i = 0; i < 50; i++) {
-					double x = (Math.random() - 0.5) * 3;
-					double y = Math.random() - 0.5 + 1;
-					double z = (Math.random() - 0.5) * 3;
-					float velMul = 0.025F;
-
-					float motionx = (float) -x * velMul;
-					float motiony = (float) -y * velMul;
-					float motionz = (float) -z * velMul;
-					WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, r, g, b);
-					world.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionx, motiony, motionz);
-				}
+				spawnParticles(world, pos, getID(type));
 			}
 
-			return InteractionResult.sidedSuccess(world.isClientSide());
+			return true;
 		}
 
-		return InteractionResult.PASS;
+		return false;
+	}
+
+	public static void spawnParticles(Level world, BlockPos pos, int id) {
+		float r = 0F;
+		float g = 0.4F;
+		float b = 0F;
+
+		if (0 <= id && id < COLORS.length) {
+			r = COLORS[id][0];
+			g = COLORS[id][1];
+			b = COLORS[id][2];
+		}
+
+		for (int i = 0; i < 50; i++) {
+			double x = (Math.random() - 0.5) * 3;
+			double y = Math.random() - 0.5 + 1;
+			double z = (Math.random() - 0.5) * 3;
+			float velMul = 0.025F;
+
+			float motionx = (float) -x * velMul;
+			float motiony = (float) -y * velMul;
+			float motionz = (float) -z * velMul;
+			WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, r, g, b);
+			world.addParticle(data, pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, motionx, motiony, motionz);
+		}
 	}
 
 	public static void onTickEnd(ServerLevel world) {
@@ -107,11 +130,11 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 	}
 
 	/**
-	 * Adds a grass seed block swapper to the world at the provided positiona
+	 * Adds a grass seed block swapper to the world at the provided position
 	 * and with the provided meta (which designates the type of the grass
 	 * being spread).
 	 * Block swappers are only actually created on the server, so a client
-	 * calling this method will recieve a marker block swapper which contains
+	 * calling this method will receive a marker block swapper which contains
 	 * the provided information but is not ticked.
 	 * 
 	 * @param world The world the swapper will be in.
@@ -263,6 +286,10 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 			return (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK))
 					&& world.getBlockState(pos.above()).getLightBlock(world, pos.above()) <= 1;
 		}
+	}
+
+	public static int getID(IslandType type) {
+		return IDS.get(type);
 	}
 
 	@Override
