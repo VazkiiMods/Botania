@@ -33,6 +33,7 @@ and start a new "Upcoming" section.
 * Change: Terra truncator now propagates through Mangrove Roots
 * Change: Sort recipe categories in EMI
 * Change: The trinket case now shows an opened texture when opened
+* Change: Phantom ink is now used to hide abstruse and spectral platforms instead of managlass.
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 * Fix: Red stringed containers now always report and accessible inventory, so that corporea sparks will not pop off them
 * Fix: The fallback vanilla item transfer implementation in corporea now correctly updates inventories after taking items (this bug was not directly accessible, since neither fabric nor forge use this fallback implementation)
