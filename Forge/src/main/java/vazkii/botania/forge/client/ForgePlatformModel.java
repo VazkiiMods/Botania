@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.data.ModelData;
@@ -57,11 +58,6 @@ public class ForgePlatformModel extends BakedModelWrapper<BakedModel> {
 			// No camo
 			return super.getQuads(state, side, rand, extraData, renderType);
 		} else {
-			// Some people used this to get an invisible block in the past, accommodate that.
-			if (heldState.is(BotaniaBlocks.manaGlass)) {
-				return Collections.emptyList();
-			}
-
 			BakedModel model = Minecraft.getInstance().getBlockRenderer()
 					.getBlockModelShaper().getBlockModel(heldState);
 			return model.getQuads(heldState, side, rand, ModelData.EMPTY, renderType);
