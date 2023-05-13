@@ -157,11 +157,6 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 				&& tile instanceof PlatformBlockEntity camo ) {
 			if (!world.isClientSide) {
 				camo.setCamoState(Blocks.AIR.defaultBlockState());  //Air is being used as a sentinel value here
-
-				player.awardStat(Stats.ITEM_USED.get(BotaniaItems.phantomInk));
-            	if (!player.getAbilities().instabuild) {
-                	currentStack.shrink(1);
-            	}
 			}
 
 			return InteractionResult.sidedSuccess(world.isClientSide());
