@@ -17,6 +17,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -52,11 +53,6 @@ public class FabricPlatformModel extends ForwardingBakedModel {
 				// No camo
 				super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 			} else {
-				// Some people used this to get an invisible block in the past, accommodate that.
-				if (heldState.is(BotaniaBlocks.manaGlass)) {
-					return;
-				}
-
 				BakedModel model = Minecraft.getInstance().getBlockRenderer()
 						.getBlockModelShaper().getBlockModel(heldState);
 				if (model instanceof FabricBakedModel) {
