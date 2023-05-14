@@ -25,6 +25,7 @@ and start a new "Upcoming" section.
 * Add: All wand HUDs now have backgrounds for better readability, along with some other changes on some HUDs. Their design is not finalized, let us know on discord/reddit/irc/email if you have suggestions for how they can be better!
 * Add: Bound flowers now show the type of spreader/pool they're bound to in the tooltip, instead of a generic spreader/pool
 * Add: Rannuncarpus can now add blocks onto existing blocks like candles and sea pickles, which accept multiple placements of itself in the same block space
+* Add: The game now warns you if you hold a wand of the forest with Optifine installed, as it breaks the entire mod. We recommend Sodium instead if you need a performance boost
 * Change: Instead of always cooling down for 5 minutes, thermalilies now have a random cooldown between 20 seconds and 5 minutes. For automation, you can read how long the cooldown is with a comparator
 * Change: Entropinnyum's "unethical TNT" detection was changed, it's now more accurate and shouldn't cause any false positives
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item

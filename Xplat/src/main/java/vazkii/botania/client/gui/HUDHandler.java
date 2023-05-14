@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -65,6 +66,18 @@ public final class HUDHandler {
 
 	public static final ResourceLocation manaBar = new ResourceLocation(ResourcesLib.GUI_MANA_HUD);
 
+	private static boolean didOptifineDetection = false;
+
+	public static void tryOptifineWarning() {
+		if (!didOptifineDetection) {
+			try {
+				Class.forName("optifine.Installer");
+				Minecraft.getInstance().player.sendSystemMessage(Component.translatable("botaniamisc.optifine_warning"));
+				didOptifineDetection = true;
+			} catch (ClassNotFoundException ignored) {}
+		}
+	}
+
 	public static void onDrawScreenPost(PoseStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui) {
@@ -102,6 +115,7 @@ public final class HUDHandler {
 
 			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
 				if (PlayerHelper.hasHeldItemClass(mc.player, WandOfTheForestItem.class)) {
+					tryOptifineWarning();
 					var hud = ClientXplatAbstractions.INSTANCE.findWandHud(mc.level, bpos, state, tile);
 					if (hud != null) {
 						profiler.push("wandItem");
