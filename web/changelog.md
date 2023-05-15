@@ -18,6 +18,10 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+---
+
+{% include changelog_header.html version="1.19.2-439" %}
+
 * Add: Mana pools with pylons on top of them will now play a small particle effect when trading items in the alfheim portal
 * Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like augments (for mana sparks) and network color (both mana and corporea sparks)
 * Add: Terra Truncator can now propagate its chopping through Mangrove Roots
@@ -34,6 +38,7 @@ and start a new "Upcoming" section.
 * Change: Terra truncator now propagates through Mangrove Roots
 * Change: Sort recipe categories in EMI
 * Change: The trinket case now shows an opened texture when opened
+* Change: Force relay/lens pushing now reuses vanilla piston pushing logic instead of copying it. Should lead to better compatibility with mods that let you move block entities
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 * Fix: Red stringed containers now always report and accessible inventory, so that corporea sparks will not pop off them
 * Fix: The fallback vanilla item transfer implementation in corporea now correctly updates inventories after taking items (this bug was not directly accessible, since neither fabric nor forge use this fallback implementation)
