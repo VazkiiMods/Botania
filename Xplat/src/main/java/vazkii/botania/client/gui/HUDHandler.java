@@ -73,8 +73,8 @@ public final class HUDHandler {
 			try {
 				Class.forName("optifine.Installer");
 				Minecraft.getInstance().player.sendSystemMessage(Component.translatable("botaniamisc.optifine_warning"));
-				didOptifineDetection = true;
 			} catch (ClassNotFoundException ignored) {}
+			didOptifineDetection = true;
 		}
 	}
 
