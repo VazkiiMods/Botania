@@ -38,6 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.VecHelper;
@@ -47,8 +48,12 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -58,6 +63,7 @@ public class WorldshaperssSextantItem extends Item {
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";
 	private static final String TAG_SOURCE_Z = "sourceZ";
+	private static final String TAG_MODE = "mode";
 
 	public WorldshaperssSextantItem(Properties builder) {
 		super(builder);
@@ -78,7 +84,7 @@ public class WorldshaperssSextantItem extends Item {
 	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
 		if (getUseDuration(stack) - count < 10
 				|| !(living instanceof Player)
-				|| world.isClientSide) {
+				|| !world.isClientSide) {
 			return;
 		}
 
@@ -87,17 +93,68 @@ public class WorldshaperssSextantItem extends Item {
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		if (y != Integer.MIN_VALUE) {
 			double radius = calculateRadius(stack, living);
-
-			if (count % 10 == 0) {
-				WispParticleData data = WispParticleData.wisp(0.3F, 0F, 1F, 1F, 1);
-				for (int i = 0; i < 360; i++) {
-					float radian = (float) (i * Math.PI / 180);
-					double xp = x + Math.cos(radian) * radius;
-					double zp = z + Math.sin(radian) * radius;
-					world.addParticle(data, xp + 0.5, y + 1, zp + 0.5, 0, - -0.01F, 0);
-				}
+			WispParticleData data = WispParticleData.wisp(0.3F, 0F, 1F, 1F, 1);
+			world.addParticle(data, x + 0.5, y + 1, z + 0.5, 0, 0.1, 0);
+			var visualizer = getMode(stack).getVisualizer();
+			for (int i = count % 20; i < 360; i += 20) {
+				float radian = (float) (i * Math.PI / 180);
+				double cosR = Math.cos(radian) * radius;
+				double sinR = Math.sin(radian) * radius;
+				visualizer.visualize(world, x, y, z, data, cosR, sinR);
 			}
 		}
+	}
+
+	private static void visualizeSphere(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR) {
+		world.addParticle(data, x + cosR + 0.5, y + 1.3, z + sinR + 0.5, 0, 0.01, 0);
+		world.addParticle(data, x + sinR + 0.5, y + cosR + 1.5, z + 0.3, 0, 0, 0.01);
+		world.addParticle(data, x + 0.3, y + sinR + 1.5, z + cosR + 0.5, 0.01, 0, 0);
+	}
+
+	private static void visualizeCircle(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR) {
+		world.addParticle(data, x + cosR + 0.5, y + 1, z + sinR + 0.5, 0, 0.01, 0);
+	}
+
+	private static void makeSphere(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map) {
+		// 3D version of Midpoint circle algorithm, based on https://stackoverflow.com/a/41666156/1331011
+		// This algorithm generates all combinations of X, Y, and Z components, where:
+		// - the X/Y/Z position is inside the sphere,
+		// - Z has the greatest (or tied for greatest) value of the three components,
+		// - making Z any larger would place the position outside the sphere, and
+		// - X, Y, and Z are all positive or zero.
+		final int maxR2 = (int) Math.floor(radius * radius);
+		int zMax = (int) Math.floor(radius);
+		for (int x = 0;; x++) {
+			while (x * x + zMax * zMax > maxR2 && zMax >= x) {
+				zMax--;
+			}
+			if (zMax < x) {
+				break; // with this x, z can't be largest
+			}
+			int z = zMax;
+			for (int y = 0;; y++) {
+				while (x * x + y * y + z * z > maxR2 && z >= x && z >= y) {
+					z--;
+				}
+				if (z < x || z < y) {
+					break; // with this x and y, z can't be largest
+				}
+				// By rotating the components and mirroring the resulting positions to the other seven octants,
+				// each set of values generates up to 24 blocks of the sphere.
+				generateMirroredPositions(x, y, z, map, matcher);
+				generateMirroredPositions(y, z, x, map, matcher);
+				generateMirroredPositions(z, x, y, map, matcher);
+			}
+		}
+	}
+
+	private static void generateMirroredPositions(int x, int y, int z, Map<BlockPos, IStateMatcher> map, IStateMatcher matcher) {
+		Stream.of(
+				new BlockPos(x, y, z), new BlockPos(-x, y, z),
+				new BlockPos(x, -y, z), new BlockPos(-x, -y, z),
+				new BlockPos(x, y, -z), new BlockPos(-x, y, -z),
+				new BlockPos(x, -y, -z), new BlockPos(-x, -y, -z)
+		).forEach(pos -> map.put(pos, matcher));
 	}
 
 	@Override
@@ -112,30 +169,64 @@ public class WorldshaperssSextantItem extends Item {
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-			int iradius = (int) radius + 1;
 			if (y != Integer.MIN_VALUE) {
 				Map<BlockPos, IStateMatcher> map = new HashMap<>();
-				for (int i = 0; i < iradius * 2 + 1; i++) {
-					for (int j = 0; j < iradius * 2 + 1; j++) {
-						int xp = x + i - iradius;
-						int zp = z + j - iradius;
-
-						if ((int) Math.floor(MathHelper.pointDistancePlane(xp, zp, x, z)) == iradius - 1) {
-							map.put(new BlockPos(xp - x, 0, zp - z), matcher);
-						}
-					}
-				}
+				getMode(stack).getCreator().create(matcher, radius + 0.5, map);
 				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
-				Proxy.INSTANCE.showMultiblock(sparse, Component.literal("r = " + (int) radius), new BlockPos(x, y, z), Rotation.NONE);
+				Proxy.INSTANCE.showMultiblock(sparse, Component.literal("r = " + getRadiusString(radius)),
+						new BlockPos(x, y, z), Rotation.NONE);
 			}
 		}
 	}
 
-	private void reset(Level world, ItemStack stack) {
-		ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
+	private static void makeCircle(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map) {
+		// 2D version of makeSphere, assuming y=0 at all times
+		final int maxR2 = (int) Math.floor(radius * radius);
+		int z = (int) Math.floor(radius);
+		for (int x = 0;; x++) {
+			while (x * x + z * z > maxR2 && z >= x) {
+				z--;
+			}
+			if (z < x) {
+				break;
+			}
+			generateMirroredPositions(x, z, map, matcher);
+			generateMirroredPositions(z, x, map, matcher);
+		}
+	}
+
+	private static void generateMirroredPositions(int x, int z, Map<BlockPos, IStateMatcher> map, IStateMatcher matcher) {
+		Stream.of(
+				new BlockPos(x, 0, z), new BlockPos(-x, 0, z),
+				new BlockPos(x, 0, -z), new BlockPos(-x, 0, -z)
+		).forEach(pos -> map.put(pos, matcher));
+	}
+
+	private static Modes getMode(ItemStack stack) {
+		String modeString = ItemNBTHelper.getString(stack, TAG_MODE, "circle");
+		return Arrays.stream(Modes.values()).filter(m -> m.getKey().equals(modeString)).findFirst().orElse(Modes.CIRCLE);
+	}
+
+	private void reset(Level world, Player player, ItemStack stack) {
+		if (ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE) == Integer.MIN_VALUE) {
+			if (!world.isClientSide) {
+				Modes currentMode = getMode(stack);
+				int numModes = Modes.values().length;
+				int nextMode = currentMode.ordinal() + 1;
+				setMode(stack, Modes.values()[nextMode >= numModes ? 0 : nextMode]);
+			} else {
+				player.playSound(BotaniaSounds.ding, 0.1F, 1F);
+			}
+		} else {
+			ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
+		}
 		if (world.isClientSide) {
 			Proxy.INSTANCE.clearSextantMultiblock();
 		}
+	}
+
+	private static void setMode(ItemStack stack, Modes mode) {
+		ItemNBTHelper.setString(stack, TAG_MODE, mode.getKey());
 	}
 
 	@NotNull
@@ -155,7 +246,7 @@ public class WorldshaperssSextantItem extends Item {
 			}
 			return InteractionResultHolder.pass(stack);
 		} else {
-			reset(world, stack);
+			reset(world, player, stack);
 			return InteractionResultHolder.success(stack);
 		}
 	}
@@ -165,8 +256,6 @@ public class WorldshaperssSextantItem extends Item {
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		Vec3 source = new Vec3(x, y, z);
-		WispParticleData data = WispParticleData.wisp(0.2F, 1F, 0F, 0F, 1);
-		living.level.addParticle(data, source.x + 0.5, source.y + 1, source.z + 0.5, 0, - -0.1F, 0);
 
 		Vec3 centerVec = VecHelper.fromEntityCenter(living);
 		Vec3 diffVec = source.subtract(centerVec);
@@ -175,10 +264,36 @@ public class WorldshaperssSextantItem extends Item {
 		lookVec = lookVec.scale(mul).add(centerVec);
 
 		lookVec = new Vec3(net.minecraft.util.Mth.floor(lookVec.x),
-				lookVec.y,
+				net.minecraft.util.Mth.floor(lookVec.y),
 				net.minecraft.util.Mth.floor(lookVec.z));
 
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
+	}
+
+	@Override
+	public Component getName(@NotNull ItemStack stack) {
+		Component mode = Component.literal(" (")
+				.append(Component.translatable(getModeString(stack)))
+				.append(")");
+		return super.getName(stack).plainCopy().append(mode);
+	}
+
+	public static String getModeString(ItemStack stack) {
+		return "botaniamisc.sextantMode." + getMode(stack).getKey();
+	}
+
+	private static String getRadiusString(double radius) {
+		NumberFormat format = getNumberFormat();
+
+		return format.format(radius);
+	}
+
+	private static NumberFormat getNumberFormat() {
+		var format = NumberFormat.getInstance(Proxy.INSTANCE.getLocale());
+		format.setRoundingMode(RoundingMode.HALF_UP);
+		format.setMaximumFractionDigits(1);
+		format.setMinimumFractionDigits(1);
+		return format;
 	}
 
 	public static class Hud {
@@ -192,7 +307,7 @@ public class WorldshaperssSextantItem extends Item {
 				int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 30;
 				int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2;
 
-				String s = Integer.toString((int) radius);
+				String s = getRadiusString(radius);
 				boolean inRange = 0 < radius && radius <= MAX_RADIUS;
 				if (!inRange) {
 					s = ChatFormatting.RED + s;
@@ -219,4 +334,40 @@ public class WorldshaperssSextantItem extends Item {
 		}
 	}
 
+	@FunctionalInterface
+	private interface ShapeCreator {
+		void create(IStateMatcher matcher, double radius, Map<BlockPos, IStateMatcher> map);
+	}
+
+	@FunctionalInterface
+	private interface ShapeVisualizer {
+		void visualize(Level world, int x, int y, int z, WispParticleData data, double cosR, double sinR);
+	}
+
+	public enum Modes {
+		CIRCLE("circle", WorldshaperssSextantItem::makeCircle, WorldshaperssSextantItem::visualizeCircle),
+		SPHERE("sphere", WorldshaperssSextantItem::makeSphere, WorldshaperssSextantItem::visualizeSphere);
+
+		private final String key;
+		private final ShapeCreator creator;
+		private final ShapeVisualizer visualizer;
+
+		Modes(String key, ShapeCreator creator, ShapeVisualizer visualizer) {
+			this.key = key;
+			this.creator = creator;
+			this.visualizer = visualizer;
+		}
+
+		public String getKey() {
+			return key;
+		}
+
+		public ShapeCreator getCreator() {
+			return creator;
+		}
+
+		public ShapeVisualizer getVisualizer() {
+			return visualizer;
+		}
+	}
 }

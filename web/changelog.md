@@ -18,6 +18,14 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
+* Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Change: Phantom ink is now used to hide abstruse and spectral platforms instead of managlass.
+
+---
+
+{% include changelog_header.html version="1.19.2-439" %}
+
 * Add: Mana pools with pylons on top of them will now play a small particle effect when trading items in the alfheim portal
 * Add: Looking at a Spark while holding a Wand of the Forest will now render a HUD showing information like augments (for mana sparks) and network color (both mana and corporea sparks)
 * Add: Terra Truncator can now propagate its chopping through Mangrove Roots
@@ -25,6 +33,7 @@ and start a new "Upcoming" section.
 * Add: All wand HUDs now have backgrounds for better readability, along with some other changes on some HUDs. Their design is not finalized, let us know on discord/reddit/irc/email if you have suggestions for how they can be better!
 * Add: Bound flowers now show the type of spreader/pool they're bound to in the tooltip, instead of a generic spreader/pool
 * Add: Rannuncarpus can now add blocks onto existing blocks like candles and sea pickles, which accept multiple placements of itself in the same block space
+* Add: The game now warns you if you hold a wand of the forest with Optifine installed, as it breaks the entire mod. We recommend Sodium instead if you need a performance boost
 * Change: Instead of always cooling down for 5 minutes, thermalilies now have a random cooldown between 20 seconds and 5 minutes. For automation, you can read how long the cooldown is with a comparator
 * Change: Entropinnyum's "unethical TNT" detection was changed, it's now more accurate and shouldn't cause any false positives
 * Change: Flower pouches now render missing flowers transparently, and render a "1" next to stacks with one item
@@ -33,7 +42,7 @@ and start a new "Upcoming" section.
 * Change: Terra truncator now propagates through Mangrove Roots
 * Change: Sort recipe categories in EMI
 * Change: The trinket case now shows an opened texture when opened
-* Change: Phantom ink is now used to hide abstruse and spectral platforms instead of managlass.
+* Change: Force relay/lens pushing now reuses vanilla piston pushing logic instead of copying it. Should lead to better compatibility with mods that let you move block entities
 * Fix: Mana spreaders now update their mana levels in real time, like pools do
 * Fix: Red stringed containers now always report and accessible inventory, so that corporea sparks will not pop off them
 * Fix: The fallback vanilla item transfer implementation in corporea now correctly updates inventories after taking items (this bug was not directly accessible, since neither fabric nor forge use this fallback implementation)
