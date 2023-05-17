@@ -53,6 +53,8 @@ public final class BotaniaItemProperties {
 				(stack, world, entity, seed) -> WandOfTheForestItem.getBindMode(stack) ? 1 : 0);
 		consumer.accept(BotaniaItems.dreamwoodWand, prefix("bindmode"),
 				(stack, world, entity, seed) -> WandOfTheForestItem.getBindMode(stack) ? 1 : 0);
+		consumer.accept(BotaniaItems.autocraftingHalo, prefix("active"),
+				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ManufactoryHaloItem.TAG_ACTIVE, true) ? 1 : 0);
 
 		ResourceLocation poolFullId = prefix("full");
 		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {

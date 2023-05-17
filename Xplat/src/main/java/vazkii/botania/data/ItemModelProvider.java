@@ -303,6 +303,9 @@ public class ItemModelProvider implements DataProvider {
 		singleHandheldSuffixOverride(terraAxe, "_active", prefix("active"), 1.0, consumer);
 		items.remove(terraAxe);
 
+		singleGeneratedSuffixOverride(autocraftingHalo, "_active", prefix("active"), 1.0, consumer);
+		items.remove(autocraftingHalo);
+
 		ResourceLocation enabledModel = ModelLocationUtils.getModelLocation(terraPick, "_active");
 		ModelTemplates.FLAT_HANDHELD_ITEM.create(enabledModel, TextureMapping.layer0(enabledModel), consumer);
 
