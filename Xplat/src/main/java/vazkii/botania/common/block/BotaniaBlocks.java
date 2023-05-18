@@ -951,7 +951,6 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.infusedSeeds, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.mutatedSeeds, behavior);
 
-
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new AbstractProjectileDispenseBehavior() {

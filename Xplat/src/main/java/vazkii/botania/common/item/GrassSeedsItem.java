@@ -10,7 +10,6 @@ package vazkii.botania.common.item;
 
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -74,10 +73,9 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		ItemStack stack = ctx.getItemInHand();
 
 		return applySeeds(world, pos, stack)
-			? InteractionResult.sidedSuccess(world.isClientSide())
-			: InteractionResult.PASS;
+				? InteractionResult.sidedSuccess(world.isClientSide())
+				: InteractionResult.PASS;
 	}
-
 
 	public boolean applySeeds(Level world, BlockPos pos, ItemStack stack) {
 		BlockState state = world.getBlockState(pos);
