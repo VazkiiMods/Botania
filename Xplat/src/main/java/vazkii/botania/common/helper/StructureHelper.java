@@ -1,12 +1,12 @@
 package vazkii.botania.common.helper;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.structure.Structure;
+
+import javax.annotation.Nullable;
 
 public class StructureHelper {
 	public static Structure getStructure(ServerLevel level, ResourceLocation key) {

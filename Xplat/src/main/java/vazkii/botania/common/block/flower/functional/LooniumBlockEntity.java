@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.Difficulty;
@@ -50,10 +49,10 @@ import vazkii.botania.common.helper.StructureHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import javax.annotation.Nullable;
+
 import java.util.*;
 import java.util.function.Consumer;
-
-import javax.annotation.Nullable;
 
 public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private static final int COST = 35000;
@@ -87,7 +86,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			ResourceLocation key = entry.getKey();
 			WeightedEntry.Wrapper<ResourceLocation> value = entry.getValue();
 			Structure structure = StructureHelper.getStructure(level, key);
-			if (StructureHelper.isInStructureBounds(level, getBlockPos(), structure)) { 
+			if (StructureHelper.isInStructureBounds(level, getBlockPos(), structure)) {
 				validLoot.add(value);
 			}
 		}
