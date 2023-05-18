@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntity;
 
@@ -87,17 +88,18 @@ public class SpreaderTurntableBlockEntity extends BotaniaBlockEntity implements 
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			int color = 0xAA006600;
-
 			char motion = turntable.backwards ? '<' : '>';
 			String speed = ChatFormatting.BOLD + "";
 			for (int i = 0; i < turntable.speed; i++) {
 				speed = speed + motion;
 			}
 
-			int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(speed) / 2;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 - 15;
-			mc.font.drawShadow(ms, speed, x, y, color);
+			int strWidth = mc.font.width(speed);
+			int x = (mc.getWindow().getGuiScaledWidth() - strWidth) / 2;
+			int y = mc.getWindow().getGuiScaledHeight() / 2 + 8;
+
+			RenderHelper.renderHUDBox(ms, x - 2, y, x + strWidth + 2, y + 12);
+			mc.font.drawShadow(ms, speed, x, y + 2, ChatFormatting.WHITE.getColor());
 		}
 	}
 

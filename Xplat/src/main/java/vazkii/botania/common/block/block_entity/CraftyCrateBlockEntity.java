@@ -39,6 +39,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.mixin.RecipeManagerAccessor;
@@ -277,11 +278,10 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		public void renderHUD(PoseStack ms, Minecraft mc) {
 			int width = 52;
 			int height = 52;
-			int xc = mc.getWindow().getGuiScaledWidth() / 2 + 20;
+			int xc = mc.getWindow().getGuiScaledWidth() / 2 + 12;
 			int yc = mc.getWindow().getGuiScaledHeight() / 2 - height / 2;
 
-			GuiComponent.fill(ms, xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
-			GuiComponent.fill(ms, xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
+			RenderHelper.renderHUDBox(ms, xc - 4, yc - 4, xc + width + 4, yc + height + 4);
 
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {

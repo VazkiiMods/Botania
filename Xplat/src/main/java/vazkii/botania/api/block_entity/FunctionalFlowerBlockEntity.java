@@ -8,10 +8,6 @@
  */
 package vazkii.botania.api.block_entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -25,8 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaPool;
 
@@ -103,18 +97,28 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 		}
 	}
 
+	@Override
 	public int getMana() {
 		return mana;
 	}
 
+	@Override
 	public void addMana(int mana) {
 		this.mana = Mth.clamp(this.mana + mana, 0, getMaxMana());
 		setChanged();
 	}
 
-	public abstract int getMaxMana();
+	@Override
+	public ItemStack getDefaultHudIcon() {
+		return Registry.ITEM.getOptional(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+	}
 
-	public abstract int getColor();
+	// TODO 1.19.3/1.20 remove
+	public static class FunctionalWandHud<F extends FunctionalFlowerBlockEntity> extends BindableFlowerWandHud<F> {
+		public FunctionalWandHud(F flower) {
+			super(flower);
+		}
+	}
 
 	@Override
 	public void readFromPacketNBT(CompoundTag cmp) {
@@ -126,25 +130,5 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
-	}
-
-	public ItemStack getHudIcon() {
-		return Registry.ITEM.getOptional(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
-	}
-
-	public static class FunctionalWandHud<T extends FunctionalFlowerBlockEntity> implements WandHUD {
-		protected final T flower;
-
-		public FunctionalWandHud(T flower) {
-			this.flower = flower;
-		}
-
-		@Override
-		public void renderHUD(PoseStack ms, Minecraft mc) {
-			String name = I18n.get(flower.getBlockState().getBlock().getDescriptionId());
-			int color = flower.getColor();
-			BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, flower.getMana(), flower.getMaxMana(),
-					name, flower.getHudIcon(), flower.isValidBinding());
-		}
 	}
 }

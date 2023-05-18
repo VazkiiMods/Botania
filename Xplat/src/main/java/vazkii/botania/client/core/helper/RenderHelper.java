@@ -85,6 +85,8 @@ public final class RenderHelper extends RenderType {
 	public static final RenderType LIGHTNING;
 	public static final RenderType TRANSLUCENT;
 
+	private static final int ITEM_AND_PADDING_WIDTH = 20;
+
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
 		return RenderTypeAccessor.create(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
@@ -578,6 +580,39 @@ public final class RenderHelper extends RenderType {
 
 	private static MultiBufferSource wrapBuffer(MultiBufferSource buffer, int alpha, boolean forceTranslucent) {
 		return renderType -> new GhostVertexConsumer(buffer.getBuffer(forceTranslucent ? TRANSLUCENT : renderType), alpha);
+	}
+
+	/*
+	* Renders a transparent black box with a soft border. The parameters describe the inner box, there will also be drawn
+	* another box that is 2px bigger in each direction
+	*/
+	public static void renderHUDBox(PoseStack ps, int startX, int startY, int endX, int endY) {
+		GuiComponent.fill(ps, startX, startY, endX, endY, 0x44000000);
+		GuiComponent.fill(ps, startX - 2, startY - 2, endX + 2, endY + 2, 0x44000000);
+	}
+
+	/*
+	* Renders an item and its name, vertically centered next to it. Renders nothing if the stack is empty
+	* Note: The item renderer does not respect the PoseStack
+	*/
+	public static void renderItemWithName(PoseStack ps, Minecraft mc, ItemStack itemStack, int startX, int startY, int color) {
+		if (!itemStack.isEmpty()) {
+			mc.font.drawShadow(ps, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
+			mc.getItemRenderer().renderAndDecorateItem(itemStack, startX, startY);
+		}
+	}
+
+	public static void renderItemWithNameCentered(PoseStack ps, Minecraft mc, ItemStack itemStack, int startY, int color) {
+		int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+		int startX = centerX - (ITEM_AND_PADDING_WIDTH + mc.font.width(itemStack.getHoverName())) / 2;
+		renderItemWithName(ps, mc, itemStack, startX, startY, color);
+	}
+
+	/*
+	* Returns the width of an item and its text, as rendered by renderItemWithName
+	*/
+	public static int itemWithNameWidth(Minecraft mc, ItemStack itemStack) {
+		return ITEM_AND_PADDING_WIDTH + mc.font.width(itemStack.getHoverName());
 	}
 
 	// Borrowed with permission from https://github.com/XFactHD/FramedBlocks/blob/14f468810fc416b39447512810f0aa86e1012335/src/main/java/xfacthd/framedblocks/client/util/GhostVertexConsumer.java

@@ -25,9 +25,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
@@ -42,6 +40,7 @@ import vazkii.botania.api.mana.spark.ManaSpark;
 import vazkii.botania.api.mana.spark.SparkAttachable;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
@@ -79,7 +78,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@NotNull
 	@Override
 	public ItemStack getPickResult() {
-		return new ItemStack(BotaniaItems.spark);
+		return new ItemStack(getSparkItem());
 	}
 
 	@Override
@@ -109,7 +108,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 				Map<Player, Map<ManaItem, Integer>> receivingPlayers = new HashMap<>();
 
-				ItemStack input = new ItemStack(BotaniaItems.spark);
+				ItemStack input = new ItemStack(getSparkItem());
 				for (Player player : players) {
 					List<ItemStack> stacks = new ArrayList<>();
 					stacks.addAll(player.getInventory().items);
@@ -232,9 +231,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		}
 	}
 
+	protected Item getSparkItem() {
+		return BotaniaItems.spark;
+	}
+
 	private void dropAndKill() {
 		SparkUpgradeType upgrade = getUpgrade();
-		spawnAtLocation(new ItemStack(BotaniaItems.spark), 0F);
+		spawnAtLocation(new ItemStack(getSparkItem()), 0F);
 		if (upgrade != SparkUpgradeType.NONE) {
 			spawnAtLocation(SparkAugmentItem.getByType(upgrade), 0F);
 		}
@@ -371,39 +374,29 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	public record WandHud(ManaSparkEntity entity) implements WandHUD {
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			final ItemStack sparkItem = new ItemStack(BotaniaItems.spark);
+			ItemStack sparkStack = new ItemStack(entity.getSparkItem());
+			ItemStack augmentStack = SparkAugmentItem.getByType(entity.getUpgrade());
+			DyeColor networkColor = entity.getNetwork();
+			Component networkColorName = Component.translatable("color.minecraft." + networkColor.getName())
+					.withStyle(ChatFormatting.ITALIC);
+			int textColor = ColorHelper.getColorLegibleOnGrayBackground(networkColor);
 
-			int color = 0x4444FF;
-			{
-				final Component sparkName = sparkItem.getHoverName();
-				int width = mc.font.width(sparkName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 5;
+			int width = 4 + Collections.max(Arrays.asList(
+					mc.font.width(networkColorName),
+					RenderHelper.itemWithNameWidth(mc, sparkStack),
+					RenderHelper.itemWithNameWidth(mc, augmentStack)
+			));
+			int height = augmentStack.isEmpty() ? 30 : 50;
+			int networkColorTextStart = mc.font.width(networkColorName) / 2;
 
-				mc.font.drawShadow(ms, sparkName, x, y + 5, color);
-			}
+			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-			{
-				final DyeColor networkColor = this.entity.getNetwork();
-				final Component colorName = Component.translatable("color.minecraft." + networkColor.getName()).withStyle(ChatFormatting.ITALIC);
-				int width = mc.font.width(colorName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 20;
+			RenderHelper.renderHUDBox(ms, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 8 + height);
 
-				mc.font.drawShadow(ms, colorName, x, y + 5, networkColor.getTextColor());
-			}
-
-			final SparkUpgradeType upgrade = this.entity.getUpgrade();
-			if (upgrade != SparkUpgradeType.NONE) {
-				final ItemStack upgradeItem = SparkAugmentItem.getByType(upgrade);
-				final Component upgradeName = upgradeItem.getHoverName();
-				int width = 16 + mc.font.width(upgradeName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 50;
-
-				mc.font.drawShadow(ms, upgradeName, x + 20, y + 5, color);
-				mc.getItemRenderer().renderAndDecorateItem(upgradeItem, x, y);
-			}
+			RenderHelper.renderItemWithNameCentered(ms, mc, sparkStack, centerY + 10, textColor);
+			RenderHelper.renderItemWithNameCentered(ms, mc, augmentStack, centerY + 28, textColor);
+			mc.font.drawShadow(ms, networkColorName, centerX - networkColorTextStart, centerY + (augmentStack.isEmpty() ? 28 : 46), textColor);
 		}
 	}
 }

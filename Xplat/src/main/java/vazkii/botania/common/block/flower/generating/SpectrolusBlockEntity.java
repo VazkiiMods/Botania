@@ -16,10 +16,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,6 +30,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.DelayHelper;
@@ -118,29 +117,26 @@ public class SpectrolusBlockEntity extends GeneratingFlowerBlockEntity {
 
 	@Override
 	public int getColor() {
-		return Mth.hsvToRgb(ticksExisted * 2 % 360 / 360F, 1F, 1F);
+		return ColorHelper.getColorLegibleOnGrayBackground(nextColor);
 	}
 
-	public static class WandHud extends GeneratingWandHud<SpectrolusBlockEntity> {
+	public static class WandHud extends BindableFlowerWandHud<SpectrolusBlockEntity> {
 		public WandHud(SpectrolusBlockEntity flower) {
 			super(flower);
 		}
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			super.renderHUD(ms, mc);
-
 			ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(flower.nextColor));
-			int color = flower.getColor();
 
-			if (!stack.isEmpty()) {
-				Component stackName = stack.getHoverName();
-				int width = 16 + mc.font.width(stackName) / 2;
-				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
+			if (stack.isEmpty()) {
+				super.renderHUD(ms, mc);
+			} else {
+				int halfWidth = RenderHelper.itemWithNameWidth(mc, stack) / 2;
+				int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-				mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
-				mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+				super.renderHUD(ms, mc, halfWidth + 2, halfWidth + 2, 48);
+				RenderHelper.renderItemWithNameCentered(ms, mc, stack, centerY + 30, ColorHelper.getColorLegibleOnGrayBackground(flower.nextColor));
 			}
 		}
 	}

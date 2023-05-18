@@ -32,6 +32,7 @@ import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaTrigger;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -216,13 +217,10 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
-			int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
-			int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
-
 			ItemStack stack = hourglass.getItemHandler().getItem(0);
 			if (!stack.isEmpty()) {
-				mc.getItemRenderer().renderGuiItem(stack, x, y);
-				mc.getItemRenderer().renderGuiItemDecorations(mc.font, stack, x, y);
+				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
 
 				String first, second;
 				if (hourglass.isDust()) {
@@ -232,18 +230,26 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 					first = StringUtil.formatTickDuration(hourglass.time);
 					second = StringUtil.formatTickDuration(hourglass.getTotalTime());
 				}
-				mc.font.drawShadow(ms, String.format("%s / %s", first, second),
-						x + 20, y, hourglass.getColor());
+				String timer = String.format("%s / %s", first, second);
 
-				String status = "";
-				if (hourglass.lock) {
-					status = "locked";
-				}
+				String status = hourglass.lock ? "locked" : "";
 				if (!hourglass.move) {
 					status = status.isEmpty() ? "stopped" : "lockedStopped";
 				}
 				if (!status.isEmpty()) {
-					mc.font.drawShadow(ms, I18n.get("botaniamisc." + status), x + 20, y + 12, hourglass.getColor());
+					status = I18n.get("botaniamisc." + status);
+				}
+
+				int textWidth = Math.max(mc.font.width(timer), mc.font.width(status));
+
+				RenderHelper.renderHUDBox(ms, x, y, x + textWidth + 24, y + 22);
+
+				mc.getItemRenderer().renderGuiItem(stack, x + 2, y + 3);
+				mc.getItemRenderer().renderGuiItemDecorations(mc.font, stack, x + 2, y + 3);
+
+				mc.font.drawShadow(ms, timer, x + 22, y + 2, hourglass.getColor());
+				if (!status.isEmpty()) {
+					mc.font.drawShadow(ms, status, x + 22, y + 12, hourglass.getColor());
 				}
 			}
 		}

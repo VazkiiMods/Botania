@@ -28,12 +28,14 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.helper.InventoryHelper;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.stream.IntStream;
 
 public class BaubleBoxItem extends Item {
 	public static final int SIZE = 24;
+	public static final String TAG_OPEN = "open";
 
 	public BaubleBoxItem(Properties props) {
 		super(props);
@@ -53,6 +55,7 @@ public class BaubleBoxItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
 		if (!world.isClientSide) {
 			ItemStack stack = player.getItemInHand(hand);
+			ItemNBTHelper.setBoolean(stack, TAG_OPEN, true);
 			XplatAbstractions.INSTANCE.openMenu((ServerPlayer) player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {

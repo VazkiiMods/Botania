@@ -8,6 +8,10 @@
  */
 package vazkii.botania.api.block_entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +24,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandBindable;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.helper.MathHelper;
 
 import java.util.Objects;
@@ -159,6 +166,56 @@ public abstract class BindableSpecialFlowerBlockEntity<T> extends SpecialFlowerB
 			if (bindingPos != null && bindingPos.getY() == -1) {
 				bindingPos = null;
 			}
+		}
+	}
+
+	public abstract int getMana();
+
+	public abstract void addMana(int mana);
+
+	public abstract int getMaxMana();
+
+	public abstract int getColor();
+
+	public abstract ItemStack getDefaultHudIcon();
+
+	public ItemStack getHudIcon() {
+		T boundTile = findBoundTile();
+		if (boundTile != null) {
+			return new ItemStack(((BlockEntity) boundTile).getBlockState().getBlock().asItem());
+		}
+		return getDefaultHudIcon();
+	}
+
+	public static class BindableFlowerWandHud<F extends BindableSpecialFlowerBlockEntity<?>> implements WandHUD {
+		protected final F flower;
+
+		public BindableFlowerWandHud(F flower) {
+			this.flower = flower;
+		}
+
+		public void renderHUD(PoseStack ms, Minecraft mc, int minLeft, int minRight, int minDown) {
+			String name = I18n.get(flower.getBlockState().getBlock().getDescriptionId());
+			int color = flower.getColor();
+
+			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
+			int left = (Math.max(102, mc.font.width(name)) + 4) / 2;
+			// padding + item
+			int right = left + 20;
+
+			left = Math.max(left, minLeft);
+			right = Math.max(right, minRight);
+
+			RenderHelper.renderHUDBox(ms, centerX - left, centerY + 8, centerX + right, centerY + Math.max(30, minDown));
+
+			BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, flower.getMana(), flower.getMaxMana(),
+					name, flower.getHudIcon(), flower.isValidBinding());
+		}
+
+		@Override
+		public void renderHUD(PoseStack ms, Minecraft mc) {
+			renderHUD(ms, mc, 0, 0, 0);
 		}
 	}
 }

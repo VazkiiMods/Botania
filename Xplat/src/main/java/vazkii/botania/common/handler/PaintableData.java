@@ -50,5 +50,15 @@ public class PaintableData {
 		for (DyeColor color : DyeColor.values()) {
 			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_POWDER_MAP.apply(color), ColorHelper.CONCRETE_POWDER_MAP);
 		}
+
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.CANDLE, ColorHelper.CANDLE_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CANDLE_MAP.apply(color), ColorHelper.CANDLE_MAP);
+		}
+
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.CANDLE_CAKE, ColorHelper.CANDLE_CAKE_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CANDLE_CAKE_MAP.apply(color), ColorHelper.CANDLE_CAKE_MAP);
+		}
 	}
 }

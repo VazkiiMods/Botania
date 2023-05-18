@@ -34,6 +34,7 @@ out
 ## vscode
 .favorites.json
 .vscode/settings.json
+Fabric/.vscode/*
  
 ## Private Stuffs
 /private.properties

@@ -505,10 +505,11 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		@Override
 		public void renderHUD(PoseStack ms, Minecraft mc) {
 			if (enchanter.manaRequired > 0 && !enchanter.itemToEnchant.isEmpty()) {
-				int x = mc.getWindow().getGuiScaledWidth() / 2 + 20;
-				int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 + 8;
+				int y = mc.getWindow().getGuiScaledHeight() / 2 - 12;
 
-				RenderHelper.renderProgressPie(ms, x, y, (float) enchanter.mana / (float) enchanter.manaRequired,
+				RenderHelper.renderHUDBox(ms, x, y, x + 24, y + 24);
+				RenderHelper.renderProgressPie(ms, x + 4, y + 4, (float) enchanter.mana / (float) enchanter.manaRequired,
 						enchanter.itemToEnchant);
 			}
 		}

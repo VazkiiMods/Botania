@@ -413,27 +413,30 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		public void renderHUD(PoseStack ms, Minecraft mc) {
 			ItemStack poolStack = new ItemStack(pool.getBlockState().getBlock());
 			String name = poolStack.getHoverName().getString();
-			int color = 0x4444FF;
-			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, pool.getCurrentMana(), pool.getMaxMana(), name);
 
-			int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 11;
-			int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 30;
+			int centerX = mc.getWindow().getGuiScaledWidth() / 2;
+			int centerY = mc.getWindow().getGuiScaledHeight() / 2;
 
-			int u = pool.outputting ? 22 : 0;
-			int v = 38;
+			int width = Math.max(102, mc.font.width(name)) + 4;
+
+			RenderHelper.renderHUDBox(ms, centerX - width / 2, centerY + 8, centerX + width / 2, centerY + 48);
+
+			BotaniaAPIClient.instance().drawSimpleManaHUD(ms, 0x0095FF, pool.getCurrentMana(), pool.getMaxMana(), name);
 
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
+			int arrowU = pool.outputting ? 22 : 0;
+			int arrowV = 38;
 			RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
-			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
+			RenderHelper.drawTexturedModalRect(ms, centerX - 11, centerY + 30, arrowU, arrowV, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
 			ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
 			ManaTabletItem.setStackCreative(tablet);
 
-			mc.getItemRenderer().renderAndDecorateItem(tablet, x - 20, y);
-			mc.getItemRenderer().renderAndDecorateItem(poolStack, x + 26, y);
+			mc.getItemRenderer().renderAndDecorateItem(tablet, centerX - 31, centerY + 30);
+			mc.getItemRenderer().renderAndDecorateItem(poolStack, centerX + 15, centerY + 30);
 
 			RenderSystem.disableBlend();
 		}

@@ -19,14 +19,16 @@ import java.util.Locale;
 import java.util.function.Function;
 
 public final class ColorHelper {
-	public static final Function<DyeColor, Block> STAINED_GLASS_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_stained_glass")).get();
-	public static final Function<DyeColor, Block> STAINED_GLASS_PANE_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_stained_glass_pane")).get();
-	public static final Function<DyeColor, Block> TERRACOTTA_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_terracotta")).get();
-	public static final Function<DyeColor, Block> GLAZED_TERRACOTTA_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_glazed_terracotta")).get();
-	public static final Function<DyeColor, Block> WOOL_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_wool")).get();
-	public static final Function<DyeColor, Block> CARPET_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_carpet")).get();
-	public static final Function<DyeColor, Block> CONCRETE_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_concrete")).get();
-	public static final Function<DyeColor, Block> CONCRETE_POWDER_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_concrete_powder")).get();
+	public static final Function<DyeColor, Block> STAINED_GLASS_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_stained_glass")).orElseThrow();
+	public static final Function<DyeColor, Block> STAINED_GLASS_PANE_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_stained_glass_pane")).orElseThrow();
+	public static final Function<DyeColor, Block> TERRACOTTA_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_terracotta")).orElseThrow();
+	public static final Function<DyeColor, Block> GLAZED_TERRACOTTA_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_glazed_terracotta")).orElseThrow();
+	public static final Function<DyeColor, Block> WOOL_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_wool")).orElseThrow();
+	public static final Function<DyeColor, Block> CARPET_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_carpet")).orElseThrow();
+	public static final Function<DyeColor, Block> CONCRETE_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_concrete")).orElseThrow();
+	public static final Function<DyeColor, Block> CONCRETE_POWDER_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_concrete_powder")).orElseThrow();
+	public static final Function<DyeColor, Block> CANDLE_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_candle")).orElseThrow();
+	public static final Function<DyeColor, Block> CANDLE_CAKE_MAP = color -> Registry.BLOCK.getOptional(new ResourceLocation(color.getSerializedName() + "_candle_cake")).orElseThrow();
 
 	@Nullable
 	public static DyeColor getWoolColor(Block b) {
@@ -48,6 +50,16 @@ public final class ColorHelper {
 		int g = (int) (colors[1] * 255.0F);
 		int b = (int) (colors[2] * 255.0F);
 		return (r << 16) | (g << 8) | b;
+	}
+
+	public static int getColorLegibleOnGrayBackground(DyeColor color) {
+		return switch (color) {
+			case BLACK -> 0x808080;
+			case GRAY -> 0xA0A0A0;
+			case BLUE -> 0x6666FF;
+			case BROWN -> 0x8B6543;
+			default -> color.getTextColor();
+		};
 	}
 
 	private ColorHelper() {}
