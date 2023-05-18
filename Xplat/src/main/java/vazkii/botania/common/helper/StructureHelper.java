@@ -14,6 +14,6 @@ public class StructureHelper {
 	}
 
 	public static boolean isInStructureBounds(ServerLevel level, BlockPos pos, @Nullable Structure structure) {
-		return structure == null ? false : level.structureManager().getStructureAt(pos, structure).isValid();
+		return structure != null && level.structureManager().getStructureAt(pos, structure).isValid();
 	}
 }

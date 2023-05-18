@@ -82,7 +82,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 
 	//Returns an empty loot table if the selected ResourceLocation is invalid
 	private LootTable getLootTable(ServerLevel level) {
-		List<WeightedEntry.Wrapper<ResourceLocation>> validLoot = new ArrayList<WeightedEntry.Wrapper<ResourceLocation>>();
+		List<WeightedEntry.Wrapper<ResourceLocation>> validLoot = new ArrayList<>();
 		for (var entry : lootTables.entrySet()) {
 			ResourceLocation key = entry.getKey();
 			WeightedEntry.Wrapper<ResourceLocation> value = entry.getValue();
