@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -36,6 +37,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -119,5 +121,12 @@ public class ClientProxy implements Proxy {
 	@Override
 	public HitResult getClientHit() {
 		return Minecraft.getInstance().hitResult;
+	}
+
+	@NotNull
+	@Override
+	public Locale getLocale() {
+		final String languageCode = Minecraft.getInstance().getLanguageManager().getSelected().getCode();
+		return Locale.forLanguageTag(languageCode);
 	}
 }
