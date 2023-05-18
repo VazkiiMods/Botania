@@ -11,7 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -151,12 +150,11 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 
 				return InteractionResult.sidedSuccess(world.isClientSide());
 			}
-		}
-		else if (!currentStack.isEmpty()
+		} else if (!currentStack.isEmpty()
 				&& currentStack.is(BotaniaItems.phantomInk)
-				&& tile instanceof PlatformBlockEntity camo ) {
+				&& tile instanceof PlatformBlockEntity camo) {
 			if (!world.isClientSide) {
-				camo.setCamoState(Blocks.AIR.defaultBlockState());  //Air is being used as a sentinel value here
+				camo.setCamoState(Blocks.AIR.defaultBlockState()); //Air is being used as a sentinel value here
 			}
 
 			return InteractionResult.sidedSuccess(world.isClientSide());
