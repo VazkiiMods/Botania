@@ -33,7 +33,6 @@ import java.util.Map;
 
 public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int MANA_PER_XP = 50;
-	private static final int MANA_PER_XP_ORB = 35;
 	private static final int RANGE = 1;
 
 	public RosaArcanaBlockEntity(BlockPos pos, BlockState state) {
@@ -50,6 +49,9 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 
 		AABB effectBounds = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
 
+		/* TODO: Now that player and orb yields are identical, it might look better/funnier
+			to instead make xp orbs leak out of the player's head instead directly consuming.
+		*/
 		List<Player> players = getLevel().getEntitiesOfClass(Player.class, effectBounds);
 		for (Player player : players) {
 			// You would think checking totalExperience is right, but it seems to be
@@ -67,7 +69,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		List<ExperienceOrb> orbs = getLevel().getEntitiesOfClass(ExperienceOrb.class, effectBounds);
 		for (ExperienceOrb orb : orbs) {
 			if (orb.isAlive()) {
-				addMana(orb.getValue() * MANA_PER_XP_ORB);
+				addMana(orb.getValue() * MANA_PER_XP);
 				orb.discard();
 				float pitch = (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F;
 				//Usage of vanilla sound event: Subtitle is "Experience gained", and this is about gaining experience anyways.

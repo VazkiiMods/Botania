@@ -113,6 +113,40 @@ public class RannuncarpusTest {
 		}).thenSucceed();
 	}
 
+	@GameTest(template = TEMPLATE, timeoutTicks = DelayHelper.FUNCTIONAL_INHERENT_DELAY + 13 * RannuncarpusBlockEntity.PLACE_INTERVAL_TICKS)
+	public void testMultiplePlacementsPrefersEmptySpots(GameTestHelper helper) {
+		// have the flower place across the entire platform
+		helper.setBlock(FILTER_POS, Blocks.POLISHED_ANDESITE);
+		helper.setBlock(FILTERED_POS, Blocks.POLISHED_ANDESITE);
+
+		// prefill half the spaces
+		for (BlockPos pos : BlockPos.betweenClosed(0, 2, 0, 4, 2, 4)) {
+			if (((pos.getX() + pos.getZ()) % 2) == 1) {
+				helper.setBlock(pos, Blocks.SEA_PICKLE);
+			}
+		}
+
+		// provide exactly enough items to fill the other half
+		final var seaPickles = helper.spawnItem(Blocks.SEA_PICKLE.asItem(), FLOWER_POS.getX(), FLOWER_POS.getY() + 1, FLOWER_POS.getZ());
+		final var stack = seaPickles.getItem();
+		stack.setCount(12);
+		seaPickles.setItem(stack);
+
+		helper.startSequence().thenExecuteAfter(DelayHelper.FUNCTIONAL_INHERENT_DELAY + 12 * RannuncarpusBlockEntity.PLACE_INTERVAL_TICKS + 1, () -> {
+			// ensure every block has exactly one sea pickle
+			for (BlockPos pos : BlockPos.betweenClosed(1, 2, 1, 4, 2, 4)) {
+				if (pos.equals(FILTER_POS)) {
+					continue;
+				}
+				helper.assertBlockPresent(Blocks.SEA_PICKLE, pos);
+				helper.assertBlockProperty(pos, SeaPickleBlock.PICKLES, 1);
+			}
+			if (!stack.isEmpty()) {
+				helper.fail("Not all items used", seaPickles);
+			}
+		}).thenSucceed();
+	}
+
 	private static ItemFrame getItemFrame(GameTestHelper helper) {
 		var bounds = new AABB(helper.absolutePos(FLOWER_POS));
 		var list = helper.getLevel().getEntitiesOfClass(ItemFrame.class, bounds);

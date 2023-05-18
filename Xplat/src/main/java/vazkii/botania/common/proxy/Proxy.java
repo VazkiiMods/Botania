@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -24,6 +25,7 @@ import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 
+import java.util.Locale;
 import java.util.function.Supplier;
 
 public interface Proxy {
@@ -74,5 +76,10 @@ public interface Proxy {
 	@Nullable
 	default HitResult getClientHit() {
 		return null;
+	}
+
+	@NotNull
+	default Locale getLocale() {
+		return Locale.getDefault();
 	}
 }

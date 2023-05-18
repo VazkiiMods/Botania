@@ -28,6 +28,7 @@
   "botaniamisc.filter2": "Pickup any items",
   "botaniamisc.retainer.retain_all": "Retain original number of items requested",
   "botaniamisc.retainer.retain_missing": "Retain number of missing items",
+  "botaniamisc.optifine_warning": "§4[WARNING]§r <Botania>: Optifine detected. Please be aware that Optifine causes a lot of issues with botania, and you might experience issues such as mana not moving between flowers and spreaders, and no information being displayed when you hold a wand and look at a mana pool or spreader. We recommend Sodium as an alternative to Optifine's performance improvements.",
 
   "botaniamisc.creativePool0": "Creative Mana Pool, has infinite Mana",
   "botaniamisc.creativePool1": "Worthy of an Egoist",
@@ -48,6 +49,8 @@
   "botaniamisc.dropTip1": "CTRL-%s will drop a full stack",
   "botaniamisc.wandMode.bind": "Bind Mode",
   "botaniamisc.wandMode.function": "Function Mode",
+  "botaniamisc.sextantMode.circle": "Circle Mode",
+  "botaniamisc.sextantMode.sphere": "Sphere Mode",
   "botaniamisc.brewOf": "Brew of %s",
   "botaniamisc.needsCatalysts": "No matter how hard you try to push the Ingot into the Beacon, nothing seems to happen. Perhaps your configuration of catalyst pylons is off.",
   "botaniamisc.peacefulNoob": "You try to offer the Ingot to the Beacon, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.",

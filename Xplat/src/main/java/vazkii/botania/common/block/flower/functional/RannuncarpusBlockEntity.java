@@ -155,7 +155,8 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
 		BlockState filter = getUnderlyingBlock();
-		List<BlockPos> ret = new ArrayList<>();
+		List<BlockPos> emptyPositions = new ArrayList<>();
+		List<BlockPos> additivePositions = new ArrayList<>();
 
 		for (BlockPos pos : BlockPos.betweenClosed(center.offset(-rangePlace, -rangePlaceY, -rangePlace),
 				center.offset(rangePlace, rangePlaceY, rangePlace))) {
@@ -170,13 +171,22 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 				matches = state.is(filter.getBlock());
 			}
 
-			if (matches && (up.isAir() || up.getMaterial().isReplaceable()
-					|| up.canBeReplaced(getBlockPlaceContext(stack, placementPos)))) {
-				ret.add(pos.immutable());
+			if (matches) {
+				if (isAirOrDifferentReplaceableBlock(up, stack)) {
+					emptyPositions.add(pos.immutable());
+				} else if (up.canBeReplaced(getBlockPlaceContext(stack, placementPos))) {
+					// same block type, but can still place more
+					additivePositions.add(pos.immutable());
+				}
 			}
 		}
 
-		return ret.isEmpty() ? null : ret.get(rand.nextInt(ret.size()));
+		return !emptyPositions.isEmpty() ? emptyPositions.get(rand.nextInt(emptyPositions.size()))
+				: !additivePositions.isEmpty() ? additivePositions.get(rand.nextInt(additivePositions.size())) : null;
+	}
+
+	private static boolean isAirOrDifferentReplaceableBlock(BlockState state, ItemStack stack) {
+		return state.isAir() || state.getMaterial().isReplaceable() && !stack.is(state.getBlock().asItem());
 	}
 
 	@Override
