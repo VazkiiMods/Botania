@@ -70,7 +70,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(builder::add);
 
-		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
+		this.tag(BotaniaTags.Items.LENS_GLUE)
+			.add(Items.SLIME_BALL) //redundant with the tags, but fabric tag may be absent
+			.addOptionalTag(new ResourceLocation("forge", "slimeballs"))
+			.addOptionalTag(new ResourceLocation("c", "slime_balls"))
+			.add(Items.HONEY_BOTTLE);
 
 		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.alchemyCatalyst.asItem(), divaCharm,
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
