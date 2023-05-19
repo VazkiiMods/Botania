@@ -3,18 +3,19 @@ package vazkii.botania.fabric.integration.emi;
 import dev.emi.emi.api.recipe.EmiPatternCraftingRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.api.stack.TagEmiIngredient;
 import dev.emi.emi.api.widget.GeneratedSlotWidget;
 import dev.emi.emi.api.widget.SlotWidget;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.item.lens.LensItem;
+import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.List;
 
 public class CompositeLensEmiRecipe extends EmiPatternCraftingRecipe {
-	private static final EmiStack SLIME = EmiStack.of(Items.SLIME_BALL);
+	private static final EmiIngredient GLUE = new TagEmiIngredient(BotaniaTags.Items.LENS_GLUE, 1);
 	private final List<EmiStack> lenses;
 
 	@SuppressWarnings("unchecked")
@@ -33,7 +34,7 @@ public class CompositeLensEmiRecipe extends EmiPatternCraftingRecipe {
 		if (slot == 0) {
 			return new GeneratedSlotWidget(r -> lenses.get(r.nextInt(lenses.size())), unique, x, y);
 		} else if (slot == 1) {
-			return new SlotWidget(SLIME, x, y);
+			return new SlotWidget(GLUE, x, y);
 		} else if (slot == 2) {
 			return new GeneratedSlotWidget(r -> lenses.get(r.nextInt(1) + r.nextInt(lenses.size())), unique, x, y);
 		}
