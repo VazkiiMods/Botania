@@ -25,7 +25,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BotaniaBrews {
 
-	public static final Registry<Brew> registry = XplatAbstractions.INSTANCE.createBrewRegistry();
 	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
 	public static final Brew speed = new Brew(0x59B7FF, 4000, new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1800, 1));
 	public static final Brew strength = new Brew(0xEE3F3F, 4000, new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800, 1));
@@ -50,6 +49,7 @@ public class BotaniaBrews {
 	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.clear, 0, 0));
 
 	public static void registerBrews() {
+		Registry<Brew> registry = XplatAbstractions.INSTANCE.getOrCreateBrewRegistry();
 		BiConsumer<Brew, ResourceLocation> r = (b, id) -> Registry.register(registry, id, b);
 		r.accept(fallbackBrew, prefix("fallback"));
 		r.accept(speed, prefix(LibBrewNames.SPEED));

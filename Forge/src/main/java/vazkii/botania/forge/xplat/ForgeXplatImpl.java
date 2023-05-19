@@ -501,10 +501,15 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Registry<Brew> createBrewRegistry() {
-		// The registryKey really belongs on BotaniaBrews, but this method is called from there,
-		// so we'd like to avoid the circular dependency.
-		return RegistryForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
+	public Registry<Brew> getOrCreateBrewRegistry() {
+		return RegistryHolder.BREW;
+	}
+
+	// static final field of an inner class provides:
+	// - at most once initialization
+	// - synchronization/serialization of concurrent accesses
+	private static class RegistryHolder {
+		public static final Registry<Brew> BREW = RegistryForgeAccessor.callRegisterDefaulted(ResourceKey.createRegistryKey(prefix("brews")),
 				LibMisc.MOD_ID + ":fallback", registry -> BotaniaBrews.fallbackBrew);
 	}
 

@@ -184,7 +184,7 @@ public interface XplatAbstractions {
 	}
 
 	<T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor);
-	Registry<Brew> createBrewRegistry();
+	Registry<Brew> getOrCreateBrewRegistry();
 	@Nullable
 	EquipmentHandler tryCreateEquipmentHandler();
 
