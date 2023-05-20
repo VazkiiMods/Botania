@@ -42,7 +42,7 @@ public class TeruTeruBozuModel extends Model {
 				PartPose.offsetAndRotation(0.0F, 14.5F, 0.0F, 0.1745F, 0.0F, 0.0F));
 		root.addOrReplaceChild("happy_face", CubeListBuilder.create().texOffs(0, 0)
 				.addBox(-4.0F, -6.0F, -4.0F, 8, 8, 8),
-				PartPose.offsetAndRotation(0.0F, 14.5F, 0.0F, 0.1745F, 0.0F, 0.0F));
+				PartPose.offsetAndRotation(0.0F, 14.5F, 0.0F, -0.1745F, 0.0F, 0.0F));
 		root.addOrReplaceChild("thread", CubeListBuilder.create().texOffs(32, 16)
 				.addBox(-3.0F, 2.0F, -3.0F, 6, 1, 6),
 				PartPose.offset(0.0F, 14.0F, 0.0F));
