@@ -125,7 +125,7 @@
   "botaniamisc.altarRefill1": "返回最后一个合成",
   "botaniamisc.santaweaveInfo": "魔源套，因\u00a7c季\u00a7f节\u00a7c物\u00a7f转\u00a7c星\u00a7f移",
   "botaniamisc.scaleChange": "改变倍率",
-  "botaniamisc.invalidDodge": "非法损坏数据包",
+  "botaniamisc.invalidDodge": "闪避数据包非法",
   "botaniamisc.rannuncarpus.state_sensitive": "匹配方块状态",
   "botaniamisc.rannuncarpus.state_insensitive": "只匹配方块种类",
   "botania.tater_birthday.0": "哇哦，这是给我的吗？",
@@ -205,8 +205,8 @@
   "tag.botania.mana_diamond_gems": "魔力钻石",
   "tag.botania.dragonstone_gems": "龙石",
   "tag.botania.mana_dusts": "魔力尘",
-  "tag.botania.burst_viewers": "魔力观测",
-  "tag.botania.seed_apothecary_reagent": "花药台种子媒介",
+  "tag.botania.burst_viewers": "魔力检测",
+  "tag.botania.seed_apothecary_reagent": "花药台的种子",
 
   "key.botania_corporea_request": "多媒体请求",
 
@@ -248,7 +248,7 @@
   "botania.wings6": "翼:深渊领主",
   "botania.wings7": "翼:仙女",
   "botania.wings8": "翼:神龙",
-  "botania.wings9": "翼:救世主",
+  "botania.wings9": "翼:天选之子",
 
   "botania.animatedTorch.toggle": "翻转",
   "botania.animatedTorch.rotate": "旋转",
@@ -1254,7 +1254,7 @@
   "item.botania.lens_messenger.short": "信使",
   "item.botania.lens_tripwire": "魔力透镜:绊线",
   "item.botania.lens_tripwire.short": "绊线",
-  "item.botania.lens_storm": "Mana Lens: 风暴",
+  "item.botania.lens_storm": "魔力透镜: 风暴",
   "item.botania.lens_storm.short": "风暴",
   "item.botania.rune_water": "水之符文",
   "item.botania.rune_fire": "火之符文",
@@ -1878,14 +1878,14 @@
   "botania.page.pureDaisy3": "一张空白的画布，开启你的冒险之旅",
 
   "botania.entry.wand": "森林法杖",
-  "botania.tagline.wand": "你最重要的万能扳手",
+  "botania.tagline.wand": "你最重要的万能工具",
   "botania.page.wand0": "对一个植物魔法师而言最重要的工具就是$(item)森林法杖$(0)了。$(p)这个法杖由一对任意颜色的$(l:basics/flowers)$(item)神秘花瓣$(0)$(/l)和几根$(item)活木枝$(0)紧紧捆绑制成，许多地方都要用到它。",
   "botania.page.wand1": "法杖有两种模式，$(thing)绑定模式$(0)与$(thing)工作模式$(0)。$(thing)绑定模式$(0)下shift右击相应的方块来选择。再次shift右击其他地方来绑定两方块。$(thing)工作模式$(0)下shift右击则不会绑定任何东西。$(p)两模式可通过shift右击空气来切换。",
   "botania.page.wand2": "如果法杖没有绑定到任何对象，shift右击一个方块让它绕着所点击的轴旋转。$(p)比如，点击一个$(item)箱子$(0)的顶部就能旋转它。能被旋转的大多数方块都有效。",
   "botania.page.wand3": "使用的花瓣决定了法杖颜色",
 
   "botania.entry.runeAltar": "符文祭坛",
-  "botania.tagline.runeAltar": "为了更好的花或是物品的符文",
+  "botania.tagline.runeAltar": "制作符文用于更好的花和物品",
   "botania.page.runeAltar21": "制作符文是植物魔法发展的一个重要而复杂的部分。读到这里的读你应已掌握一些$(thing)魔力运用$(0)的知识。在进一步学习前，阅览完$(item)植物魔法辞典$(0)中那些重要的条目（$(o)斜体$(0)书写）)或许能给你启发。",
   "botania.page.runeAltar0": "$(item)符文$(0)是复杂魔法设备和植物的重要组成部分。$(p)为了制作这些，需要$(item)符文祭坛$(0)。$(p)手持材料右击或直接投掷到$(item)符文祭坛$(0)上就能将它添加到其上。",
   "botania.page.runeAltar1": "祭坛需要一个$(l:mana/spreader)$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)$(/l)以提供魔力。手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)时指向祭坛会显示还需多少魔力才能完成制作。$(p)很明显能看出祭坛是否吸收了足够多的$(thing)魔力$(0)，此时只要在顶部扔一个$(l:basics/pure_daisy)$(item)活石$(0)$(/l)再用法杖点击就能获得你的符文。",
@@ -1935,7 +1935,7 @@
   "botania.page.mIntro2": "掌握$(thing)魔力$(0)的艺术需要先学习如何使用$(l:generating_flowers/endoflame)$(item)火红莲$(0)$(/l)或$(l:generating_flowers/hydroangeas)$(item)水绣球$(0)$(/l)，$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)和$(l:mana/pool)$(item)魔力池$(0)$(/l)。$(p)这些构成了一个基础的魔力系统，可用于各种用途。魔力的更多用途请浏览本书$(thing)功能类植物$(0)和$(thing)神秘设备$(0)章节。",
 
   "botania.entry.spreader": "魔力发射器",
-  "botania.tagline.spreader": "你忠实的魔力传送器",
+  "botania.tagline.spreader": "你重要的魔力传送器",
   "botania.page.spreader0": "$(item)魔力发射器$(0)是运用$(thing)魔力$(0)中最重要的一部分。$(p)这是一个允许从点A到点B传递$(thing)魔力$(0)的方块。放置在地上时，它会面朝六个基本方向中的一个。手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)shift右击它，就能照点击位置调整它的朝向。如果法杖处于$(thing)绑定模式$(0)，再次点击另一个方块可以让发射器指向那个方块。",
   "botania.page.spreader1": "手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)时看到的样子",
   "botania.page.spreader2": "$(item)魔力发射器$(0)有一个很小的内部$(thing)魔力$(0)缓存，这个缓存能被附近绑定于该发射器的$(thing)产能花$(0)填充（花被放置下来时会自动绑定至最近的魔力发射器）。要查看缓存量只需手持一根$(l:basics/wand)$(item)森林法杖$(0)$(/l)，再将准星对准$(item)魔力发射器$(0)。",
@@ -1974,7 +1974,7 @@
   "botania.page.sparks2": "$(o)举起叉勺$(0)",
 
   "botania.entry.sparkUpgrades": "火花升级",
-  "botania.tagline.sparkUpgrades": "升级火花，让他变得更有用",
+  "botania.tagline.sparkUpgrades": "升级火花，让它拥有更多功能",
   "botania.page.sparkUpgrades0": "似乎$(l:mana/sparks)$(item)火花$(0)$(/l)还有些比之前所知的其他用途。我们可对其使用各种$(item)升级$(0)来增强它们的能力。只能升级$(l:mana/pool)$(item)魔力池$(0)$(/l)上方的$(l:mana/sparks)$(item)火花$(0)$(/l)，且$(p)每个$(l:mana/sparks)$(item)火花$(0)$(/l)同时只能拥有一种$(item)升级$(0)。",
   "botania.page.sparkUpgrades1": "首先，$(item)弥散升级$(0)会使$(l:mana/sparks)$(item)火花$(0)$(/l)抽取下方池中的$(thing)魔力$(0)，用来给附近玩家身上容纳$(thing)魔力$(0)的物品充能。",
   "botania.page.sparkUpgrades2": "$(item)聚集升级$(0)会让$(l:mana/sparks)$(item)火花$(0)$(/l)从附近任何未升级$(l:mana/sparks)$(item)火花$(0)$(/l)的池子中抽取$(thing)魔力$(0)，直到它的池子充满为止。",
@@ -2047,7 +2047,7 @@
   "botania.page.manaTablet2": "有没有wifi",
 
   "botania.entry.manaMirror": "魔力手镜",
-  "botania.tagline.manaMirror": "便携式可移除魔力链接",
+  "botania.tagline.manaMirror": "便携式远程魔力链接",
   "botania.page.manaMirror0": "$(item)魔力手镜$(0)就是类似于$(l:mana/mana_tablet)$(item)魔力石板$(0)$(/l)的$(thing)魔力$(0)储存物品。它能绑定至一个$(l:mana/pool)$(item)魔力池$(0)$(/l)并且能让其他物品从中抽取$(thing)魔力$(0)。$(p)要将镜子与魔力池绑定，只需要用手镜$(thing)shift右击$(0)魔力池便可。此外，手镜不能以其他方式向魔力池输入或输出魔力。",
   "botania.page.manaMirror1": "魔镜啊魔镜...",
 
@@ -2075,12 +2075,12 @@
 
   "botania.entry.elvenLenses": "精灵魔力透镜",
   "botania.tagline.elvenLenses": "新能力！高级魔力透镜",
-  "botania.page.elvenLenses0": "是时候利用来自阿尔弗海姆的知识了。运用精灵的工艺，我们可以制作许多全新的$(item)魔力透镜$(0)。$(p)不像那些主世界里这些普通的透镜，这些透镜有更独特的功能...",
+  "botania.page.elvenLenses0": "是时候利用来自艾尔夫海姆的知识了。运用精灵的工艺，我们可以制作许多全新的$(item)魔力透镜$(0)。$(p)不像那些主世界里这些普通的透镜，这些透镜有更独特的功能...",
   "botania.page.elvenLenses1": "首先是$(item)涂色透镜$(0)。$(item)涂色透镜$(0)需要染成十六种颜色之一才能工作。当它碰到了一个可染色的方块（$(item)羊毛、硬化粘土、或是玻璃$(0)...）它会将任何方块染成与$(thing)魔力脉冲$(0)本身相同的颜色。看起来对$(thing)羊$(0)同样有效。",
   "botania.page.elvenLenses2": "涂色透镜",
   "botania.page.elvenLenses3": "$(item)传送透镜$(0)是个有趣的透镜。其发出的脉冲，在接触到$(l:ender/piston_relay)$(item)力量传递器$(0)$(/l)时将会传送到$(item)力量传递器$(0)绑定的方块处且保持其动能，但该魔力不能再回收用于其他地方。其次，将其与$(item)挖掘透镜$(0)组合成复合透镜（$(item)挖掘透镜$(0)必须是合成中的第一种）则能让脉冲不再破坏$(l:ender/piston_relay)$(item)力量传递器$(0)$(/l)或$(item)活塞$(0)，并且会将被破坏的方块传送至脉冲起点。",
   "botania.page.elvenLenses4": "传送透镜",
-  "botania.page.elvenLenses5": "$(item)变向透镜$(0)只会在$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)上工作。其发出的脉冲在接触$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)时，不仅会发生普通的$(thing)魔力$(0)传输，还会使得接受该脉冲的发射器朝向发射该脉冲的发射器。",
+  "botania.page.elvenLenses5": "当魔力脉冲穿过$(item)变向透镜$(0)后碰到的$(l:mana/spreader)$(item)魔力发射器$(0)$(/l)或实体都会面向魔力发射源。",
   "botania.page.elvenLenses6": "变向透镜",
   "botania.page.elvenLenses7": "$(item)庆祝透镜$(0)的功能类似于$(item)爆炸透镜$(0)，然而不会产生爆炸，而是一束根据脉冲颜色的烟花。",
   "botania.page.elvenLenses8": "庆祝透镜",
@@ -2125,7 +2125,7 @@
   "botania.page.fIntro4": "$(item)红石根$(0)方便红石控制",
 
   "botania.entry.flowerShrinking": "缩小花",
-  "botania.tagline.flowerShrinking": "同样的花，更小的范围",
+  "botania.tagline.flowerShrinking": "更小的花，更小的范围",
   "botania.page.flowerShrinking0": "有些功能花的工作范围太大了，而有的人不需要那么大的范围，而现在只需要将花投入$(l:devices/mana_alchemy)$(item)炼金催化$(0)$(/l)的$(l:mana/pool)$(item)魔力池$(0)$(/l)，消耗一点$(thing)魔力$(0)，它们的工作半径就会被缩小，其余效果保持不变。",
   "botania.page.flowerShrinking1": "就像手办一样",
   "botania.page.flowerShrinking2": "缩小花",
@@ -2136,7 +2136,7 @@
   "botania.page.flowerSpeed1": "这个系统还可以借助$(item)寒地之种$(0)和$(item)菌丝孢子$(0)扩展到$(l:misc/shiny_flowers)$(item)浮空花$(0)$(/l)上。$(p)对于两朵延迟等级一样的花（或者无延迟）。$(thing)产能花$(0)（例如$(l:generating_flowers/endoflame)$(item)火红莲(0)$(/l)）会先于$(thing)功能花$(0)（例如$(l:functional_flowers/hopperhock)$(item)漏斗花$(0)$(/l)）捡起物品。若是两朵一模一样的花呢？这是个秘密。",
 
   "botania.entry.jadedAmaranthus": "翡翠苋",
-  "botania.tagline.jadedAmaranthus": "制作更多的魔力花",
+  "botania.tagline.jadedAmaranthus": "制作更多的神秘花",
   "botania.page.jadedAmaranthus0": "每个人都喜欢花对吧？$(item)翡翠苋$(0)就是为此而生的。$(p)用$(l:mana/pool)$(item)魔力池$(0)$(/l)给它提供$(thing)魔力$(0)会让它在周围的泥土类方块上快速长出新的$(l:basics/flowers)$(item)神秘花$(0)$(/l)。",
   "botania.page.jadedAmaranthus1": "$(o)这难道是紫丁香$(0)。",
   "botania.page.jadedAmaranthus2": "$(o)等一下，你刚刚是召唤出了一大堆花么？$(p)是啊，有什么奇怪的？$(p)这不科学，不是么？$(p)我有魔力，需要什么科学！",
@@ -2153,7 +2153,7 @@
 
   "botania.entry.heiseiDream": "平成之梦",
   "botania.tagline.heiseiDream": "让怪物互相残杀",
-  "botania.page.heiseiDream0": "$(item)平成之梦$(0)会用$(thing)魔力$(0)，会唤醒附近$(thing)怪物$(0)的仇恨，让它们窝里斗。",
+  "botania.page.heiseiDream0": "$(item)平成之梦$(0)会用$(thing)魔力$(0)唤醒附近$(thing)怪物$(0)的仇恨，让它们互相攻击。",
   "botania.page.heiseiDream1": "$(o)生于忧患，死于安乐$(0)。",
 
   "botania.entry.tigerseye": "虎之眼",
@@ -2167,7 +2167,7 @@
   "botania.page.orechid1": "$(o)这可不是龙的便便$(0)。",
 
   "botania.entry.orechidIgnem": "炎矿兰",
-  "botania.tagline.orechidIgnem": "地狱岩里的地狱矿",
+  "botania.tagline.orechidIgnem": "你需要的另一种凝矿兰",
   "botania.page.orechidIgnem0": "$(item)凝矿兰$(0)是朵不错的花。用$(thing)魔力$(0)来产生原矿，对谁而言都是极好的。然而它却不能产生来自$(thing)下界$(0)的矿物。通过改变花瓣的配方，你解决了这个问题。现在它就能利用$(item)地狱岩$(0)来产生$(thing)下界$(0)矿物。花必须在$(thing)下界$(0)才能工作",
   "botania.page.orechidIgnem1": "$(o)变热吧$(0)。",
 
@@ -2295,20 +2295,20 @@
   "botania.page.endoflame2": "$(o)当纵火也有用时$(0)。",
 
   "botania.entry.hydroangeas": "水绣球",
-  "botania.tagline.hydroangeas": "水力产魔机",
+  "botania.tagline.hydroangeas": "水中的魔力",
   "botania.page.hydroangeas0": "$(item)水绣球$(0)是种消耗液体的被动产能花。她们会吸取以它为中心3x3范围内等高的$(item)静水$(0)，并产生$(thing)魔力$(0)。$(thing)雨天$(0)时她们似乎工作得更快，然而还是抵不过它们的基础$(thing)魔力$(0)产量太低的事实。另外，它们会在大约三天后枯萎，因此不能长期用来生产魔力。",
   "botania.page.hydroangeas1": "$(o)Undertheseeeeeeaaaaaaa~",
 
   "botania.entry.thermalily": "炽玫瑰",
-  "botania.tagline.thermalily": "地热发电植魔版",
-  "botania.page.thermalily0": "$(item)炽玫瑰$(0)是$(l:generating_flowers/hydroangeas)$(item)水绣球$(0)$(/l)的$(item)熔岩$(0)版本，原理类似$(item)水绣球$(0)，但它吸收的是$(item)熔岩$(0)。它会在消耗$(item)熔岩$(0)后的约45秒内迅速产生大量的$(item)魔力$(0)，但之后则需要花一点时间来冷却。",
+  "botania.tagline.thermalily": "岩浆产魔",
+  "botania.page.thermalily0": "$(item)炽玫瑰$(0)是$(l:generating_flowers/hydroangeas)$(item)水绣球$(0)$(/l)的$(item)熔岩$(0)版本，原理类似$(item)水绣球$(0)，但它吸收的是$(item)熔岩$(0)。它会在消耗$(item)熔岩$(0)后的约45秒内迅速产生大量的$(item)魔力$(0)，但之后则需要花一点时间（大约5分钟）来冷却。",
   "botania.page.thermalily1": "不过，就像它选择的饮料一样喜怒无常，它往往会随机改变冷却时间————从20秒到整整5分钟不等！$(p)你可以用$(item)红石比较器$(0)来测定它的冷却时间：每级强度为20秒。",
   "botania.page.thermalily2": "在工作阶段时，$(item)炽玫瑰$(0)产出的$(thing)魔力$(0)的量十分之高，十分适合应对短时间内需要大量消耗魔力的情况。$(p)在它进入“冷却阶段”时，它依旧会消耗熔岩，但不会产出任何$(thing)魔力$(0)，直到冷却期结束后方能继续产出魔力。",
   "botania.page.thermalily3": "虽然$(item)发射器$(0)可以胜任自动放置$(item)熔岩$(0)的工作，但自动收集$(thing)下界$(0)或地底深处的熔岩并用来自动产出魔力却完全是另外一回事。$(p)因此，$(item)炽玫瑰$(0)被归类为“半自动化产能花”。",
   "botania.page.thermalily4": "$(o)最难对付的花$(0)。",
 
   "botania.entry.arcanerose": "阿卡纳蔷薇",
-  "botania.tagline.arcanerose": "经验当魔力使",
+  "botania.tagline.arcanerose": "经验就是魔力",
   "botania.page.arcanerose0": "$(thing)经验点$(0)是一种形式的魔力.$(item)阿卡纳蔷薇$(0)能吸收附近玩家的经验，并利用它产生$(item)魔力$(0)。",
   "botania.page.arcanerose1": "$(o)该花被种植时，投掷一枚硬币$(0)。",
 
@@ -2342,7 +2342,7 @@
   "botania.page.narslimmus1": "$(o)再多坐会儿，好吗？$()",
 
   "botania.entry.spectrolus": "斑斓花",
-  "botania.tagline.spectrolus": "吃的是羊毛，吐出的是魔力",
+  "botania.tagline.spectrolus": "五彩斑斓的魔力",
   "botania.page.spectrolus0": "$(item)斑斓花$(0)是一朵特别喜欢各种颜色$(item)羊毛$(0)的花。它会吸收任何丢在旁边的$(item)羊毛$(0)并利用它们制造$(thing)魔力$(0)。$(p)提醒一下，它对于颜色十分挑剔：一开始是白色，在吸收一块$(item)羊毛$(0)后，它就会按照顺序索求下一个颜色的羊毛。",
   "botania.page.spectrolus1": "虽然它会消耗周围任何$(item)羊毛$(0)，但它只会根据想要的颜色来产生魔力，所以胡乱拿$(item)羊毛$(0)给它是一种极其浪费的做法。$(p)需求的下一个羊毛颜色可以通过手持$(l:basics/wand)$(item)森林法杖$(0)$(/l)将鼠标悬停在花上查看。",
   "botania.page.spectrolus1.5": "这朵花大部分时候都只吃处理过的羊毛，但你就不好奇如果你让它直接从“源头”吃点儿会发生什么吗...？",
@@ -2374,12 +2374,12 @@
   "botania.page.shulk_me_not2": "$(o)禁止摘花$(0)。",
 
   "botania.entry.pylon": "魔法水晶",
-  "botania.tagline.pylon": "附魔强化者",
+  "botania.tagline.pylon": "魔法催化剂",
   "botania.page.pylon0": "$(item)魔法水晶$(0)是一个能将能量从地下中抽出用于供给附魔过程的装置.$(p)举例来说，将一个临近$(item)附魔台$(0)放置会起到和$(item)书架$(0)一样的作用，会大幅增加附魔等级，2个魔法水晶就足够达到$(thing)Level30$(0)。",
   "botania.page.pylon1": "$(o)你必须增建水晶塔！$(0)",
 
   "botania.entry.manaEnchanting": "魔力附魔",
-  "botania.tagline.manaEnchanting": "利用魔力来附魔工具",
+  "botania.tagline.manaEnchanting": "使用魔力来附魔工具",
   "botania.page.manaEnchanting0": "通过利用$(item)魔法水晶$(0)输出的魔法能量，能建造出一个用附魔书无消耗附魔物品的装置，叫做$(item)魔力附魔台$(0)。$(p)建造它需要大量的空间和材料。",
   "botania.page.manaEnchanting1": "建造$(item)魔力附魔台$(0)，需要大量空间，17个$(item)黑曜石$(0)块，10个任意颜色的$(item)神秘花$(0)，6个$(item)魔法水晶$(0)和一个$(item)青金石块$(0).$(p)如何组装的说明在后续页面。",
   "botania.page.manaEnchanting2": "魔力附魔台。",
@@ -2396,7 +2396,7 @@
   "botania.page.turntable2": "类似地，让装有$(l:basics/wand)$(item)森林法杖$(0)$(/l)的原版$(item)发射器$(0)对着其侧面激活可以改变速度，对着底面则可以改变方向。",
 
   "botania.entry.manaAlchemy": "魔力炼金",
-  "botania.tagline.manaAlchemy": "将A变为B，这种交换并不等价",
+  "botania.tagline.manaAlchemy": "不等价交换",
   "botania.page.manaAlchemy0": "$(thing)魔力$(0)是种不稳定的物质，某种程度上我们还未了解它的完整属性和能力.$(p)但有一点，装上$(item)炼金催化器$(0)，由特别材料混合制成放在$(item)魔$(0)$(item)力池$(0)底部，使得池子能进行$(thing)炼$(0)$(thing)金$(0)。",
   "botania.page.manaAlchemy1": "制作$(item)催化器$(0)",
   "botania.page.manaAlchemy2": "$(item)腐肉$(0)变$(item)皮革$(0)",
@@ -2522,7 +2522,7 @@
   "botania.page.openCrate2": "一个精妙的箱子",
 
   "botania.entry.forestDrum": "狂野之鼓",
-  "botania.tagline.forestDrum": "用魔力脉冲的力量将植物连根拔起",
+  "botania.tagline.forestDrum": "用魔力脉冲将植物连根拔起",
   "botania.page.forestDrum0": "$(item)狂野之鼓$(0)通俗说，就是打击乐器版的$(l:tools/grass_horn)$(item)狂野号角$(0)$(/l)。它与手持的号角有相同的功能，但是放置在地上的。$(p)要击响它破坏附近的花草，需要向它发射一道$(thing)魔力脉冲$(0)。",
   "botania.page.forestDrum1": "注意鼓本身并不存储魔力，为了触发它，就需要使用$(l:mana/redstone_spreader)$(item)红石魔力发射器$(0)$(/l)或是$(l:tools/mana_blaster)$(item)魔力脉冲枪$(0)$(/l)之类的东西。",
   "botania.page.forestDrum2": "但如果你闭上了眼睛...",
@@ -2600,17 +2600,17 @@
   "botania.page.cocoon2": "新世界，乌托邦",
 
   "botania.entry.manaBomb": "魔力风暴",
-  "botania.tagline.manaBomb": "魔力风暴是爆炸。爆炸爆炸爆炸爆炸爆炸爆炸",
+  "botania.tagline.manaBomb": "魔力风暴充能~~砰。砰~砰砰~砰砰砰砰砰！",
   "botania.page.manaBomb0": "将$(item)TNT$(0)放在一起再加上$(l:alfhomancy/gaia_ritual)$(item)盖亚之魂$(0)$(/l)来制作一个$(item)魔力风暴$(0)，它是爆炸的化身，毫不夸张的说。让他接受一个$(item)魔力脉冲$(0)，充能器会产生一个不稳定的$(item)魔力风暴震荡$(0)，这会造成一场长时间的$(item)魔力爆发$(0)，并摧毁附近所有方块。$(p)不用说，只有疯子才会在家里附近释放这只摧毁一切的力量。",
   "botania.page.manaBomb1": "准备面对伟大的存在...",
 
   "botania.entry.teruTeruBozu": "晴天娃娃",
-  "botania.tagline.teruTeruBozu": "天气控制以及超人的可爱",
+  "botania.tagline.teruTeruBozu": "过分可爱的天气控制工具",
   "botania.page.teruTeruBozu0": "$(item)晴天娃娃$(0)，众所周知，是一种驱散坏天气的护身符。只要制作一个并将它放在世界上能够减少$(item)雨$(0)或$(item)雷暴$(0)持续的时间。坏天气的时候，拿着$(item)向日葵$(0)右击他或朝他投掷向日葵会让晴天再临。给予一个$(item)红石比较器$(0)能够让他检测坏天气。",
-  "botania.page.teruTeruBozu1": "太阳花又有什么特别的了？",
+  "botania.page.teruTeruBozu1": "太阳花又有什么特别的？",
 
   "botania.entry.avatar": "活木化身",
-  "botania.tagline.avatar": "方块中的法杖",
+  "botania.tagline.avatar": "替身施法",
   "botania.page.avatar0": "将$(l:basics/pure_daisy)$(item)活木$(0)$(/l)雕刻成形并用$(l:mana/pool)$(item)魔力钻石$(0)$(/l)作为其心脏，这样便制作了一个名为$(item)活木化身$(0)的著名设备。它本身并不能做任何事情 - 除了看起来十分可爱。$(p)然而，只要给它一根$(thing)法杖$(0)就能让他施展各种的魔法，这取决于给它法杖的类型。当然，它所需的$(thing)魔力$(0)由发射器供给。",
   "botania.page.avatar1": "并非所有的$(thing)法杖$(0)都适合。然而，所有可用的法杖，都会在它们自己的页面解释放入$(item)活木化身$(0)中的效果$(p)一些可用法杖的例子比如$(l:tools/tornado_rod$(item)天空法杖$(0)(/l)，$(l:tools/fire_rod)$(item)地狱法杖$(0)$(/l)以及$(l:tools/divining_rod)$(item)彩虹桥法杖$(0)$(/l)。$(p)给化身一个红石信号会阻止它使用法杖。",
   "botania.page.avatar2": "但它有番剧吗？",
@@ -2692,7 +2692,7 @@
   "botania.page.terraSword1": "不需要断裂英雄剑",
 
   "botania.entry.terraPick": "泰拉粉碎者",
-  "botania.tagline.terraPick": "可升级性的大范围挖掘力",
+  "botania.tagline.terraPick": "一把可升级的范围破坏工具",
   "botania.page.terraPick0": "$(item)泰拉粉碎者$(0)是个可以积攒大量魔力的工具，因为制作过程使用了相当的$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)。$(p)它的功能有点像$(item)魔力石板$(0)因为它可以通过投入$(l:mana/pool)$(item)魔力池$(0)$(/l)而获取$(item)魔力$(0)，尽管它不能返还$(thing)魔力$(0)，所以它功能又与储存不同。",
   "botania.page.terraPick1": "工具里储存的$(thing)魔力$(0)量决定了它的$(thing)阶位$(0)。阶位如下:$(thing)D$(0)，$(thing)C$(0)，$(thing)B$(0)，$(thing)A$(0)，$(thing)S$(0)，$(thing)SS$(0)。$(thing)D$(0)就是默认的阶位。$(p)阶位升级所需的$(thing)魔力$(0)量会随着阶位而增加。例如从$(thing)D$(0)升至$(thing)C$(0)，只需要在$(l:mana/pool)$(item)魔力池$(0)$(/l)待个几秒。",
   "botania.page.terraPick2": "从$(thing)C$(0)升至$(thing)B$(0)，需要一个满的$(item)魔力$(0)$(item)池$(0)，每级是上一级的十倍消耗，最终到达$(thing)SS$(0)。$(p)工具的阶位不会改变它的速度，但会增强$(thing)激活能力$(0)。$(p)可以通过右击开启工具的能力。",
