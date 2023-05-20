@@ -20,6 +20,7 @@ and start a new "Upcoming" section.
 
 * Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
 * Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
 
 ---
 
