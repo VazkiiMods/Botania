@@ -18,7 +18,6 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategor
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -72,8 +71,12 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension {
 			}
 		}
 
+		List<ItemStack> glueInput = StreamSupport.stream(Registry.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS_GLUE).spliterator(), false)
+				.map(ItemStack::new)
+				.toList();
+
 		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK,
-				List.of(firstInput, List.of(new ItemStack(Items.SLIME_BALL)), secondInput), 0, 0);
+				List.of(firstInput, glueInput, secondInput), 0, 0);
 		helper.createAndSetOutputs(builder, VanillaTypes.ITEM_STACK, outputs);
 	}
 }
