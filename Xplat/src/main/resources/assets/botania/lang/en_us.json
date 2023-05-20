@@ -2309,7 +2309,7 @@
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana from experience",
-  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(thing)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world; however, this method nets you a bit less mana for the same experience.",
+  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(thing)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world.",
   "botania.page.arcanerose1": "$(o)When this flower is planted, toss a coin$().",
 
   "botania.entry.munchdew": "Munchdew",
