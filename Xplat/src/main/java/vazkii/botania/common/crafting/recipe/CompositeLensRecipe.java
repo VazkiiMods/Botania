@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.mana.CompositableLensItem;
+import vazkii.botania.common.lib.BotaniaTags;
 
 public class CompositeLensRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<CompositeLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(CompositeLensRecipe::new);
@@ -32,7 +33,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
 		boolean foundLens = false;
 		boolean foundSecondLens = false;
-		boolean foundSlimeball = false;
+		boolean foundGlue = false;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
@@ -43,15 +44,15 @@ public class CompositeLensRecipe extends CustomRecipe {
 					} else {
 						foundLens = true;
 					}
-				} else if (stack.is(Items.SLIME_BALL) && !foundSlimeball) {
-					foundSlimeball = true;
+				} else if (stack.is(BotaniaTags.Items.LENS_GLUE) && !foundGlue) {
+					foundGlue = true;
 				} else {
-					return false; // Found an invalid item, breaking the recipe
+					return false; // Found an invalid or extra item, breaking the recipe
 				}
 			}
 		}
 
-		return foundSecondLens && foundSlimeball;
+		return foundSecondLens && foundGlue;
 	}
 
 	@NotNull
