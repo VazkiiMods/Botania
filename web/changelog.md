@@ -20,7 +20,9 @@ and start a new "Upcoming" section.
 
 * Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
 * Add: In addition to Slime Balls, Mana Lenses can now be merged with Honey Bottles and modded slime balls
+* Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the crafting table segment or right-clicking the item in an inventory screen
 * Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
 
 ---
 
