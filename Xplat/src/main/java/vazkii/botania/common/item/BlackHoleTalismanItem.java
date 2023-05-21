@@ -49,8 +49,8 @@ import java.util.List;
 
 public class BlackHoleTalismanItem extends Item {
 	public static final String TAG_ACTIVE = "active";
-	private static final String TAG_BLOCK_NAME = "blockName";
-	private static final String TAG_BLOCK_COUNT = "blockCount";
+	public static final String TAG_BLOCK_NAME = "blockName";
+	public static final String TAG_BLOCK_COUNT = "blockCount";
 
 	public BlackHoleTalismanItem(Properties props) {
 		super(props);

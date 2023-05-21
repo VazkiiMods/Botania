@@ -30,6 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Bound;
@@ -113,10 +114,7 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 			for (BlockPos cursor : cursors) {
 				BlockPos pos = hit.offset(cursor);
 				if (ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, false)) {
-					Vec3 lookHit = lookPos.getLocation();
-					Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(lookHit.x()), pos.getY() + Mth.frac(lookHit.y()), pos.getZ() + Mth.frac(lookHit.z()));
-					BlockHitResult newHit = new BlockHitResult(newHitVec, lookPos.getDirection(), pos, false);
-					UseOnContext ctx = new UseOnContext(player, hand, newHit);
+					UseOnContext ctx = getUseOnContext(player, hand, pos, lookPos.getLocation(), lookPos.getDirection());
 
 					InteractionResult result;
 					if (player.isCreative()) {
@@ -138,6 +136,13 @@ public class RingOfLokiItem extends RelicBaubleItem implements WireframeCoordina
 			}
 			return successes > 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
 		}
+	}
+
+	@NotNull
+	public static UseOnContext getUseOnContext(Player player, InteractionHand hand, BlockPos pos, Vec3 lookHit, Direction direction) {
+		Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(lookHit.x()), pos.getY() + Mth.frac(lookHit.y()), pos.getZ() + Mth.frac(lookHit.z()));
+		BlockHitResult newHit = new BlockHitResult(newHitVec, direction, pos, false);
+		return new UseOnContext(player, hand, newHit);
 	}
 
 	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
