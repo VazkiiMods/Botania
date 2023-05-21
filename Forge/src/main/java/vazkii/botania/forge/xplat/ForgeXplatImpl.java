@@ -419,9 +419,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void sendToPlayer(Player player, BotaniaPacket packet) {
-		if (!player.getLevel().isClientSide) {
-			ForgePacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player),
-					packet);
+		if (!player.getLevel().isClientSide && player instanceof ServerPlayer serverPlayer) {
+			ForgePacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
 		}
 	}
 

@@ -425,7 +425,9 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void sendToPlayer(Player player, BotaniaPacket packet) {
-		ServerPlayNetworking.send((ServerPlayer) player, packet.getFabricId(), packet.toBuf());
+		if (player instanceof ServerPlayer serverPlayer) {
+			ServerPlayNetworking.send(serverPlayer, packet.getFabricId(), packet.toBuf());
+		}
 	}
 
 	@Override
