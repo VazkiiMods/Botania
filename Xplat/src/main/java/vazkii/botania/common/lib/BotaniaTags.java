@@ -57,6 +57,8 @@ public class BotaniaTags {
 
 		public static final TagKey<Item> LENS = tag("lens");
 
+		public static final TagKey<Item> LENS_GLUE = tag("lens_glue");
+
 		/**
 		 * Items in this tag cannot be pulled by the magnet rings
 		 */
