@@ -872,8 +872,8 @@ and start a new "Upcoming" section.
 * Update banner and crafty crate lexicon screenshots (Alwinfy)
 * Another null check workaround for Optifine
 * Move laputa shard upgrading to custom/dynamic recipe
-* Rod of the Shaded Mesa fired by an avatar now targets all hostile mobs
-* Rod of the Shaded Mesa fired by a player now targets mobs hostile to other players, when PVP is off
+* Rod of the Unstable Reservoir fired by an avatar now targets all hostile mobs
+* Rod of the Unstable Reservoir fired by a player now targets mobs hostile to other players, when PVP is off
 * Fix gaia guardian not spawning pixies during the mob spawn phase (Keralop)
 * Fix invisibility cloak not actually consuming mana (Keralop)
 * Add a HUD for the Prism similar to the spreader's
