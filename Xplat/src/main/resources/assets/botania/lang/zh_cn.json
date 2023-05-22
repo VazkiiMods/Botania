@@ -1878,7 +1878,7 @@
   "botania.page.pureDaisy1": "给它$(thing)一分钟$(0)就会...",
   "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
   "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，还有$(item)水$(0)变为$(item)雪$(0)。",
-  "botania.page.pureDaisy3": "一张空白的画布，开启你的冒险之旅",
+  "botania.page.pureDaisy3": "一张空白画卷，绘出冒险之旅",
 
   "botania.entry.wand": "森林法杖",
   "botania.tagline.wand": "你最重要的万能工具",
