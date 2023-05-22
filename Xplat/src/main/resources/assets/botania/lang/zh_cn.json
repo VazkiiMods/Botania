@@ -51,6 +51,8 @@
   "botaniamisc.dropTip3": "你物品栏中的物品",
   "botaniamisc.wandMode.bind": "绑定模式",
   "botaniamisc.wandMode.function": "工作模式",
+  "botaniamisc.sextantMode.circle": "圆形模式",
+  "botaniamisc.sextantMode.sphere": "球体模式",
   "botaniamisc.brewOf": "%s精酿",
   "botaniamisc.needsCatalysts": "无论你多么努力地尝试将泰拉钢锭送入信标之中，什么事都没有发生。也许你用于仪式的水晶塔摆错了位置。",
   "botaniamisc.peacefulNoob": "你尝试提供泰拉钢锭，但是被和平模式世界当中的和平共鸣所阻止。也许你该采取些措施。",
@@ -191,6 +193,7 @@
   "tag.botania.mini_flowers": "缩小花",
   "tag.botania.mana_using_items": "魔力工具",
   "tag.botania.lens": "魔力透镜",
+  "tag.botania.lens_glue": "复合透镜",
   "tag.botania.runes": "符文",
   "tag.botania.rods": "法杖",
   "tag.botania.manasteel_ingots": "魔力钢锭",
@@ -248,7 +251,7 @@
   "botania.wings6": "翼:深渊领主",
   "botania.wings7": "翼:仙女",
   "botania.wings8": "翼:神龙",
-  "botania.wings9": "翼:救世主",
+  "botania.wings9": "翼:天选之子",
 
   "botania.animatedTorch.toggle": "翻转",
   "botania.animatedTorch.rotate": "旋转",
@@ -502,7 +505,7 @@
 
   "advancement.botania:desuGun": "裏表ラバーズ",
   "advancement.botania:desuGun.desc": "ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN",
-  "advancement.botania:tinyPotatoBirthday": "BLESSING",
+  "advancement.botania:tinyPotatoBirthday": "祈福",
   "advancement.botania:tinyPotatoBirthday.desc": "7月19日，庆祝小土豆的生日",
 
   "botania.challengelevel.easy": "Easy",
@@ -1875,7 +1878,7 @@
   "botania.page.pureDaisy1": "给它$(thing)一分钟$(0)就会...",
   "botania.page.pureDaisy2": "$(item)活木$(0)可做成活木枝",
   "botania.page.pureDaisy4": "此外还有一些方块放在这朵花旁边时也能被净化。尽管它们并不像活木活石那样是必需品，或许也能派上什么用场。包括$(item)地狱岩$(0)变为$(item)圆石$(0)，$(item)灵魂沙$(0)变为$(item)沙子$(0)，$(item)冰$(0)变为$(item)浮冰$(0)，还有$(item)水$(0)变为$(item)雪$(0)。",
-  "botania.page.pureDaisy3": "一张空白画卷，绘出冒险之旅",
+  "botania.page.pureDaisy3": "一张空白的画布，开启你的冒险之旅",
 
   "botania.entry.wand": "森林法杖",
   "botania.tagline.wand": "你最重要的万能工具",
@@ -2301,7 +2304,7 @@
 
   "botania.entry.thermalily": "炽玫瑰",
   "botania.tagline.thermalily": "岩浆产魔",
-  "botania.page.thermalily0": "$(item)炽玫瑰$(0)是$(l:generating_flowers/hydroangeas)$(item)水绣球$(0)$(/l)的$(item)熔岩$(0)版本，原理类似$(item)水绣球$(0)，但它吸收的是$(item)熔岩$(0)。它会在消耗$(item)熔岩$(0)后的约45秒内迅速产生大量的$(item)魔力$(0)，但之后则需要花一点时间（大约5分钟）来冷却。",
+  "botania.page.thermalily0": "$(item)炽玫瑰$(0)是$(l:generating_flowers/hydroangeas)$(item)水绣球$(0)$(/l)的$(item)熔岩$(0)版本，原理类似$(item)水绣球$(0)，但它吸收的是$(item)熔岩$(0)。它会在消耗$(item)熔岩$(0)后的约45秒内迅速产生大量的$(item)魔力$(0)，但之后则需要花一点时间来冷却。",
   "botania.page.thermalily1": "不过，就像它选择的饮料一样喜怒无常，它往往会随机改变冷却时间————从20秒到整整5分钟不等！$(p)你可以用$(item)红石比较器$(0)来测定它的冷却时间：每级强度为20秒。",
   "botania.page.thermalily2": "在工作阶段时，$(item)炽玫瑰$(0)产出的$(thing)魔力$(0)的量十分之高，十分适合应对短时间内需要大量消耗魔力的情况。$(p)在它进入“冷却阶段”时，它依旧会消耗熔岩，但不会产出任何$(thing)魔力$(0)，直到冷却期结束后方能继续产出魔力。",
   "botania.page.thermalily3": "虽然$(item)发射器$(0)可以胜任自动放置$(item)熔岩$(0)的工作，但自动收集$(thing)下界$(0)或地底深处的熔岩并用来自动产出魔力却完全是另外一回事。$(p)因此，$(item)炽玫瑰$(0)被归类为“半自动化产能花”。",
@@ -2362,7 +2365,7 @@
   "botania.page.dandelifeon4": "所有这些变动都是同时发生的。$(p)除此之外，还有一些规则是传统$(thing)康威生命游戏$(0)中不存在而专属于$(item)启命英$(0)的，它们将会在后面介绍。",
   "botania.page.dandelifeon5": "所有细胞都有年龄，从0开始计算。无论细胞何时存活，若相邻有2-3个细胞存活，该细胞年龄+1。当死亡的细胞重新判定为存活时，该细胞的年龄将等同于相邻细胞中最老的细胞+1。",
   "botania.page.dandelifeon6": "其次，$(item)启命英$(0)为中心3x3的区域并不适合细胞居住。所有即将在这个区域出现的细胞方块都不会出现，取而代之的是产生$(thing)魔力$(0)。年龄越高的细胞产生的$(thing)魔力$(0)越多。年龄为0的$(thing)细胞$(0)不会产生任何魔力。年龄大于100的细胞所产生的魔力和年龄为100的细胞一样。",
-  "botania.page.dandelifeon10": "每当该区域的细胞被吸收时，外侧的细胞会全部死亡。$(p)对于细胞还有一些别的限制，两朵不同的$(item)启命英$(0)对同一个区域执行游戏会使得其中的细胞死亡。最后，游戏中被$(item)启命英$(0)游戏以外的行为移除的细胞都会死亡。",
+  "botania.page.dandelifeon10": "每当该区域的细胞被吸收时，外侧的细胞会全部死亡。$(p)对于细胞还有一些别的限制，两朵不同的$(item)启命英$(0)对同一个区域执行游戏会使得其中的细胞死亡，但间隔放置无重叠区域的$(item)启命英$(0)在边界处会以流失一点魔力为代价传递他们的细胞方块。最后，游戏中被$(item)启命英$(0)游戏以外的行为移除的细胞都会死亡。",
   "botania.page.dandelifeon7": "$(item)细胞方块$(0)可由$(item)仙人掌$(0)、$(item)胡萝卜$(0)、$(item)马铃薯$(0)或$(item)甜菜根$(0)制作。它们极度脆弱，一旦放置就不能挖掘或者被$(item)活塞$(0)推动，也不能覆盖生成在任何非空气方块上。$(p)不在$(item)启命英$(0)范围内的细胞方块与普通方块无异。",
   "botania.page.dandelifeon8": "$(o)细胞工艺^2$(0)。",
   "botania.page.dandelifeon9": "制作$(item)细胞方块$(0)",
@@ -2896,15 +2899,15 @@
   "botania.page.manaweave6": "制作长靴",
 
   "botania.entry.autocraftingHalo": "工厂环",
-  "botania.tagline.autocraftingHalo": "为你制作的合成环",
+  "botania.tagline.autocraftingHalo": "为你制作的合成环" ,
   "botania.page.autocraftingHalo0": "$(item)工厂环$(0)作为$(item)合成环$(0)的变体型。除了有$(item)合成环$(0)的全部功能以外，$(item)工厂环$(0)会自动合成所有你给它的配方(只要有材料)，只要你不是手持着它。$(p)这有这一些潜在的用途，比如在采矿的时候自动压缩矿物。",
-  "botania.page.autocraftingHalo1": "现在启动环...",
+  "botania.page.autocraftingHalo1": "正在发射光环$(p)通过右键点击你物品栏中的$(item)工厂环$(0)，或在潜行时右键点击它的$(item)工作台$(0)面板，可以切换是否开启自动合成。",
 
   "botania.entry.sextant": "盖世六分仪",
   "botania.tagline.sextant": "帮助制作圆的工具",
   "botania.page.sextant0": "在这个方块世界，艺术的创造往往不能避免圆，这时候他们不得不使用一种\"标记\"的邪恶技术弄一个圆出来。$(p)$(item)盖世六分仪$(0)是一个简单的——正如你所想——制造圆的工具。要使用它，只要简单点击作为圆心的方块和测量半径的方块即可。",
   "botania.page.sextant1": "使用这个工具时会出现一个蓝圈，作为要制作的圆的简单预览。一旦设定好，一个虚拟的$(item)圆石$(0)圈会显现出来作为建筑参考。$(p)潜行右击能够重设工具并移除虚拟圆石",
-  "botania.page.sextant2": "你画了一个圆，来证明你的决心",
+  "botania.page.sextant2": "你画了一个圆，使你充满了决心",
 
   "botania.entry.astrolabe": "世界塑造者之星盘",
   "botania.tagline.astrolabe": "平面塑造者",
@@ -2991,6 +2994,7 @@
   "botania.entry.corporeaBlock": "多媒体装饰方块",
   "botania.page.corporeaBlock0": "一般来说，$(item)活石砖$(0)可以与$(item)多媒体火花$(0)合成为一些装饰性方块。而这些方块除了可用于装饰外，还有一个独特的特性。尽管它们自身内部没有存储空间，但它们可支持身上的的$(item)多媒体火花$(0)。因此，它们可以作为一种廉价且瞬时的传输方案，将你的$(item)多媒体$(0)网络进行长距离扩展。",
   "botania.page.corporeaBlock1": "少媒体",
+  
   "botania.entry.corporeaIndex": "多媒体索引",
   "botania.tagline.corporeaIndex": "说话请求网络物品",
   "botania.page.corporeaIndex0": "$(thing)多媒体网络$(0)的强大能力在于可以通过说出物品名发出请求。$(p)$(item)多媒体索引$(0)是一个类似末影水晶的方块，它属于放置于其上的$(l:ender/corporea)$(item)多媒体火花$(0)$(/l)所属的$(thing)多媒体网络$(0)的一部分。$(p)只要靠近它就能激活。激活时，它会显示作用半径。",
@@ -3459,11 +3463,11 @@
 
   "botania.entry.bcIntegration": "Buildcraft结合",
   "botania.tagline.bcIntegration": "和植物魔法互动的门",
-
   "botania.page.bcIntegration0": "最近在管道技术上的进步使得$(item)BC门$(0)能感知其周围的$(thing)魔力$(0)。$(item)BC门$(0)现可感知一个$(thing)魔力$(0)容器是否为空，满或者是否包含魔力。$(p)$(item)BC门$(0)也可使用$(item)魔力检测器$(0)触发来探测是否有魔力经过管道。而且，它们也可感知$(item)符文祭坛$(0)是否已可合成符文。",
+
   "botania.entry.banners": "更多旗帜",
   "botania.tagline.banners": "好多新旗帜图案",
-  "botania.page.banners0": "因为未来$(item)旗帜$(0)的存在，$(item)植物魔法$(0)为其添加了$(thing)15$(0)种新图标，这些图标可与既有图案和图标混合搭配使用。$(p)除了染料以外，下列这些物品也可以在工作台中为$(item)旗帜$(0)附加图标：$(item)所有铁质工具$(0)、$(l:mana/spark_upgrades)$(item)火花升级$(0)$(/l)、$(item)生鱼$(0)、$(item)活木枝和梦之木棍$(0)、$(l:basics/lexicon)$(item)植物魔法辞典$(0)$(/l)、$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)和$(l:misc/tiny_potato)$(item)小土豆$(0)$(/l)。",
+  "botania.page.banners0": "因为未来$(item)旗帜$(0)的存在，$(item)植物魔法$(0)为其添加了$(thing)15$(0)种新图标，这些图标可与既有图案和图标混合搭配使用。$(p)除了染料以外，下列这些物品也可以在织布机中为$(item)旗帜$(0)附加图标：$(l:mana/spark_upgrades)$(item)火花升级$(0)$(/l)、$(item)活木枝和梦之木棍$(0)、$(l:basics/lexicon)$(item)植物魔法辞典$(0)$(/l)、$(l:basics/terrasteel)$(item)泰拉钢$(0)$(/l)和$(l:misc/tiny_potato)$(item)小土豆$(0)$(/l)。此外，生鱼的图案和基本工具图案无需旗帜图案模板即可使用。",
   "botania.page.banners1": "各种旗帜展览",
 
   "botania.entry.preventingDecay": "魔力定量统计",
@@ -3543,6 +3547,7 @@
   "botania.subtitle.spreaderFire": "魔力发射器：发射魔力",
   "botania.subtitle.starcaller": "星星：从天而降",
   "botania.subtitle.temperanceStoneConfigure": "节制之石：叮咚",
+   "botania.subtitle.manufactoryHaloConfigure": "工厂环：叮咚",
   "botania.subtitle.terraBlade": "泰拉之刃：激活",
   "botania.subtitle.terraPickMode": "泰拉粉碎者：升级",
   "botania.subtitle.terraformRod": "大地：被塑形",
