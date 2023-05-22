@@ -19,7 +19,10 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
+* Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the crafting table segment or right-clicking the item in an inventory screen
+* Add: Mana lenses can now be merged using either honey bottles or slime balls
 * Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
 
 ---
 
@@ -868,8 +871,8 @@ and start a new "Upcoming" section.
 * Update banner and crafty crate lexicon screenshots (Alwinfy)
 * Another null check workaround for Optifine
 * Move laputa shard upgrading to custom/dynamic recipe
-* Rod of the Shaded Mesa fired by an avatar now targets all hostile mobs
-* Rod of the Shaded Mesa fired by a player now targets mobs hostile to other players, when PVP is off
+* Rod of the Unstable Reservoir fired by an avatar now targets all hostile mobs
+* Rod of the Unstable Reservoir fired by a player now targets mobs hostile to other players, when PVP is off
 * Fix gaia guardian not spawning pixies during the mob spawn phase (Keralop)
 * Fix invisibility cloak not actually consuming mana (Keralop)
 * Add a HUD for the Prism similar to the spreader's

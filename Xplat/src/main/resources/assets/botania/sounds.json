@@ -629,6 +629,17 @@
 		],
 		"subtitle": "botania.subtitle.temperanceStoneConfigure"
 	},
+	"manufactory_halo_configure": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.experience_orb.pickup",
+				"volume": 0.3,
+				"pitch": 0.1
+			}
+		],
+		"subtitle": "botania.subtitle.manufactoryHaloConfigure"
+	},
 	"terra_pick_mode": {
 		"sounds": [
 			{

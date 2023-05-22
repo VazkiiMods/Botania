@@ -191,6 +191,7 @@
   "tag.botania.mini_flowers": "Petite Flowers",
   "tag.botania.mana_using_items": "Mana Using Items",
   "tag.botania.lens": "Mana Lenses",
+  "tag.botania.lens_glue": "Lens Glues",
   "tag.botania.runes": "Runes",
   "tag.botania.rods": "Rods",
   "tag.botania.manasteel_ingots": "Manasteel Ingots",
@@ -2004,7 +2005,7 @@
   "botania.page.lens2": "$(thing)Dyeing$(0) lenses!",
   "botania.page.lens3": "$(item)Rainbow Lens$(0) all the way",
   "botania.page.lens4": "But lenses aren't just for fancy colors-- they can be upgraded with all sorts of materials to create all sorts of effects with their $(thing)Mana Bursts$(0).$(p)Keep in mind that a normal $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) must point at a $(thing)Mana$(0)-receiving block to fire. A $(l:mana/redstone_spreader)$(item)Pulse Mana Spreader$(0)$(/l) is recommended for certain lenses instead.$(p)Blocks like $(item)Hoppers$(0) can add or remove spreaders' lenses.",
-  "botania.page.lens5": "Sometimes, though, having a single $(item)Mana Lens$(0) on a spreader just isn't enough. Combining two lenses with a $(item)Slimeball$(0) in a crafting table will unite them into one lens with the effects of both.$(p)The first lens used determines the look and color of the resultant lens. Note that some combinations will not work, and that you can't combine two lenses of the same type.",
+  "botania.page.lens5": "Sometimes, though, having a single $(item)Mana Lens$(0) on a spreader just isn't enough. Combining two lenses with a $(item)Slimeball$(0) or $(item)Honey Bottle$(0) in a crafting table will unite them into one lens with the effects of both.$(p)The first lens used determines the look and color of the resultant lens. Note that some combinations will not work, and that you can't combine two lenses of the same type.",
   "botania.page.lens6": "The $(item)Velocity Lens$(0) will dramatically increase the speed at which a $(thing)Mana Burst$(0) travels, but at the expense of initial capacity and faster $(thing)Mana Loss$(0).",
   "botania.page.lens7": "Velocity Lens",
   "botania.page.lens8": "The $(item)Potency Lens$(0) will double the amount of $(thing)Mana$(0) a $(thing)Mana Burst$(0) can carry; however, the beam travels slower, and after it starts to lose mana, does so at a much faster rate.",
@@ -2309,7 +2310,7 @@
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana from experience",
-  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(thing)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world; however, this method nets you a bit less mana for the same experience.",
+  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(thing)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world.",
   "botania.page.arcanerose1": "$(o)When this flower is planted, toss a coin$().",
 
   "botania.entry.munchdew": "Munchdew",
@@ -2898,7 +2899,7 @@
   "botania.entry.autocraftingHalo": "Manufactory Halo",
   "botania.tagline.autocraftingHalo": "An Assembly Halo that crafts for you",
   "botania.page.autocraftingHalo0": "The $(item)Manufactory Halo$(0) is an upgrade of the $(l:tools/crafting_halo)$(item)Assembly Halo$(0)$(/l): aside from doing all that the $(l:tools/crafting_halo)$(item)Assembly Halo$(0)$(/l) can do, the $(item)Manufactory Halo$(0) will (when $(o)not$() held) automatically craft all possible saved recipes.$(p)Automatic compression of ores while mining is just one of many applications this upgrade has.",
-  "botania.page.autocraftingHalo1": "Halo Now Launcher",
+  "botania.page.autocraftingHalo1": "Halo Now Launcher$(p)Automatic crafting can be toggled on/off by right-clicking the $(item)Manufactory Halo$(0) in your inventory, or by right-clicking its $(item)Crafting Table$(0) segment while sneaking.",
 
   "botania.entry.sextant": "Worldshaper's Sextant",
   "botania.tagline.sextant": "A tool to help create circles",
@@ -3544,6 +3545,7 @@
   "botania.subtitle.spreaderFire": "Spreader fwooshes",
   "botania.subtitle.starcaller": "Stars descend from the sky",
   "botania.subtitle.temperanceStoneConfigure": "Stone of Temperance dings",
+  "botania.subtitle.manufactoryHaloConfigure": "Manufactory Halo dings",
   "botania.subtitle.terraBlade": "Terrasteel Sword activates",
   "botania.subtitle.terraPickMode": "Terra Shatterer empowers",
   "botania.subtitle.terraformRod": "Land terraforms",
