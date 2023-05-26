@@ -21,7 +21,7 @@ public class GrassSeedsBehavior extends OptionalDispenseItemBehavior {
 		ServerLevel world = source.getLevel();
 		BlockPos pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
 
-		setSuccess(((GrassSeedsItem) stack.getItem()).applySeeds(world, pos, stack));
+		setSuccess(((GrassSeedsItem) stack.getItem()).applySeeds(world, pos, stack).consumesAction());
 
 		if (isSuccess()) {
 			XplatAbstractions.INSTANCE.sendToNear(world, pos,

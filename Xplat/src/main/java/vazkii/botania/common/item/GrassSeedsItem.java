@@ -72,12 +72,10 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		BlockPos pos = ctx.getClickedPos();
 		ItemStack stack = ctx.getItemInHand();
 
-		return applySeeds(world, pos, stack)
-				? InteractionResult.sidedSuccess(world.isClientSide())
-				: InteractionResult.PASS;
+		return applySeeds(world, pos, stack);
 	}
 
-	public boolean applySeeds(Level world, BlockPos pos, ItemStack stack) {
+	public InteractionResult applySeeds(Level world, BlockPos pos, ItemStack stack) {
 		BlockState state = world.getBlockState(pos);
 
 		if (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK) && type != IslandType.GRASS) {
@@ -89,10 +87,10 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 				spawnParticles(world, pos, getID(type));
 			}
 
-			return true;
+			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 
-		return false;
+		return InteractionResult.PASS;
 	}
 
 	public static void spawnParticles(Level world, BlockPos pos, int id) {
