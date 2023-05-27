@@ -80,6 +80,7 @@ public final class BotaniaSounds {
 	public static final SoundEvent smeltRodSimmer = makeSoundEvent("smelt_rod_simmer");
 	public static final SoundEvent starcaller = makeSoundEvent("starcaller");
 	public static final SoundEvent temperanceStoneConfigure = makeSoundEvent("temperance_stone_configure");
+	public static final SoundEvent manufactoryHaloConfigure = makeSoundEvent("manufactory_halo_configure");
 	public static final SoundEvent terraBlade = makeSoundEvent("terrablade");
 	public static final SoundEvent terraPickMode = makeSoundEvent("terra_pick_mode");
 	public static final SoundEvent terraformRod = makeSoundEvent("terraform_rod");
