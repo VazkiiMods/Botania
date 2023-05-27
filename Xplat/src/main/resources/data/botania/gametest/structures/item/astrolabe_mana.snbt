@@ -1,0 +1,19 @@
+{
+    DataVersion: 3120,
+    size: [13, 3, 13],
+    data: [
+        {pos: [5, 0, 5], state: "minecraft:polished_andesite"},
+        {pos: [5, 0, 6], state: "minecraft:polished_andesite"},
+        {pos: [5, 0, 7], state: "minecraft:polished_andesite"},
+        {pos: [6, 0, 5], state: "minecraft:polished_andesite"},
+        {pos: [6, 0, 6], state: "minecraft:polished_andesite"},
+        {pos: [6, 0, 7], state: "minecraft:polished_andesite"},
+        {pos: [7, 0, 5], state: "minecraft:polished_andesite"},
+        {pos: [7, 0, 6], state: "minecraft:polished_andesite"},
+        {pos: [7, 0, 7], state: "minecraft:polished_andesite"},
+    ],
+    entities: [],
+    palette: [
+        "minecraft:polished_andesite"
+    ]
+}
