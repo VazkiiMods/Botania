@@ -101,7 +101,7 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 		consumer.accept(make(BotaniaFlowerBlocks.spectrolus, red, red, green, green, blue, blue, white, white, runeWinter, runeAir, pixieDust));
 		consumer.accept(make(BotaniaFlowerBlocks.rafflowsia, purple, purple, green, green, black, runeEarth, runePride, pixieDust));
 		consumer.accept(make(BotaniaFlowerBlocks.shulkMeNot, purple, purple, magenta, magenta, lightGray, gaiaSpirit, runeEnvy, runeWrath));
-		consumer.accept(make(BotaniaFlowerBlocks.dandelifeon, purple, purple, lime, green, runeWater, runeFire, runeEarth, runeAir, gaiaSpirit));
+		consumer.accept(make(BotaniaFlowerBlocks.dandelifeon, purple, purple, lime, green, runeWater, runeFire, runeEarth, runeAir, gaiaSpirit, redstoneRoot));
 
 		consumer.accept(make(BotaniaFlowerBlocks.jadedAmaranthus, purple, lime, green, runeSpring, redstoneRoot));
 		consumer.accept(make(BotaniaFlowerBlocks.bellethorn, red, red, red, cyan, cyan, redstoneRoot));
