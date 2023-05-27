@@ -32,8 +32,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.BlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.gui.ItemsRemainingRenderHandler;
@@ -53,6 +53,7 @@ public class AstrolabeItem extends Item {
 
 	public static final String TAG_BLOCKSTATE = "blockstate";
 	public static final String TAG_SIZE = "size";
+	public static final int BASE_COST = 320;
 
 	public AstrolabeItem(Properties props) {
 		super(props);
@@ -111,41 +112,53 @@ public class AstrolabeItem extends Item {
 			return false;
 		}
 
-		int cost = size * 320;
-		if (!ManaItemHandler.instance().requestManaExact(requester, player, cost, false)) {
+		int cost = size * BASE_COST;
+		if (!ManaItemHandler.instance().requestManaExact(requester, player, cost, true)) {
 			return false;
 		}
 
 		for (BlockPos coords : placePositions) {
-			!placeBlockAndConsume(requester, blockToPlace, ctx, coords, blockProviders)) {
+			if (!placeBlockAndConsume(requester, blockToPlace, ctx, coords, blockProviders)) {
+				break;
+			}
 		}
-		ManaItemHandler.instance().requestManaExact(requester, player, cost, true);
 
 		return true;
 	}
 
-	private void placeBlockAndConsume(ItemStack requester, Block blockToPlace, BlockPlaceContext ctx,
+	/**
+	 * Attempts to place the specified block and consume it from the player's inventory.
+	 *
+	 * @return {@code true} if continuing to attempt placing blocks makes sense,
+	 *         {@code false} if not, e.g. because there are fewer blocks available than expected.
+	 */
+	private boolean placeBlockAndConsume(ItemStack requester, Block blockToPlace, BlockPlaceContext ctx,
 			BlockPos pos, List<BlockProvider> providers) {
 		final Player player = ctx.getPlayer();
 		if (player == null) {
-			return;
+			return false;
 		}
 
 		BlockState state = blockToPlace.getStateForPlacement(ctx);
 		if (state == null) {
-			return;
+			return true;
+		}
+
+		if (providers.stream().noneMatch(prov -> prov.provideBlock(player, requester, blockToPlace, false))) {
+			// don't place blocks we don't have (e.g. because mana calculations were inaccurate somehow)
+			return false;
 		}
 
 		UseOnContext useOnContext = RingOfLokiItem.getUseOnContext(player, ctx.getHand(), pos, ctx.getClickLocation(), ctx.getClickedFace());
 		if (!PlayerHelper.substituteUse(useOnContext, new ItemStack(blockToPlace)).consumesAction()) {
-			return;
+			return true;
 		}
 		for (BlockProvider prov : providers) {
 			if (prov.provideBlock(player, requester, blockToPlace, true)) {
-				return;
+				break;
 			}
 		}
-		BotaniaAPI.LOGGER.debug("All providers failed to provide a block");
+		return true;
 	}
 
 	public static boolean hasBlocks(ItemStack requester, Player player, int required, Block block) {
@@ -166,7 +179,7 @@ public class AstrolabeItem extends Item {
 
 		int current = 0;
 		List<BlockProvider> providersToCheck = new ArrayList<>();
-		for (int i = 0; i < player.getInventory().getContainerSize() && current < required; i++) {
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (stackInSlot.isEmpty()) {
 				continue;
@@ -183,10 +196,6 @@ public class AstrolabeItem extends Item {
 						current += count;
 						providersToCheck.add(provider);
 					}
-					if (count == -1) {
-						// found an infinite provider, so definitely enough blocks
-						return providersToCheck;
-					}
 				}
 			}
 		}
@@ -194,6 +203,7 @@ public class AstrolabeItem extends Item {
 		return current >= required ? providersToCheck : List.of();
 	}
 
+	@Nullable
 	public static BlockPlaceContext getBlockPlaceContext(Player player, InteractionHand hand, Block blockToPlace) {
 		if (blockToPlace == Blocks.AIR) {
 			return null;
@@ -257,15 +267,16 @@ public class AstrolabeItem extends Item {
 		}
 	}
 
-	private boolean setBlock(ItemStack stack, BlockState state) {
+	public static boolean setBlock(ItemStack stack, BlockState state) {
 		if (!state.isAir()) {
+			// This stores a block state (instead of just the block ID) for legacy reasons.
 			ItemNBTHelper.setCompound(stack, TAG_BLOCKSTATE, NbtUtils.writeBlockState(state.getBlock().defaultBlockState()));
 			return true;
 		}
 		return false;
 	}
 
-	private static void setSize(ItemStack stack, int size) {
+	public static void setSize(ItemStack stack, int size) {
 		ItemNBTHelper.setInt(stack, TAG_SIZE, size | 1);
 	}
 

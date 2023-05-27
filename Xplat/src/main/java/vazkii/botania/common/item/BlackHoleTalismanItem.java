@@ -180,7 +180,7 @@ public class BlackHoleTalismanItem extends Item {
 		return cand;
 	}
 
-	private static boolean setBlock(ItemStack stack, Block block) {
+	public static boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
 			return true;
@@ -208,7 +208,7 @@ public class BlackHoleTalismanItem extends Item {
 		}
 	}
 
-	private static void setCount(ItemStack stack, int count) {
+	public static void setCount(ItemStack stack, int count) {
 		ItemNBTHelper.setInt(stack, TAG_BLOCK_COUNT, count);
 	}
 
