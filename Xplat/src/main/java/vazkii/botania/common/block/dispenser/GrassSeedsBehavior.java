@@ -9,11 +9,11 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.block.FloatingFlower.IslandType;
 import vazkii.botania.common.item.GrassSeedsItem;
 import vazkii.botania.network.EffectType;
 import vazkii.botania.network.clientbound.BotaniaEffectPacket;
 import vazkii.botania.xplat.XplatAbstractions;
-import vazkii.botania.api.block.FloatingFlower.IslandType;
 
 public class GrassSeedsBehavior extends OptionalDispenseItemBehavior {
 	@NotNull

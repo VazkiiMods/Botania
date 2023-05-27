@@ -359,8 +359,8 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 						}
 						case GRASS_SEED_PARTICLES -> {
 							int color = args[0];
-							GrassSeedsItem.spawnParticles(world, new BlockPos(x, y, z), 
-								GrassSeedsItem.extractR(color), GrassSeedsItem.extractG(color), GrassSeedsItem.extractB(color));
+							GrassSeedsItem.spawnParticles(world, new BlockPos(x, y, z),
+									GrassSeedsItem.extractR(color), GrassSeedsItem.extractG(color), GrassSeedsItem.extractB(color));
 						}
 					}
 				}
