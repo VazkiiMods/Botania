@@ -28,7 +28,7 @@ public class GrassSeedsBehavior extends OptionalDispenseItemBehavior {
 		if (isSuccess()) {
 			XplatAbstractions.INSTANCE.sendToNear(world, pos,
 					new BotaniaEffectPacket(EffectType.GRASS_SEED_PARTICLES,
-							(double) pos.getX(), (double) pos.getY(), (double) pos.getZ(),
+							pos.getX(), pos.getY(), pos.getZ(),
 							GrassSeedsItem.getColor(islandType)));
 			return stack;
 		}
