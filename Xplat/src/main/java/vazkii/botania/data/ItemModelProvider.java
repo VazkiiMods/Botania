@@ -11,6 +11,7 @@ package vazkii.botania.data;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.Registry;
@@ -466,8 +467,11 @@ public class ItemModelProvider implements DataProvider {
 
 		takeAll(itemBlocks, BotaniaBlocks.avatar.asItem(), BotaniaBlocks.bellows.asItem(),
 				BotaniaBlocks.brewery.asItem(), BotaniaBlocks.corporeaIndex.asItem(), BotaniaBlocks.gaiaPylon.asItem(),
-				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), BotaniaBlocks.naturaPylon.asItem(), BotaniaBlocks.teruTeruBozu.asItem())
+				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), BotaniaBlocks.naturaPylon.asItem())
 						.forEach(i -> builtinEntity(i, consumer));
+
+		takeAll(itemBlocks, BotaniaBlocks.teruTeruBozu.asItem())
+				.forEach(i -> builtinEntity(i, consumer, 2.5));
 
 		takeAll(itemBlocks, i -> i instanceof MysticalPetalItem).forEach(i -> {
 			ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(TextureMapping.getItemTexture(i)), consumer);
@@ -543,10 +547,22 @@ public class ItemModelProvider implements DataProvider {
 	private static final JsonElement BUILTIN_ENTITY_DISPLAY = new Gson().fromJson(BUILTIN_ENTITY_DISPLAY_STR, JsonElement.class);
 
 	protected void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+		builtinEntity(i, consumer, 0.0);
+	}
+
+	protected void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer, double handYOffset) {
+		final JsonElement display;
+		if (handYOffset == 0.0) {
+			display = BUILTIN_ENTITY_DISPLAY;
+		} else {
+			display = BUILTIN_ENTITY_DISPLAY.deepCopy();
+			display.getAsJsonObject().getAsJsonObject("firstperson_righthand")
+					.getAsJsonArray("translation").set(1, new JsonPrimitive(handYOffset));
+		}
 		consumer.accept(ModelLocationUtils.getModelLocation(i), () -> {
 			JsonObject json = new JsonObject();
 			json.addProperty("parent", "minecraft:builtin/entity");
-			json.add("display", BUILTIN_ENTITY_DISPLAY);
+			json.add("display", display);
 			return json;
 		});
 	}
