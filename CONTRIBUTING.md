@@ -72,7 +72,7 @@ message.
 
 ## Working with GameTest
 1. Create a structure if wanted:
-   1. Run /test create <size> to generate a test platform of the desired size. IMPORTANT:
+   1. Run `/test create <size>` to generate a test platform of the desired size. IMPORTANT:
       All tests should size themselves appropriately to ensure they don't interfere with
       other tests. E.g. a test testing a block with max radius 8 should leave at least 8
       blocks of room on all sides.
