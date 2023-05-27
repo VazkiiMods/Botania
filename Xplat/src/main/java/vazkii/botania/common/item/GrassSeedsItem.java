@@ -35,28 +35,17 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 	 * active in that dimension.
 	 */
 	private static final Map<ResourceKey<Level>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
-	private static final Map<IslandType, Integer> IDS = ImmutableMap.<IslandType, Integer>builder()
-			.put(IslandType.GRASS, 0)
-			.put(IslandType.PODZOL, 1)
-			.put(IslandType.MYCEL, 2)
-			.put(IslandType.DRY, 3)
-			.put(IslandType.GOLDEN, 4)
-			.put(IslandType.VIVID, 5)
-			.put(IslandType.SCORCHED, 6)
-			.put(IslandType.INFUSED, 7)
-			.put(IslandType.MUTATED, 8)
+	private static final Map<IslandType, Integer> COLORS = ImmutableMap.<IslandType, Integer>builder()
+			.put(IslandType.GRASS, 0x006600)
+			.put(IslandType.PODZOL, 0x805E00)
+			.put(IslandType.MYCEL, 0x5E0054)
+			.put(IslandType.DRY, 0x66800D)
+			.put(IslandType.GOLDEN, 0xBFB300)
+			.put(IslandType.VIVID, 0x00801A)
+			.put(IslandType.SCORCHED, 0xBF0000)
+			.put(IslandType.INFUSED, 0x008C8C)
+			.put(IslandType.MUTATED, 0x661A66)
 			.build();
-	private static final float[][] COLORS = new float[][] {
-			new float[] { 0F, 0.4F, 0F },
-			new float[] { 0.5F, 0.37F, 0F },
-			new float[] { 0.27F, 0F, 0.33F },
-			new float[] { 0.4F, 0.5F, 0.05F },
-			new float[] { 0.75F, 0.7F, 0F },
-			new float[] { 0F, 0.5F, 0.1F },
-			new float[] { 0.75F, 0F, 0F },
-			new float[] { 0F, 0.55F, 0.55F },
-			new float[] { 0.4F, 0.1F, 0.4F }
-	};
 
 	private final IslandType type;
 
@@ -84,7 +73,8 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 				world.setBlockAndUpdate(pos, swapper.stateToSet);
 				stack.shrink(1);
 			} else {
-				spawnParticles(world, pos, getID(type));
+				int color = getColor(type);
+				spawnParticles(world, pos, extractR(color), extractG(color), extractB(color));
 			}
 
 			return InteractionResult.sidedSuccess(world.isClientSide());
@@ -93,17 +83,7 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		return InteractionResult.PASS;
 	}
 
-	public static void spawnParticles(Level world, BlockPos pos, int id) {
-		float r = 0F;
-		float g = 0.4F;
-		float b = 0F;
-
-		if (0 <= id && id < COLORS.length) {
-			r = COLORS[id][0];
-			g = COLORS[id][1];
-			b = COLORS[id][2];
-		}
-
+	public static void spawnParticles(Level world, BlockPos pos, float r, float g, float b) {
 		for (int i = 0; i < 50; i++) {
 			double x = (Math.random() - 0.5) * 3;
 			double y = Math.random() - 0.5 + 1;
@@ -284,8 +264,20 @@ public class GrassSeedsItem extends Item implements FloatingFlowerVariant {
 		}
 	}
 
-	public static int getID(IslandType type) {
-		return IDS.get(type);
+	public static float extractR(int color) {
+		return ((color >> 16) & 0xFF) / 255f;
+	}
+
+	public static float extractG(int color) {
+		return ((color >> 8) & 0xFF) / 255f;
+	}
+
+	public static float extractB(int color) {
+		return (color & 0xFF) / 255f;
+	}
+
+	public static int getColor(IslandType type) {
+		return COLORS.get(type);
 	}
 
 	@Override
