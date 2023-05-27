@@ -16,7 +16,7 @@ public enum EffectType {
 	AVATAR_TORNADO_JUMP(1), // Arg: Entity ID
 	AVATAR_TORNADO_BOOST(1), // Arg: Entity ID
 	THUNDERCALLER_EFFECT(-1), // Arg: All entity IDs hit by the bolt
-	GRASS_SEED_PARTICLES(1) // Arg: ID of the type of seeds
+	GRASS_SEED_PARTICLES(1) // Arg: Color of the particles
 	;
 
 	// If -1, then variable length and the number of arguments is also sent over the network
