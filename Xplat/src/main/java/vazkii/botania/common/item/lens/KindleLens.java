@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -48,8 +49,8 @@ public class KindleLens extends Lens {
 			}
 			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
 				entity.level.removeBlock(offPos, false);
-			} else if (stateAtOffset.isAir()) {
-				entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
+			} else if (BaseFireBlock.canBePlacedAt(entity.level, offPos, dir.getOpposite())) {
+				entity.level.setBlockAndUpdate(offPos, BaseFireBlock.getState(entity.level, offPos));
 			}
 		}
 
