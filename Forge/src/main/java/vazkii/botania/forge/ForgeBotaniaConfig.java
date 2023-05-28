@@ -193,6 +193,11 @@ public final class ForgeBotaniaConfig {
 		public boolean splashesEnabled() {
 			return splashesEnabled.get();
 		}
+
+		@Override
+		public boolean useShaders() {
+			return this.useShaders.get();
+		}
 	}
 
 	public static final Client CLIENT;

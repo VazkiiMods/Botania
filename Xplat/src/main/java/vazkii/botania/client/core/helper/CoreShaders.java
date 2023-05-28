@@ -11,8 +11,11 @@ package vazkii.botania.client.core.helper;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.server.packs.resources.ResourceManager;
+
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -69,38 +72,72 @@ public class CoreShaders {
 	}
 
 	public static ShaderInstance starfield() {
+		// Intended to not respect useShaders config. The render kind of relies entirely
+		// on the shader, like the end portal.
 		return starfieldShaderInstance;
 	}
 
 	public static ShaderInstance doppleganger() {
-		return doppleganger;
+		if (BotaniaConfig.client().useShaders()) {
+			return doppleganger;
+		} else {
+			return GameRenderer.getRendertypeEntityTranslucentShader();
+		}
 	}
 
 	public static ShaderInstance manaPool() {
-		return manaPool;
+		if (BotaniaConfig.client().useShaders()) {
+			return manaPool;
+		} else {
+			return GameRenderer.getPositionColorTexLightmapShader();
+		}
 	}
 
 	public static ShaderInstance terraPlate() {
-		return terraPlate;
+		if (BotaniaConfig.client().useShaders()) {
+			return terraPlate;
+		} else {
+			return GameRenderer.getPositionColorTexLightmapShader();
+		}
 	}
 
 	public static ShaderInstance enchanter() {
-		return enchanter;
+		if (BotaniaConfig.client().useShaders()) {
+			return enchanter;
+		} else {
+			return GameRenderer.getPositionColorTexLightmapShader();
+		}
 	}
 
 	public static ShaderInstance pylon() {
-		return pylon;
+		if (BotaniaConfig.client().useShaders()) {
+			return pylon;
+		} else {
+			return GameRenderer.getRendertypeEntityTranslucentShader();
+		}
 	}
 
 	public static ShaderInstance halo() {
-		return halo;
+		if (BotaniaConfig.client().useShaders()) {
+			return halo;
+		} else {
+			return GameRenderer.getPositionColorTexShader();
+		}
 	}
 
 	public static ShaderInstance filmGrainParticle() {
-		return filmGrainParticle;
+		if (BotaniaConfig.client().useShaders()) {
+			return filmGrainParticle;
+		} else {
+			return GameRenderer.getParticleShader();
+		}
 	}
 
 	public static ShaderInstance dopplegangerBar() {
-		return dopplegangerBar;
+		if (BotaniaConfig.client().useShaders()) {
+			return dopplegangerBar;
+		} else {
+			return GameRenderer.getPositionTexShader();
+		}
 	}
 }
