@@ -466,6 +466,21 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	@Override
+	protected void onHit(HitResult hit) {
+		if (isFake()) {
+			// [VanillaCopy] super, without firing gameEvents
+			HitResult.Type type = hit.getType();
+			if (type == HitResult.Type.ENTITY) {
+				this.onHitEntity((EntityHitResult) hit);
+			} else if (type == HitResult.Type.BLOCK) {
+				this.onHitBlock((BlockHitResult) hit);
+			}
+		} else {
+			super.onHit(hit);
+		}
+	}
+
+	@Override
 	protected void onHitBlock(@NotNull BlockHitResult hit) {
 		if (!isFake()) {
 			super.onHitBlock(hit);
