@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -82,8 +83,14 @@ public class HornItem extends Item {
 				default:
 				case WILD:
 					return state.getBlock() instanceof BushBlock && !state.is(BotaniaTags.Blocks.SPECIAL_FLOWERS);
-				case CANOPY:
+				case CANOPY: {
+					if (state.getBlock() instanceof LeavesBlock
+							&& state.getValue(LeavesBlock.PERSISTENT)) {
+						return false;
+					}
+
 					return state.is(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE);
+				}
 				case COVERING:
 					return state.is(BotaniaTags.Blocks.HORN_OF_THE_COVERING_BREAKABLE);
 			}
