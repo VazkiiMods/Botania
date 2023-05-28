@@ -23,6 +23,7 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.block_entity.FunctionalFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
+import vazkii.botania.common.HurtByTargetGoalAccess;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.mixin.GoalSelectorAccessor;
 import vazkii.botania.mixin.HurtByTargetGoalAccessor;
@@ -89,6 +90,8 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 						// Concurrent modification OK since we break out of the loop
 						targetSelector.removeGoal(goal);
 						targetSelector.addGoal(-1, goal);
+
+						((HurtByTargetGoalAccess) goal).botania$setBrainwashed();
 						break;
 					}
 				}

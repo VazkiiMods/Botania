@@ -26,6 +26,7 @@
     "GoalSelectorAccessor",
     "HopperBlockEntityAccessor",
     "HurtByTargetGoalAccessor",
+    "HurtByTargetGoalMixin",
     "IngredientAccessor",
     "ItemEntityAccessor",
     "ItemEntityMixin",
@@ -51,6 +52,7 @@
     "SoundTypeAccessor",
     "SpawnPlacementsMixin",
     "StatsAccessor",
+    "TargetingConditionsMixin",
     "TextureSlotAccessor",
     "ThrowableProjectileMixin",
     "WitherEntityAccessor"
