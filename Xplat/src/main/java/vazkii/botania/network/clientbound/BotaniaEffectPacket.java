@@ -27,6 +27,7 @@ import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlo
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
+import vazkii.botania.common.item.GrassSeedsItem;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.network.BotaniaPacket;
@@ -355,6 +356,11 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 								Proxy.INSTANCE.lightningFX(world, source, entityPos, 1, 0x0179C4, 0xAADFFF);
 								source = entityPos;
 							}
+						}
+						case GRASS_SEED_PARTICLES -> {
+							int color = args[0];
+							GrassSeedsItem.spawnParticles(world, new BlockPos(x, y, z),
+									GrassSeedsItem.extractR(color), GrassSeedsItem.extractG(color), GrassSeedsItem.extractB(color));
 						}
 					}
 				}
