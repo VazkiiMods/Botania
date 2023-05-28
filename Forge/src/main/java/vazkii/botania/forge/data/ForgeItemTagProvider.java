@@ -28,8 +28,6 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 
 	@Override
 	protected void addTags() {
-		this.tag(Tags.Items.SHEARS).add(manasteelShears, elementiumShears);
-
 		this.tag(forge("dusts/mana")).addTag(BotaniaTags.Items.DUSTS_MANA);
 		this.tag(forge("dusts")).addTag(forge("dusts/mana"));
 
@@ -60,7 +58,28 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 		this.copy(Tags.Blocks.GLASS, Tags.Items.GLASS);
 		this.copy(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
 
-		generateAccessoryTags();
+		this.generateToolTags();
+		this.generateAccessoryTags();
+	}
+
+	private void generateToolTags() {
+		this.tag(Tags.Items.TOOLS_AXES).add(manasteelAxe, elementiumAxe, terraAxe);
+		this.tag(Tags.Items.TOOLS_HOES).add(manasteelHoe, elementiumHoe);
+		this.tag(Tags.Items.TOOLS_PICKAXES).add(manasteelPick, elementiumPick,
+				terraPick, glassPick);
+		this.tag(Tags.Items.TOOLS_SHOVELS).add(manasteelShovel, elementiumShovel);
+		this.tag(Tags.Items.TOOLS_SWORDS).add(manasteelSword, elementiumSword,
+				terraSword, thunderSword, starSword);
+		this.tag(Tags.Items.SHEARS).add(manasteelShears, elementiumShears);
+
+		this.tag(Tags.Items.ARMORS_HELMETS).add(manasteelHelm, manaweaveHelm,
+				elementiumHelm, terrasteelHelm);
+		this.tag(Tags.Items.ARMORS_CHESTPLATES).add(manasteelChest, manaweaveChest,
+				elementiumChest, terrasteelChest);
+		this.tag(Tags.Items.ARMORS_LEGGINGS).add(manasteelLegs, manaweaveLegs,
+				elementiumLegs, terrasteelLegs);
+		this.tag(Tags.Items.ARMORS_BOOTS).add(manasteelBoots, manaweaveBoots,
+				elementiumBoots, terrasteelBoots);
 	}
 
 	private void generateAccessoryTags() {
