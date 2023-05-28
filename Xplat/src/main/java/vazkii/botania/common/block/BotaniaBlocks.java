@@ -940,6 +940,22 @@ public final class BotaniaBlocks {
 		behavior = DispenserBlockAccessor.getDispenserRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
 
+		behavior = new GrassSeedsBehavior();
+		Item[] seedItems = {
+				BotaniaItems.grassSeeds,
+				BotaniaItems.podzolSeeds,
+				BotaniaItems.mycelSeeds,
+				BotaniaItems.drySeeds,
+				BotaniaItems.goldenSeeds,
+				BotaniaItems.vividSeeds,
+				BotaniaItems.scorchedSeeds,
+				BotaniaItems.infusedSeeds,
+				BotaniaItems.mutatedSeeds,
+		};
+		for (Item seed : seedItems) {
+			DispenserBlock.registerBehavior(seed, behavior);
+		}
+
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new AbstractProjectileDispenseBehavior() {

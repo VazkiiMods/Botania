@@ -19,6 +19,7 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
+* Add: Grass Seeds can now be placed by dispensers.
 * Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the crafting table segment or right-clicking the item in an inventory screen
 * Add: Mana lenses can now be merged using either honey bottles or slime balls
 * Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)

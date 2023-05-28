@@ -48,6 +48,7 @@
       "vazkii.botania.test.item.CacophoniumTest",
       "vazkii.botania.test.item.FlowerPouchTest",
       "vazkii.botania.test.item.LifeAggregatorTest",
+      "vazkii.botania.test.item.GrassSeedDispensingTest",
       "vazkii.botania.test.item.lens.BoreLensTest",
       "vazkii.botania.test.item.lens.EntropicWarpLensTest",
       "vazkii.botania.test.item.lens.PaintslingerLensTest"
