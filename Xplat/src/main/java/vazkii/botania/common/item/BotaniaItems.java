@@ -29,6 +29,7 @@ import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.*;
+import vazkii.botania.common.entity.ManaPoolMinecartEntity;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.brew.IncenseStickItem;
@@ -316,7 +317,7 @@ public final class BotaniaItems {
 	public static final Item worldSeed = make(prefix(LibItemNames.WORLD_SEED), new WorldSeedItem(defaultBuilder()));
 	public static final Item overgrowthSeed = make(prefix(LibItemNames.OVERGROWTH_SEED), new OvergrowthSeedItem(defaultBuilder().rarity(Rarity.RARE)));
 	public static final Item phantomInk = make(prefix(LibItemNames.PHANTOM_INK), new Item(defaultBuilder()));
-	public static final Item poolMinecart = make(prefix(LibItemNames.POOL_MINECART), new ManaPoolMinecartItem(unstackable()));
+	public static final Item poolMinecart = make(prefix(LibItemNames.POOL_MINECART), new BotaniaMinecartItem(unstackable(), ManaPoolMinecartEntity::new));
 	public static final Item keepIvy = make(prefix(LibItemNames.KEEP_IVY), new ResoluteIvyItem(defaultBuilder()));
 	public static final Item placeholder = make(prefix(LibItemNames.PLACEHOLDER), new SelfReturningItem(defaultBuilder()));
 	public static final Item craftPattern1_1 = make(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + "1_1"), new CraftingPatternItem(CraftyCratePattern.CRAFTY_1_1, unstackable()));

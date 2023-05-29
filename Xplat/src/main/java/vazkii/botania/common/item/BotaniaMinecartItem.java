@@ -22,12 +22,17 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.entity.ManaPoolMinecartEntity;
+public class BotaniaMinecartItem extends Item {
 
-public class ManaPoolMinecartItem extends Item {
+	public interface AbstractMinecartConstructor {
+		public AbstractMinecart build(Level world, double x, double y, double z);
+	}
 
-	public ManaPoolMinecartItem(Properties builder) {
+	private AbstractMinecartConstructor constructor;
+
+	public BotaniaMinecartItem(Properties builder, AbstractMinecartConstructor constructor) {
 		super(builder);
+		this.constructor = constructor;
 	}
 
 	// [VanillaCopy] MinecartItem
@@ -48,7 +53,7 @@ public class ManaPoolMinecartItem extends Item {
 					d = 0.5D;
 				}
 
-				AbstractMinecart abstractMinecartEntity = new ManaPoolMinecartEntity(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
+				AbstractMinecart abstractMinecartEntity = constructor.build(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
 				if (itemStack.hasCustomHoverName()) {
 					abstractMinecartEntity.setCustomName(itemStack.getHoverName());
 				}
