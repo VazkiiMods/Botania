@@ -55,7 +55,7 @@ public final class BoundBlockRenderer {
 		Player player = Minecraft.getInstance().player;
 		if (!BotaniaConfig.client().boundBlockWireframe()
 				|| player == null
-				|| player.level != level) {
+				|| player.getLevel() != level) {
 			return;
 		}
 
@@ -66,9 +66,9 @@ public final class BoundBlockRenderer {
 		if (!player.getMainHandItem().isEmpty()) {
 			var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(player.getMainHandItem());
 			if (coordBoundItem != null) {
-				BlockPos coords = coordBoundItem.getBinding(player.level);
+				BlockPos coords = coordBoundItem.getBinding(player.getLevel());
 				if (coords != null) {
-					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.getLevel(), coords, color);
 				}
 			}
 		}
@@ -76,9 +76,9 @@ public final class BoundBlockRenderer {
 		if (!player.getOffhandItem().isEmpty()) {
 			var coordBoundItem = XplatAbstractions.INSTANCE.findCoordBoundItem(player.getOffhandItem());
 			if (coordBoundItem != null) {
-				BlockPos coords = coordBoundItem.getBinding(player.level);
+				BlockPos coords = coordBoundItem.getBinding(player.getLevel());
 				if (coords != null) {
-					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.getLevel(), coords, color);
 				}
 			}
 		}
@@ -99,12 +99,12 @@ public final class BoundBlockRenderer {
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof WireframeCoordinateListProvider provider) {
 				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
 				for (BlockPos coords : coordsList) {
-					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.getLevel(), coords, color);
 				}
 
 				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
 				if (coords != null && coords.getY() != Integer.MIN_VALUE) {
-					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.level, coords, color, true);
+					renderBlockOutlineAt(camera, ms, LINE_BUFFERS, player.getLevel(), coords, color, true);
 				}
 			}
 		}

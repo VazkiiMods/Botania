@@ -178,13 +178,13 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 		// lastRecipe is not synced. If we're calling this method we already checked that
 		// the apothecary has water and no items, so just optimistically assume
 		// success on the client.
-		boolean success = player.level.isClientSide
+		boolean success = player.getLevel().isClientSide
 				|| InventoryHelper.tryToSetLastRecipe(player, getItemHandler(), lastRecipe, SoundEvents.GENERIC_SPLASH);
 		if (success) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 		return success
-				? InteractionResult.sidedSuccess(player.level.isClientSide())
+				? InteractionResult.sidedSuccess(player.getLevel().isClientSide())
 				: InteractionResult.PASS;
 	}
 

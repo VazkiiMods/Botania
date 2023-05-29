@@ -419,7 +419,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void sendToPlayer(Player player, BotaniaPacket packet) {
-		if (!player.level.isClientSide) {
+		if (!player.getLevel().isClientSide) {
 			ForgePacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player),
 					packet);
 		}
@@ -453,7 +453,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void sendToTracking(Entity e, BotaniaPacket packet) {
-		if (!e.level.isClientSide) {
+		if (!e.getLevel().isClientSide) {
 			ForgePacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), packet);
 		}
 	}

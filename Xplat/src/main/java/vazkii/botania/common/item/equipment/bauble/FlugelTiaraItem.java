@@ -112,7 +112,7 @@ public class FlugelTiaraItem extends BaubleItem {
 			if (shouldPlayerHaveFlight(player)) {
 				player.getAbilities().mayfly = true;
 				if (player.getAbilities().flying) {
-					if (!player.level.isClientSide) {
+					if (!player.getLevel().isClientSide) {
 						if (!player.isCreative() && !player.isSpectator()) {
 							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
 						}
@@ -168,7 +168,7 @@ public class FlugelTiaraItem extends BaubleItem {
 
 						for (int i = 0; i < 2; i++) {
 							SparkleParticleData data = SparkleParticleData.sparkle(2F * (float) Math.random(), r, g, b, 20);
-							player.level.addParticle(data, x + Math.random() * player.getBbWidth(), y + Math.random() * 0.4, z + Math.random() * player.getBbWidth(), 0, 0, 0);
+							player.getLevel().addParticle(data, x + Math.random() * player.getBbWidth(), y + Math.random() * 0.4, z + Math.random() * player.getBbWidth(), 0, 0, 0);
 						}
 					}
 				}
@@ -193,7 +193,7 @@ public class FlugelTiaraItem extends BaubleItem {
 	}
 
 	private static String playerStr(Player player) {
-		return player.getGameProfile().getName() + ":" + player.level.isClientSide;
+		return player.getGameProfile().getName() + ":" + player.getLevel().isClientSide;
 	}
 
 	private static boolean shouldPlayerHaveFlight(Player player) {
@@ -245,7 +245,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 				if (!wasSprting && isSprinting && cooldown == 0) {
 					player.setDeltaMovement(player.getDeltaMovement().add(look.x, 0, look.z));
-					player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+					player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 					ItemNBTHelper.setBoolean(stack, TAG_BOOST_PENDING, true);
 				} else if (cooldown > 0) {

@@ -32,7 +32,7 @@ public class SoulscribeItem extends ManasteelSwordItem {
 
 	@Override
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, @NotNull LivingEntity attacker) {
-		if (!target.level.isClientSide
+		if (!target.getLevel().isClientSide
 				&& target instanceof EnderMan
 				&& attacker instanceof Player player) {
 			target.hurt(DamageSource.playerAttack(player), 20);

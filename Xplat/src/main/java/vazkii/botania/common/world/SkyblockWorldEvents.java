@@ -57,7 +57,7 @@ public final class SkyblockWorldEvents {
 	private static final ResourceLocation PEBBLES_TABLE = new ResourceLocation(BotaniaAPI.GOG_MODID, "pebbles");
 
 	public static void syncGogStatus(ServerPlayer e) {
-		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level);
+		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.getLevel());
 		if (isGog) {
 			XplatAbstractions.INSTANCE.sendToPlayer(e, GogWorldPacket.INSTANCE);
 		}
@@ -133,7 +133,7 @@ public final class SkyblockWorldEvents {
 		if (player instanceof ServerPlayer pmp) {
 			createSkyblock(pmp.getLevel(), pos);
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-			pmp.setRespawnPosition(pmp.level.dimension(), pos, 0, true, false);
+			pmp.setRespawnPosition(pmp.getLevel().dimension(), pos, 0, true, false);
 			if (BotaniaConfig.common().gogSpawnWithLexicon()) {
 				player.getInventory().add(new ItemStack(BotaniaItems.lexicon));
 			}

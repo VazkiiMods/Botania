@@ -41,7 +41,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 
 		this.box = box;
 		Container baubleBoxInv;
-		if (!playerInv.player.level.isClientSide) {
+		if (!playerInv.player.getLevel().isClientSide) {
 			baubleBoxInv = BaubleBoxItem.getInventory(box);
 		} else {
 			baubleBoxInv = new SimpleContainer(BaubleBoxItem.SIZE);
@@ -124,7 +124,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 
 	@Override
 	public void removed(@NotNull Player player) {
-		if (!player.level.isClientSide) {
+		if (!player.getLevel().isClientSide) {
 			ItemNBTHelper.setBoolean(box, BaubleBoxItem.TAG_OPEN, false);
 		}
 		super.removed(player);

@@ -45,7 +45,7 @@ public class DodgePacket implements BotaniaPacket {
 
 	public void handle(MinecraftServer server, ServerPlayer player) {
 		server.execute(() -> {
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+			player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
 
 			ItemStack ringStack = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, player);
 			if (ringStack.isEmpty()) {

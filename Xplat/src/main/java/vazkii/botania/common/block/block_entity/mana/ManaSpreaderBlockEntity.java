@@ -643,7 +643,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		VoxelShape shape = player.level.getBlockState(pos).getShape(player.level, pos);
+		VoxelShape shape = player.getLevel().getBlockState(pos).getShape(player.getLevel(), pos);
 		AABB axis = shape.isEmpty() ? new AABB(pos) : shape.bounds().move(pos);
 
 		Vec3 thisVec = Vec3.atCenterOf(getBlockPos());

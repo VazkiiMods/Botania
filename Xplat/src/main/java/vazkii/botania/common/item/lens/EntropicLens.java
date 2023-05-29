@@ -26,12 +26,12 @@ public class EntropicLens extends Lens {
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			//TODO https://github.com/VazkiiMods/Botania/pull/4219#issuecomment-1321442839
 			BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-			if (entity.level.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
+			if (entity.getLevel().getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
 				return shouldKill;
 			}
 
-			if (!entity.level.isClientSide && !burst.isFake() && !isManaBlock) {
-				entity.level.explode(entity, entity.getX(), entity.getY(), entity.getZ(),
+			if (!entity.getLevel().isClientSide && !burst.isFake() && !isManaBlock) {
+				entity.getLevel().explode(entity, entity.getX(), entity.getY(), entity.getZ(),
 						burst.getMana() / 50F, Explosion.BlockInteraction.BREAK);
 			}
 			return true;

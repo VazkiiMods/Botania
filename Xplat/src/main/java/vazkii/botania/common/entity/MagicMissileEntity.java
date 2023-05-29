@@ -53,7 +53,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 	}
 
 	public MagicMissileEntity(LivingEntity owner, boolean evil) {
-		super(BotaniaEntities.MAGIC_MISSILE, owner, owner.level);
+		super(BotaniaEntities.MAGIC_MISSILE, owner, owner.getLevel());
 		setEvil(evil);
 	}
 

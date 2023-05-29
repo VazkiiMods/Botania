@@ -138,13 +138,13 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 
 							for (int i = 0; i < p; i++) {
 								double m = 0.01;
-								double d0 = item.level.random.nextGaussian() * m;
-								double d1 = item.level.random.nextGaussian() * m;
-								double d2 = item.level.random.nextGaussian() * m;
+								double d0 = item.getLevel().random.nextGaussian() * m;
+								double d1 = item.getLevel().random.nextGaussian() * m;
+								double d2 = item.getLevel().random.nextGaussian() * m;
 								double d3 = 10.0D;
-								item.level.addParticle(ParticleTypes.POOF,
-										x + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.level.random.nextFloat() * item.getBbHeight() - d1 * d3,
-										z + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d2 * d3, d0, d1, d2);
+								item.getLevel().addParticle(ParticleTypes.POOF,
+										x + item.getLevel().random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.level.random.nextFloat() * item.getBbHeight() - d1 * d3,
+										z + item.getLevel().random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d2 * d3, d0, d1, d2);
 							}
 						}
 						case SPARK_NET_INDICATOR -> {
@@ -308,7 +308,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 								float m = 0.1F;
 								for (int i = 0; i < 4; i++) {
 									WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
-									target.level.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
+									target.getLevel().addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
 								}
 							}
 

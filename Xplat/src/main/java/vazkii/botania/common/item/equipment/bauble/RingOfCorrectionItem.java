@@ -27,7 +27,7 @@ public class RingOfCorrectionItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (entity.level.isClientSide || !(entity instanceof Player player)) {
+		if (entity.getLevel().isClientSide || !(entity instanceof Player player)) {
 			return;
 		}
 
@@ -41,7 +41,7 @@ public class RingOfCorrectionItem extends BaubleItem {
 		if (pos.getType() != HitResult.Type.BLOCK) {
 			return;
 		}
-		BlockState state = entity.level.getBlockState(pos.getBlockPos());
+		BlockState state = entity.getLevel().getBlockState(pos.getBlockPos());
 
 		ItemStack bestTool = currentStack;
 		int bestToolPriority = currentStack.getDestroySpeed(state) > 1.0F ? tool.getSortingPriority(currentStack, state) : -1;

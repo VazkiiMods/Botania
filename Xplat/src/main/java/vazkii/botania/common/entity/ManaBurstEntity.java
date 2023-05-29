@@ -144,7 +144,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	}
 
 	public ManaBurstEntity(Player player) {
-		super(BotaniaEntities.MANA_BURST, player, player.level);
+		super(BotaniaEntities.MANA_BURST, player, player.getLevel());
 
 		setBurstSourceCoords(NO_SOURCE);
 		setRot(player.getYRot() + 180, -player.getXRot());
@@ -551,8 +551,8 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		if (shouldKill && isAlive()) {
 			if (fake) {
 				discard();
-			} else if (!this.level.isClientSide) {
-				this.level.broadcastEntityEvent(this, EntityEvent.DEATH);
+			} else if (!this.getLevel().isClientSide) {
+				this.getLevel().broadcastEntityEvent(this, EntityEvent.DEATH);
 				discard();
 			}
 		}

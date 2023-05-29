@@ -24,7 +24,7 @@ public class KindleLens extends Lens {
 	@Override
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.level.isClientSide) {
+		if (!entity.getLevel().isClientSide) {
 			entity.setSecondsOnFire(3);
 		}
 	}
@@ -33,7 +33,7 @@ public class KindleLens extends Lens {
 	public boolean collideBurst(ManaBurst burst, HitResult rtr, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
 
-		if (!entity.level.isClientSide && rtr.getType() == HitResult.Type.BLOCK
+		if (!entity.getLevel().isClientSide && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
 			BlockHitResult brtr = (BlockHitResult) rtr;
 			BlockPos pos = brtr.getBlockPos();
@@ -41,16 +41,16 @@ public class KindleLens extends Lens {
 
 			BlockPos offPos = pos.relative(dir);
 
-			BlockState stateAt = entity.level.getBlockState(pos);
-			BlockState stateAtOffset = entity.level.getBlockState(offPos);
+			BlockState stateAt = entity.getLevel().getBlockState(pos);
+			BlockState stateAtOffset = entity.getLevel().getBlockState(offPos);
 
 			if (stateAt.is(Blocks.NETHER_PORTAL)) {
-				entity.level.removeBlock(pos, false);
+				entity.getLevel().removeBlock(pos, false);
 			}
 			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
-				entity.level.removeBlock(offPos, false);
-			} else if (BaseFireBlock.canBePlacedAt(entity.level, offPos, dir.getOpposite())) {
-				entity.level.setBlockAndUpdate(offPos, BaseFireBlock.getState(entity.level, offPos));
+				entity.getLevel().removeBlock(offPos, false);
+			} else if (BaseFireBlock.canBePlacedAt(entity.getLevel(), offPos, dir.getOpposite())) {
+				entity.getLevel().setBlockAndUpdate(offPos, BaseFireBlock.getState(entity.getLevel(), offPos));
 			}
 		}
 

@@ -114,7 +114,7 @@ public class DaffomillBlockEntity extends FunctionalFlowerBlockEntity implements
 			return false;
 		}
 
-		if (!player.level.isClientSide) {
+		if (!player.getLevel().isClientSide) {
 			orientation = orientation.getClockWise();
 			sync();
 		}

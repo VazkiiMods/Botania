@@ -63,7 +63,7 @@ public class AstrolabeItem extends Item {
 		if (player != null && player.isSecondaryUseActive()) {
 			if (setBlock(stack, state)) {
 				displayRemainderCounter(player, stack);
-				return InteractionResult.sidedSuccess(player.level.isClientSide());
+				return InteractionResult.sidedSuccess(player.getLevel().isClientSide());
 			}
 		} else if (player != null) {
 			boolean did = placeAllBlocks(stack, player);
@@ -124,8 +124,8 @@ public class AstrolabeItem extends Item {
 
 		Block block = Block.byItem(blockToPlace.getItem());
 		BlockState state = block.defaultBlockState();
-		player.level.setBlockAndUpdate(coords, state);
-		player.level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
+		player.getLevel().setBlockAndUpdate(coords, state);
+		player.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(state));
 
 		if (player.getAbilities().instabuild) {
 			return;
@@ -203,7 +203,7 @@ public class AstrolabeItem extends Item {
 		BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 5, true);
 		if (rtr.getType() == HitResult.Type.BLOCK) {
 			BlockPos pos = rtr.getBlockPos();
-			BlockState state = player.level.getBlockState(pos);
+			BlockState state = player.getLevel().getBlockState(pos);
 			if (state.getMaterial().isReplaceable()) {
 				pos = pos.below();
 			}
@@ -230,8 +230,8 @@ public class AstrolabeItem extends Item {
 						int zp = pos.getZ() + z + dir.getStepZ();
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
-						BlockState state1 = player.level.getBlockState(newPos);
-						if (player.level.getWorldBorder().isWithinBounds(newPos)
+						BlockState state1 = player.getLevel().getBlockState(newPos);
+						if (player.getLevel().getWorldBorder().isWithinBounds(newPos)
 								&& (state1.isAir() || state1.getMaterial().isReplaceable())) {
 							coords.add(newPos);
 						}
@@ -247,7 +247,7 @@ public class AstrolabeItem extends Item {
 	public void displayRemainderCounter(Player player, ItemStack stack) {
 		Block block = getBlock(stack);
 		int count = ShiftingCrustRodItem.getInventoryItemCount(player, stack, block.asItem());
-		if (!player.level.isClientSide) {
+		if (!player.getLevel().isClientSide) {
 			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}
 	}

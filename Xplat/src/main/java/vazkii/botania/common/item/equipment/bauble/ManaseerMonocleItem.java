@@ -76,8 +76,8 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 				return;
 			}
 			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
-			BlockState state = player.level.getBlockState(pos);
-			player.level.getBlockEntity(pos);
+			BlockState state = player.getLevel().getBlockState(pos);
+			player.getLevel().getBlockEntity(pos);
 
 			ItemStack dispStack = ItemStack.EMPTY;
 			String text = "";

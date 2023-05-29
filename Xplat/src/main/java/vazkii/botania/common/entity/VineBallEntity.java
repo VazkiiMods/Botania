@@ -50,7 +50,7 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	}
 
 	public VineBallEntity(LivingEntity thrower, boolean gravity) {
-		super(BotaniaEntities.VINE_BALL, thrower, thrower.level);
+		super(BotaniaEntities.VINE_BALL, thrower, thrower.getLevel());
 		entityData.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
@@ -81,7 +81,7 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 	}
 
 	private void effectAndDie() {
-		this.level.broadcastEntityEvent(this, EntityEvent.DEATH);
+		this.getLevel().broadcastEntityEvent(this, EntityEvent.DEATH);
 		discard();
 	}
 
@@ -95,30 +95,30 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult hit) {
-		if (!level.isClientSide) {
+		if (!this.getLevel().isClientSide) {
 			Direction dir = hit.getDirection();
 
 			BlockPos pos = hit.getBlockPos();
-			BlockState hitState = level.getBlockState(hit.getBlockPos());
+			BlockState hitState = this.getLevel().getBlockState(hit.getBlockPos());
 			if (!hitState.is(BotaniaBlocks.solidVines)) {
 				pos = pos.relative(dir);
 			}
 
 			int vinesPlaced = 0;
 			if (dir.getAxis() != Direction.Axis.Y) {
-				while (pos.getY() > level.dimensionType().minY() && vinesPlaced < 9) {
-					BlockState state = level.getBlockState(pos);
+				while (pos.getY() > this.getLevel().dimensionType().minY() && vinesPlaced < 9) {
+					BlockState state = this.getLevel().getBlockState(pos);
 					if (state.getMaterial().isReplaceable() && !state.is(BotaniaBlocks.solidVines)) {
 						BlockState stateToPlace = BotaniaBlocks.solidVines.defaultBlockState().setValue(propMap.get(dir.getOpposite()), true);
 
-						if (!stateToPlace.canSurvive(level, pos)) {
+						if (!stateToPlace.canSurvive(this.getLevel(), pos)) {
 							break;
 						}
-						level.setBlockAndUpdate(pos, stateToPlace);
-						level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateToPlace));
+						this.getLevel().setBlockAndUpdate(pos, stateToPlace);
+						this.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(stateToPlace));
 						vinesPlaced++;
 					}
-					if (level.getBlockState(pos).is(BotaniaBlocks.solidVines)) {
+					if (this.getLevel().getBlockState(pos).is(BotaniaBlocks.solidVines)) {
 						pos = pos.below();
 					} else {
 						break;

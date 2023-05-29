@@ -155,7 +155,7 @@ public class AssemblyHaloItem extends Item {
 	}
 
 	void tryCraft(Player player, ItemStack halo, int slot, boolean particles) {
-		Recipe<CraftingContainer> recipe = getSavedRecipe(player.level, halo, slot);
+		Recipe<CraftingContainer> recipe = getSavedRecipe(player.getLevel(), halo, slot);
 		if (recipe == null) {
 			return;
 		}
@@ -170,7 +170,7 @@ public class AssemblyHaloItem extends Item {
 		}
 
 		// Double check that the recipe matches
-		if (!recipe.matches(craftInv, player.level)) {
+		if (!recipe.matches(craftInv, player.getLevel())) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
 			placer.clearGrid(false);
@@ -207,7 +207,7 @@ public class AssemblyHaloItem extends Item {
 			return false;
 		}
 
-		Recipe<?> recipe = getSavedRecipe(living.level, stack, segment);
+		Recipe<?> recipe = getSavedRecipe(living.getLevel(), stack, segment);
 		if (recipe != null && living.isShiftKeyDown()) {
 			saveRecipe(stack, null, segment);
 			return true;
@@ -298,7 +298,7 @@ public class AssemblyHaloItem extends Item {
 			return;
 		}
 
-		player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, cc, player.level).ifPresent(recipe -> {
+		player.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, cc, player.getLevel()).ifPresent(recipe -> {
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				ItemStack stack = player.getInventory().getItem(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof AssemblyHaloItem) {
@@ -391,7 +391,7 @@ public class AssemblyHaloItem extends Item {
 					inside = true;
 				}
 
-				ItemStack slotStack = getDisplayItem(player.level, stack, seg);
+				ItemStack slotStack = getDisplayItem(player.getLevel(), stack, seg);
 				if (!slotStack.isEmpty()) {
 					float scale = seg == 0 ? 0.9F : 0.8F;
 					ms.scale(scale, scale, scale);
@@ -455,13 +455,13 @@ public class AssemblyHaloItem extends Item {
 
 				mc.font.drawShadow(ms, name, x, y, 0xFFFFFF);
 			} else {
-				Recipe<CraftingContainer> recipe = getSavedRecipe(player.level, stack, slot);
+				Recipe<CraftingContainer> recipe = getSavedRecipe(player.getLevel(), stack, slot);
 				Component label;
 				boolean setRecipe = false;
 
 				if (recipe == null) {
 					label = Component.translatable("botaniamisc.unsetRecipe");
-					recipe = getLastRecipe(player.level, stack);
+					recipe = getLastRecipe(player.getLevel(), stack);
 				} else {
 					label = recipe.getResultItem().getHoverName();
 					setRecipe = true;

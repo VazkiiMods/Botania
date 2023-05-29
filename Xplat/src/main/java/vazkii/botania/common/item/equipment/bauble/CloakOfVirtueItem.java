@@ -104,7 +104,7 @@ public class CloakOfVirtueItem extends BaubleItem {
 	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
 		if (!src.isMagic()) {
 			amount.setValue(0);
-			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
+			player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
 				double x = player.getX() + Math.random() * player.getBbWidth() * 2 - player.getBbWidth();
 				double y = player.getY() + Math.random() * player.getBbHeight();
@@ -114,7 +114,7 @@ public class CloakOfVirtueItem extends BaubleItem {
 				float g = yellow ? 1F : 0.3F;
 				float b = yellow ? 0.3F : 1F;
 				SparkleParticleData data = SparkleParticleData.sparkle(0.8F + (float) Math.random() * 0.4F, r, g, b, 3);
-				player.level.addParticle(data, x, y, z, 0, 0, 0);
+				player.getLevel().addParticle(data, x, y, z, 0, 0, 0);
 			}
 			return true;
 		}

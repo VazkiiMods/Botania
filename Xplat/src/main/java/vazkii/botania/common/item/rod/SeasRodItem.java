@@ -72,7 +72,7 @@ public class SeasRodItem extends Item {
 					// Botania - particles
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.2F, 0.2F, 1F, 5);
 					for (int i = 0; i < 6; i++) {
-						player.level.addParticle(data, blockPos3.getX() + Math.random(), blockPos3.getY() + Math.random(), blockPos3.getZ() + Math.random(), 0, 0, 0);
+						player.getLevel().addParticle(data, blockPos3.getX() + Math.random(), blockPos3.getY() + Math.random(), blockPos3.getZ() + Math.random(), 0, 0, 0);
 					}
 					return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
 				} else {

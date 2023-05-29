@@ -117,7 +117,7 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 			BlockState state = level.getBlockState(bpos);
 			if (hasBeenInAir) {
 				if (BotaniaConfig.common().blockBreakParticles() && !state.isAir()) {
-					level.levelEvent(2001, bpos, Block.getId(state));
+					this.getLevel().levelEvent(2001, bpos, Block.getId(state));
 				}
 				discard();
 			}

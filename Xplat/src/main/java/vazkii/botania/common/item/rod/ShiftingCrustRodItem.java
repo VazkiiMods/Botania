@@ -393,7 +393,7 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	public void displayRemainderCounter(Player player, ItemStack stack) {
-		if (!player.level.isClientSide) {
+		if (!player.getLevel().isClientSide) {
 			Item item = getItemToPlace(stack);
 			int count = getInventoryItemCount(player, stack, item);
 			ItemsRemainingRenderHandler.send(player, new ItemStack(item), count);
@@ -498,9 +498,9 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 				target = getTargetState(stack);
 			}
 
-			if (!player.level.isEmptyBlock(bPos)) {
+			if (!player.getLevel().isEmptyBlock(bPos)) {
 				Item item = getItemToPlace(stack);
-				List<BlockPos> coordsList = getTargetPositions(player.level, stack, item, bPos, target, ((BlockHitResult) pos).getDirection());
+				List<BlockPos> coordsList = getTargetPositions(player.getLevel(), stack, item, bPos, target, ((BlockHitResult) pos).getDirection());
 				coordsList.removeIf(bPos::equals);
 				return coordsList;
 			}

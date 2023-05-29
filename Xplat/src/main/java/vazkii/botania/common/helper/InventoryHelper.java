@@ -173,7 +173,7 @@ public class InventoryHelper {
 
 		if (didAny) {
 			if (sound != null) {
-				player.level.playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.BLOCKS, 0.1F, 10F);
+				player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.BLOCKS, 0.1F, 10F);
 			}
 			ServerPlayer mp = (ServerPlayer) player;
 			mp.inventoryMenu.broadcastChanges();

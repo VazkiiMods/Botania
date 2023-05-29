@@ -64,12 +64,12 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 	private void convertBlock(@NotNull BlockPos pos) {
 		List<BlockPos> coordsList = getCoordsToPut(pos);
-		level.levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
+		this.getLevel().levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 
 		for (BlockPos coords : coordsList) {
-			level.setBlockAndUpdate(coords, Blocks.END_STONE.defaultBlockState());
+			this.getLevel().setBlockAndUpdate(coords, Blocks.END_STONE.defaultBlockState());
 			if (Math.random() < 0.1) {
-				level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(Blocks.END_STONE.defaultBlockState()));
+				this.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, coords, Block.getId(Blocks.END_STONE.defaultBlockState()));
 			}
 		}
 	}
@@ -87,12 +87,12 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	@Override
 	protected void onHitEntity(@NotNull EntityHitResult result) {
 		super.onHitEntity(result);
-		if (level.isClientSide) {
+		if (this.getLevel().isClientSide) {
 			return;
 		}
 		Entity entity = result.getEntity();
-		if (entity.getType() == EntityType.GHAST && level.dimension() == Level.OVERWORLD) {
-			level.levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
+		if (entity.getType() == EntityType.GHAST && this.getLevel().dimension() == Level.OVERWORLD) {
+			this.getLevel().levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
 			DamageSource source = DamageSource.thrown(this, getOwner());
 			entity.hurt(source, 0);
 
@@ -102,12 +102,12 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 			Vec3 vec = new Vec3(lookVec.x(), 0, lookVec.z()).normalize();
 
 			// Position chosen to appear roughly in the ghast's face
-			((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
+			((ServerLevel) this.getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
 					entity.getX() + (2.3 * vec.x), entity.getY() + vec.y + 2.6, entity.getZ() + (2.3 * vec.z),
 					40,
 					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
 
-			LootTable table = level.getServer().getLootTables().get(GHAST_LOOT_TABLE);
+			LootTable table = this.getLevel().getServer().getLootTables().get(GHAST_LOOT_TABLE);
 			LootContext.Builder builder = new LootContext.Builder(((ServerLevel) level));
 			builder.withParameter(LootContextParams.THIS_ENTITY, entity);
 			builder.withParameter(LootContextParams.ORIGIN, entity.position());

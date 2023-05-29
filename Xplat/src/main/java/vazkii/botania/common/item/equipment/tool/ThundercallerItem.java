@@ -43,15 +43,15 @@ public class ThundercallerItem extends ManasteelSwordItem {
 		Predicate<Entity> selector = e -> e instanceof LivingEntity && e instanceof Enemy && !(e instanceof Player) && !alreadyTargetedEntities.contains(e.getId());
 
 		LivingEntity prevTarget = entity;
-		int hops = entity.level.isThundering() ? 10 : 4;
+		int hops = entity.getLevel().isThundering() ? 10 : 4;
 		int dmg = hops + 1;
 		for (int i = 0; i < hops; i++) {
-			List<Entity> entities = entity.level.getEntities(prevTarget, new AABB(prevTarget.getX() - range, prevTarget.getY() - range, prevTarget.getZ() - range, prevTarget.getX() + range, prevTarget.getY() + range, prevTarget.getZ() + range), selector);
+			List<Entity> entities = entity.getLevel().getEntities(prevTarget, new AABB(prevTarget.getX() - range, prevTarget.getY() - range, prevTarget.getZ() - range, prevTarget.getX() + range, prevTarget.getY() + range, prevTarget.getZ() + range), selector);
 			if (entities.isEmpty()) {
 				break;
 			}
 
-			LivingEntity target = (LivingEntity) entities.get(entity.level.getRandom().nextInt(entities.size()));
+			LivingEntity target = (LivingEntity) entities.get(entity.getLevel().getRandom().nextInt(entities.size()));
 			if (attacker instanceof Player player) {
 				target.hurt(DamageSource.playerAttack(player), dmg);
 			} else {

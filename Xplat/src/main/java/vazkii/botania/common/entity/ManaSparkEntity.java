@@ -224,7 +224,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	public static void particleBeam(Player player, Entity e1, Entity e2) {
-		if (e1 != null && e2 != null && !e1.level.isClientSide) {
+		if (e1 != null && e2 != null && !e1.getLevel().isClientSide) {
 			XplatAbstractions.INSTANCE.sendToPlayer(player, new BotaniaEffectPacket(EffectType.SPARK_NET_INDICATOR,
 					e1.getX(), e1.getY(), e1.getZ(),
 					e1.getId(), e2.getId()));
