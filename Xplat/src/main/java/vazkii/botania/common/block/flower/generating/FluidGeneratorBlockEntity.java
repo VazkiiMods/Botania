@@ -101,6 +101,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 							cooldown = getCooldownTime(false);
 						}
 
+						setChanged();
 						sync();
 						playSound();
 						break;
@@ -114,6 +115,7 @@ public abstract class FluidGeneratorBlockEntity extends GeneratingFlowerBlockEnt
 			burnTime--;
 			if (burnTime == 0) {
 				cooldown = getCooldownTime(true);
+				setChanged();
 				sync();
 			}
 		}

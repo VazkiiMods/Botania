@@ -19,10 +19,27 @@ and start a new "Upcoming" section.
 {% include changelog_header.html version="Upcoming" %}
 
 * Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
-* Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the crafting table segment or right-clicking the item in an inventory screen
+* Add: Grass Seeds can now be placed by dispensers.
+* Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the
+  crafting table segment or right-clicking the item in an inventory screen
 * Add: Mana lenses can now be merged using either honey bottles or slime balls
-* Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Add: Reintroduce the useShaders config option to disable Botania's special shaders
+* Add: zh_cn updates (Dawnwalker666)
+* Change: The Worldshaper's Sextant provides more control over the exact shape of circles
+  by having the radius selection snap to the block grind instead of only allowing integers
+  (Wormbo)
+* Change: The Rosa Arcana's XP orb mana yield now matches the player-based mana yield
 * Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
+* Fix: Some items being missing from Forge equipment tags and Fabric bow tag
+* Fix: Horn of the Canopy breaking persistent leaves
+* Fix: Thermalily not updating comparators properly
+* Fix: Kindle Lens not creating Soul Fire when it should
+* Fix: Fake bursts triggering game events
+* Fix: Biomes not populating properly in Garden of Glass
+* Fix: Some structures showing up in Garden of Glass
+  * Note: These two fixes do not require a GoG jar update, but will only cover
+	newly-generated terrain.
+
 
 ---
 

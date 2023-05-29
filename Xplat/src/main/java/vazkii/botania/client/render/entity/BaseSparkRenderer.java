@@ -42,7 +42,7 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 
 		ms.pushPose();
 
-		double time = (tEntity.level.getGameTime() % 24000) + partialTicks + new Random(tEntity.getId()).nextInt(200);
+		double time = (tEntity.getLevel().getGameTime() % 24000) + partialTicks + new Random(tEntity.getId()).nextInt(200);
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
 		int alpha = (int) ((0.7 + 0.3 * (Math.sin(time / 5.0) + 0.5) * 2) * a * 255.0);

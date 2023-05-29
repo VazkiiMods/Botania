@@ -301,7 +301,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 
 	public static List<CorporeaIndexBlockEntity> getNearbyValidIndexes(Player player) {
 		List<CorporeaIndexBlockEntity> result = new ArrayList<>();
-		for (var index : (player.level.isClientSide ? clientIndexes : serverIndexes)) {
+		for (var index : (player.getLevel().isClientSide ? clientIndexes : serverIndexes)) {
 			if (index.getSpark() != null && index.isInRange(player)) {
 				result.add(index);
 			}
@@ -334,7 +334,7 @@ public class CorporeaIndexBlockEntity extends BaseCorporeaBlockEntity implements
 	}
 
 	private boolean isInRange(Player player) {
-		return player.level.dimension() == level.dimension()
+		return player.getLevel().dimension() == level.dimension()
 				&& MathHelper.pointDistancePlane(getBlockPos().getX() + 0.5, getBlockPos().getZ() + 0.5, player.getX(), player.getZ()) < RADIUS
 				&& Math.abs(getBlockPos().getY() + 0.5 - player.getY()) < 5;
 	}

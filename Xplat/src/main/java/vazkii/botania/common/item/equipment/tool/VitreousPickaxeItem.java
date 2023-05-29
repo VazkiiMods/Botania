@@ -75,7 +75,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 
 	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
-		BlockState state = player.level.getBlockState(pos);
+		BlockState state = player.getLevel().getBlockState(pos);
 		boolean hasSilk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
 		if (hasSilk || !isGlass(state)) {
 			return false;

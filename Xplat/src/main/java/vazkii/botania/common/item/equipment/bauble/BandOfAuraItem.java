@@ -25,7 +25,7 @@ public class BandOfAuraItem extends BaubleItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (!entity.level.isClientSide && entity instanceof Player player && player.tickCount % interval == 0) {
+		if (!entity.getLevel().isClientSide && entity instanceof Player player && player.tickCount % interval == 0) {
 			ManaItemHandler.instance().dispatchManaExact(stack, player, 5, true);
 		}
 	}

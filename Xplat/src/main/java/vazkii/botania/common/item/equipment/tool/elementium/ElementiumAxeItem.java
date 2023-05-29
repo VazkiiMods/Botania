@@ -35,7 +35,7 @@ public class ElementiumAxeItem extends ManasteelAxeItem {
 	public static void onEntityDrops(boolean hitRecently, DamageSource source, LivingEntity target,
 			Consumer<ItemStack> consumer) {
 		var ctx = ((LivingEntityAccessor) target).callCreateLootContext(hitRecently, source);
-		target.level.getServer().getLootTables().get(BEHEADING_LOOT_TABLE)
+		target.getLevel().getServer().getLootTables().get(BEHEADING_LOOT_TABLE)
 				.getRandomItems(ctx.create(LootContextParamSets.ENTITY), consumer);
 	}
 

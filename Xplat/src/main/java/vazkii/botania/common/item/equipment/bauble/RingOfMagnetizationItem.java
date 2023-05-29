@@ -92,7 +92,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 				double z = living.getZ();
 
 				int range = ((RingOfMagnetizationItem) stack.getItem()).range;
-				List<ItemEntity> items = living.level.getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<ItemEntity> items = living.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
 				for (ItemEntity item : items) {
 					if (((RingOfMagnetizationItem) stack.getItem()).canPullItem(item)) {
@@ -101,12 +101,12 @@ public class RingOfMagnetizationItem extends BaubleItem {
 						}
 
 						MathHelper.setEntityMotionFromVector(item, new Vec3(x, y, z), 0.45F);
-						if (living.level.isClientSide) {
-							boolean red = living.level.random.nextBoolean();
+						if (living.getLevel().isClientSide) {
+							boolean red = living.getLevel().random.nextBoolean();
 							float r = red ? 1F : 0F;
 							float b = red ? 0F : 1F;
 							SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
-							living.level.addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
+							living.getLevel().addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
 						}
 						pulled++;
 					}
@@ -135,11 +135,11 @@ public class RingOfMagnetizationItem extends BaubleItem {
 
 		BlockPos pos = item.blockPosition();
 
-		if (item.level.getBlockState(pos).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.getLevel().getBlockState(pos).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 
-		if (item.level.getBlockState(pos.below()).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.getLevel().getBlockState(pos.below()).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 

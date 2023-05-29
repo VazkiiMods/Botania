@@ -253,7 +253,7 @@ public class ForgeCommonInitializer {
 				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
 		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> TerraBladeItem.leftClick(e.getItemStack()));
 		bus.addListener((AttackEntityEvent e) -> TerraBladeItem.attackEntity(
-				e.getEntity(), e.getEntity().level, InteractionHand.MAIN_HAND, e.getTarget(), null));
+				e.getEntity(), e.getEntity().getLevel(), InteractionHand.MAIN_HAND, e.getTarget(), null));
 		bus.addListener((RegisterCommandsEvent e) -> this.registerCommands(
 				e.getDispatcher(), e.getCommandSelection() == Commands.CommandSelection.DEDICATED));
 		bus.addListener((PlayerSleepInBedEvent e) -> {
@@ -339,13 +339,13 @@ public class ForgeCommonInitializer {
 			bus.addListener((LivingDropsEvent e) -> {
 				var living = e.getEntity();
 				ElementiumAxeItem.onEntityDrops(e.isRecentlyHit(), e.getSource(), living, stack -> {
-					var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
+					var ent = new ItemEntity(living.getLevel(), living.getX(), living.getY(), living.getZ(), stack);
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
 				});
 				LooniumBlockEntity.dropLooniumItems(living, stack -> {
 					e.getDrops().clear();
-					var ent = new ItemEntity(living.level, living.getX(), living.getY(), living.getZ(), stack);
+					var ent = new ItemEntity(living.getLevel(), living.getX(), living.getY(), living.getZ(), stack);
 					ent.setDefaultPickUpDelay();
 					e.getDrops().add(ent);
 				});
@@ -395,7 +395,7 @@ public class ForgeCommonInitializer {
 			});
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
 				Event.Result result = e.getResult();
-				if (e.getEntity().level.isClientSide
+				if (e.getEntity().getLevel().isClientSide
 						|| result == Event.Result.DENY
 						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
 						|| !TerrasteelHelmItem.hasTerraArmorSet(e.getEntity())

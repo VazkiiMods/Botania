@@ -36,13 +36,13 @@ import vazkii.botania.api.corporea.CorporeaNodeDetector;
 import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.flower.functional.SolegnoliaBlockEntity;
-import vazkii.botania.common.brew.BotaniaBrews;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.relic.RingOfLokiItem;
+import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -181,7 +181,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public Registry<Brew> getBrewRegistry() {
-		return BotaniaBrews.registry;
+		return XplatAbstractions.INSTANCE.getOrCreateBrewRegistry();
 	}
 
 	@Override

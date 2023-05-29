@@ -86,9 +86,14 @@ public final class FiberBotaniaConfig {
 		public final PropertyMirror<Boolean> debugInfo = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> referencesEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> splashesEnabled = PropertyMirror.create(BOOLEAN);
+		public final PropertyMirror<Boolean> useShaders = PropertyMirror.create(BOOLEAN);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("rendering")
+					.beginValue("shaders", BOOLEAN, true)
+					.withComment("Set this to false to disable the use of shaders for some of the mod's renders. (Requires game restart)")
+					.finishValue(useShaders::mirror)
+
 					.beginValue("boundBlockWireframe", BOOLEAN, true)
 					.withComment("Set this to false to disable the wireframe when looking a block bound to something (spreaders, flowers, etc).")
 					.finishValue(boundBlockWireframe::mirror)
@@ -241,6 +246,11 @@ public final class FiberBotaniaConfig {
 		@Override
 		public boolean splashesEnabled() {
 			return splashesEnabled.getValue();
+		}
+
+		@Override
+		public boolean useShaders() {
+			return this.useShaders.getValue();
 		}
 	}
 

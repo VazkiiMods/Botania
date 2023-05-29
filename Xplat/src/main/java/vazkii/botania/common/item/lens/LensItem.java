@@ -108,8 +108,8 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 	public void updateBurst(ManaBurst burst, ItemStack stack) {
 		int storedColor = getStoredColor(stack);
 
-		if (storedColor == 16 && burst.entity().level.isClientSide) {
-			burst.setColor(getLensColor(stack, burst.entity().level));
+		if (storedColor == 16 && burst.entity().getLevel().isClientSide) {
+			burst.setColor(getLensColor(stack, burst.entity().getLevel()));
 		}
 
 		getLens(stack).updateBurst(burst, stack);

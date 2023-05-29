@@ -377,7 +377,7 @@ public final class RenderHelper extends RenderType {
 	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, PoseStack ms, MultiBufferSource buffers, int light, int overlay, @Nullable BakedModel model) {
 		ms.pushPose();
 		if (model == null) {
-			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.level, entity, entity.getId());
+			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.getLevel(), entity, entity.getId());
 		}
 		model.getTransforms().getTransform(ItemTransforms.TransformType.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);

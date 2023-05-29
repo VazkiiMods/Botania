@@ -44,7 +44,7 @@ public class TinyPlanetItem extends BaubleItem {
 		double y = living.getY() + living.getEyeHeight();
 		double z = living.getZ();
 
-		applyEffect(living.level, x, y, z);
+		applyEffect(living.getLevel(), x, y, z);
 	}
 
 	public static class Renderer implements AccessoryRenderer {

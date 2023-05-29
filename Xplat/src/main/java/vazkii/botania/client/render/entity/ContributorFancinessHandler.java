@@ -74,7 +74,7 @@ public final class ContributorFancinessHandler extends RenderLayer<AbstractClien
 		ms.translate(0, -0.75, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
 		Minecraft.getInstance().getItemRenderer().renderStatic(player, flower, ItemTransforms.TransformType.NONE, false,
-				ms, buffers, player.level, 0xF000F0, OverlayTexture.NO_OVERLAY, player.getId());
+				ms, buffers, player.getLevel(), 0xF000F0, OverlayTexture.NO_OVERLAY, player.getId());
 		ms.popPose();
 	}
 }

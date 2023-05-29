@@ -1,5 +1,6 @@
 package vazkii.botania.fabric.data;
 
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -51,17 +52,13 @@ public class FabricItemTagProvider extends ItemTagsProvider {
 	}
 
 	private void generateToolTags() {
-		// TODO unhardcode once Fabric API has TagKey constants
-		this.tag(fabric("axes")).add(manasteelAxe, elementiumAxe, terraAxe);
-		this.tag(fabric("hoes")).add(manasteelHoe, elementiumHoe);
-		this.tag(fabric("pickaxes")).add(manasteelPick, elementiumPick, terraPick, glassPick);
-		this.tag(fabric("shovels")).add(manasteelShovel, elementiumShovel);
-		this.tag(fabric("swords")).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
-		this.tag(fabric("shears")).add(manasteelShears, elementiumShears);
-	}
-
-	private TagKey<Item> fabric(String name) {
-		return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("fabric", name));
+		this.tag(ConventionalItemTags.AXES).add(manasteelAxe, elementiumAxe, terraAxe);
+		this.tag(ConventionalItemTags.BOWS).add(livingwoodBow, crystalBow);
+		this.tag(ConventionalItemTags.HOES).add(manasteelHoe, elementiumHoe);
+		this.tag(ConventionalItemTags.PICKAXES).add(manasteelPick, elementiumPick, terraPick, glassPick);
+		this.tag(ConventionalItemTags.SHOVELS).add(manasteelShovel, elementiumShovel);
+		this.tag(ConventionalItemTags.SWORDS).add(manasteelSword, elementiumSword, terraSword, thunderSword, starSword);
+		this.tag(ConventionalItemTags.SHEARS).add(manasteelShears, elementiumShears);
 	}
 
 	private void generateAccessoryTags() {

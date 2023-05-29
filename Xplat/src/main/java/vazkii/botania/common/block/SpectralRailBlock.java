@@ -45,32 +45,32 @@ public class SpectralRailBlock extends BaseRailBlock {
 	}
 
 	private void updateFloating(AbstractMinecart cart) {
-		cart.level.getProfiler().push("cartFloating");
+		cart.getLevel().getProfiler().push("cartFloating");
 		SpectralRailComponent persistentData = XplatAbstractions.INSTANCE.ghostRailComponent(cart);
 		int floatTicks = persistentData.floatTicks;
 		Preconditions.checkState(floatTicks > 0);
 
 		BlockPos entPos = cart.blockPosition();
-		BlockState state = cart.level.getBlockState(entPos);
+		BlockState state = cart.getLevel().getBlockState(entPos);
 		boolean air = state.isAir();
 
 		if (state.is(BotaniaTags.Blocks.GHOST_RAIL_BARRIER)
 				|| (!state.is(BotaniaBlocks.ghostRail) && state.is(BlockTags.RAILS))) {
-			cart.level.levelEvent(LevelEvent.PARTICLES_EYE_OF_ENDER_DEATH, entPos, 0);
+			cart.getLevel().levelEvent(LevelEvent.PARTICLES_EYE_OF_ENDER_DEATH, entPos, 0);
 			persistentData.floatTicks = 0;
 		} else {
 			BlockPos down = entPos.below();
-			BlockState stateBelow = cart.level.getBlockState(down);
+			BlockState stateBelow = cart.getLevel().getBlockState(down);
 			boolean airBelow = stateBelow.isAir();
 			if (air && airBelow || !air && !airBelow) {
 				cart.noPhysics = true;
 			}
 			cart.setDeltaMovement(cart.getDeltaMovement().x() * 1.4, 0.2, cart.getDeltaMovement().z() * 1.4);
 			persistentData.floatTicks--;
-			cart.level.levelEvent(LevelEvent.PARTICLES_SHOOT, entPos, 0);
+			cart.getLevel().levelEvent(LevelEvent.PARTICLES_SHOOT, entPos, 0);
 		}
 
-		cart.level.getProfiler().pop();
+		cart.getLevel().getProfiler().pop();
 	}
 
 	@SoftImplement("IForgeBaseRailBlock")
@@ -82,7 +82,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 	}
 
 	public void tickCart(AbstractMinecart c) {
-		if (c.level.isClientSide || c.isRemoved()) {
+		if (c.getLevel().isClientSide || c.isRemoved()) {
 			return;
 		}
 

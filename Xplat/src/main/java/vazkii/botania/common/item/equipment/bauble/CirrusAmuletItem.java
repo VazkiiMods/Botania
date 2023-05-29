@@ -76,7 +76,7 @@ public class CirrusAmuletItem extends BaubleItem {
 	}
 
 	public static boolean popJumping(Player entity) {
-		if (entity.level.isClientSide) {
+		if (entity.getLevel().isClientSide) {
 			return timesJumped > 0;
 		}
 		return JUMPING_PLAYERS.remove(entity);

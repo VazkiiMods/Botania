@@ -122,7 +122,7 @@ public class BlackHoleTalismanItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null) {
+		if (!entity.getLevel().isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null) {
 			if (entity instanceof Player player) {
 				suckFromPlayerInv(itemstack, block, player);
 			}

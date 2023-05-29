@@ -34,3 +34,8 @@ Current new features TODO:
   - Gen mana in day, pull mana *out* of nearby pools at night
   - Decay if no mana nearby?
   - Net negative if left unattended. Lmao
+* Making elementium better
+- Aka making pixies more enticing
+- Redo the visuals, make them fly faster or attack with modes other than "ram into the
+  enemy slowly"
+- Upgrades on the sword/armor somehow?

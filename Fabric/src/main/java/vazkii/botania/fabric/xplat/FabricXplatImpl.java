@@ -500,8 +500,15 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Registry<Brew> createBrewRegistry() {
-		return FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
+	public Registry<Brew> getOrCreateBrewRegistry() {
+		return RegistryHolder.BREW;
+	}
+
+	// static final field of an inner class provides:
+	// - at most once initialization
+	// - synchronization/serialization of concurrent accesses
+	private static class RegistryHolder {
+		public static final Registry<Brew> BREW = FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
 	}
 
 	@Nullable

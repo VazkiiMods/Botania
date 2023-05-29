@@ -24,7 +24,7 @@ public class WarpLens extends Lens {
 	@Override
 	public boolean collideBurst(ManaBurst burst, HitResult pos, boolean isManaBlock, boolean shouldKill, ItemStack stack) {
 		Entity entity = burst.entity();
-		Level world = entity.level;
+		Level world = entity.getLevel();
 
 		if (world.isClientSide || pos.getType() != HitResult.Type.BLOCK) {
 			// On the client, we don't know what the force relay mappings really are,
@@ -33,8 +33,8 @@ public class WarpLens extends Lens {
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-		if (entity.level.getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
-			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(entity.level);
+		if (entity.getLevel().getBlockState(hit).is(BotaniaBlocks.pistonRelay)) {
+			ForceRelayBlock.WorldData data = ForceRelayBlock.WorldData.get(entity.getLevel());
 			BlockPos dest = data.mapping.get(hit);
 
 			if (dest != null) {

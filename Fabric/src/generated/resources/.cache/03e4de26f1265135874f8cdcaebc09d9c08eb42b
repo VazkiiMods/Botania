@@ -1,17 +1,18 @@
 // 1.19.2	Tags for minecraft:item
+43bfa13de3ebc0be372fc48b0e4be56a25cb1893 data/c/tags/items/axes.json
+7f275353962137f9a85114283031f4b2331d5f83 data/c/tags/items/bows.json
 a2c6dc00969bcdc7fd7ec67b4265f6532e44980c data/c/tags/items/glass.json
 a2c6dc00969bcdc7fd7ec67b4265f6532e44980c data/c/tags/items/glass_blocks.json
 1ca2386179f754db1c9d959f1987aa31ea5e1681 data/c/tags/items/glass_pane.json
 1ca2386179f754db1c9d959f1987aa31ea5e1681 data/c/tags/items/glass_panes.json
+79ae3faf230addcc2958d69860afa0c406f4ca35 data/c/tags/items/hoes.json
 dae365ee882504267e5d4289acd1c72158620dc7 data/c/tags/items/mushrooms.json
+a101ef4ecfece48f1cdff62f34f30f9f25b3dbd3 data/c/tags/items/pickaxes.json
 cee1a31be42e84787f516dc9c4015dde91c02fc6 data/c/tags/items/quartz_blocks.json
+cf87b6e79ee8b03d4879ca3fcfe7e76237412757 data/c/tags/items/shears.json
+ac11e7f7d9355f0316ce880df9aaea6ee53b3734 data/c/tags/items/shovels.json
+cbf87989430a41a11a5f7c28bcf331b4159887c7 data/c/tags/items/swords.json
 c3d9bfa84d88ef5deea5ad1f9b37fafb31297dad data/c/tags/items/wooden_chests.json
-43bfa13de3ebc0be372fc48b0e4be56a25cb1893 data/fabric/tags/items/axes.json
-79ae3faf230addcc2958d69860afa0c406f4ca35 data/fabric/tags/items/hoes.json
-a101ef4ecfece48f1cdff62f34f30f9f25b3dbd3 data/fabric/tags/items/pickaxes.json
-cf87b6e79ee8b03d4879ca3fcfe7e76237412757 data/fabric/tags/items/shears.json
-ac11e7f7d9355f0316ce880df9aaea6ee53b3734 data/fabric/tags/items/shovels.json
-cbf87989430a41a11a5f7c28bcf331b4159887c7 data/fabric/tags/items/swords.json
 94f96c69b63e660269e97982b78d7e6f54374c08 data/modern_industrialization/tags/items/replicator_blacklist.json
 bb7e6831696137af69ce475bbf164dd0cd8babf3 data/trinkets/tags/items/all.json
 eea867f5a1dcf993821e804195af53f5789ce613 data/trinkets/tags/items/chest/cape.json
