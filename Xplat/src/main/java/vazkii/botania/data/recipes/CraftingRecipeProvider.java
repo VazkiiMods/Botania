@@ -2219,7 +2219,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.map(BuiltInRegistries.ITEM::get)
 				.toList();
 		for (int i = 0; i < allAzulejos.size(); i++) {
-			int resultIndex = i + 1 % allAzulejos.size();
+			int resultIndex = (i + 1) % allAzulejos.size();
 			String recipeName = "azulejo_" + resultIndex;
 			if (resultIndex == 0) {
 				recipeName += "_alt";
