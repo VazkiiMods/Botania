@@ -26,6 +26,7 @@ public final class LibEntityNames {
 	public static final ResourceLocation CORPOREA_SPARK = prefix("corporea_spark");
 	public static final ResourceLocation ENDER_AIR_BOTTLE = prefix("ender_air_bottle");
 	public static final ResourceLocation POOL_MINECART = prefix("pool_minecart");
+	public static final ResourceLocation CHARGE_MINECART = prefix("charge_minecart");
 	public static final ResourceLocation PINK_WITHER = prefix("pink_wither");
 	public static final ResourceLocation PLAYER_MOVER = prefix("player_mover");
 	public static final ResourceLocation MANA_STORM = prefix("mana_storm");
