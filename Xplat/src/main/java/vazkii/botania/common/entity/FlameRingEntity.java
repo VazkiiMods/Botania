@@ -48,28 +48,28 @@ public class FlameRingEntity extends Entity {
 				a = 45 + a;
 			}
 
-			if (level.random.nextInt(tickCount < 90 ? 8 : 20) == 0) {
+			if (getLevel().random.nextInt(tickCount < 90 ? 8 : 20) == 0) {
 				float rad = (float) (a * 4 * Math.PI / 180F);
 				double x = Math.cos(rad) * renderRadius;
 				double z = Math.sin(rad) * renderRadius;
 
 				WispParticleData data1 = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
-				level.addParticle(data1, getX() + x, getY() - 0.2, getZ() + z, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
+				getLevel().addParticle(data1, getX() + x, getY() - 0.2, getZ() + z, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
 
 				float gs = (float) Math.random() * 0.15F;
 				float smokeRadius = (float) (renderRadius - Math.random() * renderRadius * 0.9);
 				x = Math.cos(rad) * smokeRadius;
 				z = Math.sin(rad) * smokeRadius;
 				WispParticleData data = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, gs, gs, gs, 1);
-				level.addParticle(data, getX() + x, getY() - 0.2, getZ() + z, 0, -(-0.155F - (float) Math.random() * 0.025F), 0);
+				getLevel().addParticle(data, getX() + x, getY() - 0.2, getZ() + z, 0, -(-0.155F - (float) Math.random() * 0.025F), 0);
 			}
 		}
 
-		if (level.random.nextInt(20) == 0) {
-			level.playLocalSound(getX(), getY(), getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1F, 1F, false);
+		if (getLevel().random.nextInt(20) == 0) {
+			getLevel().playLocalSound(getX(), getY(), getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.BLOCKS, 1F, 1F, false);
 		}
 
-		if (level.isClientSide) {
+		if (getLevel().isClientSide) {
 			return;
 		}
 
@@ -80,7 +80,7 @@ public class FlameRingEntity extends Entity {
 
 		if (tickCount > 45) {
 			AABB boundingBox = new AABB(getX(), getY(), getZ(), getX(), getY(), getZ()).inflate(radius, radius, radius);
-			List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
+			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, boundingBox);
 
 			if (entities.isEmpty()) {
 				return;

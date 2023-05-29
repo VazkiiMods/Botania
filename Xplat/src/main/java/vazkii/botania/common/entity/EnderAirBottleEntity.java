@@ -77,7 +77,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	@Override
 	protected void onHitBlock(@NotNull BlockHitResult result) {
 		super.onHitBlock(result);
-		if (level.isClientSide) {
+		if (getLevel().isClientSide) {
 			return;
 		}
 		convertBlock(result.getBlockPos());
@@ -108,7 +108,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
 
 			LootTable table = this.getLevel().getServer().getLootTables().get(GHAST_LOOT_TABLE);
-			LootContext.Builder builder = new LootContext.Builder(((ServerLevel) level));
+			LootContext.Builder builder = new LootContext.Builder(((ServerLevel) getLevel()));
 			builder.withParameter(LootContextParams.THIS_ENTITY, entity);
 			builder.withParameter(LootContextParams.ORIGIN, entity.position());
 			builder.withParameter(LootContextParams.DAMAGE_SOURCE, source);
@@ -131,7 +131,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 
 		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
 				pos.offset(range, rangeY, range))) {
-			BlockState state = level.getBlockState(bPos);
+			BlockState state = getLevel().getBlockState(bPos);
 			if (state.is(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE)) {
 				possibleCoords.add(bPos.immutable());
 			}

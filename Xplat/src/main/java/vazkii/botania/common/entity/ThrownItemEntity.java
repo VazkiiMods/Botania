@@ -79,19 +79,19 @@ public class ThrownItemEntity extends ItemEntity {
 		}
 
 		// Bonk any entities hit
-		if (!level.isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
+		if (!getLevel().isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
 			Entity bonk = ((EntityHitResult) hitResult).getEntity();
 			bonk.hurt(DamageSource.MAGIC, 2.0F);
-			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
-			level.addFreshEntity(item);
+			Entity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), getItem());
+			getLevel().addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement().scale(0.25));
 			discard();
 			return;
 		}
 
-		if (!level.isClientSide && getDeltaMovement().length() < 1.0F) {
-			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
-			level.addFreshEntity(item);
+		if (!getLevel().isClientSide && getDeltaMovement().length() < 1.0F) {
+			Entity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), getItem());
+			getLevel().addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement());
 			discard();
 		}

@@ -53,7 +53,7 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity {
 	@Nullable
 	@Override
 	public ManaReceiver getAttachedManaReceiver() {
-		return XplatAbstractions.INSTANCE.findManaReceiver(level, getAttachPos(), Direction.UP);
+		return XplatAbstractions.INSTANCE.findManaReceiver(getLevel(), getAttachPos(), Direction.UP);
 	}
 
 	@Override

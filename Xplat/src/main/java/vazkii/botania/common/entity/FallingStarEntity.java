@@ -54,7 +54,7 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 	public void tick() {
 		super.tick();
 
-		if (!hasBeenInAir && !level.isClientSide) {
+		if (!hasBeenInAir && !getLevel().isClientSide) {
 			var bs = getFeetBlockState();
 			hasBeenInAir = bs.isAir() || isInWater() || isInLava();
 		}
@@ -65,13 +65,13 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			level.addAlwaysVisibleParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
+			getLevel().addAlwaysVisibleParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
 		}
 
 		Entity thrower = getOwner();
-		if (!level.isClientSide && thrower != null) {
+		if (!getLevel().isClientSide && thrower != null) {
 			AABB axis = new AABB(getX(), getY(), getZ(), xOld, yOld, zOld).inflate(2);
-			List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, axis);
+			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, axis);
 			for (LivingEntity living : entities) {
 				if (living == thrower) {
 					continue;
@@ -97,7 +97,7 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 		if (e instanceof Villager) {
 			return;
 		}
-		if (!level.isClientSide) {
+		if (!getLevel().isClientSide) {
 			if (e != getOwner() && e.isAlive()) {
 				if (getOwner() instanceof Player player) {
 					e.hurt(DamageSource.playerAttack(player), Math.random() < 0.25 ? 10 : 5);
@@ -112,9 +112,9 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 	@Override
 	protected void onHitBlock(BlockHitResult hit) {
 		super.onHitBlock(hit);
-		if (!level.isClientSide) {
+		if (!getLevel().isClientSide) {
 			BlockPos bpos = hit.getBlockPos();
-			BlockState state = level.getBlockState(bpos);
+			BlockState state = getLevel().getBlockState(bpos);
 			if (hasBeenInAir) {
 				if (BotaniaConfig.common().blockBreakParticles() && !state.isAir()) {
 					this.getLevel().levelEvent(2001, bpos, Block.getId(state));

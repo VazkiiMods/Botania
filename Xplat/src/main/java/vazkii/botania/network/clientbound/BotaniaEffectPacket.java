@@ -143,7 +143,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 								double d2 = item.getLevel().random.nextGaussian() * m;
 								double d3 = 10.0D;
 								item.getLevel().addParticle(ParticleTypes.POOF,
-										x + item.getLevel().random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.level.random.nextFloat() * item.getBbHeight() - d1 * d3,
+										x + item.getLevel().random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.getLevel().random.nextFloat() * item.getBbHeight() - d1 * d3,
 										z + item.getLevel().random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d2 * d3, d0, d1, d2);
 							}
 						}

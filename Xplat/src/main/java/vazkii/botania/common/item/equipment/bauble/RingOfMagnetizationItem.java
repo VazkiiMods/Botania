@@ -135,11 +135,11 @@ public class RingOfMagnetizationItem extends BaubleItem {
 
 		BlockPos pos = item.blockPosition();
 
-		if (item.level.getBlockState(pos).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.getLevel().getBlockState(pos).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 
-		if (item.level.getBlockState(pos.below()).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
+		if (item.getLevel().getBlockState(pos.below()).is(BotaniaTags.Blocks.MAGNET_RING_BLACKLIST)) {
 			return false;
 		}
 

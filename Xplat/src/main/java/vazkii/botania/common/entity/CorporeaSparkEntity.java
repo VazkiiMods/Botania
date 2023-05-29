@@ -83,12 +83,12 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	public void tick() {
 		super.tick();
 
-		if (level.isClientSide) {
+		if (getLevel().isClientSide) {
 			return;
 		}
 
 		CorporeaNode node = getSparkNode();
-		if (node instanceof DummyCorporeaNode && !level.getBlockState(getAttachPos()).is(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
+		if (node instanceof DummyCorporeaNode && !getLevel().getBlockState(getAttachPos()).is(BotaniaTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
 		}
@@ -149,7 +149,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 	@SuppressWarnings("unchecked")
 	private List<CorporeaSpark> getNearbySparks() {
-		return (List) level.getEntitiesOfClass(Entity.class, new AABB(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(CorporeaSpark.class));
+		return (List) getLevel().getEntitiesOfClass(Entity.class, new AABB(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(CorporeaSpark.class));
 	}
 
 	private void restartNetwork() {
@@ -199,7 +199,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 	@Override
 	public CorporeaNode getSparkNode() {
-		return CorporeaNodeDetectors.findNode(level, this);
+		return CorporeaNodeDetectors.findNode(getLevel(), this);
 	}
 
 	@Override
@@ -214,7 +214,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 
 	@Override
 	public void onItemExtracted(ItemStack stack) {
-		((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
+		((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
 	}
 
 	@Override
@@ -223,7 +223,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		for (ItemStack stack : stacks) {
 			if (!shownItems.contains(stack.getItem())) {
 				shownItems.add(stack.getItem());
-				((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
+				((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
 			}
 		}
 	}
@@ -256,7 +256,7 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
 			if (stack.getItem() instanceof WandOfTheForestItem) {
-				if (!level.isClientSide) {
+				if (!getLevel().isClientSide) {
 					if (player.isShiftKeyDown()) {
 						dropAndKill();
 						if (isMaster()) {
@@ -266,23 +266,23 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 						displayRelatives(player, new ArrayList<>(), master);
 					}
 				}
-				return InteractionResult.sidedSuccess(level.isClientSide);
+				return InteractionResult.sidedSuccess(getLevel().isClientSide);
 			} else if (stack.getItem() instanceof DyeItem dye) {
 				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
-					if (!level.isClientSide) {
+					if (!getLevel().isClientSide) {
 						setNetwork(color);
 
 						stack.shrink(1);
 					}
 
-					return InteractionResult.sidedSuccess(level.isClientSide);
+					return InteractionResult.sidedSuccess(getLevel().isClientSide);
 				}
 			} else if (stack.is(BotaniaItems.phantomInk)) {
-				if (!level.isClientSide) {
+				if (!getLevel().isClientSide) {
 					setInvisible(true);
 				}
-				return InteractionResult.sidedSuccess(level.isClientSide);
+				return InteractionResult.sidedSuccess(getLevel().isClientSide);
 			}
 		}
 
