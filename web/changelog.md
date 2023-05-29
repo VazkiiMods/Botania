@@ -18,6 +18,10 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+---
+
+{% include changelog_header.html version="1.19.2-440" %}
+
 * Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
 * Add: Grass Seeds can now be placed by dispensers.
 * Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the
