@@ -95,6 +95,11 @@ public final class BotaniaEntities {
 			.clientTrackingRange(5)
 			.updateInterval(3)
 			.build(LibEntityNames.POOL_MINECART.toString());
+	public static final EntityType<ManaStormChargeMinecartEntity> CHARGE_MINECART = EntityType.Builder.<ManaStormChargeMinecartEntity>of(ManaStormChargeMinecartEntity::new, MobCategory.MISC)
+			.sized(0.98F, 0.7F)
+			.clientTrackingRange(5)
+			.updateInterval(3)
+			.build(LibEntityNames.CHARGE_MINECART.toString());
 	public static final EntityType<PinkWitherEntity> PINK_WITHER = EntityType.Builder.of(PinkWitherEntity::new, MobCategory.MISC)
 			.sized(0.9F, 3.5F)
 			.clientTrackingRange(6)
@@ -141,6 +146,7 @@ public final class BotaniaEntities {
 		r.accept(CORPOREA_SPARK, LibEntityNames.CORPOREA_SPARK);
 		r.accept(ENDER_AIR_BOTTLE, LibEntityNames.ENDER_AIR_BOTTLE);
 		r.accept(POOL_MINECART, LibEntityNames.POOL_MINECART);
+		r.accept(CHARGE_MINECART, LibEntityNames.CHARGE_MINECART);
 		r.accept(PINK_WITHER, LibEntityNames.PINK_WITHER);
 		r.accept(PLAYER_MOVER, LibEntityNames.PLAYER_MOVER);
 		r.accept(MANA_STORM, LibEntityNames.MANA_STORM);

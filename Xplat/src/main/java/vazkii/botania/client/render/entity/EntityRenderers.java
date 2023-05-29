@@ -1,11 +1,13 @@
 package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -47,6 +49,7 @@ public final class EntityRenderers {
 		consumer.accept(BotaniaEntities.SPARK, ManaSparkRenderer::new);
 		consumer.accept(BotaniaEntities.CORPOREA_SPARK, CorporeaSparkRenderer::new);
 		consumer.accept(BotaniaEntities.POOL_MINECART, ManaPoolMinecartRenderer::new);
+		consumer.accept(BotaniaEntities.CHARGE_MINECART, context -> new MinecartRenderer<>(context, ModelLayers.MINECART));
 		consumer.accept(BotaniaEntities.PINK_WITHER, PinkWitherRenderer::new);
 		consumer.accept(BotaniaEntities.MANA_STORM, ManaStormRenderer::new);
 		consumer.accept(BotaniaEntities.BABYLON_WEAPON, BabylonWeaponRenderer::new);
