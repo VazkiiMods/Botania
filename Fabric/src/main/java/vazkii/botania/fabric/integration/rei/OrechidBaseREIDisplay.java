@@ -23,10 +23,12 @@ import java.util.stream.Collectors;
 public abstract class OrechidBaseREIDisplay<T extends OrechidRecipe> implements Display {
 	private final List<EntryIngredient> stone;
 	private final List<EntryIngredient> ores;
+	private final T recipe;
 
 	public OrechidBaseREIDisplay(T recipe) {
 		stone = Collections.singletonList(EntryIngredient.of(recipe.getInput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
 		ores = Collections.singletonList(EntryIngredient.of(recipe.getOutput().getDisplayedStacks().stream().map(EntryStacks::of).collect(Collectors.toList())));
+		this.recipe = recipe;
 	}
 
 	@Override
@@ -37,5 +39,9 @@ public abstract class OrechidBaseREIDisplay<T extends OrechidRecipe> implements 
 	@Override
 	public @NotNull List<EntryIngredient> getOutputEntries() {
 		return ores;
+	}
+
+	public T getRecipe() {
+		return recipe;
 	}
 }
