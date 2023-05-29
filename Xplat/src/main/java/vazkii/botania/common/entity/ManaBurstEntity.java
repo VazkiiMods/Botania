@@ -39,6 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.entity.ManaSensitive;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
@@ -538,7 +539,14 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 	@Override
 	protected void onHitEntity(@NotNull EntityHitResult hit) {
 		super.onHitEntity(hit);
-		onHitCommon(hit, false);
+		boolean shouldKill;
+		if (hit.getEntity() instanceof ManaSensitive e) {
+			shouldKill = e.onBurstCollision(this);
+		}
+		else{
+			shouldKill = false;
+		}
+		onHitCommon(hit, shouldKill);
 	}
 
 	private void onHitCommon(HitResult hit, boolean shouldKill) {
