@@ -39,7 +39,7 @@
     "MobEffectAccessor",
     "NaturalSpawnerMixin",
     "NearestAttackableTargetGoalAccessor",
-    "NoiseChunkAccessor",
+    "NoiseBasedChunkGeneratorAccessor",
     "PistonBaseBlockAccessor",
     "PistonBaseBlockMixin",
     "PlayerMixin",
