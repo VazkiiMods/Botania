@@ -1379,6 +1379,11 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(BotaniaBlocks.manaPool)
 				.unlockedBy("has_item", conditionsFromItem(Items.MINECART))
 				.save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.chargeMinecart)
+				.requires(Items.MINECART)
+				.requires(BotaniaBlocks.manaBomb)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaBomb))
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.blackHoleTalisman)
 				.define('A', BotaniaItems.enderAirBottle)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
