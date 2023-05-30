@@ -1,7 +1,5 @@
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
@@ -11,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.entity.ManaSensitive;
 import vazkii.botania.api.internal.ManaBurst;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.item.BotaniaItems;
 
 public class ManaStormChargeMinecartEntity extends AbstractMinecart implements ManaSensitive {
 
@@ -24,8 +23,7 @@ public class ManaStormChargeMinecartEntity extends AbstractMinecart implements M
 
     @Override
     protected Item getDropItem() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDropItem'");
+        return BotaniaItems.chargeMinecart;
     }
 
     @Override
