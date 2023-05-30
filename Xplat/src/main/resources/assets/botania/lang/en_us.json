@@ -2607,6 +2607,8 @@
   "botania.tagline.manaBomb": "Manastorm Charge go BOOM. BOOM BOOM. BOOMBOOMBOOMBOOMBOOMBOOM",
   "botania.page.manaBomb0": "Infusing a $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirit$(0)$(/l) with some $(item)TNT$(0) creates a $(item)Manastorm Charge$(0), a type of explosive. In a sense. Once ignited with a $(item)Mana Burst$(0), the charge will create an unstable $(item)Manastorm Epicenter$(0). This will, over time, spawn supercharged explosive $(item)Mana Bursts$(0).$(p)Needless to say, only a maniac would unleash such a destructive force near anything valuable or important.",
   "botania.page.manaBomb1": "Prepare to face the mighty...",
+  "botania.page.manaBombCart0": "Such a maniac, however, may be interested by the possibility of activating the charge while in motion, as can be done with other explosives.",
+  "botania.page.manaBombCart1": "This seems like a bad idea",
 
   "botania.entry.teruTeruBozu": "Teru Teru Bozu",
   "botania.tagline.teruTeruBozu": "Weather control and cuteness overload",

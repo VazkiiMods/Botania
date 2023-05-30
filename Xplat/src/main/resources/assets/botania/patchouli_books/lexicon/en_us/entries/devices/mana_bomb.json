@@ -13,6 +13,15 @@
       "type": "crafting",
       "text": "botania.page.manaBomb1",
       "recipe": "botania:mana_bomb"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.manaBombCart0"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.manaBombCart1",
+      "recipe": "botania:charge_cart"
     }
   ]
 }
