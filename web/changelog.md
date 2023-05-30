@@ -18,6 +18,9 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+* Add: Added Minecart with Manastorm Charge
+* Add: The API now has a component, ManaSensitive, for entities that react when hit by mana bursts
+
 ---
 
 {% include changelog_header.html version="1.19.2-440" %}
