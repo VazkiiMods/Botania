@@ -542,8 +542,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		boolean shouldKill;
 		if (hit.getEntity() instanceof ManaSensitive e) {
 			shouldKill = e.onBurstCollision(this);
-		}
-		else{
+		} else {
 			shouldKill = false;
 		}
 		onHitCommon(hit, shouldKill);

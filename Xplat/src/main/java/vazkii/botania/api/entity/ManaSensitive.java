@@ -7,11 +7,11 @@ import vazkii.botania.api.internal.ManaBurst;
  */
 public interface ManaSensitive {
 
-    /**
+	/**
 	 * Called when the entity is hit by a burst.
 	 * 
-     * @return Whether the burst should be destroyed
+	 * @return Whether the burst should be destroyed
 	 */
-    boolean onBurstCollision(ManaBurst burst);
+	boolean onBurstCollision(ManaBurst burst);
 
 }
