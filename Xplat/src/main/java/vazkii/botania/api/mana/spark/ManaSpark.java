@@ -41,6 +41,11 @@ public interface ManaSpark extends SparkEntity {
 	 */
 	void registerTransfer(ManaSpark entity);
 
+	/**
+	 * Makes that spark register transfers for all relevant sparks, decided
+	 */
+	void updateTransfers();
+
 	SparkUpgradeType getUpgrade();
 
 	void setUpgrade(SparkUpgradeType upgrade);
