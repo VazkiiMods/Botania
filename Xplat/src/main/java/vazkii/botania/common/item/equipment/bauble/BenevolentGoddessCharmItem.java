@@ -9,7 +9,6 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -27,6 +26,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.client.render.AccessoryRenderer;
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.proxy.Proxy;
 
@@ -58,7 +58,7 @@ public class BenevolentGoddessCharmItem extends BaubleItem {
 		public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			bipedModel.head.translateAndRotate(ms);
 			ms.translate(0.275, -0.4, 0);
-			ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+			ms.mulPose(VecHelper.rotateY(-90F));
 			ms.scale(0.55F, -0.55F, -0.55F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
 					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());

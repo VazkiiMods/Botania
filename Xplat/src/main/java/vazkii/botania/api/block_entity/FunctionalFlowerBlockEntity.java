@@ -10,7 +10,7 @@ package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -110,14 +110,7 @@ public abstract class FunctionalFlowerBlockEntity extends BindableSpecialFlowerB
 
 	@Override
 	public ItemStack getDefaultHudIcon() {
-		return Registry.ITEM.getOptional(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
-	}
-
-	// TODO 1.19.3/1.20 remove
-	public static class FunctionalWandHud<F extends FunctionalFlowerBlockEntity> extends BindableFlowerWandHud<F> {
-		public FunctionalWandHud(F flower) {
-			super(flower);
-		}
+		return BuiltInRegistries.ITEM.getOptional(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
 	@Override

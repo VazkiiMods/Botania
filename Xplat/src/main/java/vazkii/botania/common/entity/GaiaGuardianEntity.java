@@ -17,11 +17,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -630,7 +631,7 @@ public class GaiaGuardianEntity extends Mob {
 						continue;
 					}
 
-					if (CHEATY_BLOCKS.contains(Registry.BLOCK.getKey(block))) {
+					if (CHEATY_BLOCKS.contains(BuiltInRegistries.BLOCK.getKey(block))) {
 						getLevel().destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks
@@ -1005,9 +1006,8 @@ public class GaiaGuardianEntity extends Mob {
 		Proxy.INSTANCE.runOnClient(() -> () -> DopplegangerMusic.play(this));
 	}
 
-	@NotNull
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return XplatAbstractions.INSTANCE.toVanillaClientboundPacket(
 				new SpawnGaiaGuardianPacket(new ClientboundAddEntityPacket(this), playerCount, hardMode, source, bossInfoUUID));
 	}

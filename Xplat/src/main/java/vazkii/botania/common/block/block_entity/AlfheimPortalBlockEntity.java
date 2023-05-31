@@ -13,7 +13,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -65,7 +64,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		record Matcher(TagKey<Block> tag, Direction.Axis displayedRotation, Block defaultBlock) implements IStateMatcher {
 			@Override
 			public BlockState getDisplayedState(long ticks) {
-				var blocks = StreamSupport.stream(Registry.BLOCK.getTagOrEmpty(this.tag).spliterator(), false)
+				var blocks = StreamSupport.stream(BuiltInRegistries.BLOCK.getTagOrEmpty(this.tag).spliterator(), false)
 						.map(Holder::value)
 						.toList();
 				if (blocks.isEmpty()) {
@@ -191,8 +190,9 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				level.setBlockAndUpdate(worldPosition, blockState.setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 			}
 		} else if (self.explode) {
+			// TODO 1.19.3 is "BLOCK" correct here?
 			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
-					3f, Explosion.BlockInteraction.BREAK);
+					3f, Level.ExplosionInteraction.BLOCK);
 			self.explode = false;
 
 			if (!level.isClientSide && self.breadPlayer != null) {

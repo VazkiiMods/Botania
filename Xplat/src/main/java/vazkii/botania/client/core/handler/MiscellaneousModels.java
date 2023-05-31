@@ -21,20 +21,15 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.lib.ResourcesLib;
-import vazkii.botania.client.model.ManaBlasterModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.relic.KeyOfTheKingsLawItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.client.ModelBakeryAccessor;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -94,7 +89,10 @@ public class MiscellaneousModels {
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[KeyOfTheKingsLawItem.WEAPON_TYPES];
 
 	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
-		Set<Material> materials = ModelBakeryAccessor.getMaterials();
+		// TODO 1.19.3 i think this whole thing can be done with a resource pack now?
+		// For now, just making an empty set here because the set we accessed before doesn't exist anymore
+		// This file doesn't do anything currently
+		Set<Material> materials = new HashSet<>();
 
 		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
 				lightRelayForkWorldIcon, lightRelayToggleWorldIcon, alchemyCatalystOverlay, conjurationCatalystOverlay,
@@ -125,9 +123,9 @@ public class MiscellaneousModels {
 			consumer.accept(prefix("icon/tiara_wing_" + (i + 1)));
 		}
 
-		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
-		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
-		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
+		consumer.accept(new ModelResourceLocation(prefix("mana_gun_clip"), "inventory"));
+		consumer.accept(new ModelResourceLocation(prefix("desu_gun"), "inventory"));
+		consumer.accept(new ModelResourceLocation(prefix("desu_gun_clip"), "inventory"));
 		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
 		consumer.accept(prefix("block/pump_head"));
 		consumer.accept(prefix("block/elven_spreader_core"));
@@ -178,11 +176,11 @@ public class MiscellaneousModels {
 			return;
 		}
 		// Platforms
-		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "");
+		ModelResourceLocation abstruseName = new ModelResourceLocation(prefix("abstruse_platform"), "");
 		BakedModel abstruse = map.get(abstruseName);
-		ModelResourceLocation spectralName = new ModelResourceLocation("botania:spectral_platform", "");
+		ModelResourceLocation spectralName = new ModelResourceLocation(prefix("spectral_platform"), "");
 		BakedModel spectral = map.get(spectralName);
-		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "");
+		ModelResourceLocation infrangibleName = new ModelResourceLocation(prefix("infrangible_platform"), "");
 		BakedModel infrangible = map.get(infrangibleName);
 
 		map.put(abstruseName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(abstruse));
@@ -190,14 +188,15 @@ public class MiscellaneousModels {
 		map.put(infrangibleName, ClientXplatAbstractions.INSTANCE.wrapPlatformModel(infrangible));
 
 		// Mana Blaster
-		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
+		ModelResourceLocation key = new ModelResourceLocation(prefix("mana_gun"), "inventory");
 		BakedModel originalModel = map.get(key);
-		ModelResourceLocation clipKey = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
+		ModelResourceLocation clipKey = new ModelResourceLocation(prefix("mana_gun_clip"), "inventory");
 		BakedModel originalModelClip = map.get(clipKey);
-		map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
+		// TODO 1.19.3 i get some weird error with this class not being able to load for some reason??
+		// map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
 
 		// Tiny Potato
-		ModelResourceLocation tinyPotato = new ModelResourceLocation("botania:tiny_potato", "inventory");
+		ModelResourceLocation tinyPotato = new ModelResourceLocation(prefix("tiny_potato"), "inventory");
 		BakedModel originalPotato = map.get(tinyPotato);
 		map.put(tinyPotato, new TinyPotatoModel(originalPotato));
 

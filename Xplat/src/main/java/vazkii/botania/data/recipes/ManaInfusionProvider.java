@@ -10,8 +10,8 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.DyeColor;
@@ -41,8 +41,8 @@ import java.util.function.Consumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaInfusionProvider extends BotaniaRecipeProvider {
-	public ManaInfusionProvider(DataGenerator gen) {
-		super(gen);
+	public ManaInfusionProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(new FinishedRecipe(id("manasteel"), new ItemStack(BotaniaItems.manaSteel), Ingredient.of(Items.IRON_INGOT), 3000));
 		consumer.accept(new FinishedRecipe(id("manasteel_block"), new ItemStack(BotaniaBlocks.manasteelBlock), ingr(Blocks.IRON_BLOCK), 27000));
 
@@ -184,13 +184,13 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		for (int i = 0; i < items.length; i++) {
 			Ingredient in = ingr(items[i]);
 			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
-			String id = String.format("%s_to_%s", Registry.ITEM.getKey(items[i].asItem()).getPath(), Registry.ITEM.getKey(out.getItem()).getPath());
+			String id = String.format("%s_to_%s", BuiltInRegistries.ITEM.getKey(items[i].asItem()).getPath(), BuiltInRegistries.ITEM.getKey(out.getItem()).getPath());
 			consumer.accept(FinishedRecipe.alchemy(id(id), out, in, cost, group));
 		}
 	}
 
 	protected FinishedRecipe mini(ItemLike mini, ItemLike full) {
-		return FinishedRecipe.alchemy(id(Registry.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
+		return FinishedRecipe.alchemy(id(BuiltInRegistries.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
 	}
 
 	protected FinishedRecipe deconstruct(String id, ItemLike items, ItemLike block) {

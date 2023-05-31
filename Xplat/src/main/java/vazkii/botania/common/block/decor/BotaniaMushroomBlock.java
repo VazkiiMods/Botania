@@ -36,7 +36,7 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 	public final DyeColor color;
 
 	public BotaniaMushroomBlock(DyeColor color, Properties builder) {
-		super(builder, () -> TreeFeatures.HUGE_BROWN_MUSHROOM /* Doesn't matter, we override the grow method */);
+		super(builder, TreeFeatures.HUGE_BROWN_MUSHROOM /* Doesn't matter, we override the grow method */);
 		this.color = color;
 	}
 

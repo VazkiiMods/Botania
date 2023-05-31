@@ -10,7 +10,6 @@ package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
@@ -18,6 +17,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
+
+import vazkii.botania.common.helper.VecHelper;
 
 public class HourglassModel extends Model {
 
@@ -84,7 +85,7 @@ public class HourglassModel extends Model {
 			if (flip) {
 				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			} else {
-				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+				ms.mulPose(VecHelper.rotateZ(180F));
 				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract1, 1F);
@@ -97,7 +98,7 @@ public class HourglassModel extends Model {
 			if (flip) {
 				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			} else {
-				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+				ms.mulPose(VecHelper.rotateZ(180F));
 				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract2, 1F);

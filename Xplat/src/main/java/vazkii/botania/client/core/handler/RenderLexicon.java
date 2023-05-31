@@ -10,8 +10,6 @@ package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -30,8 +28,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
+import org.joml.Matrix4f;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.ResourcesLib;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
 import vazkii.botania.common.lib.LibMisc;
@@ -105,12 +106,12 @@ public class RenderLexicon {
 
 		if (!leftHanded) {
 			ms.translate(0.3F + 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.mulPose(Vector3f.YP.rotationDegrees(180F + ticks * 6));
+			ms.mulPose(VecHelper.rotateY(180F + ticks * 6));
 		} else {
 			ms.translate(0.1F - 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.mulPose(Vector3f.YP.rotationDegrees(200F + ticks * 10));
+			ms.mulPose(VecHelper.rotateY(200F + ticks * 10));
 		}
-		ms.mulPose(Vector3f.ZP.rotationDegrees(-0.3F + ticks * 2.85F));
+		ms.mulPose(VecHelper.rotateZ(-0.3F + ticks * 2.85F));
 		float opening = Mth.clamp(ticks / 12F, 0, 1);
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
@@ -131,7 +132,7 @@ public class RenderLexicon {
 
 		if (ticks < 3) {
 			Font font = Minecraft.getInstance().font;
-			ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+			ms.mulPose(VecHelper.rotateZ(180F));
 			ms.translate(-0.30F, -0.24F, -0.07F);
 			ms.scale(0.0030F, 0.0030F, -0.0030F);
 

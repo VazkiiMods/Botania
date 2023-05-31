@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -24,6 +23,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.mixin.ItemEntityAccessor;
 
 public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<ManaEnchanterBlockEntity> {
@@ -58,7 +58,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 			ms.translate(-0.5F, -1.25F, -0.5F);
 		}
 
-		ms.mulPose(Vector3f.XP.rotationDegrees(90F));
+		ms.mulPose(VecHelper.rotateX(90F));
 		ms.translate(-2F, -2F, -0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + partTicks) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
@@ -72,7 +72,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 
 				ms.translate(2.5F, 2.5F, -yTranslation);
 				ms.scale(scale, scale, 1F);
-				ms.mulPose(Vector3f.ZP.rotationDegrees(angle));
+				ms.mulPose(VecHelper.rotateZ(angle));
 				ms.translate(-2.5F, -2.5F, 0F);
 			}
 

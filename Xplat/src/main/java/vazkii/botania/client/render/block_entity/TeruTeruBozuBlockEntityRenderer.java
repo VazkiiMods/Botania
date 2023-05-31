@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -25,6 +24,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.client.model.TeruTeruBozuModel;
 import vazkii.botania.common.block.block_entity.TeruTeruBozuBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -41,7 +41,7 @@ public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<Teru
 	@Override
 	public void render(@Nullable TeruTeruBozuBlockEntity tileentity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ms.pushPose();
-		ms.mulPose(Vector3f.XP.rotationDegrees(180));
+		ms.mulPose(VecHelper.rotateX(180));
 		double time = ClientTickHandler.ticksInGame + partialTicks;
 		boolean hasWorld = tileentity != null && tileentity.getLevel() != null;
 		if (hasWorld) {
@@ -50,8 +50,8 @@ public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<Teru
 
 		ms.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if (hasWorld) {
-			ms.mulPose(Vector3f.YP.rotationDegrees((float) (time * 0.3)));
-			ms.mulPose(Vector3f.ZP.rotationDegrees(4F * (float) Math.sin(time * 0.05F)));
+			ms.mulPose(VecHelper.rotateY((float) (time * 0.3)));
+			ms.mulPose(VecHelper.rotateZ(4F * (float) Math.sin(time * 0.05F)));
 			float s = 0.75F;
 			ms.scale(s, s, s);
 		}

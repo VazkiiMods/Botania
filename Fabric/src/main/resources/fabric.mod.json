@@ -45,6 +45,7 @@
       "vazkii.botania.test.block.TargetBlockTest",
       "vazkii.botania.test.block.ApothecaryRecipeTest",
       "vazkii.botania.test.block.EntropinnyumUnethicalTntDetectionTest",
+      "vazkii.botania.test.item.AstrolabeTest",
       "vazkii.botania.test.item.CacophoniumTest",
       "vazkii.botania.test.item.FlowerPouchTest",
       "vazkii.botania.test.item.LifeAggregatorTest",
@@ -76,9 +77,9 @@
   "accessWidener": "botania.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.12",
-    "fabric": ">=0.73",
-    "minecraft": ">=1.19.2",
+    "fabricloader": ">=0.14",
+    "fabric-api": ">=0.76",
+    "minecraft": ">=1.19.3",
     "trinkets" : ">=3",
     "patchouli": "*"
   },

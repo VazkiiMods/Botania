@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
@@ -139,7 +139,7 @@ public class BotaniaTags {
 		}
 
 		private static TagKey<Item> tag(String name) {
-			return TagKey.create(Registry.ITEM_REGISTRY, prefix(name));
+			return TagKey.create(Registries.ITEM, prefix(name));
 		}
 	}
 
@@ -231,7 +231,7 @@ public class BotaniaTags {
 		public static final TagKey<Block> UNWANDABLE = tag("unwandable");
 
 		private static TagKey<Block> tag(String name) {
-			return TagKey.create(Registry.BLOCK_REGISTRY, prefix(name));
+			return TagKey.create(Registries.BLOCK, prefix(name));
 		}
 	}
 
@@ -247,7 +247,7 @@ public class BotaniaTags {
 		public static final TagKey<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
 		private static TagKey<EntityType<?>> tag(String name) {
-			return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, prefix(name));
+			return TagKey.create(Registries.ENTITY_TYPE, prefix(name));
 		}
 	}
 
@@ -284,7 +284,7 @@ public class BotaniaTags {
 		public static final TagKey<Biome> MYSTICAL_MUSHROOM_BLOCKLIST = tag("mystical_mushroom_blocklist");
 
 		private static TagKey<Biome> tag(String name) {
-			return TagKey.create(Registry.BIOME_REGISTRY, prefix(name));
+			return TagKey.create(Registries.BIOME, prefix(name));
 		}
 	}
 
@@ -300,7 +300,7 @@ public class BotaniaTags {
 		public static final TagKey<BannerPattern> PATTERN_ITEM_SPARK_ISOLATED = tag("pattern_item/spark_isolated");
 
 		private static TagKey<BannerPattern> tag(String name) {
-			return TagKey.create(Registry.BANNER_PATTERN_REGISTRY, prefix(name));
+			return TagKey.create(Registries.BANNER_PATTERN, prefix(name));
 		}
 	}
 }

@@ -8,10 +8,13 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -24,17 +27,17 @@ import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.Comparator;
+import java.util.concurrent.CompletableFuture;
 
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
-	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {
-		super(generatorIn, blockTagProvider);
+	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagProvider blockTagProvider) {
+		super(packOutput, lookupProvider, blockTagProvider);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
@@ -66,9 +69,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.tag(BotaniaTags.Items.BURST_VIEWERS).add(monocle);
 		this.tag(BotaniaTags.Items.TERRA_PICK_BLACKLIST).add(auraRing, auraRingGreater, terrasteelHelm, spark);
 		TagsProvider.TagAppender<Item> builder = this.tag(BotaniaTags.Items.LENS);
-		Registry.ITEM.stream().filter(i -> i instanceof LensItem && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
-				.sorted(Comparator.comparing(Registry.ITEM::getKey))
-				.forEach(builder::add);
+		BuiltInRegistries.ITEM.stream().filter(i -> i instanceof LensItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+				.map(BuiltInRegistries.ITEM::getKey)
+				.sorted()
+				.forEach(item -> builder.add(ResourceKey.create(Registries.ITEM, item)));
 
 		this.tag(BotaniaTags.Items.LENS_GLUE).add(Items.SLIME_BALL).add(Items.HONEY_BOTTLE);
 

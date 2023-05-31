@@ -10,6 +10,7 @@ package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.entity.player.Player;
@@ -106,7 +107,7 @@ public class PlatformBlockEntity extends BotaniaBlockEntity implements Wandable 
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
-		BlockState state = NbtUtils.readBlockState(cmp.getCompound(TAG_CAMO));
+		BlockState state = NbtUtils.readBlockState(level.holderLookup(Registries.BLOCK), cmp.getCompound(TAG_CAMO));
 		if (state.isAir()) {
 			state = null;
 		}

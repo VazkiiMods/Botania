@@ -12,7 +12,7 @@ import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
@@ -30,6 +30,7 @@ import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
+import vazkii.botania.common.crafting.MarimorphosisRecipe;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 import vazkii.botania.common.item.lens.LensItem;
@@ -151,7 +152,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		))));
 
 		registry.addRecipe(new CompositeLensEmiRecipe(
-				StreamSupport.stream(Registry.ITEM.getOrCreateTag(BotaniaTags.Items.LENS).spliterator(), false)
+				StreamSupport.stream(BuiltInRegistries.ITEM.getOrCreateTag(BotaniaTags.Items.LENS).spliterator(), false)
 						.map(ItemStack::new)
 						.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 						.filter(s -> ((LensItem) s.getItem()).isCombinable(s))
@@ -200,8 +201,8 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, flower));
 		}
 		flower = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
-		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(MARIMORPHOSIS, recipe, flower));
+		for (MarimorphosisRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
+			registry.addRecipe(new MarimorphosisEmiRecipe(recipe, flower));
 		}
 	}
 

@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -29,6 +28,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.PylonBlock;
 import vazkii.botania.common.block.block_entity.PylonBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 import java.util.Random;
 
@@ -90,7 +90,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 		ms.pushPose();
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
-			ms.mulPose(Vector3f.YP.rotationDegrees(worldTime * 1.5F));
+			ms.mulPose(VecHelper.rotateY(worldTime * 1.5F));
 		}
 
 		RenderType layer = RenderType.entityTranslucent(texture);
@@ -109,7 +109,7 @@ public class PylonBlockEntityRenderer implements BlockEntityRenderer<PylonBlockE
 
 		ms.translate(0.5F, 0F, -0.5F);
 		if (pylon != null) {
-			ms.mulPose(Vector3f.YP.rotationDegrees(-worldTime));
+			ms.mulPose(VecHelper.rotateY(-worldTime));
 		}
 
 		buffer = buffers.getBuffer(shaderLayer);

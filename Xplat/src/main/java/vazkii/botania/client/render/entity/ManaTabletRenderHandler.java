@@ -9,7 +9,6 @@
 package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
@@ -25,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.xplat.BotaniaConfig;
 
@@ -53,10 +53,10 @@ public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPla
 				ms.translate(0, 0.65, 0);
 				if (renderedOne) {
 					ms.translate(armor ? 0.3 : 0.25, 0, 0);
-					ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
+					ms.mulPose(VecHelper.rotateY(-90F));
 				} else {
 					ms.translate(armor ? -0.3 : -0.25, 0, 0);
-					ms.mulPose(Vector3f.YP.rotationDegrees(90F));
+					ms.mulPose(VecHelper.rotateY(90F));
 				}
 
 				ms.scale(0.375F, -0.375F, -0.375F);

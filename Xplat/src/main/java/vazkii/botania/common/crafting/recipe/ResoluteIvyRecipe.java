@@ -11,9 +11,9 @@ package vazkii.botania.common.crafting.recipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -23,10 +23,10 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.ResoluteIvyItem;
 
 public class ResoluteIvyRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<ResoluteIvyRecipe> SERIALIZER = new SimpleRecipeSerializer<>(ResoluteIvyRecipe::new);
+	public static final NoOpRecipeSerializer<ResoluteIvyRecipe> SERIALIZER = new NoOpRecipeSerializer<>(ResoluteIvyRecipe::new);
 
 	public ResoluteIvyRecipe(ResourceLocation id) {
-		super(id);
+		super(id, CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

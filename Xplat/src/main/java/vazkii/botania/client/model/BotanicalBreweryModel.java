@@ -10,7 +10,6 @@ package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.Model;
@@ -28,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.block.block_entity.BreweryBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class BotanicalBreweryModel extends Model {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(ResourcesLib.MODEL_BREWERY);
@@ -72,10 +72,10 @@ public class BotanicalBreweryModel extends Model {
 		float polerot = -deg * 25F;
 
 		ms.translate(0F, offset, 0F);
-		ms.mulPose(Vector3f.YP.rotationDegrees(polerot));
+		ms.mulPose(VecHelper.rotateY(polerot));
 		if (hasTile && !brewery.getItemHandler().getItem(0).isEmpty()) {
 			ms.pushPose();
-			ms.mulPose(Vector3f.XP.rotationDegrees(180));
+			ms.mulPose(VecHelper.rotateX(180));
 			ms.translate(0, -0.45F, 0);
 			renderItemStack(brewery.getItemHandler().getItem(0), ms, buffers, light, overlay);
 			ms.popPose();
@@ -85,7 +85,7 @@ public class BotanicalBreweryModel extends Model {
 		pole.render(ms, buffers.getBuffer(layer), light, overlay);
 		top.render(ms, buffers.getBuffer(layer), light, overlay);
 		bottom.render(ms, buffers.getBuffer(layer), light, overlay);
-		ms.mulPose(Vector3f.YP.rotationDegrees(-polerot));
+		ms.mulPose(VecHelper.rotateY(-polerot));
 
 		float degper = (float) (2F * Math.PI) / plates;
 		for (int i = 0; i < plates; i++) {
@@ -102,9 +102,9 @@ public class BotanicalBreweryModel extends Model {
 				float transY = 1.06F;
 				float transZ = 0.1245F;
 				ms.pushPose();
-				ms.mulPose(Vector3f.YP.rotationDegrees(rot));
+				ms.mulPose(VecHelper.rotateY(rot));
 				ms.translate(transX, transY, transZ);
-				ms.mulPose(Vector3f.XP.rotationDegrees(-90F));
+				ms.mulPose(VecHelper.rotateX(-90F));
 				ms.translate(0.125F, 0.125F, 0);
 				renderItemStack(brewery.getItemHandler().getItem(i + 1), ms, buffers, light, overlay);
 				ms.popPose();

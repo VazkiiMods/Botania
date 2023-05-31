@@ -18,19 +18,28 @@ and start a new "Upcoming" section.
 
 {% include changelog_header.html version="Upcoming" %}
 
+---
+
+{% include changelog_header.html version="1.19.2-440" %}
+
 * Add: The Worldshaper's Sextant can now generate spheres as well (Wormbo)
 * Add: Grass Seeds can now be placed by dispensers.
 * Add: Manufactory Halo's auto-crafting can be toggled by shift+right-clicking the
   crafting table segment or right-clicking the item in an inventory screen
 * Add: Mana lenses can now be merged using either honey bottles or slime balls
+* Add: Conversion chances for Orechid, Orechid Ignem, and Marimorphosis (including biome-specific chances for player's location) are now displayed in the recipe listings of JEI, REI, and EMI (Wormbo)
 * Add: Reintroduce the useShaders config option to disable Botania's special shaders
 * Add: zh_cn updates (Dawnwalker666)
 * Change: The Worldshaper's Sextant provides more control over the exact shape of circles
   by having the radius selection snap to the block grind instead of only allowing integers
   (Wormbo)
 * Change: The Rosa Arcana's XP orb mana yield now matches the player-based mana yield
+* Change: The Worldshaper's Sextant provides more control over the exact shape of circles by having the radius selection snap to the block grind instead of only allowing integers (Wormbo)
+* Change: Worldshaper's Astrolabe now places blocks more like a player would, e.g. waterlogging blocks where appropriate, adding more candles to existing ones, or rotating directional blocks according to the player's view direction, targeted block side, or available attachment options
 * Fix: Made Teru Teru Bozu truely happy during clear weather again (Wormbo)
+* Fix: Leaves placed by Worldshaper's Astrolabe no longer decay
 * Fix: Some items being missing from Forge equipment tags and Fabric bow tag
+* Fix: Using an empty bottle in the end will not attempt to pick up Ender Air if the player is aiming at a liquid (Wormbo)
 * Fix: Horn of the Canopy breaking persistent leaves
 * Fix: Thermalily not updating comparators properly
 * Fix: Kindle Lens not creating Soul Fire when it should

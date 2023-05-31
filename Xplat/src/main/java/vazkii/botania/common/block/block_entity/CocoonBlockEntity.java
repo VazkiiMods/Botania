@@ -12,7 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
@@ -134,7 +134,7 @@ public class CocoonBlockEntity extends BotaniaBlockEntity {
 
 	@Nullable
 	private Mob random(TagKey<EntityType<?>> tag) {
-		EntityType<?> type = Registry.ENTITY_TYPE.getTag(tag)
+		EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getTag(tag)
 				.flatMap(t -> t.getRandomElement(level.random))
 				.map(Holder::value)
 				.orElse(null);

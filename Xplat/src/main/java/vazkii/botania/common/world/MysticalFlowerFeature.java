@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.world;
 
+import com.mojang.serialization.Codec;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -27,8 +29,8 @@ import vazkii.botania.common.block.BotaniaFlowerBlock;
  * but any of Botania's mystical flowers have a chance to be replaced with their tall variant.
  */
 public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
-	public MysticalFlowerFeature() {
-		super(MysticalFlowerConfig.CODEC);
+	public MysticalFlowerFeature(Codec<MysticalFlowerConfig> codec) {
+		super(codec);
 	}
 
 	@Override

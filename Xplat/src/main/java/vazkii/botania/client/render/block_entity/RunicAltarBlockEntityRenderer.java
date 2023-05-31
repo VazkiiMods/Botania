@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
@@ -27,10 +26,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.RunicAltarBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -70,9 +71,9 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 		for (int i = 0; i < altar.inventorySize(); i++) {
 			ms.pushPose();
 			ms.translate(0.5F, 1.25F, 0.5F);
-			ms.mulPose(Vector3f.YP.rotationDegrees(angles[i] + (float) time));
+			ms.mulPose(VecHelper.rotateY(angles[i] + (float) time));
 			ms.translate(1.125F, 0F, 0.25F);
-			ms.mulPose(Vector3f.YP.rotationDegrees(90F));
+			ms.mulPose(VecHelper.rotateY(90F));
 			ms.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getItemHandler().getItem(i);
 			Minecraft mc = Minecraft.getInstance();
@@ -115,7 +116,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 			for (int i = 0; i < cubes; i++) {
 				float offset = offsetPerCube * i;
 				float deg = (int) (ticks / rotationModifier % 360F + offset);
-				float rad = deg * (float) Math.PI / 180F;
+				float rad = VecHelper.toRadians(deg);
 				float radiusX = (float) (radiusBase + radiusMod * Math.sin(ticks / modifier));
 				float radiusZ = (float) (radiusBase + radiusMod * Math.cos(ticks / modifier));
 				float x = (float) (radiusX * Math.cos(rad));
@@ -128,7 +129,8 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 				float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 				float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
-				ms.mulPose(new Vector3f(xRotate, yRotate, zRotate).rotationDegrees(deg));
+				// TODO 1.19.3 check that this is correct
+				ms.mulPose(new Quaternionf().rotateAxis(rad, xRotate, yRotate, zRotate));
 				float alpha = 1;
 				if (curIter < iters) {
 					alpha = (float) curIter / (float) iters * 0.4F;

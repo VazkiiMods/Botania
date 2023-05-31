@@ -22,9 +22,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -126,9 +126,9 @@ public class FabricClientInitializer implements ClientModInitializer {
 	}
 
 	private static void registerArmors() {
-		Item[] armors = Registry.ITEM.stream()
+		Item[] armors = BuiltInRegistries.ITEM.stream()
 				.filter(i -> i instanceof ManasteelArmorItem
-						&& Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.toArray(Item[]::new);
 
 		ArmorRenderer renderer = (matrices, vertexConsumers, stack, entity, slot, light, contextModel) -> {

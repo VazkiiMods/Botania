@@ -1,7 +1,8 @@
 package vazkii.botania.fabric.data;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
@@ -14,24 +15,27 @@ import vazkii.botania.data.recipes.BotaniaRecipeProvider;
 
 import java.util.function.Consumer;
 
-import static vazkii.botania.data.recipes.RecipeProvider.*;
+import static vazkii.botania.data.recipes.CraftingRecipeProvider.*;
 
 public class FabricRecipeProvider extends BotaniaRecipeProvider {
-	public FabricRecipeProvider(DataGenerator generator) {
-		super(generator);
+	public FabricRecipeProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
+	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+		// TODO is it possible to move the tags that differ by platform into an XPlatAbstraction?
+
+		// TODO 1.19.3 find proper categories for all these recipes
 		// Quartz tag
-		ShapelessRecipeBuilder.shapeless(BotaniaBlocks.azulejo0)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaBlocks.azulejo0)
 				.requires(Items.BLUE_DYE)
 				.requires(FabricItemTagProvider.QUARTZ_BLOCKS)
 				.unlockedBy("has_item", conditionsFromItem(Items.BLUE_DYE))
 				.save(consumer);
 
 		// Chest tag
-		ShapedRecipeBuilder.shaped(BotaniaItems.baubleBox)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.baubleBox)
 				.define('C', FabricItemTagProvider.WOODEN_CHESTS)
 				.define('G', Items.GOLD_INGOT)
 				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -42,7 +46,7 @@ public class FabricRecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 
 		registerRedStringBlock(consumer, BotaniaBlocks.redStringContainer, Ingredient.of(FabricItemTagProvider.WOODEN_CHESTS), conditionsFromTag(FabricItemTagProvider.WOODEN_CHESTS));
-		ShapelessRecipeBuilder.shapeless(BotaniaBlocks.corporeaRetainer)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaBlocks.corporeaRetainer)
 				.requires(FabricItemTagProvider.WOODEN_CHESTS)
 				.requires(BotaniaItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))

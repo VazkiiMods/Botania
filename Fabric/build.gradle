@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'fabric-loom' version '1.1.10'
     id 'io.github.juuxel.loom-quiltflower' version '1.7.1'
 }
 
@@ -103,19 +103,19 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.19.2:2022.11.27@zip")
+        parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:0.14.11"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.73.0+1.19.2"
+    modImplementation "net.fabricmc:fabric-loader:0.14.18"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.76.0+1.19.3"
 
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-76-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-78-FABRIC"
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.528"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.596"
 
-    modImplementation("dev.emi:emi:0.5.0+1.19.2") { transitive = false }
+    modImplementation("dev.emi:emi:0.7.2+1.19.3") { transitive = false }
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
@@ -126,13 +126,13 @@ dependencies {
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation("dev.emi:trinkets:3.4.0") { transitive = false }
+    modImplementation("dev.emi:trinkets:3.5.1") { transitive = false }
 
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.3.0"
-    include "com.jamieswhiteshirt:reach-entity-attributes:2.3.0"
+    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.3.1"
+    include "com.jamieswhiteshirt:reach-entity-attributes:2.3.1"
 
-    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
-    include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
+    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:f2f87804a2"
+    include "com.github.emilyploszaj:step-height-entity-attribute:f2f87804a2"
 
     modCompileOnly 'teamreborn:energy:2.1.0'
 
@@ -140,7 +140,7 @@ dependencies {
 
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
 
-    modCompileOnly "mezz.jei:jei-1.19.2-common-api:11.2.0.247"
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:12.3.0.21"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
     modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"

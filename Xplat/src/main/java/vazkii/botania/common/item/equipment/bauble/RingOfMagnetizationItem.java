@@ -12,7 +12,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -61,7 +61,7 @@ public class RingOfMagnetizationItem extends BaubleItem {
 	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		if (XplatAbstractions.INSTANCE.isModLoaded("malum")) {
 			Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-			attributes.put(Registry.ATTRIBUTE.get(new ResourceLocation("malum", "spirit_reach")),
+			attributes.put(BuiltInRegistries.ATTRIBUTE.get(new ResourceLocation("malum", "spirit_reach")),
 					new AttributeModifier(getBaubleUUID(stack), "Magnet Ring reach boost", 0.5, AttributeModifier.Operation.MULTIPLY_BASE));
 			return attributes;
 		}

@@ -17,8 +17,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -41,11 +39,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.render.block_entity.PylonBlockEntityRenderer;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.mixin.client.ItemRendererAccessor;
 import vazkii.botania.mixin.client.RenderTypeAccessor;
@@ -283,12 +283,12 @@ public final class RenderHelper extends RenderType {
 		ms.scale(xScale, yScale, zScale);
 
 		for (int i = 0; i < (f1 + f1 * f1) / 2F * 90F + 30F; i++) {
-			ms.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360F));
-			ms.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360F + f1 * 90F));
+			ms.mulPose(VecHelper.rotateX(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateY(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateZ(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateX(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateY(random.nextFloat() * 360F));
+			ms.mulPose(VecHelper.rotateZ(random.nextFloat() * 360F + f1 * 90F));
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
 			float r = ((color & 0xFF0000) >> 16) / 255F;

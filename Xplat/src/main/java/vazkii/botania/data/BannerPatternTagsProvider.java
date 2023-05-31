@@ -1,25 +1,26 @@
 package vazkii.botania.data;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.tags.BannerPatternTags;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.common.lib.BotaniaTags;
 
+import java.util.concurrent.CompletableFuture;
+
 import static vazkii.botania.common.block.BotaniaBannerPatterns.*;
 
-public class BannerTagProvider extends TagsProvider<BannerPattern> {
-	public BannerTagProvider(DataGenerator generator) {
-		super(generator, Registry.BANNER_PATTERN);
+public class BannerPatternTagsProvider extends TagsProvider<BannerPattern> {
+	public BannerPatternTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, Registries.BANNER_PATTERN, lookupProvider);
 	}
 
 	@Override
-	protected void addTags() {
-		this.tag(BannerPatternTags.NO_ITEM_REQUIRED).add(
-				FISH, AXE, HOE, PICKAXE, SHOVEL, SWORD
-		);
+	protected void addTags(HolderLookup.Provider provider) {
+		// TODO 1.19.3 figure this out
+		// this.tag(BannerPatternTags.NO_ITEM_REQUIRED).add(FISH, AXE, HOE, PICKAXE, SHOVEL, SWORD);
 		this.tag(BotaniaTags.BannerPatterns.PATTERN_ITEM_LIVINGWOOD_TWIG).add(FLOWER);
 		this.tag(BotaniaTags.BannerPatterns.PATTERN_ITEM_LEXICON).add(LEXICON);
 		this.tag(BotaniaTags.BannerPatterns.PATTERN_ITEM_TERRASTEEL).add(LOGO);

@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,8 +27,8 @@ import java.util.List;
 @Mixin(Screen.class)
 public class ScreenFabricMixin {
 	@Inject(method = "renderTooltipInternal", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"), locals = LocalCapture.CAPTURE_FAILHARD)
-	private void renderManaBar(PoseStack poseStack, List<ClientTooltipComponent> list, int oldX, int oldY, CallbackInfo ci, int width, int height, int x, int y) {
-		for (ClientTooltipComponent component : list) {
+	private void renderManaBar(PoseStack poseStack, List<ClientTooltipComponent> components, int oldX, int oldY, ClientTooltipPositioner positioner, CallbackInfo ci, int width, int height, int x, int y) {
+		for (ClientTooltipComponent component : components) {
 			if (component instanceof ManaBarTooltipComponent manaBar) {
 				manaBar.setContext(x, y, width);
 			}

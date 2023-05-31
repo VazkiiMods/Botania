@@ -1,6 +1,5 @@
 package vazkii.botania.fabric.xplat;
 
-import com.google.gson.JsonObject;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
@@ -30,12 +29,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -99,7 +97,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.item.equipment.CustomDamageItem;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.fabric.FabricBotaniaCreativeTab;
 import vazkii.botania.fabric.block.FabricSpecialFlowerBlock;
 import vazkii.botania.fabric.block_entity.FabricRedStringContainerBlockEntity;
 import vazkii.botania.fabric.integration.tr_energy.FluxfieldTRStorage;
@@ -110,7 +107,6 @@ import vazkii.botania.fabric.mixin.BucketItemFabricAccessor;
 import vazkii.botania.network.BotaniaPacket;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -419,13 +415,15 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Packet<?> toVanillaClientboundPacket(BotaniaPacket packet) {
+	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet) {
 		return ServerPlayNetworking.createS2CPacket(packet.getFabricId(), packet.toBuf());
 	}
 
 	@Override
 	public void sendToPlayer(Player player, BotaniaPacket packet) {
-		ServerPlayNetworking.send((ServerPlayer) player, packet.getFabricId(), packet.toBuf());
+		if (player instanceof ServerPlayer serverPlayer) {
+			ServerPlayNetworking.send(serverPlayer, packet.getFabricId(), packet.toBuf());
+		}
 	}
 
 	@Override
@@ -480,7 +478,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public FabricItemSettings defaultItemBuilder() {
-		return new FabricItemSettings().group(FabricBotaniaCreativeTab.INSTANCE);
+		// TODO 1.19.3 maybe creative tab
+		return new FabricItemSettings();
 	}
 
 	@Override
@@ -553,7 +552,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return StepHeightEntityAttributeMain.STEP_HEIGHT;
 	}
 
-	private final TagKey<Block> oreTag = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "ores"));
+	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "ores"));
 
 	@Override
 	public TagKey<Block> getOreTag() {
@@ -561,8 +560,8 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	// No standard so we have to check both :wacko:
-	private final TagKey<Block> cGlass = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass"));
-	private final TagKey<Block> cGlassBlocks = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("c", "glass_blocks"));
+	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass"));
+	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_blocks"));
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
@@ -572,11 +571,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 	@Override
 	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
 		return AbstractFurnaceBlockEntityFabricAccessor.callCanBurn(recipe, items, maxStackSize);
-	}
-
-	@Override
-	public void saveRecipeAdvancement(DataGenerator generator, CachedOutput cache, JsonObject json, Path path) {
-		RecipeProvider.saveAdvancement(cache, json, path);
 	}
 
 	@Override

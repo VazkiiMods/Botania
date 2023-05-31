@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.block_entity.corporea.CorporeaCrystalCubeBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.mixin.ItemEntityAccessor;
 
 public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRenderer<CorporeaCrystalCubeBlockEntity> {
@@ -70,7 +70,7 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			ms.pushPose();
 			ms.translate(0F, 0.96F, 0F);
 			ms.scale(0.64F, 0.64F, 0.64F);
-			ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+			ms.mulPose(VecHelper.rotateZ(180F));
 			Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
 			ms.popPose();
 		}
@@ -105,7 +105,7 @@ public class CorporeaCrystalCubeBlockEntityRenderer implements BlockEntityRender
 			ms.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for (int i = 0; i < 4; i++) {
-				ms.mulPose(Vector3f.YP.rotationDegrees(90F));
+				ms.mulPose(VecHelper.rotateY(90F));
 				ms.translate(0F, 0F, tr);
 				mc.font.drawInBatch(countStr, -l / 2, 0, color, false, ms.last().pose(), buffers, false, 0, light);
 				ms.translate(0F, 0F, 0.1F);

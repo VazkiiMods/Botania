@@ -14,6 +14,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
@@ -23,7 +24,7 @@ import vazkii.botania.common.crafting.RecipeSerializerBase;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.getResultItem(), compose.getIngredients());
+		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT, compose.getResultItem(), compose.getIngredients());
 	}
 
 	@NotNull

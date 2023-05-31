@@ -11,7 +11,6 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -72,21 +71,6 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 
 	public TerraShattererItem(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props, -2.8F);
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
-		if (allowedIn(tab)) {
-			for (int mana : CREATIVE_MANA) {
-				ItemStack stack = new ItemStack(this);
-				setMana(stack, mana);
-				list.add(stack);
-			}
-			ItemStack stack = new ItemStack(this);
-			setMana(stack, CREATIVE_MANA[1]);
-			setTipped(stack);
-			list.add(stack);
-		}
 	}
 
 	@Override

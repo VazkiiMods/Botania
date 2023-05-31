@@ -10,7 +10,6 @@ package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
@@ -18,6 +17,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
+
+import vazkii.botania.common.helper.VecHelper;
 
 public class BellowsModel extends Model {
 
@@ -68,7 +69,7 @@ public class BellowsModel extends Model {
 		top.render(ms, buffer, light, overlay, r, g, b, alpha);
 		ms.translate(0F, -mov, 0F);
 
-		ms.mulPose(Vector3f.XP.rotationDegrees(180F));
+		ms.mulPose(VecHelper.rotateX(180F));
 		ms.translate(-0.19F, -1.375F, -0.19F);
 		ms.scale(1F, fract, 1F);
 		funnel.render(ms, buffer, light, overlay, r, g, b, alpha);

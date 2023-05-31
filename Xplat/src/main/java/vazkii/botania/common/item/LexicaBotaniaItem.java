@@ -9,15 +9,13 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -44,17 +42,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern {
 	}
 
 	public static boolean isOpen() {
-		return Registry.ITEM.getKey(BotaniaItems.lexicon).equals(PatchouliAPI.get().getOpenBookGui());
-	}
-
-	@Override
-	public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> list) {
-		if (allowedIn(tab)) {
-			list.add(new ItemStack(this));
-			ItemStack creative = new ItemStack(this);
-			creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
-			list.add(creative);
-		}
+		return BuiltInRegistries.ITEM.getKey(BotaniaItems.lexicon).equals(PatchouliAPI.get().getOpenBookGui());
 	}
 
 	@Override
@@ -69,7 +57,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern {
 
 		if (playerIn instanceof ServerPlayer player) {
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getLevel(), player.getX(), player.getY(), player.getZ());
-			PatchouliAPI.get().openBookGUI(player, Registry.ITEM.getKey(this));
+			PatchouliAPI.get().openBookGUI(player, BuiltInRegistries.ITEM.getKey(this));
 			playerIn.playSound(BotaniaSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
@@ -78,7 +66,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern {
 
 	public static Component getEdition() {
 		try {
-			return PatchouliAPI.get().getSubtitle(Registry.ITEM.getKey(BotaniaItems.lexicon));
+			return PatchouliAPI.get().getSubtitle(BuiltInRegistries.ITEM.getKey(BotaniaItems.lexicon));
 		} catch (IllegalArgumentException e) {
 			return Component.literal(""); // TODO Adjust Patchouli because first search tree creation is too early to get the edition
 		}

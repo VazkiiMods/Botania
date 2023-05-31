@@ -8,12 +8,11 @@
  */
 package vazkii.botania.fabric.mixin.client;
 
-import com.mojang.blaze3d.shaders.Program;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceProvider;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,10 +37,8 @@ public class GameRendererFabricMixin {
 		),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)
-	private void loadShaders(ResourceManager resourceManager, CallbackInfo ci,
-			List<Program> _programsToClose,
-			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> shadersToLoad)
+	private void loadShaders(ResourceProvider resourceProvider, CallbackInfo ci, List<Pair<ShaderInstance, Consumer<ShaderInstance>>> shadersToLoad)
 			throws IOException {
-		CoreShaders.init(resourceManager, shadersToLoad::add);
+		CoreShaders.init(resourceProvider, shadersToLoad::add);
 	}
 }

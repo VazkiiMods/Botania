@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,7 +62,7 @@ public class BottledManaItem extends Item {
 			case 3 -> { // Mini Explosion
 				if (!living.getLevel().isClientSide) {
 					living.getLevel().explode(null, living.getX(), living.getY(),
-							living.getZ(), 0.25F, Explosion.BlockInteraction.NONE);
+							living.getZ(), 0.25F, Level.ExplosionInteraction.NONE);
 				}
 			}
 			case 4 -> { // Mega Jump

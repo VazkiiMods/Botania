@@ -11,8 +11,9 @@ package vazkii.botania.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
@@ -38,8 +39,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	private static final Ingredient DEFAULT_REAGENT = Ingredient.of(BotaniaTags.Items.SEED_APOTHECARY_REAGENT);
 
-	public PetalApothecaryProvider(DataGenerator gen) {
-		super(gen);
+	public PetalApothecaryProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+	public void buildRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		Ingredient white = tagIngr("petals/white");
 		Ingredient orange = tagIngr("petals/orange");
 		Ingredient magenta = tagIngr("petals/magenta");
@@ -148,11 +149,11 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static Ingredient tagIngr(String tag) {
-		return Ingredient.of(TagKey.create(Registry.ITEM_REGISTRY, prefix(tag)));
+		return Ingredient.of(TagKey.create(Registries.ITEM, prefix(tag)));
 	}
 
 	protected static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {
-		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())),
+		return new FinishedRecipe(idFor(BuiltInRegistries.ITEM.getKey(item.asItem())),
 				new ItemStack(item), DEFAULT_REAGENT, ingredients);
 	}
 

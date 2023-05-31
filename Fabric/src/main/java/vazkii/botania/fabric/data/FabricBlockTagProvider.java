@@ -1,8 +1,8 @@
 package vazkii.botania.fabric.data;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -12,11 +12,13 @@ import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFluffBlocks;
+import vazkii.botania.data.BlockTagProvider;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-public class FabricBlockTagProvider extends BlockTagsProvider {
+public class FabricBlockTagProvider extends BlockTagProvider {
 	public static final TagKey<Block> LAPIS_BLOCKS = blockTag(new ResourceLocation("c", "lapis_blocks"));
 	public static final TagKey<Block> QUARTZ_BLOCKS = blockTag(new ResourceLocation("c", "quartz_blocks"));
 	public static final TagKey<Block> MUSHROOMS = blockTag(new ResourceLocation("c", "mushrooms"));
@@ -26,15 +28,15 @@ public class FabricBlockTagProvider extends BlockTagsProvider {
 	public static final TagKey<Block> GLASS_PANE_ALT = blockTag(new ResourceLocation("c", "glass_panes"));
 
 	private static TagKey<Block> blockTag(ResourceLocation location) {
-		return TagKey.create(Registry.BLOCK_REGISTRY, location);
+		return TagKey.create(Registries.BLOCK, location);
 	}
 
-	public FabricBlockTagProvider(DataGenerator dataGenerator) {
-		super(dataGenerator);
+	public FabricBlockTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		tag(LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 		tag(QUARTZ_BLOCKS).add(
 				BotaniaFluffBlocks.darkQuartz, BotaniaFluffBlocks.manaQuartz, BotaniaFluffBlocks.blazeQuartz,

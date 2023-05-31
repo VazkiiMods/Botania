@@ -10,8 +10,8 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -30,18 +30,17 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StonecuttingProvider extends BotaniaRecipeProvider {
-	public StonecuttingProvider(DataGenerator generator) {
-		super(generator);
+	public StonecuttingProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
-	public void registerRecipes(Consumer<FinishedRecipe> consumer) {
+	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			registerForMetamorphic(variant, consumer);
 		}
@@ -96,8 +95,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)
-				.map(Registry.ITEM::getOptional)
-				.map(Optional::get)
+				.map(BuiltInRegistries.ITEM::get)
 				.collect(Collectors.toList());
 		for (Item azulejo : allAzulejos) {
 			consumer.accept(anyToAnyStonecutting(allAzulejos, azulejo));
@@ -105,11 +103,11 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 	}
 
 	private void registerForQuartz(String variant, Consumer<FinishedRecipe> consumer) {
-		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
-		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stairs = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
-		Block chiseled = Registry.BLOCK.getOptional(prefix("chiseled_" + variant)).get();
-		Block pillar = Registry.BLOCK.getOptional(prefix(variant + "_pillar")).get();
+		Block base = BuiltInRegistries.BLOCK.get(prefix(variant));
+		Block slab = BuiltInRegistries.BLOCK.get(prefix(variant + LibBlockNames.SLAB_SUFFIX));
+		Block stairs = BuiltInRegistries.BLOCK.get(prefix(variant + LibBlockNames.STAIR_SUFFIX));
+		Block chiseled = BuiltInRegistries.BLOCK.get(prefix("chiseled_" + variant));
+		Block pillar = BuiltInRegistries.BLOCK.get(prefix(variant + "_pillar"));
 		consumer.accept(stonecutting(base, slab, 2));
 		consumer.accept(stonecutting(base, stairs));
 		consumer.accept(stonecutting(base, chiseled));
@@ -117,27 +115,27 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 	}
 
 	private void registerForPavement(String color, Consumer<FinishedRecipe> consumer) {
-		Block base = Registry.BLOCK.getOptional(prefix(color + LibBlockNames.PAVEMENT_SUFFIX)).get();
-		Block slab = Registry.BLOCK.getOptional(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stair = Registry.BLOCK.getOptional(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX)).get();
+		Block base = BuiltInRegistries.BLOCK.get(prefix(color + LibBlockNames.PAVEMENT_SUFFIX));
+		Block slab = BuiltInRegistries.BLOCK.get(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX));
+		Block stair = BuiltInRegistries.BLOCK.get(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX));
 		consumer.accept(stonecutting(base, slab, 2));
 		consumer.accept(stonecutting(base, stair));
 	}
 
 	private void registerForMetamorphic(String variant, Consumer<FinishedRecipe> consumer) {
-		Block base = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
-		Block slab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block wall = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX)).get();
-		Block brick = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
-		Block brickSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block brickStair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block brickWall = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX)).get();
-		Block chiseledBrick = Registry.BLOCK.getOptional(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
-		Block cobble = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone")).get();
-		Block cobbleSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block cobbleStair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block cobbleWall = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX)).get();
+		Block base = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone"));
+		Block slab = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX));
+		Block stair = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX));
+		Block wall = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX));
+		Block brick = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
+		Block brickSlab = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX));
+		Block brickStair = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX));
+		Block brickWall = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX));
+		Block chiseledBrick = BuiltInRegistries.BLOCK.get(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
+		Block cobble = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone"));
+		Block cobbleSlab = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX));
+		Block cobbleStair = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
+		Block cobbleWall = BuiltInRegistries.BLOCK.get(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
 
 		consumer.accept(stonecutting(base, slab, 2));
 		consumer.accept(stonecutting(base, stair));
@@ -165,8 +163,8 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 	}
 
 	protected ResourceLocation idFor(ItemLike a, ItemLike b) {
-		ResourceLocation aId = Registry.ITEM.getKey(a.asItem());
-		ResourceLocation bId = Registry.ITEM.getKey(b.asItem());
+		ResourceLocation aId = BuiltInRegistries.ITEM.getKey(a.asItem());
+		ResourceLocation bId = BuiltInRegistries.ITEM.getKey(b.asItem());
 		return prefix("stonecutting/" + aId.getPath() + "_to_" + bId.getPath());
 	}
 
@@ -180,7 +178,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 
 	protected FinishedRecipe anyToAnyStonecutting(List<? extends ItemLike> inputs, ItemLike output) {
 		Ingredient input = Ingredient.of(inputs.stream().filter(obj -> output != obj).toArray(ItemLike[]::new));
-		return new Result(prefix("stonecutting/" + Registry.ITEM.getKey(output.asItem()).getPath()), RecipeSerializer.STONECUTTER, input, output.asItem(), 1);
+		return new Result(prefix("stonecutting/" + BuiltInRegistries.ITEM.getKey(output.asItem()).getPath()), RecipeSerializer.STONECUTTER, input, output.asItem(), 1);
 	}
 
 	protected ResourceLocation prefix(String path) {

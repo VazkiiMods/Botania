@@ -14,8 +14,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -401,11 +401,11 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	private void setItemToPlace(ItemStack stack, Item item) {
-		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getKey(item).toString());
+		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, BuiltInRegistries.ITEM.getKey(item).toString());
 	}
 
 	private Item getItemToPlace(ItemStack stack) {
-		return Registry.ITEM.get(ResourceLocation.tryParse(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
+		return BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
 	}
 
 	private void setHitPos(ItemStack stack, Vec3 vec) {
@@ -470,12 +470,12 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 	}
 
 	private void setTarget(ItemStack stack, Block block) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, BuiltInRegistries.BLOCK.getKey(block).toString());
 	}
 
 	public static Block getTargetState(ItemStack stack) {
 		ResourceLocation id = new ResourceLocation(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
-		return Registry.BLOCK.get(id);
+		return BuiltInRegistries.BLOCK.get(id);
 	}
 
 	@Override

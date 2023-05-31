@@ -16,6 +16,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
@@ -30,7 +31,7 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WandOfTheForestRecipe> SERIALIZER = new Serializer();
 
 	public WandOfTheForestRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
+		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT, compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
 	}
 
 	@NotNull

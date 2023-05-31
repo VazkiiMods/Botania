@@ -1,33 +1,34 @@
 package vazkii.botania.fabric.data;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.data.BlockLootProvider;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class FabricBlockLootProvider implements DataProvider {
-	private final DataGenerator generator;
+	private final PackOutput.PathProvider pathProvider;
 
-	public FabricBlockLootProvider(DataGenerator generator) {
-		this.generator = generator;
+	public FabricBlockLootProvider(PackOutput packOutput) {
+		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/blocks");
 	}
 
 	@Override
-	public void run(CachedOutput cache) throws IOException {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		var tables = new HashMap<ResourceLocation, LootTable.Builder>();
-		for (var b : Registry.BLOCK) {
-			ResourceLocation id = Registry.BLOCK.getKey(b);
+		for (var b : BuiltInRegistries.BLOCK) {
+			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
 			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
@@ -35,10 +36,13 @@ public class FabricBlockLootProvider implements DataProvider {
 			// Nothing for now
 		}
 
+		List<CompletableFuture<?>> output = new ArrayList<>();
+
 		for (var e : tables.entrySet()) {
-			Path path = BlockLootProvider.getPath(generator.getOutputFolder(), e.getKey());
-			DataProvider.saveStable(cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path);
+			Path path = pathProvider.json(e.getKey());
+			output.add(DataProvider.saveStable(cache, LootTables.serialize(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
 		}
+		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
 
 	@Override

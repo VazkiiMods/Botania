@@ -12,9 +12,9 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,10 +25,10 @@ import vazkii.botania.common.item.brew.BaseBrewItem;
 import java.util.Objects;
 
 public class MergeVialRecipe extends CustomRecipe {
-	public static final SimpleRecipeSerializer<MergeVialRecipe> SERIALIZER = new SimpleRecipeSerializer<>(MergeVialRecipe::new);
+	public static final NoOpRecipeSerializer<MergeVialRecipe> SERIALIZER = new NoOpRecipeSerializer<>(MergeVialRecipe::new);
 
 	public MergeVialRecipe(ResourceLocation id) {
-		super(id);
+		super(id, CraftingBookCategory.MISC);
 	}
 
 	@Override

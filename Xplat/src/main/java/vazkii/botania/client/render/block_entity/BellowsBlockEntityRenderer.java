@@ -10,7 +10,6 @@ package vazkii.botania.client.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -24,6 +23,7 @@ import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.client.model.BellowsModel;
 import vazkii.botania.client.model.BotaniaModelLayers;
 import vazkii.botania.common.block.block_entity.mana.BellowsBlockEntity;
+import vazkii.botania.common.helper.VecHelper;
 
 public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity> {
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_BELLOWS);
@@ -54,7 +54,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
 					break;
 			}
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
+		ms.mulPose(VecHelper.rotateY(angle));
 		float fract = Math.max(0.1F, 1F - (bellows == null ? 0 : bellows.movePos + bellows.moving * f + 0.1F));
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1, fract);
