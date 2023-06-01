@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -48,7 +47,7 @@ public class EnderAirItem extends Item {
 			return InteractionResultHolder.pass(stack);
 		}
 
-		if ((world.dimension() == Level.END && isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5)) && notAimingAtFluid(world, player))
+		if ((world.dimension() == Level.END && isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5)) && aimingAtNothing(world, player))
 				|| pickupFromEntity(world, player.getBoundingBox().inflate(1.0))) {
 
 			if (!world.isClientSide) {
@@ -65,13 +64,9 @@ public class EnderAirItem extends Item {
 		return InteractionResultHolder.pass(stack);
 	}
 
-	private static boolean notAimingAtFluid(Level world, Player player) {
+	private static boolean aimingAtNothing(Level world, Player player) {
 		BlockHitResult hitResult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.ANY);
-		if (hitResult.getType() == HitResult.Type.BLOCK) {
-			BlockPos pos = hitResult.getBlockPos();
-			return world.mayInteract(player, pos) && world.getFluidState(pos).isEmpty();
-		}
-		return true;
+		return hitResult.getType() == HitResult.Type.MISS;
 	}
 
 	public static boolean isClearFromDragonBreath(Level world, AABB aabb) {
