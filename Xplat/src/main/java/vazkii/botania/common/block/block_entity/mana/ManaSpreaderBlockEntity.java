@@ -167,8 +167,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 		for (Direction dir : Direction.values()) {
 			var relPos = worldPosition.relative(dir);
 			if (level.hasChunkAt(relPos)) {
-				var receiverAt = XplatAbstractions.INSTANCE.findManaReceiver(level, relPos,
-						level.getBlockState(relPos), level.getBlockEntity(relPos), dir.getOpposite());
+				var receiverAt = XplatAbstractions.INSTANCE.findManaReceiver(level, relPos, dir.getOpposite());
 				if (receiverAt instanceof ManaPool pool) {
 					if (wasInNetwork && (pool != self.receiver || self.getVariant() == ManaSpreaderBlock.Variant.REDSTONE)) {
 						if (pool instanceof KeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
@@ -348,9 +347,7 @@ public class ManaSpreaderBlockEntity extends ExposedSimpleInventoryBlockEntity i
 			int z = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Z);
 			if (y != Integer.MIN_VALUE) {
 				var pos = new BlockPos(x, y, z);
-				var state = level.getBlockState(pos);
-				var be = level.getBlockEntity(pos);
-				receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, pos, state, be, null);
+				receiver = XplatAbstractions.INSTANCE.findManaReceiver(level, pos, null);
 			} else {
 				receiver = null;
 			}
