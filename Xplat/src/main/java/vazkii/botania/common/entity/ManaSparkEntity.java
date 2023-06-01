@@ -62,6 +62,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	private int removeTransferants = 2;
 	private boolean shouldFilterTransfers = true;
 	private boolean wasFull = true;
+	private boolean firstTick = true;
 
 	public ManaSparkEntity(EntityType<ManaSparkEntity> type, Level world) {
 		super(type, world);
@@ -89,6 +90,10 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 		if (level().isClientSide) {
 			return;
+		}
+
+		if (firstTick) {
+			updateTransfers();
 		}
 
 		SparkAttachable tile = getAttachedTile();
@@ -172,7 +177,11 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			case RECESSIVE -> {
 				// updateTransfers();
 			}
-			default -> {}
+			default -> {
+				if (wasFull && !receiver.isFull()) {
+					notifyOthers(getNetwork());
+				}
+			}
 		}
 
 		if (receiver != null) {
@@ -214,6 +223,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		if (removeTransferants > 0) {
 			removeTransferants--;
 		}
+		firstTick = false;
 	}
 
 	@Override
@@ -230,7 +240,6 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 						transfers.add(otherSpark);
 					}
 				}
-				filterTransfers();
 			}
 			case DOMINANT -> {
 				List<ManaSpark> validSparks = SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
@@ -242,6 +251,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				}
 			}
 		}
+		filterTransfers();
 	}
 
 	private void particlesTowards(Entity e) {
@@ -273,7 +283,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@Override
 	public void remove(RemovalReason removalReason) {
 		super.remove(removalReason);
-		notifyOthers();
+		notifyOthers(getNetwork());
 	}
 
 	@Override
@@ -289,8 +299,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 							setUpgrade(SparkUpgradeType.NONE);
 
 							transfers.clear();
-							removeTransferants = 2;
-							notifyOthers();
+							notifyOthers(getNetwork());
 						} else {
 							dropAndKill();
 						}
@@ -306,7 +315,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 					setUpgrade(newUpgrade.type);
 					stack.shrink(1);
 					updateTransfers();
-					notifyOthers();
+					notifyOthers(getNetwork());
 				}
 				return InteractionResult.sidedSuccess(level().isClientSide);
 			} else if (stack.is(BotaniaItems.phantomInk)) {
@@ -318,10 +327,12 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
 					if (!level().isClientSide) {
+						var previousNetwork = getNetwork();
 						setNetwork(color);
 						stack.shrink(1);
 						updateTransfers();
-						notifyOthers();
+						notifyOthers(getNetwork());
+						notifyOthers(previousNetwork);
 					}
 					return InteractionResult.sidedSuccess(level().isClientSide);
 				}
@@ -394,8 +405,8 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		filterTransfers();
 	}
 
-	private void notifyOthers() {
-		for (var spark : SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())) {
+	private void notifyOthers(DyeColor network) {
+		for (var spark : SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), network)) {
 			spark.updateTransfers();
 		}
 	}
@@ -408,13 +419,13 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@Override
 	public void setUpgrade(SparkUpgradeType upgrade) {
 		entityData.set(UPGRADE, upgrade.ordinal());
-		notifyOthers();
+		notifyOthers(getNetwork());
 	}
 
 	@Override
 	public boolean areIncomingTransfersDone() {
 		if (getAttachedManaReceiver() instanceof ManaPool) {
-			return removeTransferants > 0;
+			return false;
 		}
 
 		SparkAttachable attachable = getAttachedTile();
