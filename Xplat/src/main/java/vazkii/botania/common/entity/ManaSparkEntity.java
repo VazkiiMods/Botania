@@ -314,8 +314,6 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				if (!level().isClientSide) {
 					setUpgrade(newUpgrade.type);
 					stack.shrink(1);
-					updateTransfers();
-					notifyOthers(getNetwork());
 				}
 				return InteractionResult.sidedSuccess(level().isClientSide);
 			} else if (stack.is(BotaniaItems.phantomInk)) {
@@ -327,12 +325,8 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				DyeColor color = dye.getDyeColor();
 				if (color != getNetwork()) {
 					if (!level().isClientSide) {
-						var previousNetwork = getNetwork();
 						setNetwork(color);
 						stack.shrink(1);
-						updateTransfers();
-						notifyOthers(getNetwork());
-						notifyOthers(previousNetwork);
 					}
 					return InteractionResult.sidedSuccess(level().isClientSide);
 				}
@@ -419,7 +413,17 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	@Override
 	public void setUpgrade(SparkUpgradeType upgrade) {
 		entityData.set(UPGRADE, upgrade.ordinal());
+		updateTransfers();
 		notifyOthers(getNetwork());
+	}
+
+	@Override
+	public void setNetwork(DyeColor color) {
+		var previousNetwork = getNetwork();
+		super.setNetwork(color);
+		updateTransfers();
+		notifyOthers(color);
+		notifyOthers(previousNetwork);
 	}
 
 	@Override
