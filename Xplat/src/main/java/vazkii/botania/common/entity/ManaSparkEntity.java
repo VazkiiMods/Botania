@@ -59,7 +59,6 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	private final Set<ManaSpark> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
-	private int removeTransferants = 2;
 	private boolean shouldFilterTransfers = true;
 	private boolean wasFull = true;
 	private boolean firstTick = true;
@@ -220,9 +219,6 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 			}
 		}
 
-		if (removeTransferants > 0) {
-			removeTransferants--;
-		}
 		firstTick = false;
 	}
 
