@@ -36,8 +36,8 @@ import java.util.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaBlasterModel implements BakedModel {
-	private static final ModelResourceLocation DESU = new ModelResourceLocation(prefix(":desu_gun"), "inventory");
-	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(prefix(":desu_gun_clip"), "inventory");
+	private static final ModelResourceLocation DESU = new ModelResourceLocation(prefix("desu_gun"), "inventory");
+	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(prefix("desu_gun_clip"), "inventory");
 
 	private final BakedModel originalModel;
 	private final BakedModel originalModelClip;

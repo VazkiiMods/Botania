@@ -21,6 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.FloatingFlower;
 import vazkii.botania.client.lib.ResourcesLib;
+import vazkii.botania.client.model.ManaBlasterModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.block_entity.CorporeaCrystalCubeBlockEntityRenderer;
 import vazkii.botania.client.render.block_entity.ManaPumpBlockEntityRenderer;
@@ -192,8 +193,7 @@ public class MiscellaneousModels {
 		BakedModel originalModel = map.get(key);
 		ModelResourceLocation clipKey = new ModelResourceLocation(prefix("mana_gun_clip"), "inventory");
 		BakedModel originalModelClip = map.get(clipKey);
-		// TODO 1.19.3 i get some weird error with this class not being able to load for some reason??
-		// map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
+		map.put(key, new ManaBlasterModel(loader, originalModel, originalModelClip));
 
 		// Tiny Potato
 		ModelResourceLocation tinyPotato = new ModelResourceLocation(prefix("tiny_potato"), "inventory");
