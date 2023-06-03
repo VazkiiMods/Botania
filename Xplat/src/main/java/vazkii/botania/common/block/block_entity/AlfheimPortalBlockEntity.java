@@ -190,9 +190,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 				level.setBlockAndUpdate(worldPosition, blockState.setValue(BotaniaStateProperties.ALFPORTAL_STATE, newState));
 			}
 		} else if (self.explode) {
-			// TODO 1.19.3 is "BLOCK" correct here?
 			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
-					3f, Level.ExplosionInteraction.BLOCK);
+					3f, Level.ExplosionInteraction.NONE);
 			self.explode = false;
 
 			if (!level.isClientSide && self.breadPlayer != null) {
