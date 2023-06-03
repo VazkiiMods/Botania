@@ -1374,13 +1374,13 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.poolMinecart)
-				.requires(Items.MINECART)
 				.requires(BotaniaBlocks.manaPool)
+				.requires(Items.MINECART)
 				.unlockedBy("has_item", conditionsFromItem(Items.MINECART))
 				.save(consumer);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.chargeMinecart)
-				.requires(Items.MINECART)
 				.requires(BotaniaBlocks.manaBomb)
+				.requires(Items.MINECART)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaBomb))
 				.save(consumer);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.blackHoleTalisman)
