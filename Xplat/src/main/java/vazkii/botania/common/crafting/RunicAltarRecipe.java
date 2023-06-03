@@ -92,7 +92,7 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 		return mana;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RunicAltarRecipe> {
+	public static class Serializer implements RecipeSerializer<RunicAltarRecipe> {
 		@NotNull
 		@Override
 		public RunicAltarRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {

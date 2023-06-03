@@ -23,7 +23,6 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.decor.BotaniaMushroomBlock;
-import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.item.WandOfTheForestItem;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 
@@ -65,7 +64,7 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer extends RecipeSerializerBase<WandOfTheForestRecipe> {
+	private static class Serializer implements RecipeSerializer<WandOfTheForestRecipe> {
 		@NotNull
 		@Override
 		public WandOfTheForestRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {

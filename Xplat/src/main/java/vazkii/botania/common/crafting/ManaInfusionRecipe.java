@@ -102,7 +102,7 @@ public class ManaInfusionRecipe implements vazkii.botania.api.recipe.ManaInfusio
 		return new ItemStack(BotaniaBlocks.manaPool);
 	}
 
-	public static class Serializer extends RecipeSerializerBase<ManaInfusionRecipe> {
+	public static class Serializer implements RecipeSerializer<ManaInfusionRecipe> {
 
 		@NotNull
 		@Override

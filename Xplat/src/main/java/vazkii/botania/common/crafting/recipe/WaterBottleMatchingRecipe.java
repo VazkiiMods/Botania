@@ -26,8 +26,6 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
-
 public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WaterBottleMatchingRecipe> SERIALIZER = new Serializer();
 
@@ -63,7 +61,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 		return SERIALIZER;
 	}
 
-	private static class Serializer extends RecipeSerializerBase<WaterBottleMatchingRecipe> {
+	private static class Serializer implements RecipeSerializer<WaterBottleMatchingRecipe> {
 		@Override
 		public WaterBottleMatchingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new WaterBottleMatchingRecipe(SHAPED_RECIPE.fromJson(recipeId, json));

@@ -21,7 +21,6 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaUpgradeRecipe extends ShapedRecipe {
@@ -59,7 +58,7 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	public static final RecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends RecipeSerializerBase<ManaUpgradeRecipe> {
+	private static class Serializer implements RecipeSerializer<ManaUpgradeRecipe> {
 		@Override
 		public ManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));

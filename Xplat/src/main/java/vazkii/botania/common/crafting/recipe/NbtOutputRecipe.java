@@ -24,12 +24,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.common.crafting.RecipeSerializerBase;
-
 public class NbtOutputRecipe {
 	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new NbtOutputRecipe.Serializer();
 
-	private static class Serializer extends RecipeSerializerBase<Recipe<?>> {
+	private static class Serializer implements RecipeSerializer<Recipe<?>> {
 		@NotNull
 		@Override
 		public Recipe<?> fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {

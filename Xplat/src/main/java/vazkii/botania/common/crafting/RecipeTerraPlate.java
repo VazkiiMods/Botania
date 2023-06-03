@@ -93,7 +93,7 @@ public class RecipeTerraPlate implements TerrestrialAgglomerationRecipe {
 		return BotaniaRecipeTypes.TERRA_PLATE_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<RecipeTerraPlate> {
+	public static class Serializer implements RecipeSerializer<RecipeTerraPlate> {
 		@NotNull
 		@Override
 		public RecipeTerraPlate fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {

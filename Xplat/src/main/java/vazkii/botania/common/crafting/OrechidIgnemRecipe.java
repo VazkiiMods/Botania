@@ -39,7 +39,7 @@ public class OrechidIgnemRecipe extends OrechidRecipe {
 		return BotaniaRecipeTypes.ORECHID_IGNEM_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<OrechidIgnemRecipe> {
+	public static class Serializer implements RecipeSerializer<OrechidIgnemRecipe> {
 		@Override
 		public OrechidIgnemRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			return new OrechidIgnemRecipe(BotaniaRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json));

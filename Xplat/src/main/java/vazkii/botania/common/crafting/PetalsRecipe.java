@@ -117,7 +117,7 @@ public class PetalsRecipe implements PetalApothecaryRecipe {
 		return BotaniaRecipeTypes.PETAL_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<PetalsRecipe> {
+	public static class Serializer implements RecipeSerializer<PetalsRecipe> {
 		@NotNull
 		@Override
 		public PetalsRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {

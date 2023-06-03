@@ -20,13 +20,13 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.common.crafting.RecipeSerializerBase;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
@@ -76,7 +76,7 @@ public class HeadRecipe extends RunicAltarRecipe {
 		return stack;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<HeadRecipe> {
+	public static class Serializer implements RecipeSerializer<HeadRecipe> {
 
 		@NotNull
 		@Override

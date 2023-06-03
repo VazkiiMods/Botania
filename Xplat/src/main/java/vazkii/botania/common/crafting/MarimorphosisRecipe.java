@@ -57,7 +57,7 @@ public class MarimorphosisRecipe extends OrechidRecipe {
 		return BotaniaRecipeTypes.MARIMORPHOSIS_SERIALIZER;
 	}
 
-	public static class Serializer extends RecipeSerializerBase<MarimorphosisRecipe> {
+	public static class Serializer implements RecipeSerializer<MarimorphosisRecipe> {
 		@Override
 		public MarimorphosisRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
 			OrechidRecipe base = BotaniaRecipeTypes.ORECHID_SERIALIZER.fromJson(recipeId, json);
