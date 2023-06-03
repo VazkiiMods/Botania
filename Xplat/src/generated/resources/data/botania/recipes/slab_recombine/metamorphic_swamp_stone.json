@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "Q": {
       "item": "botania:metamorphic_swamp_stone_slab"

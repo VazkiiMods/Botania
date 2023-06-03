@@ -1,5 +1,6 @@
 {
   "type": "botania:armor_upgrade",
+  "category": "misc",
   "key": {
     "A": {
       "item": "botania:manasteel_chestplate"

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "botania:metamorphic_stone_slab",
   "key": {
     "Q": {

@@ -2,6 +2,7 @@
   "type": "botania:gog_alternation",
   "base": {
     "type": "minecraft:crafting_shaped",
+    "category": "misc",
     "key": {
       "I": {
         "item": "minecraft:blaze_rod"
@@ -18,6 +19,7 @@
   },
   "gog": {
     "type": "minecraft:crafting_shaped",
+    "category": "misc",
     "key": {
       "I": {
         "item": "minecraft:blaze_powder"

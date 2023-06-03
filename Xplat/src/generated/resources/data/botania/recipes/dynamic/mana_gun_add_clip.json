@@ -1,3 +1,4 @@
 {
-  "type": "botania:mana_gun_add_clip"
+  "type": "botania:mana_gun_add_clip",
+  "category": "misc"
 }

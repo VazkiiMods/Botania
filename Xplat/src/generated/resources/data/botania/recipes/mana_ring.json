@@ -1,5 +1,6 @@
 {
   "type": "botania:mana_upgrade",
+  "category": "misc",
   "key": {
     "I": {
       "item": "botania:manasteel_ingot"

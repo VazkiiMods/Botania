@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "T": {
       "tag": "botania:terrasteel_nuggets"
