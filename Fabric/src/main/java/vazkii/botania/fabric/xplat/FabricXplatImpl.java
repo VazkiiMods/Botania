@@ -222,6 +222,26 @@ public class FabricXplatImpl implements XplatAbstractions {
 		}
 	}
 
+	@Override
+	public CapabilityFindCache<ManaReceiver, Direction> getFindManaReceiverCache(Level level, BlockPos pos) {
+		if (level instanceof ServerLevel) {
+			return new CapabilityFindCache<>() {
+				private final BlockApiCache<ManaReceiver, Direction> cache = BlockApiCache.create(BotaniaFabricCapabilities.MANA_RECEIVER, (ServerLevel) level, pos);
+
+				@Override
+				public @Nullable ManaReceiver find(Direction context) {
+					return cache.find(context);
+				}
+
+				@Override
+				public @Nullable ManaReceiver find(@Nullable BlockState state, Direction context) {
+					return cache.find(state, context);
+				}
+			};
+		}
+		return XplatAbstractions.super.getFindManaReceiverCache(level, pos);
+	}
+
 	private @Nullable ManaReceiver findCachedManaReceiver(ServerLevel level, BlockPos pos, @Nullable Direction direction) {
 		var pair = Pair.of(level, pos);
 		var cache = lookupCache.get(pair);
