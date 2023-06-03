@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:model/tiny_potato/default"
+    "all": "botania:block/tiny_potato/default"
   },
   "elements": [
     {

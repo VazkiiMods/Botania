@@ -1,6 +1,6 @@
 {
   "parent": "botania:tiny_potato/default",
   "textures": {
-    "all": "botania:model/tiny_potato/pride"
+    "all": "botania:block/tiny_potato/pride"
   }
 }

@@ -130,7 +130,6 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				rotY = 270F;
 				break;
 		}
-		// TODO 1.19.3 check that this is correct
 		ms.mulPose(VecHelper.rotateY(-rotY));
 
 		float jump = potato.jumpTicks;
@@ -166,7 +165,6 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		ms.popPose();
 
 		ms.mulPose(VecHelper.rotateZ(-rotZ));
-		// TODO 1.19.3 check that this is correct
 		ms.mulPose(VecHelper.rotateY(rotY));
 
 		renderName(potato, name, ms, buffers, light);
@@ -306,7 +304,6 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.pushPose();
 					ms.translate(-0.15, 0.1, 0.4);
 					ms.mulPose(VecHelper.rotateY(90F));
-					// TODO 1.19.3 check that this is correct
 					ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(20), 1, 0, 1));
 					renderModel(ms, buffers, light, overlay, MiscellaneousModels.INSTANCE.phiFlowerModel);
 					ms.popPose();
