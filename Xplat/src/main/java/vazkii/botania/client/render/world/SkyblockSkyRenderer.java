@@ -63,7 +63,6 @@ public class SkyblockSkyRenderer {
 		RenderSystem.blendFuncSeparate(770, 771, 1, 0);
 		ms.pushPose();
 		RenderSystem.setShaderColor(1F, 1F, 1F, a * 4 * (1F - insideVoid));
-		// TODO 1.19.3 check that this is correct
 		ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(90), 0.5F, 0.5F, 0F));
 		for (int p = 0; p < planetTextures.length; p++) {
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -86,7 +85,6 @@ public class SkyblockSkyRenderer {
 					scale = 15F;
 				}
 				case 2 -> {
-					// TODO 1.19.3 check that this is correct
 					ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(80), 1, 0, 1));
 					scale = 25F;
 				}
@@ -95,7 +93,6 @@ public class SkyblockSkyRenderer {
 					scale = 10F;
 				}
 				case 4 -> {
-					// TODO 1.19.3 check that this is correct
 					ms.mulPose(new Quaternionf().rotateAxis(VecHelper.toRadians(-60), 1, 0, 0.5F));
 					scale = 40F;
 				}
