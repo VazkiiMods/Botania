@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
+  "category": "equipment",
   "ingredients": [
     {
       "item": "minecraft:crafting_table"

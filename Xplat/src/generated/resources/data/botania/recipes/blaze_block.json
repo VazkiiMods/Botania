@@ -2,7 +2,7 @@
   "type": "botania:gog_alternation",
   "base": {
     "type": "minecraft:crafting_shaped",
-    "category": "misc",
+    "category": "building",
     "key": {
       "I": {
         "item": "minecraft:blaze_rod"

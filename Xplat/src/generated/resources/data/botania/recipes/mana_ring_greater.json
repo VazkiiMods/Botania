@@ -1,6 +1,6 @@
 {
   "type": "botania:mana_upgrade_shapeless",
-  "category": "misc",
+  "category": "equipment",
   "ingredients": [
     {
       "tag": "botania:terrasteel_ingots"

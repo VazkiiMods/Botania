@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "building",
   "group": "botania:metamorphic_stone_stairs",
   "key": {
     "Q": {

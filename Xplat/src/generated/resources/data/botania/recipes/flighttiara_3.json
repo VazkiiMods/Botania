@@ -3,7 +3,7 @@
   "nbt": "{variant:3}",
   "recipe": {
     "type": "minecraft:crafting_shapeless",
-    "category": "misc",
+    "category": "equipment",
     "group": "botania:flight_tiara_wings",
     "ingredients": [
       {
