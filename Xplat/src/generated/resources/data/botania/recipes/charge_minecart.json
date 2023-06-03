@@ -3,10 +3,10 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "minecraft:minecart"
+      "item": "botania:mana_bomb"
     },
     {
-      "item": "botania:mana_bomb"
+      "item": "minecraft:minecart"
     }
   ],
   "result": {

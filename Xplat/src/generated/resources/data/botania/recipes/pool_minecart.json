@@ -3,10 +3,10 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "minecraft:minecart"
+      "item": "botania:mana_pool"
     },
     {
-      "item": "botania:mana_pool"
+      "item": "minecraft:minecart"
     }
   ],
   "result": {
