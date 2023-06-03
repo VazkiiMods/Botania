@@ -22,6 +22,8 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -42,9 +44,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -113,6 +113,11 @@ import java.util.function.BiConsumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FabricCommonInitializer implements ModInitializer {
+	// TODO 1.19.3 menu texture
+	private static final CreativeModeTab BOTANIA_TAB = FabricItemGroup.builder(prefix("botania"))
+			.icon(() -> new ItemStack(BotaniaItems.lexicon))
+			.build();
+
 	@Override
 	public void onInitialize() {
 		coreInit();
@@ -144,11 +149,11 @@ public class FabricCommonInitializer implements ModInitializer {
 		// Core item/block/BE
 		BotaniaSounds.init(bind(BuiltInRegistries.SOUND_EVENT));
 		BotaniaBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
+		BotaniaBlocks.registerItemBlocks(registerItemAndPutInTab);
 		BotaniaFluffBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
-		BotaniaFluffBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
+		BotaniaFluffBlocks.registerItemBlocks(registerItemAndPutInTab);
 		BotaniaBlockEntities.registerTiles(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
-		BotaniaItems.registerItems(bind(BuiltInRegistries.ITEM));
+		BotaniaItems.registerItems(registerItemAndPutInTab);
 		BotaniaFlowerBlocks.registerBlocks(bind(BuiltInRegistries.BLOCK));
 		BotaniaFlowerBlocks.registerItemBlocks(bind(BuiltInRegistries.ITEM));
 		BotaniaFlowerBlocks.registerTEs(bind(BuiltInRegistries.BLOCK_ENTITY_TYPE));
@@ -232,6 +237,11 @@ public class FabricCommonInitializer implements ModInitializer {
 	private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {
 		return (t, id) -> Registry.register(registry, id, t);
 	}
+
+	private static final BiConsumer<Item, ResourceLocation> registerItemAndPutInTab = (item, id) -> {
+		Registry.register(BuiltInRegistries.ITEM, id, item);
+		ItemGroupEvents.modifyEntriesEvent(BOTANIA_TAB).register(entries -> entries.accept(item));
+	};
 
 	private void registerCapabilities() {
 		FluidStorage.ITEM.registerForItems((stack, context) -> new FullItemFluidStorage(context, Items.BOWL,
