@@ -11,6 +11,7 @@ package vazkii.botania.fabric;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -48,6 +49,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -90,6 +92,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
 import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
+import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
 import vazkii.botania.common.loot.LootHandler;
 import vazkii.botania.common.world.BotaniaFeatures;
@@ -183,17 +186,17 @@ public class FabricCommonInitializer implements ModInitializer {
 		// TODO 1.19.3
 		/*
 		SkyblockChunkGenerator.submitRegistration(bind(BuiltInRegistries.CHUNK_GENERATOR));
-		BiomeModifications.addFeature(
-				BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
-						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST))),
-				GenerationStep.Decoration.VEGETAL_DECORATION,
-				BotaniaFeatures.MYSTICAL_FLOWERS_ID);
-		BiomeModifications.addFeature(
-				BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
-						.and(Predicate.not(BiomeSelectors.tag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST))),
-				GenerationStep.Decoration.VEGETAL_DECORATION,
-				BotaniaFeatures.MYSTICAL_MUSHROOMS_ID);
 		*/
+		BiomeModifications.addFeature(
+				ctx -> ctx.hasTag(BotaniaTags.Biomes.MYSTICAL_FLOWER_SPAWNLIST)
+						&& !ctx.hasTag(BotaniaTags.Biomes.MYSTICAL_FLOWER_BLOCKLIST),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				BotaniaFeatures.MYSTICAL_FLOWERS_PLACED_FEATURE);
+		BiomeModifications.addFeature(
+				ctx -> ctx.hasTag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_SPAWNLIST)
+						&& !ctx.hasTag(BotaniaTags.Biomes.MYSTICAL_MUSHROOM_BLOCKLIST),
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				BotaniaFeatures.MYSTICAL_MUSHROOMS_PLACED_FEATURE);
 
 		// Rest
 		BotaniaCriteriaTriggers.init();
