@@ -10,54 +10,50 @@ package vazkii.botania.fabric.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.data.PackOutput;
 
 import vazkii.botania.data.*;
 import vazkii.botania.data.recipes.*;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
-	// TODO 1.19.3 figure out how we're going to do this
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
-		/*
-			if (System.getProperty("botania.xplat_datagen") != null) {
-				configureXplatDatagen(generator);
-			} else {
-				configureFabricDatagen(generator);
-			}
+		if (System.getProperty("botania.xplat_datagen") != null) {
+			configureXplatDatagen(generator.createPack());
+		} else {
+			configureFabricDatagen(generator.createPack());
 		}
-		
-		private static void configureFabricDatagen(DataGenerator generator) {
-			generator.addProvider(true, new FabricBlockLootProvider(generator));
-			var blockTagProvider = new FabricBlockTagProvider(generator);
-			generator.addProvider(true, blockTagProvider);
-			generator.addProvider(true, new FabricItemTagProvider(generator, blockTagProvider));
-			generator.addProvider(true, new FabricRecipeProvider(generator));
-			generator.addProvider(true, new FabricBiomeTagProvider(generator));
-		}
-		
-		private static void configureXplatDatagen(DataGenerator generator) {
-			generator.addProvider(true, new BlockLootProvider(generator));
-			BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
-			generator.addProvider(true, blockTagProvider);
-			generator.addProvider(true, new ItemTagProvider(generator, blockTagProvider));
-			generator.addProvider(true, new EntityTagProvider(generator));
-			generator.addProvider(true, new BannerPatternTagsProvider(generator));
-			generator.addProvider(true, new BiomeTagProvider(generator));
-			generator.addProvider(true, new StonecuttingProvider(generator));
-			generator.addProvider(true, new CraftingRecipeProvider(generator));
-			generator.addProvider(true, new SmeltingProvider(generator));
-			generator.addProvider(true, new ElvenTradeProvider(generator));
-			generator.addProvider(true, new ManaInfusionProvider(generator));
-			generator.addProvider(true, new PureDaisyProvider(generator));
-			generator.addProvider(true, new BrewProvider(generator));
-			generator.addProvider(true, new PetalApothecaryProvider(generator));
-			generator.addProvider(true, new RunicAltarProvider(generator));
-			generator.addProvider(true, new TerrestrialAgglomerationProvider(generator));
-			generator.addProvider(true, new OrechidProvider(generator));
-			generator.addProvider(true, new BlockstateProvider(generator));
-			generator.addProvider(true, new FloatingFlowerModelProvider(generator));
-			generator.addProvider(true, new ItemModelProvider(generator));
-			generator.addProvider(true, new AdvancementProvider(generator));
-		*/
+	}
+
+	private static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
+		pack.addProvider((PackOutput output) -> new FabricBlockLootProvider(output));
+		var blockTagProvider = pack.addProvider(FabricBlockTagProvider::new);
+		pack.addProvider((output, registriesFuture) -> new FabricItemTagProvider(output, registriesFuture, blockTagProvider));
+		pack.addProvider((PackOutput output) -> new FabricRecipeProvider(output));
+		pack.addProvider(FabricBiomeTagProvider::new);
+	}
+
+	private static void configureXplatDatagen(FabricDataGenerator.Pack pack) {
+		pack.addProvider((PackOutput output) -> new BlockLootProvider(output));
+		BlockTagProvider blockTagProvider = pack.addProvider(BlockTagProvider::new);
+		pack.addProvider((output, registriesFuture) -> new ItemTagProvider(output, registriesFuture, blockTagProvider));
+		pack.addProvider(EntityTagProvider::new);
+		pack.addProvider(BannerPatternTagsProvider::new);
+		pack.addProvider(BiomeTagProvider::new);
+		pack.addProvider((PackOutput output) -> new StonecuttingProvider(output));
+		pack.addProvider((PackOutput output) -> new CraftingRecipeProvider(output));
+		pack.addProvider((PackOutput output) -> new SmeltingProvider(output));
+		pack.addProvider((PackOutput output) -> new ElvenTradeProvider(output));
+		pack.addProvider((PackOutput output) -> new ManaInfusionProvider(output));
+		pack.addProvider((PackOutput output) -> new PureDaisyProvider(output));
+		pack.addProvider((PackOutput output) -> new BrewProvider(output));
+		pack.addProvider((PackOutput output) -> new PetalApothecaryProvider(output));
+		pack.addProvider((PackOutput output) -> new RunicAltarProvider(output));
+		pack.addProvider((PackOutput output) -> new TerrestrialAgglomerationProvider(output));
+		pack.addProvider((PackOutput output) -> new OrechidProvider(output));
+		pack.addProvider((PackOutput output) -> new BlockstateProvider(output));
+		pack.addProvider((PackOutput output) -> new FloatingFlowerModelProvider(output));
+		pack.addProvider((PackOutput output) -> new ItemModelProvider(output));
+		pack.addProvider(AdvancementProvider::create);
 	}
 }
