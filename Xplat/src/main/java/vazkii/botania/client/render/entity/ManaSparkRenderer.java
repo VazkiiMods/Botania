@@ -8,24 +8,41 @@
  */
 package vazkii.botania.client.render.entity;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.inventory.InventoryMenu;
 
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.common.entity.ManaSparkEntity;
 
+import java.util.Objects;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ManaSparkRenderer extends BaseSparkRenderer<ManaSparkEntity> {
+	private final TextureAtlasSprite dispersiveIcon;
+	private final TextureAtlasSprite dominantIcon;
+	private final TextureAtlasSprite recessiveIcon;
+	private final TextureAtlasSprite isolatedIcon;
 
 	public ManaSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
+		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
+		this.dispersiveIcon = Objects.requireNonNull(atlas.apply(prefix("item/spark_upgrade_rune_dispersive")));
+		this.dominantIcon = Objects.requireNonNull(atlas.apply(prefix("item/spark_upgrade_rune_dominant")));
+		this.recessiveIcon = Objects.requireNonNull(atlas.apply(prefix("item/spark_upgrade_rune_recessive")));
+		this.isolatedIcon = Objects.requireNonNull(atlas.apply(prefix("item/spark_upgrade_rune_isolated")));
 	}
 
 	@Override
 	public TextureAtlasSprite getSpinningIcon(ManaSparkEntity entity) {
-		int upgrade = entity.getUpgrade().ordinal() - 1;
-		return upgrade >= 0 && upgrade < MiscellaneousModels.INSTANCE.sparkUpgradeIcons.length
-				? MiscellaneousModels.INSTANCE.sparkUpgradeIcons[upgrade].sprite()
-				: null;
+		return switch (entity.getUpgrade()) {
+			case NONE -> null;
+			case DISPERSIVE -> this.dispersiveIcon;
+			case DOMINANT -> this.dominantIcon;
+			case RECESSIVE -> this.recessiveIcon;
+			case ISOLATED -> this.isolatedIcon;
+		};
 	}
 
 }

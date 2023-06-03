@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.lib.ResourcesLib;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LexicaBotaniaItem;
@@ -41,12 +39,14 @@ import vazkii.botania.xplat.BotaniaConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
 	private static BookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
-	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ResourcesLib.MODEL_LEXICA_DEFAULT));
-	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ResourcesLib.MODEL_LEXICA_ELVEN));
+	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, prefix("item/lexicon_3d"));
+	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, prefix("item/lexicon_elven_3d"));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",

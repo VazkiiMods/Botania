@@ -15,22 +15,33 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.inventory.InventoryMenu;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.block_entity.ManaEnchanterBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.mixin.ItemEntityAccessor;
 
+import java.util.Objects;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<ManaEnchanterBlockEntity> {
 
+	private final TextureAtlasSprite overlaySprite;
 	private ItemEntity item;
 
-	public ManaEnchanterBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
+	public ManaEnchanterBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+		this.overlaySprite = Objects.requireNonNull(
+				Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+						.apply(prefix("block/enchanter_overlay"))
+		);
+	}
 
 	@Override
 	public void render(@NotNull ManaEnchanterBlockEntity enchanter, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -81,7 +92,7 @@ public class ManaEnchanterBlockEntityRenderer implements BlockEntityRenderer<Man
 					ms, buffer,
 					0, 0, 5, 5,
 					0, 0, 16, 16,
-					MiscellaneousModels.INSTANCE.enchanterOverlay.sprite(), 0xFFFFFF, alpha, light
+					this.overlaySprite, 0xFFFFFF, alpha, light
 			);
 		}
 

@@ -11,42 +11,43 @@ package vazkii.botania.client.render.block_entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import vazkii.botania.api.block_entity.RadiusDescriptor;
-import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.LuminizerBlock;
 import vazkii.botania.common.block.block_entity.LuminizerBlockEntity;
 import vazkii.botania.common.helper.VecHelper;
 import vazkii.botania.common.item.equipment.bauble.ManaseerMonocleItem;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.Objects;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<LuminizerBlockEntity> {
+	private final TextureAtlasSprite luminizerWorldSprite;
+	private final TextureAtlasSprite detectorLuminizerWorldSprite;
+	private final TextureAtlasSprite forkLuminizerWorldSprite;
+	private final TextureAtlasSprite toggleLuminizerWorldSprite;
 
-	private static final Map<LuminizerVariant, Material> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
-		m.put(LuminizerVariant.DEFAULT, MiscellaneousModels.INSTANCE.lightRelayWorldIcon);
-		m.put(LuminizerVariant.DETECTOR, MiscellaneousModels.INSTANCE.lightRelayDetectorWorldIcon);
-		m.put(LuminizerVariant.FORK, MiscellaneousModels.INSTANCE.lightRelayForkWorldIcon);
-		m.put(LuminizerVariant.TOGGLE, MiscellaneousModels.INSTANCE.lightRelayToggleWorldIcon);
-	});
-
-	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {}
+	public LuminizerBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
+		this.luminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/light_relay")));
+		this.detectorLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/detector_light_relay")));
+		this.forkLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/fork_light_relay")));
+		this.toggleLuminizerWorldSprite = Objects.requireNonNull(atlas.apply(prefix("block/toggle_light_relay")));
+	}
 
 	@Override
 	public void render(@NotNull LuminizerBlockEntity tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -60,7 +61,12 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 			}
 		}
 
-		TextureAtlasSprite iicon = sprites.get(((LuminizerBlock) state.getBlock()).variant).sprite();
+		TextureAtlasSprite sprite = switch (((LuminizerBlock) state.getBlock()).variant) {
+			case DEFAULT -> this.luminizerWorldSprite;
+			case DETECTOR -> this.detectorLuminizerWorldSprite;
+			case FORK -> this.forkLuminizerWorldSprite;
+			case TOGGLE -> this.toggleLuminizerWorldSprite;
+		};
 
 		ms.pushPose();
 		ms.translate(0.5, 0.3, 0.5);
@@ -79,7 +85,7 @@ public class LuminizerBlockEntityRenderer implements BlockEntityRenderer<Luminiz
 		ms.translate(0F, -off, 0F);
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.LIGHT_RELAY);
-		renderIcon(ms, buffer, iicon);
+		renderIcon(ms, buffer, sprite);
 
 		ms.popPose();
 	}

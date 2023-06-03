@@ -11,6 +11,7 @@ package vazkii.botania.client.render.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -22,18 +23,30 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
-import vazkii.botania.client.core.handler.MiscellaneousModels;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.SparkBaseEntity;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.helper.VecHelper;
 
+import java.util.Objects;
 import java.util.Random;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends EntityRenderer<T> {
 
+	private final TextureAtlasSprite starSprite;
+	private final TextureAtlasSprite worldSprite;
+
 	public BaseSparkRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx);
+		var atlas = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
+		this.starSprite = Objects.requireNonNull(
+				atlas.apply(prefix("item/corporea_spark_star"))
+		);
+		this.worldSprite = Objects.requireNonNull(
+				atlas.apply(prefix("item/spark"))
+		);
 	}
 
 	@Override
@@ -61,7 +74,7 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 		ms.translate(-0.02 + Math.sin(time / 20) * 0.2, 0.24 + Math.cos(time / 20) * 0.2, 0.005);
 		ms.scale(0.2F, 0.2F, 0.2F);
 		int starColor = ColorHelper.getColorValue(tEntity.getNetwork()) | ((int) (a * 255.0F) << 24);
-		renderIcon(ms, buffer, MiscellaneousModels.INSTANCE.corporeaIconStar.sprite(), starColor);
+		renderIcon(ms, buffer, this.starSprite, starColor);
 		ms.popPose();
 
 		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
@@ -76,7 +89,7 @@ public abstract class BaseSparkRenderer<T extends SparkBaseEntity> extends Entit
 	}
 
 	protected TextureAtlasSprite getBaseIcon(T entity) {
-		return MiscellaneousModels.INSTANCE.sparkWorldIcon.sprite();
+		return this.worldSprite;
 	}
 
 	@Nullable
