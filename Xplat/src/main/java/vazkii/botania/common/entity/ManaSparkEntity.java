@@ -59,6 +59,8 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 
 	private final Set<ManaSpark> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
+	private final ArrayList<ManaSpark> transfersTowardsSelfToRegister = new ArrayList<>();
+
 	private boolean shouldFilterTransfers = true;
 	private boolean wasFull = true;
 	private boolean firstTick = true;
@@ -172,6 +174,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				if (wasFull && !receiver.isFull()) {
 					updateTransfers();
 				}
+				if (transfersTowardsSelfToRegister.size() > 0) {
+					transfersTowardsSelfToRegister.remove(0).registerTransfer(this);
+				}
 			}
 			case RECESSIVE -> {
 				// updateTransfers();
@@ -227,6 +232,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 		switch (getUpgrade()) {
 			case RECESSIVE -> {
 				var otherSparks = SparkHelper.getSparksAround(getLevel(), getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork());
+				Collections.shuffle(otherSparks);
 				for (var otherSpark : otherSparks) {
 					SparkUpgradeType otherUpgrade = otherSpark.getUpgrade();
 					if (otherSpark != this
@@ -242,9 +248,10 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				for (var spark : validSparks) {
 					SparkUpgradeType otherUpgrade = spark.getUpgrade();
 					if (spark != this && otherUpgrade == SparkUpgradeType.NONE && spark.getAttachedManaReceiver() instanceof ManaPool) {
-						spark.registerTransfer(this);
+						transfersTowardsSelfToRegister.add(spark);
 					}
 				}
+				Collections.shuffle(transfersTowardsSelfToRegister);
 			}
 		}
 		filterTransfers();

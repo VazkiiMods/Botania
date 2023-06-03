@@ -22,7 +22,6 @@ import vazkii.botania.common.item.SparkAugmentItem;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SparkTinkererBlockEntity extends ExposedSimpleInventoryBlockEntity {
