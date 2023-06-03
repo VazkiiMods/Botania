@@ -589,3 +589,91 @@ friends and coworkers listen and take Bergamute seriously when they do do so.
 
 Bergamute is a music composer, not making much money, but enough to live on, and Bergamute
 is completely satisfied with that.
+
+
+# Botania Advancement References
+
+Each Botania advancement visible in the advancements tab is actually a reference to a
+Vocaloid song.
+
+Vocaloid is a vocal synthesis engine whereby samples of a human's voice are recorded, then
+reassembled to synthesize new audio of the voice. In ACG culture, Vocaloid is often used
+to create original songs and covers of other songs. The compiled voice-banks are
+anthropomorphized and given an avatar and name.
+
+Here is a table of all the Botania advancements and the Vocaloid song they refer to,
+provided as links to the Vocaloid song database VocaDB.
+
+WARNING: Some songs are 18+ and inappropriate for children.
+
+## Normal Advancements
+
+| Name                             | Requirement               | Link                                                       |
+|----------------------------------|---------------------------|------------------------------------------------------------|
+| Noisy Lover Soul                 | Use a cacophonium         | [https://vocadb.net/S/13527](https://vocadb.net/S/13527)   |
+| Sky of Beginning                 | Pick up mystical flower   | [https://vocadb.net/S/15667](https://vocadb.net/S/15667)   |
+| A Realistical Logical Ideologist | Open a lexicon            | [https://vocadb.net/S/9976](https://vocadb.net/S/9976)     |
+| Vivid Wave                       | Craft a pool              | [https://vocadb.net/S/31471](https://vocadb.net/S/31471)   |
+| Electric Magic                   | Craft a generating flower | [https://vocadb.net/S/19404](https://vocadb.net/S/19404)   |
+| Odds and Ends                    | Craft a Enchanter         | [https://vocadb.net/S/160452](https://vocadb.net/S/160452) |
+| An Ecstatic Vivace               | Craft a functional flower | [https://vocadb.net/S/32621](https://vocadb.net/S/32621)   |
+| World Domination How-To          | Craft a pool cart         | [https://vocadb.net/S/22539](https://vocadb.net/S/22539)   |
+| Imagination Forest               | Craft manaweave armor     | [https://vocadb.net/S/10042](https://vocadb.net/S/10042)   |
+| Drop Pop Candy                   | Craft a rune              | [https://vocadb.net/S/60953](https://vocadb.net/S/60953)   |
+| Live Drive                       | Craft a spark             | [https://vocadb.net/S/17274](https://vocadb.net/S/17274)   |
+| Rotten Heresy and Chocolate      | Craft a mana cookie       | [https://vocadb.net/S/136](https://vocadb.net/S/136)       |
+| Segments Blue                    | Craft an Assembly Halo    | [https://vocadb.net/S/8899](https://vocadb.net/S/8899)     |
+| Inner Arts                       | Put on a trinket          | [https://vocadb.net/S/56821](https://vocadb.net/S/56821)   |
+| Just Be Friends                  | Pet a Tiny Potato         | [https://vocadb.net/S/1360](https://vocadb.net/S/1360)     |
+| M'aider Stranded Girl            | Fire a Mana Blaster       | [https://vocadb.net/S/38815](https://vocadb.net/S/38815)   |
+| Dancer in the Dark               | Craft terrasteel          | [https://vocadb.net/S/157906](https://vocadb.net/S/157906) |
+| Romeo and Cinderella             | Craft a Pollidisiac       | [https://vocadb.net/S/1032](https://vocadb.net/S/1032)     |
+| Rockbell                         | Craft a dirty stick       | [https://vocadb.net/S/19319](https://vocadb.net/S/19319)   |
+| Childhood Blues                  | Craft a brewery           | [https://vocadb.net/S/13384](https://vocadb.net/S/13384)   |
+| Remote Paranoia                  | Craft a terrablade        | [https://vocadb.net/S/39098](https://vocadb.net/S/39098)   |
+| World Calling                    | Open alf portal           | [https://vocadb.net/S/17273](https://vocadb.net/S/17273)   |
+| Heisei Cataclysm                 | Craft Heisei Dream        | [https://vocadb.net/S/19332](https://vocadb.net/S/19332)   |
+| After-School Stride              | Craft Kekimurus           | [https://vocadb.net/S/18495](https://vocadb.net/S/18495)   |
+| Dead and Seek                    | Summon Gaia Guardian      | [https://vocadb.net/S/12520](https://vocadb.net/S/12520)   |
+| Deep Sea Girl                    | Craft Bubbell             | [https://vocadb.net/S/8735](https://vocadb.net/S/8735)     |
+| Imitation Air                    | Collect Ender Air         | [https://vocadb.net/S/13390](https://vocadb.net/S/13390)   |
+| I can take off my panties!       | Use life aggregator       | [https://vocadb.net/S/2530](https://vocadb.net/S/2530)     |
+| Heart Shooter                    | Craft Flugel Tiara        | [https://vocadb.net/S/6945](https://vocadb.net/S/6945)     |
+| Donut Hole                       | Craft Dandelifeon         | [https://vocadb.net/S/42676](https://vocadb.net/S/42676)   |
+| Under of Fragments               | Craft Manastorm Charge    | [https://vocadb.net/S/13651](https://vocadb.net/S/13651)   |
+| World's End Dancehall            | Craft Luminizer           | [https://vocadb.net/S/20](https://vocadb.net/S/20)         |
+| Packet Hero                      | Craft corporea block      | [https://vocadb.net/S/78112](https://vocadb.net/S/78112)   |
+
+## Challenge Advancements
+| Name                                       | Requirement                                    | Link                                                       |
+|--------------------------------------------|------------------------------------------------|------------------------------------------------------------|
+| Deja Vu                                    | Craft Daybloom/NightShade Motif                | [https://vocadb.net/S/124258](https://vocadb.net/S/124258) |
+| Two-Faced Lovers                           | Shoot desu gun                                 | [https://vocadb.net/S/1508](https://vocadb.net/S/1508)     |
+| At the Mercy of a Dream                    | Defeat Gaia Guardian II                        | [https://vocadb.net/S/14929](https://vocadb.net/S/14929)   |
+| A Tale of Six Trillion Years and One Night | Use rank SS terra pick                         | [https://vocadb.net/S/11219](https://vocadb.net/S/11219)   |
+| Invader Girl                               | Complete a corporea request with >= 50k items  | [https://vocadb.net/S/63216](https://vocadb.net/S/63216)   |
+| Out of Step                                | Use Level 20 Laputa Shard                      | [https://vocadb.net/S/1510](https://vocadb.net/S/1510)     |
+| Mythologia's End                           | Defeat Gaia Guardian without armor             | [https://vocadb.net/S/10072](https://vocadb.net/S/10072)   |
+| That's Why I Baked Bread                   | Teleport bread with the alf portal             | [https://vocadb.net/S/203581](https://vocadb.net/S/203581) |
+| Arithmetic                                 | Obtain Loki Ring                               | [https://vocadb.net/S/36123](https://vocadb.net/S/36123)   |
+| Hand in Hand                               | Place >255 extra blocks at once with Loki Ring | [https://vocadb.net/S/89726](https://vocadb.net/S/89726)   |
+| Innocentia                                 | Obtain Fruit of Grisaia                        | [https://vocadb.net/S/13385](https://vocadb.net/S/13385)   |
+| One Step Layered                           | Obtain Thor Ring                               | [https://vocadb.net/S/365](https://vocadb.net/S/365)       |
+| Angel of Death                             | Obtain Flugel Eye                              | [https://vocadb.net/S/28559](https://vocadb.net/S/28559)   |
+| A Fake, Fake Psychotropic                  | Obtain King Key                                | [https://vocadb.net/S/37948](https://vocadb.net/S/37948)   |
+| Lost Time Memory                           | Obtain Odin Ring                               | [https://vocadb.net/S/25896](https://vocadb.net/S/25896)   |
+| Decorator                                  | Use Pinkinator                                 | [https://vocadb.net/S/45245](https://vocadb.net/S/45245)   |
+| Blessing                                   | Wish Tiny Potato happy birthday                | [https://vocadb.net/S/50703](https://vocadb.net/S/50703)   |
+
+## Favorites
+Hm? You want to know my favorites?
+
+I (williewillus) would have to say the following:
+
+* Just Be Friends
+* Deep Sea Girl
+* Two-Faced Lovers
+* Tale of Six Trillion Years and One Night
+* That's Why I Baked Bread
+* Hand in Hand
+* Blessing
