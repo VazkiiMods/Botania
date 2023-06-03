@@ -129,7 +129,6 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 				float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 				float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
-				// TODO 1.19.3 check that this is correct
 				ms.mulPose(new Quaternionf().rotateAxis(rad, xRotate, yRotate, zRotate));
 				float alpha = 1;
 				if (curIter < iters) {

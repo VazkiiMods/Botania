@@ -90,7 +90,6 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 
 						v /= 2F;
 						ms.translate(v, v, v);
-						// TODO 1.19.3 check that this is correct
 						ms.mulPose(new Quaternionf().rotateAxis(rad, xRotate, yRotate, zRotate));
 						ms.translate(-v, -v, -v);
 						v *= 2F;

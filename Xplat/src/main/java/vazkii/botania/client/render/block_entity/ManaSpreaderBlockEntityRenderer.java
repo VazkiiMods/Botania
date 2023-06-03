@@ -44,7 +44,6 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 
 		ms.translate(0.5F, 0.5, 0.5F);
 
-		// TODO 1.19.3 check that this is correct
 		Quaternionf transform = VecHelper.rotateY(spreader.rotationX + 90F);
 		transform.mul(VecHelper.rotateX(spreader.rotationY));
 		ms.mulPose(transform);
