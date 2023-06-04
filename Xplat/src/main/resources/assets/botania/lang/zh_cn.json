@@ -2601,7 +2601,7 @@
   "botania.entry.cocoon": "随想之茧",
   "botania.tagline.cocoon": "孵化属于你的动物",
   "botania.page.cocoon0": "茧通常象征进化与蜕变。$(p)制作一个$(item)随想之茧$(0)并把它放在地上会慢慢地将其中的基本元素进化转变为$(item)小动物$(0)。多数时候，茧会孵出寻常的家禽或家畜，但也有少数报告指出它能孵化出$(item)狼$(0)或$(item)马$(0)。",
-  "botania.page.cocoon1": "一个水边的随想之茧会孵化出水生生物，而据说给茧$(item)绿宝石$(0)和$(item)紫颂果$(0)，或者$(l:alfhomancy/gaia_ritual)$(item)异域的精华$(0)$(/l)会稍微改变茧的产出。给予的方式既可以是直接右键，也可以是丢在茧的一旁。$(p)这样的尝试会产生什么结果谁也不知道。",
+  "botania.page.cocoon1": "一个临近水源的随想之茧会孵化出水生生物，而据说给茧$(item)绿宝石$(0)和$(item)紫颂果$(0)，或者$(l:alfhomancy/gaia_ritual)$(item)异域的精华$(0)$(/l)会稍微改变茧的产出。给予的方式既可以是直接右键，也可以是丢在茧的一旁。$(p)这样的尝试会产生什么结果谁也不知道。",
   "botania.page.cocoon2": "新世界，乌托邦",
 
   "botania.entry.manaBomb": "魔力风暴",
@@ -2760,7 +2760,7 @@
 
   "botania.entry.vineBall": "藤蔓球",
   "botania.tagline.vineBall": "帮助你如梯子搬攀登的可投掷藤蔓",
-  "botania.page.vineBall0": "$(item)梯子$(0)不能独立存在，它们需要有依附的东西，然而$(item)藤蔓$(0)不需要。通常来说，$(item)藤蔓$(0)不够坚韧能让人挂在上面。$(p)通过糅合一些$(item)藤蔓$(0)，能做出一种可以投掷的球，在它所撞的地方长出一道墙人的$(item)藤蔓$(0)梯子。",
+  "botania.page.vineBall0": "$(item)梯子$(0)不能独立存在，它们需要有依附的东西。$(item)藤蔓$(0)不需要，但$(item)藤蔓$(0)没有坚韧能让人向前走时即可向上攀爬，你只会穿过去。$(p)通过糅合一些$(item)藤蔓$(0)，能做出一种可以投掷的球，在撞击之处长出一条可供攀爬的强劲$(item)藤蔓$(0)。",
   "botania.page.vineBall1": "也可以用一些类似$(item)活木$(0)和$(item)风之符文$(0)的材料制作一把能忽视重力发射$(item)藤蔓球$(0)的弹弓。",
   "botania.page.vineBall2": "即将加入Vineacraft...",
   "botania.page.vineBall3": "...如果真的有这种东西的话。",
@@ -2914,7 +2914,7 @@
   "botania.entry.astrolabe": "世界塑造者之星盘",
   "botania.tagline.astrolabe": "平面塑造者",
   "botania.page.astrolabe0": "$(item)世界塑造者之星盘$(0)是个相当好用的工具，有了它，你就可以快速铺开大量方块。$(p)首先要用它右击某种方块，如此可设定其要放置的方块种类。$(p)潜行时右击星盘可以调整具体的放置数量。",
-  "botania.page.astrolabe1": "手持星盘指向任意方块时，星盘会显示效果预览，藉由此可得知右键放置方块后的效果。$(p)方块放置时会消耗$(thing)魔力$(0)，自然地也会消耗对应的方块；不过你也可以使用能给$(item)移壳法杖$(0)提供方块的物品（比如$(item)深渊法杖s$(0)和$(item)末影之手$(0)）。",
+  "botania.page.astrolabe1": "手持星盘指向任意方块时，星盘会显示效果预览，藉由此可得知右键放置方块后的效果。$(p)方块放置时会消耗$(thing)魔力$(0)，自然地也会消耗对应的方块；不过你也可以使用能给$(item)移壳法杖$(0)提供方块的物品（比如$(item)深渊法杖$(0)和$(item)末影之手$(0)）。",
   "botania.page.astrolabe2": "建造高墙，创造世界。",
 
   "botania.entry.enderAir": "获取末地空气",
