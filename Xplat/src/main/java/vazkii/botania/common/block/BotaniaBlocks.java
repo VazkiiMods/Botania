@@ -650,7 +650,6 @@ public final class BotaniaBlocks {
 		r.accept(motifHydroangeas, prefix(LibBlockNames.MOTIF_HYDROANGEAS));
 	}
 
-	// TODO 1.19.3 register creative tab locations
 	public static void registerItemBlocks(BiConsumer<Item, ResourceLocation> r) {
 		Item.Properties props = BotaniaItems.defaultBuilder();
 		r.accept(new BlockItem(whiteFlower, props), BuiltInRegistries.BLOCK.getKey(whiteFlower));

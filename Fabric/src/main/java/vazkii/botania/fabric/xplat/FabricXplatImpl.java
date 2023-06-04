@@ -478,7 +478,6 @@ public class FabricXplatImpl implements XplatAbstractions {
 
 	@Override
 	public FabricItemSettings defaultItemBuilder() {
-		// TODO 1.19.3 maybe creative tab
 		return new FabricItemSettings();
 	}
 
