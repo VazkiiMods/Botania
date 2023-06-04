@@ -834,3 +834,53 @@ I (williewillus) would have to say the following:
 * That's Why I Baked Bread
 * Hand in Hand
 * Blessing
+
+
+# Botania Flower Name References
+
+Each flower in Botania is a reference to another flower, often from real life.
+
+| Botania Flower   | Reference To                                  |
+|------------------|-----------------------------------------------|
+| Agricarnation    | Carnation                                     |
+| Bellethorne      |                                               |
+| Bergamute        | Bergamot                                      |
+| Bubbell          |                                               |
+| Clayconia        | Heliconia                                     |
+| Daffomill        | Daffodil                                      |
+| Dandelifeon      | Dandelion                                     |
+| Daybloom         | Daybloom (Terraria), Sunflower (by extension) |
+| Dreadthorne      |                                               |
+| Endoflame        |                                               |
+| Entropinnyum     |                                               |
+| Exoflame         |                                               |
+| Fallen Kanade    |                                               |
+| Gourmaryllis     | Amaryllis                                     |
+| Heisei Dream     |                                               |
+| Hopperhock       |                                               |
+| Hyacidus         | Hyacinth                                      |
+| Hydroangeas      | Hydrangea                                     |
+| Jaded Amaranthus | Amaranth                                      |
+| Jiyullia         |                                               |
+| Kekimurus        |                                               |
+| Labellia         | Lobelia                                       |
+| Loonium          |                                               |
+| Manastar         |                                               |
+| Marimorphosis    |                                               |
+| Munchdew         |                                               |
+| Narslimmus       |                                               |
+| Nightshade       | Nightshades                                   |
+| Orechid (Ignem)  | Orchid                                        |
+| Pollidisiac      |                                               |
+| Pure Daisy       | Daisy                                         |
+| Rafflowsia       | Rafflesia                                     |
+| Rannuncarpus     |                                               |
+| Rosa Arcana      | Rose                                          |
+| Shulk Me Not     | Forget-Me-Not                                 |
+| Solegnolia       |                                               |
+| Spectranthemum   | Chrysanthemum                                 |
+| Spectrolus       |                                               |
+| Tangleberrie     |                                               |
+| Thermalily       | Lily                                          |
+| Tigerseye        | Tiger Eye                                     |
+| Vinculotus       | Lotus                                         |
