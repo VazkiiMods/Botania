@@ -15,13 +15,15 @@ No project is completable with just one contributor, and Botania is no exception
     *   **williewillus**, the lead maintainer of Botania from 1.8 to the present day. Send him your thanks!
     *   **Hubry**, for contributing a whole bunch of bugfixes and improvements.
     *   **Alwinfy**, for contributing a whole bunch of bugfixes and improvements.
+    *   **ArtemisSystem**, for making many new 1.14+ style textures and contributing many
+        code changes as well.
 *   Artists and other Asset Providers (listed in alphabetic order):
     *   **Adubbz** for the Pixie model and render from Biomes O' Plenty.
-    *   **ArtemisSystem** for making many new 1.14+ style textures.
     *   **Auric245524** for the old armor textures.
     *   **Azanor** for his particles from Thaumcraft and for creating the old Baubles API.
     *   **dylan4ever** for a bunch of old texture work.
     *   **Enterbrain** for a bunch of resources (audio and graphics) from the RPG Maker VX Ace RTP.
+    *   **Falkory220** for a bunch of new 1.14+ style textures
     *   **Futureazoo** for the Terra Shatterer texture and the alternate textures in the Unity texture pack style that were formerly available in the config.
     *   **Kain Vinosec** for the music, from _The Nothing Battles_ used in the Gaia Guardian fights.
     *   **Lorc** of [game-icons.net](http://game-icons.net/) for the icons that were formerly used in the main lexicon page.
