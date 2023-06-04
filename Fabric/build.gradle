@@ -103,19 +103,19 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
+        // parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
     }
 
-    modImplementation "net.fabricmc:fabric-loader:0.14.18"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.76.0+1.19.3"
+    modImplementation "net.fabricmc:fabric-loader:0.14.19"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.81.1+1.19.4"
 
     compileOnly project(":Xplat")
 
-    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-78-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-79-FABRIC-SNAPSHOT"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.596"
 
-    modImplementation("dev.emi:emi:0.7.2+1.19.3") { transitive = false }
+    modImplementation("dev.emi:emi-fabric:1.0.1+1.19.4") { transitive = false }
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
@@ -140,7 +140,7 @@ dependencies {
 
     modCompileOnly 'com.unascribed:ears-api:1.4.5'
 
-    modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:12.3.0.21"
+    modCompileOnly "mezz.jei:jei-1.19.3-common-api:12.3.0.21"
 
     modRuntimeOnly "maven.modrinth:here-be-no-dragons:1.0.0"
     modRuntimeOnly "maven.modrinth:lazydfu:0.1.3"
