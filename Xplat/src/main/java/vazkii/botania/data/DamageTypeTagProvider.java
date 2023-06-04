@@ -8,6 +8,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 
+import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.lib.BotaniaTags;
 
 import java.util.concurrent.CompletableFuture;
@@ -27,5 +28,7 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 				DamageTypes.STARVE,
 				DamageTypes.FLY_INTO_WALL
 		).addTag(DamageTypeTags.IS_FIRE);
+
+		this.tag(DamageTypeTags.BYPASSES_ARMOR).add(BotaniaDamageTypes.PLAYER_ATTACK_ARMOR_PIERCING);
 	}
 }

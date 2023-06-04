@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.mana.ManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -106,7 +107,7 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 		return 1.0F;
 	}
 
-	public static void onEntityAttacked(DamageSource source, float amount, Player player, LivingEntity entity) {
+	public static DamageSource onEntityAttacked(DamageSource source, float amount, Player player, LivingEntity entity) {
 		if (hasTerraArmorSet(player)) {
 			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
 			if (!stack.isEmpty() && stack.getItem() instanceof TerrasteelHelmItem) {
@@ -120,13 +121,15 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1));
 				}
 				if (hasAncientWill_(stack, AncientWillType.VERAC)) {
-					// TODO 1.19.4 find a new way to do this
+					// TODO 1.19.4 test that this works
+					source = player.damageSources().source(BotaniaDamageTypes.PLAYER_ATTACK_ARMOR_PIERCING, player);
 				}
 				if (hasAncientWill_(stack, AncientWillType.KARIL)) {
 					entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1));
 				}
 			}
 		}
+		return source;
 	}
 
 }
