@@ -366,14 +366,17 @@ Heisei Dream), and watching nerdy TV shows.
 
 Shulk-Me-Not is a professional esports player currently at the peak of her career. Though
 the game she's competed in has changed over time, what has always been a constant is her
-hypercompetitive nature and resolute determination to keep practicing and trying until
-things are perfect.
+hypercompetitive nature, absolute confidence, and undeniable skill.
 
-Because of this, teams are often eager to adopt her as their ace and team leader. This
-sometimes doesn't work out well, though, as Shulk-Me-Not's direct and often abrasive
-personality can be difficult to mesh in a team setting. One of the most respected members
-of the team was once left in tears after he was berated by Shulk-Me-Not for missing a
-critical attack.
+She loves basking in the glory and fame that comes with being a skilled player, and it is
+common to see her on promotional videos with the league, to the point where she is even
+sometimes seen as the figurehead of esports. This is what peak performance looks like.
+
+Because of this, teams scramble to one-up each other with larger and larger payments, in
+order to nab her as their ace and team leader. This sometimes doesn't work out well,
+though, as Shulk-Me-Not's direct and often abrasive personality can be difficult to mesh
+with in a team setting. One of the most respected members of the team was once left in
+tears after he was berated by Shulk-Me-Not for missing a critical attack.
 
 Precisely due to this focus on skill and high-achievement, Shulk-Me-Not is best friends
 with Pure Daisy, and when not busy with work the two can often be found testing their
