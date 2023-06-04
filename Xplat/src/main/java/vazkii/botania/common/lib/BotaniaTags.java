@@ -10,6 +10,7 @@ package vazkii.botania.common.lib;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -301,6 +302,14 @@ public class BotaniaTags {
 
 		private static TagKey<BannerPattern> tag(String name) {
 			return TagKey.create(Registries.BANNER_PATTERN, prefix(name));
+		}
+	}
+
+	public static class DamageTypes {
+		public static final TagKey<DamageType> RING_OF_ODIN_IMMUNE = tag("ring_of_odin_immune");
+
+		private static TagKey<DamageType> tag(String name) {
+			return TagKey.create(Registries.DAMAGE_TYPE, prefix(name));
 		}
 	}
 }

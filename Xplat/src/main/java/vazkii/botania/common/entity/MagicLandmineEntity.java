@@ -13,7 +13,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -65,7 +64,7 @@ public class MagicLandmineEntity extends Entity {
 			if (!getLevel().isClientSide) {
 				List<Player> players = getLevel().getEntitiesOfClass(Player.class, getBoundingBox());
 				for (Player player : players) {
-					player.hurt(DamageSource.indirectMagic(this, summoner), 10);
+					player.hurt(this.damageSources().indirectMagic(this, summoner), 10);
 					player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 25, 0));
 					MobEffectInstance wither = new MobEffectInstance(MobEffects.WITHER, 120, 2);
 					// wither.getCurativeItems().clear();

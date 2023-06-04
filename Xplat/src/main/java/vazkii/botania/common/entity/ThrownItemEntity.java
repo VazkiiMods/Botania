@@ -9,7 +9,6 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -81,7 +80,7 @@ public class ThrownItemEntity extends ItemEntity {
 		// Bonk any entities hit
 		if (!getLevel().isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
 			Entity bonk = ((EntityHitResult) hitResult).getEntity();
-			bonk.hurt(DamageSource.MAGIC, 2.0F);
+			bonk.hurt(damageSources().magic(), 2.0F);
 			Entity item = new ItemEntity(getLevel(), getX(), getY(), getZ(), getItem());
 			getLevel().addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement().scale(0.25));

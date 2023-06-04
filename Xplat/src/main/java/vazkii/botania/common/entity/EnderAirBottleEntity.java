@@ -93,7 +93,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 		Entity entity = result.getEntity();
 		if (entity.getType() == EntityType.GHAST && this.getLevel().dimension() == Level.OVERWORLD) {
 			this.getLevel().levelEvent(LevelEvent.PARTICLES_SPELL_POTION_SPLASH, blockPosition(), PARTICLE_COLOR);
-			DamageSource source = DamageSource.thrown(this, getOwner());
+			DamageSource source = entity.damageSources().thrown(this, getOwner());
 			entity.hurt(source, 0);
 
 			// Ghasts render as if they are looking straight ahead, but the look y component
@@ -119,7 +119,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 				item.setDeltaMovement(item.getDeltaMovement().add(vec.scale(0.4)));
 			}
 		} else {
-			convertBlock(new BlockPos(result.getLocation()));
+			convertBlock(BlockPos.containing(result.getLocation()));
 		}
 		discard();
 	}

@@ -40,8 +40,8 @@ public class DamagingLens extends Lens {
 					burst.setMana(mana - 16);
 					if (!burst.isFake()) {
 						DamageSource src = entity.getOwner() != null
-								? DamageSource.indirectMagic(entity, entity.getOwner())
-								: DamageSource.MAGIC;
+								? entity.damageSources().indirectMagic(entity, entity.getOwner())
+								: entity.damageSources().magic();
 						living.hurt(src, 8);
 					}
 					break;

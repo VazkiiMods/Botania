@@ -10,7 +10,6 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -100,9 +99,9 @@ public class FallingStarEntity extends ThrowableCopyEntity {
 		if (!getLevel().isClientSide) {
 			if (e != getOwner() && e.isAlive()) {
 				if (getOwner() instanceof Player player) {
-					e.hurt(DamageSource.playerAttack(player), Math.random() < 0.25 ? 10 : 5);
+					e.hurt(player.damageSources().playerAttack(player), Math.random() < 0.25 ? 10 : 5);
 				} else {
-					e.hurt(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
+					e.hurt(e.damageSources().generic(), Math.random() < 0.25 ? 10 : 5);
 				}
 			}
 			discard();

@@ -11,7 +11,6 @@ package vazkii.botania.common.item.equipment.tool;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
@@ -53,9 +52,9 @@ public class ThundercallerItem extends ManasteelSwordItem {
 
 			LivingEntity target = (LivingEntity) entities.get(entity.getLevel().getRandom().nextInt(entities.size()));
 			if (attacker instanceof Player player) {
-				target.hurt(DamageSource.playerAttack(player), dmg);
+				target.hurt(player.damageSources().playerAttack(player), dmg);
 			} else {
-				target.hurt(DamageSource.mobAttack(attacker), dmg);
+				target.hurt(attacker.damageSources().mobAttack(attacker), dmg);
 			}
 
 			alreadyTargetedEntities.add(target.getId());

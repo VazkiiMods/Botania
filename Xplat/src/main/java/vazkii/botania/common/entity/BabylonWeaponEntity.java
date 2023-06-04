@@ -13,7 +13,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -116,7 +115,7 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 		} else {
 			if (liveTime < delay) {
 				setDeltaMovement(Vec3.ZERO);
-			} else if (liveTime == delay && player != null) {
+			} else if (liveTime == delay) {
 				Vec3 playerLook;
 				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 64, true);
 				if (rtr.getType() != HitResult.Type.BLOCK) {
@@ -141,11 +140,7 @@ public class BabylonWeaponEntity extends ThrowableCopyEntity {
 					}
 
 					if (living.hurtTime == 0) {
-						if (player != null) {
-							living.hurt(DamageSource.playerAttack(player), 20);
-						} else {
-							living.hurt(DamageSource.GENERIC, 20);
-						}
+						living.hurt(getLevel().damageSources().playerAttack(player), 20);
 						onHit(new EntityHitResult(living));
 						return;
 					}
