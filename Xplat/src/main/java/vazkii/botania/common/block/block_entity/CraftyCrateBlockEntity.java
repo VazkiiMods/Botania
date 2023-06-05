@@ -169,7 +169,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 		Optional<CraftingRecipe> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
-			craftResult = recipe.assemble(craft);
+			craftResult = recipe.assemble(craft, this.getLevel().registryAccess());
 
 			// Given some mods can return air by a bad implementation of their recipe handler,
 			// check for air before continuting on.

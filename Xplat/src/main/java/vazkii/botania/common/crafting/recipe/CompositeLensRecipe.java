@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -56,7 +57,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack secondLens = ItemStack.EMPTY;
 

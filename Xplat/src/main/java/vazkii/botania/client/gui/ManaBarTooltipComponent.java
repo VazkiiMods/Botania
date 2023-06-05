@@ -83,12 +83,11 @@ public class ManaBarTooltipComponent implements ClientTooltipComponent {
 	}
 
 	@Override
-	public void renderImage(Font font, int x, int y, PoseStack ps, ItemRenderer renderer, int z) {
+	public void renderImage(Font font, int x, int y, PoseStack ps, ItemRenderer renderer) {
 		int height = 3;
 		int offsetFromBox = 4;
 
 		ps.pushPose();
-		ps.translate(0, 0, z);
 
 		if (pickLevel >= 0) {
 			boolean ss = pickLevel >= TerraShattererItem.LEVELS.length - 1;

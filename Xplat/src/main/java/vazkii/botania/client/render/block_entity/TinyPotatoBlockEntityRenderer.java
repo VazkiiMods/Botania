@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -188,15 +189,15 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 
 			float opacity = Minecraft.getInstance().options.getBackgroundOpacity(0.25F);
 			int opacityRGB = (int) (opacity * 255.0F) << 24;
-			mc.font.drawInBatch(potato.name, -halfWidth, 0, 0x20FFFFFF, false, ms.last().pose(), buffers, true, opacityRGB, light);
-			mc.font.drawInBatch(potato.name, -halfWidth, 0, 0xFFFFFFFF, false, ms.last().pose(), buffers, false, 0, light);
+			mc.font.drawInBatch(potato.name, -halfWidth, 0, 0x20FFFFFF, false, ms.last().pose(), buffers, Font.DisplayMode.SEE_THROUGH, opacityRGB, light);
+			mc.font.drawInBatch(potato.name, -halfWidth, 0, 0xFFFFFFFF, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 			if (name.equals("pahimar") || name.equals("soaryn")) {
 				ms.translate(0F, 14F, 0F);
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
 				halfWidth = mc.font.width(str) / 2;
 
-				mc.font.drawInBatch(str, -halfWidth, 0, 0x20FFFFFF, false, ms.last().pose(), buffers, true, opacityRGB, light);
-				mc.font.drawInBatch(str, -halfWidth, 0, 0xFFFFFFFF, false, ms.last().pose(), buffers, true, 0, light);
+				mc.font.drawInBatch(str, -halfWidth, 0, 0x20FFFFFF, false, ms.last().pose(), buffers, Font.DisplayMode.SEE_THROUGH, opacityRGB, light);
+				mc.font.drawInBatch(str, -halfWidth, 0, 0xFFFFFFFF, false, ms.last().pose(), buffers, Font.DisplayMode.SEE_THROUGH, 0, light);
 			}
 
 			ms.popPose();

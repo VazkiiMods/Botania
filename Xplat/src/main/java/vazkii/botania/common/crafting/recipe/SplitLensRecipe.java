@@ -9,6 +9,7 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
@@ -30,13 +31,13 @@ public class SplitLensRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level worldIn) {
-		return !assemble(inv).isEmpty();
+	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level level) {
+		return !assemble(inv, level.registryAccess()).isEmpty();
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(CraftingContainer inv) {
+	public ItemStack assemble(CraftingContainer inv, @NotNull RegistryAccess registries) {
 		ItemStack found = ItemStack.EMPTY;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack candidate = inv.getItem(i);

@@ -60,7 +60,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 			ms.translate(0.15, -0.2, -0.25);
 			ms.scale(0.3F, -0.3F, -0.3F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getLevel(), living.getId());
 		}
 	}
 

@@ -326,7 +326,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					RenderSystem.setShaderTexture(0, HUDHandler.manaBar);
 					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-					ItemStack stack = recipe.assemble(altar.getItemHandler());
+					ItemStack stack = recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess());
 					mc.getItemRenderer().renderGuiItem(ms, stack, xc + radius + 32, yc - 8);
 
 					var reagents = recipe.getReagent().getItems();

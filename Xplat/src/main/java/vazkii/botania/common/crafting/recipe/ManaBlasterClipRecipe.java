@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +53,7 @@ public class ManaBlasterClipRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
 		ItemStack gun = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getContainerSize(); i++) {

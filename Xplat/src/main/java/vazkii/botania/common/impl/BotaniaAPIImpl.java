@@ -81,8 +81,9 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getDefenseForSlot(EquipmentSlot slot) {
-			return damageReduction[slot.getIndex()];
+		public int getDefenseForType(ArmorItem.Type slot) {
+			// todo 1.19.4 make sure damageReduction is still accessed in the same order as before
+			return damageReduction[slot.ordinal()];
 		}
 
 		@Override

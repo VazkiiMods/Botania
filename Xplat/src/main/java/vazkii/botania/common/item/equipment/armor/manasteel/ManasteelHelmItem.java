@@ -19,7 +19,7 @@ import vazkii.botania.api.mana.ManaDiscountArmor;
 public class ManasteelHelmItem extends ManasteelArmorItem implements ManaDiscountArmor {
 
 	public ManasteelHelmItem(Properties props) {
-		super(EquipmentSlot.HEAD, props);
+		super(Type.HELMET, props);
 	}
 
 	@Override

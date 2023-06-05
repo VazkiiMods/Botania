@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -55,11 +56,11 @@ public class PhantomInkRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer var1) {
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
 		ItemStack item = ItemStack.EMPTY;
 
-		for (int i = 0; i < var1.getContainerSize(); i++) {
-			ItemStack stack = var1.getItem(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof PhantomInkable && item.isEmpty()) {
 				item = stack;
 			}
