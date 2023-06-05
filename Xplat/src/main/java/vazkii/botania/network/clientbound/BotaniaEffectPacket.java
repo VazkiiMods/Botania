@@ -113,7 +113,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 							int g = (hex & 0xFF00) >> 8;
 							int b = hex & 0xFF;
 							for (int i = 0; i < 10; i++) {
-								BlockPos pos = new BlockPos(x, y, z).relative(Direction.getRandom(world.random));
+								BlockPos pos = BlockPos.containing(x, y, z).relative(Direction.getRandom(world.random));
 								SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
 								world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 							}
@@ -231,7 +231,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 
 						}
 						case TERRA_PLATE -> {
-							BlockEntity te = world.getBlockEntity(new BlockPos(x, y, z));
+							BlockEntity te = world.getBlockEntity(BlockPos.containing(x, y, z));
 							if (te instanceof TerrestrialAgglomerationPlateBlockEntity) {
 								float percentage = Float.intBitsToFloat(args[0]);
 								int ticks = (int) (100.0 * percentage);
@@ -359,7 +359,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 						}
 						case GRASS_SEED_PARTICLES -> {
 							int color = args[0];
-							GrassSeedsItem.spawnParticles(world, new BlockPos(x, y, z),
+							GrassSeedsItem.spawnParticles(world, BlockPos.containing(x, y, z),
 									GrassSeedsItem.extractR(color), GrassSeedsItem.extractG(color), GrassSeedsItem.extractB(color));
 						}
 					}

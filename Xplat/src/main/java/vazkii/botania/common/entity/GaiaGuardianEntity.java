@@ -935,7 +935,7 @@ public class GaiaGuardianEntity extends Mob {
 		}
 
 		//for low-floor arenas, ensure landing on the ground
-		BlockPos tentativeFloorPos = new BlockPos(newX, newY - 1, newZ);
+		BlockPos tentativeFloorPos = BlockPos.containing(newX, newY - 1, newZ);
 		if (getLevel().getBlockState(tentativeFloorPos).getCollisionShape(getLevel(), tentativeFloorPos).isEmpty()) {
 			newY--;
 		}
