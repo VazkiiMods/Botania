@@ -405,7 +405,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					if (progress == 1F) {
-						mc.getItemRenderer().renderGuiItem(new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
+						mc.getItemRenderer().renderGuiItem(ms, new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
+						// todo(1.19.4) review  this sketchy transform
 						PoseStack pose = RenderSystem.getModelViewStack();
 						pose.pushPose();
 						pose.translate(0, 0, 100);
@@ -416,7 +417,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 							playerWand = PlayerHelper.getItemClassFromInventory(mc.player, WandOfTheForestItem.class);
 						}
 						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
-						mc.getItemRenderer().renderGuiItem(wandToRender, xc + radius + 24, yc + 8);
+						mc.getItemRenderer().renderGuiItem(ms, wandToRender, xc + radius + 24, yc + 8);
 						pose.popPose();
 						RenderSystem.applyModelViewMatrix();
 					}

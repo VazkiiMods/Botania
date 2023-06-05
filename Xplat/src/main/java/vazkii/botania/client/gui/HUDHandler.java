@@ -301,7 +301,7 @@ public final class HUDHandler {
 		int y = mc.getWindow().getGuiScaledHeight() - 60;
 
 		RenderHelper.renderHUDBox(ms, x - 4, y - 4, x + l + 4, y + 35);
-		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
+		mc.getItemRenderer().renderAndDecorateItem(ms, new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
 
 		mc.font.drawShadow(ms, txt0, x + 20, y, 0xFFFFFF);
 		mc.font.drawShadow(ms, txt1, x + 20, y + 14, 0xFFFFFF);
@@ -333,7 +333,7 @@ public final class HUDHandler {
 		int x = mc.getWindow().getGuiScaledWidth() / 2 + 55;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
 
-		mc.getItemRenderer().renderAndDecorateItem(bindDisplay, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, bindDisplay, x, y);
 
 		RenderSystem.disableDepthTest();
 		ms.pushPose();

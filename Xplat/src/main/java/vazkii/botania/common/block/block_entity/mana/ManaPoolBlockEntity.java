@@ -435,8 +435,8 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
 			ManaTabletItem.setStackCreative(tablet);
 
-			mc.getItemRenderer().renderAndDecorateItem(tablet, centerX - 31, centerY + 30);
-			mc.getItemRenderer().renderAndDecorateItem(poolStack, centerX + 15, centerY + 30);
+			mc.getItemRenderer().renderAndDecorateItem(ms, tablet, centerX - 31, centerY + 30);
+			mc.getItemRenderer().renderAndDecorateItem(ms, poolStack, centerX + 15, centerY + 30);
 
 			RenderSystem.disableBlend();
 		}

@@ -96,7 +96,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 + 15;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
 
-			mc.getItemRenderer().renderAndDecorateItem(dispStack, x, y);
+			mc.getItemRenderer().renderAndDecorateItem(ms, dispStack, x, y);
 
 			mc.font.drawShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
 		}

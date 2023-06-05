@@ -327,7 +327,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
 					ItemStack stack = recipe.assemble(altar.getItemHandler());
-					mc.getItemRenderer().renderGuiItem(stack, xc + radius + 32, yc - 8);
+					mc.getItemRenderer().renderGuiItem(ms, stack, xc + radius + 32, yc - 8);
 
 					var reagents = recipe.getReagent().getItems();
 					ItemStack reagent;
@@ -337,7 +337,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 						int idx = (int) ((altar.level.getGameTime() / 20) % reagents.length);
 						reagent = reagents[idx];
 					}
-					mc.getItemRenderer().renderGuiItem(reagent, xc + radius + 16, yc + 6);
+					mc.getItemRenderer().renderGuiItem(ms, reagent, xc + radius + 16, yc + 6);
 					mc.font.draw(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
 				});
 
@@ -348,7 +348,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 					pose.pushPose();
 					pose.translate(xPos, yPos, 0);
 					RenderSystem.applyModelViewMatrix();
-					mc.getItemRenderer().renderGuiItem(altar.getItemHandler().getItem(i), 0, 0);
+					mc.getItemRenderer().renderGuiItem(ms, altar.getItemHandler().getItem(i), 0, 0);
 					pose.popPose();
 					RenderSystem.applyModelViewMatrix();
 

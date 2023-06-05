@@ -326,7 +326,7 @@ public final class RenderHelper extends RenderType {
 
 	public static void renderProgressPie(PoseStack ms, int x, int y, float progress, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
-		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
 
 		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
@@ -335,7 +335,7 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.stencilFunc(GL11.GL_NEVER, 1, 0xFF);
 		RenderSystem.stencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		RenderSystem.stencilMask(0xFF);
-		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(ms, stack, x, y);
 
 		int r = 10;
 		int centerX = x + 8;
@@ -598,7 +598,7 @@ public final class RenderHelper extends RenderType {
 	public static void renderItemWithName(PoseStack ps, Minecraft mc, ItemStack itemStack, int startX, int startY, int color) {
 		if (!itemStack.isEmpty()) {
 			mc.font.drawShadow(ps, itemStack.getHoverName(), startX + ITEM_AND_PADDING_WIDTH, startY + 4, color);
-			mc.getItemRenderer().renderAndDecorateItem(itemStack, startX, startY);
+			mc.getItemRenderer().renderAndDecorateItem(ps, itemStack, startX, startY);
 		}
 	}
 

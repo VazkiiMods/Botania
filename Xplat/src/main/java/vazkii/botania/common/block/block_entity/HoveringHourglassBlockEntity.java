@@ -244,8 +244,8 @@ public class HoveringHourglassBlockEntity extends ExposedSimpleInventoryBlockEnt
 
 				RenderHelper.renderHUDBox(ms, x, y, x + textWidth + 24, y + 22);
 
-				mc.getItemRenderer().renderGuiItem(stack, x + 2, y + 3);
-				mc.getItemRenderer().renderGuiItemDecorations(mc.font, stack, x + 2, y + 3);
+				mc.getItemRenderer().renderGuiItem(ms, stack, x + 2, y + 3);
+				mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, stack, x + 2, y + 3);
 
 				mc.font.drawShadow(ms, timer, x + 22, y + 2, hourglass.getColor());
 				if (!status.isEmpty()) {
