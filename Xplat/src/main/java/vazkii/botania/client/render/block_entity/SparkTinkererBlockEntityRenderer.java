@@ -36,7 +36,7 @@ public class SparkTinkererBlockEntityRenderer implements BlockEntityRenderer<Spa
 			ms.mulPose(VecHelper.rotateY(180));
 			ms.translate(0.5F, 0.5F, 0);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
-					light, overlay, ms, buffers, 0);
+					light, overlay, ms, buffers, tileentity.getLevel(), 0);
 		}
 		ms.popPose();
 	}

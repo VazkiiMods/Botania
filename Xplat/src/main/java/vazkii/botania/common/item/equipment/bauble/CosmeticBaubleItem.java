@@ -279,7 +279,7 @@ public class CosmeticBaubleItem extends BaubleItem implements CosmeticBauble {
 
 		private static void renderItem(ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light) {
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, 0);
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, Minecraft.getInstance().level, 0);
 		}
 	}
 

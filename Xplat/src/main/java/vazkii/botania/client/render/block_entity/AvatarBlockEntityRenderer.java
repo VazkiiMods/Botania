@@ -66,7 +66,7 @@ public class AvatarBlockEntityRenderer implements BlockEntityRenderer<AvatarBloc
 				ms.translate(-0.5F, 2F, -0.25F);
 				ms.mulPose(VecHelper.rotateX(-70));
 				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
-						light, overlay, ms, buffers, 0);
+						light, overlay, ms, buffers, avatar.getLevel(), 0);
 				ms.popPose();
 
 				AvatarWieldable wieldable = XplatAbstractions.INSTANCE.findAvatarWieldable(stack);

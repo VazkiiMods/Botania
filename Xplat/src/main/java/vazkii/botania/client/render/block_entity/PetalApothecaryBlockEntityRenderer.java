@@ -96,7 +96,7 @@ public class PetalApothecaryBlockEntityRenderer implements BlockEntityRenderer<P
 
 						ItemStack stack = altar.getItemHandler().getItem(i);
 						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
-								light, overlay, ms, buffers, 0);
+								light, overlay, ms, buffers, altar.getLevel(), 0);
 						ms.popPose();
 					}
 

@@ -79,7 +79,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 			Minecraft mc = Minecraft.getInstance();
 			if (!stack.isEmpty()) {
 				mc.getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
-						light, overlay, ms, buffers, 0);
+						light, overlay, ms, buffers, altar.getLevel(), 0);
 			}
 			ms.popPose();
 		}

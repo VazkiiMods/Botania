@@ -61,7 +61,7 @@ public class BenevolentGoddessCharmItem extends BaubleItem {
 			ms.mulPose(VecHelper.rotateY(-90F));
 			ms.scale(0.55F, -0.55F, -0.55F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getLevel(), living.getId());
 		}
 	}
 

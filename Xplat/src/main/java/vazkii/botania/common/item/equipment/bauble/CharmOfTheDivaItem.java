@@ -88,7 +88,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 			ms.translate(0.15, -0.42, -0.35);
 			ms.scale(0.4F, -0.4F, -0.4F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());
+					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getLevel(), living.getId());
 		}
 	}
 }

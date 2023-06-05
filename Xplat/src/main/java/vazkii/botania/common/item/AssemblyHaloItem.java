@@ -400,7 +400,7 @@ public class AssemblyHaloItem extends Item {
 
 					ms.mulPose(VecHelper.rotateY(90.0F));
 					Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemDisplayContext.GUI,
-							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getId());
+							0xF000F0, OverlayTexture.NO_OVERLAY, ms, bufferSource, player.getLevel(), player.getId());
 				}
 				ms.popPose();
 

@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -77,7 +78,7 @@ public class BotanicalBreweryModel extends Model {
 			ms.pushPose();
 			ms.mulPose(VecHelper.rotateX(180));
 			ms.translate(0, -0.45F, 0);
-			renderItemStack(brewery.getItemHandler().getItem(0), ms, buffers, light, overlay);
+			renderItemStack(brewery.getItemHandler().getItem(0), ms, buffers, brewery.getLevel(), light, overlay);
 			ms.popPose();
 		}
 
@@ -106,7 +107,7 @@ public class BotanicalBreweryModel extends Model {
 				ms.translate(transX, transY, transZ);
 				ms.mulPose(VecHelper.rotateX(-90F));
 				ms.translate(0.125F, 0.125F, 0);
-				renderItemStack(brewery.getItemHandler().getItem(i + 1), ms, buffers, light, overlay);
+				renderItemStack(brewery.getItemHandler().getItem(i + 1), ms, buffers, brewery.getLevel(), light, overlay);
 				ms.popPose();
 			}
 			plate.render(ms, buffers.getBuffer(layer), light, overlay);
@@ -117,7 +118,7 @@ public class BotanicalBreweryModel extends Model {
 		ms.translate(0F, -offset, 0F);
 	}
 
-	private void renderItemStack(ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	private void renderItemStack(ItemStack stack, PoseStack ms, MultiBufferSource buffers, @Nullable Level level, int light, int overlay) {
 		if (!stack.isEmpty()) {
 			Minecraft mc = Minecraft.getInstance();
 			ms.pushPose();
@@ -125,7 +126,7 @@ public class BotanicalBreweryModel extends Model {
 			float s = 0.25F;
 			ms.scale(s, s, s);
 			mc.getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
-					light, overlay, ms, buffers, 0);
+					light, overlay, ms, buffers, level, 0);
 			ms.popPose();
 		}
 	}

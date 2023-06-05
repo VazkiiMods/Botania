@@ -54,7 +54,7 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 
 		ms.mulPose(VecHelper.rotateZ(rotation));
 		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemDisplayContext.GROUND,
-				light, overlay, ms, buffers, 0);
+				light, overlay, ms, buffers, te.getLevel(), 0);
 		ms.popPose();
 	}
 

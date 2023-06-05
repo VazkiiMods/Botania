@@ -433,13 +433,11 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 					double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-					PoseStack pose = RenderSystem.getModelViewStack();
-					pose.pushPose();
-					pose.translate(xPos, yPos, 0);
-					RenderSystem.applyModelViewMatrix();
-					mc.getItemRenderer().renderGuiItem(altar.getItemHandler().getItem(i), 0, 0);
-					pose.popPose();
-					RenderSystem.applyModelViewMatrix();
+					// todo 1.19.4 check
+					ms.pushPose();
+					ms.translate(xPos, yPos, 0);
+					mc.getItemRenderer().renderGuiItem(ms, altar.getItemHandler().getItem(i), 0, 0);
+					ms.popPose();
 
 					angle += anglePer;
 				}

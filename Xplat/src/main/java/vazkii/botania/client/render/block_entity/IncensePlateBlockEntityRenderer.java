@@ -49,7 +49,7 @@ public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<Ince
 		ms.translate(-0.11F, -1.35F, 0F);
 		ms.scale(s, s, s);
 		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
-				light, overlay, ms, buffers, 0);
+				light, overlay, ms, buffers, plate.getLevel(), 0);
 		ms.popPose();
 	}
 

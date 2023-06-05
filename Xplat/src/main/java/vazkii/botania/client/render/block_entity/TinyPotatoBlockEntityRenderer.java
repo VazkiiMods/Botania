@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,6 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 
 import vazkii.botania.client.core.handler.MiscellaneousModels;
@@ -287,7 +289,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 			if (block && side == Direction.NORTH) {
 				ms.mulPose(VecHelper.rotateY(180F));
 			}
-			renderItem(ms, buffers, light, overlay, stack);
+			renderItem(ms, buffers, potato.getLevel(), light, overlay, stack);
 			ms.popPose();
 		}
 		ms.popPose();
@@ -327,7 +329,8 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(VecHelper.rotateZ(180F));
 					ms.translate(-0.3F, -2.7F, -1.2F);
 					ms.mulPose(VecHelper.rotateZ(15F));
-					renderItem(ms, buffers, light, overlay, new ItemStack(BotaniaItems.infiniteFruit, 1).setHoverName(Component.literal("das boot")));
+					renderItem(ms, buffers, potato.getLevel(),
+							light, overlay, new ItemStack(BotaniaItems.infiniteFruit).setHoverName(Component.literal("das boot")));
 				}
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);
@@ -341,9 +344,9 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.pushPose();
 					ms.translate(0F, -2.5F, 0.65F);
 					ItemStack ring = new ItemStack(BotaniaItems.manaRing);
-					renderItem(ms, buffers, light, overlay, ring);
+					renderItem(ms, buffers, potato.getLevel(), light, overlay, ring);
 					ms.translate(0F, 0F, -4F);
-					renderItem(ms, buffers, light, overlay, ring);
+					renderItem(ms, buffers, potato.getLevel(), light, overlay, ring);
 					ms.popPose();
 					ms.translate(1.5, -4, -2.5);
 					renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
@@ -355,7 +358,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 						ms.mulPose(VecHelper.rotateY(180));
 						ms.translate(0, -0.75, -0.5);
 						Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemDisplayContext.HEAD,
-								light, overlay, ms, buffers, 0);
+								light, overlay, ms, buffers, potato.getLevel(), 0);
 					}
 				}
 			}
@@ -371,9 +374,9 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, overlay);
 	}
 
-	private void renderItem(PoseStack ms, MultiBufferSource buffers, int light, int overlay, ItemStack stack) {
+	private void renderItem(PoseStack ms, MultiBufferSource buffers, @Nullable Level level, int light, int overlay, ItemStack stack) {
 		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.HEAD,
-				light, overlay, ms, buffers, 0);
+				light, overlay, ms, buffers, level, 0);
 	}
 
 	private void renderBlock(PoseStack ms, MultiBufferSource buffers, int light, int overlay, Block block) {
