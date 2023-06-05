@@ -103,7 +103,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			var recipe = maybeRecipe.get();
 			if (recipe.getReagent().test(item.getItem())) {
 				saveLastRecipe(recipe.getReagent());
-				ItemStack output = recipe.assemble(getItemHandler());
+				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
 
 				for (int i = 0; i < inventorySize(); i++) {
 					getItemHandler().setItem(i, ItemStack.EMPTY);

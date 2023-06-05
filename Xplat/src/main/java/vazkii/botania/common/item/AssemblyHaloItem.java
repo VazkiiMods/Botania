@@ -173,15 +173,15 @@ public class AssemblyHaloItem extends Item {
 		if (!recipe.matches(craftInv, player.getLevel())) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
-			placer.clearGrid(false);
+			placer.clearGrid();
 			return;
 		}
 
-		ItemStack result = recipe.assemble(craftInv);
+		ItemStack result = recipe.assemble(craftInv, player.getLevel().registryAccess());
 
 		// Check if we have room for the result
 		if (!hasRoomFor(player.getInventory(), result)) {
-			placer.clearGrid(false);
+			placer.clearGrid();
 			return;
 		}
 
@@ -532,7 +532,7 @@ public class AssemblyHaloItem extends Item {
 					this.handleRecipeClicked(recipe, false);
 					ret = true;
 				} else {
-					this.clearGrid(true);
+					this.clearGrid();
 					ret = false;
 				}
 
@@ -542,9 +542,10 @@ public class AssemblyHaloItem extends Item {
 			return false;
 		}
 
+		// Make public
 		@Override
-		public void clearGrid(boolean unknown) {
-			super.clearGrid(unknown);
+		public void clearGrid() {
+			super.clearGrid();
 		}
 	}
 }

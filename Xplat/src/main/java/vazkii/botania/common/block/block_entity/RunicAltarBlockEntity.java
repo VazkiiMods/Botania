@@ -278,7 +278,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			if (livingrock != null) {
 				int mana = recipe.getManaUsage();
 				receiveMana(-mana);
-				ItemStack output = recipe.assemble(getItemHandler());
+				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).markAltarOutput();
 				level.addFreshEntity(outputItem);
@@ -406,7 +406,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 					if (progress == 1F) {
 						mc.getItemRenderer().renderGuiItem(ms, new ItemStack(BotaniaBlocks.livingrock), xc + radius + 16, yc + 8);
-						// todo(1.19.4) review  this sketchy transform
+						// todo(1.19.4) review this sketchy transform. Can probably be applied to ms directly.
 						PoseStack pose = RenderSystem.getModelViewStack();
 						pose.pushPose();
 						pose.translate(0, 0, 100);
@@ -422,7 +422,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						RenderSystem.applyModelViewMatrix();
 					}
 
-					RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.assemble(altar.getItemHandler()));
+					RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress,
+							recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess()));
 
 					if (progress == 1F) {
 						mc.font.draw(ms, "+", xc + radius + 14, yc + 12, 0xFFFFFF);
