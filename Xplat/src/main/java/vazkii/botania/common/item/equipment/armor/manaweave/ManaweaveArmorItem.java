@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 
 public class ManaweaveArmorItem extends ManasteelArmorItem {
 
-	public ManaweaveArmorItem(EquipmentSlot type, Properties props) {
+	public ManaweaveArmorItem(Type type, Properties props) {
 		super(type, BotaniaAPI.instance().getManaweaveArmorMaterial(), props);
 	}
 

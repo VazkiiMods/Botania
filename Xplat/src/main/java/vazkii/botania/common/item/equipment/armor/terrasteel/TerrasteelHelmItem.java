@@ -36,7 +36,7 @@ public class TerrasteelHelmItem extends TerrasteelArmorItem implements ManaDisco
 	public static final String TAG_ANCIENT_WILL = "AncientWill";
 
 	public TerrasteelHelmItem(Properties props) {
-		super(EquipmentSlot.HEAD, props);
+		super(Type.HELMET, props);
 	}
 
 	@Override

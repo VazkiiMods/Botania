@@ -38,7 +38,7 @@ import java.util.function.Supplier;
 
 public class TerrasteelArmorItem extends ManasteelArmorItem {
 
-	public TerrasteelArmorItem(EquipmentSlot type, Properties props) {
+	public TerrasteelArmorItem(Type type, Properties props) {
 		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), props);
 	}
 
@@ -51,10 +51,10 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 	@Override
 	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
-		if (slot == getSlot()) {
+		if (slot == getType().getSlot()) {
+			UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
 			ret = HashMultimap.create(ret);
-			int reduction = getMaterial().getDefenseForSlot(slot);
+			int reduction = getMaterial().getDefenseForType(getType());
 			ret.put(Attributes.KNOCKBACK_RESISTANCE,
 					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
 		}

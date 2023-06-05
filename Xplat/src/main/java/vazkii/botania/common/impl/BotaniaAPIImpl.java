@@ -19,11 +19,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -79,8 +75,9 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getDurabilityForSlot(EquipmentSlot slot) {
-			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getIndex()];
+		public int getDurabilityForType(ArmorItem.Type slot) {
+			// todo 1.19.4 make sure MAX_DAMAGE_ARRAY is still accessed in the same order as before
+			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.ordinal()];
 		}
 
 		@Override
