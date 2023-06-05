@@ -144,12 +144,12 @@ public class RenderLexicon {
 			if (SHOULD_MISSPELL) {
 				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
 			}
-			font.drawInBatch(font.plainSubstrByWidth(title, 80), 0, 0, 0xD69700, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(font.plainSubstrByWidth(title, 80), 0, 0, 0xD69700, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
 			Component edition = LexicaBotaniaItem.getEdition().copy().withStyle(ChatFormatting.ITALIC, ChatFormatting.BOLD);
-			font.drawInBatch(edition, 0, 0, 0xA07100, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(edition, 0, 0, 0xA07100, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			if (quote == -1 && mc.level != null) {
 				quote = mc.level.random.nextInt(QUOTES.length);
@@ -162,17 +162,17 @@ public class RenderLexicon {
 
 			ms.translate(8F, 110F, 0F);
 			String blurb = I18n.get("botaniamisc.lexiconcover0");
-			font.drawInBatch(blurb, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(blurb, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			String blurb2 = ChatFormatting.UNDERLINE + "" + ChatFormatting.ITALIC + I18n.get("botaniamisc.lexiconcover1");
-			font.drawInBatch(blurb2, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(blurb2, 0, 0, 0x79ff92, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 
 			ms.translate(0F, -30F, 0F);
 
 			String authorTitle = I18n.get("botaniamisc.lexiconcover2");
 			int len = font.width(authorTitle);
-			font.drawInBatch(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.last().pose(), buffers, false, 0, light);
+			font.drawInBatch(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, light);
 		}
 
 		ms.popPose();
@@ -222,7 +222,7 @@ public class RenderLexicon {
 
 			for (String s : words) {
 				int extra = 0;
-				font.drawInBatch(s, xi, y, color, false, matrix, buffers, false, 0, light);
+				font.drawInBatch(s, xi, y, color, false, matrix, buffers, Font.DisplayMode.NORMAL, 0, light);
 				xi += font.width(s) + spacing + extra;
 			}
 

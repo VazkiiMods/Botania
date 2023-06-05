@@ -41,7 +41,7 @@ public class ManaPrismBlockEntityRenderer implements BlockEntityRenderer<ManaPri
 				ms.translate(0.5F, 0.5F, pos);
 				ms.scale(1.003F, 1.003F, 1F);
 				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-						light, overlay, ms, buffers, 0);
+						light, overlay, ms, buffers, prism.getLevel(), 0);
 				ms.popPose();
 			}
 		}

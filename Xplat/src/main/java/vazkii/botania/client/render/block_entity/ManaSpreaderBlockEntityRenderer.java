@@ -86,7 +86,7 @@ public class ManaSpreaderBlockEntityRenderer implements BlockEntityRenderer<Mana
 			// Prevents z-fighting. Otherwise not noticeable.
 			ms.scale(0.997F, 0.997F, 1F);
 			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
-					light, overlay, ms, buffers, 0);
+					light, overlay, ms, buffers, spreader.getLevel(), 0);
 			ms.popPose();
 		}
 

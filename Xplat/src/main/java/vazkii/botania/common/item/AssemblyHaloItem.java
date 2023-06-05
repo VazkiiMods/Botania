@@ -451,7 +451,7 @@ public class AssemblyHaloItem extends Item {
 
 				GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 				GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
-				mc.getItemRenderer().renderAndDecorateItem(craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
+				mc.getItemRenderer().renderAndDecorateItem(ms, craftingTable, mc.getWindow().getGuiScaledWidth() / 2 - 8, mc.getWindow().getGuiScaledHeight() / 2 - 52);
 
 				mc.font.drawShadow(ms, name, x, y, 0xFFFFFF);
 			} else {
