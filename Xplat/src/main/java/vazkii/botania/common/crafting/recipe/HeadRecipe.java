@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -64,8 +65,8 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv) {
-		ItemStack stack = getResultItem().copy();
+	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+		ItemStack stack = getResultItem(registries).copy();
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack ingr = inv.getItem(i);
 			if (ingr.is(Items.NAME_TAG)) {

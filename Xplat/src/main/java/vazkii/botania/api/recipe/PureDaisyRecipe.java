@@ -10,6 +10,7 @@ package vazkii.botania.api.recipe;
 
 import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -18,6 +19,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
@@ -56,7 +59,7 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack assemble(Container p_77572_1_) {
+	default ItemStack assemble(Container container, @NotNull RegistryAccess registries) {
 		return ItemStack.EMPTY;
 	}
 
@@ -66,7 +69,7 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack getResultItem() {
+	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
 		return ItemStack.EMPTY;
 	}
 

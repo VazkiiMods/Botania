@@ -283,7 +283,7 @@ public class AssemblyHaloItem extends Item {
 		} else {
 			Recipe<?> recipe = getSavedRecipe(world, stack, position);
 			if (recipe != null) {
-				return recipe.getResultItem();
+				return recipe.getResultItem(world.registryAccess());
 			} else {
 				return ItemStack.EMPTY;
 			}
@@ -463,7 +463,7 @@ public class AssemblyHaloItem extends Item {
 					label = Component.translatable("botaniamisc.unsetRecipe");
 					recipe = getLastRecipe(player.getLevel(), stack);
 				} else {
-					label = recipe.getResultItem().getHoverName();
+					label = recipe.getResultItem(player.getLevel().registryAccess()).getHoverName();
 					setRecipe = true;
 				}
 
@@ -474,7 +474,8 @@ public class AssemblyHaloItem extends Item {
 		private static void renderRecipe(PoseStack ms, Component label, @Nullable Recipe<CraftingContainer> recipe, Player player, boolean isSavedRecipe) {
 			Minecraft mc = Minecraft.getInstance();
 
-			if (recipe != null && !recipe.getResultItem().isEmpty()) {
+			ItemStack recipeResult;
+			if (recipe != null && !(recipeResult = recipe.getResultItem(player.level.registryAccess())).isEmpty()) {
 				int x = mc.getWindow().getGuiScaledWidth() / 2 - 45;
 				int y = mc.getWindow().getGuiScaledHeight() / 2 - 90;
 
@@ -493,12 +494,12 @@ public class AssemblyHaloItem extends Item {
 						int ypos = y + i / wrap * 18;
 						GuiComponent.fill(ms, xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
-						mc.getItemRenderer().renderAndDecorateItem(stack, xpos, ypos);
+						mc.getItemRenderer().renderAndDecorateItem(ms, stack, xpos, ypos);
 					}
 				}
 
-				mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 72, y + 18);
-				mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 72, y + 18);
+				mc.getItemRenderer().renderAndDecorateItem(ms, recipeResult, x + 72, y + 18);
+				mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, recipeResult, x + 72, y + 18);
 
 			}
 

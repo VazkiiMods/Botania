@@ -9,6 +9,7 @@
 package vazkii.botania.api.recipe;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -74,7 +75,7 @@ public interface ElvenTradeRecipe extends Recipe<Container> {
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv) {
+	default ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
 		return ItemStack.EMPTY;
 	}
 
@@ -84,7 +85,7 @@ public interface ElvenTradeRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack getResultItem() {
+	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
 		return ItemStack.EMPTY;
 	}
 

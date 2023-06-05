@@ -280,9 +280,10 @@ public final class HUDHandler {
 			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-			mc.getItemRenderer().renderAndDecorateItem(stack, x - 20, y);
-			mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 26, y);
-			mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 26, y);
+			mc.getItemRenderer().renderAndDecorateItem(ms, stack, x - 20, y);
+			ItemStack result = recipe.getResultItem(mc.level.registryAccess());
+			mc.getItemRenderer().renderAndDecorateItem(ms, result, x + 26, y);
+			mc.getItemRenderer().renderGuiItemDecorations(ms, mc.font, result, x + 26, y);
 
 			RenderSystem.disableBlend();
 		}

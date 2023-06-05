@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting.recipe;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -39,7 +40,11 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	public WaterBottleMatchingRecipe(ShapedRecipe recipe) {
-		this(recipe.getId(), recipe.getGroup(), recipe.getWidth(), recipe.getHeight(), recipe.getIngredients(), recipe.getResultItem());
+		this(recipe.getId(), recipe.getGroup(), recipe.getWidth(), recipe.getHeight(),
+				recipe.getIngredients(),
+				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+				// RegistryAccess
+				recipe.getResultItem(RegistryAccess.EMPTY));
 	}
 
 	@Override

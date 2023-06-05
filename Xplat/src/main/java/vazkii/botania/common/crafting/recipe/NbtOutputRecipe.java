@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.FriendlyByteBuf;
@@ -39,7 +40,9 @@ public class NbtOutputRecipe {
 			}
 			try {
 				CompoundTag tag = TagParser.parseTag(GsonHelper.convertToString(nbt, "nbt"));
-				recipe.getResultItem().setTag(tag);
+				// XXX: Hack, but we only use this recipe type with vanilla recipe types which return a constant from
+				// getResultItem without consulting the RegistryAccess
+				recipe.getResultItem(RegistryAccess.EMPTY).setTag(tag);
 			} catch (CommandSyntaxException e) {
 				throw new JsonSyntaxException("Invalid nbt tag: " + e.getMessage(), e);
 			}

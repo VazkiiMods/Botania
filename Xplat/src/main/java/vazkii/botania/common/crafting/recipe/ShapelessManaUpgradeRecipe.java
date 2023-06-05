@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -22,13 +23,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
-		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT, compose.getResultItem(), compose.getIngredients());
+		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT,
+				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+				// RegistryAccess
+				compose.getResultItem(RegistryAccess.EMPTY),
+				compose.getIngredients());
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv) {
-		return ManaUpgradeRecipe.output(super.assemble(inv), inv);
+	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+		return ManaUpgradeRecipe.output(super.assemble(inv, registries), inv);
 	}
 
 	@NotNull
