@@ -16,7 +16,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
@@ -26,6 +25,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -294,7 +294,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				// rotate since the textures are stored rotated
 				ms.mulPose(VecHelper.rotateZ(-60));
 				ms.scale(1.5F, -1.5F, -1.5F);
-				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 				ms.popPose();
 			}
 
@@ -311,7 +311,7 @@ public class FlugelTiaraItem extends BaubleItem {
 
 			ms.mulPose(VecHelper.rotateZ(-60));
 			ms.scale(1.6F, -1.6F, -1.6F);
-			Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+			Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 			ms.popPose();
 		}
 
@@ -329,7 +329,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				}
 
 				ms.scale(1.6F, -1.6F, -1.6F);
-				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 				ms.popPose();
 			}
 
@@ -348,7 +348,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				ms.translate(-0.9, 0, 0);
 
 				ms.scale(1.7F, -1.7F, -1.7F);
-				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
 				ms.popPose();
 			}
 
@@ -367,7 +367,7 @@ public class FlugelTiaraItem extends BaubleItem {
 				ms.translate(-1.3, 0, 0);
 
 				ms.scale(2.5F, -2.5F, -2.5F);
-				Minecraft.getInstance().getItemRenderer().render(stack, ItemTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+				Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
 				ms.popPose();
 			}
 

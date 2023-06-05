@@ -14,7 +14,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -23,6 +22,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
@@ -87,7 +87,7 @@ public class CharmOfTheDivaItem extends BaubleItem {
 			bipedModel.head.translateAndRotate(ms);
 			ms.translate(0.15, -0.42, -0.35);
 			ms.scale(0.4F, -0.4F, -0.4F);
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
 					light, OverlayTexture.NO_OVERLAY, ms, buffers, living.getId());
 		}
 	}

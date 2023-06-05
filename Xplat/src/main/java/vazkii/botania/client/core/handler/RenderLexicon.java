@@ -18,13 +18,13 @@ import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.joml.Matrix4f;
@@ -73,7 +73,7 @@ public class RenderLexicon {
 		return model;
 	}
 
-	public static boolean renderHand(ItemStack stack, ItemTransforms.TransformType type,
+	public static boolean renderHand(ItemStack stack, ItemDisplayContext type,
 			boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light) {
 		if (!BotaniaConfig.client().lexicon3dModel()
 				|| !type.firstPerson()

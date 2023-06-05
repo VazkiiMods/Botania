@@ -14,12 +14,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -60,7 +60,7 @@ public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPla
 				}
 
 				ms.scale(0.375F, -0.375F, -0.375F);
-				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE,
 						0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
 				ms.popPose();
 

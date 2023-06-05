@@ -19,10 +19,10 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +78,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 			ItemStack stack = altar.getItemHandler().getItem(i);
 			Minecraft mc = Minecraft.getInstance();
 			if (!stack.isEmpty()) {
-				mc.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+				mc.getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
 						light, overlay, ms, buffers, 0);
 			}
 			ms.popPose();

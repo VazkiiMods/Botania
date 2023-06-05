@@ -23,7 +23,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -35,6 +34,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -379,7 +379,7 @@ public final class RenderHelper extends RenderType {
 		if (model == null) {
 			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.getLevel(), entity, entity.getId());
 		}
-		model.getTransforms().getTransform(ItemTransforms.TransformType.NONE).apply(false, ms);
+		model.getTransforms().getTransform(ItemDisplayContext.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
 
 		if (!model.isCustomRenderer() && !stack.is(Items.TRIDENT)) {
@@ -557,7 +557,7 @@ public final class RenderHelper extends RenderType {
 		MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
 		renderer.render(
 				stack,
-				ItemTransforms.TransformType.GUI,
+				ItemDisplayContext.GUI,
 				false,
 				new PoseStack(),
 				// This part differs from vanilla. We wrap the buffer to allow drawing translucently

@@ -12,10 +12,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -48,7 +48,7 @@ public class IncensePlateBlockEntityRenderer implements BlockEntityRenderer<Ince
 		float s = 0.6F;
 		ms.translate(-0.11F, -1.35F, 0F);
 		ms.scale(s, s, s);
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND,
 				light, overlay, ms, buffers, 0);
 		ms.popPose();
 	}
