@@ -343,7 +343,6 @@ public final class RenderHelper extends RenderType {
 		int degs = (int) (360 * progress);
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
-		RenderSystem.disableTexture();
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderSystem.colorMask(true, true, true, true);
@@ -366,7 +365,6 @@ public final class RenderHelper extends RenderType {
 		Tesselator.getInstance().end();
 
 		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}
 

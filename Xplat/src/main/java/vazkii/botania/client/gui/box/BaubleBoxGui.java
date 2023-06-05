@@ -48,7 +48,7 @@ public class BaubleBoxGui extends AbstractContainerScreen<BaubleBoxContainer> {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, texture);
 		blit(ms, leftPos, topPos, 0, 0, imageWidth, imageHeight);
-		InventoryScreen.renderEntityInInventory(ms, leftPos + 31, topPos + 75, 30, leftPos + 31 - this.mouseX, topPos + 75 - 50 - this.mouseY, minecraft.player);
+		InventoryScreen.renderEntityInInventoryFollowsMouse(ms, leftPos + 31, topPos + 75, 30, leftPos + 31 - this.mouseX, topPos + 75 - 50 - this.mouseY, minecraft.player);
 	}
 
 }

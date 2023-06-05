@@ -317,7 +317,6 @@ public class WorldshaperssSextantItem extends Item {
 
 				if (inRange) {
 					radius += 4;
-					RenderSystem.disableTexture();
 					RenderSystem.lineWidth(3F);
 					Tesselator.getInstance().getBuilder().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
 					RenderSystem.setShaderColor(0F, 1F, 1F, 1F);
@@ -328,7 +327,6 @@ public class WorldshaperssSextantItem extends Item {
 						Tesselator.getInstance().getBuilder().vertex(ms.last().pose(), xp, yp, 0).endVertex();
 					}
 					Tesselator.getInstance().end();
-					RenderSystem.enableTexture();
 				}
 			}
 		}
