@@ -213,7 +213,9 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		if (inputStack.is(Items.BREAD)) {
 			//Don't teleport bread. (See also: #2403)
 			explode = true;
-			breadPlayer = entity.getThrower();
+			if (entity.getOwner() != null) {
+				breadPlayer = entity.getOwner().getUUID();
+			}
 		}
 
 		return false;
