@@ -9,4 +9,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class BotaniaDamageTypes {
 	public static final ResourceKey<DamageType> PLAYER_ATTACK_ARMOR_PIERCING =
 			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("player_attack_armor_piercing"));
+	public static final ResourceKey<DamageType> RELIC_DAMAGE =
+			ResourceKey.create(Registries.DAMAGE_TYPE, prefix("relic_damage"));
 }

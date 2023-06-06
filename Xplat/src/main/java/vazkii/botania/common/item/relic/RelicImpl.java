@@ -4,6 +4,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.core.proxy.ClientProxy;
+import vazkii.botania.common.BotaniaDamageTypes;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.xplat.XplatAbstractions;
@@ -67,7 +69,7 @@ public class RelicImpl implements Relic {
 				RelicBindTrigger.INSTANCE.trigger(serverPlayer, stack);
 			}
 		} else if (!isRightPlayer(player) && player.tickCount % 10 == 0 && shouldDamageWrongPlayer()) {
-			player.hurt(damageSource(), 2);
+			player.hurt(damageSource(player.damageSources()), 2);
 		}
 	}
 
@@ -76,8 +78,8 @@ public class RelicImpl implements Relic {
 		return player.getUUID().equals(getSoulbindUUID());
 	}
 
-	private static DamageSource damageSource() {
-		return new DamageSource("botania-relic") {};
+	private static DamageSource damageSource(DamageSources damageSources) {
+		return damageSources.source(BotaniaDamageTypes.RELIC_DAMAGE);
 	}
 
 	public static void addDefaultTooltip(ItemStack stack, List<Component> tooltip) {

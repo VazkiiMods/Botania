@@ -29,6 +29,14 @@ public class DamageTypeTagProvider extends TagsProvider<DamageType> {
 				DamageTypes.FLY_INTO_WALL
 		).addTag(DamageTypeTags.IS_FIRE);
 
-		this.tag(DamageTypeTags.BYPASSES_ARMOR).add(BotaniaDamageTypes.PLAYER_ATTACK_ARMOR_PIERCING);
+		this.tag(DamageTypeTags.BYPASSES_ARMOR).add(
+				BotaniaDamageTypes.PLAYER_ATTACK_ARMOR_PIERCING,
+				BotaniaDamageTypes.RELIC_DAMAGE
+		);
+
+		this.tag(DamageTypeTags.BYPASSES_RESISTANCE).add(BotaniaDamageTypes.RELIC_DAMAGE);
+		this.tag(DamageTypeTags.NO_IMPACT).add(BotaniaDamageTypes.RELIC_DAMAGE);
+		this.tag(DamageTypeTags.BYPASSES_EFFECTS).add(BotaniaDamageTypes.RELIC_DAMAGE);
+		this.tag(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(BotaniaDamageTypes.RELIC_DAMAGE);
 	}
 }
